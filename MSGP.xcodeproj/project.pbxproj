@@ -30,7 +30,7 @@
 		79D6F170D92218D0C5B67764 /* CreateAccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB37997124F8B04DA1B92374 /* CreateAccountInteractor.swift */; };
 		7C9B9C9BE2EA23724B0C0E12 /* CreateAccountInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130803936693FE0BAB1FC8F /* CreateAccountInteractorOutput.swift */; };
 		886B39BE1F13867C00BF1A8E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 886B39BC1F13867C00BF1A8E /* Info.plist */; };
-		886B39BF1F13867C00BF1A8E /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 886B39BD1F13867C00BF1A8E /* MSGP.h */; };
+		886B39BF1F13867C00BF1A8E /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 886B39BD1F13867C00BF1A8E /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8BFCD55E4622E7F01522C390 /* CreateAccountViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C381320C7F0A5729612B384 /* CreateAccountViewOutput.swift */; };
 		95FD6A1CAD118CD596897256 /* SignInConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147BD2D03417EB16617278A /* SignInConfigurator.swift */; };
 		993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */; };
@@ -1122,7 +1122,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = MSGP/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MSGP/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1148,7 +1148,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = MSGP/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MSGP/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
