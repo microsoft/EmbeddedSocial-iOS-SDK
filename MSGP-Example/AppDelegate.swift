@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = UIViewController()
         window?.makeKeyAndVisible()
         
-        msgp = MSGP(application: application, window: window!)
+        msgp = MSGP(application: application, window: window!, launchOptions: launchOptions ?? [:])
         msgp.start()
         
         return true

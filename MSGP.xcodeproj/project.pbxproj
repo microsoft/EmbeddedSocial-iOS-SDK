@@ -64,6 +64,15 @@
 		886B3ADF1F13B92B00BF1A8E /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 		886B3AE11F13BF1500BF1A8E /* AuthServiceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AE01F13BF1500BF1A8E /* AuthServiceImplementation.swift */; };
 		886B3AE31F13BF5900BF1A8E /* FacebookAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AE21F13BF5900BF1A8E /* FacebookAPI.swift */; };
+		886B3AE51F13CD4200BF1A8E /* ThirdPartyConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AE41F13CD4200BF1A8E /* ThirdPartyConfigurator.swift */; };
+		886B3AEA1F13D1EC00BF1A8E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B3AE61F13D1EC00BF1A8E /* Bolts.framework */; };
+		886B3AEB1F13D1EC00BF1A8E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B3AE71F13D1EC00BF1A8E /* FBSDKCoreKit.framework */; };
+		886B3AEC1F13D1EC00BF1A8E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */; };
+		886B3AED1F13D1EC00BF1A8E /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */; };
+		886B3AEE1F13D22300BF1A8E /* Bolts.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3AE61F13D1EC00BF1A8E /* Bolts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		886B3AEF1F13D22300BF1A8E /* FBSDKCoreKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3AE71F13D1EC00BF1A8E /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		886B3AF01F13D22300BF1A8E /* FBSDKLoginKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		886B3AF11F13D22300BF1A8E /* FBSDKShareKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 		9CD805381F0D012F00B9B0AC /* MSGPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD805371F0D012F00B9B0AC /* MSGPTests.swift */; };
@@ -163,6 +172,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				886B3AEE1F13D22300BF1A8E /* Bolts.framework in CopyFiles */,
+				886B3AEF1F13D22300BF1A8E /* FBSDKCoreKit.framework in CopyFiles */,
+				886B3AF01F13D22300BF1A8E /* FBSDKLoginKit.framework in CopyFiles */,
+				886B3AF11F13D22300BF1A8E /* FBSDKShareKit.framework in CopyFiles */,
 				886B3AD21F13AC4B00BF1A8E /* Alamofire.framework in CopyFiles */,
 				886B3AD31F13AC4B00BF1A8E /* SnapKit.framework in CopyFiles */,
 				886B3AD41F13AC4B00BF1A8E /* SVProgressHUD.framework in CopyFiles */,
@@ -236,6 +249,11 @@
 		886B3ADA1F13B51A00BF1A8E /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Hex.swift"; path = "Common/UIColor+Hex.swift"; sourceTree = "<group>"; };
 		886B3AE01F13BF1500BF1A8E /* AuthServiceImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthServiceImplementation.swift; sourceTree = "<group>"; };
 		886B3AE21F13BF5900BF1A8E /* FacebookAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookAPI.swift; sourceTree = "<group>"; };
+		886B3AE41F13CD4200BF1A8E /* ThirdPartyConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdPartyConfigurator.swift; sourceTree = "<group>"; };
+		886B3AE61F13D1EC00BF1A8E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/Bolts/Bolts.framework"; sourceTree = "<group>"; };
+		886B3AE71F13D1EC00BF1A8E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKCoreKit/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
+		886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKLoginKit/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKShareKit/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805371F0D012F00B9B0AC /* MSGPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSGPTests.swift; sourceTree = "<group>"; };
@@ -334,6 +352,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				886B3AEA1F13D1EC00BF1A8E /* Bolts.framework in Frameworks */,
+				886B3AEB1F13D1EC00BF1A8E /* FBSDKCoreKit.framework in Frameworks */,
+				886B3AEC1F13D1EC00BF1A8E /* FBSDKLoginKit.framework in Frameworks */,
+				886B3AED1F13D1EC00BF1A8E /* FBSDKShareKit.framework in Frameworks */,
 				886B3ACE1F13ABEA00BF1A8E /* Alamofire.framework in Frameworks */,
 				886B3ACF1F13ABEA00BF1A8E /* SnapKit.framework in Frameworks */,
 				886B3AD01F13ABEA00BF1A8E /* SVProgressHUD.framework in Frameworks */,
@@ -392,6 +414,10 @@
 		2C6B77FF4F1F2F71CA420D6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				886B3AE61F13D1EC00BF1A8E /* Bolts.framework */,
+				886B3AE71F13D1EC00BF1A8E /* FBSDKCoreKit.framework */,
+				886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */,
+				886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */,
 				886B3ACB1F13ABEA00BF1A8E /* Alamofire.framework */,
 				886B3ACC1F13ABEA00BF1A8E /* SnapKit.framework */,
 				886B3ACD1F13ABEA00BF1A8E /* SVProgressHUD.framework */,
@@ -634,6 +660,7 @@
 		886B3AC21F13A37700BF1A8E /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				886B3AE41F13CD4200BF1A8E /* ThirdPartyConfigurator.swift */,
 				886B3AC31F13A38A00BF1A8E /* AuthService.swift */,
 				886B3AE01F13BF1500BF1A8E /* AuthServiceImplementation.swift */,
 				886B3AE21F13BF5900BF1A8E /* FacebookAPI.swift */,
@@ -926,8 +953,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9CD8053D1F0D012F00B9B0AC /* Build configuration list for PBXNativeTarget "MSGP" */;
 			buildPhases = (
-				886B3AD11F13AC3100BF1A8E /* CopyFiles */,
 				66247D41F5C8E4F9DAA19CBF /* [CP] Check Pods Manifest.lock */,
+				886B3AD11F13AC3100BF1A8E /* CopyFiles */,
 				9CD805241F0D012F00B9B0AC /* Sources */,
 				9CD805251F0D012F00B9B0AC /* Frameworks */,
 				9CD805261F0D012F00B9B0AC /* Headers */,
@@ -1227,6 +1254,7 @@
 				9CEB72241F136277007057DA /* PutTopicNameRequest.swift in Sources */,
 				886B3A971F13A2CB00BF1A8E /* CreateAccountInteractorInput.swift in Sources */,
 				9CEB72251F136277007057DA /* PutTopicRequest.swift in Sources */,
+				886B3AE51F13CD4200BF1A8E /* ThirdPartyConfigurator.swift in Sources */,
 				9CEB72261F136277007057DA /* PutUserInfoRequest.swift in Sources */,
 				9CEB72271F136277007057DA /* PutUserPhotoRequest.swift in Sources */,
 				886B3AD71F13B16D00BF1A8E /* Palette.swift in Sources */,

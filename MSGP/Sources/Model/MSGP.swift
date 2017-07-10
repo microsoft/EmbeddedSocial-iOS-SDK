@@ -13,10 +13,11 @@ public final class MSGP {
     private let window: UIWindow
     private let root: RootConfigurator
     
-    public init(application: UIApplication, window: UIWindow) {
+    public init(application: UIApplication, window: UIWindow, launchOptions: [AnyHashable: Any]) {
         self.application = application
         self.window = window
         root = RootConfigurator(window: window)
+        ThirdPartyConfigurator.setup(application: application, launchOptions: launchOptions)
     }
     
     public func start() {

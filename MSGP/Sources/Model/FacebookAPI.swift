@@ -7,9 +7,32 @@
 //
 
 import Foundation
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 final class FacebookAPI: AuthAPI {
-    func login(handler: @escaping (Result<User>) -> Void) {
-        
+    private let loginManager = FBSDKLoginManager()
+    
+    private let readPermissions = ["public_profile", "email", "user_friends"]
+    
+    func login(from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void) {
+        loginManager.logIn(withReadPermissions: readPermissions, from: viewController) { (result, error) in
+            guard error == nil else {
+                print(error!)
+                handler(.failure(error!))
+                return
+            }
+            
+            guard let result = result else {
+                fatalError("Unknown result. Please investigate this case and provide proper handling.")
+            }
+            
+            guard !result.isCancelled else {
+                print("cancelled")
+                return
+            }
+            
+            print("Logged in")
+        }
     }
 }

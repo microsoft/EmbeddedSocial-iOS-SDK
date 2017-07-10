@@ -26,7 +26,7 @@ final class LoginPresenter: LoginViewOutput {
     }
     
     func onFacebookSignInTapped() {
-        interactor.login(provider: .facebook) { [weak self] result in
+        interactor.login(provider: .facebook, from: view as? UIViewController) { [weak self] result in
             self?.moduleOutput?.onLogin(result)
         }
     }

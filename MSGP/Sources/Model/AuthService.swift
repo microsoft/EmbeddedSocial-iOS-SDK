@@ -16,11 +16,11 @@ enum AuthProvider: Int {
 }
 
 protocol AuthAPI {
-    func login(handler: @escaping (Result<User>) -> Void)
+    func login(from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void)
 }
 
 protocol AuthServiceType {
-    func login(provider: AuthProvider, handler: @escaping (Result<User>) -> Void)
+    func login(provider: AuthProvider, from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void)
     
     func login(email: String, password: String, handler: @escaping (Result<User>) -> Void)
     
