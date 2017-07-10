@@ -1,0 +1,25 @@
+//
+//  SignInSignInViewController.swift
+//  MSGP-Framework
+//
+//  Created by igor.popov on 07/07/2017.
+//  Copyright © 2017 akvelon. All rights reserved.
+//
+
+import UIKit
+
+class SignInViewController: UIViewController, SignInViewInput {
+
+    var output: SignInViewOutput!
+
+    // MARK: Life cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        output.viewIsReady()
+    }
+
+
+    // MARK: SignInViewInput
+    func setupInitialState() {
+    }
+}
