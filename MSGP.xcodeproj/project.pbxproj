@@ -31,6 +31,11 @@
 		7C9B9C9BE2EA23724B0C0E12 /* CreateAccountInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130803936693FE0BAB1FC8F /* CreateAccountInteractorOutput.swift */; };
 		886B39BE1F13867C00BF1A8E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 886B39BC1F13867C00BF1A8E /* Info.plist */; };
 		886B39BF1F13867C00BF1A8E /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 886B39BD1F13867C00BF1A8E /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
+		886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C91F138F5D00BF1A8E /* ViewController.swift */; };
+		886B39CD1F138F5D00BF1A8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CB1F138F5D00BF1A8E /* Main.storyboard */; };
+		886B39CF1F138F5D00BF1A8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CE1F138F5D00BF1A8E /* Assets.xcassets */; };
+		886B39D21F138F5D00BF1A8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39D01F138F5D00BF1A8E /* LaunchScreen.storyboard */; };
 		8BFCD55E4622E7F01522C390 /* CreateAccountViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C381320C7F0A5729612B384 /* CreateAccountViewOutput.swift */; };
 		95FD6A1CAD118CD596897256 /* SignInConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147BD2D03417EB16617278A /* SignInConfigurator.swift */; };
 		993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */; };
@@ -159,6 +164,13 @@
 		878EBD53DDFEE09976C3210E /* WelcomeInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeInitializer.swift; sourceTree = "<group>"; };
 		886B39BC1F13867C00BF1A8E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		886B39BD1F13867C00BF1A8E /* MSGP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
+		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		886B39CC1F138F5D00BF1A8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		886B39CE1F138F5D00BF1A8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		886B39D11F138F5D00BF1A8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		886B39D31F138F5D00BF1A8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		933147308A585D4489EEB2DD /* CreateAccountViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		94760B08125C7A33189A676E /* SignInRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInRouterInput.swift; sourceTree = "<group>"; };
 		9579DF165ABE06E8BDAD5E70 /* CreateAccountInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountInitializer.swift; sourceTree = "<group>"; };
@@ -259,6 +271,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		886B39C21F138F5D00BF1A8E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9CD805251F0D012F00B9B0AC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -389,6 +408,19 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		886B39C61F138F5D00BF1A8E /* MSGP-Example */ = {
+			isa = PBXGroup;
+			children = (
+				886B39C71F138F5D00BF1A8E /* AppDelegate.swift */,
+				886B39C91F138F5D00BF1A8E /* ViewController.swift */,
+				886B39CB1F138F5D00BF1A8E /* Main.storyboard */,
+				886B39CE1F138F5D00BF1A8E /* Assets.xcassets */,
+				886B39D01F138F5D00BF1A8E /* LaunchScreen.storyboard */,
+				886B39D31F138F5D00BF1A8E /* Info.plist */,
+			);
+			path = "MSGP-Example";
+			sourceTree = "<group>";
+		};
 		8B452A1F595C02042F06EAF0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,6 +457,7 @@
 		9CD8051F1F0D012F00B9B0AC = {
 			isa = PBXGroup;
 			children = (
+				886B39C61F138F5D00BF1A8E /* MSGP-Example */,
 				2C6B77FF4F1F2F71CA420D6B /* Frameworks */,
 				9CD8052B1F0D012F00B9B0AC /* MSGP */,
 				9CD805361F0D012F00B9B0AC /* MSGPTests */,
@@ -438,6 +471,7 @@
 			children = (
 				9CD805291F0D012F00B9B0AC /* MSGP.framework */,
 				9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */,
+				886B39C51F138F5D00BF1A8E /* MSGP-Example.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -676,6 +710,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		886B39C41F138F5D00BF1A8E /* MSGP-Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 886B39D41F138F5D00BF1A8E /* Build configuration list for PBXNativeTarget "MSGP-Example" */;
+			buildPhases = (
+				886B39C11F138F5D00BF1A8E /* Sources */,
+				886B39C21F138F5D00BF1A8E /* Frameworks */,
+				886B39C31F138F5D00BF1A8E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MSGP-Example";
+			productName = "MSGP-Example";
+			productReference = 886B39C51F138F5D00BF1A8E /* MSGP-Example.app */;
+			productType = "com.apple.product-type.application";
+		};
 		9CD805281F0D012F00B9B0AC /* MSGP */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9CD8053D1F0D012F00B9B0AC /* Build configuration list for PBXNativeTarget "MSGP" */;
@@ -724,10 +775,14 @@
 		9CD805201F0D012F00B9B0AC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Igor Popov";
 				TargetAttributes = {
+					886B39C41F138F5D00BF1A8E = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+					};
 					9CD805281F0D012F00B9B0AC = {
 						CreatedOnToolsVersion = 9.0;
 					};
@@ -742,12 +797,14 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 9CD8051F1F0D012F00B9B0AC;
 			productRefGroup = 9CD8052A1F0D012F00B9B0AC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				886B39C41F138F5D00BF1A8E /* MSGP-Example */,
 				9CD805281F0D012F00B9B0AC /* MSGP */,
 				9CD805311F0D012F00B9B0AC /* MSGPTests */,
 			);
@@ -755,6 +812,16 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		886B39C31F138F5D00BF1A8E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				886B39D21F138F5D00BF1A8E /* LaunchScreen.storyboard in Resources */,
+				886B39CF1F138F5D00BF1A8E /* Assets.xcassets in Resources */,
+				886B39CD1F138F5D00BF1A8E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9CD805271F0D012F00B9B0AC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -867,6 +934,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		886B39C11F138F5D00BF1A8E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */,
+				886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9CD805241F0D012F00B9B0AC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -998,7 +1074,60 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		886B39CB1F138F5D00BF1A8E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				886B39CC1F138F5D00BF1A8E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		886B39D01F138F5D00BF1A8E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				886B39D11F138F5D00BF1A8E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		886B39D51F138F5D00BF1A8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				INFOPLIST_FILE = "MSGP-Example/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "akvelon.MSGP-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		886B39D61F138F5D00BF1A8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				INFOPLIST_FILE = "MSGP-Example/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "akvelon.MSGP-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		9CD8053B1F0D012F00B9B0AC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1193,6 +1322,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		886B39D41F138F5D00BF1A8E /* Build configuration list for PBXNativeTarget "MSGP-Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				886B39D51F138F5D00BF1A8E /* Debug */,
+				886B39D61F138F5D00BF1A8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		9CD805231F0D012F00B9B0AC /* Build configuration list for PBXProject "MSGP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
