@@ -4,11 +4,13 @@
 target 'MSGP' do
   use_frameworks!
   
-  pod 'Alamofire', '~> 4.5'
-
-  target 'MSGPTests' do
-    inherit! :search_paths
-    
-  end
-
+  pod 'Alamofire'
+  pod 'SwiftLint'
+  pod 'SVProgressHUD'
+  pod 'SnapKit'
 end
+
+target 'MSGPTests' do
+    use_frameworks!
+end
+
