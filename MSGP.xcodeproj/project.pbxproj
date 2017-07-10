@@ -11,6 +11,7 @@
 		0ADDEF755CE65BC90B0F8E64 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933147308A585D4489EEB2DD /* CreateAccountViewController.swift */; };
 		0FB814B1926DD6C8E4D5E109 /* WelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AD2F4C16D7D9E2A51FED74 /* WelcomePresenter.swift */; };
 		20DB824FF570191F889D4FC7 /* SignInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2056F67F7A25A0C62941287 /* SignInRouter.swift */; };
+		21E6B50C51CACB5AC248D716 /* Pods_MSGPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B9B8BEED405B8C971B735F /* Pods_MSGPTests.framework */; };
 		3426BABBF9D46CAA984EC621 /* WelcomeViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133954A5E2703A3CC1ECCE7E /* WelcomeViewInput.swift */; };
 		344B27B1424B83D0A0D608ED /* WelcomeRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C419DA5F659BD6EEA298C5DD /* WelcomeRouterInput.swift */; };
 		392A04539BA925C00C2DA3CB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDF8B18B278A7D3919ED353 /* WelcomeViewController.swift */; };
@@ -28,8 +29,11 @@
 		7840E1963347E84041910615 /* SignInRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94760B08125C7A33189A676E /* SignInRouterInput.swift */; };
 		79D6F170D92218D0C5B67764 /* CreateAccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB37997124F8B04DA1B92374 /* CreateAccountInteractor.swift */; };
 		7C9B9C9BE2EA23724B0C0E12 /* CreateAccountInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130803936693FE0BAB1FC8F /* CreateAccountInteractorOutput.swift */; };
+		886B39BE1F13867C00BF1A8E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 886B39BC1F13867C00BF1A8E /* Info.plist */; };
+		886B39BF1F13867C00BF1A8E /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 886B39BD1F13867C00BF1A8E /* MSGP.h */; };
 		8BFCD55E4622E7F01522C390 /* CreateAccountViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C381320C7F0A5729612B384 /* CreateAccountViewOutput.swift */; };
 		95FD6A1CAD118CD596897256 /* SignInConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147BD2D03417EB16617278A /* SignInConfigurator.swift */; };
+		993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */; };
 		99F21AC3E59B4D7F496674F7 /* SignInModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732750FC05BCEB2488A2817 /* SignInModuleInput.swift */; };
 		9C223D201F0FA3920058B60A /* Welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C223D1F1F0FA3920058B60A /* Welcome.storyboard */; };
 		9C223D221F0FA3A00058B60A /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C223D211F0FA3A00058B60A /* SignIn.storyboard */; };
@@ -37,7 +41,6 @@
 		9C223D261F0FAB4E0058B60A /* SocialSignInUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C223D251F0FAB4E0058B60A /* SocialSignInUnit.swift */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 		9CD805381F0D012F00B9B0AC /* MSGPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD805371F0D012F00B9B0AC /* MSGPTests.swift */; };
-		9CD8053A1F0D012F00B9B0AC /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CD8052C1F0D012F00B9B0AC /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9CEB71E91F13624B007057DA /* AlamofireImplementations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB71A21F136243007057DA /* AlamofireImplementations.swift */; };
 		9CEB71EA1F136277007057DA /* APIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB71A31F136243007057DA /* APIHelper.swift */; };
 		9CEB71EB1F136277007057DA /* BlobsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB71A51F136243007057DA /* BlobsAPI.swift */; };
@@ -147,12 +150,15 @@
 		6C381320C7F0A5729612B384 /* CreateAccountViewOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountViewOutput.swift; sourceTree = "<group>"; };
 		6DBE617D7998DCDF2265753F /* WelcomeInteractorInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeInteractorInput.swift; sourceTree = "<group>"; };
 		6F36945DDE17B63AD5767EA5 /* SignInInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInInteractor.swift; sourceTree = "<group>"; };
+		72B9B8BEED405B8C971B735F /* Pods_MSGPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A3931109492087F8E8C9AEE /* SignInPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
 		7D56807E5947724E4247FD8F /* Pods-MSGP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGP.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSGP/Pods-MSGP.release.xcconfig"; sourceTree = "<group>"; };
 		7DE94869B733A419D31B769D /* SignInViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		81F8E524674813F7BFCAC196 /* CreateAccountPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountPresenter.swift; sourceTree = "<group>"; };
 		873D3CA3CDCD4E9ACD34EAF6 /* CreateAccountRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountRouterInput.swift; sourceTree = "<group>"; };
 		878EBD53DDFEE09976C3210E /* WelcomeInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeInitializer.swift; sourceTree = "<group>"; };
+		886B39BC1F13867C00BF1A8E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		886B39BD1F13867C00BF1A8E /* MSGP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
 		933147308A585D4489EEB2DD /* CreateAccountViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		94760B08125C7A33189A676E /* SignInRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInRouterInput.swift; sourceTree = "<group>"; };
 		9579DF165ABE06E8BDAD5E70 /* CreateAccountInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountInitializer.swift; sourceTree = "<group>"; };
@@ -162,8 +168,6 @@
 		9C223D231F0FA3B40058B60A /* CreateAccount.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateAccount.storyboard; sourceTree = "<group>"; };
 		9C223D251F0FAB4E0058B60A /* SocialSignInUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSignInUnit.swift; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CD8052C1F0D012F00B9B0AC /* MSGP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
-		9CD8052D1F0D012F00B9B0AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805371F0D012F00B9B0AC /* MSGPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSGPTests.swift; sourceTree = "<group>"; };
 		9CD805391F0D012F00B9B0AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -238,6 +242,7 @@
 		9CEB71E81F136243007057DA /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		A2056F67F7A25A0C62941287 /* SignInRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInRouter.swift; sourceTree = "<group>"; };
 		A42EA20E3959D37E020C6094 /* Pods-MSGPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.debug.xcconfig"; sourceTree = "<group>"; };
+		AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B94B7A8FFA7D7C31AEAF2A2B /* SignInViewOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInViewOutput.swift; sourceTree = "<group>"; };
 		C419DA5F659BD6EEA298C5DD /* WelcomeRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeRouterInput.swift; sourceTree = "<group>"; };
 		C732750FC05BCEB2488A2817 /* SignInModuleInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInModuleInput.swift; sourceTree = "<group>"; };
@@ -258,6 +263,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */,
+				21E6B50C51CACB5AC248D716 /* Pods_MSGPTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,9 +294,9 @@
 			isa = PBXGroup;
 			children = (
 				9C223D1F1F0FA3920058B60A /* Welcome.storyboard */,
+				0BDF8B18B278A7D3919ED353 /* WelcomeViewController.swift */,
 				133954A5E2703A3CC1ECCE7E /* WelcomeViewInput.swift */,
 				EC574F0B4766012EE299A9E8 /* WelcomeViewOutput.swift */,
-				0BDF8B18B278A7D3919ED353 /* WelcomeViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -315,28 +322,29 @@
 		1C5E96F93EF9C8E384539CEC /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				873D3CA3CDCD4E9ACD34EAF6 /* CreateAccountRouterInput.swift */,
 				95C800F815B40866E46109B2 /* CreateAccountRouter.swift */,
+				873D3CA3CDCD4E9ACD34EAF6 /* CreateAccountRouterInput.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
 		};
-		21C2996C7683FCCC02E8F5B3 /* Presentation */ = {
+		2C6B77FF4F1F2F71CA420D6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B015BFA7F75D3C2321ABD44C /* Modules */,
+				AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */,
+				72B9B8BEED405B8C971B735F /* Pods_MSGPTests.framework */,
 			);
-			path = Presentation;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		2CCD92CD5A15DC1BA0706316 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
-				09E1FF60DE3B34F7C4F480C5 /* View */,
-				BCB5E9EF1382E37739F790AE /* Presenter */,
-				E3F4783807244B55367842C1 /* Interactor */,
-				831F392F71DD6CF913BA0709 /* Router */,
 				F2D69D255081618719F6E972 /* Configurator */,
+				E3F4783807244B55367842C1 /* Interactor */,
+				BCB5E9EF1382E37739F790AE /* Presenter */,
+				831F392F71DD6CF913BA0709 /* Router */,
+				09E1FF60DE3B34F7C4F480C5 /* View */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -344,11 +352,11 @@
 		5658C94556952E9420672418 /* CreateAccount */ = {
 			isa = PBXGroup;
 			children = (
-				BD94EBD78C7945CEB732FEFF /* View */,
-				DC90B6BC5227AFD8CEB956BA /* Presenter */,
-				E61C638AEDC2F6F63FECD298 /* Interactor */,
-				1C5E96F93EF9C8E384539CEC /* Router */,
 				E6E96D0E66CFDA295B02AB71 /* Configurator */,
+				E61C638AEDC2F6F63FECD298 /* Interactor */,
+				DC90B6BC5227AFD8CEB956BA /* Presenter */,
+				1C5E96F93EF9C8E384539CEC /* Router */,
+				BD94EBD78C7945CEB732FEFF /* View */,
 			);
 			path = CreateAccount;
 			sourceTree = "<group>";
@@ -356,9 +364,9 @@
 		7E1DCC6BD4A3FD710B535513 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				6F36945DDE17B63AD5767EA5 /* SignInInteractor.swift */,
 				3F14250C778AA89C104FFE30 /* SignInInteractorInput.swift */,
 				EA1180D41279B10E7D8978B6 /* SignInInteractorOutput.swift */,
-				6F36945DDE17B63AD5767EA5 /* SignInInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -366,17 +374,26 @@
 		831F392F71DD6CF913BA0709 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				C419DA5F659BD6EEA298C5DD /* WelcomeRouterInput.swift */,
 				3C2D7BD6C3452408808EA663 /* WelcomeRouter.swift */,
+				C419DA5F659BD6EEA298C5DD /* WelcomeRouterInput.swift */,
 			);
 			path = Router;
+			sourceTree = "<group>";
+		};
+		886B39BB1F13867C00BF1A8E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				886B39BC1F13867C00BF1A8E /* Info.plist */,
+				886B39BD1F13867C00BF1A8E /* MSGP.h */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		8B452A1F595C02042F06EAF0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				9C223D1C1F0FA2900058B60A /* Common */,
-				21C2996C7683FCCC02E8F5B3 /* Presentation */,
+				B015BFA7F75D3C2321ABD44C /* Modules */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -408,10 +425,11 @@
 		9CD8051F1F0D012F00B9B0AC = {
 			isa = PBXGroup;
 			children = (
+				2C6B77FF4F1F2F71CA420D6B /* Frameworks */,
 				9CD8052B1F0D012F00B9B0AC /* MSGP */,
 				9CD805361F0D012F00B9B0AC /* MSGPTests */,
-				9CD8052A1F0D012F00B9B0AC /* Products */,
 				07E5567613166B5CDDA02621 /* Pods */,
+				9CD8052A1F0D012F00B9B0AC /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -429,8 +447,7 @@
 			children = (
 				9C223D1E1F0FA3390058B60A /* Resources */,
 				8B452A1F595C02042F06EAF0 /* Sources */,
-				9CD8052C1F0D012F00B9B0AC /* MSGP.h */,
-				9CD8052D1F0D012F00B9B0AC /* Info.plist */,
+				886B39BB1F13867C00BF1A8E /* Supporting Files */,
 			);
 			path = MSGP;
 			sourceTree = "<group>";
@@ -438,8 +455,8 @@
 		9CD805361F0D012F00B9B0AC /* MSGPTests */ = {
 			isa = PBXGroup;
 			children = (
-				9CD805371F0D012F00B9B0AC /* MSGPTests.swift */,
 				9CD805391F0D012F00B9B0AC /* Info.plist */,
+				9CD805371F0D012F00B9B0AC /* MSGPTests.swift */,
 			);
 			path = MSGPTests;
 			sourceTree = "<group>";
@@ -447,12 +464,12 @@
 		9CEB71A11F136243007057DA /* API */ = {
 			isa = PBXGroup;
 			children = (
-				9CEB71A21F136243007057DA /* AlamofireImplementations.swift */,
-				9CEB71A31F136243007057DA /* APIHelper.swift */,
 				9CEB71A41F136243007057DA /* APIs */,
-				9CEB71B51F136243007057DA /* APIs.swift */,
-				9CEB71B61F136243007057DA /* Extensions.swift */,
 				9CEB71B71F136243007057DA /* Models */,
+				9CEB71A31F136243007057DA /* APIHelper.swift */,
+				9CEB71B51F136243007057DA /* APIs.swift */,
+				9CEB71A21F136243007057DA /* AlamofireImplementations.swift */,
+				9CEB71B61F136243007057DA /* Extensions.swift */,
 				9CEB71E81F136243007057DA /* Models.swift */,
 			);
 			path = API;
@@ -539,10 +556,11 @@
 		B015BFA7F75D3C2321ABD44C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				2CCD92CD5A15DC1BA0706316 /* Welcome */,
-				EC5E303482D2288EFCC29A40 /* SignIn */,
 				5658C94556952E9420672418 /* CreateAccount */,
+				EC5E303482D2288EFCC29A40 /* SignIn */,
+				2CCD92CD5A15DC1BA0706316 /* Welcome */,
 			);
+			name = Modules;
 			path = Modules;
 			sourceTree = "<group>";
 		};
@@ -559,9 +577,9 @@
 			isa = PBXGroup;
 			children = (
 				9C223D231F0FA3B40058B60A /* CreateAccount.storyboard */,
+				933147308A585D4489EEB2DD /* CreateAccountViewController.swift */,
 				2F006255583EDD0F27E61834 /* CreateAccountViewInput.swift */,
 				6C381320C7F0A5729612B384 /* CreateAccountViewOutput.swift */,
-				933147308A585D4489EEB2DD /* CreateAccountViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -578,9 +596,9 @@
 		E3F4783807244B55367842C1 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				D9CDF9BF1CA7D274304EF7C1 /* WelcomeInteractor.swift */,
 				6DBE617D7998DCDF2265753F /* WelcomeInteractorInput.swift */,
 				66F5032C325CB2CF17C8B562 /* WelcomeInteractorOutput.swift */,
-				D9CDF9BF1CA7D274304EF7C1 /* WelcomeInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -588,9 +606,9 @@
 		E61C638AEDC2F6F63FECD298 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				FB37997124F8B04DA1B92374 /* CreateAccountInteractor.swift */,
 				674D23C75E7316E37A2899CF /* CreateAccountInteractorInput.swift */,
 				4130803936693FE0BAB1FC8F /* CreateAccountInteractorOutput.swift */,
-				FB37997124F8B04DA1B92374 /* CreateAccountInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -607,11 +625,11 @@
 		EC5E303482D2288EFCC29A40 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
-				EFC7CF5FAB323EED5D528B1C /* View */,
-				0E89F328EFF33AD6F56AA979 /* Presenter */,
-				7E1DCC6BD4A3FD710B535513 /* Interactor */,
-				F9E2989133AA29FF8D6226E6 /* Router */,
 				0CD0C970CFAA94F94F8D5FA4 /* Configurator */,
+				7E1DCC6BD4A3FD710B535513 /* Interactor */,
+				0E89F328EFF33AD6F56AA979 /* Presenter */,
+				F9E2989133AA29FF8D6226E6 /* Router */,
+				EFC7CF5FAB323EED5D528B1C /* View */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -620,9 +638,9 @@
 			isa = PBXGroup;
 			children = (
 				9C223D211F0FA3A00058B60A /* SignIn.storyboard */,
+				7DE94869B733A419D31B769D /* SignInViewController.swift */,
 				52F5E5886B715E6B74A20D4C /* SignInViewInput.swift */,
 				B94B7A8FFA7D7C31AEAF2A2B /* SignInViewOutput.swift */,
-				7DE94869B733A419D31B769D /* SignInViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -639,8 +657,8 @@
 		F9E2989133AA29FF8D6226E6 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				94760B08125C7A33189A676E /* SignInRouterInput.swift */,
 				A2056F67F7A25A0C62941287 /* SignInRouter.swift */,
+				94760B08125C7A33189A676E /* SignInRouterInput.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -652,7 +670,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CD8053A1F0D012F00B9B0AC /* MSGP.h in Headers */,
+				886B39BF1F13867C00BF1A8E /* MSGP.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,6 +759,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				886B39BE1F13867C00BF1A8E /* Info.plist in Resources */,
 				9C223D221F0FA3A00058B60A /* SignIn.storyboard in Resources */,
 				9C223D201F0FA3920058B60A /* Welcome.storyboard in Resources */,
 				9C223D241F0FA3B40058B60A /* CreateAccount.storyboard in Resources */,
@@ -1134,6 +1153,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = 285W24646W;
 				INFOPLIST_FILE = MSGPTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = akvelon.MSGPTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1148,6 +1168,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = 285W24646W;
 				INFOPLIST_FILE = MSGPTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = akvelon.MSGPTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
