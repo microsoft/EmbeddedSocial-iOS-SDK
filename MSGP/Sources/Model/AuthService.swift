@@ -8,23 +8,25 @@
 
 import Foundation
 
+enum AuthProvider: Int {
+    case facebook
+    case microsoft
+    case google
+    case twitter
+}
+
+protocol AuthAPI {
+    func login(handler: @escaping (Result<User>) -> Void)
+}
+
 protocol AuthServiceType {
+    func login(provider: AuthProvider, handler: @escaping (Result<User>) -> Void)
+    
     func login(email: String, password: String, handler: @escaping (Result<User>) -> Void)
     
     func createAccount(email: String, password: String, handler: @escaping (Result<User>) -> Void)
 }
 
-struct AuthService: AuthServiceType {
-
-    func login(email: String, password: String, handler: @escaping (Result<User>) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { 
-            handler(.success(User(username: email)))
-        }
-    }
-    
-    func createAccount(email: String, password: String, handler: @escaping (Result<User>) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            handler(.success(User(username: email)))
-        }
-    }
+protocol AuthAPIProviderType {
+    func api(for provider: AuthProvider) -> AuthAPI
 }

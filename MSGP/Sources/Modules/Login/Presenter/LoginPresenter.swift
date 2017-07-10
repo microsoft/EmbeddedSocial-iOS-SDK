@@ -6,16 +6,13 @@
 //  Copyright © 2017 Akvelon. All rights reserved.
 //
 
-class LoginPresenter: LoginModuleInput, LoginViewOutput {
+final class LoginPresenter: LoginViewOutput {
 
     weak var view: LoginViewInput!
     var interactor: LoginInteractorInput!
     var router: LoginRouterInput!
     weak var moduleOutput: LoginModuleOutput?
     
-    private var password: String?
-    private var email: String?
-
     func viewIsReady() {
         view.setupInitialState()
     }
@@ -24,20 +21,30 @@ class LoginPresenter: LoginModuleInput, LoginViewOutput {
         router.openCreateAccount()
     }
     
-    func onEmailChanged(_ text: String?) {
-        email = text
+    func onEmailSignInTapped() {
+        router.openEmailSignIn()
     }
     
-    func onPasswordChanged(_ text: String?) {
-        password = text
-    }
-    
-    func onLoginTapped() {
-        interactor.login(email: email ?? "", password: password ?? "") { [weak self] result in
+    func onFacebookSignInTapped() {
+        interactor.login(provider: .facebook) { [weak self] result in
             self?.moduleOutput?.onLogin(result)
         }
     }
+    
+    func onGoogleSignInTapped() {
+        
+    }
+    
+    func onTwitterSignInTapped() {
+        
+    }
+    
+    func onMicrosoftSignInTapped() {
+        
+    }
 }
+
+extension LoginPresenter: LoginModuleInput { }
 
 extension LoginPresenter: CreateAccountModuleOutput {
     

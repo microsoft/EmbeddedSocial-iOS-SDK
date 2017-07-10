@@ -13,9 +13,13 @@ protocol LoginViewOutput {
     
     func onCreateAccountTapped()
     
-    func onEmailChanged(_ text: String?)
+    func onEmailSignInTapped()
     
-    func onPasswordChanged(_ text: String?)
+    func onFacebookSignInTapped()
     
-    func onLoginTapped()
+    func onGoogleSignInTapped()
+    
+    func onTwitterSignInTapped()
+    
+    func onMicrosoftSignInTapped()
 }

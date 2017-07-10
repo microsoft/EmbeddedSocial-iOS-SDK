@@ -18,4 +18,8 @@ class LoginRouter: LoginRouterInput {
         createAccount.configure(moduleOutput: createAccountModuleOutput)
         viewController?.navigationController?.pushViewController(createAccount.viewController, animated: true)
     }
+    
+    func openEmailSignIn() {
+        
+    }
 }

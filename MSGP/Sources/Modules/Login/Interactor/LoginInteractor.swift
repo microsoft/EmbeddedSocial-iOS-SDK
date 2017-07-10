@@ -14,9 +14,9 @@ class LoginInteractor: LoginInteractorInput {
         self.authService = authService
     }
 
-    func login(email: String, password: String, completion: @escaping (Result<User>) -> Void) {
-        authService.login(email: email, password: password) { result in
-            completion(result)
+    func login(provider: AuthProvider, handler: @escaping (Result<User>) -> Void) {
+        authService.login(provider: provider) { result in
+            handler(result)
         }
     }
 }

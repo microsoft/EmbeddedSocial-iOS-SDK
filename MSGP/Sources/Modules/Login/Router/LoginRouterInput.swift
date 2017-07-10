@@ -10,4 +10,6 @@ import Foundation
 
 protocol LoginRouterInput {
     func openCreateAccount()
+    
+    func openEmailSignIn()
 }
