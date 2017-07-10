@@ -17,7 +17,6 @@
 		886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 886B39DA1F13910B00BF1A8E /* Images.xcassets */; };
 		886B39DE1F1391EC00BF1A8E /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39DD1F1391EC00BF1A8E /* Result.swift */; };
 		886B39E11F13922A00BF1A8E /* MSGP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39E01F13922A00BF1A8E /* MSGP.swift */; };
-		886B39E91F1393BA00BF1A8E /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39E81F1393BA00BF1A8E /* R.generated.swift */; };
 		993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 		9CD805381F0D012F00B9B0AC /* MSGPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD805371F0D012F00B9B0AC /* MSGPTests.swift */; };
@@ -118,7 +117,6 @@
 		886B39DA1F13910B00BF1A8E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		886B39DD1F1391EC00BF1A8E /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		886B39E01F13922A00BF1A8E /* MSGP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSGP.swift; sourceTree = "<group>"; };
-		886B39E81F1393BA00BF1A8E /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805371F0D012F00B9B0AC /* MSGPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSGPTests.swift; sourceTree = "<group>"; };
@@ -284,14 +282,6 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
-		886B39E71F13935200BF1A8E /* Generated */ = {
-			isa = PBXGroup;
-			children = (
-				886B39E81F1393BA00BF1A8E /* R.generated.swift */,
-			);
-			path = Generated;
-			sourceTree = "<group>";
-		};
 		8B452A1F595C02042F06EAF0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,7 +340,6 @@
 		9CD8052B1F0D012F00B9B0AC /* MSGP */ = {
 			isa = PBXGroup;
 			children = (
-				886B39E71F13935200BF1A8E /* Generated */,
 				9C223D1E1F0FA3390058B60A /* Resources */,
 				8B452A1F595C02042F06EAF0 /* Sources */,
 				886B39BB1F13867C00BF1A8E /* Supporting Files */,
@@ -503,7 +492,6 @@
 			buildConfigurationList = 9CD8053D1F0D012F00B9B0AC /* Build configuration list for PBXNativeTarget "MSGP" */;
 			buildPhases = (
 				66247D41F5C8E4F9DAA19CBF /* [CP] Check Pods Manifest.lock */,
-				886B39E41F1392D100BF1A8E /* ShellScript */,
 				9CD805241F0D012F00B9B0AC /* Sources */,
 				9CD805251F0D012F00B9B0AC /* Frameworks */,
 				9CD805261F0D012F00B9B0AC /* Headers */,
@@ -627,19 +615,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		886B39E41F1392D100BF1A8E /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/R.swift/rswift\" \"$SRCROOT/MSGP/Generated\"";
-		};
 		886B39E51F1392D800BF1A8E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -740,7 +715,6 @@
 				9CEB71F21F136277007057DA /* PinsAPI.swift in Sources */,
 				9CEB71F31F136277007057DA /* PushNotificationsAPI.swift in Sources */,
 				9CEB71F41F136277007057DA /* RepliesAPI.swift in Sources */,
-				886B39E91F1393BA00BF1A8E /* R.generated.swift in Sources */,
 				9CEB71F51F136277007057DA /* ReportingAPI.swift in Sources */,
 				9CEB71F61F136277007057DA /* SearchAPI.swift in Sources */,
 				9CEB71F71F136277007057DA /* SessionsAPI.swift in Sources */,

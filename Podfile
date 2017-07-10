@@ -8,7 +8,6 @@ target 'MSGP' do
   pod 'SwiftLint'
   pod 'SVProgressHUD'
   pod 'SnapKit'
-  pod 'R.swift'
 end
 
 target 'MSGPTests' do
