@@ -7,7 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		010D3922C8FEE37AABEF883E /* MenuInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64387F56C40CDEFDCF92A8CA /* MenuInitializer.swift */; };
+		0C84A9B14A367538DA495966 /* MenuInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C2F4EC736C209DC9E7FC6A /* MenuInteractorTests.swift */; };
+		214E8DE66F6A09DEBD8DEAD6 /* MenuRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72954C2961739A22EA867972 /* MenuRouterTests.swift */; };
 		21E6B50C51CACB5AC248D716 /* Pods_MSGPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B9B8BEED405B8C971B735F /* Pods_MSGPTests.framework */; };
+		334765E472BA2D34C4C4C15D /* MenuViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A3F52689612314316B5464 /* MenuViewOutput.swift */; };
+		3DDB8F581EF28F7F51FA583E /* MenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69F073B344B1246F2F0988A /* MenuConfigurator.swift */; };
+		506CDF6F4DB1E41D76E78C71 /* MenuViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8489F95B030DE78A19959B /* MenuViewTests.swift */; };
+		5968C4AD0D98C4FCC3756495 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D60AC783AB5A40B49468FC /* MenuViewController.swift */; };
+		5A8AED76514E5E6D662C832D /* MenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647AD9050CA023B7082D64CA /* MenuInteractor.swift */; };
+		62075397740CA1A6C5D10F25 /* MenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FC894017D981EBC6E3B7A /* MenuRouter.swift */; };
+		67F08E7AC52A75518227E5C5 /* MenuRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DD9247E1EC3A31F3C6E166 /* MenuRouterInput.swift */; };
+		80DB14934D6DEA36A595A3CD /* MenuConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B429F0AE94B8DDE8ED11D2 /* MenuConfiguratorTests.swift */; };
 		886B39BF1F13867C00BF1A8E /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 886B39BD1F13867C00BF1A8E /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
 		886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C91F138F5D00BF1A8E /* ViewController.swift */; };
@@ -18,6 +29,7 @@
 		886B39DE1F1391EC00BF1A8E /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39DD1F1391EC00BF1A8E /* Result.swift */; };
 		886B39E11F13922A00BF1A8E /* MSGP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39E01F13922A00BF1A8E /* MSGP.swift */; };
 		993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */; };
+		9BF785413640F5BB5CB399E2 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4290121AF42BC8F2029A1C17 /* MenuPresenter.swift */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 		9CD805381F0D012F00B9B0AC /* MSGPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD805371F0D012F00B9B0AC /* MSGPTests.swift */; };
 		9CEB71E91F13624B007057DA /* AlamofireImplementations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB71A21F136243007057DA /* AlamofireImplementations.swift */; };
@@ -89,6 +101,11 @@
 		9CEB722B1F136277007057DA /* UserCompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB71E61F136243007057DA /* UserCompactView.swift */; };
 		9CEB722C1F136277007057DA /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB71E71F136243007057DA /* UserProfileView.swift */; };
 		9CEB722D1F136277007057DA /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB71E81F136243007057DA /* Models.swift */; };
+		BF5B3906883846C45DD93513 /* MenuPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6CCCDA3F0F8B6E0E67D80 /* MenuPresenterTests.swift */; };
+		C7F79D061E1D8A0928D129F4 /* MenuModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F45803A0B4BBE90E728D75 /* MenuModuleInput.swift */; };
+		E0F76767895249A0D305E917 /* MenuViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB14EB1EC6CE1E38B3339502 /* MenuViewInput.swift */; };
+		E18325C6CFCBD68C82977799 /* MenuInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90345FA3591D3AF73ABAD64 /* MenuInteractorInput.swift */; };
+		F5567ED676FD9A688A7E8755 /* MenuInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFF0EBF49D862A11C4F738B /* MenuInteractorOutput.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,9 +119,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03B429F0AE94B8DDE8ED11D2 /* MenuConfiguratorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuConfiguratorTests.swift; sourceTree = "<group>"; };
+		07F45803A0B4BBE90E728D75 /* MenuModuleInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuModuleInput.swift; sourceTree = "<group>"; };
 		1C6F125777D8211447FCD539 /* Pods-MSGPTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.release.xcconfig"; sourceTree = "<group>"; };
+		37A3F52689612314316B5464 /* MenuViewOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuViewOutput.swift; sourceTree = "<group>"; };
+		3F8489F95B030DE78A19959B /* MenuViewTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuViewTests.swift; sourceTree = "<group>"; };
+		4290121AF42BC8F2029A1C17 /* MenuPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
+		64387F56C40CDEFDCF92A8CA /* MenuInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuInitializer.swift; sourceTree = "<group>"; };
+		647AD9050CA023B7082D64CA /* MenuInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuInteractor.swift; sourceTree = "<group>"; };
+		72954C2961739A22EA867972 /* MenuRouterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuRouterTests.swift; sourceTree = "<group>"; };
 		72B9B8BEED405B8C971B735F /* Pods_MSGPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		78DD9247E1EC3A31F3C6E166 /* MenuRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuRouterInput.swift; sourceTree = "<group>"; };
 		7D56807E5947724E4247FD8F /* Pods-MSGP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGP.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSGP/Pods-MSGP.release.xcconfig"; sourceTree = "<group>"; };
+		83C2F4EC736C209DC9E7FC6A /* MenuInteractorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuInteractorTests.swift; sourceTree = "<group>"; };
 		886B39BC1F13867C00BF1A8E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		886B39BD1F13867C00BF1A8E /* MSGP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,8 +218,15 @@
 		9CEB71E71F136243007057DA /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		9CEB71E81F136243007057DA /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		A42EA20E3959D37E020C6094 /* Pods-MSGPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A69F073B344B1246F2F0988A /* MenuConfigurator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuConfigurator.swift; sourceTree = "<group>"; };
+		A90345FA3591D3AF73ABAD64 /* MenuInteractorInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuInteractorInput.swift; sourceTree = "<group>"; };
 		AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7D60AC783AB5A40B49468FC /* MenuViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		C0C6CCCDA3F0F8B6E0E67D80 /* MenuPresenterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuPresenterTests.swift; sourceTree = "<group>"; };
+		EB6FC894017D981EBC6E3B7A /* MenuRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuRouter.swift; sourceTree = "<group>"; };
 		EF352F9F3F5515B2F5916EEE /* Pods-MSGP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MSGP/Pods-MSGP.debug.xcconfig"; sourceTree = "<group>"; };
+		FB14EB1EC6CE1E38B3339502 /* MenuViewInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuViewInput.swift; sourceTree = "<group>"; };
+		FFFF0EBF49D862A11C4F738B /* MenuInteractorOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuInteractorOutput.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +268,31 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		0DCD36146185CCB13CDC59E0 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				78DD9247E1EC3A31F3C6E166 /* MenuRouterInput.swift */,
+				EB6FC894017D981EBC6E3B7A /* MenuRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		1E6398333A2F77E9E78501A9 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				83C2F4EC736C209DC9E7FC6A /* MenuInteractorTests.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		235CFC7439454B1FE49C67F6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3F8489F95B030DE78A19959B /* MenuViewTests.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		2C6B77FF4F1F2F71CA420D6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +300,52 @@
 				72B9B8BEED405B8C971B735F /* Pods_MSGPTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		61521901DF968C25914E396E /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				A69F073B344B1246F2F0988A /* MenuConfigurator.swift */,
+				64387F56C40CDEFDCF92A8CA /* MenuInitializer.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		6725A181BE115426D3E5D62D /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				E2EBF22947DF14B193D39928 /* Menu */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		6BFC861A0594A10512DE5170 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				03B429F0AE94B8DDE8ED11D2 /* MenuConfiguratorTests.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		7F3A53235C4820A5254D967C /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				07F45803A0B4BBE90E728D75 /* MenuModuleInput.swift */,
+				4290121AF42BC8F2029A1C17 /* MenuPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		80DF9A7137A392AEFF507C94 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				6BFC861A0594A10512DE5170 /* Configurator */,
+				235CFC7439454B1FE49C67F6 /* View */,
+				1E6398333A2F77E9E78501A9 /* Interactor */,
+				DB167CE383D5B824E71F3960 /* Presenter */,
+				919299FEF5552C36858E9B4C /* Router */,
+			);
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		886B39BB1F13867C00BF1A8E /* Supporting Files */ = {
@@ -288,8 +393,17 @@
 				9C223D1C1F0FA2900058B60A /* Common */,
 				886B39DC1F1391A700BF1A8E /* Model */,
 				B015BFA7F75D3C2321ABD44C /* Modules */,
+				FA1BFC1099473E54DEC1ABD7 /* Presentation */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		919299FEF5552C36858E9B4C /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				72954C2961739A22EA867972 /* MenuRouterTests.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		9C223D1C1F0FA2900058B60A /* Common */ = {
@@ -324,6 +438,7 @@
 				9CD805361F0D012F00B9B0AC /* MSGPTests */,
 				07E5567613166B5CDDA02621 /* Pods */,
 				9CD8052A1F0D012F00B9B0AC /* Products */,
+				B820ABD2B3A64D3C9B0F6D8F /* ModulesTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -454,6 +569,62 @@
 				886B39DF1F13921C00BF1A8E /* Root */,
 			);
 			path = Modules;
+			sourceTree = "<group>";
+		};
+		B820ABD2B3A64D3C9B0F6D8F /* ModulesTests */ = {
+			isa = PBXGroup;
+			children = (
+				80DF9A7137A392AEFF507C94 /* Menu */,
+			);
+			path = ModulesTests;
+			sourceTree = "<group>";
+		};
+		DB167CE383D5B824E71F3960 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				C0C6CCCDA3F0F8B6E0E67D80 /* MenuPresenterTests.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		E2EBF22947DF14B193D39928 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				F073AAF6978B31400858E2D6 /* View */,
+				7F3A53235C4820A5254D967C /* Presenter */,
+				EEDB3D267355148E052321D6 /* Interactor */,
+				0DCD36146185CCB13CDC59E0 /* Router */,
+				61521901DF968C25914E396E /* Configurator */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		EEDB3D267355148E052321D6 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				A90345FA3591D3AF73ABAD64 /* MenuInteractorInput.swift */,
+				FFFF0EBF49D862A11C4F738B /* MenuInteractorOutput.swift */,
+				647AD9050CA023B7082D64CA /* MenuInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		F073AAF6978B31400858E2D6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FB14EB1EC6CE1E38B3339502 /* MenuViewInput.swift */,
+				37A3F52689612314316B5464 /* MenuViewOutput.swift */,
+				B7D60AC783AB5A40B49468FC /* MenuViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA1BFC1099473E54DEC1ABD7 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				6725A181BE115426D3E5D62D /* Modules */,
+			);
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -775,6 +946,18 @@
 				886B39DE1F1391EC00BF1A8E /* Result.swift in Sources */,
 				9CEB71E91F13624B007057DA /* AlamofireImplementations.swift in Sources */,
 				886B39E11F13922A00BF1A8E /* MSGP.swift in Sources */,
+				E0F76767895249A0D305E917 /* MenuViewInput.swift in Sources */,
+				334765E472BA2D34C4C4C15D /* MenuViewOutput.swift in Sources */,
+				5968C4AD0D98C4FCC3756495 /* MenuViewController.swift in Sources */,
+				C7F79D061E1D8A0928D129F4 /* MenuModuleInput.swift in Sources */,
+				9BF785413640F5BB5CB399E2 /* MenuPresenter.swift in Sources */,
+				E18325C6CFCBD68C82977799 /* MenuInteractorInput.swift in Sources */,
+				F5567ED676FD9A688A7E8755 /* MenuInteractorOutput.swift in Sources */,
+				5A8AED76514E5E6D662C832D /* MenuInteractor.swift in Sources */,
+				67F08E7AC52A75518227E5C5 /* MenuRouterInput.swift in Sources */,
+				62075397740CA1A6C5D10F25 /* MenuRouter.swift in Sources */,
+				3DDB8F581EF28F7F51FA583E /* MenuConfigurator.swift in Sources */,
+				010D3922C8FEE37AABEF883E /* MenuInitializer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -783,6 +966,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CD805381F0D012F00B9B0AC /* MSGPTests.swift in Sources */,
+				80DB14934D6DEA36A595A3CD /* MenuConfiguratorTests.swift in Sources */,
+				506CDF6F4DB1E41D76E78C71 /* MenuViewTests.swift in Sources */,
+				0C84A9B14A367538DA495966 /* MenuInteractorTests.swift in Sources */,
+				BF5B3906883846C45DD93513 /* MenuPresenterTests.swift in Sources */,
+				214E8DE66F6A09DEBD8DEAD6 /* MenuRouterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
