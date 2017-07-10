@@ -1,9 +1,11 @@
 included:
   - MSGP
-  
+
 excluded:
   - Carthage
   - Pods
+  - MSGP/Generated
+  - MSGP/Sources/Model/API
 
 disabled_rules: # rule identifiers to exclude from running
   - trailing_whitespace

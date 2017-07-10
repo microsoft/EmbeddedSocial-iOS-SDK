@@ -7,29 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04C0E0FE86E49A7978EF2709 /* CreateAccountInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674D23C75E7316E37A2899CF /* CreateAccountInteractorInput.swift */; };
-		0ADDEF755CE65BC90B0F8E64 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933147308A585D4489EEB2DD /* CreateAccountViewController.swift */; };
-		0FB814B1926DD6C8E4D5E109 /* WelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AD2F4C16D7D9E2A51FED74 /* WelcomePresenter.swift */; };
-		20DB824FF570191F889D4FC7 /* SignInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2056F67F7A25A0C62941287 /* SignInRouter.swift */; };
 		21E6B50C51CACB5AC248D716 /* Pods_MSGPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B9B8BEED405B8C971B735F /* Pods_MSGPTests.framework */; };
-		3426BABBF9D46CAA984EC621 /* WelcomeViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133954A5E2703A3CC1ECCE7E /* WelcomeViewInput.swift */; };
-		344B27B1424B83D0A0D608ED /* WelcomeRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C419DA5F659BD6EEA298C5DD /* WelcomeRouterInput.swift */; };
-		392A04539BA925C00C2DA3CB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDF8B18B278A7D3919ED353 /* WelcomeViewController.swift */; };
-		4A9AAFDF55AC1384707A4891 /* WelcomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2D7BD6C3452408808EA663 /* WelcomeRouter.swift */; };
-		4B0013D4BEC3B7C0B0826644 /* CreateAccountModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A295AD7415E5F9903E4ACB /* CreateAccountModuleInput.swift */; };
-		4F8950E9B5676FC2CD8B1B63 /* WelcomeViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC574F0B4766012EE299A9E8 /* WelcomeViewOutput.swift */; };
-		55C6E5ED0109B563EAB7FA5D /* CreateAccountRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D3CA3CDCD4E9ACD34EAF6 /* CreateAccountRouterInput.swift */; };
-		565CEEE11D8851D7E5AB7DB7 /* WelcomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA0B3976B95CA4FE223C0DD /* WelcomeConfigurator.swift */; };
-		57FE9992733FE951D45F6657 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE94869B733A419D31B769D /* SignInViewController.swift */; };
-		67D34B0F22B02AB68519428B /* WelcomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CDF9BF1CA7D274304EF7C1 /* WelcomeInteractor.swift */; };
-		6B064BA04D1EC2D8862533D8 /* WelcomeInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBE617D7998DCDF2265753F /* WelcomeInteractorInput.swift */; };
-		733D1B4B82AAC446083C5F1D /* SignInViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F5E5886B715E6B74A20D4C /* SignInViewInput.swift */; };
-		76F668C58EB9313ABC2279F7 /* SignInInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1180D41279B10E7D8978B6 /* SignInInteractorOutput.swift */; };
-		78119EE59912AF7E5CFB0EDB /* WelcomeModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD131D52172CA2CE72A6B9B8 /* WelcomeModuleInput.swift */; };
-		7840E1963347E84041910615 /* SignInRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94760B08125C7A33189A676E /* SignInRouterInput.swift */; };
-		79D6F170D92218D0C5B67764 /* CreateAccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB37997124F8B04DA1B92374 /* CreateAccountInteractor.swift */; };
-		7C9B9C9BE2EA23724B0C0E12 /* CreateAccountInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130803936693FE0BAB1FC8F /* CreateAccountInteractorOutput.swift */; };
-		886B39BE1F13867C00BF1A8E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 886B39BC1F13867C00BF1A8E /* Info.plist */; };
 		886B39BF1F13867C00BF1A8E /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 886B39BD1F13867C00BF1A8E /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
 		886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C91F138F5D00BF1A8E /* ViewController.swift */; };
@@ -37,14 +15,10 @@
 		886B39CF1F138F5D00BF1A8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CE1F138F5D00BF1A8E /* Assets.xcassets */; };
 		886B39D21F138F5D00BF1A8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39D01F138F5D00BF1A8E /* LaunchScreen.storyboard */; };
 		886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 886B39DA1F13910B00BF1A8E /* Images.xcassets */; };
-		8BFCD55E4622E7F01522C390 /* CreateAccountViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C381320C7F0A5729612B384 /* CreateAccountViewOutput.swift */; };
-		95FD6A1CAD118CD596897256 /* SignInConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147BD2D03417EB16617278A /* SignInConfigurator.swift */; };
+		886B39DE1F1391EC00BF1A8E /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39DD1F1391EC00BF1A8E /* Result.swift */; };
+		886B39E11F13922A00BF1A8E /* MSGP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39E01F13922A00BF1A8E /* MSGP.swift */; };
+		886B39E91F1393BA00BF1A8E /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39E81F1393BA00BF1A8E /* R.generated.swift */; };
 		993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */; };
-		99F21AC3E59B4D7F496674F7 /* SignInModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732750FC05BCEB2488A2817 /* SignInModuleInput.swift */; };
-		9C223D201F0FA3920058B60A /* Welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C223D1F1F0FA3920058B60A /* Welcome.storyboard */; };
-		9C223D221F0FA3A00058B60A /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C223D211F0FA3A00058B60A /* SignIn.storyboard */; };
-		9C223D241F0FA3B40058B60A /* CreateAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C223D231F0FA3B40058B60A /* CreateAccount.storyboard */; };
-		9C223D261F0FAB4E0058B60A /* SocialSignInUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C223D251F0FAB4E0058B60A /* SocialSignInUnit.swift */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 		9CD805381F0D012F00B9B0AC /* MSGPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD805371F0D012F00B9B0AC /* MSGPTests.swift */; };
 		9CEB71E91F13624B007057DA /* AlamofireImplementations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB71A21F136243007057DA /* AlamofireImplementations.swift */; };
@@ -116,18 +90,6 @@
 		9CEB722B1F136277007057DA /* UserCompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB71E61F136243007057DA /* UserCompactView.swift */; };
 		9CEB722C1F136277007057DA /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB71E71F136243007057DA /* UserProfileView.swift */; };
 		9CEB722D1F136277007057DA /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB71E81F136243007057DA /* Models.swift */; };
-		A3C38710AE4392DF8AE3446B /* CreateAccountViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F006255583EDD0F27E61834 /* CreateAccountViewInput.swift */; };
-		C1814AD3E583FED45B07B6C7 /* CreateAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8E524674813F7BFCAC196 /* CreateAccountPresenter.swift */; };
-		C5F8B176DC5ED1C1DD7E017F /* SignInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3931109492087F8E8C9AEE /* SignInPresenter.swift */; };
-		CA140924D0C97ED0DDB0AAEB /* SignInInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E776B2C7349793A998D95D09 /* SignInInitializer.swift */; };
-		CC676CF1EDF98966FBE9D08F /* CreateAccountInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9579DF165ABE06E8BDAD5E70 /* CreateAccountInitializer.swift */; };
-		CEA57853EB1D697D811DBD00 /* SignInViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B7A8FFA7D7C31AEAF2A2B /* SignInViewOutput.swift */; };
-		CFC0B74A76DF6EFB026F697C /* SignInInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36945DDE17B63AD5767EA5 /* SignInInteractor.swift */; };
-		D9D4C28390B9061F412CB320 /* CreateAccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C800F815B40866E46109B2 /* CreateAccountRouter.swift */; };
-		DBC95208952C0F9534B34194 /* WelcomeInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878EBD53DDFEE09976C3210E /* WelcomeInitializer.swift */; };
-		E3A705984621C254960FEF52 /* WelcomeInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5032C325CB2CF17C8B562 /* WelcomeInteractorOutput.swift */; };
-		E8B709AA9D47FE33915CB557 /* SignInInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F14250C778AA89C104FFE30 /* SignInInteractorInput.swift */; };
-		FCE488C1CBAC3D60E2F80465 /* CreateAccountConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC824591F08EDD85D9786E1 /* CreateAccountConfigurator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,28 +103,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0BDF8B18B278A7D3919ED353 /* WelcomeViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		1147BD2D03417EB16617278A /* SignInConfigurator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInConfigurator.swift; sourceTree = "<group>"; };
-		133954A5E2703A3CC1ECCE7E /* WelcomeViewInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeViewInput.swift; sourceTree = "<group>"; };
 		1C6F125777D8211447FCD539 /* Pods-MSGPTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.release.xcconfig"; sourceTree = "<group>"; };
-		28A295AD7415E5F9903E4ACB /* CreateAccountModuleInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountModuleInput.swift; sourceTree = "<group>"; };
-		2F006255583EDD0F27E61834 /* CreateAccountViewInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountViewInput.swift; sourceTree = "<group>"; };
-		3C2D7BD6C3452408808EA663 /* WelcomeRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeRouter.swift; sourceTree = "<group>"; };
-		3F14250C778AA89C104FFE30 /* SignInInteractorInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInInteractorInput.swift; sourceTree = "<group>"; };
-		4130803936693FE0BAB1FC8F /* CreateAccountInteractorOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountInteractorOutput.swift; sourceTree = "<group>"; };
-		52F5E5886B715E6B74A20D4C /* SignInViewInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInViewInput.swift; sourceTree = "<group>"; };
-		66F5032C325CB2CF17C8B562 /* WelcomeInteractorOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeInteractorOutput.swift; sourceTree = "<group>"; };
-		674D23C75E7316E37A2899CF /* CreateAccountInteractorInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountInteractorInput.swift; sourceTree = "<group>"; };
-		6C381320C7F0A5729612B384 /* CreateAccountViewOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountViewOutput.swift; sourceTree = "<group>"; };
-		6DBE617D7998DCDF2265753F /* WelcomeInteractorInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeInteractorInput.swift; sourceTree = "<group>"; };
-		6F36945DDE17B63AD5767EA5 /* SignInInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInInteractor.swift; sourceTree = "<group>"; };
 		72B9B8BEED405B8C971B735F /* Pods_MSGPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A3931109492087F8E8C9AEE /* SignInPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
 		7D56807E5947724E4247FD8F /* Pods-MSGP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGP.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSGP/Pods-MSGP.release.xcconfig"; sourceTree = "<group>"; };
-		7DE94869B733A419D31B769D /* SignInViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		81F8E524674813F7BFCAC196 /* CreateAccountPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountPresenter.swift; sourceTree = "<group>"; };
-		873D3CA3CDCD4E9ACD34EAF6 /* CreateAccountRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountRouterInput.swift; sourceTree = "<group>"; };
-		878EBD53DDFEE09976C3210E /* WelcomeInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeInitializer.swift; sourceTree = "<group>"; };
 		886B39BC1F13867C00BF1A8E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		886B39BD1F13867C00BF1A8E /* MSGP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,14 +116,9 @@
 		886B39D11F138F5D00BF1A8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		886B39D31F138F5D00BF1A8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		886B39DA1F13910B00BF1A8E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		933147308A585D4489EEB2DD /* CreateAccountViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
-		94760B08125C7A33189A676E /* SignInRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInRouterInput.swift; sourceTree = "<group>"; };
-		9579DF165ABE06E8BDAD5E70 /* CreateAccountInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountInitializer.swift; sourceTree = "<group>"; };
-		95C800F815B40866E46109B2 /* CreateAccountRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountRouter.swift; sourceTree = "<group>"; };
-		9C223D1F1F0FA3920058B60A /* Welcome.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Welcome.storyboard; sourceTree = "<group>"; };
-		9C223D211F0FA3A00058B60A /* SignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
-		9C223D231F0FA3B40058B60A /* CreateAccount.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateAccount.storyboard; sourceTree = "<group>"; };
-		9C223D251F0FAB4E0058B60A /* SocialSignInUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSignInUnit.swift; sourceTree = "<group>"; };
+		886B39DD1F1391EC00BF1A8E /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		886B39E01F13922A00BF1A8E /* MSGP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSGP.swift; sourceTree = "<group>"; };
+		886B39E81F1393BA00BF1A8E /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805371F0D012F00B9B0AC /* MSGPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSGPTests.swift; sourceTree = "<group>"; };
@@ -254,22 +192,9 @@
 		9CEB71E61F136243007057DA /* UserCompactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCompactView.swift; sourceTree = "<group>"; };
 		9CEB71E71F136243007057DA /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		9CEB71E81F136243007057DA /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		A2056F67F7A25A0C62941287 /* SignInRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInRouter.swift; sourceTree = "<group>"; };
 		A42EA20E3959D37E020C6094 /* Pods-MSGPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B94B7A8FFA7D7C31AEAF2A2B /* SignInViewOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInViewOutput.swift; sourceTree = "<group>"; };
-		C419DA5F659BD6EEA298C5DD /* WelcomeRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeRouterInput.swift; sourceTree = "<group>"; };
-		C732750FC05BCEB2488A2817 /* SignInModuleInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInModuleInput.swift; sourceTree = "<group>"; };
-		D2AD2F4C16D7D9E2A51FED74 /* WelcomePresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomePresenter.swift; sourceTree = "<group>"; };
-		D9CDF9BF1CA7D274304EF7C1 /* WelcomeInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeInteractor.swift; sourceTree = "<group>"; };
-		DD131D52172CA2CE72A6B9B8 /* WelcomeModuleInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeModuleInput.swift; sourceTree = "<group>"; };
-		E776B2C7349793A998D95D09 /* SignInInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInInitializer.swift; sourceTree = "<group>"; };
-		EA1180D41279B10E7D8978B6 /* SignInInteractorOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInInteractorOutput.swift; sourceTree = "<group>"; };
-		EC574F0B4766012EE299A9E8 /* WelcomeViewOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeViewOutput.swift; sourceTree = "<group>"; };
-		EDC824591F08EDD85D9786E1 /* CreateAccountConfigurator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountConfigurator.swift; sourceTree = "<group>"; };
 		EF352F9F3F5515B2F5916EEE /* Pods-MSGP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MSGP/Pods-MSGP.debug.xcconfig"; sourceTree = "<group>"; };
-		FB37997124F8B04DA1B92374 /* CreateAccountInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateAccountInteractor.swift; sourceTree = "<group>"; };
-		FFA0B3976B95CA4FE223C0DD /* WelcomeConfigurator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeConfigurator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,44 +236,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		09E1FF60DE3B34F7C4F480C5 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				9C223D1F1F0FA3920058B60A /* Welcome.storyboard */,
-				0BDF8B18B278A7D3919ED353 /* WelcomeViewController.swift */,
-				133954A5E2703A3CC1ECCE7E /* WelcomeViewInput.swift */,
-				EC574F0B4766012EE299A9E8 /* WelcomeViewOutput.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		0CD0C970CFAA94F94F8D5FA4 /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				1147BD2D03417EB16617278A /* SignInConfigurator.swift */,
-				E776B2C7349793A998D95D09 /* SignInInitializer.swift */,
-			);
-			path = Configurator;
-			sourceTree = "<group>";
-		};
-		0E89F328EFF33AD6F56AA979 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				C732750FC05BCEB2488A2817 /* SignInModuleInput.swift */,
-				7A3931109492087F8E8C9AEE /* SignInPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		1C5E96F93EF9C8E384539CEC /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				95C800F815B40866E46109B2 /* CreateAccountRouter.swift */,
-				873D3CA3CDCD4E9ACD34EAF6 /* CreateAccountRouterInput.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
 		2C6B77FF4F1F2F71CA420D6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -356,49 +243,6 @@
 				72B9B8BEED405B8C971B735F /* Pods_MSGPTests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		2CCD92CD5A15DC1BA0706316 /* Welcome */ = {
-			isa = PBXGroup;
-			children = (
-				F2D69D255081618719F6E972 /* Configurator */,
-				E3F4783807244B55367842C1 /* Interactor */,
-				BCB5E9EF1382E37739F790AE /* Presenter */,
-				831F392F71DD6CF913BA0709 /* Router */,
-				09E1FF60DE3B34F7C4F480C5 /* View */,
-			);
-			path = Welcome;
-			sourceTree = "<group>";
-		};
-		5658C94556952E9420672418 /* CreateAccount */ = {
-			isa = PBXGroup;
-			children = (
-				E6E96D0E66CFDA295B02AB71 /* Configurator */,
-				E61C638AEDC2F6F63FECD298 /* Interactor */,
-				DC90B6BC5227AFD8CEB956BA /* Presenter */,
-				1C5E96F93EF9C8E384539CEC /* Router */,
-				BD94EBD78C7945CEB732FEFF /* View */,
-			);
-			path = CreateAccount;
-			sourceTree = "<group>";
-		};
-		7E1DCC6BD4A3FD710B535513 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				6F36945DDE17B63AD5767EA5 /* SignInInteractor.swift */,
-				3F14250C778AA89C104FFE30 /* SignInInteractorInput.swift */,
-				EA1180D41279B10E7D8978B6 /* SignInInteractorOutput.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		831F392F71DD6CF913BA0709 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				3C2D7BD6C3452408808EA663 /* WelcomeRouter.swift */,
-				C419DA5F659BD6EEA298C5DD /* WelcomeRouterInput.swift */,
-			);
-			path = Router;
 			sourceTree = "<group>";
 		};
 		886B39BB1F13867C00BF1A8E /* Supporting Files */ = {
@@ -423,10 +267,36 @@
 			path = "MSGP-Example";
 			sourceTree = "<group>";
 		};
+		886B39DC1F1391A700BF1A8E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9CEB71A11F136243007057DA /* API */,
+				9C223D1D1F0FA2950058B60A /* Entities */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		886B39DF1F13921C00BF1A8E /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				886B39E01F13922A00BF1A8E /* MSGP.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		886B39E71F13935200BF1A8E /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				886B39E81F1393BA00BF1A8E /* R.generated.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		8B452A1F595C02042F06EAF0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				9C223D1C1F0FA2900058B60A /* Common */,
+				886B39DC1F1391A700BF1A8E /* Model */,
 				B015BFA7F75D3C2321ABD44C /* Modules */,
 			);
 			path = Sources;
@@ -435,8 +305,7 @@
 		9C223D1C1F0FA2900058B60A /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				9CEB71A11F136243007057DA /* API */,
-				9C223D1D1F0FA2950058B60A /* Entities */,
+				886B39DD1F1391EC00BF1A8E /* Result.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -444,7 +313,6 @@
 		9C223D1D1F0FA2950058B60A /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				9C223D251F0FAB4E0058B60A /* SocialSignInUnit.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -482,6 +350,7 @@
 		9CD8052B1F0D012F00B9B0AC /* MSGP */ = {
 			isa = PBXGroup;
 			children = (
+				886B39E71F13935200BF1A8E /* Generated */,
 				9C223D1E1F0FA3390058B60A /* Resources */,
 				8B452A1F595C02042F06EAF0 /* Sources */,
 				886B39BB1F13867C00BF1A8E /* Supporting Files */,
@@ -593,110 +462,9 @@
 		B015BFA7F75D3C2321ABD44C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				5658C94556952E9420672418 /* CreateAccount */,
-				EC5E303482D2288EFCC29A40 /* SignIn */,
-				2CCD92CD5A15DC1BA0706316 /* Welcome */,
+				886B39DF1F13921C00BF1A8E /* Root */,
 			);
 			path = Modules;
-			sourceTree = "<group>";
-		};
-		BCB5E9EF1382E37739F790AE /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				DD131D52172CA2CE72A6B9B8 /* WelcomeModuleInput.swift */,
-				D2AD2F4C16D7D9E2A51FED74 /* WelcomePresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		BD94EBD78C7945CEB732FEFF /* View */ = {
-			isa = PBXGroup;
-			children = (
-				9C223D231F0FA3B40058B60A /* CreateAccount.storyboard */,
-				933147308A585D4489EEB2DD /* CreateAccountViewController.swift */,
-				2F006255583EDD0F27E61834 /* CreateAccountViewInput.swift */,
-				6C381320C7F0A5729612B384 /* CreateAccountViewOutput.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		DC90B6BC5227AFD8CEB956BA /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				28A295AD7415E5F9903E4ACB /* CreateAccountModuleInput.swift */,
-				81F8E524674813F7BFCAC196 /* CreateAccountPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		E3F4783807244B55367842C1 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				D9CDF9BF1CA7D274304EF7C1 /* WelcomeInteractor.swift */,
-				6DBE617D7998DCDF2265753F /* WelcomeInteractorInput.swift */,
-				66F5032C325CB2CF17C8B562 /* WelcomeInteractorOutput.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		E61C638AEDC2F6F63FECD298 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				FB37997124F8B04DA1B92374 /* CreateAccountInteractor.swift */,
-				674D23C75E7316E37A2899CF /* CreateAccountInteractorInput.swift */,
-				4130803936693FE0BAB1FC8F /* CreateAccountInteractorOutput.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		E6E96D0E66CFDA295B02AB71 /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				EDC824591F08EDD85D9786E1 /* CreateAccountConfigurator.swift */,
-				9579DF165ABE06E8BDAD5E70 /* CreateAccountInitializer.swift */,
-			);
-			path = Configurator;
-			sourceTree = "<group>";
-		};
-		EC5E303482D2288EFCC29A40 /* SignIn */ = {
-			isa = PBXGroup;
-			children = (
-				0CD0C970CFAA94F94F8D5FA4 /* Configurator */,
-				7E1DCC6BD4A3FD710B535513 /* Interactor */,
-				0E89F328EFF33AD6F56AA979 /* Presenter */,
-				F9E2989133AA29FF8D6226E6 /* Router */,
-				EFC7CF5FAB323EED5D528B1C /* View */,
-			);
-			path = SignIn;
-			sourceTree = "<group>";
-		};
-		EFC7CF5FAB323EED5D528B1C /* View */ = {
-			isa = PBXGroup;
-			children = (
-				9C223D211F0FA3A00058B60A /* SignIn.storyboard */,
-				7DE94869B733A419D31B769D /* SignInViewController.swift */,
-				52F5E5886B715E6B74A20D4C /* SignInViewInput.swift */,
-				B94B7A8FFA7D7C31AEAF2A2B /* SignInViewOutput.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		F2D69D255081618719F6E972 /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				FFA0B3976B95CA4FE223C0DD /* WelcomeConfigurator.swift */,
-				878EBD53DDFEE09976C3210E /* WelcomeInitializer.swift */,
-			);
-			path = Configurator;
-			sourceTree = "<group>";
-		};
-		F9E2989133AA29FF8D6226E6 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				A2056F67F7A25A0C62941287 /* SignInRouter.swift */,
-				94760B08125C7A33189A676E /* SignInRouterInput.swift */,
-			);
-			path = Router;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -735,11 +503,13 @@
 			buildConfigurationList = 9CD8053D1F0D012F00B9B0AC /* Build configuration list for PBXNativeTarget "MSGP" */;
 			buildPhases = (
 				66247D41F5C8E4F9DAA19CBF /* [CP] Check Pods Manifest.lock */,
+				886B39E41F1392D100BF1A8E /* ShellScript */,
 				9CD805241F0D012F00B9B0AC /* Sources */,
 				9CD805251F0D012F00B9B0AC /* Frameworks */,
 				9CD805261F0D012F00B9B0AC /* Headers */,
 				9CD805271F0D012F00B9B0AC /* Resources */,
 				A998FD1194A312FA697E02A4 /* [CP] Copy Pods Resources */,
+				886B39E51F1392D800BF1A8E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -760,7 +530,6 @@
 				9CD805301F0D012F00B9B0AC /* Resources */,
 				A8165C03552FDFDB83C06A43 /* [CP] Embed Pods Frameworks */,
 				E5AB75EDE40C95C53BE60F7C /* [CP] Copy Pods Resources */,
-				886B39C01F138B6600BF1A8E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -829,11 +598,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				886B39BE1F13867C00BF1A8E /* Info.plist in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
-				9C223D221F0FA3A00058B60A /* SignIn.storyboard in Resources */,
-				9C223D201F0FA3920058B60A /* Welcome.storyboard in Resources */,
-				9C223D241F0FA3B40058B60A /* CreateAccount.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -862,7 +627,20 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		886B39C01F138B6600BF1A8E /* ShellScript */ = {
+		886B39E41F1392D100BF1A8E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" \"$SRCROOT/MSGP/Generated\"";
+		};
+		886B39E51F1392D800BF1A8E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -962,6 +740,7 @@
 				9CEB71F21F136277007057DA /* PinsAPI.swift in Sources */,
 				9CEB71F31F136277007057DA /* PushNotificationsAPI.swift in Sources */,
 				9CEB71F41F136277007057DA /* RepliesAPI.swift in Sources */,
+				886B39E91F1393BA00BF1A8E /* R.generated.swift in Sources */,
 				9CEB71F51F136277007057DA /* ReportingAPI.swift in Sources */,
 				9CEB71F61F136277007057DA /* SearchAPI.swift in Sources */,
 				9CEB71F71F136277007057DA /* SessionsAPI.swift in Sources */,
@@ -1019,44 +798,9 @@
 				9CEB722B1F136277007057DA /* UserCompactView.swift in Sources */,
 				9CEB722C1F136277007057DA /* UserProfileView.swift in Sources */,
 				9CEB722D1F136277007057DA /* Models.swift in Sources */,
-				3426BABBF9D46CAA984EC621 /* WelcomeViewInput.swift in Sources */,
-				4F8950E9B5676FC2CD8B1B63 /* WelcomeViewOutput.swift in Sources */,
-				392A04539BA925C00C2DA3CB /* WelcomeViewController.swift in Sources */,
-				78119EE59912AF7E5CFB0EDB /* WelcomeModuleInput.swift in Sources */,
-				0FB814B1926DD6C8E4D5E109 /* WelcomePresenter.swift in Sources */,
-				6B064BA04D1EC2D8862533D8 /* WelcomeInteractorInput.swift in Sources */,
-				E3A705984621C254960FEF52 /* WelcomeInteractorOutput.swift in Sources */,
-				67D34B0F22B02AB68519428B /* WelcomeInteractor.swift in Sources */,
-				344B27B1424B83D0A0D608ED /* WelcomeRouterInput.swift in Sources */,
-				4A9AAFDF55AC1384707A4891 /* WelcomeRouter.swift in Sources */,
-				565CEEE11D8851D7E5AB7DB7 /* WelcomeConfigurator.swift in Sources */,
-				DBC95208952C0F9534B34194 /* WelcomeInitializer.swift in Sources */,
-				733D1B4B82AAC446083C5F1D /* SignInViewInput.swift in Sources */,
-				CEA57853EB1D697D811DBD00 /* SignInViewOutput.swift in Sources */,
-				57FE9992733FE951D45F6657 /* SignInViewController.swift in Sources */,
-				99F21AC3E59B4D7F496674F7 /* SignInModuleInput.swift in Sources */,
-				C5F8B176DC5ED1C1DD7E017F /* SignInPresenter.swift in Sources */,
-				E8B709AA9D47FE33915CB557 /* SignInInteractorInput.swift in Sources */,
-				76F668C58EB9313ABC2279F7 /* SignInInteractorOutput.swift in Sources */,
-				CFC0B74A76DF6EFB026F697C /* SignInInteractor.swift in Sources */,
-				7840E1963347E84041910615 /* SignInRouterInput.swift in Sources */,
-				20DB824FF570191F889D4FC7 /* SignInRouter.swift in Sources */,
-				95FD6A1CAD118CD596897256 /* SignInConfigurator.swift in Sources */,
-				CA140924D0C97ED0DDB0AAEB /* SignInInitializer.swift in Sources */,
+				886B39DE1F1391EC00BF1A8E /* Result.swift in Sources */,
 				9CEB71E91F13624B007057DA /* AlamofireImplementations.swift in Sources */,
-				A3C38710AE4392DF8AE3446B /* CreateAccountViewInput.swift in Sources */,
-				8BFCD55E4622E7F01522C390 /* CreateAccountViewOutput.swift in Sources */,
-				0ADDEF755CE65BC90B0F8E64 /* CreateAccountViewController.swift in Sources */,
-				4B0013D4BEC3B7C0B0826644 /* CreateAccountModuleInput.swift in Sources */,
-				C1814AD3E583FED45B07B6C7 /* CreateAccountPresenter.swift in Sources */,
-				04C0E0FE86E49A7978EF2709 /* CreateAccountInteractorInput.swift in Sources */,
-				7C9B9C9BE2EA23724B0C0E12 /* CreateAccountInteractorOutput.swift in Sources */,
-				9C223D261F0FAB4E0058B60A /* SocialSignInUnit.swift in Sources */,
-				79D6F170D92218D0C5B67764 /* CreateAccountInteractor.swift in Sources */,
-				55C6E5ED0109B563EAB7FA5D /* CreateAccountRouterInput.swift in Sources */,
-				D9D4C28390B9061F412CB320 /* CreateAccountRouter.swift in Sources */,
-				FCE488C1CBAC3D60E2F80465 /* CreateAccountConfigurator.swift in Sources */,
-				CC676CF1EDF98966FBE9D08F /* CreateAccountInitializer.swift in Sources */,
+				886B39E11F13922A00BF1A8E /* MSGP.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1187,6 +931,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = "";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1237,6 +982,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = "";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1253,10 +999,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/MSGP/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1279,10 +1022,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/MSGP/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1305,7 +1045,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = akvelon.MSGPTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1320,7 +1060,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = akvelon.MSGPTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
