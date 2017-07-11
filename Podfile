@@ -14,6 +14,7 @@ target 'MSGP' do
   pod 'SwiftLint'
   pod 'SVProgressHUD'
   pod 'SnapKit'
+  pod 'TwitterKit'
   facebook
 end
 

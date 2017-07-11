@@ -8,10 +8,33 @@
 
 import Foundation
 import FBSDKCoreKit
+import TwitterKit
 
-struct ThirdPartyConfigurator {
+protocol URLScheme {
+    func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool
+}
+
+class ThirdPartyConfigurator {
     
-    static func setup(application: UIApplication, launchOptions: [AnyHashable: Any]) {
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+    private let urlSchemes: [URLScheme] = [FacebookURLScheme(), TwitterURLScheme()]
+    private let app: UIApplication
+    private let launchOptions: [AnyHashable: Any]
+
+    init(application: UIApplication, launchOptions: [AnyHashable: Any]) {
+        self.app = application
+        self.launchOptions = launchOptions
+    }
+    
+    func setup() {
+        FBSDKApplicationDelegate.sharedInstance().application(app, didFinishLaunchingWithOptions: launchOptions)
+        
+        Twitter.sharedInstance().start(withConsumerKey:"3wejbkMdljNjIXEZE7xyI3flG",
+                                       consumerSecret:"fhGhZ2bzx9A6kU2pVFdcq7RK7bEJk5niCqS6fKJpA0sQqEwS5t")
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any] = [:]) -> Bool {
+        return urlSchemes.reduce(false) { (result, scheme) in
+            return result || scheme.application(app, open: url, options: options)
+        }
     }
 }

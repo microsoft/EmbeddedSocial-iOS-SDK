@@ -9,18 +9,24 @@
 import Foundation
 
 public final class MSGP {
-    private let application: UIApplication
+    private let app: UIApplication
     private let window: UIWindow
     private let root: RootConfigurator
+    private let thirdPartyConfigurator: ThirdPartyConfigurator
     
     public init(application: UIApplication, window: UIWindow, launchOptions: [AnyHashable: Any]) {
-        self.application = application
+        self.app = application
         self.window = window
         root = RootConfigurator(window: window)
-        ThirdPartyConfigurator.setup(application: application, launchOptions: launchOptions)
+        thirdPartyConfigurator = ThirdPartyConfigurator(application: application, launchOptions: launchOptions)
     }
     
     public func start() {
+        thirdPartyConfigurator.setup()
         root.router.openLoginScreen()
+    }
+    
+    public func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
+        return thirdPartyConfigurator.application(app, open: url, options: options)
     }
 }

@@ -13,7 +13,7 @@ import FBSDKLoginKit
 final class FacebookAPI: AuthAPI {
     private let loginManager = FBSDKLoginManager()
     
-    private let readPermissions = ["public_profile", "email", "user_friends"]
+    private let readPermissions = ["public_profile", "email"]
     
     func login(from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void) {
         loginManager.logIn(withReadPermissions: readPermissions, from: viewController) { (result, error) in

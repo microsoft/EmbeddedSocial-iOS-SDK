@@ -73,6 +73,7 @@
 		886B3AEF1F13D22300BF1A8E /* FBSDKCoreKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3AE71F13D1EC00BF1A8E /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		886B3AF01F13D22300BF1A8E /* FBSDKLoginKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		886B3AF11F13D22300BF1A8E /* FBSDKShareKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		886B3AF41F14C9B400BF1A8E /* URLSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AF31F14C9B400BF1A8E /* URLSchemes.swift */; };
 		993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 		9CD805381F0D012F00B9B0AC /* MSGPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD805371F0D012F00B9B0AC /* MSGPTests.swift */; };
@@ -254,6 +255,7 @@
 		886B3AE71F13D1EC00BF1A8E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKCoreKit/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKLoginKit/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKShareKit/FBSDKShareKit.framework"; sourceTree = "<group>"; };
+		886B3AF31F14C9B400BF1A8E /* URLSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSchemes.swift; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805371F0D012F00B9B0AC /* MSGPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSGPTests.swift; sourceTree = "<group>"; };
@@ -660,7 +662,7 @@
 		886B3AC21F13A37700BF1A8E /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				886B3AE41F13CD4200BF1A8E /* ThirdPartyConfigurator.swift */,
+				886B3AF21F14C9A300BF1A8E /* ThirdPartyConfigurator */,
 				886B3AC31F13A38A00BF1A8E /* AuthService.swift */,
 				886B3AE01F13BF1500BF1A8E /* AuthServiceImplementation.swift */,
 				886B3AE21F13BF5900BF1A8E /* FacebookAPI.swift */,
@@ -674,6 +676,15 @@
 				886B3ADA1F13B51A00BF1A8E /* UIColor+Hex.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		886B3AF21F14C9A300BF1A8E /* ThirdPartyConfigurator */ = {
+			isa = PBXGroup;
+			children = (
+				886B3AE41F13CD4200BF1A8E /* ThirdPartyConfigurator.swift */,
+				886B3AF31F14C9B400BF1A8E /* URLSchemes.swift */,
+			);
+			name = ThirdPartyConfigurator;
 			sourceTree = "<group>";
 		};
 		8B452A1F595C02042F06EAF0 /* Sources */ = {
@@ -1197,6 +1208,7 @@
 				9CEB71FC1F136277007057DA /* Extensions.swift in Sources */,
 				9CEB71FD1F136277007057DA /* ActivityView.swift in Sources */,
 				9CEB71FE1F136277007057DA /* AppCompactView.swift in Sources */,
+				886B3AF41F14C9B400BF1A8E /* URLSchemes.swift in Sources */,
 				9CEB71FF1F136277007057DA /* BuildsCurrentResponse.swift in Sources */,
 				9CEB72001F136277007057DA /* CommentView.swift in Sources */,
 				9CEB72011F136277007057DA /* ContentCompactView.swift in Sources */,
