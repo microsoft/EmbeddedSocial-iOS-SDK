@@ -9,23 +9,27 @@
 import Foundation
 import FBSDKCoreKit
 import TwitterKit
+import GoogleSignIn
 
 struct FacebookURLScheme: URLScheme {
     
     func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
-        guard let source = options["UIApplicationOpenURLOptionsSourceApplicationKey"] as? String,
-            let annotation = options["UIApplicationOpenURLOptionsAnnotationKey"],
-            let scheme = url.scheme
-            else {
+        if #available(iOS 9.0, *) {
+            guard let scheme = url.scheme else {
                 return false
+            }
+            
+            let (source, annotation) = sourceAndAnnotation(from: options)
+            
+            if scheme.hasPrefix("fb") && url.host == "authorize" {
+                return FBSDKApplicationDelegate.sharedInstance()
+                    .application(application, open: url, sourceApplication: source, annotation: annotation)
+            }
+            
+            return false
+        } else {
+            fatalError("Not implemented for iOS 8")
         }
-        
-        if scheme.hasPrefix("fb") && url.host == "authorize" {
-            return FBSDKApplicationDelegate.sharedInstance()
-                .application(application, open: url, sourceApplication: source, annotation: annotation)
-        }
-        
-        return false
     }
 }
 
@@ -38,4 +42,27 @@ struct TwitterURLScheme: URLScheme {
         
         return false
     }
+}
+
+struct GoogleURLScheme: URLScheme {
+    
+    func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
+        let (source, annotation) = sourceAndAnnotation(from: options)
+        return GIDSignIn.sharedInstance().handle(url, sourceApplication: source, annotation: annotation)
+    }
+}
+
+private func sourceAndAnnotation(from options: [AnyHashable: Any]) -> (String?, Any?) {
+    var source: String?
+    var annotation: Any?
+    
+    if #available(iOS 9.0, *) {
+        source = options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String
+        annotation = options[UIApplicationOpenURLOptionsKey.annotation]
+    } else {
+        source = options["UIApplicationOpenURLOptionsSourceApplicationKey"] as? String
+        annotation = options["UIApplicationOpenURLOptionsAnnotationKey"]
+    }
+    
+    return (source, annotation)
 }

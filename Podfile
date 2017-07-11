@@ -16,6 +16,7 @@ abstract_target 'Group' do
     pod 'SnapKit'
     pod 'SlideMenuControllerSwift', '~> 3.0'
     pod 'TwitterKit'
+    pod 'Google/SignIn'
     facebook
     
     target 'MSGP' do

@@ -30,7 +30,7 @@ final class LoginPresenter: LoginViewOutput {
     }
     
     func onGoogleSignInTapped() {
-        
+        login(with: .google)
     }
     
     func onTwitterSignInTapped() {

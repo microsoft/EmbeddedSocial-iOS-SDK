@@ -30,4 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
         return msgp.application(app, open: url, options: options)
     }
+    
+    /// iOS 8 support
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        var options: [String: Any] = ["UIApplicationOpenURLOptionsAnnotationKey": annotation]
+        
+        if let sourceApplication = sourceApplication {
+            options["UIApplicationOpenURLOptionsSourceApplicationKey"] = sourceApplication
+        }
+        
+        return msgp.application(application, open: url as URL, options: options)
+    }
 }

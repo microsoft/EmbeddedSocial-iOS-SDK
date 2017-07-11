@@ -16,6 +16,8 @@ struct AuthAPIProvider: AuthAPIProviderType {
             return FacebookAPI()
         case .twitter:
             return TwitterAPI()
+        case .google:
+            return GoogleAPI()
         default:
             return FacebookAPI()
         }
