@@ -1,17 +1,29 @@
-# Uncomment the next line to define a global platform for your project
 platform :ios, '8.0'
+use_frameworks!
 
-target 'MSGP' do
-  use_frameworks!
+abstract_target 'Group' do
   
   pod 'Alamofire'
   pod 'SwiftLint'
   pod 'SVProgressHUD'
   pod 'SnapKit'
   pod 'SlideMenuControllerSwift', '~> 3.0'
+
+target 'MSGP' do
+
+  
+
+  target 'MSGPTests' do
+    inherit! :search_paths
+    # Pods for testing
+    
+  end
+
 end
 
-target 'MSGPTests' do
-    use_frameworks!
+target 'MSGP-Example' do
+
+end
+
 end
 
