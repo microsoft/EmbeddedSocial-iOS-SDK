@@ -1,5 +1,6 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, ‘8.3’
+
+use_frameworks!
 
 def facebook
     pod 'FBSDKCoreKit'
@@ -7,18 +8,28 @@ def facebook
     pod 'FBSDKShareKit'
 end
 
-target 'MSGP' do
-  use_frameworks!
-  
-  pod 'Alamofire'
-  pod 'SwiftLint'
-  pod 'SVProgressHUD'
-  pod 'SnapKit'
-  pod 'TwitterKit'
-  facebook
+abstract_target 'Group' do
+    
+    pod 'Alamofire'
+    pod 'SwiftLint'
+    pod 'SVProgressHUD'
+    pod 'SnapKit'
+    pod 'SlideMenuControllerSwift', '~> 3.0'
+    pod 'TwitterKit'
+    facebook
+    
+    target 'MSGP' do
+               
+        target 'MSGPTests' do
+            inherit! :search_paths
+            # Pods for testing
+            
+        end
+        
+    end
+    
+    target 'MSGP-Example' do
+        
+    end
+    
 end
-
-target 'MSGPTests' do
-    use_frameworks!
-end
-

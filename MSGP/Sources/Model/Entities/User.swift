@@ -14,6 +14,7 @@ struct User {
     let bio: String?
     let phoneNumber: String?
     let token: String?
+    let photo: Photo?
     let provider: AuthProvider
     
     init(name: String? = nil,
@@ -21,12 +22,14 @@ struct User {
          bio: String? = nil,
          phoneNumber: String? = nil,
          token: String? = nil,
+         photo: Photo? = nil,
          provider: AuthProvider) {
         self.name = name
         self.email = email
         self.bio = bio
         self.phoneNumber = phoneNumber
         self.token = token
+        self.photo = photo
         self.provider = provider
     }
 }
@@ -44,6 +47,7 @@ extension User: Hashable {
             lhs.email == rhs.email &&
             lhs.bio == rhs.bio &&
             lhs.phoneNumber == rhs.phoneNumber &&
-            lhs.token == rhs.token
+            lhs.token == rhs.token &&
+            lhs.photo == rhs.photo
     }
 }
