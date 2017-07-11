@@ -13,6 +13,7 @@ enum AuthProvider: Int {
     case microsoft
     case google
     case twitter
+    case email
 }
 
 protocol AuthAPI {

@@ -74,6 +74,8 @@
 		886B3AF01F13D22300BF1A8E /* FBSDKLoginKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		886B3AF11F13D22300BF1A8E /* FBSDKShareKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		886B3AF41F14C9B400BF1A8E /* URLSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AF31F14C9B400BF1A8E /* URLSchemes.swift */; };
+		886B3AF61F14CD3B00BF1A8E /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AF51F14CD3B00BF1A8E /* TwitterAPI.swift */; };
+		886B3AF81F14D79D00BF1A8E /* AuthAPIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AF71F14D79D00BF1A8E /* AuthAPIProvider.swift */; };
 		993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 		9CD805381F0D012F00B9B0AC /* MSGPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD805371F0D012F00B9B0AC /* MSGPTests.swift */; };
@@ -256,6 +258,8 @@
 		886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKLoginKit/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKShareKit/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		886B3AF31F14C9B400BF1A8E /* URLSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSchemes.swift; sourceTree = "<group>"; };
+		886B3AF51F14CD3B00BF1A8E /* TwitterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPI.swift; sourceTree = "<group>"; };
+		886B3AF71F14D79D00BF1A8E /* AuthAPIProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthAPIProvider.swift; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805371F0D012F00B9B0AC /* MSGPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSGPTests.swift; sourceTree = "<group>"; };
@@ -663,9 +667,7 @@
 			isa = PBXGroup;
 			children = (
 				886B3AF21F14C9A300BF1A8E /* ThirdPartyConfigurator */,
-				886B3AC31F13A38A00BF1A8E /* AuthService.swift */,
-				886B3AE01F13BF1500BF1A8E /* AuthServiceImplementation.swift */,
-				886B3AE21F13BF5900BF1A8E /* FacebookAPI.swift */,
+				886B3AF91F14D85300BF1A8E /* Auth */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -685,6 +687,18 @@
 				886B3AF31F14C9B400BF1A8E /* URLSchemes.swift */,
 			);
 			name = ThirdPartyConfigurator;
+			sourceTree = "<group>";
+		};
+		886B3AF91F14D85300BF1A8E /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				886B3AC31F13A38A00BF1A8E /* AuthService.swift */,
+				886B3AE01F13BF1500BF1A8E /* AuthServiceImplementation.swift */,
+				886B3AF71F14D79D00BF1A8E /* AuthAPIProvider.swift */,
+				886B3AE21F13BF5900BF1A8E /* FacebookAPI.swift */,
+				886B3AF51F14CD3B00BF1A8E /* TwitterAPI.swift */,
+			);
+			name = Auth;
 			sourceTree = "<group>";
 		};
 		8B452A1F595C02042F06EAF0 /* Sources */ = {
@@ -1196,6 +1210,7 @@
 				886B3AC41F13A38A00BF1A8E /* AuthService.swift in Sources */,
 				9CEB71F21F136277007057DA /* PinsAPI.swift in Sources */,
 				9CEB71F31F136277007057DA /* PushNotificationsAPI.swift in Sources */,
+				886B3AF61F14CD3B00BF1A8E /* TwitterAPI.swift in Sources */,
 				9CEB71F41F136277007057DA /* RepliesAPI.swift in Sources */,
 				9CEB71F51F136277007057DA /* ReportingAPI.swift in Sources */,
 				9CEB71F61F136277007057DA /* SearchAPI.swift in Sources */,
@@ -1244,6 +1259,7 @@
 				886B3AD91F13B17100BF1A8E /* Fonts.swift in Sources */,
 				886B3A9B1F13A2CB00BF1A8E /* CreateAccountPresenter.swift in Sources */,
 				886B3AB81F13A2CB00BF1A8E /* LoginViewController.swift in Sources */,
+				886B3AF81F14D79D00BF1A8E /* AuthAPIProvider.swift in Sources */,
 				9CEB72161F136277007057DA /* PostLinkedAccountRequest.swift in Sources */,
 				9CEB72171F136277007057DA /* PostPinRequest.swift in Sources */,
 				9CEB72181F136277007057DA /* PostReplyRequest.swift in Sources */,

@@ -9,15 +9,41 @@
 import Foundation
 
 struct User {
-    let username: String
+    let name: String?
+    let email: String?
+    let bio: String?
+    let phoneNumber: String?
+    let token: String?
+    let provider: AuthProvider
+    
+    init(name: String? = nil,
+         email: String? = nil,
+         bio: String? = nil,
+         phoneNumber: String? = nil,
+         token: String? = nil,
+         provider: AuthProvider) {
+        self.name = name
+        self.email = email
+        self.bio = bio
+        self.phoneNumber = phoneNumber
+        self.token = token
+        self.provider = provider
+    }
 }
 
 extension User: Hashable {
     var hashValue: Int {
-        return username.hashValue
+        let nonNilFields = [name, email, bio, phoneNumber, token].flatMap { $0 }
+        return nonNilFields.reduce(1, { (result, field) in
+            return result ^ field.hashValue
+        })
     }
     
     static func ==(_ lhs: User, _ rhs: User) -> Bool {
-        return lhs.username == rhs.username
+        return lhs.name == rhs.name &&
+            lhs.email == rhs.email &&
+            lhs.bio == rhs.bio &&
+            lhs.phoneNumber == rhs.phoneNumber &&
+            lhs.token == rhs.token
     }
 }

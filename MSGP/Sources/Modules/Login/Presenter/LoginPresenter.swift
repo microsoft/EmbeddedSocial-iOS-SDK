@@ -26,9 +26,7 @@ final class LoginPresenter: LoginViewOutput {
     }
     
     func onFacebookSignInTapped() {
-        interactor.login(provider: .facebook, from: view as? UIViewController) { [weak self] result in
-            self?.moduleOutput?.onLogin(result)
-        }
+        login(with: .facebook)
     }
     
     func onGoogleSignInTapped() {
@@ -36,11 +34,17 @@ final class LoginPresenter: LoginViewOutput {
     }
     
     func onTwitterSignInTapped() {
-        
+        login(with: .twitter)
     }
     
     func onMicrosoftSignInTapped() {
         
+    }
+    
+    private func login(with provider: AuthProvider) {
+        interactor.login(provider: provider, from: view as? UIViewController) { [weak self] result in
+            self?.moduleOutput?.onLogin(result)
+        }
     }
 }
 

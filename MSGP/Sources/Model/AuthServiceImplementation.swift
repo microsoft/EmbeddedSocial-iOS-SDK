@@ -8,13 +8,6 @@
 
 import Foundation
 
-struct AuthAPIProvider: AuthAPIProviderType {
-    
-    func api(for provider: AuthProvider) -> AuthAPI {
-        return FacebookAPI()
-    }
-}
-
 final class AuthService: AuthServiceType {
     private let apiProvider: AuthAPIProvider
     
@@ -26,19 +19,20 @@ final class AuthService: AuthServiceType {
         let api = apiProvider.api(for: provider)
         api.login(from: viewController) { result in
             _ = api // to extend lifetime
-            handler(.success(User(username: "\(provider)-user")))
+            
+            handler(.success(User(provider: provider)))
         }
     }
     
     func login(email: String, password: String, handler: @escaping (Result<User>) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            handler(.success(User(username: email)))
+            handler(.success(User(provider: .email)))
         }
     }
     
     func createAccount(email: String, password: String, handler: @escaping (Result<User>) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            handler(.success(User(username: email)))
+            handler(.success(User(provider: .email)))
         }
     }
 }
