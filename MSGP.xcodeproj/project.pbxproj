@@ -30,6 +30,8 @@
 		886B39DE1F1391EC00BF1A8E /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39DD1F1391EC00BF1A8E /* Result.swift */; };
 		886B39E11F13922A00BF1A8E /* MSGP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39E01F13922A00BF1A8E /* MSGP.swift */; };
 		9BF785413640F5BB5CB399E2 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4290121AF42BC8F2029A1C17 /* MenuPresenter.swift */; };
+		9C60A93E1F151CD1004D84C0 /* MenuCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C60A93D1F151CD1004D84C0 /* MenuCellViewModel.swift */; };
+		9C60A9401F151EF8004D84C0 /* MenuCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C60A93F1F151EF8004D84C0 /* MenuCellView.swift */; };
 		9CA740E21F14C0C100B4A5BA /* NavigationStack.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CA740E11F14C0C100B4A5BA /* NavigationStack.storyboard */; };
 		9CA740E41F14C14100B4A5BA /* NavigationStackMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA740E31F14C14100B4A5BA /* NavigationStackMenu.swift */; };
 		9CA740E61F14C19F00B4A5BA /* NavigationStackContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA740E51F14C19F00B4A5BA /* NavigationStackContainer.swift */; };
@@ -177,6 +179,8 @@
 		886B39DD1F1391EC00BF1A8E /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		886B39E01F13922A00BF1A8E /* MSGP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSGP.swift; sourceTree = "<group>"; };
 		8BFB642EA939503EED7CFA05 /* Pods-Shows-MSGP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shows-MSGP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Shows-MSGP/Pods-Shows-MSGP.debug.xcconfig"; sourceTree = "<group>"; };
+		9C60A93D1F151CD1004D84C0 /* MenuCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellViewModel.swift; sourceTree = "<group>"; };
+		9C60A93F1F151EF8004D84C0 /* MenuCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellView.swift; sourceTree = "<group>"; };
 		9CA740E11F14C0C100B4A5BA /* NavigationStack.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NavigationStack.storyboard; sourceTree = "<group>"; };
 		9CA740E31F14C14100B4A5BA /* NavigationStackMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackMenu.swift; sourceTree = "<group>"; };
 		9CA740E51F14C19F00B4A5BA /* NavigationStackContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackContainer.swift; sourceTree = "<group>"; };
@@ -420,6 +424,8 @@
 			children = (
 				9CEB71A11F136243007057DA /* API */,
 				9C223D1D1F0FA2950058B60A /* Entities */,
+				9C60A93D1F151CD1004D84C0 /* MenuCellViewModel.swift */,
+				9C60A93F1F151EF8004D84C0 /* MenuCellView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -479,7 +485,6 @@
 		9CA740E81F14C23B00B4A5BA /* NavigationStack */ = {
 			isa = PBXGroup;
 			children = (
-				9CA740E11F14C0C100B4A5BA /* NavigationStack.storyboard */,
 				9CFCA3EE1F14BFE4007041CB /* NavigationStack.swift */,
 				9CA740E51F14C19F00B4A5BA /* NavigationStackContainer.swift */,
 				9CA740E31F14C14100B4A5BA /* NavigationStackMenu.swift */,
@@ -656,6 +661,7 @@
 		E2EBF22947DF14B193D39928 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				9CA740E11F14C0C100B4A5BA /* NavigationStack.storyboard */,
 				9CFCA3E31F13A3DB007041CB /* Menu.storyboard */,
 				F073AAF6978B31400858E2D6 /* View */,
 				7F3A53235C4820A5254D967C /* Presenter */,
@@ -1034,6 +1040,7 @@
 				9CEB72191F136277007057DA /* PostReplyResponse.swift in Sources */,
 				9CEB721A1F136277007057DA /* PostReportRequest.swift in Sources */,
 				9CEB721B1F136277007057DA /* PostSessionRequest.swift in Sources */,
+				9C60A93E1F151CD1004D84C0 /* MenuCellViewModel.swift in Sources */,
 				9CEB721C1F136277007057DA /* PostSessionResponse.swift in Sources */,
 				9CEB721D1F136277007057DA /* PostTopicNameRequest.swift in Sources */,
 				9CEB721E1F136277007057DA /* PostTopicRequest.swift in Sources */,
@@ -1042,6 +1049,7 @@
 				9CEB72211F136277007057DA /* PostUserResponse.swift in Sources */,
 				9CEB72221F136277007057DA /* PutNotificationsStatusRequest.swift in Sources */,
 				9CEB72231F136277007057DA /* PutPushRegistrationRequest.swift in Sources */,
+				9C60A9401F151EF8004D84C0 /* MenuCellView.swift in Sources */,
 				9CEB72241F136277007057DA /* PutTopicNameRequest.swift in Sources */,
 				9CEB72251F136277007057DA /* PutTopicRequest.swift in Sources */,
 				9CEB72261F136277007057DA /* PutUserInfoRequest.swift in Sources */,

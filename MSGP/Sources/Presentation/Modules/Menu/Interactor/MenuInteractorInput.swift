@@ -9,5 +9,7 @@
 import Foundation
 
 protocol MenuInteractorInput {
-
+    
+    func cellViewModel(path:IndexPath) -> MenuCellViewModel
+    
 }

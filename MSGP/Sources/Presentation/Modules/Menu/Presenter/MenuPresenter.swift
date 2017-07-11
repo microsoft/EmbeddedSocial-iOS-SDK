@@ -7,7 +7,15 @@
 //
 
 class MenuPresenter: MenuModuleInput, MenuViewOutput, MenuInteractorOutput {
-
+    
+    func needConfigureCell(path: IndexPath) -> MenuCellViewModel {
+        return self.interactor.cellViewModel(path: path)
+    }
+    
+    func didTapCell(path: IndexPath) {
+        
+    }
+    
     weak var view: MenuViewInput!
     var interactor: MenuInteractorInput!
     var router: MenuRouterInput!

@@ -8,9 +8,7 @@
 
 import Foundation
 
-class NavigationStackMenu: UIViewController {
-    
-//    @IBOutlet weak var
-    
-
+struct MenuCellViewModel {
+    var title: String
+    var pictureName: String
 }

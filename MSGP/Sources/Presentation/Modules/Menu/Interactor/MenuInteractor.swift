@@ -7,7 +7,13 @@
 //
 
 class MenuInteractor: MenuInteractorInput {
-
+    
+    func cellViewModel(path: IndexPath) -> MenuCellViewModel {
+        
+        return MenuCellViewModel(title: "item #\(path.row)", pictureName: "icon_home")
+        
+    }
+    
     weak var output: MenuInteractorOutput!
 
 }
