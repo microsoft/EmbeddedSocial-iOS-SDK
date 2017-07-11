@@ -28,8 +28,8 @@ class ThirdPartyConfigurator {
     func setup() {
         FBSDKApplicationDelegate.sharedInstance().application(app, didFinishLaunchingWithOptions: launchOptions)
         
-        Twitter.sharedInstance().start(withConsumerKey:"3wejbkMdljNjIXEZE7xyI3flG",
-                                       consumerSecret:"fhGhZ2bzx9A6kU2pVFdcq7RK7bEJk5niCqS6fKJpA0sQqEwS5t")
+        Twitter.sharedInstance().start(withConsumerKey:"2dw07dxA952U3QmEcT3TruHbd",
+                                       consumerSecret:"c1eoCNGZP0hJ3UHiB50qIh9Y0TMSDq8LOYZ3gJO8blsql9sRB5")
     }
     
     func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any] = [:]) -> Bool {

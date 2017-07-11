@@ -19,8 +19,7 @@ final class AuthService: AuthServiceType {
         let api = apiProvider.api(for: provider)
         api.login(from: viewController) { result in
             _ = api // to extend lifetime
-            
-            handler(.success(User(provider: provider)))
+            handler(result)
         }
     }
     

@@ -12,7 +12,6 @@ import TwitterKit
 final class TwitterAPI: AuthAPI {
     
     func login(from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void) {
-
         Twitter.sharedInstance().logIn(completion: { [weak self] (session, error) in
             guard error == nil else {
                 handler(.failure(error!))
@@ -28,7 +27,7 @@ final class TwitterAPI: AuthAPI {
     }
     
     private func requestEmail(session: TWTRSession, completion: @escaping (Result<User>) -> Void) {
-        let client = TWTRAPIClient.withCurrentUser()
+        let client = TWTRAPIClient(userID: session.userID)
         
         client.requestEmail { email, error in
             if let error = error {
