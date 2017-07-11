@@ -4,7 +4,7 @@ included:
 excluded:
   - Carthage
   - Pods
-  - MSGP/Sources/Model/API
+  - MSGP/Sources/Generated
 
 disabled_rules: # rule identifiers to exclude from running
   - trailing_whitespace
