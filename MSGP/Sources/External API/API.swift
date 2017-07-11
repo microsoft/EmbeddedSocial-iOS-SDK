@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SlideMenuControllerSwift
 
 public protocol MenuItemsDelegate {
     
@@ -16,17 +17,17 @@ public protocol MenuItemsDelegate {
 
 public class API {
     
-    public enum MenuFormat {
-        case tab, dual, single
-    }
+    fileprivate static var navigationStack: NavigationStack?
     
     public static var items = [String]()
     
-    public static func injectMenuStackIntoApp(window: UIWindow) {
+    public static func injectMenuStackIntoApp(window: UIWindow, format: NavigationStackFormat? = .single) {
+        
+        navigationStack = NavigationStack(window: window, format: format)
         
     }
     
-    public static func setMenuItems(_ : [String], format: MenuFormat, delegate: MenuItemsDelegate?) {
+    public static func setMenuItems(_ : [String], delegate: MenuItemsDelegate?) {
         
     }
     

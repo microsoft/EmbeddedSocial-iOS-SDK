@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Menu: UIViewController {
+class NavigationStackMenu: UIViewController {
     
 
 }

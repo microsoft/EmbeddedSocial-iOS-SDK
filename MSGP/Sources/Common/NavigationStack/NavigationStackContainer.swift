@@ -10,4 +10,16 @@ import Foundation
 
 class NavigationStackContainer: UIViewController {
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Set menu button
+        
+        let image = UIImage(named: "icon_hamburger", in: Bundle(for: type(of: self)), compatibleWith: nil)!
+        self.addLeftBarButtonWithImage(image)
+        self.slideMenuController()?.removeLeftGestures()
+        self.slideMenuController()?.addLeftGestures()
+        
+    }
+    
 }

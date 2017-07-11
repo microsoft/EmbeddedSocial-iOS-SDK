@@ -19,8 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
-        API.injectMenuStackIntoApp(window: self.window!)
-        API.setMenuItems(["lol", "lel"], format: .single, delegate: nil)
+        // Menu integration
+        API.injectMenuStackIntoApp(window: self.window!, format: .dual)
+        API.setMenuItems(["lol", "lel"], delegate: nil)
+        
+        self.window?.makeKeyAndVisible()
         
         return true
     }
