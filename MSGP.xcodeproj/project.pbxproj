@@ -12,7 +12,6 @@
 		21E6B50C51CACB5AC248D716 /* Pods_MSGPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B9B8BEED405B8C971B735F /* Pods_MSGPTests.framework */; };
 		506CDF6F4DB1E41D76E78C71 /* MenuViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8489F95B030DE78A19959B /* MenuViewTests.swift */; };
 		80DB14934D6DEA36A595A3CD /* MenuConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B429F0AE94B8DDE8ED11D2 /* MenuConfiguratorTests.swift */; };
-		886B39BF1F13867C00BF1A8E /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 886B39BD1F13867C00BF1A8E /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
 		886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C91F138F5D00BF1A8E /* ViewController.swift */; };
 		886B39CD1F138F5D00BF1A8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CB1F138F5D00BF1A8E /* Main.storyboard */; };
@@ -52,6 +51,8 @@
 		886B3AC81F13A76000BF1A8E /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC71F13A76000BF1A8E /* Identifiable.swift */; };
 		886B3ACA1F13A7F300BF1A8E /* StoryboardViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC91F13A7F300BF1A8E /* StoryboardViewControllers.swift */; };
 		886B3B881F14F43C00BF1A8E /* MSGP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3B871F14F43C00BF1A8E /* MSGP.swift */; };
+		88BC874B1F14FDD900EAEFD7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87491F14FDD900EAEFD7 /* Info.plist */; };
+		88BC874C1F14FDD900EAEFD7 /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 88BC874A1F14FDD900EAEFD7 /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 		9CD805381F0D012F00B9B0AC /* MSGPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD805371F0D012F00B9B0AC /* MSGPTests.swift */; };
@@ -163,8 +164,6 @@
 		78DD9247E1EC3A31F3C6E166 /* MenuRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuRouterInput.swift; sourceTree = "<group>"; };
 		7D56807E5947724E4247FD8F /* Pods-MSGP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGP.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSGP/Pods-MSGP.release.xcconfig"; sourceTree = "<group>"; };
 		83C2F4EC736C209DC9E7FC6A /* MenuInteractorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuInteractorTests.swift; sourceTree = "<group>"; };
-		886B39BC1F13867C00BF1A8E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		886B39BD1F13867C00BF1A8E /* MSGP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -209,6 +208,9 @@
 		886B3ACC1F13ABEA00BF1A8E /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/SnapKit/SnapKit.framework"; sourceTree = "<group>"; };
 		886B3ACD1F13ABEA00BF1A8E /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/SVProgressHUD/SVProgressHUD.framework"; sourceTree = "<group>"; };
 		886B3B871F14F43C00BF1A8E /* MSGP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSGP.swift; sourceTree = "<group>"; };
+		88BC87491F14FDD900EAEFD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		88BC874A1F14FDD900EAEFD7 /* MSGP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
+		88BC874D1F14FE0E00EAEFD7 /* MSGP.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = MSGP.modulemap; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805371F0D012F00B9B0AC /* MSGPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSGPTests.swift; sourceTree = "<group>"; };
@@ -416,15 +418,6 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
-		886B39BB1F13867C00BF1A8E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				886B39BC1F13867C00BF1A8E /* Info.plist */,
-				886B39BD1F13867C00BF1A8E /* MSGP.h */,
-			);
-			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		886B39C61F138F5D00BF1A8E /* MSGP-Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -607,6 +600,16 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		88BC87481F14FDD900EAEFD7 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				88BC874D1F14FE0E00EAEFD7 /* MSGP.modulemap */,
+				88BC87491F14FDD900EAEFD7 /* Info.plist */,
+				88BC874A1F14FDD900EAEFD7 /* MSGP.h */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
 		8B452A1F595C02042F06EAF0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -674,7 +677,7 @@
 			children = (
 				9C223D1E1F0FA3390058B60A /* Resources */,
 				8B452A1F595C02042F06EAF0 /* Sources */,
-				886B39BB1F13867C00BF1A8E /* Supporting Files */,
+				88BC87481F14FDD900EAEFD7 /* SupportingFiles */,
 			);
 			path = MSGP;
 			sourceTree = "<group>";
@@ -853,7 +856,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				886B39BF1F13867C00BF1A8E /* MSGP.h in Headers */,
+				88BC874C1F14FDD900EAEFD7 /* MSGP.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -977,6 +980,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88BC874B1F14FDD900EAEFD7 /* Info.plist in Resources */,
 				886B3AB71F13A2CB00BF1A8E /* Login.storyboard in Resources */,
 				886B3AA01F13A2CB00BF1A8E /* CreateAccount.storyboard in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
@@ -1402,13 +1406,14 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/MSGP/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/MSGP/SupportingFiles/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = akvelon.MSGP;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/MSGP/SupportingFiles";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1426,13 +1431,14 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/MSGP/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/MSGP/SupportingFiles/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = akvelon.MSGP;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/MSGP/SupportingFiles";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
