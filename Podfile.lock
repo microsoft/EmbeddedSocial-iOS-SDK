@@ -1,21 +1,24 @@
 PODS:
   - Alamofire (4.5.0)
+  - SlideMenuControllerSwift (3.0.1)
   - SnapKit (3.2.0)
   - SVProgressHUD (2.1.2)
   - SwiftLint (0.20.1)
 
 DEPENDENCIES:
   - Alamofire
+  - SlideMenuControllerSwift (~> 3.0)
   - SnapKit
   - SVProgressHUD
   - SwiftLint
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  SlideMenuControllerSwift: 9a163b16d54afab734add42858cba7ef7c307755
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftLint: f60095dc173a3f3ec505bb34f5229c3dfd779a54
 
-PODFILE CHECKSUM: 8f797e0ad2c6eda5f6490ab1d79623c8d5d4ce32
+PODFILE CHECKSUM: b248d7d373d0eeb36bda1f45cfe4dc85b4d3b8fc
 
 COCOAPODS: 1.2.1

@@ -8,6 +8,13 @@
 
 import Foundation
 
+enum MenuNavigation {
+    case home, search, popular, pins, feed, settings, logout
+}
+
+
 protocol MenuRouterInput {
+    
+    func openMenu(_ : MenuNavigation)
 
 }
