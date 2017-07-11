@@ -1,0 +1,6 @@
+framework module MSGP {
+    umbrella header "MSGP.h"
+    
+    export *
+    module * { export * }
+}

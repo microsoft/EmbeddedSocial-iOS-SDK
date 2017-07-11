@@ -12,7 +12,6 @@
 		21E6B50C51CACB5AC248D716 /* Pods_MSGPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B9B8BEED405B8C971B735F /* Pods_MSGPTests.framework */; };
 		506CDF6F4DB1E41D76E78C71 /* MenuViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8489F95B030DE78A19959B /* MenuViewTests.swift */; };
 		80DB14934D6DEA36A595A3CD /* MenuConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B429F0AE94B8DDE8ED11D2 /* MenuConfiguratorTests.swift */; };
-		886B39BF1F13867C00BF1A8E /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 886B39BD1F13867C00BF1A8E /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
 		886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C91F138F5D00BF1A8E /* ViewController.swift */; };
 		886B39CD1F138F5D00BF1A8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CB1F138F5D00BF1A8E /* Main.storyboard */; };
@@ -52,12 +51,6 @@
 		886B3AC61F13A46C00BF1A8E /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC51F13A46C00BF1A8E /* Storyboard.swift */; };
 		886B3AC81F13A76000BF1A8E /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC71F13A76000BF1A8E /* Identifiable.swift */; };
 		886B3ACA1F13A7F300BF1A8E /* StoryboardViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC91F13A7F300BF1A8E /* StoryboardViewControllers.swift */; };
-		886B3ACE1F13ABEA00BF1A8E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B3ACB1F13ABEA00BF1A8E /* Alamofire.framework */; };
-		886B3ACF1F13ABEA00BF1A8E /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B3ACC1F13ABEA00BF1A8E /* SnapKit.framework */; };
-		886B3AD01F13ABEA00BF1A8E /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B3ACD1F13ABEA00BF1A8E /* SVProgressHUD.framework */; };
-		886B3AD21F13AC4B00BF1A8E /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3ACB1F13ABEA00BF1A8E /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		886B3AD31F13AC4B00BF1A8E /* SnapKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3ACC1F13ABEA00BF1A8E /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		886B3AD41F13AC4B00BF1A8E /* SVProgressHUD.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3ACD1F13ABEA00BF1A8E /* SVProgressHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		886B3AD71F13B16D00BF1A8E /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AD61F13B16D00BF1A8E /* Palette.swift */; };
 		886B3AD91F13B17100BF1A8E /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AD81F13B17100BF1A8E /* Fonts.swift */; };
 		886B3ADB1F13B51A00BF1A8E /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3ADA1F13B51A00BF1A8E /* UIColor+Hex.swift */; };
@@ -65,14 +58,6 @@
 		886B3AE11F13BF1500BF1A8E /* AuthServiceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AE01F13BF1500BF1A8E /* AuthServiceImplementation.swift */; };
 		886B3AE31F13BF5900BF1A8E /* FacebookAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AE21F13BF5900BF1A8E /* FacebookAPI.swift */; };
 		886B3AE51F13CD4200BF1A8E /* ThirdPartyConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AE41F13CD4200BF1A8E /* ThirdPartyConfigurator.swift */; };
-		886B3AEA1F13D1EC00BF1A8E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B3AE61F13D1EC00BF1A8E /* Bolts.framework */; };
-		886B3AEB1F13D1EC00BF1A8E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B3AE71F13D1EC00BF1A8E /* FBSDKCoreKit.framework */; };
-		886B3AEC1F13D1EC00BF1A8E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */; };
-		886B3AED1F13D1EC00BF1A8E /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */; };
-		886B3AEE1F13D22300BF1A8E /* Bolts.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3AE61F13D1EC00BF1A8E /* Bolts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		886B3AEF1F13D22300BF1A8E /* FBSDKCoreKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3AE71F13D1EC00BF1A8E /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		886B3AF01F13D22300BF1A8E /* FBSDKLoginKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		886B3AF11F13D22300BF1A8E /* FBSDKShareKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		886B3AF41F14C9B400BF1A8E /* URLSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AF31F14C9B400BF1A8E /* URLSchemes.swift */; };
 		886B3AF61F14CD3B00BF1A8E /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AF51F14CD3B00BF1A8E /* TwitterAPI.swift */; };
 		886B3AF81F14D79D00BF1A8E /* AuthAPIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AF71F14D79D00BF1A8E /* AuthAPIProvider.swift */; };
@@ -145,6 +130,8 @@
 		886B3B841F14EFF000BF1A8E /* UserCompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3B3F1F14EFF000BF1A8E /* UserCompactView.swift */; };
 		886B3B851F14EFF000BF1A8E /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3B401F14EFF000BF1A8E /* UserProfileView.swift */; };
 		886B3B861F14EFF000BF1A8E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3B411F14EFF000BF1A8E /* Models.swift */; };
+		88BC87411F14FA1B00EAEFD7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC873E1F14FA1B00EAEFD7 /* Info.plist */; };
+		88BC87421F14FA1B00EAEFD7 /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 88BC873F1F14FA1B00EAEFD7 /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 		9CD805381F0D012F00B9B0AC /* MSGPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD805371F0D012F00B9B0AC /* MSGPTests.swift */; };
@@ -168,25 +155,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		886B3AD11F13AC3100BF1A8E /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				886B3AEE1F13D22300BF1A8E /* Bolts.framework in CopyFiles */,
-				886B3AEF1F13D22300BF1A8E /* FBSDKCoreKit.framework in CopyFiles */,
-				886B3AF01F13D22300BF1A8E /* FBSDKLoginKit.framework in CopyFiles */,
-				886B3AF11F13D22300BF1A8E /* FBSDKShareKit.framework in CopyFiles */,
-				886B3AD21F13AC4B00BF1A8E /* Alamofire.framework in CopyFiles */,
-				886B3AD31F13AC4B00BF1A8E /* SnapKit.framework in CopyFiles */,
-				886B3AD41F13AC4B00BF1A8E /* SVProgressHUD.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		03B429F0AE94B8DDE8ED11D2 /* MenuConfiguratorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuConfiguratorTests.swift; sourceTree = "<group>"; };
 		1C6F125777D8211447FCD539 /* Pods-MSGPTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -195,8 +163,6 @@
 		72B9B8BEED405B8C971B735F /* Pods_MSGPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D56807E5947724E4247FD8F /* Pods-MSGP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGP.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSGP/Pods-MSGP.release.xcconfig"; sourceTree = "<group>"; };
 		83C2F4EC736C209DC9E7FC6A /* MenuInteractorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuInteractorTests.swift; sourceTree = "<group>"; };
-		886B39BC1F13867C00BF1A8E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		886B39BD1F13867C00BF1A8E /* MSGP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -323,6 +289,9 @@
 		886B3B3F1F14EFF000BF1A8E /* UserCompactView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCompactView.swift; sourceTree = "<group>"; };
 		886B3B401F14EFF000BF1A8E /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		886B3B411F14EFF000BF1A8E /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		88BC873E1F14FA1B00EAEFD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		88BC873F1F14FA1B00EAEFD7 /* MSGP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
+		88BC87401F14FA1B00EAEFD7 /* MSGP.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = MSGP.modulemap; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805371F0D012F00B9B0AC /* MSGPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSGPTests.swift; sourceTree = "<group>"; };
@@ -346,13 +315,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				886B3AEA1F13D1EC00BF1A8E /* Bolts.framework in Frameworks */,
-				886B3AEB1F13D1EC00BF1A8E /* FBSDKCoreKit.framework in Frameworks */,
-				886B3AEC1F13D1EC00BF1A8E /* FBSDKLoginKit.framework in Frameworks */,
-				886B3AED1F13D1EC00BF1A8E /* FBSDKShareKit.framework in Frameworks */,
-				886B3ACE1F13ABEA00BF1A8E /* Alamofire.framework in Frameworks */,
-				886B3ACF1F13ABEA00BF1A8E /* SnapKit.framework in Frameworks */,
-				886B3AD01F13ABEA00BF1A8E /* SVProgressHUD.framework in Frameworks */,
 				993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,15 +392,6 @@
 				235CFC7439454B1FE49C67F6 /* View */,
 			);
 			path = Menu;
-			sourceTree = "<group>";
-		};
-		886B39BB1F13867C00BF1A8E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				886B39BC1F13867C00BF1A8E /* Info.plist */,
-				886B39BD1F13867C00BF1A8E /* MSGP.h */,
-			);
-			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		886B39C61F138F5D00BF1A8E /* MSGP-Example */ = {
@@ -745,6 +698,16 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		88BC873D1F14FA1B00EAEFD7 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				88BC873E1F14FA1B00EAEFD7 /* Info.plist */,
+				88BC873F1F14FA1B00EAEFD7 /* MSGP.h */,
+				88BC87401F14FA1B00EAEFD7 /* MSGP.modulemap */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
 		8B452A1F595C02042F06EAF0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,9 +775,9 @@
 		9CD8052B1F0D012F00B9B0AC /* MSGP */ = {
 			isa = PBXGroup;
 			children = (
+				88BC873D1F14FA1B00EAEFD7 /* SupportingFiles */,
 				9C223D1E1F0FA3390058B60A /* Resources */,
 				8B452A1F595C02042F06EAF0 /* Sources */,
-				886B39BB1F13867C00BF1A8E /* Supporting Files */,
 			);
 			path = MSGP;
 			sourceTree = "<group>";
@@ -861,7 +824,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				886B39BF1F13867C00BF1A8E /* MSGP.h in Headers */,
+				88BC87421F14FA1B00EAEFD7 /* MSGP.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -891,7 +854,6 @@
 			buildConfigurationList = 9CD8053D1F0D012F00B9B0AC /* Build configuration list for PBXNativeTarget "MSGP" */;
 			buildPhases = (
 				66247D41F5C8E4F9DAA19CBF /* [CP] Check Pods Manifest.lock */,
-				886B3AD11F13AC3100BF1A8E /* CopyFiles */,
 				9CD805241F0D012F00B9B0AC /* Sources */,
 				9CD805251F0D012F00B9B0AC /* Frameworks */,
 				9CD805261F0D012F00B9B0AC /* Headers */,
@@ -986,6 +948,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88BC87411F14FA1B00EAEFD7 /* Info.plist in Resources */,
 				886B3AB71F13A2CB00BF1A8E /* Login.storyboard in Resources */,
 				886B3AA01F13A2CB00BF1A8E /* CreateAccount.storyboard in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
@@ -1425,13 +1388,15 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/MSGP/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/MSGP/SupportingFiles/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "$(PROJECT_DIR)/MSGP/SupportingFiles/MSGP.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = akvelon.MSGP;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/MSGP/SupportingFiles";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1449,13 +1414,15 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/MSGP/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/MSGP/SupportingFiles/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "$(PROJECT_DIR)/MSGP/SupportingFiles/MSGP.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = akvelon.MSGP;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/MSGP/SupportingFiles";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
