@@ -51,12 +51,6 @@
 		886B3AC61F13A46C00BF1A8E /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC51F13A46C00BF1A8E /* Storyboard.swift */; };
 		886B3AC81F13A76000BF1A8E /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC71F13A76000BF1A8E /* Identifiable.swift */; };
 		886B3ACA1F13A7F300BF1A8E /* StoryboardViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC91F13A7F300BF1A8E /* StoryboardViewControllers.swift */; };
-		886B3ACE1F13ABEA00BF1A8E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B3ACB1F13ABEA00BF1A8E /* Alamofire.framework */; };
-		886B3ACF1F13ABEA00BF1A8E /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B3ACC1F13ABEA00BF1A8E /* SnapKit.framework */; };
-		886B3AD01F13ABEA00BF1A8E /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B3ACD1F13ABEA00BF1A8E /* SVProgressHUD.framework */; };
-		886B3AD21F13AC4B00BF1A8E /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3ACB1F13ABEA00BF1A8E /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		886B3AD31F13AC4B00BF1A8E /* SnapKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3ACC1F13ABEA00BF1A8E /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		886B3AD41F13AC4B00BF1A8E /* SVProgressHUD.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 886B3ACD1F13ABEA00BF1A8E /* SVProgressHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		886B3B881F14F43C00BF1A8E /* MSGP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3B871F14F43C00BF1A8E /* MSGP.swift */; };
 		993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3053EB33F097AF0FB4AE45 /* Pods_MSGP.framework */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
@@ -150,9 +144,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				886B3AD21F13AC4B00BF1A8E /* Alamofire.framework in CopyFiles */,
-				886B3AD31F13AC4B00BF1A8E /* SnapKit.framework in CopyFiles */,
-				886B3AD41F13AC4B00BF1A8E /* SVProgressHUD.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,9 +306,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				886B3ACE1F13ABEA00BF1A8E /* Alamofire.framework in Frameworks */,
-				886B3ACF1F13ABEA00BF1A8E /* SnapKit.framework in Frameworks */,
-				886B3AD01F13ABEA00BF1A8E /* SVProgressHUD.framework in Frameworks */,
 				993A30C89D7524DFAC5A7B12 /* Pods_MSGP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -616,7 +604,6 @@
 			children = (
 				886B3AC31F13A38A00BF1A8E /* AuthService.swift */,
 			);
-			name = Services;
 			path = Services;
 			sourceTree = "<group>";
 		};
@@ -712,7 +699,6 @@
 				9CEB71B61F136243007057DA /* Extensions.swift */,
 				9CEB71E81F136243007057DA /* Models.swift */,
 			);
-			name = Generated;
 			path = Generated;
 			sourceTree = "<group>";
 		};
