@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0E14EED21E605579D605693D /* Pods_Group_MSGP_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E6095A88C5722FE4BD8CEFE /* Pods_Group_MSGP_Example.framework */; };
 		50C0173D045F10A9F3EA396D /* Pods_MSGPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBF20C691E813236D43A321A /* Pods_MSGPTests.framework */; };
+		885F9FB91F16324F00A30CDF /* URLSchemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FB81F16324F00A30CDF /* URLSchemeService.swift */; };
+		885F9FCC1F165C9700A30CDF /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; };
+		885F9FCD1F165C9700A30CDF /* MSAL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
 		886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C91F138F5D00BF1A8E /* ViewController.swift */; };
 		886B39CD1F138F5D00BF1A8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CB1F138F5D00BF1A8E /* Main.storyboard */; };
@@ -127,7 +130,6 @@
 		886B3B841F14EFF000BF1A8E /* UserCompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3B3F1F14EFF000BF1A8E /* UserCompactView.swift */; };
 		886B3B851F14EFF000BF1A8E /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3B401F14EFF000BF1A8E /* UserProfileView.swift */; };
 		886B3B861F14EFF000BF1A8E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3B411F14EFF000BF1A8E /* Models.swift */; };
-		88BC87411F14FA1B00EAEFD7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC873E1F14FA1B00EAEFD7 /* Info.plist */; };
 		88BC87421F14FA1B00EAEFD7 /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 88BC873F1F14FA1B00EAEFD7 /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		88BC87551F1505B400EAEFD7 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC87541F1505B400EAEFD7 /* Photo.swift */; };
 		88BC87571F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
@@ -135,6 +137,9 @@
 		88BC875B1F150D2700EAEFD7 /* GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC87591F150D2700EAEFD7 /* GoogleAPI.swift */; };
 		88CF24071F161AEF00CC406F /* NameComponentsSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24061F161AEF00CC406F /* NameComponentsSplitter.swift */; };
 		88CF240A1F16202C00CC406F /* NameComponentsSplitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */; };
+		88CF240C1F162B0100CC406F /* MicrosoftAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF240B1F162B0100CC406F /* MicrosoftAPI.swift */; };
+		88CF242F1F16305300CC406F /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; };
+		88CF24301F16305300CC406F /* MSAL.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 88CF242E1F16305300CC406F /* MSAL.framework.dSYM */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 		DAE8416C6A0FE5C090E558CA /* Pods_Group_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C25CEDDAADC89B3A189771 /* Pods_Group_MSGP.framework */; };
 /* End PBXBuildFile section */
@@ -156,6 +161,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		885F9FCE1F165C9700A30CDF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				885F9FCD1F165C9700A30CDF /* MSAL.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		05C25CEDDAADC89B3A189771 /* Pods_Group_MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E6095A88C5722FE4BD8CEFE /* Pods_Group_MSGP_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_MSGP_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,6 +182,9 @@
 		5A8E9EC0E4D7A508F8C75527 /* Pods-Group-MSGP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.release.xcconfig"; sourceTree = "<group>"; };
 		5C04BD1691EFBEB188AF506F /* Pods-Group-MSGP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.debug.xcconfig"; sourceTree = "<group>"; };
 		743B4CFC3C3C9A1BE41ED857 /* Pods-MSGPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.debug.xcconfig"; sourceTree = "<group>"; };
+		885F9FB81F16324F00A30CDF /* URLSchemeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLSchemeService.swift; path = ThirdPartyConfigurator/URLSchemeService.swift; sourceTree = "<group>"; };
+		885F9FD91F1666A900A30CDF /* MSGraphSDK_NXOAuth2Adapter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MSGraphSDK_NXOAuth2Adapter.framework; sourceTree = "<group>"; };
+		885F9FDA1F1666A900A30CDF /* MSGraphSDK_NXOAuth2Adapter.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = MSGraphSDK_NXOAuth2Adapter.modulemap; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -217,7 +239,7 @@
 		886B3AE71F13D1EC00BF1A8E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKCoreKit/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKLoginKit/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKShareKit/FBSDKShareKit.framework"; sourceTree = "<group>"; };
-		886B3AF31F14C9B400BF1A8E /* URLSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLSchemes.swift; path = ../ThirdPartyConfigurator/URLSchemes.swift; sourceTree = "<group>"; };
+		886B3AF31F14C9B400BF1A8E /* URLSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLSchemes.swift; path = ThirdPartyConfigurator/URLSchemes.swift; sourceTree = "<group>"; };
 		886B3AF51F14CD3B00BF1A8E /* TwitterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPI.swift; sourceTree = "<group>"; };
 		886B3AF71F14D79D00BF1A8E /* AuthAPIProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthAPIProvider.swift; sourceTree = "<group>"; };
 		886B3AFB1F14EFF000BF1A8E /* AlamofireImplementations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireImplementations.swift; sourceTree = "<group>"; };
@@ -297,6 +319,9 @@
 		88BC87591F150D2700EAEFD7 /* GoogleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
 		88CF24061F161AEF00CC406F /* NameComponentsSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitter.swift; sourceTree = "<group>"; };
 		88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitterTests.swift; sourceTree = "<group>"; };
+		88CF240B1F162B0100CC406F /* MicrosoftAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrosoftAPI.swift; sourceTree = "<group>"; };
+		88CF242D1F16305300CC406F /* MSAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MSAL.framework; sourceTree = "<group>"; };
+		88CF242E1F16305300CC406F /* MSAL.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = MSAL.framework.dSYM; sourceTree = "<group>"; };
 		9B2F4B85722F19B3B8E07ABC /* Pods-MSGPTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.release.xcconfig"; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -312,6 +337,7 @@
 			files = (
 				886B3ADF1F13B92B00BF1A8E /* MSGP.framework in Frameworks */,
 				0E14EED21E605579D605693D /* Pods_Group_MSGP_Example.framework in Frameworks */,
+				885F9FCC1F165C9700A30CDF /* MSAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAE8416C6A0FE5C090E558CA /* Pods_Group_MSGP.framework in Frameworks */,
+				88CF242F1F16305300CC406F /* MSAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +390,24 @@
 				9B2F4B85722F19B3B8E07ABC /* Pods-MSGPTests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		885F9FBA1F16326300A30CDF /* URLScheme */ = {
+			isa = PBXGroup;
+			children = (
+				885F9FB81F16324F00A30CDF /* URLSchemeService.swift */,
+				886B3AF31F14C9B400BF1A8E /* URLSchemes.swift */,
+			);
+			name = URLScheme;
+			sourceTree = "<group>";
+		};
+		885F9FD81F1666A900A30CDF /* MSGraphSDK_NXOAuth2Adapter */ = {
+			isa = PBXGroup;
+			children = (
+				885F9FD91F1666A900A30CDF /* MSGraphSDK_NXOAuth2Adapter.framework */,
+				885F9FDA1F1666A900A30CDF /* MSGraphSDK_NXOAuth2Adapter.modulemap */,
+			);
+			path = MSGraphSDK_NXOAuth2Adapter;
 			sourceTree = "<group>";
 		};
 		886B39C61F138F5D00BF1A8E /* MSGP-Example */ = {
@@ -544,6 +589,7 @@
 		886B3AC21F13A37700BF1A8E /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				885F9FBA1F16326300A30CDF /* URLScheme */,
 				886B3AF91F14D85300BF1A8E /* Auth */,
 				886B3AF21F14C9A300BF1A8E /* ThirdPartyConfigurator */,
 			);
@@ -569,13 +615,13 @@
 		886B3AF91F14D85300BF1A8E /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				886B3AF31F14C9B400BF1A8E /* URLSchemes.swift */,
 				886B3AF71F14D79D00BF1A8E /* AuthAPIProvider.swift */,
 				886B3AC31F13A38A00BF1A8E /* AuthService.swift */,
 				886B3AE01F13BF1500BF1A8E /* AuthServiceImplementation.swift */,
 				886B3AE21F13BF5900BF1A8E /* FacebookAPI.swift */,
 				886B3AF51F14CD3B00BF1A8E /* TwitterAPI.swift */,
 				88BC87591F150D2700EAEFD7 /* GoogleAPI.swift */,
+				88CF240B1F162B0100CC406F /* MicrosoftAPI.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -690,6 +736,24 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		88CF242B1F16305300CC406F /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				885F9FD81F1666A900A30CDF /* MSGraphSDK_NXOAuth2Adapter */,
+				88CF242C1F16305300CC406F /* MSAL */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		88CF242C1F16305300CC406F /* MSAL */ = {
+			isa = PBXGroup;
+			children = (
+				88CF242D1F16305300CC406F /* MSAL.framework */,
+				88CF242E1F16305300CC406F /* MSAL.framework.dSYM */,
+			);
+			path = MSAL;
+			sourceTree = "<group>";
+		};
 		8B452A1F595C02042F06EAF0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -749,6 +813,7 @@
 		9CD8052B1F0D012F00B9B0AC /* MSGP */ = {
 			isa = PBXGroup;
 			children = (
+				88CF242B1F16305300CC406F /* Vendor */,
 				88BC873D1F14FA1B00EAEFD7 /* SupportingFiles */,
 				8B452A1F595C02042F06EAF0 /* Sources */,
 				9C223D1E1F0FA3390058B60A /* Resources */,
@@ -799,6 +864,7 @@
 				886B39C31F138F5D00BF1A8E /* Resources */,
 				7754209D16D281F5ED29D0C2 /* [CP] Embed Pods Frameworks */,
 				DB96425720D4513848CEC9BC /* [CP] Copy Pods Resources */,
+				885F9FCE1F165C9700A30CDF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -910,11 +976,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88BC87411F14FA1B00EAEFD7 /* Info.plist in Resources */,
 				886B3AB71F13A2CB00BF1A8E /* Login.storyboard in Resources */,
 				88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */,
 				886B3AA01F13A2CB00BF1A8E /* CreateAccount.storyboard in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
+				88CF24301F16305300CC406F /* MSAL.framework.dSYM in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1090,6 +1156,7 @@
 				886B3B7C1F14EFF000BF1A8E /* PutPushRegistrationRequest.swift in Sources */,
 				886B3ABB1F13A2CB00BF1A8E /* RootConfigurator.swift in Sources */,
 				886B3B461F14EFF000BF1A8E /* CommentsAPI.swift in Sources */,
+				885F9FB91F16324F00A30CDF /* URLSchemeService.swift in Sources */,
 				886B3B681F14EFF000BF1A8E /* PostBlockedUserRequest.swift in Sources */,
 				886B3B751F14EFF000BF1A8E /* PostSessionResponse.swift in Sources */,
 				886B3B511F14EFF000BF1A8E /* SocialAPI.swift in Sources */,
@@ -1178,6 +1245,7 @@
 				886B3B421F14EFF000BF1A8E /* AlamofireImplementations.swift in Sources */,
 				886B3B4B1F14EFF000BF1A8E /* PinsAPI.swift in Sources */,
 				886B3A551F13A28D00BF1A8E /* MSGP.swift in Sources */,
+				88CF240C1F162B0100CC406F /* MicrosoftAPI.swift in Sources */,
 				88CF24071F161AEF00CC406F /* NameComponentsSplitter.swift in Sources */,
 				886B3AC11F13A35700BF1A8E /* User.swift in Sources */,
 				886B3B551F14EFF000BF1A8E /* Extensions.swift in Sources */,
@@ -1244,6 +1312,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MSGP/Vendor",
+					"$(PROJECT_DIR)/MSGP/Vendor/MSAL",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "MSGP-Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -1262,6 +1335,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MSGP/Vendor",
+					"$(PROJECT_DIR)/MSGP/Vendor/MSAL",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "MSGP-Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -1395,9 +1473,14 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MSGP/Vendor/MSAL",
+					"$(PROJECT_DIR)/MSGP/Vendor",
+					"$(PROJECT_DIR)/MSGP/Vendor/MSGraphSDK_NXOAuth2Adapter",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/MSGP/SupportingFiles/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				INSTALL_PATH = Library/Frameworks;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$(PROJECT_DIR)/MSGP/SupportingFiles/MSGP.modulemap";
@@ -1421,9 +1504,14 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MSGP/Vendor/MSAL",
+					"$(PROJECT_DIR)/MSGP/Vendor",
+					"$(PROJECT_DIR)/MSGP/Vendor/MSGraphSDK_NXOAuth2Adapter",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/MSGP/SupportingFiles/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				INSTALL_PATH = Library/Frameworks;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$(PROJECT_DIR)/MSGP/SupportingFiles/MSGP.modulemap";

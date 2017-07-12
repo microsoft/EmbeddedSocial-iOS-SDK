@@ -24,7 +24,6 @@ final class GoogleAPI: NSObject, AuthAPI {
 extension GoogleAPI: GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         guard error == nil else {
-            print(error)
             signInHandler?(.failure(error!))
             return
         }

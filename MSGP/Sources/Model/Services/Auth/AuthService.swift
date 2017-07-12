@@ -13,7 +13,6 @@ enum AuthProvider: Int {
     case microsoft
     case google
     case twitter
-    case email
 }
 
 protocol AuthAPI {
@@ -22,10 +21,6 @@ protocol AuthAPI {
 
 protocol AuthServiceType {
     func login(provider: AuthProvider, from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void)
-    
-    func login(email: String, password: String, handler: @escaping (Result<User>) -> Void)
-    
-    func createAccount(email: String, password: String, handler: @escaping (Result<User>) -> Void)
 }
 
 protocol AuthAPIProviderType {

@@ -10,6 +10,7 @@ import Foundation
 import FBSDKCoreKit
 import TwitterKit
 import GoogleSignIn
+import MSAL
 
 struct FacebookURLScheme: URLScheme {
     
@@ -33,7 +34,6 @@ struct TwitterURLScheme: URLScheme {
         guard let scheme = url.scheme, scheme.hasPrefix("twitterkit") else {
             return false
         }
-        
         return Twitter.sharedInstance().application(application, open: url, options: options)
     }
 }
@@ -43,6 +43,16 @@ struct GoogleURLScheme: URLScheme {
     func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
         let (source, annotation) = sourceAndAnnotation(from: options)
         return GIDSignIn.sharedInstance().handle(url, sourceApplication: source, annotation: annotation)
+    }
+}
+
+struct MicrosoftURLScheme: URLScheme {
+    
+    func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
+        guard let scheme = url.scheme, scheme.hasPrefix("msal") else {
+            return false
+        }
+        return MSALPublicClientApplication.handleMSALResponse(url)
     }
 }
 

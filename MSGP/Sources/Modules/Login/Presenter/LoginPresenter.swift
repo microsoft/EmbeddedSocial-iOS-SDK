@@ -38,7 +38,7 @@ final class LoginPresenter: LoginViewOutput {
     }
     
     func onMicrosoftSignInTapped() {
-        
+        login(with: .microsoft)
     }
     
     private func login(with provider: AuthProvider) {

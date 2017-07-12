@@ -8,25 +8,28 @@
 
 import Foundation
 
+struct LaunchArguments {
+    let app: UIApplication
+    let window: UIWindow
+    let launchOptions: [AnyHashable: Any]
+}
+
 public final class MSGP {
-    private let app: UIApplication
-    private let window: UIWindow
+    private let launchArguments: LaunchArguments
     private let root: RootConfigurator
-    private let thirdPartyConfigurator: ThirdPartyConfigurator
+    private let urlSchemeService = URLSchemeService()
     
     public init(application: UIApplication, window: UIWindow, launchOptions: [AnyHashable: Any]) {
-        self.app = application
-        self.window = window
         root = RootConfigurator(window: window)
-        thirdPartyConfigurator = ThirdPartyConfigurator(application: application, launchOptions: launchOptions)
+        launchArguments = LaunchArguments(app: application, window: window, launchOptions: launchOptions)
     }
     
     public func start() {
-        thirdPartyConfigurator.setup()
+        ThirdPartyConfigurator.setup(application: launchArguments.app, launchOptions: launchArguments.launchOptions)
         root.router.openLoginScreen()
     }
     
     public func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
-        return thirdPartyConfigurator.application(app, open: url, options: options)
+        return urlSchemeService.application(app, open: url, options: options)
     }
 }

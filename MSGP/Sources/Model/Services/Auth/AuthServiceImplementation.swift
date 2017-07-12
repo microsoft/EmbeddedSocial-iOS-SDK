@@ -22,16 +22,4 @@ final class AuthService: AuthServiceType {
             handler(result)
         }
     }
-    
-    func login(email: String, password: String, handler: @escaping (Result<User>) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            handler(.success(User(provider: .email)))
-        }
-    }
-    
-    func createAccount(email: String, password: String, handler: @escaping (Result<User>) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            handler(.success(User(provider: .email)))
-        }
-    }
 }

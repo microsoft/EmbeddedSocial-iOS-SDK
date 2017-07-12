@@ -15,6 +15,6 @@ final class CreateAccountInteractor: CreateAccountInteractorInput {
     }
     
     func createAccount(email: String, password: String, completion: @escaping (Result<User>) -> Void) {
-        authService.createAccount(email: email, password: password, handler: completion)
+        
     }
 }

@@ -1,0 +1,8 @@
+framework module MSGP {
+    umbrella header "MSGP.h"
+    header "MSGraphSDK_NXOAuth2Adapter.framework/Headers/MSAuthConstants.h"
+    header "MSGraphSDK_NXOAuth2Adapter.framework/Headers/NXOAuth2AuthenticationProvider.h"
+    
+    export *
+    module * { export * }
+}

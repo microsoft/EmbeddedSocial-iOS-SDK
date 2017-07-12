@@ -13,37 +13,24 @@ import GoogleSignIn
 import Google
 import FirebaseCore
 
-protocol URLScheme {
-    func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool
-}
-
 class ThirdPartyConfigurator {
-    
-    private let urlSchemes: [URLScheme] = [FacebookURLScheme(), TwitterURLScheme(), GoogleURLScheme()]
-    private let app: UIApplication
-    private let launchOptions: [AnyHashable: Any]
 
-    init(application: UIApplication, launchOptions: [AnyHashable: Any]) {
-        self.app = application
-        self.launchOptions = launchOptions
-    }
-    
-    func setup() {
+    static func setup(application: UIApplication, launchOptions: [AnyHashable: Any]) {
         setupTwitter()
-        setupFacebook()
+        setupFacebook(application: application, launchOptions: launchOptions)
         setupGoogle()
     }
     
-    private func setupTwitter() {
+    private static func setupTwitter() {
         Twitter.sharedInstance().start(withConsumerKey:"2dw07dxA952U3QmEcT3TruHbd",
                                        consumerSecret:"c1eoCNGZP0hJ3UHiB50qIh9Y0TMSDq8LOYZ3gJO8blsql9sRB5")
     }
     
-    private func setupFacebook() {
-        FBSDKApplicationDelegate.sharedInstance().application(app, didFinishLaunchingWithOptions: launchOptions)
+    private static func setupFacebook(application: UIApplication, launchOptions: [AnyHashable: Any]) {
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
-    private func setupGoogle() {
+    private static func setupGoogle() {
         var configureError: NSError?
         GGLContext.sharedInstance().configureWithError(&configureError)
         guard configureError == nil else {
@@ -51,11 +38,5 @@ class ThirdPartyConfigurator {
         }
         GIDSignIn.sharedInstance().clientID = "725637580373-0ssr452m7o5bg1aeomsts88ci6tvmp83.apps.googleusercontent.com"
         FIRAnalyticsConfiguration.sharedInstance().setAnalyticsCollectionEnabled(false)
-    }
-    
-    func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any] = [:]) -> Bool {
-        return urlSchemes.reduce(false) { (result, scheme) in
-            return result || scheme.application(app, open: url, options: options)
-        }
     }
 }

@@ -1,4 +1,4 @@
-platform :ios, ‘8.3’
+platform :ios, ‘8.0’
 
 use_frameworks!
 
@@ -6,6 +6,11 @@ def facebook
     pod 'FBSDKCoreKit'
     pod 'FBSDKLoginKit'
     pod 'FBSDKShareKit'
+end
+
+def microsoft
+    pod 'MSGraphSDK'
+    #pod 'MSGraphSDK-NXOAuth2Adapter'
 end
 
 abstract_target 'Group' do
@@ -18,6 +23,7 @@ abstract_target 'Group' do
     pod 'TwitterKit'
     pod 'Google/SignIn'
     facebook
+    microsoft
     
     target 'MSGP' do
                
