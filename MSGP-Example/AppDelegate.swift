@@ -3,7 +3,7 @@
 //  MSGP-Example
 //
 //  Created by Vadim Bulavin on 7/10/17.
-//  Copyright © 2017 Igor Popov. All rights reserved.
+//  Copyright © 2017 Akvelon. All rights reserved.
 //
 
 import UIKit
