@@ -14,5 +14,5 @@ protocol MenuViewOutput {
     */
 
     func viewIsReady()
-    func didTapCell(path: IndexPath)
+    func openItem(path: IndexPath, item: MenuItemModel)
 }

@@ -8,14 +8,14 @@
 
 class MenuPresenter: MenuModuleInput, MenuViewOutput, MenuInteractorOutput {
     
-    func didTapCell(path: IndexPath) {
-        router.openMenu(.feed)
-    }
-    
     weak var view: MenuViewInput!
     var interactor: MenuInteractorInput!
     var router: MenuRouterInput!
-
+    
+    func openItem(path: IndexPath, item: MenuItemModel) {
+        router.openMenu(item.route)
+    }
+    
     func viewIsReady() {
         view.setupInitialState()
         interactor.retrieveMenuItems()

@@ -13,8 +13,8 @@ class MenuInteractor: MenuInteractorInput {
     lazy var items: [MenuItemModel] = {
         return [
             
-            MenuItemModel(title: "lel", pictureName: "icon_gear"),
-            MenuItemModel(title: "hallo", pictureName: "icon_home")
+            MenuItemModel(title: "home", pictureName: "icon_gear", route: .home),
+            MenuItemModel(title: "feed", pictureName: "icon_home", route: .feed)
             
         ]
     }()

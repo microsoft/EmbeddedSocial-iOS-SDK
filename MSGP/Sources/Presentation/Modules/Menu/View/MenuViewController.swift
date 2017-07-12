@@ -51,7 +51,7 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.output.didTapCell(path: indexPath)
+        self.output.openItem(path: indexPath, item: self.menuItems[indexPath.row])
     }
     
 }

@@ -11,4 +11,5 @@ import Foundation
 struct MenuItemModel {
     var title: String
     var pictureName: String
+    var route: MenuNavigation
 }
