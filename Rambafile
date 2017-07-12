@@ -10,10 +10,10 @@ xcodeproj_path: MSGP.xcodeproj
 project_target: MSGP
 
 # The file path for new modules
-project_file_path: MSGP/Sources/Presentation/Modules
+project_file_path: MSGP/Sources/Modules
 
 # The Xcode group path to new modules
-project_group_path: MSGP/Sources/Presentation/Modules
+project_group_path: MSGP/Sources/Modules
 
 ### Tests generation settings section
 # The tests target name
