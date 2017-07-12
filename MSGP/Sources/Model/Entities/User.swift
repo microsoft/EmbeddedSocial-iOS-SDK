@@ -9,22 +9,25 @@
 import Foundation
 
 struct User {
-    let name: String?
+    let firstName: String?
+    let lastName: String?
     let email: String?
     let bio: String?
     let phoneNumber: String?
     let token: String?
     let photo: Photo?
     let provider: AuthProvider
-    
-    init(name: String? = nil,
+
+    init(firstName: String? = nil,
+         lastName: String? = nil,
          email: String? = nil,
          bio: String? = nil,
          phoneNumber: String? = nil,
          token: String? = nil,
          photo: Photo? = nil,
          provider: AuthProvider) {
-        self.name = name
+        self.firstName = firstName
+        self.lastName = lastName
         self.email = email
         self.bio = bio
         self.phoneNumber = phoneNumber
@@ -35,19 +38,23 @@ struct User {
 }
 
 extension User: Hashable {
+    
     var hashValue: Int {
-        let nonNilFields = [name, email, bio, phoneNumber, token].flatMap { $0 }
+        let fields: [AnyHashable?] = [firstName, lastName, email, bio, phoneNumber, token, photo?.url, provider.rawValue]
+        let nonNilFields = fields.flatMap { $0 }
         return nonNilFields.reduce(1, { (result, field) in
             return result ^ field.hashValue
         })
     }
     
     static func ==(_ lhs: User, _ rhs: User) -> Bool {
-        return lhs.name == rhs.name &&
+        return lhs.firstName == rhs.firstName &&
+            lhs.lastName == rhs.lastName &&
             lhs.email == rhs.email &&
             lhs.bio == rhs.bio &&
             lhs.phoneNumber == rhs.phoneNumber &&
             lhs.token == rhs.token &&
-            lhs.photo == rhs.photo
+            lhs.photo == rhs.photo &&
+            lhs.provider == rhs.provider
     }
 }

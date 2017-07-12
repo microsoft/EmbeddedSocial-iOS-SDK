@@ -14,33 +14,27 @@ import GoogleSignIn
 struct FacebookURLScheme: URLScheme {
     
     func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
-        if #available(iOS 9.0, *) {
-            guard let scheme = url.scheme else {
-                return false
-            }
-            
-            let (source, annotation) = sourceAndAnnotation(from: options)
-            
-            if scheme.hasPrefix("fb") && url.host == "authorize" {
-                return FBSDKApplicationDelegate.sharedInstance()
-                    .application(application, open: url, sourceApplication: source, annotation: annotation)
-            }
-            
+        guard let scheme = url.scheme,
+            scheme.hasPrefix("fb"),
+            url.host == "authorize" else {
             return false
-        } else {
-            fatalError("Not implemented for iOS 8")
         }
+        
+        let (source, annotation) = sourceAndAnnotation(from: options)
+        
+        return FBSDKApplicationDelegate.sharedInstance()
+            .application(application, open: url, sourceApplication: source, annotation: annotation)
     }
 }
 
 struct TwitterURLScheme: URLScheme {
     
     func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
-        if let scheme = url.scheme, scheme.hasPrefix("twitterkit") {
-            return Twitter.sharedInstance().application(application, open: url, options: options)
+        guard let scheme = url.scheme, scheme.hasPrefix("twitterkit") else {
+            return false
         }
         
-        return false
+        return Twitter.sharedInstance().application(application, open: url, options: options)
     }
 }
 

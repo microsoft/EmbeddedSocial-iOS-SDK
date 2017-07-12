@@ -32,7 +32,15 @@ final class FacebookAPI: AuthAPI {
                 return
             }
             
+            guard FBSDKAccessToken.current() != nil else {
+                fatalError("Trying to fetch user data while not being logged in")
+            }
+            
             print("Logged in")
+
+            FBSDKGraphRequest(graphPath: "me", parameters: nil).start { (connection, user, error) in
+                print(error, user)
+            }
         }
     }
 }

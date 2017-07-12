@@ -31,7 +31,8 @@ extension GoogleAPI: GIDSignInDelegate {
         
         let photoURL = user.profile.imageURL(withDimension: 1024)
         
-        let domainUser = User(name: user.profile.name,
+        let domainUser = User(firstName: user.profile.givenName,
+                              lastName: user.profile.familyName,
                               email: user.profile.email,
                               bio: nil,
                               phoneNumber: nil,

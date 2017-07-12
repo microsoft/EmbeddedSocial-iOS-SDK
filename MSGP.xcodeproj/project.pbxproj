@@ -7,12 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C84A9B14A367538DA495966 /* MenuInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C2F4EC736C209DC9E7FC6A /* MenuInteractorTests.swift */; };
 		0E14EED21E605579D605693D /* Pods_Group_MSGP_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E6095A88C5722FE4BD8CEFE /* Pods_Group_MSGP_Example.framework */; };
-		214E8DE66F6A09DEBD8DEAD6 /* MenuRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72954C2961739A22EA867972 /* MenuRouterTests.swift */; };
-		506CDF6F4DB1E41D76E78C71 /* MenuViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8489F95B030DE78A19959B /* MenuViewTests.swift */; };
 		50C0173D045F10A9F3EA396D /* Pods_MSGPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBF20C691E813236D43A321A /* Pods_MSGPTests.framework */; };
-		80DB14934D6DEA36A595A3CD /* MenuConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B429F0AE94B8DDE8ED11D2 /* MenuConfiguratorTests.swift */; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
 		886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C91F138F5D00BF1A8E /* ViewController.swift */; };
 		886B39CD1F138F5D00BF1A8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CB1F138F5D00BF1A8E /* Main.storyboard */; };
@@ -137,9 +133,9 @@
 		88BC87571F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88BC875B1F150D2700EAEFD7 /* GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC87591F150D2700EAEFD7 /* GoogleAPI.swift */; };
+		88CF24071F161AEF00CC406F /* NameComponentsSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24061F161AEF00CC406F /* NameComponentsSplitter.swift */; };
+		88CF240A1F16202C00CC406F /* NameComponentsSplitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
-		9CD805381F0D012F00B9B0AC /* MSGPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD805371F0D012F00B9B0AC /* MSGPTests.swift */; };
-		BF5B3906883846C45DD93513 /* MenuPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6CCCDA3F0F8B6E0E67D80 /* MenuPresenterTests.swift */; };
 		DAE8416C6A0FE5C090E558CA /* Pods_Group_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C25CEDDAADC89B3A189771 /* Pods_Group_MSGP.framework */; };
 /* End PBXBuildFile section */
 
@@ -161,16 +157,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03B429F0AE94B8DDE8ED11D2 /* MenuConfiguratorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuConfiguratorTests.swift; sourceTree = "<group>"; };
 		05C25CEDDAADC89B3A189771 /* Pods_Group_MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E6095A88C5722FE4BD8CEFE /* Pods_Group_MSGP_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_MSGP_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EE5B8F6397639476A9CAEC3 /* Pods-Group-MSGP-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example.release.xcconfig"; sourceTree = "<group>"; };
-		3F8489F95B030DE78A19959B /* MenuViewTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuViewTests.swift; sourceTree = "<group>"; };
 		5A8E9EC0E4D7A508F8C75527 /* Pods-Group-MSGP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.release.xcconfig"; sourceTree = "<group>"; };
 		5C04BD1691EFBEB188AF506F /* Pods-Group-MSGP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.debug.xcconfig"; sourceTree = "<group>"; };
-		72954C2961739A22EA867972 /* MenuRouterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuRouterTests.swift; sourceTree = "<group>"; };
 		743B4CFC3C3C9A1BE41ED857 /* Pods-MSGPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.debug.xcconfig"; sourceTree = "<group>"; };
-		83C2F4EC736C209DC9E7FC6A /* MenuInteractorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuInteractorTests.swift; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -303,12 +295,12 @@
 		88BC87541F1505B400EAEFD7 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		88BC87591F150D2700EAEFD7 /* GoogleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
+		88CF24061F161AEF00CC406F /* NameComponentsSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitter.swift; sourceTree = "<group>"; };
+		88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitterTests.swift; sourceTree = "<group>"; };
 		9B2F4B85722F19B3B8E07ABC /* Pods-MSGPTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.release.xcconfig"; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CD805371F0D012F00B9B0AC /* MSGPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSGPTests.swift; sourceTree = "<group>"; };
 		9CD805391F0D012F00B9B0AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C0C6CCCDA3F0F8B6E0E67D80 /* MenuPresenterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuPresenterTests.swift; sourceTree = "<group>"; };
 		CCE1BD03E0D3CE5115A9EEDF /* Pods-Group-MSGP-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		EBF20C691E813236D43A321A /* Pods_MSGPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -343,22 +335,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1E6398333A2F77E9E78501A9 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				83C2F4EC736C209DC9E7FC6A /* MenuInteractorTests.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		235CFC7439454B1FE49C67F6 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				3F8489F95B030DE78A19959B /* MenuViewTests.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		2C6B77FF4F1F2F71CA420D6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,14 +352,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6BFC861A0594A10512DE5170 /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				03B429F0AE94B8DDE8ED11D2 /* MenuConfiguratorTests.swift */,
-			);
-			path = Configurator;
-			sourceTree = "<group>";
-		};
 		72E11A33AAFF69A80E00049B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -395,18 +363,6 @@
 				9B2F4B85722F19B3B8E07ABC /* Pods-MSGPTests.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		80DF9A7137A392AEFF507C94 /* Menu */ = {
-			isa = PBXGroup;
-			children = (
-				6BFC861A0594A10512DE5170 /* Configurator */,
-				1E6398333A2F77E9E78501A9 /* Interactor */,
-				DB167CE383D5B824E71F3960 /* Presenter */,
-				919299FEF5552C36858E9B4C /* Router */,
-				235CFC7439454B1FE49C67F6 /* View */,
-			);
-			path = Menu;
 			sourceTree = "<group>";
 		};
 		886B39C61F138F5D00BF1A8E /* MSGP-Example */ = {
@@ -726,6 +682,14 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
+		88CF24081F161AF300CC406F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				88CF24061F161AEF00CC406F /* NameComponentsSplitter.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		8B452A1F595C02042F06EAF0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -734,16 +698,9 @@
 				886B3AFA1F14EFF000BF1A8E /* Generated */,
 				886B39DC1F1391A700BF1A8E /* Model */,
 				B015BFA7F75D3C2321ABD44C /* Modules */,
+				88CF24081F161AF300CC406F /* Utils */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		919299FEF5552C36858E9B4C /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				72954C2961739A22EA867972 /* MenuRouterTests.swift */,
-			);
-			path = Router;
 			sourceTree = "<group>";
 		};
 		9C223D1C1F0FA2900058B60A /* Common */ = {
@@ -774,7 +731,6 @@
 				9CD8052B1F0D012F00B9B0AC /* MSGP */,
 				886B39C61F138F5D00BF1A8E /* MSGP-Example */,
 				9CD805361F0D012F00B9B0AC /* MSGPTests */,
-				B820ABD2B3A64D3C9B0F6D8F /* ModulesTests */,
 				9CD8052A1F0D012F00B9B0AC /* Products */,
 				72E11A33AAFF69A80E00049B /* Pods */,
 			);
@@ -804,7 +760,7 @@
 			isa = PBXGroup;
 			children = (
 				9CD805391F0D012F00B9B0AC /* Info.plist */,
-				9CD805371F0D012F00B9B0AC /* MSGPTests.swift */,
+				88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */,
 			);
 			path = MSGPTests;
 			sourceTree = "<group>";
@@ -817,22 +773,6 @@
 				886B3A8F1F13A2CB00BF1A8E /* Root */,
 			);
 			path = Modules;
-			sourceTree = "<group>";
-		};
-		B820ABD2B3A64D3C9B0F6D8F /* ModulesTests */ = {
-			isa = PBXGroup;
-			children = (
-				80DF9A7137A392AEFF507C94 /* Menu */,
-			);
-			path = ModulesTests;
-			sourceTree = "<group>";
-		};
-		DB167CE383D5B824E71F3960 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				C0C6CCCDA3F0F8B6E0E67D80 /* MenuPresenterTests.swift */,
-			);
-			path = Presenter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1238,6 +1178,7 @@
 				886B3B421F14EFF000BF1A8E /* AlamofireImplementations.swift in Sources */,
 				886B3B4B1F14EFF000BF1A8E /* PinsAPI.swift in Sources */,
 				886B3A551F13A28D00BF1A8E /* MSGP.swift in Sources */,
+				88CF24071F161AEF00CC406F /* NameComponentsSplitter.swift in Sources */,
 				886B3AC11F13A35700BF1A8E /* User.swift in Sources */,
 				886B3B551F14EFF000BF1A8E /* Extensions.swift in Sources */,
 				886B3B631F14EFF000BF1A8E /* GetRequestTokenResponse.swift in Sources */,
@@ -1255,12 +1196,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CD805381F0D012F00B9B0AC /* MSGPTests.swift in Sources */,
-				80DB14934D6DEA36A595A3CD /* MenuConfiguratorTests.swift in Sources */,
-				506CDF6F4DB1E41D76E78C71 /* MenuViewTests.swift in Sources */,
-				0C84A9B14A367538DA495966 /* MenuInteractorTests.swift in Sources */,
-				BF5B3906883846C45DD93513 /* MenuPresenterTests.swift in Sources */,
-				214E8DE66F6A09DEBD8DEAD6 /* MenuRouterTests.swift in Sources */,
+				88CF240A1F16202C00CC406F /* NameComponentsSplitterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

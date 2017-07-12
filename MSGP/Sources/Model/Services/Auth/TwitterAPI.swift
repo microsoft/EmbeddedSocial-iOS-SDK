@@ -52,7 +52,9 @@ final class TwitterAPI: AuthAPI {
         }
         
         group.notify(queue: DispatchQueue.main) {
-            let user = User(name: twitterUser?.name,
+            let (firstName, lastName) = NameComponentsSplitter.split(fullName: twitterUser?.name ?? "")
+            let user = User(firstName: firstName,
+                            lastName: lastName,
                             email: email,
                             bio: nil,
                             phoneNumber: nil,
