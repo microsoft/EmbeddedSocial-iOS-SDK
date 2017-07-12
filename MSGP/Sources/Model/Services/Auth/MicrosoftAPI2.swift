@@ -38,8 +38,27 @@ final class MicrosoftAPI2: AuthAPI {
                 return
             }
             
-            let user = result.user
-            let token = result.accessToken
+            self.getUserInfo(token: result.accessToken)
+        }
+    }
+    
+    func getUserInfo(token: String) {
+        let request = GraphRequest(token: token)
+        
+        request.getJSON(path: "me") { response, error in
+            let lastName = response?["surname"]
+            let firstName = response?["givenName"]
+            let mail = response?["mail"]
+            let id = response?["id"]
+            print(response, error)
+        }
+        
+        request.getJSON(path: "me/photo") { response, error in
+            print("PHOTO>>>>", response, error)
+
+            request.getData(path: "me/photo/$value") { data, error in
+                print("PHOTO DATA >>>>", data, error)
+            }
         }
     }
 }
