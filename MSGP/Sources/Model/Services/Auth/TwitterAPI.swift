@@ -12,7 +12,7 @@ import TwitterKit
 final class TwitterAPI: AuthAPI {
     
     func login(from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void) {
-        Twitter.sharedInstance().logIn(completion: { [weak self] session, error in
+        Twitter.sharedInstance().logIn(with: viewController, methods: [.webBasedForceLogin]) { [weak self] session, error in
             guard error == nil else {
                 handler(.failure(error!))
                 return
@@ -23,7 +23,7 @@ final class TwitterAPI: AuthAPI {
             }
             
             self?.loadUser(session: session, completion: handler)
-        })
+        }
     }
     
     private func loadUser(session: TWTRSession, completion: @escaping (Result<User>) -> Void) {
@@ -36,7 +36,7 @@ final class TwitterAPI: AuthAPI {
         group.enter()
         client.requestEmail { fetchedEmail, error in
             if let error = error {
-                print(error)
+                print("Twitter requestEmail error: \(error)")
             }
             email = fetchedEmail
             group.leave()
@@ -45,7 +45,7 @@ final class TwitterAPI: AuthAPI {
         group.enter()
         client.loadUser(withID: session.userID) { user, error in
             if let error = error {
-                print(error)
+                print("Twitter loadUser error: \(error)")
             }
             twitterUser = user
             group.leave()
@@ -59,6 +59,7 @@ final class TwitterAPI: AuthAPI {
                             token: session.authToken,
                             photo: Photo(url: twitterUser?.profileImageURL),
                             provider: .twitter)
+            print(user)
             completion(.success(user))
         }
     }

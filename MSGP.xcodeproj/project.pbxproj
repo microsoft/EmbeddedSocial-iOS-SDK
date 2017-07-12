@@ -794,8 +794,8 @@
 			isa = PBXGroup;
 			children = (
 				88BC873D1F14FA1B00EAEFD7 /* SupportingFiles */,
-				9C223D1E1F0FA3390058B60A /* Resources */,
 				8B452A1F595C02042F06EAF0 /* Sources */,
+				9C223D1E1F0FA3390058B60A /* Resources */,
 			);
 			path = MSGP;
 			sourceTree = "<group>";
