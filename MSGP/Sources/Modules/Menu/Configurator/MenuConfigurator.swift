@@ -16,6 +16,13 @@ class MenuModuleConfigurator {
             configure(viewController: viewController)
         }
     }
+    
+    func configure() -> MenuViewController {
+        
+        let viewController = UIStoryboard.
+        
+    }
+    
 
     private func configure(viewController: MenuViewController) {
 

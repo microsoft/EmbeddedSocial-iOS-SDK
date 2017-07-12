@@ -21,7 +21,7 @@ public class API {
     
     public static var items = [String]()
     
-    public static func injectMenuStackIntoApp(window: UIWindow, format: NavigationStackFormat? = .single) {
+    public static func injectMenuStackIntoApp(window: UIWindow, format: NavigationStackFormat = .single) {
         
         navigationStack = NavigationStack(window: window, format: format)
         
