@@ -67,9 +67,7 @@
 		886B3ABC1F13A2CB00BF1A8E /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3A931F13A2CB00BF1A8E /* RootRouter.swift */; };
 		886B3AC11F13A35700BF1A8E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC01F13A35700BF1A8E /* User.swift */; };
 		886B3AC41F13A38A00BF1A8E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC31F13A38A00BF1A8E /* AuthService.swift */; };
-		886B3AC61F13A46C00BF1A8E /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC51F13A46C00BF1A8E /* Storyboard.swift */; };
 		886B3AC81F13A76000BF1A8E /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC71F13A76000BF1A8E /* Identifiable.swift */; };
-		886B3ACA1F13A7F300BF1A8E /* StoryboardViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC91F13A7F300BF1A8E /* StoryboardViewControllers.swift */; };
 		917C2C7ECE174B7F6C25C0D1 /* MenuStackConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2482C8288818ED4B4FE5E26 /* MenuStackConfigurator.swift */; };
 		9B17FFA06884B8F3DC4B8D8E /* TabMenuContainerInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8A201A6A62C379312ACB96 /* TabMenuContainerInitializer.swift */; };
 		9C0BCED71F16225200C0DD49 /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C94CABC1F161D590088C19F /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -274,9 +272,7 @@
 		886B3A931F13A2CB00BF1A8E /* RootRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
 		886B3AC01F13A35700BF1A8E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		886B3AC31F13A38A00BF1A8E /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		886B3AC51F13A46C00BF1A8E /* Storyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
 		886B3AC71F13A76000BF1A8E /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
-		886B3AC91F13A7F300BF1A8E /* StoryboardViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardViewControllers.swift; sourceTree = "<group>"; };
 		9044E430E4B08AC94BFD4C1E /* MenuStackRouterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuStackRouterTests.swift; sourceTree = "<group>"; };
 		9796DCCEAD1441639F6E7987 /* Pods-Group-MSGP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.release.xcconfig"; sourceTree = "<group>"; };
 		9799BB0B76319EB23E856BEA /* Pods_Group_MSGP_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_MSGP_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -287,6 +283,7 @@
 		9C60A93D1F151CD1004D84C0 /* MenuCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellViewModel.swift; sourceTree = "<group>"; };
 		9C60A93F1F151EF8004D84C0 /* MenuCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellView.swift; sourceTree = "<group>"; };
 		9C621F771F16432800C4C792 /* MenuStack.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MenuStack.storyboard; sourceTree = "<group>"; };
+		9C621F7A1F1660D600C4C792 /* Storyboards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
 		9C94CABC1F161D590088C19F /* MSGP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
 		9C94CAC11F1620370088C19F /* MenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuConfigurator.swift; sourceTree = "<group>"; };
 		9C94CAC21F1620370088C19F /* MenuInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInitializer.swift; sourceTree = "<group>"; };
@@ -817,8 +814,6 @@
 				886B3AC71F13A76000BF1A8E /* Identifiable.swift */,
 				886B39DD1F1391EC00BF1A8E /* Result.swift */,
 				9CA740E81F14C23B00B4A5BA /* NavigationStack */,
-				886B3AC51F13A46C00BF1A8E /* Storyboard.swift */,
-				886B3AC91F13A7F300BF1A8E /* StoryboardViewControllers.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -973,6 +968,7 @@
 		9CEB71A11F136243007057DA /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				9C621F7A1F1660D600C4C792 /* Storyboards.swift */,
 				9CEB71A41F136243007057DA /* APIs */,
 				9CEB71B71F136243007057DA /* Models */,
 				9CEB71A31F136243007057DA /* APIHelper.swift */,
@@ -1540,7 +1536,6 @@
 				886B3AB31F13A2CB00BF1A8E /* LoginModuleOutput.swift in Sources */,
 				9CEB72111F136277007057DA /* PostCommentResponse.swift in Sources */,
 				9C94CAD61F1620540088C19F /* MenuInteractorOutput.swift in Sources */,
-				886B3AC61F13A46C00BF1A8E /* Storyboard.swift in Sources */,
 				886B3AB61F13A2CB00BF1A8E /* LoginRouterInput.swift in Sources */,
 				9CEB72121F136277007057DA /* PostFollowerRequest.swift in Sources */,
 				9CA740EB1F14C98400B4A5BA /* API.swift in Sources */,
@@ -1590,7 +1585,6 @@
 				9CEB722B1F136277007057DA /* UserCompactView.swift in Sources */,
 				886B3A961F13A2CB00BF1A8E /* CreateAccountInteractor.swift in Sources */,
 				9CEB722C1F136277007057DA /* UserProfileView.swift in Sources */,
-				886B3ACA1F13A7F300BF1A8E /* StoryboardViewControllers.swift in Sources */,
 				9CEB722D1F136277007057DA /* Models.swift in Sources */,
 				886B39DE1F1391EC00BF1A8E /* Result.swift in Sources */,
 				9CEB71E91F13624B007057DA /* AlamofireImplementations.swift in Sources */,
