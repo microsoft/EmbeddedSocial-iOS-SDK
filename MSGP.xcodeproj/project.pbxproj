@@ -26,6 +26,7 @@
 		885F9FFE1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.h in Headers */ = {isa = PBXBuildFile; fileRef = 885F9FED1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.h */; };
 		885F9FFF1F166A4A00A30CDF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 885F9FF11F166A4A00A30CDF /* Podfile */; };
 		885FA0001F166A4A00A30CDF /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FF21F166A4A00A30CDF /* README.md */; };
+		885FA00A1F1676E400A30CDF /* MicrosoftAPI2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885FA0091F1676E400A30CDF /* MicrosoftAPI2.swift */; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
 		886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C91F138F5D00BF1A8E /* ViewController.swift */; };
 		886B39CD1F138F5D00BF1A8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CB1F138F5D00BF1A8E /* Main.storyboard */; };
@@ -219,6 +220,7 @@
 		885F9FEE1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MSGraphSDKNXOAuth2.xcodeproj; sourceTree = "<group>"; };
 		885F9FF11F166A4A00A30CDF /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		885F9FF21F166A4A00A30CDF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		885FA0091F1676E400A30CDF /* MicrosoftAPI2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrosoftAPI2.swift; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -717,6 +719,7 @@
 				886B3AF51F14CD3B00BF1A8E /* TwitterAPI.swift */,
 				88BC87591F150D2700EAEFD7 /* GoogleAPI.swift */,
 				88CF240B1F162B0100CC406F /* MicrosoftAPI.swift */,
+				885FA0091F1676E400A30CDF /* MicrosoftAPI2.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1359,6 +1362,7 @@
 				886B3B841F14EFF000BF1A8E /* UserCompactView.swift in Sources */,
 				886B3B6C1F14EFF000BF1A8E /* PostFollowingTopicRequest.swift in Sources */,
 				886B3B701F14EFF000BF1A8E /* PostPinRequest.swift in Sources */,
+				885FA00A1F1676E400A30CDF /* MicrosoftAPI2.swift in Sources */,
 				886B3A961F13A2CB00BF1A8E /* CreateAccountInteractor.swift in Sources */,
 				886B3B7A1F14EFF000BF1A8E /* PostUserResponse.swift in Sources */,
 				886B3ACA1F13A7F300BF1A8E /* StoryboardViewControllers.swift in Sources */,
