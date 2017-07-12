@@ -11,6 +11,22 @@
 		12A4D030E7210403ED9CD070 /* Pods_MSGPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98F3CA7FEE0FF99891994489 /* Pods_MSGPTests.framework */; };
 		214E8DE66F6A09DEBD8DEAD6 /* MenuRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72954C2961739A22EA867972 /* MenuRouterTests.swift */; };
 		506CDF6F4DB1E41D76E78C71 /* MenuViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8489F95B030DE78A19959B /* MenuViewTests.swift */; };
+		632606E71F165EAC00D61055 /* CreatePostConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606D61F165EAC00D61055 /* CreatePostConfigurator.swift */; };
+		632606E81F165EAC00D61055 /* CreatePostInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606D71F165EAC00D61055 /* CreatePostInitializer.swift */; };
+		632606E91F165EAC00D61055 /* CreatePost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 632606D81F165EAC00D61055 /* CreatePost.storyboard */; };
+		632606EA1F165EAC00D61055 /* CreatePostInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606DA1F165EAC00D61055 /* CreatePostInteractor.swift */; };
+		632606EB1F165EAC00D61055 /* CreatePostInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606DB1F165EAC00D61055 /* CreatePostInteractorInput.swift */; };
+		632606EC1F165EAC00D61055 /* CreatePostInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606DC1F165EAC00D61055 /* CreatePostInteractorOutput.swift */; };
+		632606ED1F165EAC00D61055 /* CreatePostModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606DE1F165EAC00D61055 /* CreatePostModuleInput.swift */; };
+		632606EE1F165EAC00D61055 /* CreatePostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606DF1F165EAC00D61055 /* CreatePostPresenter.swift */; };
+		632606EF1F165EAC00D61055 /* CreatePostRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606E11F165EAC00D61055 /* CreatePostRouter.swift */; };
+		632606F01F165EAC00D61055 /* CreatePostRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606E21F165EAC00D61055 /* CreatePostRouterInput.swift */; };
+		632606F11F165EAC00D61055 /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606E41F165EAC00D61055 /* CreatePostViewController.swift */; };
+		632606F21F165EAC00D61055 /* CreatePostViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606E51F165EAC00D61055 /* CreatePostViewInput.swift */; };
+		632606F31F165EAC00D61055 /* CreatePostViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606E61F165EAC00D61055 /* CreatePostViewOutput.swift */; };
+		632606F61F165EF600D61055 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606F51F165EF600D61055 /* BaseViewController.swift */; };
+		632606F91F165F8B00D61055 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606F81F165F8B00D61055 /* ImagePicker.swift */; };
+		632606FB1F165FF000D61055 /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632606FA1F165FF000D61055 /* AppStrings.swift */; };
 		66CA8853F244977BDA8E7A01 /* Pods_Group_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C65D2F16C79AECFF08887558 /* Pods_Group_MSGP.framework */; };
 		80DB14934D6DEA36A595A3CD /* MenuConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B429F0AE94B8DDE8ED11D2 /* MenuConfiguratorTests.swift */; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
@@ -52,7 +68,6 @@
 		886B3AC81F13A76000BF1A8E /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC71F13A76000BF1A8E /* Identifiable.swift */; };
 		886B3ACA1F13A7F300BF1A8E /* StoryboardViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC91F13A7F300BF1A8E /* StoryboardViewControllers.swift */; };
 		9C0BCED71F16225200C0DD49 /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C94CABC1F161D590088C19F /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9C0BCEDA1F16243E00C0DD49 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9C0BCED91F16243E00C0DD49 /* Info.plist */; };
 		9C0BCEDB1F16255300C0DD49 /* NavigationStack.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C94CAC71F1620370088C19F /* NavigationStack.storyboard */; };
 		9C60A93E1F151CD1004D84C0 /* MenuCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C60A93D1F151CD1004D84C0 /* MenuCellViewModel.swift */; };
 		9C60A9401F151EF8004D84C0 /* MenuCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C60A93F1F151EF8004D84C0 /* MenuCellView.swift */; };
@@ -182,6 +197,22 @@
 /* Begin PBXFileReference section */
 		03B429F0AE94B8DDE8ED11D2 /* MenuConfiguratorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuConfiguratorTests.swift; sourceTree = "<group>"; };
 		3F8489F95B030DE78A19959B /* MenuViewTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuViewTests.swift; sourceTree = "<group>"; };
+		632606D61F165EAC00D61055 /* CreatePostConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostConfigurator.swift; sourceTree = "<group>"; };
+		632606D71F165EAC00D61055 /* CreatePostInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostInitializer.swift; sourceTree = "<group>"; };
+		632606D81F165EAC00D61055 /* CreatePost.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreatePost.storyboard; sourceTree = "<group>"; };
+		632606DA1F165EAC00D61055 /* CreatePostInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostInteractor.swift; sourceTree = "<group>"; };
+		632606DB1F165EAC00D61055 /* CreatePostInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostInteractorInput.swift; sourceTree = "<group>"; };
+		632606DC1F165EAC00D61055 /* CreatePostInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostInteractorOutput.swift; sourceTree = "<group>"; };
+		632606DE1F165EAC00D61055 /* CreatePostModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostModuleInput.swift; sourceTree = "<group>"; };
+		632606DF1F165EAC00D61055 /* CreatePostPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostPresenter.swift; sourceTree = "<group>"; };
+		632606E11F165EAC00D61055 /* CreatePostRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostRouter.swift; sourceTree = "<group>"; };
+		632606E21F165EAC00D61055 /* CreatePostRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostRouterInput.swift; sourceTree = "<group>"; };
+		632606E41F165EAC00D61055 /* CreatePostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
+		632606E51F165EAC00D61055 /* CreatePostViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostViewInput.swift; sourceTree = "<group>"; };
+		632606E61F165EAC00D61055 /* CreatePostViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostViewOutput.swift; sourceTree = "<group>"; };
+		632606F51F165EF600D61055 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		632606F81F165F8B00D61055 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		632606FA1F165FF000D61055 /* AppStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
 		72954C2961739A22EA867972 /* MenuRouterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuRouterTests.swift; sourceTree = "<group>"; };
 		83C2F4EC736C209DC9E7FC6A /* MenuInteractorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuInteractorTests.swift; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,7 +251,7 @@
 		886B3A911F13A2CB00BF1A8E /* RootConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootConfigurator.swift; sourceTree = "<group>"; };
 		886B3A931F13A2CB00BF1A8E /* RootRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
 		886B3AC01F13A35700BF1A8E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		886B3AC31F13A38A00BF1A8E /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		886B3AC31F13A38A00BF1A8E /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthService.swift; path = Model/Services/AuthService.swift; sourceTree = "<group>"; };
 		886B3AC51F13A46C00BF1A8E /* Storyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
 		886B3AC71F13A76000BF1A8E /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		886B3AC91F13A7F300BF1A8E /* StoryboardViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardViewControllers.swift; sourceTree = "<group>"; };
@@ -373,6 +404,82 @@
 				3F8489F95B030DE78A19959B /* MenuViewTests.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		632606D41F165EAC00D61055 /* CreatePost */ = {
+			isa = PBXGroup;
+			children = (
+				632606D81F165EAC00D61055 /* CreatePost.storyboard */,
+				632606D51F165EAC00D61055 /* Configurator */,
+				632606D91F165EAC00D61055 /* Interactor */,
+				632606DD1F165EAC00D61055 /* Presenter */,
+				632606E01F165EAC00D61055 /* Router */,
+				632606E31F165EAC00D61055 /* View */,
+			);
+			path = CreatePost;
+			sourceTree = "<group>";
+		};
+		632606D51F165EAC00D61055 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				632606D61F165EAC00D61055 /* CreatePostConfigurator.swift */,
+				632606D71F165EAC00D61055 /* CreatePostInitializer.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		632606D91F165EAC00D61055 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				632606DA1F165EAC00D61055 /* CreatePostInteractor.swift */,
+				632606DB1F165EAC00D61055 /* CreatePostInteractorInput.swift */,
+				632606DC1F165EAC00D61055 /* CreatePostInteractorOutput.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		632606DD1F165EAC00D61055 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				632606DE1F165EAC00D61055 /* CreatePostModuleInput.swift */,
+				632606DF1F165EAC00D61055 /* CreatePostPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		632606E01F165EAC00D61055 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				632606E11F165EAC00D61055 /* CreatePostRouter.swift */,
+				632606E21F165EAC00D61055 /* CreatePostRouterInput.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		632606E31F165EAC00D61055 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				632606E41F165EAC00D61055 /* CreatePostViewController.swift */,
+				632606E51F165EAC00D61055 /* CreatePostViewInput.swift */,
+				632606E61F165EAC00D61055 /* CreatePostViewOutput.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		632606F41F165EF600D61055 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				632606F51F165EF600D61055 /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		632606F71F165F7F00D61055 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				632606F81F165F8B00D61055 /* ImagePicker.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		6680020EA431D19F96439705 /* Frameworks */ = {
@@ -583,7 +690,6 @@
 		886B3AC21F13A37700BF1A8E /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				886B3AC31F13A38A00BF1A8E /* AuthService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -595,6 +701,7 @@
 				9C223D1C1F0FA2900058B60A /* Common */,
 				9CEB71A11F136243007057DA /* Generated */,
 				886B39DC1F1391A700BF1A8E /* Model */,
+				886B3AC31F13A38A00BF1A8E /* AuthService.swift */,
 				B015BFA7F75D3C2321ABD44C /* Modules */,
 			);
 			path = Sources;
@@ -611,6 +718,8 @@
 		9C223D1C1F0FA2900058B60A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				632606FA1F165FF000D61055 /* AppStrings.swift */,
+				632606F41F165EF600D61055 /* Base */,
 				886B3AC71F13A76000BF1A8E /* Identifiable.swift */,
 				886B39DD1F1391EC00BF1A8E /* Result.swift */,
 				9CA740E81F14C23B00B4A5BA /* NavigationStack */,
@@ -740,6 +849,7 @@
 		9CD8052B1F0D012F00B9B0AC /* MSGP */ = {
 			isa = PBXGroup;
 			children = (
+				632606F71F165F7F00D61055 /* Utils */,
 				9C94CABA1F161D590088C19F /* Supporting Files */,
 				9C223D1E1F0FA3390058B60A /* Resources */,
 				8B452A1F595C02042F06EAF0 /* Sources */,
@@ -864,6 +974,7 @@
 		B015BFA7F75D3C2321ABD44C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				632606D41F165EAC00D61055 /* CreatePost */,
 				9C94CABF1F1620370088C19F /* Menu */,
 				886B3A561F13A2CB00BF1A8E /* CreateAccount */,
 				886B3A7D1F13A2CB00BF1A8E /* Login */,
@@ -1022,7 +1133,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C0BCEDA1F16243E00C0DD49 /* Info.plist in Resources */,
+				632606E91F165EAC00D61055 /* CreatePost.storyboard in Resources */,
 				9C0BCEDB1F16255300C0DD49 /* NavigationStack.storyboard in Resources */,
 				886B3AB71F13A2CB00BF1A8E /* Login.storyboard in Resources */,
 				886B3AA01F13A2CB00BF1A8E /* CreateAccount.storyboard in Resources */,
@@ -1186,11 +1297,14 @@
 				886B3ABC1F13A2CB00BF1A8E /* RootRouter.swift in Sources */,
 				886B3ABB1F13A2CB00BF1A8E /* RootConfigurator.swift in Sources */,
 				9CEB71EF1F136277007057DA /* ImagesAPI.swift in Sources */,
+				632606EE1F165EAC00D61055 /* CreatePostPresenter.swift in Sources */,
 				9CEB71F01F136277007057DA /* LikesAPI.swift in Sources */,
 				9CEB71F11F136277007057DA /* NotificationsAPI.swift in Sources */,
+				632606EC1F165EAC00D61055 /* CreatePostInteractorOutput.swift in Sources */,
 				9C94CAD81F16205E0088C19F /* MenuPresenter.swift in Sources */,
 				886B3AC81F13A76000BF1A8E /* Identifiable.swift in Sources */,
 				886B3AC41F13A38A00BF1A8E /* AuthService.swift in Sources */,
+				632606ED1F165EAC00D61055 /* CreatePostModuleInput.swift in Sources */,
 				9CEB71F21F136277007057DA /* PinsAPI.swift in Sources */,
 				9CEB71F31F136277007057DA /* PushNotificationsAPI.swift in Sources */,
 				9CEB71F41F136277007057DA /* RepliesAPI.swift in Sources */,
@@ -1198,19 +1312,25 @@
 				9CEB71F61F136277007057DA /* SearchAPI.swift in Sources */,
 				9CEB71F71F136277007057DA /* SessionsAPI.swift in Sources */,
 				9CEB71F81F136277007057DA /* SocialAPI.swift in Sources */,
+				632606F01F165EAC00D61055 /* CreatePostRouterInput.swift in Sources */,
 				9CEB71F91F136277007057DA /* TopicsAPI.swift in Sources */,
+				632606F31F165EAC00D61055 /* CreatePostViewOutput.swift in Sources */,
+				632606EB1F165EAC00D61055 /* CreatePostInteractorInput.swift in Sources */,
 				9CEB71FA1F136277007057DA /* UsersAPI.swift in Sources */,
 				9CEB71FB1F136277007057DA /* APIs.swift in Sources */,
 				886B3A941F13A2CB00BF1A8E /* CreateAccountConfigurator.swift in Sources */,
 				9CEB71FC1F136277007057DA /* Extensions.swift in Sources */,
 				9CEB71FD1F136277007057DA /* ActivityView.swift in Sources */,
 				9CEB71FE1F136277007057DA /* AppCompactView.swift in Sources */,
+				632606FB1F165FF000D61055 /* AppStrings.swift in Sources */,
 				9CEB71FF1F136277007057DA /* BuildsCurrentResponse.swift in Sources */,
 				9CEB72001F136277007057DA /* CommentView.swift in Sources */,
 				9CEB72011F136277007057DA /* ContentCompactView.swift in Sources */,
 				9CEB72021F136277007057DA /* CountResponse.swift in Sources */,
 				9CEB72031F136277007057DA /* DeleteTopicNameRequest.swift in Sources */,
+				632606EA1F165EAC00D61055 /* CreatePostInteractor.swift in Sources */,
 				9CEB72041F136277007057DA /* FeedResponseActivityView.swift in Sources */,
+				632606EF1F165EAC00D61055 /* CreatePostRouter.swift in Sources */,
 				9CEB72051F136277007057DA /* FeedResponseCommentView.swift in Sources */,
 				9CEB72061F136277007057DA /* FeedResponseReplyView.swift in Sources */,
 				9CEB72071F136277007057DA /* FeedResponseTopicView.swift in Sources */,
@@ -1218,9 +1338,12 @@
 				9CEB72091F136277007057DA /* FeedResponseUserProfileView.swift in Sources */,
 				886B3AB41F13A2CB00BF1A8E /* LoginPresenter.swift in Sources */,
 				9C94CADA1F16205E0088C19F /* MenuRouterInput.swift in Sources */,
+				632606E71F165EAC00D61055 /* CreatePostConfigurator.swift in Sources */,
 				9CEB720A1F136277007057DA /* GetRequestTokenResponse.swift in Sources */,
 				886B3AA21F13A2CB00BF1A8E /* CreateAccountViewInput.swift in Sources */,
+				632606F21F165EAC00D61055 /* CreatePostViewInput.swift in Sources */,
 				886B3AA31F13A2CB00BF1A8E /* CreateAccountViewOutput.swift in Sources */,
+				632606E81F165EAC00D61055 /* CreatePostInitializer.swift in Sources */,
 				9CEB720B1F136277007057DA /* GetTopicNameResponse.swift in Sources */,
 				9CEB720C1F136277007057DA /* LinkedAccountView.swift in Sources */,
 				9CFCA3EF1F14BFE4007041CB /* NavigationStack.swift in Sources */,
@@ -1266,6 +1389,7 @@
 				9CEB72231F136277007057DA /* PutPushRegistrationRequest.swift in Sources */,
 				9C60A9401F151EF8004D84C0 /* MenuCellView.swift in Sources */,
 				886B3AB01F13A2CB00BF1A8E /* LoginInteractor.swift in Sources */,
+				632606F61F165EF600D61055 /* BaseViewController.swift in Sources */,
 				9CEB72241F136277007057DA /* PutTopicNameRequest.swift in Sources */,
 				886B3A971F13A2CB00BF1A8E /* CreateAccountInteractorInput.swift in Sources */,
 				9CEB72251F136277007057DA /* PutTopicRequest.swift in Sources */,
@@ -1273,6 +1397,7 @@
 				9CEB72271F136277007057DA /* PutUserPhotoRequest.swift in Sources */,
 				9CA740E61F14C19F00B4A5BA /* NavigationStackContainer.swift in Sources */,
 				9C94CADC1F16205E0088C19F /* MenuViewInput.swift in Sources */,
+				632606F11F165EAC00D61055 /* CreatePostViewController.swift in Sources */,
 				9CEB72281F136277007057DA /* PutUserVisibilityRequest.swift in Sources */,
 				9CEB72291F136277007057DA /* ReplyView.swift in Sources */,
 				9C94CAD51F1620540088C19F /* MenuInteractorInput.swift in Sources */,
@@ -1280,6 +1405,7 @@
 				886B3A9A1F13A2CB00BF1A8E /* CreateAccountModuleOutput.swift in Sources */,
 				9CEB722A1F136277007057DA /* TopicView.swift in Sources */,
 				9CEB722B1F136277007057DA /* UserCompactView.swift in Sources */,
+				632606F91F165F8B00D61055 /* ImagePicker.swift in Sources */,
 				886B3A961F13A2CB00BF1A8E /* CreateAccountInteractor.swift in Sources */,
 				9CEB722C1F136277007057DA /* UserProfileView.swift in Sources */,
 				886B3ACA1F13A7F300BF1A8E /* StoryboardViewControllers.swift in Sources */,
