@@ -8,12 +8,19 @@
 
 class MenuInteractor: MenuInteractorInput {
     
-    func cellViewModel(path: IndexPath) -> MenuCellViewModel {
-        
-        return MenuCellViewModel(title: "item #\(path.row)", pictureName: "icon_home")
-        
-    }
-    
     weak var output: MenuInteractorOutput!
+    
+    lazy var items: [MenuItemModel] = {
+        return [
+            
+            MenuItemModel(title: "lel", pictureName: "icon_gear"),
+            MenuItemModel(title: "hallo", pictureName: "icon_home")
+            
+        ]
+    }()
+    
+    func retrieveMenuItems() {
+        self.output.didRetrieveMenuItems(items: self.items)
+    }
 
 }

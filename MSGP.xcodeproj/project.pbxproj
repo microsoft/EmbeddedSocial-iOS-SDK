@@ -785,7 +785,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0900;
-				ORGANIZATIONNAME = "Igor Popov";
+				ORGANIZATIONNAME = Akvelon;
 				TargetAttributes = {
 					886B39C41F138F5D00BF1A8E = {
 						CreatedOnToolsVersion = 8.3.3;

@@ -8,12 +8,8 @@
 
 class MenuPresenter: MenuModuleInput, MenuViewOutput, MenuInteractorOutput {
     
-    func needConfigureCell(path: IndexPath) -> MenuCellViewModel {
-        return self.interactor.cellViewModel(path: path)
-    }
-    
     func didTapCell(path: IndexPath) {
-        
+        router.openMenu(.feed)
     }
     
     weak var view: MenuViewInput!
@@ -21,6 +17,12 @@ class MenuPresenter: MenuModuleInput, MenuViewOutput, MenuInteractorOutput {
     var router: MenuRouterInput!
 
     func viewIsReady() {
-
+        view.setupInitialState()
+        interactor.retrieveMenuItems()
     }
+    
+    func didRetrieveMenuItems(items: [MenuItemModel]) {
+        view.showMenu(with: items)
+    }
+    
 }

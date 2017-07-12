@@ -14,4 +14,5 @@ protocol MenuViewInput: class {
     */
 
     func setupInitialState()
+    func showMenu(with items:[MenuItemModel])
 }

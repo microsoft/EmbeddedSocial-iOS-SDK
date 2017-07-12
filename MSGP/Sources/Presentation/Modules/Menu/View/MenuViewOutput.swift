@@ -14,10 +14,5 @@ protocol MenuViewOutput {
     */
 
     func viewIsReady()
-    
-    func needConfigureCell(path: IndexPath) -> MenuCellViewModel
-    func numberOfCells() -> Int {
-    <#function body#>
-    }
     func didTapCell(path: IndexPath)
 }

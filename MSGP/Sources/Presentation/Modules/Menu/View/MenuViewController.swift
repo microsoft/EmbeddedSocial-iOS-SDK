@@ -9,8 +9,9 @@
 import UIKit
 
 class MenuViewController: UIViewController, MenuViewInput {
-
+    
     var output: MenuViewOutput!
+    var menuItems: [MenuItemModel] = []
     @IBOutlet weak var tableView: UITableView?
 
     // MARK: Life cycle
@@ -18,22 +19,26 @@ class MenuViewController: UIViewController, MenuViewInput {
         super.viewDidLoad()
         output.viewIsReady()
     }
-
-
+    
     // MARK: MenuViewInput
     func setupInitialState() {
         self.tableView?.dataSource = self
+        self.tableView?.delegate = self
+    }
+    
+    func showMenu(with items: [MenuItemModel]) {
+        self.menuItems = items
+        self.tableView?.reloadData()
     }
 }
 
-extension MenuViewController: UITableViewDataSource {
+extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? MenuCellView {
             
-            let vm = self.output.needConfigureCell(path: indexPath)
-            cell.configure(vm: vm)
+            cell.configure(withModel: self.menuItems[indexPath.row])
             return cell
             
         } else {
@@ -42,7 +47,11 @@ extension MenuViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.output
+        return self.menuItems.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.output.didTapCell(path: indexPath)
     }
     
 }

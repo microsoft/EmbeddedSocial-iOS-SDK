@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MenuCellViewModel {
+struct MenuItemModel {
     var title: String
     var pictureName: String
 }

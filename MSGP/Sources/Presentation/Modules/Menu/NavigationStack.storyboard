@@ -121,6 +121,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tqQ-Aw-qzT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="IZi-Zl-30o" customClass="MenuModuleInitializer" customModule="MSGP" customModuleProvider="target">
+                    <connections>
+                        <outlet property="menuViewController" destination="qjJ-mp-3US" id="0xP-W4-5XL"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="709.60000000000002" y="151.57421289355324"/>
         </scene>

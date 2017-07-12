@@ -13,9 +13,12 @@ class MenuCellView: UITableViewCell {
     @IBOutlet weak var picture: UIImageView?
     @IBOutlet weak var title: UILabel?
     
-    func configure(vm: MenuCellViewModel)  {
-        picture!.image = UIImage(named:vm.pictureName)
-        title!.text = vm.title
+    func configure(withModel model: MenuItemModel)  {
+        
+        picture!.image = UIImage(named:model.pictureName,
+                                 in:Bundle(for: type(of: self)),
+                                 compatibleWith:nil)
+        title!.text = model.title
     }
     
 }

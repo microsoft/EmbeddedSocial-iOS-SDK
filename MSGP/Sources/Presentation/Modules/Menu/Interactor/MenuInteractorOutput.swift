@@ -10,5 +10,6 @@ import Foundation
 
 protocol MenuInteractorOutput: class {
     
-
+    func didRetrieveMenuItems(items: [MenuItemModel])
+    
 }
