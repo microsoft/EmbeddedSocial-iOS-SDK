@@ -13,7 +13,7 @@
         <!--Create Account View Controller-->
         <scene sceneID="t9X-tm-w3H">
             <objects>
-                <viewController storyboardIdentifier="CreateAccountViewController" id="lMg-g5-yE1" customClass="CreateAccountViewController" customModule="SocialPlusv0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateAccountViewController" id="lMg-g5-yE1" customClass="CreateAccountViewController" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="v18-lu-YNw"/>
                         <viewControllerLayoutGuide type="bottom" id="o86-CF-2u3"/>

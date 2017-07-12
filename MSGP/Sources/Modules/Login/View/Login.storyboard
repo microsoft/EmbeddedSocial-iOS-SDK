@@ -13,7 +13,7 @@
         <!--Login View Controller-->
         <scene sceneID="FFk-py-vlL">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="5vd-0T-hlO" customClass="LoginViewController" customModule="SocialPlusv0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="5vd-0T-hlO" customClass="LoginViewController" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eWk-tQ-yt2"/>
                         <viewControllerLayoutGuide type="bottom" id="fZ0-YY-cZa"/>

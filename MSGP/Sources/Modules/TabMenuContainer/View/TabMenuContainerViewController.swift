@@ -9,6 +9,14 @@
 import UIKit
 
 class TabMenuContainerViewController: UIViewController, TabMenuContainerViewInput {
+    
+    func select(tab: TabMenuContainerTabs) {
+        
+    }
+    
+    func show(tab: UIViewController) {
+        
+    }
 
     var output: TabMenuContainerViewOutput!
 

@@ -16,6 +16,8 @@ class TabMenuContainerInteractor: TabMenuContainerInteractorInput {
     
     private func configureSocialTab() {
         
+        
+        
     }
     
 }

@@ -76,6 +76,8 @@
 		9C2EEA4A1F1636DB00D2FA71 /* SingleMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EEA491F1636DB00D2FA71 /* SingleMenu.swift */; };
 		9C60A93E1F151CD1004D84C0 /* MenuCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C60A93D1F151CD1004D84C0 /* MenuCellViewModel.swift */; };
 		9C60A9401F151EF8004D84C0 /* MenuCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C60A93F1F151EF8004D84C0 /* MenuCellView.swift */; };
+		9C788DC81F166CC600FCC23B /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C788DC61F166CB500FCC23B /* Images.swift */; };
+		9C788DC91F166CC600FCC23B /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C788DC71F166CB500FCC23B /* Storyboards.swift */; };
 		9C94CAD21F1620400088C19F /* MenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C94CAC11F1620370088C19F /* MenuConfigurator.swift */; };
 		9C94CAD31F1620400088C19F /* MenuInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C94CAC21F1620370088C19F /* MenuInitializer.swift */; };
 		9C94CAD41F1620540088C19F /* MenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C94CAC41F1620370088C19F /* MenuInteractor.swift */; };
@@ -283,7 +285,8 @@
 		9C60A93D1F151CD1004D84C0 /* MenuCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellViewModel.swift; sourceTree = "<group>"; };
 		9C60A93F1F151EF8004D84C0 /* MenuCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellView.swift; sourceTree = "<group>"; };
 		9C621F771F16432800C4C792 /* MenuStack.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MenuStack.storyboard; sourceTree = "<group>"; };
-		9C621F7A1F1660D600C4C792 /* Storyboards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
+		9C788DC61F166CB500FCC23B /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		9C788DC71F166CB500FCC23B /* Storyboards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
 		9C94CABC1F161D590088C19F /* MSGP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
 		9C94CAC11F1620370088C19F /* MenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuConfigurator.swift; sourceTree = "<group>"; };
 		9C94CAC21F1620370088C19F /* MenuInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInitializer.swift; sourceTree = "<group>"; };
@@ -836,6 +839,15 @@
 			name = MenuStack;
 			sourceTree = "<group>";
 		};
+		9C788DC51F166CB500FCC23B /* SwiftGen */ = {
+			isa = PBXGroup;
+			children = (
+				9C788DC61F166CB500FCC23B /* Images.swift */,
+				9C788DC71F166CB500FCC23B /* Storyboards.swift */,
+			);
+			path = SwiftGen;
+			sourceTree = "<group>";
+		};
 		9C94CABA1F161D590088C19F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -968,7 +980,7 @@
 		9CEB71A11F136243007057DA /* Generated */ = {
 			isa = PBXGroup;
 			children = (
-				9C621F7A1F1660D600C4C792 /* Storyboards.swift */,
+				9C788DC51F166CB500FCC23B /* SwiftGen */,
 				9CEB71A41F136243007057DA /* APIs */,
 				9CEB71B71F136243007057DA /* Models */,
 				9CEB71A31F136243007057DA /* APIHelper.swift */,
@@ -1572,7 +1584,9 @@
 				9CEB72241F136277007057DA /* PutTopicNameRequest.swift in Sources */,
 				886B3A971F13A2CB00BF1A8E /* CreateAccountInteractorInput.swift in Sources */,
 				9CEB72251F136277007057DA /* PutTopicRequest.swift in Sources */,
+				9C788DC81F166CC600FCC23B /* Images.swift in Sources */,
 				9CEB72261F136277007057DA /* PutUserInfoRequest.swift in Sources */,
+				9C788DC91F166CC600FCC23B /* Storyboards.swift in Sources */,
 				9CEB72271F136277007057DA /* PutUserPhotoRequest.swift in Sources */,
 				9CA740E61F14C19F00B4A5BA /* NavigationStackContainer.swift in Sources */,
 				9C94CADC1F16205E0088C19F /* MenuViewInput.swift in Sources */,

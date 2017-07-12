@@ -13,7 +13,7 @@ final class LoginConfigurator {
     let viewController: LoginViewController
     
     init() {
-        self.viewController = Storyboard.login.loginViewController()!
+        self.viewController = LoginViewController()
     }
 
     func configure(moduleOutput: LoginModuleOutput) {
