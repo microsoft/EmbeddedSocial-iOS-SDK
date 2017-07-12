@@ -1,6 +1,7 @@
 platform :ios, ‘8.0’
 
 use_frameworks!
+inhibit_all_warnings!
 
 def facebook
     pod 'FBSDKCoreKit'
@@ -10,7 +11,7 @@ end
 
 def microsoft
     pod 'MSGraphSDK'
-    #pod 'MSGraphSDK-NXOAuth2Adapter'
+    pod 'MSGraphSDK-NXOAuth2Adapter', :path => './MSGP/Vendor/MSGraphSDK-NXOAuth2Adapter'
 end
 
 abstract_target 'Group' do

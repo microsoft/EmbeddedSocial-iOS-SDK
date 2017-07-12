@@ -12,6 +12,20 @@
 		885F9FB91F16324F00A30CDF /* URLSchemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FB81F16324F00A30CDF /* URLSchemeService.swift */; };
 		885F9FCC1F165C9700A30CDF /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; };
 		885F9FCD1F165C9700A30CDF /* MSAL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		885F9FF31F166A4A00A30CDF /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 885F9FDD1F166A4A00A30CDF /* LICENSE.txt */; };
+		885F9FF41F166A4A00A30CDF /* MSGraphSDK-NXOAuth2Adapter.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 885F9FDE1F166A4A00A30CDF /* MSGraphSDK-NXOAuth2Adapter.podspec */; };
+		885F9FF51F166A4A00A30CDF /* MSAuthenticationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 885F9FE11F166A4A00A30CDF /* MSAuthenticationViewController.h */; };
+		885F9FF61F166A4A00A30CDF /* MSAuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FE21F166A4A00A30CDF /* MSAuthenticationViewController.m */; };
+		885F9FF71F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 885F9FE31F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.h */; };
+		885F9FF81F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FE41F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.m */; };
+		885F9FF91F166A4A00A30CDF /* MSAuthConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 885F9FE61F166A4A00A30CDF /* MSAuthConstants.h */; };
+		885F9FFA1F166A4A00A30CDF /* MSAuthConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FE71F166A4A00A30CDF /* MSAuthConstants.m */; };
+		885F9FFB1F166A4A00A30CDF /* NSError+MSGraphOAuth2.h in Headers */ = {isa = PBXBuildFile; fileRef = 885F9FE91F166A4A00A30CDF /* NSError+MSGraphOAuth2.h */; };
+		885F9FFC1F166A4A00A30CDF /* NSError+MSGraphOAuth2.m in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FEA1F166A4A00A30CDF /* NSError+MSGraphOAuth2.m */; };
+		885F9FFD1F166A4A00A30CDF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 885F9FEC1F166A4A00A30CDF /* Info.plist */; };
+		885F9FFE1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.h in Headers */ = {isa = PBXBuildFile; fileRef = 885F9FED1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.h */; };
+		885F9FFF1F166A4A00A30CDF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 885F9FF11F166A4A00A30CDF /* Podfile */; };
+		885FA0001F166A4A00A30CDF /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FF21F166A4A00A30CDF /* README.md */; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
 		886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C91F138F5D00BF1A8E /* ViewController.swift */; };
 		886B39CD1F138F5D00BF1A8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CB1F138F5D00BF1A8E /* Main.storyboard */; };
@@ -145,6 +159,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		885FA0021F166A4A00A30CDF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 885F9FEE1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7C12E5F01CA47DE400328A79;
+			remoteInfo = MSGraphSDKNXOAuth2;
+		};
 		886B3ADD1F13B92700BF1A8E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9CD805201F0D012F00B9B0AC /* Project object */;
@@ -183,8 +204,21 @@
 		5C04BD1691EFBEB188AF506F /* Pods-Group-MSGP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.debug.xcconfig"; sourceTree = "<group>"; };
 		743B4CFC3C3C9A1BE41ED857 /* Pods-MSGPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.debug.xcconfig"; sourceTree = "<group>"; };
 		885F9FB81F16324F00A30CDF /* URLSchemeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLSchemeService.swift; path = ThirdPartyConfigurator/URLSchemeService.swift; sourceTree = "<group>"; };
-		885F9FD91F1666A900A30CDF /* MSGraphSDK_NXOAuth2Adapter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MSGraphSDK_NXOAuth2Adapter.framework; sourceTree = "<group>"; };
-		885F9FDA1F1666A900A30CDF /* MSGraphSDK_NXOAuth2Adapter.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = MSGraphSDK_NXOAuth2Adapter.modulemap; sourceTree = "<group>"; };
+		885F9FDD1F166A4A00A30CDF /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		885F9FDE1F166A4A00A30CDF /* MSGraphSDK-NXOAuth2Adapter.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "MSGraphSDK-NXOAuth2Adapter.podspec"; sourceTree = "<group>"; };
+		885F9FE11F166A4A00A30CDF /* MSAuthenticationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAuthenticationViewController.h; sourceTree = "<group>"; };
+		885F9FE21F166A4A00A30CDF /* MSAuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAuthenticationViewController.m; sourceTree = "<group>"; };
+		885F9FE31F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXOAuth2AuthenticationProvider.h; sourceTree = "<group>"; };
+		885F9FE41F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NXOAuth2AuthenticationProvider.m; sourceTree = "<group>"; };
+		885F9FE61F166A4A00A30CDF /* MSAuthConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAuthConstants.h; sourceTree = "<group>"; };
+		885F9FE71F166A4A00A30CDF /* MSAuthConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAuthConstants.m; sourceTree = "<group>"; };
+		885F9FE91F166A4A00A30CDF /* NSError+MSGraphOAuth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+MSGraphOAuth2.h"; sourceTree = "<group>"; };
+		885F9FEA1F166A4A00A30CDF /* NSError+MSGraphOAuth2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+MSGraphOAuth2.m"; sourceTree = "<group>"; };
+		885F9FEC1F166A4A00A30CDF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		885F9FED1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGraphSDKNXOAuth2.h; sourceTree = "<group>"; };
+		885F9FEE1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MSGraphSDKNXOAuth2.xcodeproj; sourceTree = "<group>"; };
+		885F9FF11F166A4A00A30CDF /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		885F9FF21F166A4A00A30CDF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -401,13 +435,74 @@
 			name = URLScheme;
 			sourceTree = "<group>";
 		};
-		885F9FD81F1666A900A30CDF /* MSGraphSDK_NXOAuth2Adapter */ = {
+		885F9FDC1F166A4A00A30CDF /* MSGraphSDK-NXOAuth2Adapter */ = {
 			isa = PBXGroup;
 			children = (
-				885F9FD91F1666A900A30CDF /* MSGraphSDK_NXOAuth2Adapter.framework */,
-				885F9FDA1F1666A900A30CDF /* MSGraphSDK_NXOAuth2Adapter.modulemap */,
+				885F9FDD1F166A4A00A30CDF /* LICENSE.txt */,
+				885F9FDE1F166A4A00A30CDF /* MSGraphSDK-NXOAuth2Adapter.podspec */,
+				885F9FDF1F166A4A00A30CDF /* MSGraphSDKNXOAuth2 */,
+				885F9FF21F166A4A00A30CDF /* README.md */,
 			);
-			path = MSGraphSDK_NXOAuth2Adapter;
+			path = "MSGraphSDK-NXOAuth2Adapter";
+			sourceTree = "<group>";
+		};
+		885F9FDF1F166A4A00A30CDF /* MSGraphSDKNXOAuth2 */ = {
+			isa = PBXGroup;
+			children = (
+				885F9FE01F166A4A00A30CDF /* Auth */,
+				885F9FE51F166A4A00A30CDF /* Common */,
+				885F9FE81F166A4A00A30CDF /* Extensions */,
+				885F9FEB1F166A4A00A30CDF /* MSGraphSDKNXOAuth2 */,
+				885F9FED1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.h */,
+				885F9FEE1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.xcodeproj */,
+				885F9FF11F166A4A00A30CDF /* Podfile */,
+			);
+			path = MSGraphSDKNXOAuth2;
+			sourceTree = "<group>";
+		};
+		885F9FE01F166A4A00A30CDF /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				885F9FE11F166A4A00A30CDF /* MSAuthenticationViewController.h */,
+				885F9FE21F166A4A00A30CDF /* MSAuthenticationViewController.m */,
+				885F9FE31F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.h */,
+				885F9FE41F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.m */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		885F9FE51F166A4A00A30CDF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				885F9FE61F166A4A00A30CDF /* MSAuthConstants.h */,
+				885F9FE71F166A4A00A30CDF /* MSAuthConstants.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		885F9FE81F166A4A00A30CDF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				885F9FE91F166A4A00A30CDF /* NSError+MSGraphOAuth2.h */,
+				885F9FEA1F166A4A00A30CDF /* NSError+MSGraphOAuth2.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		885F9FEB1F166A4A00A30CDF /* MSGraphSDKNXOAuth2 */ = {
+			isa = PBXGroup;
+			children = (
+				885F9FEC1F166A4A00A30CDF /* Info.plist */,
+			);
+			path = MSGraphSDKNXOAuth2;
+			sourceTree = "<group>";
+		};
+		885F9FEF1F166A4A00A30CDF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				885FA0031F166A4A00A30CDF /* MSGraphSDKNXOAuth2.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		886B39C61F138F5D00BF1A8E /* MSGP-Example */ = {
@@ -739,7 +834,7 @@
 		88CF242B1F16305300CC406F /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				885F9FD81F1666A900A30CDF /* MSGraphSDK_NXOAuth2Adapter */,
+				885F9FDC1F166A4A00A30CDF /* MSGraphSDK-NXOAuth2Adapter */,
 				88CF242C1F16305300CC406F /* MSAL */,
 			);
 			path = Vendor;
@@ -814,8 +909,8 @@
 			isa = PBXGroup;
 			children = (
 				88CF242B1F16305300CC406F /* Vendor */,
-				88BC873D1F14FA1B00EAEFD7 /* SupportingFiles */,
 				8B452A1F595C02042F06EAF0 /* Sources */,
+				88BC873D1F14FA1B00EAEFD7 /* SupportingFiles */,
 				9C223D1E1F0FA3390058B60A /* Resources */,
 			);
 			path = MSGP;
@@ -847,7 +942,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				885F9FF51F166A4A00A30CDF /* MSAuthenticationViewController.h in Headers */,
 				88BC87421F14FA1B00EAEFD7 /* MSGP.h in Headers */,
+				885F9FF91F166A4A00A30CDF /* MSAuthConstants.h in Headers */,
+				885F9FFE1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.h in Headers */,
+				885F9FFB1F166A4A00A30CDF /* NSError+MSGraphOAuth2.h in Headers */,
+				885F9FF71F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -951,6 +1051,12 @@
 			mainGroup = 9CD8051F1F0D012F00B9B0AC;
 			productRefGroup = 9CD8052A1F0D012F00B9B0AC /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 885F9FEF1F166A4A00A30CDF /* Products */;
+					ProjectRef = 885F9FEE1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				886B39C41F138F5D00BF1A8E /* MSGP-Example */,
@@ -959,6 +1065,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		885FA0031F166A4A00A30CDF /* MSGraphSDKNXOAuth2.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MSGraphSDKNXOAuth2.framework;
+			remoteRef = 885FA0021F166A4A00A30CDF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		886B39C31F138F5D00BF1A8E /* Resources */ = {
@@ -976,9 +1092,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				885F9FFD1F166A4A00A30CDF /* Info.plist in Resources */,
+				885F9FF31F166A4A00A30CDF /* LICENSE.txt in Resources */,
 				886B3AB71F13A2CB00BF1A8E /* Login.storyboard in Resources */,
 				88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */,
+				885F9FF41F166A4A00A30CDF /* MSGraphSDK-NXOAuth2Adapter.podspec in Resources */,
 				886B3AA01F13A2CB00BF1A8E /* CreateAccount.storyboard in Resources */,
+				885F9FFF1F166A4A00A30CDF /* Podfile in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
 				88CF24301F16305300CC406F /* MSAL.framework.dSYM in Resources */,
 			);
@@ -1145,6 +1265,7 @@
 			files = (
 				886B3B611F14EFF000BF1A8E /* FeedResponseUserCompactView.swift in Sources */,
 				886B3B431F14EFF000BF1A8E /* APIHelper.swift in Sources */,
+				885F9FF81F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.m in Sources */,
 				886B3B561F14EFF000BF1A8E /* ActivityView.swift in Sources */,
 				886B3B481F14EFF000BF1A8E /* ImagesAPI.swift in Sources */,
 				886B3B501F14EFF000BF1A8E /* SessionsAPI.swift in Sources */,
@@ -1184,13 +1305,16 @@
 				886B3B781F14EFF000BF1A8E /* PostTopicResponse.swift in Sources */,
 				886B3B451F14EFF000BF1A8E /* BuildsAPI.swift in Sources */,
 				886B3AB31F13A2CB00BF1A8E /* LoginModuleOutput.swift in Sources */,
+				885F9FFA1F166A4A00A30CDF /* MSAuthConstants.m in Sources */,
 				886B3AC61F13A46C00BF1A8E /* Storyboard.swift in Sources */,
 				886B3B591F14EFF000BF1A8E /* CommentView.swift in Sources */,
+				885FA0001F166A4A00A30CDF /* README.md in Sources */,
 				886B3AB61F13A2CB00BF1A8E /* LoginRouterInput.swift in Sources */,
 				886B3A9D1F13A2CB00BF1A8E /* CreateAccountRouter.swift in Sources */,
 				886B3AD91F13B17100BF1A8E /* Fonts.swift in Sources */,
 				886B3A9B1F13A2CB00BF1A8E /* CreateAccountPresenter.swift in Sources */,
 				886B3B7D1F14EFF000BF1A8E /* PutTopicNameRequest.swift in Sources */,
+				885F9FF61F166A4A00A30CDF /* MSAuthenticationViewController.m in Sources */,
 				886B3B6A1F14EFF000BF1A8E /* PostCommentResponse.swift in Sources */,
 				886B3B521F14EFF000BF1A8E /* TopicsAPI.swift in Sources */,
 				886B3B711F14EFF000BF1A8E /* PostReplyRequest.swift in Sources */,
@@ -1227,6 +1351,7 @@
 				886B3AD71F13B16D00BF1A8E /* Palette.swift in Sources */,
 				886B3AB91F13A2CB00BF1A8E /* LoginViewInput.swift in Sources */,
 				886B3B821F14EFF000BF1A8E /* ReplyView.swift in Sources */,
+				885F9FFC1F166A4A00A30CDF /* NSError+MSGraphOAuth2.m in Sources */,
 				886B3B5A1F14EFF000BF1A8E /* ContentCompactView.swift in Sources */,
 				88BC875B1F150D2700EAEFD7 /* GoogleAPI.swift in Sources */,
 				88BC87551F1505B400EAEFD7 /* Photo.swift in Sources */,
