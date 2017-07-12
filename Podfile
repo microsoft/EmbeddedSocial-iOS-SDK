@@ -1,4 +1,4 @@
-platform :ios, '8.0'
+platform :ios, '8.3'
 use_frameworks!
 
 abstract_target 'Group' do

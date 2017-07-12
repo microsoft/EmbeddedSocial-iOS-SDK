@@ -12,9 +12,8 @@ enum MenuNavigation {
     case home, search, popular, pins, feed, settings, logout
 }
 
-
 protocol MenuRouterInput {
     
-    func openMenu(_ : MenuNavigation)
+    func openMenu(route: MenuNavigation)
 
 }

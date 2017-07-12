@@ -6,6 +6,8 @@
 //  Copyright © 2017 akvelon. All rights reserved.
 //
 
+import Foundation
+
 protocol MenuViewOutput {
 
     /**

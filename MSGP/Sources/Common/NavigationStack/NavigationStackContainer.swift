@@ -6,7 +6,7 @@
 //  Copyright © 2017 Igor Popov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class NavigationStackContainer: UIViewController {
     

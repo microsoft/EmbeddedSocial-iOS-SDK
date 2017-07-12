@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Menu integration
         API.injectMenuStackIntoApp(window: self.window!, format: .dual)
-        API.setMenuItems(["lol", "lel"], delegate: nil)
+        API.setMenuItems([], delegate: nil)
         
         self.window?.makeKeyAndVisible()
         

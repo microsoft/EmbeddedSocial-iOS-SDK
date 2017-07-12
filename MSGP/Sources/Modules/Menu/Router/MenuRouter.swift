@@ -8,7 +8,7 @@
 
 class MenuRouter: MenuRouterInput {
     
-    func openMenu(_: MenuNavigation) {
+    func openMenu(route: MenuNavigation) {
         
     }
 

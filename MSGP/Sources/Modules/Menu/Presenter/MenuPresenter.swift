@@ -6,6 +6,8 @@
 //  Copyright © 2017 akvelon. All rights reserved.
 //
 
+import Foundation
+
 class MenuPresenter: MenuModuleInput, MenuViewOutput, MenuInteractorOutput {
     
     weak var view: MenuViewInput!
@@ -13,7 +15,7 @@ class MenuPresenter: MenuModuleInput, MenuViewOutput, MenuInteractorOutput {
     var router: MenuRouterInput!
     
     func openItem(path: IndexPath, item: MenuItemModel) {
-        router.openMenu(item.route)
+        router.openMenu(route: item.route)
     }
     
     func viewIsReady() {
