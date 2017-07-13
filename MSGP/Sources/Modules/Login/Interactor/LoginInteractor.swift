@@ -13,10 +13,10 @@ class LoginInteractor: LoginInteractorInput {
     init(authService: AuthServiceType) {
         self.authService = authService
     }
-
-    func login(email: String, password: String, completion: @escaping (Result<User>) -> Void) {
-        authService.login(email: email, password: password) { result in
-            completion(result)
+    
+    func login(provider: AuthProvider, from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void) {
+        authService.login(provider: provider, from: viewController) { result in
+            handler(result)
         }
     }
 }

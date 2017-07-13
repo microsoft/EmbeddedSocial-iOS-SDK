@@ -7,6 +7,7 @@
 //
 
 protocol LoginViewInput: class {
-    
     func setupInitialState()
+    
+    func showError(_ error: Error)
 }

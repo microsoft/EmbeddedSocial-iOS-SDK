@@ -8,10 +8,4 @@
 
 protocol CreateAccountViewOutput {
     func viewIsReady()
-    
-    func onCreateTapped()
-    
-    func onEmailChanged(_ text: String?)
-    
-    func onPasswordChanged(_ text: String?)
 }

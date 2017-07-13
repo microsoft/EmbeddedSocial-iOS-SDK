@@ -9,24 +9,11 @@
 import UIKit
 
 class LoginViewController: UIViewController, LoginViewInput {
-
-    @IBOutlet fileprivate weak var createAccountButton: UIButton!
     
-    @IBOutlet fileprivate weak var loginButton: UIButton!
-    
-    @IBOutlet fileprivate weak var passwordTextField: UITextField! {
-        didSet {
-            passwordTextField.delegate = self
-            passwordTextField.addTarget(self, action: #selector(self.passwordDidChange(_:)), for: .editingChanged)
-        }
-    }
-    
-    @IBOutlet fileprivate weak var emailTextField: UITextField! {
-        didSet {
-            emailTextField.delegate = self
-            emailTextField.addTarget(self, action: #selector(self.emailDidChange(_:)), for: .editingChanged)
-        }
-    }
+    @IBOutlet fileprivate weak var facebookButton: UIButton!
+    @IBOutlet fileprivate weak var twitterButton: UIButton!
+    @IBOutlet fileprivate weak var microsoftButton: UIButton!
+    @IBOutlet fileprivate weak var googleButton: UIButton!
     
     var output: LoginViewOutput!
     
@@ -36,30 +23,29 @@ class LoginViewController: UIViewController, LoginViewInput {
     }
 
     func setupInitialState() {
-        passwordTextField.text = ""
-        emailTextField.text = ""
+        for button in [facebookButton, twitterButton, microsoftButton, googleButton] {
+            button?.setTitleColor(Palette.darkGrey, for: .normal)
+            button?.titleLabel?.font = Fonts.regular
+        }
     }
     
-    @IBAction func onCreateAccount(_ sender: UIButton) {
-        output.onCreateAccountTapped()
+    func showError(_ error: Error) {
+        showErrorAlert(error)
     }
     
-    @IBAction func onLogin(_ sender: UIButton) {
-        output.onLoginTapped()
+    @IBAction fileprivate func onFacebookSignIn(_ sender: UIButton) {
+        output.onFacebookSignInTapped()
     }
     
-    @objc private func passwordDidChange(_ textField: UITextField) {
-        output.onPasswordChanged(textField.text)
+    @IBAction fileprivate func onTwitterSignIn(_ sender: UIButton) {
+        output.onTwitterSignInTapped()
     }
     
-    @objc private func emailDidChange(_ textField: UITextField) {
-        output.onEmailChanged(textField.text)
+    @IBAction fileprivate func onMicrosoftSignIn(_ sender: UIButton) {
+        output.onMicrosoftSignInTapped()
     }
-}
-
-extension LoginViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+    
+    @IBAction fileprivate func onGooglePlusSignIn(_ sender: UIButton) {
+        output.onGoogleSignInTapped()
     }
 }

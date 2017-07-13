@@ -42,43 +42,23 @@ extension UIViewController {
 }
 
 enum StoryboardScene {
-  enum CreateAccount: String, StoryboardSceneType {
+  enum CreateAccount: StoryboardSceneType {
     static let storyboardName = "CreateAccount"
+  }
+  enum CreatePost: String, StoryboardSceneType {
+    static let storyboardName = "CreatePost"
 
-    static func initialViewController() -> CreateAccountViewController {
-      guard let vc = storyboard().instantiateInitialViewController() as? CreateAccountViewController else {
-        fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
-      }
-      return vc
-    }
-
-    case createAccountViewControllerScene = "CreateAccountViewController"
-    static func instantiateCreateAccountViewController() -> CreateAccountViewController {
-      guard let vc = StoryboardScene.CreateAccount.createAccountViewControllerScene.viewController() as? CreateAccountViewController
+    case createPostViewControllerScene = "CreatePostViewController"
+    static func instantiateCreatePostViewController() -> MSGP.CreatePostViewController {
+      guard let vc = StoryboardScene.CreatePost.createPostViewControllerScene.viewController() as? MSGP.CreatePostViewController
       else {
-        fatalError("ViewController 'CreateAccountViewController' is not of the expected class CreateAccountViewController.")
+        fatalError("ViewController 'CreatePostViewController' is not of the expected class MSGP.CreatePostViewController.")
       }
       return vc
     }
   }
-  enum Login: String, StoryboardSceneType {
+  enum Login: StoryboardSceneType {
     static let storyboardName = "Login"
-
-    static func initialViewController() -> LoginViewController {
-      guard let vc = storyboard().instantiateInitialViewController() as? LoginViewController else {
-        fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
-      }
-      return vc
-    }
-
-    case loginViewControllerScene = "LoginViewController"
-    static func instantiateLoginViewController() -> LoginViewController {
-      guard let vc = StoryboardScene.Login.loginViewControllerScene.viewController() as? LoginViewController
-      else {
-        fatalError("ViewController 'LoginViewController' is not of the expected class LoginViewController.")
-      }
-      return vc
-    }
   }
   enum MenuStack: String, StoryboardSceneType {
     static let storyboardName = "MenuStack"

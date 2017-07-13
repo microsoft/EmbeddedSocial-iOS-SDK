@@ -6,42 +6,57 @@
 //  Copyright © 2017 Akvelon. All rights reserved.
 //
 
-class LoginPresenter: LoginModuleInput, LoginViewOutput {
+final class LoginPresenter: LoginViewOutput {
 
     weak var view: LoginViewInput!
     var interactor: LoginInteractorInput!
     var router: LoginRouterInput!
     weak var moduleOutput: LoginModuleOutput?
     
-    private var password: String?
-    private var email: String?
-
     func viewIsReady() {
         view.setupInitialState()
     }
     
-    func onCreateAccountTapped() {
-        router.openCreateAccount()
+    func onFacebookSignInTapped() {
+        login(with: .facebook)
     }
     
-    func onEmailChanged(_ text: String?) {
-        email = text
+    func onGoogleSignInTapped() {
+        login(with: .google)
     }
     
-    func onPasswordChanged(_ text: String?) {
-        password = text
+    func onTwitterSignInTapped() {
+        login(with: .twitter)
     }
     
-    func onLoginTapped() {
-        interactor.login(email: email ?? "", password: password ?? "") { [weak self] result in
-            self?.moduleOutput?.onLogin(result)
+    func onMicrosoftSignInTapped() {
+        login(with: .microsoft)
+    }
+    
+    private func login(with provider: AuthProvider) {
+        interactor.login(provider: provider, from: view as? UIViewController) { [weak self] result in
+            if let user = result.value {
+                self?.router.openCreateAccount(user: user)
+            } else if let error = result.error {
+                self?.view.showError(error)
+            } else {
+                fatalError("Unsupported response")
+            }
         }
     }
 }
 
+extension LoginPresenter: LoginModuleInput { }
+
 extension LoginPresenter: CreateAccountModuleOutput {
     
     func onAccountCreated(result: Result<User>) {
-        moduleOutput?.onLogin(result)
+        if let user = result.value {
+            moduleOutput?.onLogin(user)
+        } else if let error = result.error {
+            view.showError(error)
+        } else {
+            fatalError("Unsupported response")
+        }
     }
 }

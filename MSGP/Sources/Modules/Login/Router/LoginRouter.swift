@@ -11,11 +11,11 @@ import UIKit
 class LoginRouter: LoginRouterInput {
     
     weak var viewController: UIViewController?
-    weak var createAccountModuleOutput: CreateAccountModuleOutput?
+    weak var createAccountOutput: CreateAccountModuleOutput?
     
-    func openCreateAccount() {
+    func openCreateAccount(user: User) {
         let createAccount = CreateAccountConfigurator()
-        createAccount.configure(moduleOutput: createAccountModuleOutput)
+        createAccount.configure(user: user, moduleOutput: createAccountOutput)
         viewController?.navigationController?.pushViewController(createAccount.viewController, animated: true)
     }
 }

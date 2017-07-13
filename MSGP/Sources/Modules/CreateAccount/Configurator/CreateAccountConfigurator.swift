@@ -16,16 +16,16 @@ class CreateAccountConfigurator {
         viewController =  CreateAccountViewController()
     }
 
-    func configure(moduleOutput: CreateAccountModuleOutput?) {
+    func configure(user: User, moduleOutput: CreateAccountModuleOutput?) {
         let router = CreateAccountRouter()
 
         let presenter = CreateAccountPresenter()
         presenter.view = viewController
         presenter.router = router
-        presenter.interactor = CreateAccountInteractor(authService: AuthService())
+        presenter.interactor = CreateAccountInteractor(authService: AuthService(apiProvider: AuthAPIProvider()))
         presenter.moduleOutput = moduleOutput
         
         viewController.output = presenter
-        viewController.title = "Create Account"
+        viewController.title = "Create an account"
     }
 }

@@ -7,14 +7,13 @@
 //
 
 final class CreateAccountInteractor: CreateAccountInteractorInput {
-    
     private let authService: AuthServiceType
     
     init(authService: AuthServiceType) {
         self.authService = authService
     }
     
-    func createAccount(email: String, password: String, completion: @escaping (Result<User>) -> Void) {
-        authService.createAccount(email: email, password: password, handler: completion)
+    func createAccount(for user: User, completion: @escaping (Result<User>) -> Void) {
+        
     }
 }

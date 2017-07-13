@@ -10,12 +10,12 @@ import Foundation
 
 protocol LoginViewOutput {
     func viewIsReady()
+        
+    func onFacebookSignInTapped()
     
-    func onCreateAccountTapped()
+    func onGoogleSignInTapped()
     
-    func onEmailChanged(_ text: String?)
+    func onTwitterSignInTapped()
     
-    func onPasswordChanged(_ text: String?)
-    
-    func onLoginTapped()
+    func onMicrosoftSignInTapped()
 }

@@ -1,24 +1,119 @@
 PODS:
   - Alamofire (4.5.0)
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.8.4)
+  - Fabric (1.6.11)
+  - FBSDKCoreKit (4.24.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.24.0):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.24.0):
+    - FBSDKCoreKit
+  - FirebaseAnalytics (3.9.0):
+    - FirebaseCore (~> 3.6)
+    - FirebaseInstanceID (~> 1.0)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseCore (3.6.0):
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseInstanceID (1.0.10):
+    - FirebaseCore (~> 3.6)
+  - Google/Core (3.1.0):
+    - FirebaseAnalytics (~> 3.2)
+  - Google/SignIn (3.1.0):
+    - Google/Core
+    - GoogleSignIn (~> 4.0)
+  - GoogleSignIn (4.0.2):
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
+    - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
+    - GTMOAuth2 (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.1.1):
+    - GoogleToolboxForMac/Defines (= 2.1.1)
+  - GoogleToolboxForMac/Defines (2.1.1)
+  - GoogleToolboxForMac/NSData+zlib (2.1.1):
+    - GoogleToolboxForMac/Defines (= 2.1.1)
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.1):
+    - GoogleToolboxForMac/DebugUtils (= 2.1.1)
+    - GoogleToolboxForMac/Defines (= 2.1.1)
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
+  - GTMOAuth2 (1.1.4):
+    - GTMSessionFetcher (~> 1.1)
+  - GTMSessionFetcher (1.1.10):
+    - GTMSessionFetcher/Full (= 1.1.10)
+  - GTMSessionFetcher/Core (1.1.10)
+  - GTMSessionFetcher/Full (1.1.10):
+    - GTMSessionFetcher/Core (= 1.1.10)
+  - MSGraphSDK (0.10.1):
+    - MSGraphSDK/Common (= 0.10.1)
+    - MSGraphSDK/Extensions (= 0.10.1)
+    - MSGraphSDK/Implementations (= 0.10.1)
+    - MSGraphSDK/MSGraphCoreSDK (= 0.10.1)
+  - MSGraphSDK/Common (0.10.1)
+  - MSGraphSDK/Extensions (0.10.1):
+    - MSGraphSDK/Implementations
+    - MSGraphSDK/MSGraphCoreSDK
+  - MSGraphSDK/Implementations (0.10.1):
+    - MSGraphSDK/Common
+  - MSGraphSDK/MSGraphCoreSDK (0.10.1):
+    - MSGraphSDK/Common
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
   - SlideMenuControllerSwift (3.0.1)
   - SnapKit (3.2.0)
   - SVProgressHUD (2.1.2)
+  - SwiftGen (4.2.1)
   - SwiftLint (0.20.1)
+  - TwitterCore (2.8.0):
+    - Fabric
+  - TwitterKit (2.8.1):
+    - TwitterCore (>= 2.8)
 
 DEPENDENCIES:
   - Alamofire
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - FBSDKShareKit
+  - Google/SignIn
+  - MSGraphSDK
+  - SDWebImage
   - SlideMenuControllerSwift (~> 3.0)
   - SnapKit
   - SVProgressHUD
+  - SwiftGen
   - SwiftLint
+  - TwitterKit
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
+  FBSDKCoreKit: f8c9eb0dd34a9cd277c7b60da4b32226d142502d
+  FBSDKLoginKit: 1214c6d5a1c4995b694d8db8a9ba6910c6028acf
+  FBSDKShareKit: a2ed9d7781a4eda9ac20d7404305e795b10251ac
+  FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
+  FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
+  FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
+  Google: 98da4b1a60ed0beb80a290387a28333406a1eb90
+  GoogleSignIn: d7ad83f13480e1f30453471d00d19b5293ac46af
+  GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
+  GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
+  MSGraphSDK: 3c43eb632ca969593f1bdd5612b573e436bd3283
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SlideMenuControllerSwift: 9a163b16d54afab734add42858cba7ef7c307755
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  SwiftGen: 2ba2a88fc6130b96e38e2baa0029e4bd222ffd85
   SwiftLint: f60095dc173a3f3ec505bb34f5229c3dfd779a54
+  TwitterCore: e959987be23c767004d29eb7fab8d85d8585a2e5
+  TwitterKit: 3b6044a7320340326a4098f3e37aa1dbaeb94942
 
-PODFILE CHECKSUM: f82b3ae4264842e5730e12232f92f6bd1600b1a7
+PODFILE CHECKSUM: 11f15b7c5a250baef5804e08a35df5f4f29a47f2
 
 COCOAPODS: 1.2.1
