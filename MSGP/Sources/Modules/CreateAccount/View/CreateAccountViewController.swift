@@ -10,6 +10,8 @@ import UIKit
 
 class CreateAccountViewController: UIViewController, CreateAccountViewInput {
 
+    @IBOutlet fileprivate weak var tableView: UITableView!
+    
     var output: CreateAccountViewOutput!
 
     override func viewDidLoad() {
