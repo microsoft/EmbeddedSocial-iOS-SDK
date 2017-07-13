@@ -42,8 +42,24 @@ extension UIViewController {
 }
 
 enum StoryboardScene {
-  enum CreateAccount: StoryboardSceneType {
+  enum CreateAccount: String, StoryboardSceneType {
     static let storyboardName = "CreateAccount"
+
+    static func initialViewController() -> MSGP.CreateAccountViewController {
+      guard let vc = storyboard().instantiateInitialViewController() as? MSGP.CreateAccountViewController else {
+        fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
+      }
+      return vc
+    }
+
+    case createAccountViewControllerScene = "CreateAccountViewController"
+    static func instantiateCreateAccountViewController() -> MSGP.CreateAccountViewController {
+      guard let vc = StoryboardScene.CreateAccount.createAccountViewControllerScene.viewController() as? MSGP.CreateAccountViewController
+      else {
+        fatalError("ViewController 'CreateAccountViewController' is not of the expected class MSGP.CreateAccountViewController.")
+      }
+      return vc
+    }
   }
   enum CreatePost: String, StoryboardSceneType {
     static let storyboardName = "CreatePost"
@@ -57,8 +73,24 @@ enum StoryboardScene {
       return vc
     }
   }
-  enum Login: StoryboardSceneType {
+  enum Login: String, StoryboardSceneType {
     static let storyboardName = "Login"
+
+    static func initialViewController() -> MSGP.LoginViewController {
+      guard let vc = storyboard().instantiateInitialViewController() as? MSGP.LoginViewController else {
+        fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
+      }
+      return vc
+    }
+
+    case loginViewControllerScene = "LoginViewController"
+    static func instantiateLoginViewController() -> MSGP.LoginViewController {
+      guard let vc = StoryboardScene.Login.loginViewControllerScene.viewController() as? MSGP.LoginViewController
+      else {
+        fatalError("ViewController 'LoginViewController' is not of the expected class MSGP.LoginViewController.")
+      }
+      return vc
+    }
   }
   enum MenuStack: String, StoryboardSceneType {
     static let storyboardName = "MenuStack"

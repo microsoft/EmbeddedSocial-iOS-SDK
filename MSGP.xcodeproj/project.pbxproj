@@ -20,7 +20,7 @@
 		886B39CF1F138F5D00BF1A8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CE1F138F5D00BF1A8E /* Assets.xcassets */; };
 		886B39D21F138F5D00BF1A8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39D01F138F5D00BF1A8E /* LaunchScreen.storyboard */; };
 		886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 886B39DA1F13910B00BF1A8E /* Images.xcassets */; };
-		886B3A551F13A28D00BF1A8E /* MSGP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3A541F13A28D00BF1A8E /* MSGP.swift */; };
+		886B3A551F13A28D00BF1A8E /* SocialPlus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3A541F13A28D00BF1A8E /* SocialPlus.swift */; };
 		886B3AC11F13A35700BF1A8E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC01F13A35700BF1A8E /* User.swift */; };
 		886B3AC41F13A38A00BF1A8E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC31F13A38A00BF1A8E /* AuthService.swift */; };
 		886B3ADB1F13B51A00BF1A8E /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3ADA1F13B51A00BF1A8E /* UIColor+Hex.swift */; };
@@ -120,86 +120,86 @@
 		88CEEC9C1F17B93300B93196 /* UserCompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEC541F17B93200B93196 /* UserCompactView.swift */; };
 		88CEEC9D1F17B93300B93196 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEC551F17B93200B93196 /* UserProfileView.swift */; };
 		88CEEC9E1F17B93300B93196 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEC561F17B93200B93196 /* Models.swift */; };
-		88CEED151F17B9A400B93196 /* CreateAccountConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECA41F17B9A400B93196 /* CreateAccountConfigurator.swift */; };
-		88CEED161F17B9A400B93196 /* CreateAccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECA61F17B9A400B93196 /* CreateAccountInteractor.swift */; };
-		88CEED171F17B9A400B93196 /* CreateAccountInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECA71F17B9A400B93196 /* CreateAccountInteractorInput.swift */; };
-		88CEED181F17B9A400B93196 /* CreateAccountModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECA91F17B9A400B93196 /* CreateAccountModuleOutput.swift */; };
-		88CEED191F17B9A400B93196 /* CreateAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECAA1F17B9A400B93196 /* CreateAccountPresenter.swift */; };
-		88CEED1A1F17B9A400B93196 /* CreateAccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECAC1F17B9A400B93196 /* CreateAccountRouter.swift */; };
-		88CEED1B1F17B9A400B93196 /* CreateAccountRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECAD1F17B9A400B93196 /* CreateAccountRouterInput.swift */; };
-		88CEED1C1F17B9A400B93196 /* CreateAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88CEECAF1F17B9A400B93196 /* CreateAccount.storyboard */; };
-		88CEED1D1F17B9A400B93196 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECB01F17B9A400B93196 /* CreateAccountViewController.swift */; };
-		88CEED1E1F17B9A400B93196 /* CreateAccountViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECB11F17B9A400B93196 /* CreateAccountViewInput.swift */; };
-		88CEED1F1F17B9A400B93196 /* CreateAccountViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECB21F17B9A400B93196 /* CreateAccountViewOutput.swift */; };
-		88CEED201F17B9A400B93196 /* CreatePostConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECB51F17B9A400B93196 /* CreatePostConfigurator.swift */; };
-		88CEED211F17B9A400B93196 /* CreatePostInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECB61F17B9A400B93196 /* CreatePostInitializer.swift */; };
-		88CEED221F17B9A400B93196 /* CreatePost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88CEECB71F17B9A400B93196 /* CreatePost.storyboard */; };
-		88CEED231F17B9A400B93196 /* CreatePostInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECB91F17B9A400B93196 /* CreatePostInteractor.swift */; };
-		88CEED241F17B9A400B93196 /* CreatePostInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECBA1F17B9A400B93196 /* CreatePostInteractorInput.swift */; };
-		88CEED251F17B9A400B93196 /* CreatePostInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECBB1F17B9A400B93196 /* CreatePostInteractorOutput.swift */; };
-		88CEED261F17B9A400B93196 /* CreatePostModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECBD1F17B9A400B93196 /* CreatePostModuleInput.swift */; };
-		88CEED271F17B9A400B93196 /* CreatePostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECBE1F17B9A400B93196 /* CreatePostPresenter.swift */; };
-		88CEED281F17B9A400B93196 /* CreatePostRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECC01F17B9A400B93196 /* CreatePostRouter.swift */; };
-		88CEED291F17B9A400B93196 /* CreatePostRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECC11F17B9A400B93196 /* CreatePostRouterInput.swift */; };
-		88CEED2A1F17B9A400B93196 /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECC31F17B9A400B93196 /* CreatePostViewController.swift */; };
-		88CEED2B1F17B9A400B93196 /* CreatePostViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECC41F17B9A400B93196 /* CreatePostViewInput.swift */; };
-		88CEED2C1F17B9A400B93196 /* CreatePostViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECC51F17B9A400B93196 /* CreatePostViewOutput.swift */; };
-		88CEED2D1F17B9A400B93196 /* LoginConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECC81F17B9A400B93196 /* LoginConfigurator.swift */; };
-		88CEED2E1F17B9A400B93196 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECCA1F17B9A400B93196 /* LoginInteractor.swift */; };
-		88CEED2F1F17B9A400B93196 /* LoginInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECCB1F17B9A400B93196 /* LoginInteractorInput.swift */; };
-		88CEED301F17B9A400B93196 /* LoginModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECCD1F17B9A400B93196 /* LoginModuleInput.swift */; };
-		88CEED311F17B9A400B93196 /* LoginModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECCE1F17B9A400B93196 /* LoginModuleOutput.swift */; };
-		88CEED321F17B9A400B93196 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECCF1F17B9A400B93196 /* LoginPresenter.swift */; };
-		88CEED331F17B9A400B93196 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECD11F17B9A400B93196 /* LoginRouter.swift */; };
-		88CEED341F17B9A400B93196 /* LoginRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECD21F17B9A400B93196 /* LoginRouterInput.swift */; };
-		88CEED351F17B9A400B93196 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88CEECD41F17B9A400B93196 /* Login.storyboard */; };
-		88CEED361F17B9A400B93196 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECD51F17B9A400B93196 /* LoginViewController.swift */; };
-		88CEED371F17B9A400B93196 /* LoginViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECD61F17B9A400B93196 /* LoginViewInput.swift */; };
-		88CEED381F17B9A400B93196 /* LoginViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECD71F17B9A400B93196 /* LoginViewOutput.swift */; };
-		88CEED391F17B9A400B93196 /* MenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECDA1F17B9A400B93196 /* MenuConfigurator.swift */; };
-		88CEED3A1F17B9A400B93196 /* MenuInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECDB1F17B9A400B93196 /* MenuInitializer.swift */; };
-		88CEED3B1F17B9A400B93196 /* MenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECDD1F17B9A400B93196 /* MenuInteractor.swift */; };
-		88CEED3C1F17B9A400B93196 /* MenuInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECDE1F17B9A400B93196 /* MenuInteractorInput.swift */; };
-		88CEED3D1F17B9A400B93196 /* MenuInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECDF1F17B9A400B93196 /* MenuInteractorOutput.swift */; };
-		88CEED3E1F17B9A400B93196 /* MenuModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECE11F17B9A400B93196 /* MenuModuleInput.swift */; };
-		88CEED3F1F17B9A400B93196 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECE21F17B9A400B93196 /* MenuPresenter.swift */; };
-		88CEED401F17B9A400B93196 /* MenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECE41F17B9A400B93196 /* MenuRouter.swift */; };
-		88CEED411F17B9A400B93196 /* MenuRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECE51F17B9A400B93196 /* MenuRouterInput.swift */; };
-		88CEED421F17B9A400B93196 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECE71F17B9A400B93196 /* MenuViewController.swift */; };
-		88CEED431F17B9A400B93196 /* MenuViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECE81F17B9A400B93196 /* MenuViewInput.swift */; };
-		88CEED441F17B9A400B93196 /* MenuViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECE91F17B9A400B93196 /* MenuViewOutput.swift */; };
-		88CEED451F17B9A400B93196 /* MenuStackConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECEC1F17B9A400B93196 /* MenuStackConfigurator.swift */; };
-		88CEED461F17B9A400B93196 /* MenuStackInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECED1F17B9A400B93196 /* MenuStackInitializer.swift */; };
-		88CEED471F17B9A400B93196 /* MenuStackInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECEF1F17B9A400B93196 /* MenuStackInteractor.swift */; };
-		88CEED481F17B9A400B93196 /* MenuStackInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECF01F17B9A400B93196 /* MenuStackInteractorInput.swift */; };
-		88CEED491F17B9A400B93196 /* MenuStackInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECF11F17B9A400B93196 /* MenuStackInteractorOutput.swift */; };
-		88CEED4A1F17B9A400B93196 /* MenuStack.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88CEECF21F17B9A400B93196 /* MenuStack.storyboard */; };
-		88CEED4B1F17B9A400B93196 /* MenuStackModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECF41F17B9A400B93196 /* MenuStackModuleInput.swift */; };
-		88CEED4C1F17B9A400B93196 /* MenuStackPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECF51F17B9A400B93196 /* MenuStackPresenter.swift */; };
-		88CEED4D1F17B9A400B93196 /* MenuStackRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECF71F17B9A400B93196 /* MenuStackRouter.swift */; };
-		88CEED4E1F17B9A400B93196 /* MenuStackRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECF81F17B9A400B93196 /* MenuStackRouterInput.swift */; };
-		88CEED4F1F17B9A400B93196 /* MenuStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECFA1F17B9A400B93196 /* MenuStackViewController.swift */; };
-		88CEED501F17B9A400B93196 /* MenuStackViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECFB1F17B9A400B93196 /* MenuStackViewInput.swift */; };
-		88CEED511F17B9A400B93196 /* MenuStackViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECFC1F17B9A400B93196 /* MenuStackViewOutput.swift */; };
-		88CEED521F17B9A400B93196 /* RootConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEECFF1F17B9A400B93196 /* RootConfigurator.swift */; };
-		88CEED541F17B9A400B93196 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED021F17B9A400B93196 /* RootRouter.swift */; };
-		88CEED551F17B9A400B93196 /* TabMenuContainerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED051F17B9A400B93196 /* TabMenuContainerConfigurator.swift */; };
-		88CEED561F17B9A400B93196 /* TabMenuContainerInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED061F17B9A400B93196 /* TabMenuContainerInitializer.swift */; };
-		88CEED571F17B9A400B93196 /* TabMenuContainerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED081F17B9A400B93196 /* TabMenuContainerInteractor.swift */; };
-		88CEED581F17B9A400B93196 /* TabMenuContainerInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED091F17B9A400B93196 /* TabMenuContainerInteractorInput.swift */; };
-		88CEED591F17B9A400B93196 /* TabMenuContainerInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED0A1F17B9A400B93196 /* TabMenuContainerInteractorOutput.swift */; };
-		88CEED5A1F17B9A400B93196 /* TabMenuContainerModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED0C1F17B9A400B93196 /* TabMenuContainerModuleInput.swift */; };
-		88CEED5B1F17B9A400B93196 /* TabMenuContainerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED0D1F17B9A400B93196 /* TabMenuContainerPresenter.swift */; };
-		88CEED5C1F17B9A400B93196 /* TabMenuContainerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED0F1F17B9A400B93196 /* TabMenuContainerRouter.swift */; };
-		88CEED5D1F17B9A400B93196 /* TabMenuContainerRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED101F17B9A400B93196 /* TabMenuContainerRouterInput.swift */; };
-		88CEED5E1F17B9A400B93196 /* TabMenuContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED121F17B9A400B93196 /* TabMenuContainerViewController.swift */; };
-		88CEED5F1F17B9A400B93196 /* TabMenuContainerViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED131F17B9A400B93196 /* TabMenuContainerViewInput.swift */; };
-		88CEED601F17B9A400B93196 /* TabMenuContainerViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED141F17B9A400B93196 /* TabMenuContainerViewOutput.swift */; };
-		88CEED631F17B9AF00B93196 /* MenuCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED611F17B9AF00B93196 /* MenuCellView.swift */; };
-		88CEED641F17B9AF00B93196 /* MenuCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED621F17B9AF00B93196 /* MenuCellViewModel.swift */; };
 		88CEED671F17BAFE00B93196 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED661F17BAFE00B93196 /* ImagePicker.swift */; };
 		88CEED6C1F17BDD300B93196 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED6A1F17BDD300B93196 /* Images.swift */; };
 		88CEED6D1F17BDD300B93196 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEED6B1F17BDD300B93196 /* Storyboards.swift */; };
+		88CEEEA81F17C81600B93196 /* CreateAccountConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE351F17C81600B93196 /* CreateAccountConfigurator.swift */; };
+		88CEEEA91F17C81600B93196 /* CreateAccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE371F17C81600B93196 /* CreateAccountInteractor.swift */; };
+		88CEEEAA1F17C81600B93196 /* CreateAccountInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE381F17C81600B93196 /* CreateAccountInteractorInput.swift */; };
+		88CEEEAB1F17C81600B93196 /* CreateAccountModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE3A1F17C81600B93196 /* CreateAccountModuleOutput.swift */; };
+		88CEEEAC1F17C81600B93196 /* CreateAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE3B1F17C81600B93196 /* CreateAccountPresenter.swift */; };
+		88CEEEAD1F17C81600B93196 /* CreateAccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE3D1F17C81600B93196 /* CreateAccountRouter.swift */; };
+		88CEEEAE1F17C81600B93196 /* CreateAccountRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE3E1F17C81600B93196 /* CreateAccountRouterInput.swift */; };
+		88CEEEAF1F17C81600B93196 /* CreateAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88CEEE401F17C81600B93196 /* CreateAccount.storyboard */; };
+		88CEEEB01F17C81600B93196 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE411F17C81600B93196 /* CreateAccountViewController.swift */; };
+		88CEEEB11F17C81600B93196 /* CreateAccountViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE421F17C81600B93196 /* CreateAccountViewInput.swift */; };
+		88CEEEB21F17C81600B93196 /* CreateAccountViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE431F17C81600B93196 /* CreateAccountViewOutput.swift */; };
+		88CEEEB31F17C81600B93196 /* CreatePostConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE461F17C81600B93196 /* CreatePostConfigurator.swift */; };
+		88CEEEB41F17C81600B93196 /* CreatePostInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE471F17C81600B93196 /* CreatePostInitializer.swift */; };
+		88CEEEB51F17C81600B93196 /* CreatePostInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE491F17C81600B93196 /* CreatePostInteractor.swift */; };
+		88CEEEB61F17C81600B93196 /* CreatePostInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE4A1F17C81600B93196 /* CreatePostInteractorInput.swift */; };
+		88CEEEB71F17C81600B93196 /* CreatePostInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE4B1F17C81600B93196 /* CreatePostInteractorOutput.swift */; };
+		88CEEEB81F17C81600B93196 /* CreatePostModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE4D1F17C81600B93196 /* CreatePostModuleInput.swift */; };
+		88CEEEB91F17C81600B93196 /* CreatePostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE4E1F17C81600B93196 /* CreatePostPresenter.swift */; };
+		88CEEEBA1F17C81600B93196 /* CreatePostRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE501F17C81600B93196 /* CreatePostRouter.swift */; };
+		88CEEEBB1F17C81600B93196 /* CreatePostRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE511F17C81600B93196 /* CreatePostRouterInput.swift */; };
+		88CEEEBC1F17C81600B93196 /* CreatePost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88CEEE531F17C81600B93196 /* CreatePost.storyboard */; };
+		88CEEEBD1F17C81600B93196 /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE541F17C81600B93196 /* CreatePostViewController.swift */; };
+		88CEEEBE1F17C81600B93196 /* CreatePostViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE551F17C81600B93196 /* CreatePostViewInput.swift */; };
+		88CEEEBF1F17C81600B93196 /* CreatePostViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE561F17C81600B93196 /* CreatePostViewOutput.swift */; };
+		88CEEEC01F17C81600B93196 /* LoginConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE591F17C81600B93196 /* LoginConfigurator.swift */; };
+		88CEEEC11F17C81600B93196 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE5B1F17C81600B93196 /* LoginInteractor.swift */; };
+		88CEEEC21F17C81600B93196 /* LoginInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE5C1F17C81600B93196 /* LoginInteractorInput.swift */; };
+		88CEEEC31F17C81600B93196 /* LoginModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE5E1F17C81600B93196 /* LoginModuleInput.swift */; };
+		88CEEEC41F17C81600B93196 /* LoginModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE5F1F17C81600B93196 /* LoginModuleOutput.swift */; };
+		88CEEEC51F17C81600B93196 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE601F17C81600B93196 /* LoginPresenter.swift */; };
+		88CEEEC61F17C81600B93196 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE621F17C81600B93196 /* LoginRouter.swift */; };
+		88CEEEC71F17C81600B93196 /* LoginRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE631F17C81600B93196 /* LoginRouterInput.swift */; };
+		88CEEEC81F17C81600B93196 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88CEEE651F17C81600B93196 /* Login.storyboard */; };
+		88CEEEC91F17C81600B93196 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE661F17C81600B93196 /* LoginViewController.swift */; };
+		88CEEECA1F17C81600B93196 /* LoginViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE671F17C81600B93196 /* LoginViewInput.swift */; };
+		88CEEECB1F17C81600B93196 /* LoginViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE681F17C81600B93196 /* LoginViewOutput.swift */; };
+		88CEEECC1F17C81600B93196 /* MenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE6B1F17C81600B93196 /* MenuConfigurator.swift */; };
+		88CEEECD1F17C81600B93196 /* MenuInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE6C1F17C81600B93196 /* MenuInitializer.swift */; };
+		88CEEECE1F17C81600B93196 /* MenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE6E1F17C81600B93196 /* MenuInteractor.swift */; };
+		88CEEECF1F17C81600B93196 /* MenuInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE6F1F17C81600B93196 /* MenuInteractorInput.swift */; };
+		88CEEED01F17C81600B93196 /* MenuInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE701F17C81600B93196 /* MenuInteractorOutput.swift */; };
+		88CEEED11F17C81600B93196 /* MenuModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE721F17C81600B93196 /* MenuModuleInput.swift */; };
+		88CEEED21F17C81600B93196 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE731F17C81600B93196 /* MenuPresenter.swift */; };
+		88CEEED31F17C81600B93196 /* MenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE751F17C81600B93196 /* MenuRouter.swift */; };
+		88CEEED41F17C81600B93196 /* MenuRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE761F17C81600B93196 /* MenuRouterInput.swift */; };
+		88CEEED51F17C81600B93196 /* MenuCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE791F17C81600B93196 /* MenuCellView.swift */; };
+		88CEEED61F17C81600B93196 /* MenuCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE7A1F17C81600B93196 /* MenuCellViewModel.swift */; };
+		88CEEED71F17C81600B93196 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE7B1F17C81600B93196 /* MenuViewController.swift */; };
+		88CEEED81F17C81600B93196 /* MenuViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE7C1F17C81600B93196 /* MenuViewInput.swift */; };
+		88CEEED91F17C81600B93196 /* MenuViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE7D1F17C81600B93196 /* MenuViewOutput.swift */; };
+		88CEEEDA1F17C81600B93196 /* MenuStackConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE801F17C81600B93196 /* MenuStackConfigurator.swift */; };
+		88CEEEDB1F17C81600B93196 /* MenuStackInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE811F17C81600B93196 /* MenuStackInitializer.swift */; };
+		88CEEEDC1F17C81600B93196 /* MenuStackInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE831F17C81600B93196 /* MenuStackInteractor.swift */; };
+		88CEEEDD1F17C81600B93196 /* MenuStackInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE841F17C81600B93196 /* MenuStackInteractorInput.swift */; };
+		88CEEEDE1F17C81600B93196 /* MenuStackInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE851F17C81600B93196 /* MenuStackInteractorOutput.swift */; };
+		88CEEEDF1F17C81600B93196 /* MenuStackModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE871F17C81600B93196 /* MenuStackModuleInput.swift */; };
+		88CEEEE01F17C81700B93196 /* MenuStackPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE881F17C81600B93196 /* MenuStackPresenter.swift */; };
+		88CEEEE11F17C81700B93196 /* MenuStackRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE8A1F17C81600B93196 /* MenuStackRouter.swift */; };
+		88CEEEE21F17C81700B93196 /* MenuStackRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE8B1F17C81600B93196 /* MenuStackRouterInput.swift */; };
+		88CEEEE31F17C81700B93196 /* MenuStack.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88CEEE8D1F17C81600B93196 /* MenuStack.storyboard */; };
+		88CEEEE41F17C81700B93196 /* MenuStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE8E1F17C81600B93196 /* MenuStackViewController.swift */; };
+		88CEEEE51F17C81700B93196 /* MenuStackViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE8F1F17C81600B93196 /* MenuStackViewInput.swift */; };
+		88CEEEE61F17C81700B93196 /* MenuStackViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE901F17C81600B93196 /* MenuStackViewOutput.swift */; };
+		88CEEEE71F17C81700B93196 /* RootConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE931F17C81600B93196 /* RootConfigurator.swift */; };
+		88CEEEE81F17C81700B93196 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE951F17C81600B93196 /* RootRouter.swift */; };
+		88CEEEE91F17C81700B93196 /* TabMenuContainerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE981F17C81600B93196 /* TabMenuContainerConfigurator.swift */; };
+		88CEEEEA1F17C81700B93196 /* TabMenuContainerInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE991F17C81600B93196 /* TabMenuContainerInitializer.swift */; };
+		88CEEEEB1F17C81700B93196 /* TabMenuContainerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE9B1F17C81600B93196 /* TabMenuContainerInteractor.swift */; };
+		88CEEEEC1F17C81700B93196 /* TabMenuContainerInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE9C1F17C81600B93196 /* TabMenuContainerInteractorInput.swift */; };
+		88CEEEED1F17C81700B93196 /* TabMenuContainerInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE9D1F17C81600B93196 /* TabMenuContainerInteractorOutput.swift */; };
+		88CEEEEE1F17C81700B93196 /* TabMenuContainerModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEE9F1F17C81600B93196 /* TabMenuContainerModuleInput.swift */; };
+		88CEEEEF1F17C81700B93196 /* TabMenuContainerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEEA01F17C81600B93196 /* TabMenuContainerPresenter.swift */; };
+		88CEEEF01F17C81700B93196 /* TabMenuContainerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEEA21F17C81600B93196 /* TabMenuContainerRouter.swift */; };
+		88CEEEF11F17C81700B93196 /* TabMenuContainerRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEEA31F17C81600B93196 /* TabMenuContainerRouterInput.swift */; };
+		88CEEEF21F17C81700B93196 /* TabMenuContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEEA51F17C81600B93196 /* TabMenuContainerViewController.swift */; };
+		88CEEEF31F17C81700B93196 /* TabMenuContainerViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEEA61F17C81600B93196 /* TabMenuContainerViewInput.swift */; };
+		88CEEEF41F17C81700B93196 /* TabMenuContainerViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEEA71F17C81600B93196 /* TabMenuContainerViewOutput.swift */; };
 		88CF24071F161AEF00CC406F /* NameComponentsSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24061F161AEF00CC406F /* NameComponentsSplitter.swift */; };
 		88CF240A1F16202C00CC406F /* NameComponentsSplitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */; };
 		88CF242F1F16305300CC406F /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; };
@@ -253,7 +253,7 @@
 		886B39D11F138F5D00BF1A8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		886B39D31F138F5D00BF1A8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		886B39DA1F13910B00BF1A8E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		886B3A541F13A28D00BF1A8E /* MSGP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSGP.swift; sourceTree = "<group>"; };
+		886B3A541F13A28D00BF1A8E /* SocialPlus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialPlus.swift; sourceTree = "<group>"; };
 		886B3AC01F13A35700BF1A8E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		886B3AC31F13A38A00BF1A8E /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		886B3ACB1F13ABEA00BF1A8E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
@@ -360,86 +360,86 @@
 		88CEEC541F17B93200B93196 /* UserCompactView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCompactView.swift; sourceTree = "<group>"; };
 		88CEEC551F17B93200B93196 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		88CEEC561F17B93200B93196 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		88CEECA41F17B9A400B93196 /* CreateAccountConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountConfigurator.swift; sourceTree = "<group>"; };
-		88CEECA61F17B9A400B93196 /* CreateAccountInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountInteractor.swift; sourceTree = "<group>"; };
-		88CEECA71F17B9A400B93196 /* CreateAccountInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountInteractorInput.swift; sourceTree = "<group>"; };
-		88CEECA91F17B9A400B93196 /* CreateAccountModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountModuleOutput.swift; sourceTree = "<group>"; };
-		88CEECAA1F17B9A400B93196 /* CreateAccountPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountPresenter.swift; sourceTree = "<group>"; };
-		88CEECAC1F17B9A400B93196 /* CreateAccountRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountRouter.swift; sourceTree = "<group>"; };
-		88CEECAD1F17B9A400B93196 /* CreateAccountRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountRouterInput.swift; sourceTree = "<group>"; };
-		88CEECAF1F17B9A400B93196 /* CreateAccount.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreateAccount.storyboard; sourceTree = "<group>"; };
-		88CEECB01F17B9A400B93196 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
-		88CEECB11F17B9A400B93196 /* CreateAccountViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewInput.swift; sourceTree = "<group>"; };
-		88CEECB21F17B9A400B93196 /* CreateAccountViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewOutput.swift; sourceTree = "<group>"; };
-		88CEECB51F17B9A400B93196 /* CreatePostConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostConfigurator.swift; sourceTree = "<group>"; };
-		88CEECB61F17B9A400B93196 /* CreatePostInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostInitializer.swift; sourceTree = "<group>"; };
-		88CEECB71F17B9A400B93196 /* CreatePost.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = CreatePost.storyboard; path = ../CreatePost.storyboard; sourceTree = "<group>"; };
-		88CEECB91F17B9A400B93196 /* CreatePostInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostInteractor.swift; sourceTree = "<group>"; };
-		88CEECBA1F17B9A400B93196 /* CreatePostInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostInteractorInput.swift; sourceTree = "<group>"; };
-		88CEECBB1F17B9A400B93196 /* CreatePostInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostInteractorOutput.swift; sourceTree = "<group>"; };
-		88CEECBD1F17B9A400B93196 /* CreatePostModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostModuleInput.swift; sourceTree = "<group>"; };
-		88CEECBE1F17B9A400B93196 /* CreatePostPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostPresenter.swift; sourceTree = "<group>"; };
-		88CEECC01F17B9A400B93196 /* CreatePostRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostRouter.swift; sourceTree = "<group>"; };
-		88CEECC11F17B9A400B93196 /* CreatePostRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostRouterInput.swift; sourceTree = "<group>"; };
-		88CEECC31F17B9A400B93196 /* CreatePostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
-		88CEECC41F17B9A400B93196 /* CreatePostViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostViewInput.swift; sourceTree = "<group>"; };
-		88CEECC51F17B9A400B93196 /* CreatePostViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostViewOutput.swift; sourceTree = "<group>"; };
-		88CEECC81F17B9A400B93196 /* LoginConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginConfigurator.swift; sourceTree = "<group>"; };
-		88CEECCA1F17B9A400B93196 /* LoginInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
-		88CEECCB1F17B9A400B93196 /* LoginInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInteractorInput.swift; sourceTree = "<group>"; };
-		88CEECCD1F17B9A400B93196 /* LoginModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModuleInput.swift; sourceTree = "<group>"; };
-		88CEECCE1F17B9A400B93196 /* LoginModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModuleOutput.swift; sourceTree = "<group>"; };
-		88CEECCF1F17B9A400B93196 /* LoginPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
-		88CEECD11F17B9A400B93196 /* LoginRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
-		88CEECD21F17B9A400B93196 /* LoginRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRouterInput.swift; sourceTree = "<group>"; };
-		88CEECD41F17B9A400B93196 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
-		88CEECD51F17B9A400B93196 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		88CEECD61F17B9A400B93196 /* LoginViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewInput.swift; sourceTree = "<group>"; };
-		88CEECD71F17B9A400B93196 /* LoginViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewOutput.swift; sourceTree = "<group>"; };
-		88CEECDA1F17B9A400B93196 /* MenuConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuConfigurator.swift; sourceTree = "<group>"; };
-		88CEECDB1F17B9A400B93196 /* MenuInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuInitializer.swift; sourceTree = "<group>"; };
-		88CEECDD1F17B9A400B93196 /* MenuInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuInteractor.swift; sourceTree = "<group>"; };
-		88CEECDE1F17B9A400B93196 /* MenuInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuInteractorInput.swift; sourceTree = "<group>"; };
-		88CEECDF1F17B9A400B93196 /* MenuInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuInteractorOutput.swift; sourceTree = "<group>"; };
-		88CEECE11F17B9A400B93196 /* MenuModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuModuleInput.swift; sourceTree = "<group>"; };
-		88CEECE21F17B9A400B93196 /* MenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
-		88CEECE41F17B9A400B93196 /* MenuRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuRouter.swift; sourceTree = "<group>"; };
-		88CEECE51F17B9A400B93196 /* MenuRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuRouterInput.swift; sourceTree = "<group>"; };
-		88CEECE71F17B9A400B93196 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		88CEECE81F17B9A400B93196 /* MenuViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewInput.swift; sourceTree = "<group>"; };
-		88CEECE91F17B9A400B93196 /* MenuViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewOutput.swift; sourceTree = "<group>"; };
-		88CEECEC1F17B9A400B93196 /* MenuStackConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackConfigurator.swift; sourceTree = "<group>"; };
-		88CEECED1F17B9A400B93196 /* MenuStackInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackInitializer.swift; sourceTree = "<group>"; };
-		88CEECEF1F17B9A400B93196 /* MenuStackInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackInteractor.swift; sourceTree = "<group>"; };
-		88CEECF01F17B9A400B93196 /* MenuStackInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackInteractorInput.swift; sourceTree = "<group>"; };
-		88CEECF11F17B9A400B93196 /* MenuStackInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackInteractorOutput.swift; sourceTree = "<group>"; };
-		88CEECF21F17B9A400B93196 /* MenuStack.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MenuStack.storyboard; sourceTree = "<group>"; };
-		88CEECF41F17B9A400B93196 /* MenuStackModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackModuleInput.swift; sourceTree = "<group>"; };
-		88CEECF51F17B9A400B93196 /* MenuStackPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackPresenter.swift; sourceTree = "<group>"; };
-		88CEECF71F17B9A400B93196 /* MenuStackRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackRouter.swift; sourceTree = "<group>"; };
-		88CEECF81F17B9A400B93196 /* MenuStackRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackRouterInput.swift; sourceTree = "<group>"; };
-		88CEECFA1F17B9A400B93196 /* MenuStackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackViewController.swift; sourceTree = "<group>"; };
-		88CEECFB1F17B9A400B93196 /* MenuStackViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackViewInput.swift; sourceTree = "<group>"; };
-		88CEECFC1F17B9A400B93196 /* MenuStackViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackViewOutput.swift; sourceTree = "<group>"; };
-		88CEECFF1F17B9A400B93196 /* RootConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootConfigurator.swift; sourceTree = "<group>"; };
-		88CEED021F17B9A400B93196 /* RootRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
-		88CEED051F17B9A400B93196 /* TabMenuContainerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerConfigurator.swift; sourceTree = "<group>"; };
-		88CEED061F17B9A400B93196 /* TabMenuContainerInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerInitializer.swift; sourceTree = "<group>"; };
-		88CEED081F17B9A400B93196 /* TabMenuContainerInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerInteractor.swift; sourceTree = "<group>"; };
-		88CEED091F17B9A400B93196 /* TabMenuContainerInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerInteractorInput.swift; sourceTree = "<group>"; };
-		88CEED0A1F17B9A400B93196 /* TabMenuContainerInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerInteractorOutput.swift; sourceTree = "<group>"; };
-		88CEED0C1F17B9A400B93196 /* TabMenuContainerModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerModuleInput.swift; sourceTree = "<group>"; };
-		88CEED0D1F17B9A400B93196 /* TabMenuContainerPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerPresenter.swift; sourceTree = "<group>"; };
-		88CEED0F1F17B9A400B93196 /* TabMenuContainerRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerRouter.swift; sourceTree = "<group>"; };
-		88CEED101F17B9A400B93196 /* TabMenuContainerRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerRouterInput.swift; sourceTree = "<group>"; };
-		88CEED121F17B9A400B93196 /* TabMenuContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerViewController.swift; sourceTree = "<group>"; };
-		88CEED131F17B9A400B93196 /* TabMenuContainerViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerViewInput.swift; sourceTree = "<group>"; };
-		88CEED141F17B9A400B93196 /* TabMenuContainerViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerViewOutput.swift; sourceTree = "<group>"; };
-		88CEED611F17B9AF00B93196 /* MenuCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuCellView.swift; path = ../MenuCellView.swift; sourceTree = "<group>"; };
-		88CEED621F17B9AF00B93196 /* MenuCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuCellViewModel.swift; path = ../MenuCellViewModel.swift; sourceTree = "<group>"; };
 		88CEED661F17BAFE00B93196 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		88CEED6A1F17BDD300B93196 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		88CEED6B1F17BDD300B93196 /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
+		88CEEE351F17C81600B93196 /* CreateAccountConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountConfigurator.swift; sourceTree = "<group>"; };
+		88CEEE371F17C81600B93196 /* CreateAccountInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountInteractor.swift; sourceTree = "<group>"; };
+		88CEEE381F17C81600B93196 /* CreateAccountInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountInteractorInput.swift; sourceTree = "<group>"; };
+		88CEEE3A1F17C81600B93196 /* CreateAccountModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountModuleOutput.swift; sourceTree = "<group>"; };
+		88CEEE3B1F17C81600B93196 /* CreateAccountPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountPresenter.swift; sourceTree = "<group>"; };
+		88CEEE3D1F17C81600B93196 /* CreateAccountRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountRouter.swift; sourceTree = "<group>"; };
+		88CEEE3E1F17C81600B93196 /* CreateAccountRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountRouterInput.swift; sourceTree = "<group>"; };
+		88CEEE401F17C81600B93196 /* CreateAccount.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreateAccount.storyboard; sourceTree = "<group>"; };
+		88CEEE411F17C81600B93196 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		88CEEE421F17C81600B93196 /* CreateAccountViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewInput.swift; sourceTree = "<group>"; };
+		88CEEE431F17C81600B93196 /* CreateAccountViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewOutput.swift; sourceTree = "<group>"; };
+		88CEEE461F17C81600B93196 /* CreatePostConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostConfigurator.swift; sourceTree = "<group>"; };
+		88CEEE471F17C81600B93196 /* CreatePostInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostInitializer.swift; sourceTree = "<group>"; };
+		88CEEE491F17C81600B93196 /* CreatePostInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostInteractor.swift; sourceTree = "<group>"; };
+		88CEEE4A1F17C81600B93196 /* CreatePostInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostInteractorInput.swift; sourceTree = "<group>"; };
+		88CEEE4B1F17C81600B93196 /* CreatePostInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostInteractorOutput.swift; sourceTree = "<group>"; };
+		88CEEE4D1F17C81600B93196 /* CreatePostModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostModuleInput.swift; sourceTree = "<group>"; };
+		88CEEE4E1F17C81600B93196 /* CreatePostPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostPresenter.swift; sourceTree = "<group>"; };
+		88CEEE501F17C81600B93196 /* CreatePostRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostRouter.swift; sourceTree = "<group>"; };
+		88CEEE511F17C81600B93196 /* CreatePostRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostRouterInput.swift; sourceTree = "<group>"; };
+		88CEEE531F17C81600B93196 /* CreatePost.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreatePost.storyboard; sourceTree = "<group>"; };
+		88CEEE541F17C81600B93196 /* CreatePostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
+		88CEEE551F17C81600B93196 /* CreatePostViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostViewInput.swift; sourceTree = "<group>"; };
+		88CEEE561F17C81600B93196 /* CreatePostViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostViewOutput.swift; sourceTree = "<group>"; };
+		88CEEE591F17C81600B93196 /* LoginConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginConfigurator.swift; sourceTree = "<group>"; };
+		88CEEE5B1F17C81600B93196 /* LoginInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
+		88CEEE5C1F17C81600B93196 /* LoginInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInteractorInput.swift; sourceTree = "<group>"; };
+		88CEEE5E1F17C81600B93196 /* LoginModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModuleInput.swift; sourceTree = "<group>"; };
+		88CEEE5F1F17C81600B93196 /* LoginModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModuleOutput.swift; sourceTree = "<group>"; };
+		88CEEE601F17C81600B93196 /* LoginPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
+		88CEEE621F17C81600B93196 /* LoginRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
+		88CEEE631F17C81600B93196 /* LoginRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRouterInput.swift; sourceTree = "<group>"; };
+		88CEEE651F17C81600B93196 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		88CEEE661F17C81600B93196 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		88CEEE671F17C81600B93196 /* LoginViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewInput.swift; sourceTree = "<group>"; };
+		88CEEE681F17C81600B93196 /* LoginViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewOutput.swift; sourceTree = "<group>"; };
+		88CEEE6B1F17C81600B93196 /* MenuConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuConfigurator.swift; sourceTree = "<group>"; };
+		88CEEE6C1F17C81600B93196 /* MenuInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuInitializer.swift; sourceTree = "<group>"; };
+		88CEEE6E1F17C81600B93196 /* MenuInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuInteractor.swift; sourceTree = "<group>"; };
+		88CEEE6F1F17C81600B93196 /* MenuInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuInteractorInput.swift; sourceTree = "<group>"; };
+		88CEEE701F17C81600B93196 /* MenuInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuInteractorOutput.swift; sourceTree = "<group>"; };
+		88CEEE721F17C81600B93196 /* MenuModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuModuleInput.swift; sourceTree = "<group>"; };
+		88CEEE731F17C81600B93196 /* MenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
+		88CEEE751F17C81600B93196 /* MenuRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuRouter.swift; sourceTree = "<group>"; };
+		88CEEE761F17C81600B93196 /* MenuRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuRouterInput.swift; sourceTree = "<group>"; };
+		88CEEE791F17C81600B93196 /* MenuCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCellView.swift; sourceTree = "<group>"; };
+		88CEEE7A1F17C81600B93196 /* MenuCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCellViewModel.swift; sourceTree = "<group>"; };
+		88CEEE7B1F17C81600B93196 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		88CEEE7C1F17C81600B93196 /* MenuViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewInput.swift; sourceTree = "<group>"; };
+		88CEEE7D1F17C81600B93196 /* MenuViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewOutput.swift; sourceTree = "<group>"; };
+		88CEEE801F17C81600B93196 /* MenuStackConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackConfigurator.swift; sourceTree = "<group>"; };
+		88CEEE811F17C81600B93196 /* MenuStackInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackInitializer.swift; sourceTree = "<group>"; };
+		88CEEE831F17C81600B93196 /* MenuStackInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackInteractor.swift; sourceTree = "<group>"; };
+		88CEEE841F17C81600B93196 /* MenuStackInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackInteractorInput.swift; sourceTree = "<group>"; };
+		88CEEE851F17C81600B93196 /* MenuStackInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackInteractorOutput.swift; sourceTree = "<group>"; };
+		88CEEE871F17C81600B93196 /* MenuStackModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackModuleInput.swift; sourceTree = "<group>"; };
+		88CEEE881F17C81600B93196 /* MenuStackPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackPresenter.swift; sourceTree = "<group>"; };
+		88CEEE8A1F17C81600B93196 /* MenuStackRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackRouter.swift; sourceTree = "<group>"; };
+		88CEEE8B1F17C81600B93196 /* MenuStackRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackRouterInput.swift; sourceTree = "<group>"; };
+		88CEEE8D1F17C81600B93196 /* MenuStack.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MenuStack.storyboard; sourceTree = "<group>"; };
+		88CEEE8E1F17C81600B93196 /* MenuStackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackViewController.swift; sourceTree = "<group>"; };
+		88CEEE8F1F17C81600B93196 /* MenuStackViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackViewInput.swift; sourceTree = "<group>"; };
+		88CEEE901F17C81600B93196 /* MenuStackViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackViewOutput.swift; sourceTree = "<group>"; };
+		88CEEE931F17C81600B93196 /* RootConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootConfigurator.swift; sourceTree = "<group>"; };
+		88CEEE951F17C81600B93196 /* RootRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
+		88CEEE981F17C81600B93196 /* TabMenuContainerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerConfigurator.swift; sourceTree = "<group>"; };
+		88CEEE991F17C81600B93196 /* TabMenuContainerInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerInitializer.swift; sourceTree = "<group>"; };
+		88CEEE9B1F17C81600B93196 /* TabMenuContainerInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerInteractor.swift; sourceTree = "<group>"; };
+		88CEEE9C1F17C81600B93196 /* TabMenuContainerInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerInteractorInput.swift; sourceTree = "<group>"; };
+		88CEEE9D1F17C81600B93196 /* TabMenuContainerInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerInteractorOutput.swift; sourceTree = "<group>"; };
+		88CEEE9F1F17C81600B93196 /* TabMenuContainerModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerModuleInput.swift; sourceTree = "<group>"; };
+		88CEEEA01F17C81600B93196 /* TabMenuContainerPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerPresenter.swift; sourceTree = "<group>"; };
+		88CEEEA21F17C81600B93196 /* TabMenuContainerRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerRouter.swift; sourceTree = "<group>"; };
+		88CEEEA31F17C81600B93196 /* TabMenuContainerRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerRouterInput.swift; sourceTree = "<group>"; };
+		88CEEEA51F17C81600B93196 /* TabMenuContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerViewController.swift; sourceTree = "<group>"; };
+		88CEEEA61F17C81600B93196 /* TabMenuContainerViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerViewInput.swift; sourceTree = "<group>"; };
+		88CEEEA71F17C81600B93196 /* TabMenuContainerViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerViewOutput.swift; sourceTree = "<group>"; };
 		88CF24061F161AEF00CC406F /* NameComponentsSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitter.swift; sourceTree = "<group>"; };
 		88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitterTests.swift; sourceTree = "<group>"; };
 		88CF242D1F16305300CC406F /* MSAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MSAL.framework; sourceTree = "<group>"; };
@@ -543,9 +543,10 @@
 			isa = PBXGroup;
 			children = (
 				886B3ABF1F13A35700BF1A8E /* Entities */,
+				88CEEC0C1F17B8E500B93196 /* External API */,
 				88CEEBE61F17740F00B93196 /* ImageCache */,
 				886B3AC21F13A37700BF1A8E /* Services */,
-				886B3A541F13A28D00BF1A8E /* MSGP.swift */,
+				886B3A541F13A28D00BF1A8E /* SocialPlus.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -658,6 +659,7 @@
 			children = (
 				88CEEC0D1F17B8E500B93196 /* API.swift */,
 			);
+			name = "External API";
 			path = "External API";
 			sourceTree = "<group>";
 		};
@@ -666,12 +668,12 @@
 			children = (
 				88CEEC121F17B93200B93196 /* APIs */,
 				88CEEC251F17B93200B93196 /* Models */,
+				88CEED691F17BDD300B93196 /* SwiftGen */,
 				88CEEC111F17B93200B93196 /* APIHelper.swift */,
 				88CEEC231F17B93200B93196 /* APIs.swift */,
 				88CEEC101F17B93200B93196 /* AlamofireImplementations.swift */,
 				88CEEC241F17B93200B93196 /* Extensions.swift */,
 				88CEEC561F17B93200B93196 /* Models.swift */,
-				88CEED691F17BDD300B93196 /* SwiftGen */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -754,410 +756,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		88CEECA11F17B9A400B93196 /* Modules */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECA21F17B9A400B93196 /* CreateAccount */,
-				88CEECB31F17B9A400B93196 /* CreatePost */,
-				88CEECC61F17B9A400B93196 /* Login */,
-				88CEECD81F17B9A400B93196 /* Menu */,
-				88CEECEA1F17B9A400B93196 /* MenuStack */,
-				88CEECFD1F17B9A400B93196 /* Root */,
-				88CEED031F17B9A400B93196 /* TabMenuContainer */,
-			);
-			path = Modules;
-			sourceTree = "<group>";
-		};
-		88CEECA21F17B9A400B93196 /* CreateAccount */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECA31F17B9A400B93196 /* Configurator */,
-				88CEECA51F17B9A400B93196 /* Interactor */,
-				88CEECA81F17B9A400B93196 /* Presenter */,
-				88CEECAB1F17B9A400B93196 /* Router */,
-				88CEECAE1F17B9A400B93196 /* View */,
-			);
-			path = CreateAccount;
-			sourceTree = "<group>";
-		};
-		88CEECA31F17B9A400B93196 /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECA41F17B9A400B93196 /* CreateAccountConfigurator.swift */,
-			);
-			path = Configurator;
-			sourceTree = "<group>";
-		};
-		88CEECA51F17B9A400B93196 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECA61F17B9A400B93196 /* CreateAccountInteractor.swift */,
-				88CEECA71F17B9A400B93196 /* CreateAccountInteractorInput.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		88CEECA81F17B9A400B93196 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECA91F17B9A400B93196 /* CreateAccountModuleOutput.swift */,
-				88CEECAA1F17B9A400B93196 /* CreateAccountPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		88CEECAB1F17B9A400B93196 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECAC1F17B9A400B93196 /* CreateAccountRouter.swift */,
-				88CEECAD1F17B9A400B93196 /* CreateAccountRouterInput.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
-		88CEECAE1F17B9A400B93196 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECAF1F17B9A400B93196 /* CreateAccount.storyboard */,
-				88CEECB01F17B9A400B93196 /* CreateAccountViewController.swift */,
-				88CEECB11F17B9A400B93196 /* CreateAccountViewInput.swift */,
-				88CEECB21F17B9A400B93196 /* CreateAccountViewOutput.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		88CEECB31F17B9A400B93196 /* CreatePost */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECB41F17B9A400B93196 /* Configurator */,
-				88CEECB81F17B9A400B93196 /* Interactor */,
-				88CEECBC1F17B9A400B93196 /* Presenter */,
-				88CEECBF1F17B9A400B93196 /* Router */,
-				88CEECC21F17B9A400B93196 /* View */,
-			);
-			path = CreatePost;
-			sourceTree = "<group>";
-		};
-		88CEECB41F17B9A400B93196 /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECB51F17B9A400B93196 /* CreatePostConfigurator.swift */,
-				88CEECB61F17B9A400B93196 /* CreatePostInitializer.swift */,
-			);
-			path = Configurator;
-			sourceTree = "<group>";
-		};
-		88CEECB81F17B9A400B93196 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECB91F17B9A400B93196 /* CreatePostInteractor.swift */,
-				88CEECBA1F17B9A400B93196 /* CreatePostInteractorInput.swift */,
-				88CEECBB1F17B9A400B93196 /* CreatePostInteractorOutput.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		88CEECBC1F17B9A400B93196 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECBD1F17B9A400B93196 /* CreatePostModuleInput.swift */,
-				88CEECBE1F17B9A400B93196 /* CreatePostPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		88CEECBF1F17B9A400B93196 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECC01F17B9A400B93196 /* CreatePostRouter.swift */,
-				88CEECC11F17B9A400B93196 /* CreatePostRouterInput.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
-		88CEECC21F17B9A400B93196 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECB71F17B9A400B93196 /* CreatePost.storyboard */,
-				88CEECC31F17B9A400B93196 /* CreatePostViewController.swift */,
-				88CEECC41F17B9A400B93196 /* CreatePostViewInput.swift */,
-				88CEECC51F17B9A400B93196 /* CreatePostViewOutput.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		88CEECC61F17B9A400B93196 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECC71F17B9A400B93196 /* Configurator */,
-				88CEECC91F17B9A400B93196 /* Interactor */,
-				88CEECCC1F17B9A400B93196 /* Presenter */,
-				88CEECD01F17B9A400B93196 /* Router */,
-				88CEECD31F17B9A400B93196 /* View */,
-			);
-			path = Login;
-			sourceTree = "<group>";
-		};
-		88CEECC71F17B9A400B93196 /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECC81F17B9A400B93196 /* LoginConfigurator.swift */,
-			);
-			path = Configurator;
-			sourceTree = "<group>";
-		};
-		88CEECC91F17B9A400B93196 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECCA1F17B9A400B93196 /* LoginInteractor.swift */,
-				88CEECCB1F17B9A400B93196 /* LoginInteractorInput.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		88CEECCC1F17B9A400B93196 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECCD1F17B9A400B93196 /* LoginModuleInput.swift */,
-				88CEECCE1F17B9A400B93196 /* LoginModuleOutput.swift */,
-				88CEECCF1F17B9A400B93196 /* LoginPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		88CEECD01F17B9A400B93196 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECD11F17B9A400B93196 /* LoginRouter.swift */,
-				88CEECD21F17B9A400B93196 /* LoginRouterInput.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
-		88CEECD31F17B9A400B93196 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECD41F17B9A400B93196 /* Login.storyboard */,
-				88CEECD51F17B9A400B93196 /* LoginViewController.swift */,
-				88CEECD61F17B9A400B93196 /* LoginViewInput.swift */,
-				88CEECD71F17B9A400B93196 /* LoginViewOutput.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		88CEECD81F17B9A400B93196 /* Menu */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECD91F17B9A400B93196 /* Configurator */,
-				88CEECDC1F17B9A400B93196 /* Interactor */,
-				88CEECE01F17B9A400B93196 /* Presenter */,
-				88CEECE31F17B9A400B93196 /* Router */,
-				88CEECE61F17B9A400B93196 /* View */,
-			);
-			path = Menu;
-			sourceTree = "<group>";
-		};
-		88CEECD91F17B9A400B93196 /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECDA1F17B9A400B93196 /* MenuConfigurator.swift */,
-				88CEECDB1F17B9A400B93196 /* MenuInitializer.swift */,
-			);
-			path = Configurator;
-			sourceTree = "<group>";
-		};
-		88CEECDC1F17B9A400B93196 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECDD1F17B9A400B93196 /* MenuInteractor.swift */,
-				88CEECDE1F17B9A400B93196 /* MenuInteractorInput.swift */,
-				88CEECDF1F17B9A400B93196 /* MenuInteractorOutput.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		88CEECE01F17B9A400B93196 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECE11F17B9A400B93196 /* MenuModuleInput.swift */,
-				88CEECE21F17B9A400B93196 /* MenuPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		88CEECE31F17B9A400B93196 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECE41F17B9A400B93196 /* MenuRouter.swift */,
-				88CEECE51F17B9A400B93196 /* MenuRouterInput.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
-		88CEECE61F17B9A400B93196 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				88CEED651F17B9E300B93196 /* Cells */,
-				88CEECE71F17B9A400B93196 /* MenuViewController.swift */,
-				88CEECE81F17B9A400B93196 /* MenuViewInput.swift */,
-				88CEECE91F17B9A400B93196 /* MenuViewOutput.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		88CEECEA1F17B9A400B93196 /* MenuStack */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECEB1F17B9A400B93196 /* Configurator */,
-				88CEECEE1F17B9A400B93196 /* Interactor */,
-				88CEECF21F17B9A400B93196 /* MenuStack.storyboard */,
-				88CEECF31F17B9A400B93196 /* Presenter */,
-				88CEECF61F17B9A400B93196 /* Router */,
-				88CEECF91F17B9A400B93196 /* View */,
-			);
-			path = MenuStack;
-			sourceTree = "<group>";
-		};
-		88CEECEB1F17B9A400B93196 /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECEC1F17B9A400B93196 /* MenuStackConfigurator.swift */,
-				88CEECED1F17B9A400B93196 /* MenuStackInitializer.swift */,
-			);
-			path = Configurator;
-			sourceTree = "<group>";
-		};
-		88CEECEE1F17B9A400B93196 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECEF1F17B9A400B93196 /* MenuStackInteractor.swift */,
-				88CEECF01F17B9A400B93196 /* MenuStackInteractorInput.swift */,
-				88CEECF11F17B9A400B93196 /* MenuStackInteractorOutput.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		88CEECF31F17B9A400B93196 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECF41F17B9A400B93196 /* MenuStackModuleInput.swift */,
-				88CEECF51F17B9A400B93196 /* MenuStackPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		88CEECF61F17B9A400B93196 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECF71F17B9A400B93196 /* MenuStackRouter.swift */,
-				88CEECF81F17B9A400B93196 /* MenuStackRouterInput.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
-		88CEECF91F17B9A400B93196 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECFA1F17B9A400B93196 /* MenuStackViewController.swift */,
-				88CEECFB1F17B9A400B93196 /* MenuStackViewInput.swift */,
-				88CEECFC1F17B9A400B93196 /* MenuStackViewOutput.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		88CEECFD1F17B9A400B93196 /* Root */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECFE1F17B9A400B93196 /* Configuration */,
-				88CEED011F17B9A400B93196 /* Router */,
-			);
-			path = Root;
-			sourceTree = "<group>";
-		};
-		88CEECFE1F17B9A400B93196 /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				88CEECFF1F17B9A400B93196 /* RootConfigurator.swift */,
-			);
-			path = Configuration;
-			sourceTree = "<group>";
-		};
-		88CEED011F17B9A400B93196 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				88CEED021F17B9A400B93196 /* RootRouter.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
-		88CEED031F17B9A400B93196 /* TabMenuContainer */ = {
-			isa = PBXGroup;
-			children = (
-				88CEED041F17B9A400B93196 /* Configurator */,
-				88CEED071F17B9A400B93196 /* Interactor */,
-				88CEED0B1F17B9A400B93196 /* Presenter */,
-				88CEED0E1F17B9A400B93196 /* Router */,
-				88CEED111F17B9A400B93196 /* View */,
-			);
-			path = TabMenuContainer;
-			sourceTree = "<group>";
-		};
-		88CEED041F17B9A400B93196 /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				88CEED051F17B9A400B93196 /* TabMenuContainerConfigurator.swift */,
-				88CEED061F17B9A400B93196 /* TabMenuContainerInitializer.swift */,
-			);
-			path = Configurator;
-			sourceTree = "<group>";
-		};
-		88CEED071F17B9A400B93196 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				88CEED081F17B9A400B93196 /* TabMenuContainerInteractor.swift */,
-				88CEED091F17B9A400B93196 /* TabMenuContainerInteractorInput.swift */,
-				88CEED0A1F17B9A400B93196 /* TabMenuContainerInteractorOutput.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		88CEED0B1F17B9A400B93196 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				88CEED0C1F17B9A400B93196 /* TabMenuContainerModuleInput.swift */,
-				88CEED0D1F17B9A400B93196 /* TabMenuContainerPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		88CEED0E1F17B9A400B93196 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				88CEED0F1F17B9A400B93196 /* TabMenuContainerRouter.swift */,
-				88CEED101F17B9A400B93196 /* TabMenuContainerRouterInput.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
-		88CEED111F17B9A400B93196 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				88CEED121F17B9A400B93196 /* TabMenuContainerViewController.swift */,
-				88CEED131F17B9A400B93196 /* TabMenuContainerViewInput.swift */,
-				88CEED141F17B9A400B93196 /* TabMenuContainerViewOutput.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		88CEED651F17B9E300B93196 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				88CEED611F17B9AF00B93196 /* MenuCellView.swift */,
-				88CEED621F17B9AF00B93196 /* MenuCellViewModel.swift */,
-			);
-			name = Cells;
-			sourceTree = "<group>";
-		};
 		88CEED691F17BDD300B93196 /* SwiftGen */ = {
 			isa = PBXGroup;
 			children = (
@@ -1165,6 +763,410 @@
 				88CEED6B1F17BDD300B93196 /* Storyboards.swift */,
 			);
 			path = SwiftGen;
+			sourceTree = "<group>";
+		};
+		88CEEE321F17C81600B93196 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE331F17C81600B93196 /* CreateAccount */,
+				88CEEE441F17C81600B93196 /* CreatePost */,
+				88CEEE571F17C81600B93196 /* Login */,
+				88CEEE691F17C81600B93196 /* Menu */,
+				88CEEE7E1F17C81600B93196 /* MenuStack */,
+				88CEEE911F17C81600B93196 /* Root */,
+				88CEEE961F17C81600B93196 /* TabMenuContainer */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		88CEEE331F17C81600B93196 /* CreateAccount */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE341F17C81600B93196 /* Configurator */,
+				88CEEE361F17C81600B93196 /* Interactor */,
+				88CEEE391F17C81600B93196 /* Presenter */,
+				88CEEE3C1F17C81600B93196 /* Router */,
+				88CEEE3F1F17C81600B93196 /* View */,
+			);
+			path = CreateAccount;
+			sourceTree = "<group>";
+		};
+		88CEEE341F17C81600B93196 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE351F17C81600B93196 /* CreateAccountConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		88CEEE361F17C81600B93196 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE371F17C81600B93196 /* CreateAccountInteractor.swift */,
+				88CEEE381F17C81600B93196 /* CreateAccountInteractorInput.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		88CEEE391F17C81600B93196 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE3A1F17C81600B93196 /* CreateAccountModuleOutput.swift */,
+				88CEEE3B1F17C81600B93196 /* CreateAccountPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		88CEEE3C1F17C81600B93196 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE3D1F17C81600B93196 /* CreateAccountRouter.swift */,
+				88CEEE3E1F17C81600B93196 /* CreateAccountRouterInput.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		88CEEE3F1F17C81600B93196 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE401F17C81600B93196 /* CreateAccount.storyboard */,
+				88CEEE411F17C81600B93196 /* CreateAccountViewController.swift */,
+				88CEEE421F17C81600B93196 /* CreateAccountViewInput.swift */,
+				88CEEE431F17C81600B93196 /* CreateAccountViewOutput.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		88CEEE441F17C81600B93196 /* CreatePost */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE451F17C81600B93196 /* Configurator */,
+				88CEEE481F17C81600B93196 /* Interactor */,
+				88CEEE4C1F17C81600B93196 /* Presenter */,
+				88CEEE4F1F17C81600B93196 /* Router */,
+				88CEEE521F17C81600B93196 /* View */,
+			);
+			path = CreatePost;
+			sourceTree = "<group>";
+		};
+		88CEEE451F17C81600B93196 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE461F17C81600B93196 /* CreatePostConfigurator.swift */,
+				88CEEE471F17C81600B93196 /* CreatePostInitializer.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		88CEEE481F17C81600B93196 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE491F17C81600B93196 /* CreatePostInteractor.swift */,
+				88CEEE4A1F17C81600B93196 /* CreatePostInteractorInput.swift */,
+				88CEEE4B1F17C81600B93196 /* CreatePostInteractorOutput.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		88CEEE4C1F17C81600B93196 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE4D1F17C81600B93196 /* CreatePostModuleInput.swift */,
+				88CEEE4E1F17C81600B93196 /* CreatePostPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		88CEEE4F1F17C81600B93196 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE501F17C81600B93196 /* CreatePostRouter.swift */,
+				88CEEE511F17C81600B93196 /* CreatePostRouterInput.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		88CEEE521F17C81600B93196 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE531F17C81600B93196 /* CreatePost.storyboard */,
+				88CEEE541F17C81600B93196 /* CreatePostViewController.swift */,
+				88CEEE551F17C81600B93196 /* CreatePostViewInput.swift */,
+				88CEEE561F17C81600B93196 /* CreatePostViewOutput.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		88CEEE571F17C81600B93196 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE581F17C81600B93196 /* Configurator */,
+				88CEEE5A1F17C81600B93196 /* Interactor */,
+				88CEEE5D1F17C81600B93196 /* Presenter */,
+				88CEEE611F17C81600B93196 /* Router */,
+				88CEEE641F17C81600B93196 /* View */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		88CEEE581F17C81600B93196 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE591F17C81600B93196 /* LoginConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		88CEEE5A1F17C81600B93196 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE5B1F17C81600B93196 /* LoginInteractor.swift */,
+				88CEEE5C1F17C81600B93196 /* LoginInteractorInput.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		88CEEE5D1F17C81600B93196 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE5E1F17C81600B93196 /* LoginModuleInput.swift */,
+				88CEEE5F1F17C81600B93196 /* LoginModuleOutput.swift */,
+				88CEEE601F17C81600B93196 /* LoginPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		88CEEE611F17C81600B93196 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE621F17C81600B93196 /* LoginRouter.swift */,
+				88CEEE631F17C81600B93196 /* LoginRouterInput.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		88CEEE641F17C81600B93196 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE651F17C81600B93196 /* Login.storyboard */,
+				88CEEE661F17C81600B93196 /* LoginViewController.swift */,
+				88CEEE671F17C81600B93196 /* LoginViewInput.swift */,
+				88CEEE681F17C81600B93196 /* LoginViewOutput.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		88CEEE691F17C81600B93196 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE6A1F17C81600B93196 /* Configurator */,
+				88CEEE6D1F17C81600B93196 /* Interactor */,
+				88CEEE711F17C81600B93196 /* Presenter */,
+				88CEEE741F17C81600B93196 /* Router */,
+				88CEEE771F17C81600B93196 /* View */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		88CEEE6A1F17C81600B93196 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE6B1F17C81600B93196 /* MenuConfigurator.swift */,
+				88CEEE6C1F17C81600B93196 /* MenuInitializer.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		88CEEE6D1F17C81600B93196 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE6E1F17C81600B93196 /* MenuInteractor.swift */,
+				88CEEE6F1F17C81600B93196 /* MenuInteractorInput.swift */,
+				88CEEE701F17C81600B93196 /* MenuInteractorOutput.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		88CEEE711F17C81600B93196 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE721F17C81600B93196 /* MenuModuleInput.swift */,
+				88CEEE731F17C81600B93196 /* MenuPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		88CEEE741F17C81600B93196 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE751F17C81600B93196 /* MenuRouter.swift */,
+				88CEEE761F17C81600B93196 /* MenuRouterInput.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		88CEEE771F17C81600B93196 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE781F17C81600B93196 /* Cells */,
+				88CEEE7B1F17C81600B93196 /* MenuViewController.swift */,
+				88CEEE7C1F17C81600B93196 /* MenuViewInput.swift */,
+				88CEEE7D1F17C81600B93196 /* MenuViewOutput.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		88CEEE781F17C81600B93196 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE791F17C81600B93196 /* MenuCellView.swift */,
+				88CEEE7A1F17C81600B93196 /* MenuCellViewModel.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		88CEEE7E1F17C81600B93196 /* MenuStack */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE7F1F17C81600B93196 /* Configurator */,
+				88CEEE821F17C81600B93196 /* Interactor */,
+				88CEEE861F17C81600B93196 /* Presenter */,
+				88CEEE891F17C81600B93196 /* Router */,
+				88CEEE8C1F17C81600B93196 /* View */,
+			);
+			path = MenuStack;
+			sourceTree = "<group>";
+		};
+		88CEEE7F1F17C81600B93196 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE801F17C81600B93196 /* MenuStackConfigurator.swift */,
+				88CEEE811F17C81600B93196 /* MenuStackInitializer.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		88CEEE821F17C81600B93196 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE831F17C81600B93196 /* MenuStackInteractor.swift */,
+				88CEEE841F17C81600B93196 /* MenuStackInteractorInput.swift */,
+				88CEEE851F17C81600B93196 /* MenuStackInteractorOutput.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		88CEEE861F17C81600B93196 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE871F17C81600B93196 /* MenuStackModuleInput.swift */,
+				88CEEE881F17C81600B93196 /* MenuStackPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		88CEEE891F17C81600B93196 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE8A1F17C81600B93196 /* MenuStackRouter.swift */,
+				88CEEE8B1F17C81600B93196 /* MenuStackRouterInput.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		88CEEE8C1F17C81600B93196 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE8D1F17C81600B93196 /* MenuStack.storyboard */,
+				88CEEE8E1F17C81600B93196 /* MenuStackViewController.swift */,
+				88CEEE8F1F17C81600B93196 /* MenuStackViewInput.swift */,
+				88CEEE901F17C81600B93196 /* MenuStackViewOutput.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		88CEEE911F17C81600B93196 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE921F17C81600B93196 /* Configuration */,
+				88CEEE941F17C81600B93196 /* Router */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		88CEEE921F17C81600B93196 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE931F17C81600B93196 /* RootConfigurator.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		88CEEE941F17C81600B93196 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE951F17C81600B93196 /* RootRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		88CEEE961F17C81600B93196 /* TabMenuContainer */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE971F17C81600B93196 /* Configurator */,
+				88CEEE9A1F17C81600B93196 /* Interactor */,
+				88CEEE9E1F17C81600B93196 /* Presenter */,
+				88CEEEA11F17C81600B93196 /* Router */,
+				88CEEEA41F17C81600B93196 /* View */,
+			);
+			path = TabMenuContainer;
+			sourceTree = "<group>";
+		};
+		88CEEE971F17C81600B93196 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE981F17C81600B93196 /* TabMenuContainerConfigurator.swift */,
+				88CEEE991F17C81600B93196 /* TabMenuContainerInitializer.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		88CEEE9A1F17C81600B93196 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE9B1F17C81600B93196 /* TabMenuContainerInteractor.swift */,
+				88CEEE9C1F17C81600B93196 /* TabMenuContainerInteractorInput.swift */,
+				88CEEE9D1F17C81600B93196 /* TabMenuContainerInteractorOutput.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		88CEEE9E1F17C81600B93196 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEE9F1F17C81600B93196 /* TabMenuContainerModuleInput.swift */,
+				88CEEEA01F17C81600B93196 /* TabMenuContainerPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		88CEEEA11F17C81600B93196 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEEA21F17C81600B93196 /* TabMenuContainerRouter.swift */,
+				88CEEEA31F17C81600B93196 /* TabMenuContainerRouterInput.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		88CEEEA41F17C81600B93196 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				88CEEEA51F17C81600B93196 /* TabMenuContainerViewController.swift */,
+				88CEEEA61F17C81600B93196 /* TabMenuContainerViewInput.swift */,
+				88CEEEA71F17C81600B93196 /* TabMenuContainerViewOutput.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		88CF24081F161AF300CC406F /* Utils */ = {
@@ -1198,10 +1200,9 @@
 			children = (
 				88CEEBED1F17B7DF00B93196 /* Common */,
 				886B3ADC1F13B52400BF1A8E /* Extensions */,
-				88CEEC0C1F17B8E500B93196 /* External API */,
 				88CEEC0F1F17B93200B93196 /* Generated */,
 				886B39DC1F1391A700BF1A8E /* Model */,
-				88CEECA11F17B9A400B93196 /* Modules */,
+				88CEEE321F17C81600B93196 /* Modules */,
 				88CF24081F161AF300CC406F /* Utils */,
 			);
 			path = Sources;
@@ -1276,7 +1277,6 @@
 			buildConfigurationList = 886B39D41F138F5D00BF1A8E /* Build configuration list for PBXNativeTarget "MSGP-Example" */;
 			buildPhases = (
 				4655C06980DC26F44D5DB725 /* [CP] Check Pods Manifest.lock */,
-				88CEED681F17BBD900B93196 /* ShellScript */,
 				886B39C11F138F5D00BF1A8E /* Sources */,
 				886B39C21F138F5D00BF1A8E /* Frameworks */,
 				886B39C31F138F5D00BF1A8E /* Resources */,
@@ -1299,6 +1299,7 @@
 			buildConfigurationList = 9CD8053D1F0D012F00B9B0AC /* Build configuration list for PBXNativeTarget "MSGP" */;
 			buildPhases = (
 				D6402CE93B12C93A75387EC2 /* [CP] Check Pods Manifest.lock */,
+				88CEEE311F17C79900B93196 /* ShellScript */,
 				9CD805241F0D012F00B9B0AC /* Sources */,
 				9CD805251F0D012F00B9B0AC /* Frameworks */,
 				9CD805261F0D012F00B9B0AC /* Headers */,
@@ -1396,10 +1397,10 @@
 			files = (
 				88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
-				88CEED221F17B9A400B93196 /* CreatePost.storyboard in Resources */,
-				88CEED351F17B9A400B93196 /* Login.storyboard in Resources */,
-				88CEED4A1F17B9A400B93196 /* MenuStack.storyboard in Resources */,
-				88CEED1C1F17B9A400B93196 /* CreateAccount.storyboard in Resources */,
+				88CEEEBC1F17C81600B93196 /* CreatePost.storyboard in Resources */,
+				88CEEEC81F17C81600B93196 /* Login.storyboard in Resources */,
+				88CEEEE31F17C81700B93196 /* MenuStack.storyboard in Resources */,
+				88CEEEAF1F17C81600B93196 /* CreateAccount.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1501,7 +1502,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"";
 		};
-		88CEED681F17BBD900B93196 /* ShellScript */ = {
+		88CEEE311F17C79900B93196 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1512,7 +1513,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftGen/swiftgen\" storyboards \"$PROJECT_DIR\" --output \"$PROJECT_DIR/MSGP/Sources/Generated/SwiftGen/Storyboards.swift\" -t swift3\n\"${PODS_ROOT}/SwiftGen/swiftgen\" images \"$PROJECT_DIR/MSGP/Resources/Images.xcassets\" --output \"$PROJECT_DIR/MSGP/Sources/Generated/SwiftGen/Images.swift\" -t swift3\n";
+			shellScript = "\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" storyboards --param module=\"MSGP\" \"$PROJECT_DIR/MSGP/Sources\" --output \"$PROJECT_DIR/MSGP/Sources/Generated/SwiftGen/Storyboards.swift\" -t swift3\n\n\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" images \"$PROJECT_DIR/MSGP/Resources/Images.xcassets\" --output \"$PROJECT_DIR/MSGP/Sources/Generated/SwiftGen/Images.swift\" -t swift3";
 		};
 		8A923B983FC6DDAB62A49AE9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1575,89 +1576,87 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88CEED261F17B9A400B93196 /* CreatePostModuleInput.swift in Sources */,
 				88CEEC8E1F17B93300B93196 /* PostTopicNameRequest.swift in Sources */,
+				88CEEECE1F17C81600B93196 /* MenuInteractor.swift in Sources */,
+				88CEEEEC1F17C81700B93196 /* TabMenuContainerInteractorInput.swift in Sources */,
+				88CEEED91F17C81600B93196 /* MenuViewOutput.swift in Sources */,
 				88CEEC781F17B93300B93196 /* FeedResponseTopicView.swift in Sources */,
 				88CEEC841F17B93300B93196 /* PostFollowingTopicRequest.swift in Sources */,
-				88CEED281F17B9A400B93196 /* CreatePostRouter.swift in Sources */,
 				88CEEC071F17B7DF00B93196 /* Result.swift in Sources */,
+				88CEEEC51F17C81600B93196 /* LoginPresenter.swift in Sources */,
 				88CEEC741F17B93300B93196 /* DeleteTopicNameRequest.swift in Sources */,
+				88CEEEF11F17C81700B93196 /* TabMenuContainerRouterInput.swift in Sources */,
 				88CEEC651F17B93300B93196 /* RepliesAPI.swift in Sources */,
-				88CEED521F17B9A400B93196 /* RootConfigurator.swift in Sources */,
-				88CEED3E1F17B9A400B93196 /* MenuModuleInput.swift in Sources */,
+				88CEEEEA1F17C81700B93196 /* TabMenuContainerInitializer.swift in Sources */,
 				88CEEC5C1F17B93200B93196 /* BlobsAPI.swift in Sources */,
-				88CEED591F17B9A400B93196 /* TabMenuContainerInteractorOutput.swift in Sources */,
-				88CEED431F17B9A400B93196 /* MenuViewInput.swift in Sources */,
 				88CEEC091F17B7DF00B93196 /* SlideMenuVC.swift in Sources */,
-				88CEED4F1F17B9A400B93196 /* MenuStackViewController.swift in Sources */,
-				88CEED5D1F17B9A400B93196 /* TabMenuContainerRouterInput.swift in Sources */,
 				88CEEC921F17B93300B93196 /* PostUserResponse.swift in Sources */,
-				88CEED4E1F17B9A400B93196 /* MenuStackRouterInput.swift in Sources */,
 				88CEEC731F17B93300B93196 /* CountResponse.swift in Sources */,
 				88CEEC7B1F17B93300B93196 /* GetRequestTokenResponse.swift in Sources */,
 				88CEEC7E1F17B93300B93196 /* Object.swift in Sources */,
 				885F9FB91F16324F00A30CDF /* URLSchemeService.swift in Sources */,
-				88CEED491F17B9A400B93196 /* MenuStackInteractorOutput.swift in Sources */,
+				88CEEED11F17C81600B93196 /* MenuModuleInput.swift in Sources */,
 				88CEEC041F17B7DF00B93196 /* NavigationStackContainer.swift in Sources */,
+				88CEEEB61F17C81600B93196 /* CreatePostInteractorInput.swift in Sources */,
+				88CEEEA81F17C81600B93196 /* CreateAccountConfigurator.swift in Sources */,
 				886B3AE31F13BF5900BF1A8E /* FacebookAPI.swift in Sources */,
 				88CEEC031F17B7DF00B93196 /* NavigationStack.swift in Sources */,
+				88CEEEEF1F17C81700B93196 /* TabMenuContainerPresenter.swift in Sources */,
 				88CEEC5A1F17B93200B93196 /* AlamofireImplementations.swift in Sources */,
+				88CEEEBD1F17C81600B93196 /* CreatePostViewController.swift in Sources */,
 				88CEEC971F17B93300B93196 /* PutUserInfoRequest.swift in Sources */,
+				88CEEEB11F17C81600B93196 /* CreateAccountViewInput.swift in Sources */,
 				88CEEC0E1F17B8E500B93196 /* API.swift in Sources */,
 				88CEED671F17BAFE00B93196 /* ImagePicker.swift in Sources */,
-				88CEED411F17B9A400B93196 /* MenuRouterInput.swift in Sources */,
 				88CEEC911F17B93300B93196 /* PostUserRequest.swift in Sources */,
-				88CEED161F17B9A400B93196 /* CreateAccountInteractor.swift in Sources */,
-				88CEED2D1F17B9A400B93196 /* LoginConfigurator.swift in Sources */,
+				88CEEEC21F17C81600B93196 /* LoginInteractorInput.swift in Sources */,
+				88CEEEBE1F17C81600B93196 /* CreatePostViewInput.swift in Sources */,
 				886B3AC41F13A38A00BF1A8E /* AuthService.swift in Sources */,
+				88CEEEEB1F17C81700B93196 /* TabMenuContainerInteractor.swift in Sources */,
+				88CEEEE51F17C81700B93196 /* MenuStackViewInput.swift in Sources */,
+				88CEEEDE1F17C81600B93196 /* MenuStackInteractorOutput.swift in Sources */,
 				886B3AF61F14CD3B00BF1A8E /* TwitterAPI.swift in Sources */,
-				88CEED641F17B9AF00B93196 /* MenuCellViewModel.swift in Sources */,
-				88CEED311F17B9A400B93196 /* LoginModuleOutput.swift in Sources */,
+				88CEEEE41F17C81700B93196 /* MenuStackViewController.swift in Sources */,
 				88CEEC021F17B7DF00B93196 /* DualMenu.swift in Sources */,
+				88CEEECD1F17C81600B93196 /* MenuInitializer.swift in Sources */,
 				88CEEBFE1F17B7DF00B93196 /* AppStrings.swift in Sources */,
+				88CEEEAB1F17C81600B93196 /* CreateAccountModuleOutput.swift in Sources */,
 				886B3AF41F14C9B400BF1A8E /* URLSchemes.swift in Sources */,
 				88CEEC721F17B93300B93196 /* ContentCompactView.swift in Sources */,
-				88CEED5B1F17B9A400B93196 /* TabMenuContainerPresenter.swift in Sources */,
 				886B3ADB1F13B51A00BF1A8E /* UIColor+Hex.swift in Sources */,
+				88CEEEB81F17C81600B93196 /* CreatePostModuleInput.swift in Sources */,
 				88CEEC791F17B93300B93196 /* FeedResponseUserCompactView.swift in Sources */,
-				88CEED451F17B9A400B93196 /* MenuStackConfigurator.swift in Sources */,
-				88CEED2C1F17B9A400B93196 /* CreatePostViewOutput.swift in Sources */,
-				88CEED321F17B9A400B93196 /* LoginPresenter.swift in Sources */,
 				88CEEC061F17B7DF00B93196 /* Palette.swift in Sources */,
 				88CEEC8A1F17B93300B93196 /* PostReplyResponse.swift in Sources */,
 				88CEEC6A1F17B93300B93196 /* TopicsAPI.swift in Sources */,
-				88CEED191F17B9A400B93196 /* CreateAccountPresenter.swift in Sources */,
-				88CEED3B1F17B9A400B93196 /* MenuInteractor.swift in Sources */,
-				88CEED1E1F17B9A400B93196 /* CreateAccountViewInput.swift in Sources */,
-				88CEED391F17B9A400B93196 /* MenuConfigurator.swift in Sources */,
+				88CEEEE21F17C81700B93196 /* MenuStackRouterInput.swift in Sources */,
+				88CEEEAA1F17C81600B93196 /* CreateAccountInteractorInput.swift in Sources */,
 				88CEEC9E1F17B93300B93196 /* Models.swift in Sources */,
-				88CEED361F17B9A400B93196 /* LoginViewController.swift in Sources */,
 				88CEEC8D1F17B93300B93196 /* PostSessionResponse.swift in Sources */,
-				88CEED1F1F17B9A400B93196 /* CreateAccountViewOutput.swift in Sources */,
+				88CEEEF31F17C81700B93196 /* TabMenuContainerViewInput.swift in Sources */,
+				88CEEEC01F17C81600B93196 /* LoginConfigurator.swift in Sources */,
 				88CEEC6F1F17B93300B93196 /* AppCompactView.swift in Sources */,
+				88CEEECF1F17C81600B93196 /* MenuInteractorInput.swift in Sources */,
 				88CEEC011F17B7DF00B93196 /* Identifiable.swift in Sources */,
-				88CEED2E1F17B9A400B93196 /* LoginInteractor.swift in Sources */,
+				88CEEEBF1F17C81600B93196 /* CreatePostViewOutput.swift in Sources */,
 				88CEEC8B1F17B93300B93196 /* PostReportRequest.swift in Sources */,
 				88CEEC001F17B7DF00B93196 /* Fonts.swift in Sources */,
-				88CEED4B1F17B9A400B93196 /* MenuStackModuleInput.swift in Sources */,
-				88CEED471F17B9A400B93196 /* MenuStackInteractor.swift in Sources */,
 				88CEEC9B1F17B93300B93196 /* TopicView.swift in Sources */,
 				88CEEC991F17B93300B93196 /* PutUserVisibilityRequest.swift in Sources */,
 				88CEEC951F17B93300B93196 /* PutTopicNameRequest.swift in Sources */,
-				88CEED5F1F17B9A400B93196 /* TabMenuContainerViewInput.swift in Sources */,
 				885FA0221F17721700A30CDF /* ImageCache.swift in Sources */,
 				88CEEC631F17B93300B93196 /* PinsAPI.swift in Sources */,
-				88CEED571F17B9A400B93196 /* TabMenuContainerInteractor.swift in Sources */,
 				88CEEC761F17B93300B93196 /* FeedResponseCommentView.swift in Sources */,
-				88CEED1A1F17B9A400B93196 /* CreateAccountRouter.swift in Sources */,
+				88CEEEED1F17C81700B93196 /* TabMenuContainerInteractorOutput.swift in Sources */,
 				88CEEC5B1F17B93200B93196 /* APIHelper.swift in Sources */,
-				88CEED3C1F17B9A400B93196 /* MenuInteractorInput.swift in Sources */,
-				88CEED481F17B9A400B93196 /* MenuStackInteractorInput.swift in Sources */,
 				88CEEC6C1F17B93300B93196 /* APIs.swift in Sources */,
-				88CEED5A1F17B9A400B93196 /* TabMenuContainerModuleInput.swift in Sources */,
-				88CEED561F17B9A400B93196 /* TabMenuContainerInitializer.swift in Sources */,
+				88CEEED41F17C81600B93196 /* MenuRouterInput.swift in Sources */,
+				88CEEED71F17C81600B93196 /* MenuViewController.swift in Sources */,
+				88CEEEF41F17C81700B93196 /* TabMenuContainerViewOutput.swift in Sources */,
 				88CEEC771F17B93300B93196 /* FeedResponseReplyView.swift in Sources */,
+				88CEEEC71F17C81600B93196 /* LoginRouterInput.swift in Sources */,
 				88CEEC831F17B93300B93196 /* PostFollowerRequest.swift in Sources */,
+				88CEEED31F17C81600B93196 /* MenuRouter.swift in Sources */,
 				88CEEC8F1F17B93300B93196 /* PostTopicRequest.swift in Sources */,
 				88CEEC801F17B93300B93196 /* PostBlockedUserRequest.swift in Sources */,
 				88CEEC621F17B93300B93196 /* NotificationsAPI.swift in Sources */,
@@ -1666,91 +1665,93 @@
 				88CEEC941F17B93300B93196 /* PutPushRegistrationRequest.swift in Sources */,
 				88CEEC981F17B93300B93196 /* PutUserPhotoRequest.swift in Sources */,
 				88CEEC601F17B93300B93196 /* ImagesAPI.swift in Sources */,
+				88CEEECB1F17C81600B93196 /* LoginViewOutput.swift in Sources */,
 				88CEEC7D1F17B93300B93196 /* LinkedAccountView.swift in Sources */,
-				88CEED181F17B9A400B93196 /* CreateAccountModuleOutput.swift in Sources */,
-				88CEED461F17B9A400B93196 /* MenuStackInitializer.swift in Sources */,
-				88CEED3D1F17B9A400B93196 /* MenuInteractorOutput.swift in Sources */,
-				88CEED511F17B9A400B93196 /* MenuStackViewOutput.swift in Sources */,
-				88CEED5C1F17B9A400B93196 /* TabMenuContainerRouter.swift in Sources */,
-				88CEED241F17B9A400B93196 /* CreatePostInteractorInput.swift in Sources */,
 				88CEEC051F17B7DF00B93196 /* SingleMenu.swift in Sources */,
 				88CEEC671F17B93300B93196 /* SearchAPI.swift in Sources */,
+				88CEEEDD1F17C81600B93196 /* MenuStackInteractorInput.swift in Sources */,
+				88CEEEB71F17C81600B93196 /* CreatePostInteractorOutput.swift in Sources */,
 				886B3AF81F14D79D00BF1A8E /* AuthAPIProvider.swift in Sources */,
-				88CEED4C1F17B9A400B93196 /* MenuStackPresenter.swift in Sources */,
+				88CEEEB21F17C81600B93196 /* CreateAccountViewOutput.swift in Sources */,
+				88CEEEC61F17C81600B93196 /* LoginRouter.swift in Sources */,
 				88CEEC5D1F17B93300B93196 /* BuildsAPI.swift in Sources */,
-				88CEED341F17B9A400B93196 /* LoginRouterInput.swift in Sources */,
+				88CEEEC11F17C81600B93196 /* LoginInteractor.swift in Sources */,
 				886B3AE11F13BF1500BF1A8E /* AuthServiceImplementation.swift in Sources */,
 				88CEEC751F17B93300B93196 /* FeedResponseActivityView.swift in Sources */,
-				88CEED2A1F17B9A400B93196 /* CreatePostViewController.swift in Sources */,
 				88CEEC881F17B93300B93196 /* PostPinRequest.swift in Sources */,
 				88CEEBFF1F17B7DF00B93196 /* BaseViewController.swift in Sources */,
+				88CEEECA1F17C81600B93196 /* LoginViewInput.swift in Sources */,
+				88CEEEC91F17C81600B93196 /* LoginViewController.swift in Sources */,
 				88CEEC9D1F17B93300B93196 /* UserProfileView.swift in Sources */,
 				88CEEC9C1F17B93300B93196 /* UserCompactView.swift in Sources */,
 				88CEEC5F1F17B93300B93196 /* HashtagsAPI.swift in Sources */,
+				88CEEEE61F17C81700B93196 /* MenuStackViewOutput.swift in Sources */,
+				88CEEED01F17C81600B93196 /* MenuInteractorOutput.swift in Sources */,
 				88CEEC7A1F17B93300B93196 /* FeedResponseUserProfileView.swift in Sources */,
+				88CEEEAC1F17C81600B93196 /* CreateAccountPresenter.swift in Sources */,
+				88CEEEC31F17C81600B93196 /* LoginModuleInput.swift in Sources */,
 				88CEEC851F17B93300B93196 /* PostFollowingUserRequest.swift in Sources */,
 				88CEEC861F17B93300B93196 /* PostImageResponse.swift in Sources */,
 				88CEEC6D1F17B93300B93196 /* Extensions.swift in Sources */,
-				88CEED421F17B9A400B93196 /* MenuViewController.swift in Sources */,
-				88CEED2B1F17B9A400B93196 /* CreatePostViewInput.swift in Sources */,
-				88CEED581F17B9A400B93196 /* TabMenuContainerInteractorInput.swift in Sources */,
-				88CEED401F17B9A400B93196 /* MenuRouter.swift in Sources */,
-				88CEED551F17B9A400B93196 /* TabMenuContainerConfigurator.swift in Sources */,
+				88CEEEB51F17C81600B93196 /* CreatePostInteractor.swift in Sources */,
 				88CEEBEC1F17A9FC00B93196 /* NibLoadable.swift in Sources */,
-				88CEED541F17B9A400B93196 /* RootRouter.swift in Sources */,
 				886B3AE51F13CD4200BF1A8E /* ThirdPartyConfigurator.swift in Sources */,
-				88CEED331F17B9A400B93196 /* LoginRouter.swift in Sources */,
+				88CEEED21F17C81600B93196 /* MenuPresenter.swift in Sources */,
 				88CEEC811F17B93300B93196 /* PostCommentRequest.swift in Sources */,
-				88CEED211F17B9A400B93196 /* CreatePostInitializer.swift in Sources */,
-				88CEED3F1F17B9A400B93196 /* MenuPresenter.swift in Sources */,
-				88CEED601F17B9A400B93196 /* TabMenuContainerViewOutput.swift in Sources */,
-				88CEED1D1F17B9A400B93196 /* CreateAccountViewController.swift in Sources */,
+				88CEEEDB1F17C81600B93196 /* MenuStackInitializer.swift in Sources */,
+				88CEEEF21F17C81700B93196 /* TabMenuContainerViewController.swift in Sources */,
 				88BC875B1F150D2700EAEFD7 /* GoogleAPI.swift in Sources */,
+				88CEEEE11F17C81700B93196 /* MenuStackRouter.swift in Sources */,
 				88BC87551F1505B400EAEFD7 /* Photo.swift in Sources */,
 				88CEEC681F17B93300B93196 /* SessionsAPI.swift in Sources */,
-				88CEED441F17B9A400B93196 /* MenuViewOutput.swift in Sources */,
 				885FA00A1F1676E400A30CDF /* MicrosoftAPI.swift in Sources */,
-				88CEED301F17B9A400B93196 /* LoginModuleInput.swift in Sources */,
+				88CEEEA91F17C81600B93196 /* CreateAccountInteractor.swift in Sources */,
+				88CEEEB01F17C81600B93196 /* CreateAccountViewController.swift in Sources */,
 				88CEED6D1F17BDD300B93196 /* Storyboards.swift in Sources */,
 				88CEEC661F17B93300B93196 /* ReportingAPI.swift in Sources */,
-				88CEED171F17B9A400B93196 /* CreateAccountInteractorInput.swift in Sources */,
+				88CEEED61F17C81600B93196 /* MenuCellViewModel.swift in Sources */,
+				88CEEEC41F17C81600B93196 /* LoginModuleOutput.swift in Sources */,
+				88CEEEF01F17C81700B93196 /* TabMenuContainerRouter.swift in Sources */,
+				88CEEEB41F17C81600B93196 /* CreatePostInitializer.swift in Sources */,
+				88CEEEB91F17C81600B93196 /* CreatePostPresenter.swift in Sources */,
 				88CEEC901F17B93300B93196 /* PostTopicResponse.swift in Sources */,
-				88CEED501F17B9A400B93196 /* MenuStackViewInput.swift in Sources */,
-				88CEED201F17B9A400B93196 /* CreatePostConfigurator.swift in Sources */,
-				88CEED271F17B9A400B93196 /* CreatePostPresenter.swift in Sources */,
-				88CEED1B1F17B9A400B93196 /* CreateAccountRouterInput.swift in Sources */,
+				88CEEEE71F17C81700B93196 /* RootConfigurator.swift in Sources */,
+				88CEEEDC1F17C81600B93196 /* MenuStackInteractor.swift in Sources */,
 				88CEEC7C1F17B93300B93196 /* GetTopicNameResponse.swift in Sources */,
-				88CEED2F1F17B9A400B93196 /* LoginInteractorInput.swift in Sources */,
-				88CEED381F17B9A400B93196 /* LoginViewOutput.swift in Sources */,
+				88CEEEDF1F17C81600B93196 /* MenuStackModuleInput.swift in Sources */,
 				88CEEC961F17B93300B93196 /* PutTopicRequest.swift in Sources */,
 				88CEED6C1F17BDD300B93196 /* Images.swift in Sources */,
-				88CEED4D1F17B9A400B93196 /* MenuStackRouter.swift in Sources */,
-				88CEED291F17B9A400B93196 /* CreatePostRouterInput.swift in Sources */,
 				88CEEC8C1F17B93300B93196 /* PostSessionRequest.swift in Sources */,
-				88CEED5E1F17B9A400B93196 /* TabMenuContainerViewController.swift in Sources */,
 				88CEEC711F17B93300B93196 /* CommentView.swift in Sources */,
 				88CEEC611F17B93300B93196 /* LikesAPI.swift in Sources */,
 				88CEEBE81F1782EC00B93196 /* UIViewController+Alerts.swift in Sources */,
+				88CEEEEE1F17C81700B93196 /* TabMenuContainerModuleInput.swift in Sources */,
 				88CEEC871F17B93300B93196 /* PostLinkedAccountRequest.swift in Sources */,
 				88CEEC691F17B93300B93196 /* SocialAPI.swift in Sources */,
 				88CEEC701F17B93300B93196 /* BuildsCurrentResponse.swift in Sources */,
-				88CEED631F17B9AF00B93196 /* MenuCellView.swift in Sources */,
 				88CEEC9A1F17B93300B93196 /* ReplyView.swift in Sources */,
-				88CEED151F17B9A400B93196 /* CreateAccountConfigurator.swift in Sources */,
 				88CEEC6E1F17B93300B93196 /* ActivityView.swift in Sources */,
-				88CEED3A1F17B9A400B93196 /* MenuInitializer.swift in Sources */,
+				88CEEEB31F17C81600B93196 /* CreatePostConfigurator.swift in Sources */,
 				88CEEC821F17B93300B93196 /* PostCommentResponse.swift in Sources */,
-				88CEED251F17B9A400B93196 /* CreatePostInteractorOutput.swift in Sources */,
 				88CEEC7F1F17B93300B93196 /* PostBlobResponse.swift in Sources */,
-				886B3A551F13A28D00BF1A8E /* MSGP.swift in Sources */,
+				886B3A551F13A28D00BF1A8E /* SocialPlus.swift in Sources */,
 				88CEEC891F17B93300B93196 /* PostReplyRequest.swift in Sources */,
+				88CEEEBB1F17C81600B93196 /* CreatePostRouterInput.swift in Sources */,
+				88CEEEAE1F17C81600B93196 /* CreateAccountRouterInput.swift in Sources */,
+				88CEEED51F17C81600B93196 /* MenuCellView.swift in Sources */,
+				88CEEEAD1F17C81600B93196 /* CreateAccountRouter.swift in Sources */,
+				88CEEEE91F17C81700B93196 /* TabMenuContainerConfigurator.swift in Sources */,
+				88CEEED81F17C81600B93196 /* MenuViewInput.swift in Sources */,
+				88CEEEE01F17C81700B93196 /* MenuStackPresenter.swift in Sources */,
 				88CF24071F161AEF00CC406F /* NameComponentsSplitter.swift in Sources */,
+				88CEEECC1F17C81600B93196 /* MenuConfigurator.swift in Sources */,
 				886B3AC11F13A35700BF1A8E /* User.swift in Sources */,
 				88CEEC081F17B7DF00B93196 /* SlideMenu.swift in Sources */,
-				88CEED231F17B9A400B93196 /* CreatePostInteractor.swift in Sources */,
-				88CEED371F17B9A400B93196 /* LoginViewInput.swift in Sources */,
 				88CEEC931F17B93300B93196 /* PutNotificationsStatusRequest.swift in Sources */,
+				88CEEEE81F17C81700B93196 /* RootRouter.swift in Sources */,
+				88CEEEBA1F17C81600B93196 /* CreatePostRouter.swift in Sources */,
 				88CEEC641F17B93300B93196 /* PushNotificationsAPI.swift in Sources */,
+				88CEEEDA1F17C81600B93196 /* MenuStackConfigurator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

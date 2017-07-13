@@ -13,7 +13,7 @@ import MSGP
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var msgp: MSGP!
+    var msgp: SocialPlus!
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = UIViewController()
         window?.makeKeyAndVisible()
         
-        msgp = MSGP(application: application, window: window!, launchOptions: launchOptions ?? [:])
+        msgp = SocialPlus(application: application, window: window!, launchOptions: launchOptions ?? [:])
         msgp.start()
         
         return true
