@@ -16,7 +16,7 @@ class CreateAccountConfigurator {
         viewController = Storyboard.createAccount.createAccountViewController()!
     }
 
-    func configure(moduleOutput: CreateAccountModuleOutput?) {
+    func configure(user: User, moduleOutput: CreateAccountModuleOutput?) {
         let router = CreateAccountRouter()
 
         let presenter = CreateAccountPresenter()
@@ -26,6 +26,6 @@ class CreateAccountConfigurator {
         presenter.moduleOutput = moduleOutput
         
         viewController.output = presenter
-        viewController.title = "Create Account"
+        viewController.title = "Create an account"
     }
 }

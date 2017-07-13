@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -81,42 +80,6 @@
                                     <constraint firstItem="fGc-5b-h96" firstAttribute="leading" secondItem="NmD-qd-Om3" secondAttribute="leading" id="kDt-vu-n2L"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kz9-aI-jKk">
-                                <rect key="frame" x="16" y="593" width="171.5" height="30"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TFy-gK-7it">
-                                        <rect key="frame" x="26" y="0.0" width="120" height="30"/>
-                                        <state key="normal" title="Sign in with email"/>
-                                        <connections>
-                                            <action selector="onEmailSignIn:" destination="5vd-0T-hlO" eventType="touchUpInside" id="izw-dr-Ux6"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="TFy-gK-7it" firstAttribute="top" secondItem="kz9-aI-jKk" secondAttribute="top" id="B6F-6P-9AV"/>
-                                    <constraint firstAttribute="bottom" secondItem="TFy-gK-7it" secondAttribute="bottom" id="HxF-HF-KXs"/>
-                                    <constraint firstItem="TFy-gK-7it" firstAttribute="centerX" secondItem="kz9-aI-jKk" secondAttribute="centerX" id="sz8-ws-hVB"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RUD-XV-Ly3">
-                                <rect key="frame" x="187.5" y="593" width="171.5" height="30"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S8j-8e-nvc">
-                                        <rect key="frame" x="23" y="0.0" width="126" height="30"/>
-                                        <state key="normal" title="Create an account"/>
-                                        <connections>
-                                            <action selector="onCreateAccount:" destination="5vd-0T-hlO" eventType="touchUpInside" id="w4f-Pi-Jvu"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="S8j-8e-nvc" firstAttribute="top" secondItem="RUD-XV-Ly3" secondAttribute="top" id="1Qg-7h-CNq"/>
-                                    <constraint firstAttribute="bottom" secondItem="S8j-8e-nvc" secondAttribute="bottom" id="TJi-ZL-Ydm"/>
-                                    <constraint firstItem="S8j-8e-nvc" firstAttribute="centerX" secondItem="RUD-XV-Ly3" secondAttribute="centerX" id="zqK-ei-tnX"/>
-                                </constraints>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0wE-Kp-Fxe">
                                 <rect key="frame" x="146" y="216" width="83.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -126,24 +89,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="RUD-XV-Ly3" secondAttribute="trailing" id="3rR-M0-UGt"/>
                             <constraint firstItem="NmD-qd-Om3" firstAttribute="centerY" secondItem="dRv-Xb-c5c" secondAttribute="centerY" id="Aby-hm-8Rm"/>
-                            <constraint firstItem="RUD-XV-Ly3" firstAttribute="leading" secondItem="kz9-aI-jKk" secondAttribute="trailing" id="Eb0-IC-AM6"/>
                             <constraint firstItem="0wE-Kp-Fxe" firstAttribute="centerX" secondItem="dRv-Xb-c5c" secondAttribute="centerX" id="Iwz-IM-jQA"/>
                             <constraint firstItem="NmD-qd-Om3" firstAttribute="top" secondItem="0wE-Kp-Fxe" secondAttribute="bottom" constant="8" id="Laa-4S-X90"/>
-                            <constraint firstItem="fZ0-YY-cZa" firstAttribute="top" secondItem="kz9-aI-jKk" secondAttribute="bottom" constant="44" id="TDP-YI-7rQ"/>
                             <constraint firstItem="gWL-r1-2Jn" firstAttribute="centerX" secondItem="dRv-Xb-c5c" secondAttribute="centerX" id="Ylx-HT-wFc"/>
-                            <constraint firstItem="fZ0-YY-cZa" firstAttribute="top" secondItem="RUD-XV-Ly3" secondAttribute="bottom" constant="44" id="fjL-yv-opl"/>
-                            <constraint firstItem="RUD-XV-Ly3" firstAttribute="leading" secondItem="kz9-aI-jKk" secondAttribute="trailing" id="lzO-EH-AG6"/>
-                            <constraint firstItem="kz9-aI-jKk" firstAttribute="width" secondItem="RUD-XV-Ly3" secondAttribute="width" id="m3I-KQ-wRv"/>
-                            <constraint firstItem="kz9-aI-jKk" firstAttribute="leading" secondItem="dRv-Xb-c5c" secondAttribute="leadingMargin" id="nD9-pr-2pj"/>
                             <constraint firstItem="gWL-r1-2Jn" firstAttribute="top" secondItem="eWk-tQ-yt2" secondAttribute="bottom" constant="44" id="qH5-PA-pW5"/>
                             <constraint firstItem="NmD-qd-Om3" firstAttribute="centerX" secondItem="dRv-Xb-c5c" secondAttribute="centerX" id="utw-cm-I98"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="createAccountButton" destination="S8j-8e-nvc" id="Nlv-gR-JQI"/>
-                        <outlet property="emailSignInButton" destination="TFy-gK-7it" id="sjL-YM-ibG"/>
                         <outlet property="facebookButton" destination="fGc-5b-h96" id="pym-Kx-OIU"/>
                         <outlet property="googleButton" destination="D7W-KD-wfX" id="DMe-Zn-jCM"/>
                         <outlet property="microsoftButton" destination="dvV-ix-pQ9" id="GPV-Xh-vlj"/>

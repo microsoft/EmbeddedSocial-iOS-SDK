@@ -25,7 +25,6 @@
 		886B3A941F13A2CB00BF1A8E /* CreateAccountConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3A581F13A2CB00BF1A8E /* CreateAccountConfigurator.swift */; };
 		886B3A961F13A2CB00BF1A8E /* CreateAccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3A5B1F13A2CB00BF1A8E /* CreateAccountInteractor.swift */; };
 		886B3A971F13A2CB00BF1A8E /* CreateAccountInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3A5C1F13A2CB00BF1A8E /* CreateAccountInteractorInput.swift */; };
-		886B3A991F13A2CB00BF1A8E /* CreateAccountModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3A5F1F13A2CB00BF1A8E /* CreateAccountModuleInput.swift */; };
 		886B3A9A1F13A2CB00BF1A8E /* CreateAccountModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3A601F13A2CB00BF1A8E /* CreateAccountModuleOutput.swift */; };
 		886B3A9B1F13A2CB00BF1A8E /* CreateAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3A611F13A2CB00BF1A8E /* CreateAccountPresenter.swift */; };
 		886B3A9D1F13A2CB00BF1A8E /* CreateAccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3A641F13A2CB00BF1A8E /* CreateAccountRouter.swift */; };
@@ -141,7 +140,6 @@
 		88CF24071F161AEF00CC406F /* NameComponentsSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24061F161AEF00CC406F /* NameComponentsSplitter.swift */; };
 		88CF240A1F16202C00CC406F /* NameComponentsSplitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */; };
 		88CF242F1F16305300CC406F /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; };
-		88CF24301F16305300CC406F /* MSAL.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 88CF242E1F16305300CC406F /* MSAL.framework.dSYM */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 		FB3CC18CDA53B06862E42F66 /* Pods_Group_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A170227EE0655C9E8BD41526 /* Pods_Group_MSGP.framework */; };
 /* End PBXBuildFile section */
@@ -201,7 +199,6 @@
 		886B3A581F13A2CB00BF1A8E /* CreateAccountConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountConfigurator.swift; sourceTree = "<group>"; };
 		886B3A5B1F13A2CB00BF1A8E /* CreateAccountInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountInteractor.swift; sourceTree = "<group>"; };
 		886B3A5C1F13A2CB00BF1A8E /* CreateAccountInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountInteractorInput.swift; sourceTree = "<group>"; };
-		886B3A5F1F13A2CB00BF1A8E /* CreateAccountModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountModuleInput.swift; sourceTree = "<group>"; };
 		886B3A601F13A2CB00BF1A8E /* CreateAccountModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountModuleOutput.swift; sourceTree = "<group>"; };
 		886B3A611F13A2CB00BF1A8E /* CreateAccountPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountPresenter.swift; sourceTree = "<group>"; };
 		886B3A641F13A2CB00BF1A8E /* CreateAccountRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountRouter.swift; sourceTree = "<group>"; };
@@ -324,7 +321,6 @@
 		88CF24061F161AEF00CC406F /* NameComponentsSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitter.swift; sourceTree = "<group>"; };
 		88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitterTests.swift; sourceTree = "<group>"; };
 		88CF242D1F16305300CC406F /* MSAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MSAL.framework; sourceTree = "<group>"; };
-		88CF242E1F16305300CC406F /* MSAL.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = MSAL.framework.dSYM; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805391F0D012F00B9B0AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -447,7 +443,6 @@
 		886B3A5E1F13A2CB00BF1A8E /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				886B3A5F1F13A2CB00BF1A8E /* CreateAccountModuleInput.swift */,
 				886B3A601F13A2CB00BF1A8E /* CreateAccountModuleOutput.swift */,
 				886B3A611F13A2CB00BF1A8E /* CreateAccountPresenter.swift */,
 			);
@@ -738,7 +733,6 @@
 			isa = PBXGroup;
 			children = (
 				88CF242D1F16305300CC406F /* MSAL.framework */,
-				88CF242E1F16305300CC406F /* MSAL.framework.dSYM */,
 			);
 			path = MSAL;
 			sourceTree = "<group>";
@@ -982,7 +976,6 @@
 				88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */,
 				886B3AA01F13A2CB00BF1A8E /* CreateAccount.storyboard in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
-				88CF24301F16305300CC406F /* MSAL.framework.dSYM in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1258,7 +1251,6 @@
 				886B3B6F1F14EFF000BF1A8E /* PostLinkedAccountRequest.swift in Sources */,
 				886B3AA11F13A2CB00BF1A8E /* CreateAccountViewController.swift in Sources */,
 				886B3B4E1F14EFF000BF1A8E /* ReportingAPI.swift in Sources */,
-				886B3A991F13A2CB00BF1A8E /* CreateAccountModuleInput.swift in Sources */,
 				886B3B7B1F14EFF000BF1A8E /* PutNotificationsStatusRequest.swift in Sources */,
 				886B3B761F14EFF000BF1A8E /* PostTopicNameRequest.swift in Sources */,
 			);
@@ -1481,7 +1473,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MSGP/Vendor/MSAL",
 					"$(PROJECT_DIR)/MSGP/Vendor",
-					"$(PROJECT_DIR)/MSGP/Vendor/MSGraphSDK_NXOAuth2Adapter",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/MSGP/SupportingFiles/Info.plist";
 				INSTALL_PATH = Library/Frameworks;
@@ -1512,7 +1503,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MSGP/Vendor/MSAL",
 					"$(PROJECT_DIR)/MSGP/Vendor",
-					"$(PROJECT_DIR)/MSGP/Vendor/MSGraphSDK_NXOAuth2Adapter",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/MSGP/SupportingFiles/Info.plist";
 				INSTALL_PATH = Library/Frameworks;

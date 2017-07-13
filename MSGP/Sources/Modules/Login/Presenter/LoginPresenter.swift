@@ -17,14 +17,6 @@ final class LoginPresenter: LoginViewOutput {
         view.setupInitialState()
     }
     
-    func onCreateAccountTapped() {
-        router.openCreateAccount()
-    }
-    
-    func onEmailSignInTapped() {
-        router.openEmailSignIn()
-    }
-    
     func onFacebookSignInTapped() {
         login(with: .facebook)
     }
@@ -44,12 +36,10 @@ final class LoginPresenter: LoginViewOutput {
     private func login(with provider: AuthProvider) {
         interactor.login(provider: provider, from: view as? UIViewController) { [weak self] result in
             if let user = result.value {
-                // create account
-            }
-            else if let error = result.error {
+                self?.router.openCreateAccount(user: user)
+            } else if let error = result.error {
                 self?.view.showError(error)
-            }
-            else {
+            } else {
                 fatalError("Unsupported response")
             }
         }
@@ -63,11 +53,9 @@ extension LoginPresenter: CreateAccountModuleOutput {
     func onAccountCreated(result: Result<User>) {
         if let user = result.value {
             moduleOutput?.onLogin(user)
-        }
-        else if let error = result.error {
+        } else if let error = result.error {
             view.showError(error)
-        }
-        else {
+        } else {
             fatalError("Unsupported response")
         }
     }

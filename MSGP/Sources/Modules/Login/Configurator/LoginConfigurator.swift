@@ -26,10 +26,10 @@ final class LoginConfigurator {
         presenter.interactor = LoginInteractor(authService: AuthService(apiProvider: AuthAPIProvider()))
         
         router.viewController = viewController
-        router.createAccountModuleOutput = presenter
+        router.createAccountOutput = presenter
         
         viewController.output = presenter
         
-        viewController.title = "Login"
+        viewController.title = "Sign in"
     }
 }

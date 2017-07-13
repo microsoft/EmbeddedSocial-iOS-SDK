@@ -10,11 +10,7 @@ import Foundation
 
 protocol LoginViewOutput {
     func viewIsReady()
-    
-    func onCreateAccountTapped()
-    
-    func onEmailSignInTapped()
-    
+        
     func onFacebookSignInTapped()
     
     func onGoogleSignInTapped()

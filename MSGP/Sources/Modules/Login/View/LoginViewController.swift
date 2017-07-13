@@ -15,9 +15,6 @@ class LoginViewController: UIViewController, LoginViewInput {
     @IBOutlet fileprivate weak var microsoftButton: UIButton!
     @IBOutlet fileprivate weak var googleButton: UIButton!
     
-    @IBOutlet fileprivate weak var emailSignInButton: UIButton!
-    @IBOutlet fileprivate weak var createAccountButton: UIButton!
-    
     var output: LoginViewOutput!
     
     override func viewDidLoad() {
@@ -30,23 +27,10 @@ class LoginViewController: UIViewController, LoginViewInput {
             button?.setTitleColor(Palette.darkGrey, for: .normal)
             button?.titleLabel?.font = Fonts.regular
         }
-        
-        for button in [emailSignInButton, createAccountButton] {
-            button?.setTitleColor(Palette.green, for: .normal)
-            button?.titleLabel?.font = Fonts.small
-        }
     }
     
     func showError(_ error: Error) {
         showErrorAlert(error)
-    }
-    
-    @IBAction fileprivate func onCreateAccount(_ sender: UIButton) {
-        output.onCreateAccountTapped()
-    }
-    
-    @IBAction fileprivate func onEmailSignIn(_ sender: UIButton) {
-        output.onEmailSignInTapped()
     }
     
     @IBAction fileprivate func onFacebookSignIn(_ sender: UIButton) {
