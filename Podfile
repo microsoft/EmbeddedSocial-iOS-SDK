@@ -11,7 +11,6 @@ end
 
 def microsoft
     pod 'MSGraphSDK'
-    pod 'MSGraphSDK-NXOAuth2Adapter', :path => './MSGP/Vendor/MSGraphSDK-NXOAuth2Adapter'
 end
 
 abstract_target 'Group' do
@@ -23,8 +22,9 @@ abstract_target 'Group' do
     pod 'SlideMenuControllerSwift', '~> 3.0'
     pod 'TwitterKit'
     pod 'Google/SignIn'
+    pod 'SDWebImage'
+    pod 'MSGraphSDK'
     facebook
-    microsoft
     
     target 'MSGP' do
                

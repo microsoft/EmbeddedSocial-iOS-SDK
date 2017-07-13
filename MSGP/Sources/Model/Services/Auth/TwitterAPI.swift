@@ -34,35 +34,30 @@ final class TwitterAPI: AuthAPI {
         var twitterUser: TWTRUser?
         
         group.enter()
-        client.requestEmail { fetchedEmail, error in
-            if let error = error {
-                print("Twitter requestEmail error: \(error)")
-            }
+        client.requestEmail { fetchedEmail, _ in
             email = fetchedEmail
             group.leave()
         }
         
         group.enter()
-        client.loadUser(withID: session.userID) { user, error in
-            if let error = error {
-                print("Twitter loadUser error: \(error)")
-            }
+        client.loadUser(withID: session.userID) { user, _ in
             twitterUser = user
             group.leave()
         }
         
-        group.notify(queue: DispatchQueue.main) {
-            let (firstName, lastName) = NameComponentsSplitter.split(fullName: twitterUser?.name ?? "")
-            let user = User(firstName: firstName,
-                            lastName: lastName,
-                            email: email,
-                            bio: nil,
-                            phoneNumber: nil,
-                            token: session.authToken,
-                            photo: Photo(url: twitterUser?.profileImageURL),
-                            provider: .twitter)
-            print(user)
+        group.notify(queue: DispatchQueue.main) { [unowned self] in
+            let user = self.makeUser(twitterUser: twitterUser, email: email, token: session.authToken)
             completion(.success(user))
         }
+    }
+    
+    private func makeUser(twitterUser: TWTRUser?, email: String?, token: String) -> User {
+        let (firstName, lastName) = NameComponentsSplitter.split(fullName: twitterUser?.name ?? "")
+        return User(firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    token: token,
+                    photo: Photo(url: twitterUser?.profileImageURL),
+                    provider: .twitter)
     }
 }

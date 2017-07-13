@@ -9,14 +9,11 @@
 import Foundation
 
 struct Photo {
-    let url: String
-}
-
-extension Photo {
-    init?(url: String?) {
-        guard let url = url else {
-            return nil
-        }
+    let uid: String
+    let url: String?
+    
+    init(uid: String = UUID().uuidString, url: String? = nil) {
+        self.uid = uid
         self.url = url
     }
 }

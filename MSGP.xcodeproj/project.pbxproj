@@ -7,26 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E14EED21E605579D605693D /* Pods_Group_MSGP_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E6095A88C5722FE4BD8CEFE /* Pods_Group_MSGP_Example.framework */; };
-		50C0173D045F10A9F3EA396D /* Pods_MSGPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBF20C691E813236D43A321A /* Pods_MSGPTests.framework */; };
+		16F530A90E7396BB209BCFA6 /* Pods_MSGPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C05D6CAC013255DFDE14CC /* Pods_MSGPTests.framework */; };
+		81AD0D1E8833E15E31328205 /* Pods_Group_MSGP_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F06ACD77284F251B7691C0 /* Pods_Group_MSGP_Example.framework */; };
 		885F9FB91F16324F00A30CDF /* URLSchemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FB81F16324F00A30CDF /* URLSchemeService.swift */; };
 		885F9FCC1F165C9700A30CDF /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; };
 		885F9FCD1F165C9700A30CDF /* MSAL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		885F9FF31F166A4A00A30CDF /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 885F9FDD1F166A4A00A30CDF /* LICENSE.txt */; };
-		885F9FF41F166A4A00A30CDF /* MSGraphSDK-NXOAuth2Adapter.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 885F9FDE1F166A4A00A30CDF /* MSGraphSDK-NXOAuth2Adapter.podspec */; };
-		885F9FF51F166A4A00A30CDF /* MSAuthenticationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 885F9FE11F166A4A00A30CDF /* MSAuthenticationViewController.h */; };
-		885F9FF61F166A4A00A30CDF /* MSAuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FE21F166A4A00A30CDF /* MSAuthenticationViewController.m */; };
-		885F9FF71F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 885F9FE31F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.h */; };
-		885F9FF81F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FE41F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.m */; };
-		885F9FF91F166A4A00A30CDF /* MSAuthConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 885F9FE61F166A4A00A30CDF /* MSAuthConstants.h */; };
-		885F9FFA1F166A4A00A30CDF /* MSAuthConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FE71F166A4A00A30CDF /* MSAuthConstants.m */; };
-		885F9FFB1F166A4A00A30CDF /* NSError+MSGraphOAuth2.h in Headers */ = {isa = PBXBuildFile; fileRef = 885F9FE91F166A4A00A30CDF /* NSError+MSGraphOAuth2.h */; };
-		885F9FFC1F166A4A00A30CDF /* NSError+MSGraphOAuth2.m in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FEA1F166A4A00A30CDF /* NSError+MSGraphOAuth2.m */; };
-		885F9FFD1F166A4A00A30CDF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 885F9FEC1F166A4A00A30CDF /* Info.plist */; };
-		885F9FFE1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.h in Headers */ = {isa = PBXBuildFile; fileRef = 885F9FED1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.h */; };
-		885F9FFF1F166A4A00A30CDF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 885F9FF11F166A4A00A30CDF /* Podfile */; };
-		885FA0001F166A4A00A30CDF /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FF21F166A4A00A30CDF /* README.md */; };
-		885FA00A1F1676E400A30CDF /* MicrosoftAPI2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885FA0091F1676E400A30CDF /* MicrosoftAPI2.swift */; };
+		885FA00A1F1676E400A30CDF /* MicrosoftAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885FA0091F1676E400A30CDF /* MicrosoftAPI.swift */; };
+		885FA0221F17721700A30CDF /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885FA0211F17721700A30CDF /* ImageCache.swift */; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
 		886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C91F138F5D00BF1A8E /* ViewController.swift */; };
 		886B39CD1F138F5D00BF1A8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CB1F138F5D00BF1A8E /* Main.storyboard */; };
@@ -152,21 +139,13 @@
 		88BC875B1F150D2700EAEFD7 /* GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC87591F150D2700EAEFD7 /* GoogleAPI.swift */; };
 		88CF24071F161AEF00CC406F /* NameComponentsSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24061F161AEF00CC406F /* NameComponentsSplitter.swift */; };
 		88CF240A1F16202C00CC406F /* NameComponentsSplitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */; };
-		88CF240C1F162B0100CC406F /* MicrosoftAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF240B1F162B0100CC406F /* MicrosoftAPI.swift */; };
 		88CF242F1F16305300CC406F /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; };
 		88CF24301F16305300CC406F /* MSAL.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 88CF242E1F16305300CC406F /* MSAL.framework.dSYM */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
-		DAE8416C6A0FE5C090E558CA /* Pods_Group_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C25CEDDAADC89B3A189771 /* Pods_Group_MSGP.framework */; };
+		FB3CC18CDA53B06862E42F66 /* Pods_Group_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A170227EE0655C9E8BD41526 /* Pods_Group_MSGP.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		885FA0021F166A4A00A30CDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 885F9FEE1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7C12E5F01CA47DE400328A79;
-			remoteInfo = MSGraphSDKNXOAuth2;
-		};
 		886B3ADD1F13B92700BF1A8E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9CD805201F0D012F00B9B0AC /* Project object */;
@@ -198,29 +177,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		05C25CEDDAADC89B3A189771 /* Pods_Group_MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E6095A88C5722FE4BD8CEFE /* Pods_Group_MSGP_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_MSGP_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EE5B8F6397639476A9CAEC3 /* Pods-Group-MSGP-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example.release.xcconfig"; sourceTree = "<group>"; };
-		5A8E9EC0E4D7A508F8C75527 /* Pods-Group-MSGP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.release.xcconfig"; sourceTree = "<group>"; };
-		5C04BD1691EFBEB188AF506F /* Pods-Group-MSGP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.debug.xcconfig"; sourceTree = "<group>"; };
-		743B4CFC3C3C9A1BE41ED857 /* Pods-MSGPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0E5D1EEC5F21D953C1A208C7 /* Pods-MSGPTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.release.xcconfig"; sourceTree = "<group>"; };
+		2093F83625D0DDDB6995C401 /* Pods-Group-MSGP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.debug.xcconfig"; sourceTree = "<group>"; };
+		2767CC8A5ABFE1CFFDC080C9 /* Pods-Group-MSGP-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		49679FCB0610AA0655E9C81F /* Pods-Group-MSGP-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example.release.xcconfig"; sourceTree = "<group>"; };
+		54F06ACD77284F251B7691C0 /* Pods_Group_MSGP_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_MSGP_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D4DBFFF6DE343119200FF08 /* Pods-MSGPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.debug.xcconfig"; sourceTree = "<group>"; };
+		72C05D6CAC013255DFDE14CC /* Pods_MSGPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		885F9FB81F16324F00A30CDF /* URLSchemeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLSchemeService.swift; path = ThirdPartyConfigurator/URLSchemeService.swift; sourceTree = "<group>"; };
-		885F9FDD1F166A4A00A30CDF /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
-		885F9FDE1F166A4A00A30CDF /* MSGraphSDK-NXOAuth2Adapter.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "MSGraphSDK-NXOAuth2Adapter.podspec"; sourceTree = "<group>"; };
-		885F9FE11F166A4A00A30CDF /* MSAuthenticationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAuthenticationViewController.h; sourceTree = "<group>"; };
-		885F9FE21F166A4A00A30CDF /* MSAuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAuthenticationViewController.m; sourceTree = "<group>"; };
-		885F9FE31F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXOAuth2AuthenticationProvider.h; sourceTree = "<group>"; };
-		885F9FE41F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NXOAuth2AuthenticationProvider.m; sourceTree = "<group>"; };
-		885F9FE61F166A4A00A30CDF /* MSAuthConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAuthConstants.h; sourceTree = "<group>"; };
-		885F9FE71F166A4A00A30CDF /* MSAuthConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAuthConstants.m; sourceTree = "<group>"; };
-		885F9FE91F166A4A00A30CDF /* NSError+MSGraphOAuth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+MSGraphOAuth2.h"; sourceTree = "<group>"; };
-		885F9FEA1F166A4A00A30CDF /* NSError+MSGraphOAuth2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+MSGraphOAuth2.m"; sourceTree = "<group>"; };
-		885F9FEC1F166A4A00A30CDF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		885F9FED1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGraphSDKNXOAuth2.h; sourceTree = "<group>"; };
-		885F9FEE1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MSGraphSDKNXOAuth2.xcodeproj; sourceTree = "<group>"; };
-		885F9FF11F166A4A00A30CDF /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
-		885F9FF21F166A4A00A30CDF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		885FA0091F1676E400A30CDF /* MicrosoftAPI2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrosoftAPI2.swift; sourceTree = "<group>"; };
+		885FA0091F1676E400A30CDF /* MicrosoftAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrosoftAPI.swift; sourceTree = "<group>"; };
+		885FA0211F17721700A30CDF /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -355,15 +321,13 @@
 		88BC87591F150D2700EAEFD7 /* GoogleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
 		88CF24061F161AEF00CC406F /* NameComponentsSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitter.swift; sourceTree = "<group>"; };
 		88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitterTests.swift; sourceTree = "<group>"; };
-		88CF240B1F162B0100CC406F /* MicrosoftAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrosoftAPI.swift; sourceTree = "<group>"; };
 		88CF242D1F16305300CC406F /* MSAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MSAL.framework; sourceTree = "<group>"; };
 		88CF242E1F16305300CC406F /* MSAL.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = MSAL.framework.dSYM; sourceTree = "<group>"; };
-		9B2F4B85722F19B3B8E07ABC /* Pods-MSGPTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.release.xcconfig"; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805391F0D012F00B9B0AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CCE1BD03E0D3CE5115A9EEDF /* Pods-Group-MSGP-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example.debug.xcconfig"; sourceTree = "<group>"; };
-		EBF20C691E813236D43A321A /* Pods_MSGPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A170227EE0655C9E8BD41526 /* Pods_Group_MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD485EC4C941F5C9FC7F7708 /* Pods-Group-MSGP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,8 +336,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				886B3ADF1F13B92B00BF1A8E /* MSGP.framework in Frameworks */,
-				0E14EED21E605579D605693D /* Pods_Group_MSGP_Example.framework in Frameworks */,
 				885F9FCC1F165C9700A30CDF /* MSAL.framework in Frameworks */,
+				81AD0D1E8833E15E31328205 /* Pods_Group_MSGP_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,8 +345,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAE8416C6A0FE5C090E558CA /* Pods_Group_MSGP.framework in Frameworks */,
 				88CF242F1F16305300CC406F /* MSAL.framework in Frameworks */,
+				FB3CC18CDA53B06862E42F66 /* Pods_Group_MSGP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,7 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */,
-				50C0173D045F10A9F3EA396D /* Pods_MSGPTests.framework in Frameworks */,
+				16F530A90E7396BB209BCFA6 /* Pods_MSGPTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,24 +372,11 @@
 				886B3ACB1F13ABEA00BF1A8E /* Alamofire.framework */,
 				886B3ACC1F13ABEA00BF1A8E /* SnapKit.framework */,
 				886B3ACD1F13ABEA00BF1A8E /* SVProgressHUD.framework */,
-				05C25CEDDAADC89B3A189771 /* Pods_Group_MSGP.framework */,
-				0E6095A88C5722FE4BD8CEFE /* Pods_Group_MSGP_Example.framework */,
-				EBF20C691E813236D43A321A /* Pods_MSGPTests.framework */,
+				A170227EE0655C9E8BD41526 /* Pods_Group_MSGP.framework */,
+				54F06ACD77284F251B7691C0 /* Pods_Group_MSGP_Example.framework */,
+				72C05D6CAC013255DFDE14CC /* Pods_MSGPTests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		72E11A33AAFF69A80E00049B /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				5C04BD1691EFBEB188AF506F /* Pods-Group-MSGP.debug.xcconfig */,
-				5A8E9EC0E4D7A508F8C75527 /* Pods-Group-MSGP.release.xcconfig */,
-				CCE1BD03E0D3CE5115A9EEDF /* Pods-Group-MSGP-Example.debug.xcconfig */,
-				2EE5B8F6397639476A9CAEC3 /* Pods-Group-MSGP-Example.release.xcconfig */,
-				743B4CFC3C3C9A1BE41ED857 /* Pods-MSGPTests.debug.xcconfig */,
-				9B2F4B85722F19B3B8E07ABC /* Pods-MSGPTests.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		885F9FBA1F16326300A30CDF /* URLScheme */ = {
@@ -435,76 +386,6 @@
 				886B3AF31F14C9B400BF1A8E /* URLSchemes.swift */,
 			);
 			name = URLScheme;
-			sourceTree = "<group>";
-		};
-		885F9FDC1F166A4A00A30CDF /* MSGraphSDK-NXOAuth2Adapter */ = {
-			isa = PBXGroup;
-			children = (
-				885F9FDD1F166A4A00A30CDF /* LICENSE.txt */,
-				885F9FDE1F166A4A00A30CDF /* MSGraphSDK-NXOAuth2Adapter.podspec */,
-				885F9FDF1F166A4A00A30CDF /* MSGraphSDKNXOAuth2 */,
-				885F9FF21F166A4A00A30CDF /* README.md */,
-			);
-			path = "MSGraphSDK-NXOAuth2Adapter";
-			sourceTree = "<group>";
-		};
-		885F9FDF1F166A4A00A30CDF /* MSGraphSDKNXOAuth2 */ = {
-			isa = PBXGroup;
-			children = (
-				885F9FE01F166A4A00A30CDF /* Auth */,
-				885F9FE51F166A4A00A30CDF /* Common */,
-				885F9FE81F166A4A00A30CDF /* Extensions */,
-				885F9FEB1F166A4A00A30CDF /* MSGraphSDKNXOAuth2 */,
-				885F9FED1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.h */,
-				885F9FEE1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.xcodeproj */,
-				885F9FF11F166A4A00A30CDF /* Podfile */,
-			);
-			path = MSGraphSDKNXOAuth2;
-			sourceTree = "<group>";
-		};
-		885F9FE01F166A4A00A30CDF /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-				885F9FE11F166A4A00A30CDF /* MSAuthenticationViewController.h */,
-				885F9FE21F166A4A00A30CDF /* MSAuthenticationViewController.m */,
-				885F9FE31F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.h */,
-				885F9FE41F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.m */,
-			);
-			path = Auth;
-			sourceTree = "<group>";
-		};
-		885F9FE51F166A4A00A30CDF /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				885F9FE61F166A4A00A30CDF /* MSAuthConstants.h */,
-				885F9FE71F166A4A00A30CDF /* MSAuthConstants.m */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		885F9FE81F166A4A00A30CDF /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				885F9FE91F166A4A00A30CDF /* NSError+MSGraphOAuth2.h */,
-				885F9FEA1F166A4A00A30CDF /* NSError+MSGraphOAuth2.m */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		885F9FEB1F166A4A00A30CDF /* MSGraphSDKNXOAuth2 */ = {
-			isa = PBXGroup;
-			children = (
-				885F9FEC1F166A4A00A30CDF /* Info.plist */,
-			);
-			path = MSGraphSDKNXOAuth2;
-			sourceTree = "<group>";
-		};
-		885F9FEF1F166A4A00A30CDF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				885FA0031F166A4A00A30CDF /* MSGraphSDKNXOAuth2.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		886B39C61F138F5D00BF1A8E /* MSGP-Example */ = {
@@ -526,6 +407,7 @@
 			children = (
 				886B3ABF1F13A35700BF1A8E /* Entities */,
 				886B3AC21F13A37700BF1A8E /* Services */,
+				88CEEBE61F17740F00B93196 /* ImageCache */,
 				886B3A541F13A28D00BF1A8E /* MSGP.swift */,
 			);
 			path = Model;
@@ -718,8 +600,7 @@
 				886B3AE21F13BF5900BF1A8E /* FacebookAPI.swift */,
 				886B3AF51F14CD3B00BF1A8E /* TwitterAPI.swift */,
 				88BC87591F150D2700EAEFD7 /* GoogleAPI.swift */,
-				88CF240B1F162B0100CC406F /* MicrosoftAPI.swift */,
-				885FA0091F1676E400A30CDF /* MicrosoftAPI2.swift */,
+				885FA0091F1676E400A30CDF /* MicrosoftAPI.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -826,6 +707,14 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
+		88CEEBE61F17740F00B93196 /* ImageCache */ = {
+			isa = PBXGroup;
+			children = (
+				885FA0211F17721700A30CDF /* ImageCache.swift */,
+			);
+			name = ImageCache;
+			sourceTree = "<group>";
+		};
 		88CF24081F161AF300CC406F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -837,7 +726,6 @@
 		88CF242B1F16305300CC406F /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				885F9FDC1F166A4A00A30CDF /* MSGraphSDK-NXOAuth2Adapter */,
 				88CF242C1F16305300CC406F /* MSAL */,
 			);
 			path = Vendor;
@@ -863,6 +751,19 @@
 				88CF24081F161AF300CC406F /* Utils */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		9273E107416D0B5757408DDB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2093F83625D0DDDB6995C401 /* Pods-Group-MSGP.debug.xcconfig */,
+				CD485EC4C941F5C9FC7F7708 /* Pods-Group-MSGP.release.xcconfig */,
+				2767CC8A5ABFE1CFFDC080C9 /* Pods-Group-MSGP-Example.debug.xcconfig */,
+				49679FCB0610AA0655E9C81F /* Pods-Group-MSGP-Example.release.xcconfig */,
+				5D4DBFFF6DE343119200FF08 /* Pods-MSGPTests.debug.xcconfig */,
+				0E5D1EEC5F21D953C1A208C7 /* Pods-MSGPTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		9C223D1C1F0FA2900058B60A /* Common */ = {
@@ -894,7 +795,7 @@
 				886B39C61F138F5D00BF1A8E /* MSGP-Example */,
 				9CD805361F0D012F00B9B0AC /* MSGPTests */,
 				9CD8052A1F0D012F00B9B0AC /* Products */,
-				72E11A33AAFF69A80E00049B /* Pods */,
+				9273E107416D0B5757408DDB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -945,12 +846,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				885F9FF51F166A4A00A30CDF /* MSAuthenticationViewController.h in Headers */,
 				88BC87421F14FA1B00EAEFD7 /* MSGP.h in Headers */,
-				885F9FF91F166A4A00A30CDF /* MSAuthConstants.h in Headers */,
-				885F9FFE1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.h in Headers */,
-				885F9FFB1F166A4A00A30CDF /* NSError+MSGraphOAuth2.h in Headers */,
-				885F9FF71F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -961,13 +857,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 886B39D41F138F5D00BF1A8E /* Build configuration list for PBXNativeTarget "MSGP-Example" */;
 			buildPhases = (
-				1D5F2C32B7CC1C5E83304593 /* [CP] Check Pods Manifest.lock */,
+				472225C6A8B456DA5B5C1E3C /* [CP] Check Pods Manifest.lock */,
 				886B39C11F138F5D00BF1A8E /* Sources */,
 				886B39C21F138F5D00BF1A8E /* Frameworks */,
 				886B39C31F138F5D00BF1A8E /* Resources */,
-				7754209D16D281F5ED29D0C2 /* [CP] Embed Pods Frameworks */,
-				DB96425720D4513848CEC9BC /* [CP] Copy Pods Resources */,
 				885F9FCE1F165C9700A30CDF /* Embed Frameworks */,
+				D71BA6246B828556ECE44427 /* [CP] Embed Pods Frameworks */,
+				E4E4FEFA7B559976ACAABCE0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -983,13 +879,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9CD8053D1F0D012F00B9B0AC /* Build configuration list for PBXNativeTarget "MSGP" */;
 			buildPhases = (
-				9129888C0B7621C8CF595191 /* [CP] Check Pods Manifest.lock */,
+				084DAC0DCFE3FA2F949E9755 /* [CP] Check Pods Manifest.lock */,
 				9CD805241F0D012F00B9B0AC /* Sources */,
 				9CD805251F0D012F00B9B0AC /* Frameworks */,
 				9CD805261F0D012F00B9B0AC /* Headers */,
 				9CD805271F0D012F00B9B0AC /* Resources */,
 				886B39E51F1392D800BF1A8E /* ShellScript */,
-				EA0EEB0E40CE937A5ED27301 /* [CP] Copy Pods Resources */,
+				53874871FE399C292616D7B4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1004,12 +900,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9CD805401F0D012F00B9B0AC /* Build configuration list for PBXNativeTarget "MSGPTests" */;
 			buildPhases = (
-				5F53655D1D5C969911D4DF4A /* [CP] Check Pods Manifest.lock */,
+				42DCFDD795942B2CB9B911D2 /* [CP] Check Pods Manifest.lock */,
 				9CD8052E1F0D012F00B9B0AC /* Sources */,
 				9CD8052F1F0D012F00B9B0AC /* Frameworks */,
 				9CD805301F0D012F00B9B0AC /* Resources */,
-				E6B96D5A900247622A9CEC2F /* [CP] Embed Pods Frameworks */,
-				5DBAED67F8444CF74DBB4E27 /* [CP] Copy Pods Resources */,
+				1CD12780FCAEE711A8BFEA39 /* [CP] Embed Pods Frameworks */,
+				F814541C4B59F4BCB28E1E98 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1054,12 +950,6 @@
 			mainGroup = 9CD8051F1F0D012F00B9B0AC;
 			productRefGroup = 9CD8052A1F0D012F00B9B0AC /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 885F9FEF1F166A4A00A30CDF /* Products */;
-					ProjectRef = 885F9FEE1F166A4A00A30CDF /* MSGraphSDKNXOAuth2.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				886B39C41F138F5D00BF1A8E /* MSGP-Example */,
@@ -1068,16 +958,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		885FA0031F166A4A00A30CDF /* MSGraphSDKNXOAuth2.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = MSGraphSDKNXOAuth2.framework;
-			remoteRef = 885FA0021F166A4A00A30CDF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		886B39C31F138F5D00BF1A8E /* Resources */ = {
@@ -1095,13 +975,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				885F9FFD1F166A4A00A30CDF /* Info.plist in Resources */,
-				885F9FF31F166A4A00A30CDF /* LICENSE.txt in Resources */,
 				886B3AB71F13A2CB00BF1A8E /* Login.storyboard in Resources */,
 				88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */,
-				885F9FF41F166A4A00A30CDF /* MSGraphSDK-NXOAuth2Adapter.podspec in Resources */,
 				886B3AA01F13A2CB00BF1A8E /* CreateAccount.storyboard in Resources */,
-				885F9FFF1F166A4A00A30CDF /* Podfile in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
 				88CF24301F16305300CC406F /* MSAL.framework.dSYM in Resources */,
 			);
@@ -1117,7 +993,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1D5F2C32B7CC1C5E83304593 /* [CP] Check Pods Manifest.lock */ = {
+		084DAC0DCFE3FA2F949E9755 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1132,37 +1008,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		5DBAED67F8444CF74DBB4E27 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5F53655D1D5C969911D4DF4A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		7754209D16D281F5ED29D0C2 /* [CP] Embed Pods Frameworks */ = {
+		1CD12780FCAEE711A8BFEA39 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1174,7 +1020,52 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		42DCFDD795942B2CB9B911D2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		472225C6A8B456DA5B5C1E3C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		53874871FE399C292616D7B4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		886B39E51F1392D800BF1A8E /* ShellScript */ = {
@@ -1190,22 +1081,22 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"";
 		};
-		9129888C0B7621C8CF595191 /* [CP] Check Pods Manifest.lock */ = {
+		D71BA6246B828556ECE44427 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DB96425720D4513848CEC9BC /* [CP] Copy Pods Resources */ = {
+		E4E4FEFA7B559976ACAABCE0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1220,22 +1111,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E6B96D5A900247622A9CEC2F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EA0EEB0E40CE937A5ED27301 /* [CP] Copy Pods Resources */ = {
+		F814541C4B59F4BCB28E1E98 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1247,7 +1123,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1268,7 +1144,6 @@
 			files = (
 				886B3B611F14EFF000BF1A8E /* FeedResponseUserCompactView.swift in Sources */,
 				886B3B431F14EFF000BF1A8E /* APIHelper.swift in Sources */,
-				885F9FF81F166A4A00A30CDF /* NXOAuth2AuthenticationProvider.m in Sources */,
 				886B3B561F14EFF000BF1A8E /* ActivityView.swift in Sources */,
 				886B3B481F14EFF000BF1A8E /* ImagesAPI.swift in Sources */,
 				886B3B501F14EFF000BF1A8E /* SessionsAPI.swift in Sources */,
@@ -1308,16 +1183,14 @@
 				886B3B781F14EFF000BF1A8E /* PostTopicResponse.swift in Sources */,
 				886B3B451F14EFF000BF1A8E /* BuildsAPI.swift in Sources */,
 				886B3AB31F13A2CB00BF1A8E /* LoginModuleOutput.swift in Sources */,
-				885F9FFA1F166A4A00A30CDF /* MSAuthConstants.m in Sources */,
 				886B3AC61F13A46C00BF1A8E /* Storyboard.swift in Sources */,
 				886B3B591F14EFF000BF1A8E /* CommentView.swift in Sources */,
-				885FA0001F166A4A00A30CDF /* README.md in Sources */,
+				885FA0221F17721700A30CDF /* ImageCache.swift in Sources */,
 				886B3AB61F13A2CB00BF1A8E /* LoginRouterInput.swift in Sources */,
 				886B3A9D1F13A2CB00BF1A8E /* CreateAccountRouter.swift in Sources */,
 				886B3AD91F13B17100BF1A8E /* Fonts.swift in Sources */,
 				886B3A9B1F13A2CB00BF1A8E /* CreateAccountPresenter.swift in Sources */,
 				886B3B7D1F14EFF000BF1A8E /* PutTopicNameRequest.swift in Sources */,
-				885F9FF61F166A4A00A30CDF /* MSAuthenticationViewController.m in Sources */,
 				886B3B6A1F14EFF000BF1A8E /* PostCommentResponse.swift in Sources */,
 				886B3B521F14EFF000BF1A8E /* TopicsAPI.swift in Sources */,
 				886B3B711F14EFF000BF1A8E /* PostReplyRequest.swift in Sources */,
@@ -1354,7 +1227,6 @@
 				886B3AD71F13B16D00BF1A8E /* Palette.swift in Sources */,
 				886B3AB91F13A2CB00BF1A8E /* LoginViewInput.swift in Sources */,
 				886B3B821F14EFF000BF1A8E /* ReplyView.swift in Sources */,
-				885F9FFC1F166A4A00A30CDF /* NSError+MSGraphOAuth2.m in Sources */,
 				886B3B5A1F14EFF000BF1A8E /* ContentCompactView.swift in Sources */,
 				88BC875B1F150D2700EAEFD7 /* GoogleAPI.swift in Sources */,
 				88BC87551F1505B400EAEFD7 /* Photo.swift in Sources */,
@@ -1362,7 +1234,7 @@
 				886B3B841F14EFF000BF1A8E /* UserCompactView.swift in Sources */,
 				886B3B6C1F14EFF000BF1A8E /* PostFollowingTopicRequest.swift in Sources */,
 				886B3B701F14EFF000BF1A8E /* PostPinRequest.swift in Sources */,
-				885FA00A1F1676E400A30CDF /* MicrosoftAPI2.swift in Sources */,
+				885FA00A1F1676E400A30CDF /* MicrosoftAPI.swift in Sources */,
 				886B3A961F13A2CB00BF1A8E /* CreateAccountInteractor.swift in Sources */,
 				886B3B7A1F14EFF000BF1A8E /* PostUserResponse.swift in Sources */,
 				886B3ACA1F13A7F300BF1A8E /* StoryboardViewControllers.swift in Sources */,
@@ -1374,7 +1246,6 @@
 				886B3B421F14EFF000BF1A8E /* AlamofireImplementations.swift in Sources */,
 				886B3B4B1F14EFF000BF1A8E /* PinsAPI.swift in Sources */,
 				886B3A551F13A28D00BF1A8E /* MSGP.swift in Sources */,
-				88CF240C1F162B0100CC406F /* MicrosoftAPI.swift in Sources */,
 				88CF24071F161AEF00CC406F /* NameComponentsSplitter.swift in Sources */,
 				886B3AC11F13A35700BF1A8E /* User.swift in Sources */,
 				886B3B551F14EFF000BF1A8E /* Extensions.swift in Sources */,
@@ -1436,7 +1307,7 @@
 /* Begin XCBuildConfiguration section */
 		886B39D51F138F5D00BF1A8E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CCE1BD03E0D3CE5115A9EEDF /* Pods-Group-MSGP-Example.debug.xcconfig */;
+			baseConfigurationReference = 2767CC8A5ABFE1CFFDC080C9 /* Pods-Group-MSGP-Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1459,7 +1330,7 @@
 		};
 		886B39D61F138F5D00BF1A8E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EE5B8F6397639476A9CAEC3 /* Pods-Group-MSGP-Example.release.xcconfig */;
+			baseConfigurationReference = 49679FCB0610AA0655E9C81F /* Pods-Group-MSGP-Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1593,7 +1464,7 @@
 		};
 		9CD8053E1F0D012F00B9B0AC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C04BD1691EFBEB188AF506F /* Pods-Group-MSGP.debug.xcconfig */;
+			baseConfigurationReference = 2093F83625D0DDDB6995C401 /* Pods-Group-MSGP.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1624,7 +1495,7 @@
 		};
 		9CD8053F1F0D012F00B9B0AC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A8E9EC0E4D7A508F8C75527 /* Pods-Group-MSGP.release.xcconfig */;
+			baseConfigurationReference = CD485EC4C941F5C9FC7F7708 /* Pods-Group-MSGP.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1655,7 +1526,7 @@
 		};
 		9CD805411F0D012F00B9B0AC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 743B4CFC3C3C9A1BE41ED857 /* Pods-MSGPTests.debug.xcconfig */;
+			baseConfigurationReference = 5D4DBFFF6DE343119200FF08 /* Pods-MSGPTests.debug.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 285W24646W;
 				INFOPLIST_FILE = MSGPTests/Info.plist;
@@ -1670,7 +1541,7 @@
 		};
 		9CD805421F0D012F00B9B0AC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9B2F4B85722F19B3B8E07ABC /* Pods-MSGPTests.release.xcconfig */;
+			baseConfigurationReference = 0E5D1EEC5F21D953C1A208C7 /* Pods-MSGPTests.release.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 285W24646W;
 				INFOPLIST_FILE = MSGPTests/Info.plist;

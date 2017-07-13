@@ -27,14 +27,12 @@ extension GoogleAPI: GIDSignInDelegate {
             signInHandler?(.failure(error!))
             return
         }
-        
-        let photoURL = user.profile.imageURL(withDimension: 1024)
+        //FIXME: Use proper value for image dimension
+        let photoURL = user.profile.imageURL(withDimension: 256)
         
         let domainUser = User(firstName: user.profile.givenName,
                               lastName: user.profile.familyName,
                               email: user.profile.email,
-                              bio: nil,
-                              phoneNumber: nil,
                               token: user.authentication.idToken,
                               photo: Photo(url: photoURL?.absoluteString),
                               provider: .google)
