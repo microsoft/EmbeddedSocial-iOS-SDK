@@ -7,5 +7,5 @@
 //
 
 protocol LoginModuleOutput: class {
-    func onLogin(_ result: Result<User>)
+    func onLogin(_ user: User)
 }

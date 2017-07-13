@@ -13,7 +13,6 @@ struct User {
     let lastName: String?
     let email: String?
     let bio: String?
-    let phoneNumber: String?
     let token: String?
     let photo: Photo?
     let provider: AuthProvider
@@ -22,7 +21,6 @@ struct User {
          lastName: String? = nil,
          email: String? = nil,
          bio: String? = nil,
-         phoneNumber: String? = nil,
          token: String? = nil,
          photo: Photo? = nil,
          provider: AuthProvider) {
@@ -30,7 +28,6 @@ struct User {
         self.lastName = lastName
         self.email = email
         self.bio = bio
-        self.phoneNumber = phoneNumber
         self.token = token
         self.photo = photo
         self.provider = provider
@@ -40,7 +37,7 @@ struct User {
 extension User: Hashable {
     
     var hashValue: Int {
-        let fields: [AnyHashable?] = [firstName, lastName, email, bio, phoneNumber, token, photo?.url, provider.rawValue]
+        let fields: [AnyHashable?] = [firstName, lastName, email, bio, token, photo?.url, provider.rawValue]
         let nonNilFields = fields.flatMap { $0 }
         return nonNilFields.reduce(1, { (result, field) in
             return result ^ field.hashValue
@@ -52,7 +49,6 @@ extension User: Hashable {
             lhs.lastName == rhs.lastName &&
             lhs.email == rhs.email &&
             lhs.bio == rhs.bio &&
-            lhs.phoneNumber == rhs.phoneNumber &&
             lhs.token == rhs.token &&
             lhs.photo == rhs.photo &&
             lhs.provider == rhs.provider

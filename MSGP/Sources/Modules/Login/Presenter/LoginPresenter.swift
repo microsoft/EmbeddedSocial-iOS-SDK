@@ -43,7 +43,15 @@ final class LoginPresenter: LoginViewOutput {
     
     private func login(with provider: AuthProvider) {
         interactor.login(provider: provider, from: view as? UIViewController) { [weak self] result in
-            self?.moduleOutput?.onLogin(result)
+            if let user = result.value {
+                // create account
+            }
+            else if let error = result.error {
+                self?.view.showError(error)
+            }
+            else {
+                fatalError("Unsupported response")
+            }
         }
     }
 }
@@ -53,6 +61,14 @@ extension LoginPresenter: LoginModuleInput { }
 extension LoginPresenter: CreateAccountModuleOutput {
     
     func onAccountCreated(result: Result<User>) {
-        moduleOutput?.onLogin(result)
+        if let user = result.value {
+            moduleOutput?.onLogin(user)
+        }
+        else if let error = result.error {
+            view.showError(error)
+        }
+        else {
+            fatalError("Unsupported response")
+        }
     }
 }

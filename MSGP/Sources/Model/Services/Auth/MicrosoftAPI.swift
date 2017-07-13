@@ -16,12 +16,12 @@ enum GraphScope: String {
 }
 
 private enum APIError: LocalizedError {
-    case unkown
+    case unknown
     case responseError(String)
     
-    public var unkown: String? {
+    public var errorDescription: String? {
         switch self {
-        case .unkown: return "Unknown error occurred."
+        case .unknown: return "Unknown error occurred."
         case let .responseError(path): return "Response \(path) returned with error."
         }
     }
@@ -103,7 +103,7 @@ final class MicrosoftAPI: AuthAPI {
             }
             
             guard let result = result else {
-                handler(.failure(APIError.unkown))
+                handler(.failure(APIError.unknown))
                 return
             }
             

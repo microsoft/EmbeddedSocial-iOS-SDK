@@ -37,6 +37,10 @@ class LoginViewController: UIViewController, LoginViewInput {
         }
     }
     
+    func showError(_ error: Error) {
+        showErrorAlert(error)
+    }
+    
     @IBAction fileprivate func onCreateAccount(_ sender: UIButton) {
         output.onCreateAccountTapped()
     }

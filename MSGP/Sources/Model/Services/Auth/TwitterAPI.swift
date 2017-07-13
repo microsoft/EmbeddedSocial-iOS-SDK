@@ -11,6 +11,8 @@ import TwitterKit
 
 final class TwitterAPI: AuthAPI {
     
+    private let accessToken = "884682909340315649-clk3svGPZRWDjJdmKWNpUQtQr0euBx2"
+    
     func login(from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void) {
         Twitter.sharedInstance().logIn(with: viewController, methods: [.webBasedForceLogin]) { [weak self] session, error in
             guard error == nil else {

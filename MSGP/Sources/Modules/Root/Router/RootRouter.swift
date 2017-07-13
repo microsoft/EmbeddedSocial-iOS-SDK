@@ -45,12 +45,7 @@ final class RootRouter: RootRouterProtocol {
 }
 
 extension RootRouter: LoginModuleOutput {
-    
-    func onLogin(_ result: Result<User>) {
-        if let user = result.value {
-            openHomeScreen(user: user)
-        } else {
-            print(result.error?.localizedDescription ?? "Unkown error")
-        }
+    func onLogin(_ user: User) {
+        openHomeScreen(user: user)
     }
 }

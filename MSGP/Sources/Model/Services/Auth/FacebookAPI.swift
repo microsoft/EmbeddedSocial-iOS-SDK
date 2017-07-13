@@ -15,10 +15,12 @@ final class FacebookAPI: AuthAPI {
     
     private let readPermissions = ["public_profile", "email"]
     
+    private let userInfoParams = ["fields": "first_name, last_name, email, picture"]
+    
     func login(from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void) {
-        loginManager.logIn(withReadPermissions: readPermissions, from: viewController) { (result, error) in
+        
+        loginManager.logIn(withReadPermissions: readPermissions, from: viewController) { [unowned self] result, error in
             guard error == nil else {
-                print(error!)
                 handler(.failure(error!))
                 return
             }
@@ -28,18 +30,49 @@ final class FacebookAPI: AuthAPI {
             }
             
             guard !result.isCancelled else {
-                print("cancelled")
+                handler(.failure(APIError.cancelled))
                 return
             }
             
-            guard FBSDKAccessToken.current() != nil else {
-                fatalError("Trying to fetch user data while not being logged in")
+            FBSDKGraphRequest(graphPath: "me", parameters: self.userInfoParams).start { _, userJSON, _ in
+                let user = self.makeUser(json: userJSON)
+                handler(.success(user))
             }
-            
-            print("Logged in")
+        }
+    }
+    
+    private func makeUser(json: Any?) -> User {
+        guard let json = json as? [String: Any] else {
+            return User(provider: .facebook)
+        }
+        
+        return User(firstName: json["first_name"] as? String,
+                    lastName: json["last_name"] as? String,
+                    email: json["email"] as? String,
+                    token: nil,
+                    photo: makePhoto(json: json["picture"]),
+                    provider: .facebook)
+    }
+    
+    private func makePhoto(json: Any?) -> Photo? {
+        guard let json = json as? [String: Any],
+            let metadata = json["data"] as? [String: Any],
+            let url = metadata["url"] as? String else {
+                return nil
+        }
+        
+        return Photo(url: url)
+    }
+}
 
-            FBSDKGraphRequest(graphPath: "me", parameters: nil).start { (connection, user, error) in
-                print(error, user)
+extension FacebookAPI {
+    
+    enum APIError: LocalizedError {
+        case cancelled
+        
+        public var errorDescription: String? {
+            switch self {
+            case .cancelled: return "Cancelled by user."
             }
         }
     }
