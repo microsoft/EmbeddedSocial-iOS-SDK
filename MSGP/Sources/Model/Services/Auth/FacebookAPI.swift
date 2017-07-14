@@ -17,7 +17,7 @@ final class FacebookAPI: AuthAPI {
     
     private let userInfoParams = ["fields": "first_name, last_name, email, picture"]
     
-    func login(from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void) {
+    func login(from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void) {
         
         loginManager.logIn(withReadPermissions: readPermissions, from: viewController) { [unowned self] result, error in
             guard error == nil else {
@@ -35,23 +35,29 @@ final class FacebookAPI: AuthAPI {
             }
             
             FBSDKGraphRequest(graphPath: "me", parameters: self.userInfoParams).start { _, userJSON, _ in
-                let user = self.makeUser(json: userJSON)
+                guard let user = self.makeSocialUser(json: userJSON, token: result.token.tokenString) else {
+                    handler(.failure(APIError.missingUserData))
+                    return
+                }
                 handler(.success(user))
             }
         }
     }
     
-    private func makeUser(json: Any?) -> User {
-        guard let json = json as? [String: Any] else {
-            return User(provider: .facebook)
+    private func makeSocialUser(json: Any?, token: String) -> SocialUser? {
+        guard let json = json as? [String: Any],
+            let uid = json["id"] as? String
+            else {
+                return nil
         }
         
-        return User(firstName: json["first_name"] as? String,
-                    lastName: json["last_name"] as? String,
-                    email: json["email"] as? String,
-                    token: nil,
-                    photo: makePhoto(json: json["picture"]),
-                    provider: .facebook)
+        return SocialUser(uid: uid,
+                          token: token,
+                          firstName: json["first_name"] as? String,
+                          lastName: json["last_name"] as? String,
+                          email: json["email"] as? String,
+                          photo: makePhoto(json: json["picture"]),
+                          provider: .facebook)
     }
     
     private func makePhoto(json: Any?) -> Photo? {
@@ -69,10 +75,12 @@ extension FacebookAPI {
     
     enum APIError: LocalizedError {
         case cancelled
-        
+        case missingUserData
+
         public var errorDescription: String? {
             switch self {
             case .cancelled: return "Cancelled by user."
+            case .missingUserData: return "User data is missing."
             }
         }
     }

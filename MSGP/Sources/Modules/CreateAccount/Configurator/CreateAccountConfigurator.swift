@@ -16,13 +16,13 @@ class CreateAccountConfigurator {
         viewController = Storyboard.createAccount.createAccountViewController()!
     }
 
-    func configure(user: User, moduleOutput: CreateAccountModuleOutput?) {
+    func configure(user: SocialUser, moduleOutput: CreateAccountModuleOutput?) {
         let router = CreateAccountRouter()
 
         let presenter = CreateAccountPresenter()
         presenter.view = viewController
         presenter.router = router
-        presenter.interactor = CreateAccountInteractor(authService: AuthService(apiProvider: AuthAPIProvider()))
+        presenter.interactor = CreateAccountInteractor(user: user, authService: AuthService(apiProvider: AuthAPIProvider()))
         presenter.moduleOutput = moduleOutput
         
         viewController.output = presenter

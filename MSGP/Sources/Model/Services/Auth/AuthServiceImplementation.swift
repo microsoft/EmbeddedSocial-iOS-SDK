@@ -15,7 +15,7 @@ final class AuthService: AuthServiceType {
         self.apiProvider = apiProvider
     }
     
-    func login(provider: AuthProvider, from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void) {
+    func login(with provider: AuthProvider, from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void) {
         let api = apiProvider.api(for: provider)
         api.login(from: viewController) { result in
             _ = api // to extend lifetime

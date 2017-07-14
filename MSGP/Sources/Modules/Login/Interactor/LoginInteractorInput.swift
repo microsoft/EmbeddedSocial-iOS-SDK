@@ -9,5 +9,5 @@
 import Foundation
 
 protocol LoginInteractorInput {
-    func login(provider: AuthProvider, from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void)
+    func login(provider: AuthProvider, from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void)
 }

@@ -10,9 +10,9 @@ import UIKit
 import GoogleSignIn
 
 final class GoogleAPI: NSObject, AuthAPI {
-    fileprivate var signInHandler: ((Result<User>) -> Void?)?
+    fileprivate var signInHandler: ((Result<SocialUser>) -> Void?)?
     
-    func login(from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void) {
+    func login(from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void) {
         signInHandler = handler
         
         GIDSignIn.sharedInstance().delegate = self
@@ -22,7 +22,7 @@ final class GoogleAPI: NSObject, AuthAPI {
 }
 
 extension GoogleAPI: GIDSignInDelegate {
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         guard error == nil else {
             signInHandler?(.failure(error!))
             return
@@ -30,17 +30,18 @@ extension GoogleAPI: GIDSignInDelegate {
         //FIXME: Use proper value for image dimension
         let photoURL = user.profile.imageURL(withDimension: 256)
         
-        let domainUser = User(firstName: user.profile.givenName,
+        let user = SocialUser(uid: user.userID,
+                              token: user.authentication.idToken,
+                              firstName: user.profile.givenName,
                               lastName: user.profile.familyName,
                               email: user.profile.email,
-                              token: user.authentication.idToken,
                               photo: Photo(url: photoURL?.absoluteString),
                               provider: .google)
         
-        signInHandler?(.success(domainUser))
+        signInHandler?(.success(user))
     }
     
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error?) {
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         
     }
 }

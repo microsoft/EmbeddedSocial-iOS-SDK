@@ -47,7 +47,7 @@
 		886B3ABA1F13A2CB00BF1A8E /* LoginViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3A8E1F13A2CB00BF1A8E /* LoginViewOutput.swift */; };
 		886B3ABB1F13A2CB00BF1A8E /* RootConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3A911F13A2CB00BF1A8E /* RootConfigurator.swift */; };
 		886B3ABC1F13A2CB00BF1A8E /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3A931F13A2CB00BF1A8E /* RootRouter.swift */; };
-		886B3AC11F13A35700BF1A8E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC01F13A35700BF1A8E /* User.swift */; };
+		886B3AC11F13A35700BF1A8E /* SocialUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC01F13A35700BF1A8E /* SocialUser.swift */; };
 		886B3AC41F13A38A00BF1A8E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC31F13A38A00BF1A8E /* AuthService.swift */; };
 		886B3AC61F13A46C00BF1A8E /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC51F13A46C00BF1A8E /* Storyboard.swift */; };
 		886B3AC81F13A76000BF1A8E /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3AC71F13A76000BF1A8E /* Identifiable.swift */; };
@@ -138,6 +138,7 @@
 		88BC875B1F150D2700EAEFD7 /* GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC87591F150D2700EAEFD7 /* GoogleAPI.swift */; };
 		88CEEBE81F1782EC00B93196 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEBE71F1782EC00B93196 /* UIViewController+Alerts.swift */; };
 		88CEEBEC1F17A9FC00B93196 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEBEB1F17A9FC00B93196 /* NibLoadable.swift */; };
+		88CEEEF61F18AED400B93196 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEEF51F18AED400B93196 /* User.swift */; };
 		88CF24071F161AEF00CC406F /* NameComponentsSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24061F161AEF00CC406F /* NameComponentsSplitter.swift */; };
 		88CF240A1F16202C00CC406F /* NameComponentsSplitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */; };
 		88CF242F1F16305300CC406F /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; };
@@ -222,7 +223,7 @@
 		886B3A8E1F13A2CB00BF1A8E /* LoginViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewOutput.swift; sourceTree = "<group>"; };
 		886B3A911F13A2CB00BF1A8E /* RootConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootConfigurator.swift; sourceTree = "<group>"; };
 		886B3A931F13A2CB00BF1A8E /* RootRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
-		886B3AC01F13A35700BF1A8E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		886B3AC01F13A35700BF1A8E /* SocialUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialUser.swift; sourceTree = "<group>"; };
 		886B3AC31F13A38A00BF1A8E /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		886B3AC51F13A46C00BF1A8E /* Storyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
 		886B3AC71F13A76000BF1A8E /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
@@ -320,6 +321,7 @@
 		88BC87591F150D2700EAEFD7 /* GoogleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
 		88CEEBE71F1782EC00B93196 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		88CEEBEB1F17A9FC00B93196 /* NibLoadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
+		88CEEEF51F18AED400B93196 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		88CF24061F161AEF00CC406F /* NameComponentsSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitter.swift; sourceTree = "<group>"; };
 		88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitterTests.swift; sourceTree = "<group>"; };
 		88CF242D1F16305300CC406F /* MSAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MSAL.framework; sourceTree = "<group>"; };
@@ -558,7 +560,8 @@
 		886B3ABF1F13A35700BF1A8E /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				886B3AC01F13A35700BF1A8E /* User.swift */,
+				886B3AC01F13A35700BF1A8E /* SocialUser.swift */,
+				88CEEEF51F18AED400B93196 /* User.swift */,
 				88BC87541F1505B400EAEFD7 /* Photo.swift */,
 			);
 			path = Entities;
@@ -1245,10 +1248,11 @@
 				886B3B801F14EFF000BF1A8E /* PutUserPhotoRequest.swift in Sources */,
 				886B3B691F14EFF000BF1A8E /* PostCommentRequest.swift in Sources */,
 				886B3B421F14EFF000BF1A8E /* AlamofireImplementations.swift in Sources */,
+				88CEEEF61F18AED400B93196 /* User.swift in Sources */,
 				886B3B4B1F14EFF000BF1A8E /* PinsAPI.swift in Sources */,
 				886B3A551F13A28D00BF1A8E /* MSGP.swift in Sources */,
 				88CF24071F161AEF00CC406F /* NameComponentsSplitter.swift in Sources */,
-				886B3AC11F13A35700BF1A8E /* User.swift in Sources */,
+				886B3AC11F13A35700BF1A8E /* SocialUser.swift in Sources */,
 				886B3B551F14EFF000BF1A8E /* Extensions.swift in Sources */,
 				886B3B631F14EFF000BF1A8E /* GetRequestTokenResponse.swift in Sources */,
 				886B3B471F14EFF000BF1A8E /* HashtagsAPI.swift in Sources */,
