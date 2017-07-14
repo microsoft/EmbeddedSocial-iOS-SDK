@@ -10,8 +10,6 @@ import Foundation
 import FBSDKCoreKit
 import TwitterKit
 import GoogleSignIn
-import Google
-import FirebaseCore
 
 class ThirdPartyConfigurator {
 
@@ -31,12 +29,6 @@ class ThirdPartyConfigurator {
     }
     
     private static func setupGoogle() {
-        var configureError: NSError?
-        GGLContext.sharedInstance().configureWithError(&configureError)
-        guard configureError == nil else {
-            fatalError("Error configuring Google services: \(configureError!)")
-        }
         GIDSignIn.sharedInstance().clientID = "725637580373-0ssr452m7o5bg1aeomsts88ci6tvmp83.apps.googleusercontent.com"
-        FIRAnalyticsConfiguration.sharedInstance().setAnalyticsCollectionEnabled(false)
     }
 }

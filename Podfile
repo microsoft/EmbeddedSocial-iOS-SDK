@@ -21,10 +21,9 @@ abstract_target 'Group' do
     pod 'SnapKit'
     pod 'SlideMenuControllerSwift', '~> 3.0'
     pod 'TwitterKit'
-    pod 'Google/SignIn'
+    pod 'GoogleSignIn'
     pod 'SDWebImage'
     pod 'MSGraphSDK'
-    pod 'SwiftLint'
     pod 'SwiftGen'
     facebook
     
@@ -37,7 +36,7 @@ abstract_target 'Group' do
         end
         
     end
-
+    
     target 'MSGP-Example' do
         
     end
