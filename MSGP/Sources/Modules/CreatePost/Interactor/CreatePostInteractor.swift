@@ -11,7 +11,6 @@ class CreatePostInteractor: CreatePostInteractorInput {
     weak var output: CreatePostInteractorOutput!
     
     func postTopic(image: UIImage?, title: String?, body: String!) {
-        
         let request = PostTopicRequest()
         request.title = title
         request.text = body

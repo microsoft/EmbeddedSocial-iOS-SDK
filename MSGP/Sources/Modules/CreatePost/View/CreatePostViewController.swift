@@ -39,6 +39,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "icon_back"), style: .plain, target: self, action: #selector(CreatePostViewController.back))
         navigationItem.rightBarButtonItem = postButton
         navigationItem.leftBarButtonItem = backButton
+        // TODO: config user data (avatar + name)
     }
     
     func showError(error: Error) {
@@ -65,9 +66,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         let actionSheet = UIAlertController(title: Alerts.Titles.returnToFeed,
                                             message: Alerts.Messages.leaveNewPost, preferredStyle: .actionSheet)
         
-        let cancelAction = UIAlertAction(title: Button.Title.cancel, style: .cancel) { (_) in
-            
-        }
+        let cancelAction = UIAlertAction(title: Button.Title.cancel, style: .cancel, handler: nil)
         actionSheet.addAction(cancelAction)
         
         let leavePostAction = UIAlertAction(title: Button.Title.leavePost, style: .default) { (_) in

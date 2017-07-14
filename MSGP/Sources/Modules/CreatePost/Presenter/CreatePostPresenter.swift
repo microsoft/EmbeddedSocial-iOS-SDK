@@ -23,7 +23,7 @@ class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePo
     
     // MARK: CreatePostInteractorOutput
     func created(post: PostTopicResponse) {
-        
+        // TODO: handle
     }
     
     func postCreationFailed(error: Error) {
