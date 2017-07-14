@@ -58,6 +58,7 @@ PODS:
     - Fabric
   - TwitterKit (2.8.1):
     - TwitterCore (>= 2.8)
+  - UITextView+Placeholder (1.2.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -73,6 +74,7 @@ DEPENDENCIES:
   - SwiftGen
   - SwiftLint
   - TwitterKit
+  - UITextView+Placeholder
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
@@ -94,7 +96,8 @@ SPEC CHECKSUMS:
   SwiftLint: f60095dc173a3f3ec505bb34f5229c3dfd779a54
   TwitterCore: e959987be23c767004d29eb7fab8d85d8585a2e5
   TwitterKit: 3b6044a7320340326a4098f3e37aa1dbaeb94942
+  UITextView+Placeholder: 77680995fcdd07c3f52ec92fe1150874a2ac89ff
 
-PODFILE CHECKSUM: cbb94f45135cb9735fcdb7353e8473f0b5f2aff6
+PODFILE CHECKSUM: bd90609a10ddc5e54ef58dca36bdd3ea4171e978
 
 COCOAPODS: 1.2.1

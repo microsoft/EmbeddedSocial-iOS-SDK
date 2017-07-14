@@ -26,6 +26,7 @@ class CreateAccountConfigurator {
         presenter.moduleOutput = moduleOutput
         
         viewController.output = presenter
+        viewController.dataManager = CreateAccountDataDisplayManager(user: user)
         viewController.title = "Create an account"
     }
 }

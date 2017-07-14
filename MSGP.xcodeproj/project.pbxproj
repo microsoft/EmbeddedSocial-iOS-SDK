@@ -202,6 +202,23 @@
 		88CEF09E1F18BB4300B93196 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEFE91F18BB4300B93196 /* ImagePicker.swift */; };
 		88CEF09F1F18BB4300B93196 /* NameComponentsSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEFEA1F18BB4300B93196 /* NameComponentsSplitter.swift */; };
 		88CEF0A01F18BB4300B93196 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEFEB1F18BB4300B93196 /* NibLoadable.swift */; };
+		88CEF0A21F18BD2D00B93196 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0A11F18BD2D00B93196 /* SectionModel.swift */; };
+		88CEF0A41F18BDAD00B93196 /* Indetifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0A31F18BDAD00B93196 /* Indetifiable.swift */; };
+		88CEF0A71F18BEC100B93196 /* CreateAccountCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0A61F18BEC100B93196 /* CreateAccountCellModel.swift */; };
+		88CEF0A91F18C50700B93196 /* UploadPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0A81F18C50700B93196 /* UploadPhotoCell.swift */; };
+		88CEF0AC1F18C68800B93196 /* CreateAccountDataDisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0AB1F18C68800B93196 /* CreateAccountDataDisplayManager.swift */; };
+		88CEF0AE1F18C74A00B93196 /* TableDataDisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0AD1F18C74A00B93196 /* TableDataDisplayManager.swift */; };
+		88CEF0B01F18CAEF00B93196 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0AF1F18CAEF00B93196 /* Reusable.swift */; };
+		88CEF0B21F18D14B00B93196 /* CreateAccountCellModelsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0B11F18D14B00B93196 /* CreateAccountCellModelsBuilder.swift */; };
+		88CEF0B41F18D2C100B93196 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0B31F18D2C100B93196 /* UITableView+Ext.swift */; };
+		88CEF0B61F18D50C00B93196 /* CellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0B51F18D50C00B93196 /* CellModel.swift */; };
+		88CEF0B81F18E4AC00B93196 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0B71F18E4AC00B93196 /* Constants.swift */; };
+		88CEF0BA1F18E8F500B93196 /* UIImageView+ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0B91F18E8F500B93196 /* UIImageView+ImageCache.swift */; };
+		88CEF0C01F18EDF600B93196 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0BF1F18EDF600B93196 /* UIView+Ext.swift */; };
+		88CEF0C31F18F0CB00B93196 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0C21F18F0CB00B93196 /* TextFieldCell.swift */; };
+		88CEF0C51F18F79B00B93196 /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0C41F18F79B00B93196 /* TextViewCell.swift */; };
+		88CEF0C71F19092600B93196 /* EquatableWithinEpsilon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEF0C61F19092600B93196 /* EquatableWithinEpsilon.swift */; };
+		88CEF0CC1F19212F00B93196 /* TextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88CEF0CB1F19212F00B93196 /* TextViewCell.xib */; };
 		88CF240A1F16202C00CC406F /* NameComponentsSplitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */; };
 		88CF242F1F16305300CC406F /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
@@ -447,6 +464,23 @@
 		88CEEFE91F18BB4300B93196 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		88CEEFEA1F18BB4300B93196 /* NameComponentsSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitter.swift; sourceTree = "<group>"; };
 		88CEEFEB1F18BB4300B93196 /* NibLoadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
+		88CEF0A11F18BD2D00B93196 /* SectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionModel.swift; sourceTree = "<group>"; };
+		88CEF0A31F18BDAD00B93196 /* Indetifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Indetifiable.swift; sourceTree = "<group>"; };
+		88CEF0A61F18BEC100B93196 /* CreateAccountCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountCellModel.swift; sourceTree = "<group>"; };
+		88CEF0A81F18C50700B93196 /* UploadPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPhotoCell.swift; sourceTree = "<group>"; };
+		88CEF0AB1F18C68800B93196 /* CreateAccountDataDisplayManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountDataDisplayManager.swift; sourceTree = "<group>"; };
+		88CEF0AD1F18C74A00B93196 /* TableDataDisplayManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableDataDisplayManager.swift; sourceTree = "<group>"; };
+		88CEF0AF1F18CAEF00B93196 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reusable.swift; path = ../Common/Reusable.swift; sourceTree = "<group>"; };
+		88CEF0B11F18D14B00B93196 /* CreateAccountCellModelsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountCellModelsBuilder.swift; sourceTree = "<group>"; };
+		88CEF0B31F18D2C100B93196 /* UITableView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		88CEF0B51F18D50C00B93196 /* CellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellModel.swift; sourceTree = "<group>"; };
+		88CEF0B71F18E4AC00B93196 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		88CEF0B91F18E8F500B93196 /* UIImageView+ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+ImageCache.swift"; sourceTree = "<group>"; };
+		88CEF0BF1F18EDF600B93196 /* UIView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		88CEF0C21F18F0CB00B93196 /* TextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
+		88CEF0C41F18F79B00B93196 /* TextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
+		88CEF0C61F19092600B93196 /* EquatableWithinEpsilon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquatableWithinEpsilon.swift; sourceTree = "<group>"; };
+		88CEF0CB1F19212F00B93196 /* TextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextViewCell.xib; sourceTree = "<group>"; };
 		88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitterTests.swift; sourceTree = "<group>"; };
 		88CF242D1F16305300CC406F /* MSAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MSAL.framework; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -532,6 +566,7 @@
 		88CEEEFC1F18BB4300B93196 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				88CEF0C11F18F0C200B93196 /* Controls */,
 				88CEEEFD1F18BB4300B93196 /* Common */,
 				88CEEF0C1F18BB4300B93196 /* Extensions */,
 				88CEEF0F1F18BB4300B93196 /* Generated */,
@@ -554,6 +589,10 @@
 				88CEEF091F18BB4300B93196 /* Result.swift */,
 				88CEEF0A1F18BB4300B93196 /* SlideMenu.swift */,
 				88CEEF0B1F18BB4300B93196 /* SlideMenuVC.swift */,
+				88CEF0A11F18BD2D00B93196 /* SectionModel.swift */,
+				88CEF0A31F18BDAD00B93196 /* Indetifiable.swift */,
+				88CEF0AD1F18C74A00B93196 /* TableDataDisplayManager.swift */,
+				88CEF0B51F18D50C00B93196 /* CellModel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -581,7 +620,11 @@
 			isa = PBXGroup;
 			children = (
 				88CEEF0D1F18BB4300B93196 /* UIColor+Hex.swift */,
+				88CEF0BF1F18EDF600B93196 /* UIView+Ext.swift */,
 				88CEEF0E1F18BB4300B93196 /* UIViewController+Alerts.swift */,
+				88CEF0B31F18D2C100B93196 /* UITableView+Ext.swift */,
+				88CEF0B71F18E4AC00B93196 /* Constants.swift */,
+				88CEF0B91F18E8F500B93196 /* UIImageView+ImageCache.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -835,6 +878,8 @@
 				88CEEF811F18BB4300B93196 /* CreateAccountViewController.swift */,
 				88CEEF821F18BB4300B93196 /* CreateAccountViewInput.swift */,
 				88CEEF831F18BB4300B93196 /* CreateAccountViewOutput.swift */,
+				88CEF0AA1F18C66400B93196 /* DisplayManager */,
+				88CEF0A51F18BEB300B93196 /* Cells */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1177,8 +1222,46 @@
 				88CEEFE91F18BB4300B93196 /* ImagePicker.swift */,
 				88CEEFEA1F18BB4300B93196 /* NameComponentsSplitter.swift */,
 				88CEEFEB1F18BB4300B93196 /* NibLoadable.swift */,
+				88CEF0AF1F18CAEF00B93196 /* Reusable.swift */,
+				88CEF0C61F19092600B93196 /* EquatableWithinEpsilon.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		88CEF0A51F18BEB300B93196 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				88CEF0A61F18BEC100B93196 /* CreateAccountCellModel.swift */,
+				88CEF0A81F18C50700B93196 /* UploadPhotoCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		88CEF0AA1F18C66400B93196 /* DisplayManager */ = {
+			isa = PBXGroup;
+			children = (
+				88CEF0AB1F18C68800B93196 /* CreateAccountDataDisplayManager.swift */,
+				88CEF0B11F18D14B00B93196 /* CreateAccountCellModelsBuilder.swift */,
+			);
+			name = DisplayManager;
+			sourceTree = "<group>";
+		};
+		88CEF0C11F18F0C200B93196 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				88CEF0C21F18F0CB00B93196 /* TextFieldCell.swift */,
+				88CEF0CA1F191A2300B93196 /* TextViewCell */,
+			);
+			name = Controls;
+			sourceTree = "<group>";
+		};
+		88CEF0CA1F191A2300B93196 /* TextViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				88CEF0CB1F19212F00B93196 /* TextViewCell.xib */,
+				88CEF0C41F18F79B00B93196 /* TextViewCell.swift */,
+			);
+			name = TextViewCell;
 			sourceTree = "<group>";
 		};
 		88CF242B1F16305300CC406F /* Vendor */ = {
@@ -1397,6 +1480,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */,
+				88CEF0CC1F19212F00B93196 /* TextViewCell.xib in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
 				88CEF0651F18BB4300B93196 /* CreatePost.storyboard in Resources */,
 				88CEF0711F18BB4300B93196 /* Login.storyboard in Resources */,
@@ -1564,6 +1648,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88CEF0BA1F18E8F500B93196 /* UIImageView+ImageCache.swift in Sources */,
+				88CEF0AC1F18C68800B93196 /* CreateAccountDataDisplayManager.swift in Sources */,
 				88CEF0A01F18BB4300B93196 /* NibLoadable.swift in Sources */,
 				88CEF0021F18BB4300B93196 /* NotificationsAPI.swift in Sources */,
 				88CEF01B1F18BB4300B93196 /* GetRequestTokenResponse.swift in Sources */,
@@ -1585,7 +1671,9 @@
 				88CEF05A1F18BB4300B93196 /* CreateAccountViewInput.swift in Sources */,
 				88CEF03C1F18BB4300B93196 /* UserCompactView.swift in Sources */,
 				88CEF02C1F18BB4300B93196 /* PostSessionRequest.swift in Sources */,
+				88CEF0A41F18BDAD00B93196 /* Indetifiable.swift in Sources */,
 				88CEF0801F18BB4300B93196 /* MenuViewController.swift in Sources */,
+				88CEF0A71F18BEC100B93196 /* CreateAccountCellModel.swift in Sources */,
 				88CEF04D1F18BB4300B93196 /* ThirdPartyConfigurator.swift in Sources */,
 				88CEF04A1F18BB4300B93196 /* GoogleAPI.swift in Sources */,
 				88CEF0081F18BB4300B93196 /* SessionsAPI.swift in Sources */,
@@ -1594,6 +1682,7 @@
 				88CEEFF21F18BB4300B93196 /* NavigationStackContainer.swift in Sources */,
 				88CEF03A1F18BB4300B93196 /* ReplyView.swift in Sources */,
 				88CEF0601F18BB4300B93196 /* CreatePostInteractorOutput.swift in Sources */,
+				88CEF0B61F18D50C00B93196 /* CellModel.swift in Sources */,
 				88CEF0391F18BB4300B93196 /* PutUserVisibilityRequest.swift in Sources */,
 				88CEF0621F18BB4300B93196 /* CreatePostPresenter.swift in Sources */,
 				88CEF0901F18BB4300B93196 /* RootConfigurator.swift in Sources */,
@@ -1604,6 +1693,7 @@
 				88CEEFF31F18BB4300B93196 /* SingleMenu.swift in Sources */,
 				88CEF04C1F18BB4300B93196 /* TwitterAPI.swift in Sources */,
 				88CEF0221F18BB4300B93196 /* PostCommentResponse.swift in Sources */,
+				88CEF0C51F18F79B00B93196 /* TextViewCell.swift in Sources */,
 				88CEF01C1F18BB4300B93196 /* GetTopicNameResponse.swift in Sources */,
 				88CEF0981F18BB4300B93196 /* TabMenuContainerPresenter.swift in Sources */,
 				88CEF08B1F18BB4300B93196 /* MenuStackRouterInput.swift in Sources */,
@@ -1621,6 +1711,7 @@
 				88CEF0371F18BB4300B93196 /* PutUserInfoRequest.swift in Sources */,
 				88CEF07A1F18BB4300B93196 /* MenuModuleInput.swift in Sources */,
 				88CEEFFB1F18BB4300B93196 /* APIHelper.swift in Sources */,
+				88CEF0B01F18CAEF00B93196 /* Reusable.swift in Sources */,
 				88CEF05E1F18BB4300B93196 /* CreatePostInteractor.swift in Sources */,
 				88CEF0451F18BB4300B93196 /* ImageCache.swift in Sources */,
 				88CEF04E1F18BB4300B93196 /* URLSchemes.swift in Sources */,
@@ -1630,6 +1721,7 @@
 				88CEEFEF1F18BB4300B93196 /* Identifiable.swift in Sources */,
 				88CEF0611F18BB4300B93196 /* CreatePostModuleInput.swift in Sources */,
 				88CEEFFC1F18BB4300B93196 /* BlobsAPI.swift in Sources */,
+				88CEF0B81F18E4AC00B93196 /* Constants.swift in Sources */,
 				88CEF05D1F18BB4300B93196 /* CreatePostInitializer.swift in Sources */,
 				88CEF0321F18BB4300B93196 /* PostUserResponse.swift in Sources */,
 				88CEF0331F18BB4300B93196 /* PutNotificationsStatusRequest.swift in Sources */,
@@ -1639,6 +1731,7 @@
 				88CEF0291F18BB4300B93196 /* PostReplyRequest.swift in Sources */,
 				88CEF0941F18BB4300B93196 /* TabMenuContainerInteractor.swift in Sources */,
 				88CEF0671F18BB4300B93196 /* CreatePostViewInput.swift in Sources */,
+				88CEF0C01F18EDF600B93196 /* UIView+Ext.swift in Sources */,
 				88CEEFF01F18BB4300B93196 /* DualMenu.swift in Sources */,
 				88CEF0401F18BB4300B93196 /* Storyboards.swift in Sources */,
 				88CEF0001F18BB4300B93196 /* ImagesAPI.swift in Sources */,
@@ -1658,12 +1751,14 @@
 				88CEF0111F18BB4300B93196 /* CommentView.swift in Sources */,
 				88CEF01F1F18BB4300B93196 /* PostBlobResponse.swift in Sources */,
 				88CEF00E1F18BB4300B93196 /* ActivityView.swift in Sources */,
+				88CEF0AE1F18C74A00B93196 /* TableDataDisplayManager.swift in Sources */,
 				88CEF03F1F18BB4300B93196 /* Images.swift in Sources */,
 				88CEEFF61F18BB4300B93196 /* SlideMenu.swift in Sources */,
 				88CEF0181F18BB4300B93196 /* FeedResponseTopicView.swift in Sources */,
 				88CEF0991F18BB4300B93196 /* TabMenuContainerRouter.swift in Sources */,
 				88CEF0681F18BB4300B93196 /* CreatePostViewOutput.swift in Sources */,
 				88CEF06B1F18BB4300B93196 /* LoginInteractorInput.swift in Sources */,
+				88CEF0B41F18D2C100B93196 /* UITableView+Ext.swift in Sources */,
 				88CEF0841F18BB4300B93196 /* MenuStackInitializer.swift in Sources */,
 				88CEF08A1F18BB4300B93196 /* MenuStackRouter.swift in Sources */,
 				88CEEFFE1F18BB4300B93196 /* CommentsAPI.swift in Sources */,
@@ -1671,8 +1766,12 @@
 				88CEF00A1F18BB4300B93196 /* TopicsAPI.swift in Sources */,
 				88CEF06A1F18BB4300B93196 /* LoginInteractor.swift in Sources */,
 				88CEF0851F18BB4300B93196 /* MenuStackInteractor.swift in Sources */,
+				88CEF0C31F18F0CB00B93196 /* TextFieldCell.swift in Sources */,
+				88CEF0C71F19092600B93196 /* EquatableWithinEpsilon.swift in Sources */,
 				88CEF0501F18BB4300B93196 /* SocialPlus.swift in Sources */,
 				88CEF07D1F18BB4300B93196 /* MenuRouterInput.swift in Sources */,
+				88CEF0A21F18BD2D00B93196 /* SectionModel.swift in Sources */,
+				88CEF0B21F18D14B00B93196 /* CreateAccountCellModelsBuilder.swift in Sources */,
 				88CEEFF71F18BB4300B93196 /* SlideMenuVC.swift in Sources */,
 				88CEF08D1F18BB4300B93196 /* MenuStackViewController.swift in Sources */,
 				88CEF0241F18BB4300B93196 /* PostFollowingTopicRequest.swift in Sources */,
@@ -1699,6 +1798,7 @@
 				88CEF0631F18BB4300B93196 /* CreatePostRouter.swift in Sources */,
 				88CEF0551F18BB4300B93196 /* CreateAccountPresenter.swift in Sources */,
 				88CEF0571F18BB4300B93196 /* CreateAccountRouterInput.swift in Sources */,
+				88CEF0A91F18C50700B93196 /* UploadPhotoCell.swift in Sources */,
 				88CEF06D1F18BB4300B93196 /* LoginModuleOutput.swift in Sources */,
 				88CEF0201F18BB4300B93196 /* PostBlockedUserRequest.swift in Sources */,
 				88CEF0411F18BB4300B93196 /* Photo.swift in Sources */,
