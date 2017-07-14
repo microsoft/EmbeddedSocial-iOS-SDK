@@ -21,7 +21,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1503468403051551</string>
+				<string>fb1882968455299767</string>
 			</array>
 		</dict>
 		<dict>
@@ -60,14 +60,10 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED</key>
-	<true/>
 	<key>FacebookAppID</key>
-	<string>1503468403051551</string>
+	<string>1882968455299767</string>
 	<key>FacebookDisplayName</key>
 	<string>Social Plus</string>
-	<key>FirebaseAutomaticScreenReportingEnabled</key>
-	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
