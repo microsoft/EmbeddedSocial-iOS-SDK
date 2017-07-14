@@ -20,7 +20,9 @@ protocol AuthAPI {
 }
 
 protocol AuthServiceType {
-    func login(with provider: AuthProvider, from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void)
+    func login(with provider: AuthProvider,
+               from viewController: UIViewController?,
+               handler: @escaping (Result<SocialUser>) -> Void)
 }
 
 protocol AuthAPIProviderType {

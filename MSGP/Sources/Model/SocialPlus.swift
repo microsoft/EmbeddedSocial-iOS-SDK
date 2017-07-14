@@ -1,5 +1,5 @@
 //
-//  MSGP.swift
+//  SocialPlus.swift
 //  MSGP
 //
 //  Created by Vadim Bulavin on 7/10/17.
@@ -14,7 +14,7 @@ struct LaunchArguments {
     let launchOptions: [AnyHashable: Any]
 }
 
-public final class MSGP {
+public final class SocialPlus {
     private let launchArguments: LaunchArguments
     private let root: RootConfigurator
     private let urlSchemeService = URLSchemeService()
