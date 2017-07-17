@@ -22,8 +22,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     
     fileprivate let imagePikcer = ImagePicker()
     fileprivate var originImage: UIImage?
-    fileprivate let postButton = UIBarButtonItem(title: Button.Title.post, style: .plain,
-                                                 target: self, action: #selector(CreatePostViewController.post))
+    fileprivate var postButton: UIBarButtonItem!
 
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -33,6 +32,8 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
 
     // MARK: CreatePostViewInput
     func setupInitialState() {
+        postButton = UIBarButtonItem(title: Button.Title.post, style: .plain,
+                                     target: self, action: #selector(CreatePostViewController.post))
         imagePikcer.delegate = self
         title = Titles.addPost
         postButton.isEnabled = false
@@ -60,7 +61,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     
     @objc fileprivate func back() {
         if postBodyTextView.text.isEmpty && (titleTextField.text?.isEmpty)! && originImage == nil {
-            navigationController?.popViewController(animated: true)
+            output.back()
         }
         
         let actionSheet = UIAlertController(title: Alerts.Titles.returnToFeed,
@@ -70,7 +71,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         actionSheet.addAction(cancelAction)
         
         let leavePostAction = UIAlertAction(title: Button.Title.leavePost, style: .default) { (_) in
-            self.navigationController?.popViewController(animated: true)
+            self.output.back()
         }
         actionSheet.addAction(leavePostAction)
         

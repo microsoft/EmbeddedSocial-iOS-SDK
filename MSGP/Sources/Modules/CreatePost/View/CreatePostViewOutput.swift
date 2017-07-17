@@ -6,6 +6,8 @@
 //  Copyright © 2017 akvelon. All rights reserved.
 //
 
+import UIKit
+
 protocol CreatePostViewOutput {
 
     /**
@@ -15,4 +17,5 @@ protocol CreatePostViewOutput {
 
     func viewIsReady()
     func post(image: UIImage?, title: String?, body: String!)
+    func back()
 }

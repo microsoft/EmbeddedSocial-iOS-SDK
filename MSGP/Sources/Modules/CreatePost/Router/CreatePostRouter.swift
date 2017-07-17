@@ -7,5 +7,12 @@
 //
 
 class CreatePostRouter: CreatePostRouterInput {
-
+    func back(from view: UIViewController) {
+        guard let navigationContoller = view.navigationController else {
+            assertionFailure("ViewController must have a NavigationController to pop (CreatePostRouterInput: back)")
+            return
+        }
+        
+        navigationContoller.popViewController(animated: true)
+    }
 }
