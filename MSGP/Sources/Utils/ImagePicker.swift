@@ -23,11 +23,9 @@ class ImagePicker: NSObject {
         presentingView = view
         
         let actionSheet = UIAlertController(title: Alerts.Titles.choose,
-                                            message: Alerts.Messages.leaveNewPost, preferredStyle: .actionSheet)
+                                            message: nil, preferredStyle: .actionSheet)
         
-        let cancelAction = UIAlertAction(title: Button.Title.cancel, style: .cancel) { (_) in
-            
-        }
+        let cancelAction = UIAlertAction.init(title: Button.Title.cancel, style: .cancel, handler: nil)
         actionSheet.addAction(cancelAction)
         
         let takeNewPhotoAction = UIAlertAction(title: Button.Title.takePhoto, style: .default) { (_) in

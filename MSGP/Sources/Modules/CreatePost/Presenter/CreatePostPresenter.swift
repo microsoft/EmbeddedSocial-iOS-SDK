@@ -21,9 +21,17 @@ class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePo
         interactor.postTopic(image: image, title: title, body: body)
     }
     
+    func back() {
+        guard let vc = view as? UIViewController else {
+            return
+        }
+        
+        router.back(from: vc)
+    }
+    
     // MARK: CreatePostInteractorOutput
     func created(post: PostTopicResponse) {
-        
+        // TODO: handle
     }
     
     func postCreationFailed(error: Error) {

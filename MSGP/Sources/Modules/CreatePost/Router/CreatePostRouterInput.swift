@@ -9,5 +9,5 @@
 import Foundation
 
 protocol CreatePostRouterInput {
-
+     func back(from view: UIViewController)
 }

@@ -503,6 +503,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		63A1D42E1F18EEB00090C67A /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				63A1D42F1F18EEB00090C67A /* CreatePost */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		63A1D42F1F18EEB00090C67A /* CreatePost */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CreatePost;
+			sourceTree = "<group>";
+		};
 		72D92000FE0F19D2372A9E6B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -659,7 +674,6 @@
 			children = (
 				88CEEC0D1F17B8E500B93196 /* API.swift */,
 			);
-			name = "External API";
 			path = "External API";
 			sourceTree = "<group>";
 		};
@@ -1252,6 +1266,7 @@
 		9CD805361F0D012F00B9B0AC /* MSGPTests */ = {
 			isa = PBXGroup;
 			children = (
+				63A1D42E1F18EEB00090C67A /* Modules */,
 				9CD805391F0D012F00B9B0AC /* Info.plist */,
 				88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */,
 			);
