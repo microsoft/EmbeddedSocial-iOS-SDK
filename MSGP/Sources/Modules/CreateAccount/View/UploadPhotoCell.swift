@@ -28,7 +28,7 @@ final class UploadPhotoCell: UITableViewCell {
     
     private func setupLayout() {
         photoImageView.snp.makeConstraints { make in
-            make.left.equalTo(contentView).offset(Constants.createAccountContentPadding)
+            make.left.equalTo(contentView).offset(Constants.createAccount.contentPadding)
             make.centerY.equalTo(contentView)
             make.height.equalTo(photoImageView.snp.width)
             make.height.equalTo(contentView.snp.height).multipliedBy(0.65)
@@ -37,7 +37,7 @@ final class UploadPhotoCell: UITableViewCell {
         uploadLabel.snp.makeConstraints { make in
             make.left.equalTo(photoImageView.snp.right).offset(16.0)
             make.centerY.equalTo(contentView)
-            make.width.lessThanOrEqualTo(contentView).offset(Constants.createAccountContentPadding)
+            make.width.lessThanOrEqualTo(contentView).offset(Constants.createAccount.contentPadding)
         }
     }
     

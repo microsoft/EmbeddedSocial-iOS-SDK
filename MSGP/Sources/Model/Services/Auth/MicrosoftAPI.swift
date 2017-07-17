@@ -18,8 +18,7 @@ final class MicrosoftAPI: AuthAPI {
     
     private let application: MSALPublicClientApplication = {
         guard let app = try? MSALPublicClientApplication(clientId: clientID) else {
-            let url = "https://github.com/AzureAD/microsoft-authentication-library-for-objc"
-            fatalError("Microsoft ClientId is not set. Please follow the instructions from \(url)")
+            fatalError("Microsoft ClientId is not set")
         }
         return app
     }()
@@ -42,12 +41,12 @@ final class MicrosoftAPI: AuthAPI {
                 return
             }
             
-            self.getSocialUserInfo(token: result.accessToken, handler: handler)
+            self.getSocialUserInfo(tokenResult: result, handler: handler)
         }
     }
     
-    private func getSocialUserInfo(token: String, handler: @escaping (Result<SocialUser>) -> Void) {
-        let graphClient = MicrosoftGraphClient(token: token)
+    private func getSocialUserInfo(tokenResult: MSALResult, handler: @escaping (Result<SocialUser>) -> Void) {
+        let graphClient = MicrosoftGraphClient(token: tokenResult.accessToken)
         
         var userJSON: [String: Any]?
         var imageData: Data?
@@ -66,7 +65,7 @@ final class MicrosoftAPI: AuthAPI {
         }
         
         group.notify(queue: DispatchQueue.main) { [unowned self] in
-            guard let user = self.makeSocialUser(from: userJSON, imageData: imageData, token: token) else {
+            guard let user = self.makeSocialUser(from: userJSON, imageData: imageData, token: tokenResult.idToken) else {
                 handler(.failure(APIError.missingUserData))
                 return
             }

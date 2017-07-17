@@ -18,9 +18,10 @@ final class AuthService: AuthServiceType {
     func login(with provider: AuthProvider,
                from viewController: UIViewController?,
                handler: @escaping (Result<SocialUser>) -> Void) {
-        let api = apiProvider.api(for: provider)
-        api.login(from: viewController) { result in
-            _ = api // to extend lifetime
+        
+        let socialAPI = apiProvider.api(for: provider)
+        socialAPI.login(from: viewController) { result in
+            _ = socialAPI // to extend lifetime
             handler(result)
         }
     }
@@ -33,7 +34,7 @@ final class AuthService: AuthServiceType {
         params.bio = user.bio
         params.photoHandle = user.photo?.uid
         
-        EmbeddedSocialClientAPI.customHeaders = ["Authorization": "Google AK=\(Constants.appKey)|TK=\(user.token)"]
+        EmbeddedSocialClientAPI.customHeaders = ["Authorization": user.provider.authHeader(for: user)]
         
         UsersAPI.usersPostUser(request: params) { response, error in
             print(response, error)

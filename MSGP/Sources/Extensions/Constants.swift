@@ -10,9 +10,15 @@ import UIKit
 
 struct Constants {
     static let appKey = "ec1665a4-920d-4449-b8a0-49ed374d4290"
-    
-    static let createAccountContentPadding: CGFloat = 20.0
-    static let createAccountUploadPhotoHeight: CGFloat = 84.0
     static let standardCellHeight: CGFloat = 44.0
-    static let maxBioLength: Int = 500
+}
+
+// swiftlint:disable type_name
+extension Constants {
+    
+    struct createAccount {
+        static let contentPadding: CGFloat = 20.0
+        static let uploadPhotoHeight: CGFloat = 84.0
+        static let maxBioLength: Int = 500
+    }
 }

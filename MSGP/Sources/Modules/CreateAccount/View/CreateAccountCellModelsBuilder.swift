@@ -30,9 +30,9 @@ struct CreateAccountCellModelsBuilder {
     private func makeSection2(user: SocialUser) -> Section {
         let bioVerticalOffset: CGFloat = 12.0
         let edgeInsets = UIEdgeInsets(top: bioVerticalOffset,
-                                      left: Constants.createAccountContentPadding,
+                                      left: Constants.createAccount.contentPadding,
                                       bottom: bioVerticalOffset,
-                                      right: Constants.createAccountContentPadding)
+                                      right: Constants.createAccount.contentPadding)
         
         let firstNameStyle = TextFieldCell.Style(
             text: user.firstName,
@@ -55,7 +55,7 @@ struct CreateAccountCellModelsBuilder {
             font: Fonts.regular,
             placeholder: "Bio",
             edgeInsets: edgeInsets,
-            charactersLimit: Constants.maxBioLength,
+            charactersLimit: Constants.createAccount.maxBioLength,
             onTextChanged: onBioChanged,
             onLinesCountChanged: { _ in self.onBioLinesCountChanged?() }
         )
