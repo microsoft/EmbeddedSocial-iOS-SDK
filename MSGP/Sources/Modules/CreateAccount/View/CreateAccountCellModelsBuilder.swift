@@ -55,6 +55,7 @@ struct CreateAccountCellModelsBuilder {
             font: Fonts.regular,
             placeholder: "Bio",
             edgeInsets: edgeInsets,
+            charactersLimit: Constants.maxBioLength,
             onTextChanged: onBioChanged,
             onLinesCountChanged: { _ in self.onBioLinesCountChanged?() }
         )

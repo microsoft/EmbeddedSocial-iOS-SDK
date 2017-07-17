@@ -16,6 +16,8 @@ class TextViewCell: UITableViewCell {
     
     fileprivate var contentHeight: CGFloat? = 0.0
     
+    fileprivate var limit: Int?
+    
     @IBOutlet fileprivate weak var textView: UITextView! {
         didSet {
             textView.delegate = self
@@ -35,6 +37,7 @@ class TextViewCell: UITableViewCell {
         onLinesCountChanged = nil
         contentHeight = nil
         textView.textContainerInset = .zero
+        limit = nil
     }
     
     /// Has side-effect of modifying text view text. Only use in prototype cells for sizing
@@ -65,6 +68,13 @@ extension TextViewCell: UITextViewDelegate {
         onTextChanged?(textView.text)
         notifyLineCountsChangedIfNeeded(textView)
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let limit = limit else {
+            return true
+        }
+        return textView.text.characters.count + (text.characters.count - range.length) <= limit
+    }
 }
 
 extension TextViewCell {
@@ -76,6 +86,7 @@ extension TextViewCell {
         let font: UIFont
         let placeholder: String?
         let edgeInsets: UIEdgeInsets
+        let charactersLimit: Int?
         let onTextChanged: TextChangeHandler?
         let onLinesCountChanged: LinesCountChangeHandler?
         
@@ -83,12 +94,14 @@ extension TextViewCell {
              font: UIFont = .systemFont(ofSize: UIFont.systemFontSize),
              placeholder: String? = nil,
              edgeInsets: UIEdgeInsets = .zero,
+             charactersLimit: Int? = nil,
              onTextChanged: TextChangeHandler? = nil,
              onLinesCountChanged: LinesCountChangeHandler? = nil) {
             self.text = text
             self.font = font
             self.placeholder = placeholder
             self.edgeInsets = edgeInsets
+            self.charactersLimit = charactersLimit
             self.onTextChanged = onTextChanged
             self.onLinesCountChanged = onLinesCountChanged
         }
@@ -98,6 +111,7 @@ extension TextViewCell {
         textView.text = style.text
         textView.placeholder = style.placeholder
         textView.font = style.font
+        limit = style.charactersLimit
         onTextChanged = style.onTextChanged
         onLinesCountChanged = style.onLinesCountChanged
         textView.textContainerInset = style.edgeInsets
