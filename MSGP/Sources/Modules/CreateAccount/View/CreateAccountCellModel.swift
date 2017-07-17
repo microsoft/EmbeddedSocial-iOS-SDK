@@ -15,6 +15,10 @@ enum CreateAccountItem {
     case bio(TextViewCell.Style)
 }
 
+enum CreateAccountGroupHeader {
+    case accountInformation(GroupHeaderTableCell.Style, String?)
+}
+
 extension CreateAccountItem: CellModel {
     var reuseID: String {
         switch self {

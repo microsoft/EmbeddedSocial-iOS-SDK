@@ -7,5 +7,9 @@
 //
 
 protocol CreateAccountViewInput: class {
-    func setupInitialState()
+    func setupInitialState(with user: User)
+    
+    func setUser(_ user: User)
+    
+    func showError(_ error: Error)
 }

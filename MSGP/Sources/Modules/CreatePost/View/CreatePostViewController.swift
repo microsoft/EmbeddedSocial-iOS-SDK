@@ -56,7 +56,10 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     }
     
     @IBAction fileprivate func mediaButtonPressed(_ sender: Any) {
-        imagePikcer.show(from: self)
+        let options = ImagePicker.Options(title: Alerts.Titles.choose,
+                                          message: Alerts.Messages.leaveNewPost,
+                                          sourceViewController: self)
+        imagePikcer.show(with: options)
     }
     
     @objc fileprivate func back() {
@@ -80,7 +83,9 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
 // MARK: ImagePickerDelegate
 extension CreatePostViewController: ImagePickerDelegate {
     func selected(image: UIImage) {
-        mediaButton.setImage(imagePikcer.resizeImage(image: image, newWidth: UIScreen.main.bounds.width), for: .normal)
+        let size = CGSize(width: UIScreen.main.bounds.width, height: image.size.height)
+        let resizedImage = image.scaledToFit(toSize: size)
+        mediaButton.setImage(resizedImage, for: .normal)
         view.layoutIfNeeded()
     }
 }

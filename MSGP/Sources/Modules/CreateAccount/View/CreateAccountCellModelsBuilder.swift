@@ -17,12 +17,18 @@ struct CreateAccountCellModelsBuilder {
     var onBioChanged: TextChangedHandler?
     var onBioLinesCountChanged: (() -> Void)?
     
-    func makeSections(user: SocialUser, tableView: UITableView) -> [Section] {
-        let section1 = Section(model: nil, items: [
+    func makeSections(user: User) -> [Section] {
+        return [makeSection1(user: user), makeSection2(user: user)]
+    }
+    
+    private func makeSection1(user: User) -> Section {
+        return Section(model: nil, items: [
             .uploadPhoto(user.photo)
             ])
-        
-        let bioVerticalOffset: CGFloat = 8.0
+    }
+    
+    private func makeSection2(user: User) -> Section {
+        let bioVerticalOffset: CGFloat = 12.0
         let edgeInsets = UIEdgeInsets(top: bioVerticalOffset,
                                       left: Constants.createAccountContentPadding,
                                       bottom: bioVerticalOffset,
@@ -31,6 +37,7 @@ struct CreateAccountCellModelsBuilder {
         let firstNameStyle = TextFieldCell.Style(
             text: user.firstName,
             placeholderText: "First name",
+            font: Fonts.regular,
             edgeInsets: edgeInsets,
             onTextChanged: onFirstNameChanged
         )
@@ -38,28 +45,25 @@ struct CreateAccountCellModelsBuilder {
         let lastNameStyle = TextFieldCell.Style(
             text: user.lastName,
             placeholderText: "Last name",
+            font: Fonts.regular,
             edgeInsets: edgeInsets,
             onTextChanged: onLastNameChanged
         )
         
         let bioStyle = TextViewCell.Style(
-            text: nil,
+            text: user.bio,
+            font: Fonts.regular,
             placeholder: "Bio",
             edgeInsets: edgeInsets,
             onTextChanged: onBioChanged,
             onLinesCountChanged: { _ in self.onBioLinesCountChanged?() }
         )
         
-        let section2 = Section(model: nil, items: [
+        let headerModel = CreateAccountGroupHeader.accountInformation(.createAccount, "ACCOUNT INFORMATION")
+        return Section(model: headerModel, items: [
             .firstName(firstNameStyle),
             .lastName(lastNameStyle),
             .bio(bioStyle)
             ])
-        
-        for item in section1.items + section2.items {
-            tableView.register(cellClass: item.cellClass)
-        }
-        
-        return [section1, section2]
     }
 }

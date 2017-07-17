@@ -8,10 +8,8 @@
 
 final class CreateAccountInteractor: CreateAccountInteractorInput {
     private let authService: AuthServiceType
-    private let user: SocialUser
 
-    init(user: SocialUser, authService: AuthServiceType) {
-        self.user = user
+    init(authService: AuthServiceType) {
         self.authService = authService
     }
     

@@ -17,17 +17,25 @@ class ImagePicker: NSObject {
     weak var delegate: ImagePickerDelegate?
     
     fileprivate weak var presentingView: UIViewController?
+    
     fileprivate let imagePicker = UIImagePickerController()
     
-    func show<T: UIViewController>(from view: T) where T: ImagePickerDelegate {
-        presentingView = view
-        
-        let actionSheet = UIAlertController(title: Alerts.Titles.choose,
-                                            message: Alerts.Messages.leaveNewPost, preferredStyle: .actionSheet)
-        
-        let cancelAction = UIAlertAction(title: Button.Title.cancel, style: .cancel) { (_) in
-            
-        }
+    fileprivate var onImageSelected: ((Result<UIImage>) -> Void)?
+    
+    func show(with options: Options) {
+        presentingView = options.sourceViewController
+        openSourceSelectionSheet(with: options)
+    }
+    
+    func show(with options: Options, completion: @escaping (Result<UIImage>) -> Void) {
+        presentingView = options.sourceViewController
+        onImageSelected = completion
+        openSourceSelectionSheet(with: options)
+    }
+    
+    private func openSourceSelectionSheet(with options: Options) {
+        let actionSheet = UIAlertController(title: options.title, message: options.message, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: Button.Title.cancel, style: .cancel, handler: nil)
         actionSheet.addAction(cancelAction)
         
         let takeNewPhotoAction = UIAlertAction(title: Button.Title.takePhoto, style: .default) { (_) in
@@ -40,7 +48,7 @@ class ImagePicker: NSObject {
         }
         actionSheet.addAction(chooseExistingPhotoAction)
         
-        view.present(actionSheet, animated: true, completion: nil)
+        options.sourceViewController.present(actionSheet, animated: true, completion: nil)
     }
     
     private func showImagePicker(sourceType: UIImagePickerControllerSourceType) {
@@ -48,30 +56,50 @@ class ImagePicker: NSObject {
         imagePicker.sourceType = sourceType
         presentingView?.present(imagePicker, animated: true, completion: nil)
     }
-    
-    public func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
-        let scale = newWidth / image.size.width
-        let newHeight = image.size.height * scale
-        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
-        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
+}
+
+extension ImagePicker {
+    struct Options {
+        let title: String?
+        let message: String?
+        let sourceViewController: UIViewController
         
-        return newImage!
+        init(title: String? = nil, message: String? = nil, sourceViewController: UIViewController) {
+            self.title = title
+            self.message = message
+            self.sourceViewController = sourceViewController
+        }
     }
 }
 
 // MARK: UIImagePickerControllerDelegate
 extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    internal func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        onImageSelected?(.failure(Error.cancelled))
         presentingView?.dismiss(animated: true, completion: nil)
     }
     
-    internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            delegate?.selected(image: pickedImage)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            delegate?.selected(image: image)
+            onImageSelected?(.success(image))
+        } else {
+            onImageSelected?(.failure(Error.unkown))
         }
-        
         presentingView?.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ImagePicker {
+    enum Error: LocalizedError {
+        case cancelled
+        case unkown
+
+        public var errorDescription: String? {
+            switch self {
+            case .cancelled: return "Cancelled by user."
+            case .unkown: return "Unknown error."
+            }
+        }
     }
 }

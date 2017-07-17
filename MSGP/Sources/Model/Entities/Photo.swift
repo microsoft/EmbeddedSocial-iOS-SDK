@@ -11,10 +11,12 @@ import Foundation
 struct Photo {
     let uid: String
     let url: String?
+    private(set) var image: UIImage?
     
-    init(uid: String = UUID().uuidString, url: String? = nil) {
+    init(uid: String = UUID().uuidString, url: String? = nil, image: UIImage? = nil) {
         self.uid = uid
         self.url = url
+        self.image = image
     }
 }
 

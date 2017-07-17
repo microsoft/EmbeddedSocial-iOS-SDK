@@ -21,15 +21,25 @@ class CreateAccountViewController: UIViewController, CreateAccountViewInput {
         output.viewIsReady()
     }
 
-    func setupInitialState() {
-        dataManager.tableView = tableView
+    func setupInitialState(with user: User) {
+        dataManager.update(tableView: tableView, with: user)
         
         tableView.dataSource = dataManager.tableDataSource(for: tableView)
         tableView.delegate = dataManager.tableDelegate
         tableView.tableFooterView = UIView()
         
-//        dataManager.onLastNameChanged = { () }
-//        dataManager.onFirstNameChanged = { () }
-//        dataManager.onBioChanged = { () }
+        dataManager.onLastNameChanged = { [weak self] text in self?.output.onLastNameChanged(text) }
+        dataManager.onFirstNameChanged = { [weak self] text in self?.output.onFirstNameChanged(text) }
+        dataManager.onBioChanged = { [weak self] text in self?.output.onBioChanged(text) }
+        dataManager.onSelectPhoto = { [weak self] in self?.output.onSelectPhoto() }
+    }
+    
+    func setUser(_ user: User) {
+        dataManager.update(tableView: tableView, with: user)
+        tableView.reloadData()
+    }
+    
+    func showError(_ error: Error) {
+        showErrorAlert(error)
     }
 }

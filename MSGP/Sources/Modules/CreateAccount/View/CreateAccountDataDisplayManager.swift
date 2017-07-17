@@ -9,20 +9,23 @@
 import Foundation
 
 final class CreateAccountDataDisplayManager: NSObject, TableDataDisplayManager {
-    typealias Section = SectionModel<String?, CreateAccountItem>
+    typealias Section = SectionModel<CreateAccountGroupHeader?, CreateAccountItem>
     typealias TextChangedHandler = (String?) -> Void
+    
+    fileprivate let groupHeaderCellClass = GroupHeaderTableCell.self
 
-    fileprivate let user: SocialUser
+    fileprivate var user: User!
     fileprivate(set) var sections: [Section]!
     
-    weak var tableView: UITableView?
+    fileprivate weak var tableView: UITableView?
     
     fileprivate var bioText: String?
     
     var onFirstNameChanged: TextChangedHandler?
     var onLastNameChanged: TextChangedHandler?
     var onBioChanged: TextChangedHandler?
-    
+    var onSelectPhoto: (() -> Void)?
+
     private lazy var builder: CreateAccountCellModelsBuilder = { [unowned self] in
         var builder = CreateAccountCellModelsBuilder()
         builder.onFirstNameChanged = { self.onFirstNameChanged?($0) }
@@ -40,18 +43,32 @@ final class CreateAccountDataDisplayManager: NSObject, TableDataDisplayManager {
     
     fileprivate let prototypeTextViewCell = TextViewCell()
     
-    init(user: SocialUser) {
-        self.user = user
-        super.init()
-    }
-    
     func tableDataSource(for tableView: UITableView) -> UITableViewDataSource? {
         if sections == nil {
-            sections = builder.makeSections(user: user, tableView: tableView)
-            tableView.rowHeight = UITableViewAutomaticDimension
-            tableView.estimatedRowHeight = 44
+            update(tableView: tableView, with: user)
         }
         return self
+    }
+    
+    func update(tableView: UITableView, with user: User) {
+        self.user = user
+        self.tableView = tableView
+        sections = builder.makeSections(user: user)
+        setupTableWithSections(tableView, sections: sections)
+    }
+    
+    private func setupTableWithSections(_ tableView: UITableView, sections: [Section]) {
+        registerCells(for: tableView)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 44
+    }
+    
+    func registerCells(for tableView: UITableView) {
+        let items = sections.flatMap { $0.items }
+        for item in items {
+            tableView.register(cellClass: item.cellClass)
+        }
+        tableView.register(cellClass: groupHeaderCellClass) // for group header
     }
     
     var tableDelegate: UITableViewDelegate? {
@@ -66,6 +83,8 @@ final class CreateAccountDataDisplayManager: NSObject, TableDataDisplayManager {
     }
     
     private func configure(cell: UITableViewCell, with item: CreateAccountItem) {
+        cell.selectionStyle = .none
+
         switch item {
         case let .uploadPhoto(photo):
             (cell as? UploadPhotoCell)?.configure(photo: photo)
@@ -89,15 +108,33 @@ extension CreateAccountDataDisplayManager: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].model
-    }
 }
 
 extension CreateAccountDataDisplayManager: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        guard case .uploadPhoto = sections[indexPath.section].items[indexPath.row] else {
+            return
+        }
+        // https://stackoverflow.com/a/22173707/6870041 workaround
+        DispatchQueue.main.async {
+            self.onSelectPhoto?()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let model = sections[section].model,
+            case let .accountInformation(style, title) = model,
+            let header = tableView.dequeueReusableCell(
+                withIdentifier: groupHeaderCellClass.reuseID) as? GroupHeaderTableCell else {
+                    return nil
+        }
+        header.configure(title: title)
+        header.apply(style: style)
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return sections[section].model != nil ? Constants.standardCellHeight : 0.0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
