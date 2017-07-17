@@ -43,7 +43,7 @@ struct And<V1: Validator, V2: Validator>: Validator where V1.WrappedType == V2.W
         return V1.validate(value) && V2.validate(value)
     }
 }
-
+// swiftlint:disable type_name
 struct Or<V1: Validator, V2: Validator>: Validator where V1.WrappedType == V2.WrappedType {
     static func validate(_ value: V1.WrappedType) -> Bool {
         return V1.validate(value) || V2.validate(value)

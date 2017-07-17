@@ -46,17 +46,8 @@ final class LoginPresenter: LoginViewOutput {
     }
 }
 
-extension LoginPresenter: LoginModuleInput { }
-
 extension LoginPresenter: CreateAccountModuleOutput {
-    
-    func onAccountCreated(result: Result<User>) {
-        if let user = result.value {
-            moduleOutput?.onLogin(user)
-        } else if let error = result.error {
-            view.showError(error)
-        } else {
-            fatalError("Unsupported response")
-        }
+    func onAccountCreated(user: User) {
+        moduleOutput?.onLogin(user)
     }
 }

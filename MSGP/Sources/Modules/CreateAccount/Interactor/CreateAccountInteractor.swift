@@ -14,6 +14,6 @@ final class CreateAccountInteractor: CreateAccountInteractorInput {
     }
     
     func createAccount(for user: SocialUser, completion: @escaping (Result<User>) -> Void) {
-        
+        authService.createAccount(for: user, completion: completion)
     }
 }

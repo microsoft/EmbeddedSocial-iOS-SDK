@@ -155,7 +155,6 @@
 		88CEF0691F18BB4300B93196 /* LoginConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEF991F18BB4300B93196 /* LoginConfigurator.swift */; };
 		88CEF06A1F18BB4300B93196 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEF9B1F18BB4300B93196 /* LoginInteractor.swift */; };
 		88CEF06B1F18BB4300B93196 /* LoginInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEF9C1F18BB4300B93196 /* LoginInteractorInput.swift */; };
-		88CEF06C1F18BB4300B93196 /* LoginModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEF9E1F18BB4300B93196 /* LoginModuleInput.swift */; };
 		88CEF06D1F18BB4300B93196 /* LoginModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEF9F1F18BB4300B93196 /* LoginModuleOutput.swift */; };
 		88CEF06E1F18BB4300B93196 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEFA01F18BB4300B93196 /* LoginPresenter.swift */; };
 		88CEF06F1F18BB4300B93196 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEEFA21F18BB4300B93196 /* LoginRouter.swift */; };
@@ -427,7 +426,6 @@
 		88CEEF991F18BB4300B93196 /* LoginConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginConfigurator.swift; sourceTree = "<group>"; };
 		88CEEF9B1F18BB4300B93196 /* LoginInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
 		88CEEF9C1F18BB4300B93196 /* LoginInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInteractorInput.swift; sourceTree = "<group>"; };
-		88CEEF9E1F18BB4300B93196 /* LoginModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModuleInput.swift; sourceTree = "<group>"; };
 		88CEEF9F1F18BB4300B93196 /* LoginModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModuleOutput.swift; sourceTree = "<group>"; };
 		88CEEFA01F18BB4300B93196 /* LoginPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		88CEEFA21F18BB4300B93196 /* LoginRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
@@ -1009,7 +1007,6 @@
 		88CEEF9D1F18BB4300B93196 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				88CEEF9E1F18BB4300B93196 /* LoginModuleInput.swift */,
 				88CEEF9F1F18BB4300B93196 /* LoginModuleOutput.swift */,
 				88CEEFA01F18BB4300B93196 /* LoginPresenter.swift */,
 			);
@@ -1758,7 +1755,6 @@
 				88CEF0191F18BB4300B93196 /* FeedResponseUserCompactView.swift in Sources */,
 				88CEEFF41F18BB4300B93196 /* Palette.swift in Sources */,
 				88CEF0861F18BB4300B93196 /* MenuStackInteractorInput.swift in Sources */,
-				88CEF06C1F18BB4300B93196 /* LoginModuleInput.swift in Sources */,
 				88CEF0261F18BB4300B93196 /* PostImageResponse.swift in Sources */,
 				88CEF08F1F18BB4300B93196 /* MenuStackViewOutput.swift in Sources */,
 				88CEF0831F18BB4300B93196 /* MenuStackConfigurator.swift in Sources */,

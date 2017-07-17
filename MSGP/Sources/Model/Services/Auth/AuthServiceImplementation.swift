@@ -24,4 +24,19 @@ final class AuthService: AuthServiceType {
             handler(result)
         }
     }
+    
+    func createAccount(for user: SocialUser, completion: @escaping (Result<User>) -> Void) {
+        let params = PostUserRequest()
+        params.instanceId = user.uid
+        params.firstName = user.firstName
+        params.lastName = user.lastName
+        params.bio = user.bio
+        params.photoHandle = user.photo?.uid
+        
+        EmbeddedSocialClientAPI.customHeaders = ["Authorization": "Google AK=\(Constants.appKey)|TK=\(user.token)"]
+        
+        UsersAPI.usersPostUser(request: params) { response, error in
+            print(response, error)
+        }
+    }
 }

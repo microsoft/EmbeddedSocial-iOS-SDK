@@ -67,8 +67,12 @@ class CreateAccountPresenter: CreateAccountViewOutput {
     }
     
     func onCreateAccount() {
-        interactor.createAccount(for: updatedCurrentUser()) { result in
-            
+        interactor.createAccount(for: updatedCurrentUser()) { [weak self] result in
+            if let user = result.value {
+                self?.moduleOutput?.onAccountCreated(user: user)
+            } else if let error = result.error {
+                self?.view.showError(error)
+            }
         }
     }
     
