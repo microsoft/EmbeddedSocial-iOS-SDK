@@ -17,17 +17,17 @@ struct CreateAccountCellModelsBuilder {
     var onBioChanged: TextChangedHandler?
     var onBioLinesCountChanged: (() -> Void)?
     
-    func makeSections(user: User) -> [Section] {
+    func makeSections(user: SocialUser) -> [Section] {
         return [makeSection1(user: user), makeSection2(user: user)]
     }
     
-    private func makeSection1(user: User) -> Section {
+    private func makeSection1(user: SocialUser) -> Section {
         return Section(model: nil, items: [
             .uploadPhoto(user.photo)
             ])
     }
     
-    private func makeSection2(user: User) -> Section {
+    private func makeSection2(user: SocialUser) -> Section {
         let bioVerticalOffset: CGFloat = 12.0
         let edgeInsets = UIEdgeInsets(top: bioVerticalOffset,
                                       left: Constants.createAccountContentPadding,

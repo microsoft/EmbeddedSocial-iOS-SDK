@@ -16,4 +16,6 @@ protocol CreateAccountViewOutput {
     func onBioChanged(_ text: String?)
     
     func onSelectPhoto()
+    
+    func onCreateAccount()
 }

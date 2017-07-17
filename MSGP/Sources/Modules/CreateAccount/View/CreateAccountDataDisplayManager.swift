@@ -14,7 +14,7 @@ final class CreateAccountDataDisplayManager: NSObject, TableDataDisplayManager {
     
     fileprivate let groupHeaderCellClass = GroupHeaderTableCell.self
 
-    fileprivate var user: User!
+    fileprivate var user: SocialUser!
     fileprivate(set) var sections: [Section]!
     
     fileprivate weak var tableView: UITableView?
@@ -50,7 +50,7 @@ final class CreateAccountDataDisplayManager: NSObject, TableDataDisplayManager {
         return self
     }
     
-    func update(tableView: UITableView, with user: User) {
+    func update(tableView: UITableView, with user: SocialUser) {
         self.user = user
         self.tableView = tableView
         sections = builder.makeSections(user: user)

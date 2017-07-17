@@ -18,31 +18,39 @@ class CreateAccountPresenter: CreateAccountViewOutput {
     private var bio: String?
     private var photo: UIImage?
     
-    private let socialUser: SocialUser
-    private var user: User!
+    private var user: SocialUser
 
     init(user: SocialUser) {
         firstName = user.firstName
         lastName = user.lastName
         photo = user.photo?.image
-        self.socialUser = user
-        self.user = makeUserFromCurrentState(with: user.photo)
+        bio = user.bio
+        self.user = user
     }
 
     func viewIsReady() {        
         view.setupInitialState(with: user)
+        updateCreateAccountButtonEnabledState()
     }
     
     func onFirstNameChanged(_ text: String?) {
         firstName = text
+        updateCreateAccountButtonEnabledState()
     }
     
     func onLastNameChanged(_ text: String?) {
         lastName = text
+        updateCreateAccountButtonEnabledState()
     }
     
     func onBioChanged(_ text: String?) {
         bio = text
+        updateCreateAccountButtonEnabledState()
+    }
+    
+    private func updateCreateAccountButtonEnabledState() {
+        let options = CreateAccountValidator.Options(firstName: firstName, lastName: lastName, bio: bio, photo: photo)
+        view.setCreateAccountButtonEnabled(CreateAccountValidator.validate(options))
     }
     
     func onSelectPhoto() {
@@ -52,21 +60,31 @@ class CreateAccountPresenter: CreateAccountViewOutput {
         
         router.openImagePicker(from: vc) { [unowned self] result in
             if let image = result.value {
-                self.user = self.makeUserFromCurrentState(with: Photo(image: image))
-                self.view.setUser(self.user)
+                let user = self.updatedCurrentUser(with: Photo(image: image))
+                self.view.setUser(user)
             }
         }
     }
     
-    private func makeUserFromCurrentState(with photo: Photo?) -> User {
-        return User(uid: socialUser.uid,
-                    socialUserUID: socialUser.uid,
-                    socialUserToken: socialUser.token,
-                    firstName: firstName,
-                    lastName: lastName,
-                    email: socialUser.email,
-                    bio: bio,
-                    photo: photo,
-                    provider: socialUser.provider)
+    func onCreateAccount() {
+        interactor.createAccount(for: updatedCurrentUser()) { result in
+            
+        }
+    }
+    
+    private func updatedCurrentUser() -> SocialUser {
+        return updatedCurrentUser(with: user.photo)
+    }
+    
+    private func updatedCurrentUser(with photo: Photo?) -> SocialUser {
+        user = SocialUser(uid: user.uid,
+                          token: user.token,
+                          firstName: user.firstName,
+                          lastName: lastName,
+                          email: user.email,
+                          bio: bio,
+                          photo: photo,
+                          provider: user.provider)
+        return user
     }
 }

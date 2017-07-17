@@ -15,6 +15,7 @@ struct SocialUser {
     let firstName: String?
     let lastName: String?
     let email: String?
+    let bio: String?
     let photo: Photo?
     let provider: AuthProvider
 
@@ -24,6 +25,7 @@ struct SocialUser {
          firstName: String?,
          lastName: String?,
          email: String?,
+         bio: String? = nil,
          photo: Photo?,
          provider: AuthProvider) {
         self.uid = uid
@@ -32,6 +34,7 @@ struct SocialUser {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
+        self.bio = bio
         self.photo = photo
         self.provider = provider
     }

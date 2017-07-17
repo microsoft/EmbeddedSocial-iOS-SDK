@@ -21,7 +21,9 @@ class CreateAccountViewController: UIViewController, CreateAccountViewInput {
         output.viewIsReady()
     }
 
-    func setupInitialState(with user: User) {
+    func setupInitialState(with user: SocialUser) {
+        setupNavBar()
+        
         dataManager.update(tableView: tableView, with: user)
         
         tableView.dataSource = dataManager.tableDataSource(for: tableView)
@@ -34,12 +36,24 @@ class CreateAccountViewController: UIViewController, CreateAccountViewInput {
         dataManager.onSelectPhoto = { [weak self] in self?.output.onSelectPhoto() }
     }
     
-    func setUser(_ user: User) {
+    private func setupNavBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign up", style: .plain, target: self, action: #selector(self.signIn))
+    }
+    
+    func signIn() {
+        output.onCreateAccount()
+    }
+    
+    func setUser(_ user: SocialUser) {
         dataManager.update(tableView: tableView, with: user)
         tableView.reloadData()
     }
     
     func showError(_ error: Error) {
         showErrorAlert(error)
+    }
+    
+    func setCreateAccountButtonEnabled(_ isEnabled: Bool) {
+        navigationItem.rightBarButtonItem?.isEnabled = isEnabled
     }
 }

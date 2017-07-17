@@ -9,5 +9,5 @@
 import Foundation
 
 protocol CreateAccountInteractorInput {
-    func createAccount(for user: SocialUser, completion: @escaping (Result<SocialUser>) -> Void)
+    func createAccount(for user: SocialUser, completion: @escaping (Result<User>) -> Void)
 }

@@ -10,6 +10,11 @@
 		16F530A90E7396BB209BCFA6 /* Pods_MSGPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C05D6CAC013255DFDE14CC /* Pods_MSGPTests.framework */; };
 		81AD0D1E8833E15E31328205 /* Pods_Group_MSGP_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F06ACD77284F251B7691C0 /* Pods_Group_MSGP_Example.framework */; };
 		8839556D1F1CBD4A00048BDE /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8839556C1F1CBD4A00048BDE /* UIImage+Resize.swift */; };
+		8839556F1F1CD26500048BDE /* ButtonWithTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8839556E1F1CD26500048BDE /* ButtonWithTarget.swift */; };
+		883955711F1CD28C00048BDE /* UIBarButtonItem+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883955701F1CD28C00048BDE /* UIBarButtonItem+Ext.swift */; };
+		883955731F1CD2DB00048BDE /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883955721F1CD2DB00048BDE /* UIButton+Ext.swift */; };
+		883955751F1CD7C600048BDE /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883955741F1CD7C600048BDE /* Validator.swift */; };
+		883955781F1CD87400048BDE /* CreateAccountValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883955771F1CD87400048BDE /* CreateAccountValidator.swift */; };
 		885F9FCC1F165C9700A30CDF /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; };
 		885F9FCD1F165C9700A30CDF /* MSAL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
@@ -270,6 +275,11 @@
 		5D4DBFFF6DE343119200FF08 /* Pods-MSGPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.debug.xcconfig"; sourceTree = "<group>"; };
 		72C05D6CAC013255DFDE14CC /* Pods_MSGPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8839556C1F1CBD4A00048BDE /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
+		8839556E1F1CD26500048BDE /* ButtonWithTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonWithTarget.swift; sourceTree = "<group>"; };
+		883955701F1CD28C00048BDE /* UIBarButtonItem+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Ext.swift"; sourceTree = "<group>"; };
+		883955721F1CD2DB00048BDE /* UIButton+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
+		883955741F1CD7C600048BDE /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		883955771F1CD87400048BDE /* CreateAccountValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountValidator.swift; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -549,6 +559,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		883955761F1CD85C00048BDE /* Validators */ = {
+			isa = PBXGroup;
+			children = (
+				883955741F1CD7C600048BDE /* Validator.swift */,
+				883955771F1CD87400048BDE /* CreateAccountValidator.swift */,
+			);
+			name = Validators;
+			sourceTree = "<group>";
+		};
 		886B39C61F138F5D00BF1A8E /* MSGP-Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -603,6 +622,7 @@
 				88CEF0A31F18BDAD00B93196 /* Indetifiable.swift */,
 				88CEF0AD1F18C74A00B93196 /* TableDataDisplayManager.swift */,
 				88CEF0B51F18D50C00B93196 /* CellModel.swift */,
+				8839556E1F1CD26500048BDE /* ButtonWithTarget.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -636,6 +656,8 @@
 				88CEF0B71F18E4AC00B93196 /* Constants.swift */,
 				88CEF0B91F18E8F500B93196 /* UIImageView+ImageCache.swift */,
 				8839556C1F1CBD4A00048BDE /* UIImage+Resize.swift */,
+				883955701F1CD28C00048BDE /* UIBarButtonItem+Ext.swift */,
+				883955721F1CD2DB00048BDE /* UIButton+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1235,6 +1257,7 @@
 				88CEEFEB1F18BB4300B93196 /* NibLoadable.swift */,
 				88CEF0AF1F18CAEF00B93196 /* Reusable.swift */,
 				88CEF0C61F19092600B93196 /* EquatableWithinEpsilon.swift */,
+				883955761F1CD85C00048BDE /* Validators */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1709,6 +1732,7 @@
 				88CEF0A71F18BEC100B93196 /* CreateAccountCellModel.swift in Sources */,
 				88CEF04D1F18BB4300B93196 /* ThirdPartyConfigurator.swift in Sources */,
 				88CEF04A1F18BB4300B93196 /* GoogleAPI.swift in Sources */,
+				8839556F1F1CD26500048BDE /* ButtonWithTarget.swift in Sources */,
 				88CEF0081F18BB4300B93196 /* SessionsAPI.swift in Sources */,
 				88CEF0131F18BB4300B93196 /* CountResponse.swift in Sources */,
 				88CEF02D1F18BB4300B93196 /* PostSessionResponse.swift in Sources */,
@@ -1752,6 +1776,7 @@
 				88CEF02A1F18BB4300B93196 /* PostReplyResponse.swift in Sources */,
 				88CEF0381F18BB4300B93196 /* PutUserPhotoRequest.swift in Sources */,
 				88CEF0161F18BB4300B93196 /* FeedResponseCommentView.swift in Sources */,
+				883955751F1CD7C600048BDE /* Validator.swift in Sources */,
 				88CEEFEF1F18BB4300B93196 /* Identifiable.swift in Sources */,
 				88CEF0611F18BB4300B93196 /* CreatePostModuleInput.swift in Sources */,
 				88CEEFFC1F18BB4300B93196 /* BlobsAPI.swift in Sources */,
@@ -1784,6 +1809,7 @@
 				88CEF07B1F18BB4300B93196 /* MenuPresenter.swift in Sources */,
 				88CEF0111F18BB4300B93196 /* CommentView.swift in Sources */,
 				88CEF01F1F18BB4300B93196 /* PostBlobResponse.swift in Sources */,
+				883955711F1CD28C00048BDE /* UIBarButtonItem+Ext.swift in Sources */,
 				88CEF00E1F18BB4300B93196 /* ActivityView.swift in Sources */,
 				88CEF0AE1F18C74A00B93196 /* TableDataDisplayManager.swift in Sources */,
 				88CEF03F1F18BB4300B93196 /* Images.swift in Sources */,
@@ -1806,6 +1832,7 @@
 				88CEF07D1F18BB4300B93196 /* MenuRouterInput.swift in Sources */,
 				88CEF0A21F18BD2D00B93196 /* SectionModel.swift in Sources */,
 				88CEF0B21F18D14B00B93196 /* CreateAccountCellModelsBuilder.swift in Sources */,
+				883955731F1CD2DB00048BDE /* UIButton+Ext.swift in Sources */,
 				88CEEFF71F18BB4300B93196 /* SlideMenuVC.swift in Sources */,
 				88CEF08D1F18BB4300B93196 /* MenuStackViewController.swift in Sources */,
 				88CEF0241F18BB4300B93196 /* PostFollowingTopicRequest.swift in Sources */,
@@ -1841,6 +1868,7 @@
 				88CEF0271F18BB4300B93196 /* PostLinkedAccountRequest.swift in Sources */,
 				88CEF0881F18BB4300B93196 /* MenuStackModuleInput.swift in Sources */,
 				88CEF02F1F18BB4300B93196 /* PostTopicRequest.swift in Sources */,
+				883955781F1CD87400048BDE /* CreateAccountValidator.swift in Sources */,
 				88CEF0521F18BB4300B93196 /* CreateAccountInteractor.swift in Sources */,
 				88CEF07F1F18BB4300B93196 /* MenuCellViewModel.swift in Sources */,
 				88CEF0141F18BB4300B93196 /* DeleteTopicNameRequest.swift in Sources */,

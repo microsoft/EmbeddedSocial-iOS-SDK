@@ -13,7 +13,7 @@ final class CreateAccountInteractor: CreateAccountInteractorInput {
         self.authService = authService
     }
     
-    func createAccount(for user: SocialUser, completion: @escaping (Result<SocialUser>) -> Void) {
+    func createAccount(for user: SocialUser, completion: @escaping (Result<User>) -> Void) {
         
     }
 }
