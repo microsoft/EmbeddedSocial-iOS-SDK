@@ -25,6 +25,7 @@ abstract_target 'Group' do
     pod 'SDWebImage'
     pod 'MSGraphSDK'
     pod 'SwiftGen'
+    pod 'Cuckoo', '~> 0.9.2'
     facebook
     
     target 'MSGP' do

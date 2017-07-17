@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		03E496841EB08FFA5B4B6D07 /* Pods_Group_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D952D5F6C89E7FD031C0B3C0 /* Pods_Group_MSGP.framework */; };
 		5AE80B2DFD9097205BC69CA1 /* Pods_Group_MSGP_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC204B4BE03754477DF8B7F /* Pods_Group_MSGP_Example.framework */; };
+		63A1D58B1F1CDE4C0090C67A /* CreatePostMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D58A1F1CDE4C0090C67A /* CreatePostMocks.swift */; };
+		63A1D58F1F1CDEBC0090C67A /* CreatePostPresentorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D58E1F1CDEBC0090C67A /* CreatePostPresentorTests.swift */; };
+		63A1D5911F1CDFDD0090C67A /* CreatePostInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D5901F1CDFDD0090C67A /* CreatePostInteractorTests.swift */; };
 		885F9FB91F16324F00A30CDF /* URLSchemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885F9FB81F16324F00A30CDF /* URLSchemeService.swift */; };
 		885F9FCC1F165C9700A30CDF /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; };
 		885F9FCD1F165C9700A30CDF /* MSAL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -242,6 +245,9 @@
 		0171CFC476361CFD73DFB944 /* Pods-MSGPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.debug.xcconfig"; sourceTree = "<group>"; };
 		311CD1FB9462188C1317052B /* Pods_MSGPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A2DCBAC6B487BD7E35023E0 /* Pods-Group-MSGP-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		63A1D58A1F1CDE4C0090C67A /* CreatePostMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostMocks.swift; sourceTree = "<group>"; };
+		63A1D58E1F1CDEBC0090C67A /* CreatePostPresentorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostPresentorTests.swift; sourceTree = "<group>"; };
+		63A1D5901F1CDFDD0090C67A /* CreatePostInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostInteractorTests.swift; sourceTree = "<group>"; };
 		885F9FB81F16324F00A30CDF /* URLSchemeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSchemeService.swift; sourceTree = "<group>"; };
 		885FA0091F1676E400A30CDF /* MicrosoftAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrosoftAPI.swift; sourceTree = "<group>"; };
 		885FA0211F17721700A30CDF /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
@@ -503,17 +509,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		63A1D42E1F18EEB00090C67A /* Modules */ = {
+		63A1D5881F1CDE200090C67A /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				63A1D42F1F18EEB00090C67A /* CreatePost */,
+				63A1D5891F1CDE200090C67A /* CreatePost */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		63A1D42F1F18EEB00090C67A /* CreatePost */ = {
+		63A1D5891F1CDE200090C67A /* CreatePost */ = {
 			isa = PBXGroup;
 			children = (
+				63A1D58A1F1CDE4C0090C67A /* CreatePostMocks.swift */,
+				63A1D58E1F1CDEBC0090C67A /* CreatePostPresentorTests.swift */,
+				63A1D5901F1CDFDD0090C67A /* CreatePostInteractorTests.swift */,
 			);
 			path = CreatePost;
 			sourceTree = "<group>";
@@ -1266,7 +1275,7 @@
 		9CD805361F0D012F00B9B0AC /* MSGPTests */ = {
 			isa = PBXGroup;
 			children = (
-				63A1D42E1F18EEB00090C67A /* Modules */,
+				63A1D5881F1CDE200090C67A /* Modules */,
 				9CD805391F0D012F00B9B0AC /* Info.plist */,
 				88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */,
 			);
@@ -1321,6 +1330,7 @@
 				9CD805271F0D012F00B9B0AC /* Resources */,
 				886B39E51F1392D800BF1A8E /* ShellScript */,
 				67393FD9E682D14A19E9F104 /* [CP] Copy Pods Resources */,
+				63A1D5831F1CD12A0090C67A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1489,6 +1499,20 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		63A1D5831F1CD12A0090C67A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+			showEnvVarsInLog = 0;
+		};
 		67393FD9E682D14A19E9F104 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1506,7 +1530,7 @@
 		};
 		886B39E51F1392D800BF1A8E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -1519,16 +1543,17 @@
 		};
 		88CEEE311F17C79900B93196 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" storyboards --param module=\"MSGP\" \"$PROJECT_DIR/MSGP/Sources\" --output \"$PROJECT_DIR/MSGP/Sources/Generated/SwiftGen/Storyboards.swift\" -t swift3\n\n\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" images \"$PROJECT_DIR/MSGP/Resources/Images.xcassets\" --output \"$PROJECT_DIR/MSGP/Sources/Generated/SwiftGen/Images.swift\" -t swift3";
+			showEnvVarsInLog = 0;
 		};
 		8A923B983FC6DDAB62A49AE9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1774,7 +1799,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63A1D58F1F1CDEBC0090C67A /* CreatePostPresentorTests.swift in Sources */,
 				88CF240A1F16202C00CC406F /* NameComponentsSplitterTests.swift in Sources */,
+				63A1D5911F1CDFDD0090C67A /* CreatePostInteractorTests.swift in Sources */,
+				63A1D58B1F1CDE4C0090C67A /* CreatePostMocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
