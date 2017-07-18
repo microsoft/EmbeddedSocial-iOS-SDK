@@ -6,6 +6,10 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
+  - Cuckoo (0.9.2)
+  - Embassy (3.1.0)
+  - EnvoyAmbassador (3.0.0):
+    - Embassy (~> 3.0)
   - Fabric (1.6.11)
   - FBSDKCoreKit (4.24.0):
     - Bolts (~> 1.7)
@@ -61,6 +65,9 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Cuckoo (~> 0.9.2)
+  - Embassy (~> 3.1)
+  - EnvoyAmbassador (~> 3.0)
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
@@ -77,6 +84,9 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  Cuckoo: 66c84083a91164744f96817d3ed61c183021f754
+  Embassy: 00408403423e4d9d5f21057bec13b1e96e838a32
+  EnvoyAmbassador: 624f3c5a1ff24b09535180992b0de59f207888a4
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
   FBSDKCoreKit: f8c9eb0dd34a9cd277c7b60da4b32226d142502d
   FBSDKLoginKit: 1214c6d5a1c4995b694d8db8a9ba6910c6028acf
@@ -95,6 +105,6 @@ SPEC CHECKSUMS:
   TwitterCore: e959987be23c767004d29eb7fab8d85d8585a2e5
   TwitterKit: 3b6044a7320340326a4098f3e37aa1dbaeb94942
 
-PODFILE CHECKSUM: cbb94f45135cb9735fcdb7353e8473f0b5f2aff6
+PODFILE CHECKSUM: d097b272e0ed25e0159d176a6e1b9ada29e9777f
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.2.0

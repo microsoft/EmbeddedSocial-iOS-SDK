@@ -8,7 +8,16 @@ import Foundation
 
 open class EmbeddedSocialClientAPI {
 //    open static var basePath = "https://api.embeddedsocial.microsoft.com"
-    open static var basePath = "https://ppe.embeddedsocial.microsoft.com"
+//    open static var basePath = "https://ppe.embeddedsocial.microsoft.com"
+    open static var basePath: String {
+        get {
+            if let path = getEnvironmentVariable("MSPG_MOCK_SERVER") {
+                return path
+            } else {
+                return "https://ppe.embeddedsocial.microsoft.com"
+            }
+        }
+    }
     open static var credential: URLCredential?
     open static var customHeaders: [String:String] = [:]
     static var requestBuilderFactory: RequestBuilderFactory = AlamofireRequestBuilderFactory()
