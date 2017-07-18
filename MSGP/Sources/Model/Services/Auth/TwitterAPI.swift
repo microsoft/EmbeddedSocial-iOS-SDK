@@ -8,13 +8,10 @@
 
 import Foundation
 import TwitterKit
-import Alamofire
 
 final class TwitterAPI: AuthAPI {
-    
-    private let accessToken = "884682909340315649-clk3svGPZRWDjJdmKWNpUQtQr0euBx2"
-    
-    func login(from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void) {        
+        
+    func login(from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void) {
         Twitter.sharedInstance().logIn(with: viewController, methods: [.webBasedForceLogin]) { [weak self] session, error in
             guard error == nil else {
                 handler(.failure(error!))
@@ -30,6 +27,7 @@ final class TwitterAPI: AuthAPI {
     }
     
     private func loadSocialUser(session: TWTRSession, completion: @escaping (Result<SocialUser>) -> Void) {
+        
         let client = TWTRAPIClient(userID: session.userID)
         let group = DispatchGroup()
         
@@ -48,29 +46,24 @@ final class TwitterAPI: AuthAPI {
             group.leave()
         }
         
-        group.notify(queue: DispatchQueue.main) { [unowned self] in
-            guard let user = self.makeUser(twitterUser: twitterUser, email: email, token: session.authToken) else {
+        group.notify(queue: DispatchQueue.main) {
+            guard let twitterUser = twitterUser else {
                 completion(.failure(APIError.missingUserData))
                 return
             }
+            
+            let (firstName, lastName) = NameComponentsSplitter.split(fullName: twitterUser.name)
+            let credentials = CredentialsList(provider: .twitter,
+                                              accessToken: session.authTokenSecret,
+                                              requestToken: session.authToken,
+                                              socialUID: twitterUser.userID)
+            let user = SocialUser(credentials: credentials,
+                                  firstName: firstName,
+                                  lastName: lastName,
+                                  email: email,
+                                  photo: Photo(url: twitterUser.profileImageURL))
             completion(.success(user))
         }
-    }
-    
-    private func makeUser(twitterUser: TWTRUser?, email: String?, token: String) -> SocialUser? {
-        guard let twitterUser = twitterUser else {
-            return nil
-        }
-        
-        let (firstName, lastName) = NameComponentsSplitter.split(fullName: twitterUser.name)
-        return SocialUser(uid: twitterUser.userID,
-                          token: token,
-                          requestToken: nil,
-                          firstName: firstName,
-                          lastName: lastName,
-                          email: email,
-                          photo: Photo(url: twitterUser.profileImageURL),
-                          provider: .twitter)
     }
 }
 

@@ -37,7 +37,29 @@ final class AuthService: AuthServiceType {
         EmbeddedSocialClientAPIAdaptor.shared.customHeaders = user.credentials.authHeader
         
         UsersAPI.usersPostUser(request: params) { response, error in
-            print(response, error)
+            if let error = error {
+                completion(.failure(error))
+            } else if let response = response,
+                let userHandle = response.userHandle,
+                let sessionToken = response.sessionToken {
+                print("Session token: \(sessionToken)")
+                let user = User(socialUser: user, userHandle: userHandle)
+                completion(.success(user))
+            } else {
+                completion(.failure(AuthError.createError))
+            }
+        }
+    }
+}
+
+extension AuthService {
+    enum AuthError: LocalizedError {
+        case createError
+        
+        public var errorDescription: String? {
+            switch self {
+            case .createError: return "Failed to create an account."
+            }
         }
     }
 }

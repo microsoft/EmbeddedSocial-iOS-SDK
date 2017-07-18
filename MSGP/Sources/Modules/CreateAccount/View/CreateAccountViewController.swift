@@ -12,6 +12,8 @@ class CreateAccountViewController: UIViewController, CreateAccountViewInput {
 
     @IBOutlet fileprivate weak var tableView: UITableView!
     
+    @IBOutlet fileprivate weak var loadingView: LoadingIndicatorView!
+    
     var dataManager: CreateAccountDataDisplayManager!
     
     var output: CreateAccountViewOutput!
@@ -23,6 +25,8 @@ class CreateAccountViewController: UIViewController, CreateAccountViewInput {
 
     func setupInitialState(with user: SocialUser) {
         setupNavBar()
+        
+        loadingView.apply(style: .standard)
         
         dataManager.update(tableView: tableView, with: user)
         
@@ -56,6 +60,12 @@ class CreateAccountViewController: UIViewController, CreateAccountViewInput {
     
     func showError(_ error: Error) {
         showErrorAlert(error)
+    }
+    
+    func setIsLoading(_ isLoading: Bool) {
+        loadingView.isHidden = !isLoading
+        loadingView.isLoading = isLoading
+        tableView.isHidden = isLoading
     }
     
     func setCreateAccountButtonEnabled(_ isEnabled: Bool) {

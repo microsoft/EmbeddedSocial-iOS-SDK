@@ -17,22 +17,20 @@ struct SocialUser {
     let photo: Photo?
     let credentials: CredentialsList
 
-    init(uid: String,
-         token: String,
-         requestToken: String? = nil,
+    init(uid: String = UUID().uuidString,
+         credentials: CredentialsList,
          firstName: String?,
          lastName: String?,
          email: String?,
          bio: String? = nil,
-         photo: Photo?,
-         provider: AuthProvider) {
+         photo: Photo?) {
         self.uid = uid
+        self.credentials = credentials
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
         self.bio = bio
         self.photo = photo
-        credentials = CredentialsList(provider: provider, accessToken: token, requestToken: requestToken, socialUID: uid)
     }
 }
 

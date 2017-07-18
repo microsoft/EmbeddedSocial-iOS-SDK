@@ -26,6 +26,7 @@ abstract_target 'Group' do
     pod 'MSGraphSDK'
     pod 'SwiftGen'
     pod 'UITextView+Placeholder'
+    pod 'OAuthSwift', '~> 1.1.2'
     facebook
     
     target 'MSGP' do

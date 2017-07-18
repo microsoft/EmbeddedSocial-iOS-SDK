@@ -14,4 +14,6 @@ protocol CreateAccountViewInput: class {
     func showError(_ error: Error)
     
     func setCreateAccountButtonEnabled(_ isEnabled: Bool)
+    
+    func setIsLoading(_ isLoading: Bool)
 }

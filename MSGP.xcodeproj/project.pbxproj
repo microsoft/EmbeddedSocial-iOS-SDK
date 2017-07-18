@@ -29,6 +29,10 @@
 		886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 886B39DA1F13910B00BF1A8E /* Images.xcassets */; };
 		886B3ADF1F13B92B00BF1A8E /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 		88B038AB1F1DF9CB00E2EE95 /* EmbeddedSocialClientAPIAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B038AA1F1DF9CB00E2EE95 /* EmbeddedSocialClientAPIAdaptor.swift */; };
+		88B038AD1F1E147200E2EE95 /* String+Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B038AC1F1E147200E2EE95 /* String+Encoding.swift */; };
+		88B038AF1F1E201C00E2EE95 /* TwitterWebBasedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B038AE1F1E201C00E2EE95 /* TwitterWebBasedAPI.swift */; };
+		88B038B11F1E227D00E2EE95 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B038B01F1E227D00E2EE95 /* WebViewController.swift */; };
+		88B038B51F1E4F0200E2EE95 /* ModelStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B038B41F1E4F0200E2EE95 /* ModelStack.swift */; };
 		88BC87421F14FA1B00EAEFD7 /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 88BC873F1F14FA1B00EAEFD7 /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		88BC87571F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
@@ -304,6 +308,10 @@
 		886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKLoginKit/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKShareKit/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		88B038AA1F1DF9CB00E2EE95 /* EmbeddedSocialClientAPIAdaptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedSocialClientAPIAdaptor.swift; sourceTree = "<group>"; };
+		88B038AC1F1E147200E2EE95 /* String+Encoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Encoding.swift"; sourceTree = "<group>"; };
+		88B038AE1F1E201C00E2EE95 /* TwitterWebBasedAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterWebBasedAPI.swift; sourceTree = "<group>"; };
+		88B038B01F1E227D00E2EE95 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		88B038B41F1E4F0200E2EE95 /* ModelStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelStack.swift; sourceTree = "<group>"; };
 		88BC873E1F14FA1B00EAEFD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88BC873F1F14FA1B00EAEFD7 /* MSGP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
 		88BC87401F14FA1B00EAEFD7 /* MSGP.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = MSGP.modulemap; sourceTree = "<group>"; };
@@ -405,7 +413,7 @@
 		88CEEF691F18BB4300B93196 /* GoogleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
 		88CEEF6A1F18BB4300B93196 /* MicrosoftAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrosoftAPI.swift; sourceTree = "<group>"; };
 		88CEEF6B1F18BB4300B93196 /* TwitterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPI.swift; sourceTree = "<group>"; };
-		88CEEF6D1F18BB4300B93196 /* ThirdPartyConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdPartyConfigurator.swift; sourceTree = "<group>"; };
+		88CEEF6D1F18BB4300B93196 /* ThirdPartyConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThirdPartyConfigurator.swift; path = ThirdPartyConfigurator/ThirdPartyConfigurator.swift; sourceTree = "<group>"; };
 		88CEEF6F1F18BB4300B93196 /* URLSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSchemes.swift; sourceTree = "<group>"; };
 		88CEEF701F18BB4300B93196 /* URLSchemeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSchemeService.swift; sourceTree = "<group>"; };
 		88CEEF711F18BB4300B93196 /* SocialPlus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialPlus.swift; sourceTree = "<group>"; };
@@ -666,6 +674,7 @@
 				8839556C1F1CBD4A00048BDE /* UIImage+Resize.swift */,
 				883955701F1CD28C00048BDE /* UIBarButtonItem+Ext.swift */,
 				883955721F1CD2DB00048BDE /* UIButton+Ext.swift */,
+				88B038AC1F1E147200E2EE95 /* String+Encoding.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -780,6 +789,7 @@
 				88CEEF611F18BB4300B93196 /* ImageCache */,
 				88CEEF631F18BB4300B93196 /* Services */,
 				88CEEF711F18BB4300B93196 /* SocialPlus.swift */,
+				88B038B41F1E4F0200E2EE95 /* ModelStack.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -817,8 +827,8 @@
 			children = (
 				8839557C1F1DF37600048BDE /* UserService.swift */,
 				88B038AA1F1DF9CB00E2EE95 /* EmbeddedSocialClientAPIAdaptor.swift */,
+				88CEEF6D1F18BB4300B93196 /* ThirdPartyConfigurator.swift */,
 				88CEEF641F18BB4300B93196 /* Auth */,
-				88CEEF6C1F18BB4300B93196 /* ThirdPartyConfigurator */,
 				88CEEF6E1F18BB4300B93196 /* URLScheme */,
 			);
 			path = Services;
@@ -834,16 +844,9 @@
 				88CEEF691F18BB4300B93196 /* GoogleAPI.swift */,
 				88CEEF6A1F18BB4300B93196 /* MicrosoftAPI.swift */,
 				88CEEF6B1F18BB4300B93196 /* TwitterAPI.swift */,
+				88B038AE1F1E201C00E2EE95 /* TwitterWebBasedAPI.swift */,
 			);
 			path = Auth;
-			sourceTree = "<group>";
-		};
-		88CEEF6C1F18BB4300B93196 /* ThirdPartyConfigurator */ = {
-			isa = PBXGroup;
-			children = (
-				88CEEF6D1F18BB4300B93196 /* ThirdPartyConfigurator.swift */,
-			);
-			path = ThirdPartyConfigurator;
 			sourceTree = "<group>";
 		};
 		88CEEF6E1F18BB4300B93196 /* URLScheme */ = {
@@ -1294,6 +1297,7 @@
 		88CEF0C11F18F0C200B93196 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				88B038B01F1E227D00E2EE95 /* WebViewController.swift */,
 				88CEF0C21F18F0CB00B93196 /* TextFieldCell.swift */,
 				8839557A1F1DEE8800048BDE /* LoadingIndicatorView.swift */,
 				88CEF0DA1F1CA6E900B93196 /* GroupHeaderTableCell */,
@@ -1724,6 +1728,7 @@
 				88CEEFEC1F18BB4300B93196 /* AppStrings.swift in Sources */,
 				88CEF00F1F18BB4300B93196 /* AppCompactView.swift in Sources */,
 				88CEF0811F18BB4300B93196 /* MenuViewInput.swift in Sources */,
+				88B038B51F1E4F0200E2EE95 /* ModelStack.swift in Sources */,
 				88CEF05C1F18BB4300B93196 /* CreatePostConfigurator.swift in Sources */,
 				88CEF03B1F18BB4300B93196 /* TopicView.swift in Sources */,
 				88CEF0101F18BB4300B93196 /* BuildsCurrentResponse.swift in Sources */,
@@ -1731,6 +1736,7 @@
 				88CEF0701F18BB4300B93196 /* LoginRouterInput.swift in Sources */,
 				88CEF0231F18BB4300B93196 /* PostFollowerRequest.swift in Sources */,
 				88CEF0961F18BB4300B93196 /* TabMenuContainerInteractorOutput.swift in Sources */,
+				88B038AF1F1E201C00E2EE95 /* TwitterWebBasedAPI.swift in Sources */,
 				88CEF0481F18BB4300B93196 /* AuthServiceImplementation.swift in Sources */,
 				88CEF0211F18BB4300B93196 /* PostCommentRequest.swift in Sources */,
 				88CEEFFF1F18BB4300B93196 /* HashtagsAPI.swift in Sources */,
@@ -1778,6 +1784,7 @@
 				88CEF0121F18BB4300B93196 /* ContentCompactView.swift in Sources */,
 				88CEF01A1F18BB4300B93196 /* FeedResponseUserProfileView.swift in Sources */,
 				88CEF0061F18BB4300B93196 /* ReportingAPI.swift in Sources */,
+				88B038B11F1E227D00E2EE95 /* WebViewController.swift in Sources */,
 				88CEF09E1F18BB4300B93196 /* ImagePicker.swift in Sources */,
 				88CEF0371F18BB4300B93196 /* PutUserInfoRequest.swift in Sources */,
 				88CEF07A1F18BB4300B93196 /* MenuModuleInput.swift in Sources */,
@@ -1829,6 +1836,7 @@
 				88CEF03F1F18BB4300B93196 /* Images.swift in Sources */,
 				88CEEFF61F18BB4300B93196 /* SlideMenu.swift in Sources */,
 				88CEF0181F18BB4300B93196 /* FeedResponseTopicView.swift in Sources */,
+				88B038AD1F1E147200E2EE95 /* String+Encoding.swift in Sources */,
 				88CEF0991F18BB4300B93196 /* TabMenuContainerRouter.swift in Sources */,
 				88CEF0681F18BB4300B93196 /* CreatePostViewOutput.swift in Sources */,
 				88CEF06B1F18BB4300B93196 /* LoginInteractorInput.swift in Sources */,

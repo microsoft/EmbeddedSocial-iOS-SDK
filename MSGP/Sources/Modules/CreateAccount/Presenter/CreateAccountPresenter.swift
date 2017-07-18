@@ -67,7 +67,11 @@ class CreateAccountPresenter: CreateAccountViewOutput {
     }
     
     func onCreateAccount() {
+        view.setIsLoading(true)
+        view.setCreateAccountButtonEnabled(false)
         interactor.createAccount(for: updatedCurrentUser()) { [weak self] result in
+            self?.view.setIsLoading(false)
+            self?.view.setCreateAccountButtonEnabled(true)
             if let user = result.value {
                 self?.moduleOutput?.onAccountCreated(user: user)
             } else if let error = result.error {
@@ -82,13 +86,12 @@ class CreateAccountPresenter: CreateAccountViewOutput {
     
     private func updatedCurrentUser(with photo: Photo?) -> SocialUser {
         user = SocialUser(uid: user.uid,
-                          token: user.credentials.accessToken,
-                          firstName: user.firstName,
-                          lastName: lastName,
-                          email: user.email,
-                          bio: bio,
-                          photo: photo,
-                          provider: user.credentials.provider)
+                   credentials: user.credentials,
+                   firstName: firstName,
+                   lastName: lastName,
+                   email: user.email,
+                   bio: bio,
+                   photo: photo)
         return user
     }
 }

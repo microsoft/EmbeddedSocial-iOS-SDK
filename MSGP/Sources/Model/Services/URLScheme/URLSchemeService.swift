@@ -13,7 +13,13 @@ protocol URLScheme {
 }
 
 struct URLSchemeService {
-    private let urlSchemes: [URLScheme] = [FacebookURLScheme(), TwitterURLScheme(), GoogleURLScheme(), MicrosoftURLScheme()]
+    private let urlSchemes: [URLScheme] = [
+        FacebookURLScheme(),
+        TwitterURLScheme(),
+        GoogleURLScheme(),
+        MicrosoftURLScheme(),
+        OAuthURLScheme()
+    ]
 
     func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any] = [:]) -> Bool {
         return urlSchemes.reduce(false) { (result, scheme) in

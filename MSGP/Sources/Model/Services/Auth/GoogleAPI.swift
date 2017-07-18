@@ -30,13 +30,12 @@ extension GoogleAPI: GIDSignInDelegate {
         //FIXME: Use proper value for image dimension
         let photoURL = user.profile.imageURL(withDimension: 256)
         
-        let user = SocialUser(uid: user.userID,
-                              token: user.authentication.accessToken,
-                              firstName: user.profile.givenName,
-                              lastName: user.profile.familyName,
-                              email: user.profile.email,
-                              photo: Photo(url: photoURL?.absoluteString),
-                              provider: .google)
+        let credentials = CredentialsList(provider: .google, accessToken: user.authentication.accessToken, socialUID: user.userID)
+        let user = SocialUser(credentials: credentials,
+                   firstName: user.profile.givenName,
+                   lastName: user.profile.familyName,
+                   email: user.profile.email,
+                   photo: Photo(url: photoURL?.absoluteString))
         
         signInHandler?(.success(user))
     }

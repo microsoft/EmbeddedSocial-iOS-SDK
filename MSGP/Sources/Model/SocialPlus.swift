@@ -15,16 +15,20 @@ struct LaunchArguments {
 }
 
 public final class SocialPlus {
-    private let launchArguments: LaunchArguments
-    private let root: RootConfigurator
+    private var launchArguments: LaunchArguments!
+    private var root: RootConfigurator!
     private let urlSchemeService = URLSchemeService()
     
-    public init(application: UIApplication, window: UIWindow, launchOptions: [AnyHashable: Any]) {
+    let modelStack = ModelStack()
+    
+    public static let shared = SocialPlus()
+    
+    private init() { }
+    
+    public func start(with application: UIApplication, window: UIWindow, launchOptions: [AnyHashable: Any]) {
         root = RootConfigurator(window: window)
         launchArguments = LaunchArguments(app: application, window: window, launchOptions: launchOptions)
-    }
-    
-    public func start() {
+        
         ThirdPartyConfigurator.setup(application: launchArguments.app, launchOptions: launchArguments.launchOptions)
         root.router.openLoginScreen()
     }

@@ -20,7 +20,7 @@ class LoginInteractor: LoginInteractorInput {
         authService.login(with: provider, from: viewController, handler: handler)
     }
     
-    func getMyProfile(credentials: CredentialsList, handler: @escaping (Result<User>) -> Void) {
-        userService.getMyProfile(credentials: credentials, completion: handler)
+    func getMyProfile(socialUser: SocialUser, handler: @escaping (Result<User>) -> Void) {
+        userService.getMyProfile(socialUser: socialUser, completion: handler)
     }
 }

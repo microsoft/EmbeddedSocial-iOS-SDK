@@ -46,6 +46,7 @@ PODS:
     - MSGraphSDK/Common
   - MSGraphSDK/MSGraphCoreSDK (0.10.1):
     - MSGraphSDK/Common
+  - OAuthSwift (1.1.2)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
@@ -67,6 +68,7 @@ DEPENDENCIES:
   - FBSDKShareKit
   - GoogleSignIn
   - MSGraphSDK
+  - OAuthSwift (~> 1.1.2)
   - SDWebImage
   - SlideMenuControllerSwift (~> 3.0)
   - SnapKit
@@ -88,6 +90,7 @@ SPEC CHECKSUMS:
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
   MSGraphSDK: 3c43eb632ca969593f1bdd5612b573e436bd3283
+  OAuthSwift: 5aa5659984d3ca3206ba636a9e7a9c6626b2e8bd
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SlideMenuControllerSwift: 9a163b16d54afab734add42858cba7ef7c307755
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
@@ -98,6 +101,6 @@ SPEC CHECKSUMS:
   TwitterKit: 3b6044a7320340326a4098f3e37aa1dbaeb94942
   UITextView+Placeholder: 77680995fcdd07c3f52ec92fe1150874a2ac89ff
 
-PODFILE CHECKSUM: bd90609a10ddc5e54ef58dca36bdd3ea4171e978
+PODFILE CHECKSUM: 14a78c6c76e322ba84c7486cd503c8adcccd7082
 
 COCOAPODS: 1.2.1

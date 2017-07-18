@@ -9,13 +9,13 @@
 import Foundation
 
 protocol UserServiceType {
-    func getMyProfile(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void)
+    func getMyProfile(socialUser: SocialUser, completion: @escaping (Result<User>) -> Void)
 }
 
 struct UserService: UserServiceType {
     
-    func getMyProfile(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
-        EmbeddedSocialClientAPIAdaptor.shared.customHeaders = credentials.authHeader
+    func getMyProfile(socialUser: SocialUser, completion: @escaping (Result<User>) -> Void) {
+        EmbeddedSocialClientAPIAdaptor.shared.customHeaders = socialUser.credentials.authHeader
         
         UsersAPI.usersGetMyProfile { profile, error in
             guard error == nil else {
@@ -24,18 +24,11 @@ struct UserService: UserServiceType {
             }
             
             guard let profile = profile,
-                let uid = profile.userHandle else {
+                let userHandle = profile.userHandle else {
                     fatalError("Profile data is missing however no error was reported.")
             }
             
-            let user = User(uid: uid,
-                            firstName: profile.firstName,
-                            lastName: profile.lastName,
-                            email: nil,
-                            bio: profile.bio,
-                            photo: Photo(uid: profile.photoHandle ?? UUID().uuidString, url: profile.photoUrl),
-                            credentials: credentials)
-            
+            let user = User(socialUser: socialUser, userHandle: userHandle)
             completion(.success(user))
         }
     }

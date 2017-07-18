@@ -78,14 +78,11 @@ final class MicrosoftAPI: AuthAPI {
             let uid = userJSON["id"] as? String else {
                 return nil
         }
-        
-        return SocialUser(uid: uid,
-                          token: token,
+        return SocialUser(credentials: CredentialsList(provider: .microsoft, accessToken: token, socialUID: uid),
                           firstName: userJSON["givenName"] as? String,
                           lastName: userJSON["surname"] as? String,
                           email: userJSON["mail"] as? String,
-                          photo: cachedPhoto(imageData: imageData),
-                          provider: .microsoft)
+                          photo: cachedPhoto(imageData: imageData))
     }
     
     private func cachedPhoto(imageData: Data?) -> Photo {

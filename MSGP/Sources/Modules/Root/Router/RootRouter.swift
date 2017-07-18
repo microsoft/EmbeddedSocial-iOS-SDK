@@ -35,7 +35,7 @@ final class RootRouter: RootRouterProtocol {
     }
     
     func openHomeScreen(user: User) {
-
+        setRootViewController(UIViewController())
     }
     
     private func setRootViewController(_ vc: UIViewController) {

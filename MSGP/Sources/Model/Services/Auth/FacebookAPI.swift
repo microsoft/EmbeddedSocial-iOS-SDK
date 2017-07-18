@@ -51,13 +51,11 @@ final class FacebookAPI: AuthAPI {
                 return nil
         }
         
-        return SocialUser(uid: uid,
-                          token: token,
-                          firstName: json["first_name"] as? String,
-                          lastName: json["last_name"] as? String,
-                          email: json["email"] as? String,
-                          photo: makePhoto(json: json["picture"]),
-                          provider: .facebook)
+        return SocialUser(credentials: CredentialsList(provider: .facebook, accessToken: token, socialUID: uid),
+                   firstName: json["first_name"] as? String,
+                   lastName: json["last_name"] as? String,
+                   email: json["email"] as? String,
+                   photo: makePhoto(json: json["picture"]))
     }
     
     private func makePhoto(json: Any?) -> Photo? {

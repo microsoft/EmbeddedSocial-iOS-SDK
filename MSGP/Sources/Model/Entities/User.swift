@@ -17,3 +17,15 @@ struct User {
     let photo: Photo?
     let credentials: CredentialsList
 }
+
+extension User {
+    init(socialUser: SocialUser, userHandle: String) {
+        uid = userHandle
+        firstName = socialUser.firstName
+        lastName = socialUser.lastName
+        email = socialUser.email
+        bio = socialUser.bio
+        photo = socialUser.photo
+        credentials = socialUser.credentials
+    }
+}
