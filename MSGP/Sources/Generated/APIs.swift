@@ -11,7 +11,7 @@ open class EmbeddedSocialClientAPI {
 //    open static var basePath = "https://ppe.embeddedsocial.microsoft.com"
     open static var basePath: String {
         get {
-            if let path = getEnvironmentVariable("MSPG_MOCK_SERVER") {
+            if let path = getEnvironmentVariable("MSGP_MOCK_SERVER") {
                 return path
             } else {
                 return "https://ppe.embeddedsocial.microsoft.com"
