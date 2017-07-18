@@ -10,12 +10,10 @@ import Foundation
 
 struct User {
     let uid: String
-    let socialUserUID: String
-    let socialUserToken: String
     let firstName: String?
     let lastName: String?
     let email: String?
     let bio: String?
     let photo: Photo?
-    let provider: AuthProvider
+    let credentials: CredentialsList
 }

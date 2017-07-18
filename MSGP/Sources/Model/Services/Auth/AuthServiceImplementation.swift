@@ -34,7 +34,7 @@ final class AuthService: AuthServiceType {
         params.bio = user.bio
         params.photoHandle = user.photo?.uid
         
-        EmbeddedSocialClientAPI.customHeaders = ["Authorization": user.provider.authHeader(for: user)]
+        EmbeddedSocialClientAPIAdaptor.shared.customHeaders = user.credentials.authHeader
         
         UsersAPI.usersPostUser(request: params) { response, error in
             print(response, error)

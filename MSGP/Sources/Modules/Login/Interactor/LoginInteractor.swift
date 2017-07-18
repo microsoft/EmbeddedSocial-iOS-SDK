@@ -9,14 +9,18 @@
 class LoginInteractor: LoginInteractorInput {
     
     private let authService: AuthServiceType
-    
-    init(authService: AuthServiceType) {
+    private let userService: UserServiceType
+
+    init(authService: AuthServiceType, userService: UserServiceType) {
         self.authService = authService
+        self.userService = userService
     }
     
     func login(provider: AuthProvider, from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void) {
-        authService.login(with: provider, from: viewController) { result in
-            handler(result)
-        }
+        authService.login(with: provider, from: viewController, handler: handler)
+    }
+    
+    func getMyProfile(credentials: CredentialsList, handler: @escaping (Result<User>) -> Void) {
+        userService.getMyProfile(credentials: credentials, completion: handler)
     }
 }

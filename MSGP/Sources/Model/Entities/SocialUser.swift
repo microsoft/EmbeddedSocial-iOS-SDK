@@ -10,14 +10,12 @@ import Foundation
 
 struct SocialUser {
     let uid: String
-    let token: String
-    let requestToken: String? // used for Twitter only
     let firstName: String?
     let lastName: String?
     let email: String?
     let bio: String?
     let photo: Photo?
-    let provider: AuthProvider
+    let credentials: CredentialsList
 
     init(uid: String,
          token: String,
@@ -29,34 +27,23 @@ struct SocialUser {
          photo: Photo?,
          provider: AuthProvider) {
         self.uid = uid
-        self.token = token
-        self.requestToken = requestToken
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
         self.bio = bio
         self.photo = photo
-        self.provider = provider
+        credentials = CredentialsList(provider: provider, accessToken: token, requestToken: requestToken, socialUID: uid)
     }
 }
 
-extension SocialUser: Hashable {
-    
-    var hashValue: Int {
-        let fields: [AnyHashable?] = [uid, token, firstName, lastName, email, photo?.uid, provider.rawValue]
-        let nonNilFields = fields.flatMap { $0 }
-        return nonNilFields.reduce(1, { (result, field) in
-            return result ^ field.hashValue
-        })
-    }
-    
+extension SocialUser: Equatable {
     static func ==(_ lhs: SocialUser, _ rhs: SocialUser) -> Bool {
         return lhs.uid == rhs.uid &&
             lhs.firstName == rhs.firstName &&
             lhs.lastName == rhs.lastName &&
             lhs.email == rhs.email &&
-            lhs.token == rhs.token &&
+            lhs.bio == rhs.bio &&
             lhs.photo == rhs.photo &&
-            lhs.provider == rhs.provider
+            lhs.credentials == rhs.credentials
     }
 }

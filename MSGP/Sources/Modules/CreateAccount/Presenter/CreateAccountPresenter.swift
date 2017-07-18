@@ -82,13 +82,13 @@ class CreateAccountPresenter: CreateAccountViewOutput {
     
     private func updatedCurrentUser(with photo: Photo?) -> SocialUser {
         user = SocialUser(uid: user.uid,
-                          token: user.token,
+                          token: user.credentials.accessToken,
                           firstName: user.firstName,
                           lastName: lastName,
                           email: user.email,
                           bio: bio,
                           photo: photo,
-                          provider: user.provider)
+                          provider: user.credentials.provider)
         return user
     }
 }

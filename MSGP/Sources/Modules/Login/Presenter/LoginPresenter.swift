@@ -34,13 +34,28 @@ final class LoginPresenter: LoginViewOutput {
     }
     
     private func login(with provider: AuthProvider) {
+        view.setIsLoading(true)
+        
         interactor.login(provider: provider, from: view as? UIViewController) { [weak self] result in
             if let user = result.value {
-                self?.router.openCreateAccount(user: user)
+                self?.processUser(user)
             } else if let error = result.error {
+                self?.view.setIsLoading(false)
                 self?.view.showError(error)
             } else {
                 fatalError("Unsupported response")
+            }
+        }
+    }
+    
+    private func processUser(_ user: SocialUser) {
+        interactor.getMyProfile(credentials: user.credentials) { [weak self] result in
+            self?.view.setIsLoading(false)
+            
+            if let user = result.value {
+                self?.moduleOutput?.onLogin(user)
+            } else {
+                self?.router.openCreateAccount(user: user)
             }
         }
     }

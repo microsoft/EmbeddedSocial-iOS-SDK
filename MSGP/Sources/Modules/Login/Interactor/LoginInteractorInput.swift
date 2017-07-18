@@ -10,4 +10,6 @@ import Foundation
 
 protocol LoginInteractorInput {
     func login(provider: AuthProvider, from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void)
+    
+    func getMyProfile(credentials: CredentialsList, handler: @escaping (Result<User>) -> Void)
 }
