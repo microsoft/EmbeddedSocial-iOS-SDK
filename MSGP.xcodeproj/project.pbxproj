@@ -180,33 +180,6 @@
 		881F764A1F1F4FA500FD995E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75581F1F4FA500FD995E /* LoginViewController.swift */; };
 		881F764B1F1F4FA500FD995E /* LoginViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75591F1F4FA500FD995E /* LoginViewInput.swift */; };
 		881F764C1F1F4FA500FD995E /* LoginViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F755A1F1F4FA500FD995E /* LoginViewOutput.swift */; };
-		881F764D1F1F4FA500FD995E /* MenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F755D1F1F4FA500FD995E /* MenuConfigurator.swift */; };
-		881F764E1F1F4FA500FD995E /* MenuInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F755E1F1F4FA500FD995E /* MenuInitializer.swift */; };
-		881F764F1F1F4FA500FD995E /* MenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75601F1F4FA500FD995E /* MenuInteractor.swift */; };
-		881F76501F1F4FA500FD995E /* MenuInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75611F1F4FA500FD995E /* MenuInteractorInput.swift */; };
-		881F76511F1F4FA500FD995E /* MenuInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75621F1F4FA500FD995E /* MenuInteractorOutput.swift */; };
-		881F76521F1F4FA500FD995E /* MenuModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75641F1F4FA500FD995E /* MenuModuleInput.swift */; };
-		881F76531F1F4FA500FD995E /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75651F1F4FA500FD995E /* MenuPresenter.swift */; };
-		881F76541F1F4FA500FD995E /* MenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75671F1F4FA500FD995E /* MenuRouter.swift */; };
-		881F76551F1F4FA500FD995E /* MenuRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75681F1F4FA500FD995E /* MenuRouterInput.swift */; };
-		881F76561F1F4FA500FD995E /* MenuCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F756B1F1F4FA500FD995E /* MenuCellView.swift */; };
-		881F76571F1F4FA500FD995E /* MenuCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F756C1F1F4FA500FD995E /* MenuCellViewModel.swift */; };
-		881F76581F1F4FA500FD995E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F756D1F1F4FA500FD995E /* MenuViewController.swift */; };
-		881F76591F1F4FA500FD995E /* MenuViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F756E1F1F4FA500FD995E /* MenuViewInput.swift */; };
-		881F765A1F1F4FA500FD995E /* MenuViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F756F1F1F4FA500FD995E /* MenuViewOutput.swift */; };
-		881F765B1F1F4FA500FD995E /* MenuStackConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75721F1F4FA500FD995E /* MenuStackConfigurator.swift */; };
-		881F765C1F1F4FA500FD995E /* MenuStackInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75731F1F4FA500FD995E /* MenuStackInitializer.swift */; };
-		881F765D1F1F4FA500FD995E /* MenuStackInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75751F1F4FA500FD995E /* MenuStackInteractor.swift */; };
-		881F765E1F1F4FA500FD995E /* MenuStackInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75761F1F4FA500FD995E /* MenuStackInteractorInput.swift */; };
-		881F765F1F1F4FA500FD995E /* MenuStackInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75771F1F4FA500FD995E /* MenuStackInteractorOutput.swift */; };
-		881F76601F1F4FA500FD995E /* MenuStackModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75791F1F4FA500FD995E /* MenuStackModuleInput.swift */; };
-		881F76611F1F4FA500FD995E /* MenuStackPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F757A1F1F4FA500FD995E /* MenuStackPresenter.swift */; };
-		881F76621F1F4FA500FD995E /* MenuStackRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F757C1F1F4FA500FD995E /* MenuStackRouter.swift */; };
-		881F76631F1F4FA500FD995E /* MenuStackRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F757D1F1F4FA500FD995E /* MenuStackRouterInput.swift */; };
-		881F76641F1F4FA500FD995E /* MenuStack.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 881F757F1F1F4FA500FD995E /* MenuStack.storyboard */; };
-		881F76651F1F4FA500FD995E /* MenuStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75801F1F4FA500FD995E /* MenuStackViewController.swift */; };
-		881F76661F1F4FA500FD995E /* MenuStackViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75811F1F4FA500FD995E /* MenuStackViewInput.swift */; };
-		881F76671F1F4FA500FD995E /* MenuStackViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75821F1F4FA500FD995E /* MenuStackViewOutput.swift */; };
 		881F76681F1F4FA500FD995E /* RootConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75851F1F4FA500FD995E /* RootConfigurator.swift */; };
 		881F76691F1F4FA500FD995E /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75871F1F4FA500FD995E /* RootRouter.swift */; };
 		881F766A1F1F4FA500FD995E /* TabMenuContainerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F758A1F1F4FA500FD995E /* TabMenuContainerConfigurator.swift */; };
@@ -307,7 +280,7 @@
 		881F74A81F1F4FA500FD995E /* TextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
 		881F74A91F1F4FA500FD995E /* TextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextViewCell.xib; sourceTree = "<group>"; };
 		881F74AA1F1F4FA500FD995E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		881F74AC1F1F4FA500FD995E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Constants.swift; sourceTree = "<group>"; };
+		881F74AC1F1F4FA500FD995E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		881F74AD1F1F4FA500FD995E /* String+Encoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Encoding.swift"; sourceTree = "<group>"; };
 		881F74AE1F1F4FA500FD995E /* UIBarButtonItem+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Ext.swift"; sourceTree = "<group>"; };
 		881F74AF1F1F4FA500FD995E /* UIButton+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
@@ -393,8 +366,8 @@
 		881F75051F1F4FA500FD995E /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		881F75061F1F4FA500FD995E /* SocialUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialUser.swift; sourceTree = "<group>"; };
 		881F75071F1F4FA500FD995E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		881F75091F1F4FA500FD995E /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = API.swift; sourceTree = "<group>"; };
-		881F750B1F1F4FA500FD995E /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCache.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		881F75091F1F4FA500FD995E /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		881F750B1F1F4FA500FD995E /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		881F750C1F1F4FA500FD995E /* ModelStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelStack.swift; sourceTree = "<group>"; };
 		881F750E1F1F4FA500FD995E /* APISettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APISettings.swift; sourceTree = "<group>"; };
 		881F75101F1F4FA500FD995E /* AuthAPIProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthAPIProvider.swift; sourceTree = "<group>"; };
@@ -450,33 +423,6 @@
 		881F75581F1F4FA500FD995E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		881F75591F1F4FA500FD995E /* LoginViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewInput.swift; sourceTree = "<group>"; };
 		881F755A1F1F4FA500FD995E /* LoginViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewOutput.swift; sourceTree = "<group>"; };
-		881F755D1F1F4FA500FD995E /* MenuConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuConfigurator.swift; sourceTree = "<group>"; };
-		881F755E1F1F4FA500FD995E /* MenuInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuInitializer.swift; sourceTree = "<group>"; };
-		881F75601F1F4FA500FD995E /* MenuInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuInteractor.swift; sourceTree = "<group>"; };
-		881F75611F1F4FA500FD995E /* MenuInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuInteractorInput.swift; sourceTree = "<group>"; };
-		881F75621F1F4FA500FD995E /* MenuInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuInteractorOutput.swift; sourceTree = "<group>"; };
-		881F75641F1F4FA500FD995E /* MenuModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuModuleInput.swift; sourceTree = "<group>"; };
-		881F75651F1F4FA500FD995E /* MenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
-		881F75671F1F4FA500FD995E /* MenuRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuRouter.swift; sourceTree = "<group>"; };
-		881F75681F1F4FA500FD995E /* MenuRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuRouterInput.swift; sourceTree = "<group>"; };
-		881F756B1F1F4FA500FD995E /* MenuCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCellView.swift; sourceTree = "<group>"; };
-		881F756C1F1F4FA500FD995E /* MenuCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCellViewModel.swift; sourceTree = "<group>"; };
-		881F756D1F1F4FA500FD995E /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		881F756E1F1F4FA500FD995E /* MenuViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewInput.swift; sourceTree = "<group>"; };
-		881F756F1F1F4FA500FD995E /* MenuViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewOutput.swift; sourceTree = "<group>"; };
-		881F75721F1F4FA500FD995E /* MenuStackConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackConfigurator.swift; sourceTree = "<group>"; };
-		881F75731F1F4FA500FD995E /* MenuStackInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackInitializer.swift; sourceTree = "<group>"; };
-		881F75751F1F4FA500FD995E /* MenuStackInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackInteractor.swift; sourceTree = "<group>"; };
-		881F75761F1F4FA500FD995E /* MenuStackInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackInteractorInput.swift; sourceTree = "<group>"; };
-		881F75771F1F4FA500FD995E /* MenuStackInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackInteractorOutput.swift; sourceTree = "<group>"; };
-		881F75791F1F4FA500FD995E /* MenuStackModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackModuleInput.swift; sourceTree = "<group>"; };
-		881F757A1F1F4FA500FD995E /* MenuStackPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackPresenter.swift; sourceTree = "<group>"; };
-		881F757C1F1F4FA500FD995E /* MenuStackRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackRouter.swift; sourceTree = "<group>"; };
-		881F757D1F1F4FA500FD995E /* MenuStackRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackRouterInput.swift; sourceTree = "<group>"; };
-		881F757F1F1F4FA500FD995E /* MenuStack.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MenuStack.storyboard; sourceTree = "<group>"; };
-		881F75801F1F4FA500FD995E /* MenuStackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackViewController.swift; sourceTree = "<group>"; };
-		881F75811F1F4FA500FD995E /* MenuStackViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackViewInput.swift; sourceTree = "<group>"; };
-		881F75821F1F4FA500FD995E /* MenuStackViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStackViewOutput.swift; sourceTree = "<group>"; };
 		881F75851F1F4FA500FD995E /* RootConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootConfigurator.swift; sourceTree = "<group>"; };
 		881F75871F1F4FA500FD995E /* RootRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
 		881F758A1F1F4FA500FD995E /* TabMenuContainerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuContainerConfigurator.swift; sourceTree = "<group>"; };
@@ -866,8 +812,6 @@
 				881F75201F1F4FA500FD995E /* CreateAccount */,
 				881F75371F1F4FA500FD995E /* CreatePost */,
 				881F754A1F1F4FA500FD995E /* Login */,
-				881F755B1F1F4FA500FD995E /* Menu */,
-				881F75701F1F4FA500FD995E /* MenuStack */,
 				881F75831F1F4FA500FD995E /* Root */,
 				881F75881F1F4FA500FD995E /* TabMenuContainer */,
 			);
@@ -1066,135 +1010,6 @@
 				881F75581F1F4FA500FD995E /* LoginViewController.swift */,
 				881F75591F1F4FA500FD995E /* LoginViewInput.swift */,
 				881F755A1F1F4FA500FD995E /* LoginViewOutput.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		881F755B1F1F4FA500FD995E /* Menu */ = {
-			isa = PBXGroup;
-			children = (
-				881F755C1F1F4FA500FD995E /* Configurator */,
-				881F755F1F1F4FA500FD995E /* Interactor */,
-				881F75631F1F4FA500FD995E /* Presenter */,
-				881F75661F1F4FA500FD995E /* Router */,
-				881F75691F1F4FA500FD995E /* View */,
-			);
-			path = Menu;
-			sourceTree = "<group>";
-		};
-		881F755C1F1F4FA500FD995E /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				881F755D1F1F4FA500FD995E /* MenuConfigurator.swift */,
-				881F755E1F1F4FA500FD995E /* MenuInitializer.swift */,
-			);
-			path = Configurator;
-			sourceTree = "<group>";
-		};
-		881F755F1F1F4FA500FD995E /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				881F75601F1F4FA500FD995E /* MenuInteractor.swift */,
-				881F75611F1F4FA500FD995E /* MenuInteractorInput.swift */,
-				881F75621F1F4FA500FD995E /* MenuInteractorOutput.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		881F75631F1F4FA500FD995E /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				881F75641F1F4FA500FD995E /* MenuModuleInput.swift */,
-				881F75651F1F4FA500FD995E /* MenuPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		881F75661F1F4FA500FD995E /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				881F75671F1F4FA500FD995E /* MenuRouter.swift */,
-				881F75681F1F4FA500FD995E /* MenuRouterInput.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
-		881F75691F1F4FA500FD995E /* View */ = {
-			isa = PBXGroup;
-			children = (
-				881F756A1F1F4FA500FD995E /* Cells */,
-				881F756D1F1F4FA500FD995E /* MenuViewController.swift */,
-				881F756E1F1F4FA500FD995E /* MenuViewInput.swift */,
-				881F756F1F1F4FA500FD995E /* MenuViewOutput.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		881F756A1F1F4FA500FD995E /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				881F756B1F1F4FA500FD995E /* MenuCellView.swift */,
-				881F756C1F1F4FA500FD995E /* MenuCellViewModel.swift */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		881F75701F1F4FA500FD995E /* MenuStack */ = {
-			isa = PBXGroup;
-			children = (
-				881F75711F1F4FA500FD995E /* Configurator */,
-				881F75741F1F4FA500FD995E /* Interactor */,
-				881F75781F1F4FA500FD995E /* Presenter */,
-				881F757B1F1F4FA500FD995E /* Router */,
-				881F757E1F1F4FA500FD995E /* View */,
-			);
-			path = MenuStack;
-			sourceTree = "<group>";
-		};
-		881F75711F1F4FA500FD995E /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				881F75721F1F4FA500FD995E /* MenuStackConfigurator.swift */,
-				881F75731F1F4FA500FD995E /* MenuStackInitializer.swift */,
-			);
-			path = Configurator;
-			sourceTree = "<group>";
-		};
-		881F75741F1F4FA500FD995E /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				881F75751F1F4FA500FD995E /* MenuStackInteractor.swift */,
-				881F75761F1F4FA500FD995E /* MenuStackInteractorInput.swift */,
-				881F75771F1F4FA500FD995E /* MenuStackInteractorOutput.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		881F75781F1F4FA500FD995E /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				881F75791F1F4FA500FD995E /* MenuStackModuleInput.swift */,
-				881F757A1F1F4FA500FD995E /* MenuStackPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		881F757B1F1F4FA500FD995E /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				881F757C1F1F4FA500FD995E /* MenuStackRouter.swift */,
-				881F757D1F1F4FA500FD995E /* MenuStackRouterInput.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
-		881F757E1F1F4FA500FD995E /* View */ = {
-			isa = PBXGroup;
-			children = (
-				881F757F1F1F4FA500FD995E /* MenuStack.storyboard */,
-				881F75801F1F4FA500FD995E /* MenuStackViewController.swift */,
-				881F75811F1F4FA500FD995E /* MenuStackViewInput.swift */,
-				881F75821F1F4FA500FD995E /* MenuStackViewOutput.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1533,7 +1348,6 @@
 				88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */,
 				881F75B91F1F4FA500FD995E /* SubtitleTableCell.xib in Resources */,
 				881F763E1F1F4FA500FD995E /* CreatePost.storyboard in Resources */,
-				881F76641F1F4FA500FD995E /* MenuStack.storyboard in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1623,18 +1437,14 @@
 				881F76391F1F4FA500FD995E /* CreatePostInteractorOutput.swift in Sources */,
 				881F76691F1F4FA500FD995E /* RootRouter.swift in Sources */,
 				881F764B1F1F4FA500FD995E /* LoginViewInput.swift in Sources */,
-				881F76531F1F4FA500FD995E /* MenuPresenter.swift in Sources */,
 				881F764C1F1F4FA500FD995E /* LoginViewOutput.swift in Sources */,
 				881F75FE1F1F4FA500FD995E /* PostTopicResponse.swift in Sources */,
 				881F766A1F1F4FA500FD995E /* TabMenuContainerConfigurator.swift in Sources */,
 				881F76191F1F4FA500FD995E /* AuthService.swift in Sources */,
-				881F76501F1F4FA500FD995E /* MenuInteractorInput.swift in Sources */,
 				881F76481F1F4FA500FD995E /* LoginRouterInput.swift in Sources */,
 				881F76411F1F4FA500FD995E /* CreatePostViewOutput.swift in Sources */,
 				881F76351F1F4FA500FD995E /* CreatePostConfigurator.swift in Sources */,
 				881F763D1F1F4FA500FD995E /* CreatePostRouterInput.swift in Sources */,
-				881F76511F1F4FA500FD995E /* MenuInteractorOutput.swift in Sources */,
-				881F765F1F1F4FA500FD995E /* MenuStackInteractorOutput.swift in Sources */,
 				881F75B21F1F4FA500FD995E /* SlideMenu.swift in Sources */,
 				881F761D1F1F4FA500FD995E /* MicrosoftAPI.swift in Sources */,
 				881F75E11F1F4FA500FD995E /* CountResponse.swift in Sources */,
@@ -1647,26 +1457,20 @@
 				881F76261F1F4FA500FD995E /* CreateAccountConfigurator.swift in Sources */,
 				881F75AC1F1F4FA500FD995E /* NavigationStack.swift in Sources */,
 				881F75C41F1F4FA500FD995E /* UIImageView+ImageCache.swift in Sources */,
-				881F76561F1F4FA500FD995E /* MenuCellView.swift in Sources */,
 				881F75DD1F1F4FA500FD995E /* AppCompactView.swift in Sources */,
 				881F76061F1F4FA500FD995E /* PutUserPhotoRequest.swift in Sources */,
 				881F75B81F1F4FA500FD995E /* SubtitleTableCell.swift in Sources */,
-				881F76591F1F4FA500FD995E /* MenuViewInput.swift in Sources */,
 				881F75BF1F1F4FA500FD995E /* String+Encoding.swift in Sources */,
 				881F75A31F1F4FA500FD995E /* AppStrings.swift in Sources */,
-				881F765A1F1F4FA500FD995E /* MenuViewOutput.swift in Sources */,
 				881F76281F1F4FA500FD995E /* CreateAccountInteractorInput.swift in Sources */,
 				881F76471F1F4FA500FD995E /* LoginRouter.swift in Sources */,
 				881F75A71F1F4FA500FD995E /* Errors.swift in Sources */,
 				881F762D1F1F4FA500FD995E /* CreateAccountCellModel.swift in Sources */,
 				881F760C1F1F4FA500FD995E /* Models.swift in Sources */,
-				881F764F1F1F4FA500FD995E /* MenuInteractor.swift in Sources */,
-				881F76571F1F4FA500FD995E /* MenuCellViewModel.swift in Sources */,
 				881F766F1F1F4FA500FD995E /* TabMenuContainerModuleInput.swift in Sources */,
 				881F75DE1F1F4FA500FD995E /* BuildsCurrentResponse.swift in Sources */,
 				881F766D1F1F4FA500FD995E /* TabMenuContainerInteractorInput.swift in Sources */,
 				881F75F21F1F4FA500FD995E /* PostFollowingTopicRequest.swift in Sources */,
-				881F765C1F1F4FA500FD995E /* MenuStackInitializer.swift in Sources */,
 				881F76041F1F4FA500FD995E /* PutTopicRequest.swift in Sources */,
 				881F76171F1F4FA500FD995E /* APISettings.swift in Sources */,
 				881F75FF1F1F4FA500FD995E /* PostUserRequest.swift in Sources */,
@@ -1679,24 +1483,19 @@
 				881F75CB1F1F4FA500FD995E /* BuildsAPI.swift in Sources */,
 				881F76241F1F4FA500FD995E /* UserService.swift in Sources */,
 				881F762B1F1F4FA500FD995E /* CreateAccountRouter.swift in Sources */,
-				881F764D1F1F4FA500FD995E /* MenuConfigurator.swift in Sources */,
 				881F75D11F1F4FA500FD995E /* PinsAPI.swift in Sources */,
-				881F764E1F1F4FA500FD995E /* MenuInitializer.swift in Sources */,
 				881F76361F1F4FA500FD995E /* CreatePostInitializer.swift in Sources */,
 				881F75A51F1F4FA500FD995E /* ButtonWithTarget.swift in Sources */,
 				881F76331F1F4FA500FD995E /* CreateAccountCellModelsBuilder.swift in Sources */,
 				881F75E31F1F4FA500FD995E /* FeedResponseActivityView.swift in Sources */,
 				881F75C71F1F4FA500FD995E /* UIViewController+Alerts.swift in Sources */,
 				881F761A1F1F4FA500FD995E /* AuthServiceImplementation.swift in Sources */,
-				881F76601F1F4FA500FD995E /* MenuStackModuleInput.swift in Sources */,
 				881F75E41F1F4FA500FD995E /* FeedResponseCommentView.swift in Sources */,
-				881F765D1F1F4FA500FD995E /* MenuStackInteractor.swift in Sources */,
 				881F75F51F1F4FA500FD995E /* PostLinkedAccountRequest.swift in Sources */,
 				881F75D61F1F4FA500FD995E /* SessionsAPI.swift in Sources */,
 				881F75C51F1F4FA500FD995E /* UITableView+Ext.swift in Sources */,
 				881F75F41F1F4FA500FD995E /* PostImageResponse.swift in Sources */,
 				881F76791F1F4FA500FD995E /* NibLoadable.swift in Sources */,
-				881F76541F1F4FA500FD995E /* MenuRouter.swift in Sources */,
 				881F75F11F1F4FA500FD995E /* PostFollowerRequest.swift in Sources */,
 				881F75FA1F1F4FA500FD995E /* PostSessionRequest.swift in Sources */,
 				881F76301F1F4FA500FD995E /* CreateAccountViewController.swift in Sources */,
@@ -1704,14 +1503,12 @@
 				881F761F1F1F4FA500FD995E /* TwitterWebBasedAPI.swift in Sources */,
 				881F75ED1F1F4FA500FD995E /* PostBlobResponse.swift in Sources */,
 				881F76181F1F4FA500FD995E /* AuthAPIProvider.swift in Sources */,
-				881F76671F1F4FA500FD995E /* MenuStackViewOutput.swift in Sources */,
 				881F75FC1F1F4FA500FD995E /* PostTopicNameRequest.swift in Sources */,
 				881F766E1F1F4FA500FD995E /* TabMenuContainerInteractorOutput.swift in Sources */,
 				881F75EB1F1F4FA500FD995E /* LinkedAccountView.swift in Sources */,
 				881F75D81F1F4FA500FD995E /* TopicsAPI.swift in Sources */,
 				881F76101F1F4FA500FD995E /* CredentialsList.swift in Sources */,
 				881F75FB1F1F4FA500FD995E /* PostSessionResponse.swift in Sources */,
-				881F76651F1F4FA500FD995E /* MenuStackViewController.swift in Sources */,
 				881F75F81F1F4FA500FD995E /* PostReplyResponse.swift in Sources */,
 				881F76741F1F4FA500FD995E /* TabMenuContainerViewInput.swift in Sources */,
 				881F75F01F1F4FA500FD995E /* PostCommentResponse.swift in Sources */,
@@ -1722,13 +1519,10 @@
 				881F75E51F1F4FA500FD995E /* FeedResponseReplyView.swift in Sources */,
 				881F76421F1F4FA500FD995E /* LoginConfigurator.swift in Sources */,
 				881F75F91F1F4FA500FD995E /* PostReportRequest.swift in Sources */,
-				881F76551F1F4FA500FD995E /* MenuRouterInput.swift in Sources */,
 				881F76761F1F4FA500FD995E /* EquatableWithinEpsilon.swift in Sources */,
 				881F75B11F1F4FA500FD995E /* SectionModel.swift in Sources */,
 				881F75C01F1F4FA500FD995E /* UIBarButtonItem+Ext.swift in Sources */,
 				881F75EE1F1F4FA500FD995E /* PostBlockedUserRequest.swift in Sources */,
-				881F76581F1F4FA500FD995E /* MenuViewController.swift in Sources */,
-				881F765B1F1F4FA500FD995E /* MenuStackConfigurator.swift in Sources */,
 				881F75CF1F1F4FA500FD995E /* LikesAPI.swift in Sources */,
 				881F76001F1F4FA500FD995E /* PostUserResponse.swift in Sources */,
 				881F762E1F1F4FA500FD995E /* UploadPhotoCell.swift in Sources */,
@@ -1743,13 +1537,11 @@
 				881F76071F1F4FA500FD995E /* PutUserVisibilityRequest.swift in Sources */,
 				881F75E61F1F4FA500FD995E /* FeedResponseTopicView.swift in Sources */,
 				881F75E01F1F4FA500FD995E /* ContentCompactView.swift in Sources */,
-				881F76611F1F4FA500FD995E /* MenuStackPresenter.swift in Sources */,
 				881F75AE1F1F4FA500FD995E /* SingleMenu.swift in Sources */,
 				881F76311F1F4FA500FD995E /* CreateAccountViewInput.swift in Sources */,
 				881F760D1F1F4FA500FD995E /* Images.swift in Sources */,
 				881F75D51F1F4FA500FD995E /* SearchAPI.swift in Sources */,
 				881F76461F1F4FA500FD995E /* LoginPresenter.swift in Sources */,
-				881F76621F1F4FA500FD995E /* MenuStackRouter.swift in Sources */,
 				881F75D31F1F4FA500FD995E /* RepliesAPI.swift in Sources */,
 				881F76731F1F4FA500FD995E /* TabMenuContainerViewController.swift in Sources */,
 				881F75B71F1F4FA500FD995E /* LoadingIndicatorView.swift in Sources */,
@@ -1760,14 +1552,12 @@
 				881F75DF1F1F4FA500FD995E /* CommentView.swift in Sources */,
 				881F766C1F1F4FA500FD995E /* TabMenuContainerInteractor.swift in Sources */,
 				881F75CA1F1F4FA500FD995E /* BlobsAPI.swift in Sources */,
-				881F76521F1F4FA500FD995E /* MenuModuleInput.swift in Sources */,
 				881F76371F1F4FA500FD995E /* CreatePostInteractor.swift in Sources */,
 				881F76681F1F4FA500FD995E /* RootConfigurator.swift in Sources */,
 				881F75BA1F1F4FA500FD995E /* TextFieldCell.swift in Sources */,
 				881F763A1F1F4FA500FD995E /* CreatePostModuleInput.swift in Sources */,
 				881F75A91F1F4FA500FD995E /* Identifiable.swift in Sources */,
 				881F76771F1F4FA500FD995E /* ImagePicker.swift in Sources */,
-				881F76661F1F4FA500FD995E /* MenuStackViewInput.swift in Sources */,
 				881F76151F1F4FA500FD995E /* ImageCache.swift in Sources */,
 				881F76381F1F4FA500FD995E /* CreatePostInteractorInput.swift in Sources */,
 				881F76141F1F4FA500FD995E /* API.swift in Sources */,
@@ -1783,7 +1573,6 @@
 				881F75C61F1F4FA500FD995E /* UIView+Ext.swift in Sources */,
 				881F763C1F1F4FA500FD995E /* CreatePostRouter.swift in Sources */,
 				881F75E91F1F4FA500FD995E /* GetRequestTokenResponse.swift in Sources */,
-				881F76631F1F4FA500FD995E /* MenuStackRouterInput.swift in Sources */,
 				881F75EF1F1F4FA500FD995E /* PostCommentRequest.swift in Sources */,
 				881F75AA1F1F4FA500FD995E /* Indetifiable.swift in Sources */,
 				881F76251F1F4FA500FD995E /* SocialPlus.swift in Sources */,
@@ -1798,7 +1587,6 @@
 				881F75C81F1F4FA500FD995E /* AlamofireImplementations.swift in Sources */,
 				881F76431F1F4FA500FD995E /* LoginInteractor.swift in Sources */,
 				881F75B31F1F4FA500FD995E /* SlideMenuVC.swift in Sources */,
-				881F765E1F1F4FA500FD995E /* MenuStackInteractorInput.swift in Sources */,
 				881F76711F1F4FA500FD995E /* TabMenuContainerRouter.swift in Sources */,
 				881F76451F1F4FA500FD995E /* LoginModuleOutput.swift in Sources */,
 				881F76131F1F4FA500FD995E /* User.swift in Sources */,
