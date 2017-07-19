@@ -14,5 +14,6 @@ protocol CreatePostViewInput: class {
     */
 
     func setupInitialState()
-    func showError(error: Error)
+    func show(error: Error)
+    func show(user: User)
 }

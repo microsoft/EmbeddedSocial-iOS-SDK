@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CreatePostViewController: BaseViewController, CreatePostViewInput {
 
@@ -18,7 +19,6 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     @IBOutlet fileprivate weak var titleTextField: UITextField!
     @IBOutlet fileprivate weak var postBodyTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet fileprivate weak var postBodyTextView: UITextView!
-    @IBOutlet fileprivate weak var bodyPlaceholderLabel: UILabel!
     
     fileprivate let imagePikcer = ImagePicker()
     fileprivate var originImage: UIImage?
@@ -33,17 +33,22 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     // MARK: CreatePostViewInput
     func setupInitialState() {
         postButton = UIBarButtonItem(title: Button.Title.post, style: .plain,
-                                     target: self, action: #selector(CreatePostViewController.post))
+                                     target: self, action: #selector(post))
         imagePikcer.delegate = self
         title = Titles.addPost
         postButton.isEnabled = false
-        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "icon_back"), style: .plain, target: self, action: #selector(CreatePostViewController.back))
+        let backButton = UIBarButtonItem(image: UIImage(named:"icon_back"), style: .plain, target: self, action: #selector(back))
         navigationItem.rightBarButtonItem = postButton
         navigationItem.leftBarButtonItem = backButton
-        // TODO: config user data (avatar + name)
     }
     
-    func showError(error: Error) {
+    func show(user: User) {
+        userImageView.sd_setImage(with: URL(string: (user.photo?.url)!))
+        userImageView.layer.cornerRadius = userImageView.bounds.size.height/2
+        usernameLabel.text = "\(user.firstName!) \(user.lastName!)"
+    }
+    
+    func show(error: Error) {
         let alert = UIAlertController(title: error.localizedDescription, message: nil, preferredStyle: .alert)
         let action = UIAlertAction(title: Button.Title.ok, style: .default, handler: nil)
         alert.addAction(action)
@@ -85,6 +90,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
 // MARK: ImagePickerDelegate
 extension CreatePostViewController: ImagePickerDelegate {
     func selected(image: UIImage) {
+        originImage = image
         let size = CGSize(width: UIScreen.main.bounds.width, height: image.size.height)
         let resizedImage = image.scaledToFit(toSize: size)
         mediaButton.setImage(resizedImage, for: .normal)
@@ -95,7 +101,6 @@ extension CreatePostViewController: ImagePickerDelegate {
 // MARK: UITextViewDelegate
 extension CreatePostViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        bodyPlaceholderLabel.isHidden = textView.text.isEmpty
         postBodyTextViewHeightConstraint.constant = postBodyTextView.contentSize.height
         view.layoutIfNeeded()
         textView.setContentOffset(CGPoint.zero, animated:false)

@@ -16,7 +16,7 @@ class CreatePostInteractor: CreatePostInteractorInput {
         request.text = body
         
         if let image = image {
-            guard let imageData = UIImagePNGRepresentation(image) as Data? else {
+            guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
                 return
             }
             

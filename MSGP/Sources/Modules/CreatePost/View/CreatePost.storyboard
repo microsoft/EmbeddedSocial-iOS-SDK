@@ -24,7 +24,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8AP-7d-JDz">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Lk-bh-ewt">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Lk-bh-ewt">
                                         <rect key="frame" x="20" y="20" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="4d5-oP-cJI"/>
@@ -53,7 +53,7 @@
                                             <action selector="mediaButtonPressed:" destination="kxk-2v-FEl" eventType="touchUpInside" id="ozC-zf-9Wx"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="umy-ax-MEg">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="umy-ax-MEg">
                                         <rect key="frame" x="20" y="144" width="335" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="BYi-Lu-H1W"/>
@@ -77,6 +77,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Text"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="kxk-2v-FEl" id="cVL-e0-qIV"/>
                                         </connections>
@@ -88,13 +91,6 @@
                                             <constraint firstAttribute="height" constant="1" id="nEs-qs-ueA"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lorem" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B08-VG-PHh">
-                                        <rect key="frame" x="25" y="369" width="61" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="HyY-ge-u5J" secondAttribute="bottom" constant="5" id="Crz-ms-Xtq"/>
@@ -132,7 +128,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bodyPlaceholderLabel" destination="B08-VG-PHh" id="XV2-dY-BOZ"/>
                         <outlet property="bottomConstraint" destination="IpI-FF-yjt" id="7Mw-XZ-ggQ"/>
                         <outlet property="mediaButton" destination="c1s-Vy-Hc2" id="p9R-nu-q8h"/>
                         <outlet property="postBodyTextView" destination="aPb-Vd-1gr" id="HuW-ou-9mR"/>

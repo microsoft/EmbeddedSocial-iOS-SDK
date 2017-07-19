@@ -16,7 +16,7 @@ class CreatePostModuleInitializer: NSObject {
     override func awakeFromNib() {
 
         let configurator = CreatePostModuleConfigurator()
-        configurator.configureModuleForViewInput(viewInput: createpostViewController)
+//        configurator.configureModuleForViewInput(viewInput: createpostViewController)
     }
 
 }

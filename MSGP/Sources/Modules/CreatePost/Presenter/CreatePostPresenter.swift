@@ -11,10 +11,13 @@ class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePo
     weak var view: CreatePostViewInput!
     var interactor: CreatePostInteractorInput!
     var router: CreatePostRouterInput!
+    
+    var user: User?
 
     // MARK: CreatePostViewOutput
     func viewIsReady() {
         view.setupInitialState()
+        view.show(user: user!)
     }
     
     func post(image: UIImage?, title: String?, body: String!) {
@@ -35,6 +38,6 @@ class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePo
     }
     
     func postCreationFailed(error: Error) {
-        view.showError(error: error)
+        view.show(error: error)
     }
 }
