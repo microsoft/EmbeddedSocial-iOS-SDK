@@ -23,7 +23,7 @@ abstract_target 'Group' do
     pod 'SwiftGen', '~> 4.2.1'
     pod 'UITextView+Placeholder', '~> 1.2.0'
     pod 'OAuthSwift', '~> 1.1.2'
-    pod 'LiveSDK', '~> 5.6.2'
+    pod 'LiveSDK', :path => 'MSGP/Vendor/LiveSDK'
     facebook
     
     target 'MSGP' do

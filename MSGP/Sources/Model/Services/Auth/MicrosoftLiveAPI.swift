@@ -17,7 +17,7 @@ final class MicrosoftLiveAPI: NSObject, AuthAPI {
     }
     
     private let clientID = ThirdPartyConfigurator.Keys.microsoftClientID
-    private let scopes = ["wl.signin", "wl.emails", "wl.photos"]
+    private let scopes = ["wl.signin", "wl.emails"]
     
     private var client: LiveConnectClient!
     fileprivate var handler: ((Result<SocialUser>) -> Void)?
@@ -38,7 +38,7 @@ final class MicrosoftLiveAPI: NSObject, AuthAPI {
         client.login(viewController, scopes: scopes, delegate: self, userState: UserState.login.rawValue)
     }
     
-    fileprivate func processAuthCompleted(status: LiveConnectSessionStatus, session: LiveConnectSession?) {
+    fileprivate func processAuthCompleted(with status: LiveConnectSessionStatus, session: LiveConnectSession?) {
         guard status == LiveAuthConnected else {
             handler?(.failure(APIError.unknown))
             return
@@ -79,7 +79,7 @@ extension MicrosoftLiveAPI: LiveAuthDelegate {
             UserState(rawValue: rawValue) == .login else {
                 return
         }
-        processAuthCompleted(status: status, session: session)
+        processAuthCompleted(with: status, session: session)
     }
     
     func authFailed(_ error: Error!, userState: Any!) {
