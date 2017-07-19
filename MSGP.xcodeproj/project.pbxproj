@@ -28,11 +28,13 @@
 		886B39D21F138F5D00BF1A8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39D01F138F5D00BF1A8E /* LaunchScreen.storyboard */; };
 		886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 886B39DA1F13910B00BF1A8E /* Images.xcassets */; };
 		886B3ADF1F13B92B00BF1A8E /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
-		88B038AB1F1DF9CB00E2EE95 /* EmbeddedSocialClientAPIAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B038AA1F1DF9CB00E2EE95 /* EmbeddedSocialClientAPIAdaptor.swift */; };
+		88B038AB1F1DF9CB00E2EE95 /* APISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B038AA1F1DF9CB00E2EE95 /* APISettings.swift */; };
 		88B038AD1F1E147200E2EE95 /* String+Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B038AC1F1E147200E2EE95 /* String+Encoding.swift */; };
 		88B038AF1F1E201C00E2EE95 /* TwitterWebBasedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B038AE1F1E201C00E2EE95 /* TwitterWebBasedAPI.swift */; };
 		88B038B11F1E227D00E2EE95 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B038B01F1E227D00E2EE95 /* WebViewController.swift */; };
 		88B038B51F1E4F0200E2EE95 /* ModelStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B038B41F1E4F0200E2EE95 /* ModelStack.swift */; };
+		88B038B71F1F415C00E2EE95 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B038B61F1F415C00E2EE95 /* SessionService.swift */; };
+		88B038B91F1F452C00E2EE95 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B038B81F1F452C00E2EE95 /* Errors.swift */; };
 		88BC87421F14FA1B00EAEFD7 /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 88BC873F1F14FA1B00EAEFD7 /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		88BC87571F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
@@ -307,11 +309,13 @@
 		886B3AE71F13D1EC00BF1A8E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKCoreKit/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKLoginKit/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../Library/Developer/Xcode/DerivedData/MSGP-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKShareKit/FBSDKShareKit.framework"; sourceTree = "<group>"; };
-		88B038AA1F1DF9CB00E2EE95 /* EmbeddedSocialClientAPIAdaptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedSocialClientAPIAdaptor.swift; sourceTree = "<group>"; };
+		88B038AA1F1DF9CB00E2EE95 /* APISettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APISettings.swift; sourceTree = "<group>"; };
 		88B038AC1F1E147200E2EE95 /* String+Encoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Encoding.swift"; sourceTree = "<group>"; };
 		88B038AE1F1E201C00E2EE95 /* TwitterWebBasedAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterWebBasedAPI.swift; sourceTree = "<group>"; };
 		88B038B01F1E227D00E2EE95 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		88B038B41F1E4F0200E2EE95 /* ModelStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelStack.swift; sourceTree = "<group>"; };
+		88B038B61F1F415C00E2EE95 /* SessionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		88B038B81F1F452C00E2EE95 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		88BC873E1F14FA1B00EAEFD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88BC873F1F14FA1B00EAEFD7 /* MSGP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
 		88BC87401F14FA1B00EAEFD7 /* MSGP.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = MSGP.modulemap; sourceTree = "<group>"; };
@@ -639,6 +643,7 @@
 				88CEF0AD1F18C74A00B93196 /* TableDataDisplayManager.swift */,
 				88CEF0B51F18D50C00B93196 /* CellModel.swift */,
 				8839556E1F1CD26500048BDE /* ButtonWithTarget.swift */,
+				88B038B81F1F452C00E2EE95 /* Errors.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -826,7 +831,8 @@
 			isa = PBXGroup;
 			children = (
 				8839557C1F1DF37600048BDE /* UserService.swift */,
-				88B038AA1F1DF9CB00E2EE95 /* EmbeddedSocialClientAPIAdaptor.swift */,
+				88B038B61F1F415C00E2EE95 /* SessionService.swift */,
+				88B038AA1F1DF9CB00E2EE95 /* APISettings.swift */,
 				88CEEF6D1F18BB4300B93196 /* ThirdPartyConfigurator.swift */,
 				88CEEF641F18BB4300B93196 /* Auth */,
 				88CEEF6E1F18BB4300B93196 /* URLScheme */,
@@ -1772,6 +1778,7 @@
 				88CEF04C1F18BB4300B93196 /* TwitterAPI.swift in Sources */,
 				88CEF0221F18BB4300B93196 /* PostCommentResponse.swift in Sources */,
 				88CEF0C51F18F79B00B93196 /* TextViewCell.swift in Sources */,
+				88B038B91F1F452C00E2EE95 /* Errors.swift in Sources */,
 				88CEF01C1F18BB4300B93196 /* GetTopicNameResponse.swift in Sources */,
 				88CEF0981F18BB4300B93196 /* TabMenuContainerPresenter.swift in Sources */,
 				88CEF08B1F18BB4300B93196 /* MenuStackRouterInput.swift in Sources */,
@@ -1832,7 +1839,7 @@
 				883955711F1CD28C00048BDE /* UIBarButtonItem+Ext.swift in Sources */,
 				88CEF00E1F18BB4300B93196 /* ActivityView.swift in Sources */,
 				88CEF0AE1F18C74A00B93196 /* TableDataDisplayManager.swift in Sources */,
-				88B038AB1F1DF9CB00E2EE95 /* EmbeddedSocialClientAPIAdaptor.swift in Sources */,
+				88B038AB1F1DF9CB00E2EE95 /* APISettings.swift in Sources */,
 				88CEF03F1F18BB4300B93196 /* Images.swift in Sources */,
 				88CEEFF61F18BB4300B93196 /* SlideMenu.swift in Sources */,
 				88CEF0181F18BB4300B93196 /* FeedResponseTopicView.swift in Sources */,
@@ -1876,6 +1883,7 @@
 				88CEF0361F18BB4300B93196 /* PutTopicRequest.swift in Sources */,
 				88CEF0091F18BB4300B93196 /* SocialAPI.swift in Sources */,
 				88CEF08E1F18BB4300B93196 /* MenuStackViewInput.swift in Sources */,
+				88B038B71F1F415C00E2EE95 /* SessionService.swift in Sources */,
 				88CEF09D1F18BB4300B93196 /* TabMenuContainerViewOutput.swift in Sources */,
 				88CEF01D1F18BB4300B93196 /* LinkedAccountView.swift in Sources */,
 				88CEF0631F18BB4300B93196 /* CreatePostRouter.swift in Sources */,

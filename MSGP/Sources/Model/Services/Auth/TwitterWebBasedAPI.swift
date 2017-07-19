@@ -47,7 +47,7 @@ final class TwitterWebBasedAPI: AuthAPI {
                                      accessToken: credential.oauthVerifier,
                                      completion: handler)
             },
-            failure: { _ in handler(.failure(APIError.generic)) }
+            failure: { _ in handler(.failure(APIError.unknown)) }
         )
     }
     
@@ -150,20 +150,5 @@ extension TwitterWebBasedAPI: OAuthWebViewControllerDelegate {
     
     func oauthWebViewControllerDidDisappear() {
         authenticator.cancel()
-    }
-}
-
-extension TwitterWebBasedAPI {
-    
-    enum APIError: LocalizedError {
-        case missingUserData
-        case generic
-        
-        public var errorDescription: String? {
-            switch self {
-            case .missingUserData: return "User data is missing."
-            case .generic: return "Twitter API error."
-            }
-        }
     }
 }

@@ -9,7 +9,11 @@
 import Foundation
 
 final class ModelStack {
-    private(set) var user: User!
+    let user: User
+    let sessionToken: String
     
-    private(set) var sessionToken: String?
+    init(user: User, sessionToken: String) {
+        self.user = user
+        self.sessionToken = sessionToken
+    }
 }

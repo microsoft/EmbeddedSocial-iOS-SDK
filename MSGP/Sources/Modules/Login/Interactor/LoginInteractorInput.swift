@@ -11,5 +11,5 @@ import Foundation
 protocol LoginInteractorInput {
     func login(provider: AuthProvider, from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void)
     
-    func getMyProfile(socialUser: SocialUser, handler: @escaping (Result<User>) -> Void)
+    func getMyProfile(socialUser: SocialUser, handler: @escaping (Result<(user: User, sessionToken: String)>) -> Void)
 }

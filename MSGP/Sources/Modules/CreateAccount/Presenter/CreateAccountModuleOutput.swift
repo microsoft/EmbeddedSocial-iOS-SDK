@@ -9,5 +9,5 @@
 import Foundation
 
 protocol CreateAccountModuleOutput: class {
-    func onAccountCreated(user: User)
+    func onAccountCreated(user: User, sessionToken: String)
 }

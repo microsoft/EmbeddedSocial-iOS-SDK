@@ -15,7 +15,7 @@ protocol UserServiceType {
 struct UserService: UserServiceType {
     
     func getMyProfile(socialUser: SocialUser, completion: @escaping (Result<User>) -> Void) {
-        EmbeddedSocialClientAPIAdaptor.shared.customHeaders = socialUser.credentials.authHeader
+        APISettings.shared.customHeaders = socialUser.credentials.authHeader
         
         UsersAPI.usersGetMyProfile { profile, error in
             guard error == nil else {

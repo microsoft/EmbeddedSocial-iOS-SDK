@@ -72,8 +72,8 @@ class CreateAccountPresenter: CreateAccountViewOutput {
         interactor.createAccount(for: updatedCurrentUser()) { [weak self] result in
             self?.view.setIsLoading(false)
             self?.view.setCreateAccountButtonEnabled(true)
-            if let user = result.value {
-                self?.moduleOutput?.onAccountCreated(user: user)
+            if let (user, sessionToken) = result.value {
+                self?.moduleOutput?.onAccountCreated(user: user, sessionToken: sessionToken)
             } else if let error = result.error {
                 self?.view.showError(error)
             }

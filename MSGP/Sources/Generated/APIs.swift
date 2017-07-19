@@ -7,8 +7,7 @@
 import Foundation
 
 open class EmbeddedSocialClientAPI {
-//    open static var basePath = "https://api.embeddedsocial.microsoft.com"
-    open static var basePath = "https://ppe.embeddedsocial.microsoft.com"
+    open static var basePath = "https://api.embeddedsocial.microsoft.com"
     open static var credential: URLCredential?
     open static var customHeaders: [String:String] = [:]
     static var requestBuilderFactory: RequestBuilderFactory = AlamofireRequestBuilderFactory()

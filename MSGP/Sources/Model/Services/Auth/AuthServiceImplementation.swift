@@ -26,7 +26,7 @@ final class AuthService: AuthServiceType {
         }
     }
     
-    func createAccount(for user: SocialUser, completion: @escaping (Result<User>) -> Void) {
+    func createAccount(for user: SocialUser, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
         let params = PostUserRequest()
         params.instanceId = user.uid
         params.firstName = user.firstName
@@ -34,7 +34,7 @@ final class AuthService: AuthServiceType {
         params.bio = user.bio
         params.photoHandle = user.photo?.uid
         
-        EmbeddedSocialClientAPIAdaptor.shared.customHeaders = user.credentials.authHeader
+        APISettings.shared.customHeaders = user.credentials.authHeader
         
         UsersAPI.usersPostUser(request: params) { response, error in
             if let error = error {
@@ -42,9 +42,8 @@ final class AuthService: AuthServiceType {
             } else if let response = response,
                 let userHandle = response.userHandle,
                 let sessionToken = response.sessionToken {
-                print("Session token: \(sessionToken)")
                 let user = User(socialUser: user, userHandle: userHandle)
-                completion(.success(user))
+                completion(.success((user, sessionToken)))
             } else {
                 completion(.failure(AuthError.createError))
             }

@@ -15,6 +15,11 @@ final class GoogleAPI: NSObject, AuthAPI {
     func login(from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void) {
         signInHandler = handler
         
+        // force sign in dialogue
+        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
+            GIDSignIn.sharedInstance().signOut()
+        }
+        
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = viewController
         GIDSignIn.sharedInstance().signIn()

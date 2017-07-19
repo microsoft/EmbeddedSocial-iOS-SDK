@@ -102,22 +102,6 @@ enum GraphScope: String {
     case userRead = "User.Read"
 }
 
-// MARK: - APIError
-
-private enum APIError: LocalizedError {
-    case unknown
-    case responseError(String)
-    case missingUserData
-
-    public var errorDescription: String? {
-        switch self {
-        case .unknown: return "Unknown error occurred."
-        case let .responseError(path): return "Response \(path) returned with error."
-        case .missingUserData: return "User data is missing."
-        }
-    }
-}
-
 // MARK: - GraphClient
 
 class MicrosoftGraphClient {

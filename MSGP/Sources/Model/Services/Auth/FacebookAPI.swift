@@ -68,18 +68,3 @@ final class FacebookAPI: AuthAPI {
         return Photo(url: url)
     }
 }
-
-extension FacebookAPI {
-    
-    enum APIError: LocalizedError {
-        case cancelled
-        case missingUserData
-
-        public var errorDescription: String? {
-            switch self {
-            case .cancelled: return "Cancelled by user."
-            case .missingUserData: return "User data is missing."
-            }
-        }
-    }
-}

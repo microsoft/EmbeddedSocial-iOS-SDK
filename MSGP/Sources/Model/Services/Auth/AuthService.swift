@@ -17,7 +17,7 @@ protocol AuthServiceType {
                from viewController: UIViewController?,
                handler: @escaping (Result<SocialUser>) -> Void)
     
-    func createAccount(for user: SocialUser, completion: @escaping (Result<User>) -> Void)
+    func createAccount(for user: SocialUser, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void)
 }
 
 protocol AuthAPIProviderType {

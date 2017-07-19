@@ -52,8 +52,8 @@ final class LoginPresenter: LoginViewOutput {
         interactor.getMyProfile(socialUser: user) { [weak self] result in
             self?.view.setIsLoading(false)
             
-            if let user = result.value {
-                self?.moduleOutput?.onLogin(user)
+            if let (user, sessionToken) = result.value {
+                self?.moduleOutput?.onSessionCreated(user: user, sessionToken: sessionToken)
             } else {
                 self?.router.openCreateAccount(user: user)
             }
@@ -62,7 +62,7 @@ final class LoginPresenter: LoginViewOutput {
 }
 
 extension LoginPresenter: CreateAccountModuleOutput {
-    func onAccountCreated(user: User) {
-        moduleOutput?.onLogin(user)
+    func onAccountCreated(user: User, sessionToken: String) {
+        moduleOutput?.onSessionCreated(user: user, sessionToken: sessionToken)
     }
 }

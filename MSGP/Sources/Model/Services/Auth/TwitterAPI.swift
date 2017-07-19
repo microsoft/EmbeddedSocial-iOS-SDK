@@ -66,16 +66,3 @@ final class TwitterAPI: AuthAPI {
         }
     }
 }
-
-extension TwitterAPI {
-    
-    enum APIError: LocalizedError {
-        case missingUserData
-        
-        public var errorDescription: String? {
-            switch self {
-            case .missingUserData: return "User data is missing."
-            }
-        }
-    }
-}

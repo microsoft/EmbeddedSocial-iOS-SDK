@@ -19,7 +19,7 @@ public final class SocialPlus {
     private var root: RootConfigurator!
     private let urlSchemeService = URLSchemeService()
     
-    let modelStack = ModelStack()
+    private(set) var modelStack: ModelStack!
     
     public static let shared = SocialPlus()
     
@@ -31,6 +31,11 @@ public final class SocialPlus {
         
         ThirdPartyConfigurator.setup(application: launchArguments.app, launchOptions: launchArguments.launchOptions)
         root.router.openLoginScreen()
+        
+        root.router.onSessionCreated = { [unowned self] user, sessionToken in
+            self.modelStack = ModelStack(user: user, sessionToken: sessionToken)
+            self.root.router.openHomeScreen(user: user)
+        }
     }
     
     public func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
