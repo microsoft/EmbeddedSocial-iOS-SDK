@@ -10,6 +10,8 @@ import UIKit
 import GoogleSignIn
 
 final class GoogleAPI: NSObject, AuthAPI {
+    fileprivate let profileImageDimensionPx: UInt = 256
+    
     fileprivate var signInHandler: ((Result<SocialUser>) -> Void?)?
     
     func login(from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void) {
@@ -33,7 +35,7 @@ extension GoogleAPI: GIDSignInDelegate {
             return
         }
         //FIXME: Use proper value for image dimension
-        let photoURL = user.profile.imageURL(withDimension: 256)
+        let photoURL = user.profile.imageURL(withDimension: profileImageDimensionPx)
         
         let credentials = CredentialsList(provider: .google, accessToken: user.authentication.accessToken, socialUID: user.userID)
         let user = SocialUser(credentials: credentials,

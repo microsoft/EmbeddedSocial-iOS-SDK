@@ -11,7 +11,7 @@ import MSAL
 
 // MARK: - MicrosoftAPI
 
-private let clientID = "5e4ecf55-0958-4324-b32a-332e42064697"
+private let clientID = ThirdPartyConfigurator.Keys.microsoftClientID
 
 final class MicrosoftAPI: AuthAPI {
     private let scopes = [GraphScope.userRead.rawValue]

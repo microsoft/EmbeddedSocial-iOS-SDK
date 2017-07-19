@@ -23,19 +23,16 @@ abstract_target 'Group' do
     pod 'SwiftGen', '~> 4.2.1'
     pod 'UITextView+Placeholder', '~> 1.2.0'
     pod 'OAuthSwift', '~> 1.1.2'
+    pod 'LiveSDK', :path => 'MSGP/Vendor/LiveSDK'
     facebook
 
     target 'MSGP' do
-
-        target 'MSGPTests' do
-            inherit! :search_paths
-            # Pods for testing
-
-            pod 'Quick'
-            pod 'Nimble'
+      target 'MSGPTests' do
+        inherit! :search_paths
+        pod 'Quick'
+        pod 'Nimble'
 
         end
-
     end
 
     target 'MSGP-Example' do

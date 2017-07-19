@@ -22,7 +22,7 @@ class CreateAccountConfigurator {
         let presenter = CreateAccountPresenter(user: user)
         presenter.view = viewController
         presenter.router = router
-        presenter.interactor = CreateAccountInteractor(authService: AuthService(apiProvider: AuthAPIProvider()))
+        presenter.interactor = CreateAccountInteractor(userService: UserService())
         presenter.moduleOutput = moduleOutput
         
         viewController.output = presenter

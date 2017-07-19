@@ -7,14 +7,16 @@
 import Foundation
 
 open class EmbeddedSocialClientAPI {
-//    open static var basePath = "https://api.embeddedsocial.microsoft.com"
-//    open static var basePath = "https://ppe.embeddedsocial.microsoft.com"
+    private static var _basePath = "https://api.embeddedsocial.microsoft.com"
     open static var basePath: String {
+        set {
+            _basePath = newValue
+        }
         get {
             if let path = getEnvironmentVariable("MSGP_MOCK_SERVER") {
                 return path
             } else {
-                return "https://ppe.embeddedsocial.microsoft.com"
+                return _basePath
             }
         }
     }

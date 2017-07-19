@@ -12,29 +12,29 @@ class SideMenuInteractor: SideMenuInteractorInput {
     weak var clientMenuItemsProvider: SideMenuItemsProvider?
     weak var socialMenuItemsProvider: SideMenuItemsProvider!
     
-    func socialMenuItems() -> [MenuItemModel] {
+    func socialMenuItems() -> [SideMenuItemModel] {
         
-        var items = [MenuItemModel]()
+        var items = [SideMenuItemModel]()
         let count = socialMenuItemsProvider?.numberOfItems() ?? 0
         
         for index in 0..<count {
             let image = socialMenuItemsProvider!.image(forItem: index)
             let title = socialMenuItemsProvider!.title(forItem: index)
-            items.append(MenuItemModel(title: title, image: image))
+            items.append(SideMenuItemModel(title: title, image: image))
         }
         
         return items
     }
     
-    func clientMenuItems() -> [MenuItemModel] {
+    func clientMenuItems() -> [SideMenuItemModel] {
         
-        var items = [MenuItemModel]()
+        var items = [SideMenuItemModel]()
         let count = clientMenuItemsProvider?.numberOfItems() ?? 0
         
         for index in 0..<count {
             let image = clientMenuItemsProvider!.image(forItem: index)
             let title = clientMenuItemsProvider!.title(forItem: index)
-            items.append(MenuItemModel(title: title, image: image))
+            items.append(SideMenuItemModel(title: title, image: image))
         }
         
         return items

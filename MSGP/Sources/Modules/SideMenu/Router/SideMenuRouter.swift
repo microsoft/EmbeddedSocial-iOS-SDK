@@ -8,8 +8,13 @@
 
 class SideMenuRouter: SideMenuRouterInput {
     
-    func open(viewController: UIViewController) {
+    var output: SideMenuRouterOutput!
+    
+    func open(viewController: UIViewController, sender: Any?) {
         
+        UIApplication.shared.sendAction(Selector(("closeSideMenu")), to: nil, from: sender, for: nil)
+        output.show(viewController: viewController)
     }
     
 }
+

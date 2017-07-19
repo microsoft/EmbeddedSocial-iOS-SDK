@@ -8,14 +8,14 @@
 
 import UIKit
 
-class SideMenuViewController: UIViewController, SideMenuViewInput, MenuSectionHeaderDelegate {
+class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSectionHeaderDelegate {
     
     var output: SideMenuViewOutput!
     
     @IBOutlet var tabbarShownConstraint: NSLayoutConstraint?
     @IBOutlet var accountInfoShownConstraint: NSLayoutConstraint?
     @IBOutlet weak var tableView: UITableView?
-    @IBOutlet weak var accountInfoView: MenuHeader?
+    @IBOutlet weak var accountInfoView: SideMenuAccountInfoView?
     
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -25,9 +25,9 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, MenuSectionHe
     
     // MARK: SideMenuViewInput
     func setupInitialState() {
-        accountInfoView?.configure(with: MenuHeaderModel(accountName: "Sting", accountImage: UIImage(asset: .iconTwitter)))
+        accountInfoView?.configure(with: SideMenuHeaderModel(accountName: "Sting", accountImage: UIImage(asset: .iconTwitter)))
     
-        tableView?.register(MenuSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+        tableView?.register(SideMenuSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
     }
     
     func reload() {
@@ -66,7 +66,7 @@ extension SideMenuViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? MenuSectionHeader else {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SideMenuSectionHeader else {
             return nil
         }
         
@@ -79,7 +79,7 @@ extension SideMenuViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? MenuCellView else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? SideMenuCellView else {
            return UITableViewCell()
         }
         
@@ -106,7 +106,7 @@ extension SideMenuViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: Section Delegate
     
-    func didToggle(section: MenuSectionHeader, index: Int) {
+    func didToggle(section: SideMenuSectionHeader, index: Int) {
         output.didToggleSection(with: index)
     }
 }

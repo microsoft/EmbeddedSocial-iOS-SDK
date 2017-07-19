@@ -11,6 +11,7 @@ import UIKit
 struct Constants {
     static let appKey = "ec1665a4-920d-4449-b8a0-49ed374d4290"
     static let standardCellHeight: CGFloat = 44.0
+    static let oauth1URLScheme = "msgp"
 }
 
 // swiftlint:disable type_name

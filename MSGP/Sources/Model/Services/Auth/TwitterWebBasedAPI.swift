@@ -14,8 +14,8 @@ import TwitterKit
 final class TwitterWebBasedAPI: AuthAPI {
     
     fileprivate let authenticator = OAuth1Swift(
-        consumerKey: "2dw07dxA952U3QmEcT3TruHbd",
-        consumerSecret: "c1eoCNGZP0hJ3UHiB50qIh9Y0TMSDq8LOYZ3gJO8blsql9sRB5",
+        consumerKey: ThirdPartyConfigurator.Keys.twitterConsumerKey,
+        consumerSecret: ThirdPartyConfigurator.Keys.twitterConsumerSecret,
         requestTokenUrl: "https://api.twitter.com/oauth/request_token",
         authorizeUrl: "https://api.twitter.com/oauth/authorize",
         accessTokenUrl: "https://api.twitter.com/oauth/access_token"
@@ -25,7 +25,7 @@ final class TwitterWebBasedAPI: AuthAPI {
         let controller = WebViewController()
         controller.view = UIView(frame: UIScreen.main.bounds) // needed if no nib or not loaded from storyboard
         controller.delegate = self
-        controller.urlScheme = "twitterkit-2dw07dxA952U3QmEcT3TruHbd"
+        controller.urlScheme = "twitterkit-\(ThirdPartyConfigurator.Keys.twitterConsumerKey)"
         controller.viewDidLoad()
         return controller
     }()
@@ -36,7 +36,7 @@ final class TwitterWebBasedAPI: AuthAPI {
         authenticator.authorizeURLHandler = urlHandler(withType: .safari, sourceViewController: viewController)
         
         authenticator.authorize(
-            withCallbackURL: URL(string: "msgp://oauth-callback/twitter")!,
+            withCallbackURL: URL(string: "\(Constants.oauth1URLScheme)://oauth-callback/twitter")!,
             success: { [weak self] credential, _, parameters in
                 guard let userID = parameters["user_id"] as? String else {
                     handler(.failure(APIError.missingUserData))
@@ -115,15 +115,7 @@ final class TwitterWebBasedAPI: AuthAPI {
     @available(iOS 9.0, *)
     private func makeSafariURLHandler(viewController: UIViewController) -> SafariURLHandler {
         let handler = SafariURLHandler(viewController: viewController, oauthSwift: authenticator)
-        handler.presentCompletion = {
-            print("Safari presented")
-        }
-        handler.dismissCompletion = {
-            print("Safari dismissed")
-        }
-        handler.factory = { url in
-            return SFSafariViewController(url: url)
-        }
+        handler.factory = { return SFSafariViewController(url: $0) }
         return handler
     }
 }
