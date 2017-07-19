@@ -34,29 +34,35 @@ final class LoginPresenter: LoginViewOutput {
     }
     
     private func login(with provider: AuthProvider) {
+        view.setIsLoading(true)
+        
         interactor.login(provider: provider, from: view as? UIViewController) { [weak self] result in
             if let user = result.value {
-                self?.router.openCreateAccount(user: user)
+                self?.processUser(user)
             } else if let error = result.error {
+                self?.view.setIsLoading(false)
                 self?.view.showError(error)
             } else {
                 fatalError("Unsupported response")
             }
         }
     }
+    
+    private func processUser(_ user: SocialUser) {
+        interactor.getMyProfile(socialUser: user) { [weak self] result in
+            self?.view.setIsLoading(false)
+            
+            if let (user, sessionToken) = result.value {
+                self?.moduleOutput?.onSessionCreated(user: user, sessionToken: sessionToken)
+            } else {
+                self?.router.openCreateAccount(user: user)
+            }
+        }
+    }
 }
 
-extension LoginPresenter: LoginModuleInput { }
-
 extension LoginPresenter: CreateAccountModuleOutput {
-    
-    func onAccountCreated(result: Result<User>) {
-        if let user = result.value {
-            moduleOutput?.onLogin(user)
-        } else if let error = result.error {
-            view.showError(error)
-        } else {
-            fatalError("Unsupported response")
-        }
+    func onAccountCreated(user: User, sessionToken: String) {
+        moduleOutput?.onSessionCreated(user: user, sessionToken: sessionToken)
     }
 }

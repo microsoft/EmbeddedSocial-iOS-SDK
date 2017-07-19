@@ -1,0 +1,74 @@
+//
+//  GroupHeaderTableCell.swift
+//  MSGP
+//
+//  Created by Vadim Bulavin on 7/17/17.
+//  Copyright © 2017 Akvelon. All rights reserved.
+//
+
+import UIKit
+
+class GroupHeaderTableCell: UITableViewCell {
+
+    @IBOutlet fileprivate weak var titleLabel: UILabel!
+    
+    @IBOutlet fileprivate weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var trailingConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var leadingConstraint: NSLayoutConstraint!
+    
+    fileprivate var titleInsets: UIEdgeInsets = .zero {
+        didSet {
+            bottomConstraint.constant = titleInsets.bottom
+            trailingConstraint.constant = titleInsets.right
+            leadingConstraint.constant = titleInsets.left
+        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        backgroundColor = Palette.extraLightGrey
+        titleLabel.font = Fonts.regular
+        titleLabel.textColor = Palette.darkGrey
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel?.text = nil
+    }
+}
+
+extension GroupHeaderTableCell {
+    func configure(title: String?) {
+        titleLabel.text = title
+    }
+}
+
+extension GroupHeaderTableCell {
+    struct Style {
+        let titleColor: UIColor?
+        let titleFont: UIFont
+        let backgroundColor: UIColor?
+        let titleInsets: UIEdgeInsets
+    }
+}
+
+extension GroupHeaderTableCell {
+    func apply(style: Style) {
+        titleLabel?.textColor = style.titleColor
+        titleLabel?.font = style.titleFont
+        backgroundColor = style.backgroundColor
+        titleInsets = style.titleInsets
+    }
+}
+
+extension GroupHeaderTableCell.Style {
+    typealias Style = GroupHeaderTableCell.Style
+    
+    static var createAccount: Style {
+        let insets = UIEdgeInsets(top: 0.0, left: Constants.createAccount.contentPadding, bottom: 0.0, right: 0.0)
+        return Style(titleColor: Palette.darkGrey,
+                     titleFont: Fonts.regular,
+                     backgroundColor: Palette.extraLightGrey,
+                     titleInsets: insets)
+    }
+}

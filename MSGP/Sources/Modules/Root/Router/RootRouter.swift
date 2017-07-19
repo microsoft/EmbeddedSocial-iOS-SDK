@@ -18,6 +18,8 @@ final class RootRouter: RootRouterProtocol {
     
     private let window: UIWindow
     
+    var onSessionCreated: ((User, String) -> Void)?
+    
     private let rootVC: UINavigationController = {
         let nc = UINavigationController()
         nc.navigationBar.isTranslucent = false
@@ -35,7 +37,10 @@ final class RootRouter: RootRouterProtocol {
     }
     
     func openHomeScreen(user: User) {
-
+        let vc = UIViewController()
+        vc.view.backgroundColor = .white
+        vc.title = "Home"
+        setRootViewController(vc)
     }
     
     private func setRootViewController(_ vc: UIViewController) {
@@ -45,7 +50,7 @@ final class RootRouter: RootRouterProtocol {
 }
 
 extension RootRouter: LoginModuleOutput {
-    func onLogin(_ user: User) {
-        openHomeScreen(user: user)
+    func onSessionCreated(user: User, sessionToken: String) {
+        onSessionCreated?(user, sessionToken)
     }
 }

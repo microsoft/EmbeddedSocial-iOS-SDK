@@ -11,6 +11,7 @@ import FBSDKCoreKit
 import TwitterKit
 import GoogleSignIn
 import MSAL
+import OAuthSwift
 
 struct FacebookURLScheme: URLScheme {
     
@@ -53,6 +54,16 @@ struct MicrosoftURLScheme: URLScheme {
             return false
         }
         return MSALPublicClientApplication.handleMSALResponse(url)
+    }
+}
+
+struct OAuthURLScheme: URLScheme {
+    
+    func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
+        if url.host == "oauth-callback" {
+            OAuthSwift.handle(url: url)
+        }
+        return false
     }
 }
 

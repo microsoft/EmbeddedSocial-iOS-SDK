@@ -20,8 +20,8 @@ class ThirdPartyConfigurator {
     }
     
     private static func setupTwitter() {
-        Twitter.sharedInstance().start(withConsumerKey:"2dw07dxA952U3QmEcT3TruHbd",
-                                       consumerSecret:"c1eoCNGZP0hJ3UHiB50qIh9Y0TMSDq8LOYZ3gJO8blsql9sRB5")
+        Twitter.sharedInstance().start(withConsumerKey: "2dw07dxA952U3QmEcT3TruHbd",
+                                       consumerSecret: "c1eoCNGZP0hJ3UHiB50qIh9Y0TMSDq8LOYZ3gJO8blsql9sRB5")
     }
     
     private static func setupFacebook(application: UIApplication, launchOptions: [AnyHashable: Any]) {

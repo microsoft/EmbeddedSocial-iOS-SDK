@@ -21,7 +21,8 @@ struct Button {
 
 struct Alerts {
     struct Messages {
-        static let leaveNewPost = NSLocalizedString("Going back to the feed will delete the content of this draft, are you sure you want to go back?", comment: "")
+        static let leaveNewPost = NSLocalizedString("Going back to the feed will delete the content of this draft," +
+            "are you sure you want to go back?", comment: "")
     }
     
     struct Titles {

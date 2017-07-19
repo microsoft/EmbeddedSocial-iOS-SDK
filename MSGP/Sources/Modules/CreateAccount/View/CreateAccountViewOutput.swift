@@ -8,4 +8,14 @@
 
 protocol CreateAccountViewOutput {
     func viewIsReady()
+    
+    func onFirstNameChanged(_ text: String?)
+    
+    func onLastNameChanged(_ text: String?)
+    
+    func onBioChanged(_ text: String?)
+    
+    func onSelectPhoto()
+    
+    func onCreateAccount()
 }

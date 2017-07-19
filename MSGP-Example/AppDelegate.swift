@@ -13,7 +13,6 @@ import MSGP
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var msgp: SocialPlus!
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -21,14 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = UIViewController()
         window?.makeKeyAndVisible()
         
-        msgp = SocialPlus(application: application, window: window!, launchOptions: launchOptions ?? [:])
-        msgp.start()
+        SocialPlus.shared.start(with: application, window: window!, launchOptions: launchOptions ?? [:])
         
         return true
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
-        return msgp.application(app, open: url, options: options)
+        return SocialPlus.shared.application(app, open: url, options: options)
     }
     
     /// iOS 8 support
@@ -39,6 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             options["UIApplicationOpenURLOptionsSourceApplicationKey"] = sourceApplication
         }
         
-        return msgp.application(application, open: url as URL, options: options)
+        return SocialPlus.shared.application(application, open: url as URL, options: options)
     }
 }

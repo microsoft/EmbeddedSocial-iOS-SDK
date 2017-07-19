@@ -8,19 +8,16 @@
 
 import Foundation
 
-enum AuthProvider: Int {
-    case facebook
-    case microsoft
-    case google
-    case twitter
-}
-
 protocol AuthAPI {
-    func login(from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void)
+    func login(from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void)
 }
 
 protocol AuthServiceType {
-    func login(provider: AuthProvider, from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void)
+    func login(with provider: AuthProvider,
+               from viewController: UIViewController?,
+               handler: @escaping (Result<SocialUser>) -> Void)
+    
+    func createAccount(for user: SocialUser, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void)
 }
 
 protocol AuthAPIProviderType {
