@@ -291,7 +291,7 @@
 		883955741F1CD7C600048BDE /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		883955771F1CD87400048BDE /* CreateAccountValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountValidator.swift; sourceTree = "<group>"; };
 		8839557A1F1DEE8800048BDE /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
-		8839557C1F1DF37600048BDE /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserService.swift; path = ../UserService.swift; sourceTree = "<group>"; };
+		8839557C1F1DF37600048BDE /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserService.swift; path = UserService.swift; sourceTree = "<group>"; };
 		883955811F1DF47400048BDE /* AuthProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
 		883955831F1DF61C00048BDE /* CredentialsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsList.swift; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -417,7 +417,7 @@
 		88CEEF691F18BB4300B93196 /* GoogleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
 		88CEEF6A1F18BB4300B93196 /* MicrosoftAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrosoftAPI.swift; sourceTree = "<group>"; };
 		88CEEF6B1F18BB4300B93196 /* TwitterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPI.swift; sourceTree = "<group>"; };
-		88CEEF6D1F18BB4300B93196 /* ThirdPartyConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThirdPartyConfigurator.swift; path = ThirdPartyConfigurator/ThirdPartyConfigurator.swift; sourceTree = "<group>"; };
+		88CEEF6D1F18BB4300B93196 /* ThirdPartyConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThirdPartyConfigurator.swift; path = ThirdPartyConfigurator.swift; sourceTree = "<group>"; };
 		88CEEF6F1F18BB4300B93196 /* URLSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSchemes.swift; sourceTree = "<group>"; };
 		88CEEF701F18BB4300B93196 /* URLSchemeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSchemeService.swift; sourceTree = "<group>"; };
 		88CEEF711F18BB4300B93196 /* SocialPlus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialPlus.swift; sourceTree = "<group>"; };
@@ -506,7 +506,7 @@
 		88CEF0A81F18C50700B93196 /* UploadPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPhotoCell.swift; sourceTree = "<group>"; };
 		88CEF0AB1F18C68800B93196 /* CreateAccountDataDisplayManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountDataDisplayManager.swift; sourceTree = "<group>"; };
 		88CEF0AD1F18C74A00B93196 /* TableDataDisplayManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableDataDisplayManager.swift; sourceTree = "<group>"; };
-		88CEF0AF1F18CAEF00B93196 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reusable.swift; path = ../Common/Reusable.swift; sourceTree = "<group>"; };
+		88CEF0AF1F18CAEF00B93196 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reusable.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		88CEF0B11F18D14B00B93196 /* CreateAccountCellModelsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountCellModelsBuilder.swift; sourceTree = "<group>"; };
 		88CEF0B31F18D2C100B93196 /* UITableView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		88CEF0B51F18D50C00B93196 /* CellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellModel.swift; sourceTree = "<group>"; };
@@ -582,18 +582,19 @@
 		883955761F1CD85C00048BDE /* Validators */ = {
 			isa = PBXGroup;
 			children = (
-				883955741F1CD7C600048BDE /* Validator.swift */,
 				883955771F1CD87400048BDE /* CreateAccountValidator.swift */,
+				883955741F1CD7C600048BDE /* Validator.swift */,
 			);
 			name = Validators;
+			path = Validators;
 			sourceTree = "<group>";
 		};
 		886B39C61F138F5D00BF1A8E /* MSGP-Example */ = {
 			isa = PBXGroup;
 			children = (
-				88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */,
 				886B39C71F138F5D00BF1A8E /* AppDelegate.swift */,
 				886B39CE1F138F5D00BF1A8E /* Assets.xcassets */,
+				88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */,
 				886B39D31F138F5D00BF1A8E /* Info.plist */,
 				886B39D01F138F5D00BF1A8E /* LaunchScreen.storyboard */,
 				886B39CB1F138F5D00BF1A8E /* Main.storyboard */,
@@ -615,8 +616,8 @@
 		88CEEEFC1F18BB4300B93196 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				88CEF0C11F18F0C200B93196 /* Controls */,
 				88CEEEFD1F18BB4300B93196 /* Common */,
+				88CEF0C11F18F0C200B93196 /* Controls */,
 				88CEEF0C1F18BB4300B93196 /* Extensions */,
 				88CEEF0F1F18BB4300B93196 /* Generated */,
 				88CEEF5A1F18BB4300B93196 /* Model */,
@@ -629,21 +630,21 @@
 		88CEEEFD1F18BB4300B93196 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				88CEEEFE1F18BB4300B93196 /* AppStrings.swift */,
 				88CEEEFF1F18BB4300B93196 /* Base */,
+				88CEEF031F18BB4300B93196 /* NavigationStack */,
+				88CEEEFE1F18BB4300B93196 /* AppStrings.swift */,
+				8839556E1F1CD26500048BDE /* ButtonWithTarget.swift */,
+				88CEF0B51F18D50C00B93196 /* CellModel.swift */,
+				88B038B81F1F452C00E2EE95 /* Errors.swift */,
 				88CEEF011F18BB4300B93196 /* Fonts.swift */,
 				88CEEF021F18BB4300B93196 /* Identifiable.swift */,
-				88CEEF031F18BB4300B93196 /* NavigationStack */,
+				88CEF0A31F18BDAD00B93196 /* Indetifiable.swift */,
 				88CEEF081F18BB4300B93196 /* Palette.swift */,
 				88CEEF091F18BB4300B93196 /* Result.swift */,
+				88CEF0A11F18BD2D00B93196 /* SectionModel.swift */,
 				88CEEF0A1F18BB4300B93196 /* SlideMenu.swift */,
 				88CEEF0B1F18BB4300B93196 /* SlideMenuVC.swift */,
-				88CEF0A11F18BD2D00B93196 /* SectionModel.swift */,
-				88CEF0A31F18BDAD00B93196 /* Indetifiable.swift */,
 				88CEF0AD1F18C74A00B93196 /* TableDataDisplayManager.swift */,
-				88CEF0B51F18D50C00B93196 /* CellModel.swift */,
-				8839556E1F1CD26500048BDE /* ButtonWithTarget.swift */,
-				88B038B81F1F452C00E2EE95 /* Errors.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -670,16 +671,16 @@
 		88CEEF0C1F18BB4300B93196 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				88CEEF0D1F18BB4300B93196 /* UIColor+Hex.swift */,
-				88CEF0BF1F18EDF600B93196 /* UIView+Ext.swift */,
-				88CEEF0E1F18BB4300B93196 /* UIViewController+Alerts.swift */,
-				88CEF0B31F18D2C100B93196 /* UITableView+Ext.swift */,
 				88CEF0B71F18E4AC00B93196 /* Constants.swift */,
-				88CEF0B91F18E8F500B93196 /* UIImageView+ImageCache.swift */,
-				8839556C1F1CBD4A00048BDE /* UIImage+Resize.swift */,
+				88B038AC1F1E147200E2EE95 /* String+Encoding.swift */,
 				883955701F1CD28C00048BDE /* UIBarButtonItem+Ext.swift */,
 				883955721F1CD2DB00048BDE /* UIButton+Ext.swift */,
-				88B038AC1F1E147200E2EE95 /* String+Encoding.swift */,
+				88CEEF0D1F18BB4300B93196 /* UIColor+Hex.swift */,
+				8839556C1F1CBD4A00048BDE /* UIImage+Resize.swift */,
+				88CEF0B91F18E8F500B93196 /* UIImageView+ImageCache.swift */,
+				88CEF0B31F18D2C100B93196 /* UITableView+Ext.swift */,
+				88CEF0BF1F18EDF600B93196 /* UIView+Ext.swift */,
+				88CEEF0E1F18BB4300B93196 /* UIViewController+Alerts.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -687,14 +688,14 @@
 		88CEEF0F1F18BB4300B93196 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
-				88CEEF101F18BB4300B93196 /* AlamofireImplementations.swift */,
-				88CEEF111F18BB4300B93196 /* APIHelper.swift */,
 				88CEEF121F18BB4300B93196 /* APIs */,
-				88CEEF231F18BB4300B93196 /* APIs.swift */,
-				88CEEF241F18BB4300B93196 /* Extensions.swift */,
 				88CEEF251F18BB4300B93196 /* Models */,
-				88CEEF561F18BB4300B93196 /* Models.swift */,
 				88CEEF571F18BB4300B93196 /* SwiftGen */,
+				88CEEF111F18BB4300B93196 /* APIHelper.swift */,
+				88CEEF231F18BB4300B93196 /* APIs.swift */,
+				88CEEF101F18BB4300B93196 /* AlamofireImplementations.swift */,
+				88CEEF241F18BB4300B93196 /* Extensions.swift */,
+				88CEEF561F18BB4300B93196 /* Models.swift */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -793,8 +794,8 @@
 				88CEEF5F1F18BB4300B93196 /* External API */,
 				88CEEF611F18BB4300B93196 /* ImageCache */,
 				88CEEF631F18BB4300B93196 /* Services */,
-				88CEEF711F18BB4300B93196 /* SocialPlus.swift */,
 				88B038B41F1E4F0200E2EE95 /* ModelStack.swift */,
+				88CEEF711F18BB4300B93196 /* SocialPlus.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -802,11 +803,11 @@
 		88CEEF5B1F18BB4300B93196 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				883955811F1DF47400048BDE /* AuthProvider.swift */,
+				883955831F1DF61C00048BDE /* CredentialsList.swift */,
 				88CEEF5C1F18BB4300B93196 /* Photo.swift */,
 				88CEEF5D1F18BB4300B93196 /* SocialUser.swift */,
 				88CEEF5E1F18BB4300B93196 /* User.swift */,
-				883955811F1DF47400048BDE /* AuthProvider.swift */,
-				883955831F1DF61C00048BDE /* CredentialsList.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -830,12 +831,12 @@
 		88CEEF631F18BB4300B93196 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8839557C1F1DF37600048BDE /* UserService.swift */,
-				88B038B61F1F415C00E2EE95 /* SessionService.swift */,
-				88B038AA1F1DF9CB00E2EE95 /* APISettings.swift */,
-				88CEEF6D1F18BB4300B93196 /* ThirdPartyConfigurator.swift */,
 				88CEEF641F18BB4300B93196 /* Auth */,
 				88CEEF6E1F18BB4300B93196 /* URLScheme */,
+				88B038AA1F1DF9CB00E2EE95 /* APISettings.swift */,
+				88B038B61F1F415C00E2EE95 /* SessionService.swift */,
+				88CEEF6D1F18BB4300B93196 /* ThirdPartyConfigurator.swift */,
+				8839557C1F1DF37600048BDE /* UserService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -858,8 +859,8 @@
 		88CEEF6E1F18BB4300B93196 /* URLScheme */ = {
 			isa = PBXGroup;
 			children = (
-				88CEEF6F1F18BB4300B93196 /* URLSchemes.swift */,
 				88CEEF701F18BB4300B93196 /* URLSchemeService.swift */,
+				88CEEF6F1F18BB4300B93196 /* URLSchemes.swift */,
 			);
 			path = URLScheme;
 			sourceTree = "<group>";
@@ -919,8 +920,8 @@
 		88CEEF7C1F18BB4300B93196 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				88CEEF7E1F18BB4300B93196 /* CreateAccountRouterInput.swift */,
 				88CEEF7D1F18BB4300B93196 /* CreateAccountRouter.swift */,
+				88CEEF7E1F18BB4300B93196 /* CreateAccountRouterInput.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -928,12 +929,12 @@
 		88CEEF7F1F18BB4300B93196 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				88CEF0A51F18BEB300B93196 /* Cells */,
+				88CEF0AA1F18C66400B93196 /* DisplayManager */,
 				88CEEF801F18BB4300B93196 /* CreateAccount.storyboard */,
 				88CEEF811F18BB4300B93196 /* CreateAccountViewController.swift */,
 				88CEEF821F18BB4300B93196 /* CreateAccountViewInput.swift */,
 				88CEEF831F18BB4300B93196 /* CreateAccountViewOutput.swift */,
-				88CEF0AA1F18C66400B93196 /* DisplayManager */,
-				88CEF0A51F18BEB300B93196 /* Cells */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1272,12 +1273,12 @@
 		88CEEFE81F18BB4300B93196 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				883955761F1CD85C00048BDE /* Validators */,
+				88CEF0C61F19092600B93196 /* EquatableWithinEpsilon.swift */,
 				88CEEFE91F18BB4300B93196 /* ImagePicker.swift */,
 				88CEEFEA1F18BB4300B93196 /* NameComponentsSplitter.swift */,
 				88CEEFEB1F18BB4300B93196 /* NibLoadable.swift */,
 				88CEF0AF1F18CAEF00B93196 /* Reusable.swift */,
-				88CEF0C61F19092600B93196 /* EquatableWithinEpsilon.swift */,
-				883955761F1CD85C00048BDE /* Validators */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1289,37 +1290,41 @@
 				88CEF0A81F18C50700B93196 /* UploadPhotoCell.swift */,
 			);
 			name = Cells;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		88CEF0AA1F18C66400B93196 /* DisplayManager */ = {
 			isa = PBXGroup;
 			children = (
-				88CEF0AB1F18C68800B93196 /* CreateAccountDataDisplayManager.swift */,
 				88CEF0B11F18D14B00B93196 /* CreateAccountCellModelsBuilder.swift */,
+				88CEF0AB1F18C68800B93196 /* CreateAccountDataDisplayManager.swift */,
 			);
 			name = DisplayManager;
+			path = DisplayManager;
 			sourceTree = "<group>";
 		};
 		88CEF0C11F18F0C200B93196 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				88B038B01F1E227D00E2EE95 /* WebViewController.swift */,
-				88CEF0C21F18F0CB00B93196 /* TextFieldCell.swift */,
-				8839557A1F1DEE8800048BDE /* LoadingIndicatorView.swift */,
 				88CEF0DA1F1CA6E900B93196 /* GroupHeaderTableCell */,
 				88CEF0D51F1CA4FA00B93196 /* SubtitleTableCell */,
 				88CEF0CA1F191A2300B93196 /* TextViewCell */,
+				8839557A1F1DEE8800048BDE /* LoadingIndicatorView.swift */,
+				88CEF0C21F18F0CB00B93196 /* TextFieldCell.swift */,
+				88B038B01F1E227D00E2EE95 /* WebViewController.swift */,
 			);
 			name = Controls;
+			path = Controls;
 			sourceTree = "<group>";
 		};
 		88CEF0CA1F191A2300B93196 /* TextViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				88CEF0CB1F19212F00B93196 /* TextViewCell.xib */,
 				88CEF0C41F18F79B00B93196 /* TextViewCell.swift */,
+				88CEF0CB1F19212F00B93196 /* TextViewCell.xib */,
 			);
 			name = TextViewCell;
+			path = TextViewCell;
 			sourceTree = "<group>";
 		};
 		88CEF0D51F1CA4FA00B93196 /* SubtitleTableCell */ = {
@@ -1329,6 +1334,7 @@
 				88CEF0D21F1CA4F700B93196 /* SubtitleTableCell.xib */,
 			);
 			name = SubtitleTableCell;
+			path = SubtitleTableCell;
 			sourceTree = "<group>";
 		};
 		88CEF0DA1F1CA6E900B93196 /* GroupHeaderTableCell */ = {
@@ -1338,6 +1344,7 @@
 				88CEF0D71F1CA6E700B93196 /* GroupHeaderTableCell.xib */,
 			);
 			name = GroupHeaderTableCell;
+			path = GroupHeaderTableCell;
 			sourceTree = "<group>";
 		};
 		88CF242B1F16305300CC406F /* Vendor */ = {
@@ -1384,8 +1391,8 @@
 				9CD8052B1F0D012F00B9B0AC /* MSGP */,
 				886B39C61F138F5D00BF1A8E /* MSGP-Example */,
 				9CD805361F0D012F00B9B0AC /* MSGPTests */,
-				9CD8052A1F0D012F00B9B0AC /* Products */,
 				9273E107416D0B5757408DDB /* Pods */,
+				9CD8052A1F0D012F00B9B0AC /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1402,10 +1409,10 @@
 		9CD8052B1F0D012F00B9B0AC /* MSGP */ = {
 			isa = PBXGroup;
 			children = (
-				88CF242B1F16305300CC406F /* Vendor */,
+				9C223D1E1F0FA3390058B60A /* Resources */,
 				88CEEEFC1F18BB4300B93196 /* Sources */,
 				88BC873D1F14FA1B00EAEFD7 /* SupportingFiles */,
-				9C223D1E1F0FA3390058B60A /* Resources */,
+				88CF242B1F16305300CC406F /* Vendor */,
 			);
 			path = MSGP;
 			sourceTree = "<group>";
