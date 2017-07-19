@@ -10,7 +10,7 @@ def facebook
 end
 
 abstract_target 'Group' do
-    
+
     pod 'Alamofire', '~> 4.5.0'
     pod 'SwiftLint', '~> 0.20.1'
     pod 'SVProgressHUD', '~> 2.1.2'
@@ -21,23 +21,22 @@ abstract_target 'Group' do
     pod 'SDWebImage', '~> 4.0.0'
     pod 'MSGraphSDK', '~> 0.10.1'
     pod 'SwiftGen', '~> 4.2.1'
-    pod 'Cuckoo', '~> 0.9.2'
     pod 'UITextView+Placeholder', '~> 1.2.0'
     pod 'OAuthSwift', '~> 1.1.2'
+    pod 'LiveSDK', :path => 'MSGP/Vendor/LiveSDK'
     facebook
-    
+
     target 'MSGP' do
-               
-        target 'MSGPTests' do
-            inherit! :search_paths
-            # Pods for testing
-            
+      target 'MSGPTests' do
+        inherit! :search_paths
+        pod 'Quick'
+        pod 'Nimble'
+
         end
-        
     end
-    
+
     target 'MSGP-Example' do
-        
+
     end
-    
+
 end
