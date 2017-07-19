@@ -38,5 +38,10 @@ abstract_target 'Group' do
     target 'MSGP-Example' do
 
     end
-
+    
+    target 'MSGPUITests' do
+        pod 'Embassy', '~> 3.1’
+        pod 'EnvoyAmbassador', '~> 3.0’
+    end
+    
 end
