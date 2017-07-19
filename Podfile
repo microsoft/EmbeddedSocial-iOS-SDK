@@ -21,16 +21,16 @@ abstract_target 'Group' do
     pod 'SDWebImage', '~> 4.0.0'
     pod 'MSGraphSDK', '~> 0.10.1'
     pod 'SwiftGen', '~> 4.2.1'
-    pod 'Cuckoo', '~> 0.9.2'
     pod 'UITextView+Placeholder', '~> 1.2.0'
     pod 'OAuthSwift', '~> 1.1.2'
+    pod 'LiveSDK', '~> 5.6.2'
     facebook
     
     target 'MSGP' do
                
         target 'MSGPTests' do
             inherit! :search_paths
-            # Pods for testing
+            pod 'Cuckoo', '~> 0.9.2'
             
         end
         

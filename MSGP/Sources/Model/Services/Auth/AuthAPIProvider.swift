@@ -19,7 +19,7 @@ struct AuthAPIProvider: AuthAPIProviderType {
         case .google:
             return GoogleAPI()
         case .microsoft:
-            return MicrosoftAPI(imageCache: ImageCacheAdapter.shared)
+            return MicrosoftLiveAPI()
         }
     }
 }
