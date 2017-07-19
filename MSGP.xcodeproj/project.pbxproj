@@ -226,8 +226,6 @@
 		9CAB5E951F1F62A900FFE59B /* SideMenuViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E881F1F62A900FFE59B /* SideMenuViewOutput.swift */; };
 		9CAB5EA51F1F632400FFE59B /* NavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E9D1F1F632300FFE59B /* NavigationStack.swift */; };
 		9CAB5EA61F1F632400FFE59B /* NavigationStackContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E9E1F1F632300FFE59B /* NavigationStackContainer.swift */; };
-		9CAB5EB41F1F650900FFE59B /* SideMenuInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5EAC1F1F650900FFE59B /* SideMenuInteractorTests.swift */; };
-		9CAB5EB51F1F650900FFE59B /* SideMenuPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5EAE1F1F650900FFE59B /* SideMenuPresenterTests.swift */; };
 		9CAB5EBD1F1F67AB00FFE59B /* SocialMenuItemsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5EBC1F1F67AB00FFE59B /* SocialMenuItemsProvider.swift */; };
 		9CAB5EC41F1F6AA300FFE59B /* SideMenuAccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5EBF1F1F6A9C00FFE59B /* SideMenuAccountInfoView.swift */; };
 		9CAB5EC51F1F6AA300FFE59B /* SideMenuCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5EC01F1F6A9C00FFE59B /* SideMenuCellView.swift */; };
@@ -1898,8 +1896,6 @@
 				63A1D58F1F1CDEBC0090C67A /* CreatePostPresentorTests.swift in Sources */,
 				88CF240A1F16202C00CC406F /* NameComponentsSplitterTests.swift in Sources */,
 				63A1D5911F1CDFDD0090C67A /* CreatePostInteractorTests.swift in Sources */,
-				9CAB5EB51F1F650900FFE59B /* SideMenuPresenterTests.swift in Sources */,
-				9CAB5EB41F1F650900FFE59B /* SideMenuInteractorTests.swift in Sources */,
 				63A1D58B1F1CDE4C0090C67A /* CreatePostMocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
