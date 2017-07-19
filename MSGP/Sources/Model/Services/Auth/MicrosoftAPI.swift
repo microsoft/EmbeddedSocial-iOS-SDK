@@ -18,8 +18,7 @@ final class MicrosoftAPI: AuthAPI {
     
     private let application: MSALPublicClientApplication = {
         guard let app = try? MSALPublicClientApplication(clientId: clientID) else {
-            let url = "https://github.com/AzureAD/microsoft-authentication-library-for-objc"
-            fatalError("Microsoft ClientId is not set. Please follow the instructions from \(url)")
+            fatalError("Microsoft ClientId is not set")
         }
         return app
     }()
@@ -30,7 +29,7 @@ final class MicrosoftAPI: AuthAPI {
         self.imageCache = imageCache
     }
     
-    func login(from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void) {
+    func login(from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void) {
         application.acquireToken(forScopes: scopes) { result, error in
             guard error == nil else {
                 handler(.failure(error!))
@@ -42,12 +41,12 @@ final class MicrosoftAPI: AuthAPI {
                 return
             }
             
-            self.getUserInfo(token: result.accessToken, handler: handler)
+            self.getSocialUserInfo(tokenResult: result, handler: handler)
         }
     }
     
-    private func getUserInfo(token: String, handler: @escaping (Result<User>) -> Void) {
-        let graphClient = MicrosoftGraphClient(token: token)
+    private func getSocialUserInfo(tokenResult: MSALResult, handler: @escaping (Result<SocialUser>) -> Void) {
+        let graphClient = MicrosoftGraphClient(token: tokenResult.accessToken)
         
         var userJSON: [String: Any]?
         var imageData: Data?
@@ -66,17 +65,24 @@ final class MicrosoftAPI: AuthAPI {
         }
         
         group.notify(queue: DispatchQueue.main) { [unowned self] in
-            let user = self.makeUser(from: userJSON, imageData: imageData)
+            guard let user = self.makeSocialUser(from: userJSON, imageData: imageData, token: tokenResult.idToken) else {
+                handler(.failure(APIError.missingUserData))
+                return
+            }
             handler(.success(user))
         }
     }
     
-    private func makeUser(from userJSON: [String: Any]?, imageData: Data?) -> User {
-        return User(firstName: userJSON?["givenName"] as? String,
-                    lastName: userJSON?["surname"] as? String,
-                    email: userJSON?["mail"] as? String,
-                    photo: cachedPhoto(imageData: imageData),
-                    provider: .microsoft)
+    private func makeSocialUser(from userJSON: [String: Any]?, imageData: Data?, token: String) -> SocialUser? {
+        guard let userJSON = userJSON,
+            let uid = userJSON["id"] as? String else {
+                return nil
+        }
+        return SocialUser(credentials: CredentialsList(provider: .microsoft, accessToken: token, socialUID: uid),
+                          firstName: userJSON["givenName"] as? String,
+                          lastName: userJSON["surname"] as? String,
+                          email: userJSON["mail"] as? String,
+                          photo: cachedPhoto(imageData: imageData))
     }
     
     private func cachedPhoto(imageData: Data?) -> Photo {
@@ -94,20 +100,6 @@ final class MicrosoftAPI: AuthAPI {
 
 enum GraphScope: String {
     case userRead = "User.Read"
-}
-
-// MARK: - APIError
-
-private enum APIError: LocalizedError {
-    case unknown
-    case responseError(String)
-    
-    public var errorDescription: String? {
-        switch self {
-        case .unknown: return "Unknown error occurred."
-        case let .responseError(path): return "Response \(path) returned with error."
-        }
-    }
 }
 
 // MARK: - GraphClient

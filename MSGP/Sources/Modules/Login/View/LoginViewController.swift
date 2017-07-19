@@ -15,14 +15,24 @@ class LoginViewController: UIViewController, LoginViewInput {
     @IBOutlet fileprivate weak var microsoftButton: UIButton!
     @IBOutlet fileprivate weak var googleButton: UIButton!
     
+    @IBOutlet fileprivate weak var loadingIndicatorView: LoadingIndicatorView!
+    
+    @IBOutlet fileprivate weak var buttonsContainerView: UIView!
+    
     var output: LoginViewOutput!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
     }
-
+    
     func setupInitialState() {
+        setupColors()
+    }
+    
+    private func setupColors() {
+        loadingIndicatorView.apply(style: .standard)
+        
         for button in [facebookButton, twitterButton, microsoftButton, googleButton] {
             button?.setTitleColor(Palette.darkGrey, for: .normal)
             button?.titleLabel?.font = Fonts.regular
@@ -31,6 +41,12 @@ class LoginViewController: UIViewController, LoginViewInput {
     
     func showError(_ error: Error) {
         showErrorAlert(error)
+    }
+    
+    func setIsLoading(_ isLoading: Bool) {
+        loadingIndicatorView.isHidden = !isLoading
+        buttonsContainerView.isHidden = isLoading
+        loadingIndicatorView.isLoading = isLoading
     }
     
     @IBAction fileprivate func onFacebookSignIn(_ sender: UIButton) {

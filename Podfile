@@ -4,28 +4,26 @@ use_frameworks!
 inhibit_all_warnings!
 
 def facebook
-    pod 'FBSDKCoreKit'
-    pod 'FBSDKLoginKit'
-    pod 'FBSDKShareKit'
-end
-
-def microsoft
-    pod 'MSGraphSDK'
+    pod 'FBSDKCoreKit', '~> 4.24.0'
+    pod 'FBSDKLoginKit', '~> 4.24.0'
+    pod 'FBSDKShareKit', '~> 4.24.0'
 end
 
 abstract_target 'Group' do
     
-    pod 'Alamofire'
-    pod 'SwiftLint'
-    pod 'SVProgressHUD'
-    pod 'SnapKit'
+    pod 'Alamofire', '~> 4.5.0'
+    pod 'SwiftLint', '~> 0.20.1'
+    pod 'SVProgressHUD', '~> 2.1.2'
+    pod 'SnapKit', '~> 3.2.0'
     pod 'SlideMenuControllerSwift', '~> 3.0'
-    pod 'TwitterKit'
-    pod 'GoogleSignIn'
-    pod 'SDWebImage'
-    pod 'MSGraphSDK'
-    pod 'SwiftGen'
+    pod 'TwitterKit', '~> 2.8.1'
+    pod 'GoogleSignIn', '~> 4.0.2'
+    pod 'SDWebImage', '~> 4.0.0'
+    pod 'MSGraphSDK', '~> 0.10.1'
+    pod 'SwiftGen', '~> 4.2.1'
     pod 'Cuckoo', '~> 0.9.2'
+    pod 'UITextView+Placeholder', '~> 1.2.0'
+    pod 'OAuthSwift', '~> 1.1.2'
     facebook
     
     target 'MSGP' do

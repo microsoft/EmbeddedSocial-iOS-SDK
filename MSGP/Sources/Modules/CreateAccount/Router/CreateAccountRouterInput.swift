@@ -9,5 +9,5 @@
 import Foundation
 
 protocol CreateAccountRouterInput {
-    
+    func openImagePicker(from vc: UIViewController, completion: @escaping (Result<UIImage>) -> Void)
 }

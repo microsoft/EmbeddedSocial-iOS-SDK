@@ -7,5 +7,13 @@
 //
 
 protocol CreateAccountViewInput: class {
-    func setupInitialState()
+    func setupInitialState(with user: SocialUser)
+    
+    func setUser(_ user: SocialUser)
+    
+    func showError(_ error: Error)
+    
+    func setCreateAccountButtonEnabled(_ isEnabled: Bool)
+    
+    func setIsLoading(_ isLoading: Bool)
 }

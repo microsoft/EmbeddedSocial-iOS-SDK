@@ -9,5 +9,5 @@
 import Foundation
 
 protocol LoginRouterInput {
-    func openCreateAccount(user: User)
+    func openCreateAccount(user: SocialUser)
 }

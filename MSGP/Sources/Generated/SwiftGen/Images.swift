@@ -49,6 +49,7 @@ enum Asset: String {
   case iconSettings = "icon_settings"
   case logoWhite = "logo-white"
   case logo = "logo"
+  case userPhotoPlaceholder = "user_photo_placeholder"
 
   var image: Image {
     let bundle = Bundle(for: BundleToken.self)

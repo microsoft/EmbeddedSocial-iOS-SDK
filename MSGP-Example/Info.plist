@@ -21,7 +21,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1882968455299767</string>
+				<string>fb1503468403051551</string>
 			</array>
 		</dict>
 		<dict>
@@ -57,11 +57,19 @@
 				<string>auth</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>msgp</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>FacebookAppID</key>
-	<string>1882968455299767</string>
+	<string>1503468403051551</string>
 	<key>FacebookDisplayName</key>
 	<string>Social Plus</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -75,6 +83,10 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera Usage Description Placeholder</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo Library Usage Description Placeholder</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

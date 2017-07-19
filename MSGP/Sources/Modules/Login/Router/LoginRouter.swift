@@ -13,7 +13,7 @@ class LoginRouter: LoginRouterInput {
     weak var viewController: UIViewController?
     weak var createAccountOutput: CreateAccountModuleOutput?
     
-    func openCreateAccount(user: User) {
+    func openCreateAccount(user: SocialUser) {
         let createAccount = CreateAccountConfigurator()
         createAccount.configure(user: user, moduleOutput: createAccountOutput)
         viewController?.navigationController?.pushViewController(createAccount.viewController, animated: true)

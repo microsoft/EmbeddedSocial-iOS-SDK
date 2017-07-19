@@ -10,10 +10,15 @@ import UIKit
 import GoogleSignIn
 
 final class GoogleAPI: NSObject, AuthAPI {
-    fileprivate var signInHandler: ((Result<User>) -> Void?)?
+    fileprivate var signInHandler: ((Result<SocialUser>) -> Void?)?
     
-    func login(from viewController: UIViewController?, handler: @escaping (Result<User>) -> Void) {
+    func login(from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void) {
         signInHandler = handler
+        
+        // force sign in dialogue
+        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
+            GIDSignIn.sharedInstance().signOut()
+        }
         
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = viewController
@@ -22,7 +27,7 @@ final class GoogleAPI: NSObject, AuthAPI {
 }
 
 extension GoogleAPI: GIDSignInDelegate {
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         guard error == nil else {
             signInHandler?(.failure(error!))
             return
@@ -30,17 +35,17 @@ extension GoogleAPI: GIDSignInDelegate {
         //FIXME: Use proper value for image dimension
         let photoURL = user.profile.imageURL(withDimension: 256)
         
-        let domainUser = User(firstName: user.profile.givenName,
-                              lastName: user.profile.familyName,
-                              email: user.profile.email,
-                              token: user.authentication.idToken,
-                              photo: Photo(url: photoURL?.absoluteString),
-                              provider: .google)
+        let credentials = CredentialsList(provider: .google, accessToken: user.authentication.accessToken, socialUID: user.userID)
+        let user = SocialUser(credentials: credentials,
+                   firstName: user.profile.givenName,
+                   lastName: user.profile.familyName,
+                   email: user.profile.email,
+                   photo: Photo(url: photoURL?.absoluteString))
         
-        signInHandler?(.success(domainUser))
+        signInHandler?(.success(user))
     }
     
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error?) {
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         
     }
 }

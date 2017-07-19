@@ -31,7 +31,7 @@ class NavigationStack {
     var container: UIViewController?
     var window: UIWindow?
     
-    var storyboard: UIStoryboard  {
+    var storyboard: UIStoryboard {
         return UIStoryboard(name: "MenuStack", bundle: Bundle(for: type(of: self)))
     }
     
@@ -46,7 +46,7 @@ class NavigationStack {
         self.menu = instantiateViewController(with: format)
         self.presenter = SlideMenuController(mainViewController: self.navigationController!, leftMenuViewController: self.menu!)
         
-        window.rootViewController = self.presenter;
+        window.rootViewController = self.presenter
         self.window?.backgroundColor = UIColor(red: 236.0, green: 238.0, blue: 241.0, alpha: 1.0)
     }
     

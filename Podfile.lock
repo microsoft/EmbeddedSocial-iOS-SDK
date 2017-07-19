@@ -50,6 +50,7 @@ PODS:
     - MSGraphSDK/Common
   - MSGraphSDK/MSGraphCoreSDK (0.10.1):
     - MSGraphSDK/Common
+  - OAuthSwift (1.1.2)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
@@ -62,24 +63,27 @@ PODS:
     - Fabric
   - TwitterKit (2.8.1):
     - TwitterCore (>= 2.8)
+  - UITextView+Placeholder (1.2.0)
 
 DEPENDENCIES:
-  - Alamofire
+  - Alamofire (~> 4.5.0)
   - Cuckoo (~> 0.9.2)
   - Embassy (~> 3.1)
   - EnvoyAmbassador (~> 3.0)
-  - FBSDKCoreKit
-  - FBSDKLoginKit
-  - FBSDKShareKit
-  - GoogleSignIn
-  - MSGraphSDK
-  - SDWebImage
+  - FBSDKCoreKit (~> 4.24.0)
+  - FBSDKLoginKit (~> 4.24.0)
+  - FBSDKShareKit (~> 4.24.0)
+  - GoogleSignIn (~> 4.0.2)
+  - MSGraphSDK (~> 0.10.1)
+  - OAuthSwift (~> 1.1.2)
+  - SDWebImage (~> 4.0.0)
   - SlideMenuControllerSwift (~> 3.0)
-  - SnapKit
-  - SVProgressHUD
-  - SwiftGen
-  - SwiftLint
-  - TwitterKit
+  - SnapKit (~> 3.2.0)
+  - SVProgressHUD (~> 2.1.2)
+  - SwiftGen (~> 4.2.1)
+  - SwiftLint (~> 0.20.1)
+  - TwitterKit (~> 2.8.1)
+  - UITextView+Placeholder (~> 1.2.0)
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
@@ -96,6 +100,7 @@ SPEC CHECKSUMS:
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
   MSGraphSDK: 3c43eb632ca969593f1bdd5612b573e436bd3283
+  OAuthSwift: 5aa5659984d3ca3206ba636a9e7a9c6626b2e8bd
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SlideMenuControllerSwift: 9a163b16d54afab734add42858cba7ef7c307755
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
@@ -104,7 +109,8 @@ SPEC CHECKSUMS:
   SwiftLint: f60095dc173a3f3ec505bb34f5229c3dfd779a54
   TwitterCore: e959987be23c767004d29eb7fab8d85d8585a2e5
   TwitterKit: 3b6044a7320340326a4098f3e37aa1dbaeb94942
+  UITextView+Placeholder: 77680995fcdd07c3f52ec92fe1150874a2ac89ff
 
-PODFILE CHECKSUM: d097b272e0ed25e0159d176a6e1b9ada29e9777f
+PODFILE CHECKSUM: ab290f1da198bbb03efe96fc0f51e15aacc59790
 
 COCOAPODS: 1.2.0
