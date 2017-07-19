@@ -20,9 +20,9 @@ protocol SideMenuViewOutput {
     
     func itemsCount(in section: Int) -> Int
     func sectionsCount() -> Int
-    func section(with index: Int) -> MenuSectionModel
-    func item(at index: IndexPath) -> MenuItemModel
+    func section(with index: Int) -> SideMenuSectionModel
+    func item(at index: IndexPath) -> SideMenuItemModel
     func headerTitle(for section: Int) -> String
-    func sectionHeader(section index: Int) -> MenuHeaderModel?
+    func sectionHeader(section index: Int) -> SideMenuHeaderModel?
     
 }

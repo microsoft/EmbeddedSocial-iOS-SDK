@@ -210,22 +210,8 @@
 		88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88CF240A1F16202C00CC406F /* NameComponentsSplitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */; };
 		88CF242F1F16305300CC406F /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; };
-		9CAB5E891F1F62A900FFE59B /* SideMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E781F1F62A900FFE59B /* SideMenuConfigurator.swift */; };
-		9CAB5E8A1F1F62A900FFE59B /* SideMenuInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E791F1F62A900FFE59B /* SideMenuInitializer.swift */; };
-		9CAB5E8B1F1F62A900FFE59B /* SideMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E7B1F1F62A900FFE59B /* SideMenuInteractor.swift */; };
-		9CAB5E8C1F1F62A900FFE59B /* SideMenuInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E7C1F1F62A900FFE59B /* SideMenuInteractorInput.swift */; };
-		9CAB5E8D1F1F62A900FFE59B /* SideMenuInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E7D1F1F62A900FFE59B /* SideMenuInteractorOutput.swift */; };
-		9CAB5E8E1F1F62A900FFE59B /* MenuStack.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CAB5E7E1F1F62A900FFE59B /* MenuStack.storyboard */; };
-		9CAB5E8F1F1F62A900FFE59B /* SideMenuModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E801F1F62A900FFE59B /* SideMenuModuleInput.swift */; };
-		9CAB5E901F1F62A900FFE59B /* SideMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E811F1F62A900FFE59B /* SideMenuPresenter.swift */; };
-		9CAB5E911F1F62A900FFE59B /* SideMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E831F1F62A900FFE59B /* SideMenuRouter.swift */; };
-		9CAB5E921F1F62A900FFE59B /* SideMenuRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E841F1F62A900FFE59B /* SideMenuRouterInput.swift */; };
-		9CAB5E931F1F62A900FFE59B /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E861F1F62A900FFE59B /* SideMenuViewController.swift */; };
-		9CAB5E941F1F62A900FFE59B /* SideMenuViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E871F1F62A900FFE59B /* SideMenuViewInput.swift */; };
-		9CAB5E951F1F62A900FFE59B /* SideMenuViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E881F1F62A900FFE59B /* SideMenuViewOutput.swift */; };
 		9CAB5EA51F1F632400FFE59B /* NavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E9D1F1F632300FFE59B /* NavigationStack.swift */; };
 		9CAB5EA61F1F632400FFE59B /* NavigationStackContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5E9E1F1F632300FFE59B /* NavigationStackContainer.swift */; };
-		9CAB5EBD1F1F67AB00FFE59B /* SocialMenuItemsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5EBC1F1F67AB00FFE59B /* SocialMenuItemsProvider.swift */; };
 		9CAB5EC41F1F6AA300FFE59B /* SideMenuAccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5EBF1F1F6A9C00FFE59B /* SideMenuAccountInfoView.swift */; };
 		9CAB5EC51F1F6AA300FFE59B /* SideMenuCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5EC01F1F6A9C00FFE59B /* SideMenuCellView.swift */; };
 		9CAB5EC61F1F6AA300FFE59B /* SideMenuModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5EC11F1F6A9C00FFE59B /* SideMenuModels.swift */; };
@@ -233,6 +219,21 @@
 		9CAB5EC81F1F6AA300FFE59B /* SideMenuStackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5EC31F1F6A9C00FFE59B /* SideMenuStackController.swift */; };
 		9CBA39ED1F1F7E88007EB52C /* MSGP-Example-MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA39EC1F1F7E88007EB52C /* MSGP-Example-MenuHandler.swift */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
+		9CF3B0D91F1F97D700484529 /* SideMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0C71F1F97C200484529 /* SideMenuConfigurator.swift */; };
+		9CF3B0DA1F1F97D700484529 /* SideMenuInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0C81F1F97C200484529 /* SideMenuInitializer.swift */; };
+		9CF3B0DB1F1F97D700484529 /* SideMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0CA1F1F97C200484529 /* SideMenuInteractor.swift */; };
+		9CF3B0DC1F1F97D700484529 /* SideMenuInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0CB1F1F97C200484529 /* SideMenuInteractorInput.swift */; };
+		9CF3B0DD1F1F97D700484529 /* SideMenuInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0CC1F1F97C200484529 /* SideMenuInteractorOutput.swift */; };
+		9CF3B0DE1F1F97D700484529 /* SideMenuModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0CE1F1F97C200484529 /* SideMenuModuleInput.swift */; };
+		9CF3B0DF1F1F97D700484529 /* SideMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0CF1F1F97C200484529 /* SideMenuPresenter.swift */; };
+		9CF3B0E01F1F97D700484529 /* SideMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0D11F1F97C200484529 /* SideMenuRouter.swift */; };
+		9CF3B0E11F1F97D700484529 /* SideMenuRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0D21F1F97C200484529 /* SideMenuRouterInput.swift */; };
+		9CF3B0E21F1F97D700484529 /* SideMenuRouterOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0D31F1F97C200484529 /* SideMenuRouterOutput.swift */; };
+		9CF3B0E31F1F97D700484529 /* MenuStack.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CF3B0D51F1F97C200484529 /* MenuStack.storyboard */; };
+		9CF3B0E41F1F97D700484529 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0D61F1F97C200484529 /* SideMenuViewController.swift */; };
+		9CF3B0E51F1F97D700484529 /* SideMenuViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0D71F1F97C200484529 /* SideMenuViewInput.swift */; };
+		9CF3B0E61F1F97D700484529 /* SideMenuViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0D81F1F97C200484529 /* SideMenuViewOutput.swift */; };
+		9CF3B0EB1F1F9A1500484529 /* SocialMenuItemsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0EA1F1F99F500484529 /* SocialMenuItemsProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -477,24 +478,8 @@
 		88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitterTests.swift; sourceTree = "<group>"; };
 		88CF242D1F16305300CC406F /* MSAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MSAL.framework; sourceTree = "<group>"; };
-		9CAB5E781F1F62A900FFE59B /* SideMenuConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuConfigurator.swift; sourceTree = "<group>"; };
-		9CAB5E791F1F62A900FFE59B /* SideMenuInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuInitializer.swift; sourceTree = "<group>"; };
-		9CAB5E7B1F1F62A900FFE59B /* SideMenuInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuInteractor.swift; sourceTree = "<group>"; };
-		9CAB5E7C1F1F62A900FFE59B /* SideMenuInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuInteractorInput.swift; sourceTree = "<group>"; };
-		9CAB5E7D1F1F62A900FFE59B /* SideMenuInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuInteractorOutput.swift; sourceTree = "<group>"; };
-		9CAB5E7E1F1F62A900FFE59B /* MenuStack.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MenuStack.storyboard; sourceTree = "<group>"; };
-		9CAB5E801F1F62A900FFE59B /* SideMenuModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuModuleInput.swift; sourceTree = "<group>"; };
-		9CAB5E811F1F62A900FFE59B /* SideMenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuPresenter.swift; sourceTree = "<group>"; };
-		9CAB5E831F1F62A900FFE59B /* SideMenuRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuRouter.swift; sourceTree = "<group>"; };
-		9CAB5E841F1F62A900FFE59B /* SideMenuRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuRouterInput.swift; sourceTree = "<group>"; };
-		9CAB5E861F1F62A900FFE59B /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
-		9CAB5E871F1F62A900FFE59B /* SideMenuViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewInput.swift; sourceTree = "<group>"; };
-		9CAB5E881F1F62A900FFE59B /* SideMenuViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewOutput.swift; sourceTree = "<group>"; };
 		9CAB5E9D1F1F632300FFE59B /* NavigationStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationStack.swift; sourceTree = "<group>"; };
 		9CAB5E9E1F1F632300FFE59B /* NavigationStackContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationStackContainer.swift; sourceTree = "<group>"; };
-		9CAB5EAC1F1F650900FFE59B /* SideMenuInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuInteractorTests.swift; sourceTree = "<group>"; };
-		9CAB5EAE1F1F650900FFE59B /* SideMenuPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuPresenterTests.swift; sourceTree = "<group>"; };
-		9CAB5EBC1F1F67AB00FFE59B /* SocialMenuItemsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialMenuItemsProvider.swift; path = ../../../../../../../Desktop/arch_kill/MSGP/Sources/Model/Services/SocialMenuItemsProvider.swift; sourceTree = "<group>"; };
 		9CAB5EBF1F1F6A9C00FFE59B /* SideMenuAccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuAccountInfoView.swift; sourceTree = "<group>"; };
 		9CAB5EC01F1F6A9C00FFE59B /* SideMenuCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCellView.swift; sourceTree = "<group>"; };
 		9CAB5EC11F1F6A9C00FFE59B /* SideMenuModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuModels.swift; sourceTree = "<group>"; };
@@ -504,6 +489,23 @@
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805391F0D012F00B9B0AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9CF3B0C71F1F97C200484529 /* SideMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuConfigurator.swift; sourceTree = "<group>"; };
+		9CF3B0C81F1F97C200484529 /* SideMenuInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuInitializer.swift; sourceTree = "<group>"; };
+		9CF3B0CA1F1F97C200484529 /* SideMenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuInteractor.swift; sourceTree = "<group>"; };
+		9CF3B0CB1F1F97C200484529 /* SideMenuInteractorInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuInteractorInput.swift; sourceTree = "<group>"; };
+		9CF3B0CC1F1F97C200484529 /* SideMenuInteractorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuInteractorOutput.swift; sourceTree = "<group>"; };
+		9CF3B0CE1F1F97C200484529 /* SideMenuModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuModuleInput.swift; sourceTree = "<group>"; };
+		9CF3B0CF1F1F97C200484529 /* SideMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuPresenter.swift; sourceTree = "<group>"; };
+		9CF3B0D11F1F97C200484529 /* SideMenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRouter.swift; sourceTree = "<group>"; };
+		9CF3B0D21F1F97C200484529 /* SideMenuRouterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRouterInput.swift; sourceTree = "<group>"; };
+		9CF3B0D31F1F97C200484529 /* SideMenuRouterOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRouterOutput.swift; sourceTree = "<group>"; };
+		9CF3B0D51F1F97C200484529 /* MenuStack.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MenuStack.storyboard; sourceTree = "<group>"; };
+		9CF3B0D61F1F97C200484529 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		9CF3B0D71F1F97C200484529 /* SideMenuViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewInput.swift; sourceTree = "<group>"; };
+		9CF3B0D81F1F97C200484529 /* SideMenuViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewOutput.swift; sourceTree = "<group>"; };
+		9CF3B0E81F1F997F00484529 /* SideMenuInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuInteractorTests.swift; sourceTree = "<group>"; };
+		9CF3B0E91F1F997F00484529 /* SideMenuPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuPresenterTests.swift; sourceTree = "<group>"; };
+		9CF3B0EA1F1F99F500484529 /* SocialMenuItemsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMenuItemsProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -552,7 +554,7 @@
 		63A1D5881F1CDE200090C67A /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				9CAB5EA81F1F650900FFE59B /* SideMenu */,
+				9CF3B0E71F1F997F00484529 /* SideMenu */,
 				63A1D5891F1CDE200090C67A /* CreatePost */,
 			);
 			path = Modules;
@@ -800,7 +802,7 @@
 		881F750D1F1F4FA500FD995E /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				9CAB5EBC1F1F67AB00FFE59B /* SocialMenuItemsProvider.swift */,
+				9CF3B0EA1F1F99F500484529 /* SocialMenuItemsProvider.swift */,
 				881F750F1F1F4FA500FD995E /* Auth */,
 				881F751A1F1F4FA500FD995E /* URLSchemeService */,
 				881F75181F1F4FA500FD995E /* SessionService.swift */,
@@ -838,7 +840,7 @@
 		881F751F1F1F4FA500FD995E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				9CAB5E761F1F62A900FFE59B /* SideMenu */,
+				9CF3B0C51F1F97C200484529 /* SideMenu */,
 				881F75201F1F4FA500FD995E /* CreateAccount */,
 				881F75371F1F4FA500FD995E /* CreatePost */,
 				881F754A1F1F4FA500FD995E /* Login */,
@@ -1200,77 +1202,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		9CAB5E761F1F62A900FFE59B /* SideMenu */ = {
-			isa = PBXGroup;
-			children = (
-				9CAB5E771F1F62A900FFE59B /* Configurator */,
-				9CAB5E7A1F1F62A900FFE59B /* Interactor */,
-				9CAB5E7F1F1F62A900FFE59B /* Presenter */,
-				9CAB5E821F1F62A900FFE59B /* Router */,
-				9CAB5E851F1F62A900FFE59B /* View */,
-			);
-			name = SideMenu;
-			path = ../../../../../../Desktop/arch_kill/MSGP/Sources/Modules/SideMenu;
-			sourceTree = "<group>";
-		};
-		9CAB5E771F1F62A900FFE59B /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				9CAB5E781F1F62A900FFE59B /* SideMenuConfigurator.swift */,
-				9CAB5E791F1F62A900FFE59B /* SideMenuInitializer.swift */,
-			);
-			path = Configurator;
-			sourceTree = "<group>";
-		};
-		9CAB5E7A1F1F62A900FFE59B /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				9CAB5E7B1F1F62A900FFE59B /* SideMenuInteractor.swift */,
-				9CAB5E7C1F1F62A900FFE59B /* SideMenuInteractorInput.swift */,
-				9CAB5E7D1F1F62A900FFE59B /* SideMenuInteractorOutput.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		9CAB5E7F1F1F62A900FFE59B /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				9CAB5E801F1F62A900FFE59B /* SideMenuModuleInput.swift */,
-				9CAB5E811F1F62A900FFE59B /* SideMenuPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		9CAB5E821F1F62A900FFE59B /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				9CAB5E831F1F62A900FFE59B /* SideMenuRouter.swift */,
-				9CAB5E841F1F62A900FFE59B /* SideMenuRouterInput.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
-		9CAB5E851F1F62A900FFE59B /* View */ = {
-			isa = PBXGroup;
-			children = (
-				9CAB5E7E1F1F62A900FFE59B /* MenuStack.storyboard */,
-				9CAB5E861F1F62A900FFE59B /* SideMenuViewController.swift */,
-				9CAB5E871F1F62A900FFE59B /* SideMenuViewInput.swift */,
-				9CAB5E881F1F62A900FFE59B /* SideMenuViewOutput.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		9CAB5EA81F1F650900FFE59B /* SideMenu */ = {
-			isa = PBXGroup;
-			children = (
-				9CAB5EAE1F1F650900FFE59B /* SideMenuPresenterTests.swift */,
-				9CAB5EAC1F1F650900FFE59B /* SideMenuInteractorTests.swift */,
-			);
-			name = SideMenu;
-			path = ../../../../../Desktop/arch_kill/ModulesTests/SideMenu;
-			sourceTree = "<group>";
-		};
 		9CAB5EBE1F1F6A9C00FFE59B /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -1323,6 +1254,76 @@
 				88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */,
 			);
 			path = MSGPTests;
+			sourceTree = "<group>";
+		};
+		9CF3B0C51F1F97C200484529 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				9CF3B0C61F1F97C200484529 /* Configurator */,
+				9CF3B0C91F1F97C200484529 /* Interactor */,
+				9CF3B0CD1F1F97C200484529 /* Presenter */,
+				9CF3B0D01F1F97C200484529 /* Router */,
+				9CF3B0D41F1F97C200484529 /* View */,
+			);
+			path = SideMenu;
+			sourceTree = "<group>";
+		};
+		9CF3B0C61F1F97C200484529 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				9CF3B0C71F1F97C200484529 /* SideMenuConfigurator.swift */,
+				9CF3B0C81F1F97C200484529 /* SideMenuInitializer.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		9CF3B0C91F1F97C200484529 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				9CF3B0CA1F1F97C200484529 /* SideMenuInteractor.swift */,
+				9CF3B0CB1F1F97C200484529 /* SideMenuInteractorInput.swift */,
+				9CF3B0CC1F1F97C200484529 /* SideMenuInteractorOutput.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		9CF3B0CD1F1F97C200484529 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				9CF3B0CE1F1F97C200484529 /* SideMenuModuleInput.swift */,
+				9CF3B0CF1F1F97C200484529 /* SideMenuPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		9CF3B0D01F1F97C200484529 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				9CF3B0D11F1F97C200484529 /* SideMenuRouter.swift */,
+				9CF3B0D21F1F97C200484529 /* SideMenuRouterInput.swift */,
+				9CF3B0D31F1F97C200484529 /* SideMenuRouterOutput.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		9CF3B0D41F1F97C200484529 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9CF3B0D51F1F97C200484529 /* MenuStack.storyboard */,
+				9CF3B0D61F1F97C200484529 /* SideMenuViewController.swift */,
+				9CF3B0D71F1F97C200484529 /* SideMenuViewInput.swift */,
+				9CF3B0D81F1F97C200484529 /* SideMenuViewOutput.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9CF3B0E71F1F997F00484529 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				9CF3B0E81F1F997F00484529 /* SideMenuInteractorTests.swift */,
+				9CF3B0E91F1F997F00484529 /* SideMenuPresenterTests.swift */,
+			);
+			path = SideMenu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1462,7 +1463,7 @@
 				88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */,
 				881F75B91F1F4FA500FD995E /* SubtitleTableCell.xib in Resources */,
 				881F763E1F1F4FA500FD995E /* CreatePost.storyboard in Resources */,
-				9CAB5E8E1F1F62A900FFE59B /* MenuStack.storyboard in Resources */,
+				9CF3B0E31F1F97D700484529 /* MenuStack.storyboard in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1542,6 +1543,7 @@
 				881F76031F1F4FA500FD995E /* PutTopicNameRequest.swift in Sources */,
 				881F76341F1F4FA500FD995E /* CreateAccountDataDisplayManager.swift in Sources */,
 				881F76221F1F4FA500FD995E /* URLSchemes.swift in Sources */,
+				9CF3B0E11F1F97D700484529 /* SideMenuRouterInput.swift in Sources */,
 				881F75D41F1F4FA500FD995E /* ReportingAPI.swift in Sources */,
 				881F75DB1F1F4FA500FD995E /* Extensions.swift in Sources */,
 				881F76091F1F4FA500FD995E /* TopicView.swift in Sources */,
@@ -1554,9 +1556,9 @@
 				881F76691F1F4FA500FD995E /* RootRouter.swift in Sources */,
 				881F764B1F1F4FA500FD995E /* LoginViewInput.swift in Sources */,
 				881F764C1F1F4FA500FD995E /* LoginViewOutput.swift in Sources */,
-				9CAB5E8D1F1F62A900FFE59B /* SideMenuInteractorOutput.swift in Sources */,
 				881F75FE1F1F4FA500FD995E /* PostTopicResponse.swift in Sources */,
 				881F766A1F1F4FA500FD995E /* TabMenuContainerConfigurator.swift in Sources */,
+				9CF3B0DC1F1F97D700484529 /* SideMenuInteractorInput.swift in Sources */,
 				881F76191F1F4FA500FD995E /* AuthService.swift in Sources */,
 				881F76481F1F4FA500FD995E /* LoginRouterInput.swift in Sources */,
 				881F76411F1F4FA500FD995E /* CreatePostViewOutput.swift in Sources */,
@@ -1570,16 +1572,12 @@
 				881F75E21F1F4FA500FD995E /* DeleteTopicNameRequest.swift in Sources */,
 				881F76271F1F4FA500FD995E /* CreateAccountInteractor.swift in Sources */,
 				881F76261F1F4FA500FD995E /* CreateAccountConfigurator.swift in Sources */,
-				9CAB5E911F1F62A900FFE59B /* SideMenuRouter.swift in Sources */,
 				881F75C41F1F4FA500FD995E /* UIImageView+ImageCache.swift in Sources */,
 				881F75DD1F1F4FA500FD995E /* AppCompactView.swift in Sources */,
+				9CF3B0DB1F1F97D700484529 /* SideMenuInteractor.swift in Sources */,
 				881F76061F1F4FA500FD995E /* PutUserPhotoRequest.swift in Sources */,
 				881F75B81F1F4FA500FD995E /* SubtitleTableCell.swift in Sources */,
-				9CAB5E941F1F62A900FFE59B /* SideMenuViewInput.swift in Sources */,
-				9CAB5E921F1F62A900FFE59B /* SideMenuRouterInput.swift in Sources */,
-				9CAB5E951F1F62A900FFE59B /* SideMenuViewOutput.swift in Sources */,
 				881F75BF1F1F4FA500FD995E /* String+Encoding.swift in Sources */,
-				9CAB5E8A1F1F62A900FFE59B /* SideMenuInitializer.swift in Sources */,
 				881F75A31F1F4FA500FD995E /* AppStrings.swift in Sources */,
 				881F76281F1F4FA500FD995E /* CreateAccountInteractorInput.swift in Sources */,
 				881F76471F1F4FA500FD995E /* LoginRouter.swift in Sources */,
@@ -1602,22 +1600,25 @@
 				881F76081F1F4FA500FD995E /* ReplyView.swift in Sources */,
 				881F75CB1F1F4FA500FD995E /* BuildsAPI.swift in Sources */,
 				881F76241F1F4FA500FD995E /* UserService.swift in Sources */,
-				9CAB5E8B1F1F62A900FFE59B /* SideMenuInteractor.swift in Sources */,
+				9CF3B0DD1F1F97D700484529 /* SideMenuInteractorOutput.swift in Sources */,
 				881F762B1F1F4FA500FD995E /* CreateAccountRouter.swift in Sources */,
-				9CAB5E8C1F1F62A900FFE59B /* SideMenuInteractorInput.swift in Sources */,
 				881F75D11F1F4FA500FD995E /* PinsAPI.swift in Sources */,
 				881F76361F1F4FA500FD995E /* CreatePostInitializer.swift in Sources */,
 				881F75A51F1F4FA500FD995E /* ButtonWithTarget.swift in Sources */,
+				9CF3B0EB1F1F9A1500484529 /* SocialMenuItemsProvider.swift in Sources */,
 				9CAB5EC41F1F6AA300FFE59B /* SideMenuAccountInfoView.swift in Sources */,
+				9CF3B0E41F1F97D700484529 /* SideMenuViewController.swift in Sources */,
 				881F76331F1F4FA500FD995E /* CreateAccountCellModelsBuilder.swift in Sources */,
 				881F75E31F1F4FA500FD995E /* FeedResponseActivityView.swift in Sources */,
 				881F75C71F1F4FA500FD995E /* UIViewController+Alerts.swift in Sources */,
 				881F761A1F1F4FA500FD995E /* AuthServiceImplementation.swift in Sources */,
 				881F75E41F1F4FA500FD995E /* FeedResponseCommentView.swift in Sources */,
 				881F75F51F1F4FA500FD995E /* PostLinkedAccountRequest.swift in Sources */,
+				9CF3B0DA1F1F97D700484529 /* SideMenuInitializer.swift in Sources */,
 				881F75D61F1F4FA500FD995E /* SessionsAPI.swift in Sources */,
 				881F75C51F1F4FA500FD995E /* UITableView+Ext.swift in Sources */,
 				881F75F41F1F4FA500FD995E /* PostImageResponse.swift in Sources */,
+				9CF3B0E61F1F97D700484529 /* SideMenuViewOutput.swift in Sources */,
 				881F76791F1F4FA500FD995E /* NibLoadable.swift in Sources */,
 				881F75F11F1F4FA500FD995E /* PostFollowerRequest.swift in Sources */,
 				881F75FA1F1F4FA500FD995E /* PostSessionRequest.swift in Sources */,
@@ -1626,6 +1627,7 @@
 				881F76231F1F4FA500FD995E /* URLSchemeService.swift in Sources */,
 				881F761F1F1F4FA500FD995E /* TwitterWebBasedAPI.swift in Sources */,
 				881F75ED1F1F4FA500FD995E /* PostBlobResponse.swift in Sources */,
+				9CF3B0E01F1F97D700484529 /* SideMenuRouter.swift in Sources */,
 				881F76181F1F4FA500FD995E /* AuthAPIProvider.swift in Sources */,
 				881F75FC1F1F4FA500FD995E /* PostTopicNameRequest.swift in Sources */,
 				881F766E1F1F4FA500FD995E /* TabMenuContainerInteractorOutput.swift in Sources */,
@@ -1637,14 +1639,13 @@
 				881F75F81F1F4FA500FD995E /* PostReplyResponse.swift in Sources */,
 				881F76741F1F4FA500FD995E /* TabMenuContainerViewInput.swift in Sources */,
 				881F75F01F1F4FA500FD995E /* PostCommentResponse.swift in Sources */,
-				9CAB5EBD1F1F67AB00FFE59B /* SocialMenuItemsProvider.swift in Sources */,
-				9CAB5E8F1F1F62A900FFE59B /* SideMenuModuleInput.swift in Sources */,
 				881F75AF1F1F4FA500FD995E /* Palette.swift in Sources */,
 				9CAB5EA51F1F632400FFE59B /* NavigationStack.swift in Sources */,
 				881F76721F1F4FA500FD995E /* TabMenuContainerRouterInput.swift in Sources */,
 				881F767A1F1F4FA500FD995E /* Reusable.swift in Sources */,
 				881F75D71F1F4FA500FD995E /* SocialAPI.swift in Sources */,
 				881F75E51F1F4FA500FD995E /* FeedResponseReplyView.swift in Sources */,
+				9CF3B0DE1F1F97D700484529 /* SideMenuModuleInput.swift in Sources */,
 				881F76421F1F4FA500FD995E /* LoginConfigurator.swift in Sources */,
 				881F75F91F1F4FA500FD995E /* PostReportRequest.swift in Sources */,
 				881F76761F1F4FA500FD995E /* EquatableWithinEpsilon.swift in Sources */,
@@ -1653,11 +1654,10 @@
 				881F75EE1F1F4FA500FD995E /* PostBlockedUserRequest.swift in Sources */,
 				881F75CF1F1F4FA500FD995E /* LikesAPI.swift in Sources */,
 				881F76001F1F4FA500FD995E /* PostUserResponse.swift in Sources */,
-				9CAB5E891F1F62A900FFE59B /* SideMenuConfigurator.swift in Sources */,
 				881F762E1F1F4FA500FD995E /* UploadPhotoCell.swift in Sources */,
 				881F76021F1F4FA500FD995E /* PutPushRegistrationRequest.swift in Sources */,
 				881F75E71F1F4FA500FD995E /* FeedResponseUserCompactView.swift in Sources */,
-				881F767E1F1F639000FD995E /* MicrosoftLiveAPI.swift in Sources */,
+				9CF3B0E51F1F97D700484529 /* SideMenuViewInput.swift in Sources */,
 				881F760B1F1F4FA500FD995E /* UserProfileView.swift in Sources */,
 				881F766B1F1F4FA500FD995E /* TabMenuContainerInitializer.swift in Sources */,
 				881F75E81F1F4FA500FD995E /* FeedResponseUserProfileView.swift in Sources */,
@@ -1673,15 +1673,14 @@
 				881F76461F1F4FA500FD995E /* LoginPresenter.swift in Sources */,
 				881F75D31F1F4FA500FD995E /* RepliesAPI.swift in Sources */,
 				881F76731F1F4FA500FD995E /* TabMenuContainerViewController.swift in Sources */,
-				9CAB5E931F1F62A900FFE59B /* SideMenuViewController.swift in Sources */,
 				881F75B71F1F4FA500FD995E /* LoadingIndicatorView.swift in Sources */,
-				9CAB5E901F1F62A900FFE59B /* SideMenuPresenter.swift in Sources */,
 				881F760F1F1F4FA500FD995E /* AuthProvider.swift in Sources */,
 				881F763F1F1F4FA500FD995E /* CreatePostViewController.swift in Sources */,
 				881F75DC1F1F4FA500FD995E /* ActivityView.swift in Sources */,
 				881F76781F1F4FA500FD995E /* NameComponentsSplitter.swift in Sources */,
 				881F75DF1F1F4FA500FD995E /* CommentView.swift in Sources */,
 				881F766C1F1F4FA500FD995E /* TabMenuContainerInteractor.swift in Sources */,
+				9CF3B0D91F1F97D700484529 /* SideMenuConfigurator.swift in Sources */,
 				881F75CA1F1F4FA500FD995E /* BlobsAPI.swift in Sources */,
 				881F76371F1F4FA500FD995E /* CreatePostInteractor.swift in Sources */,
 				881F76681F1F4FA500FD995E /* RootConfigurator.swift in Sources */,
@@ -1700,6 +1699,7 @@
 				9CAB5EC51F1F6AA300FFE59B /* SideMenuCellView.swift in Sources */,
 				881F76111F1F4FA500FD995E /* Photo.swift in Sources */,
 				881F767B1F1F4FA500FD995E /* CreateAccountValidator.swift in Sources */,
+				9CF3B0DF1F1F97D700484529 /* SideMenuPresenter.swift in Sources */,
 				881F75B51F1F4FA500FD995E /* GroupHeaderTableCell.swift in Sources */,
 				881F76211F1F4FA500FD995E /* ThirdPartyConfigurator.swift in Sources */,
 				881F75F61F1F4FA500FD995E /* PostPinRequest.swift in Sources */,
@@ -1728,6 +1728,7 @@
 				881F75EA1F1F4FA500FD995E /* GetTopicNameResponse.swift in Sources */,
 				881F76161F1F4FA500FD995E /* ModelStack.swift in Sources */,
 				881F76441F1F4FA500FD995E /* LoginInteractorInput.swift in Sources */,
+				9CF3B0E21F1F97D700484529 /* SideMenuRouterOutput.swift in Sources */,
 				881F75F31F1F4FA500FD995E /* PostFollowingUserRequest.swift in Sources */,
 				881F75A81F1F4FA500FD995E /* Fonts.swift in Sources */,
 				881F75DA1F1F4FA500FD995E /* APIs.swift in Sources */,

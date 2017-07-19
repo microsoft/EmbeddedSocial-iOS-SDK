@@ -13,9 +13,11 @@ class SideMenuModuleConfigurator {
     class func configure(viewController: SideMenuViewController,
                          type: SideMenuType,
                          socialMenuItemsProvider: SideMenuItemsProvider,
-                         clientMenuItemsProvider: SideMenuItemsProvider?) {
+                         clientMenuItemsProvider: SideMenuItemsProvider?,
+                         output: SideMenuRouterOutput) {
 
         let router = SideMenuRouter()
+        router.output = output
 
         let presenter = SideMenuPresenter()
         presenter.view = viewController

@@ -10,6 +10,6 @@ import Foundation
 
 protocol SideMenuRouterInput {
     
-    func open(viewController: UIViewController)
-
+    func open(viewController: UIViewController, sender: Any?)
+    
 }
