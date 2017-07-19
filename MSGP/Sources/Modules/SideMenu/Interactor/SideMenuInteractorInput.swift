@@ -9,8 +9,8 @@
 import Foundation
 
 protocol SideMenuInteractorInput {
-    func socialMenuItems() -> [MenuItemModel]
-    func clientMenuItems() -> [MenuItemModel]
+    func socialMenuItems() -> [SideMenuItemModel]
+    func clientMenuItems() -> [SideMenuItemModel]
     func targetForSocialMenuItem(with index:Int) -> UIViewController
     func targetForClientMenuItem(with index:Int) -> UIViewController
 }

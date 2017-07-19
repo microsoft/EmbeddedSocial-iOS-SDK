@@ -7,5 +7,7 @@
 //
 
 protocol SideMenuModuleInput: class {
-
+    
+    func open(viewController: UIViewController)
+    
 }

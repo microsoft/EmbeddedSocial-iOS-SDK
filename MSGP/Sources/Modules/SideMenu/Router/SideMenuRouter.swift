@@ -6,10 +6,21 @@
 //  Copyright © 2017 akvelon. All rights reserved.
 //
 
+protocol SideMenuRouterOutput {
+    
+    func show(viewController: UIViewController)
+    
+}
+
 class SideMenuRouter: SideMenuRouterInput {
     
-    func open(viewController: UIViewController) {
+    var output: SideMenuRouterOutput!
+    
+    func open(viewController: UIViewController, sender: Any?) {
         
+        UIApplication.shared.sendAction(Selector(("closeSideMenu")), to: nil, from: sender, for: nil)
+        output.show(viewController: viewController)
     }
     
 }
+

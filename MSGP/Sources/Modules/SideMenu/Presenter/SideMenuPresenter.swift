@@ -6,7 +6,7 @@
 //  Copyright © 2017 akvelon. All rights reserved.
 //
 
-typealias MenuItems = [MenuSectionModel]
+typealias MenuItems = [SideMenuSectionModel]
 
 public enum SideMenuType {
     case tab, dual, single
@@ -58,11 +58,11 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         return items.count
     }
     
-    func section(with index: Int) -> MenuSectionModel {
+    func section(with index: Int) -> SideMenuSectionModel {
         return items[index]
     }
     
-    func item(at index: IndexPath) -> MenuItemModel {
+    func item(at index: IndexPath) -> SideMenuItemModel {
         return items[index.section].items[index.row]
     }
     
@@ -89,8 +89,8 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         
         let socialItems = interactor.socialMenuItems()
         let clientItems = interactor.clientMenuItems()
-        let socialSection = MenuSectionModel(title: "Social", collapsible: collapsible, isCollapsed: false, items: socialItems)
-        let clientSection = MenuSectionModel(title: "Example App", collapsible: collapsible, isCollapsed: false, items: clientItems)
+        let socialSection = SideMenuSectionModel(title: "Social", collapsible: collapsible, isCollapsed: false, items: socialItems)
+        let clientSection = SideMenuSectionModel(title: "Example App", collapsible: collapsible, isCollapsed: false, items: clientItems)
         
         switch configation! {
         case .tab:
@@ -109,10 +109,10 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         }
     }
     
-    func sectionHeader(section index: Int) -> MenuHeaderModel? {
+    func sectionHeader(section index: Int) -> SideMenuHeaderModel? {
         
         if (index == 0 && configation != .dual) || (configation == .dual && tab == .social) {
-            return MenuHeaderModel(accountName: "Willy Huili", accountImage: UIImage(asset: .iconTwitter))
+            return SideMenuHeaderModel(accountName: "Willy Huili", accountImage: UIImage(asset: .iconTwitter))
         } else {
             return nil
         }
@@ -120,14 +120,16 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     
     func didSelectItem(with path: IndexPath) {
         
-        UIApplication.shared.sendAction(Selector(("closeSideMenu")), to: nil, from: view, for: nil)
-        
         if path.section == 0 {
-            router.open(viewController: interactor.targetForClientMenuItem(with: path.row))
+            router.open(viewController: interactor.targetForSocialMenuItem(with: path.row), sender: view)
         } else if path.section == 1 {
-            router.open(viewController: interactor.targetForSocialMenuItem(with: path.row))
-        } else {
-            fatalError()
+            router.open(viewController: interactor.targetForClientMenuItem(with: path.row), sender: view)
         }
+    }
+    
+    // MARK: Module Input
+    
+    func open(viewController: UIViewController) {
+        router.open(viewController: viewController, sender: view)
     }
 }
