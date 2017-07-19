@@ -195,7 +195,6 @@
 		881F767A1F1F4FA500FD995E /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F759F1F1F4FA500FD995E /* Reusable.swift */; };
 		881F767B1F1F4FA500FD995E /* CreateAccountValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75A11F1F4FA500FD995E /* CreateAccountValidator.swift */; };
 		881F767C1F1F4FA500FD995E /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75A21F1F4FA500FD995E /* Validator.swift */; };
-		881F767E1F1F639000FD995E /* MicrosoftLiveAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F767D1F1F639000FD995E /* MicrosoftLiveAPI.swift */; };
 		885F9FCC1F165C9700A30CDF /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; };
 		885F9FCD1F165C9700A30CDF /* MSAL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
@@ -234,6 +233,7 @@
 		9CF3B0E51F1F97D700484529 /* SideMenuViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0D71F1F97C200484529 /* SideMenuViewInput.swift */; };
 		9CF3B0E61F1F97D700484529 /* SideMenuViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0D81F1F97C200484529 /* SideMenuViewOutput.swift */; };
 		9CF3B0EB1F1F9A1500484529 /* SocialMenuItemsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3B0EA1F1F99F500484529 /* SocialMenuItemsProvider.swift */; };
+		9CF5A78C1F1F9DEA00362789 /* MicrosoftLiveAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F767D1F1F639000FD995E /* MicrosoftLiveAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1655,6 +1655,7 @@
 				881F75CF1F1F4FA500FD995E /* LikesAPI.swift in Sources */,
 				881F76001F1F4FA500FD995E /* PostUserResponse.swift in Sources */,
 				881F762E1F1F4FA500FD995E /* UploadPhotoCell.swift in Sources */,
+				9CF5A78C1F1F9DEA00362789 /* MicrosoftLiveAPI.swift in Sources */,
 				881F76021F1F4FA500FD995E /* PutPushRegistrationRequest.swift in Sources */,
 				881F75E71F1F4FA500FD995E /* FeedResponseUserCompactView.swift in Sources */,
 				9CF3B0E51F1F97D700484529 /* SideMenuViewInput.swift in Sources */,
