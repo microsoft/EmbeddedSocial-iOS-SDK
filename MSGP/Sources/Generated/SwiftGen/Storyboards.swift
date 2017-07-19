@@ -111,20 +111,11 @@ enum StoryboardScene {
       return vc
     }
 
-    case navigationStackMenuScene = "NavigationStackMenu"
-    static func instantiateNavigationStackMenu() -> MSGP.MenuViewController {
-      guard let vc = StoryboardScene.MenuStack.navigationStackMenuScene.viewController() as? MSGP.MenuViewController
+    case sideMenuViewControllerScene = "SideMenuViewController"
+    static func instantiateSideMenuViewController() -> MSGP.SideMenuViewController {
+      guard let vc = StoryboardScene.MenuStack.sideMenuViewControllerScene.viewController() as? MSGP.SideMenuViewController
       else {
-        fatalError("ViewController 'NavigationStackMenu' is not of the expected class MSGP.MenuViewController.")
-      }
-      return vc
-    }
-
-    case tabMenuContainerViewControllerScene = "TabMenuContainerViewController"
-    static func instantiateTabMenuContainerViewController() -> MSGP.TabMenuContainerViewController {
-      guard let vc = StoryboardScene.MenuStack.tabMenuContainerViewControllerScene.viewController() as? MSGP.TabMenuContainerViewController
-      else {
-        fatalError("ViewController 'TabMenuContainerViewController' is not of the expected class MSGP.TabMenuContainerViewController.")
+        fatalError("ViewController 'SideMenuViewController' is not of the expected class MSGP.SideMenuViewController.")
       }
       return vc
     }
