@@ -6,12 +6,6 @@
 //  Copyright © 2017 akvelon. All rights reserved.
 //
 
-protocol SideMenuRouterOutput {
-    
-    func show(viewController: UIViewController)
-    
-}
-
 class SideMenuRouter: SideMenuRouterInput {
     
     var output: SideMenuRouterOutput!
