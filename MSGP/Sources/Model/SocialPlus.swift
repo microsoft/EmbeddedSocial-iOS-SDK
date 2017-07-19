@@ -25,20 +25,30 @@ public final class SocialPlus {
     
     private init() { }
     
-    public func start(with application: UIApplication, window: UIWindow, launchOptions: [AnyHashable: Any]) {
-        root = RootConfigurator(window: window)
+    public func start(with application: UIApplication,
+                      window: UIWindow,
+                      launchOptions: [AnyHashable: Any],
+                      menuHandler: SideMenuItemsProvider?,
+                      menuConfiguration: SideMenuType) {
+        
+        navigationStack = NavigationStack(window: window, format: menuConfiguration, menuItemsProvider: menuHandler)
+        
         launchArguments = LaunchArguments(app: application, window: window, launchOptions: launchOptions)
         
         ThirdPartyConfigurator.setup(application: launchArguments.app, launchOptions: launchArguments.launchOptions)
-        root.router.openLoginScreen()
         
-        root.router.onSessionCreated = { [unowned self] user, sessionToken in
-            self.modelStack = ModelStack(user: user, sessionToken: sessionToken)
-            self.root.router.openHomeScreen(user: user)
-        }
+//        root.router.onSessionCreated = { [unowned self] user, sessionToken in
+//            self.modelStack = ModelStack(user: user, sessionToken: sessionToken)
+//            self.root.router.openHomeScreen(user: user)
+//        }
     }
     
     public func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
         return urlSchemeService.application(app, open: url, options: options)
     }
+    
+    // MARK: menu
+    
+    var navigationStack: NavigationStack?
+    
 }

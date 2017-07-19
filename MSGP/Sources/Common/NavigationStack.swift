@@ -15,9 +15,10 @@ public protocol SideMenuItemsProvider: class {
     func image(forItem index: Int) -> UIImage
     func title(forItem index: Int) -> String
     func destination(forItem index: Int) -> UIViewController
+    
 }
 
-class NavigationStack {
+public class NavigationStack {
     
     var navigationController: UINavigationController
     var container: NavigationStackContainer
@@ -35,17 +36,17 @@ class NavigationStack {
         
         window.backgroundColor = UIColor(red: 236.0, green: 238.0, blue: 241.0, alpha: 1.0)
         
-        
         let menuController = StoryboardScene.MenuStack.instantiateSideMenuViewController()
         
         SideMenuModuleConfigurator.configure(viewController: menuController,
                                              type: format,
                                              socialMenuItemsProvider: socialMenuItemsProvider,
-                                             clientMenuItemsProvider: menuItemsProvider)
+                                             clientMenuItemsProvider: menuItemsProvider,
+                                             output: container)
         
         let presenter = MenuStackController(mainViewController: navigationController,
                                             leftMenuViewController: menuController)
         
-        window.rootViewController = presenter;
+        window.rootViewController = presenter
     }
 }

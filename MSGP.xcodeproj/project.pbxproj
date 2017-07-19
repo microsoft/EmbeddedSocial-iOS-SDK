@@ -230,6 +230,7 @@
 		9CAB5EC61F1F6AA300FFE59B /* SideMenuModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5EC11F1F6A9C00FFE59B /* SideMenuModels.swift */; };
 		9CAB5EC71F1F6AA300FFE59B /* SideMenuSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5EC21F1F6A9C00FFE59B /* SideMenuSectionHeader.swift */; };
 		9CAB5EC81F1F6AA300FFE59B /* SideMenuStackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB5EC31F1F6A9C00FFE59B /* SideMenuStackController.swift */; };
+		9CBA39ED1F1F7E88007EB52C /* MSGP-Example-MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA39EC1F1F7E88007EB52C /* MSGP-Example-MenuHandler.swift */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 /* End PBXBuildFile section */
 
@@ -497,6 +498,7 @@
 		9CAB5EC11F1F6A9C00FFE59B /* SideMenuModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuModels.swift; sourceTree = "<group>"; };
 		9CAB5EC21F1F6A9C00FFE59B /* SideMenuSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuSectionHeader.swift; sourceTree = "<group>"; };
 		9CAB5EC31F1F6A9C00FFE59B /* SideMenuStackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuStackController.swift; sourceTree = "<group>"; };
+		9CBA39EC1F1F7E88007EB52C /* MSGP-Example-MenuHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MSGP-Example-MenuHandler.swift"; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805391F0D012F00B9B0AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1148,6 +1150,7 @@
 		886B39C61F138F5D00BF1A8E /* MSGP-Example */ = {
 			isa = PBXGroup;
 			children = (
+				9CBA39EC1F1F7E88007EB52C /* MSGP-Example-MenuHandler.swift */,
 				886B39C71F138F5D00BF1A8E /* AppDelegate.swift */,
 				886B39CE1F138F5D00BF1A8E /* Assets.xcassets */,
 				88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */,
@@ -1518,6 +1521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CBA39ED1F1F7E88007EB52C /* MSGP-Example-MenuHandler.swift in Sources */,
 				886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */,
 				886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */,
 			);

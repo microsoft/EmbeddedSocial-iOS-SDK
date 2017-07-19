@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NavigationStackContainer: UIViewController {
+class NavigationStackContainer: UIViewController, SideMenuRouterOutput {
     
     var embeddedViewController: UIViewController?
     

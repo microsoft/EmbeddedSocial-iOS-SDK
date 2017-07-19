@@ -33,6 +33,8 @@ final class RootRouter: RootRouterProtocol {
     func openLoginScreen() {
         let login = LoginConfigurator()
         login.configure(moduleOutput: self)
+        
+        
         setRootViewController(login.viewController)
     }
     
