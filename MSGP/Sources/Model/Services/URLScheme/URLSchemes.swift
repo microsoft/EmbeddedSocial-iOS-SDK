@@ -62,6 +62,7 @@ struct OAuthURLScheme: URLScheme {
     func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
         if url.host == "oauth-callback" {
             OAuthSwift.handle(url: url)
+            return true
         }
         return false
     }

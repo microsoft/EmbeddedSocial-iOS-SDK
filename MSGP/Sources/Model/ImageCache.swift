@@ -11,12 +11,13 @@ import SDWebImage
 import UIKit
 
 protocol ImageCache {
-    /// Stores image in background
+    /// Store image in a background
     func store(image: UIImage, for photo: Photo)
 
-    /// Stores image in background with completion callback
+    /// Store image in a background with completion callback
     func store(image: UIImage, for photo: Photo, completion: (() -> Void)?)
     
+    /// Attempt to load image for photo model
     func image(for photo: Photo) -> UIImage?
 }
 

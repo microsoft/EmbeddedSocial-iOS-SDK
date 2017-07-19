@@ -27,7 +27,6 @@ final class TwitterAPI: AuthAPI {
     }
     
     private func loadSocialUser(session: TWTRSession, completion: @escaping (Result<SocialUser>) -> Void) {
-        
         let client = TWTRAPIClient(userID: session.userID)
         let group = DispatchGroup()
         

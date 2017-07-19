@@ -195,6 +195,7 @@
 		881F767A1F1F4FA500FD995E /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F759F1F1F4FA500FD995E /* Reusable.swift */; };
 		881F767B1F1F4FA500FD995E /* CreateAccountValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75A11F1F4FA500FD995E /* CreateAccountValidator.swift */; };
 		881F767C1F1F4FA500FD995E /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F75A21F1F4FA500FD995E /* Validator.swift */; };
+		881F767E1F1F639000FD995E /* MicrosoftLiveAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F767D1F1F639000FD995E /* MicrosoftLiveAPI.swift */; };
 		885F9FCC1F165C9700A30CDF /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; };
 		885F9FCD1F165C9700A30CDF /* MSAL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88CF242D1F16305300CC406F /* MSAL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
@@ -379,7 +380,7 @@
 		881F75091F1F4FA500FD995E /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		881F750B1F1F4FA500FD995E /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		881F750C1F1F4FA500FD995E /* ModelStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelStack.swift; sourceTree = "<group>"; };
-		881F750E1F1F4FA500FD995E /* APISettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APISettings.swift; sourceTree = "<group>"; };
+		881F750E1F1F4FA500FD995E /* APISettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APISettings.swift; path = Services/APISettings.swift; sourceTree = "<group>"; };
 		881F75101F1F4FA500FD995E /* AuthAPIProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthAPIProvider.swift; sourceTree = "<group>"; };
 		881F75111F1F4FA500FD995E /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		881F75121F1F4FA500FD995E /* AuthServiceImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthServiceImplementation.swift; sourceTree = "<group>"; };
@@ -389,7 +390,7 @@
 		881F75161F1F4FA500FD995E /* TwitterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPI.swift; sourceTree = "<group>"; };
 		881F75171F1F4FA500FD995E /* TwitterWebBasedAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterWebBasedAPI.swift; sourceTree = "<group>"; };
 		881F75181F1F4FA500FD995E /* SessionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
-		881F75191F1F4FA500FD995E /* ThirdPartyConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdPartyConfigurator.swift; sourceTree = "<group>"; };
+		881F75191F1F4FA500FD995E /* ThirdPartyConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThirdPartyConfigurator.swift; path = Services/ThirdPartyConfigurator.swift; sourceTree = "<group>"; };
 		881F751B1F1F4FA500FD995E /* URLSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSchemes.swift; sourceTree = "<group>"; };
 		881F751C1F1F4FA500FD995E /* URLSchemeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSchemeService.swift; sourceTree = "<group>"; };
 		881F751D1F1F4FA500FD995E /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -454,6 +455,7 @@
 		881F759F1F1F4FA500FD995E /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		881F75A11F1F4FA500FD995E /* CreateAccountValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountValidator.swift; sourceTree = "<group>"; };
 		881F75A21F1F4FA500FD995E /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		881F767D1F1F639000FD995E /* MicrosoftLiveAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrosoftLiveAPI.swift; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -771,9 +773,11 @@
 		881F75011F1F4FA500FD995E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				881F75091F1F4FA500FD995E /* API.swift */,
+				881F750E1F1F4FA500FD995E /* APISettings.swift */,
+				881F75191F1F4FA500FD995E /* ThirdPartyConfigurator.swift */,
 				881F75021F1F4FA500FD995E /* Entities */,
 				881F750D1F1F4FA500FD995E /* Services */,
-				881F75091F1F4FA500FD995E /* API.swift */,
 				881F750B1F1F4FA500FD995E /* ImageCache.swift */,
 				881F750C1F1F4FA500FD995E /* ModelStack.swift */,
 				881F751E1F1F4FA500FD995E /* SocialPlus.swift */,
@@ -798,10 +802,8 @@
 			children = (
 				9CAB5EBC1F1F67AB00FFE59B /* SocialMenuItemsProvider.swift */,
 				881F750F1F1F4FA500FD995E /* Auth */,
-				881F751A1F1F4FA500FD995E /* URLScheme */,
-				881F750E1F1F4FA500FD995E /* APISettings.swift */,
+				881F751A1F1F4FA500FD995E /* URLSchemeService */,
 				881F75181F1F4FA500FD995E /* SessionService.swift */,
-				881F75191F1F4FA500FD995E /* ThirdPartyConfigurator.swift */,
 				881F751D1F1F4FA500FD995E /* UserService.swift */,
 			);
 			path = Services;
@@ -816,18 +818,20 @@
 				881F75131F1F4FA500FD995E /* FacebookAPI.swift */,
 				881F75141F1F4FA500FD995E /* GoogleAPI.swift */,
 				881F75151F1F4FA500FD995E /* MicrosoftAPI.swift */,
+				881F767D1F1F639000FD995E /* MicrosoftLiveAPI.swift */,
 				881F75161F1F4FA500FD995E /* TwitterAPI.swift */,
 				881F75171F1F4FA500FD995E /* TwitterWebBasedAPI.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
 		};
-		881F751A1F1F4FA500FD995E /* URLScheme */ = {
+		881F751A1F1F4FA500FD995E /* URLSchemeService */ = {
 			isa = PBXGroup;
 			children = (
 				881F751C1F1F4FA500FD995E /* URLSchemeService.swift */,
 				881F751B1F1F4FA500FD995E /* URLSchemes.swift */,
 			);
+			name = URLSchemeService;
 			path = URLScheme;
 			sourceTree = "<group>";
 		};
@@ -1653,6 +1657,7 @@
 				881F762E1F1F4FA500FD995E /* UploadPhotoCell.swift in Sources */,
 				881F76021F1F4FA500FD995E /* PutPushRegistrationRequest.swift in Sources */,
 				881F75E71F1F4FA500FD995E /* FeedResponseUserCompactView.swift in Sources */,
+				881F767E1F1F639000FD995E /* MicrosoftLiveAPI.swift in Sources */,
 				881F760B1F1F4FA500FD995E /* UserProfileView.swift in Sources */,
 				881F766B1F1F4FA500FD995E /* TabMenuContainerInitializer.swift in Sources */,
 				881F75E81F1F4FA500FD995E /* FeedResponseUserProfileView.swift in Sources */,
