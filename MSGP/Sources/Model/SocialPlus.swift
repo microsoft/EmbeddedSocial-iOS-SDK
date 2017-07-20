@@ -21,7 +21,7 @@ public final class SocialPlus {
     
     var modelStack: ModelStack!
     
-    var coordinator: CrossModuleCoordinator!
+    var coordinator = CrossModuleCoordinator()
     
     public static let shared = SocialPlus()
     
@@ -37,12 +37,11 @@ public final class SocialPlus {
         
         navigationStack = NavigationStack(window: window, menuViewController: menuViewController)
         
-        let menuModule = buildMenuModule(view: menuViewController,
-                                         configuration: menuConfiguration,
-                                         itemsProvider: menuHandler,
-                                         output: navigationStack.container)
-        
-        coordinator = CrossModuleCoordinator(socialPlus: self, menuModule: menuModule)
+        coordinator.socialPlus = self
+        coordinator.menuModule = buildMenuModule(view: menuViewController,
+                                                     configuration: menuConfiguration,
+                                                     itemsProvider: menuHandler,
+                                                     output: navigationStack.container)
         
         launchArguments = LaunchArguments(app: application, window: window, launchOptions: launchOptions)
         
@@ -65,10 +64,11 @@ public final class SocialPlus {
         guard let view = view as? SideMenuViewController else {
             fatalError("Wrong input")
         }
-        
+    
+        let socialItemsProvider = SocialMenuItemsProvider(coordinator: coordinator)
         let moduleInput = SideMenuModuleConfigurator.configure(viewController: view,
                                                                configuration: configuration,
-                                                               socialMenuItemsProvider: SocialMenuItemsProvider(),
+                                                               socialMenuItemsProvider: socialItemsProvider,
                                                                clientMenuItemsProvider: itemsProvider,
                                                                output: output)
         

@@ -25,8 +25,6 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     
     // MARK: SideMenuViewInput
     func setupInitialState() {
-        accountInfoView?.configure(with: SideMenuHeaderModel(accountName: "Sting", accountImage: UIImage(asset: .iconTwitter)))
-    
         tableView?.register(SideMenuSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
     }
     
@@ -52,6 +50,15 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     }
     
     func showAccountInfo(visible: Bool) {
+        
+        if let accountInfoModel = output.accountInfo() {
+            accountInfoView!.configure(with: accountInfoModel)
+        }
+        
+        if visible && accountInfoView == nil {
+            fatalError()
+        }
+        
         accountInfoShownConstraint?.isActive = visible
         view.setNeedsLayout()
         view.layoutIfNeeded()

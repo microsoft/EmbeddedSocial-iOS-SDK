@@ -23,6 +23,5 @@ protocol SideMenuViewOutput {
     func section(with index: Int) -> SideMenuSectionModel
     func item(at index: IndexPath) -> SideMenuItemModel
     func headerTitle(for section: Int) -> String
-    func sectionHeader(section index: Int) -> SideMenuHeaderModel?
-    
+    func accountInfo() -> SideMenuHeaderModel?
 }

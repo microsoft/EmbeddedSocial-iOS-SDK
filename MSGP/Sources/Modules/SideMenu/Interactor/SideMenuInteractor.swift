@@ -10,7 +10,7 @@ class SideMenuInteractor: SideMenuInteractorInput {
     
     weak var output: SideMenuInteractorOutput!
     weak var clientMenuItemsProvider: SideMenuItemsProvider?
-    weak var socialMenuItemsProvider: SideMenuItemsProvider!
+    var socialMenuItemsProvider: SideMenuItemsProvider!
     
     func socialMenuItems() -> [SideMenuItemModel] {
         

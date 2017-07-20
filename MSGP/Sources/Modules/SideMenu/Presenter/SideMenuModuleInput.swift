@@ -8,6 +8,7 @@
 
 protocol SideMenuModuleInput: class {
     
+    func showUser(user: User)
     func open(viewController: UIViewController)
     
 }

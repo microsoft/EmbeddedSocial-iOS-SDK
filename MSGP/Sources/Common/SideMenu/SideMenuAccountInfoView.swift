@@ -48,11 +48,10 @@ class SideMenuAccountInfoView: UIView {
             make.centerY.equalTo(accountImage)
             make.left.equalTo(accountImage.snp.right).offset(accountNameeOffset)
         }
-        
     }
     
     func configure(with model: SideMenuHeaderModel) {
-        accountImage.image = model.accountImage
+        accountImage.setPhotoWithCaching(model.accountPhoto, placeholder: nil)
         accountName.text = model.accountName
     }
 }

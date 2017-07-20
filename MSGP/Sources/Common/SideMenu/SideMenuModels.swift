@@ -28,5 +28,5 @@ struct SideMenuItemModel {
 
 struct SideMenuHeaderModel {
     var accountName: String
-    var accountImage: UIImage
+    var accountPhoto: Photo
 }

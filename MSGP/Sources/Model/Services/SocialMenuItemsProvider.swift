@@ -10,6 +10,12 @@ import Foundation
 
 class SocialMenuItemsProvider: SideMenuItemsProvider {
     
+    weak var coordinator: CrossModuleCoordinator!
+    
+    init(coordinator: CrossModuleCoordinator) {
+        self.coordinator = coordinator
+    }
+    
     enum State: Int {
         case authenticated, unauthenticated
     }
@@ -18,7 +24,13 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         case home, signin
     }
     
-    var state: State = State.authenticated
+    var state: State {
+        if SocialPlus.shared.modelStack != nil {
+            return .authenticated
+        } else {
+            return .unauthenticated
+        }
+    }
     
     var items = [
         State.authenticated:[(title: "Home", image: UIImage(asset: Asset.iconLiked)),
@@ -63,25 +75,10 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         case .signin:
             
             let loginModule = LoginConfigurator()
-            loginModule.configure(moduleOutput: self) // TODO: this is not good candidate for delegation
+            loginModule.configure(moduleOutput: coordinator)
             destinationVC = loginModule.viewController
         }
         
         return destinationVC!
     }
 }
-
-extension SocialMenuItemsProvider: LoginModuleOutput {
-    
-    func onSessionCreated(user: User, sessionToken: String) {
-        
-        print(user, sessionToken)
-//        destination(forItem: SocialMenuItemsProvider.Route.home.rawValue)
-        
-//        self.modelStack = ModelStack(user: user, sessionToken: sessionToken)
-//        self.root.router.openHomeScreen(user: user)
-        
-    }
-}
-
-
