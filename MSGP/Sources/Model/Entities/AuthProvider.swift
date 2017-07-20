@@ -13,6 +13,8 @@ enum AuthProvider: Int {
     case microsoft
     case google
     case twitter
+    
+    static let all: [AuthProvider] = [.facebook, .microsoft, .google, .twitter]
 }
 
 extension AuthProvider {

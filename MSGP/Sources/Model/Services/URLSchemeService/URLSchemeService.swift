@@ -13,17 +13,24 @@ protocol URLScheme {
 }
 
 struct URLSchemeService {
-    private let urlSchemes: [URLScheme] = [
-        FacebookURLScheme(),
-        TwitterURLScheme(),
-        GoogleURLScheme(),
-        MicrosoftURLScheme(),
-        OAuthURLScheme()
-    ]
+    private let schemes: [URLScheme]
+    
+    init(schemes: [URLScheme] = URLSchemeService.defaultSchemes) {
+        self.schemes = schemes
+    }
 
     func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any] = [:]) -> Bool {
-        return urlSchemes.reduce(false) { (result, scheme) in
+        return schemes.reduce(false) { (result, scheme) in
             return result || scheme.application(app, open: url, options: options)
         }
     }
+}
+
+extension URLSchemeService {
+    static let defaultSchemes: [URLScheme] = [
+        FacebookURLScheme(),
+        TwitterURLScheme(),
+        GoogleURLScheme(),
+        OAuthURLScheme()
+    ]
 }
