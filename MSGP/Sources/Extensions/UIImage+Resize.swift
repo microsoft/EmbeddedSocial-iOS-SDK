@@ -1,9 +1,6 @@
 //
-//  UIImage+Resize.swift
-//  GymKeeper
-//
-//  Created by Vadim Bulavin on 5/19/17.
-//  Copyright © 2017 V8tr. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import Foundation
