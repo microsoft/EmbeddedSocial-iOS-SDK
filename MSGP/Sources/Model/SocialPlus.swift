@@ -19,7 +19,9 @@ public final class SocialPlus {
     private var root: RootConfigurator!
     private let urlSchemeService = URLSchemeService()
     
-    private(set) var modelStack: ModelStack!
+    var modelStack: ModelStack!
+    
+    var coordinator: CrossModuleCoordinator!
     
     public static let shared = SocialPlus()
     
@@ -31,16 +33,20 @@ public final class SocialPlus {
                       menuHandler: SideMenuItemsProvider?,
                       menuConfiguration: SideMenuType) {
         
-        navigationStack = NavigationStack(window: window, format: menuConfiguration, menuItemsProvider: menuHandler)
+        let menuViewController = StoryboardScene.MenuStack.instantiateSideMenuViewController()
+        
+        navigationStack = NavigationStack(window: window, menuViewController: menuViewController)
+        
+        let menuModule = buildMenuModule(view: menuViewController,
+                                         configuration: menuConfiguration,
+                                         itemsProvider: menuHandler,
+                                         output: navigationStack.container)
+        
+        coordinator = CrossModuleCoordinator(socialPlus: self, menuModule: menuModule)
         
         launchArguments = LaunchArguments(app: application, window: window, launchOptions: launchOptions)
         
         ThirdPartyConfigurator.setup(application: launchArguments.app, launchOptions: launchArguments.launchOptions)
-        
-//        root.router.onSessionCreated = { [unowned self] user, sessionToken in
-//            self.modelStack = ModelStack(user: user, sessionToken: sessionToken)
-//            self.root.router.openHomeScreen(user: user)
-//        }
     }
     
     public func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
@@ -49,6 +55,24 @@ public final class SocialPlus {
     
     // MARK: menu
     
-    var navigationStack: NavigationStack?
+    private var navigationStack: NavigationStack!
     
+    func buildMenuModule(view: UIViewController,
+                         configuration: SideMenuType,
+                         itemsProvider: SideMenuItemsProvider?,
+                         output: SideMenuModuleOutput!) -> SideMenuModuleInput {
+        
+        guard let view = view as? SideMenuViewController else {
+            fatalError("Wrong input")
+        }
+        
+        let moduleInput = SideMenuModuleConfigurator.configure(viewController: view,
+                                                               configuration: configuration,
+                                                               socialMenuItemsProvider: SocialMenuItemsProvider(),
+                                                               clientMenuItemsProvider: itemsProvider,
+                                                               output: output)
+        
+        return moduleInput
+        
+    }
 }

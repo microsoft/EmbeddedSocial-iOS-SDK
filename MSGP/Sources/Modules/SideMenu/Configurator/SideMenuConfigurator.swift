@@ -11,10 +11,10 @@ import UIKit
 class SideMenuModuleConfigurator {
     
     class func configure(viewController: SideMenuViewController,
-                         type: SideMenuType,
+                         configuration: SideMenuType,
                          socialMenuItemsProvider: SideMenuItemsProvider,
                          clientMenuItemsProvider: SideMenuItemsProvider?,
-                         output: SideMenuRouterOutput) {
+                         output: SideMenuModuleOutput) -> SideMenuModuleInput {
 
         let router = SideMenuRouter()
         router.output = output
@@ -29,7 +29,9 @@ class SideMenuModuleConfigurator {
         interactor.socialMenuItemsProvider = socialMenuItemsProvider
 
         presenter.interactor = interactor
-        presenter.configation = type
+        presenter.configation = configuration
         viewController.output = presenter
+        
+        return presenter
     }
 }

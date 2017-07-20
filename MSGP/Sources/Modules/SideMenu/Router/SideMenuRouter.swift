@@ -8,7 +8,7 @@
 
 class SideMenuRouter: SideMenuRouterInput {
     
-    var output: SideMenuRouterOutput!
+    var output: SideMenuModuleOutput!
     
     func open(viewController: UIViewController, sender: Any?) {
         

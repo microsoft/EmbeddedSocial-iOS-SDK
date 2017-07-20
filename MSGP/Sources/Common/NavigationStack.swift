@@ -15,7 +15,6 @@ public protocol SideMenuItemsProvider: class {
     func image(forItem index: Int) -> UIImage
     func title(forItem index: Int) -> String
     func destination(forItem index: Int) -> UIViewController
-    
 }
 
 public class NavigationStack {
@@ -23,30 +22,19 @@ public class NavigationStack {
     var navigationController: UINavigationController
     var container: NavigationStackContainer
     var window: UIWindow
-    var socialMenuItemsProvider = SocialMenuItemsProvider()
     
-    init(window: UIWindow,
-         format: SideMenuType,
-         menuItemsProvider: SideMenuItemsProvider?) {
+    init(window: UIWindow, menuViewController: UIViewController) {
         
         self.window = window
         
+        // container for all VCs go through menu
         container = StoryboardScene.MenuStack.instantiateNavigationStackContainer()
+        // container is embedded into navigation controller
         navigationController = UINavigationController(rootViewController: self.container)
         
-        window.backgroundColor = UIColor(red: 236.0, green: 238.0, blue: 241.0, alpha: 1.0)
+        let presenterController = MenuStackController(mainViewController: navigationController,
+                                            leftMenuViewController: menuViewController)
         
-        let menuController = StoryboardScene.MenuStack.instantiateSideMenuViewController()
-        
-        SideMenuModuleConfigurator.configure(viewController: menuController,
-                                             type: format,
-                                             socialMenuItemsProvider: socialMenuItemsProvider,
-                                             clientMenuItemsProvider: menuItemsProvider,
-                                             output: container)
-        
-        let presenter = MenuStackController(mainViewController: navigationController,
-                                            leftMenuViewController: menuController)
-        
-        window.rootViewController = presenter
+        window.rootViewController = presenterController
     }
 }
