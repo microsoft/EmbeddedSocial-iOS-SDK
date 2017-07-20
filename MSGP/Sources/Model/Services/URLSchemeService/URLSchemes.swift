@@ -10,15 +10,12 @@ import Foundation
 import FBSDKCoreKit
 import TwitterKit
 import GoogleSignIn
-import MSAL
 import OAuthSwift
 
 struct FacebookURLScheme: URLScheme {
     
     func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
-        guard let scheme = url.scheme,
-            scheme.hasPrefix("fb"),
-            url.host == "authorize" else {
+        guard let scheme = url.scheme, scheme.hasPrefix("fb") else {
             return false
         }
         
@@ -44,16 +41,6 @@ struct GoogleURLScheme: URLScheme {
     func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
         let (source, annotation) = sourceAndAnnotation(from: options)
         return GIDSignIn.sharedInstance().handle(url, sourceApplication: source, annotation: annotation)
-    }
-}
-
-struct MicrosoftURLScheme: URLScheme {
-    
-    func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
-        guard let scheme = url.scheme, scheme.hasPrefix("msal") else {
-            return false
-        }
-        return MSALPublicClientApplication.handleMSALResponse(url)
     }
 }
 

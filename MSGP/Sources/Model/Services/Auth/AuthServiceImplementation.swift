@@ -9,10 +9,10 @@
 import Foundation
 
 final class AuthService: AuthServiceType {
-    private let apiProvider: AuthAPIProvider
+    private let apiProvider: AuthAPIProviderType
     private var apis: [AuthProvider: AuthAPI] = [:]
     
-    init(apiProvider: AuthAPIProvider) {
+    init(apiProvider: AuthAPIProviderType) {
         self.apiProvider = apiProvider
     }
     

@@ -11,10 +11,11 @@ import XCTest
 
 class AuthAPIProviderTests: XCTestCase {
     
-    private let sut = AuthAPIProvider()
+    private var sut: AuthAPIProvider!
     
     override func setUp() {
         super.setUp()
+        sut = AuthAPIProvider()
     }
     
     override func tearDown() {
