@@ -1,0 +1,38 @@
+{
+    "topicHandle": "{%topicHandle%}",
+    "createdTime": "{%createdTime%}",
+    "lastUpdatedTime": "{%createdTime%}",
+    "publisherType": "User",
+    "user": {
+        "userHandle": "{%primaryUserHandle%}",
+        "firstName": "{%primaryFirstName%}",
+        "lastName": "{%primaryLastName%}",
+        "photoHandle": null,
+        "photoUrl": null,
+        "visibility": "{%visibility%}",
+        "followerStatus": "None"
+    },
+    "title": "{%title%}",
+    "text": "{%text%}",
+    "blobType": "Unknown",
+    "blobHandle": null,
+    "blobUrl": null,
+    "categories": null,
+    "language": null,
+    "group": null,
+    "deepLink": null,
+    "friendlyName": null,
+    "totalLikes": 0,
+    "totalComments": 0,
+    "liked": false,
+    "pinned": false,
+    "contentStatus": "{%contentStatus%}",
+    "app": {
+        "name": "iOS SDK Dev",
+        "iconHandle": null,
+        "iconUrl": null,
+        "platformType": "IOS",
+        "deepLink": null,
+        "storeLink": null
+    }
+}
