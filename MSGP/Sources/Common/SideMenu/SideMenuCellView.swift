@@ -1,9 +1,6 @@
 //
-//  MenuCellView.swift
-//  MSGP
-//
-//  Created by Igor Popov on 7/11/17.
-//  Copyright © 2017 Igor Popov. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import UIKit

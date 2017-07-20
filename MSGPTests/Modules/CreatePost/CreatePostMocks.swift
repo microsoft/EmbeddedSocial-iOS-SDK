@@ -1,4 +1,7 @@
-// MARK: - Mocks generated from file: MSGP/Sources/Modules/CreatePost/Interactor/CreatePostInteractor.swift at 2017-07-17 11:30:54 +0000
+//
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+//
 
 //
 //  CreatePostMocks.swift
