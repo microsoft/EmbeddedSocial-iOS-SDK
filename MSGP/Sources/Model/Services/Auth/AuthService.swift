@@ -1,9 +1,6 @@
 //
-//  AuthService.swift
-//  SocialPlusv0
-//
-//  Created by Vadim Bulavin on 7/6/17.
-//  Copyright © 2017 Microsoft Corporation. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import Foundation
