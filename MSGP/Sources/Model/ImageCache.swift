@@ -11,14 +11,16 @@ import SDWebImage
 import UIKit
 
 protocol ImageCache {
-    /// Store image in a background
+    /// Store image synchronously
     func store(image: UIImage, for photo: Photo)
 
-    /// Store image in a background with completion callback
+    /// Store image asynchronously with completion callback
     func store(image: UIImage, for photo: Photo, completion: (() -> Void)?)
     
     /// Attempt to load image for photo model
     func image(for photo: Photo) -> UIImage?
+    
+    func key(for photo: Photo) -> String
 }
 
 final class ImageCacheAdapter: ImageCache {
@@ -28,16 +30,20 @@ final class ImageCacheAdapter: ImageCache {
     private init() { }
     
     func store(image: UIImage, for photo: Photo) {
-        store(image: image, for: photo, completion: nil)
+        SDImageCache.shared().storeImageData(toDisk: image.sd_imageData(), forKey: key(for: photo))
     }
     
     func store(image: UIImage, for photo: Photo, completion: (() -> Void)?) {
-        SDImageCache.shared().store(image, forKey: photo.url ?? photo.uid) { 
+        SDImageCache.shared().store(image, forKey: key(for: photo)) {
             completion?()
         }
     }
     
     func image(for photo: Photo) -> UIImage? {
         return SDImageCache.shared().imageFromCache(forKey: photo.url ?? photo.uid)
+    }
+    
+    func key(for photo: Photo) -> String {
+        return photo.url ?? photo.uid
     }
 }
