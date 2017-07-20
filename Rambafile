@@ -1,0 +1,32 @@
+### Headers settings
+company: akvelon
+
+### Xcode project settings
+project_name: MSGP-Framework
+xcodeproj_path: MSGP.xcodeproj
+
+### Code generation settings section
+# The main project target name
+project_target: MSGP
+
+# The file path for new modules
+project_file_path: MSGP/Sources/Modules
+
+# The Xcode group path to new modules
+project_group_path: MSGP/Sources/Modules
+
+### Tests generation settings section
+# The tests target name
+test_target: MSGPTests
+
+# The file path for new tests
+test_file_path: ModulesTests
+
+# The Xcode group path to new tests
+test_group_path: ModulesTests
+
+### Templates
+templates:
+- {name: rviper_controller}
+- {name: mvvm_controller}
+- {name: swifty_viper}
