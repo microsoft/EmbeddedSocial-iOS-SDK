@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A1E78D15DE858A585A1CD04 /* Pods_Group_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAD9239FB1A20EC10A6A74BF /* Pods_Group_MSGP.framework */; };
 		63A1D58B1F1CDE4C0090C67A /* CreatePostMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D58A1F1CDE4C0090C67A /* CreatePostMocks.swift */; };
 		63A1D58F1F1CDEBC0090C67A /* CreatePostPresentorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D58E1F1CDEBC0090C67A /* CreatePostPresentorTests.swift */; };
 		63A1D5911F1CDFDD0090C67A /* CreatePostInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D5901F1CDFDD0090C67A /* CreatePostInteractorTests.swift */; };
+		6C7A38E1793D4F9E1D385A1B /* Pods_Group_MSGP_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD9FDE6695646DEC5BA3B5A /* Pods_Group_MSGP_Example.framework */; };
+		758342E623BB6AAEC097DD62 /* Pods_MSGPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0152FB98BE06D81A37518C1 /* Pods_MSGPTests.framework */; };
 		881F75A31F1F4FA500FD995E /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F748A1F1F4FA500FD995E /* AppStrings.swift */; };
 		881F75A41F1F4FA500FD995E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F748C1F1F4FA500FD995E /* BaseViewController.swift */; };
 		881F75A51F1F4FA500FD995E /* ButtonWithTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F748D1F1F4FA500FD995E /* ButtonWithTarget.swift */; };
@@ -230,6 +233,26 @@
 		881F767E1F1F639000FD995E /* MicrosoftLiveAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F767D1F1F639000FD995E /* MicrosoftLiveAPI.swift */; };
 		881F76821F1F956D00FD995E /* AuthAPIProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F76811F1F956D00FD995E /* AuthAPIProviderTests.swift */; };
 		885D92281F1F9DBF0002D5E2 /* URLSchemeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885D92271F1F9DBF0002D5E2 /* URLSchemeServiceTests.swift */; };
+		88608EE01F20D25500083E14 /* SocialPlusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608EDF1F20D25500083E14 /* SocialPlusTests.swift */; };
+		88608EE21F20D26F00083E14 /* MockSocialPlusServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608EE11F20D26F00083E14 /* MockSocialPlusServices.swift */; };
+		88608EE41F20D2B500083E14 /* MockURLSchemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608EE31F20D2B500083E14 /* MockURLSchemeService.swift */; };
+		88608EEA1F20DA6700083E14 /* KeyValueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608EE91F20DA6700083E14 /* KeyValueStorage.swift */; };
+		88608EF11F20DE0C00083E14 /* User+Memento.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608EF01F20DE0C00083E14 /* User+Memento.swift */; };
+		88608EF31F20DF3900083E14 /* Dictionary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608EF21F20DF3900083E14 /* Dictionary+Ext.swift */; };
+		88608EF51F20E4E000083E14 /* Collection+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608EF41F20E4E000083E14 /* Collection+Ext.swift */; };
+		88608EF71F20E60C00083E14 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608EF61F20E60C00083E14 /* UserTests.swift */; };
+		88608EFA1F20E6F500083E14 /* CredentialsList+Memento.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608EF91F20E6F500083E14 /* CredentialsList+Memento.swift */; };
+		88608EFC1F20E85500083E14 /* Photo+Memento.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608EFB1F20E85500083E14 /* Photo+Memento.swift */; };
+		88608EFE1F20EF6100083E14 /* PhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608EFD1F20EF6100083E14 /* PhotoTests.swift */; };
+		88608F001F20EF9800083E14 /* CredentialsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608EFF1F20EF9800083E14 /* CredentialsListTests.swift */; };
+		88608F021F20F02F00083E14 /* UserDefaults+KeyValueStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608F011F20F02F00083E14 /* UserDefaults+KeyValueStorageService.swift */; };
+		88608F041F20F13100083E14 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608F031F20F13100083E14 /* Repository.swift */; };
+		88608F081F20F1C500083E14 /* KeyValueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608F071F20F1C500083E14 /* KeyValueRepository.swift */; };
+		88608F0A1F20F52C00083E14 /* DatabaseFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608F091F20F52C00083E14 /* DatabaseFacade.swift */; };
+		88608F0D1F20F77E00083E14 /* AbstractKeyValueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608F0C1F20F77E00083E14 /* AbstractKeyValueRepository.swift */; };
+		88608F0F1F20F79B00083E14 /* MementoSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608F0E1F20F79B00083E14 /* MementoSerializable.swift */; };
+		88608F111F20F98400083E14 /* String+Memento.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608F101F20F98400083E14 /* String+Memento.swift */; };
+		88608F151F20FAFA00083E14 /* DatabaseFacadeServicesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88608F141F20FAFA00083E14 /* DatabaseFacadeServicesProvider.swift */; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
 		886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C91F138F5D00BF1A8E /* ViewController.swift */; };
 		886B39CD1F138F5D00BF1A8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CB1F138F5D00BF1A8E /* Main.storyboard */; };
@@ -247,6 +270,7 @@
 		88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88CF240A1F16202C00CC406F /* NameComponentsSplitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */; };
 		88D04B1E1F20B45E003721FC /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D04B1D1F20B45E003721FC /* UIImage+Ext.swift */; };
+		88D04D1F1F20CC92003721FC /* SocialPlusServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D04D1E1F20CC92003721FC /* SocialPlusServiceProvider.swift */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 /* End PBXBuildFile section */
 
@@ -281,6 +305,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1256F776FB8682CD1A44BA6E /* Pods-MSGPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1E47BA0131C95FC90B698AD1 /* Pods-Group-MSGP-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		21FE406E71BAF0AEE66E02EF /* Pods-Group-MSGP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.release.xcconfig"; sourceTree = "<group>"; };
+		2563539C67E2D88C06592918 /* Pods-Group-MSGP-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example.release.xcconfig"; sourceTree = "<group>"; };
+		3FD9FDE6695646DEC5BA3B5A /* Pods_Group_MSGP_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_MSGP_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A1D58A1F1CDE4C0090C67A /* CreatePostMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostMocks.swift; sourceTree = "<group>"; };
 		63A1D58E1F1CDEBC0090C67A /* CreatePostPresentorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostPresentorTests.swift; sourceTree = "<group>"; };
 		63A1D5901F1CDFDD0090C67A /* CreatePostInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostInteractorTests.swift; sourceTree = "<group>"; };
@@ -400,7 +429,7 @@
 		881F75091F1F4FA500FD995E /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		881F750B1F1F4FA500FD995E /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		881F750C1F1F4FA500FD995E /* ModelStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelStack.swift; sourceTree = "<group>"; };
-		881F750E1F1F4FA500FD995E /* APISettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APISettings.swift; path = APISettings.swift; sourceTree = "<group>"; };
+		881F750E1F1F4FA500FD995E /* APISettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APISettings.swift; sourceTree = "<group>"; };
 		881F75101F1F4FA500FD995E /* AuthAPIProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthAPIProvider.swift; sourceTree = "<group>"; };
 		881F75111F1F4FA500FD995E /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		881F75121F1F4FA500FD995E /* AuthServiceImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthServiceImplementation.swift; sourceTree = "<group>"; };
@@ -409,7 +438,7 @@
 		881F75161F1F4FA500FD995E /* TwitterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPI.swift; sourceTree = "<group>"; };
 		881F75171F1F4FA500FD995E /* TwitterWebBasedAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterWebBasedAPI.swift; sourceTree = "<group>"; };
 		881F75181F1F4FA500FD995E /* SessionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
-		881F75191F1F4FA500FD995E /* ThirdPartyConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThirdPartyConfigurator.swift; path = ThirdPartyConfigurator.swift; sourceTree = "<group>"; };
+		881F75191F1F4FA500FD995E /* ThirdPartyConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdPartyConfigurator.swift; sourceTree = "<group>"; };
 		881F751B1F1F4FA500FD995E /* URLSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSchemes.swift; sourceTree = "<group>"; };
 		881F751C1F1F4FA500FD995E /* URLSchemeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSchemeService.swift; sourceTree = "<group>"; };
 		881F751D1F1F4FA500FD995E /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -504,6 +533,26 @@
 		881F767D1F1F639000FD995E /* MicrosoftLiveAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrosoftLiveAPI.swift; sourceTree = "<group>"; };
 		881F76811F1F956D00FD995E /* AuthAPIProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthAPIProviderTests.swift; sourceTree = "<group>"; };
 		885D92271F1F9DBF0002D5E2 /* URLSchemeServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSchemeServiceTests.swift; sourceTree = "<group>"; };
+		88608EDF1F20D25500083E14 /* SocialPlusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialPlusTests.swift; sourceTree = "<group>"; };
+		88608EE11F20D26F00083E14 /* MockSocialPlusServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSocialPlusServices.swift; sourceTree = "<group>"; };
+		88608EE31F20D2B500083E14 /* MockURLSchemeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockURLSchemeService.swift; sourceTree = "<group>"; };
+		88608EE91F20DA6700083E14 /* KeyValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStorage.swift; sourceTree = "<group>"; };
+		88608EF01F20DE0C00083E14 /* User+Memento.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+Memento.swift"; sourceTree = "<group>"; };
+		88608EF21F20DF3900083E14 /* Dictionary+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ext.swift"; sourceTree = "<group>"; };
+		88608EF41F20E4E000083E14 /* Collection+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Ext.swift"; sourceTree = "<group>"; };
+		88608EF61F20E60C00083E14 /* UserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserTests.swift; path = Modules/UserTests.swift; sourceTree = "<group>"; };
+		88608EF91F20E6F500083E14 /* CredentialsList+Memento.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CredentialsList+Memento.swift"; sourceTree = "<group>"; };
+		88608EFB1F20E85500083E14 /* Photo+Memento.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photo+Memento.swift"; sourceTree = "<group>"; };
+		88608EFD1F20EF6100083E14 /* PhotoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTests.swift; sourceTree = "<group>"; };
+		88608EFF1F20EF9800083E14 /* CredentialsListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsListTests.swift; sourceTree = "<group>"; };
+		88608F011F20F02F00083E14 /* UserDefaults+KeyValueStorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+KeyValueStorageService.swift"; sourceTree = "<group>"; };
+		88608F031F20F13100083E14 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		88608F071F20F1C500083E14 /* KeyValueRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueRepository.swift; sourceTree = "<group>"; };
+		88608F091F20F52C00083E14 /* DatabaseFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseFacade.swift; sourceTree = "<group>"; };
+		88608F0C1F20F77E00083E14 /* AbstractKeyValueRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractKeyValueRepository.swift; sourceTree = "<group>"; };
+		88608F0E1F20F79B00083E14 /* MementoSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MementoSerializable.swift; sourceTree = "<group>"; };
+		88608F101F20F98400083E14 /* String+Memento.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Memento.swift"; sourceTree = "<group>"; };
+		88608F141F20FAFA00083E14 /* DatabaseFacadeServicesProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseFacadeServicesProvider.swift; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -530,9 +579,14 @@
 		88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameComponentsSplitterTests.swift; sourceTree = "<group>"; };
 		88D04B1D1F20B45E003721FC /* UIImage+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
+		88D04D1E1F20CC92003721FC /* SocialPlusServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialPlusServiceProvider.swift; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805391F0D012F00B9B0AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAD9239FB1A20EC10A6A74BF /* Pods_Group_MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0152FB98BE06D81A37518C1 /* Pods_MSGPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F66B9589F2534AF4A774F3A3 /* Pods-Group-MSGP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.debug.xcconfig"; sourceTree = "<group>"; };
+		FB3FD474C7A45D179E7B320C /* Pods-MSGPTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -541,6 +595,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				886B3ADF1F13B92B00BF1A8E /* MSGP.framework in Frameworks */,
+				6C7A38E1793D4F9E1D385A1B /* Pods_Group_MSGP_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,6 +603,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A1E78D15DE858A585A1CD04 /* Pods_Group_MSGP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,12 +612,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */,
+				758342E623BB6AAEC097DD62 /* Pods_MSGPTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2677B765FC54CB6A0EC1D908 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F66B9589F2534AF4A774F3A3 /* Pods-Group-MSGP.debug.xcconfig */,
+				21FE406E71BAF0AEE66E02EF /* Pods-Group-MSGP.release.xcconfig */,
+				1E47BA0131C95FC90B698AD1 /* Pods-Group-MSGP-Example.debug.xcconfig */,
+				2563539C67E2D88C06592918 /* Pods-Group-MSGP-Example.release.xcconfig */,
+				1256F776FB8682CD1A44BA6E /* Pods-MSGPTests.debug.xcconfig */,
+				FB3FD474C7A45D179E7B320C /* Pods-MSGPTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		2C6B77FF4F1F2F71CA420D6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -572,6 +642,9 @@
 				886B3ACB1F13ABEA00BF1A8E /* Alamofire.framework */,
 				886B3ACC1F13ABEA00BF1A8E /* SnapKit.framework */,
 				886B3ACD1F13ABEA00BF1A8E /* SVProgressHUD.framework */,
+				AAD9239FB1A20EC10A6A74BF /* Pods_Group_MSGP.framework */,
+				3FD9FDE6695646DEC5BA3B5A /* Pods_Group_MSGP_Example.framework */,
+				D0152FB98BE06D81A37518C1 /* Pods_MSGPTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -701,6 +774,9 @@
 				881F74B31F1F4FA500FD995E /* UITableView+Ext.swift */,
 				881F74B41F1F4FA500FD995E /* UIView+Ext.swift */,
 				881F74B51F1F4FA500FD995E /* UIViewController+Alerts.swift */,
+				88608EF21F20DF3900083E14 /* Dictionary+Ext.swift */,
+				88608EF41F20E4E000083E14 /* Collection+Ext.swift */,
+				88608F101F20F98400083E14 /* String+Memento.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -825,6 +901,7 @@
 		881F75021F1F4FA500FD995E /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				88608F0B1F20F6DA00083E14 /* Mapping */,
 				881F75031F1F4FA500FD995E /* AuthProvider.swift */,
 				881F75041F1F4FA500FD995E /* CredentialsList.swift */,
 				881F75051F1F4FA500FD995E /* Photo.swift */,
@@ -841,6 +918,10 @@
 				881F751A1F1F4FA500FD995E /* URLSchemeService */,
 				881F75181F1F4FA500FD995E /* SessionService.swift */,
 				881F751D1F1F4FA500FD995E /* UserService.swift */,
+				88D04D1E1F20CC92003721FC /* SocialPlusServiceProvider.swift */,
+				88608F091F20F52C00083E14 /* DatabaseFacade.swift */,
+				88608F141F20FAFA00083E14 /* DatabaseFacadeServicesProvider.swift */,
+				88608EEB1F20DB8100083E14 /* Serialization */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -866,7 +947,6 @@
 				881F751C1F1F4FA500FD995E /* URLSchemeService.swift */,
 				881F751B1F1F4FA500FD995E /* URLSchemes.swift */,
 			);
-			name = URLSchemeService;
 			path = URLSchemeService;
 			sourceTree = "<group>";
 		};
@@ -1321,7 +1401,6 @@
 			children = (
 				88CF24091F16202C00CC406F /* NameComponentsSplitterTests.swift */,
 			);
-			name = UtilsTest;
 			path = UtilsTest;
 			sourceTree = "<group>";
 		};
@@ -1333,9 +1412,43 @@
 				8884DDED1F20962100BB62E9 /* AuthServiceTests.swift */,
 				8884DDF81F20B21700BB62E9 /* ImageCacheAdapterTests.swift */,
 				885D92271F1F9DBF0002D5E2 /* URLSchemeServiceTests.swift */,
+				88608EDF1F20D25500083E14 /* SocialPlusTests.swift */,
 			);
-			name = ServicesTests;
 			path = ServicesTests;
+			sourceTree = "<group>";
+		};
+		88608EEB1F20DB8100083E14 /* Serialization */ = {
+			isa = PBXGroup;
+			children = (
+				88608F031F20F13100083E14 /* Repository.swift */,
+				88608F0C1F20F77E00083E14 /* AbstractKeyValueRepository.swift */,
+				88608F071F20F1C500083E14 /* KeyValueRepository.swift */,
+				88608EE91F20DA6700083E14 /* KeyValueStorage.swift */,
+				88608F0E1F20F79B00083E14 /* MementoSerializable.swift */,
+				88608F011F20F02F00083E14 /* UserDefaults+KeyValueStorageService.swift */,
+			);
+			name = Serialization;
+			sourceTree = "<group>";
+		};
+		88608EF81F20E61000083E14 /* EntitiesTests */ = {
+			isa = PBXGroup;
+			children = (
+				88608EF61F20E60C00083E14 /* UserTests.swift */,
+				88608EFD1F20EF6100083E14 /* PhotoTests.swift */,
+				88608EFF1F20EF9800083E14 /* CredentialsListTests.swift */,
+			);
+			name = EntitiesTests;
+			sourceTree = "<group>";
+		};
+		88608F0B1F20F6DA00083E14 /* Mapping */ = {
+			isa = PBXGroup;
+			children = (
+				88608EF01F20DE0C00083E14 /* User+Memento.swift */,
+				88608EF91F20E6F500083E14 /* CredentialsList+Memento.swift */,
+				88608EFB1F20E85500083E14 /* Photo+Memento.swift */,
+			);
+			name = Mapping;
+			path = ../Services;
 			sourceTree = "<group>";
 		};
 		886B39C61F138F5D00BF1A8E /* MSGP-Example */ = {
@@ -1358,8 +1471,9 @@
 				8884DDF41F2096AF00BB62E9 /* MockAuthAPI.swift */,
 				8884DDF21F20968700BB62E9 /* MockAuthAPIProvider.swift */,
 				8884DDF01F20967000BB62E9 /* MockURLScheme.swift */,
+				88608EE11F20D26F00083E14 /* MockSocialPlusServices.swift */,
+				88608EE31F20D2B500083E14 /* MockURLSchemeService.swift */,
 			);
-			name = Mocks;
 			path = Mocks;
 			sourceTree = "<group>";
 		};
@@ -1385,7 +1499,6 @@
 			children = (
 				88D04B1D1F20B45E003721FC /* UIImage+Ext.swift */,
 			);
-			name = Helpers;
 			path = Helpers;
 			sourceTree = "<group>";
 		};
@@ -1405,6 +1518,7 @@
 				886B39C61F138F5D00BF1A8E /* MSGP-Example */,
 				9CD805361F0D012F00B9B0AC /* MSGPTests */,
 				9CD8052A1F0D012F00B9B0AC /* Products */,
+				2677B765FC54CB6A0EC1D908 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1433,6 +1547,7 @@
 			isa = PBXGroup;
 			children = (
 				88D04B1C1F20B451003721FC /* Helpers */,
+				88608EF81F20E61000083E14 /* EntitiesTests */,
 				63A1D5881F1CDE200090C67A /* Modules */,
 				881F76801F1F954E00FD995E /* ServicesTests */,
 				881F767F1F1F952700FD995E /* UtilsTest */,
@@ -1459,10 +1574,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 886B39D41F138F5D00BF1A8E /* Build configuration list for PBXNativeTarget "MSGP-Example" */;
 			buildPhases = (
+				0174929E45120C8B2467BF45 /* [CP] Check Pods Manifest.lock */,
 				886B39C11F138F5D00BF1A8E /* Sources */,
 				886B39C21F138F5D00BF1A8E /* Frameworks */,
 				886B39C31F138F5D00BF1A8E /* Resources */,
 				885F9FCE1F165C9700A30CDF /* Embed Frameworks */,
+				F7CFB3E6404E9ECCC09E2961 /* [CP] Embed Pods Frameworks */,
+				AFA05D492988819FF25323AA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1478,6 +1596,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9CD8053D1F0D012F00B9B0AC /* Build configuration list for PBXNativeTarget "MSGP" */;
 			buildPhases = (
+				B4D341E25CEBA6AAC306FC0E /* [CP] Check Pods Manifest.lock */,
 				88CEEE311F17C79900B93196 /* ShellScript */,
 				9CD805241F0D012F00B9B0AC /* Sources */,
 				9CD805251F0D012F00B9B0AC /* Frameworks */,
@@ -1485,6 +1604,7 @@
 				9CD805271F0D012F00B9B0AC /* Resources */,
 				886B39E51F1392D800BF1A8E /* ShellScript */,
 				63A1D5831F1CD12A0090C67A /* ShellScript */,
+				388B4898D320FBA05CB465F3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1499,9 +1619,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9CD805401F0D012F00B9B0AC /* Build configuration list for PBXNativeTarget "MSGPTests" */;
 			buildPhases = (
+				BC3C46F49A94649811A6E872 /* [CP] Check Pods Manifest.lock */,
 				9CD8052E1F0D012F00B9B0AC /* Sources */,
 				9CD8052F1F0D012F00B9B0AC /* Frameworks */,
 				9CD805301F0D012F00B9B0AC /* Resources */,
+				5E6A553D9617FCB0D077AB6B /* [CP] Embed Pods Frameworks */,
+				F90C48DA11A19DD20CBA0F3B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1593,6 +1716,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0174929E45120C8B2467BF45 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		388B4898D320FBA05CB465F3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5E6A553D9617FCB0D077AB6B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		63A1D5831F1CD12A0090C67A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1634,6 +1802,81 @@
 			shellScript = "\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" storyboards --param module=\"MSGP\" \"$PROJECT_DIR/MSGP/Sources\" --output \"$PROJECT_DIR/MSGP/Sources/Generated/SwiftGen/Storyboards.swift\" -t swift3\n\n\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" images \"$PROJECT_DIR/MSGP/Resources/Images.xcassets\" --output \"$PROJECT_DIR/MSGP/Sources/Generated/SwiftGen/Images.swift\" -t swift3";
 			showEnvVarsInLog = 0;
 		};
+		AFA05D492988819FF25323AA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B4D341E25CEBA6AAC306FC0E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BC3C46F49A94649811A6E872 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F7CFB3E6404E9ECCC09E2961 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F90C48DA11A19DD20CBA0F3B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1665,10 +1908,12 @@
 				881F75C91F1F4FA500FD995E /* APIHelper.swift in Sources */,
 				881F75CD1F1F4FA500FD995E /* HashtagsAPI.swift in Sources */,
 				881F75BE1F1F4FA500FD995E /* Constants.swift in Sources */,
+				88608F0F1F20F79B00083E14 /* MementoSerializable.swift in Sources */,
 				881F76391F1F4FA500FD995E /* CreatePostInteractorOutput.swift in Sources */,
 				881F76691F1F4FA500FD995E /* RootRouter.swift in Sources */,
 				881F764B1F1F4FA500FD995E /* LoginViewInput.swift in Sources */,
 				881F76531F1F4FA500FD995E /* MenuPresenter.swift in Sources */,
+				88608EF51F20E4E000083E14 /* Collection+Ext.swift in Sources */,
 				881F764C1F1F4FA500FD995E /* LoginViewOutput.swift in Sources */,
 				881F75FE1F1F4FA500FD995E /* PostTopicResponse.swift in Sources */,
 				881F766A1F1F4FA500FD995E /* TabMenuContainerConfigurator.swift in Sources */,
@@ -1693,11 +1938,13 @@
 				881F75C41F1F4FA500FD995E /* UIImageView+ImageCache.swift in Sources */,
 				881F76561F1F4FA500FD995E /* MenuCellView.swift in Sources */,
 				881F75DD1F1F4FA500FD995E /* AppCompactView.swift in Sources */,
+				88608EFC1F20E85500083E14 /* Photo+Memento.swift in Sources */,
 				881F76061F1F4FA500FD995E /* PutUserPhotoRequest.swift in Sources */,
 				881F75B81F1F4FA500FD995E /* SubtitleTableCell.swift in Sources */,
 				881F76591F1F4FA500FD995E /* MenuViewInput.swift in Sources */,
 				881F75BF1F1F4FA500FD995E /* String+Encoding.swift in Sources */,
 				881F75A31F1F4FA500FD995E /* AppStrings.swift in Sources */,
+				88608EFA1F20E6F500083E14 /* CredentialsList+Memento.swift in Sources */,
 				881F765A1F1F4FA500FD995E /* MenuViewOutput.swift in Sources */,
 				881F76281F1F4FA500FD995E /* CreateAccountInteractorInput.swift in Sources */,
 				881F76471F1F4FA500FD995E /* LoginRouter.swift in Sources */,
@@ -1718,6 +1965,7 @@
 				881F767C1F1F4FA500FD995E /* Validator.swift in Sources */,
 				881F75B01F1F4FA500FD995E /* Result.swift in Sources */,
 				881F75BD1F1F4FA500FD995E /* WebViewController.swift in Sources */,
+				88608F151F20FAFA00083E14 /* DatabaseFacadeServicesProvider.swift in Sources */,
 				881F75A41F1F4FA500FD995E /* BaseViewController.swift in Sources */,
 				881F76081F1F4FA500FD995E /* ReplyView.swift in Sources */,
 				881F75CB1F1F4FA500FD995E /* BuildsAPI.swift in Sources */,
@@ -1727,8 +1975,10 @@
 				881F75D11F1F4FA500FD995E /* PinsAPI.swift in Sources */,
 				881F764E1F1F4FA500FD995E /* MenuInitializer.swift in Sources */,
 				881F76361F1F4FA500FD995E /* CreatePostInitializer.swift in Sources */,
+				88608F021F20F02F00083E14 /* UserDefaults+KeyValueStorageService.swift in Sources */,
 				881F75A51F1F4FA500FD995E /* ButtonWithTarget.swift in Sources */,
 				881F76331F1F4FA500FD995E /* CreateAccountCellModelsBuilder.swift in Sources */,
+				88608EF31F20DF3900083E14 /* Dictionary+Ext.swift in Sources */,
 				881F75E31F1F4FA500FD995E /* FeedResponseActivityView.swift in Sources */,
 				881F75C71F1F4FA500FD995E /* UIViewController+Alerts.swift in Sources */,
 				881F761A1F1F4FA500FD995E /* AuthServiceImplementation.swift in Sources */,
@@ -1757,12 +2007,14 @@
 				881F75FB1F1F4FA500FD995E /* PostSessionResponse.swift in Sources */,
 				881F76651F1F4FA500FD995E /* MenuStackViewController.swift in Sources */,
 				881F75F81F1F4FA500FD995E /* PostReplyResponse.swift in Sources */,
+				88608F111F20F98400083E14 /* String+Memento.swift in Sources */,
 				881F76741F1F4FA500FD995E /* TabMenuContainerViewInput.swift in Sources */,
 				881F75F01F1F4FA500FD995E /* PostCommentResponse.swift in Sources */,
 				881F75AF1F1F4FA500FD995E /* Palette.swift in Sources */,
 				881F76721F1F4FA500FD995E /* TabMenuContainerRouterInput.swift in Sources */,
 				881F767A1F1F4FA500FD995E /* Reusable.swift in Sources */,
 				881F75D71F1F4FA500FD995E /* SocialAPI.swift in Sources */,
+				88608F041F20F13100083E14 /* Repository.swift in Sources */,
 				881F75E51F1F4FA500FD995E /* FeedResponseReplyView.swift in Sources */,
 				881F76421F1F4FA500FD995E /* LoginConfigurator.swift in Sources */,
 				881F75F91F1F4FA500FD995E /* PostReportRequest.swift in Sources */,
@@ -1777,6 +2029,7 @@
 				881F76001F1F4FA500FD995E /* PostUserResponse.swift in Sources */,
 				881F762E1F1F4FA500FD995E /* UploadPhotoCell.swift in Sources */,
 				881F76021F1F4FA500FD995E /* PutPushRegistrationRequest.swift in Sources */,
+				88608F081F20F1C500083E14 /* KeyValueRepository.swift in Sources */,
 				881F75E71F1F4FA500FD995E /* FeedResponseUserCompactView.swift in Sources */,
 				881F767E1F1F639000FD995E /* MicrosoftLiveAPI.swift in Sources */,
 				881F760B1F1F4FA500FD995E /* UserProfileView.swift in Sources */,
@@ -1789,16 +2042,19 @@
 				881F75E61F1F4FA500FD995E /* FeedResponseTopicView.swift in Sources */,
 				881F75E01F1F4FA500FD995E /* ContentCompactView.swift in Sources */,
 				881F76611F1F4FA500FD995E /* MenuStackPresenter.swift in Sources */,
+				88608EF11F20DE0C00083E14 /* User+Memento.swift in Sources */,
 				881F75AE1F1F4FA500FD995E /* SingleMenu.swift in Sources */,
 				881F76311F1F4FA500FD995E /* CreateAccountViewInput.swift in Sources */,
 				881F760D1F1F4FA500FD995E /* Images.swift in Sources */,
 				881F75D51F1F4FA500FD995E /* SearchAPI.swift in Sources */,
+				88608F0A1F20F52C00083E14 /* DatabaseFacade.swift in Sources */,
 				881F76461F1F4FA500FD995E /* LoginPresenter.swift in Sources */,
 				881F76621F1F4FA500FD995E /* MenuStackRouter.swift in Sources */,
 				881F75D31F1F4FA500FD995E /* RepliesAPI.swift in Sources */,
 				881F76731F1F4FA500FD995E /* TabMenuContainerViewController.swift in Sources */,
 				881F75B71F1F4FA500FD995E /* LoadingIndicatorView.swift in Sources */,
 				881F760F1F1F4FA500FD995E /* AuthProvider.swift in Sources */,
+				88608F0D1F20F77E00083E14 /* AbstractKeyValueRepository.swift in Sources */,
 				881F763F1F1F4FA500FD995E /* CreatePostViewController.swift in Sources */,
 				881F75DC1F1F4FA500FD995E /* ActivityView.swift in Sources */,
 				881F76781F1F4FA500FD995E /* NameComponentsSplitter.swift in Sources */,
@@ -1858,7 +2114,9 @@
 				881F75DA1F1F4FA500FD995E /* APIs.swift in Sources */,
 				881F75A61F1F4FA500FD995E /* CellModel.swift in Sources */,
 				881F75AB1F1F4FA500FD995E /* DualMenu.swift in Sources */,
+				88608EEA1F20DA6700083E14 /* KeyValueStorage.swift in Sources */,
 				881F76201F1F4FA500FD995E /* SessionService.swift in Sources */,
+				88D04D1F1F20CC92003721FC /* SocialPlusServiceProvider.swift in Sources */,
 				881F75F71F1F4FA500FD995E /* PostReplyRequest.swift in Sources */,
 				881F75D21F1F4FA500FD995E /* PushNotificationsAPI.swift in Sources */,
 			);
@@ -1871,14 +2129,20 @@
 				8884DDF51F2096AF00BB62E9 /* MockAuthAPI.swift in Sources */,
 				88D04B1E1F20B45E003721FC /* UIImage+Ext.swift in Sources */,
 				8884DDF11F20967000BB62E9 /* MockURLScheme.swift in Sources */,
+				88608EE41F20D2B500083E14 /* MockURLSchemeService.swift in Sources */,
 				63A1D58F1F1CDEBC0090C67A /* CreatePostPresentorTests.swift in Sources */,
 				88CF240A1F16202C00CC406F /* NameComponentsSplitterTests.swift in Sources */,
 				8884DDEE1F20962100BB62E9 /* AuthServiceTests.swift in Sources */,
 				63A1D5911F1CDFDD0090C67A /* CreatePostInteractorTests.swift in Sources */,
+				88608EE01F20D25500083E14 /* SocialPlusTests.swift in Sources */,
+				88608EFE1F20EF6100083E14 /* PhotoTests.swift in Sources */,
 				881F76821F1F956D00FD995E /* AuthAPIProviderTests.swift in Sources */,
 				885D92281F1F9DBF0002D5E2 /* URLSchemeServiceTests.swift in Sources */,
 				8884DDF31F20968700BB62E9 /* MockAuthAPIProvider.swift in Sources */,
+				88608EF71F20E60C00083E14 /* UserTests.swift in Sources */,
 				63A1D58B1F1CDE4C0090C67A /* CreatePostMocks.swift in Sources */,
+				88608EE21F20D26F00083E14 /* MockSocialPlusServices.swift in Sources */,
+				88608F001F20EF9800083E14 /* CredentialsListTests.swift in Sources */,
 				8884DDF91F20B21700BB62E9 /* ImageCacheAdapterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1922,6 +2186,7 @@
 /* Begin XCBuildConfiguration section */
 		886B39D51F138F5D00BF1A8E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E47BA0131C95FC90B698AD1 /* Pods-Group-MSGP-Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1944,6 +2209,7 @@
 		};
 		886B39D61F138F5D00BF1A8E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2563539C67E2D88C06592918 /* Pods-Group-MSGP-Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -2077,6 +2343,7 @@
 		};
 		9CD8053E1F0D012F00B9B0AC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F66B9589F2534AF4A774F3A3 /* Pods-Group-MSGP.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2106,6 +2373,7 @@
 		};
 		9CD8053F1F0D012F00B9B0AC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21FE406E71BAF0AEE66E02EF /* Pods-Group-MSGP.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2135,6 +2403,7 @@
 		};
 		9CD805411F0D012F00B9B0AC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1256F776FB8682CD1A44BA6E /* Pods-MSGPTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 285W24646W;
@@ -2154,6 +2423,7 @@
 		};
 		9CD805421F0D012F00B9B0AC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB3FD474C7A45D179E7B320C /* Pods-MSGPTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 285W24646W;

@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         SocialPlus.shared.start(with: application, window: window!, launchOptions: launchOptions ?? [:])
-        
+                
         return true
     }
     

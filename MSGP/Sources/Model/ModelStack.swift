@@ -9,10 +9,31 @@
 import Foundation
 
 final class ModelStack {
-    let user: User
-    let sessionToken: String
+    private(set) var user: User! {
+        didSet {
+            database.saveUser(user)
+        }
+    }
     
-    init(user: User, sessionToken: String) {
+    private(set) var sessionToken: String! {
+        didSet {
+            database.saveSessionToken(sessionToken)
+        }
+    }
+    
+    var isLoggedIn: Bool {
+        return user != nil && sessionToken != nil
+    }
+    
+    private let database: DatabaseFacade
+    
+    init(databaseFacade: DatabaseFacade) {
+        self.database = databaseFacade
+        user = databaseFacade.loadLastUser()
+        sessionToken = databaseFacade.loadLastSessionToken()
+    }
+    
+    func createSession(withUser user: User, sessionToken: String) {
         self.user = user
         self.sessionToken = sessionToken
     }

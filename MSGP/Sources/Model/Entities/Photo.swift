@@ -11,7 +11,7 @@ import Foundation
 struct Photo {
     let uid: String
     let url: String?
-    private(set) var image: UIImage?
+    let image: UIImage?
     
     init(uid: String = UUID().uuidString, url: String? = nil, image: UIImage? = nil) {
         self.uid = uid
@@ -22,6 +22,6 @@ struct Photo {
 
 extension Photo: Equatable {
     static func ==(_ lhs: Photo, rhs: Photo) -> Bool {
-        return lhs.uid == lhs.uid && lhs.url == rhs.url
+        return lhs.uid == lhs.uid && lhs.url == rhs.url && lhs.image == rhs.image
     }
 }

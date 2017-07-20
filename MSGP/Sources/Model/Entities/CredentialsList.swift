@@ -54,6 +54,7 @@ extension CredentialsList: Equatable {
         return lhs.provider == rhs.provider &&
             lhs.accessToken == rhs.accessToken &&
             lhs.requestToken == rhs.requestToken &&
-            lhs.appKey == rhs.appKey
+            lhs.appKey == rhs.appKey &&
+            lhs.socialUID == rhs.socialUID
     }
 }

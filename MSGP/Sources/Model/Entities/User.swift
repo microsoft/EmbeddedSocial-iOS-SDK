@@ -29,3 +29,15 @@ extension User {
         credentials = socialUser.credentials
     }
 }
+
+extension User: Equatable {
+    static func ==(_ lhs: User, _ rhs: User) -> Bool {
+        return lhs.uid == rhs.uid &&
+            lhs.firstName == rhs.firstName &&
+            lhs.lastName == rhs.lastName &&
+            lhs.email == rhs.email &&
+            lhs.bio == rhs.bio &&
+            lhs.photo == rhs.photo &&
+            lhs.credentials == rhs.credentials
+    }
+}

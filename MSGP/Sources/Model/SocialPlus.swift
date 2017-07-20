@@ -15,15 +15,21 @@ struct LaunchArguments {
 }
 
 public final class SocialPlus {
+    public static let shared = SocialPlus()
+
+    fileprivate(set) var modelStack: ModelStack!
+
     private var launchArguments: LaunchArguments!
     private var root: RootConfigurator!
-    private let urlSchemeService = URLSchemeService()
     
-    private(set) var modelStack: ModelStack!
+    fileprivate var urlSchemeService: URLSchemeServiceType
+    fileprivate var services: SocialPlusServicesType = SocialPlusServices()
     
-    public static let shared = SocialPlus()
-    
-    private init() { }
+    private init() {
+        urlSchemeService = services.getURLSchemeService()
+        let dbFacade = DatabaseFacade(services: services.getDatabaseFacadeServicesProvider())
+        modelStack = ModelStack(databaseFacade: dbFacade)
+    }
     
     public func start(with application: UIApplication, window: UIWindow, launchOptions: [AnyHashable: Any]) {
         root = RootConfigurator(window: window)
@@ -33,12 +39,21 @@ public final class SocialPlus {
         root.router.openLoginScreen()
         
         root.router.onSessionCreated = { [unowned self] user, sessionToken in
-            self.modelStack = ModelStack(user: user, sessionToken: sessionToken)
+            self.modelStack.createSession(withUser: user, sessionToken: sessionToken)
             self.root.router.openHomeScreen(user: user)
         }
     }
     
     public func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
         return urlSchemeService.application(app, open: url, options: options)
+    }
+}
+
+extension SocialPlus {
+    func setServiceProviderForTesting(_ services: SocialPlusServicesType) {
+        self.services = services
+        urlSchemeService = services.getURLSchemeService()
+        let dbFacade = DatabaseFacade(services: services.getDatabaseFacadeServicesProvider())
+        modelStack = ModelStack(databaseFacade: dbFacade)
     }
 }
