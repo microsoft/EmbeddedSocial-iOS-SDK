@@ -14,12 +14,12 @@ class SocialPlusTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        sut.setServiceProviderForTesting(SocialPlusServices())
+        sut.setupServices(with: SocialPlusServices())
     }
     
     override func tearDown() {
         super.tearDown()
-        sut.setServiceProviderForTesting(SocialPlusServices())
+        sut.setupServices(with: SocialPlusServices())
     }
     
     func testThatURLIsOpened() {
@@ -34,7 +34,7 @@ class SocialPlusTests: XCTestCase {
         let url = URL(string: "http://google.com")
         
         // when
-        sut.setServiceProviderForTesting(socialPlusServicesProvider)
+        sut.setupServices(with: socialPlusServicesProvider)
         
         XCTAssertNotNil(url)
         let actualResult = sut.application(UIApplication.shared, open: url!, options: [:])

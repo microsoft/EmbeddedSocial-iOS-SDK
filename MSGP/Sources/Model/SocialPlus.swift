@@ -16,44 +16,47 @@ struct LaunchArguments {
 
 public final class SocialPlus {
     public static let shared = SocialPlus()
-
-    fileprivate(set) var modelStack: ModelStack!
+    
+    private(set) var sessionStore: SessionStore!
 
     private var launchArguments: LaunchArguments!
     private var root: RootConfigurator!
     
-    fileprivate var urlSchemeService: URLSchemeServiceType
-    fileprivate var services: SocialPlusServicesType = SocialPlusServices()
+    fileprivate var urlSchemeService: URLSchemeServiceType!
+    fileprivate var services: SocialPlusServicesType!
     
     private init() {
+        setupServices(with: SocialPlusServices())
+        try? sessionStore.loadLastSession()
+    }
+    
+    func setupServices(with serviceProvider: SocialPlusServicesType) {
+        services = serviceProvider
         urlSchemeService = services.getURLSchemeService()
-        let dbFacade = DatabaseFacade(services: services.getDatabaseFacadeServicesProvider())
-        modelStack = ModelStack(databaseFacade: dbFacade)
+        let database = SessionStoreDatabaseFacade(services: services.getSessionStoreRepositoriesProvider())
+        sessionStore = SessionStore(database: database)
     }
     
     public func start(with application: UIApplication, window: UIWindow, launchOptions: [AnyHashable: Any]) {
         root = RootConfigurator(window: window)
+        root.router.onSessionCreated = { [unowned self] user, sessionToken in
+            self.sessionStore.createSession(withUser: user, sessionToken: sessionToken)
+            try? self.sessionStore.saveCurrentSession()
+            self.root.router.openHomeScreen(user: user)
+        }
+        
         launchArguments = LaunchArguments(app: application, window: window, launchOptions: launchOptions)
         
         ThirdPartyConfigurator.setup(application: launchArguments.app, launchOptions: launchArguments.launchOptions)
-        root.router.openLoginScreen()
         
-        root.router.onSessionCreated = { [unowned self] user, sessionToken in
-            self.modelStack.createSession(withUser: user, sessionToken: sessionToken)
-            self.root.router.openHomeScreen(user: user)
+        if sessionStore.isLoggedIn {
+            root.router.openHomeScreen(user: sessionStore.user)
+        } else {
+            root.router.openLoginScreen()
         }
     }
     
     public func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
         return urlSchemeService.application(app, open: url, options: options)
-    }
-}
-
-extension SocialPlus {
-    func setServiceProviderForTesting(_ services: SocialPlusServicesType) {
-        self.services = services
-        urlSchemeService = services.getURLSchemeService()
-        let dbFacade = DatabaseFacade(services: services.getDatabaseFacadeServicesProvider())
-        modelStack = ModelStack(databaseFacade: dbFacade)
     }
 }

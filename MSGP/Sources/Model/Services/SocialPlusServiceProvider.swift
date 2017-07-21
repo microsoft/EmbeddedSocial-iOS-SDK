@@ -15,7 +15,7 @@ protocol URLSchemeServiceType {
 protocol SocialPlusServicesType {
     func getURLSchemeService() -> URLSchemeServiceType
     
-    func getDatabaseFacadeServicesProvider() -> DatabaseFacadeServicesProviderType
+    func getSessionStoreRepositoriesProvider() -> SessionStoreRepositoryProviderType
 }
 
 struct SocialPlusServices: SocialPlusServicesType {
@@ -23,7 +23,7 @@ struct SocialPlusServices: SocialPlusServicesType {
         return URLSchemeService()
     }
     
-    func getDatabaseFacadeServicesProvider() -> DatabaseFacadeServicesProviderType {
-        return DatabaseFacadeServicesProvider()
+    func getSessionStoreRepositoriesProvider() -> SessionStoreRepositoryProviderType {
+        return SessionStoreRepositoryProvider()
     }
 }

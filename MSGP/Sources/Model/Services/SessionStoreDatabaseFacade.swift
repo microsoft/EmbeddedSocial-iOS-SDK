@@ -1,18 +1,18 @@
 //
-//  DatabaseFacade.swift
+//  SessionStoreDatabaseFacade.swift
 //  MSGP
 //
-//  Created by Vadim Bulavin on 7/20/17.
+//  Created by Vadim Bulavin on 7/21/17.
 //  Copyright © 2017 Akvelon. All rights reserved.
 //
 
 import Foundation
 
-struct DatabaseFacade {
+struct SessionStoreDatabaseFacade: SessionStoreDatabase {
     private let userRepository: AbstractKeyValueRepository<User>
     private let sessionTokenRepository: AbstractKeyValueRepository<String>
-
-    init(services: DatabaseFacadeServicesProviderType) {
+    
+    init(services: SessionStoreRepositoryProviderType) {
         userRepository = services.getUserRepository()
         sessionTokenRepository = services.getSessionTokenRepository()
     }
@@ -34,7 +34,7 @@ struct DatabaseFacade {
     }
 }
 
-fileprivate extension DatabaseFacade {
+fileprivate extension SessionStoreDatabaseFacade {
     struct Keys {
         static let lastUser = "last-user"
         static let sessionToken = "session-token"

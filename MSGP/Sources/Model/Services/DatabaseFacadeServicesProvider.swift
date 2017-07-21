@@ -8,13 +8,13 @@
 
 import Foundation
 
-protocol DatabaseFacadeServicesProviderType {
+protocol SessionStoreRepositoryProviderType {
     func getUserRepository() -> AbstractKeyValueRepository<User>
     
     func getSessionTokenRepository() -> AbstractKeyValueRepository<String>
 }
 
-struct DatabaseFacadeServicesProvider: DatabaseFacadeServicesProviderType {
+struct SessionStoreRepositoryProvider: SessionStoreRepositoryProviderType {
     
     func getUserRepository() -> AbstractKeyValueRepository<User> {
         return KeyValueRepository(storage: UserDefaults.standard)

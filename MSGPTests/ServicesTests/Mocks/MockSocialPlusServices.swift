@@ -20,7 +20,7 @@ struct MockSocialPlusServices: SocialPlusServicesType {
         return urlSchemeService
     }
     
-    func getDatabaseFacadeServicesProvider() -> DatabaseFacadeServicesProviderType {
-        return DatabaseFacadeServicesProvider()
+    func getSessionStoreRepositoriesProvider() -> SessionStoreRepositoryProviderType {
+        return SessionStoreRepositoryProvider()
     }
 }
