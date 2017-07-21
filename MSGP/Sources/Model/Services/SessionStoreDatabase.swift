@@ -17,4 +17,3 @@ protocol SessionStoreDatabase {
     
     func loadLastSessionToken() -> String?
 }
-

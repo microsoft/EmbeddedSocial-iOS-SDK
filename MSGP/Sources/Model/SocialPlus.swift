@@ -12,6 +12,7 @@ public final class SocialPlus {
     fileprivate var serviceProvider: SocialPlusServicesType!
     
     fileprivate let coordinator = CrossModuleCoordinator()
+    private(set) var coreDataStack: CoreDataStack!
 
     private init() {
         setupServices(with: SocialPlusServices())
@@ -31,8 +32,22 @@ public final class SocialPlus {
     public func start(launchArguments args: LaunchArguments) {
         ThirdPartyConfigurator.setup(application: args.app, launchOptions: args.launchOptions)
         coordinator.setup(launchArguments: args, loginHandler: self)
+        setupCoreDataStack()
+        
         if sessionStore.isLoggedIn {
             // FIXME: Handle navigation for logged in user
+        }
+    }
+    
+    private func setupCoreDataStack() {
+        let model = CoreDataModel(name: "MSGP", bundle: Bundle(for: type(of: self)))
+        let builder = CoreDataStackFactory(model: model)
+        
+        builder.makeStack { [unowned self] result in
+            guard let stack = result.value else {
+                fatalError("*** Cannot set up Core Data stack")
+            }
+            self.coreDataStack = stack
         }
     }
 }
