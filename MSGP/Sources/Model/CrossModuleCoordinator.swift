@@ -4,22 +4,35 @@
 //
 
 class CrossModuleCoordinator {
-  
     weak var menuModule: SideMenuModuleInput!
-    weak var socialPlus: SocialPlus!
-
-}
-
-extension CrossModuleCoordinator: LoginModuleOutput {
     
-    func onSessionCreated(user: User, sessionToken: String) {
-        self.socialPlus.modelStack = ModelStack(user: user, sessionToken: sessionToken)
-        self.menuModule.showUser(user: user)
+    private(set) var navigationStack: NavigationStack!
+    
+    private var isUserLoggedIn = false
+    
+    func setup(launchArguments args: LaunchArguments, loginHandler: LoginModuleOutput) {
+        let sideMenuVC = StoryboardScene.MenuStack.instantiateSideMenuViewController()
         
-        let nextVC = UIViewController()
-        nextVC.view.backgroundColor = UIColor.green
+        navigationStack = NavigationStack(window: args.window, menuViewController: sideMenuVC)
         
-        self.menuModule.open(viewController: nextVC)
+        let socialItemsProvider = SocialMenuItemsProvider(coordinator: self,
+                                                          loginHandler: loginHandler,
+                                                          isUserLoggedIn: isUserLoggedIn)
+
+        menuModule = SideMenuModuleConfigurator.configure(viewController: sideMenuVC,
+                                                          configuration: args.menuConfiguration,
+                                                          socialMenuItemsProvider: socialItemsProvider,
+                                                          clientMenuItemsProvider: args.menuHandler,
+                                                          output: navigationStack.container)
     }
     
+    func onSessionCreated(user: User, sessionToken: String) {
+        isUserLoggedIn = true
+        
+        menuModule.showUser(user: user)
+        
+        let nextVC = UIViewController()
+        nextVC.view.backgroundColor = .green
+        menuModule.open(viewController: nextVC)
+    }
 }

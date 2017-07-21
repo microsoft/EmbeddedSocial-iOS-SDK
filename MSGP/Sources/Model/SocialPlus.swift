@@ -5,71 +5,43 @@
 
 import Foundation
 
-struct LaunchArguments {
-    let app: UIApplication
-    let window: UIWindow
-    let launchOptions: [AnyHashable: Any]
-}
-
 public final class SocialPlus {
-    private var launchArguments: LaunchArguments!
-    private var root: RootConfigurator!
-    private let urlSchemeService = URLSchemeService()
-    
-    var modelStack: ModelStack!
-    
-    var coordinator = CrossModuleCoordinator()
-    
     public static let shared = SocialPlus()
     
-    private init() { }
+    private(set) var sessionStore: SessionStore!
+    fileprivate var serviceProvider: SocialPlusServicesType!
     
-    public func start(with application: UIApplication,
-                      window: UIWindow,
-                      launchOptions: [AnyHashable: Any],
-                      menuHandler: SideMenuItemsProvider?,
-                      menuConfiguration: SideMenuType) {
-        
-        let menuViewController = StoryboardScene.MenuStack.instantiateSideMenuViewController()
-        
-        navigationStack = NavigationStack(window: window, menuViewController: menuViewController)
-        
-        coordinator.socialPlus = self
-        coordinator.menuModule = buildMenuModule(view: menuViewController,
-                                                     configuration: menuConfiguration,
-                                                     itemsProvider: menuHandler,
-                                                     output: navigationStack.container)
-        
-        launchArguments = LaunchArguments(app: application, window: window, launchOptions: launchOptions)
-        
-        ThirdPartyConfigurator.setup(application: launchArguments.app, launchOptions: launchArguments.launchOptions)
+    fileprivate let coordinator = CrossModuleCoordinator()
+
+    private init() {
+        setupServices(with: SocialPlusServices())
+        try? sessionStore.loadLastSession()
+    }
+    
+    func setupServices(with serviceProvider: SocialPlusServicesType) {
+        self.serviceProvider = serviceProvider
+        let database = SessionStoreDatabaseFacade(services: serviceProvider.getSessionStoreRepositoriesProvider())
+        sessionStore = SessionStore(database: database)
     }
     
     public func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
-        return urlSchemeService.application(app, open: url, options: options)
+        return serviceProvider.getURLSchemeService().application(app, open: url, options: options)
     }
     
-    // MARK: menu
-    
-    private var navigationStack: NavigationStack!
-    
-    func buildMenuModule(view: UIViewController,
-                         configuration: SideMenuType,
-                         itemsProvider: SideMenuItemsProvider?,
-                         output: SideMenuModuleOutput!) -> SideMenuModuleInput {
-        
-        guard let view = view as? SideMenuViewController else {
-            fatalError("Wrong input")
+    public func start(launchArguments args: LaunchArguments) {
+        ThirdPartyConfigurator.setup(application: args.app, launchOptions: args.launchOptions)
+        coordinator.setup(launchArguments: args, loginHandler: self)
+        if sessionStore.isLoggedIn {
+            // FIXME: Handle navigation for logged in user
         }
+    }
+}
+
+extension SocialPlus: LoginModuleOutput {
     
-        let socialItemsProvider = SocialMenuItemsProvider(coordinator: coordinator)
-        let moduleInput = SideMenuModuleConfigurator.configure(viewController: view,
-                                                               configuration: configuration,
-                                                               socialMenuItemsProvider: socialItemsProvider,
-                                                               clientMenuItemsProvider: itemsProvider,
-                                                               output: output)
-        
-        return moduleInput
-        
+    func onSessionCreated(user: User, sessionToken: String) {
+        sessionStore.createSession(withUser: user, sessionToken: sessionToken)
+        try? sessionStore.saveCurrentSession()
+        coordinator.onSessionCreated(user: user, sessionToken: sessionToken)
     }
 }

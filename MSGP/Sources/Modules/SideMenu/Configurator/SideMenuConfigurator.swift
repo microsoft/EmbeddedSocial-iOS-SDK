@@ -12,7 +12,7 @@ class SideMenuModuleConfigurator {
                          socialMenuItemsProvider: SideMenuItemsProvider,
                          clientMenuItemsProvider: SideMenuItemsProvider?,
                          output: SideMenuModuleOutput) -> SideMenuModuleInput {
-
+        
         let router = SideMenuRouter()
         router.output = output
 

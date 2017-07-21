@@ -9,7 +9,7 @@ protocol URLScheme {
     func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool
 }
 
-struct URLSchemeService {
+struct URLSchemeService: URLSchemeServiceType {
     private let schemes: [URLScheme]
     
     init(schemes: [URLScheme] = URLSchemeService.defaultSchemes) {

@@ -6,11 +6,17 @@
 import Foundation
 
 class SocialMenuItemsProvider: SideMenuItemsProvider {
+    private weak var coordinator: CrossModuleCoordinator!
+    private weak var loginHandler: LoginModuleOutput!
     
-    weak var coordinator: CrossModuleCoordinator!
+    private let isUserLoggedIn: Bool
     
-    init(coordinator: CrossModuleCoordinator) {
+    init(coordinator: CrossModuleCoordinator,
+         loginHandler: LoginModuleOutput,
+         isUserLoggedIn: Bool) {
         self.coordinator = coordinator
+        self.loginHandler = loginHandler
+        self.isUserLoggedIn = isUserLoggedIn
     }
     
     enum State: Int {
@@ -22,24 +28,20 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     }
     
     var state: State {
-        if SocialPlus.shared.modelStack != nil {
-            return .authenticated
-        } else {
-            return .unauthenticated
-        }
+        return isUserLoggedIn ? .authenticated : .unauthenticated
     }
     
     var items = [
-        State.authenticated:[(title: "Home", image: UIImage(asset: Asset.iconLiked)),
-            (title: "Sign In", image: UIImage(asset: Asset.iconLiked)),
-            (title: "Search", image: UIImage(asset: Asset.iconSearch)),
-            (title: "Popular", image: UIImage(asset: Asset.iconPopular)),
-            (title: "My pins", image: UIImage(asset: Asset.iconPins)),
-            (title: "Activity Feed", image: UIImage(asset: Asset.iconActivity)),
-            (title: "Settings", image: UIImage(asset: Asset.iconSettings)),
-            (title: "Log out", image: UIImage(asset: Asset.iconLogout))],
-        State.unauthenticated:[(title: "Popular", image: UIImage(asset: Asset.iconPopular)),
-            (title: "Sign In", image: UIImage(asset: Asset.iconLiked)),
+        State.authenticated: [(title: "Home", image: UIImage(asset: Asset.iconLiked)),
+                              (title: "Sign In", image: UIImage(asset: Asset.iconLiked)),
+                              (title: "Search", image: UIImage(asset: Asset.iconSearch)),
+                              (title: "Popular", image: UIImage(asset: Asset.iconPopular)),
+                              (title: "My pins", image: UIImage(asset: Asset.iconPins)),
+                              (title: "Activity Feed", image: UIImage(asset: Asset.iconActivity)),
+                              (title: "Settings", image: UIImage(asset: Asset.iconSettings)),
+                              (title: "Log out", image: UIImage(asset: Asset.iconLogout))],
+        State.unauthenticated: [(title: "Popular", image: UIImage(asset: Asset.iconPopular)),
+                                (title: "Sign In", image: UIImage(asset: Asset.iconLiked))
         ]
     ]
     
@@ -56,23 +58,20 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     }
     
     func destination(forItem index: Int) -> UIViewController {
-        
         guard let route = Route(rawValue: index) else {
             return UIViewController()
         }
         
-        var destinationVC: UIViewController? = nil
+        var destinationVC: UIViewController?
         
         switch route {
         case .home:
-            
             destinationVC = UIViewController()
-            destinationVC?.view.backgroundColor = UIColor.purple
+            destinationVC?.view.backgroundColor = .purple
             
         case .signin:
-            
             let loginModule = LoginConfigurator()
-            loginModule.configure(moduleOutput: coordinator)
+            loginModule.configure(moduleOutput: loginHandler)
             destinationVC = loginModule.viewController
         }
         
