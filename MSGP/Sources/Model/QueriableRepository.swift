@@ -17,6 +17,10 @@ class QueriableRepository<T>: Repository {
     
     init() { }
     
+    func create() -> T {
+        abstractMethod()
+    }
+    
     func query(with predicate: NSPredicate? = nil,
                sortDescriptors: [NSSortDescriptor]? = nil,
                completion: @escaping ([T]) -> Void) {

@@ -16,6 +16,10 @@ class CoreDataRepository<T: CoreDataRecord>: QueriableRepository<T> {
         self.context = context
     }
     
+    override func create() -> T {
+        return context.create(T.self)
+    }
+    
     override func query(with predicate: NSPredicate? = nil,
                         sortDescriptors: [NSSortDescriptor]? = nil,
                         completion: @escaping ([T]) -> Void) {

@@ -41,7 +41,7 @@ class CoreDataModelsTests: XCTestCase {
         // when
         context.performAndWait {
             transaction = context.create(IncomingTransaction.self)
-            transaction?.handle = "123"
+            transaction?.handle = UUID().uuidString
 
             do {
                 try context.save()

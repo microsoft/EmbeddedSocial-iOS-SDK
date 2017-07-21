@@ -247,6 +247,7 @@
 		88635D7B1F22430300577140 /* CoreDataModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D7A1F22430300577140 /* CoreDataModelsTests.swift */; };
 		88635D7D1F22434300577140 /* CoreDataSetupHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D7C1F22434300577140 /* CoreDataSetupHelper.swift */; };
 		88635D7F1F22447C00577140 /* OutgoingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D7E1F22447C00577140 /* OutgoingTransaction.swift */; };
+		88635D881F224F3200577140 /* CoreDataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
 		886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C91F138F5D00BF1A8E /* ViewController.swift */; };
 		886B39CD1F138F5D00BF1A8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CB1F138F5D00BF1A8E /* Main.storyboard */; };
@@ -564,6 +565,7 @@
 		88635D7A1F22430300577140 /* CoreDataModelsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModelsTests.swift; sourceTree = "<group>"; };
 		88635D7C1F22434300577140 /* CoreDataSetupHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataSetupHelper.swift; sourceTree = "<group>"; };
 		88635D7E1F22447C00577140 /* OutgoingTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingTransaction.swift; sourceTree = "<group>"; };
+		88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataRepositoryTests.swift; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -1397,8 +1399,8 @@
 			children = (
 				88635D7A1F22430300577140 /* CoreDataModelsTests.swift */,
 				88635D761F223F1600577140 /* CoreDataStackFactoryTests.swift */,
+				88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */,
 			);
-			name = CoreData;
 			path = CoreData;
 			sourceTree = "<group>";
 		};
@@ -2107,6 +2109,7 @@
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
 				889AFC291F220BCD003AAF19 /* MockAuthAPI.swift in Sources */,
 				889AFC201F220BCD003AAF19 /* UIImage+Ext.swift in Sources */,
+				88635D881F224F3200577140 /* CoreDataRepositoryTests.swift in Sources */,
 				889AFC261F220BCD003AAF19 /* AuthAPIProviderTests.swift in Sources */,
 				88635D7B1F22430300577140 /* CoreDataModelsTests.swift in Sources */,
 				889AFC1E1F220BCD003AAF19 /* PhotoTests.swift in Sources */,
