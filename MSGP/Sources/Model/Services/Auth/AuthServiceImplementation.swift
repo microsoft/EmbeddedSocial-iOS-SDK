@@ -1,18 +1,15 @@
 //
-//  AuthServiceImplementation.swift
-//  MSGP
-//
-//  Created by Vadim Bulavin on 7/10/17.
-//  Copyright © 2017 Akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import Foundation
 
 final class AuthService: AuthServiceType {
-    private let apiProvider: AuthAPIProvider
+    private let apiProvider: AuthAPIProviderType
     private var apis: [AuthProvider: AuthAPI] = [:]
     
-    init(apiProvider: AuthAPIProvider) {
+    init(apiProvider: AuthAPIProviderType) {
         self.apiProvider = apiProvider
     }
     

@@ -1,9 +1,6 @@
 //
-//  SideMenuSideMenuConfigurator.swift
-//  MSGP-Framework
-//
-//  Created by igor.popov on 17/07/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import UIKit
@@ -11,11 +8,11 @@ import UIKit
 class SideMenuModuleConfigurator {
     
     class func configure(viewController: SideMenuViewController,
-                         type: SideMenuType,
+                         configuration: SideMenuType,
                          socialMenuItemsProvider: SideMenuItemsProvider,
                          clientMenuItemsProvider: SideMenuItemsProvider?,
-                         output: SideMenuRouterOutput) {
-
+                         output: SideMenuModuleOutput) -> SideMenuModuleInput {
+        
         let router = SideMenuRouter()
         router.output = output
 
@@ -29,7 +26,9 @@ class SideMenuModuleConfigurator {
         interactor.socialMenuItemsProvider = socialMenuItemsProvider
 
         presenter.interactor = interactor
-        presenter.configation = type
+        presenter.configation = configuration
         viewController.output = presenter
+        
+        return presenter
     }
 }

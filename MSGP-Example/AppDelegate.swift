@@ -13,25 +13,20 @@ import MSGP
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var myAppMenu: SideMenuItemsProvider?
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        
-        
-        
-        // Menu delegate
-        myAppMenu = MyAppMenu()
-        
-        SocialPlus.shared.start(with: application,
-                                window: window!,
-                                launchOptions: launchOptions ?? [:],
-                                menuHandler: myAppMenu,
-                                menuConfiguration: .dual)
-        
+        window?.rootViewController = UIViewController()
         window?.makeKeyAndVisible()
         
+        let args = LaunchArguments(app: application,
+                                   window: window!,
+                                   launchOptions: launchOptions ?? [:],
+                                   menuHandler: MyAppMenu(),
+                                   menuConfiguration: .dual)
+        SocialPlus.shared.start(launchArguments: args)
+                
         return true
     }
     

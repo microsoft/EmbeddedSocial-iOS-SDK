@@ -1,54 +1,47 @@
 //
-//  SocialPlus.swift
-//  MSGP
-//
-//  Created by Vadim Bulavin on 7/10/17.
-//  Copyright © 2017 Akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import Foundation
 
-struct LaunchArguments {
-    let app: UIApplication
-    let window: UIWindow
-    let launchOptions: [AnyHashable: Any]
-}
-
 public final class SocialPlus {
-    private var launchArguments: LaunchArguments!
-    private var root: RootConfigurator!
-    private let urlSchemeService = URLSchemeService()
-    
-    private(set) var modelStack: ModelStack!
-    
     public static let shared = SocialPlus()
     
-    private init() { }
+    private(set) var sessionStore: SessionStore!
+    fileprivate var serviceProvider: SocialPlusServicesType!
     
-    public func start(with application: UIApplication,
-                      window: UIWindow,
-                      launchOptions: [AnyHashable: Any],
-                      menuHandler: SideMenuItemsProvider?,
-                      menuConfiguration: SideMenuType) {
-        
-        navigationStack = NavigationStack(window: window, format: menuConfiguration, menuItemsProvider: menuHandler)
-        
-        launchArguments = LaunchArguments(app: application, window: window, launchOptions: launchOptions)
-        
-        ThirdPartyConfigurator.setup(application: launchArguments.app, launchOptions: launchArguments.launchOptions)
-        
-//        root.router.onSessionCreated = { [unowned self] user, sessionToken in
-//            self.modelStack = ModelStack(user: user, sessionToken: sessionToken)
-//            self.root.router.openHomeScreen(user: user)
-//        }
+    fileprivate let coordinator = CrossModuleCoordinator()
+
+    private init() {
+        setupServices(with: SocialPlusServices())
+        try? sessionStore.loadLastSession()
+    }
+    
+    func setupServices(with serviceProvider: SocialPlusServicesType) {
+        self.serviceProvider = serviceProvider
+        let database = SessionStoreDatabaseFacade(services: serviceProvider.getSessionStoreRepositoriesProvider())
+        sessionStore = SessionStore(database: database)
     }
     
     public func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
-        return urlSchemeService.application(app, open: url, options: options)
+        return serviceProvider.getURLSchemeService().application(app, open: url, options: options)
     }
     
-    // MARK: menu
+    public func start(launchArguments args: LaunchArguments) {
+        ThirdPartyConfigurator.setup(application: args.app, launchOptions: args.launchOptions)
+        coordinator.setup(launchArguments: args, loginHandler: self)
+        if sessionStore.isLoggedIn {
+            // FIXME: Handle navigation for logged in user
+        }
+    }
+}
+
+extension SocialPlus: LoginModuleOutput {
     
-    var navigationStack: NavigationStack?
-    
+    func onSessionCreated(user: User, sessionToken: String) {
+        sessionStore.createSession(withUser: user, sessionToken: sessionToken)
+        try? sessionStore.saveCurrentSession()
+        coordinator.onSessionCreated(user: user, sessionToken: sessionToken)
+    }
 }

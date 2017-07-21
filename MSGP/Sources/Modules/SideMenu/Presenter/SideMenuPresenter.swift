@@ -1,9 +1,6 @@
 //
-//  SideMenuSideMenuPresenter.swift
-//  MSGP-Framework
-//
-//  Created by igor.popov on 17/07/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 typealias MenuItems = [SideMenuSectionModel]
@@ -13,11 +10,31 @@ public enum SideMenuType {
 }
 
 class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuInteractorOutput {
+
+    func accountInfo() -> SideMenuHeaderModel? {
+        
+        guard let user = self.user else {
+            return nil
+        }
+        
+        guard let firstname = user.firstName, let lastname = user.lastName else {
+            return nil
+        }
+        
+        guard let accountPhoto = user.photo else {
+            return nil
+        }
+        
+        let accountName = "\(firstname) \(lastname)"
+        
+        return SideMenuHeaderModel(accountName: accountName, accountPhoto: accountPhoto)
+    }
     
     enum SideMenuTabs: Int {
         case client, social
     }
     
+    var user: User?
     weak var view: SideMenuViewInput!
     var interactor: SideMenuInteractorInput!
     var router: SideMenuRouterInput!
@@ -35,9 +52,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     }
     
     var accountViewAvailable: Bool {
-        get {
-            return !(configation == .tab && tab == .client)
-        }
+        return !(configation == .tab && tab == .client) && (user != nil)
     }
     
     var items = MenuItems()
@@ -81,16 +96,29 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         view.reload(section: index)
     }
     
+    func showUser(user: User) {
+        self.user = user
+        view.showAccountInfo(visible: accountViewAvailable)
+        buildItems()
+        view.reload()
+    }
+    
     func buildItems() {
         
         items = MenuItems()
         
-        let collapsible = configation == .dual
+        let collapsible = (configation == .dual)
         
         let socialItems = interactor.socialMenuItems()
         let clientItems = interactor.clientMenuItems()
-        let socialSection = SideMenuSectionModel(title: "Social", collapsible: collapsible, isCollapsed: false, items: socialItems)
-        let clientSection = SideMenuSectionModel(title: "Example App", collapsible: collapsible, isCollapsed: false, items: clientItems)
+        let socialSection = SideMenuSectionModel(title: "Social",
+                                                 collapsible: collapsible,
+                                                 isCollapsed: false,
+                                                 items: socialItems)
+        let clientSection = SideMenuSectionModel(title: "Example App",
+                                                 collapsible: collapsible,
+                                                 isCollapsed: false,
+                                                 items: clientItems)
         
         switch configation! {
         case .tab:
@@ -106,15 +134,6 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
             items.append(contentsOf: [socialSection, clientSection])
         case .single:
             items.append(clientSection)
-        }
-    }
-    
-    func sectionHeader(section index: Int) -> SideMenuHeaderModel? {
-        
-        if (index == 0 && configation != .dual) || (configation == .dual && tab == .social) {
-            return SideMenuHeaderModel(accountName: "Willy Huili", accountImage: UIImage(asset: .iconTwitter))
-        } else {
-            return nil
         }
     }
     

@@ -1,14 +1,23 @@
 //
-//  SocialMenuProvider.swift
-//  MSGP
-//
-//  Created by Igor Popov on 7/13/17.
-//  Copyright © 2017 Akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import Foundation
 
 class SocialMenuItemsProvider: SideMenuItemsProvider {
+    private weak var coordinator: CrossModuleCoordinator!
+    private weak var loginHandler: LoginModuleOutput!
+    
+    private let isUserLoggedIn: Bool
+    
+    init(coordinator: CrossModuleCoordinator,
+         loginHandler: LoginModuleOutput,
+         isUserLoggedIn: Bool) {
+        self.coordinator = coordinator
+        self.loginHandler = loginHandler
+        self.isUserLoggedIn = isUserLoggedIn
+    }
     
     enum State: Int {
         case authenticated, unauthenticated
@@ -18,19 +27,21 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         case home, signin
     }
     
-    var state: State = State.authenticated
+    var state: State {
+        return isUserLoggedIn ? .authenticated : .unauthenticated
+    }
     
     var items = [
-        State.authenticated:[(title: "Home", image: UIImage(asset: Asset.iconLiked)),
-            (title: "Sign In", image: UIImage(asset: Asset.iconLiked)),
-            (title: "Search", image: UIImage(asset: Asset.iconSearch)),
-            (title: "Popular", image: UIImage(asset: Asset.iconPopular)),
-            (title: "My pins", image: UIImage(asset: Asset.iconPins)),
-            (title: "Activity Feed", image: UIImage(asset: Asset.iconActivity)),
-            (title: "Settings", image: UIImage(asset: Asset.iconSettings)),
-            (title: "Log out", image: UIImage(asset: Asset.iconLogout))],
-        State.unauthenticated:[(title: "Popular", image: UIImage(asset: Asset.iconPopular)),
-            (title: "Sign In", image: UIImage(asset: Asset.iconLiked)),
+        State.authenticated: [(title: "Home", image: UIImage(asset: Asset.iconLiked)),
+                              (title: "Sign In", image: UIImage(asset: Asset.iconLiked)),
+                              (title: "Search", image: UIImage(asset: Asset.iconSearch)),
+                              (title: "Popular", image: UIImage(asset: Asset.iconPopular)),
+                              (title: "My pins", image: UIImage(asset: Asset.iconPins)),
+                              (title: "Activity Feed", image: UIImage(asset: Asset.iconActivity)),
+                              (title: "Settings", image: UIImage(asset: Asset.iconSettings)),
+                              (title: "Log out", image: UIImage(asset: Asset.iconLogout))],
+        State.unauthenticated: [(title: "Popular", image: UIImage(asset: Asset.iconPopular)),
+                                (title: "Sign In", image: UIImage(asset: Asset.iconLiked))
         ]
     ]
     
@@ -47,41 +58,23 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     }
     
     func destination(forItem index: Int) -> UIViewController {
-        
         guard let route = Route(rawValue: index) else {
             return UIViewController()
         }
         
-        var destinationVC: UIViewController? = nil
+        var destinationVC: UIViewController?
         
         switch route {
         case .home:
-            
             destinationVC = UIViewController()
-            destinationVC?.view.backgroundColor = UIColor.purple
+            destinationVC?.view.backgroundColor = .purple
             
         case .signin:
-            
             let loginModule = LoginConfigurator()
-            loginModule.configure(moduleOutput: self) // TODO: this is not good candidate for delegation
+            loginModule.configure(moduleOutput: loginHandler)
             destinationVC = loginModule.viewController
         }
         
         return destinationVC!
     }
 }
-
-extension SocialMenuItemsProvider: LoginModuleOutput {
-    
-    func onSessionCreated(user: User, sessionToken: String) {
-        
-        print(user, sessionToken)
-//        destination(forItem: SocialMenuItemsProvider.Route.home.rawValue)
-        
-//        self.modelStack = ModelStack(user: user, sessionToken: sessionToken)
-//        self.root.router.openHomeScreen(user: user)
-        
-    }
-}
-
-
