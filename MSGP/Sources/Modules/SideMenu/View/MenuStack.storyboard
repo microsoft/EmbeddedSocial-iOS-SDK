@@ -14,7 +14,7 @@
         <scene sceneID="7OX-so-UMG">
             <objects>
                 <navigationController id="ghY-Wn-Lvg" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XD1-SD-WkJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="XD1-SD-WkJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -105,15 +105,36 @@
                                     <constraint firstItem="uwj-Ft-2N0" firstAttribute="top" secondItem="Fgm-nF-iX1" secondAttribute="top" id="vEc-CR-KoS"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAK-K8-2kT" userLabel="accountinfo" customClass="SideMenuAccountInfoView" customModule="MSGP" customModuleProvider="target">
+                            <view autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAK-K8-2kT" userLabel="accountinfo" customClass="SideMenuAccountInfoView" customModule="MSGP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="375" height="60"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LtY-yR-Zxj">
+                                        <rect key="frame" x="10" y="10" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="LtY-yR-Zxj" secondAttribute="height" multiplier="1:1" id="K4Z-NB-c7N"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ijn-V1-wSN">
+                                        <rect key="frame" x="70" y="21" width="83" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="999" id="RKs-rj-P2q"/>
+                                    <constraint firstItem="ijn-V1-wSN" firstAttribute="centerY" secondItem="LtY-yR-Zxj" secondAttribute="centerY" priority="998" id="Wxn-Ob-sFp"/>
+                                    <constraint firstItem="LtY-yR-Zxj" firstAttribute="top" secondItem="XAK-K8-2kT" secondAttribute="top" priority="998" constant="10" id="ZJn-Rb-z4J"/>
+                                    <constraint firstItem="ijn-V1-wSN" firstAttribute="leading" secondItem="LtY-yR-Zxj" secondAttribute="trailing" priority="998" constant="20" id="aOP-cq-kRe"/>
+                                    <constraint firstAttribute="bottom" secondItem="LtY-yR-Zxj" secondAttribute="bottom" priority="998" constant="10" id="frD-DS-GuA"/>
+                                    <constraint firstItem="LtY-yR-Zxj" firstAttribute="leading" secondItem="XAK-K8-2kT" secondAttribute="leading" priority="998" constant="10" id="hiZ-SI-ND9"/>
                                     <constraint firstAttribute="height" constant="60" id="pYU-Eb-m9C"/>
                                 </constraints>
                                 <connections>
                                     <action selector="onAccountInfo:" destination="PLX-5I-0kg" eventType="touchUpInside" id="dYi-ax-3RG"/>
+                                    <outlet property="accountImage" destination="LtY-yR-Zxj" id="PJA-Gq-901"/>
+                                    <outlet property="accountName" destination="ijn-V1-wSN" id="59G-gS-km9"/>
                                 </connections>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3rh-gf-FhL">

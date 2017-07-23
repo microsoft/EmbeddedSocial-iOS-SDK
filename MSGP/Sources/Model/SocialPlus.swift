@@ -35,7 +35,7 @@ public final class SocialPlus {
         setupCoreDataStack()
         
         if sessionStore.isLoggedIn {
-            // FIXME: Handle navigation for logged in user
+            coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
         }
     }
     
