@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ghY-Wn-Lvg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ghY-Wn-Lvg">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -31,7 +35,7 @@
                         <viewControllerLayoutGuide type="bottom" id="f4X-WI-IRM"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="O4z-8p-bm0">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.51675006219698039" blue="0.43334568092064019" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -50,7 +54,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Syn-eX-dlx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Gin-dh-xhs">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fgm-nF-iX1" userLabel="tabbar">
@@ -108,12 +112,15 @@
                                     <constraint firstAttribute="height" priority="999" id="RKs-rj-P2q"/>
                                     <constraint firstAttribute="height" constant="60" id="pYU-Eb-m9C"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="onAccountInfo:" destination="PLX-5I-0kg" eventType="touchUpInside" id="dYi-ax-3RG"/>
+                                </connections>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3rh-gf-FhL">
                                 <rect key="frame" x="0.0" y="110" width="375" height="557"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="pdO-bk-Ynt" userLabel="footer">
-                                    <rect key="frame" x="0.0" y="-143" width="375" height="700"/>
+                                    <rect key="frame" x="0.0" y="72" width="375" height="700"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.10000000000000001"/>

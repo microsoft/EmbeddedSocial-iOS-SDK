@@ -6,7 +6,7 @@
 import UIKit
 import SnapKit
 
-class SideMenuAccountInfoView: UIView {
+class SideMenuAccountInfoView: UIControl {
     
     var accountImage = UIImageView()
     var accountName = UILabel()
@@ -29,7 +29,6 @@ class SideMenuAccountInfoView: UIView {
         clipsToBounds = true
         accountImage.contentMode = .scaleAspectFit
         accountName.textColor = UIColor.white
-        // constraints
         
         addSubview(accountImage)
         accountImage.snp.makeConstraints { (make) in
@@ -48,7 +47,7 @@ class SideMenuAccountInfoView: UIView {
     }
     
     func configure(with model: SideMenuHeaderModel) {
-        accountImage.setPhotoWithCaching(model.accountPhoto, placeholder: nil)
-        accountName.text = model.accountName
+        accountImage.setPhotoWithCaching(model.image, placeholder: nil)
+        accountName.text = model.title
     }
 }

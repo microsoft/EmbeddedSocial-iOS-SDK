@@ -4,14 +4,15 @@
 //
 
 protocol SideMenuViewOutput {
-
+    
     /**
-        @author igor.popov
-        Notify presenter that view is ready
-    */
-
+     @author igor.popov
+     Notify presenter that view is ready
+     */
+    
     func viewIsReady()
     func didSwitch(to tab: Int)
+    func didTapAccountInfo()
     func didSelectItem(with path: IndexPath)
     func didToggleSection(with index: Int)
     
@@ -20,5 +21,5 @@ protocol SideMenuViewOutput {
     func section(with index: Int) -> SideMenuSectionModel
     func item(at index: IndexPath) -> SideMenuItemModel
     func headerTitle(for section: Int) -> String
-    func accountInfo() -> SideMenuHeaderModel?
+    func accountInfo() -> SideMenuHeaderModel
 }
