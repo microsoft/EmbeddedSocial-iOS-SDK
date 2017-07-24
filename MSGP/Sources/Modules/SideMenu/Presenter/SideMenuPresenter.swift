@@ -15,7 +15,12 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         case client, social
     }
     
-    var user: User?
+    var user: User? {
+        didSet {
+            view.showAccountInfo(visible: accountViewAvailable)
+        }
+    }
+    
     weak var view: SideMenuViewInput!
     var interactor: SideMenuInteractorInput!
     var router: SideMenuRouterInput!
@@ -96,14 +101,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         items[index].setCollapsed(collapsed: !items[index].isCollapsed)
         view.reload(section: index)
     }
-    
-    func showUser(user: User) {
-        self.user = user
-        view.showAccountInfo(visible: accountViewAvailable)
-        buildItems()
-        view.reload()
-    }
-    
+
     func buildItems() {
         
         items = MenuItems()

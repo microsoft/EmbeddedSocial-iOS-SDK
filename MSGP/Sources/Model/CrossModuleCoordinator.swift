@@ -32,7 +32,7 @@ class CrossModuleCoordinator: LoginModuleOutput {
     func onSessionCreated(user: User, sessionToken: String) {
         isUserLoggedIn = true
         
-        menuModule.showUser(user: user)
+        menuModule.user = user
         
         let nextVC = UIViewController()
         nextVC.view.backgroundColor = .green
