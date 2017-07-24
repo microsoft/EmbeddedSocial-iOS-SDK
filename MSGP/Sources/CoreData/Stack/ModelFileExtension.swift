@@ -5,9 +5,9 @@
 
 import Foundation
 
-protocol SideMenuRouterInput {
-    
-    func open(viewController: UIViewController, sender: Any?)
-    func openLoginScreen()
-    
+enum ModelFileExtension: String {
+    case bundle = "momd"
+    case versionedFile = "mom"
+    case mapping = "cdm"
+    case sqlite = "sqlite"
 }

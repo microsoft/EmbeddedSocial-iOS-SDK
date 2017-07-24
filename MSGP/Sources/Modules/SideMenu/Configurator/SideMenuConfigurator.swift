@@ -8,6 +8,7 @@ import UIKit
 class SideMenuModuleConfigurator {
     
     class func configure(viewController: SideMenuViewController,
+                         coordinator: CrossModuleCoordinator,
                          configuration: SideMenuType,
                          socialMenuItemsProvider: SideMenuItemsProvider,
                          clientMenuItemsProvider: SideMenuItemsProvider?,
@@ -15,6 +16,7 @@ class SideMenuModuleConfigurator {
         
         let router = SideMenuRouter()
         router.output = output
+        router.coordinator = coordinator
 
         let presenter = SideMenuPresenter()
         presenter.view = viewController

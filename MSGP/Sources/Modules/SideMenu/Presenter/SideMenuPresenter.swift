@@ -10,25 +10,6 @@ public enum SideMenuType {
 }
 
 class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuInteractorOutput {
-
-    func accountInfo() -> SideMenuHeaderModel? {
-        
-        guard let user = self.user else {
-            return nil
-        }
-        
-        guard let firstname = user.firstName, let lastname = user.lastName else {
-            return nil
-        }
-        
-        guard let accountPhoto = user.photo else {
-            return nil
-        }
-        
-        let accountName = "\(firstname) \(lastname)"
-        
-        return SideMenuHeaderModel(accountName: accountName, accountPhoto: accountPhoto)
-    }
     
     enum SideMenuTabs: Int {
         case client, social
@@ -52,7 +33,21 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     }
     
     var accountViewAvailable: Bool {
-        return !(configation == .tab && tab == .client) && (user != nil)
+        return !(configation == .tab && tab == .client)
+    }
+    
+    func accountInfo() -> SideMenuHeaderModel {
+        
+        if let user = self.user, let firstname = user.firstName, let lastname = user.lastName {
+            
+            let accountName = "\(firstname) \(lastname)"
+            
+            return SideMenuHeaderModel(title: accountName, image: user.photo!)
+        } else {
+            let photo = Photo(image:(UIImage(asset: .userPhotoPlaceholder)))
+            
+            return SideMenuHeaderModel(title: "Sign In", image: photo)
+        }
     }
     
     var items = MenuItems()
@@ -89,6 +84,12 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         assert(configation == .tab)
         self.tab = SideMenuTabs(rawValue: tab)
         view.showAccountInfo(visible: accountViewAvailable)
+    }
+    
+    func didTapAccountInfo() {
+        if user == nil {
+            self.router.openLoginScreen()
+        }
     }
     
     func didToggleSection(with index: Int) {

@@ -5,7 +5,6 @@
 
 import XCTest
 @testable import MSGP
-import Cuckoo
 
 class CreatePostInteractorTests: XCTestCase {
     

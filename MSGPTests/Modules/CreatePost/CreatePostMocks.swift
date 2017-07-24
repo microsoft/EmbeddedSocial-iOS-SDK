@@ -11,7 +11,6 @@
 //  Copyright © 2017 akvelon. All rights reserved.
 //
 
-import Cuckoo
 @testable import MSGP
 
 class MockCreatePostInteractor: CreatePostInteractor, Cuckoo.Mock {

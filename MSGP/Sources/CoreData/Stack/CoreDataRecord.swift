@@ -3,11 +3,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
+import CoreData
 
-protocol SideMenuRouterInput {
-    
-    func open(viewController: UIViewController, sender: Any?)
-    func openLoginScreen()
-    
+protocol CoreDataRecord: NSFetchRequestResult {
+    static var entityName: String { get }
+    static func fetchRequest() -> NSFetchRequest<Self>
 }
