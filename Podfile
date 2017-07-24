@@ -36,7 +36,7 @@ abstract_target 'Group' do
     end
 
     target 'MSGP-Example' do
-
+        
     end
     
     target 'MSGPUITests' do

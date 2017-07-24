@@ -23,13 +23,13 @@ class SocialPlusTests: XCTestCase {
     }
     
     func testThatURLIsOpened() {
-        testThatURLIsOpened(withExpectedResult: true)
-        testThatURLIsOpened(withExpectedResult: false)
+        testThatURLIsOpened(mockResult: true)
+        testThatURLIsOpened(mockResult: false)
     }
     
-    func testThatURLIsOpened(withExpectedResult originalResult: Bool) {
+    func testThatURLIsOpened(mockResult: Bool) {
         // given
-        let urlSchemeService = MockURLSchemeService(openURLResult: originalResult)
+        let urlSchemeService = MockURLSchemeService(openURLResult: mockResult)
         let socialPlusServicesProvider = MockSocialPlusServices(urlSchemeService: urlSchemeService)
         let url = URL(string: "http://google.com")
         
@@ -40,7 +40,7 @@ class SocialPlusTests: XCTestCase {
         let actualResult = sut.application(UIApplication.shared, open: url!, options: [:])
         
         // then
-        XCTAssertEqual(originalResult, actualResult)
+        XCTAssertEqual(mockResult, actualResult)
         XCTAssertTrue(urlSchemeService.openURLIsCalled)
     }
 }

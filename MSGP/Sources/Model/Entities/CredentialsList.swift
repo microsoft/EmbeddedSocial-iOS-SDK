@@ -26,9 +26,9 @@ struct CredentialsList {
         
         switch provider {
         case .facebook, .google, .microsoft:
-            value = String(format: apiTemplate, provider.name, Constants.appKey, accessToken)
+            value = String(format: apiTemplate, provider.name, appKey, accessToken)
         case .twitter where requestToken != nil:
-            value = String(format: apiTemplate, provider.name, Constants.appKey, requestToken!, accessToken)
+            value = String(format: apiTemplate, provider.name, appKey, requestToken!, accessToken)
         default:
             fatalError("Twitter requestToken is missing or auth provider is not supported")
         }
