@@ -1,7 +1,4 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See LICENSE in the project root for license information.
-//
+// Generated using SwiftGen, by O.Halligon — https://github.com/SwiftGen/SwiftGen
 
 import Foundation
 import UIKit
@@ -72,6 +69,18 @@ enum StoryboardScene {
       guard let vc = StoryboardScene.CreatePost.createPostViewControllerScene.viewController() as? MSGP.CreatePostViewController
       else {
         fatalError("ViewController 'CreatePostViewController' is not of the expected class MSGP.CreatePostViewController.")
+      }
+      return vc
+    }
+  }
+  enum Home: String, StoryboardSceneType {
+    static let storyboardName = "Home"
+
+    case homeViewControllerScene = "HomeViewController"
+    static func instantiateHomeViewController() -> MSGP.HomeViewController {
+      guard let vc = StoryboardScene.Home.homeViewControllerScene.viewController() as? MSGP.HomeViewController
+      else {
+        fatalError("ViewController 'HomeViewController' is not of the expected class MSGP.HomeViewController.")
       }
       return vc
     }

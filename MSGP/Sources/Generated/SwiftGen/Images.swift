@@ -1,7 +1,4 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See LICENSE in the project root for license information.
-//
+// Generated using SwiftGen, by O.Halligon — https://github.com/SwiftGen/SwiftGen
 
 #if os(iOS) || os(tvOS) || os(watchOS)
   import UIKit.UIImage
@@ -52,6 +49,9 @@ enum Asset: String {
   case iconSettings = "icon_settings"
   case logoWhite = "logo-white"
   case logo = "logo"
+  case placehoderPostAppIcon = "placehoder_post_app_icon"
+  case placeholderPostImage = "placeholder_post_image"
+  case placeholderPostUser1 = "placeholder_post_user_1"
   case userPhotoPlaceholder = "user_photo_placeholder"
 
   var image: Image {

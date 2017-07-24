@@ -64,11 +64,15 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
 //    }
     
     static var builderForDummy: ModuleBuilder = { coordinator in
-        return UIViewController()
+        return HomeModuleConfigurator.configure()
+    }
+    
+    static var builderForHome: ModuleBuilder = { coordinator in
+        return HomeModuleConfigurator.configure()
     }
     
     var items = [State.authenticated: [
-        (title: "Home", image: UIImage(asset: Asset.iconHome), builder: builderForDummy),
+        (title: "Home", image: UIImage(asset: Asset.iconHome), builder: builderForHome),
         (title: "Search", image: UIImage(asset: Asset.iconSearch), builder: builderForDummy),
         (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: builderForDummy),
         (title: "My pins", image: UIImage(asset: Asset.iconPins), builder: builderForDummy),
