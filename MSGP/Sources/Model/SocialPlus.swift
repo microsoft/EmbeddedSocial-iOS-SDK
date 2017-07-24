@@ -35,7 +35,8 @@ public final class SocialPlus {
         setupCoreDataStack()
         
         if sessionStore.isLoggedIn {
-            coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
+            // FIXME: coordinator.onSessionCreated crashes if uncommented
+            // coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
         }
     }
     
