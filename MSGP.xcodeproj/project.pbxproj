@@ -280,6 +280,10 @@
 		88BC87421F14FA1B00EAEFD7 /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 88BC873F1F14FA1B00EAEFD7 /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		88BC87571F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
+		88F163791F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F163781F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift */; };
+		88F1637B1F26494100DAAF68 /* SocialUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1637A1F26494100DAAF68 /* SocialUserTests.swift */; };
+		88F1637D1F264B0F00DAAF68 /* SessionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1637C1F264B0F00DAAF68 /* SessionStoreTests.swift */; };
+		88F1637F1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1637E1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift */; };
 		88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1916D1F25FFD000B93ADF /* Dump.swift */; };
 		88F191721F26071A00B93ADF /* XCTestCase+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F191711F26071A00B93ADF /* XCTestCase+Ext.swift */; };
 		88F191741F26164200B93ADF /* AuthProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F191731F26164200B93ADF /* AuthProviderTests.swift */; };
@@ -627,6 +631,10 @@
 		88BC873F1F14FA1B00EAEFD7 /* MSGP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
 		88BC87401F14FA1B00EAEFD7 /* MSGP.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = MSGP.modulemap; sourceTree = "<group>"; };
 		88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		88F163781F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionStoreDatabaseFacadeTests.swift; sourceTree = "<group>"; };
+		88F1637A1F26494100DAAF68 /* SocialUserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialUserTests.swift; sourceTree = "<group>"; };
+		88F1637C1F264B0F00DAAF68 /* SessionStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionStoreTests.swift; sourceTree = "<group>"; };
+		88F1637E1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSessionStoreDatabase.swift; sourceTree = "<group>"; };
 		88F1916D1F25FFD000B93ADF /* Dump.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dump.swift; sourceTree = "<group>"; };
 		88F191711F26071A00B93ADF /* XCTestCase+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Ext.swift"; sourceTree = "<group>"; };
 		88F191731F26164200B93ADF /* AuthProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthProviderTests.swift; sourceTree = "<group>"; };
@@ -1497,6 +1505,8 @@
 				889AFC031F220BCD003AAF19 /* PhotoTests.swift */,
 				889AFC041F220BCD003AAF19 /* UserTests.swift */,
 				88F191731F26164200B93ADF /* AuthProviderTests.swift */,
+				88F1637A1F26494100DAAF68 /* SocialUserTests.swift */,
+				88F1637C1F264B0F00DAAF68 /* SessionStoreTests.swift */,
 			);
 			path = EntitiesTests;
 			sourceTree = "<group>";
@@ -1552,6 +1562,7 @@
 				889AFC191F220BCD003AAF19 /* SocialPlusTests.swift */,
 				889AFC1A1F220BCD003AAF19 /* URLSchemeServiceTests.swift */,
 				881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */,
+				88F163781F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift */,
 			);
 			path = ServicesTests;
 			sourceTree = "<group>";
@@ -1565,6 +1576,7 @@
 				889AFC171F220BCD003AAF19 /* MockURLScheme.swift */,
 				889AFC181F220BCD003AAF19 /* MockURLSchemeService.swift */,
 				881F7E611F263888003EB37A /* MockKeyValueStorage.swift */,
+				88F1637E1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -2364,8 +2376,10 @@
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
 				88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */,
 				881F7E5E1F2637B7003EB37A /* KeyValueRepositoryTests.swift in Sources */,
+				88F1637D1F264B0F00DAAF68 /* SessionStoreTests.swift in Sources */,
 				889AFC291F220BCD003AAF19 /* MockAuthAPI.swift in Sources */,
 				889AFC201F220BCD003AAF19 /* UIImage+Ext.swift in Sources */,
+				88F1637F1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift in Sources */,
 				88635D881F224F3200577140 /* CoreDataRepositoryTests.swift in Sources */,
 				889AFC261F220BCD003AAF19 /* AuthAPIProviderTests.swift in Sources */,
 				88635D7B1F22430300577140 /* CoreDataModelsTests.swift in Sources */,
@@ -2375,7 +2389,9 @@
 				889AFC2B1F220BCD003AAF19 /* MockSocialPlusServices.swift in Sources */,
 				88F191721F26071A00B93ADF /* XCTestCase+Ext.swift in Sources */,
 				889AFC271F220BCD003AAF19 /* AuthServiceTests.swift in Sources */,
+				88F1637B1F26494100DAAF68 /* SocialUserTests.swift in Sources */,
 				889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */,
+				88F163791F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift in Sources */,
 				889AFC2E1F220BCD003AAF19 /* SocialPlusTests.swift in Sources */,
 				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
 				88635D771F223F1600577140 /* CoreDataStackFactoryTests.swift in Sources */,

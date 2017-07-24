@@ -4,11 +4,8 @@
 //
 
 //
-//  CreatePostMocks.swift
-//  MSGP-Framework
-//
-//  Created by generamba setup on 12/07/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 @testable import MSGP
@@ -164,11 +161,8 @@ class CreatePostInteractorStub: CreatePostInteractor {
 // MARK: - Mocks generated from file: MSGP/Sources/Modules/CreatePost/View/CreatePostViewInput.swift at 2017-07-17 11:30:54 +0000
 
 //
-//  CreatePostCreatePostViewInput.swift
-//  MSGP-Framework
-//
-//  Created by generamba setup on 12/07/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import Cuckoo
@@ -291,11 +285,8 @@ class CreatePostViewInputStub: CreatePostViewInput {
 // MARK: - Mocks generated from file: MSGP/Sources/Modules/CreatePost/Interactor/CreatePostInteractorInput.swift at 2017-07-17 11:30:54 +0000
 
 //
-//  CreatePostCreatePostInteractorInput.swift
-//  MSGP-Framework
-//
-//  Created by generamba setup on 12/07/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import Cuckoo
@@ -393,11 +384,8 @@ class CreatePostInteractorInputStub: CreatePostInteractorInput {
 // MARK: - Mocks generated from file: MSGP/Sources/Modules/CreatePost/Interactor/CreatePostInteractorOutput.swift at 2017-07-17 11:30:54 +0000
 
 //
-//  CreatePostCreatePostInteractorOutput.swift
-//  MSGP-Framework
-//
-//  Created by generamba setup on 12/07/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import Cuckoo
@@ -522,11 +510,8 @@ class CreatePostInteractorOutputStub: CreatePostInteractorOutput {
 // MARK: - Mocks generated from file: MSGP/Sources/Modules/CreatePost/Presenter/CreatePostPresenter.swift at 2017-07-17 11:30:54 +0000
 
 //
-//  CreatePostCreatePostPresenter.swift
-//  MSGP-Framework
-//
-//  Created by generamba setup on 12/07/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import Cuckoo
@@ -819,11 +804,8 @@ class CreatePostPresenterStub: CreatePostPresenter {
 // MARK: - Mocks generated from file: MSGP/Sources/Modules/CreatePost/Presenter/CreatePostModuleInput.swift at 2017-07-17 11:30:54 +0000
 
 //
-//  CreatePostCreatePostModuleInput.swift
-//  MSGP-Framework
-//
-//  Created by generamba setup on 12/07/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import Cuckoo
@@ -892,11 +874,8 @@ class CreatePostModuleInputStub: CreatePostModuleInput {
 // MARK: - Mocks generated from file: MSGP/Sources/Modules/CreatePost/View/CreatePostViewOutput.swift at 2017-07-17 11:30:54 +0000
 
 //
-//  CreatePostCreatePostViewOutput.swift
-//  MSGP-Framework
-//
-//  Created by generamba setup on 12/07/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import Cuckoo
@@ -1048,11 +1027,8 @@ class CreatePostViewOutputStub: CreatePostViewOutput {
 // MARK: - Mocks generated from file: MSGP/Sources/Modules/CreatePost/View/CreatePostViewController.swift at 2017-07-17 11:30:54 +0000
 
 //
-//  CreatePostCreatePostViewController.swift
-//  MSGP-Framework
-//
-//  Created by generamba setup on 12/07/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import Cuckoo

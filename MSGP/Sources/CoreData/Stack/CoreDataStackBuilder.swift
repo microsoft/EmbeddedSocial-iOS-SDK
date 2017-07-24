@@ -37,6 +37,8 @@ struct CoreDataStackFactory {
      If a queue is provided, this is called asynchronously on the main queue.
      Otherwise, this is executed on the thread from which the method was originally called.
      */
+    
+    // swiftlint:disable function_body_length
     func makeStack(onQueue queue: DispatchQueue? = .global(qos: .userInitiated),
                    completion: @escaping (Result<CoreDataStack>) -> Void) {
         let isAsync = (queue != nil)
@@ -86,7 +88,8 @@ struct CoreDataStackFactory {
             creationClosure()
         }
     }
-    
+    // swiftlint:enable function_body_length
+
     private func createStoreCoordinator() throws -> NSPersistentStoreCoordinator {
         let storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model.managedObjectModel)
         try storeCoordinator.addPersistentStore(ofType: model.storeType.type,
@@ -100,7 +103,7 @@ struct CoreDataStackFactory {
                                name: String) -> NSManagedObjectContext {
         let context = NSManagedObjectContext(concurrencyType: concurrencyType)
         context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType)
-        context.name = "msgp" + name
+        context.name = "msgp." + name
         return context
     }
 }
