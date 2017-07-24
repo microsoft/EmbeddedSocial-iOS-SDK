@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63A1D6FB1F25E78D0090C67A /* TopicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D6FA1F25E78D0090C67A /* TopicService.swift */; };
 		882AD0BB1F221D4400FC20B7 /* CommonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */; };
 		882AD0BC1F221D4400FC20B7 /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */; };
 		882AD0BD1F221D4400FC20B7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */; };
@@ -325,6 +326,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		63A1D6FA1F25E78D0090C67A /* TopicService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicService.swift; sourceTree = "<group>"; };
 		882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonFunctions.swift; sourceTree = "<group>"; };
 		882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
 		882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -670,6 +672,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		63A1D6F81F25E7800090C67A /* API */ = {
+			isa = PBXGroup;
+			children = (
+				63A1D6F91F25E7800090C67A /* Topic */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		63A1D6F91F25E7800090C67A /* Topic */ = {
+			isa = PBXGroup;
+			children = (
+				63A1D6FA1F25E78D0090C67A /* TopicService.swift */,
+			);
+			path = Topic;
+			sourceTree = "<group>";
+		};
 		882AD0B41F221D4400FC20B7 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -959,6 +977,7 @@
 		88580B101F2213AB00C1CBAF /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				63A1D6F81F25E7800090C67A /* API */,
 				88580B111F2213AB00C1CBAF /* Auth */,
 				88580B1A1F2213AB00C1CBAF /* MementoSerialization */,
 				88580B271F2213AB00C1CBAF /* URLSchemeService */,
@@ -1964,6 +1983,7 @@
 				88580C1C1F2213AB00C1CBAF /* FacebookAPI.swift in Sources */,
 				88580C5B1F2213AB00C1CBAF /* SideMenuInteractor.swift in Sources */,
 				88580BF51F2213AB00C1CBAF /* PostReplyRequest.swift in Sources */,
+				63A1D6FB1F25E78D0090C67A /* TopicService.swift in Sources */,
 				88580C051F2213AB00C1CBAF /* PutUserVisibilityRequest.swift in Sources */,
 				88580C1F1F2213AB00C1CBAF /* TwitterAPI.swift in Sources */,
 				88580BEC1F2213AB00C1CBAF /* PostBlockedUserRequest.swift in Sources */,
