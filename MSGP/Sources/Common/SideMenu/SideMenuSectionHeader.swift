@@ -20,7 +20,13 @@ protocol SideMenuSectionHeaderDelegate: class {
 
 class SideMenuSectionHeader: UITableViewHeaderFooterView {
     
-    var title: UILabel = UILabel()
+    lazy var title: UILabel = {
+        let label = UILabel()
+        label.font = Fonts.bold.regular
+        label.textColor = UIColor.white
+        return label
+    }()
+    
     weak var delegate: SideMenuSectionHeaderDelegate?
     var index: Int = 0
     var model: SideMenuSectionModel? {
@@ -42,12 +48,11 @@ class SideMenuSectionHeader: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         initialSetup()
     }
-
+    
     func initialSetup() {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         addGestureRecognizer(recognizer)
         
-
         addSubview(title)
         title.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()

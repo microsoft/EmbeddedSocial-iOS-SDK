@@ -5,7 +5,7 @@
 
 protocol SideMenuModuleInput: class {
     
-    func showUser(user: User)
+    var user: User? { get set }
     func open(viewController: UIViewController)
     
 }
