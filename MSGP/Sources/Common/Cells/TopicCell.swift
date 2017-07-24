@@ -28,7 +28,13 @@ class TopicCell: UICollectionViewCell {
     @IBOutlet weak var postCreation: UILabel!
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var postTitle: UILabel!
-    @IBOutlet weak var postText: UITextView!
+    @IBOutlet weak var postText: UITextView! {
+        didSet {
+            postText.textContainerInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 5)
+            postText.textContainer.lineFragmentPadding = 0
+        }
+    }
+    
     @IBOutlet weak var appName: UILabel!
     @IBOutlet weak var appImage: UIImageView!
     @IBOutlet weak var likedList: UILabel!
