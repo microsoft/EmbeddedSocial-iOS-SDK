@@ -53,8 +53,7 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     func showAccountInfo(visible: Bool) {
         
         let accountInfoModel = output.accountInfo()
-        accountInfoView!.configure(with: accountInfoModel)
-        
+        accountInfoView?.configure(with: accountInfoModel)
         accountInfoShownConstraint?.isActive = visible
         view.setNeedsLayout()
         view.layoutIfNeeded()
