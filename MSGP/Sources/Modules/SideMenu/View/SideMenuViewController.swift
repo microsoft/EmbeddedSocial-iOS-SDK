@@ -40,6 +40,10 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
         output.didSwitch(to: sender.tag)
     }
     
+    @IBAction func onAccountInfo(_ sender: UIControl) {
+        output.didTapAccountInfo()
+    }
+    
     func showTabBar(visible: Bool) {
         tabbarShownConstraint!.isActive = visible
         view.setNeedsLayout()
@@ -48,13 +52,8 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     
     func showAccountInfo(visible: Bool) {
         
-        if let accountInfoModel = output.accountInfo() {
-            accountInfoView!.configure(with: accountInfoModel)
-        }
-        
-        if visible && accountInfoView == nil {
-            fatalError()
-        }
+        let accountInfoModel = output.accountInfo()
+        accountInfoView!.configure(with: accountInfoModel)
         
         accountInfoShownConstraint?.isActive = visible
         view.setNeedsLayout()
@@ -84,7 +83,7 @@ extension SideMenuViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? SideMenuCellView else {
-           return UITableViewCell()
+            return UITableViewCell()
         }
         
         let item = output.item(at: indexPath)

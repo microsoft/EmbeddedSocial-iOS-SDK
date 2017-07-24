@@ -6,11 +6,16 @@
 class SideMenuRouter: SideMenuRouterInput {
     
     var output: SideMenuModuleOutput!
+    weak var coordinator: CrossModuleCoordinator!
     
     func open(viewController: UIViewController, sender: Any?) {
         
         UIApplication.shared.sendAction(Selector(("closeSideMenu")), to: nil, from: sender, for: nil)
         output.show(viewController: viewController)
+    }
+    
+    func openLoginScreen() {
+        coordinator.openLoginScreen()
     }
     
 }
