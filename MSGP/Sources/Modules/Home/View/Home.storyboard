@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77O-LY-MDz">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jgo-la-I8r">
                                     <size key="itemSize" width="50" height="50"/>
@@ -40,11 +40,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="77O-LY-MDz" firstAttribute="leading" secondItem="Vrb-ac-Gvh" secondAttribute="leading" id="6DK-xx-X55"/>
-                            <constraint firstItem="77O-LY-MDz" firstAttribute="top" secondItem="Vrb-ac-Gvh" secondAttribute="top" id="BjA-V8-tFA"/>
                             <constraint firstAttribute="bottom" secondItem="77O-LY-MDz" secondAttribute="bottom" id="OMf-IR-ee2"/>
+                            <constraint firstItem="77O-LY-MDz" firstAttribute="top" secondItem="qKF-xA-dpz" secondAttribute="bottom" id="gFG-RH-EMv"/>
                             <constraint firstAttribute="trailing" secondItem="77O-LY-MDz" secondAttribute="trailing" id="yq2-TG-ThH"/>
                         </constraints>
                     </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="collectionView" destination="77O-LY-MDz" id="LWK-qn-Zte"/>
                     </connections>

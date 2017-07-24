@@ -20,10 +20,6 @@ class HomeViewController: UIViewController, HomeViewInput {
         output.viewIsReady()
         
         self.collectionView?.register(TopicCell.nib, forCellWithReuseIdentifier: TopicCell.reuseID)
-        
-        if let layout = self.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.estimatedItemSize = CGSize(width: 50, height: 50)
-        }
     }
     
     // MARK: HomeViewInput
@@ -31,10 +27,17 @@ class HomeViewController: UIViewController, HomeViewInput {
         
     }
     
+    lazy var sizingCell: TopicCell = { [unowned self] in
+        let cell = TopicCell.nib.instantiate(withOwner: nil, options: nil).last as! TopicCell
+        let width = self.collectionView!.bounds.width
+        let height = cell.frame.height
+        cell.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        return cell
+    }()
 }
 
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return output.numberOfItems()
     }
@@ -50,6 +53,19 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.configure(with: cellData)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let cellData = output.itemModel(for: indexPath)
+        sizingCell.configure(with: cellData)
+        
+        sizingCell.needsUpdateConstraints()
+        sizingCell.updateConstraints()
+        sizingCell.setNeedsLayout()
+        sizingCell.layoutIfNeeded()
+
+        return sizingCell.container.bounds.size
     }
 
 }

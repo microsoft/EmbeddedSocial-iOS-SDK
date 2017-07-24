@@ -17,7 +17,12 @@ struct TopicCellData {
 
 class TopicCell: UICollectionViewCell {
     
-    @IBOutlet weak var userPhoto: UIImageView!
+    @IBOutlet weak var container: UIView!
+    @IBOutlet weak var userPhoto: UIImageView! {
+        didSet {
+            userPhoto.layer.masksToBounds = true
+        }
+    }
     @IBOutlet weak var userName: UILabel!
     
     @IBOutlet weak var postCreation: UILabel!
@@ -41,11 +46,16 @@ class TopicCell: UICollectionViewCell {
     }
     
     @IBAction func onTapExtra(_ sender: Any) {
+        
     }
     
     @IBOutlet weak var likedCount: UILabel!
     @IBOutlet weak var commentedCount: UILabel!
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
+    }
     
     func configure(with data: TopicCellData) {
         userPhoto.setPhotoWithCaching(data.userPhoto, placeholder: UIImage(asset: .userPhotoPlaceholder))
@@ -54,14 +64,13 @@ class TopicCell: UICollectionViewCell {
         postText.text = data.postText
         postCreation.text = data.postCreation
     }
-    
-    @IBOutlet weak var widthConstraint: NSLayoutConstraint!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-        self.contentView.translatesAutoresizingMaskIntoConstraints = false
-        let screenWidth = UIScreen.main.bounds.size.width
-        widthConstraint.constant = screenWidth - 50
-    }
+//    
+//    
+//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+//        let attributes = super.preferredLayoutAttributesFitting(layoutAttributes)
+//        var frame = attributes.frame
+//        frame.size.width = layoutAttributes.size.width
+//        attributes.frame = frame
+//        return attributes
+//    }
 }
