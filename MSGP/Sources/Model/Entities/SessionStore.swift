@@ -28,15 +28,17 @@ final class SessionStore {
     }
     
     func loadLastSession() throws {
-        var user: User? = database.loadLastUser()
-        var sessionToken: String? = database.loadLastSessionToken()
+        var user: User?
+        var sessionToken: String?
         
         if getEnvironmentVariable("MSGP_MOCK_SERVER") != nil {
+            
             let creds = CredentialsList(provider: .facebook,
                                         accessToken: "AccessToken",
                                         requestToken: "RequestToken",
                                         socialUID: UUID().uuidString,
                                         appKey: "AppKey")
+            
             user = User(socialUser: SocialUser(uid: UUID().uuidString,
                                                credentials: creds,
                                                firstName: "John",
@@ -45,11 +47,18 @@ final class SessionStore {
                                                bio: "Lorem ipsum dolor",
                                                photo: Photo(image:(UIImage(asset: .userPhotoPlaceholder)))),
                             userHandle: "UserHandle")
+            
             sessionToken = "SessionToken"
+            
         } else {
+            
+            user = database.loadLastUser()
+            sessionToken = database.loadLastSessionToken()
+            
             if (user == nil) || (sessionToken == nil) {
                 throw Error.lastSessionNotAvailable
             }
+            
         }
         
         createSession(withUser: user!, sessionToken: sessionToken!)
