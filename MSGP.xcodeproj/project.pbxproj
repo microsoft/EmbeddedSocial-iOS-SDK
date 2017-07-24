@@ -569,7 +569,7 @@
 		88635D7C1F22434300577140 /* CoreDataSetupHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataSetupHelper.swift; sourceTree = "<group>"; };
 		88635D7E1F22447C00577140 /* OutgoingTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingTransaction.swift; sourceTree = "<group>"; };
 		88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataRepositoryTests.swift; sourceTree = "<group>"; };
-		88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionsDatabaseFacade.swift; path = Services/TransactionsDatabaseFacade.swift; sourceTree = "<group>"; };
+		88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionsDatabaseFacade.swift; path = TransactionsDatabaseFacade.swift; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -707,6 +707,7 @@
 				884AD7731F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift */,
 			);
 			name = "Transactions Database";
+			path = "Transactions Database";
 			sourceTree = "<group>";
 		};
 		88580A841F2213AB00C1CBAF /* Sources */ = {
@@ -933,9 +934,9 @@
 			children = (
 				88580B041F2213AB00C1CBAF /* Entities */,
 				88580B101F2213AB00C1CBAF /* Services */,
+				884AD7721F25E76300536494 /* Transactions Database */,
 				88580B021F2213AB00C1CBAF /* APISettings.swift */,
 				882AD0C41F22266B00FC20B7 /* CoreDataRepository.swift */,
-				884AD7721F25E76300536494 /* Transactions Database */,
 				88580B031F2213AB00C1CBAF /* CrossModuleCoordinator.swift */,
 				88580B0F1F2213AB00C1CBAF /* ImageCache.swift */,
 				882AD0C21F2225FF00FC20B7 /* QueriableRepository.swift */,
@@ -975,9 +976,9 @@
 			children = (
 				88580B111F2213AB00C1CBAF /* Auth */,
 				88580B1A1F2213AB00C1CBAF /* MementoSerialization */,
+				88635D891F25D93A00577140 /* SessionStoreDatabase */,
 				88580B271F2213AB00C1CBAF /* URLSchemeService */,
 				88580B211F2213AB00C1CBAF /* SessionService.swift */,
-				88635D891F25D93A00577140 /* SessionStoreDatabase */,
 				88580B251F2213AB00C1CBAF /* SocialMenuItemsProvider.swift */,
 				88580B261F2213AB00C1CBAF /* SocialPlusServiceProvider.swift */,
 				88580B2A1F2213AB00C1CBAF /* UserService.swift */,
@@ -1410,8 +1411,8 @@
 			isa = PBXGroup;
 			children = (
 				88635D7A1F22430300577140 /* CoreDataModelsTests.swift */,
-				88635D761F223F1600577140 /* CoreDataStackFactoryTests.swift */,
 				88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */,
+				88635D761F223F1600577140 /* CoreDataStackFactoryTests.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -1424,6 +1425,7 @@
 				88580B241F2213AB00C1CBAF /* SessionStoreRepositoryProvider.swift */,
 			);
 			name = SessionStoreDatabase;
+			path = SessionStoreDatabase;
 			sourceTree = "<group>";
 		};
 		886B39C61F138F5D00BF1A8E /* MSGP-Example */ = {
