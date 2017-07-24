@@ -275,6 +275,8 @@
 		88BC87421F14FA1B00EAEFD7 /* MSGP.h in Headers */ = {isa = PBXBuildFile; fileRef = 88BC873F1F14FA1B00EAEFD7 /* MSGP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		88BC87571F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
+		88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1916D1F25FFD000B93ADF /* Dump.swift */; };
+		88F191721F26071A00B93ADF /* XCTestCase+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F191711F26071A00B93ADF /* XCTestCase+Ext.swift */; };
 		8EF0E5A51F1FA5EF00E88ED6 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E59C1F1FA5EF00E88ED6 /* APIResponse.swift */; };
 		8EF0E5A61F1FA5EF00E88ED6 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E59D1F1FA5EF00E88ED6 /* Base.swift */; };
 		8EF0E5A71F1FA5EF00E88ED6 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E59E1F1FA5EF00E88ED6 /* Config.swift */; };
@@ -607,6 +609,8 @@
 		88BC873F1F14FA1B00EAEFD7 /* MSGP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGP.h; sourceTree = "<group>"; };
 		88BC87401F14FA1B00EAEFD7 /* MSGP.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = MSGP.modulemap; sourceTree = "<group>"; };
 		88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		88F1916D1F25FFD000B93ADF /* Dump.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dump.swift; sourceTree = "<group>"; };
+		88F191711F26071A00B93ADF /* XCTestCase+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Ext.swift"; sourceTree = "<group>"; };
 		8EF0E5921F1FA5CC00E88ED6 /* MSGPUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EF0E5961F1FA5CD00E88ED6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EF0E59C1F1FA5EF00E88ED6 /* APIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
@@ -1453,6 +1457,8 @@
 			children = (
 				88635D7C1F22434300577140 /* CoreDataSetupHelper.swift */,
 				889AFC061F220BCD003AAF19 /* UIImage+Ext.swift */,
+				88F1916D1F25FFD000B93ADF /* Dump.swift */,
+				88F191711F26071A00B93ADF /* XCTestCase+Ext.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2127,6 +2133,7 @@
 				889AFC281F220BCD003AAF19 /* ImageCacheAdapterTests.swift in Sources */,
 				88635D7D1F22434300577140 /* CoreDataSetupHelper.swift in Sources */,
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
+				88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */,
 				889AFC291F220BCD003AAF19 /* MockAuthAPI.swift in Sources */,
 				889AFC201F220BCD003AAF19 /* UIImage+Ext.swift in Sources */,
 				88635D881F224F3200577140 /* CoreDataRepositoryTests.swift in Sources */,
@@ -2134,6 +2141,7 @@
 				88635D7B1F22430300577140 /* CoreDataModelsTests.swift in Sources */,
 				889AFC1E1F220BCD003AAF19 /* PhotoTests.swift in Sources */,
 				889AFC2B1F220BCD003AAF19 /* MockSocialPlusServices.swift in Sources */,
+				88F191721F26071A00B93ADF /* XCTestCase+Ext.swift in Sources */,
 				889AFC271F220BCD003AAF19 /* AuthServiceTests.swift in Sources */,
 				889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */,
 				889AFC2E1F220BCD003AAF19 /* SocialPlusTests.swift in Sources */,

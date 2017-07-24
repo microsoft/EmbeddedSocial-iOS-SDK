@@ -10,18 +10,45 @@ import XCTest
 @testable import MSGP
 
 class UserTests: XCTestCase {
-    private var user: User!
-    
     override func setUp() {
         super.setUp()
     }
     
     override func tearDown() {
         super.tearDown()
-        UserDefaults.standard.set(nil, forKey: "UserTests")
+        UserDefaults.standard.set(nil, forKey: className)
     }
     
-    func testMementoMapping() {
+    func testInitialization() {
+        // given
+        let uid = UUID().uuidString
+        let firstName = UUID().uuidString
+        let lastName = UUID().uuidString
+        let email = UUID().uuidString
+        let bio = UUID().uuidString
+        let photo = Photo()
+        let credentials = CredentialsList(provider: .facebook, accessToken: UUID().uuidString, socialUID: UUID().uuidString)
+        
+        // when
+        let user = User(uid: uid,
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        bio: bio,
+                        photo: photo,
+                        credentials: credentials)
+        
+        // then
+        XCTAssertEqual(user.uid, uid)
+        XCTAssertEqual(user.firstName, firstName)
+        XCTAssertEqual(user.lastName, lastName)
+        XCTAssertEqual(user.email, email)
+        XCTAssertEqual(user.bio, bio)
+        XCTAssertEqual(user.photo, photo)
+        XCTAssertEqual(user.credentials, credentials)
+    }
+    
+    func testMementoInitialization() {
         // given
         let credentials = CredentialsList(provider: .facebook, accessToken: UUID().uuidString, socialUID: UUID().uuidString)
         let photo = Photo(url: "http://google.com")
@@ -41,7 +68,7 @@ class UserTests: XCTestCase {
         XCTAssertEqual(user, loadedUser!)
     }
     
-    func testThatMementoPropertyListSerialization() {
+    func testMementoSerialization() {
         // given
         let credentials = CredentialsList(provider: .facebook, accessToken: "accessToken", socialUID: "socialUID")
         let user = User(uid: "12345",
@@ -68,11 +95,82 @@ class UserTests: XCTestCase {
         ]
         
         // when
-        UserDefaults.standard.set(user.memento, forKey: "UserTests")
-        let loadedMemento = UserDefaults.standard.object(forKey: "UserTests") as? Memento
+        UserDefaults.standard.set(user.memento, forKey: className)
+        let loadedMemento = UserDefaults.standard.object(forKey: className) as? Memento
 
         // then
         XCTAssertNotNil(loadedMemento)
         XCTAssertTrue((loadedMemento! as NSDictionary).isEqual(to: expectedMemento))
+    }
+    
+    func testUsersAreEqual() {
+        // given
+        let uid = UUID().uuidString
+        let firstName = UUID().uuidString
+        let lastName = UUID().uuidString
+        let email = UUID().uuidString
+        let bio = UUID().uuidString
+        let photo = Photo()
+        let credentials = CredentialsList(provider: .facebook, accessToken: UUID().uuidString, socialUID: UUID().uuidString)
+        
+        let user1 = User(uid: uid, firstName: firstName, lastName: lastName, email: email,
+                         bio: bio, photo: photo, credentials: credentials)
+        
+        let user2 = User(uid: uid, firstName: firstName, lastName: lastName, email: email,
+                         bio: bio, photo: photo, credentials: credentials)
+        
+        // when
+        let areEqual = user1 == user2
+        
+        // then
+        XCTAssertTrue(areEqual)
+        assertDumpsEqual(user1, user2)
+    }
+    
+    func testUsersAreNotEqual() {
+        // given
+        let uid = UUID().uuidString
+        let firstName = UUID().uuidString
+        let lastName = UUID().uuidString
+        let email = UUID().uuidString
+        let bio = UUID().uuidString
+        let photo = Photo()
+        let credentials = CredentialsList(provider: .facebook, accessToken: UUID().uuidString, socialUID: UUID().uuidString)
+        
+        let originalUser = User(uid: uid, firstName: firstName, lastName: lastName, email: email,
+                                bio: bio, photo: photo, credentials: credentials)
+        
+        let modifiedCredentials = CredentialsList(provider: .twitter, accessToken: UUID().uuidString, socialUID: UUID().uuidString)
+        
+        let modifiedUsers = [
+            User(uid: uid + "1", firstName: firstName, lastName: lastName, email: email,
+                 bio: bio, photo: photo, credentials: credentials),
+            
+            User(uid: uid, firstName: firstName + "1", lastName: lastName, email: email,
+                 bio: bio, photo: photo, credentials: credentials),
+            
+            User(uid: uid, firstName: firstName, lastName: lastName + "1", email: email,
+                 bio: bio, photo: photo, credentials: credentials),
+            
+            User(uid: uid, firstName: firstName, lastName: lastName, email: email + "1",
+                 bio: bio, photo: photo, credentials: credentials),
+            
+            // modified photo
+            User(uid: uid, firstName: firstName, lastName: lastName, email: email,
+                 bio: bio, photo: Photo(), credentials: credentials),
+            
+            // modified credentials
+            User(uid: uid, firstName: firstName, lastName: lastName, email: email,
+                 bio: bio, photo: photo, credentials: modifiedCredentials)
+        ]
+        
+        // when
+        
+        // then
+        for modifiedUser in modifiedUsers {
+            let areEqual = originalUser == modifiedUser
+            XCTAssertFalse(areEqual)
+            assertDumpsNotEqual(originalUser, modifiedUser)
+        }
     }
 }
