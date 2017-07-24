@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		881F7E5C1F263543003EB37A /* MSGP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		882AD0BB1F221D4400FC20B7 /* CommonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */; };
 		882AD0BC1F221D4400FC20B7 /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */; };
 		882AD0BD1F221D4400FC20B7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */; };
@@ -313,6 +314,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		881F7E5B1F263538003EB37A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				881F7E5C1F263543003EB37A /* MSGP.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		885F9FCE1F165C9700A30CDF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1654,6 +1665,7 @@
 				886B39C21F138F5D00BF1A8E /* Frameworks */,
 				886B39C31F138F5D00BF1A8E /* Resources */,
 				885F9FCE1F165C9700A30CDF /* Embed Frameworks */,
+				881F7E5B1F263538003EB37A /* CopyFiles */,
 			);
 			buildRules = (
 			);
