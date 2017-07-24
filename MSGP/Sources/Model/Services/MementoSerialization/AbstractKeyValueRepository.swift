@@ -15,13 +15,19 @@ class AbstractKeyValueRepository<T>: Repository {
         fatalError()
     }
     
+    func remove(forKey key: String) {
+        fatalError()
+    }
+    
     func load(forKey key: String) -> Memento? {
         fatalError()
     }
-}
-
-extension AbstractKeyValueRepository where T: MementoSerializable {
-    func deserialize(forKey key: String) -> T? {
+    
+    func purge(key: String) {
+        fatalError()
+    }
+    
+    func deserialize<T>(forKey key: String) -> T? where T: MementoSerializable {
         if let memento = load(forKey: key) {
             return T(memento: memento)
         } else {

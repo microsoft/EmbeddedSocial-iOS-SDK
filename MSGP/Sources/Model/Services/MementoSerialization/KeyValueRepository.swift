@@ -22,7 +22,7 @@ class KeyValueRepository<DomainType: MementoSerializable>: AbstractKeyValueRepos
         storage.set(memento, forKey: key)
     }
     
-    func remove(forKey key: String) {
+    override func remove(forKey key: String) {
         storage.removeObject(forKey: key)
     }
     
@@ -30,11 +30,7 @@ class KeyValueRepository<DomainType: MementoSerializable>: AbstractKeyValueRepos
         return storage.object(forKey: key) as? Memento
     }
     
-    func purge() {
-        if let domain = Bundle(for: type(of: self)).bundleIdentifier {
-            storage.purge(key: domain)
-        } else {
-            print("Cannot purge storage.")
-        }
+    override func purge(key: String) {
+        storage.purge(key: key)
     }
 }

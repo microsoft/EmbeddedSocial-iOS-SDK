@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0A6293A46E6298EE9D06C16A /* Pods_Group_MSGPUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 775D2805333FD82534B115CC /* Pods_Group_MSGPUITests.framework */; };
 		252B4B4DB320B06169F70D2B /* Pods_Group_MSGP_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 637B2B0276CC48926D5CC48A /* Pods_Group_MSGP_Example.framework */; };
+		881F7E5E1F2637B7003EB37A /* KeyValueRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */; };
+		881F7E601F2637F7003EB37A /* MementoSerializableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */; };
+		881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F7E611F263888003EB37A /* MockKeyValueStorage.swift */; };
 		882AD0BB1F221D4400FC20B7 /* CommonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */; };
 		882AD0BC1F221D4400FC20B7 /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */; };
 		882AD0BD1F221D4400FC20B7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */; };
@@ -340,6 +343,9 @@
 		775D2805333FD82534B115CC /* Pods_Group_MSGPUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_MSGPUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7868CFAD5DA9C2D911A6514F /* Pods-Group-MSGP-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		811788C4874CA59680AC3F96 /* Pods-Group-MSGP-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example.release.xcconfig"; sourceTree = "<group>"; };
+		881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueRepositoryTests.swift; sourceTree = "<group>"; };
+		881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MementoSerializableItem.swift; path = ../ServicesTests/Mocks/MementoSerializableItem.swift; sourceTree = "<group>"; };
+		881F7E611F263888003EB37A /* MockKeyValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeyValueStorage.swift; sourceTree = "<group>"; };
 		882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonFunctions.swift; sourceTree = "<group>"; };
 		882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
 		882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -748,7 +754,8 @@
 				88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */,
 				884AD7731F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift */,
 			);
-			path = "Transactions Database";
+			name = "Transactions Database";
+			path = "../Transactions Database";
 			sourceTree = "<group>";
 		};
 		88580A841F2213AB00C1CBAF /* Sources */ = {
@@ -975,7 +982,6 @@
 			children = (
 				88580B041F2213AB00C1CBAF /* Entities */,
 				88580B101F2213AB00C1CBAF /* Services */,
-				884AD7721F25E76300536494 /* Transactions Database */,
 				88580B021F2213AB00C1CBAF /* APISettings.swift */,
 				882AD0C41F22266B00FC20B7 /* CoreDataRepository.swift */,
 				88580B031F2213AB00C1CBAF /* CrossModuleCoordinator.swift */,
@@ -1019,6 +1025,7 @@
 				88580B1A1F2213AB00C1CBAF /* MementoSerialization */,
 				88635D891F25D93A00577140 /* SessionStoreDatabase */,
 				88580B271F2213AB00C1CBAF /* URLSchemeService */,
+				884AD7721F25E76300536494 /* Transactions Database */,
 				88580B211F2213AB00C1CBAF /* SessionService.swift */,
 				88580B251F2213AB00C1CBAF /* SocialMenuItemsProvider.swift */,
 				88580B261F2213AB00C1CBAF /* SocialPlusServiceProvider.swift */,
@@ -1497,6 +1504,7 @@
 		889AFC051F220BCD003AAF19 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */,
 				88635D7C1F22434300577140 /* CoreDataSetupHelper.swift */,
 				889AFC061F220BCD003AAF19 /* UIImage+Ext.swift */,
 				88F1916D1F25FFD000B93ADF /* Dump.swift */,
@@ -1543,6 +1551,7 @@
 				889AFC121F220BCD003AAF19 /* ImageCacheAdapterTests.swift */,
 				889AFC191F220BCD003AAF19 /* SocialPlusTests.swift */,
 				889AFC1A1F220BCD003AAF19 /* URLSchemeServiceTests.swift */,
+				881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */,
 			);
 			path = ServicesTests;
 			sourceTree = "<group>";
@@ -1555,6 +1564,7 @@
 				889AFC161F220BCD003AAF19 /* MockSocialPlusServices.swift */,
 				889AFC171F220BCD003AAF19 /* MockURLScheme.swift */,
 				889AFC181F220BCD003AAF19 /* MockURLSchemeService.swift */,
+				881F7E611F263888003EB37A /* MockKeyValueStorage.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -2353,18 +2363,21 @@
 				88635D7D1F22434300577140 /* CoreDataSetupHelper.swift in Sources */,
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
 				88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */,
+				881F7E5E1F2637B7003EB37A /* KeyValueRepositoryTests.swift in Sources */,
 				889AFC291F220BCD003AAF19 /* MockAuthAPI.swift in Sources */,
 				889AFC201F220BCD003AAF19 /* UIImage+Ext.swift in Sources */,
 				88635D881F224F3200577140 /* CoreDataRepositoryTests.swift in Sources */,
 				889AFC261F220BCD003AAF19 /* AuthAPIProviderTests.swift in Sources */,
 				88635D7B1F22430300577140 /* CoreDataModelsTests.swift in Sources */,
 				889AFC1E1F220BCD003AAF19 /* PhotoTests.swift in Sources */,
+				881F7E601F2637F7003EB37A /* MementoSerializableItem.swift in Sources */,
 				88F191741F26164200B93ADF /* AuthProviderTests.swift in Sources */,
 				889AFC2B1F220BCD003AAF19 /* MockSocialPlusServices.swift in Sources */,
 				88F191721F26071A00B93ADF /* XCTestCase+Ext.swift in Sources */,
 				889AFC271F220BCD003AAF19 /* AuthServiceTests.swift in Sources */,
 				889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */,
 				889AFC2E1F220BCD003AAF19 /* SocialPlusTests.swift in Sources */,
+				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
 				88635D771F223F1600577140 /* CoreDataStackFactoryTests.swift in Sources */,
 				889AFC301F220BCD003AAF19 /* NameComponentsSplitterTests.swift in Sources */,
 			);
