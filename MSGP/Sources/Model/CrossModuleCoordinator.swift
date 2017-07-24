@@ -6,11 +6,15 @@
 class CrossModuleCoordinator: LoginModuleOutput {
     weak var menuModule: SideMenuModuleInput!
     
+    weak var loginHandler: LoginModuleOutput!
+    
     private(set) var navigationStack: NavigationStack!
     
     private(set) var isUserLoggedIn = false
     
     func setup(launchArguments args: LaunchArguments, loginHandler: LoginModuleOutput) {
+        self.loginHandler = loginHandler
+        
         let sideMenuVC = StoryboardScene.MenuStack.instantiateSideMenuViewController()
         
         navigationStack = NavigationStack(window: args.window, menuViewController: sideMenuVC)
@@ -37,7 +41,7 @@ class CrossModuleCoordinator: LoginModuleOutput {
     
     func openLoginScreen() {
         let configurator = LoginConfigurator()
-        configurator.configure(moduleOutput: self)
+        configurator.configure(moduleOutput: loginHandler)
         
         menuModule.open(viewController: configurator.viewController)
     }

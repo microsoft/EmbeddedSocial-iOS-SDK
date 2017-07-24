@@ -12,13 +12,13 @@
 		882AD0BC1F221D4400FC20B7 /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */; };
 		882AD0BD1F221D4400FC20B7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */; };
 		882AD0BE1F221D4400FC20B7 /* CoreDataStackBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B81F221D4400FC20B7 /* CoreDataStackBuilder.swift */; };
-		882AD0BF1F221D4400FC20B7 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B91F221D4400FC20B7 /* Migration.swift */; };
 		882AD0C01F221D4400FC20B7 /* ModelFileExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0BA1F221D4400FC20B7 /* ModelFileExtension.swift */; };
 		882AD0C31F2225FF00FC20B7 /* QueriableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0C21F2225FF00FC20B7 /* QueriableRepository.swift */; };
 		882AD0C51F22266B00FC20B7 /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0C41F22266B00FC20B7 /* CoreDataRepository.swift */; };
 		882AD0CD1F2227E100FC20B7 /* CoreDataRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0CC1F2227E100FC20B7 /* CoreDataRecord.swift */; };
 		882AD0D11F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0D01F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift */; };
 		882AD0D61F222D5200FC20B7 /* MSGP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0D41F222D5200FC20B7 /* MSGP.xcdatamodeld */; };
+		884AD7741F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884AD7731F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift */; };
 		88580B9D1F2213AB00C1CBAF /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580A861F2213AB00C1CBAF /* AppStrings.swift */; };
 		88580B9E1F2213AB00C1CBAF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580A881F2213AB00C1CBAF /* BaseViewController.swift */; };
 		88580B9F1F2213AB00C1CBAF /* ButtonWithTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580A891F2213AB00C1CBAF /* ButtonWithTarget.swift */; };
@@ -249,6 +249,7 @@
 		88635D7D1F22434300577140 /* CoreDataSetupHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D7C1F22434300577140 /* CoreDataSetupHelper.swift */; };
 		88635D7F1F22447C00577140 /* OutgoingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D7E1F22447C00577140 /* OutgoingTransaction.swift */; };
 		88635D881F224F3200577140 /* CoreDataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */; };
+		88635D8B1F25D96800577140 /* TransactionsDatabaseFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
 		886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C91F138F5D00BF1A8E /* ViewController.swift */; };
 		886B39CD1F138F5D00BF1A8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CB1F138F5D00BF1A8E /* Main.storyboard */; };
@@ -331,13 +332,13 @@
 		882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
 		882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		882AD0B81F221D4400FC20B7 /* CoreDataStackBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackBuilder.swift; sourceTree = "<group>"; };
-		882AD0B91F221D4400FC20B7 /* Migration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migration.swift; sourceTree = "<group>"; };
 		882AD0BA1F221D4400FC20B7 /* ModelFileExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelFileExtension.swift; sourceTree = "<group>"; };
 		882AD0C21F2225FF00FC20B7 /* QueriableRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueriableRepository.swift; sourceTree = "<group>"; };
 		882AD0C41F22266B00FC20B7 /* CoreDataRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		882AD0CC1F2227E100FC20B7 /* CoreDataRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataRecord.swift; sourceTree = "<group>"; };
 		882AD0D01F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Convenience.swift"; sourceTree = "<group>"; };
 		882AD0D51F222D5200FC20B7 /* MSGP.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MSGP.xcdatamodel; sourceTree = "<group>"; };
+		884AD7731F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDatabaseFacadeProtocol.swift; sourceTree = "<group>"; };
 		88580A861F2213AB00C1CBAF /* AppStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
 		88580A881F2213AB00C1CBAF /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		88580A891F2213AB00C1CBAF /* ButtonWithTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonWithTarget.swift; sourceTree = "<group>"; };
@@ -568,6 +569,7 @@
 		88635D7C1F22434300577140 /* CoreDataSetupHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataSetupHelper.swift; sourceTree = "<group>"; };
 		88635D7E1F22447C00577140 /* OutgoingTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingTransaction.swift; sourceTree = "<group>"; };
 		88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataRepositoryTests.swift; sourceTree = "<group>"; };
+		88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDatabaseFacade.swift; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* MSGP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSGP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -706,12 +708,20 @@
 				882AD0CC1F2227E100FC20B7 /* CoreDataRecord.swift */,
 				882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */,
 				882AD0B81F221D4400FC20B7 /* CoreDataStackBuilder.swift */,
-				882AD0B91F221D4400FC20B7 /* Migration.swift */,
 				882AD0BA1F221D4400FC20B7 /* ModelFileExtension.swift */,
 				882AD0D01F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift */,
 				88635D741F223B6600577140 /* StoreType.swift */,
 			);
 			path = Stack;
+			sourceTree = "<group>";
+		};
+		884AD7721F25E76300536494 /* Transactions Database */ = {
+			isa = PBXGroup;
+			children = (
+				88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */,
+				884AD7731F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift */,
+			);
+			path = "Transactions Database";
 			sourceTree = "<group>";
 		};
 		88580A841F2213AB00C1CBAF /* Sources */ = {
@@ -938,6 +948,7 @@
 			children = (
 				88580B041F2213AB00C1CBAF /* Entities */,
 				88580B101F2213AB00C1CBAF /* Services */,
+				884AD7721F25E76300536494 /* Transactions Database */,
 				88580B021F2213AB00C1CBAF /* APISettings.swift */,
 				882AD0C41F22266B00FC20B7 /* CoreDataRepository.swift */,
 				88580B031F2213AB00C1CBAF /* CrossModuleCoordinator.swift */,
@@ -980,11 +991,9 @@
 				63A1D6F81F25E7800090C67A /* API */,
 				88580B111F2213AB00C1CBAF /* Auth */,
 				88580B1A1F2213AB00C1CBAF /* MementoSerialization */,
+				88635D891F25D93A00577140 /* SessionStoreDatabase */,
 				88580B271F2213AB00C1CBAF /* URLSchemeService */,
 				88580B211F2213AB00C1CBAF /* SessionService.swift */,
-				88580B221F2213AB00C1CBAF /* SessionStoreDatabase.swift */,
-				88580B231F2213AB00C1CBAF /* SessionStoreDatabaseFacade.swift */,
-				88580B241F2213AB00C1CBAF /* SessionStoreRepositoryProvider.swift */,
 				88580B251F2213AB00C1CBAF /* SocialMenuItemsProvider.swift */,
 				88580B261F2213AB00C1CBAF /* SocialPlusServiceProvider.swift */,
 				88580B2A1F2213AB00C1CBAF /* UserService.swift */,
@@ -1417,10 +1426,20 @@
 			isa = PBXGroup;
 			children = (
 				88635D7A1F22430300577140 /* CoreDataModelsTests.swift */,
-				88635D761F223F1600577140 /* CoreDataStackFactoryTests.swift */,
 				88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */,
+				88635D761F223F1600577140 /* CoreDataStackFactoryTests.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		88635D891F25D93A00577140 /* SessionStoreDatabase */ = {
+			isa = PBXGroup;
+			children = (
+				88580B221F2213AB00C1CBAF /* SessionStoreDatabase.swift */,
+				88580B231F2213AB00C1CBAF /* SessionStoreDatabaseFacade.swift */,
+				88580B241F2213AB00C1CBAF /* SessionStoreRepositoryProvider.swift */,
+			);
+			path = SessionStoreDatabase;
 			sourceTree = "<group>";
 		};
 		886B39C61F138F5D00BF1A8E /* MSGP-Example */ = {
@@ -2048,7 +2067,6 @@
 				88580C7A1F2213AB00C1CBAF /* CreateAccountValidator.swift in Sources */,
 				88580BA31F2213AB00C1CBAF /* Identifiable.swift in Sources */,
 				88580C1E1F2213AB00C1CBAF /* MicrosoftLiveAPI.swift in Sources */,
-				882AD0BF1F221D4400FC20B7 /* Migration.swift in Sources */,
 				882AD0D11F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift in Sources */,
 				88580BC91F2213AB00C1CBAF /* BuildsAPI.swift in Sources */,
 				88580BC51F2213AB00C1CBAF /* UIViewController+Alerts.swift in Sources */,
@@ -2069,6 +2087,7 @@
 				88580C431F2213AB00C1CBAF /* CreatePostInteractor.swift in Sources */,
 				88580C1D1F2213AB00C1CBAF /* GoogleAPI.swift in Sources */,
 				88580BF01F2213AB00C1CBAF /* PostFollowingTopicRequest.swift in Sources */,
+				884AD7741F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift in Sources */,
 				88580BE91F2213AB00C1CBAF /* LinkedAccountView.swift in Sources */,
 				88580BD81F2213AB00C1CBAF /* APIs.swift in Sources */,
 				88580C0D1F2213AB00C1CBAF /* APISettings.swift in Sources */,
@@ -2100,6 +2119,7 @@
 				88580BEB1F2213AB00C1CBAF /* PostBlobResponse.swift in Sources */,
 				88580BB41F2213AB00C1CBAF /* SubtitleTableCell.swift in Sources */,
 				88580C581F2213AB00C1CBAF /* LoginViewOutput.swift in Sources */,
+				88635D8B1F25D96800577140 /* TransactionsDatabaseFacade.swift in Sources */,
 				88580C651F2213AB00C1CBAF /* SideMenuViewInput.swift in Sources */,
 				88580BEA1F2213AB00C1CBAF /* Object.swift in Sources */,
 				88580BDC1F2213AB00C1CBAF /* BuildsCurrentResponse.swift in Sources */,

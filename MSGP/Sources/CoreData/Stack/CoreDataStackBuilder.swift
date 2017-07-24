@@ -100,10 +100,7 @@ struct CoreDataStackFactory {
                                name: String) -> NSManagedObjectContext {
         let context = NSManagedObjectContext(concurrencyType: concurrencyType)
         context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType)
-        
-        let contextName = "JSQCoreDataKit.CoreDataStack.context."
-        context.name = contextName + name
-        
+        context.name = "msgp" + name
         return context
     }
 }
