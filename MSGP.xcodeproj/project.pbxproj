@@ -14,6 +14,7 @@
 		5A458ABECBE75802AC172AAC /* Pods_Group_MSGPUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 890D6BE7013F411A4576DB17 /* Pods_Group_MSGPUITests.framework */; };
 		5DB3DCB281FE4213D5431F01 /* Pods_MSGPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E49171300DD82FF9F451A0E /* Pods_MSGPTests.framework */; };
 		839E2977904826AD97A96BFE /* HomeRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9AC5F7533EFDF4F7742248 /* HomeRouterInput.swift */; };
+		881F7E5C1F263543003EB37A /* MSGP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		882AD0BB1F221D4400FC20B7 /* CommonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */; };
 		882AD0BC1F221D4400FC20B7 /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */; };
 		882AD0BD1F221D4400FC20B7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */; };
@@ -331,6 +332,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		881F7E5B1F263538003EB37A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				881F7E5C1F263543003EB37A /* MSGP.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		885F9FCE1F165C9700A30CDF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1795,6 +1806,7 @@
 				885F9FCE1F165C9700A30CDF /* Embed Frameworks */,
 				0CC1054609FBD5EAC94AABBC /* [CP] Embed Pods Frameworks */,
 				F60A227BB7A6185877C1AF31 /* [CP] Copy Pods Resources */,
+				881F7E5B1F263538003EB37A /* CopyFiles */,
 			);
 			buildRules = (
 			);

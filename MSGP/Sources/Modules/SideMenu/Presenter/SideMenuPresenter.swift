@@ -18,6 +18,8 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     var user: User? {
         didSet {
             view.showAccountInfo(visible: accountViewAvailable)
+            buildItems()
+            view.reload()
         }
     }
     
