@@ -19,5 +19,6 @@ protocol HomeViewOutput {
     func itemModel(for path: IndexPath) -> TopicCellData
     
     func didTapChangeLayout()
+    func didPullRefresh()
     
 }

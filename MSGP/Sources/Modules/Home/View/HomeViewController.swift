@@ -14,16 +14,25 @@ enum HomeLayoutType: Int {
 }
 
 // TODO: remove images from cell height calculation
-// 
+//
 //
 
 class HomeViewController: UIViewController, HomeViewInput {
-
+    
     var output: HomeViewOutput!
     var listLayout = UICollectionViewFlowLayout()
     var gridLayout = UICollectionViewFlowLayout()
-  
+    
     @IBOutlet weak var collectionView: UICollectionView?
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let control = UIRefreshControl()
+        control.addTarget(
+            self,
+            action: #selector(onPullRefresh),
+            for: .valueChanged)
+        return control
+    }()
     
     lazy var layoutChangeButton: UIBarButtonItem = { [unowned self] in
         let button = UIBarButtonItem(
@@ -32,7 +41,7 @@ class HomeViewController: UIViewController, HomeViewInput {
             target: self,
             action: #selector(self.didTapChangeLayout))
         return button
-    }()
+        }()
     
     lazy var sizingCell: TopicCell = { [unowned self] in
         let cell = TopicCell.nib.instantiate(withOwner: nil, options: nil).last as! TopicCell
@@ -58,8 +67,14 @@ class HomeViewController: UIViewController, HomeViewInput {
         onUpdateBounds()
     }
     
-    func onUpdateLayout(type: HomeLayoutType, animated: Bool = false) {
+    // MARK: UX
     
+    func onPullRefresh() {
+        output.didPullRefresh()
+    }
+    
+    func onUpdateLayout(type: HomeLayoutType, animated: Bool = false) {
+        
         // switch layout
         switch type {
         case .grid:
@@ -106,10 +121,10 @@ class HomeViewController: UIViewController, HomeViewInput {
     func didTapChangeLayout() {
         output.didTapChangeLayout()
     }
-
+    
     // MARK: HomeViewInput
     func setupInitialState() {
-     
+        
     }
     
     func setLayout(type: HomeLayoutType) {
@@ -118,7 +133,7 @@ class HomeViewController: UIViewController, HomeViewInput {
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return output.numberOfItems()
     }
@@ -163,5 +178,5 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }, completion: nil)
     }
     
-
+    
 }

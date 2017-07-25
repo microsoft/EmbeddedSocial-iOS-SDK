@@ -63,4 +63,8 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     func numberOfItems() -> Int {
         return items.count
     }
+    
+    func didPullRefresh() {
+        items.append(<#T##newElement: TopicCellData##TopicCellData#>)
+    }
 }
