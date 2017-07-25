@@ -13,6 +13,8 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     @IBOutlet var accountInfoShownConstraint: NSLayoutConstraint?
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var accountInfoView: SideMenuAccountInfoView?
+    @IBOutlet weak var socialButton: SideMenuButton?
+    @IBOutlet weak var clientButton: SideMenuButton?
     
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -33,6 +35,11 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
         tableView?.beginUpdates()
         tableView?.reloadSections([section], with: .fade)
         tableView?.endUpdates()
+    }
+    
+    func selectBar(with index: Int) {
+        socialButton?.isSelected = socialButton?.tag == index
+        clientButton?.isSelected = clientButton?.tag == index
     }
     
     // MARK: UX
