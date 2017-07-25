@@ -8,8 +8,12 @@
 final class MockSessionStoreDatabase: SessionStoreDatabase {
     private(set) var saveUserCount = 0
     private(set) var loadUserCount = 0
-    private(set) var saveSessionCount = 0
-    private(set) var loadSessionCount = 0
+    private(set) var saveSessionTokenCount = 0
+    private(set) var loadSessionTokenCount = 0
+    
+    var userToReturn: User?
+    
+    var sessionTokenToReturn: String?
 
     func saveUser(_ user: User) {
         saveUserCount += 1
@@ -17,15 +21,15 @@ final class MockSessionStoreDatabase: SessionStoreDatabase {
     
     func loadLastUser() -> User? {
         loadUserCount += 1
-        return nil
+        return userToReturn
     }
     
     func saveSessionToken(_ token: String) {
-        saveSessionCount += 1
+        saveSessionTokenCount += 1
     }
     
     func loadLastSessionToken() -> String? {
-        loadSessionCount += 1
-        return nil
+        loadSessionTokenCount += 1
+        return sessionTokenToReturn
     }
 }

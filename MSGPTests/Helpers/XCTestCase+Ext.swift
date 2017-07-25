@@ -9,4 +9,14 @@ extension XCTestCase {
     var className: String {
         return String(describing: type(of: self))
     }
+    
+    func XCTAssertThrows<ErrorType: Error, T>(expression: @autoclosure () throws -> T, error: ErrorType) where ErrorType: Equatable {
+        do {
+            _ = try expression()
+        } catch let caughtError as ErrorType {
+            XCTAssertEqual(caughtError, error)
+        } catch {
+            XCTFail("Wrong error")
+        }
+    }
 }

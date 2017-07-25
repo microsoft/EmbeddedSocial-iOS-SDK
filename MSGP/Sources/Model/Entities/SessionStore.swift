@@ -46,7 +46,7 @@ extension SessionStore {
         case notLoggedIn
         case lastSessionNotAvailable
 
-        public var errorDescription: String? {
+        var errorDescription: String? {
             switch self {
             case .notLoggedIn: return "User is not logged in."
             case .lastSessionNotAvailable: return "Last session is not available."
