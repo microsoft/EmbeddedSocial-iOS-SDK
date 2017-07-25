@@ -24,29 +24,29 @@ class TopicService {
         }
         
         if network.isReachable {
-            if let image = photo?.image {
-                
-                guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
-                    return
-                }
-                
-                ImagesAPI.imagesPostImage(imageType: ImagesAPI.ImageType_imagesPostImage.contentBlob,
-                                          image: imageData) { [weak self] (response, error) in
-                                            guard let blobHandle = response?.blobHandle else {
-                                                if let unwrappedError = error {
-                                                    failure(unwrappedError)
-                                                }
-                                                return
-                                            }
-                                            
-                                            topic.blobHandle = blobHandle
-                                            self?.sendPostTopicRequest(request: topic)
-                }
-            } else {
+            guard let image = photo?.image else {
                 sendPostTopicRequest(request: topic)
+                return
             }
-        } else {
+                
+            guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
+                return
+            }
             
+            ImagesAPI.imagesPostImage(imageType: ImagesAPI.ImageType_imagesPostImage.contentBlob,
+                                      image: imageData) { [weak self] (response, error) in
+                                        guard let blobHandle = response?.blobHandle else {
+                                            if let unwrappedError = error {
+                                                failure(unwrappedError)
+                                            }
+                                            return
+                                        }
+                                        
+                                        topic.blobHandle = blobHandle
+                                        self?.sendPostTopicRequest(request: topic)
+            }
+            
+        } else {
             if photo != nil {
                 cache?.cacheOutgoing(object: photo!)
                 topic.blobHandle = photo?.url
