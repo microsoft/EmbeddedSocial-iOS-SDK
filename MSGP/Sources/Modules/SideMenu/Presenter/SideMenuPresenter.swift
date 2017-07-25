@@ -15,7 +15,14 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         case client, social
     }
     
-    var user: User?
+    var user: User? {
+        didSet {
+            view.showAccountInfo(visible: accountViewAvailable)
+            buildItems()
+            view.reload()
+        }
+    }
+    
     weak var view: SideMenuViewInput!
     var interactor: SideMenuInteractorInput!
     var router: SideMenuRouterInput!
@@ -34,6 +41,10 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     
     var accountViewAvailable: Bool {
         return !(configation == .tab && tab == .client)
+    }
+    
+    var tabBarViewAvailable: Bool {
+        return configation == .tab
     }
     
     func accountInfo() -> SideMenuHeaderModel {
@@ -56,8 +67,11 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         view.setupInitialState()
         buildItems()
         view.reload()
-        view.showTabBar(visible: configation == .tab)
+        view.showTabBar(visible: tabBarViewAvailable )
         view.showAccountInfo(visible: accountViewAvailable)
+        if let tab = self.tab {
+            view.selectBar(with: tab.rawValue)
+        }
     }
     
     func itemsCount(in section: Int) -> Int {
@@ -84,6 +98,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         assert(configation == .tab)
         self.tab = SideMenuTabs(rawValue: tab)
         view.showAccountInfo(visible: accountViewAvailable)
+        view.selectBar(with: self.tab!.rawValue)
     }
     
     func didTapAccountInfo() {
@@ -96,14 +111,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         items[index].setCollapsed(collapsed: !items[index].isCollapsed)
         view.reload(section: index)
     }
-    
-    func showUser(user: User) {
-        self.user = user
-        view.showAccountInfo(visible: accountViewAvailable)
-        buildItems()
-        view.reload()
-    }
-    
+
     func buildItems() {
         
         items = MenuItems()

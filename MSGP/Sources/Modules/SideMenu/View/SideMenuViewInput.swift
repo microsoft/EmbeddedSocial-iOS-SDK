@@ -14,5 +14,6 @@ protocol SideMenuViewInput: class {
     func reload()
     func reload(section: Int)
     func showTabBar(visible: Bool)
+    func selectBar(with index: Int)
     func showAccountInfo(visible: Bool)
 }

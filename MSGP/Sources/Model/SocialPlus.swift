@@ -39,7 +39,7 @@ public final class SocialPlus {
         
         if sessionStore.isLoggedIn {
             // FIXME: coordinator.onSessionCreated crashes if uncommented
-            // coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
+             coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
         }
     }
     

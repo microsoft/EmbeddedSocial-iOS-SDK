@@ -287,6 +287,7 @@
 		8EF0E5AB1F1FA5EF00E88ED6 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E5A21F1FA5EF00E88ED6 /* Router.swift */; };
 		8EF0E5AC1F1FA5EF00E88ED6 /* Templates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E5A31F1FA5EF00E88ED6 /* Templates.swift */; };
 		8EF0E5AD1F1FA5EF00E88ED6 /* topic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EF0E5A41F1FA5EF00E88ED6 /* topic.json */; };
+		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
 		9CBA39ED1F1F7E88007EB52C /* MSGP-Example-MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA39EC1F1F7E88007EB52C /* MSGP-Example-MenuHandler.swift */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
 /* End PBXBuildFile section */
@@ -316,6 +317,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		881F7E5B1F263538003EB37A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				881F7E5C1F263543003EB37A /* MSGP.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		885F9FCE1F165C9700A30CDF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -624,6 +635,7 @@
 		8EF0E5A21F1FA5EF00E88ED6 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8EF0E5A31F1FA5EF00E88ED6 /* Templates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Templates.swift; sourceTree = "<group>"; };
 		8EF0E5A41F1FA5EF00E88ED6 /* topic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = topic.json; sourceTree = "<group>"; };
+		9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuButton.swift; sourceTree = "<group>"; };
 		9CBA39EC1F1F7E88007EB52C /* MSGP-Example-MenuHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MSGP-Example-MenuHandler.swift"; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -762,6 +774,7 @@
 				88580A931F2213AB00C1CBAF /* Result.swift */,
 				88580A941F2213AB00C1CBAF /* SectionModel.swift */,
 				88580A9B1F2213AB00C1CBAF /* TableDataDisplayManager.swift */,
+				9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1679,6 +1692,7 @@
 				886B39C21F138F5D00BF1A8E /* Frameworks */,
 				886B39C31F138F5D00BF1A8E /* Resources */,
 				885F9FCE1F165C9700A30CDF /* Embed Frameworks */,
+				881F7E5B1F263538003EB37A /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1999,6 +2013,7 @@
 				88580BFA1F2213AB00C1CBAF /* PostTopicNameRequest.swift in Sources */,
 				88580C241F2213AB00C1CBAF /* MementoSerializable.swift in Sources */,
 				882AD0D61F222D5200FC20B7 /* MSGP.xcdatamodeld in Sources */,
+				9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */,
 				88580C6F1F2213AB00C1CBAF /* TabMenuContainerRouterInput.swift in Sources */,
 				88580C231F2213AB00C1CBAF /* KeyValueStorage.swift in Sources */,
 				88635D751F223B6600577140 /* StoreType.swift in Sources */,
