@@ -32,6 +32,7 @@ class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePo
     // MARK: CreatePostInteractorOutput
     func created() {
         // TODO: handle
+        view.topicCreated()
         back()
     }
     

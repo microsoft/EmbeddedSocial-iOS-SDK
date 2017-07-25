@@ -5,6 +5,7 @@
 
 import UIKit
 import SDWebImage
+import SVProgressHUD
 
 class CreatePostViewController: BaseViewController, CreatePostViewInput {
 
@@ -40,6 +41,10 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         navigationItem.leftBarButtonItem = backButton
     }
     
+    func topicCreated() {
+        SVProgressHUD.dismiss()
+    }
+    
     func show(user: User) {
         userImageView.sd_setImage(with: URL(string: (user.photo?.url)!))
         userImageView.layer.cornerRadius = userImageView.bounds.size.height/2
@@ -47,6 +52,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     }
     
     func show(error: Error) {
+        SVProgressHUD.dismiss()
         let alert = UIAlertController(title: error.localizedDescription, message: nil, preferredStyle: .alert)
         let action = UIAlertAction(title: Button.Title.ok, style: .default, handler: nil)
         alert.addAction(action)
@@ -55,6 +61,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     
     // MARK: Actions
     @objc fileprivate func post() {
+        SVProgressHUD.show()
         output.post(photo: photo, title: titleTextField.text, body: postBodyTextView.text)
     }
     

@@ -13,4 +13,5 @@ protocol CreatePostViewInput: class {
     func setupInitialState()
     func show(error: Error)
     func show(user: User)
+    func topicCreated()
 }

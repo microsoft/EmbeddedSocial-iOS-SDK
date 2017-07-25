@@ -37,6 +37,15 @@ struct CoreDataStackFactory {
      If a queue is provided, this is called asynchronously on the main queue.
      Otherwise, this is executed on the thread from which the method was originally called.
      */
+    
+    func makeStack() -> Result<CoreDataStack> {
+        var result: Result<CoreDataStack>!
+        makeStack(onQueue: nil) { r in
+            result = r
+        }
+        return result
+    }
+    
     func makeStack(onQueue queue: DispatchQueue? = .global(qos: .userInitiated),
                    completion: @escaping (Result<CoreDataStack>) -> Void) {
         let isAsync = (queue != nil)

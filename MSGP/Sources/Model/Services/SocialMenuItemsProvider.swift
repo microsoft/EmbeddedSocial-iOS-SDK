@@ -60,7 +60,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
             button.setTitle("push", for: .normal)
             button.addTarget(self, action: #selector(testPush), for: .touchUpInside)
             tempVC?.view.addSubview(button)
-            return UINavigationController(rootViewController: tempVC!)
+            return tempVC!
         default:
             return UIViewController()
         }

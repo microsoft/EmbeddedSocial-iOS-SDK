@@ -47,17 +47,21 @@ public final class SocialPlus {
         let model = CoreDataModel(name: "MSGP", bundle: Bundle(for: type(of: self)))
         let builder = CoreDataStackFactory(model: model)
         
-        builder.makeStack { [unowned self] result in
-            guard let stack = result.value else {
-                fatalError("*** Cannot set up Core Data stack")
-            }
-            self.coreDataStack = stack
-        }
+        self.coreDataStack = builder.makeStack().value
+        
+//        builder.makeStack { [unowned self] result in
+//            guard let stack = result.value else {
+//                fatalError("*** Cannot set up Core Data stack")
+//            }
+//            self.coreDataStack = stack
+//        }
     }
     
     private func setupCache() {
-        let incomingTransaction = QueriableRepository<IncomingTransaction>()
-        let outgoingTransaction = QueriableRepository<OutgoingTransaction>()
+        let incomingTransaction = CoreDataRepository<IncomingTransaction>(context:
+            SocialPlus.shared.coreDataStack.backgroundContext)
+        let outgoingTransaction = CoreDataRepository<OutgoingTransaction>(context:
+            SocialPlus.shared.coreDataStack.backgroundContext)
         let database = TransactionsDatabaseFacade(incomingRepo: incomingTransaction, outgoingRepo: outgoingTransaction)
         cache = Cache(database: database)
     }
