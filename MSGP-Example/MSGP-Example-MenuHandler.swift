@@ -14,16 +14,16 @@ class MyAppMenu: SideMenuItemsProvider {
         let vc = UIViewController()
         
         
-        let nav = UINavigationController(rootViewController: vc)
+//        let nav = UINavigationController(rootViewController: vc)
     
         vc.view = UIView()
         vc.view.backgroundColor = index == 0 ? UIColor.red : UIColor.yellow
         vc.title = "Title \(index)"
         
-        nav.pushViewController(blueVC, animated: false)
+//        nav.pushViewController(blueVC, animated: false)
         
         
-        return nav
+        return vc
     }
     
     lazy var blueVC: UIViewController = {

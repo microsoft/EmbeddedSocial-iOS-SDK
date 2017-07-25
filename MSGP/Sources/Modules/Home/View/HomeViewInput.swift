@@ -14,4 +14,6 @@ protocol HomeViewInput: class {
     */
 
     func setupInitialState()
+    
+    func setLayout(type: HomeLayoutType)
 }

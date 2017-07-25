@@ -21,24 +21,21 @@ class NavigationStackContainer: UIViewController, SideMenuModuleOutput {
     }
     
     func show(viewController: UIViewController) {
-        
-        self.navigationController?.pushViewController(viewController, animated: true)
     
-        return
-//        embeddedViewController?.view.removeFromSuperview()
-//        embeddedViewController?.removeFromParentViewController()
-//        
-//        viewController.willMove(toParentViewController: self)
-//        self.addChildViewController(viewController)
-//        
-//        view.addSubview(viewController.view)
-//        
-//        viewController.view.snp.makeConstraints { (make) in
-//            make.edges.equalToSuperview()
-//        }
-//        
-//        viewController.didMove(toParentViewController: self)
-//        
-//        embeddedViewController = viewController
+        embeddedViewController?.view.removeFromSuperview()
+        embeddedViewController?.removeFromParentViewController()
+        
+        viewController.willMove(toParentViewController: self)
+        self.addChildViewController(viewController)
+        
+        view.addSubview(viewController.view)
+        
+        viewController.view.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        viewController.didMove(toParentViewController: self)
+        
+        embeddedViewController = viewController
     }
 }

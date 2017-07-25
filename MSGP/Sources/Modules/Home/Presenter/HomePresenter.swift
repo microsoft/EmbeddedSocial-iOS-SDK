@@ -5,6 +5,17 @@
 
 class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
+    var layout: HomeLayoutType = .grid
+    
+    func didTapChangeLayout() {
+        flip(layout: &layout)
+        view.setLayout(type: layout)
+    }
+    
+    func flip(layout: inout HomeLayoutType) {
+        layout = HomeLayoutType(rawValue: layout.rawValue ^ 1)!
+    }
+
     func itemModel(for path: IndexPath) -> TopicCellData {
         return items[path.row]
     }
@@ -15,6 +26,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
     func viewIsReady() {
         view.setupInitialState()
+        view.setLayout(type: layout)
     }
     
     lazy var items: [TopicCellData] = {

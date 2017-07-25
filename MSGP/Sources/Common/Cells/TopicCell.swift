@@ -87,13 +87,4 @@ class TopicCell: UICollectionViewCell {
         postText.text = data.postText
         postCreation.text = data.postCreation
     }
-//    
-//    
-//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-//        let attributes = super.preferredLayoutAttributesFitting(layoutAttributes)
-//        var frame = attributes.frame
-//        frame.size.width = layoutAttributes.size.width
-//        attributes.frame = frame
-//        return attributes
-//    }
 }

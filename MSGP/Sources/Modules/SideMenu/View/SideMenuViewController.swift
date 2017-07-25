@@ -18,6 +18,7 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
+
     }
     
     // MARK: SideMenuViewInput
