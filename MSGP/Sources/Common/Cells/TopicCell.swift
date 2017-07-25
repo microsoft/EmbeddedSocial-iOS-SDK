@@ -1,9 +1,6 @@
 //
-//  TopicCell.swift
-//  MSGP
-//
-//  Created by Igor Popov on 7/24/17.
-//  Copyright © 2017 Akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 struct TopicCellData {
@@ -16,6 +13,12 @@ struct TopicCellData {
 }
 
 class TopicCell: UICollectionViewCell {
+    
+    var isCollapsed: Bool = false {
+        didSet {
+            
+        }
+    }
     
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var userPhoto: UIImageView! {
@@ -61,6 +64,20 @@ class TopicCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    func setup() {
+        clipsToBounds = true
     }
     
     func configure(with data: TopicCellData) {

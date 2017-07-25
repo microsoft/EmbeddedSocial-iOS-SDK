@@ -17,7 +17,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     var router: HomeRouterInput!
     
     func viewIsReady() {
-    
+        view.setupInitialState()
     }
     
     lazy var items: [TopicCellData] = {
@@ -32,7 +32,22 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
                           userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
                           postTitle: "About layouts",
                           postText: "The present disambiguation page holds the title of a primary topic, and an article needs to be written about it. It is believed to qualify as a broad-concept article. It may be written directly at this page or drafted elsewhere and then moved over here. Related titles should be described in Layout, while unrelated titles should be moved to Layout (disambiguation).", postCreation: "2h",
-                          postImage: Photo(image: UIImage(asset: .placeholderPostImage)))
+                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
+            TopicCellData(userName: "Doleres",
+                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
+                          postTitle: "New money !",
+                          postText: "So legal, so Tender. What do you all think? Sweden took a risk here and it was worth it.", postCreation: "2h",
+                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
+            TopicCellData(userName: "Github",
+                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
+                          postTitle: "N0 code today",
+                          postText: "func numberOfItems() -> Int { return items.count }", postCreation: "2h",
+                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
+            TopicCellData(userName: "Riarden Steel",
+                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
+                          postTitle: "New money !",
+                          postText: "Best steel in the World.", postCreation: "2h",
+                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
         ]
     }()
     

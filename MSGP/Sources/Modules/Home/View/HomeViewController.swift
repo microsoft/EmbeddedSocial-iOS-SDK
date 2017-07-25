@@ -13,7 +13,15 @@ class HomeViewController: UIViewController, HomeViewInput {
     var output: HomeViewOutput!
     
     @IBOutlet weak var collectionView: UICollectionView?
-
+    
+    lazy var gridLayout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 120, height: 120)
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 5
+        return layout
+    }()
+    
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +32,10 @@ class HomeViewController: UIViewController, HomeViewInput {
     
     // MARK: HomeViewInput
     func setupInitialState() {
-        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.collectionView?.collectionViewLayout.invalidateLayout()
+            self.collectionView?.setCollectionViewLayout(self.gridLayout, animated: true)
+        }
     }
     
     lazy var sizingCell: TopicCell = { [unowned self] in
@@ -56,6 +67,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if collectionViewLayout == gridLayout {
+            return gridLayout.itemSize
+        }
         
         let cellData = output.itemModel(for: indexPath)
         sizingCell.configure(with: cellData)

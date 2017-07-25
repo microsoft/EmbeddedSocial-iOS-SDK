@@ -8,6 +8,17 @@
 
 import Foundation
 
+enum HomeAction {
+    
+    typealias PostReference = String
+
+    case liked(post: PostReference)
+    case open(post: PostReference)
+    
+}
+
 protocol HomeRouterInput {
+    
+    func open(with action:HomeAction)
 
 }

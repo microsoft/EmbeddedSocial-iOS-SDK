@@ -7,5 +7,9 @@
 //
 
 class HomeRouter: HomeRouterInput {
+    
+    func open(with action: HomeAction) {
+        
+    }
 
 }
