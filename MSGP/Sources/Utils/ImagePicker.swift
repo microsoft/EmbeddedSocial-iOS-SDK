@@ -6,7 +6,7 @@
 import Foundation
 
 protocol ImagePickerDelegate: class {
-    func selected(image: UIImage)
+    func selected(photo: Photo)
 }
 
 class ImagePicker: NSObject {
@@ -45,6 +45,14 @@ class ImagePicker: NSObject {
         }
         actionSheet.addAction(chooseExistingPhotoAction)
         
+        if let presenter = actionSheet.popoverPresentationController {
+            presenter.sourceView = presentingView?.view
+            presenter.sourceRect = CGRect(x: (presentingView?.view.bounds)!.midX,
+                                          y: (presentingView?.view.bounds)!.midY,
+                                          width: 0,
+                                          height: 0)
+        }
+        
         options.sourceViewController.present(actionSheet, animated: true, completion: nil)
     }
     
@@ -78,7 +86,8 @@ extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDe
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            delegate?.selected(image: image)
+            let photo = Photo(uid: UUID().uuidString, url: info[UIImagePickerControllerMediaURL] as? String, image: image)
+            delegate?.selected(photo: photo)
             onImageSelected?(.success(image))
         } else {
             onImageSelected?(.failure(Error.unkown))
