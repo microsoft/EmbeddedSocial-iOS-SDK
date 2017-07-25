@@ -284,6 +284,8 @@
 		88F1637B1F26494100DAAF68 /* SocialUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1637A1F26494100DAAF68 /* SocialUserTests.swift */; };
 		88F1637D1F264B0F00DAAF68 /* SessionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1637C1F264B0F00DAAF68 /* SessionStoreTests.swift */; };
 		88F1637F1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1637E1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift */; };
+		88F163811F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F163801F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift */; };
+		88F163831F273CEB00DAAF68 /* MockKeyValueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F163821F273CEB00DAAF68 /* MockKeyValueRepository.swift */; };
 		88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1916D1F25FFD000B93ADF /* Dump.swift */; };
 		88F191721F26071A00B93ADF /* XCTestCase+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F191711F26071A00B93ADF /* XCTestCase+Ext.swift */; };
 		88F191741F26164200B93ADF /* AuthProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F191731F26164200B93ADF /* AuthProviderTests.swift */; };
@@ -635,6 +637,8 @@
 		88F1637A1F26494100DAAF68 /* SocialUserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialUserTests.swift; sourceTree = "<group>"; };
 		88F1637C1F264B0F00DAAF68 /* SessionStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionStoreTests.swift; sourceTree = "<group>"; };
 		88F1637E1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSessionStoreDatabase.swift; sourceTree = "<group>"; };
+		88F163801F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSessionStoreRepositoryProvider.swift; sourceTree = "<group>"; };
+		88F163821F273CEB00DAAF68 /* MockKeyValueRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeyValueRepository.swift; sourceTree = "<group>"; };
 		88F1916D1F25FFD000B93ADF /* Dump.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dump.swift; sourceTree = "<group>"; };
 		88F191711F26071A00B93ADF /* XCTestCase+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Ext.swift"; sourceTree = "<group>"; };
 		88F191731F26164200B93ADF /* AuthProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthProviderTests.swift; sourceTree = "<group>"; };
@@ -1577,6 +1581,8 @@
 				889AFC181F220BCD003AAF19 /* MockURLSchemeService.swift */,
 				881F7E611F263888003EB37A /* MockKeyValueStorage.swift */,
 				88F1637E1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift */,
+				88F163801F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift */,
+				88F163821F273CEB00DAAF68 /* MockKeyValueRepository.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -2368,10 +2374,12 @@
 			files = (
 				889AFC2F1F220BCD003AAF19 /* URLSchemeServiceTests.swift in Sources */,
 				889AFC2C1F220BCD003AAF19 /* MockURLScheme.swift in Sources */,
+				88F163811F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift in Sources */,
 				889AFC241F220BCD003AAF19 /* SideMenuInteractorTests.swift in Sources */,
 				889AFC2D1F220BCD003AAF19 /* MockURLSchemeService.swift in Sources */,
 				889AFC1F1F220BCD003AAF19 /* UserTests.swift in Sources */,
 				889AFC281F220BCD003AAF19 /* ImageCacheAdapterTests.swift in Sources */,
+				88F163831F273CEB00DAAF68 /* MockKeyValueRepository.swift in Sources */,
 				88635D7D1F22434300577140 /* CoreDataSetupHelper.swift in Sources */,
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
 				88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */,
