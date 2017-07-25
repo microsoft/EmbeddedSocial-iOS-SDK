@@ -130,6 +130,17 @@ class HomeViewController: UIViewController, HomeViewInput {
     func setLayout(type: HomeLayoutType) {
         onUpdateLayout(type: type)
     }
+    
+    func setRefreshing(state: Bool) {
+        if state {
+            if refreshControl.superview != collectionView {
+                collectionView!.addSubview(refreshControl)
+            }
+            refreshControl.beginRefreshing()
+        } else {
+            collectionView!.removeFromSuperview()
+        }
+    }
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
