@@ -12,8 +12,6 @@ private func abstractMethod() -> Never {
 class QueriableRepository<T>: Repository {
     typealias DomainType = T
     
-    init() { }
-    
     func create() -> T {
         abstractMethod()
     }

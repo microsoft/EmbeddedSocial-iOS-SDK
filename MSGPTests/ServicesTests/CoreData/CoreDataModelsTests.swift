@@ -12,7 +12,7 @@ class CoreDataModelsTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        CoreDataSetupHelper.setupInMemoryCoreDataStack { self.coreDataStack = $0 }
+        coreDataStack = CoreDataSetupHelper.makeInMemoryCoreDataStack()
     }
     
     override func tearDown() {

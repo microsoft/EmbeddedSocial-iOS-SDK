@@ -12,9 +12,8 @@ class CoreDataRepositoryTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        CoreDataSetupHelper.setupInMemoryCoreDataStack {
-            self.sut = CoreDataRepository<IncomingTransaction>(context: $0.mainContext)
-        }
+        let coreDataStack = CoreDataSetupHelper.makeInMemoryCoreDataStack()
+        sut = CoreDataRepository<IncomingTransaction>(context: coreDataStack.mainContext)
     }
     
     override func tearDown() {

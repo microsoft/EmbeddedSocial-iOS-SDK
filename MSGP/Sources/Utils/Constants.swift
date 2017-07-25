@@ -17,6 +17,6 @@ extension Constants {
     struct createAccount {
         static let contentPadding: CGFloat = 20.0
         static let uploadPhotoHeight: CGFloat = 84.0
-        static let maxBioLength: Int = 500
+        static let maxBioLength = 500
     }
 }

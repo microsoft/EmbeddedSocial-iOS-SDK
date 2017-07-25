@@ -16,6 +16,6 @@ class CoreDataStackFactoryTests: XCTestCase {
     }
     
     func testThatStackIsCreated() {
-        CoreDataSetupHelper.setupInMemoryCoreDataStack { _ = $0 }
+        _ = CoreDataSetupHelper.makeInMemoryCoreDataStack()
     }
 }

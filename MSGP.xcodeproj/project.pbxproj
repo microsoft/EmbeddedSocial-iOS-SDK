@@ -286,6 +286,11 @@
 		88F1637F1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1637E1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift */; };
 		88F163811F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F163801F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift */; };
 		88F163831F273CEB00DAAF68 /* MockKeyValueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F163821F273CEB00DAAF68 /* MockKeyValueRepository.swift */; };
+		88F163851F2745E500DAAF68 /* CreateAccountValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F163841F2745E500DAAF68 /* CreateAccountValidatorTests.swift */; };
+		88F163871F27565400DAAF68 /* TransactionsDatabaseFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F163861F27565400DAAF68 /* TransactionsDatabaseFacadeTests.swift */; };
+		88F163891F27569900DAAF68 /* MockQueriableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F163881F27569900DAAF68 /* MockQueriableRepository.swift */; };
+		88F1638B1F27658B00DAAF68 /* IncomingTransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1638A1F27658B00DAAF68 /* IncomingTransactionTests.swift */; };
+		88F1638D1F27677100DAAF68 /* OutgoingTransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1638C1F27677100DAAF68 /* OutgoingTransactionTests.swift */; };
 		88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1916D1F25FFD000B93ADF /* Dump.swift */; };
 		88F191721F26071A00B93ADF /* XCTestCase+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F191711F26071A00B93ADF /* XCTestCase+Ext.swift */; };
 		88F191741F26164200B93ADF /* AuthProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F191731F26164200B93ADF /* AuthProviderTests.swift */; };
@@ -639,6 +644,11 @@
 		88F1637E1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSessionStoreDatabase.swift; sourceTree = "<group>"; };
 		88F163801F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSessionStoreRepositoryProvider.swift; sourceTree = "<group>"; };
 		88F163821F273CEB00DAAF68 /* MockKeyValueRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeyValueRepository.swift; sourceTree = "<group>"; };
+		88F163841F2745E500DAAF68 /* CreateAccountValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountValidatorTests.swift; sourceTree = "<group>"; };
+		88F163861F27565400DAAF68 /* TransactionsDatabaseFacadeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDatabaseFacadeTests.swift; sourceTree = "<group>"; };
+		88F163881F27569900DAAF68 /* MockQueriableRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockQueriableRepository.swift; sourceTree = "<group>"; };
+		88F1638A1F27658B00DAAF68 /* IncomingTransactionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingTransactionTests.swift; sourceTree = "<group>"; };
+		88F1638C1F27677100DAAF68 /* OutgoingTransactionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingTransactionTests.swift; sourceTree = "<group>"; };
 		88F1916D1F25FFD000B93ADF /* Dump.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dump.swift; sourceTree = "<group>"; };
 		88F191711F26071A00B93ADF /* XCTestCase+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Ext.swift"; sourceTree = "<group>"; };
 		88F191731F26164200B93ADF /* AuthProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthProviderTests.swift; sourceTree = "<group>"; };
@@ -1473,6 +1483,8 @@
 				88635D7A1F22430300577140 /* CoreDataModelsTests.swift */,
 				88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */,
 				88635D761F223F1600577140 /* CoreDataStackFactoryTests.swift */,
+				88F1638A1F27658B00DAAF68 /* IncomingTransactionTests.swift */,
+				88F1638C1F27677100DAAF68 /* OutgoingTransactionTests.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -1567,6 +1579,7 @@
 				889AFC1A1F220BCD003AAF19 /* URLSchemeServiceTests.swift */,
 				881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */,
 				88F163781F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift */,
+				88F163861F27565400DAAF68 /* TransactionsDatabaseFacadeTests.swift */,
 			);
 			path = ServicesTests;
 			sourceTree = "<group>";
@@ -1583,6 +1596,7 @@
 				88F1637E1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift */,
 				88F163801F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift */,
 				88F163821F273CEB00DAAF68 /* MockKeyValueRepository.swift */,
+				88F163881F27569900DAAF68 /* MockQueriableRepository.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1591,6 +1605,7 @@
 			isa = PBXGroup;
 			children = (
 				889AFC1C1F220BCD003AAF19 /* NameComponentsSplitterTests.swift */,
+				88F163841F2745E500DAAF68 /* CreateAccountValidatorTests.swift */,
 			);
 			path = UtilsTest;
 			sourceTree = "<group>";
@@ -2383,6 +2398,7 @@
 				88635D7D1F22434300577140 /* CoreDataSetupHelper.swift in Sources */,
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
 				88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */,
+				88F163871F27565400DAAF68 /* TransactionsDatabaseFacadeTests.swift in Sources */,
 				881F7E5E1F2637B7003EB37A /* KeyValueRepositoryTests.swift in Sources */,
 				88F1637D1F264B0F00DAAF68 /* SessionStoreTests.swift in Sources */,
 				889AFC291F220BCD003AAF19 /* MockAuthAPI.swift in Sources */,
@@ -2400,8 +2416,12 @@
 				88F1637B1F26494100DAAF68 /* SocialUserTests.swift in Sources */,
 				889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */,
 				88F163791F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift in Sources */,
+				88F163891F27569900DAAF68 /* MockQueriableRepository.swift in Sources */,
+				88F1638B1F27658B00DAAF68 /* IncomingTransactionTests.swift in Sources */,
 				889AFC2E1F220BCD003AAF19 /* SocialPlusTests.swift in Sources */,
+				88F1638D1F27677100DAAF68 /* OutgoingTransactionTests.swift in Sources */,
 				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
+				88F163851F2745E500DAAF68 /* CreateAccountValidatorTests.swift in Sources */,
 				88635D771F223F1600577140 /* CoreDataStackFactoryTests.swift in Sources */,
 				889AFC301F220BCD003AAF19 /* NameComponentsSplitterTests.swift in Sources */,
 			);

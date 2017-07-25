@@ -17,11 +17,7 @@ final class IncomingTransaction: NSManagedObject {
 }
 
 extension IncomingTransaction: CoreDataRecord {
-    static var entityName: String {
-        return "IncomingTransaction"
-    }
-    
     @nonobjc class func fetchRequest() -> NSFetchRequest<IncomingTransaction> {
-        return NSFetchRequest(entityName: "IncomingTransaction")
+        return NSFetchRequest(entityName: entityName)
     }
 }
