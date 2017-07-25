@@ -70,7 +70,7 @@
                                         </constraints>
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aPb-Vd-1gr">
-                                        <rect key="frame" x="20" y="363" width="335" height="30"/>
+                                        <rect key="frame" x="17" y="363" width="338" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="aAI-r9-dzh"/>
@@ -108,7 +108,7 @@
                                     <constraint firstAttribute="trailing" secondItem="vR4-Iq-PLG" secondAttribute="trailing" constant="8" id="YA4-zk-ENH"/>
                                     <constraint firstItem="c1s-Vy-Hc2" firstAttribute="top" secondItem="0Lk-bh-ewt" secondAttribute="bottom" constant="20" id="iN7-9f-DhH"/>
                                     <constraint firstAttribute="trailing" secondItem="5s3-Bn-nZn" secondAttribute="trailing" constant="20" id="ksz-H3-sw9"/>
-                                    <constraint firstItem="aPb-Vd-1gr" firstAttribute="leading" secondItem="8AP-7d-JDz" secondAttribute="leading" constant="20" id="nVt-4L-CJT"/>
+                                    <constraint firstItem="aPb-Vd-1gr" firstAttribute="leading" secondItem="8AP-7d-JDz" secondAttribute="leading" constant="17" id="nVt-4L-CJT"/>
                                     <constraint firstItem="HyY-ge-u5J" firstAttribute="leading" secondItem="8AP-7d-JDz" secondAttribute="leading" constant="20" id="nZP-kJ-10v"/>
                                     <constraint firstItem="aPb-Vd-1gr" firstAttribute="top" secondItem="5s3-Bn-nZn" secondAttribute="bottom" constant="20" id="sNm-o2-74d"/>
                                     <constraint firstItem="c1s-Vy-Hc2" firstAttribute="centerX" secondItem="8AP-7d-JDz" secondAttribute="centerX" id="sbq-pv-boI"/>
