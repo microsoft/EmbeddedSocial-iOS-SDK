@@ -18,25 +18,27 @@ class NavigationStackContainer: UIViewController, SideMenuModuleOutput {
         self.addLeftBarButtonWithImage(image)
         self.slideMenuController()?.removeLeftGestures()
         self.slideMenuController()?.addLeftGestures()
-        
     }
     
     func show(viewController: UIViewController) {
         
-        embeddedViewController?.view.removeFromSuperview()
-        embeddedViewController?.removeFromParentViewController()
-        
-        viewController.willMove(toParentViewController: self)
-        
-        view.addSubview(viewController.view)
-        
-        viewController.view.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
-        
-        self.addChildViewController(viewController)
-        viewController.didMove(toParentViewController: self)
-        
-        embeddedViewController = viewController
+        self.navigationController?.pushViewController(viewController, animated: true)
+    
+        return
+//        embeddedViewController?.view.removeFromSuperview()
+//        embeddedViewController?.removeFromParentViewController()
+//        
+//        viewController.willMove(toParentViewController: self)
+//        self.addChildViewController(viewController)
+//        
+//        view.addSubview(viewController.view)
+//        
+//        viewController.view.snp.makeConstraints { (make) in
+//            make.edges.equalToSuperview()
+//        }
+//        
+//        viewController.didMove(toParentViewController: self)
+//        
+//        embeddedViewController = viewController
     }
 }

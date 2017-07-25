@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = UIViewController()
         window?.makeKeyAndVisible()
     
-        
         let args = LaunchArguments(app: application,
                                    window: window!,
                                    launchOptions: launchOptions ?? [:],

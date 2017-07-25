@@ -14,11 +14,17 @@ class HomeViewController: UIViewController, HomeViewInput {
     
     @IBOutlet weak var collectionView: UICollectionView?
     
-    lazy var gridLayout: UICollectionViewFlowLayout = {
+    lazy var gridLayout: UICollectionViewFlowLayout = { [unowned self] in
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 120, height: 120)
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 5
+        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        let itemsPerRow = CGFloat(2)
+        var containerWidth = self.collectionView!.bounds.width - (layout.sectionInset.left + layout.sectionInset.right)
+        var itemWidth = containerWidth / itemsPerRow
+        itemWidth -= layout.minimumInteritemSpacing
+        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        
         return layout
     }()
     
@@ -28,6 +34,24 @@ class HomeViewController: UIViewController, HomeViewInput {
         output.viewIsReady()
         
         self.collectionView?.register(TopicCell.nib, forCellWithReuseIdentifier: TopicCell.reuseID)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            asset: Asset.iconGallery,
+            title: nil,
+            font: nil,
+            color: UIColor.white,
+            action: { print("HEY") })
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Sign up",
+            style: .plain,
+            target: self,
+            action: #selector(self.signIn)
+        )
+    }
+    
+    func signIn() {
+        
     }
     
     // MARK: HomeViewInput
@@ -82,5 +106,12 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
         return sizingCell.container.bounds.size
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.performBatchUpdates({
+            
+        }, completion: nil)
+    }
+    
 
 }
