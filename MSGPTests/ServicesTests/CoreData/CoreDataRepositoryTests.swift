@@ -12,7 +12,7 @@ class CoreDataRepositoryTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        let coreDataStack = CoreDataSetupHelper.makeInMemoryCoreDataStack()
+        let coreDataStack = CoreDataHelper.makeMSGPInMemoryStack()
         sut = CoreDataRepository<IncomingTransaction>(context: coreDataStack.mainContext)
     }
     
@@ -31,7 +31,7 @@ class CoreDataRepositoryTests: XCTestCase {
         XCTAssertNotNil(transaction)
     }
     
-    func testThatEntityCanBeSavedAndLoaded() {
+    func testThatEntityCanBeSavedAndQueried() {
         // given
         let transaction = sut.create()
         transaction.handle = UUID().uuidString

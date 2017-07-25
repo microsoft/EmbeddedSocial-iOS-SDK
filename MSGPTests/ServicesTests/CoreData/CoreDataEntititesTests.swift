@@ -7,12 +7,12 @@ import XCTest
 import CoreData
 @testable import MSGP
 
-class CoreDataModelsTests: XCTestCase {
+class CoreDataEntititesTests: XCTestCase {
     private var coreDataStack: CoreDataStack!
     
     override func setUp() {
         super.setUp()
-        coreDataStack = CoreDataSetupHelper.makeInMemoryCoreDataStack()
+        coreDataStack = CoreDataHelper.makeMSGPInMemoryStack()
     }
     
     override func tearDown() {

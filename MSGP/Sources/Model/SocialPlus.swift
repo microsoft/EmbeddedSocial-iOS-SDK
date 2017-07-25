@@ -42,7 +42,7 @@ public final class SocialPlus {
     
     private func setupCoreDataStack() {
         let model = CoreDataModel(name: "MSGP", bundle: Bundle(for: type(of: self)))
-        let builder = CoreDataStackFactory(model: model)
+        let builder = CoreDataStackBuilder(model: model)
         
         builder.makeStack { [unowned self] result in
             guard let stack = result.value else {

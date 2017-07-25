@@ -13,7 +13,7 @@ let defaultStoreOptions: PersistentStoreOptions = [
     NSInferMappingModelAutomaticallyOption as NSObject: true as AnyObject
 ]
 
-struct CoreDataStackFactory {
+struct CoreDataStackBuilder {
     let model: CoreDataModel
     let options: PersistentStoreOptions?
     
@@ -89,6 +89,14 @@ struct CoreDataStackFactory {
         }
     }
     // swiftlint:enable function_body_length
+    
+    func makeStack() -> Result<CoreDataStack> {
+        var result: Result<CoreDataStack>!
+        makeStack(onQueue: nil) { r in
+            result = r
+        }
+        return result
+    }
 
     private func createStoreCoordinator() throws -> NSPersistentStoreCoordinator {
         let storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model.managedObjectModel)

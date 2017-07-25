@@ -22,6 +22,11 @@
 		882AD0CD1F2227E100FC20B7 /* CoreDataRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0CC1F2227E100FC20B7 /* CoreDataRecord.swift */; };
 		882AD0D11F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0D01F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift */; };
 		882AD0D61F222D5200FC20B7 /* MSGP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0D41F222D5200FC20B7 /* MSGP.xcdatamodeld */; };
+		883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */; };
+		883B9B601F276BCF00D1E66E /* TestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B5E1F276BCF00D1E66E /* TestModel.xcdatamodeld */; };
+		883B9B641F2776E600D1E66E /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B631F2776E600D1E66E /* Item.swift */; };
+		883B9B661F277BE800D1E66E /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B651F277BE800D1E66E /* CoreDataStackTests.swift */; };
+		883B9B681F277E5A00D1E66E /* CoreDataSavingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B671F277E5A00D1E66E /* CoreDataSavingTests.swift */; };
 		884AD7741F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884AD7731F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift */; };
 		88580B9D1F2213AB00C1CBAF /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580A861F2213AB00C1CBAF /* AppStrings.swift */; };
 		88580B9E1F2213AB00C1CBAF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580A881F2213AB00C1CBAF /* BaseViewController.swift */; };
@@ -248,9 +253,9 @@
 		88580C7D1F2213EF00C1CBAF /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580C7C1F2213EF00C1CBAF /* Repository.swift */; };
 		88635D711F222FE800577140 /* IncomingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D701F222FE800577140 /* IncomingTransaction.swift */; };
 		88635D751F223B6600577140 /* StoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D741F223B6600577140 /* StoreType.swift */; };
-		88635D771F223F1600577140 /* CoreDataStackFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D761F223F1600577140 /* CoreDataStackFactoryTests.swift */; };
-		88635D7B1F22430300577140 /* CoreDataModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D7A1F22430300577140 /* CoreDataModelsTests.swift */; };
-		88635D7D1F22434300577140 /* CoreDataSetupHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D7C1F22434300577140 /* CoreDataSetupHelper.swift */; };
+		88635D771F223F1600577140 /* CoreDataStackBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D761F223F1600577140 /* CoreDataStackBuilderTests.swift */; };
+		88635D7B1F22430300577140 /* CoreDataEntititesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D7A1F22430300577140 /* CoreDataEntititesTests.swift */; };
+		88635D7D1F22434300577140 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D7C1F22434300577140 /* CoreDataHelper.swift */; };
 		88635D7F1F22447C00577140 /* OutgoingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D7E1F22447C00577140 /* OutgoingTransaction.swift */; };
 		88635D881F224F3200577140 /* CoreDataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */; };
 		88635D8B1F25D96800577140 /* TransactionsDatabaseFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */; };
@@ -367,6 +372,11 @@
 		882AD0CC1F2227E100FC20B7 /* CoreDataRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataRecord.swift; sourceTree = "<group>"; };
 		882AD0D01F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Convenience.swift"; sourceTree = "<group>"; };
 		882AD0D51F222D5200FC20B7 /* MSGP.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MSGP.xcdatamodel; sourceTree = "<group>"; };
+		883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModelTests.swift; sourceTree = "<group>"; };
+		883B9B5F1F276BCF00D1E66E /* TestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModel.xcdatamodel; sourceTree = "<group>"; };
+		883B9B631F2776E600D1E66E /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		883B9B651F277BE800D1E66E /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
+		883B9B671F277E5A00D1E66E /* CoreDataSavingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataSavingTests.swift; sourceTree = "<group>"; };
 		884AD7731F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDatabaseFacadeProtocol.swift; sourceTree = "<group>"; };
 		88580A861F2213AB00C1CBAF /* AppStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
 		88580A881F2213AB00C1CBAF /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -593,9 +603,9 @@
 		88580C7C1F2213EF00C1CBAF /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		88635D701F222FE800577140 /* IncomingTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingTransaction.swift; sourceTree = "<group>"; };
 		88635D741F223B6600577140 /* StoreType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreType.swift; sourceTree = "<group>"; };
-		88635D761F223F1600577140 /* CoreDataStackFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackFactoryTests.swift; sourceTree = "<group>"; };
-		88635D7A1F22430300577140 /* CoreDataModelsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModelsTests.swift; sourceTree = "<group>"; };
-		88635D7C1F22434300577140 /* CoreDataSetupHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataSetupHelper.swift; sourceTree = "<group>"; };
+		88635D761F223F1600577140 /* CoreDataStackBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackBuilderTests.swift; sourceTree = "<group>"; };
+		88635D7A1F22430300577140 /* CoreDataEntititesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntititesTests.swift; sourceTree = "<group>"; };
+		88635D7C1F22434300577140 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataHelper.swift; path = ../../Helpers/CoreDataHelper.swift; sourceTree = "<group>"; };
 		88635D7E1F22447C00577140 /* OutgoingTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingTransaction.swift; sourceTree = "<group>"; };
 		88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataRepositoryTests.swift; sourceTree = "<group>"; };
 		88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDatabaseFacade.swift; sourceTree = "<group>"; };
@@ -1480,11 +1490,17 @@
 		88635D781F2241E500577140 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				88635D7A1F22430300577140 /* CoreDataModelsTests.swift */,
+				88635D7C1F22434300577140 /* CoreDataHelper.swift */,
+				88635D7A1F22430300577140 /* CoreDataEntititesTests.swift */,
+				883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */,
 				88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */,
-				88635D761F223F1600577140 /* CoreDataStackFactoryTests.swift */,
+				88635D761F223F1600577140 /* CoreDataStackBuilderTests.swift */,
+				883B9B651F277BE800D1E66E /* CoreDataStackTests.swift */,
 				88F1638A1F27658B00DAAF68 /* IncomingTransactionTests.swift */,
 				88F1638C1F27677100DAAF68 /* OutgoingTransactionTests.swift */,
+				883B9B671F277E5A00D1E66E /* CoreDataSavingTests.swift */,
+				883B9B631F2776E600D1E66E /* Item.swift */,
+				883B9B5E1F276BCF00D1E66E /* TestModel.xcdatamodeld */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -1531,7 +1547,6 @@
 			isa = PBXGroup;
 			children = (
 				881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */,
-				88635D7C1F22434300577140 /* CoreDataSetupHelper.swift */,
 				889AFC061F220BCD003AAF19 /* UIImage+Ext.swift */,
 				88F1916D1F25FFD000B93ADF /* Dump.swift */,
 				88F191711F26071A00B93ADF /* XCTestCase+Ext.swift */,
@@ -2395,7 +2410,7 @@
 				889AFC1F1F220BCD003AAF19 /* UserTests.swift in Sources */,
 				889AFC281F220BCD003AAF19 /* ImageCacheAdapterTests.swift in Sources */,
 				88F163831F273CEB00DAAF68 /* MockKeyValueRepository.swift in Sources */,
-				88635D7D1F22434300577140 /* CoreDataSetupHelper.swift in Sources */,
+				88635D7D1F22434300577140 /* CoreDataHelper.swift in Sources */,
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
 				88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */,
 				88F163871F27565400DAAF68 /* TransactionsDatabaseFacadeTests.swift in Sources */,
@@ -2406,23 +2421,28 @@
 				88F1637F1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift in Sources */,
 				88635D881F224F3200577140 /* CoreDataRepositoryTests.swift in Sources */,
 				889AFC261F220BCD003AAF19 /* AuthAPIProviderTests.swift in Sources */,
-				88635D7B1F22430300577140 /* CoreDataModelsTests.swift in Sources */,
+				88635D7B1F22430300577140 /* CoreDataEntititesTests.swift in Sources */,
+				883B9B641F2776E600D1E66E /* Item.swift in Sources */,
 				889AFC1E1F220BCD003AAF19 /* PhotoTests.swift in Sources */,
 				881F7E601F2637F7003EB37A /* MementoSerializableItem.swift in Sources */,
 				88F191741F26164200B93ADF /* AuthProviderTests.swift in Sources */,
 				889AFC2B1F220BCD003AAF19 /* MockSocialPlusServices.swift in Sources */,
 				88F191721F26071A00B93ADF /* XCTestCase+Ext.swift in Sources */,
 				889AFC271F220BCD003AAF19 /* AuthServiceTests.swift in Sources */,
+				883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */,
 				88F1637B1F26494100DAAF68 /* SocialUserTests.swift in Sources */,
 				889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */,
 				88F163791F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift in Sources */,
 				88F163891F27569900DAAF68 /* MockQueriableRepository.swift in Sources */,
 				88F1638B1F27658B00DAAF68 /* IncomingTransactionTests.swift in Sources */,
 				889AFC2E1F220BCD003AAF19 /* SocialPlusTests.swift in Sources */,
+				883B9B601F276BCF00D1E66E /* TestModel.xcdatamodeld in Sources */,
 				88F1638D1F27677100DAAF68 /* OutgoingTransactionTests.swift in Sources */,
+				883B9B681F277E5A00D1E66E /* CoreDataSavingTests.swift in Sources */,
 				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
 				88F163851F2745E500DAAF68 /* CreateAccountValidatorTests.swift in Sources */,
-				88635D771F223F1600577140 /* CoreDataStackFactoryTests.swift in Sources */,
+				883B9B661F277BE800D1E66E /* CoreDataStackTests.swift in Sources */,
+				88635D771F223F1600577140 /* CoreDataStackBuilderTests.swift in Sources */,
 				889AFC301F220BCD003AAF19 /* NameComponentsSplitterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2812,6 +2832,16 @@
 			);
 			currentVersion = 882AD0D51F222D5200FC20B7 /* MSGP.xcdatamodel */;
 			path = MSGP.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		883B9B5E1F276BCF00D1E66E /* TestModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				883B9B5F1F276BCF00D1E66E /* TestModel.xcdatamodel */,
+			);
+			currentVersion = 883B9B5F1F276BCF00D1E66E /* TestModel.xcdatamodel */;
+			path = TestModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

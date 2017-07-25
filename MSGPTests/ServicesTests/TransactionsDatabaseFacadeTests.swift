@@ -19,7 +19,7 @@ class TransactionsDatabaseFacadeTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        coreDataStack = CoreDataSetupHelper.makeInMemoryCoreDataStack()
+        coreDataStack = CoreDataHelper.makeMSGPInMemoryStack()
         incomingRepo = MockQueriableRepository()
         outgoingRepo = MockQueriableRepository()
         sut = TransactionsDatabaseFacade(incomingRepo: incomingRepo, outgoingRepo: outgoingRepo)
@@ -27,7 +27,6 @@ class TransactionsDatabaseFacadeTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
-        
         coreDataStack = nil
         incomingRepo = nil
         outgoingRepo = nil
