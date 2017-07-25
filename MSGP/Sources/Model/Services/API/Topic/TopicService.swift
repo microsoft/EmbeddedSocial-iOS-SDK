@@ -1,71 +1,71 @@
 //
-//  TopicService.swift
-//  MSGP
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
-//  Created by Mac User on 24.07.17.
-//  Copyright © 2017 Akvelon. All rights reserved.
-//
-
 import Foundation
 import Alamofire
 
-typealias SuccessClosure = (PostTopicRequest) -> Void
-typealias ErrorClosure = (Error) -> Void
+typealias TopicPosted = (PostTopicRequest) -> Void
+typealias Failure = (Error) -> Void
 
 class TopicService {
-
-    var success: SuccessClosure?
-    var failure: ErrorClosure?
     
-    func postTopic(topic: PostTopicRequest, image: Photo, success: @escaping SuccessClosure, failure: @escaping ErrorClosure) {
+    private var success: TopicPosted?
+    private var failure: Failure?
+    
+    var cache: Cachable?
+    
+    func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
         self.success = success
         self.failure = failure
+        
         guard let network = NetworkReachabilityManager() else {
             return
         }
         
         if network.isReachable {
-            if let image = image.image {
+            if let image = photo?.image {
                 
-                DispatchQueue.global(qos: .userInitiated).async {
-                    guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        ImagesAPI.imagesPostImage(imageType: ImagesAPI.ImageType_imagesPostImage.contentBlob,
-                                                  image: imageData) { (response, error) in
-                                                    guard let blobHandle = response?.blobHandle else {
-                                                        if let unwrappedError = error {
-                                                            failure(unwrappedError)
-                                                        }
-                                                        return
-                                                    }
-                                                    topic.blobHandle = blobHandle
-                                                    self.sendRequest(request: topic)
-                    }
-                }
-                    
-                }
-            } else {
-                sendRequest(request: topic)
-            }
-        } else {
-//            let cacheModel = OutgoingTransaction(entity: OutgoingTransaction.entityName, insertInto: <#T##NSManagedObjectContext?#>)
-        }
-    }
-    
-    func sendRequest(request: PostTopicRequest) {
-        TopicsAPI.topicsPostTopic(request: request) { [weak self] (response, error) in
-            guard let response = response else {
-                guard let error = error else {
+                guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
                     return
                 }
                 
-                self?.failure!(error)
+                ImagesAPI.imagesPostImage(imageType: ImagesAPI.ImageType_imagesPostImage.contentBlob,
+                                          image: imageData) { [weak self] (response, error) in
+                                            guard let blobHandle = response?.blobHandle else {
+                                                if let unwrappedError = error {
+                                                    failure(unwrappedError)
+                                                }
+                                                return
+                                            }
+                                            
+                                            topic.blobHandle = blobHandle
+                                            self?.sendPostTopicRequest(request: topic)
+                }
+            } else {
+                sendPostTopicRequest(request: topic)
+            }
+        } else {
+            
+            if photo != nil {
+                cache?.cacheOutgoing(object: photo!)
+                topic.blobHandle = photo?.url
+            }
+            
+            cache?.cacheOutgoing(object: topic)
+        }
+    }
+    
+    private func sendPostTopicRequest(request: PostTopicRequest) {
+        TopicsAPI.topicsPostTopic(request: request) { [weak self] (response, error) in
+            guard let response = response else {
+                self?.failure!(error!)
                 return
             }
+            
+            print(response.topicHandle!)
+            self?.cache?.cacheIncoming(object: request)
             self?.success!(request)
-//            self.output.created(post: response)
         }
     }
 }

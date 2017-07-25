@@ -6,46 +6,17 @@
 class CreatePostInteractor: CreatePostInteractorInput {
     
     weak var output: CreatePostInteractorOutput!
+    var topicService: TopicService?
     
-    func postTopic(image: UIImage?, title: String?, body: String!) {
-        let request = PostTopicRequest()
-        request.title = title
-        request.text = body
+    func postTopic(photo: Photo?, title: String?, body: String!) {
+        let topic = PostTopicRequest()
+        topic.title = title
+        topic.text = body
         
-        if let image = image {
-            guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
-                return
-            }
-            
-            ImagesAPI.imagesPostImage(imageType: ImagesAPI.ImageType_imagesPostImage.contentBlob,
-                                      image: imageData) { (response, error) in
-                                        guard let blobHandle = response?.blobHandle else {
-                                            if let unwrappedError = error {
-                                                self.output.postCreationFailed(error: unwrappedError)
-                                            }
-                                            return
-                                        }
-                                        request.blobHandle = blobHandle
-                                        self.sendRequest(request: request)
-               
-            }
-        } else {
-            sendRequest(request: request)
-        }
-        
-    }
-    
-    func sendRequest(request: PostTopicRequest) {
-        TopicsAPI.topicsPostTopic(request: request) { (response, error) in
-            guard let response = response else {
-                guard let error = error else {
-                    return
-                }
-                self.output.postCreationFailed(error: error)
-                return
-            }
-            
-            self.output.created(post: response)
-        }
+        topicService?.postTopic(topic: topic, photo: photo, success: { (_) in
+            self.output.created()
+        }, failure: { (error) in
+            self.output.postCreationFailed(error: error)
+        })
     }
 }

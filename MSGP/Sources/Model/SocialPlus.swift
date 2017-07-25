@@ -13,6 +13,8 @@ public final class SocialPlus {
     
     fileprivate let coordinator = CrossModuleCoordinator()
     private(set) var coreDataStack: CoreDataStack!
+    
+    private(set) var cache: Cache!
 
     private init() {
         setupServices(with: SocialPlusServices())
@@ -33,6 +35,7 @@ public final class SocialPlus {
         ThirdPartyConfigurator.setup(application: args.app, launchOptions: args.launchOptions)
         coordinator.setup(launchArguments: args, loginHandler: self)
         setupCoreDataStack()
+        setupCache()
         
         if sessionStore.isLoggedIn {
             // FIXME: coordinator.onSessionCreated crashes if uncommented
@@ -50,6 +53,13 @@ public final class SocialPlus {
             }
             self.coreDataStack = stack
         }
+    }
+    
+    private func setupCache() {
+        let incomingTransaction = QueriableRepository<IncomingTransaction>()
+        let outgoingTransaction = QueriableRepository<OutgoingTransaction>()
+        let database = TransactionsDatabaseFacade(incomingRepo: incomingTransaction, outgoingRepo: outgoingTransaction)
+        cache = Cache(database: database)
     }
 }
 

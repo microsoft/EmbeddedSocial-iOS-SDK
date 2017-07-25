@@ -13,6 +13,6 @@ protocol CreatePostViewOutput {
     */
 
     func viewIsReady()
-    func post(image: UIImage?, title: String?, body: String!)
+    func post(photo: Photo?, title: String?, body: String!)
     func back()
 }

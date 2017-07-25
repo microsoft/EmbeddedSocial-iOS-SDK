@@ -7,7 +7,7 @@ import UIKit
 
 class CreatePostModuleConfigurator {
 
-    func configure(viewController: CreatePostViewController, user: User) {
+    func configure(viewController: CreatePostViewController, user: User, cache: Cache = SocialPlus.shared.cache) {
 
         let router = CreatePostRouter()
 
@@ -18,6 +18,9 @@ class CreatePostModuleConfigurator {
 
         let interactor = CreatePostInteractor()
         interactor.output = presenter
+        let topicService = TopicService()
+        topicService.cache = cache
+        interactor.topicService = topicService
 
         presenter.interactor = interactor
         viewController.output = presenter

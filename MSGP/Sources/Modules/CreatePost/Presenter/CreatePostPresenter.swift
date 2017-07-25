@@ -17,8 +17,8 @@ class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePo
         view.show(user: user!)
     }
     
-    func post(image: UIImage?, title: String?, body: String!) {
-        interactor.postTopic(image: image, title: title, body: body)
+    func post(photo: Photo?, title: String?, body: String!) {
+        interactor.postTopic(photo: photo, title: title, body: body)
     }
     
     func back() {
@@ -30,8 +30,9 @@ class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePo
     }
     
     // MARK: CreatePostInteractorOutput
-    func created(post: PostTopicResponse) {
+    func created() {
         // TODO: handle
+        back()
     }
     
     func postCreationFailed(error: Error) {

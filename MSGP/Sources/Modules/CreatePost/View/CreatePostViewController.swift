@@ -16,9 +16,10 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     @IBOutlet fileprivate weak var titleTextField: UITextField!
     @IBOutlet fileprivate weak var postBodyTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet fileprivate weak var postBodyTextView: UITextView!
+    @IBOutlet weak var mediaButtonHeightConstraint: NSLayoutConstraint!
     
     fileprivate let imagePikcer = ImagePicker()
-    fileprivate var originImage: UIImage?
+    fileprivate var photo: Photo?
     fileprivate var postButton: UIBarButtonItem!
 
     // MARK: Life cycle
@@ -54,18 +55,18 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     
     // MARK: Actions
     @objc fileprivate func post() {
-        output.post(image: originImage, title: titleTextField.text, body: postBodyTextView.text)
+        output.post(photo: photo, title: titleTextField.text, body: postBodyTextView.text)
     }
     
     @IBAction fileprivate func mediaButtonPressed(_ sender: Any) {
         let options = ImagePicker.Options(title: Alerts.Titles.choose,
-                                          message: Alerts.Messages.leaveNewPost,
+                                          message: nil,
                                           sourceViewController: self)
         imagePikcer.show(with: options)
     }
     
     @objc fileprivate func back() {
-        if postBodyTextView.text.isEmpty && (titleTextField.text?.isEmpty)! && originImage == nil {
+        if postBodyTextView.text.isEmpty && (titleTextField.text?.isEmpty)! && photo == nil {
             output.back()
         }
         
@@ -86,10 +87,12 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
 
 // MARK: ImagePickerDelegate
 extension CreatePostViewController: ImagePickerDelegate {
-    func selected(image: UIImage) {
-        originImage = image
-        let size = CGSize(width: UIScreen.main.bounds.width, height: image.size.height)
-        let resizedImage = image.scaledToFit(toSize: size)
+    func selected(photo: Photo) {
+        mediaButtonHeightConstraint.priority = 250
+        self.photo = photo
+        let image = photo.image
+        let size = CGSize(width: UIScreen.main.bounds.width, height: (image?.size.height)!)
+        let resizedImage = image?.scaledToFit(toSize: size)
         mediaButton.setImage(resizedImage, for: .normal)
         view.layoutIfNeeded()
     }
