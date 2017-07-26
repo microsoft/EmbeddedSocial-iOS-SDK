@@ -68,6 +68,17 @@ extension UIButton.Style {
                               borderWidth: 0.0,
                               cornerRadius: 8.0)
     }
+    
+    static var blocked: UIButton.Style {
+        return UIButton.Style(title: "BLOCKED",
+                              backgroundColor: .clear,
+                              tintColor: Palette.lightGrey,
+                              titleColor: Palette.lightGrey,
+                              titleFont: Fonts.small,
+                              borderColor: Palette.lightGrey,
+                              borderWidth: 1.0,
+                              cornerRadius: 8.0)
+    }
 }
 
 extension UIButton {

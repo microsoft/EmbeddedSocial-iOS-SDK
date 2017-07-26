@@ -30,7 +30,10 @@ extension UIView: Reusable { }
 extension Reusable where Self: UIView {
     /// Don't set a nib's owner. Set view's class to the one being loaded.
     static func fromNib() -> Self {
-        return Bundle(for: self).loadNibNamed(Self.reuseID, owner: nil, options: nil)![0] as! Self
+        guard let view = Bundle(for: self).loadNibNamed(Self.reuseID, owner: nil, options: nil)?[0] as? Self else {
+            fatalError()
+        }
+        return view
     }
     
     /// Set a view class as it's nib owner. Don't set any class to the view itself.
@@ -38,7 +41,9 @@ extension Reusable where Self: UIView {
     func loadViewFromNib() -> UIView {
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: Self.reuseID, bundle: bundle)
-        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
+        guard let view = nib.instantiate(withOwner: self, options: nil)[0] as? UIView else {
+            fatalError()
+        }
         
         view.frame = bounds
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]

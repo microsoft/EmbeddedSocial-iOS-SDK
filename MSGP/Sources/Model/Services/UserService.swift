@@ -17,10 +17,9 @@ struct UserService: UserServiceType {
         APISettings.shared.customHeaders = socialUser.credentials.authHeader
         
         UsersAPI.usersGetMyProfile { profile, error in
-            guard let profile = profile,
-                let userHandle = profile.userHandle else {
-                    completion(.failure(error ?? APIError.missingUserData))
-                    return
+            guard let profile = profile, let userHandle = profile.userHandle else {
+                completion(.failure(error ?? APIError.missingUserData))
+                return
             }
             
             let user = User(socialUser: socialUser, userHandle: userHandle)

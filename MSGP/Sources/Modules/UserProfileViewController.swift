@@ -31,7 +31,11 @@ class UserProfileViewController: UIViewController {
                         email: nil,
                         bio: "Seattle-based designer, world-class dude.",
                         photo: Photo(image: UIImage(asset: .userPhotoPlaceholder)),
-                        credentials: CredentialsList(provider: .facebook, accessToken: "", socialUID: ""))
-        header.configure(user: user, relation: .pendingRequest)
+                        credentials: CredentialsList(provider: .facebook, accessToken: "", socialUID: ""),
+                        followersCount: 12,
+                        followingCount: 16,
+                        visibility: ._public,
+                        followingStatus: .blocked)
+        header.configure(user: user)
     }
 }

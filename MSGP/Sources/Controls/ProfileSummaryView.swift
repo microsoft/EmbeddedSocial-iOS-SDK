@@ -8,22 +8,6 @@
 
 import UIKit
 
-enum UserRelation: Int {
-    case me
-    case notFollowing
-    case following
-    case pendingRequest
-    
-    var buttonStyle: UIButton.Style? {
-        switch self {
-        case .me: return nil
-        case .notFollowing: return .follow
-        case .following: return .following
-        case .pendingRequest: return .pending
-        }
-    }
-}
-
 class ProfileSummaryView: UIView {
     @IBOutlet fileprivate weak var imageView: UIImageView!
     
@@ -65,6 +49,14 @@ class ProfileSummaryView: UIView {
     
     @IBOutlet fileprivate weak var followButton: UIButton!
     
+    var onFollowers: (() -> Void)?
+    
+    var onFollowing: (() -> Void)?
+    
+    var onEdit: (() -> Void)?
+    
+    var onFollow: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupStyles()
@@ -79,20 +71,39 @@ class ProfileSummaryView: UIView {
         imageView.makeCircular()
     }
     
-    func configure(user: User, relation: UserRelation) {
+    func configure(user: User) {
         nameLabel.text = user.fullName
         detailsLabel.text = user.bio ?? Constants.Placeholder.notSpecified
         imageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: .userPhotoPlaceholder))
         
         followersButton.setTitle("12 followers", for: .normal)
         followingButton.setTitle("16 followers", for: .normal)
-        editButton.setTitle("16 followers", for: .normal)
         
-        editButton.isHidden = relation != .me
-        followButton.isHidden = relation == .me
+        configure(followingStatus: user.followingStatus)
+    }
+    
+    func configure(followingStatus: FollowStatus?) {
+        editButton.isHidden = followingStatus != nil
+        followButton.isHidden = followingStatus == nil
         
-        if let style = relation.buttonStyle {
+        if let style = followingStatus?.buttonStyle {
             followButton.apply(style: style)
         }
+    }
+    
+    @IBAction private func onFollowers(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction private func onFollowing(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction private func onEdit(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction private func onFollow(_ sender: UIButton) {
+        
     }
 }

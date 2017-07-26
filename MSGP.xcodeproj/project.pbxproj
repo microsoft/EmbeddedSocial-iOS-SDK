@@ -16,6 +16,8 @@
 		881060F21F28CCA0008CA2FB /* ProfileSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881060F11F28CCA0008CA2FB /* ProfileSummaryView.swift */; };
 		881060F61F28CCBE008CA2FB /* ProfileSummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 881060F51F28CCBE008CA2FB /* ProfileSummaryView.xib */; };
 		881060F91F28E502008CA2FB /* UIButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881060F81F28E502008CA2FB /* UIButtonStyles.swift */; };
+		881060FB1F28F3E4008CA2FB /* FollowStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881060FA1F28F3E4008CA2FB /* FollowStatus.swift */; };
+		881060FD1F28F4B2008CA2FB /* Visibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881060FC1F28F4B2008CA2FB /* Visibility.swift */; };
 		881F7E5C1F263543003EB37A /* MSGP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		881F7E5E1F2637B7003EB37A /* KeyValueRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */; };
 		881F7E601F2637F7003EB37A /* MementoSerializableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */; };
@@ -401,6 +403,8 @@
 		881060F11F28CCA0008CA2FB /* ProfileSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSummaryView.swift; sourceTree = "<group>"; };
 		881060F51F28CCBE008CA2FB /* ProfileSummaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileSummaryView.xib; sourceTree = "<group>"; };
 		881060F81F28E502008CA2FB /* UIButtonStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonStyles.swift; sourceTree = "<group>"; };
+		881060FA1F28F3E4008CA2FB /* FollowStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowStatus.swift; sourceTree = "<group>"; };
+		881060FC1F28F4B2008CA2FB /* Visibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Visibility.swift; sourceTree = "<group>"; };
 		881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueRepositoryTests.swift; sourceTree = "<group>"; };
 		881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MementoSerializableItem.swift; sourceTree = "<group>"; };
 		881F7E611F263888003EB37A /* MockKeyValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeyValueStorage.swift; sourceTree = "<group>"; };
@@ -1141,6 +1145,8 @@
 				88580B0C1F2213AB00C1CBAF /* SessionStore.swift */,
 				88580B0D1F2213AB00C1CBAF /* SocialUser.swift */,
 				88580B0E1F2213AB00C1CBAF /* User.swift */,
+				881060FA1F28F3E4008CA2FB /* FollowStatus.swift */,
+				881060FC1F28F4B2008CA2FB /* Visibility.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -2408,6 +2414,7 @@
 				88580C011F2213AB00C1CBAF /* PutTopicNameRequest.swift in Sources */,
 				88580C6E1F2213AB00C1CBAF /* TabMenuContainerRouter.swift in Sources */,
 				88580BF21F2213AB00C1CBAF /* PostImageResponse.swift in Sources */,
+				881060FB1F28F3E4008CA2FB /* FollowStatus.swift in Sources */,
 				88580C471F2213AB00C1CBAF /* CreatePostPresenter.swift in Sources */,
 				88580BC41F2213AB00C1CBAF /* UIView+Ext.swift in Sources */,
 				88580C0C1F2213AB00C1CBAF /* Storyboards.swift in Sources */,
@@ -2438,6 +2445,7 @@
 				88580C771F2213AB00C1CBAF /* NameComponentsSplitter.swift in Sources */,
 				88580BB71F2213AB00C1CBAF /* TextViewCell.swift in Sources */,
 				88580BD41F2213AB00C1CBAF /* SessionsAPI.swift in Sources */,
+				881060FD1F28F4B2008CA2FB /* Visibility.swift in Sources */,
 				88580BAF1F2213AB00C1CBAF /* SideMenuStackController.swift in Sources */,
 				882AD0BC1F221D4400FC20B7 /* CoreDataModel.swift in Sources */,
 				88580BB31F2213AB00C1CBAF /* LoadingIndicatorView.swift in Sources */,

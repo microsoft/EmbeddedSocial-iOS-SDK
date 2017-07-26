@@ -26,18 +26,30 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wKP-hd-6jM">
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="34"/>
                                     <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="onFollowers:" destination="Rwl-LM-DEL" eventType="touchUpInside" id="A35-Vj-joj"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0F-cZ-KVf">
                                     <rect key="frame" x="104" y="0.0" width="103.5" height="34"/>
                                     <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="onFollowing:" destination="Rwl-LM-DEL" eventType="touchUpInside" id="Hh4-Ts-ftq"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eb4-Q1-sBU">
                                     <rect key="frame" x="207.5" y="0.0" width="103.5" height="34"/>
                                     <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="onEdit:" destination="Rwl-LM-DEL" eventType="touchUpInside" id="ms7-q0-Ohm"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rEy-fm-dlg">
                                     <rect key="frame" x="207.5" y="0.0" width="103.5" height="34"/>
                                     <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="onFollow:" destination="Rwl-LM-DEL" eventType="touchUpInside" id="nsZ-xz-vSR"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
