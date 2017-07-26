@@ -15,11 +15,11 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     func flip(layout: inout HomeLayoutType) {
         layout = HomeLayoutType(rawValue: layout.rawValue ^ 1)!
     }
-
+    
     func itemModel(for path: IndexPath) -> TopicCellData {
         return items[path.row]
     }
-
+    
     weak var view: HomeViewInput!
     var interactor: HomeInteractorInput!
     var router: HomeRouterInput!
@@ -30,7 +30,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     }
     
     lazy var items: [TopicCellData] = {
-
+        
         return [
             TopicCellData(userName: "Willy Mates",
                           userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
@@ -57,7 +57,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
                           postTitle: "New money !",
                           postText: "Best steel in the World.", postCreation: "2h",
                           postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
-        ]
+            ]
     }()
     
     func numberOfItems() -> Int {
@@ -65,6 +65,20 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     }
     
     func didPullRefresh() {
-        items.append(<#T##newElement: TopicCellData##TopicCellData#>)
+        
+        view.setRefreshing(state: true)
+        items.insert(
+            TopicCellData(userName: "New post \(items.count + 1)",
+                userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
+                postTitle: "Testings",
+                postText: "Testing", postCreation: "now",
+                postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
+            at: 0)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.view.setRefreshing(state: false)
+            self.view.reload()
+        }
+
     }
 }

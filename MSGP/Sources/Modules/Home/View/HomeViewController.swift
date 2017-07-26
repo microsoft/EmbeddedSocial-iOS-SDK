@@ -1,9 +1,6 @@
 //
-//  HomeHomeViewController.swift
-//  MSGP-Framework
-//
-//  Created by igor.popov on 24/07/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import UIKit
@@ -91,8 +88,10 @@ class HomeViewController: UIViewController, HomeViewInput {
     }
     
     func onUpdateBounds() {
-        updateLayoutFlowForList(layout: listLayout, containerWidth: collectionView!.bounds.width)
-        updateLayoutFlowForList(layout: gridLayout, containerWidth: collectionView!.bounds.width)
+        if let collectionView = self.collectionView {
+            updateLayoutFlowForList(layout: listLayout, containerWidth: collectionView.bounds.width)
+            updateLayoutFlowForList(layout: gridLayout, containerWidth: collectionView.bounds.width)
+        }
     }
     
     func updateLayoutFlowForList(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
@@ -124,7 +123,7 @@ class HomeViewController: UIViewController, HomeViewInput {
     
     // MARK: HomeViewInput
     func setupInitialState() {
-        
+        collectionView!.addSubview(refreshControl)
     }
     
     func setLayout(type: HomeLayoutType) {
@@ -138,8 +137,13 @@ class HomeViewController: UIViewController, HomeViewInput {
             }
             refreshControl.beginRefreshing()
         } else {
-            collectionView!.removeFromSuperview()
+            refreshControl.endRefreshing()
+//            refreshControl.removeFromSuperview()
         }
+    }
+    
+    func reload() {
+        collectionView?.reloadData()
     }
 }
 
