@@ -13,7 +13,11 @@ class TopicService {
     private var success: TopicPosted?
     private var failure: Failure?
     
-    var cache: Cachable?
+    private var cache: Cachable!
+    
+    init(cache: Cachable) {
+        self.cache = cache
+    }
     
     func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
         self.success = success
@@ -64,7 +68,6 @@ class TopicService {
             }
             
             print(response.topicHandle!)
-            self?.cache?.cacheIncoming(object: request)
             self?.success!(request)
         }
     }
