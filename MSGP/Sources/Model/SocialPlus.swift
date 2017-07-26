@@ -13,6 +13,8 @@ public final class SocialPlus {
     
     fileprivate let coordinator = CrossModuleCoordinator()
     private(set) var coreDataStack: CoreDataStack!
+    
+    private(set) var cache: Cache!
 
     private init() {
         setupServices(with: SocialPlusServices())
@@ -33,23 +35,23 @@ public final class SocialPlus {
         ThirdPartyConfigurator.setup(application: args.app, launchOptions: args.launchOptions)
         coordinator.setup(launchArguments: args, loginHandler: self)
         setupCoreDataStack()
+        setupCache(stack: coreDataStack)
         
         if sessionStore.isLoggedIn {
-            // FIXME: coordinator.onSessionCreated crashes if uncommented
-//             coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
+             coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
         }
     }
     
     private func setupCoreDataStack() {
         let model = CoreDataModel(name: "MSGP", bundle: Bundle(for: type(of: self)))
         let builder = CoreDataStackBuilder(model: model)
-        
-        builder.makeStack { [unowned self] result in
-            guard let stack = result.value else {
-                fatalError("*** Cannot set up Core Data stack")
-            }
-            self.coreDataStack = stack
-        }
+        coreDataStack = builder.makeStack().value
+    }
+    
+    private func setupCache(stack: CoreDataStack) {
+        let database = TransactionsDatabaseFacade(incomingRepo: CoreDataRepository(context: stack.backgroundContext),
+                                                  outgoingRepo: CoreDataRepository(context: stack.backgroundContext))
+        cache = Cache(database: database)
     }
 }
 

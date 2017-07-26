@@ -13,6 +13,8 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     @IBOutlet var accountInfoShownConstraint: NSLayoutConstraint?
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var accountInfoView: SideMenuAccountInfoView?
+    @IBOutlet weak var socialButton: SideMenuButton?
+    @IBOutlet weak var clientButton: SideMenuButton?
     
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -35,6 +37,11 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
         tableView?.endUpdates()
     }
     
+    func selectBar(with index: Int) {
+        socialButton?.isSelected = socialButton?.tag == index
+        clientButton?.isSelected = clientButton?.tag == index
+    }
+    
     // MARK: UX
     @IBAction func onTapBar(_ sender: UIButton) {
         output.didSwitch(to: sender.tag)
@@ -53,8 +60,7 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     func showAccountInfo(visible: Bool) {
         
         let accountInfoModel = output.accountInfo()
-        accountInfoView!.configure(with: accountInfoModel)
-        
+        accountInfoView?.configure(with: accountInfoModel)
         accountInfoShownConstraint?.isActive = visible
         view.setNeedsLayout()
         view.layoutIfNeeded()

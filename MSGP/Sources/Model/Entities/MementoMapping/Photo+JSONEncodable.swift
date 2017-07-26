@@ -2,10 +2,10 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
-
 import Foundation
 
-protocol CreatePostInteractorOutput: class {
-    func created()
-    func postCreationFailed(error: Error)
+extension Photo: JSONEncodable {
+    func encodeToJSON() -> Any {
+        return self.memento
+    }
 }
