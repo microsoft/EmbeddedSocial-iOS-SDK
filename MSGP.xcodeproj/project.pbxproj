@@ -365,7 +365,7 @@
 
 /* Begin PBXFileReference section */
 		881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueRepositoryTests.swift; sourceTree = "<group>"; };
-		881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MementoSerializableItem.swift; path = ../ServicesTests/Mocks/MementoSerializableItem.swift; sourceTree = "<group>"; };
+		881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MementoSerializableItem.swift; path = MementoSerializableItem.swift; sourceTree = "<group>"; };
 		881F7E611F263888003EB37A /* MockKeyValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeyValueStorage.swift; sourceTree = "<group>"; };
 		882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonFunctions.swift; sourceTree = "<group>"; };
 		882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
@@ -610,7 +610,7 @@
 		88635D741F223B6600577140 /* StoreType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreType.swift; sourceTree = "<group>"; };
 		88635D761F223F1600577140 /* CoreDataStackBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackBuilderTests.swift; sourceTree = "<group>"; };
 		88635D7A1F22430300577140 /* CoreDataEntititesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntititesTests.swift; sourceTree = "<group>"; };
-		88635D7C1F22434300577140 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataHelper.swift; path = ../../Helpers/CoreDataHelper.swift; sourceTree = "<group>"; };
+		88635D7C1F22434300577140 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataHelper.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		88635D7E1F22447C00577140 /* OutgoingTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingTransaction.swift; sourceTree = "<group>"; };
 		88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataRepositoryTests.swift; sourceTree = "<group>"; };
 		88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDatabaseFacade.swift; sourceTree = "<group>"; };
@@ -668,8 +668,8 @@
 		88F191711F26071A00B93ADF /* XCTestCase+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Ext.swift"; sourceTree = "<group>"; };
 		88F191731F26164200B93ADF /* AuthProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthProviderTests.swift; sourceTree = "<group>"; };
 		88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInteractorTests.swift; sourceTree = "<group>"; };
-		88F7A7881F27896B005FEC5F /* MockAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockAuthService.swift; path = ../../Modules/MockAuthService.swift; sourceTree = "<group>"; };
-		88F7A78A1F2789F0005FEC5F /* MockUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockUserService.swift; path = ../../Modules/MockUserService.swift; sourceTree = "<group>"; };
+		88F7A7881F27896B005FEC5F /* MockAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockAuthService.swift; path = MockAuthService.swift; sourceTree = "<group>"; };
+		88F7A78A1F2789F0005FEC5F /* MockUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockUserService.swift; path = MockUserService.swift; sourceTree = "<group>"; };
 		88F7A78C1F278AA4005FEC5F /* MockSessionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSessionService.swift; sourceTree = "<group>"; };
 		88F7A78E1F278C47005FEC5F /* LoginPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPresenterTests.swift; sourceTree = "<group>"; };
 		88F7A7901F278C9B005FEC5F /* MockLoginViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLoginViewInput.swift; sourceTree = "<group>"; };
@@ -780,7 +780,7 @@
 				884AD7731F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift */,
 			);
 			name = "Transactions Database";
-			path = "../Transactions Database";
+			path = "Transactions Database";
 			sourceTree = "<group>";
 		};
 		88580A841F2213AB00C1CBAF /* Sources */ = {
@@ -1049,8 +1049,8 @@
 				88580B111F2213AB00C1CBAF /* Auth */,
 				88580B1A1F2213AB00C1CBAF /* MementoSerialization */,
 				88635D891F25D93A00577140 /* SessionStoreDatabase */,
-				88580B271F2213AB00C1CBAF /* URLSchemeService */,
 				884AD7721F25E76300536494 /* Transactions Database */,
+				88580B271F2213AB00C1CBAF /* URLSchemeService */,
 				88580B211F2213AB00C1CBAF /* SessionService.swift */,
 				88580B251F2213AB00C1CBAF /* SocialMenuItemsProvider.swift */,
 				88580B261F2213AB00C1CBAF /* SocialPlusServiceProvider.swift */,
@@ -1483,20 +1483,20 @@
 		88635D781F2241E500577140 /* CoreDataTests */ = {
 			isa = PBXGroup;
 			children = (
-				88635D7C1F22434300577140 /* CoreDataHelper.swift */,
 				88635D7A1F22430300577140 /* CoreDataEntititesTests.swift */,
+				88635D7C1F22434300577140 /* CoreDataHelper.swift */,
 				883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */,
 				88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */,
+				883B9B671F277E5A00D1E66E /* CoreDataSavingTests.swift */,
 				88635D761F223F1600577140 /* CoreDataStackBuilderTests.swift */,
 				883B9B651F277BE800D1E66E /* CoreDataStackTests.swift */,
 				88F1638A1F27658B00DAAF68 /* IncomingTransactionTests.swift */,
-				88F1638C1F27677100DAAF68 /* OutgoingTransactionTests.swift */,
-				883B9B671F277E5A00D1E66E /* CoreDataSavingTests.swift */,
 				883B9B631F2776E600D1E66E /* Item.swift */,
+				88F1638C1F27677100DAAF68 /* OutgoingTransactionTests.swift */,
 				883B9B5E1F276BCF00D1E66E /* TestModel.xcdatamodeld */,
 			);
 			name = CoreDataTests;
-			path = ServicesTests/CoreData;
+			path = CoreDataTests;
 			sourceTree = "<group>";
 		};
 		88635D891F25D93A00577140 /* SessionStoreDatabase */ = {
@@ -1527,12 +1527,12 @@
 		889AFC011F220BCD003AAF19 /* EntitiesTests */ = {
 			isa = PBXGroup;
 			children = (
+				88F191731F26164200B93ADF /* AuthProviderTests.swift */,
 				889AFC021F220BCD003AAF19 /* CredentialsListTests.swift */,
 				889AFC031F220BCD003AAF19 /* PhotoTests.swift */,
-				889AFC041F220BCD003AAF19 /* UserTests.swift */,
-				88F191731F26164200B93ADF /* AuthProviderTests.swift */,
-				88F1637A1F26494100DAAF68 /* SocialUserTests.swift */,
 				88F1637C1F264B0F00DAAF68 /* SessionStoreTests.swift */,
+				88F1637A1F26494100DAAF68 /* SocialUserTests.swift */,
+				889AFC041F220BCD003AAF19 /* UserTests.swift */,
 			);
 			path = EntitiesTests;
 			sourceTree = "<group>";
@@ -1540,9 +1540,9 @@
 		889AFC051F220BCD003AAF19 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				88F1916D1F25FFD000B93ADF /* Dump.swift */,
 				881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */,
 				889AFC061F220BCD003AAF19 /* UIImage+Ext.swift */,
-				88F1916D1F25FFD000B93ADF /* Dump.swift */,
 				88F191711F26071A00B93ADF /* XCTestCase+Ext.swift */,
 			);
 			path = Helpers;
@@ -1553,8 +1553,8 @@
 			children = (
 				88F7A7991F27976E005FEC5F /* CreateAccount */,
 				889AFC081F220BCD003AAF19 /* CreatePost */,
-				889AFC0C1F220BCD003AAF19 /* SideMenu */,
 				88F7A7871F2788E1005FEC5F /* Login */,
+				889AFC0C1F220BCD003AAF19 /* SideMenu */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1584,11 +1584,11 @@
 				889AFC101F220BCD003AAF19 /* AuthAPIProviderTests.swift */,
 				889AFC111F220BCD003AAF19 /* AuthServiceTests.swift */,
 				889AFC121F220BCD003AAF19 /* ImageCacheAdapterTests.swift */,
-				889AFC191F220BCD003AAF19 /* SocialPlusTests.swift */,
-				889AFC1A1F220BCD003AAF19 /* URLSchemeServiceTests.swift */,
 				881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */,
 				88F163781F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift */,
+				889AFC191F220BCD003AAF19 /* SocialPlusTests.swift */,
 				88F163861F27565400DAAF68 /* TransactionsDatabaseFacadeTests.swift */,
+				889AFC1A1F220BCD003AAF19 /* URLSchemeServiceTests.swift */,
 			);
 			path = ServicesTests;
 			sourceTree = "<group>";
@@ -1596,29 +1596,29 @@
 		889AFC131F220BCD003AAF19 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				88F7A78A1F2789F0005FEC5F /* MockUserService.swift */,
-				88F7A78C1F278AA4005FEC5F /* MockSessionService.swift */,
-				88F7A7881F27896B005FEC5F /* MockAuthService.swift */,
 				889AFC141F220BCD003AAF19 /* MockAuthAPI.swift */,
 				889AFC151F220BCD003AAF19 /* MockAuthAPIProvider.swift */,
+				88F7A7881F27896B005FEC5F /* MockAuthService.swift */,
+				88F163821F273CEB00DAAF68 /* MockKeyValueRepository.swift */,
+				881F7E611F263888003EB37A /* MockKeyValueStorage.swift */,
+				88F163881F27569900DAAF68 /* MockQueriableRepository.swift */,
+				88F7A78C1F278AA4005FEC5F /* MockSessionService.swift */,
+				88F1637E1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift */,
+				88F163801F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift */,
 				889AFC161F220BCD003AAF19 /* MockSocialPlusServices.swift */,
 				889AFC171F220BCD003AAF19 /* MockURLScheme.swift */,
 				889AFC181F220BCD003AAF19 /* MockURLSchemeService.swift */,
-				881F7E611F263888003EB37A /* MockKeyValueStorage.swift */,
-				88F1637E1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift */,
-				88F163801F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift */,
-				88F163821F273CEB00DAAF68 /* MockKeyValueRepository.swift */,
-				88F163881F27569900DAAF68 /* MockQueriableRepository.swift */,
+				88F7A78A1F2789F0005FEC5F /* MockUserService.swift */,
 			);
 			name = Mocks;
-			path = ServicesTests/Mocks;
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		889AFC1B1F220BCD003AAF19 /* UtilsTest */ = {
 			isa = PBXGroup;
 			children = (
-				889AFC1C1F220BCD003AAF19 /* NameComponentsSplitterTests.swift */,
 				88F163841F2745E500DAAF68 /* CreateAccountValidatorTests.swift */,
+				889AFC1C1F220BCD003AAF19 /* NameComponentsSplitterTests.swift */,
 			);
 			path = UtilsTest;
 			sourceTree = "<group>";
@@ -1643,44 +1643,48 @@
 		88F7A7871F2788E1005FEC5F /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				88F7A7981F278E31005FEC5F /* Mocks */,
 				88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */,
 				88F7A78E1F278C47005FEC5F /* LoginPresenterTests.swift */,
-				88F7A7981F278E31005FEC5F /* Mocks */,
 			);
 			name = Login;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		88F7A7981F278E31005FEC5F /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				88F7A7901F278C9B005FEC5F /* MockLoginViewInput.swift */,
 				88F7A7921F278D33005FEC5F /* MockLoginInteractor.swift */,
-				88F7A7941F278D90005FEC5F /* MockLoginRouter.swift */,
 				88F7A7961F278E24005FEC5F /* MockLoginModuleOutput.swift */,
+				88F7A7941F278D90005FEC5F /* MockLoginRouter.swift */,
+				88F7A7901F278C9B005FEC5F /* MockLoginViewInput.swift */,
 			);
 			name = Mocks;
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		88F7A7991F27976E005FEC5F /* CreateAccount */ = {
 			isa = PBXGroup;
 			children = (
+				88F7A7AA1F28913F005FEC5F /* Mocks */,
 				88F7A79A1F279788005FEC5F /* CreateAccountInteractorTests.swift */,
 				88F7A79C1F2799CA005FEC5F /* CreateAccountPresenterTests.swift */,
-				88F7A7AA1F28913F005FEC5F /* Mocks */,
 			);
 			name = CreateAccount;
+			path = CreateAccount;
 			sourceTree = "<group>";
 		};
 		88F7A7AA1F28913F005FEC5F /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				88F7A79E1F2799F3005FEC5F /* MockCreateAccountViewController.swift */,
-				88F7A7A81F2890B1005FEC5F /* MockCreateAccountView.swift */,
 				88F7A7A01F287D51005FEC5F /* MockCreateAccountInteractor.swift */,
-				88F7A7A21F287D91005FEC5F /* MockCreateAccountRouter.swift */,
 				88F7A7A41F287DDE005FEC5F /* MockCreateAccountModuleOutput.swift */,
+				88F7A7A21F287D91005FEC5F /* MockCreateAccountRouter.swift */,
+				88F7A7A81F2890B1005FEC5F /* MockCreateAccountView.swift */,
+				88F7A79E1F2799F3005FEC5F /* MockCreateAccountViewController.swift */,
 			);
 			name = Mocks;
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		8EF0E5931F1FA5CC00E88ED6 /* MSGPUITests */ = {
@@ -1769,11 +1773,11 @@
 		9CD805361F0D012F00B9B0AC /* MSGPTests */ = {
 			isa = PBXGroup;
 			children = (
+				88635D781F2241E500577140 /* CoreDataTests */,
 				889AFC011F220BCD003AAF19 /* EntitiesTests */,
 				889AFC051F220BCD003AAF19 /* Helpers */,
-				889AFC071F220BCD003AAF19 /* Modules */,
 				889AFC131F220BCD003AAF19 /* Mocks */,
-				88635D781F2241E500577140 /* CoreDataTests */,
+				889AFC071F220BCD003AAF19 /* Modules */,
 				889AFC0F1F220BCD003AAF19 /* ServicesTests */,
 				889AFC1B1F220BCD003AAF19 /* UtilsTest */,
 				9CD805391F0D012F00B9B0AC /* Info.plist */,
