@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63A1D6FB1F25E78D0090C67A /* TopicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D6FA1F25E78D0090C67A /* TopicService.swift */; };
+		63A1D7011F262D1B0090C67A /* Photo+JSONEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7001F262D1B0090C67A /* Photo+JSONEncodable.swift */; };
+		63A1D7051F2740910090C67A /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7041F2740910090C67A /* Cache.swift */; };
 		22C55E6F7AF7BB41FECB2108 /* HomeViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F7C5A994BF03E4F8ACE8BB /* HomeViewOutput.swift */; };
 		2C4A6E2F171804FF1A5FFA08 /* HomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5F247877763B596F848BB0 /* HomeConfigurator.swift */; };
 		35925D59EC301D8D04936D19 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878A8FE704315C42F6A6565 /* HomeRouter.swift */; };
@@ -292,6 +295,7 @@
 		8EF0E5AB1F1FA5EF00E88ED6 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E5A21F1FA5EF00E88ED6 /* Router.swift */; };
 		8EF0E5AC1F1FA5EF00E88ED6 /* Templates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E5A31F1FA5EF00E88ED6 /* Templates.swift */; };
 		8EF0E5AD1F1FA5EF00E88ED6 /* topic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EF0E5A41F1FA5EF00E88ED6 /* topic.json */; };
+		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
 		97794A8143277F920FB7F177 /* Pods_Group_MSGP_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D716EC8F700289C913052FE7 /* Pods_Group_MSGP_Example.framework */; };
 		9C43EC8C1F25D60A00D0B59D /* TopicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8B1F25D60A00D0B59D /* TopicCell.xib */; };
 		9C43EC8E1F25D76800D0B59D /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8D1F25D76800D0B59D /* Home.storyboard */; };
@@ -355,6 +359,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		63A1D6FA1F25E78D0090C67A /* TopicService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicService.swift; sourceTree = "<group>"; };
+		63A1D7001F262D1B0090C67A /* Photo+JSONEncodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photo+JSONEncodable.swift"; sourceTree = "<group>"; };
+		63A1D7041F2740910090C67A /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		057F6E0831EC4AC1E9EF4B98 /* HomeViewInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeViewInput.swift; sourceTree = "<group>"; };
 		103E43DEA3273BC29A3F2FC6 /* HomePresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		1551505D33D89C91990C2BDA /* HomeInteractorOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeInteractorOutput.swift; sourceTree = "<group>"; };
@@ -664,6 +671,7 @@
 		8EF0E5A21F1FA5EF00E88ED6 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8EF0E5A31F1FA5EF00E88ED6 /* Templates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Templates.swift; sourceTree = "<group>"; };
 		8EF0E5A41F1FA5EF00E88ED6 /* topic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = topic.json; sourceTree = "<group>"; };
+		9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuButton.swift; sourceTree = "<group>"; };
 		9C43EC8B1F25D60A00D0B59D /* TopicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicCell.xib; sourceTree = "<group>"; };
 		9C43EC8D1F25D76800D0B59D /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		9C43EC8F1F25DBEE00D0B59D /* TopicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
@@ -752,6 +760,22 @@
 				3E49171300DD82FF9F451A0E /* Pods_MSGPTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		63A1D6F81F25E7800090C67A /* API */ = {
+			isa = PBXGroup;
+			children = (
+				63A1D6F91F25E7800090C67A /* Topic */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		63A1D6F91F25E7800090C67A /* Topic */ = {
+			isa = PBXGroup;
+			children = (
+				63A1D6FA1F25E78D0090C67A /* TopicService.swift */,
+			);
+			path = Topic;
 			sourceTree = "<group>";
 		};
 		61500C8DD4ABB568867F22B6 /* Configurator */ = {
@@ -854,6 +878,7 @@
 				88580A931F2213AB00C1CBAF /* Result.swift */,
 				88580A941F2213AB00C1CBAF /* SectionModel.swift */,
 				88580A9B1F2213AB00C1CBAF /* TableDataDisplayManager.swift */,
+				9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1052,6 +1077,7 @@
 				882AD0C21F2225FF00FC20B7 /* QueriableRepository.swift */,
 				88580C7C1F2213EF00C1CBAF /* Repository.swift */,
 				88580B2B1F2213AB00C1CBAF /* SocialPlus.swift */,
+				63A1D7041F2740910090C67A /* Cache.swift */,
 				88580B2C1F2213AB00C1CBAF /* ThirdPartyConfigurator.swift */,
 			);
 			path = Model;
@@ -1077,6 +1103,7 @@
 				88580B081F2213AB00C1CBAF /* CredentialsList+Memento.swift */,
 				88580B091F2213AB00C1CBAF /* Photo+Memento.swift */,
 				88580B0A1F2213AB00C1CBAF /* User+Memento.swift */,
+				63A1D7001F262D1B0090C67A /* Photo+JSONEncodable.swift */,
 			);
 			path = MementoMapping;
 			sourceTree = "<group>";
@@ -1084,6 +1111,7 @@
 		88580B101F2213AB00C1CBAF /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				63A1D6F81F25E7800090C67A /* API */,
 				88580B111F2213AB00C1CBAF /* Auth */,
 				88580B1A1F2213AB00C1CBAF /* MementoSerialization */,
 				88635D891F25D93A00577140 /* SessionStoreDatabase */,
@@ -2302,6 +2330,7 @@
 				88580BFA1F2213AB00C1CBAF /* PostTopicNameRequest.swift in Sources */,
 				88580C241F2213AB00C1CBAF /* MementoSerializable.swift in Sources */,
 				882AD0D61F222D5200FC20B7 /* MSGP.xcdatamodeld in Sources */,
+				9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */,
 				88580C6F1F2213AB00C1CBAF /* TabMenuContainerRouterInput.swift in Sources */,
 				88580C231F2213AB00C1CBAF /* KeyValueStorage.swift in Sources */,
 				88635D751F223B6600577140 /* StoreType.swift in Sources */,
@@ -2311,6 +2340,7 @@
 				88580C1C1F2213AB00C1CBAF /* FacebookAPI.swift in Sources */,
 				88580C5B1F2213AB00C1CBAF /* SideMenuInteractor.swift in Sources */,
 				88580BF51F2213AB00C1CBAF /* PostReplyRequest.swift in Sources */,
+				63A1D6FB1F25E78D0090C67A /* TopicService.swift in Sources */,
 				88580C051F2213AB00C1CBAF /* PutUserVisibilityRequest.swift in Sources */,
 				88580C1F1F2213AB00C1CBAF /* TwitterAPI.swift in Sources */,
 				88580BEC1F2213AB00C1CBAF /* PostBlockedUserRequest.swift in Sources */,
@@ -2344,6 +2374,7 @@
 				88580C181F2213AB00C1CBAF /* ImageCache.swift in Sources */,
 				88580C761F2213AB00C1CBAF /* ImagePicker.swift in Sources */,
 				88580C521F2213AB00C1CBAF /* LoginPresenter.swift in Sources */,
+				63A1D7051F2740910090C67A /* Cache.swift in Sources */,
 				88580BDD1F2213AB00C1CBAF /* CommentView.swift in Sources */,
 				88635D7F1F22447C00577140 /* OutgoingTransaction.swift in Sources */,
 				88580BBB1F2213AB00C1CBAF /* Dictionary+Ext.swift in Sources */,
@@ -2400,6 +2431,7 @@
 				88580BE91F2213AB00C1CBAF /* LinkedAccountView.swift in Sources */,
 				88580BD81F2213AB00C1CBAF /* APIs.swift in Sources */,
 				88580C0D1F2213AB00C1CBAF /* APISettings.swift in Sources */,
+				63A1D7011F262D1B0090C67A /* Photo+JSONEncodable.swift in Sources */,
 				88580BA41F2213AB00C1CBAF /* Indetifiable.swift in Sources */,
 				88580C741F2213AB00C1CBAF /* EnvironmentVariables.swift in Sources */,
 				88580BCE1F2213AB00C1CBAF /* NotificationsAPI.swift in Sources */,

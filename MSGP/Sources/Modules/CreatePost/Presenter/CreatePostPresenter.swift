@@ -8,14 +8,17 @@ class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePo
     weak var view: CreatePostViewInput!
     var interactor: CreatePostInteractorInput!
     var router: CreatePostRouterInput!
+    
+    var user: User?
 
     // MARK: CreatePostViewOutput
     func viewIsReady() {
         view.setupInitialState()
+        view.show(user: user!)
     }
     
-    func post(image: UIImage?, title: String?, body: String!) {
-        interactor.postTopic(image: image, title: title, body: body)
+    func post(photo: Photo?, title: String?, body: String!) {
+        interactor.postTopic(photo: photo, title: title, body: body)
     }
     
     func back() {
@@ -27,11 +30,13 @@ class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePo
     }
     
     // MARK: CreatePostInteractorOutput
-    func created(post: PostTopicResponse) {
+    func created() {
         // TODO: handle
+        view.topicCreated()
+        back()
     }
     
     func postCreationFailed(error: Error) {
-        view.showError(error: error)
+        view.show(error: error)
     }
 }

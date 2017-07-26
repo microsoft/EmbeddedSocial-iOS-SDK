@@ -43,6 +43,10 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         return !(configation == .tab && tab == .client)
     }
     
+    var tabBarViewAvailable: Bool {
+        return configation == .tab
+    }
+    
     func accountInfo() -> SideMenuHeaderModel {
         
         if let user = self.user, let firstname = user.firstName, let lastname = user.lastName {
@@ -63,8 +67,11 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         view.setupInitialState()
         buildItems()
         view.reload()
-        view.showTabBar(visible: configation == .tab)
+        view.showTabBar(visible: tabBarViewAvailable )
         view.showAccountInfo(visible: accountViewAvailable)
+        if let tab = self.tab {
+            view.selectBar(with: tab.rawValue)
+        }
     }
     
     func itemsCount(in section: Int) -> Int {
@@ -91,6 +98,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         assert(configation == .tab)
         self.tab = SideMenuTabs(rawValue: tab)
         view.showAccountInfo(visible: accountViewAvailable)
+        view.selectBar(with: self.tab!.rawValue)
     }
     
     func didTapAccountInfo() {

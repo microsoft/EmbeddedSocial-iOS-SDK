@@ -14,7 +14,7 @@
         <scene sceneID="7OX-so-UMG">
             <objects>
                 <navigationController id="ghY-Wn-Lvg" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="XD1-SD-WkJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XD1-SD-WkJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -60,7 +60,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fgm-nF-iX1" userLabel="tabbar">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uwj-Ft-2N0" userLabel="tab1">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uwj-Ft-2N0" userLabel="tab1" customClass="SideMenuButton" customModule="MSGP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="50"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Client">
@@ -77,7 +77,7 @@
                                             <constraint firstAttribute="width" id="AVJ-9t-pDf"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69m-KR-mSO" userLabel="tab2">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69m-KR-mSO" userLabel="tab2" customClass="SideMenuButton" customModule="MSGP" customModuleProvider="target">
                                         <rect key="frame" x="187.5" y="0.0" width="187.5" height="50"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Social">
@@ -205,6 +205,8 @@
                     <connections>
                         <outlet property="accountInfoShownConstraint" destination="pYU-Eb-m9C" id="4fU-S3-819"/>
                         <outlet property="accountInfoView" destination="XAK-K8-2kT" id="ocW-J6-7co"/>
+                        <outlet property="clientButton" destination="uwj-Ft-2N0" id="GSC-C5-H1P"/>
+                        <outlet property="socialButton" destination="69m-KR-mSO" id="7hx-8F-YRX"/>
                         <outlet property="tabbarShownConstraint" destination="6la-02-fyY" id="YV4-6x-TI3"/>
                         <outlet property="tableView" destination="3rh-gf-FhL" id="Jzs-Md-GvM"/>
                     </connections>

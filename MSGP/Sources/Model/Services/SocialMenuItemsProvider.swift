@@ -20,7 +20,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     }
     
     enum Route: Int {
-        case home, signin
+        case home, signin, createPost = 6
     }
     
     var state: State {
@@ -43,13 +43,38 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         return items[state]![index].title
     }
     
+    
+    var tempVC: UIViewController?
     func destination(forItem index: Int) -> UIViewController {
         
         guard let builder = items[.authenticated]?[index].builder else {
             return UIViewController()
         }
         
+        switch index {
+        case Route.createPost.rawValue:
+            // TEMP
+            tempVC = UIViewController()
+            let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+            button.center = (tempVC?.view.center)!
+            button.setTitle("push", for: .normal)
+            button.addTarget(self, action: #selector(testPush), for: .touchUpInside)
+            tempVC?.view.addSubview(button)
+            return tempVC!
+        default:
+            return UIViewController()
+        }
+        
         return builder(self.delegate)
+    }
+    
+    // TEMP
+    @objc func testPush() {
+        let config = CreatePostModuleConfigurator()
+        let vc = StoryboardScene.CreatePost.instantiateCreatePostViewController()
+        config.configure(viewController: vc, user: SocialPlus.shared.sessionStore.user, cache: SocialPlus.shared.cache)
+        tempVC?.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     // MARK: Items
@@ -77,7 +102,8 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: builderForDummy),
         (title: "My pins", image: UIImage(asset: Asset.iconPins), builder: builderForDummy),
         (title: "Activity Feed", image: UIImage(asset: Asset.iconActivity), builder: builderForDummy),
-        (title: "Settings", image: UIImage(asset: Asset.iconSettings), builder: builderForDummy)
+        (title: "Settings", image: UIImage(asset: Asset.iconSettings), builder: builderForDummy),
+        (title: "Create post", image: UIImage(asset: Asset.iconSettings), builder: builderForDummy)
         ], State.unauthenticated: [
             (title: "Search", image: UIImage(asset: Asset.iconSearch), builder: builderForDummy),
             (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: builderForDummy)
