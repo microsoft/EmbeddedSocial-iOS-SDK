@@ -15,7 +15,7 @@ public final class SocialPlus {
     private(set) var coreDataStack: CoreDataStack!
     
     private(set) var cache: Cache!
-
+    
     private init() {
         setupServices(with: SocialPlusServices())
         try? sessionStore.loadLastSession()
@@ -32,14 +32,17 @@ public final class SocialPlus {
     }
     
     public func start(launchArguments args: LaunchArguments) {
-        ThirdPartyConfigurator.setup(application: args.app, launchOptions: args.launchOptions)
-        coordinator.setup(launchArguments: args, loginHandler: self)
-        setupCoreDataStack()
-        setupCache(stack: coreDataStack)
+        args.window.rootViewController =
+            UINavigationController(rootViewController: StoryboardScene.UserProfile.instantiateUserProfileViewController())
         
-        if sessionStore.isLoggedIn {
-             coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
-        }
+//        ThirdPartyConfigurator.setup(application: args.app, launchOptions: args.launchOptions)
+//        coordinator.setup(launchArguments: args, loginHandler: self)
+//        setupCoreDataStack()
+//        setupCache(stack: coreDataStack)
+//        
+//        if sessionStore.isLoggedIn {
+//            coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
+//        }
     }
     
     private func setupCoreDataStack() {

@@ -13,6 +13,18 @@ struct User {
     let bio: String?
     let photo: Photo?
     let credentials: CredentialsList
+    
+    var fullName: String {
+        if firstName == nil {
+            return lastName != nil ? lastName! : Constants.Placeholder.unknown
+        }
+        
+        if lastName == nil {
+            return firstName != nil ? firstName! : Constants.Placeholder.unknown
+        }
+        
+        return "\(firstName!) \(lastName!)"
+    }
 }
 
 extension User {
