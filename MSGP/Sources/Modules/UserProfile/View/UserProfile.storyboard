@@ -22,21 +22,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zdg-Ce-WHV">
-                                <rect key="frame" x="0.0" y="0.0" width="374" height="667"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="irk-bM-VlQ" customClass="LoadingIndicatorView" customModule="MSGP" customModuleProvider="target">
+                                <rect key="frame" x="36" y="311" width="303" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="M8U-pV-n2d"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="zdg-Ce-WHV" firstAttribute="top" secondItem="mwj-uJ-fuB" secondAttribute="topMargin" id="EEc-3X-f0H"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="zdg-Ce-WHV" secondAttribute="trailingMargin" id="ZwT-tf-6Ge"/>
-                            <constraint firstItem="BGg-B8-9NF" firstAttribute="top" secondItem="zdg-Ce-WHV" secondAttribute="bottom" id="bcv-XI-a84"/>
-                            <constraint firstItem="zdg-Ce-WHV" firstAttribute="leading" secondItem="mwj-uJ-fuB" secondAttribute="leading" id="rZb-Cs-r7r"/>
+                            <constraint firstItem="irk-bM-VlQ" firstAttribute="centerY" secondItem="mwj-uJ-fuB" secondAttribute="centerY" id="5Gb-2E-djp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="irk-bM-VlQ" secondAttribute="trailing" constant="20" id="DfC-B5-jCH"/>
+                            <constraint firstItem="irk-bM-VlQ" firstAttribute="leading" secondItem="mwj-uJ-fuB" secondAttribute="leadingMargin" constant="20" id="kCx-4T-ZKV"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="zdg-Ce-WHV" id="M4X-Qg-gUB"/>
+                        <outlet property="loadingIndicatorView" destination="irk-bM-VlQ" id="ZUE-Hm-gR1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RYs-yQ-U1G" userLabel="First Responder" sceneMemberID="firstResponder"/>

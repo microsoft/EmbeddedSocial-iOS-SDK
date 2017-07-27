@@ -12,6 +12,8 @@ class CrossModuleCoordinator: LoginModuleOutput {
     
     private(set) var isUserLoggedIn = false
     
+    private(set) var user: User?
+    
     func setup(launchArguments args: LaunchArguments, loginHandler: LoginModuleOutput) {
         self.loginHandler = loginHandler
         
@@ -32,6 +34,7 @@ class CrossModuleCoordinator: LoginModuleOutput {
     func onSessionCreated(user: User, sessionToken: String) {
         isUserLoggedIn = true
         
+        self.user = user
         menuModule.user = user
         
         let nextVC = UIViewController()
@@ -45,5 +48,14 @@ class CrossModuleCoordinator: LoginModuleOutput {
         
         menuModule.open(viewController: configurator.viewController)
     }
-
+    
+    func openMyProfile() {
+        guard let user = user else {
+            return
+        }
+        
+        let configurator = UserProfileConfigurator()
+        configurator.configure(userID: nil, me: user)
+        menuModule.open(viewController: configurator.viewController)
+    }
 }

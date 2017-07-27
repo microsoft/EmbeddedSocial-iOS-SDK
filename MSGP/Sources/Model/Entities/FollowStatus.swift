@@ -58,4 +58,17 @@ enum FollowStatus: Int {
         case .blocked: return .blocked
         }
     }
+    
+    static func reduce(status: FollowStatus) -> FollowStatus {
+        switch status {
+        case .empty:
+            return .pending
+        case .accepted:
+            return .empty
+        case .blocked:
+            return .empty
+        case .pending:
+            return .empty
+        }
+    }
 }

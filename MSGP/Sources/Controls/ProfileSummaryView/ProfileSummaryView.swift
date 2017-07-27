@@ -9,6 +9,7 @@
 import UIKit
 
 class ProfileSummaryView: UIView {
+    
     @IBOutlet fileprivate weak var imageView: UIImageView!
     
     @IBOutlet fileprivate weak var nameLabel: UILabel! {
@@ -55,15 +56,12 @@ class ProfileSummaryView: UIView {
     
     var onEdit: (() -> Void)?
     
-    var onFollow: (() -> Void)?
+    var onFollow: ((FollowStatus) -> Void)?
+    
+    private var followStatus: FollowStatus?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setupStyles()
-    }
-    
-    private func setupStyles() {
-        backgroundColor = .yellow
     }
     
     override func layoutSubviews() {
@@ -76,13 +74,15 @@ class ProfileSummaryView: UIView {
         detailsLabel.text = user.bio ?? Constants.Placeholder.notSpecified
         imageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: .userPhotoPlaceholder))
         
-        followersButton.setTitle("12 followers", for: .normal)
-        followingButton.setTitle("16 followers", for: .normal)
+        followersButton.setAttributedTitle(attributedString("followers", withBoldNumber: user.followersCount), for: .normal)
+        followingButton.setAttributedTitle(attributedString("following", withBoldNumber: user.followingCount), for: .normal)
         
         configure(followingStatus: user.followingStatus)
     }
     
     func configure(followingStatus: FollowStatus?) {
+        self.followStatus = followingStatus
+
         editButton.isHidden = followingStatus != nil
         followButton.isHidden = followingStatus == nil
         
@@ -91,19 +91,36 @@ class ProfileSummaryView: UIView {
         }
     }
     
-    @IBAction private func onFollowers(_ sender: UIButton) {
+    private func attributedString(_ inputString: String, withBoldNumber number: Int) -> NSAttributedString {
+        let font = Fonts.small
+        let boldFont = Fonts.bold.small
+        let textColor = Palette.green
         
+        let numberAttrs: [String: Any] = [NSFontAttributeName: boldFont, NSForegroundColorAttributeName: textColor]
+        let stringAttrs: [String: Any] = [NSFontAttributeName: font, NSForegroundColorAttributeName: textColor]
+        
+        let str = NSMutableAttributedString(string: "\(number)", attributes: numberAttrs)
+        str.append(NSAttributedString(string: " \(inputString)", attributes: stringAttrs))
+        
+        return str
+    }
+    
+    @IBAction private func onFollowers(_ sender: UIButton) {
+        onFollowers?()
     }
     
     @IBAction private func onFollowing(_ sender: UIButton) {
-        
+        onFollowing?()
     }
     
     @IBAction private func onEdit(_ sender: UIButton) {
-        
+        onEdit?()
     }
     
     @IBAction private func onFollow(_ sender: UIButton) {
-        
+        guard let followStatus = followStatus else {
+            return
+        }
+        onFollow?(followStatus)
     }
 }

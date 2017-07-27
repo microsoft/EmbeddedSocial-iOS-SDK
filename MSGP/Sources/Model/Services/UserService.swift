@@ -8,6 +8,8 @@ import Foundation
 protocol UserServiceType {
     func getMyProfile(socialUser: SocialUser, completion: @escaping (Result<User>) -> Void)
     
+    func getUserProfile(userID: String, completion: @escaping (Result<User>) -> Void)
+    
     func createAccount(for user: SocialUser, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void)
 }
 
@@ -47,5 +49,9 @@ struct UserService: UserServiceType {
                 completion(.failure(error ?? APIError.custom("Failed to create new profile.")))
             }
         }
+    }
+    
+    func getUserProfile(userID: String, completion: @escaping (Result<User>) -> Void) {
+        
     }
 }

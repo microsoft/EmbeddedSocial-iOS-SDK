@@ -101,7 +101,7 @@
                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Wiq-aU-FR7" secondAttribute="bottom" id="rWI-Lv-LBM"/>
                             </constraints>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A8I-Fi-aDF">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A8I-Fi-aDF">
                             <rect key="frame" x="0.0" y="0.0" width="98" height="98"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="A8I-Fi-aDF" secondAttribute="height" multiplier="1:1" id="mj0-ZV-9kp"/>
