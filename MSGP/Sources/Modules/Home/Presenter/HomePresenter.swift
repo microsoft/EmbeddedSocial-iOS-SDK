@@ -4,7 +4,11 @@
 //
 
 class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
-    
+   
+    weak var view: HomeViewInput!
+    var interactor: HomeInteractorInput!
+    var router: HomeRouterInput!
+
     var layout: HomeLayoutType = .grid
     
     func didTapChangeLayout() {
@@ -20,14 +24,6 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         return items[path.row]
     }
     
-    weak var view: HomeViewInput!
-    var interactor: HomeInteractorInput!
-    var router: HomeRouterInput!
-    
-    func viewIsReady() {
-        view.setupInitialState()
-        view.setLayout(type: layout)
-    }
     
     lazy var items: [TopicCellData] = {
         
@@ -64,6 +60,11 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         return items.count
     }
     
+    func viewIsReady() {
+        view.setupInitialState()
+        view.setLayout(type: layout)
+    }
+    
     func didPullRefresh() {
         
         view.setRefreshing(state: true)
@@ -79,6 +80,17 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
             self.view.setRefreshing(state: false)
             self.view.reload()
         }
-
+    }
+    
+    func didFetch(feed: HomePostsFeed) {
+        
+    }
+    
+    func didFetchMore(feed: HomePostsFeed) {
+        
+    }
+    
+    func didFail(error: PostDataFetchError) {
+        
     }
 }

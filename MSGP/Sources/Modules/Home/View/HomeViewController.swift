@@ -138,7 +138,6 @@ class HomeViewController: UIViewController, HomeViewInput {
             refreshControl.beginRefreshing()
         } else {
             refreshControl.endRefreshing()
-//            refreshControl.removeFromSuperview()
         }
     }
     

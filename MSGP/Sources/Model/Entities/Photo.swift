@@ -9,16 +9,21 @@ struct Photo {
     let uid: String
     let url: String?
     let image: UIImage?
+    let imagePlaceholder: UIImage?
     
-    init(uid: String = UUID().uuidString, url: String? = nil, image: UIImage? = nil) {
+    init(uid: String = UUID().uuidString,
+         url: String? = nil,
+         image: UIImage? = nil,
+         imagePlaceholder: UIImage? = nil) {
         self.uid = uid
         self.url = url
         self.image = image
+        self.imagePlaceholder = imagePlaceholder
     }
 }
 
 extension Photo: Equatable {
     static func ==(_ lhs: Photo, rhs: Photo) -> Bool {
-        return lhs.uid == lhs.uid && lhs.url == rhs.url && lhs.image == rhs.image
+        return lhs.uid == lhs.uid && lhs.url == rhs.url && lhs.image == rhs.image && lhs.imagePlaceholder == rhs.imagePlaceholder
     }
 }

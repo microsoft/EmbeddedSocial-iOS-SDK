@@ -6,5 +6,9 @@
 import Foundation
 
 protocol HomeInteractorOutput: class {
-
+    
+    func didFetch(feed: HomePostsFeed)
+    func didFetchMore(feed: HomePostsFeed)
+    func didFail(error: PostDataFetchError)
+    
 }

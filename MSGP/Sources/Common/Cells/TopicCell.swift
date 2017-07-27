@@ -86,5 +86,6 @@ class TopicCell: UICollectionViewCell {
         postTitle.text = data.postTitle
         postText.text = data.postText
         postCreation.text = data.postCreation
+
     }
 }
