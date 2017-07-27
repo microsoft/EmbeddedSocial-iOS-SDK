@@ -6,13 +6,17 @@
 enum FeedServiceError: Error {
     case failedToFetch(message: String)
     case failedToLike(message: String)
+    case failedToUnLike(message: String)
     case failedToPin(message: String)
+    case failedToUnPin(message: String)
     
     var message: String {
         switch self {
         case .failedToFetch(let message),
              .failedToPin(let message),
-             .failedToLike(let message):
+             .failedToUnPin(let message),
+             .failedToLike(let message),
+             .failedToUnLike(let message):
             return message
         }
     }
@@ -25,10 +29,7 @@ struct PostItem {
     var liked: String = ""
     var timeUpdated: String = ""
     var imageURL: String? = nil
-    
-    struct PostMetaData {
-        var handle: String
-    }
+    var handle: String!
 }
 
 struct PostsFeed {
@@ -59,14 +60,12 @@ extension PostFetchResult {
 }
 
 protocol PostServiceProtocol {
-    func fetchPosts(offset: String?, limit: Int, callback: ((PostFetchResult) -> Void)?)
+    func fetchPosts(offset: String?, limit: Int, callback: ((PostFetchResult) -> Void))
 }
 
 class PostServiceMock: PostServiceProtocol {
     
-    func fetchPosts(offset: String?, limit: Int, callback: ((PostFetchResult) -> Void)?) {
-        
-        
+    func fetchPosts(offset: String?, limit: Int, callback: ((PostFetchResult) -> Void)) {
         
     }
 }
@@ -76,8 +75,11 @@ typealias PostHandle = String
 protocol HomeInteractorInput {
     
     func fetchPosts(with limit: Int)
+    
     func like(with id: PostHandle)
+    func unlike(with id: PostHandle)
     func pin(with id: PostHandle)
+    func unpin(with id: PostHandle)
     
 }
 
@@ -88,17 +90,60 @@ protocol HomeInteractorOutput: class {
     func didFail(error: FeedServiceError)
     
     func didLike(post id: PostHandle)
+    func didUnlike(post id: PostHandle)
+    func didUnpin(post id: PostHandle)
     func didPin(post id: PostHandle)
 }
 
 class HomeInteractor: HomeInteractorInput {
     
+    // TODO: refactor there 4 methods using generics ?
+    
+    func unlike(with id: PostHandle) {
+        likesService.deleteLike(postHandle: id) { (handle, err) in
+            guard err != nil else {
+                self.output.didFail(error: FeedServiceError.failedToUnLike(message: err!.localizedDescription))
+                return
+            }
+        }
+    }
+    
+    func unpin(with id: PostHandle) {
+        pinsService.deletePin(postHandle: id) { (handle, err) in
+            guard err != nil else {
+                self.output.didFail(error: FeedServiceError.failedToUnPin(message: err!.localizedDescription))
+                return
+            }
+            
+            self.output.didUnpin(post: handle)
+        }
+    }
+    
+    var likesService: LikesServiceProtocol!
+    var pinsService: PinsServiceProtocol!
+    
     func pin(with id: String) {
-        
+        pinsService.postPin(postHandle: id) { (handle, err) in
+            guard err != nil else {
+                self.output.didFail(error: FeedServiceError.failedToPin(message: err!.localizedDescription))
+                return
+            }
+            
+            self.output.didPin(post: handle)
+        }
     }
 
     func like(with id: String) {
     
+        likesService.postLike(postHandle: id) { (handle, err) in
+            guard err != nil else {
+                self.output.didFail(error: FeedServiceError.failedToLike(message: err!.localizedDescription))
+                return
+            }
+            
+            self.output.didLike(post: handle)
+        }
+        
     }
 
     weak var output: HomeInteractorOutput!

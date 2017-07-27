@@ -8,9 +8,7 @@ import Alamofire
 typealias TopicPosted = (PostTopicRequest) -> Void
 typealias Failure = (Error) -> Void
 
-
-
-class TopicService {
+class TopicService: PostServiceProtocol {
     
     private var success: TopicPosted?
     private var failure: Failure?
@@ -70,4 +68,33 @@ class TopicService {
             self?.success!(request)
         }
     }
+
+    func fetchPosts(offset: String?, limit: Int, callback: @escaping ((PostFetchResult) -> Void)) {
+        
+        TopicsAPI.topicsGetFeaturedTopics(cursor: offset, limit: Int32(limit)) { (response, error) in
+            
+            var result = PostFetchResult()
+            
+            guard error != nil else {
+                result.error = FeedServiceError.failedToFetch(message: error!.localizedDescription)
+                callback(result)
+                return
+            }
+            
+            guard let items = response?.data else {
+                result.error = FeedServiceError.failedToFetch(message: "No Items Received")
+                callback(result)
+                return
+            }
+            
+        
+
+        }
+
+    }
+    
+    private func convert(data: [TopicView]) -> [PostItem] {
+        
+    }
+    
 }

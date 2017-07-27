@@ -144,6 +144,10 @@ class HomeViewController: UIViewController, HomeViewInput {
     func reload() {
         collectionView?.reloadData()
     }
+    
+    func reload(with index: Int) {
+        collectionView?.reloadItems(at: [IndexPath(item: index, section: 0)])
+    }
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

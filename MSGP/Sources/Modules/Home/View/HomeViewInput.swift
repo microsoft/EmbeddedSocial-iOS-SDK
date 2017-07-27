@@ -14,5 +14,7 @@ protocol HomeViewInput: class {
     
     func setLayout(type: HomeLayoutType)
     func reload()
+    func reload(with index: Int)
     func setRefreshing(state: Bool)
+    
 }

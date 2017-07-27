@@ -5,18 +5,31 @@
 
 import Foundation
 
-protocol LikesService {
+protocol LikesServiceProtocol {
     
-    func postLike(postHandle: String, completion: @escaping () -> Void)
+    typealias PostHandle = String
+    typealias CompletionHandler = (_ postHandle: PostHandle, _ error: Error?) -> Void
     
+    func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler)
+    func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler)
+
 }
 
-class LikesService:
+class LikesService: LikesServiceProtocol {
+    
+    func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
+        LikesAPI.topicLikesPostLike(topicHandle: postHandle) { (object, error) in
+            Logger.log(object)
+            completion(postHandle, error)
+        }
+    }
+    
+    func deleteLike(postHandle postHandle: PostHandle, completion: @escaping CompletionHandler) {
+        LikesAPI.topicLikesDeleteLike(topicHandle: postHandle) { (object, error) in
+            Logger.log(object)
+            completion(postHandle, error)
+        }
+    }
 
+}
 
-
-//open class func topicLikesPostLike(topicHandle: String, completion: @escaping ((_ data: Object?,_ error: Error?) -> Void)) {
-//    topicLikesPostLikeWithRequestBuilder(topicHandle: topicHandle).execute { (response, error) -> Void in
-//        completion(response?.body, error);
-//    }
-//}

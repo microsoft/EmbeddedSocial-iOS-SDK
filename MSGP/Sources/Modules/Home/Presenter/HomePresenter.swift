@@ -5,12 +5,28 @@
 
 class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
+    func didUnpin(post id: PostHandle) {
+        if let index = itemIndex(with: id) {
+            view.reload(with: index)
+        }
+    }
+    
+    func didUnlike(post id: PostHandle) {
+        if let index = itemIndex(with: id) {
+            view.reload(with: index)
+        }
+    }
+
     func didLike(post id: PostHandle) {
-        
+        if let index = itemIndex(with: id) {
+            view.reload(with: index)
+        }
     }
 
     func didPin(post id: PostHandle) {
-        
+        if let index = itemIndex(with: id) {
+            view.reload(with: index)
+        }
     }
     
     weak var view: HomeViewInput!
@@ -36,6 +52,11 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     }
     
     var items = [PostItem]()
+    
+    private func itemIndex(with postHandle:PostHandle) -> Int? {
+        return items.index(where: { $0.handle == postHandle } )
+    }
+    
     
 //    lazy var items: [TopicCellData] = {
 //        

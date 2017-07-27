@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		22C55E6F7AF7BB41FECB2108 /* HomeViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F7C5A994BF03E4F8ACE8BB /* HomeViewOutput.swift */; };
 		2C4A6E2F171804FF1A5FFA08 /* HomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5F247877763B596F848BB0 /* HomeConfigurator.swift */; };
+		3209330D1F2A50D300890218 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209330C1F2A50D300890218 /* Logger.swift */; };
 		35925D59EC301D8D04936D19 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878A8FE704315C42F6A6565 /* HomeRouter.swift */; };
 		55EE1A9BC5F383EA21599C6B /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0EA0876D130C771A2AA58F /* HomeInteractor.swift */; };
 		5A458ABECBE75802AC172AAC /* Pods_Group_MSGPUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 890D6BE7013F411A4576DB17 /* Pods_Group_MSGPUITests.framework */; };
@@ -366,6 +367,7 @@
 		1CD51C2F94FA00B18113079F /* Pods-Group-MSGP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.release.xcconfig"; sourceTree = "<group>"; };
 		213CD76E8CBA62E9B9E5AEBF /* Pods-Group-MSGP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.debug.xcconfig"; sourceTree = "<group>"; };
 		2E0EA0876D130C771A2AA58F /* HomeInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
+		3209330C1F2A50D300890218 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		3302C1C53468D2A3C2FB8C14 /* HomeViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3A0BBF6B9602806316A9BC93 /* Pods-Group-MSGP-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example.release.xcconfig"; sourceTree = "<group>"; };
 		3E49171300DD82FF9F451A0E /* Pods_MSGPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -881,6 +883,7 @@
 				88580A941F2213AB00C1CBAF /* SectionModel.swift */,
 				88580A9B1F2213AB00C1CBAF /* TableDataDisplayManager.swift */,
 				9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */,
+				3209330C1F2A50D300890218 /* Logger.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2419,6 +2422,7 @@
 				88580C3C1F2213AB00C1CBAF /* CreateAccountViewController.swift in Sources */,
 				88580C091F2213AB00C1CBAF /* UserProfileView.swift in Sources */,
 				88580C2F1F2213AB00C1CBAF /* UserService.swift in Sources */,
+				3209330D1F2A50D300890218 /* Logger.swift in Sources */,
 				88580C341F2213AB00C1CBAF /* CreateAccountInteractorInput.swift in Sources */,
 				88580C061F2213AB00C1CBAF /* ReplyView.swift in Sources */,
 				88635D711F222FE800577140 /* IncomingTransaction.swift in Sources */,
