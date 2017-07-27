@@ -39,16 +39,13 @@ struct PostsFeed {
 struct PostFetchResult {
     var posts: [Post] = [Post]()
     var error: FeedServiceError?
-    var offset: String?
+    var offset: String = ""
 }
 
 extension PostFetchResult {
     
     static func mock() -> PostFetchResult {
         var result = PostFetchResult()
-        
-        result.error = nil
-        result.offset = nil
         
         let number = arc4random() % 5 + 1
         
@@ -60,12 +57,15 @@ extension PostFetchResult {
 }
 
 protocol PostServiceProtocol {
-    func fetchPosts(offset: String?, limit: Int, callback: ((PostFetchResult) -> Void))
+    
+    typealias FetchResultHandler = ((PostFetchResult) -> Void)
+    
+    func fetchPosts(offset: String?, limit: Int, resultHandler: @escaping FetchResultHandler)
 }
 
 class PostServiceMock: PostServiceProtocol {
     
-    func fetchPosts(offset: String?, limit: Int, callback: ((PostFetchResult) -> Void)) {
+    func fetchPosts(offset: String?, limit: Int, resultHandler: @escaping FetchResultHandler) {
         
     }
 }
@@ -97,6 +97,57 @@ protocol HomeInteractorOutput: class {
 
 class HomeInteractor: HomeInteractorInput {
     
+    weak var output: HomeInteractorOutput!
+    var postService: PostServiceProtocol! = TopicService()
+    var likesService: LikesServiceProtocol = LikesService()
+    var pinsService: PinsServiceProtocol! = PinsService ()
+    
+    private var offset: String = ""
+    
+    func fetchPosts(with limit: Int) {
+        postService.fetchPosts(offset: offset, limit: limit) { (result) in
+            
+            guard result.error == nil else {
+                
+                self.output.didFail(error: result.error!)
+                
+                return
+            }
+            
+            let feed = self.buildPostsFeed(from: result.posts)
+            
+            if self.offset.isEmpty {
+                self.output.didFetch(feed: feed)
+            } else {
+                self.output.didFetchMore(feed: feed)
+            }
+            
+            self.offset = result.offset
+        }
+    }
+    
+    private func buildPostsFeed(from posts: [Post]) -> PostsFeed {
+        
+        var items = [PostItem]()
+        for post in posts {
+            
+            var item = PostItem()
+            
+            item.title = post.title!
+            item.text = post.text!
+            item.imageURL = post.imageUrl
+            // TODO: fullfill mapping
+            
+//            item.liked = post.liked ?? ""
+//            item.timeUpdated = post.timeUpdated!
+//            item.imageURL = post.imageURL!
+            
+            items.append(item)
+        }
+        
+        return PostsFeed(items: items)
+    }
+    
     // TODO: refactor there 4 methods using generics ?
     
     func unlike(with id: PostHandle) {
@@ -119,9 +170,6 @@ class HomeInteractor: HomeInteractorInput {
         }
     }
     
-    var likesService: LikesServiceProtocol!
-    var pinsService: PinsServiceProtocol!
-    
     func pin(with id: String) {
         pinsService.postPin(postHandle: id) { (handle, err) in
             guard err != nil else {
@@ -132,9 +180,9 @@ class HomeInteractor: HomeInteractorInput {
             self.output.didPin(post: handle)
         }
     }
-
-    func like(with id: String) {
     
+    func like(with id: String) {
+        
         likesService.postLike(postHandle: id) { (handle, err) in
             guard err != nil else {
                 self.output.didFail(error: FeedServiceError.failedToLike(message: err!.localizedDescription))
@@ -143,53 +191,6 @@ class HomeInteractor: HomeInteractorInput {
             
             self.output.didLike(post: handle)
         }
-        
     }
 
-    weak var output: HomeInteractorOutput!
-    
-    var offset: String = ""
-    var postService: PostServiceProtocol! = PostServiceMock()
-    
-    func fetchPosts(with limit: Int) {
-        postService.fetchPosts(offset: offset, limit: limit) { (result) in
-            
-            guard result.error == nil else {
-                
-                self.output.didFail(error: result.error!)
-                
-                return
-            }
-            
-            let feed = self.buildPostsFeed(from: result.posts)
-            
-            if self.offset.isEmpty {
-                self.output.didFetch(feed: feed)
-            } else {
-                self.output.didFetchMore(feed: feed)
-            }
-            
-            self.offset = result.offset ?? ""
-        }
-    }
-    
-    private func buildPostsFeed(from posts: [Post]) -> PostsFeed {
-        
-        var items = [PostItem]()
-        for post in posts {
-            
-            var item = PostItem()
-            
-            item.title = post.title!
-            item.text = post.text!
-            item.imageURL = post.imageUrl
-//            item.liked = post.liked ?? ""
-//            item.timeUpdated = post.timeUpdated!
-//            item.imageURL = post.imageURL!
-            
-            items.append(item)
-        }
-        
-        return PostsFeed(items: items)
-    }
 }

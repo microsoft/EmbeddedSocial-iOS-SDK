@@ -80,6 +80,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     // MARK: Items
     
     typealias ModuleBuilder = (_ delegate: CrossModuleCoordinator) -> UIViewController
+
     
 //    static var builderForSignIn: ModuleBuilder = { coordinator in
 //        

@@ -5,30 +5,6 @@
 
 class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
-    func didUnpin(post id: PostHandle) {
-        if let index = itemIndex(with: id) {
-            view.reload(with: index)
-        }
-    }
-    
-    func didUnlike(post id: PostHandle) {
-        if let index = itemIndex(with: id) {
-            view.reload(with: index)
-        }
-    }
-
-    func didLike(post id: PostHandle) {
-        if let index = itemIndex(with: id) {
-            view.reload(with: index)
-        }
-    }
-
-    func didPin(post id: PostHandle) {
-        if let index = itemIndex(with: id) {
-            view.reload(with: index)
-        }
-    }
-    
     weak var view: HomeViewInput!
     var interactor: HomeInteractorInput!
     var router: HomeRouterInput!
@@ -112,5 +88,29 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
     func didFail(error: FeedServiceError) {
         // TODO: delegate error to client
+    }
+    
+    func didUnpin(post id: PostHandle) {
+        if let index = itemIndex(with: id) {
+            view.reload(with: index)
+        }
+    }
+    
+    func didUnlike(post id: PostHandle) {
+        if let index = itemIndex(with: id) {
+            view.reload(with: index)
+        }
+    }
+    
+    func didLike(post id: PostHandle) {
+        if let index = itemIndex(with: id) {
+            view.reload(with: index)
+        }
+    }
+    
+    func didPin(post id: PostHandle) {
+        if let index = itemIndex(with: id) {
+            view.reload(with: index)
+        }
     }
 }

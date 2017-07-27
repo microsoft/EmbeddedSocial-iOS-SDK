@@ -69,7 +69,7 @@ class TopicService: PostServiceProtocol {
         }
     }
 
-    func fetchPosts(offset: String?, limit: Int, callback: @escaping ((PostFetchResult) -> Void)) {
+    func fetchPosts(offset: String?, limit: Int, resultHandler: @escaping FetchResultHandler) {
         
         TopicsAPI.topicsGetFeaturedTopics(cursor: offset, limit: Int32(limit)) { (response, error) in
             
@@ -77,24 +77,40 @@ class TopicService: PostServiceProtocol {
             
             guard error != nil else {
                 result.error = FeedServiceError.failedToFetch(message: error!.localizedDescription)
-                callback(result)
+                resultHandler(result)
                 return
             }
             
-            guard let items = response?.data else {
+            guard let data = response?.data else {
                 result.error = FeedServiceError.failedToFetch(message: "No Items Received")
-                callback(result)
+                resultHandler(result)
                 return
             }
             
-        
-
+            result.posts = self.convert(data: data)
+            result.offset = offset!
+            
+            resultHandler(result)
         }
-
     }
     
-    private func convert(data: [TopicView]) -> [PostItem] {
+    private func convert(data: [TopicView]) -> [Post] {
         
+        var posts = [Post]()
+        for item in data {
+            var post = Post()
+            post.createdTime = item.createdTime
+            post.imageUrl = item.blobUrl
+            post.liked = item.liked
+            post.text = item.text
+            post.pinned = item.pinned
+            post.topicHandle = item.topicHandle
+            post.totalLikes = item.totalLikes
+            post.totalComments = item.totalLikes
+            // TODO: fullfill mapping
+            posts.append(post)
+        }
+        return posts
     }
     
 }
