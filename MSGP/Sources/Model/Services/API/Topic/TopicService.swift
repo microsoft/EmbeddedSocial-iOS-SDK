@@ -8,6 +8,8 @@ import Alamofire
 typealias TopicPosted = (PostTopicRequest) -> Void
 typealias Failure = (Error) -> Void
 
+
+
 class TopicService {
     
     private var success: TopicPosted?

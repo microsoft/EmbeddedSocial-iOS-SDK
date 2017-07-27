@@ -17,7 +17,6 @@ extension Photo: MementoSerializable {
         self.uid = uid
         url = memento["url"] as? String
         image = nil
-        imagePlaceholder = nil
     }
     
     var memento: Memento {

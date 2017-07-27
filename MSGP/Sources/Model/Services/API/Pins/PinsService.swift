@@ -4,9 +4,3 @@
 //
 
 import Foundation
-
-protocol HomeInteractorInput {
-    
-    
-
-}

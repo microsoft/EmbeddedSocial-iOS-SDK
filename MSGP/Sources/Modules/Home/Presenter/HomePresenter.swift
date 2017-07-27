@@ -4,57 +4,69 @@
 //
 
 class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
-   
+    
+    func didLike(post id: PostHandle) {
+        
+    }
+
+    func didPin(post id: PostHandle) {
+        
+    }
+    
     weak var view: HomeViewInput!
     var interactor: HomeInteractorInput!
     var router: HomeRouterInput!
 
     var layout: HomeLayoutType = .grid
+    let limit = 3
     
     func didTapChangeLayout() {
         flip(layout: &layout)
         view.setLayout(type: layout)
     }
     
-    func flip(layout: inout HomeLayoutType) {
+    private func flip(layout: inout HomeLayoutType) {
         layout = HomeLayoutType(rawValue: layout.rawValue ^ 1)!
     }
     
-    func itemModel(for path: IndexPath) -> TopicCellData {
+    // MARK: HomeViewOutput
+    
+    func item(for path: IndexPath) -> PostItem {
         return items[path.row]
     }
     
+    var items = [PostItem]()
     
-    lazy var items: [TopicCellData] = {
-        
-        return [
-            TopicCellData(userName: "Willy Mates",
-                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
-                          postTitle: "New money !",
-                          postText: "So legal, so Tender. What do you all think? Sweden took a risk here and it was worth it.", postCreation: "2h",
-                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
-            TopicCellData(userName: "Gilly Dogs",
-                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
-                          postTitle: "About layouts",
-                          postText: "The present disambiguation page holds the title of a primary topic, and an article needs to be written about it. It is believed to qualify as a broad-concept article. It may be written directly at this page or drafted elsewhere and then moved over here. Related titles should be described in Layout, while unrelated titles should be moved to Layout (disambiguation).", postCreation: "2h",
-                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
-            TopicCellData(userName: "Doleres",
-                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
-                          postTitle: "New money !",
-                          postText: "So legal, so Tender. What do you all think? Sweden took a risk here and it was worth it.", postCreation: "2h",
-                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
-            TopicCellData(userName: "Github",
-                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
-                          postTitle: "N0 code today",
-                          postText: "func numberOfItems() -> Int { return items.count }", postCreation: "2h",
-                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
-            TopicCellData(userName: "Riarden Steel",
-                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
-                          postTitle: "New money !",
-                          postText: "Best steel in the World.", postCreation: "2h",
-                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
-            ]
-    }()
+//    lazy var items: [TopicCellData] = {
+//        
+//        return [
+//            TopicCellData(userName: "Willy Mates",
+//                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
+//                          postTitle: "New money !",
+//                          postText: "So legal, so Tender. What do you all think? Sweden took a risk here and it was worth it.", postCreation: "2h",
+//                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
+//            TopicCellData(userName: "Gilly Dogs",
+//                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
+//                          postTitle: "About layouts",
+//                          postText: "The present disambiguation page holds the title of a primary topic, and an article needs to be written about it. It is believed to qualify as a broad-concept article. It may be written directly at this page or drafted elsewhere and then moved over here. Related titles should be described in Layout, while unrelated titles should be moved to Layout (disambiguation).", postCreation: "2h",
+//                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
+//            TopicCellData(userName: "Doleres",
+//                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
+//                          postTitle: "New money !",
+//                          postText: "So legal, so Tender. What do you all think? Sweden took a risk here and it was worth it.", postCreation: "2h",
+//                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
+//            TopicCellData(userName: "Github",
+//                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
+//                          postTitle: "N0 code today",
+//                          postText: "func numberOfItems() -> Int { return items.count }", postCreation: "2h",
+//                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
+//            TopicCellData(userName: "Riarden Steel",
+//                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
+//                          postTitle: "New money !",
+//                          postText: "Best steel in the World.", postCreation: "2h",
+//                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
+//            ]
+//    }()
     
     func numberOfItems() -> Int {
         return items.count
@@ -66,31 +78,18 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     }
     
     func didPullRefresh() {
-        
-        view.setRefreshing(state: true)
-        items.insert(
-            TopicCellData(userName: "New post \(items.count + 1)",
-                userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
-                postTitle: "Testings",
-                postText: "Testing", postCreation: "now",
-                postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
-            at: 0)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.view.setRefreshing(state: false)
-            self.view.reload()
-        }
+        interactor.fetchPosts(with: limit)
     }
     
-    func didFetch(feed: HomePostsFeed) {
-        
+    func didFetch(feed: PostsFeed) {
+        items = feed.items
     }
     
-    func didFetchMore(feed: HomePostsFeed) {
-        
+    func didFetchMore(feed: PostsFeed) {
+        items.append(contentsOf: feed.items)
     }
     
-    func didFail(error: PostDataFetchError) {
-        
+    func didFail(error: FeedServiceError) {
+        // TODO: delegate error to client
     }
 }

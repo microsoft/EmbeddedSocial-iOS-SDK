@@ -3,15 +3,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-struct TopicCellData {
-    var userName: String
-    var userPhoto: Photo
-    var postTitle: String
-    var postText: String
-    var postCreation: String
-    var postImage: Photo
-}
-
 class TopicCell: UICollectionViewCell {
     
     var isCollapsed: Bool = false {
@@ -80,12 +71,22 @@ class TopicCell: UICollectionViewCell {
         clipsToBounds = true
     }
     
-    func configure(with data: TopicCellData) {
-        userPhoto.setPhotoWithCaching(data.userPhoto, placeholder: UIImage(asset: .userPhotoPlaceholder))
+    func configure(with data: PostItem) {
+        
+        userPhoto.setPhotoWithCaching(Photo(url: data.imageURL), placeholder: imagePlaceHolder)
         userName.text = data.userName
-        postTitle.text = data.postTitle
-        postText.text = data.postText
-        postCreation.text = data.postCreation
-
+        postTitle.text = data.title
+        postText.text = data.text
+        postCreation.text = data.timeUpdated
     }
+    
+    lazy var imagePlaceHolder: UIImage = {
+        
+        return UIImage(asset: Asset.placeholderPostNoimage)
+        
+    }()
+
+    
+    
+    
 }

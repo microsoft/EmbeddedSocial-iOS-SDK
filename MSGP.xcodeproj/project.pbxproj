@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		63A1D6FB1F25E78D0090C67A /* TopicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D6FA1F25E78D0090C67A /* TopicService.swift */; };
-		63A1D7011F262D1B0090C67A /* Photo+JSONEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7001F262D1B0090C67A /* Photo+JSONEncodable.swift */; };
-		63A1D7051F2740910090C67A /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7041F2740910090C67A /* Cache.swift */; };
 		22C55E6F7AF7BB41FECB2108 /* HomeViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F7C5A994BF03E4F8ACE8BB /* HomeViewOutput.swift */; };
 		2C4A6E2F171804FF1A5FFA08 /* HomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5F247877763B596F848BB0 /* HomeConfigurator.swift */; };
 		35925D59EC301D8D04936D19 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878A8FE704315C42F6A6565 /* HomeRouter.swift */; };
 		55EE1A9BC5F383EA21599C6B /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0EA0876D130C771A2AA58F /* HomeInteractor.swift */; };
 		5A458ABECBE75802AC172AAC /* Pods_Group_MSGPUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 890D6BE7013F411A4576DB17 /* Pods_Group_MSGPUITests.framework */; };
 		5DB3DCB281FE4213D5431F01 /* Pods_MSGPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E49171300DD82FF9F451A0E /* Pods_MSGPTests.framework */; };
+		63A1D6FB1F25E78D0090C67A /* TopicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D6FA1F25E78D0090C67A /* TopicService.swift */; };
+		63A1D7011F262D1B0090C67A /* Photo+JSONEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7001F262D1B0090C67A /* Photo+JSONEncodable.swift */; };
+		63A1D7051F2740910090C67A /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7041F2740910090C67A /* Cache.swift */; };
 		839E2977904826AD97A96BFE /* HomeRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9AC5F7533EFDF4F7742248 /* HomeRouterInput.swift */; };
 		881F7E5C1F263543003EB37A /* MSGP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		882AD0BB1F221D4400FC20B7 /* CommonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */; };
@@ -295,20 +295,21 @@
 		8EF0E5AB1F1FA5EF00E88ED6 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E5A21F1FA5EF00E88ED6 /* Router.swift */; };
 		8EF0E5AC1F1FA5EF00E88ED6 /* Templates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E5A31F1FA5EF00E88ED6 /* Templates.swift */; };
 		8EF0E5AD1F1FA5EF00E88ED6 /* topic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EF0E5A41F1FA5EF00E88ED6 /* topic.json */; };
-		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
 		97794A8143277F920FB7F177 /* Pods_Group_MSGP_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D716EC8F700289C913052FE7 /* Pods_Group_MSGP_Example.framework */; };
 		9C43EC8C1F25D60A00D0B59D /* TopicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8B1F25D60A00D0B59D /* TopicCell.xib */; };
 		9C43EC8E1F25D76800D0B59D /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8D1F25D76800D0B59D /* Home.storyboard */; };
 		9C43EC901F25DBEE00D0B59D /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC8F1F25DBEE00D0B59D /* TopicCell.swift */; };
+		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
 		9CBA39ED1F1F7E88007EB52C /* MSGP-Example-MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA39EC1F1F7E88007EB52C /* MSGP-Example-MenuHandler.swift */; };
 		9CD805331F0D012F00B9B0AC /* MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* MSGP.framework */; };
+		9CEA75241F2A0E61009FC89D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75231F2A0E61009FC89D /* Post.swift */; };
+		9CEA75281F2A1FA0009FC89D /* LikesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75271F2A1FA0009FC89D /* LikesService.swift */; };
+		9CEA752A1F2A1FAA009FC89D /* PinsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75291F2A1FAA009FC89D /* PinsService.swift */; };
 		9FD48A7FFC0199B996767B21 /* Pods_Group_MSGP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5397EB2DBE44FD7F84C13DF /* Pods_Group_MSGP.framework */; };
 		AA8CC50E7DF65CDCE34630FF /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103E43DEA3273BC29A3F2FC6 /* HomePresenter.swift */; };
 		E14F14583C908D331E99F133 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3302C1C53468D2A3C2FB8C14 /* HomeViewController.swift */; };
-		E15B2692EBCE14A3AF7E4E8A /* HomeInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9777207CD6856814D3267 /* HomeInteractorInput.swift */; };
 		E20ABED73B48A4E7ECEA36DC /* HomeViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057F6E0831EC4AC1E9EF4B98 /* HomeViewInput.swift */; };
 		F86139F7C747A64D4126D30A /* HomeModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9AE8080B40284ADF6387DB /* HomeModuleInput.swift */; };
-		FDD131CAFD53BA911B3655D4 /* HomeInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1551505D33D89C91990C2BDA /* HomeInteractorOutput.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -359,14 +360,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		63A1D6FA1F25E78D0090C67A /* TopicService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicService.swift; sourceTree = "<group>"; };
-		63A1D7001F262D1B0090C67A /* Photo+JSONEncodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photo+JSONEncodable.swift"; sourceTree = "<group>"; };
-		63A1D7041F2740910090C67A /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		057F6E0831EC4AC1E9EF4B98 /* HomeViewInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeViewInput.swift; sourceTree = "<group>"; };
 		103E43DEA3273BC29A3F2FC6 /* HomePresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
-		1551505D33D89C91990C2BDA /* HomeInteractorOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeInteractorOutput.swift; sourceTree = "<group>"; };
 		188C5D0640D7558224DF1C72 /* Pods-MSGPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSGPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MSGPTests/Pods-MSGPTests.debug.xcconfig"; sourceTree = "<group>"; };
-		1CC9777207CD6856814D3267 /* HomeInteractorInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeInteractorInput.swift; sourceTree = "<group>"; };
 		1CD51C2F94FA00B18113079F /* Pods-Group-MSGP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.release.xcconfig"; sourceTree = "<group>"; };
 		213CD76E8CBA62E9B9E5AEBF /* Pods-Group-MSGP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.debug.xcconfig"; sourceTree = "<group>"; };
 		2E0EA0876D130C771A2AA58F /* HomeInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
@@ -375,6 +371,9 @@
 		3E49171300DD82FF9F451A0E /* Pods_MSGPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A9AC5F7533EFDF4F7742248 /* HomeRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeRouterInput.swift; sourceTree = "<group>"; };
 		5B9AE8080B40284ADF6387DB /* HomeModuleInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeModuleInput.swift; sourceTree = "<group>"; };
+		63A1D6FA1F25E78D0090C67A /* TopicService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicService.swift; sourceTree = "<group>"; };
+		63A1D7001F262D1B0090C67A /* Photo+JSONEncodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photo+JSONEncodable.swift"; sourceTree = "<group>"; };
+		63A1D7041F2740910090C67A /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		6D5F247877763B596F848BB0 /* HomeConfigurator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeConfigurator.swift; sourceTree = "<group>"; };
 		78DA9F070AE716E31A31AAA0 /* Pods-Group-MSGPUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGPUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGPUITests/Pods-Group-MSGPUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		81F7C5A994BF03E4F8ACE8BB /* HomeViewOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeViewOutput.swift; sourceTree = "<group>"; };
@@ -671,14 +670,17 @@
 		8EF0E5A21F1FA5EF00E88ED6 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8EF0E5A31F1FA5EF00E88ED6 /* Templates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Templates.swift; sourceTree = "<group>"; };
 		8EF0E5A41F1FA5EF00E88ED6 /* topic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = topic.json; sourceTree = "<group>"; };
-		9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuButton.swift; sourceTree = "<group>"; };
 		9C43EC8B1F25D60A00D0B59D /* TopicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicCell.xib; sourceTree = "<group>"; };
 		9C43EC8D1F25D76800D0B59D /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		9C43EC8F1F25DBEE00D0B59D /* TopicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
+		9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuButton.swift; sourceTree = "<group>"; };
 		9CBA39EC1F1F7E88007EB52C /* MSGP-Example-MenuHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MSGP-Example-MenuHandler.swift"; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* MSGPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSGPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805391F0D012F00B9B0AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9CEA75231F2A0E61009FC89D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		9CEA75271F2A1FA0009FC89D /* LikesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesService.swift; sourceTree = "<group>"; };
+		9CEA75291F2A1FAA009FC89D /* PinsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinsService.swift; sourceTree = "<group>"; };
 		A02E45E9769C0BC8545B8A53 /* Pods-Group-MSGP-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		A5377FBC212EB28C3631F3C5 /* Pods-Group-MSGPUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGPUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGPUITests/Pods-Group-MSGPUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A5397EB2DBE44FD7F84C13DF /* Pods_Group_MSGP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_MSGP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -728,8 +730,6 @@
 		0D18F32632B4800CF93F4EC7 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				1CC9777207CD6856814D3267 /* HomeInteractorInput.swift */,
-				1551505D33D89C91990C2BDA /* HomeInteractorOutput.swift */,
 				2E0EA0876D130C771A2AA58F /* HomeInteractor.swift */,
 			);
 			path = Interactor;
@@ -762,22 +762,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		63A1D6F81F25E7800090C67A /* API */ = {
-			isa = PBXGroup;
-			children = (
-				63A1D6F91F25E7800090C67A /* Topic */,
-			);
-			path = API;
-			sourceTree = "<group>";
-		};
-		63A1D6F91F25E7800090C67A /* Topic */ = {
-			isa = PBXGroup;
-			children = (
-				63A1D6FA1F25E78D0090C67A /* TopicService.swift */,
-			);
-			path = Topic;
-			sourceTree = "<group>";
-		};
 		61500C8DD4ABB568867F22B6 /* Configurator */ = {
 			isa = PBXGroup;
 			children = (
@@ -795,6 +779,24 @@
 				3302C1C53468D2A3C2FB8C14 /* HomeViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		63A1D6F81F25E7800090C67A /* API */ = {
+			isa = PBXGroup;
+			children = (
+				9CEA75251F2A1F93009FC89D /* Likes */,
+				9CEA75261F2A1F93009FC89D /* Pins */,
+				63A1D6F91F25E7800090C67A /* Topic */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		63A1D6F91F25E7800090C67A /* Topic */ = {
+			isa = PBXGroup;
+			children = (
+				63A1D6FA1F25E78D0090C67A /* TopicService.swift */,
+			);
+			path = Topic;
 			sourceTree = "<group>";
 		};
 		68870A3611DCA802D02A3E0A /* Home */ = {
@@ -1093,6 +1095,7 @@
 				88580B0C1F2213AB00C1CBAF /* SessionStore.swift */,
 				88580B0D1F2213AB00C1CBAF /* SocialUser.swift */,
 				88580B0E1F2213AB00C1CBAF /* User.swift */,
+				9CEA75231F2A0E61009FC89D /* Post.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1785,6 +1788,22 @@
 			path = MSGPTests;
 			sourceTree = "<group>";
 		};
+		9CEA75251F2A1F93009FC89D /* Likes */ = {
+			isa = PBXGroup;
+			children = (
+				9CEA75271F2A1FA0009FC89D /* LikesService.swift */,
+			);
+			path = Likes;
+			sourceTree = "<group>";
+		};
+		9CEA75261F2A1F93009FC89D /* Pins */ = {
+			isa = PBXGroup;
+			children = (
+				9CEA75291F2A1FAA009FC89D /* PinsService.swift */,
+			);
+			path = Pins;
+			sourceTree = "<group>";
+		};
 		D12F851E499DDE21B4BF561C /* Router */ = {
 			isa = PBXGroup;
 			children = (
@@ -2240,6 +2259,7 @@
 				88580BA71F2213AB00C1CBAF /* NavigationStackContainer.swift in Sources */,
 				88580BE71F2213AB00C1CBAF /* GetRequestTokenResponse.swift in Sources */,
 				88580C151F2213AB00C1CBAF /* SessionStore.swift in Sources */,
+				9CEA75241F2A0E61009FC89D /* Post.swift in Sources */,
 				882AD0BD1F221D4400FC20B7 /* CoreDataStack.swift in Sources */,
 				88580BD21F2213AB00C1CBAF /* ReportingAPI.swift in Sources */,
 				882AD0C31F2225FF00FC20B7 /* QueriableRepository.swift in Sources */,
@@ -2370,6 +2390,8 @@
 				88580C321F2213AB00C1CBAF /* CreateAccountConfigurator.swift in Sources */,
 				882AD0BB1F221D4400FC20B7 /* CommonFunctions.swift in Sources */,
 				88580C311F2213AB00C1CBAF /* ThirdPartyConfigurator.swift in Sources */,
+				9CEA75281F2A1FA0009FC89D /* LikesService.swift in Sources */,
+				9CEA752A1F2A1FAA009FC89D /* PinsService.swift in Sources */,
 				882AD0BE1F221D4400FC20B7 /* CoreDataStackBuilder.swift in Sources */,
 				88580C181F2213AB00C1CBAF /* ImageCache.swift in Sources */,
 				88580C761F2213AB00C1CBAF /* ImagePicker.swift in Sources */,
@@ -2478,8 +2500,6 @@
 				E14F14583C908D331E99F133 /* HomeViewController.swift in Sources */,
 				F86139F7C747A64D4126D30A /* HomeModuleInput.swift in Sources */,
 				AA8CC50E7DF65CDCE34630FF /* HomePresenter.swift in Sources */,
-				E15B2692EBCE14A3AF7E4E8A /* HomeInteractorInput.swift in Sources */,
-				FDD131CAFD53BA911B3655D4 /* HomeInteractorOutput.swift in Sources */,
 				55EE1A9BC5F383EA21599C6B /* HomeInteractor.swift in Sources */,
 				839E2977904826AD97A96BFE /* HomeRouterInput.swift in Sources */,
 				35925D59EC301D8D04936D19 /* HomeRouter.swift in Sources */,

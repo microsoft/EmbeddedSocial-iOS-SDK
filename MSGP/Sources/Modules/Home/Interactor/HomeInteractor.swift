@@ -3,91 +3,106 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-enum PostDataFetchError: Error {
+enum FeedServiceError: Error {
     case failedToFetch(message: String)
+    case failedToLike(message: String)
+    case failedToPin(message: String)
     
     var message: String {
         switch self {
-        case .failedToFetch(message: let message):
+        case .failedToFetch(let message),
+             .failedToPin(let message),
+             .failedToLike(let message):
             return message
         }
     }
 }
 
-struct HomePostItem {
+struct PostItem {
+    var userName: String = ""
     var title: String = ""
     var text: String = ""
     var liked: String = ""
     var timeUpdated: String = ""
-    var postImage: Photo = Photo()
-}
-
-struct HomePostsFeed {
-    var items: [HomePostItem]
-}
-
-struct PostData {
-    var title: String?
-    var text: String?
-    var liked: String?
-    var timeUpdated: String?
-    var imageURL: String?
-}
-
-extension PostData {
+    var imageURL: String? = nil
     
-    static var mockedCounter: Int = 0
-    static func postItemMock() -> PostData {
-        
-        var item = PostData()
-        item.title = "Mocked Post Title \(mockedCounter)"
-        item.text = "Mocked Post Text \(mockedCounter)"
-        mockedCounter += 1
-        return item
+    struct PostMetaData {
+        var handle: String
     }
 }
 
-struct PostDataFetchResult {
-    var posts: [PostData]?
-    var error: PostDataFetchError?
+struct PostsFeed {
+    var items: [PostItem]
+}
+
+struct PostFetchResult {
+    var posts: [Post] = [Post]()
+    var error: FeedServiceError?
     var offset: String?
 }
 
-extension PostDataFetchResult {
+extension PostFetchResult {
     
-    static func postsFetchResultMock() -> PostDataFetchResult {
-        var result = PostDataFetchResult()
+    static func mock() -> PostFetchResult {
+        var result = PostFetchResult()
         
         result.error = nil
         result.offset = nil
         
         let number = arc4random() % 5 + 1
         
-        for _ in 0..<number {
-            result.posts?.append(PostData.postItemMock())
+        for index in 0..<number {
+            result.posts.append(Post.mock(seed: Int(index)))
         }
         return result
     }
 }
 
 protocol PostServiceProtocol {
-    func fetchPosts(offset: String?, limit: Int, callback: ((PostDataFetchResult) -> Void)?)
+    func fetchPosts(offset: String?, limit: Int, callback: ((PostFetchResult) -> Void)?)
 }
 
 class PostServiceMock: PostServiceProtocol {
     
-    func fetchPosts(offset: String?, limit: Int, callback: ((PostDataFetchResult) -> Void)?) {
+    func fetchPosts(offset: String?, limit: Int, callback: ((PostFetchResult) -> Void)?) {
         
         
         
     }
 }
 
+typealias PostHandle = String
+
+protocol HomeInteractorInput {
+    
+    func fetchPosts(with limit: Int)
+    func like(with id: PostHandle)
+    func pin(with id: PostHandle)
+    
+}
+
+protocol HomeInteractorOutput: class {
+    
+    func didFetch(feed: PostsFeed)
+    func didFetchMore(feed: PostsFeed)
+    func didFail(error: FeedServiceError)
+    
+    func didLike(post id: PostHandle)
+    func didPin(post id: PostHandle)
+}
+
 class HomeInteractor: HomeInteractorInput {
     
+    func pin(with id: String) {
+        
+    }
+
+    func like(with id: String) {
+    
+    }
+
     weak var output: HomeInteractorOutput!
     
-    var items = [PostData]()
     var offset: String = ""
     var postService: PostServiceProtocol! = PostServiceMock()
     
@@ -101,7 +116,7 @@ class HomeInteractor: HomeInteractorInput {
                 return
             }
             
-            let feed = self.buildHomePostsFeed(from: result.posts!)
+            let feed = self.buildPostsFeed(from: result.posts)
             
             if self.offset.isEmpty {
                 self.output.didFetch(feed: feed)
@@ -113,27 +128,23 @@ class HomeInteractor: HomeInteractorInput {
         }
     }
     
-    private func postImagePlaceholder() -> UIImage {
-        return UIImage(asset: .placeholderPostNoimage)
-    }
-    
-    private func buildHomePostsFeed(from posts: [PostData]) -> HomePostsFeed {
+    private func buildPostsFeed(from posts: [Post]) -> PostsFeed {
         
-        var items = [HomePostItem]()
+        var items = [PostItem]()
         for post in posts {
             
-            var item = HomePostItem()
+            var item = PostItem()
             
             item.title = post.title!
             item.text = post.text!
-            item.liked = post.liked ?? ""
-            item.timeUpdated = post.timeUpdated!
-            item.postImage = Photo(url: post.imageURL, imagePlaceholder: postImagePlaceholder())
+            item.imageURL = post.imageUrl
+//            item.liked = post.liked ?? ""
+//            item.timeUpdated = post.timeUpdated!
+//            item.imageURL = post.imageURL!
             
             items.append(item)
         }
         
-        let feed = HomePostsFeed(items: items)
-        return feed
+        return PostsFeed(items: items)
     }
 }

@@ -154,13 +154,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cellData = output.itemModel(for: indexPath)
+        let item = output.item(for: indexPath)
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicCell.reuseID, for: indexPath) as? TopicCell else {
             fatalError("Wrong cell")
         }
         
-        cell.configure(with: cellData)
+        cell.configure(with: item)
         
         return cell
     }
@@ -169,8 +169,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         if collectionViewLayout == gridLayout {
             
-            let cellData = output.itemModel(for: indexPath)
-            sizingCell.configure(with: cellData)
+            let item = output.item(for: indexPath)
+            sizingCell.configure(with: item)
             
             sizingCell.needsUpdateConstraints()
             sizingCell.updateConstraints()
