@@ -71,22 +71,32 @@ class TopicCell: UICollectionViewCell {
         clipsToBounds = true
     }
     
-    func configure(with data: PostItem) {
+    func configure(with data: PostViewModel) {
+
+        if data.postImageUrl == nil {
+            postImage.image = postImagePlaceholder
+        } else {
+            postImage.setPhotoWithCaching(Photo(url: data.postImageUrl), placeholder: postImagePlaceholder)
+        }
         
-        userPhoto.setPhotoWithCaching(Photo(url: data.imageURL), placeholder: imagePlaceHolder)
+        if data.userImageUrl == nil {
+            userPhoto.image = userImagePlaceholder
+        } else {
+            userPhoto.setPhotoWithCaching(Photo(url: data.userImageUrl), placeholder: postImagePlaceholder)
+        }
+        
         userName.text = data.userName
         postTitle.text = data.title
         postText.text = data.text
-        postCreation.text = data.timeUpdated
+        postCreation.text = data.timeCreated
     }
     
-    lazy var imagePlaceHolder: UIImage = {
-        
+    lazy var postImagePlaceholder: UIImage = {
         return UIImage(asset: Asset.placeholderPostNoimage)
-        
     }()
-
     
-    
+    lazy var userImagePlaceholder: UIImage = {
+        return UIImage(asset: Asset.userPhotoPlaceholder)
+    }()
     
 }

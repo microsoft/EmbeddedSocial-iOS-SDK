@@ -6,18 +6,18 @@
 import Foundation
 
 struct Post {
-    
+
     public var topicHandle: String?
     public var createdTime: Date?
     public var lastUpdatedTime: Date?
     
-    struct user {
-        public var userHandle: String?
-        public var firstName: String?
-        public var lastName: String?
-        public var photoHandle: String?
-        public var photoUrl: String?
-    }
+    
+    public var userHandle: String?
+    public var firstName: String?
+    public var lastName: String?
+    public var photoHandle: String?
+    public var photoUrl: String?
+    
 
     public var title: String?
     public var text: String?

@@ -38,7 +38,7 @@ public final class SocialPlus {
         setupCache()
         
         if sessionStore.isLoggedIn {
-            // FIXME: coordinator.onSessionCreated crashes if uncommented
+            APISettings.shared.customHeaders = sessionStore.user.credentials.authHeader ?? [: ]
              coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
         }
     }

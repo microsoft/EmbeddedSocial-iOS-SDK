@@ -11,6 +11,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
 
     var layout: HomeLayoutType = .grid
     let limit = 3
+    var items = [Post]()
     
     func didTapChangeLayout() {
         flip(layout: &layout)
@@ -21,50 +22,45 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         layout = HomeLayoutType(rawValue: layout.rawValue ^ 1)!
     }
     
+    // MARK: Private
+    
+    private func viewModel(with post: Post) -> PostViewModel {
+        
+        var viewModel = PostViewModel()
+        viewModel.userName = (post.firstName ?? "") + " " + (post.lastName ?? "")
+        viewModel.title = post.title ?? ""
+        viewModel.text = post.text ?? ""
+        viewModel.likedBy = "" // TODO: uncomfirmed
+        
+        viewModel.totalLikes = post.totalLikes == nil ? "" : "\(post.totalComments!)"
+        viewModel.totalComments = post.totalComments == nil ? "" : "\(post.totalComments!)"
+        viewModel.timeCreated =  post.lastUpdatedTime == nil ? "" : dateFormatter.string(from: post.lastUpdatedTime!)
+        viewModel.userImageUrl = post.photoUrl
+        viewModel.postImageUrl = post.imageUrl
+        
+        return viewModel
+    }
+
+    lazy var dateFormatter: DateFormatter = {
+        var dateFormat = "hh:mm"
+        let formatter = DateFormatter()
+        formatter.dateFormat = dateFormat
+        formatter.locale = Locale.current
+        formatter.timeZone = TimeZone.current
+        return formatter
+    }()
+    
+
     // MARK: HomeViewOutput
     
-    func item(for path: IndexPath) -> PostItem {
-        return items[path.row]
+    func item(for path: IndexPath) -> PostViewModel {
+        return viewModel(with: items[path.row])
     }
-    
-    var items = [PostItem]()
     
     private func itemIndex(with postHandle:PostHandle) -> Int? {
-        return items.index(where: { $0.handle == postHandle } )
+        return items.index(where: { $0.topicHandle == postHandle } )
     }
-    
-    
-//    lazy var items: [TopicCellData] = {
-//        
-//        return [
-//            TopicCellData(userName: "Willy Mates",
-//                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
-//                          postTitle: "New money !",
-//                          postText: "So legal, so Tender. What do you all think? Sweden took a risk here and it was worth it.", postCreation: "2h",
-//                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
-//            TopicCellData(userName: "Gilly Dogs",
-//                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
-//                          postTitle: "About layouts",
-//                          postText: "The present disambiguation page holds the title of a primary topic, and an article needs to be written about it. It is believed to qualify as a broad-concept article. It may be written directly at this page or drafted elsewhere and then moved over here. Related titles should be described in Layout, while unrelated titles should be moved to Layout (disambiguation).", postCreation: "2h",
-//                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
-//            TopicCellData(userName: "Doleres",
-//                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
-//                          postTitle: "New money !",
-//                          postText: "So legal, so Tender. What do you all think? Sweden took a risk here and it was worth it.", postCreation: "2h",
-//                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
-//            TopicCellData(userName: "Github",
-//                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
-//                          postTitle: "N0 code today",
-//                          postText: "func numberOfItems() -> Int { return items.count }", postCreation: "2h",
-//                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
-//            TopicCellData(userName: "Riarden Steel",
-//                          userPhoto: Photo(image: UIImage(asset: .placeholderPostUser1)),
-//                          postTitle: "New money !",
-//                          postText: "Best steel in the World.", postCreation: "2h",
-//                          postImage: Photo(image: UIImage(asset: .placeholderPostImage))),
-//            ]
-//    }()
-    
+  
     func numberOfItems() -> Int {
         return items.count
     }
@@ -72,22 +68,29 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     func viewIsReady() {
         view.setupInitialState()
         view.setLayout(type: layout)
+        
+        didPullRefresh()
     }
     
     func didPullRefresh() {
+        view.setRefreshing(state: true)
         interactor.fetchPosts(with: limit)
     }
     
     func didFetch(feed: PostsFeed) {
+        view.setRefreshing(state: false)
         items = feed.items
+        view.reload()
     }
     
     func didFetchMore(feed: PostsFeed) {
+        view.setRefreshing(state: false)
         items.append(contentsOf: feed.items)
+        view.reload()
     }
     
     func didFail(error: FeedServiceError) {
-        // TODO: delegate error to client
+        Logger.log(error)
     }
     
     func didUnpin(post id: PostHandle) {

@@ -71,11 +71,11 @@ class TopicService: PostServiceProtocol {
 
     func fetchPosts(offset: String?, limit: Int, resultHandler: @escaping FetchResultHandler) {
         
-        TopicsAPI.topicsGetFeaturedTopics(cursor: offset, limit: Int32(limit)) { (response, error) in
-            
+        TopicsAPI.topicsGetTopics(cursor: offset, limit: Int32(limit)) { (response, error) in
+
             var result = PostFetchResult()
             
-            guard error != nil else {
+            guard error == nil else {
                 result.error = FeedServiceError.failedToFetch(message: error!.localizedDescription)
                 resultHandler(result)
                 return
@@ -88,7 +88,7 @@ class TopicService: PostServiceProtocol {
             }
             
             result.posts = self.convert(data: data)
-            result.offset = offset!
+            result.cursor = response?.cursor
             
             resultHandler(result)
         }

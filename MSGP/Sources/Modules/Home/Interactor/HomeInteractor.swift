@@ -22,24 +22,26 @@ enum FeedServiceError: Error {
     }
 }
 
-struct PostItem {
+struct PostViewModel {
     var userName: String = ""
     var title: String = ""
     var text: String = ""
-    var liked: String = ""
-    var timeUpdated: String = ""
-    var imageURL: String? = nil
-    var handle: String!
+    var likedBy: String = ""
+    var totalLikes: String = ""
+    var totalComments: String = ""
+    var timeCreated: String = ""
+    var userImageUrl: String? = nil
+    var postImageUrl: String? = nil
 }
 
 struct PostsFeed {
-    var items: [PostItem]
+    var items: [Post]
 }
 
 struct PostFetchResult {
     var posts: [Post] = [Post]()
     var error: FeedServiceError?
-    var offset: String = ""
+    var cursor: String? = nil
 }
 
 extension PostFetchResult {
@@ -102,7 +104,7 @@ class HomeInteractor: HomeInteractorInput {
     var likesService: LikesServiceProtocol = LikesService()
     var pinsService: PinsServiceProtocol! = PinsService ()
     
-    private var offset: String = ""
+    private var offset: String? = nil
     
     func fetchPosts(with limit: Int) {
         postService.fetchPosts(offset: offset, limit: limit) { (result) in
@@ -114,38 +116,16 @@ class HomeInteractor: HomeInteractorInput {
                 return
             }
             
-            let feed = self.buildPostsFeed(from: result.posts)
+            let feed = PostsFeed(items: result.posts)
             
-            if self.offset.isEmpty {
+            if self.offset == nil {
                 self.output.didFetch(feed: feed)
             } else {
                 self.output.didFetchMore(feed: feed)
             }
             
-            self.offset = result.offset
+            self.offset = result.cursor
         }
-    }
-    
-    private func buildPostsFeed(from posts: [Post]) -> PostsFeed {
-        
-        var items = [PostItem]()
-        for post in posts {
-            
-            var item = PostItem()
-            
-            item.title = post.title!
-            item.text = post.text!
-            item.imageURL = post.imageUrl
-            // TODO: fullfill mapping
-            
-//            item.liked = post.liked ?? ""
-//            item.timeUpdated = post.timeUpdated!
-//            item.imageURL = post.imageURL!
-            
-            items.append(item)
-        }
-        
-        return PostsFeed(items: items)
     }
     
     // TODO: refactor there 4 methods using generics ?

@@ -13,7 +13,7 @@ protocol HomeViewOutput {
     func viewIsReady()
     
     func numberOfItems() -> Int
-    func item(for path: IndexPath) -> PostItem
+    func item(for path: IndexPath) -> PostViewModel
     
     func didTapChangeLayout()
     func didPullRefresh()
