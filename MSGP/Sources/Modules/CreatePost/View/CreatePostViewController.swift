@@ -46,7 +46,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     }
     
     func show(user: User) {
-        userImageView.sd_setImage(with: URL(string: (user.photo?.url)!))
+        userImageView.setPhotoWithCaching(user.photo, placeholder: nil)
         userImageView.layer.cornerRadius = userImageView.bounds.size.height/2
         usernameLabel.text = "\(user.firstName!) \(user.lastName!)"
     }

@@ -5,19 +5,21 @@
 
 import XCTest
 
-class Loop: UITestBase {
-    
-    override func setUp() {
-        super.setUp()
-        
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-    }
-    
-    func testExample() {
-        while true {}
-    }
-    
-}
+//Uncomment and run to test and debug API Mock
+
+//class Loop: UITestBase {
+//    
+//    override func setUp() {
+//        super.setUp()
+//        
+//    }
+//    
+//    override func tearDown() {
+//        super.tearDown()
+//    }
+//    
+//    func testAPIMock() {
+//        while true {}
+//    }
+//    
+//}
