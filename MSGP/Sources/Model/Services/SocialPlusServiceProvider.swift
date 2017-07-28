@@ -13,6 +13,8 @@ protocol SocialPlusServicesType {
     func getURLSchemeService() -> URLSchemeServiceType
     
     func getSessionStoreRepositoriesProvider() -> SessionStoreRepositoryProviderType
+    
+    func getThirdPartyConfigurator() -> ThirdPartyConfiguratorType
 }
 
 struct SocialPlusServices: SocialPlusServicesType {
@@ -22,5 +24,9 @@ struct SocialPlusServices: SocialPlusServicesType {
     
     func getSessionStoreRepositoriesProvider() -> SessionStoreRepositoryProviderType {
         return SessionStoreRepositoryProvider()
+    }
+    
+    func getThirdPartyConfigurator() -> ThirdPartyConfiguratorType {
+        return ThirdPartyConfigurator()
     }
 }

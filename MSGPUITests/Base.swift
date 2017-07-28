@@ -13,7 +13,7 @@ class UITestBase: XCTestCase {
     var eventLoopThreadCondition: NSCondition!
     var eventLoopThread: Thread!
     var loop: SelectorEventLoop!
-    var router: Router!
+    var router: APIRouter!
     var server: DefaultHTTPServer!
     var app: XCUIApplication!
     var startServerOnDemand = false
@@ -28,7 +28,7 @@ class UITestBase: XCTestCase {
         
         loop = try! SelectorEventLoop(selector: try! KqueueSelector())
         router = APIRouter()
-        server = DefaultHTTPServer(eventLoop: loop, port: 8080, app: router.app)
+        server = DefaultHTTPServer(eventLoop: loop, interface: "localhost", port: 8080, app: router.app)
         
         setUpRouter()
         

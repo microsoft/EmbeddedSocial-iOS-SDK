@@ -15,16 +15,16 @@ public final class SocialPlus {
     private(set) var coreDataStack: CoreDataStack!
     
     private(set) var cache: Cache!
-
+    
     private init() {
         setupServices(with: SocialPlusServices())
-        try? sessionStore.loadLastSession()
     }
     
     func setupServices(with serviceProvider: SocialPlusServicesType) {
         self.serviceProvider = serviceProvider
         let database = SessionStoreDatabaseFacade(services: serviceProvider.getSessionStoreRepositoriesProvider())
         sessionStore = SessionStore(database: database)
+        try? sessionStore.loadLastSession()
     }
     
     public func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
@@ -32,13 +32,14 @@ public final class SocialPlus {
     }
     
     public func start(launchArguments args: LaunchArguments) {
-        ThirdPartyConfigurator.setup(application: args.app, launchOptions: args.launchOptions)
+        serviceProvider.getThirdPartyConfigurator().setup(application: args.app, launchOptions: args.launchOptions)
         coordinator.setup(launchArguments: args, loginHandler: self)
         setupCoreDataStack()
         setupCache(stack: coreDataStack)
         
         if sessionStore.isLoggedIn {
-             coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
+            APISettings.shared.customHeaders = sessionStore.user.credentials?.authHeader ?? [:]
+            coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
         }
     }
     

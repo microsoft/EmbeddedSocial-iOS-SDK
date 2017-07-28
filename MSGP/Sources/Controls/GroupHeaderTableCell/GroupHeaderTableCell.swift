@@ -62,7 +62,7 @@ extension GroupHeaderTableCell.Style {
     typealias Style = GroupHeaderTableCell.Style
     
     static var createAccount: Style {
-        let insets = UIEdgeInsets(top: 0.0, left: Constants.createAccount.contentPadding, bottom: 0.0, right: 0.0)
+        let insets = UIEdgeInsets(top: 0.0, left: Constants.CreateAccount.contentPadding, bottom: 0.0, right: 0.0)
         return Style(titleColor: Palette.darkGrey,
                      titleFont: Fonts.regular,
                      backgroundColor: Palette.extraLightGrey,

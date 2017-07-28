@@ -20,12 +20,12 @@ class LoginInteractor: LoginInteractorInput {
     
     func getMyProfile(socialUser: SocialUser, handler: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
         userService.getMyProfile(socialUser: socialUser) { [weak self] result in
-            guard let user = result.value else {
+            guard let user = result.value, let credentials = user.credentials else {
                 handler(.failure(result.error ?? APIError.failedRequest))
                 return
             }
             
-            self?.sessionService.makeNewSession(with: user.credentials, userUID: user.uid) { result in
+            self?.sessionService.makeNewSession(with: credentials, userUID: user.uid) { result in
                 if let sessionToken = result.value {
                     handler(.success((user, sessionToken)))
                 } else {
