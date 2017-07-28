@@ -14,9 +14,17 @@ struct Constants {
 // swiftlint:disable type_name
 extension Constants {
     
-    struct createAccount {
+    struct CreateAccount {
         static let contentPadding: CGFloat = 20.0
         static let uploadPhotoHeight: CGFloat = 84.0
         static let maxBioLength = 500
+    }
+}
+
+extension Constants {
+    
+    struct Placeholder {
+        static let unknown = "Unknown"
+        static let notSpecified = "Not specified"
     }
 }

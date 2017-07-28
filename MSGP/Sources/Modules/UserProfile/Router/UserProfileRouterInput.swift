@@ -5,9 +5,10 @@
 
 import Foundation
 
-protocol SideMenuRouterInput {
+protocol UserProfileRouterInput {
+    func openFollowers(user: User)
     
-    func open(viewController: UIViewController, sender: Any?)
-    func openLoginScreen()
-    func openMyProfile()
+    func openFollowing(user: User)
+    
+    func openEditProfile(user: User)
 }

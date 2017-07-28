@@ -6,7 +6,7 @@
 import UIKit
 
 struct CreateAccountValidator: Validator {
-    static var maxBioLength = Constants.createAccount.maxBioLength
+    static var maxBioLength = Constants.CreateAccount.maxBioLength
 
     struct Options {
         let firstName: String?

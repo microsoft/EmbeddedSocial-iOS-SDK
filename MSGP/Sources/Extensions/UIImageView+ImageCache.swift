@@ -7,6 +7,9 @@ import UIKit
 
 extension UIImageView {
     
+    /// Set the imageView `image` with a `photo` and a placeholder.
+    /// If `photo` has image, it's set immediately.
+    /// If it has only URL, it's downloaded and cached.
     func setPhotoWithCaching(_ photo: Photo?, placeholder: UIImage?) {
         guard let photo = photo else {
             image = placeholder

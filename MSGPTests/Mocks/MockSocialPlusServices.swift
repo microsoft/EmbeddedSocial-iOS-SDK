@@ -8,9 +8,13 @@ import Foundation
 
 struct MockSocialPlusServices: SocialPlusServicesType {
     private let urlSchemeService: URLSchemeServiceType
+    private let sessionStoreRepositoriesProvider: SessionStoreRepositoryProviderType
     
-    init(urlSchemeService: URLSchemeServiceType) {
+    var thirdPartyConfigurator: ThirdPartyConfiguratorType = MockThirdPartyConfigurator()
+
+    init(urlSchemeService: URLSchemeServiceType, sessionStoreRepositoriesProvider: SessionStoreRepositoryProviderType) {
         self.urlSchemeService = urlSchemeService
+        self.sessionStoreRepositoriesProvider = sessionStoreRepositoriesProvider
     }
     
     func getURLSchemeService() -> URLSchemeServiceType {
@@ -18,6 +22,10 @@ struct MockSocialPlusServices: SocialPlusServicesType {
     }
     
     func getSessionStoreRepositoriesProvider() -> SessionStoreRepositoryProviderType {
-        return SessionStoreRepositoryProvider()
+        return sessionStoreRepositoriesProvider
+    }
+    
+    func getThirdPartyConfigurator() -> ThirdPartyConfiguratorType {
+        return thirdPartyConfigurator
     }
 }
