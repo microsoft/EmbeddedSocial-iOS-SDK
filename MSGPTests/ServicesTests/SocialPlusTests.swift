@@ -27,7 +27,8 @@ class SocialPlusTests: XCTestCase {
     func testThatURLIsOpened(mockResult: Bool) {
         // given
         let urlSchemeService = MockURLSchemeService(openURLResult: mockResult)
-        let socialPlusServicesProvider = MockSocialPlusServices(urlSchemeService: urlSchemeService)
+        let socialPlusServicesProvider = MockSocialPlusServices(urlSchemeService: urlSchemeService,
+                                                                sessionStoreRepositoriesProvider: SessionStoreRepositoryProvider())
         let url = URL(string: "http://google.com")
         
         // when
@@ -39,5 +40,41 @@ class SocialPlusTests: XCTestCase {
         // then
         XCTAssertEqual(mockResult, actualResult)
         XCTAssertTrue(urlSchemeService.openURLIsCalled)
+    }
+    
+    func testThatItConfiguresAllServicesOnStartWithLoggedInUser() {
+        // given
+        let credentials = CredentialsList(provider: .facebook, accessToken: UUID().uuidString, socialUID: UUID().uuidString)
+        let user = User(uid: UUID().uuidString, credentials: credentials)
+        let sessionToken = UUID().uuidString
+        
+        let userRepo = MockKeyValueRepository<User>()
+        userRepo.mementoToLoad = user.memento
+        
+        let sessionTokenRepo = MockKeyValueRepository<String>()
+        sessionTokenRepo.mementoToLoad = sessionToken.memento
+        
+        let thirdPartiesConfigurator = MockThirdPartyConfigurator()
+        
+        let repoProvider = MockSessionStoreRepositoryProvider(userRepository: userRepo, sessionTokenRepository: sessionTokenRepo)
+        
+        var servicesProvider = MockSocialPlusServices(urlSchemeService: URLSchemeService(),
+                                                      sessionStoreRepositoriesProvider: repoProvider)
+        servicesProvider.thirdPartyConfigurator = thirdPartiesConfigurator
+        
+        sut.setupServices(with: servicesProvider)
+        
+        let args = LaunchArguments(app: UIApplication.shared,
+                                   window: UIWindow(),
+                                   launchOptions: [:],
+                                   menuHandler: nil,
+                                   menuConfiguration: .dual)
+        
+        // when
+        sut.start(launchArguments: args)
+        
+        // then
+        XCTAssertEqual(APISettings.shared.customHeaders, credentials.authHeader)
+        XCTAssertEqual(thirdPartiesConfigurator.setupCount, 1)
     }
 }

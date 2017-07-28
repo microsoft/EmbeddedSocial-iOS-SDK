@@ -1,7 +1,4 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See LICENSE in the project root for license information.
-//
+// Generated using SwiftGen, by O.Halligon — https://github.com/SwiftGen/SwiftGen
 
 #if os(iOS) || os(tvOS) || os(watchOS)
   import UIKit.UIImage

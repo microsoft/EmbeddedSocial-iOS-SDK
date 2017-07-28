@@ -8,6 +8,8 @@ import Foundation
 protocol UserServiceType {
     func getMyProfile(socialUser: SocialUser, completion: @escaping (Result<User>) -> Void)
     
+    func getUserProfile(userID: String, completion: @escaping (Result<User>) -> Void)
+    
     func createAccount(for user: SocialUser, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void)
 }
 
@@ -17,13 +19,12 @@ struct UserService: UserServiceType {
         APISettings.shared.customHeaders = socialUser.credentials.authHeader
         
         UsersAPI.usersGetMyProfile { profile, error in
-            guard let profile = profile,
-                let userHandle = profile.userHandle else {
-                    completion(.failure(error ?? APIError.missingUserData))
-                    return
+            guard let profile = profile else {
+                completion(.failure(APIError(error: error as? ErrorResponse)))
+                return
             }
             
-            let user = User(socialUser: socialUser, userHandle: userHandle)
+            let user = User(profileView: profile, credentials: socialUser.credentials)
             completion(.success(user))
         }
     }
@@ -45,7 +46,18 @@ struct UserService: UserServiceType {
                 let user = User(socialUser: user, userHandle: userHandle)
                 completion(.success((user, sessionToken)))
             } else {
-                completion(.failure(error ?? APIError.custom("Failed to create new profile.")))
+                completion(.failure(APIError(error: error as? ErrorResponse)))
+            }
+        }
+    }
+    
+    func getUserProfile(userID: String, completion: @escaping (Result<User>) -> Void) {
+        UsersAPI.usersGetUser(userHandle: userID) { profile, error in
+            if let profile = profile {
+                let user = User(profileView: profile)
+                completion(.success(user))
+            } else {
+                completion(.failure(APIError(error: error as? ErrorResponse)))
             }
         }
     }

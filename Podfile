@@ -19,7 +19,6 @@ abstract_target 'Group' do
     pod 'TwitterKit', '~> 2.8.1'
     pod 'GoogleSignIn', '~> 4.0.2'
     pod 'SDWebImage', '~> 4.0.0'
-    pod 'MSGraphSDK', '~> 0.10.1'
     pod 'SwiftGen', '~> 4.2.1'
     pod 'UITextView+Placeholder', '~> 1.2.0'
     pod 'OAuthSwift', '~> 1.1.2'
