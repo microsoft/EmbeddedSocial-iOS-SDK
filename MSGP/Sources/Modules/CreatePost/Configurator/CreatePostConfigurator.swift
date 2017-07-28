@@ -18,8 +18,7 @@ class CreatePostModuleConfigurator {
 
         let interactor = CreatePostInteractor()
         interactor.output = presenter
-        let topicService = TopicService()
-        topicService.cache = cache
+        let topicService = TopicService(cache: cache)
         interactor.topicService = topicService
 
         presenter.interactor = interactor
