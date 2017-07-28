@@ -21,6 +21,7 @@ class Cache: Cachable {
     
     @discardableResult func cacheIncoming(object: JSONEncodable) -> IncomingTransaction {
         let transactionModel = database.makeIncomingTransaction()
+        transactionModel.typeid = String(describing: type(of: object))
         transactionModel.payload = object.encodeToJSON() as? [String : Any]
         database.save(transaction: transactionModel)
         return transactionModel
@@ -28,6 +29,7 @@ class Cache: Cachable {
     
     @discardableResult func cacheOutgoing(object: JSONEncodable) -> OutgoingTransaction {
         let transactionModel = database.makeOutgoingTransaction()
+        transactionModel.typeid = String(describing: type(of: object))
         transactionModel.payload = object.encodeToJSON() as? [String : Any]
         database.save(transaction: transactionModel)
         return transactionModel

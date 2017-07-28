@@ -5,7 +5,7 @@
 
 import Foundation
 
-final class TransactionsDatabaseFacade: TransactionsDatabaseFacadeType {
+class TransactionsDatabaseFacade: TransactionsDatabaseFacadeType {
     private let incomingRepo: QueriableRepository<IncomingTransaction>
     private let outgoingRepo: QueriableRepository<OutgoingTransaction>
     
