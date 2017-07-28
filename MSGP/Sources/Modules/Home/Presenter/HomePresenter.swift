@@ -92,24 +92,30 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
     func didUnpin(post id: PostHandle) {
         if let index = itemIndex(with: id) {
+            items[index].pinned = false
             view.reload(with: index)
         }
     }
     
     func didUnlike(post id: PostHandle) {
         if let index = itemIndex(with: id) {
+            items[index].liked = false
             view.reload(with: index)
         }
     }
     
     func didLike(post id: PostHandle) {
+        
         if let index = itemIndex(with: id) {
+            items[index].liked = true
+            items[index].totalLikes += Int64(1)
             view.reload(with: index)
         }
     }
     
     func didPin(post id: PostHandle) {
         if let index = itemIndex(with: id) {
+            items[index].pinned = true
             view.reload(with: index)
         }
     }

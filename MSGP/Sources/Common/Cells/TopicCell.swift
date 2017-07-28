@@ -13,12 +13,9 @@ class TopicCell: UICollectionViewCell {
     
     weak var delegate: PostCellDelegate?
     
-    var isCollapsed: Bool = false {
-        didSet {
-            
-        }
-    }
-    
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var pinButton: UIButton!
+    @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var userPhoto: UIImageView! {
         didSet {

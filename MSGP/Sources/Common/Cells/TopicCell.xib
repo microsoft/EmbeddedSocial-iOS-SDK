@@ -222,10 +222,13 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="commentButton" destination="6te-RD-RH1" id="xkP-Ou-RAJ"/>
                 <outlet property="commentedCount" destination="G0a-2Y-w6G" id="esK-Sf-Tqv"/>
                 <outlet property="container" destination="OEZ-HU-KUq" id="x2e-LX-oXB"/>
+                <outlet property="likeButton" destination="2C6-WJ-LvS" id="wCV-ro-zLw"/>
                 <outlet property="likedCount" destination="YLh-Pw-0g4" id="gWy-99-c0x"/>
                 <outlet property="likedList" destination="mKY-vi-P3e" id="Rfg-jE-u17"/>
+                <outlet property="pinButton" destination="LTY-SJ-7jo" id="uwC-Md-bG8"/>
                 <outlet property="postCreation" destination="hIe-cI-XjE" id="V3T-0h-0wD"/>
                 <outlet property="postImage" destination="hHb-OE-Buk" id="qan-Kr-Kor"/>
                 <outlet property="postText" destination="bhP-eN-hI9" id="2me-8O-h5I"/>
