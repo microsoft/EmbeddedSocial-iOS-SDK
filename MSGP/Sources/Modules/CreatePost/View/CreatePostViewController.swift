@@ -11,7 +11,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
 
     var output: CreatePostViewOutput!
     
-    @IBOutlet fileprivate weak var usernameLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet fileprivate weak var userImageView: UIImageView!
     @IBOutlet fileprivate weak var mediaButton: UIButton!
     @IBOutlet fileprivate weak var titleTextField: UITextField!
@@ -46,9 +46,14 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     }
     
     func show(user: User) {
-        userImageView.sd_setImage(with: URL(string: (user.photo?.url)!))
         userImageView.layer.cornerRadius = userImageView.bounds.size.height/2
         usernameLabel.text = "\(user.firstName!) \(user.lastName!)"
+        
+        guard let imageUrl =  user.photo?.url else {
+            return
+        }
+        
+        userImageView.sd_setImage(with: URL(string: imageUrl))
     }
     
     func show(error: Error) {
