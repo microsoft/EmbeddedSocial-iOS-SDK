@@ -23,17 +23,16 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     }
     
     // MARK: Private
-    
     private func viewModel(with post: Post) -> PostViewModel {
         
         var viewModel = PostViewModel()
-        viewModel.userName = (post.firstName ?? "") + " " + (post.lastName ?? "")
+        viewModel.userName = String(format: "%s %s", (post.firstName ?? ""), (post.lastName ?? ""))
         viewModel.title = post.title ?? ""
         viewModel.text = post.text ?? ""
         viewModel.likedBy = "" // TODO: uncomfirmed
         
-        viewModel.totalLikes = post.totalLikes == nil ? "" : "\(post.totalComments!)"
-        viewModel.totalComments = post.totalComments == nil ? "" : "\(post.totalComments!)"
+        viewModel.totalLikes = String(format: "%d likes", post.totalLikes ?? 0)
+        viewModel.totalComments = String(format: "%d comments", post.totalComments ?? 0 )
         viewModel.timeCreated =  post.lastUpdatedTime == nil ? "" : dateFormatter.string(from: post.lastUpdatedTime!)
         viewModel.userImageUrl = post.photoUrl
         viewModel.postImageUrl = post.imageUrl
@@ -49,10 +48,8 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         formatter.timeZone = TimeZone.current
         return formatter
     }()
-    
 
     // MARK: HomeViewOutput
-    
     func item(for path: IndexPath) -> PostViewModel {
         return viewModel(with: items[path.row])
     }
@@ -116,4 +113,29 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
             view.reload(with: index)
         }
     }
+    
+    func didTapComment(with path: IndexPath) {
+        // TODO: figure out what to do
+    }
+    
+    func didTapLike(with path: IndexPath) {
+        let item = items[path.row]
+        
+        if item.liked {
+            interactor.unlike(with: item.topicHandle)
+        } else {
+            interactor.like(with: item.topicHandle)
+        }
+    }
+    
+    func didTapPin(with path: IndexPath) {
+        let item = items[path.row]
+    
+        if item.pinned {
+            interactor.unpin(with: item.topicHandle)
+        } else {
+            interactor.pin(with: item.topicHandle)
+        }
+    }
+    
 }

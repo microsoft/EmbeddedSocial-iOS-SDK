@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "es_ic_comment_green.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "es_ic_like_normal.png",
       "scale" : "2x"
     },
     {

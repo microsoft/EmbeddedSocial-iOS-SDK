@@ -18,4 +18,8 @@ protocol HomeViewOutput {
     func didTapChangeLayout()
     func didPullRefresh()
     
+    func didTapLike(with path: IndexPath)
+    func didTapPin(with path: IndexPath)
+    func didTapComment(with path: IndexPath)
+    
 }

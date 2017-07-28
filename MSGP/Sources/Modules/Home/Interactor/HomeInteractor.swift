@@ -132,7 +132,7 @@ class HomeInteractor: HomeInteractorInput {
     
     func unlike(with id: PostHandle) {
         likesService.deleteLike(postHandle: id) { (handle, err) in
-            guard err != nil else {
+            guard err == nil else {
                 self.output.didFail(error: FeedServiceError.failedToUnLike(message: err!.localizedDescription))
                 return
             }
@@ -141,7 +141,7 @@ class HomeInteractor: HomeInteractorInput {
     
     func unpin(with id: PostHandle) {
         pinsService.deletePin(postHandle: id) { (handle, err) in
-            guard err != nil else {
+            guard err == nil else {
                 self.output.didFail(error: FeedServiceError.failedToUnPin(message: err!.localizedDescription))
                 return
             }
@@ -152,7 +152,7 @@ class HomeInteractor: HomeInteractorInput {
     
     func pin(with id: String) {
         pinsService.postPin(postHandle: id) { (handle, err) in
-            guard err != nil else {
+            guard err == nil else {
                 self.output.didFail(error: FeedServiceError.failedToPin(message: err!.localizedDescription))
                 return
             }
@@ -164,7 +164,7 @@ class HomeInteractor: HomeInteractorInput {
     func like(with id: String) {
         
         likesService.postLike(postHandle: id) { (handle, err) in
-            guard err != nil else {
+            guard err == nil else {
                 self.output.didFail(error: FeedServiceError.failedToLike(message: err!.localizedDescription))
                 return
             }

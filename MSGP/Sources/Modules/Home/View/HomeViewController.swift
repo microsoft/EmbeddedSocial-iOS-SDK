@@ -14,13 +14,13 @@ enum HomeLayoutType: Int {
 //
 //
 
-class HomeViewController: UIViewController, HomeViewInput {
+class HomeViewController: UIViewController, HomeViewInput, PostCellDelegate {
     
     var output: HomeViewOutput!
     var listLayout = UICollectionViewFlowLayout()
     var gridLayout = UICollectionViewFlowLayout()
     
-    @IBOutlet weak var collectionView: UICollectionView?
+    @IBOutlet weak var collectionView: UICollectionView!
     
     lazy var refreshControl: UIRefreshControl = {
         let control = UIRefreshControl()
@@ -42,7 +42,7 @@ class HomeViewController: UIViewController, HomeViewInput {
     
     lazy var sizingCell: TopicCell = { [unowned self] in
         let cell = TopicCell.nib.instantiate(withOwner: nil, options: nil).last as! TopicCell
-        let width = self.collectionView!.bounds.width
+        let width = self.collectionView.bounds.width
         let height = cell.frame.height
         cell.frame = CGRect(x: 0, y: 0, width: width, height: height)
         return cell
@@ -53,7 +53,7 @@ class HomeViewController: UIViewController, HomeViewInput {
         super.viewDidLoad()
         output.viewIsReady()
         
-        self.collectionView?.register(TopicCell.nib, forCellWithReuseIdentifier: TopicCell.reuseID)
+        self.collectionView.register(TopicCell.nib, forCellWithReuseIdentifier: TopicCell.reuseID)
         
         // TODO: remove parent, waiting for menu proxy controller refactor
         parent?.navigationItem.rightBarButtonItem = layoutChangeButton
@@ -95,8 +95,8 @@ class HomeViewController: UIViewController, HomeViewInput {
     }
     
     func updateLayoutFlowForList(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
-        layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = 20
+        layout.minimumInteritemSpacing = 0
         layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         let itemsPerRow = CGFloat(2)
         let contentWidth = containerWidth - (layout.sectionInset.left + layout.sectionInset.right)
@@ -164,6 +164,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             fatalError("Wrong cell")
         }
         
+        cell.delegate = self
         cell.configure(with: item)
         
         return cell
@@ -191,10 +192,26 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.performBatchUpdates({
-            
-        }, completion: nil)
+        
+        Logger.log(indexPath)
+        
     }
     
+    // MARK: Post Cell
     
+    func didLike(sender: UICollectionViewCell) {
+        if let path = collectionView.indexPath(for: sender) {
+            output.didTapLike(with: path)
+        }
+    }
+    
+    func didPin(sender: UICollectionViewCell) {
+        if let path = collectionView.indexPath(for: sender) {
+            output.didTapPin(with: path)
+        }
+    }
+    
+    func didComment(sender: UICollectionViewCell) {
+        
+    }
 }

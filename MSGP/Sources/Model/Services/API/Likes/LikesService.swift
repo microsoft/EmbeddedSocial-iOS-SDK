@@ -24,7 +24,7 @@ class LikesService: LikesServiceProtocol {
         }
     }
     
-    func deleteLike(postHandle postHandle: PostHandle, completion: @escaping CompletionHandler) {
+    func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         LikesAPI.topicLikesDeleteLike(topicHandle: postHandle) { (object, error) in
             Logger.log(object)
             completion(postHandle, error)

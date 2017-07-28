@@ -3,7 +3,15 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+protocol PostCellDelegate: class {
+    func didLike(sender: UICollectionViewCell)
+    func didPin(sender: UICollectionViewCell)
+    func didComment(sender: UICollectionViewCell)
+}
+
 class TopicCell: UICollectionViewCell {
+    
+    weak var delegate: PostCellDelegate?
     
     var isCollapsed: Bool = false {
         didSet {
@@ -34,18 +42,18 @@ class TopicCell: UICollectionViewCell {
     @IBOutlet weak var likedList: UILabel!
     
     @IBAction func onTapLike(_ sender: Any) {
-        
+        delegate?.didLike(sender: self)
     }
     
-    @IBAction func onTapCommented(_ sender: Any) {
-        
+    @IBAction private func onTapCommented(_ sender: Any) {
+        delegate?.didComment(sender: self)
     }
     
-    @IBAction func onTapPin(_ sender: Any) {
-        
+    @IBAction private func onTapPin(_ sender: Any) {
+        delegate?.didPin(sender: self)
     }
     
-    @IBAction func onTapExtra(_ sender: Any) {
+    @IBAction private func onTapExtra(_ sender: Any) {
         
     }
     
@@ -85,10 +93,12 @@ class TopicCell: UICollectionViewCell {
             userPhoto.setPhotoWithCaching(Photo(url: data.userImageUrl), placeholder: postImagePlaceholder)
         }
         
-        userName.text = data.userName
+        userName.text = "test"//data.userName
         postTitle.text = data.title
         postText.text = data.text
         postCreation.text = data.timeCreated
+        likedCount.text = data.totalLikes
+        commentedCount.text = data.totalComments
     }
     
     lazy var postImagePlaceholder: UIImage = {
@@ -98,5 +108,9 @@ class TopicCell: UICollectionViewCell {
     lazy var userImagePlaceholder: UIImage = {
         return UIImage(asset: Asset.userPhotoPlaceholder)
     }()
+    
+   override func awakeFromNib() {
+        self.contentView.addSubview(container)
+    }
     
 }
