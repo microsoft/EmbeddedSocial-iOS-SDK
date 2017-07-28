@@ -70,7 +70,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
             return
         }
         
-        view.setIsLoading(true)
+        view.setIsProcessingFollowRequest(true)
         
         let callback = { [unowned self] (result: Result<Void>) in
             let status = FollowStatus.reduce(status: followStatus)
@@ -90,7 +90,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     private func processSocialResponse(_ response: Result<FollowStatus>) {
-        view.setIsLoading(false)
+        view.setIsProcessingFollowRequest(false)
 
         if let status = response.value {
             view.setFollowStatus(status)

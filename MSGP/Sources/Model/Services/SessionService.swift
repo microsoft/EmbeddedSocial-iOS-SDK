@@ -27,7 +27,7 @@ struct SessionService: SessionServiceType {
             if let sessionToken = response?.sessionToken {
                 completion(.success(sessionToken))
             } else {
-                completion(.failure(error ?? APIError.unknown))
+                completion(.failure(APIError(error: error as? ErrorResponse)))
             }
         }
     }

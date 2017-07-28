@@ -32,34 +32,13 @@ public final class SocialPlus {
     }
     
     public func start(launchArguments args: LaunchArguments) {
-//        let image = UIImage(asset: .userPhotoPlaceholder)
-//        let credentials = CredentialsList(provider: .facebook, accessToken: "", socialUID: "")
-//        let me = User(uid: UUID().uuidString,
-//                      firstName: "Sergei",
-//                      lastName: "Larionov",
-//                      email: nil,
-//                      bio: "Seattle-based designer, world-class dude.",
-//                      photo: Photo(image: image),
-//                      credentials: credentials,
-//                      followersCount: 12,
-//                      followingCount: 16,
-//                      visibility: ._public,
-//                      followerStatus: nil,
-//                      followingStatus: nil)
-//        let configurator = UserProfileConfigurator()
-//        configurator.configure(userID: nil, me: me)
-//        
-//        let navController = UINavigationController(rootViewController: configurator.viewController)
-//        navController.navigationBar.isTranslucent = false
-//        args.window.rootViewController = navController
-        
         ThirdPartyConfigurator.setup(application: args.app, launchOptions: args.launchOptions)
         coordinator.setup(launchArguments: args, loginHandler: self)
         setupCoreDataStack()
         setupCache(stack: coreDataStack)
         
         if sessionStore.isLoggedIn {
-        APISettings.shared.customHeaders = sessionStore.user.credentials.authHeader
+            APISettings.shared.customHeaders = sessionStore.user.credentials?.authHeader ?? [:]
             coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
         }
     }

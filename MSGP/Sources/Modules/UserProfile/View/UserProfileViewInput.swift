@@ -18,4 +18,6 @@ protocol UserProfileViewInput: class {
     func setUser(_ user: User)
     
     func setFollowStatus(_ followStatus: FollowStatus)
+    
+    func setIsProcessingFollowRequest(_ isLoading: Bool)
 }

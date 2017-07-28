@@ -14,6 +14,7 @@ class ProfileSummaryView: UIView {
     
     @IBOutlet fileprivate weak var nameLabel: UILabel! {
         didSet {
+            nameLabel.text = Constants.Placeholder.unknown
             nameLabel.font = Fonts.bold.large
             nameLabel.textColor = Palette.black
         }
@@ -21,6 +22,7 @@ class ProfileSummaryView: UIView {
     
     @IBOutlet fileprivate weak var detailsLabel: UILabel! {
         didSet {
+            detailsLabel.text = Constants.Placeholder.notSpecified
             detailsLabel.font = Fonts.medium
             detailsLabel.textColor = Palette.black
         }
@@ -28,6 +30,7 @@ class ProfileSummaryView: UIView {
     
     @IBOutlet fileprivate weak var followersButton: UIButton! {
         didSet {
+            followersButton.setAttributedTitle(attributedString("followers", withBoldNumber: 0), for: .normal)
             followersButton.setTitleColor(Palette.green, for: .normal)
             followersButton.titleLabel?.font = Fonts.small
         }
@@ -43,6 +46,7 @@ class ProfileSummaryView: UIView {
     
     @IBOutlet fileprivate weak var followingButton: UIButton! {
         didSet {
+            followingButton.setAttributedTitle(attributedString("following", withBoldNumber: 0), for: .normal)
             followingButton.setTitleColor(Palette.green, for: .normal)
             followingButton.titleLabel?.font = Fonts.small
         }
@@ -59,6 +63,12 @@ class ProfileSummaryView: UIView {
     var onFollow: ((FollowStatus) -> Void)?
     
     private var followStatus: FollowStatus?
+    
+    var isLoadingFollowStatus: Bool = false {
+        didSet {
+            followButton.setEnabledUpdatingOpacity(!isLoadingFollowStatus)
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -77,14 +87,14 @@ class ProfileSummaryView: UIView {
         followersButton.setAttributedTitle(attributedString("followers", withBoldNumber: user.followersCount), for: .normal)
         followingButton.setAttributedTitle(attributedString("following", withBoldNumber: user.followingCount), for: .normal)
         
+        editButton.isHidden = !user.isMe
+        followButton.isHidden = user.isMe
+        
         configure(followingStatus: user.followingStatus)
     }
     
     func configure(followingStatus: FollowStatus?) {
         self.followStatus = followingStatus
-
-        editButton.isHidden = followingStatus != nil
-        followButton.isHidden = followingStatus == nil
         
         if let style = followingStatus?.buttonStyle {
             followButton.apply(style: style)

@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import SnapKit
 
 private let headerAspectRatio: CGFloat = 2.25
 
@@ -20,11 +21,19 @@ class UserProfileViewController: UIViewController {
     fileprivate lazy var summaryView: ProfileSummaryView = { [unowned self] in
         let summaryView = ProfileSummaryView.fromNib()
         let width = UIScreen.main.bounds.width
-        summaryView.frame = CGRect(x: 0.0, y: 0.0, width: width, height: width / headerAspectRatio)
         summaryView.onEdit = { self.output.onEdit() }
         summaryView.onFollowing = { self.output.onFollowing() }
         summaryView.onFollow = { self.output.onFollowRequest(currentStatus: $0) }
         summaryView.onFollowers = { self.output.onFollowers() }
+        self.view.addSubview(summaryView)
+        
+        summaryView.snp.makeConstraints { make in
+            make.left.equalTo(self.view)
+            make.top.equalTo(self.view)
+            make.right.equalTo(self.view)
+            make.height.equalTo(summaryView.snp.width).dividedBy(headerAspectRatio)
+        }
+        
         return summaryView
     }()
     
@@ -36,7 +45,7 @@ class UserProfileViewController: UIViewController {
 
 extension UserProfileViewController: UserProfileViewInput {
     func setupInitialState() {
-        view.addSubview(summaryView)
+        
     }
     
     func showError(_ error: Error) {
@@ -46,6 +55,7 @@ extension UserProfileViewController: UserProfileViewInput {
     func setIsLoading(_ isLoading: Bool) {
         loadingIndicatorView.isHidden = !isLoading
         loadingIndicatorView.isLoading = isLoading
+        summaryView.isHidden = isLoading
     }
     
     func setUser(_ user: User) {
@@ -54,5 +64,9 @@ extension UserProfileViewController: UserProfileViewInput {
     
     func setFollowStatus(_ followStatus: FollowStatus) {
         summaryView.configure(followingStatus: followStatus)
+    }
+    
+    func setIsProcessingFollowRequest(_ isLoading: Bool) {
+        summaryView.isLoadingFollowStatus = isLoading
     }
 }

@@ -12,10 +12,10 @@ struct User {
     let email: String?
     let bio: String?
     let photo: Photo?
-    let credentials: CredentialsList
+    let credentials: CredentialsList?
     let followersCount: Int
     let followingCount: Int
-    let visibility: Visibility
+    let visibility: Visibility?
     let followerStatus: FollowStatus?
     let followingStatus: FollowStatus?
     
@@ -31,16 +31,20 @@ struct User {
         return "\(firstName!) \(lastName!)"
     }
     
+    var isMe: Bool {
+        return credentials != nil
+    }
+    
     init(uid: String,
-         firstName: String?,
-         lastName: String?,
-         email: String?,
-         bio: String?,
-         photo: Photo?,
-         credentials: CredentialsList,
+         firstName: String? = nil,
+         lastName: String? = nil,
+         email: String? = nil,
+         bio: String? = nil,
+         photo: Photo? = nil,
+         credentials: CredentialsList? = nil,
          followersCount: Int = 0,
          followingCount: Int = 0,
-         visibility: Visibility = ._public,
+         visibility: Visibility? = nil,
          followerStatus: FollowStatus? = nil,
          followingStatus: FollowStatus? = nil) {
         
@@ -70,19 +74,20 @@ extension User {
         credentials = socialUser.credentials
         followersCount = 0
         followingCount = 0
-        visibility = ._public
+        visibility = nil
         followerStatus = nil
         followingStatus = nil
     }
     
-    init(socialUser: SocialUser, profileView: UserProfileView) {
+    init(profileView: UserProfileView, credentials: CredentialsList? = nil) {
+        self.credentials = credentials
+
         uid = profileView.userHandle!
         firstName = profileView.firstName
         lastName = profileView.lastName
-        email = socialUser.email
+        email = nil
         bio = profileView.bio
         photo = Photo(uid: profileView.photoHandle ?? UUID().uuidString, url: profileView.photoUrl)
-        credentials = socialUser.credentials
         followersCount = Int(profileView.totalFollowers ?? 0)
         followingCount = Int(profileView.totalFollowing ?? 0)
         

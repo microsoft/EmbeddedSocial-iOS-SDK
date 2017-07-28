@@ -9,21 +9,29 @@ extension User: MementoSerializable {
     init?(memento: Memento) {
         guard let uid = memento["uid"] as? String,
             let credentialsMemento = memento["credentials"] as? Memento,
-            let credentials = CredentialsList(memento: credentialsMemento),
-            let rawVisibility = memento["visibility"] as? Int,
-            let visibility = Visibility(rawValue: rawVisibility) else {
+            let credentials = CredentialsList(memento: credentialsMemento) else {
                 return nil
         }
         
         self.uid = uid
         self.credentials = credentials
+        
         firstName = memento["firstName"] as? String
         lastName = memento["lastName"] as? String
         email = memento["email"] as? String
         bio = memento["bio"] as? String
         followersCount = (memento["followersCount"] as? Int) ?? 0
         followingCount = (memento["followingCount"] as? Int) ?? 0
-        self.visibility = visibility
+        
+        let photoMemento = memento["photo"] as? Memento
+        photo = photoMemento != nil ? Photo(memento: photoMemento!) : nil
+        
+        if let rawVisibility = memento["visibility"] as? Int,
+            let visibility = Visibility(rawValue: rawVisibility) {
+            self.visibility = visibility
+        } else {
+            visibility = nil
+        }
         
         if let rawFollowerStatus = memento["followerStatus"] as? Int,
             let followerStatus = FollowStatus(rawValue: rawFollowerStatus) {
@@ -38,9 +46,6 @@ extension User: MementoSerializable {
         } else {
             followingStatus = nil
         }
-        
-        let photoMemento = memento["photo"] as? Memento
-        photo = photoMemento != nil ? Photo(memento: photoMemento!) : nil
     }
     
     var memento: Memento {
@@ -51,10 +56,10 @@ extension User: MementoSerializable {
             "email": email,
             "bio": bio,
             "photo": photo?.memento,
-            "credentials": credentials.memento,
+            "credentials": credentials?.memento,
             "followersCount": followersCount,
             "followingCount": followingCount,
-            "visibility": visibility.rawValue,
+            "visibility": visibility?.rawValue,
             "followerStatus": followerStatus?.rawValue,
             "followingStatus": followingStatus?.rawValue
         ]

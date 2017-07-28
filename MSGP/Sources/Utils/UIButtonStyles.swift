@@ -94,7 +94,5 @@ extension UIButton {
         layer.borderColor = style.borderColor?.cgColor
         layer.borderWidth = style.borderWidth
         layer.cornerRadius = style.cornerRadius
-        
-        sizeToFit()
     }
 }

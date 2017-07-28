@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="irk-bM-VlQ" customClass="LoadingIndicatorView" customModule="MSGP" customModuleProvider="target">
-                                <rect key="frame" x="36" y="311" width="303" height="44"/>
+                                <rect key="frame" x="36" y="311.5" width="303" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="M8U-pV-n2d"/>
@@ -32,7 +32,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="irk-bM-VlQ" firstAttribute="centerY" secondItem="mwj-uJ-fuB" secondAttribute="centerY" id="5Gb-2E-djp"/>
+                            <constraint firstItem="irk-bM-VlQ" firstAttribute="centerY" secondItem="mwj-uJ-fuB" secondAttribute="centerY" id="BJe-CL-hdJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="irk-bM-VlQ" secondAttribute="trailing" constant="20" id="DfC-B5-jCH"/>
                             <constraint firstItem="irk-bM-VlQ" firstAttribute="leading" secondItem="mwj-uJ-fuB" secondAttribute="leadingMargin" constant="20" id="kCx-4T-ZKV"/>
                         </constraints>
