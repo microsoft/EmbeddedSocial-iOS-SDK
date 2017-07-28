@@ -1,9 +1,6 @@
 //
-//  UserProfilePresenter.swift
-//  MSGP
-//
-//  Created by Vadim Bulavin on 7/27/17.
-//  Copyright © 2017 Akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import Foundation
