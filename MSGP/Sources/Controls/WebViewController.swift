@@ -43,7 +43,7 @@ class WebViewController: OAuthWebViewController {
 
 extension WebViewController: UIWebViewDelegate {
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if request.url != nil {
+        if let url = request.url, url.scheme == Constants.oauth1URLScheme {
             dismissWebViewController()
         }
         return true

@@ -40,9 +40,7 @@ struct UserService: UserServiceType {
         params.photoHandle = user.photo?.uid
         
         UsersAPI.usersPostUser(request: params) { response, error in
-            if let response = response,
-                let userHandle = response.userHandle,
-                let sessionToken = response.sessionToken {
+            if let response = response, let userHandle = response.userHandle, let sessionToken = response.sessionToken {
                 let user = User(socialUser: user, userHandle: userHandle)
                 completion(.success((user, sessionToken)))
             } else {
