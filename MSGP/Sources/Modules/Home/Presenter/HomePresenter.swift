@@ -3,6 +3,20 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+struct PostViewModel {
+    var userName: String = ""
+    var title: String = ""
+    var text: String = ""
+    var likedBy: String = ""
+    var totalLikes: String = ""
+    var totalComments: String = ""
+    var timeCreated: String = ""
+    var userImageUrl: String? = nil
+    var postImageUrl: String? = nil
+    
+    var cellType: String = TopicCell.reuseID
+}
+
 class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
     weak var view: HomeViewInput!
@@ -26,16 +40,18 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     private func viewModel(with post: Post) -> PostViewModel {
         
         var viewModel = PostViewModel()
-        viewModel.userName = String(format: "%s %s", (post.firstName ?? ""), (post.lastName ?? ""))
+        viewModel.userName = String(format: "%@ %@", (post.firstName ?? ""), (post.lastName ?? ""))
         viewModel.title = post.title ?? ""
         viewModel.text = post.text ?? ""
         viewModel.likedBy = "" // TODO: uncomfirmed
         
-        viewModel.totalLikes = String(format: "%d likes", post.totalLikes ?? 0)
-        viewModel.totalComments = String(format: "%d comments", post.totalComments ?? 0 )
+        viewModel.totalLikes = String(format: "%d likes", post.totalLikes)
+        viewModel.totalComments = String(format: "%d comments", post.totalComments)
         viewModel.timeCreated =  post.lastUpdatedTime == nil ? "" : dateFormatter.string(from: post.lastUpdatedTime!)
         viewModel.userImageUrl = post.photoUrl
         viewModel.postImageUrl = post.imageUrl
+        
+        viewModel.cellType = layout == .grid ? ""
         
         return viewModel
     }

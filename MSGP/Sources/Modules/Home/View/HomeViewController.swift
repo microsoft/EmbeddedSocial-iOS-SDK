@@ -8,6 +8,19 @@ import UIKit
 enum HomeLayoutType: Int {
     case list
     case grid
+    
+    var cellType:String {
+        
+        switch self {
+        case .list:
+            return TopicCell.reuseID
+        case .grid:
+            return topi
+        }
+        
+    }
+
+    
 }
 
 // TODO: remove images from cell height calculation

@@ -22,18 +22,6 @@ enum FeedServiceError: Error {
     }
 }
 
-struct PostViewModel {
-    var userName: String = ""
-    var title: String = ""
-    var text: String = ""
-    var likedBy: String = ""
-    var totalLikes: String = ""
-    var totalComments: String = ""
-    var timeCreated: String = ""
-    var userImageUrl: String? = nil
-    var postImageUrl: String? = nil
-}
-
 struct PostsFeed {
     var items: [Post]
 }

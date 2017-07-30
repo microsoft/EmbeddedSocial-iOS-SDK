@@ -3,15 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-protocol PostCellDelegate: class {
-    func didLike(sender: UICollectionViewCell)
-    func didPin(sender: UICollectionViewCell)
-    func didComment(sender: UICollectionViewCell)
-}
-
-class TopicCell: UICollectionViewCell {
-    
-    weak var delegate: PostCellDelegate?
+class TopicCell: UICollectionViewCell, PostCellProtocol {
     
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var pinButton: UIButton!
@@ -90,7 +82,7 @@ class TopicCell: UICollectionViewCell {
             userPhoto.setPhotoWithCaching(Photo(url: data.userImageUrl), placeholder: postImagePlaceholder)
         }
         
-        userName.text = "test"//data.userName
+        userName.text = data.userName
         postTitle.text = data.title
         postText.text = data.text
         postCreation.text = data.timeCreated

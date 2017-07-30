@@ -99,6 +99,11 @@ class TopicService: PostServiceProtocol {
         var posts = [Post]()
         for item in data {
             var post = Post()
+            post.firstName = item.user?.firstName
+            post.lastName = item.user?.lastName
+            post.photoUrl = item.user?.photoUrl
+            post.userHandle = item.user?.userHandle
+            
             post.createdTime = item.createdTime
             post.imageUrl = item.blobUrl
             post.title = item.title

@@ -10,6 +10,9 @@
 		22C55E6F7AF7BB41FECB2108 /* HomeViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F7C5A994BF03E4F8ACE8BB /* HomeViewOutput.swift */; };
 		2C4A6E2F171804FF1A5FFA08 /* HomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5F247877763B596F848BB0 /* HomeConfigurator.swift */; };
 		3209330D1F2A50D300890218 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209330C1F2A50D300890218 /* Logger.swift */; };
+		32FAB04E1F2E3C6A00C5B18D /* Test.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32FAB04D1F2E3C6A00C5B18D /* Test.xib */; };
+		32FAB0511F2E6D3000C5B18D /* PostCellCompact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */; };
+		32FAB0531F2E6D4700C5B18D /* PostCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */; };
 		35925D59EC301D8D04936D19 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878A8FE704315C42F6A6565 /* HomeRouter.swift */; };
 		55EE1A9BC5F383EA21599C6B /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0EA0876D130C771A2AA58F /* HomeInteractor.swift */; };
 		5A458ABECBE75802AC172AAC /* Pods_Group_MSGPUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 890D6BE7013F411A4576DB17 /* Pods_Group_MSGPUITests.framework */; };
@@ -368,6 +371,10 @@
 		213CD76E8CBA62E9B9E5AEBF /* Pods-Group-MSGP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP/Pods-Group-MSGP.debug.xcconfig"; sourceTree = "<group>"; };
 		2E0EA0876D130C771A2AA58F /* HomeInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		3209330C1F2A50D300890218 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		32FAB04D1F2E3C6A00C5B18D /* Test.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Test.xib; sourceTree = "<group>"; };
+		32FAB04F1F2E6BC700C5B18D /* TopicCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopicCell2.xib; sourceTree = "<group>"; };
+		32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellCompact.swift; sourceTree = "<group>"; };
+		32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellProtocol.swift; sourceTree = "<group>"; };
 		3302C1C53468D2A3C2FB8C14 /* HomeViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3A0BBF6B9602806316A9BC93 /* Pods-Group-MSGP-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-MSGP-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-MSGP-Example/Pods-Group-MSGP-Example.release.xcconfig"; sourceTree = "<group>"; };
 		3E49171300DD82FF9F451A0E /* Pods_MSGPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSGPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -884,6 +891,7 @@
 				88580A9B1F2213AB00C1CBAF /* TableDataDisplayManager.swift */,
 				9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */,
 				3209330C1F2A50D300890218 /* Logger.swift */,
+				32FAB04D1F2E3C6A00C5B18D /* Test.xib */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1737,8 +1745,11 @@
 		9C43EC8A1F25D60A00D0B59D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				32FAB04F1F2E6BC700C5B18D /* TopicCell2.xib */,
 				9C43EC8B1F25D60A00D0B59D /* TopicCell.xib */,
 				9C43EC8F1F25DBEE00D0B59D /* TopicCell.swift */,
+				32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */,
+				32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2005,6 +2016,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				88580C551F2213AB00C1CBAF /* Login.storyboard in Resources */,
+				32FAB04E1F2E3C6A00C5B18D /* Test.xib in Resources */,
 				9C43EC8E1F25D76800D0B59D /* Home.storyboard in Resources */,
 				88580BB21F2213AB00C1CBAF /* GroupHeaderTableCell.xib in Resources */,
 				88580BB81F2213AB00C1CBAF /* TextViewCell.xib in Resources */,
@@ -2332,6 +2344,7 @@
 				88580C111F2213AB00C1CBAF /* CredentialsList+Memento.swift in Sources */,
 				88580C5F1F2213AB00C1CBAF /* SideMenuPresenter.swift in Sources */,
 				88580C5C1F2213AB00C1CBAF /* SideMenuInteractorInput.swift in Sources */,
+				32FAB0531F2E6D4700C5B18D /* PostCellProtocol.swift in Sources */,
 				88580C1B1F2213AB00C1CBAF /* AuthServiceImplementation.swift in Sources */,
 				88580C5A1F2213AB00C1CBAF /* SideMenuInitializer.swift in Sources */,
 				88580C361F2213AB00C1CBAF /* CreateAccountPresenter.swift in Sources */,
@@ -2364,6 +2377,7 @@
 				88580C5B1F2213AB00C1CBAF /* SideMenuInteractor.swift in Sources */,
 				88580BF51F2213AB00C1CBAF /* PostReplyRequest.swift in Sources */,
 				63A1D6FB1F25E78D0090C67A /* TopicService.swift in Sources */,
+				32FAB0511F2E6D3000C5B18D /* PostCellCompact.swift in Sources */,
 				88580C051F2213AB00C1CBAF /* PutUserVisibilityRequest.swift in Sources */,
 				88580C1F1F2213AB00C1CBAF /* TwitterAPI.swift in Sources */,
 				88580BEC1F2213AB00C1CBAF /* PostBlockedUserRequest.swift in Sources */,
