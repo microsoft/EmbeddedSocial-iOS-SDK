@@ -15,19 +15,16 @@ enum HomeLayoutType: Int {
         case .list:
             return TopicCell.reuseID
         case .grid:
-            return topi
+            return PostCellCompact.reuseID
         }
-        
     }
-
-    
 }
 
 // TODO: remove images from cell height calculation
 //
 //
 
-class HomeViewController: UIViewController, HomeViewInput, PostCellDelegate {
+class HomeViewController: UIViewController, HomeViewInput {
     
     var output: HomeViewOutput!
     var listLayout = UICollectionViewFlowLayout()
@@ -67,6 +64,7 @@ class HomeViewController: UIViewController, HomeViewInput, PostCellDelegate {
         output.viewIsReady()
         
         self.collectionView.register(TopicCell.nib, forCellWithReuseIdentifier: TopicCell.reuseID)
+        self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         
         // TODO: remove parent, waiting for menu proxy controller refactor
         parent?.navigationItem.rightBarButtonItem = layoutChangeButton
@@ -121,7 +119,6 @@ class HomeViewController: UIViewController, HomeViewInput, PostCellDelegate {
     
     func updateLayoutFlowForList(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
         layout.minimumLineSpacing = 5
-//        layout.minimumInteritemSpacing = 1
     }
     
     func didTapChangeLayout() {
@@ -134,6 +131,7 @@ class HomeViewController: UIViewController, HomeViewInput, PostCellDelegate {
     }
     
     func setLayout(type: HomeLayoutType) {
+        self.collectionView.reloadData()
         onUpdateLayout(type: type)
     }
     
@@ -167,14 +165,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         let item = output.item(for: indexPath)
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicCell.reuseID, for: indexPath) as? TopicCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: item.cellType, for: indexPath) as? PostCellProtocol else {
             fatalError("Wrong cell")
         }
         
-        cell.delegate = self
-        cell.configure(with: item)
+        cell.configure(with: item, collectionView: collectionView)
         
-        return cell
+        return cell as! UICollectionViewCell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -182,8 +179,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if collectionViewLayout === listLayout {
             
             let item = output.item(for: indexPath)
-            sizingCell.configure(with: item)
             
+            sizingCell.configure(with: item, collectionView: collectionView)
+            
+            // TODO: remake via manual calculation
             sizingCell.needsUpdateConstraints()
             sizingCell.updateConstraints()
             sizingCell.setNeedsLayout()
@@ -199,26 +198,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         Logger.log(indexPath)
-        
-    }
-    
-    // MARK: Post Cell
-    
-    func didLike(sender: UICollectionViewCell) {
-        if let path = collectionView.indexPath(for: sender) {
-            output.didTapLike(with: path)
-        }
-    }
-    
-    func didPin(sender: UICollectionViewCell) {
-        if let path = collectionView.indexPath(for: sender) {
-            output.didTapPin(with: path)
-        }
-    }
-    
-    func didComment(sender: UICollectionViewCell) {
-        
     }
 }

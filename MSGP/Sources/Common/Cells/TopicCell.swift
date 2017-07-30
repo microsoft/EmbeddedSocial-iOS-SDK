@@ -4,6 +4,9 @@
 //
 
 class TopicCell: UICollectionViewCell, PostCellProtocol {
+ 
+    weak var collectionView: UICollectionView!
+    var viewModel: PostViewModel!
     
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var pinButton: UIButton!
@@ -30,20 +33,24 @@ class TopicCell: UICollectionViewCell, PostCellProtocol {
     @IBOutlet weak var appImage: UIImageView!
     @IBOutlet weak var likedList: UILabel!
     
-    @IBAction func onTapLike(_ sender: Any) {
-        delegate?.didLike(sender: self)
+    func indexPath() -> IndexPath {
+        return collectionView.indexPath(for: self)!
+    }
+    
+    @IBAction private func onTapLike(_ sender: Any) {
+        viewModel.onAction?(.like, indexPath())
     }
     
     @IBAction private func onTapCommented(_ sender: Any) {
-        delegate?.didComment(sender: self)
+        viewModel.onAction?(.comment, indexPath())
     }
     
     @IBAction private func onTapPin(_ sender: Any) {
-        delegate?.didPin(sender: self)
+        viewModel.onAction?(.pin, indexPath())
     }
     
     @IBAction private func onTapExtra(_ sender: Any) {
-        
+        viewModel.onAction?(.extra, indexPath())
     }
     
     @IBOutlet weak var likedCount: UILabel!
@@ -68,8 +75,11 @@ class TopicCell: UICollectionViewCell, PostCellProtocol {
         clipsToBounds = true
     }
     
-    func configure(with data: PostViewModel) {
-
+    func configure(with data: PostViewModel, collectionView: UICollectionView) {
+        
+        self.viewModel = data
+        self.collectionView = collectionView
+        
         if data.postImageUrl == nil {
             postImage.image = postImagePlaceholder
         } else {
@@ -98,7 +108,7 @@ class TopicCell: UICollectionViewCell, PostCellProtocol {
         return UIImage(asset: Asset.userPhotoPlaceholder)
     }()
     
-   override func awakeFromNib() {
+    override func awakeFromNib() {
         self.contentView.addSubview(container)
     }
     

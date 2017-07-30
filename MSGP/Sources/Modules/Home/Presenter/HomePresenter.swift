@@ -3,7 +3,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+enum PostCellAction {
+    case like, pin, comment, extra
+}
+
 struct PostViewModel {
+    
+    typealias ActionHandler = (PostCellAction, IndexPath) -> Void
+    
     var userName: String = ""
     var title: String = ""
     var text: String = ""
@@ -15,6 +22,7 @@ struct PostViewModel {
     var postImageUrl: String? = nil
     
     var cellType: String = TopicCell.reuseID
+    var onAction: ActionHandler?
 }
 
 class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
@@ -51,7 +59,10 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         viewModel.userImageUrl = post.photoUrl
         viewModel.postImageUrl = post.imageUrl
         
-        viewModel.cellType = layout == .grid ? ""
+        viewModel.cellType = layout.cellType
+        viewModel.onAction = { [weak self] action, path in
+            self?.handle(action: action, path: path)
+        }
         
         return viewModel
     }
@@ -72,6 +83,19 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
     private func itemIndex(with postHandle:PostHandle) -> Int? {
         return items.index(where: { $0.topicHandle == postHandle } )
+    }
+    
+    private func handle(action: PostCellAction, path: IndexPath) {
+        switch action {
+        case .comment:
+            didTapComment(with: path)
+        case .extra:
+            Logger.log("Extra did tap")
+        case .like:
+            didTapLike(with: path)
+        case .pin:
+            didTapPin(with: path)
+        }
     }
   
     func numberOfItems() -> Int {
@@ -98,7 +122,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
     func didFetchMore(feed: PostsFeed) {
         view.setRefreshing(state: false)
-        items.append(contentsOf: feed.items)
+        items.insert(contentsOf:feed.items, at: 0)
         view.reload()
     }
     
