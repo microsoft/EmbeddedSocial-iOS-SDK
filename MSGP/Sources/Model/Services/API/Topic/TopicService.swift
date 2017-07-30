@@ -101,9 +101,10 @@ class TopicService: PostServiceProtocol {
             var post = Post()
             post.createdTime = item.createdTime
             post.imageUrl = item.blobUrl
-            post.liked = item.liked
+            post.title = item.title
             post.text = item.text
             post.pinned = item.pinned
+            post.liked = item.liked
             post.topicHandle = item.topicHandle
             post.totalLikes = item.totalLikes ?? 0
             post.totalComments = item.totalLikes ?? 0
