@@ -27,6 +27,7 @@ class HomeModuleConfigurator {
 
         presenter.interactor = interactor
         viewController.output = presenter
+        router.viewController = viewController
         
         return viewController
     }

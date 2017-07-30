@@ -17,5 +17,6 @@ protocol HomeViewOutput {
     
     func didTapChangeLayout()
     func didPullRefresh()
+    func didTapItem(path: IndexPath)
 
 }

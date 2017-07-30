@@ -116,7 +116,7 @@ class HomeInteractor: HomeInteractorInput {
         }
     }
     
-    // TODO: refactor there 4 methods using generics ?
+    // TODO: refactor these methods using generics ?
     
     func unlike(with id: PostHandle) {
         likesService.deleteLike(postHandle: id) { (handle, err) in
@@ -124,6 +124,8 @@ class HomeInteractor: HomeInteractorInput {
                 self.output.didFail(error: FeedServiceError.failedToUnLike(message: err!.localizedDescription))
                 return
             }
+            
+            self.output.didUnlike(post: handle)
         }
     }
     

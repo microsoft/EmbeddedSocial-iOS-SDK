@@ -5,8 +5,12 @@
 
 class HomeRouter: HomeRouterInput {
     
-    func open(with action: HomeAction) {
-        
+    weak var viewController: UIViewController?
+    
+    func open(route: HomeRoutes) {
+        let dummy = UIViewController()
+        dummy.title = route.rawValue
+        viewController?.navigationController?.pushViewController(dummy, animated: true)
     }
 
 }

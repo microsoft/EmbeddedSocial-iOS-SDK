@@ -13,7 +13,7 @@ enum HomeLayoutType: Int {
         
         switch self {
         case .list:
-            return TopicCell.reuseID
+            return PostCell.reuseID
         case .grid:
             return PostCellCompact.reuseID
         }
@@ -50,8 +50,8 @@ class HomeViewController: UIViewController, HomeViewInput {
         return button
         }()
     
-    lazy var sizingCell: TopicCell = { [unowned self] in
-        let cell = TopicCell.nib.instantiate(withOwner: nil, options: nil).last as! TopicCell
+    lazy var sizingCell: PostCell = { [unowned self] in
+        let cell = PostCell.nib.instantiate(withOwner: nil, options: nil).last as! PostCell
         let width = self.collectionView.bounds.width
         let height = cell.frame.height
         cell.frame = CGRect(x: 0, y: 0, width: width, height: height)
@@ -63,7 +63,7 @@ class HomeViewController: UIViewController, HomeViewInput {
         super.viewDidLoad()
         output.viewIsReady()
         
-        self.collectionView.register(TopicCell.nib, forCellWithReuseIdentifier: TopicCell.reuseID)
+        self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         
         // TODO: remove parent, waiting for menu proxy controller refactor

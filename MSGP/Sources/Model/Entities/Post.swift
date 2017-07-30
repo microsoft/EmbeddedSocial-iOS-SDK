@@ -9,7 +9,6 @@ struct Post {
 
     public var topicHandle: String!
     public var createdTime: Date?
-    public var lastUpdatedTime: Date?
     
     public var userHandle: String?
     public var firstName: String?

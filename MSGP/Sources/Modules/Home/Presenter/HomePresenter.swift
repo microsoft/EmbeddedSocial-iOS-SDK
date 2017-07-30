@@ -14,6 +14,8 @@ struct PostViewModel {
     var userName: String = ""
     var title: String = ""
     var text: String = ""
+    var isLiked: Bool = false
+    var isPinned: Bool = false
     var likedBy: String = ""
     var totalLikes: String = ""
     var totalComments: String = ""
@@ -21,7 +23,7 @@ struct PostViewModel {
     var userImageUrl: String? = nil
     var postImageUrl: String? = nil
     
-    var cellType: String = TopicCell.reuseID
+    var cellType: String = PostCell.reuseID
     var onAction: ActionHandler?
 }
 
@@ -30,7 +32,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     weak var view: HomeViewInput!
     var interactor: HomeInteractorInput!
     var router: HomeRouterInput!
-
+    
     var layout: HomeLayoutType = .list
     let limit = 3
     var items = [Post]()
@@ -55,9 +57,13 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         
         viewModel.totalLikes = String(format: "%d likes", post.totalLikes)
         viewModel.totalComments = String(format: "%d comments", post.totalComments)
-        viewModel.timeCreated =  post.lastUpdatedTime == nil ? "" : dateFormatter.string(from: post.lastUpdatedTime!)
+        
+        viewModel.timeCreated =  post.createdTime == nil ? "" : Date.time(since: post.createdTime!)
         viewModel.userImageUrl = post.photoUrl
         viewModel.postImageUrl = post.imageUrl
+        
+        viewModel.isLiked = post.liked ?? false
+        viewModel.isPinned = post.pinned ?? false
         
         viewModel.cellType = layout.cellType
         viewModel.onAction = { [weak self] action, path in
@@ -66,16 +72,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         
         return viewModel
     }
-
-    lazy var dateFormatter: DateFormatter = {
-        var dateFormat = "hh:mm"
-        let formatter = DateFormatter()
-        formatter.dateFormat = dateFormat
-        formatter.locale = Locale.current
-        formatter.timeZone = TimeZone.current
-        return formatter
-    }()
-
+    
     // MARK: HomeViewOutput
     func item(for path: IndexPath) -> PostViewModel {
         return viewModel(with: items[path.row])
@@ -90,14 +87,14 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         case .comment:
             didTapComment(with: path)
         case .extra:
-            Logger.log("Extra did tap")
+            didTapExtra(with: path)
         case .like:
             didTapLike(with: path)
         case .pin:
             didTapPin(with: path)
         }
     }
-  
+    
     func numberOfItems() -> Int {
         return items.count
     }
@@ -113,6 +110,12 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         view.setRefreshing(state: true)
         interactor.fetchPosts(with: limit)
     }
+    
+    func didTapItem(path: IndexPath) {
+        router.open(route: .postDetails)
+    }
+    
+    // MARK: Callbacks
     
     func didFetch(feed: PostsFeed) {
         view.setRefreshing(state: false)
@@ -145,7 +148,6 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     }
     
     func didLike(post id: PostHandle) {
-        
         if let index = itemIndex(with: id) {
             items[index].liked = true
             items[index].totalLikes += Int64(1)
@@ -161,7 +163,11 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     }
     
     func didTapComment(with path: IndexPath) {
-        // TODO: figure out what to do
+        router.open(route: .comments)
+    }
+    
+    func didTapExtra(with path: IndexPath) {
+        router.open(route: .extra)
     }
     
     func didTapLike(with path: IndexPath) {
@@ -176,12 +182,11 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
     func didTapPin(with path: IndexPath) {
         let item = items[path.row]
-    
+        
         if item.pinned {
             interactor.unpin(with: item.topicHandle)
         } else {
             interactor.pin(with: item.topicHandle)
         }
     }
-    
 }

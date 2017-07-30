@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-class TopicCell: UICollectionViewCell, PostCellProtocol {
+class PostCell: UICollectionViewCell, PostCellProtocol {
  
     weak var collectionView: UICollectionView!
     var viewModel: PostViewModel!
@@ -98,6 +98,11 @@ class TopicCell: UICollectionViewCell, PostCellProtocol {
         postCreation.text = data.timeCreated
         likedCount.text = data.totalLikes
         commentedCount.text = data.totalComments
+        
+        // Buttons
+        likeButton.isSelected = data.isLiked
+        pinButton.isSelected = data.isPinned
+    
     }
     
     lazy var postImagePlaceholder: UIImage = {
