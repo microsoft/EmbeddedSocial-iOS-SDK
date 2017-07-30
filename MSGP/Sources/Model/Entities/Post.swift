@@ -23,8 +23,8 @@ struct Post {
 
     public var deepLink: String?
     
-    public var totalLikes: Int64?
-    public var totalComments: Int64?
+    public var totalLikes: Int64 = 0
+    public var totalComments: Int64 = 0
 
     public var liked: Bool!
     public var pinned: Bool!

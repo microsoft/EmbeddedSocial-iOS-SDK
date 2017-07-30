@@ -105,8 +105,8 @@ class TopicService: PostServiceProtocol {
             post.text = item.text
             post.pinned = item.pinned
             post.topicHandle = item.topicHandle
-            post.totalLikes = item.totalLikes
-            post.totalComments = item.totalLikes
+            post.totalLikes = item.totalLikes ?? 0
+            post.totalComments = item.totalLikes ?? 0
             // TODO: fullfill mapping
             posts.append(post)
         }

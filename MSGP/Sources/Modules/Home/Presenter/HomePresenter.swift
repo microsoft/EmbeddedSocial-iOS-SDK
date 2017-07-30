@@ -9,7 +9,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     var interactor: HomeInteractorInput!
     var router: HomeRouterInput!
 
-    var layout: HomeLayoutType = .grid
+    var layout: HomeLayoutType = .list
     let limit = 3
     var items = [Post]()
     

@@ -75,12 +75,12 @@ class HomeViewController: UIViewController, HomeViewInput, PostCellDelegate {
         // switch layout
         switch type {
         case .grid:
-            layoutChangeButton.image = UIImage(asset: .iconList)
+            layoutChangeButton.image = UIImage(asset: .iconGallery)
             if collectionView!.collectionViewLayout != gridLayout {
                 collectionView!.setCollectionViewLayout(gridLayout, animated: animated)
             }
         case .list:
-            layoutChangeButton.image = UIImage(asset: .iconGallery)
+            layoutChangeButton.image = UIImage(asset: .iconList)
             if collectionView!.collectionViewLayout != listLayout {
                 collectionView?.setCollectionViewLayout(listLayout, animated: animated)
             }
@@ -89,32 +89,26 @@ class HomeViewController: UIViewController, HomeViewInput, PostCellDelegate {
     
     func onUpdateBounds() {
         if let collectionView = self.collectionView {
-            updateLayoutFlowForList(layout: listLayout, containerWidth: collectionView.bounds.width)
-            updateLayoutFlowForList(layout: gridLayout, containerWidth: collectionView.bounds.width)
+            updateLayoutFlowForList(layout: listLayout, containerWidth: collectionView.frame.size.width)
+            updateLayoutFlowForGrid(layout: gridLayout, containerWidth: collectionView.frame.size.width)
         }
     }
     
-    func updateLayoutFlowForList(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
-        layout.minimumLineSpacing = 20
-        layout.minimumInteritemSpacing = 0
+    func updateLayoutFlowForGrid(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
+
         layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 5
         let itemsPerRow = CGFloat(2)
-        let contentWidth = containerWidth - (layout.sectionInset.left + layout.sectionInset.right)
-        var itemWidth = contentWidth / itemsPerRow
-        itemWidth -= layout.minimumInteritemSpacing
+        var paddings = layout.minimumInteritemSpacing * CGFloat((itemsPerRow - 1))
+        paddings += layout.sectionInset.left + layout.sectionInset.right
+        let itemWidth = (containerWidth - paddings) / itemsPerRow
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
     }
     
-    func updateLayoutFlowForGrid(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
+    func updateLayoutFlowForList(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
         layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 5
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        
-        let contentWidth = containerWidth - (layout.sectionInset.left + layout.sectionInset.right)
-        var itemWidth = contentWidth
-        itemWidth -= layout.minimumInteritemSpacing
-        // item size is ignored here since we use autolayout for calculation
-        layout.estimatedItemSize = CGSize(width: containerWidth, height: itemWidth)
+//        layout.minimumInteritemSpacing = 1
     }
     
     func didTapChangeLayout() {
@@ -172,7 +166,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if collectionViewLayout == gridLayout {
+        if collectionViewLayout === listLayout {
             
             let item = output.item(for: indexPath)
             sizingCell.configure(with: item)
@@ -184,8 +178,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             
             return sizingCell.container.bounds.size
             
-        } else if collectionViewLayout == listLayout {
-            return listLayout.itemSize
+        } else if collectionViewLayout === gridLayout {
+            return gridLayout.itemSize
         } else {
             fatalError("Unexpected")
         }
