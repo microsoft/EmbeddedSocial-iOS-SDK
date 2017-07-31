@@ -319,6 +319,7 @@
 		88BC5C571F2B65D0001FBDD2 /* UserProfileViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC5C4D1F2B65D0001FBDD2 /* UserProfileViewOutput.swift */; };
 		88BC5C5B1F2B6628001FBDD2 /* ProfileSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC5C591F2B6628001FBDD2 /* ProfileSummaryView.swift */; };
 		88BC5C5C1F2B6628001FBDD2 /* ProfileSummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88BC5C5A1F2B6628001FBDD2 /* ProfileSummaryView.xib */; };
+		88BC5C621F2F5EFE001FBDD2 /* TwitterServerBasedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC5C611F2F5EFE001FBDD2 /* TwitterServerBasedAPI.swift */; };
 		88BC87421F14FA1B00EAEFD7 /* EmbeddedSocial.h in Headers */ = {isa = PBXBuildFile; fileRef = 88BC873F1F14FA1B00EAEFD7 /* EmbeddedSocial.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		88BC87571F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
@@ -757,6 +758,7 @@
 		88BC5C4D1F2B65D0001FBDD2 /* UserProfileViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewOutput.swift; sourceTree = "<group>"; };
 		88BC5C591F2B6628001FBDD2 /* ProfileSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSummaryView.swift; sourceTree = "<group>"; };
 		88BC5C5A1F2B6628001FBDD2 /* ProfileSummaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileSummaryView.xib; sourceTree = "<group>"; };
+		88BC5C611F2F5EFE001FBDD2 /* TwitterServerBasedAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterServerBasedAPI.swift; sourceTree = "<group>"; };
 		88BC873E1F14FA1B00EAEFD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88BC873F1F14FA1B00EAEFD7 /* EmbeddedSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmbeddedSocial.h; sourceTree = "<group>"; };
 		88BC87401F14FA1B00EAEFD7 /* EmbeddedSocial.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = EmbeddedSocial.modulemap; sourceTree = "<group>"; };
@@ -1290,6 +1292,7 @@
 				88580B161F2213AB00C1CBAF /* GoogleAPI.swift */,
 				88580B171F2213AB00C1CBAF /* MicrosoftLiveAPI.swift */,
 				88580B181F2213AB00C1CBAF /* TwitterAPI.swift */,
+				88BC5C611F2F5EFE001FBDD2 /* TwitterServerBasedAPI.swift */,
 				88580B191F2213AB00C1CBAF /* TwitterWebBasedAPI.swift */,
 			);
 			path = Auth;
@@ -2451,6 +2454,7 @@
 				88580C611F2213AB00C1CBAF /* SideMenuRouterInput.swift in Sources */,
 				88580C131F2213AB00C1CBAF /* User+Memento.swift in Sources */,
 				88580BBA1F2213AB00C1CBAF /* Collection+Ext.swift in Sources */,
+				88BC5C621F2F5EFE001FBDD2 /* TwitterServerBasedAPI.swift in Sources */,
 				88580C271F2213AB00C1CBAF /* SessionService.swift in Sources */,
 				88580BFB1F2213AB00C1CBAF /* PostTopicRequest.swift in Sources */,
 				88580BD31F2213AB00C1CBAF /* SearchAPI.swift in Sources */,
@@ -2989,7 +2993,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/EmbeddedSocial/Vendor/MSAL",
 					"$(PROJECT_DIR)/EmbeddedSocial/Vendor",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/EmbeddedSocial/SupportingFiles/Info.plist";
@@ -3018,7 +3021,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/EmbeddedSocial/Vendor/MSAL",
 					"$(PROJECT_DIR)/EmbeddedSocial/Vendor",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/EmbeddedSocial/SupportingFiles/Info.plist";

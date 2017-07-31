@@ -35,10 +35,3 @@ class LoginInteractor: LoginInteractorInput {
         }
     }
 }
-
-extension LoginInteractor {
-    struct GetMyProfileResponse {
-        let user: User
-        let sessionToken: String
-    }
-}

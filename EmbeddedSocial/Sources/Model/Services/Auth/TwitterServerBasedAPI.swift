@@ -7,7 +7,7 @@ import OAuthSwift
 import UIKit
 import SafariServices
 
-final class TwitterWebBasedAPI: AuthAPI {
+final class TwitterServerBasedAPI: AuthAPI {
     
     private let sessionService = SessionService()
     
@@ -31,13 +31,15 @@ final class TwitterWebBasedAPI: AuthAPI {
     fileprivate var request: OAuthSwiftRequestHandle?
     
     func login(from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void) {
-        authenticator.authorizeURLHandler = urlHandler(withType: .embedded, sourceViewController: viewController)
-
+        authenticator.authorizeURLHandler = urlHandler(withType: .safari, sourceViewController: viewController)
+        
         sessionService.requestToken(authProvider: .twitter) { [unowned self] result in
             guard let token = result.value else {
                 handler(.failure(APIError(error: result.error as? ErrorResponse)))
                 return
             }
+            
+            self.authenticator.client.credential.oauthToken = token
             
             self.authorize(requestToken: token, handler: handler)
         }
@@ -46,11 +48,8 @@ final class TwitterWebBasedAPI: AuthAPI {
     private func authorize(requestToken: String, handler: @escaping (Result<SocialUser>) -> Void) {
         authenticator.authorize(
             withCallbackURL: URL(string: "\(Constants.oauth1URLScheme)://oauth-callback/twitter")!,
-            success: { [weak self] credential, _, parameters in
-                guard let userID = parameters["user_id"] as? String else {
-                    handler(.failure(APIError.missingUserData))
-                    return
-                }
+            success: { [weak self] credential, _, _ in
+                let userID = UUID().uuidString
                 self?.loadSocialUser(userID: userID,
                                      requestToken: requestToken,
                                      accessToken: credential.oauthVerifier,
@@ -65,34 +64,16 @@ final class TwitterWebBasedAPI: AuthAPI {
                                 accessToken: String,
                                 completion: @escaping (Result<SocialUser>) -> Void) {
         
-        _ = authenticator.client.get(
-            "https://api.twitter.com/1.1/users/show.json",
-            parameters: ["user_id": userID],
-            success: { response in
-                guard let jsonObject = try? response.jsonObject(), let json = jsonObject as? [String: Any] else {
-                    completion(.failure(APIError.missingUserData))
-                    return
-                }
-                
-                let credentials = CredentialsList(provider: .twitter,
-                                                  accessToken: accessToken,
-                                                  requestToken: requestToken,
-                                                  socialUID: userID)
-                
-                let (firstName, lastName) = NameComponentsSplitter.split(fullName: json["name"] as? String ?? "")
-                
-                let user = SocialUser(credentials: credentials,
-                                      firstName: firstName,
-                                      lastName: lastName,
-                                      email: nil,
-                                      photo: Photo(url: json["profile_image_url_https"] as? String))
-                
-                completion(.success(user))
-        }, failure: { error in
-            completion(.failure(error))
-        })
+        let credentials = CredentialsList(provider: .twitter,
+                                          accessToken: accessToken,
+                                          requestToken: requestToken,
+                                          socialUID: userID)
+        
+        let user = SocialUser(credentials: credentials, firstName: nil, lastName: nil, email: nil, photo: Photo())
+        
+        completion(.success(user))
     }
-
+    
     private func urlHandler(withType type: URLHandlerType, sourceViewController: UIViewController?) -> OAuthSwiftURLHandlerType {
         switch type {
         case .external:
@@ -120,7 +101,7 @@ final class TwitterWebBasedAPI: AuthAPI {
     }
 }
 
-extension TwitterWebBasedAPI {
+extension TwitterServerBasedAPI {
     enum URLHandlerType {
         case embedded
         case external
@@ -128,7 +109,7 @@ extension TwitterWebBasedAPI {
     }
 }
 
-extension TwitterWebBasedAPI: OAuthWebViewControllerDelegate {
+extension TwitterServerBasedAPI: OAuthWebViewControllerDelegate {
     
     func oauthWebViewControllerDidPresent() { }
     
@@ -142,5 +123,17 @@ extension TwitterWebBasedAPI: OAuthWebViewControllerDelegate {
     
     func oauthWebViewControllerDidDisappear() {
         authenticator.cancel()
+    }
+}
+
+class OAuth1Authorizer: OAuth1Swift {
+    
+    override func postOAuthRequestToken(callbackURL: URL, success: @escaping TokenSuccessHandler, failure: FailureHandler?) {
+        if !client.credential.oauthToken.isEmpty {
+            success(client.credential, nil, [:])
+            return
+        }
+        
+        super.postOAuthRequestToken(callbackURL: callbackURL, success: success, failure: failure)
     }
 }

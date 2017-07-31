@@ -5,6 +5,7 @@ excluded:
   - Carthage
   - Pods
   - EmbeddedSocial/Sources/Generated
+  - EmbeddedSocial/Vendor
 
 disabled_rules: # rule identifiers to exclude from running
   - trailing_whitespace
