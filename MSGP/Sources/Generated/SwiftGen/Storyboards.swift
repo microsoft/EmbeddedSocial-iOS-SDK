@@ -132,6 +132,18 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum UserProfile: String, StoryboardSceneType {
+    static let storyboardName = "UserProfile"
+
+    case userProfileViewControllerScene = "UserProfileViewController"
+    static func instantiateUserProfileViewController() -> MSGP.UserProfileViewController {
+      guard let vc = StoryboardScene.UserProfile.userProfileViewControllerScene.viewController() as? MSGP.UserProfileViewController
+      else {
+        fatalError("ViewController 'UserProfileViewController' is not of the expected class MSGP.UserProfileViewController.")
+      }
+      return vc
+    }
+  }
 }
 
 enum StoryboardSegue {

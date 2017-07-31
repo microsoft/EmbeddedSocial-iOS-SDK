@@ -1,9 +1,6 @@
 //
-//  SessionStore.swift
-//  MSGP
-//
-//  Created by Vadim Bulavin on 7/21/17.
-//  Copyright © 2017 Akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import Foundation
@@ -79,7 +76,7 @@ extension SessionStore {
         case notLoggedIn
         case lastSessionNotAvailable
 
-        public var errorDescription: String? {
+        var errorDescription: String? {
             switch self {
             case .notLoggedIn: return "User is not logged in."
             case .lastSessionNotAvailable: return "Last session is not available."

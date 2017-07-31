@@ -6,6 +6,8 @@
 import UIKit
 
 struct CreateAccountValidator: Validator {
+    static var maxBioLength = Constants.CreateAccount.maxBioLength
+
     struct Options {
         let firstName: String?
         let lastName: String?
@@ -17,6 +19,10 @@ struct CreateAccountValidator: Validator {
         guard let firstName = value.firstName,
             let lastName = value.lastName else {
                 return false
+        }
+        
+        if let bio = value.bio, bio.characters.count > maxBioLength {
+            return false
         }
         
         return !firstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&

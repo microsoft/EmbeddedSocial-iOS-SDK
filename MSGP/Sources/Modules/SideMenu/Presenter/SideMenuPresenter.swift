@@ -103,7 +103,9 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     
     func didTapAccountInfo() {
         if user == nil {
-            self.router.openLoginScreen()
+            router.openLoginScreen()
+        } else {
+            router.openMyProfile()
         }
     }
     

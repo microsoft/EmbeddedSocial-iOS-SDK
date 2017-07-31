@@ -13,6 +13,8 @@ class NavigationStackContainer: UIViewController, SideMenuModuleOutput {
         super.viewWillAppear(animated)
         
         // Set menu button
+        // FIXME: 
+        navigationController?.navigationBar.isTranslucent = false
         
         let image = UIImage(named: "icon_hamburger", in: Bundle(for: type(of: self)), compatibleWith: nil)!
         self.addLeftBarButtonWithImage(image)

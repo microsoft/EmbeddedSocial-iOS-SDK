@@ -10,26 +10,40 @@ class CreatePostInteractorTests: XCTestCase {
     
     let intercator = CreatePostInteractor()
     let presenter = MockCreatePostPresenter()
+    var coreDataStack: CoreDataStack!
+    var transactionsDatabase: MockTransactionsDatabaseFacade!
+    var cache: Cachable!
+    var topicService: TopicService!
+    
     
     override func setUp() {
         super.setUp()
+        coreDataStack = CoreDataHelper.makeMSGPInMemoryStack()
+        transactionsDatabase = MockTransactionsDatabaseFacade(incomingRepo:  CoreDataRepository(context: coreDataStack.backgroundContext), outgoingRepo:  CoreDataRepository(context: coreDataStack.backgroundContext))
+        cache = Cache(database: transactionsDatabase)
+        topicService = TopicService(cache: cache)
+        
+        intercator.topicService = topicService
         intercator.output = presenter
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+        transactionsDatabase = nil
+        coreDataStack = nil
+        cache = nil
+        topicService = nil
     }
     
-    func testThatDataPosting() {
-        let title = "title"
-        let body = "body"
-        let image = UIImage()
-        
-        intercator.postTopic(image: image, title: title, body: body)
-        XCTAssert(presenter.postCreated)
-        XCTAssert(presenter.postCreationFailed == false)
-    }
+//    func testThatDataPosting() {
+//        let title = "title"
+//        let body = "body"
+//        let photo = Photo(uid: "id", url: "url", image: UIImage())
+//        
+//        intercator.postTopic(photo: photo, title: title, body: body)
+//        
+//        XCTAssert(presenter.postCreationFailed == false)
+//        XCTAssertEqual(presenter.postCreatedCalledCount, 1)
+//    }
     
 }

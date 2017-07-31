@@ -13,7 +13,7 @@ let defaultStoreOptions: PersistentStoreOptions = [
     NSInferMappingModelAutomaticallyOption as NSObject: true as AnyObject
 ]
 
-struct CoreDataStackFactory {
+struct CoreDataStackBuilder {
     let model: CoreDataModel
     let options: PersistentStoreOptions?
     
@@ -95,7 +95,8 @@ struct CoreDataStackFactory {
             creationClosure()
         }
     }
-    
+    // swiftlint:enable function_body_length
+
     private func createStoreCoordinator() throws -> NSPersistentStoreCoordinator {
         let storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model.managedObjectModel)
         try storeCoordinator.addPersistentStore(ofType: model.storeType.type,
@@ -109,7 +110,7 @@ struct CoreDataStackFactory {
                                name: String) -> NSManagedObjectContext {
         let context = NSManagedObjectContext(concurrencyType: concurrencyType)
         context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType)
-        context.name = "msgp" + name
+        context.name = "msgp." + name
         return context
     }
 }

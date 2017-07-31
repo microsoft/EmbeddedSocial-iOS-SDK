@@ -1,9 +1,6 @@
 //
-//  IncomingTransaction.swift
-//  MSGP
-//
-//  Created by Vadim Bulavin on 7/21/17.
-//  Copyright © 2017 Akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import CoreData
@@ -20,11 +17,7 @@ final class IncomingTransaction: NSManagedObject {
 }
 
 extension IncomingTransaction: CoreDataRecord {
-    static var entityName: String {
-        return "IncomingTransaction"
-    }
-    
     @nonobjc class func fetchRequest() -> NSFetchRequest<IncomingTransaction> {
-        return NSFetchRequest(entityName: "IncomingTransaction")
+        return NSFetchRequest(entityName: entityName)
     }
 }

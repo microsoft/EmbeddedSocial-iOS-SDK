@@ -9,5 +9,5 @@ protocol SideMenuRouterInput {
     
     func open(viewController: UIViewController, sender: Any?)
     func openLoginScreen()
-    
+    func openMyProfile()
 }

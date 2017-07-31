@@ -21,4 +21,9 @@ extension UIButton {
         button.sizeToFit()
         return button
     }
+    
+    func setEnabledUpdatingOpacity(_ isEnabled: Bool) {
+        self.isEnabled = isEnabled
+        alpha = isEnabled ? 1.0 : 0.5
+    }
 }

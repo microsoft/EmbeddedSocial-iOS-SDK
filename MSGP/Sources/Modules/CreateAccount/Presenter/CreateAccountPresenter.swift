@@ -4,7 +4,7 @@
 //
 
 class CreateAccountPresenter: CreateAccountViewOutput {
-
+    
     weak var view: CreateAccountViewInput!
     var interactor: CreateAccountInteractorInput!
     var router: CreateAccountRouterInput!
@@ -16,7 +16,7 @@ class CreateAccountPresenter: CreateAccountViewOutput {
     private var photo: UIImage?
     
     private var user: SocialUser
-
+    
     init(user: SocialUser) {
         firstName = user.firstName
         lastName = user.lastName
@@ -24,8 +24,8 @@ class CreateAccountPresenter: CreateAccountViewOutput {
         bio = user.bio
         self.user = user
     }
-
-    func viewIsReady() {        
+    
+    func viewIsReady() {
         view.setupInitialState(with: user)
         updateCreateAccountButtonEnabledState()
     }
@@ -83,12 +83,12 @@ class CreateAccountPresenter: CreateAccountViewOutput {
     
     private func updatedCurrentUser(with photo: Photo?) -> SocialUser {
         user = SocialUser(uid: user.uid,
-                   credentials: user.credentials,
-                   firstName: firstName,
-                   lastName: lastName,
-                   email: user.email,
-                   bio: bio,
-                   photo: photo)
+                          credentials: user.credentials,
+                          firstName: firstName,
+                          lastName: lastName,
+                          email: user.email,
+                          bio: bio,
+                          photo: photo)
         return user
     }
 }

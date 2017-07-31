@@ -9,3 +9,9 @@ protocol CoreDataRecord: NSFetchRequestResult {
     static var entityName: String { get }
     static func fetchRequest() -> NSFetchRequest<Self>
 }
+
+extension CoreDataRecord {
+    static var entityName: String {
+        return String(describing: self)
+    }
+}
