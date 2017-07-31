@@ -9,7 +9,14 @@ protocol Cachable {
     @discardableResult func cacheIncoming(object: JSONEncodable) -> IncomingTransaction
     
     @discardableResult func cacheOutgoing(object: JSONEncodable) -> OutgoingTransaction
+    
+    func fetchIncoming<T: JSONEncodable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult)
+    
+    func fetchOutgoing<T: JSONEncodable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult)
+    
 }
+
+typealias FetchResult = ([JSONEncodable]) -> Void
 
 class Cache: Cachable {
     
@@ -35,4 +42,21 @@ class Cache: Cachable {
         return transactionModel
     }
 
+    func fetchIncoming<T: JSONEncodable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult) {
+        database.queryIncomingTransactions(with: NSPredicate(format: "typeid = %@", String(describing: type)),
+                                           sortDescriptors: sortDescriptors) { (incoming) in
+            var models = [T]()
+            _ = incoming.map { models.append(Decoders.decode(clazz: type, source: $0.payload as AnyObject)) }
+            result(models)
+        }
+    }
+    
+    func fetchOutgoing<T: JSONEncodable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult) {
+        database.queryOutgoingTransactions(with: NSPredicate(format: "typeid = %@", String(describing: type)),
+                                           sortDescriptors: sortDescriptors) { (incoming) in
+            var models = [T]()
+            _ = incoming.map { models.append(Decoders.decode(clazz: type, source: $0.payload as AnyObject)) }
+            result(models)
+        }
+    }
 }
