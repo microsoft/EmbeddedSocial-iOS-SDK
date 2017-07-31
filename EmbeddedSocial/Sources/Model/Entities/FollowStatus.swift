@@ -56,10 +56,10 @@ enum FollowStatus: Int {
         }
     }
     
-    static func reduce(status: FollowStatus) -> FollowStatus {
+    static func reduce(status: FollowStatus, visibility: Visibility) -> FollowStatus {
         switch status {
         case .empty:
-            return .pending
+            return  visibility == ._public ? .accepted : .pending
         case .accepted:
             return .empty
         case .blocked:
