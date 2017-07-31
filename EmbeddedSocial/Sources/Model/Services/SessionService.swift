@@ -7,6 +7,8 @@ import Foundation
 
 protocol SessionServiceType {
     func makeNewSession(with credentials: CredentialsList, userUID: String, completion: @escaping (Result<String>) -> Void)
+    
+    func requestToken(authProvider: AuthProvider, completion: @escaping (Result<String>) -> Void)
 }
 
 struct SessionService: SessionServiceType {
@@ -26,6 +28,19 @@ struct SessionService: SessionServiceType {
         SessionsAPI.sessionsPostSession(request: request) { response, error in
             if let sessionToken = response?.sessionToken {
                 completion(.success(sessionToken))
+            } else {
+                completion(.failure(APIError(error: error as? ErrorResponse)))
+            }
+        }
+    }
+    
+    func requestToken(authProvider: AuthProvider, completion: @escaping (Result<String>) -> Void) {
+        apiSettings.customHeaders = apiSettings.anonymousHeaders
+
+        let provider = authProvider.sessionServiceIdentityProvider
+        SessionsAPI.requestTokensGetRequestToken(identityProvider: provider) { response, error in
+            if let token = response?.requestToken {
+                completion(.success(token))
             } else {
                 completion(.failure(APIError(error: error as? ErrorResponse)))
             }

@@ -14,3 +14,9 @@ extension UITableViewCell: NibLoadable {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
     }
 }
+
+extension UICollectionViewCell: NibLoadable {
+    class var nib: UINib {
+        return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+    }
+}

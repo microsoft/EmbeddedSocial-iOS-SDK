@@ -14,6 +14,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     private let userID: String?
     private var user: User?
     private let me: User
+    private var followersCount = 0
     
     init(userID: String? = nil, me: User) {
         self.userID = userID
@@ -43,6 +44,8 @@ final class UserProfilePresenter: UserProfileViewOutput {
             self?.view.setIsLoading(false)
             
             if let user = result.value {
+                self?.user = user
+                self?.followersCount = user.followersCount
                 self?.view.setUser(user)
             } else {
                 self?.view.showError(result.error ?? APIError.unknown)
@@ -70,7 +73,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
         view.setIsProcessingFollowRequest(true)
         
         let callback = { [unowned self] (result: Result<Void>) in
-            let status = FollowStatus.reduce(status: followStatus)
+            let status = FollowStatus.reduce(status: followStatus, visibility: self.user?.visibility ?? ._public)
             self.processSocialResponse(self.transform(result: result)(status))
         }
 
@@ -91,9 +94,19 @@ final class UserProfilePresenter: UserProfileViewOutput {
 
         if let status = response.value {
             view.setFollowStatus(status)
+            updateFollowersCount(with: status)
         } else {
             view.showError(response.error ?? APIError.unknown)
         }
+    }
+    
+    private func updateFollowersCount(with status: FollowStatus) {
+        if status == .accepted {
+            followersCount += 1
+        } else if status == .empty || status == .blocked {
+            followersCount = max(0, followersCount - 1)
+        }
+        view.setFollowersCount(followersCount)
     }
     
     private func transform(result: Result<Void>) -> (FollowStatus) -> Result<FollowStatus> {

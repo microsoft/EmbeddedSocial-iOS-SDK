@@ -32,37 +32,46 @@ class MockUserProfileInteractor: UserProfileInteractorInput {
     
     func getRecentPosts(userID: String, completion: @escaping (Result<[Any]>) -> Void) {
         getRecentPostsCount += 1
+        completion(.success([]))
     }
     
     func getPopularPosts(userID: String, completion: @escaping (Result<[Any]>) -> Void) {
         getPopularPostsCount += 1
+        completion(.success([]))
     }
     
     func getMyRecentPosts(completion: @escaping (Result<[Any]>) -> Void) {
         getMyRecentPostsCount += 1
+        completion(.success([]))
     }
     
     func getMyPopularPosts(completion: @escaping (Result<[Any]>) -> Void) {
         getMyPopularPostsCount += 1
+        completion(.success([]))
     }
     
     func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
         followCount += 1
+        completion(.success())
     }
     
     func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
         unfollowCount += 1
+        completion(.success())
     }
     
     func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void) {
         cancelPendingCount += 1
+        completion(.success())
     }
     
     func unblock(userID: String, completion: @escaping (Result<Void>) -> Void) {
         unblockCount += 1
+        completion(.success())
     }
     
     func block(userID: String, completion: @escaping (Result<Void>) -> Void) {
         blockCount += 1
+        completion(.success())
     }
 }

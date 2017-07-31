@@ -47,21 +47,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     var tempVC: UIViewController?
     func destination(forItem index: Int) -> UIViewController {
         
-        guard let builder = items[.authenticated]?[index].builder else {
-            return UIViewController()
-        }
-        
-        switch index {
-        case Route.createPost.rawValue:
-            // TEMP
-            tempVC = UIViewController()
-            let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-            button.center = (tempVC?.view.center)!
-            button.setTitle("push", for: .normal)
-            button.addTarget(self, action: #selector(testPush), for: .touchUpInside)
-            tempVC?.view.addSubview(button)
-            return tempVC!
-        default:
+        guard let builder = items[state]?[index].builder else {
             return UIViewController()
         }
         
@@ -80,6 +66,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     // MARK: Items
     
     typealias ModuleBuilder = (_ delegate: CrossModuleCoordinator) -> UIViewController
+
     
 //    static var builderForSignIn: ModuleBuilder = { coordinator in
 //        
@@ -88,20 +75,28 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
 //        return module.viewController
 //    }
     
-    static var builderForDummy: ModuleBuilder = { coordinator in
-        return UIViewController()
+    var builderForDummy: ModuleBuilder = { coordinator in
+        return HomeModuleConfigurator.configure()
     }
     
-    var items = [State.authenticated: [
-        (title: "Home", image: UIImage(asset: Asset.iconHome), builder: builderForDummy),
-        (title: "Search", image: UIImage(asset: Asset.iconSearch), builder: builderForDummy),
-        (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: builderForDummy),
-        (title: "My pins", image: UIImage(asset: Asset.iconPins), builder: builderForDummy),
-        (title: "Activity Feed", image: UIImage(asset: Asset.iconActivity), builder: builderForDummy),
-        (title: "Settings", image: UIImage(asset: Asset.iconSettings), builder: builderForDummy),
-        (title: "Create post", image: UIImage(asset: Asset.iconSettings), builder: builderForDummy)
-        ], State.unauthenticated: [
-            (title: "Search", image: UIImage(asset: Asset.iconSearch), builder: builderForDummy),
-            (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: builderForDummy)
-        ]]
+    var builderForHome: ModuleBuilder = { coordinator in
+        return HomeModuleConfigurator.configure()
+    }
+    
+    lazy var items: [State: [(title: String, image: UIImage, builder: ModuleBuilder)]] = { [unowned self] in
+        
+        return [State.authenticated: [
+            (title: "Home", image: UIImage(asset: Asset.iconHome), builder: self.builderForHome),
+            (title: "Search", image: UIImage(asset: Asset.iconSearch), builder: self.builderForDummy),
+            (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: self.builderForDummy),
+            (title: "My pins", image: UIImage(asset: Asset.iconPins), builder: self.builderForDummy),
+            (title: "Activity Feed", image: UIImage(asset: Asset.iconActivity), builder: self.builderForDummy),
+            (title: "Settings", image: UIImage(asset: Asset.iconSettings), builder: self.builderForDummy),
+            (title: "Create post", image: UIImage(asset: Asset.iconSettings), builder: self.builderForDummy)
+            ], State.unauthenticated: [
+                (title: "Search", image: UIImage(asset: Asset.iconSearch), builder: self.builderForDummy),
+                (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: self.builderForDummy)
+            ]]
+        
+    }()
 }

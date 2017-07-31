@@ -19,7 +19,9 @@ class MockUserProfileView: UserProfileViewInput {
     private(set) var lastFollowStatus: FollowStatus?
     private(set) var setIsProcessingFollowRequestCount = 0
     private(set) var isProcessingFollowRequest: Bool?
-    
+    private(set) var lastFollowersCount: Int?
+    private(set) var setFollowersCount = 0
+
     func setupInitialState() {
         setupInitialStateCount += 1
     }
@@ -45,5 +47,10 @@ class MockUserProfileView: UserProfileViewInput {
     
     func setIsProcessingFollowRequest(_ isLoading: Bool) {
         isProcessingFollowRequest = isLoading
+    }
+    
+    func setFollowersCount(_ followersCount: Int) {
+        lastFollowersCount = followersCount
+        setFollowersCount += 1
     }
 }

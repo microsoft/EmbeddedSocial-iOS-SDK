@@ -103,10 +103,12 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertEqual(router.openFollowersCount, 1)
     }
     
-    func testThatItSendsFollowRequestForPublicUser() {
+    func testThatItFollowsUser() {
         // given
         let followingStatus = FollowStatus.empty
         let visibility = Visibility._public
+        let expectedStatus = FollowStatus.reduce(status: followingStatus, visibility: visibility)
+
         let user = User(uid: UUID().uuidString, visibility: visibility, followingStatus: followingStatus)
         interactor.userToReturn = user
         
@@ -116,7 +118,38 @@ class UserProfilePresenterTests: XCTestCase {
         presenter.onFollowRequest(currentStatus: followingStatus)
         
         // then
-//        let expectedStatus = FollowStatus.reduce(status: <#T##FollowStatus#>)
+        validateFollowStatusChanged(to: expectedStatus)
+        XCTAssertEqual(view.lastFollowersCount!, 1)
+    }
+    
+    func testThatItUnfollowsUser() {
+        // given
+        let followingStatus = FollowStatus.accepted
+        let visibility = Visibility._public
+        let expectedStatus = FollowStatus.reduce(status: followingStatus, visibility: visibility)
+        
+        let user = User(uid: UUID().uuidString, visibility: visibility, followingStatus: followingStatus)
+        interactor.userToReturn = user
+        
+        let presenter = makeDefaultPresenter(userID: user.uid)
+        
+        // when
+        presenter.onFollowRequest(currentStatus: followingStatus)
+        
+        // then
+        validateFollowStatusChanged(to: expectedStatus)
+        XCTAssertEqual(view.lastFollowersCount!, 0)
+    }
+    
+    private func validateFollowStatusChanged(to expectedStatus: FollowStatus) {
+        XCTAssertNotNil(view.lastFollowStatus)
+        XCTAssertEqual(view.lastFollowStatus!, expectedStatus)
+        
+        XCTAssertNotNil(view.isProcessingFollowRequest)
+        XCTAssertFalse(view.isProcessingFollowRequest!)
+        
+        XCTAssertEqual(view.setFollowersCount, 1)
+        XCTAssertNotNil(view.lastFollowersCount)
     }
     
     private func makeDefaultPresenter(userID: String? = nil) -> UserProfilePresenter {

@@ -14,6 +14,10 @@ final class APISettings {
         EmbeddedSocialClientAPI.basePath = Keys.ppeBasePath
     }
     
+    var anonymousHeaders: [String: String] {
+        return ["Authorization": "Anon AK=\(Constants.appKey)"]
+    }
+    
     var customHeaders: [String: String] {
         set {
             queue.async { EmbeddedSocialClientAPI.customHeaders = newValue }

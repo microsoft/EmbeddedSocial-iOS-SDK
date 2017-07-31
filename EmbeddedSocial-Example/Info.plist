@@ -62,7 +62,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>msgp</string>
+				<string>embeddedsocial</string>
 			</array>
 		</dict>
 	</array>
