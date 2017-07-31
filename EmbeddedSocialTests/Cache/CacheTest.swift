@@ -12,7 +12,7 @@ class CacheTests: XCTestCase {
     private var transactionsDatabase: MockTransactionsDatabaseFacade!
     private var cache: Cachable!
     
-    private let timeoutDelay = 5
+    private let timeoutDelay: TimeInterval = 5
     
     override func setUp() {
         super.setUp()
