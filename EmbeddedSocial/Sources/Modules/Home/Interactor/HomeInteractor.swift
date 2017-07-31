@@ -140,7 +140,7 @@ class HomeInteractor: HomeInteractorInput {
         }
     }
     
-    func pin(with id: String) {
+    func pin(with id: PostHandle) {
         pinsService.postPin(postHandle: id) { (handle, err) in
             guard err == nil else {
                 self.output.didFail(error: FeedServiceError.failedToPin(message: err!.localizedDescription))
@@ -151,7 +151,7 @@ class HomeInteractor: HomeInteractorInput {
         }
     }
     
-    func like(with id: String) {
+    func like(with id: PostHandle) {
         
         likesService.postLike(postHandle: id) { (handle, err) in
             guard err == nil else {

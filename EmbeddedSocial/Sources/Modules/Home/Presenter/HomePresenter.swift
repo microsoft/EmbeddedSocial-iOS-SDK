@@ -42,11 +42,11 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         view.setLayout(type: layout)
     }
     
+    // MARK: Private
     private func flip(layout: inout HomeLayoutType) {
         layout = HomeLayoutType(rawValue: layout.rawValue ^ 1)!
     }
     
-    // MARK: Private
     private func viewModel(with post: Post) -> PostViewModel {
         
         var viewModel = PostViewModel()
@@ -115,8 +115,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         router.open(route: .postDetails)
     }
     
-    // MARK: Callbacks
-    
+    // MARK: HomeInteractorOutput
     func didFetch(feed: PostsFeed) {
         view.setRefreshing(state: false)
         items = feed.items
@@ -152,7 +151,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         }
     }
     
-    func didLike(post id: PostHandle) {
+    private func didLike(post id: PostHandle) {
         if let index = itemIndex(with: id) {
             items[index].liked = true
             items[index].totalLikes += Int64(1)
@@ -160,22 +159,22 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         }
     }
     
-    func didPin(post id: PostHandle) {
+    private func didPin(post id: PostHandle) {
         if let index = itemIndex(with: id) {
             items[index].pinned = true
             view.reload(with: index)
         }
     }
     
-    func didTapComment(with path: IndexPath) {
+    private func didTapComment(with path: IndexPath) {
         router.open(route: .comments)
     }
     
-    func didTapExtra(with path: IndexPath) {
+    private func didTapExtra(with path: IndexPath) {
         router.open(route: .extra)
     }
     
-    func didTapLike(with path: IndexPath) {
+    private func didTapLike(with path: IndexPath) {
         let item = items[path.row]
         
         if item.liked {
@@ -185,7 +184,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         }
     }
     
-    func didTapPin(with path: IndexPath) {
+    private func didTapPin(with path: IndexPath) {
         let item = items[path.row]
         
         if item.pinned {
