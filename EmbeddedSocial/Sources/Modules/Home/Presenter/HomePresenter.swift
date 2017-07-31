@@ -150,7 +150,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         }
     }
     
-    private func didLike(post id: PostHandle) {
+    func didLike(post id: PostHandle) {
         if let index = itemIndex(with: id) {
             items[index].liked = true
             items[index].totalLikes += Int64(1)
@@ -158,7 +158,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         }
     }
     
-    private func didPin(post id: PostHandle) {
+    func didPin(post id: PostHandle) {
         if let index = itemIndex(with: id) {
             items[index].pinned = true
             view.reload(with: index)
