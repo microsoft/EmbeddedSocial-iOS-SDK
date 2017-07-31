@@ -63,10 +63,14 @@ extension UserProfileViewController: UserProfileViewInput {
     }
     
     func setFollowStatus(_ followStatus: FollowStatus) {
-        summaryView.configure(followingStatus: followStatus)
+        summaryView.configure(followStatus: followStatus)
     }
     
     func setIsProcessingFollowRequest(_ isLoading: Bool) {
         summaryView.isLoadingFollowStatus = isLoading
+    }
+    
+    func setFollowersCount(_ followersCount: Int) {
+        summaryView.followersCount = followersCount
     }
 }

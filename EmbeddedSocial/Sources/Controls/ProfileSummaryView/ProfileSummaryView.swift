@@ -67,6 +67,18 @@ class ProfileSummaryView: UIView {
         }
     }
     
+    var followersCount: Int = 0 {
+        didSet {
+            followersButton.setAttributedTitle(attributedString("followers", withBoldNumber: followersCount), for: .normal)
+        }
+    }
+    
+    var followingCount: Int = 0 {
+        didSet {
+            followingButton.setAttributedTitle(attributedString("following", withBoldNumber: followingCount), for: .normal)
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -81,19 +93,19 @@ class ProfileSummaryView: UIView {
         detailsLabel.text = user.bio ?? Constants.Placeholder.notSpecified
         imageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: .userPhotoPlaceholder))
         
-        followersButton.setAttributedTitle(attributedString("followers", withBoldNumber: user.followersCount), for: .normal)
-        followingButton.setAttributedTitle(attributedString("following", withBoldNumber: user.followingCount), for: .normal)
+        followersCount = user.followersCount
+        followingCount = user.followingCount
         
         editButton.isHidden = !user.isMe
         followButton.isHidden = user.isMe
         
-        configure(followingStatus: user.followingStatus)
+        configure(followStatus: user.followerStatus)
     }
     
-    func configure(followingStatus: FollowStatus?) {
-        self.followStatus = followingStatus
+    func configure(followStatus: FollowStatus?) {
+        self.followStatus = followStatus
         
-        if let style = followingStatus?.buttonStyle {
+        if let style = followStatus?.buttonStyle {
             followButton.apply(style: style)
         }
     }
