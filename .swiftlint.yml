@@ -1,10 +1,10 @@
 included:
-  - MSGP
+  - EmbeddedSocial
 
 excluded:
   - Carthage
   - Pods
-  - MSGP/Sources/Generated
+  - EmbeddedSocial/Sources/Generated
 
 disabled_rules: # rule identifiers to exclude from running
   - trailing_whitespace
