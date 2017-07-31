@@ -29,13 +29,18 @@ struct PostViewModel {
 
 class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
-    weak var view: HomeViewInput!
+    private weak var view: HomeViewInput!
     var interactor: HomeInteractorInput!
     var router: HomeRouterInput!
     
+    fileprivate(set) var configuration: Feed
     var layout: HomeLayoutType = .list
-    let limit = 3
+    let limit = 3 // Default
     var items = [Post]()
+    
+    required init(configuration: Feed) {
+
+    }
     
     func didTapChangeLayout() {
         flip(layout: &layout)
@@ -166,6 +171,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         }
     }
     
+    // View Output
     private func didTapComment(with path: IndexPath) {
         router.open(route: .comments)
     }
@@ -193,4 +199,20 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
             interactor.pin(with: item.topicHandle)
         }
     }
+    
+    // Module Input
+    
+    private func onConfigurationChanged() {
+        // clean
+        items.removeAll()
+        
+        // fetch data
+        interactor.fetchPosts(with: limit)
+        
+        // update UI
+        view.setRefreshing(state: true)
+        view.reload()
+        
+    }
+    
 }

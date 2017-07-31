@@ -21,6 +21,7 @@ class HomeModuleConfigurator {
         let presenter = HomePresenter()
         presenter.view = viewController
         presenter.router = router
+        presenter.configuration = .home
 
         let interactor = HomeInteractor()
         interactor.output = presenter

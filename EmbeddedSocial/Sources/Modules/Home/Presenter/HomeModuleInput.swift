@@ -11,6 +11,8 @@ enum Feed {
         case today, weekly, alltime
     }
     
+    // Show home feed
+    case home
     // Shows recent feed
     case recent
     // Shows popular feed
@@ -21,7 +23,7 @@ enum Feed {
 
 protocol HomeModuleInput: class {
     
-    var configuration: Feed
+    var configuration: Feed! { set get }
     
 //    var needsShowRecentPosts { set get }
 //    var needsShowPopularPosts { set get }
