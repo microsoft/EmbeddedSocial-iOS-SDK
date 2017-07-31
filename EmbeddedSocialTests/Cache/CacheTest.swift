@@ -12,6 +12,8 @@ class CacheTests: XCTestCase {
     private var transactionsDatabase: MockTransactionsDatabaseFacade!
     private var cache: Cachable!
     
+    private let timeoutDelay = 5
+    
     override func setUp() {
         super.setUp()
         coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
@@ -75,7 +77,7 @@ class CacheTests: XCTestCase {
             expectation.fulfill()
         })
         
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: timeoutDelay, handler: nil)
     }
     
     func testThatOutgoingDataFetchedCorrect() {
@@ -93,7 +95,7 @@ class CacheTests: XCTestCase {
             expectation.fulfill()
         })
         
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: timeoutDelay, handler: nil)
     }
     
 }
