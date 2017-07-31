@@ -118,7 +118,7 @@ class HomeViewController: UIViewController, HomeViewInput {
     }
     
     func updateLayoutFlowForList(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
-        layout.minimumLineSpacing = 5
+        layout.minimumLineSpacing = 20
     }
     
     func didTapChangeLayout() {

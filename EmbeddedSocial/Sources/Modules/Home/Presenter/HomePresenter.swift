@@ -55,10 +55,11 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         viewModel.text = post.text ?? ""
         viewModel.likedBy = "" // TODO: uncomfirmed
         
-        viewModel.totalLikes = String(format: "%d likes", post.totalLikes)
-        viewModel.totalComments = String(format: "%d comments", post.totalComments)
+    
+        viewModel.totalLikes = Localizator.localize("likes_count", post.totalLikes)
+        viewModel.totalComments = Localizator.localize("comments_count", post.totalComments)
         
-        viewModel.timeCreated =  post.createdTime == nil ? "" : Date.time(since: post.createdTime!)
+        viewModel.timeCreated =  post.createdTime == nil ? "" : DateFormatter().timeSince(from: post.createdTime!)
         viewModel.userImageUrl = post.photoUrl
         viewModel.postImageUrl = post.imageUrl
         
