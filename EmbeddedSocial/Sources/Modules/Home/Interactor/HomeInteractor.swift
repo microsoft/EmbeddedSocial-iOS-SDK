@@ -88,9 +88,9 @@ protocol HomeInteractorOutput: class {
 class HomeInteractor: HomeInteractorInput {
     
     weak var output: HomeInteractorOutput!
-    var postService: PostServiceProtocol! = TopicService()
+    var postService: PostServiceProtocol! = TopicService(cache: SocialPlus.shared.cache)
     var likesService: LikesServiceProtocol = LikesService()
-    var pinsService: PinsServiceProtocol! = PinsService ()
+    var pinsService: PinsServiceProtocol! = PinsService()
     
     private var offset: String? = nil
     

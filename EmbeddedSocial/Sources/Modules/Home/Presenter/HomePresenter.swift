@@ -143,6 +143,11 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     func didUnlike(post id: PostHandle) {
         if let index = itemIndex(with: id) {
             items[index].liked = false
+            
+            if (items[index].totalLikes > 0)
+            {
+                items[index].totalLikes -= Int64(1)
+            }
             view.reload(with: index)
         }
     }
