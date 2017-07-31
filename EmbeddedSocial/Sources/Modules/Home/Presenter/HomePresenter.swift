@@ -126,7 +126,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     }
     
     func didTapItem(path: IndexPath) {
-        router.open(route: .postDetails)
+//        router.open(route: .postDetails)
     }
     
     // MARK: HomeInteractorOutput
