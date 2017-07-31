@@ -43,6 +43,19 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     }
     
     // MARK: Private
+    
+    private lazy var dateFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        
+        formatter.unitsStyle = .abbreviated
+        formatter.includesApproximationPhrase = false
+        formatter.zeroFormattingBehavior = .dropAll
+        formatter.maximumUnitCount = 1
+        formatter.allowsFractionalUnits = false
+        
+        return formatter
+    }()
+    
     private func flip(layout: inout HomeLayoutType) {
         layout = HomeLayoutType(rawValue: layout.rawValue ^ 1)!
     }
@@ -59,7 +72,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         viewModel.totalLikes = Localizator.localize("likes_count", post.totalLikes)
         viewModel.totalComments = Localizator.localize("comments_count", post.totalComments)
         
-        viewModel.timeCreated =  post.createdTime == nil ? "" : DateFormatter().timeSince(from: post.createdTime!)
+        viewModel.timeCreated =  post.createdTime == nil ? "" : dateFormatter.string(from: post.createdTime!, to: Date())
         viewModel.userImageUrl = post.photoUrl
         viewModel.postImageUrl = post.imageUrl
         

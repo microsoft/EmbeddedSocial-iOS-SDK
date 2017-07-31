@@ -11,7 +11,6 @@
 		2C4A6E2F171804FF1A5FFA08 /* HomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5F247877763B596F848BB0 /* HomeConfigurator.swift */; };
 		3209330D1F2A50D300890218 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209330C1F2A50D300890218 /* Logger.swift */; };
 		3234AD1B1F2E70C3009C3327 /* PostCellCompact.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3234AD1A1F2E70C3009C3327 /* PostCellCompact.xib */; };
-		326F89381F2E7D54009FB5A9 /* DateFormatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326F89371F2E7D54009FB5A9 /* DateFormatter+Ext.swift */; };
 		32FAB04E1F2E3C6A00C5B18D /* Test.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32FAB04D1F2E3C6A00C5B18D /* Test.xib */; };
 		32FAB0511F2E6D3000C5B18D /* PostCellCompact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */; };
 		32FAB0531F2E6D4700C5B18D /* PostCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */; };
@@ -440,7 +439,6 @@
 		2E0EA0876D130C771A2AA58F /* HomeInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		3209330C1F2A50D300890218 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		3234AD1A1F2E70C3009C3327 /* PostCellCompact.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCellCompact.xib; sourceTree = "<group>"; };
-		326F89371F2E7D54009FB5A9 /* DateFormatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Ext.swift"; sourceTree = "<group>"; };
 		32FAB04D1F2E3C6A00C5B18D /* Test.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Test.xib; sourceTree = "<group>"; };
 		32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellCompact.swift; sourceTree = "<group>"; };
 		32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellProtocol.swift; sourceTree = "<group>"; };
@@ -1112,7 +1110,6 @@
 				88580AB31F2213AB00C1CBAF /* UITableView+Ext.swift */,
 				88580AB41F2213AB00C1CBAF /* UIView+Ext.swift */,
 				88580AB51F2213AB00C1CBAF /* UIViewController+Alerts.swift */,
-				326F89371F2E7D54009FB5A9 /* DateFormatter+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2663,7 +2660,6 @@
 				88580BB61F2213AB00C1CBAF /* TextFieldCell.swift in Sources */,
 				88580BED1F2213AB00C1CBAF /* PostCommentRequest.swift in Sources */,
 				E20ABED73B48A4E7ECEA36DC /* HomeViewInput.swift in Sources */,
-				326F89381F2E7D54009FB5A9 /* DateFormatter+Ext.swift in Sources */,
 				22C55E6F7AF7BB41FECB2108 /* HomeViewOutput.swift in Sources */,
 				E14F14583C908D331E99F133 /* HomeViewController.swift in Sources */,
 				F86139F7C747A64D4126D30A /* HomeModuleInput.swift in Sources */,
