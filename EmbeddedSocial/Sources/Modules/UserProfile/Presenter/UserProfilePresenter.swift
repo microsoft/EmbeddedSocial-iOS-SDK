@@ -15,7 +15,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     private var user: User?
     private let me: User
     
-    init(userID: String?, me: User) {
+    init(userID: String? = nil, me: User) {
         self.userID = userID
         self.me = me
     }
