@@ -72,7 +72,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         viewModel.totalLikes = Localizator.localize("likes_count", post.totalLikes)
         viewModel.totalComments = Localizator.localize("comments_count", post.totalComments)
         
-        viewModel.timeCreated =  post.createdTime == nil ? "" : dateFormatter.string(from: post.createdTime!, to: Date())
+        viewModel.timeCreated =  post.createdTime == nil ? "" : dateFormatter.string(from: post.createdTime!, to: Date())!
         viewModel.userImageUrl = post.photoUrl
         viewModel.postImageUrl = post.imageUrl
         
