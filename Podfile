@@ -22,11 +22,11 @@ abstract_target 'Group' do
     pod 'SwiftGen', '~> 4.2.1'
     pod 'UITextView+Placeholder', '~> 1.2.0'
     pod 'OAuthSwift', '~> 1.1.2'
-    pod 'LiveSDK', :path => 'MSGP/Vendor/LiveSDK'
+    pod 'LiveSDK', :path => 'EmbeddedSocial/Vendor/LiveSDK'
     facebook
 
-    target 'MSGP' do
-      target 'MSGPTests' do
+    target 'EmbeddedSocial' do
+      target 'EmbeddedSocialTests' do
         inherit! :search_paths
         pod 'Quick'
         pod 'Nimble'
@@ -34,13 +34,13 @@ abstract_target 'Group' do
         end
     end
 
-    target 'MSGP-Example' do
-        
+    target 'EmbeddedSocial-Example' do
+
     end
-    
-    target 'MSGPUITests' do
+
+    target 'EmbeddedSocialUITests' do
         pod 'Embassy', '~> 3.1’
         pod 'EnvoyAmbassador', '~> 3.0’
     end
-    
+
 end

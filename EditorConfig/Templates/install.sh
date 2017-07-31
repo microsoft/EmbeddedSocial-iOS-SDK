@@ -1,2 +1,2 @@
 #! /bin/bash
-cp -R MSGP\ Swift\ File.xctemplate ~/Library/Developer/Xcode/Templates/Custom/
+cp -R EmbeddedSocial\ Swift\ File.xctemplate ~/Library/Developer/Xcode/Templates/Custom/

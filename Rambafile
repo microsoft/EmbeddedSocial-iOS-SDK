@@ -2,22 +2,22 @@
 company: akvelon
 
 ### Xcode project settings
-project_name: MSGP-Framework
-xcodeproj_path: MSGP.xcodeproj
+project_name: EmbeddedSocial-Framework
+xcodeproj_path: EmbeddedSocial.xcodeproj
 
 ### Code generation settings section
 # The main project target name
-project_target: MSGP
+project_target: EmbeddedSocial
 
 # The file path for new modules
-project_file_path: MSGP/Sources/Modules
+project_file_path: EmbeddedSocial/Sources/Modules
 
 # The Xcode group path to new modules
-project_group_path: MSGP/Sources/Modules
+project_group_path: EmbeddedSocial/Sources/Modules
 
 ### Tests generation settings section
 # The tests target name
-test_target: MSGPTests
+test_target: EmbeddedSocialTests
 
 # The file path for new tests
 test_file_path: ModulesTests

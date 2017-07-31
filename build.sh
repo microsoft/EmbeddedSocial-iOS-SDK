@@ -1,7 +1,7 @@
 
-input_storyboards="MSGP/Sources"
-input_assets="MSGP/Resources/Images.xcassets"
-output="MSGP/Sources/Generated/SwiftGen/"
+input_storyboards="EmbeddedSocial/Sources"
+input_assets="EmbeddedSocial/Resources/Images.xcassets"
+output="EmbeddedSocial/Sources/Generated/SwiftGen/"
 
-swiftgen storyboards -t swift3 --param module="MSGP" $input_storyboards -o $output"Storyboards.swift"
+swiftgen storyboards -t swift3 --param module="EmbeddedSocial" $input_storyboards -o $output"Storyboards.swift"
 swiftgen images -t swift3 $input_assets -o $output"Images.swift"
