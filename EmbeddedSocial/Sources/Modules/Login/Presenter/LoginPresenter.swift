@@ -43,6 +43,7 @@ final class LoginPresenter: LoginViewOutput {
         }
     }
     
+    
     private func processUser(_ user: SocialUser) {
         interactor.getMyProfile(socialUser: user) { [weak self] result in
             self?.view.setIsLoading(false)
@@ -57,6 +58,8 @@ final class LoginPresenter: LoginViewOutput {
         }
     }
     
+    /// Temporary solution that forces user to enter email / password twice.
+    /// It will be removed after Twitter login flow will be refined on the server side.
     private func logIntoTwitter() {
         view.setIsLoading(true)
 
