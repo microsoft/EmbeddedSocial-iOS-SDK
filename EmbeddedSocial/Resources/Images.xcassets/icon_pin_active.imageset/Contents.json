@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "es_navigation_pins_highlight.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "es_navigation_pins_highlight.png",
       "scale" : "2x"
     },
     {
