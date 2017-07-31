@@ -36,11 +36,9 @@ final class LoginPresenter: LoginViewOutput {
         interactor.login(provider: provider, from: view as? UIViewController) { [weak self] result in
             if let user = result.value {
                 self?.processUser(user)
-            } else if let error = result.error {
-                self?.view.setIsLoading(false)
-                self?.view.showError(error)
             } else {
-                fatalError("Unsupported response")
+                self?.view.setIsLoading(false)
+                self?.view.showError(result.error ?? APIError.unknown)
             }
         }
     }
@@ -51,8 +49,23 @@ final class LoginPresenter: LoginViewOutput {
             
             if let (user, sessionToken) = result.value {
                 self?.moduleOutput?.onSessionCreated(user: user, sessionToken: sessionToken)
+            } else if user.credentials.provider == .twitter {
+                self?.logIntoTwitter()
             } else {
                 self?.router.openCreateAccount(user: user)
+            }
+        }
+    }
+    
+    private func logIntoTwitter() {
+        view.setIsLoading(true)
+
+        interactor.login(provider: .twitter, from: view as? UIViewController) { [weak self] result in
+            if let user = result.value {
+                self?.router.openCreateAccount(user: user)
+            } else {
+                self?.view.setIsLoading(false)
+                self?.view.showError(result.error ?? APIError.unknown)
             }
         }
     }

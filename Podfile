@@ -21,7 +21,7 @@ abstract_target 'Group' do
     pod 'SDWebImage', '~> 4.0.0'
     pod 'SwiftGen', '~> 4.2.1'
     pod 'UITextView+Placeholder', '~> 1.2.0'
-    pod 'OAuthSwift', '~> 1.1.2'
+    pod 'OAuthSwift', :path => 'MSGP/Vendor/OAuthSwift'
     pod 'LiveSDK', :path => 'MSGP/Vendor/LiveSDK'
     facebook
 

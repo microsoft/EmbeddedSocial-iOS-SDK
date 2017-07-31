@@ -35,6 +35,8 @@ struct SessionService: SessionServiceType {
     }
     
     func requestToken(authProvider: AuthProvider, completion: @escaping (Result<String>) -> Void) {
+        apiSettings.customHeaders = apiSettings.anonymousHeaders
+
         let provider = authProvider.sessionServiceIdentityProvider
         SessionsAPI.requestTokensGetRequestToken(identityProvider: provider) { response, error in
             if let token = response?.requestToken {
