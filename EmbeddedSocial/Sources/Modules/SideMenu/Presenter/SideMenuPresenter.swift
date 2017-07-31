@@ -26,7 +26,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     weak var view: SideMenuViewInput!
     var interactor: SideMenuInteractorInput!
     var router: SideMenuRouterInput!
-    var configation: SideMenuType! {
+    var configation: SideMenuType = .tab {
         didSet {
             tab = (configation == .tab) ? .social : nil
         }
@@ -131,7 +131,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
                                                  isCollapsed: false,
                                                  items: clientItems)
         
-        switch configation! {
+        switch configation {
         case .tab:
             
             switch tab! {
@@ -150,12 +150,28 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     
     func didSelectItem(with path: IndexPath) {
         
-        if path.section == 0 {
-            router.open(viewController: interactor.targetForSocialMenuItem(with: path.row), sender: view)
-        } else if path.section == 1 {
-            router.open(viewController: interactor.targetForClientMenuItem(with: path.row), sender: view)
+        let index = path.row
+        
+        switch configation {
+        case .tab:
+            
+            switch tab! {
+            case .social:
+                router.open(viewController: interactor.targetForSocialMenuItem(with: index), sender: view)
+            case .client:
+                router.open(viewController: interactor.targetForClientMenuItem(with: index), sender: view)
+            }
+            
+        case .dual:
+            if path.section == 0 {
+                router.open(viewController: interactor.targetForSocialMenuItem(with: path.row), sender: view)
+            } else if path.section == 1 {
+                router.open(viewController: interactor.targetForClientMenuItem(with: path.row), sender: view)
+            }
+        case .single:
+           router.open(viewController: interactor.targetForSocialMenuItem(with: index), sender: view)
         }
-    }
+}
     
     // MARK: Module Input
     

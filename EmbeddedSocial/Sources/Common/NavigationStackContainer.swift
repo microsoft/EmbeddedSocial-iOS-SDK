@@ -20,15 +20,15 @@ class NavigationStackContainer: UIViewController, SideMenuModuleOutput {
         self.addLeftBarButtonWithImage(image)
         self.slideMenuController()?.removeLeftGestures()
         self.slideMenuController()?.addLeftGestures()
-        
     }
     
     func show(viewController: UIViewController) {
-        
+    
         embeddedViewController?.view.removeFromSuperview()
         embeddedViewController?.removeFromParentViewController()
         
         viewController.willMove(toParentViewController: self)
+        self.addChildViewController(viewController)
         
         view.addSubview(viewController.view)
         
@@ -36,7 +36,6 @@ class NavigationStackContainer: UIViewController, SideMenuModuleOutput {
             make.edges.equalToSuperview()
         }
         
-        self.addChildViewController(viewController)
         viewController.didMove(toParentViewController: self)
         
         embeddedViewController = viewController

@@ -7,16 +7,31 @@ import Foundation
 import EmbeddedSocial
 
 class MyAppMenu: SideMenuItemsProvider {
+    
+//    static var nav: UINavigationController?
 
     func destination(forItem index: Int) -> UIViewController {
         let vc = UIViewController()
         
+        
+//        let nav = UINavigationController(rootViewController: vc)
+    
         vc.view = UIView()
         vc.view.backgroundColor = index == 0 ? UIColor.red : UIColor.yellow
         vc.title = "Title \(index)"
         
+//        nav.pushViewController(blueVC, animated: false)
+        
+        
         return vc
     }
+    
+    lazy var blueVC: UIViewController = {
+       let vc = UIViewController()
+        vc.view = UIView()
+        vc.view.backgroundColor = UIColor.blue
+        return vc
+    }()
     
     var images = ["icon_comment", "icon_liked"]
     var items = ["Screen #1", "Screen #2"]
