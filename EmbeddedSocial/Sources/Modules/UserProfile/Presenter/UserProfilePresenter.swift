@@ -16,7 +16,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     private let me: User
     private var followersCount = 0
     
-    init(userID: String?, me: User) {
+    init(userID: String? = nil, me: User) {
         self.userID = userID
         self.me = me
     }
