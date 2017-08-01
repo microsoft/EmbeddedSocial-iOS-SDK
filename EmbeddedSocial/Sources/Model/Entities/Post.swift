@@ -44,3 +44,32 @@ extension Post {
     }
     
 }
+
+// MARK: PostsFeed
+
+struct PostsFeed {
+    var items: [Post]
+}
+
+// MARK: PostsFetchResult
+
+struct PostFetchResult {
+    var posts: [Post] = [Post]()
+    var error: FeedServiceError?
+    var cursor: String? = nil
+}
+
+extension PostFetchResult {
+    
+    static func mock() -> PostFetchResult {
+        var result = PostFetchResult()
+        
+        let number = arc4random() % 5 + 1
+        
+        for index in 0..<number {
+            result.posts.append(Post.mock(seed: Int(index)))
+        }
+        return result
+    }
+}
+

@@ -3,68 +3,11 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-enum FeedServiceError: Error {
-    case failedToFetch(message: String)
-    case failedToLike(message: String)
-    case failedToUnLike(message: String)
-    case failedToPin(message: String)
-    case failedToUnPin(message: String)
-    
-    var message: String {
-        switch self {
-        case .failedToFetch(let message),
-             .failedToPin(let message),
-             .failedToUnPin(let message),
-             .failedToLike(let message),
-             .failedToUnLike(let message):
-            return message
-        }
-    }
-}
-
-struct PostsFeed {
-    var items: [Post]
-}
-
-struct PostFetchResult {
-    var posts: [Post] = [Post]()
-    var error: FeedServiceError?
-    var cursor: String? = nil
-}
-
-extension PostFetchResult {
-    
-    static func mock() -> PostFetchResult {
-        var result = PostFetchResult()
-        
-        let number = arc4random() % 5 + 1
-        
-        for index in 0..<number {
-            result.posts.append(Post.mock(seed: Int(index)))
-        }
-        return result
-    }
-}
-
-protocol PostServiceProtocol {
-    
-    typealias FetchResultHandler = ((PostFetchResult) -> Void)
-    
-    func fetchPosts(offset: String?, limit: Int, resultHandler: @escaping FetchResultHandler)
-}
-
-class PostServiceMock: PostServiceProtocol {
-    
-    func fetchPosts(offset: String?, limit: Int, resultHandler: @escaping FetchResultHandler) {
-        
-    }
-}
-
 typealias PostHandle = String
 
 protocol HomeInteractorInput {
     
-    func fetchPosts(with limit: Int)
+    func fetchPosts(with limit: Int, type: FeedType)
     
     func like(with id: PostHandle)
     func unlike(with id: PostHandle)
@@ -94,27 +37,63 @@ class HomeInteractor: HomeInteractorInput {
     
     private var offset: String? = nil
     
-    func fetchPosts(with limit: Int) {
-        postService.fetchPosts(offset: offset, limit: limit) { (result) in
-            
-            guard result.error == nil else {
-                
-                self.output.didFail(error: result.error!)
-                
-                return
-            }
-            
-            let feed = PostsFeed(items: result.posts)
-            
-            if self.offset == nil {
-                self.output.didFetch(feed: feed)
-            } else {
-                self.output.didFetchMore(feed: feed)
-            }
-            
-            self.offset = result.cursor
+    private lazy var fetchHandler: FetchResultHandler = { [unowned self] result in
+        
+        guard result.error == nil else {
+            self.output.didFail(error: result.error!)
+            return
         }
+        
+        let feed = PostsFeed(items: result.posts)
+        
+        if self.offset == nil {
+            self.output.didFetch(feed: feed)
+        } else {
+            self.output.didFetchMore(feed: feed)
+        }
+        
+        self.offset = result.cursor
     }
+    
+    
+    func fetchPosts(with limit: Int, type: FeedType) {
+        var query = RecentFeedQuery()
+        query.limit = Int32(limit)
+        query.cursor = ""
+        postService.fetchRecent(query: query, result: fetchHandler)
+    }
+    
+    //
+    //        switch type {
+    //        case let .home(cursor, limit):
+    //            var query = RecentFeedQuery()
+    //            query.limit = Intcursor
+    //            query.limit = limit
+    //            postService.fetchRecent(query: <#T##RecentFeedQuery#>, result: <#T##FetchResultHandler##FetchResultHandler##(PostFetchResult) -> Void#>)
+    //        default:
+    //
+    //        }
+    
+    
+    //        postService.fetchPosts(offset: offset, limit: limit) { (result) in
+    //
+    //            guard result.error == nil else {
+    //
+    //                self.output.didFail(error: result.error!)
+    //
+    //                return
+    //            }
+    //
+    //            let feed = PostsFeed(items: result.posts)
+    //
+    //            if self.offset == nil {
+    //                self.output.didFetch(feed: feed)
+    //            } else {
+    //                self.output.didFetchMore(feed: feed)
+    //            }
+    //
+    //            self.offset = result.cursor
+    //        }
     
     // TODO: refactor these methods using generics ?
     
@@ -162,5 +141,31 @@ class HomeInteractor: HomeInteractorInput {
             self.output.didLike(post: handle)
         }
     }
-
 }
+
+//extension HomeInteractor {
+//    private func fetchFeed() {
+
+//        
+//        let cursor:Int32? = Int32(fetchRequest.cursor ?? "")
+//        var timeRange: TopicsAPI.TimeRange_topicsGetPopularTopics?
+//        let limit: Int32? = Int32(fetchRequest.limit)
+//        
+//        guard case let FeedType.popular(type: feedRange) = fetchRequest.feedType else {
+//            fatalError("Wrong method is called")
+//        }
+//        
+//        switch feedRange {
+//        case .alltime:
+//            timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.allTime
+//        case .today:
+//            timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.today
+//        case .weekly:
+//            timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.thisWeek
+//        }
+//        
+
+
+//    }
+//}
+

@@ -8,6 +8,45 @@ import Alamofire
 typealias TopicPosted = (PostTopicRequest) -> Void
 typealias Failure = (Error) -> Void
 
+enum FeedServiceError: Error {
+    case failedToFetch(message: String)
+    case failedToLike(message: String)
+    case failedToUnLike(message: String)
+    case failedToPin(message: String)
+    case failedToUnPin(message: String)
+    
+    var message: String {
+        switch self {
+        case .failedToFetch(let message),
+             .failedToPin(let message),
+             .failedToUnPin(let message),
+             .failedToLike(let message),
+             .failedToUnLike(let message):
+            return message
+        }
+    }
+}
+
+typealias FetchResultHandler = ((PostFetchResult) -> Void)
+
+struct PopularFeedQuery {
+    var cursor: Int32?
+    var limit: Int32?
+    var timeRange: TopicsAPI.TimeRange_topicsGetPopularTopics!
+}
+
+struct RecentFeedQuery {
+    var cursor: String?
+    var limit: Int32?
+}
+
+protocol PostServiceProtocol {
+    
+    func fetchPopular(query: PopularFeedQuery, result: @escaping FetchResultHandler)
+    func fetchRecent(query: RecentFeedQuery, result: @escaping FetchResultHandler)
+
+}
+
 class TopicService: PostServiceProtocol {
     
     private var success: TopicPosted?
@@ -15,9 +54,12 @@ class TopicService: PostServiceProtocol {
     
     private var cache: Cachable!
     
+    // MARK: Public
     init(cache: Cachable) {
         self.cache = cache
     }
+    
+    // MARK: POST
     
     func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
         self.success = success
@@ -32,7 +74,7 @@ class TopicService: PostServiceProtocol {
                 sendPostTopicRequest(request: topic)
                 return
             }
-                
+            
             guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
                 return
             }
@@ -71,32 +113,46 @@ class TopicService: PostServiceProtocol {
             self?.success!(request)
         }
     }
-
-    func fetchPosts(offset: String?, limit: Int, resultHandler: @escaping FetchResultHandler) {
+    
+    // MARK: GET
+    func fetchPopular(query: PopularFeedQuery, result: @escaping FetchResultHandler) {
+        TopicsAPI.topicsGetPopularTopics(timeRange: query.timeRange,
+                                         cursor: query.cursor,
+                                         limit: query.limit) { [weak self] response, error in
+                                            self?.parseResponse(response: response, error: error, completion: result)
+        }
         
-        TopicsAPI.topicsGetTopics(cursor: offset, limit: Int32(limit)) { (response, error) in
-
-            var result = PostFetchResult()
-            
-            guard error == nil else {
-                result.error = FeedServiceError.failedToFetch(message: error!.localizedDescription)
-                resultHandler(result)
-                return
-            }
-            
-            guard let data = response?.data else {
-                result.error = FeedServiceError.failedToFetch(message: "No Items Received")
-                resultHandler(result)
-                return
-            }
-            
-            result.posts = self.convert(data: data)
-            result.cursor = response?.cursor
-            
-            resultHandler(result)
+    }
+    
+    func fetchRecent(query: RecentFeedQuery, result: @escaping FetchResultHandler) {
+        TopicsAPI.topicsGetTopics(cursor: query.cursor,
+                                  limit: query.limit) { [weak self] response, error in
+            self?.parseResponse(response: response, error: error, completion: result)
         }
     }
     
+    private func parseResponse(response: FeedResponseTopicView?, error: Error?, completion: FetchResultHandler) {
+        var result = PostFetchResult()
+        
+        guard error == nil else {
+            result.error = FeedServiceError.failedToFetch(message: error!.localizedDescription)
+            completion(result)
+            return
+        }
+        
+        guard let data = response?.data else {
+            result.error = FeedServiceError.failedToFetch(message: "No Items Received")
+            completion(result)
+            return
+        }
+        
+        result.posts = self.convert(data: data)
+        result.cursor = response?.cursor
+        
+        completion(result)
+    }
+
+    // MARK: Private
     private func convert(data: [TopicView]) -> [Post] {
         
         var posts = [Post]()
@@ -121,5 +177,4 @@ class TopicService: PostServiceProtocol {
         }
         return posts
     }
-    
 }

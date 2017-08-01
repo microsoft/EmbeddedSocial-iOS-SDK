@@ -3,6 +3,40 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+enum FeedType {
+
+    enum TimeRange: Int {
+        case today, weekly, alltime
+    }
+    
+    // Shows home feed
+    case home
+    // Shows recent feed
+    case recent
+    // Shows popular feed
+    case popular(type: TimeRange)
+    // Shows single post
+    case single(post: PostHandle)
+}
+
+extension FeedType: Equatable {
+    
+    static func ==(_ lhs: FeedType, _ rhs: FeedType) -> Bool {
+        switch (lhs, rhs) {
+        case (.home, .home):
+            return true
+        case (.recent, .recent):
+            return true
+        case let (.popular(left), .popular(right)):
+            return left == right
+        case let (.single(left), .single(right)):
+            return left == right
+        default:
+            return false
+        }
+    }
+}
+
 enum PostCellAction {
     case like, pin, comment, extra
 }
@@ -33,9 +67,14 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     var interactor: HomeInteractorInput!
     var router: HomeRouterInput!
     
-    var layout: HomeLayoutType = .list
-    let limit = 3
-    var items = [Post]()
+    private var configuration: FeedType
+    private var layout: HomeLayoutType = .list
+    private let limit = 3 // Default
+    private var items = [Post]()
+    
+    required init(configuration: FeedType) {
+        self.configuration = configuration
+    }
     
     func didTapChangeLayout() {
         flip(layout: &layout)
@@ -43,6 +82,20 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     }
     
     // MARK: Private
+    
+    private func didRequestFeed() {
+        
+//        switch configuration {
+//        case .home:
+//            interactor.fetchPosts(with: limit)
+//        case .recent:
+//            interactor.fetchPosts(with: limit)
+//        case .popular(let type = Feed.PopularType.alltime)
+//            interactor.fe
+//        }
+        
+        
+    }
     
     private lazy var dateFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -122,7 +175,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
     func didPullRefresh() {
         view.setRefreshing(state: true)
-        interactor.fetchPosts(with: limit)
+        interactor.fetchPosts(with: limit, type: configuration)
     }
     
     func didTapItem(path: IndexPath) {
