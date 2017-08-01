@@ -8,16 +8,52 @@ import Alamofire
 typealias TopicPosted = (PostTopicRequest) -> Void
 typealias Failure = (Error) -> Void
 
+enum FeedServiceError: Error {
+    case failedToFetch(message: String)
+    case failedToLike(message: String)
+    case failedToUnLike(message: String)
+    case failedToPin(message: String)
+    case failedToUnPin(message: String)
+    
+    var message: String {
+        switch self {
+        case .failedToFetch(let message),
+             .failedToPin(let message),
+             .failedToUnPin(let message),
+             .failedToLike(let message),
+             .failedToUnLike(let message):
+            return message
+        }
+    }
+}
+
+typealias FetchResultHandler = ((PostFetchResult) -> Void)
+
+struct FeedRequest {
+    var offset: String?
+    var limit: Int!
+    var feedType: FeedType = .home
+    var timeRange: FeedType.TimeRange?
+}
+
+protocol PostServiceProtocol {
+
+    func fetchFeed(requestParams: FeedRequest, resultHandler: @escaping FetchResultHandler)
+    func fetchPosts(offset: String?, limit: Int, resultHandler: @escaping FetchResultHandler)
+}
+
 class TopicService: PostServiceProtocol {
     
     private var success: TopicPosted?
     private var failure: Failure?
-    
     private var cache: Cachable!
     
+    // MARK: Public
     init(cache: Cachable) {
         self.cache = cache
     }
+ 
+    // MARK: POST
     
     func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
         self.success = success
@@ -71,6 +107,49 @@ class TopicService: PostServiceProtocol {
             self?.success!(request)
         }
     }
+    
+    // MARK: GET
+    func fetchFeed(requestParams: FeedRequest, resultHandler: @escaping FetchResultHandler) {
+     
+        switch requestParams.feedType {
+        case .home:
+            fetchPosts(offset: requestParams.offset, limit: requestParams.limit, resultHandler: resultHandler)
+        case .recent:
+            fetchPosts(offset: requestParams.offset, limit: requestParams.limit, resultHandler: resultHandler)
+            
+//        case let .popular(timeRange): {
+//
+//            switch timeRange {
+//            case .today:
+//
+//            }
+//
+//
+//
+//            }
+            
+        default:
+            break
+
+        }
+
+    }
+    
+    func fetchPopularTopics(
+        timeRange: FeedType.TimeRange,
+        offset: String?,
+        limit: Int,
+        completion: @escaping FetchResultHandler) {
+        
+        
+        
+    }
+    
+    
+//    func fetchPopularTopics(offset: String?, limit: Int,  resultHandler: @escaping FetchResultHandler) {
+//
+//        open class func topicsGetPopularTopics(timeRange: TimeRange_topicsGetPopularTopics, cursor: Int32? = nil, limit: Int32? = nil, completion: @escaping ((_ data: FeedResponseTopicView?,_ error: Error?) -> Void)) {
+//    }
 
     func fetchPosts(offset: String?, limit: Int, resultHandler: @escaping FetchResultHandler) {
         
@@ -97,6 +176,7 @@ class TopicService: PostServiceProtocol {
         }
     }
     
+    // MARK: Private
     private func convert(data: [TopicView]) -> [Post] {
         
         var posts = [Post]()

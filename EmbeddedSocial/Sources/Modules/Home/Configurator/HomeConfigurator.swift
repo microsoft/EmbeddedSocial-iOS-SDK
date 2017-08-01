@@ -5,12 +5,6 @@
 
 import UIKit
 
-/*
- 
-
- 
- */
-
 class HomeModuleConfigurator {
     
     class func configure() -> UIViewController {
@@ -18,7 +12,7 @@ class HomeModuleConfigurator {
         let viewController = StoryboardScene.Home.instantiateHomeViewController()
         let router = HomeRouter()
 
-        let presenter = HomePresenter()
+        let presenter = HomePresenter(configuration: .home)
         presenter.view = viewController
         presenter.router = router
 

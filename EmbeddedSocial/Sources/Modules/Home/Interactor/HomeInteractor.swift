@@ -3,69 +3,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-enum FeedServiceError: Error {
-    case failedToFetch(message: String)
-    case failedToLike(message: String)
-    case failedToUnLike(message: String)
-    case failedToPin(message: String)
-    case failedToUnPin(message: String)
-    
-    var message: String {
-        switch self {
-        case .failedToFetch(let message),
-             .failedToPin(let message),
-             .failedToUnPin(let message),
-             .failedToLike(let message),
-             .failedToUnLike(let message):
-            return message
-        }
-    }
-}
-
-struct PostsFeed {
-    var items: [Post]
-}
-
-struct PostFetchResult {
-    var posts: [Post] = [Post]()
-    var error: FeedServiceError?
-    var cursor: String? = nil
-}
-
-extension PostFetchResult {
-    
-    static func mock() -> PostFetchResult {
-        var result = PostFetchResult()
-        
-        let number = arc4random() % 5 + 1
-        
-        for index in 0..<number {
-            result.posts.append(Post.mock(seed: Int(index)))
-        }
-        return result
-    }
-}
-
-protocol PostServiceProtocol {
-    
-    typealias FetchResultHandler = ((PostFetchResult) -> Void)
-    
-    func fetchPosts(offset: String?, limit: Int, resultHandler: @escaping FetchResultHandler)
-}
-
-class PostServiceMock: PostServiceProtocol {
-    
-    func fetchPosts(offset: String?, limit: Int, resultHandler: @escaping FetchResultHandler) {
-        
-    }
-}
-
 typealias PostHandle = String
 
 protocol HomeInteractorInput {
     
-    func fetchPosts(with limit: Int)
-    
+    func fetchPosts(with limit: Int, type: FeedType, timerange: FeedType.TimeRange?)
+
     func like(with id: PostHandle)
     func unlike(with id: PostHandle)
     func pin(with id: PostHandle)
@@ -94,7 +37,7 @@ class HomeInteractor: HomeInteractorInput {
     
     private var offset: String? = nil
     
-    func fetchPosts(with limit: Int) {
+    func fetchPosts(with limit: Int, type: FeedType, timerange: FeedType.TimeRange? = nil) {
         postService.fetchPosts(offset: offset, limit: limit) { (result) in
             
             guard result.error == nil else {
