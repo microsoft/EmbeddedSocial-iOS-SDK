@@ -72,7 +72,10 @@ extension SocialPlus: LoginModuleOutput {
 extension SocialPlus: UserHolder {
     var me: User {
         set {
-            queue.async { self.sessionStore.user = newValue }
+            queue.async {
+                self.sessionStore.user = newValue
+                try? self.sessionStore.saveCurrentSession()
+            }
         }
         get {
             return queue.sync { sessionStore.user }
