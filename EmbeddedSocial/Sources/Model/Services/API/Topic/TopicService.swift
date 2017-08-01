@@ -29,17 +29,22 @@ enum FeedServiceError: Error {
 
 typealias FetchResultHandler = ((PostFetchResult) -> Void)
 
-struct FeedRequest {
-    var offset: String?
-    var limit: Int!
-    var feedType: FeedType = .home
-    var timeRange: FeedType.TimeRange?
+struct PopularFeedQuery {
+    var cursor: Int32?
+    var limit: Int32?
+    var timeRange: TopicsAPI.TimeRange_topicsGetPopularTopics!
+}
+
+struct RecentFeedQuery {
+    var cursor: String?
+    var limit: Int32?
 }
 
 protocol PostServiceProtocol {
+    
+    func fetchPopular(query: PopularFeedQuery, result: @escaping FetchResultHandler)
+    func fetchRecent(query: RecentFeedQuery, result: @escaping FetchResultHandler)
 
-    func fetchFeed(requestParams: FeedRequest, resultHandler: @escaping FetchResultHandler)
-    func fetchPosts(offset: String?, limit: Int, resultHandler: @escaping FetchResultHandler)
 }
 
 class TopicService: PostServiceProtocol {
@@ -52,7 +57,7 @@ class TopicService: PostServiceProtocol {
     init(cache: Cachable) {
         self.cache = cache
     }
- 
+    
     // MARK: POST
     
     func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
@@ -68,7 +73,7 @@ class TopicService: PostServiceProtocol {
                 sendPostTopicRequest(request: topic)
                 return
             }
-                
+            
             guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
                 return
             }
@@ -109,73 +114,43 @@ class TopicService: PostServiceProtocol {
     }
     
     // MARK: GET
-    func fetchFeed(requestParams: FeedRequest, resultHandler: @escaping FetchResultHandler) {
-     
-        switch requestParams.feedType {
-        case .home:
-            fetchPosts(offset: requestParams.offset, limit: requestParams.limit, resultHandler: resultHandler)
-        case .recent:
-            fetchPosts(offset: requestParams.offset, limit: requestParams.limit, resultHandler: resultHandler)
-            
-//        case let .popular(timeRange): {
-//
-//            switch timeRange {
-//            case .today:
-//
-//            }
-//
-//
-//
-//            }
-            
-        default:
-            break
-
+    func fetchPopular(query: PopularFeedQuery, result: @escaping FetchResultHandler) {
+        TopicsAPI.topicsGetPopularTopics(timeRange: query.timeRange,
+                                         cursor: query.cursor,
+                                         limit: query.limit) { [weak self] response, error in
+                                            self?.parseResponse(response: response, error: error, completion: result)
         }
-
-    }
-    
-    func fetchPopularTopics(
-        timeRange: FeedType.TimeRange,
-        offset: String?,
-        limit: Int,
-        completion: @escaping FetchResultHandler) {
-        
-        
         
     }
     
-    
-//    func fetchPopularTopics(offset: String?, limit: Int,  resultHandler: @escaping FetchResultHandler) {
-//
-//        open class func topicsGetPopularTopics(timeRange: TimeRange_topicsGetPopularTopics, cursor: Int32? = nil, limit: Int32? = nil, completion: @escaping ((_ data: FeedResponseTopicView?,_ error: Error?) -> Void)) {
-//    }
-
-    func fetchPosts(offset: String?, limit: Int, resultHandler: @escaping FetchResultHandler) {
-        
-        TopicsAPI.topicsGetTopics(cursor: offset, limit: Int32(limit)) { (response, error) in
-
-            var result = PostFetchResult()
-            
-            guard error == nil else {
-                result.error = FeedServiceError.failedToFetch(message: error!.localizedDescription)
-                resultHandler(result)
-                return
-            }
-            
-            guard let data = response?.data else {
-                result.error = FeedServiceError.failedToFetch(message: "No Items Received")
-                resultHandler(result)
-                return
-            }
-            
-            result.posts = self.convert(data: data)
-            result.cursor = response?.cursor
-            
-            resultHandler(result)
+    func fetchRecent(query: RecentFeedQuery, result: @escaping FetchResultHandler) {
+        TopicsAPI.topicsGetTopics(cursor: query.cursor,
+                                  limit: query.limit) { [weak self] response, error in
+            self?.parseResponse(response: response, error: error, completion: result)
         }
     }
     
+    private func parseResponse(response: FeedResponseTopicView?, error: Error?, completion: FetchResultHandler) {
+        var result = PostFetchResult()
+        
+        guard error == nil else {
+            result.error = FeedServiceError.failedToFetch(message: error!.localizedDescription)
+            completion(result)
+            return
+        }
+        
+        guard let data = response?.data else {
+            result.error = FeedServiceError.failedToFetch(message: "No Items Received")
+            completion(result)
+            return
+        }
+        
+        result.posts = self.convert(data: data)
+        result.cursor = response?.cursor
+        
+        completion(result)
+    }
+
     // MARK: Private
     private func convert(data: [TopicView]) -> [Post] {
         
@@ -201,5 +176,4 @@ class TopicService: PostServiceProtocol {
         }
         return posts
     }
-    
 }

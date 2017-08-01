@@ -175,7 +175,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
     func didPullRefresh() {
         view.setRefreshing(state: true)
-        interactor.fetchPosts(with: limit, type: configuration, timerange: nil)
+        interactor.fetchPosts(with: limit, type: configuration)
     }
     
     func didTapItem(path: IndexPath) {
