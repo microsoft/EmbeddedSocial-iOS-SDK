@@ -29,4 +29,39 @@ final class UserProfileRouter: UserProfileRouterInput {
         vc.view.backgroundColor = .white
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func openCreatePost(user: User) {
+        let config = CreatePostModuleConfigurator()
+        let vc = StoryboardScene.CreatePost.instantiateCreatePostViewController()
+        config.configure(viewController: vc, user: user)
+        viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func openReport(user: User) {
+        let vc = UIViewController()
+        vc.title = "Report \(user.fullName)"
+        vc.view.backgroundColor = .white
+        viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showMyMenu(_ addPostHandler: @escaping () -> Void) {
+        guard let vc = viewController else {
+            return
+        }
+        let menu = UserProfileActionSheetBuilder.makeMyActionsSheet(viewController: vc, addPostHandler: addPostHandler)
+        vc.present(menu, animated: true, completion: nil)
+    }
+    
+    func showUserMenu(_ user: User, blockHandler: @escaping () -> Void, reportHandler: @escaping () -> Void) {
+        guard let vc = viewController else {
+            return
+        }
+        let menu = UserProfileActionSheetBuilder.makeOtherUserActionsSheet(
+            user: user,
+            viewController: vc,
+            reportHandler: reportHandler,
+            blockHandler: blockHandler
+        )
+        vc.present(menu, animated: true, completion: nil)
+    }
 }

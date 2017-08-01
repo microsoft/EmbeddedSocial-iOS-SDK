@@ -23,22 +23,14 @@ struct SocialService: SocialServiceType {
         let request = PostFollowingUserRequest()
         request.userHandle = userID
         
-        SocialAPI.myFollowingPostFollowingUser(request: request) { _, error in
-            if error == nil {
-                completion(.success())
-            } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
-            }
+        SocialAPI.myFollowingPostFollowingUser(request: request) { data, error in
+            self.processResponse(data, error, completion)
         }
     }
     
     func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        SocialAPI.myFollowingDeleteFollowingUser(userHandle: userID) { _, error in
-            if error == nil {
-                completion(.success())
-            } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
-            }
+        SocialAPI.myFollowingDeleteFollowingUser(userHandle: userID) { data, error in
+            self.processResponse(data, error, completion)
         }
     }
     
@@ -51,6 +43,19 @@ struct SocialService: SocialServiceType {
     }
     
     func block(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        completion(.success())
+        let request = PostBlockedUserRequest()
+        request.userHandle = userID
+        
+        SocialAPI.myBlockedUsersPostBlockedUser(request: request) { data, error in
+            self.processResponse(data, error, completion)
+        }
+    }
+    
+    private func processResponse(_ data: Object?,_ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
+        if error == nil {
+            completion(.success())
+        } else {
+            completion(.failure(APIError(error: error as? ErrorResponse)))
+        }
     }
 }

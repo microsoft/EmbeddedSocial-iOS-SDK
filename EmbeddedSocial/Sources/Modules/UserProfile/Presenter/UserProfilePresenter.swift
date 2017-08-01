@@ -15,12 +15,14 @@ final class UserProfilePresenter: UserProfileViewOutput {
     private var user: User?
     private var me: User
     private var followersCount = 0
+    private var myProfileHolder: UserHolder?
     
-    init(userID: String? = nil, me: User) {
+    init(userID: String? = nil, myProfileHolder: UserHolder) {
         self.userID = userID
-        self.me = me
+        self.me = myProfileHolder.me
+        self.myProfileHolder = myProfileHolder
     }
-
+    
     func viewIsReady() {
         view.setupInitialState()
         loadUser()
@@ -41,7 +43,10 @@ final class UserProfilePresenter: UserProfileViewOutput {
     
     private func loadMe(credentials: CredentialsList) {
         interactor.getMe(credentials: credentials) { [weak self] result in
-            self?.processUserResult(result, setUser: { self?.me = $0 })
+            self?.processUserResult(result, setUser: {
+                self?.me = $0
+                self?.myProfileHolder?.me = $0
+            })
         }
     }
     
@@ -131,5 +136,33 @@ final class UserProfilePresenter: UserProfileViewOutput {
     
     func onFollowers() {
         router.openFollowers(user: user ?? me)
+    }
+    
+    func onMore() {
+        if let user = user {
+            router.showUserMenu(
+                user,
+                blockHandler: { [weak self] in self?.block(user: user) },
+                reportHandler: { [weak self] in self?.router.openReport(user: user) }
+            )
+        } else {
+            let me = self.me
+            router.showMyMenu { [weak self] in self?.router.openCreatePost(user: me) }
+        }
+    }
+    
+    private func block(user: User) {
+        view.setIsLoading(true)
+
+        interactor.block(userID: user.uid) { [weak self] result in
+            self?.view.setIsLoading(false)
+            
+            if result.isSuccess {
+                // FIXME: decide if full profile reload is needed
+                self?.loadUser()
+            } else {
+                self?.view.showError(result.error ?? APIError.unknown)
+            }
+        }
     }
 }

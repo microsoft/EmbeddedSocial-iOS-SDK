@@ -7,6 +7,7 @@
 
 class MockUserProfileInteractor: UserProfileInteractorInput {
     private(set) var getUserCount = 0
+    private(set) var getMeCount = 0
     private(set) var getRecentPostsCount = 0
     private(set) var getPopularPostsCount = 0
     private(set) var getMyRecentPostsCount = 0
@@ -19,10 +20,18 @@ class MockUserProfileInteractor: UserProfileInteractorInput {
     private(set) var blockCount = 0
     
     var userToReturn: User?
-    
+    var meToReturn: User?
+
     func getUser(userID: String, completion: @escaping (Result<User>) -> Void) {
         getUserCount += 1
         if let user = userToReturn {
+            completion(.success(user))
+        }
+    }
+    
+    func getMe(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
+        getMeCount += 1
+        if let user = meToReturn {
             completion(.success(user))
         }
     }
