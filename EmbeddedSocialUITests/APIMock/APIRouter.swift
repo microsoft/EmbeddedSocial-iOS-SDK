@@ -21,43 +21,65 @@ open class APIRouter: WebApp {
             return ["message": "It works!"]
         })
         
-        self["/v0.6/topics"] = APIResponse(serviceName: "topics") { environ, sendJSON -> Void in
+        self["/v0.6/topics/?(.*)"] = APIResponse(serviceName: "topics") { environ, sendJSON -> Void in
             let input = environ["swsgi.input"] as! SWSGIInput
-            JSONReader.read(input) { json in
-                APIState.setLatestData(forService: "topics", data: json)
-                sendJSON(Templates.load(name: "topic_post", replacements: ["topicHandle": UUID().uuidString]))
+            let method = environ["REQUEST_METHOD"] as! String
+            switch method {
+                case "POST":
+                    JSONReader.read(input) { json in
+                        APIState.setLatestData(forService: "topics", data: json)
+                        sendJSON(Templates.load(name: "topic_post", values: ["topicHandle": UUID().uuidString]))
+                    }
+                default:
+                    let query = URLParametersReader.parseURLParameters(environ: environ)
+                    let captures = environ["ambassador.router_captures"] as! [String]
+                    var interval = "topics"
+                    if captures.count > 0 && captures[0] != ""{
+                        interval = captures[0]
+                    }
+                    print(query)
+                    if let cursor = query["cursor"], let limit = query["limit"] {
+                        sendJSON(self.makeTopics(interval: interval, cursor: Int(cursor)!, limit: Int(limit)!))
+                    }
+                    sendJSON(self.makeTopics(interval: interval))
             }
         }
         
-        self["/v0.6/topics/(Today|ThisWeek|ThisMonth|AllTime)"] = APIResponse(serviceName: "topics", handler: {
-            environ -> Any in
-            let captures = environ["ambassador.router_captures"] as! [String]
-            return self.makeTopics(interval: captures[0], length: 2)
-        })
-        
-        
-        self["/v0.6/images/(.*)"] = APIResponse(serviceName: "images") { environ, sendJSON -> Void in
+        self["/v0.6/images/(UserPhoto|ContentBlob|AppIcon)"] = APIResponse(serviceName: "images") { environ, sendJSON -> Void in
             let input = environ["swsgi.input"] as! SWSGIInput
             DataReader.read(input) { data in
                 APIState.setLatestDataAsString(forService: "images", data: String(data: data, encoding: .utf8) as String!)
-                sendJSON(Templates.load(name: "image_post", replacements: ["blobHandle": UUID().uuidString]))
+                sendJSON(Templates.load(name: "image_post", values: ["blobHandle": UUID().uuidString]))
             }
         }
+        
+        self["/v0.6/images/(.*)"] = DataResponse(handler: {
+            environ, sendData -> Void in
+            let image = UIImagePNGRepresentation(UIImage(color: UIColor.cyan, size: CGSize(width: 100, height: 100))!)!
+            sendData(image)
+        })
+        
+        self["/images/(.*)"] = self["/v0.6/images/(.*)"]
+
     }
     
-    func makeTopics(interval: String, length: Int = 1) -> Any {
-        var topics: Dictionary = ["data": [], "cursor": nil]
-        
-        for i in 1...length {
+    func makeTopics(interval: String, cursor: Int = 0, limit: Int = 10) -> Any {
+        var topics: Array<[String: Any]> = []
+
+        for i in cursor...cursor + limit - 1 {
             let topic = Templates.load(name: "topic",
-                                       replacements: ["title": interval + String(i),
-                                                      "topicHandle": interval + String(i),
-                                                      "text": interval + "text" + String(i)],
-                                       preReplacements: ["createdTime": interval])
-            topics["data"]!!.append(topic)
+                                       values: ["title": interval + String(i),
+                                                "topicHandle": interval + String(i),
+                                                "text": interval + " text" + String(i),
+                                                "lastUpdatedTime": Date().ISOString,
+                                                "createdTime": Date().ISOString,
+                                                "blobType": APIConfig.showTopicImages ? "Image": "Unknown",
+                                                "blobHandle": APIConfig.showTopicImages ? UUID().uuidString : NSNull(),
+                                                "blobUrl": APIConfig.showTopicImages ? String(format: "http://localhost:8080/images/%@", UUID().uuidString) : NSNull()])
+            topics.append(topic)
         }
         
-        return topics
+        return ["data": topics, "cursor": String(cursor + limit - 1)]
     }
     
     open subscript(path: String) -> WebApp? {

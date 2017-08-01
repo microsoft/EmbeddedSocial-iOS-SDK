@@ -5,10 +5,8 @@
 
 import Foundation
 
-extension Dictionary {
-    mutating func update(other: Dictionary) {
-        for (key, value) in other {
-            self.updateValue(value, forKey:key)
-        }
-    }
+struct APIConfig {
+    public static var delayedResponses = false
+    public static var showTopicImages = false
+    public static var values = [:] as [String: Any]
 }

@@ -17,26 +17,28 @@ class Templates {
     
     open static var bundle = BundleHelper().getCurrentBundle()
     
-    class func load(name: String, replacements: [String: Any] = [:], preReplacements: [String: Any] = [:]) -> [String: Any] {
+    class func load(name: String, values: [String: Any] = [:]) -> [String: Any] {
         let path = Templates.bundle.path(forResource: name, ofType: "json")!
 
-        var content = try! NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) as String
+        let content = try! NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) as String
         
-        for (key, replacement) in preReplacements {
-            content.replace(target: String(format: "{%%%@%%}", key), withString: String(format: "{%%%@%%}", replacement as! String))
+        var mergedValues = APIConfig.values
+        mergedValues.update(other: values)
+
+        var json = try! JSONSerialization.jsonObject(with: content.data(using: .utf8)!, options: []) as! [String: Any]
+        
+        for (key, value) in mergedValues {
+            let parts = key.components(separatedBy: "->")
+            if parts.count > 1 {
+                var temp = json[parts[0]] as! [String: Any]
+                temp[parts[1]] = value
+                json[parts[0]] = temp
+            } else {
+                json[parts[0]] = value
+            }
         }
         
-        var mergedReplacements = APIConfig.defaultReplacements
-        mergedReplacements.update(other: replacements as! Dictionary)
-        
-        
-        for (key, replacement) in mergedReplacements {
-            content.replace(target: String(format: "{%%%@%%}", key), withString: replacement)
-        }
-        
-        let json = try! JSONSerialization.jsonObject(with: content.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, options: [])
-        
-        return json as! [String: Any]
+        return json
     }
     
 }
