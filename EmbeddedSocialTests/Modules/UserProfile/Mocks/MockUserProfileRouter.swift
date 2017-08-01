@@ -9,6 +9,10 @@ class MockUserProfileRouter: UserProfileRouterInput {
     private(set) var openFollowersCount = 0
     private(set) var openFollowingCount = 0
     private(set) var openEditProfileCount = 0
+    private(set) var openCreatePostCount = 0
+    private(set) var showMyMenuCount = 0
+    private(set) var showUserMenuCount = 0
+    private(set) var openReportCount = 0
 
     func openFollowers(user: User) {
         openFollowersCount += 1
@@ -20,6 +24,22 @@ class MockUserProfileRouter: UserProfileRouterInput {
     
     func openEditProfile(user: User) {
         openEditProfileCount += 1
+    }
+    
+    func openCreatePost(user: User) {
+        openCreatePostCount += 1
+    }
+    
+    func showMyMenu(_ addPostHandler: @escaping () -> Void) {
+        showMyMenuCount += 1
+    }
+    
+    func showUserMenu(_ user: User, blockHandler: @escaping () -> Void, reportHandler: @escaping () -> Void) {
+        showUserMenuCount += 1
+    }
+    
+    func openReport(user: User) {
+        openReportCount += 1
     }
 }
 

@@ -13,7 +13,7 @@ struct UserProfileConfigurator {
         viewController = StoryboardScene.UserProfile.instantiateUserProfileViewController()
     }
     
-    func configure(userID: String?, me: User) {
+    func configure(userID: String? = nil, me: User) {
         let router = UserProfileRouter()
         router.viewController = viewController
         

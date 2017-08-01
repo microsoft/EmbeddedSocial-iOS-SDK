@@ -360,6 +360,8 @@
 		88FFFA5B1F2F7F780066A1A0 /* UserProfilePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA561F2F7F780066A1A0 /* UserProfilePresenterTests.swift */; };
 		88FFFA5D1F2F80E00066A1A0 /* MockSocialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA5C1F2F80E00066A1A0 /* MockSocialService.swift */; };
 		88FFFA5F1F2F81A70066A1A0 /* FollowStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA5E1F2F81A70066A1A0 /* FollowStatusTests.swift */; };
+		88FFFA611F306EC80066A1A0 /* BarButtonItemWithTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA601F306EC80066A1A0 /* BarButtonItemWithTarget.swift */; };
+		88FFFA631F3080340066A1A0 /* UserProfileActionSheetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA621F3080340066A1A0 /* UserProfileActionSheetBuilder.swift */; };
 		8EF0E5A51F1FA5EF00E88ED6 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E59C1F1FA5EF00E88ED6 /* APIResponse.swift */; };
 		8EF0E5A61F1FA5EF00E88ED6 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E59D1F1FA5EF00E88ED6 /* Base.swift */; };
 		8EF0E5A71F1FA5EF00E88ED6 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E59E1F1FA5EF00E88ED6 /* Config.swift */; };
@@ -807,6 +809,8 @@
 		88FFFA561F2F7F780066A1A0 /* UserProfilePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfilePresenterTests.swift; sourceTree = "<group>"; };
 		88FFFA5C1F2F80E00066A1A0 /* MockSocialService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSocialService.swift; sourceTree = "<group>"; };
 		88FFFA5E1F2F81A70066A1A0 /* FollowStatusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowStatusTests.swift; sourceTree = "<group>"; };
+		88FFFA601F306EC80066A1A0 /* BarButtonItemWithTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButtonItemWithTarget.swift; sourceTree = "<group>"; };
+		88FFFA621F3080340066A1A0 /* UserProfileActionSheetBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileActionSheetBuilder.swift; sourceTree = "<group>"; };
 		8EF0E5921F1FA5CC00E88ED6 /* EmbeddedSocialUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EmbeddedSocialUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EF0E5961F1FA5CD00E88ED6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EF0E59C1F1FA5EF00E88ED6 /* APIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
@@ -1080,6 +1084,7 @@
 				88580AA01F2213AB00C1CBAF /* LoadingIndicatorView.swift */,
 				88580AA41F2213AB00C1CBAF /* TextFieldCell.swift */,
 				88580AA81F2213AB00C1CBAF /* WebViewController.swift */,
+				88FFFA601F306EC80066A1A0 /* BarButtonItemWithTarget.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -1911,6 +1916,7 @@
 			children = (
 				88BC5C471F2B65D0001FBDD2 /* UserProfileRouter.swift */,
 				88BC5C481F2B65D0001FBDD2 /* UserProfileRouterInput.swift */,
+				88FFFA621F3080340066A1A0 /* UserProfileActionSheetBuilder.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -2483,6 +2489,7 @@
 				88580BA81F2213AB00C1CBAF /* Palette.swift in Sources */,
 				88580BE21F2213AB00C1CBAF /* FeedResponseCommentView.swift in Sources */,
 				88580BC21F2213AB00C1CBAF /* UIImageView+ImageCache.swift in Sources */,
+				88FFFA611F306EC80066A1A0 /* BarButtonItemWithTarget.swift in Sources */,
 				882AD0CD1F2227E100FC20B7 /* CoreDataRecord.swift in Sources */,
 				88580BDB1F2213AB00C1CBAF /* AppCompactView.swift in Sources */,
 				88580C4F1F2213AB00C1CBAF /* LoginInteractor.swift in Sources */,
@@ -2678,6 +2685,7 @@
 				88580BE41F2213AB00C1CBAF /* FeedResponseTopicView.swift in Sources */,
 				88580BCB1F2213AB00C1CBAF /* HashtagsAPI.swift in Sources */,
 				88580BDE1F2213AB00C1CBAF /* ContentCompactView.swift in Sources */,
+				88FFFA631F3080340066A1A0 /* UserProfileActionSheetBuilder.swift in Sources */,
 				88580BA21F2213AB00C1CBAF /* Fonts.swift in Sources */,
 				88580C6D1F2213AB00C1CBAF /* TabMenuContainerPresenter.swift in Sources */,
 				88580BF71F2213AB00C1CBAF /* PostReportRequest.swift in Sources */,

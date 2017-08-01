@@ -138,6 +138,35 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertEqual(view.lastFollowersCount!, 0)
     }
     
+    func testThatMyMoreMenuIsShown() {
+        // given
+        let presenter = makeDefaultPresenter()
+        
+        // when
+        presenter.viewIsReady()
+        presenter.onMore()
+        
+        // then
+        XCTAssertEqual(router.showMyMenuCount, 1)
+        XCTAssertEqual(router.showUserMenuCount, 0)
+    }
+    
+    func testThatUserMoreMenuIsShown() {
+        // given
+        let user = User(uid: UUID().uuidString)
+        interactor.userToReturn = user
+        
+        let presenter = makeDefaultPresenter(userID: user.uid)
+        
+        // when
+        presenter.viewIsReady()
+        presenter.onMore()
+        
+        // then
+        XCTAssertEqual(router.showUserMenuCount, 1)
+        XCTAssertEqual(router.showMyMenuCount, 0)
+    }
+    
     private func validateFollowStatusChanged(to expectedStatus: FollowStatus) {
         XCTAssertNotNil(view.lastFollowStatus)
         XCTAssertEqual(view.lastFollowStatus!, expectedStatus)

@@ -18,9 +18,17 @@ class UserProfileViewController: UIViewController {
         }
     }
     
+    fileprivate lazy var createPostButton: BarButtonItemWithTarget = { [unowned self] in
+        let button = BarButtonItemWithTarget()
+        button.image = UIImage(asset: .iconDots)
+        button.onTap = {
+            self.output.onMore()
+        }
+        return button
+    }()
+    
     fileprivate lazy var summaryView: ProfileSummaryView = { [unowned self] in
         let summaryView = ProfileSummaryView.fromNib()
-        let width = UIScreen.main.bounds.width
         summaryView.onEdit = { self.output.onEdit() }
         summaryView.onFollowing = { self.output.onFollowing() }
         summaryView.onFollow = { self.output.onFollowRequest(currentStatus: $0) }
@@ -45,7 +53,7 @@ class UserProfileViewController: UIViewController {
 
 extension UserProfileViewController: UserProfileViewInput {
     func setupInitialState() {
-        
+        parent?.navigationItem.rightBarButtonItem = createPostButton
     }
     
     func showError(_ error: Error) {
