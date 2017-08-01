@@ -55,7 +55,7 @@ class CrossModuleCoordinator: LoginModuleOutput {
         }
         
         let configurator = UserProfileConfigurator()
-        configurator.configure(userID: nil, me: user)
+        configurator.configure(me: user)
         menuModule.open(viewController: configurator.viewController)
     }
 }

@@ -122,4 +122,32 @@ final class UserProfilePresenter: UserProfileViewOutput {
     func onFollowers() {
         router.openFollowers(user: user ?? me)
     }
+    
+    func onMore() {
+        if let user = user {
+            router.showUserMenu(
+                user,
+                blockHandler: { [weak self] in self?.block(user: user) },
+                reportHandler: { [weak self] in self?.router.openReport(user: user) }
+            )
+        } else {
+            let me = self.me
+            router.showMyMenu { [weak self] in self?.router.openCreatePost(user: me) }
+        }
+    }
+    
+    private func block(user: User) {
+        view.setIsLoading(true)
+
+        interactor.block(userID: user.uid) { [weak self] result in
+            self?.view.setIsLoading(false)
+            
+            if result.isSuccess {
+                // FIXME: decide if full profile reload is needed
+                self?.loadUser()
+            } else {
+                self?.view.showError(result.error ?? APIError.unknown)
+            }
+        }
+    }
 }
