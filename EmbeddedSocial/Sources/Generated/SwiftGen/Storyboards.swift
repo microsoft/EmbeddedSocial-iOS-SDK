@@ -1,4 +1,7 @@
-// Generated using SwiftGen, by O.Halligon — https://github.com/SwiftGen/SwiftGen
+//
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+//
 
 import Foundation
 import UIKit
@@ -69,6 +72,18 @@ enum StoryboardScene {
       guard let vc = StoryboardScene.CreatePost.createPostViewControllerScene.viewController() as? EmbeddedSocial.CreatePostViewController
       else {
         fatalError("ViewController 'CreatePostViewController' is not of the expected class EmbeddedSocial.CreatePostViewController.")
+      }
+      return vc
+    }
+  }
+  enum Followers: String, StoryboardSceneType {
+    static let storyboardName = "Followers"
+
+    case followersViewControllerScene = "FollowersViewController"
+    static func instantiateFollowersViewController() -> EmbeddedSocial.FollowersViewController {
+      guard let vc = StoryboardScene.Followers.followersViewControllerScene.viewController() as? EmbeddedSocial.FollowersViewController
+      else {
+        fatalError("ViewController 'FollowersViewController' is not of the expected class EmbeddedSocial.FollowersViewController.")
       }
       return vc
     }

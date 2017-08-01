@@ -15,6 +15,8 @@ protocol SocialServiceType {
     func unblock(userID: String, completion: @escaping (Result<Void>) -> Void)
     
     func block(userID: String, completion: @escaping (Result<Void>) -> Void)
+    
+    func getMyFollowers(completion: @escaping (Result<[User]>) -> Void)
 }
 
 struct SocialService: SocialServiceType {
@@ -57,5 +59,9 @@ struct SocialService: SocialServiceType {
         } else {
             completion(.failure(APIError(error: error as? ErrorResponse)))
         }
+    }
+    
+    func getMyFollowers(completion: @escaping (Result<[User]>) -> Void) {
+        
     }
 }

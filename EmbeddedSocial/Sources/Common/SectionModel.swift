@@ -11,7 +11,7 @@ protocol SectionModelType {
     var items: [Item] { get }
 }
 
-struct SectionModel<Section, ItemType>: SectionModelType where ItemType: Reusable {
+struct SectionModel<Section, ItemType>: SectionModelType where ItemType: CellModel {
     typealias Item = ItemType
     
     let model: Section

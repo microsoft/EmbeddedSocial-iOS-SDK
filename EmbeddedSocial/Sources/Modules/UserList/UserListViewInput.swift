@@ -5,8 +5,8 @@
 
 import Foundation
 
-protocol CellModel {
-    var cellClass: UITableViewCell.Type { get }
+protocol UserListViewInput: class {
+    func setupInitialState()
     
-    var reuseID: String { get }
+    func setUsers(_ users: [User])
 }

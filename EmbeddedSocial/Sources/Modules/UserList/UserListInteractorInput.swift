@@ -5,8 +5,6 @@
 
 import Foundation
 
-protocol CellModel {
-    var cellClass: UITableViewCell.Type { get }
-    
-    var reuseID: String { get }
+protocol UserListInteractorInput {
+    func getUsers(completion: @escaping (Result<[User]>) -> Void)
 }

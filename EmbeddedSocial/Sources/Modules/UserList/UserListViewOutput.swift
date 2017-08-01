@@ -5,8 +5,6 @@
 
 import Foundation
 
-protocol CellModel {
-    var cellClass: UITableViewCell.Type { get }
+protocol UserListViewOutput: class {
     
-    var reuseID: String { get }
 }
