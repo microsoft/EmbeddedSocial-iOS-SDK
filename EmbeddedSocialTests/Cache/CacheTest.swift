@@ -12,6 +12,8 @@ class CacheTests: XCTestCase {
     private var transactionsDatabase: MockTransactionsDatabaseFacade!
     private var cache: Cachable!
     
+    private let timeoutDelay: TimeInterval = 5
+    
     override func setUp() {
         super.setUp()
         coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
@@ -54,6 +56,46 @@ class CacheTests: XCTestCase {
         XCTAssertEqual(cachedText, postRequest.text)
         XCTAssertEqual(cachedModel.typeid, String(describing: PostTopicRequest.self))
         XCTAssertEqual(transactionsDatabase.saveOutgoingCalled, 1)
+    }
+    
+    func testThatIncomingDataFetchedCorrect() {
+        let expectation = self.expectation(description: "test")
+        let feedResponse = FeedResponseTopicView()
+        let topicView = TopicView()
+        
+        topicView.text = "Text"
+        topicView.title = "Title"
+        feedResponse.cursor = "cursor"
+        
+        feedResponse.data = [topicView]
+        
+        cache.cacheIncoming(object: feedResponse)
+        
+        self.cache.fetchIncoming(type: FeedResponseTopicView.self, sortDescriptors: nil, result: { (results) in
+            XCTAssertEqual((results.first as! FeedResponseTopicView).data?.first?.text, feedResponse.data?.first?.text)
+            XCTAssertEqual((results.first as! FeedResponseTopicView).data?.first?.title, feedResponse.data?.first?.title)
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeoutDelay, handler: nil)
+    }
+    
+    func testThatOutgoingDataFetchedCorrect() {
+        let expectation = self.expectation(description: "test")
+        
+        let topic = PostTopicRequest()
+        topic.text = "Text"
+        topic.title = "Title"
+        
+        cache.cacheOutgoing(object: topic)
+        
+        self.cache.fetchOutgoing(type: PostTopicRequest.self, sortDescriptors: nil, result: { (results) in
+            XCTAssertEqual((results.first as! PostTopicRequest).text , topic.text)
+            XCTAssertEqual((results.first as! PostTopicRequest).title , topic.title)
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeoutDelay, handler: nil)
     }
     
 }

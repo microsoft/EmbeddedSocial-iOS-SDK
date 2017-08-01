@@ -40,6 +40,8 @@ public final class SocialPlus {
         if sessionStore.isLoggedIn {
             APISettings.shared.customHeaders = sessionStore.user.credentials?.authHeader ?? [:]
             coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
+        } else {
+            APISettings.shared.customHeaders = APISettings.shared.anonymousHeaders
         }
     }
     

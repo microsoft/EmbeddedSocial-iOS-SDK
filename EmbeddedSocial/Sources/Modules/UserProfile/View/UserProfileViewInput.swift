@@ -17,4 +17,6 @@ protocol UserProfileViewInput: class {
     func setFollowStatus(_ followStatus: FollowStatus)
     
     func setIsProcessingFollowRequest(_ isLoading: Bool)
+        
+    func setFollowersCount(_ followersCount: Int)
 }

@@ -20,11 +20,11 @@ protocol SocialServiceType {
 struct SocialService: SocialServiceType {
     
     func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        let request = PostFollowerRequest()
+        let request = PostFollowingUserRequest()
         request.userHandle = userID
         
-        SocialAPI.myFollowersPostFollower(request: request) { data, error in
-            if data != nil {
+        SocialAPI.myFollowingPostFollowingUser(request: request) { _, error in
+            if error == nil {
                 completion(.success())
             } else {
                 completion(.failure(APIError(error: error as? ErrorResponse)))
@@ -33,7 +33,13 @@ struct SocialService: SocialServiceType {
     }
     
     func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        completion(.success())
+        SocialAPI.myFollowingDeleteFollowingUser(userHandle: userID) { _, error in
+            if error == nil {
+                completion(.success())
+            } else {
+                completion(.failure(APIError(error: error as? ErrorResponse)))
+            }
+        }
     }
     
     func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void) {

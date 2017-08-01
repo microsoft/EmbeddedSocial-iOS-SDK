@@ -60,6 +60,8 @@ class PostServiceMock: PostServiceProtocol {
     }
 }
 
+typealias PostHandle = String
+
 protocol HomeInteractorInput {
     
     func fetchPosts(with limit: Int)

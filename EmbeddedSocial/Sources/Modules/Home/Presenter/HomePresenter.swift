@@ -33,14 +33,9 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     var interactor: HomeInteractorInput!
     var router: HomeRouterInput!
     
-    private var configuration: Feed
-    private var layout: HomeLayoutType = .list
-    private let limit = 3 // Default
-    private var items = [Post]()
-    
-    required init(configuration: Feed) {
-        self.configuration = configuration
-    }
+    var layout: HomeLayoutType = .list
+    let limit = 3
+    var items = [Post]()
     
     func didTapChangeLayout() {
         flip(layout: &layout)
@@ -48,6 +43,19 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     }
     
     // MARK: Private
+    
+    private lazy var dateFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        
+        formatter.unitsStyle = .abbreviated
+        formatter.includesApproximationPhrase = false
+        formatter.zeroFormattingBehavior = .dropAll
+        formatter.maximumUnitCount = 1
+        formatter.allowsFractionalUnits = false
+        
+        return formatter
+    }()
+    
     private func flip(layout: inout HomeLayoutType) {
         layout = HomeLayoutType(rawValue: layout.rawValue ^ 1)!
     }
@@ -64,7 +72,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         viewModel.totalLikes = Localizator.localize("likes_count", post.totalLikes)
         viewModel.totalComments = Localizator.localize("comments_count", post.totalComments)
         
-        viewModel.timeCreated =  post.createdTime == nil ? "" : DateFormatter().timeSince(from: post.createdTime!)
+        viewModel.timeCreated =  post.createdTime == nil ? "" : dateFormatter.string(from: post.createdTime!, to: Date())!
         viewModel.userImageUrl = post.photoUrl
         viewModel.postImageUrl = post.imageUrl
         
@@ -118,7 +126,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     }
     
     func didTapItem(path: IndexPath) {
-        router.open(route: .postDetails)
+//        router.open(route: .postDetails)
     }
     
     // MARK: HomeInteractorOutput
@@ -171,7 +179,6 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         }
     }
     
-    // View Output
     private func didTapComment(with path: IndexPath) {
         router.open(route: .comments)
     }
@@ -199,20 +206,4 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
             interactor.pin(with: item.topicHandle)
         }
     }
-    
-    // Module Input
-    
-    private func onConfigurationChanged() {
-        // clean
-        items.removeAll()
-        
-        // fetch data
-        interactor.fetchPosts(with: limit)
-        
-        // update UI
-        view.setRefreshing(state: true)
-        view.reload()
-        
-    }
-    
 }

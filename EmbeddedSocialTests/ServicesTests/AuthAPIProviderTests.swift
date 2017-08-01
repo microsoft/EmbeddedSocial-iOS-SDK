@@ -35,7 +35,7 @@ class AuthAPIProviderTests: XCTestCase {
         // then
         let mustBe: [AuthProvider: String] = [
             .facebook: "FacebookAPI",
-            .twitter: "TwitterWebBasedAPI",
+            .twitter: "TwitterServerBasedAPI",
             .google: "GoogleAPI",
             .microsoft: "MicrosoftLiveAPI"
         ]

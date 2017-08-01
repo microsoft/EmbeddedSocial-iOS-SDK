@@ -18,10 +18,9 @@ class HomeModuleConfigurator {
         let viewController = StoryboardScene.Home.instantiateHomeViewController()
         let router = HomeRouter()
 
-        let presenter = HomePresenter(configuration: .home)
+        let presenter = HomePresenter()
         presenter.view = viewController
         presenter.router = router
-        presenter.configuration = .home
 
         let interactor = HomeInteractor()
         interactor.output = presenter
