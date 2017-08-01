@@ -16,6 +16,8 @@ public final class SocialPlus {
     
     private(set) var cache: Cache!
     
+    fileprivate let queue = DispatchQueue(label: "Social Plus read-write queue")
+    
     private init() {
         setupServices(with: SocialPlusServices())
     }
@@ -64,5 +66,19 @@ extension SocialPlus: LoginModuleOutput {
         sessionStore.createSession(withUser: user, sessionToken: sessionToken)
         try? sessionStore.saveCurrentSession()
         coordinator.onSessionCreated(user: user, sessionToken: sessionToken)
+    }
+}
+
+extension SocialPlus: UserHolder {
+    var me: User {
+        set {
+            queue.async {
+                self.sessionStore.user = newValue
+                try? self.sessionStore.saveCurrentSession()
+            }
+        }
+        get {
+            return queue.sync { sessionStore.user }
+        }
     }
 }
