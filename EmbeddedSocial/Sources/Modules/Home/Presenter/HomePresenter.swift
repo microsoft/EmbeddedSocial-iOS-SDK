@@ -29,17 +29,17 @@ struct PostViewModel {
 
 class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
-    private weak var view: HomeViewInput!
+    weak var view: HomeViewInput!
     var interactor: HomeInteractorInput!
     var router: HomeRouterInput!
     
-    fileprivate(set) var configuration: Feed
-    var layout: HomeLayoutType = .list
-    let limit = 3 // Default
-    var items = [Post]()
+    private var configuration: Feed
+    private var layout: HomeLayoutType = .list
+    private let limit = 3 // Default
+    private var items = [Post]()
     
     required init(configuration: Feed) {
-
+        self.configuration = configuration
     }
     
     func didTapChangeLayout() {
