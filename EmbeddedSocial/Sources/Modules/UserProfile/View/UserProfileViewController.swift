@@ -11,7 +11,7 @@ private let headerAspectRatio: CGFloat = 2.25
 class UserProfileViewController: UIViewController {
     
     var output: UserProfileViewOutput!
-    var feedModule: HomeModuleInput!
+    var feedModule: FeedModuleInput!
     
     @IBOutlet fileprivate weak var container: UIView!
     
@@ -48,14 +48,14 @@ class UserProfileViewController: UIViewController {
         return summaryView
     }()
     
-    private var feedModuleInput: HomeModuleInput!
+    private var feedModuleInput: FeedModuleInput!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
         
         // Module
-        let configurator = HomeModuleConfigurator()
+        let configurator = FeedModuleConfigurator()
         configurator.configure()
     
         feedModuleInput = configurator.moduleInput!

@@ -3,11 +3,11 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-class HomeRouter: HomeRouterInput {
+class FeedModuleRouter: FeedModuleRouterInput {
     
     weak var viewController: UIViewController?
     
-    func open(route: HomeRoutes) {
+    func open(route: FeedModuleRoutes) {
         let dummy = UIViewController()
         dummy.title = route.rawValue
         viewController?.navigationController?.pushViewController(dummy, animated: true)

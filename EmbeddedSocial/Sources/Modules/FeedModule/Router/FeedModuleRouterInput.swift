@@ -5,15 +5,15 @@
 
 import Foundation
 
-enum HomeRoutes: String {
+enum FeedModuleRoutes: String {
     
     case postDetails
     case extra
     case comments
 }
 
-protocol HomeRouterInput {
+protocol FeedModuleRouterInput {
     
-    func open(route: HomeRoutes)
+    func open(route: FeedModuleRoutes)
 
 }

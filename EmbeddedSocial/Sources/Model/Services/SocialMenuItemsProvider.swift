@@ -76,13 +76,13 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
 //    }
     
     var builderForDummy: ModuleBuilder = { coordinator in
-        let configurator = HomeModuleConfigurator()
+        let configurator = FeedModuleConfigurator()
         configurator.configure()
         return configurator.viewController
     }
     
     var builderForHome: ModuleBuilder = { coordinator in
-        let configurator = HomeModuleConfigurator()
+        let configurator = FeedModuleConfigurator()
         configurator.configure()
         return configurator.viewController
     }

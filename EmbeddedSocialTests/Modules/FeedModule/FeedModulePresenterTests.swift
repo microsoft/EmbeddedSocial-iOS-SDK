@@ -8,14 +8,14 @@ import XCTest
 
 class
 
-class HomePresenterTests: XCTestCase {
+class FeedModulePresenterTests: XCTestCase {
     
-    var sut: HomePresenter!
+    var sut: FeedModulePresenter!
     
     override func setUp() {
         super.setUp()
         
-        sut = HomePresenter()
+        sut = FeedModulePresenter()
     
     }
     

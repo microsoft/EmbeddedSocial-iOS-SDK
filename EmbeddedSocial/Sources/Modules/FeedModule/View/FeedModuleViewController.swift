@@ -81,7 +81,7 @@ class HomeViewController: UIViewController, HomeViewInput {
         output.didPullRefresh()
     }
     
-    func onUpdateLayout(type: HomeLayoutType, animated: Bool = false) {
+    func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
         
         // switch layout
         switch type {
@@ -125,12 +125,12 @@ class HomeViewController: UIViewController, HomeViewInput {
         output.didTapChangeLayout()
     }
     
-    // MARK: HomeViewInput
+    // MARK: FeedModuleViewInput
     func setupInitialState() {
     
     }
     
-    func setLayout(type: HomeLayoutType) {
+    func setLayout(type: FeedModuleLayoutType) {
         self.collectionView.reloadData()
         onUpdateLayout(type: type)
     }
@@ -155,7 +155,7 @@ class HomeViewController: UIViewController, HomeViewInput {
     }
 }
 
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return output.numberOfItems()

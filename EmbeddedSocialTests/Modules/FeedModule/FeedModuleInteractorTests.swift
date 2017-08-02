@@ -49,15 +49,15 @@ class MockPostService: PostServiceProtocol {
     }
 }
 
-class HomeInteractorTests: XCTestCase {
+class FeedModuleInteractorTests: XCTestCase {
     
-    var sut: HomeInteractor!
+    var sut: FeedModuleInteractor!
     var postService: MockPostService!
     
     override func setUp() {
         super.setUp()
         
-        sut = HomeInteractor()
+        sut = FeedModuleInteractor()
         postService = MockPostService()
         sut.postService = postService
 

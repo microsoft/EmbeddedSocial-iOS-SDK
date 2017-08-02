@@ -9,10 +9,10 @@ import UIKit
  
  */
 
-class HomeModuleConfigurator {
+class FeedModuleConfigurator {
     
     weak var viewController: UIViewController!
-    weak var moduleInput: HomeModuleInput!
+    weak var moduleInput: FeedModuleInput!
     
     func configure(feed: FeedType? = nil) {
         

@@ -69,14 +69,14 @@ struct PostViewModel {
     var onAction: ActionHandler?
 }
 
-class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
+class HomePresenter: FeedModuleInput, HomeViewOutput, HomeInteractorOutput {
     
-    weak var view: HomeViewInput!
-    var interactor: HomeInteractorInput!
-    var router: HomeRouterInput!
+    weak var view: FeedModuleViewInput!
+    var interactor: FeedModuleInteractorInput!
+    var router: FeedModuleRouterInput!
     
     private var feedType: FeedType = .home
-    private var layout: HomeLayoutType = .list
+    private var layout: FeedModuleLayoutType = .list
     private let limit = Int32(3) // Default
     private var items = [Post]()
    
@@ -85,7 +85,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         view.setLayout(type: layout)
     }
     
-    // MARK: HomeModuleInput
+    // MARK: FeedModuleInput
     
     func setFeed(_ feed: FeedType) {
         feedType = feed
@@ -110,8 +110,8 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         return formatter
     }()
     
-    private func flip(layout: inout HomeLayoutType) {
-        layout = HomeLayoutType(rawValue: layout.rawValue ^ 1)!
+    private func flip(layout: inout FeedModuleLayoutType) {
+        layout = FeedModuleLayoutType(rawValue: layout.rawValue ^ 1)!
     }
     
     private func viewModel(with post: Post) -> PostViewModel {
@@ -141,7 +141,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
         return viewModel
     }
     
-    // MARK: HomeViewOutput
+    // MARK: FeedModuleViewOutput
     func item(for path: IndexPath) -> PostViewModel {
         return viewModel(with: items[path.row])
     }
@@ -182,7 +182,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
 //        router.open(route: .postDetails)
     }
     
-    // MARK: HomeInteractorOutput
+    // MARK: FeedModuleInteractorOutput
     func didFetch(feed: PostsFeed) {
         items = feed.items
         

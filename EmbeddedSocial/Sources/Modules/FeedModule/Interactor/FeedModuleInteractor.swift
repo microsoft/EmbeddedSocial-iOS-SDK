@@ -6,7 +6,7 @@
 typealias PostHandle = String
 typealias UserHandle = String
 
-protocol HomeInteractorInput {
+protocol FeedModuleInteractorInput {
     
     func fetchPosts(limit: Int32?, feedType: FeedType)
     
@@ -16,7 +16,7 @@ protocol HomeInteractorInput {
     func unpin(with id: PostHandle)
 }
 
-protocol HomeInteractorOutput: class {
+protocol FeedModuleInteractorOutput: class {
     
     func didFetch(feed: PostsFeed)
     func didFetchMore(feed: PostsFeed)
@@ -28,9 +28,9 @@ protocol HomeInteractorOutput: class {
     func didPin(post id: PostHandle)
 }
 
-class HomeInteractor: HomeInteractorInput {
+class FeedModuleInteractor: FeedModuleInteractorInput {
     
-    weak var output: HomeInteractorOutput!
+    weak var output: FeedModuleInteractorOutput!
     var postService: PostServiceProtocol!
     var likesService: LikesServiceProtocol = LikesService()
     var pinsService: PinsServiceProtocol! = PinsService()
