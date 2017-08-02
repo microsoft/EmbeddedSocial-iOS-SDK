@@ -21,6 +21,7 @@ struct MyFollowersAPI: UsersListAPI {
             makeDummyUser()
         ]
         completion(.success(users))
+        
 //        service.getMyFollowers(completion: completion)
     }
     
@@ -29,7 +30,8 @@ struct MyFollowersAPI: UsersListAPI {
             uid: UUID().uuidString,
             firstName: "\(UUID().uuidString.components(separatedBy: "-").first!)",
             lastName: "\(UUID().uuidString.components(separatedBy: "-").first!)",
-            visibility: ._public
+            visibility: ._public,
+            followerStatus: .empty
         )
     }
 }

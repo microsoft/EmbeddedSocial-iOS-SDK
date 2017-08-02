@@ -16,7 +16,7 @@ struct User {
     let followersCount: Int
     let followingCount: Int
     let visibility: Visibility?
-    let followerStatus: FollowStatus?
+    var followerStatus: FollowStatus?
     let followingStatus: FollowStatus?
     
     var fullName: String {

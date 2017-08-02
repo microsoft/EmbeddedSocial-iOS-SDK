@@ -47,7 +47,7 @@ enum FollowStatus: Int {
         }
     }
     
-    var buttonStyle: UIButton.Style? {
+    var buttonStyle: UIButton.Style {
         switch self {
         case .empty: return .follow
         case .accepted: return .following

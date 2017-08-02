@@ -17,6 +17,8 @@ protocol SocialServiceType {
     func block(userID: String, completion: @escaping (Result<Void>) -> Void)
     
     func getMyFollowers(completion: @escaping (Result<[User]>) -> Void)
+    
+    func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void)
 }
 
 struct SocialService: SocialServiceType {
@@ -63,5 +65,18 @@ struct SocialService: SocialServiceType {
     
     func getMyFollowers(completion: @escaping (Result<[User]>) -> Void) {
         
+    }
+    
+    func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void) {
+        switch currentFollowStatus {
+        case .empty:
+            follow(userID: userID, completion: completion)
+        case .accepted:
+            unfollow(userID: userID, completion: completion)
+        case .blocked:
+            unblock(userID: userID, completion: completion)
+        case .pending:
+            cancelPending(userID: userID, completion: completion)
+        }
     }
 }

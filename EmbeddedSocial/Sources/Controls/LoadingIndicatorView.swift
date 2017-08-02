@@ -22,7 +22,6 @@ class LoadingIndicatorView: UIView {
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.textAlignment = .center
-        label.backgroundColor = .green
         self.addSubview(label)
         label.snp.makeConstraints { make in
             make.left.equalTo(self).offset(8)

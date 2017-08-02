@@ -5,45 +5,30 @@
 
 import Foundation
 
-struct UserListItem {
-    let userID: String
-    let fullName: String
-    let buttonStyle: UIButton.Style
-    let action: ((String) -> Void)?
-}
-
-extension UserListItem: CellModel {
-    var cellClass: UITableViewCell.Type {
-        return UITableViewCell.self
-    }
-    
-    var reuseID: String {
-        return ""
-    }
-}
+private let cellHeight: CGFloat = 66.0
 
 final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
     typealias Section = SectionModel<Void, UserListItem>
     
-    fileprivate var sections: [Section]!
+    fileprivate var sections: [Section] = []
     
-    var users: [User] = []
+    var onItemAction: ((UserListItem) -> Void)?
+    
+    weak var tableView: UITableView!
     
     func tableDataSource(for tableView: UITableView) -> UITableViewDataSource? {
-        if sections == nil {
-            setup(tableView: tableView, with: users)
-        }
-        
         return self
     }
     
-    func setup(tableView: UITableView, with users: [User]) {
-        sections = makeSections()
+    func setup(with users: [User]) {
+        let builder = UserListItemsBuilder()
+        sections = builder.makeSections(users: users, actionHandler: onItemAction)
         registerCells(for: tableView)
+        tableView.reloadData()
     }
     
-    private func makeSections() -> [Section] {
-        return []
+    func onItemAction(_ item: UserListItem) {
+        onItemAction?(item)
     }
     
     func registerCells(for tableView: UITableView) {
@@ -64,8 +49,21 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
         return cell
     }
     
-    private func configure(cell: UITableViewCell, with item: UserListItem) {
+    private func configure(cell: UITableViewCell, with item: UserListItem) {        
         cell.selectionStyle = .none
+        (cell as? UserListCell)?.configure(item)
+    }
+    
+    func updateListItem(with user: User, at indexPath: IndexPath) {
+        let builder = UserListItemsBuilder()
+        sections = builder.updatedSections(with: user, at: indexPath, sections: sections)
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
+    func setIsLoading(_ isLoading: Bool, itemAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? UserListCell {
+            cell.isLoading = isLoading
+        }
     }
 }
 
@@ -84,14 +82,7 @@ extension UserListDataDisplayManager: UITableViewDataSource {
 }
 
 extension UserListDataDisplayManager: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // https://stackoverflow.com/a/22173707/6870041 workaround
-        DispatchQueue.main.async {
-//            self.onSelectPhoto?()
-        }
-    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return Constants.standardCellHeight
+        return cellHeight
     }
 }

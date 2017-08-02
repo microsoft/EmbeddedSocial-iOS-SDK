@@ -17,6 +17,14 @@ class FollowersPresenter: FollowersViewOutput {
 }
 
 extension FollowersPresenter: UserListModuleOutput {
+    func didFailToPerformSocialRequest(listView: UIView, error: Error) {
+        view.showError(error)
+    }
+
+    func didTriggerUserAction(_ user: User) {
+        
+    }
+
     func didSelectListItem(listView: UIView, at indexPath: IndexPath) {
         print("didSelectListItem \(indexPath)")
     }
@@ -25,7 +33,7 @@ extension FollowersPresenter: UserListModuleOutput {
         
     }
     
-    func didFailToLoadList(listView: UIView, _ error: Error) {
-        
+    func didFailToLoadList(listView: UIView, error: Error) {
+        view.showError(error)
     }
 }

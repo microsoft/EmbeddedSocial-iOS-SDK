@@ -7,4 +7,6 @@ import Foundation
 
 protocol FollowersViewInput: class {
     func setupInitialState(userListView: UIView)
+    
+    func showError(_ error: Error)
 }

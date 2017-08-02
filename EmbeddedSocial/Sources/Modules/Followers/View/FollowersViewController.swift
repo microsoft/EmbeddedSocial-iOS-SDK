@@ -23,4 +23,8 @@ extension FollowersViewController: FollowersViewInput {
             make.edges.equalTo(self.view)
         }
     }
+    
+    func showError(_ error: Error) {
+        showErrorAlert(error)
+    }
 }

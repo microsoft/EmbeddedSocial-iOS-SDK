@@ -10,5 +10,9 @@ protocol UserListModuleOutput: class {
     
     func didLoadList(listView: UIView)
     
-    func didFailToLoadList(listView: UIView, _ error: Error)
+    func didFailToLoadList(listView: UIView, error: Error)
+    
+    func didTriggerUserAction(_ user: User)
+    
+    func didFailToPerformSocialRequest(listView: UIView, error: Error)
 }

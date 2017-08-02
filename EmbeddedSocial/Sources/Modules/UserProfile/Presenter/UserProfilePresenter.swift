@@ -76,17 +76,8 @@ final class UserProfilePresenter: UserProfileViewOutput {
             let status = FollowStatus.reduce(status: followStatus, visibility: self.user?.visibility ?? ._public)
             self.processSocialResponse(self.transform(result: result)(status))
         }
-
-        switch followStatus {
-        case .empty:
-            interactor.follow(userID: userID, completion: callback)
-        case .accepted:
-            interactor.unfollow(userID: userID, completion: callback)
-        case .blocked:
-            interactor.unblock(userID: userID, completion: callback)
-        case .pending:
-            interactor.cancelPending(userID: userID, completion: callback)
-        }
+        
+        interactor.processSocialRequest(currentFollowStatus: followStatus, userID: userID, completion: callback)
     }
     
     private func processSocialResponse(_ response: Result<FollowStatus>) {

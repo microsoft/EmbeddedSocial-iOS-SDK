@@ -34,20 +34,8 @@ final class UserProfileInteractor: UserProfileInteractorInput {
         completion(.success([]))
     }
     
-    func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        socialService.follow(userID: userID, completion: completion)
-    }
-    
-    func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        socialService.unfollow(userID: userID, completion: completion)
-    }
-    
-    func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        socialService.cancelPending(userID: userID, completion: completion)
-    }
-    
-    func unblock(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        socialService.unblock(userID: userID, completion: completion)
+    func processSocialRequest(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void) {
+        socialService.request(currentFollowStatus: currentFollowStatus, userID: userID, completion: completion)
     }
     
     func block(userID: String, completion: @escaping (Result<Void>) -> Void) {

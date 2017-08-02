@@ -9,4 +9,8 @@ protocol UserListViewInput: class {
     func setupInitialState()
     
     func setUsers(_ users: [User])
+    
+    func updateListItem(with user: User, at indexPath: IndexPath)
+    
+    func setIsLoading(_ isLoading: Bool, itemAt indexPath: IndexPath)
 }
