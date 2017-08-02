@@ -6,7 +6,7 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class MockPostService: PostServiceProtocol {
+private class MockPostService: PostServiceProtocol {
     
     var fetchPopularIsCalled = false
     var fetchPopularQuery: PopularFeedQuery?
@@ -49,7 +49,7 @@ class MockPostService: PostServiceProtocol {
     }
 }
 
-class FeedModuleInteractorTests: XCTestCase {
+private class FeedModuleInteractorTests: XCTestCase {
     
     var sut: FeedModuleInteractor!
     var postService: MockPostService!

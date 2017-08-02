@@ -124,6 +124,9 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
 
     // TODO: refactor these methods using generics ?
     
+    
+    // MARK: Social Actions
+    
     func unlike(with id: PostHandle) {
         likesService.deleteLike(postHandle: id) { (handle, err) in
             guard err == nil else {
