@@ -5,6 +5,10 @@
 
 import UIKit
 
+/*
+ 
+ */
+
 class HomeModuleConfigurator {
     
     class func configure() -> UIViewController {
@@ -17,6 +21,7 @@ class HomeModuleConfigurator {
         presenter.router = router
 
         let interactor = HomeInteractor()
+        interactor.postService = TopicService(cache: SocialPlus.shared.cache) // TODO: inject this
         interactor.output = presenter
 
         presenter.interactor = interactor

@@ -4,10 +4,11 @@
 //
 
 typealias PostHandle = String
+typealias UserHandle = String
 
 protocol HomeInteractorInput {
     
-    func fetchPosts(with limit: Int, type: FeedType)
+    func fetchPosts(limit: Int?, cursor: String?, type: FeedType)
     
     func like(with id: PostHandle)
     func unlike(with id: PostHandle)
@@ -31,7 +32,7 @@ protocol HomeInteractorOutput: class {
 class HomeInteractor: HomeInteractorInput {
     
     weak var output: HomeInteractorOutput!
-    var postService: PostServiceProtocol! = TopicService(cache: SocialPlus.shared.cache)
+    var postService: PostServiceProtocol!
     var likesService: LikesServiceProtocol = LikesService()
     var pinsService: PinsServiceProtocol! = PinsService()
     
@@ -56,11 +57,49 @@ class HomeInteractor: HomeInteractorInput {
     }
     
     
-    func fetchPosts(with limit: Int, type: FeedType) {
-        var query = RecentFeedQuery()
-        query.limit = Int32(limit)
-        query.cursor = ""
-        postService.fetchRecent(query: query, result: fetchHandler)
+    func fetchPosts(limit: Int? = nil, cursor: String? = nil, type: FeedType) {
+        
+        switch type {
+            
+        case .recent, .home:
+            // TODO: use UseAPI for feed fetch
+            var query = RecentFeedQuery()
+            query.limit = limit != nil ? Int32(limit!) : nil
+            query.cursor = cursor
+            postService.fetchRecent(query: query, completion: fetchHandler)
+
+        case let .popular(type: range):
+            var query = PopularFeedQuery()
+            query.limit = limit != nil ? Int32(limit!) : nil
+            query.cursor = nil
+            
+            switch range {
+            case .alltime:
+                query.timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.allTime
+            case .today:
+                query.timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.today
+            case .weekly:
+                query.timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.thisWeek
+            }
+            
+            postService.fetchPopular(query: query, completion: fetchHandler)
+        
+        case let .user(user: user, scope: scope):
+            var query = UserFeedQuery()
+            query.limit = limit != nil ? Int32(limit!) : nil
+            query.cursor = cursor
+            query.user = user
+            
+            switch scope {
+            case .popular:
+                postService.fetchRecent(query: query, completion: fetchHandler)
+            case .recent:
+                postService.fetchRecent(query: query, completion: fetchHandler)
+            }
+            
+        case let .single(post: post):
+            postService.fetchPost(post: post, completion: fetchHandler)
+        }
     }
     
     //
