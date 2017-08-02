@@ -16,8 +16,8 @@ class FeedModuleConfigurator {
     
     func configure(feed: FeedType? = nil) {
         
-        let viewController = StoryboardScene.Home.instantiateHomeViewController()
-        let router = HomeRouter()
+        let viewController = StoryboardScene.FeedModule.instantiateFeedModuleViewController()
+        let router = FeedModuleRouter()
         
         /*
          let feed = .single(post: "3vErWk4EMrF"))
@@ -25,7 +25,7 @@ class FeedModuleConfigurator {
          let feed = .user(user: "3v9gnzwILTS", scope: .recent)
          */
         
-        let presenter = HomePresenter()
+        let presenter = FeedModulePresenter()
         
         if let feed = feed {
             presenter.setFeed(feed)
@@ -34,7 +34,7 @@ class FeedModuleConfigurator {
         presenter.view = viewController
         presenter.router = router
         
-        let interactor = HomeInteractor()
+        let interactor = FeedModuleInteractor()
         interactor.postService = TopicService(cache: SocialPlus.shared.cache) // TODO: inject this
         interactor.output = presenter
         

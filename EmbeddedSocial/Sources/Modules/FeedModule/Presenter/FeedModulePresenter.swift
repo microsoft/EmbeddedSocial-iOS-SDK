@@ -69,7 +69,7 @@ struct PostViewModel {
     var onAction: ActionHandler?
 }
 
-class HomePresenter: FeedModuleInput, HomeViewOutput, HomeInteractorOutput {
+class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput {
     
     weak var view: FeedModuleViewInput!
     var interactor: FeedModuleInteractorInput!

@@ -379,6 +379,16 @@
 		9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8B1F25D60A00D0B59D /* PostCell.xib */; };
 		9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */; };
 		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
+		9C6D359B1F31D1C1005893DB /* FeedModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531381F31CCF2004CE94F /* FeedModuleConfigurator.swift */; };
+		9C6D359C1F31D1C1005893DB /* FeedModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313A1F31CCF2004CE94F /* FeedModuleInteractor.swift */; };
+		9C6D359D1F31D1C1005893DB /* FeedModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313C1F31CCF2004CE94F /* FeedModuleInput.swift */; };
+		9C6D359E1F31D1C1005893DB /* FeedModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313D1F31CCF2004CE94F /* FeedModulePresenter.swift */; };
+		9C6D359F1F31D1C1005893DB /* FeedModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313F1F31CCF2004CE94F /* FeedModuleRouter.swift */; };
+		9C6D35A01F31D1C1005893DB /* FeedModuleRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531401F31CCF2004CE94F /* FeedModuleRouterInput.swift */; };
+		9C6D35A11F31D1C1005893DB /* FeedModule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CC531421F31CCF2004CE94F /* FeedModule.storyboard */; };
+		9C6D35A21F31D1C1005893DB /* FeedModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531431F31CCF2004CE94F /* FeedModuleViewController.swift */; };
+		9C6D35A31F31D1C1005893DB /* FeedModuleViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531441F31CCF2004CE94F /* FeedModuleViewInput.swift */; };
+		9C6D35A41F31D1C1005893DB /* FeedModuleViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531451F31CCF2004CE94F /* FeedModuleViewOutput.swift */; };
 		9C7D9B341F2F430B005928F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B331F2F430B005928F4 /* Localizable.strings */; };
 		9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */; };
 		9C7D9B381F2F4918005928F4 /* Localizator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7D9B371F2F4918005928F4 /* Localizator.swift */; };
@@ -837,7 +847,7 @@
 		9CC531351F31CCD1004CE94F /* FeedModulePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModulePresenterTests.swift; sourceTree = "<group>"; };
 		9CC531381F31CCF2004CE94F /* FeedModuleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModuleConfigurator.swift; sourceTree = "<group>"; };
 		9CC5313A1F31CCF2004CE94F /* FeedModuleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModuleInteractor.swift; sourceTree = "<group>"; };
-		9CC5313C1F31CCF2004CE94F /* FeedModuleModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModuleModuleInput.swift; sourceTree = "<group>"; };
+		9CC5313C1F31CCF2004CE94F /* FeedModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModuleInput.swift; sourceTree = "<group>"; };
 		9CC5313D1F31CCF2004CE94F /* FeedModulePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModulePresenter.swift; sourceTree = "<group>"; };
 		9CC5313F1F31CCF2004CE94F /* FeedModuleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModuleRouter.swift; sourceTree = "<group>"; };
 		9CC531401F31CCF2004CE94F /* FeedModuleRouterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModuleRouterInput.swift; sourceTree = "<group>"; };
@@ -2100,7 +2110,7 @@
 		9CC5313B1F31CCF2004CE94F /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				9CC5313C1F31CCF2004CE94F /* FeedModuleModuleInput.swift */,
+				9CC5313C1F31CCF2004CE94F /* FeedModuleInput.swift */,
 				9CC5313D1F31CCF2004CE94F /* FeedModulePresenter.swift */,
 			);
 			path = Presenter;
@@ -2392,6 +2402,7 @@
 				88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */,
 				88580BB51F2213AB00C1CBAF /* SubtitleTableCell.xib in Resources */,
 				88BC5C5C1F2B6628001FBDD2 /* ProfileSummaryView.xib in Resources */,
+				9C6D35A11F31D1C1005893DB /* FeedModule.storyboard in Resources */,
 				88580C4A1F2213AB00C1CBAF /* CreatePost.storyboard in Resources */,
 				9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */,
 				88580C631F2213AB00C1CBAF /* MenuStack.storyboard in Resources */,
@@ -2654,6 +2665,7 @@
 				9CEA75241F2A0E61009FC89D /* Post.swift in Sources */,
 				882AD0BD1F221D4400FC20B7 /* CoreDataStack.swift in Sources */,
 				88580BD21F2213AB00C1CBAF /* ReportingAPI.swift in Sources */,
+				9C6D359E1F31D1C1005893DB /* FeedModulePresenter.swift in Sources */,
 				882AD0C31F2225FF00FC20B7 /* QueriableRepository.swift in Sources */,
 				88580C101F2213AB00C1CBAF /* CredentialsList.swift in Sources */,
 				88580C4C1F2213AB00C1CBAF /* CreatePostViewInput.swift in Sources */,
@@ -2685,6 +2697,7 @@
 				88580BC61F2213AB00C1CBAF /* AlamofireImplementations.swift in Sources */,
 				88580C6B1F2213AB00C1CBAF /* TabMenuContainerInteractorOutput.swift in Sources */,
 				88580C641F2213AB00C1CBAF /* SideMenuViewController.swift in Sources */,
+				9C6D359B1F31D1C1005893DB /* FeedModuleConfigurator.swift in Sources */,
 				88BC5C561F2B65D0001FBDD2 /* UserProfileViewInput.swift in Sources */,
 				88580C2D1F2213AB00C1CBAF /* URLSchemes.swift in Sources */,
 				88580BA81F2213AB00C1CBAF /* Palette.swift in Sources */,
@@ -2695,6 +2708,7 @@
 				88580BDB1F2213AB00C1CBAF /* AppCompactView.swift in Sources */,
 				88580C4F1F2213AB00C1CBAF /* LoginInteractor.swift in Sources */,
 				88580BD71F2213AB00C1CBAF /* UsersAPI.swift in Sources */,
+				9C6D35A31F31D1C1005893DB /* FeedModuleViewInput.swift in Sources */,
 				88580C511F2213AB00C1CBAF /* LoginModuleOutput.swift in Sources */,
 				88580C611F2213AB00C1CBAF /* SideMenuRouterInput.swift in Sources */,
 				88580C131F2213AB00C1CBAF /* User+Memento.swift in Sources */,
@@ -2708,6 +2722,7 @@
 				88580C4B1F2213AB00C1CBAF /* CreatePostViewController.swift in Sources */,
 				88580BFE1F2213AB00C1CBAF /* PostUserResponse.swift in Sources */,
 				88580BBE1F2213AB00C1CBAF /* UIBarButtonItem+Ext.swift in Sources */,
+				9C6D359D1F31D1C1005893DB /* FeedModuleInput.swift in Sources */,
 				88580BD51F2213AB00C1CBAF /* SocialAPI.swift in Sources */,
 				88580C3D1F2213AB00C1CBAF /* CreateAccountViewInput.swift in Sources */,
 				88FFFA651F30A7160066A1A0 /* UserHolder.swift in Sources */,
@@ -2716,6 +2731,7 @@
 				88BC5C511F2B65D0001FBDD2 /* UserProfilePresenter.swift in Sources */,
 				88580C501F2213AB00C1CBAF /* LoginInteractorInput.swift in Sources */,
 				9C7D9B381F2F4918005928F4 /* Localizator.swift in Sources */,
+				9C6D35A41F31D1C1005893DB /* FeedModuleViewOutput.swift in Sources */,
 				88580BBC1F2213AB00C1CBAF /* String+Encoding.swift in Sources */,
 				88580C4D1F2213AB00C1CBAF /* CreatePostViewOutput.swift in Sources */,
 				88580C291F2213AB00C1CBAF /* SessionStoreDatabaseFacade.swift in Sources */,
@@ -2729,6 +2745,7 @@
 				88580C5F1F2213AB00C1CBAF /* SideMenuPresenter.swift in Sources */,
 				88580C5C1F2213AB00C1CBAF /* SideMenuInteractorInput.swift in Sources */,
 				32FAB0531F2E6D4700C5B18D /* PostCellProtocol.swift in Sources */,
+				9C6D359F1F31D1C1005893DB /* FeedModuleRouter.swift in Sources */,
 				88580C1B1F2213AB00C1CBAF /* AuthServiceImplementation.swift in Sources */,
 				88580C5A1F2213AB00C1CBAF /* SideMenuInitializer.swift in Sources */,
 				88580C361F2213AB00C1CBAF /* CreateAccountPresenter.swift in Sources */,
@@ -2761,6 +2778,7 @@
 				88580C1C1F2213AB00C1CBAF /* FacebookAPI.swift in Sources */,
 				88580C5B1F2213AB00C1CBAF /* SideMenuInteractor.swift in Sources */,
 				88580BF51F2213AB00C1CBAF /* PostReplyRequest.swift in Sources */,
+				9C6D35A01F31D1C1005893DB /* FeedModuleRouterInput.swift in Sources */,
 				63A1D6FB1F25E78D0090C67A /* TopicService.swift in Sources */,
 				32FAB0511F2E6D3000C5B18D /* PostCellCompact.swift in Sources */,
 				88580C051F2213AB00C1CBAF /* PutUserVisibilityRequest.swift in Sources */,
@@ -2786,6 +2804,7 @@
 				88580C671F2213AB00C1CBAF /* TabMenuContainerConfigurator.swift in Sources */,
 				88580C201F2213AB00C1CBAF /* TwitterWebBasedAPI.swift in Sources */,
 				882AD0C51F22266B00FC20B7 /* CoreDataRepository.swift in Sources */,
+				9C6D35A21F31D1C1005893DB /* FeedModuleViewController.swift in Sources */,
 				88580C371F2213AB00C1CBAF /* CreateAccountRouter.swift in Sources */,
 				88580BFD1F2213AB00C1CBAF /* PostUserRequest.swift in Sources */,
 				88580BD11F2213AB00C1CBAF /* RepliesAPI.swift in Sources */,
@@ -2857,6 +2876,7 @@
 				88580C141F2213AB00C1CBAF /* Photo.swift in Sources */,
 				88580C431F2213AB00C1CBAF /* CreatePostInteractor.swift in Sources */,
 				88580C1D1F2213AB00C1CBAF /* GoogleAPI.swift in Sources */,
+				9C6D359C1F31D1C1005893DB /* FeedModuleInteractor.swift in Sources */,
 				88580BF01F2213AB00C1CBAF /* PostFollowingTopicRequest.swift in Sources */,
 				884AD7741F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift in Sources */,
 				88580BE91F2213AB00C1CBAF /* LinkedAccountView.swift in Sources */,

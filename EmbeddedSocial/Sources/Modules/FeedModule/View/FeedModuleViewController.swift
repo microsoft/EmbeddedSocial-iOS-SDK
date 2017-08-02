@@ -5,7 +5,7 @@
 
 import UIKit
 
-enum HomeLayoutType: Int {
+enum FeedModuleLayoutType: Int {
     case list
     case grid
     
@@ -24,9 +24,9 @@ enum HomeLayoutType: Int {
 //
 //
 
-class HomeViewController: UIViewController, HomeViewInput {
+class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
-    var output: HomeViewOutput!
+    var output: FeedModuleViewOutput!
     var listLayout = UICollectionViewFlowLayout()
     var gridLayout = UICollectionViewFlowLayout()
     

@@ -77,10 +77,10 @@ enum StoryboardScene {
     static let storyboardName = "FeedModule"
 
     case feedModuleViewControllerScene = "FeedModuleViewController"
-    static func instantiateFeedModuleViewController() -> FeedModuleViewController {
-      guard let vc = StoryboardScene.FeedModule.feedModuleViewControllerScene.viewController() as? FeedModuleViewController
+    static func instantiateFeedModuleViewController() -> EmbeddedSocial.FeedModuleViewController {
+      guard let vc = StoryboardScene.FeedModule.feedModuleViewControllerScene.viewController() as? EmbeddedSocial.FeedModuleViewController
       else {
-        fatalError("ViewController 'FeedModuleViewController' is not of the expected class FeedModuleViewController.")
+        fatalError("ViewController 'FeedModuleViewController' is not of the expected class EmbeddedSocial.FeedModuleViewController.")
       }
       return vc
     }
