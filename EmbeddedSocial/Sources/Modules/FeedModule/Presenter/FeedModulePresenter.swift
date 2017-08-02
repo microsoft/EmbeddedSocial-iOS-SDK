@@ -151,15 +151,30 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     private func handle(action: PostCellAction, path: IndexPath) {
+        
+        let postHandle = items[path.row].topicHandle!
+        
         switch action {
         case .comment:
-            didTapComment(with: path)
+            router.open(route: .comments)
         case .extra:
-            didTapExtra(with: path)
+            router.open(route: .extra)
         case .like:
-            didTapLike(with: path)
+            
+            let status = items[path.row].liked
+            let action:PostSocialAction = status ? .like : .unlike
+            
+            items[path.row].liked = !status
+            
+            interactor.postAction(post: postHandle, action: action)
+            
         case .pin:
-            didTapPin(with: path)
+            let status = items[path.row].pinned
+            let action:PostSocialAction = status ? .pin : .unpin
+            
+            items[path.row].pinned = !status
+            
+            interactor.postAction(post: postHandle, action: action)
         }
     }
     
@@ -201,64 +216,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         Logger.log(error)
     }
     
-    func didUnpin(post id: PostHandle) {
-        if let index = itemIndex(with: id) {
-            items[index].pinned = false
-            view.reload(with: index)
-        }
-    }
-    
-    func didUnlike(post id: PostHandle) {
-        if let index = itemIndex(with: id) {
-            items[index].liked = false
-            
-            if (items[index].totalLikes > 0) {
-                items[index].totalLikes -= Int64(1)
-            }
-            view.reload(with: index)
-        }
-    }
-    
-    func didLike(post id: PostHandle) {
-        if let index = itemIndex(with: id) {
-            items[index].liked = true
-            items[index].totalLikes += Int64(1)
-            view.reload(with: index)
-        }
-    }
-    
-    func didPin(post id: PostHandle) {
-        if let index = itemIndex(with: id) {
-            items[index].pinned = true
-            view.reload(with: index)
-        }
-    }
-    
-    private func didTapComment(with path: IndexPath) {
-        router.open(route: .comments)
-    }
-    
-    private func didTapExtra(with path: IndexPath) {
-        router.open(route: .extra)
-    }
-    
-    private func didTapLike(with path: IndexPath) {
-        let item = items[path.row]
+    func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
         
-        if item.liked {
-            interactor.unlike(with: item.topicHandle)
-        } else {
-            interactor.like(with: item.topicHandle)
-        }
-    }
-    
-    private func didTapPin(with path: IndexPath) {
-        let item = items[path.row]
-        
-        if item.pinned {
-            interactor.unpin(with: item.topicHandle)
-        } else {
-            interactor.pin(with: item.topicHandle)
-        }
     }
 }

@@ -210,8 +210,8 @@ class TopicService: PostServiceProtocol {
             post.imageUrl = item.blobUrl
             post.title = item.title
             post.text = item.text
-            post.pinned = item.pinned
-            post.liked = item.liked
+            post.pinned = item.pinned ?? false
+            post.liked = item.liked ?? false
             post.topicHandle = item.topicHandle
             post.totalLikes = item.totalLikes ?? 0
             post.totalComments = item.totalLikes ?? 0

@@ -93,8 +93,6 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         XCTAssertTrue(a != b)
     }
     
-    
-    
     func testSinglePostFetchResultIsCorrect() {
         // given
         let expectedPost = Post.mock(seed: 100)

@@ -6,14 +6,14 @@
 typealias PostHandle = String
 typealias UserHandle = String
 
+enum PostSocialAction {
+    case like, unlike, pin, unpin
+}
+
 protocol FeedModuleInteractorInput {
     
     func fetchPosts(limit: Int32?, feedType: FeedType)
-    
-    func like(with id: PostHandle)
-    func unlike(with id: PostHandle)
-    func pin(with id: PostHandle)
-    func unpin(with id: PostHandle)
+    func postAction(post: PostHandle, action: PostSocialAction)
 }
 
 protocol FeedModuleInteractorOutput: class {
@@ -22,10 +22,7 @@ protocol FeedModuleInteractorOutput: class {
     func didFetchMore(feed: PostsFeed)
     func didFail(error: FeedServiceError)
     
-    func didLike(post id: PostHandle)
-    func didUnlike(post id: PostHandle)
-    func didUnpin(post id: PostHandle)
-    func didPin(post id: PostHandle)
+    func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?)
 }
 
 class FeedModuleInteractor: FeedModuleInteractorInput {
@@ -51,7 +48,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     private lazy var fetchHandler: FetchResultHandler = { [unowned self] result in
         
         self.isFetching = false
-    
+        
         guard result.error == nil else {
             self.output.didFail(error: result.error!)
             return
@@ -69,7 +66,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     }
     
     func fetchPosts(limit: Int32? = nil, feedType: FeedType) {
-    
+        
         isFetching = true
         
         if cachedFeedType != feedType {
@@ -87,7 +84,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             query.limit = limit
             query.cursor = self.cursor
             postService.fetchRecent(query: query, completion: fetchHandler)
-
+            
         case let .popular(type: range):
             var query = PopularFeedQuery()
             query.limit = limit
@@ -103,7 +100,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             }
             
             postService.fetchPopular(query: query, completion: fetchHandler)
-        
+            
         case let .user(user: user, scope: scope):
             var query = UserFeedQuery()
             query.limit = limit
@@ -121,54 +118,25 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             postService.fetchPost(post: post, completion: fetchHandler)
         }
     }
-
-    // TODO: refactor these methods using generics ?
-    
     
     // MARK: Social Actions
     
-    func unlike(with id: PostHandle) {
-        likesService.deleteLike(postHandle: id) { (handle, err) in
-            guard err == nil else {
-                self.output.didFail(error: FeedServiceError.failedToUnLike(message: err!.localizedDescription))
-                return
-            }
-            
-            self.output.didUnlike(post: handle)
-        }
-    }
-    
-    func unpin(with id: PostHandle) {
-        pinsService.deletePin(postHandle: id) { (handle, err) in
-            guard err == nil else {
-                self.output.didFail(error: FeedServiceError.failedToUnPin(message: err!.localizedDescription))
-                return
-            }
-            
-            self.output.didUnpin(post: handle)
-        }
-    }
-    
-    func pin(with id: PostHandle) {
-        pinsService.postPin(postHandle: id) { (handle, err) in
-            guard err == nil else {
-                self.output.didFail(error: FeedServiceError.failedToPin(message: err!.localizedDescription))
-                return
-            }
-            
-            self.output.didPin(post: handle)
-        }
-    }
-    
-    func like(with id: PostHandle) {
+    func postAction(post: PostHandle, action: PostSocialAction) {
         
-        likesService.postLike(postHandle: id) { (handle, err) in
-            guard err == nil else {
-                self.output.didFail(error: FeedServiceError.failedToLike(message: err!.localizedDescription))
-                return
-            }
-            
-            self.output.didLike(post: handle)
+        let completion:LikesServiceProtocol.CompletionHandler = { [weak self] (handle, err) in
+            self?.output.didPostAction(post: post, action: action, error: err)
         }
+        
+        switch action {
+        case .like:
+            likesService.postLike(postHandle: post, completion: completion)
+        case .unlike:
+            likesService.deleteLike(postHandle: post, completion: completion)
+        case .pin:
+            pinsService.postPin(postHandle: post, completion: completion)
+        case .unpin:
+            pinsService.deletePin(postHandle: post, completion: completion)
+        }
+        
     }
 }

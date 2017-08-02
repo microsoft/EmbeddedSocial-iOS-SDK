@@ -27,8 +27,8 @@ struct Post {
     public var totalLikes: Int64 = 0
     public var totalComments: Int64 = 0
 
-    public var liked: Bool!
-    public var pinned: Bool!
+    public var liked: Bool = false
+    public var pinned: Bool = false
 }
 
 extension Post {
