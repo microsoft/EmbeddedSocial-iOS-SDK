@@ -10,6 +10,8 @@ class FeedModuleRouter: FeedModuleRouterInput {
     func open(route: FeedModuleRoutes) {
         let dummy = UIViewController()
         dummy.title = route.rawValue
+        dummy.view = UIView()
+        dummy.view.backgroundColor = UIColor.green
         viewController?.navigationController?.pushViewController(dummy, animated: true)
     }
 

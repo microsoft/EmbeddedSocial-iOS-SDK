@@ -6,7 +6,6 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class
 
 class FeedModulePresenterTests: XCTestCase {
     

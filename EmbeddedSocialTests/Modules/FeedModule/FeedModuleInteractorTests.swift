@@ -60,7 +60,6 @@ class FeedModuleInteractorTests: XCTestCase {
         sut = FeedModuleInteractor()
         postService = MockPostService()
         sut.postService = postService
-
     }
     
     func testThatHomeFeedFetchRequestIsValid() {
@@ -73,11 +72,10 @@ class FeedModuleInteractorTests: XCTestCase {
         
         // then
         XCTAssertTrue(postService.fetchRecentIsCalled)
-        sut.fetchPosts(limit: 20, cursor: "20", type: feedType)
+        sut.fetchPosts(limit: 20, feedType: feedType)
         
         // then
         XCTAssertTrue(postService.fetchRecentIsCalled)
-        XCTAssertTrue(postService.fetchRecentQuery!.cursor == "20")
         XCTAssertTrue(postService.fetchRecentQuery!.limit == 20)
     }
     
@@ -106,19 +104,33 @@ class FeedModuleInteractorTests: XCTestCase {
         XCTAssertTrue(postService.fetchPostHandle == "handle")
     }
     
-    func testThatUserFeedFetchRequestIsValid() {
+    func testThatUserRecentFeedFetchRequestIsValid() {
         
         // given
         let feedType = FeedType.user(user: "user", scope: .recent)
         
         // when
-        sut.fetchPosts(limit: 20, cursor: "20", type: feedType)
+        sut.fetchPosts(limit: 20, feedType: feedType)
         
         // then
         XCTAssertTrue(postService.fetchRecentForUserIsCalled)
-        XCTAssertTrue(postService.fetchRecentForUserQuery!.cursor == "20")
         XCTAssertTrue(postService.fetchRecentForUserQuery!.limit == 20)
         XCTAssertTrue(postService.fetchRecentForUserQuery!.user == "user")
     }
+    
+    func testThatUserPopularFeedFetchRequestIsValid() {
+        
+        // given
+        let feedType = FeedType.user(user: "user", scope: .popular)
+        
+        // when
+        sut.fetchPosts(limit: 20, feedType: feedType)
+        
+        // then
+        XCTAssertTrue(postService.fetchPopularForUserIsCalled)
+        XCTAssertTrue(postService.fetchPopularForUserQuery!.limit == 20)
+        XCTAssertTrue(postService.fetchPopularForUserQuery!.user == "user")
+    }
+    
     
 }
