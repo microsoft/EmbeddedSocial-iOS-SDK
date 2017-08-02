@@ -15,4 +15,6 @@ protocol UserProfileViewOutput {
     func onFollowRequest(currentStatus followStatus: FollowStatus)
     
     func onFollowers()
+    
+    func onMore()
 }

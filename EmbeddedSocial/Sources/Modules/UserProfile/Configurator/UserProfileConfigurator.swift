@@ -13,11 +13,11 @@ struct UserProfileConfigurator {
         viewController = StoryboardScene.UserProfile.instantiateUserProfileViewController()
     }
     
-    func configure(userID: String?, me: User) {
+    func configure(userID: String? = nil, myProfileHolder: UserHolder = SocialPlus.shared) {
         let router = UserProfileRouter()
         router.viewController = viewController
         
-        let presenter = UserProfilePresenter(userID: userID, me: me)
+        let presenter = UserProfilePresenter(userID: userID, myProfileHolder: myProfileHolder)
         presenter.router = router
         presenter.interactor = UserProfileInteractor(userService: UserService(), socialService: SocialService())
         presenter.view = viewController

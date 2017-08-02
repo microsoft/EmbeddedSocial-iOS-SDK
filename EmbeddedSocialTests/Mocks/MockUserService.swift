@@ -10,7 +10,7 @@ final class MockUserService: UserServiceType {
     private(set) var createAccountCount = 0
     private(set) var getUserProfileCount = 0
 
-    func getMyProfile(socialUser: SocialUser, completion: @escaping (Result<User>) -> Void) {
+    func getMyProfile(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
         getMyProfileCount += 1
     }
     

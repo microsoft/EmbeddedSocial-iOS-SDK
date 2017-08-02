@@ -11,4 +11,12 @@ protocol UserProfileRouterInput {
     func openFollowing(user: User)
     
     func openEditProfile(user: User)
+    
+    func openCreatePost(user: User)
+    
+    func showMyMenu(_ addPostHandler: @escaping () -> Void)
+    
+    func showUserMenu(_ user: User, blockHandler: @escaping () -> Void, reportHandler: @escaping () -> Void)
+    
+    func openReport(user: User)
 }

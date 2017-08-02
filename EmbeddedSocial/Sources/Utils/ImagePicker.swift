@@ -45,10 +45,10 @@ class ImagePicker: NSObject {
         }
         actionSheet.addAction(chooseExistingPhotoAction)
         
-        if let presenter = actionSheet.popoverPresentationController {
-            presenter.sourceView = presentingView?.view
-            presenter.sourceRect = CGRect(x: (presentingView?.view.bounds)!.midX,
-                                          y: (presentingView?.view.bounds)!.midY,
+        if let presenter = actionSheet.popoverPresentationController, let presentingView = presentingView {
+            presenter.sourceView = presentingView.view
+            presenter.sourceRect = CGRect(x: presentingView.view.bounds.midX,
+                                          y: presentingView.view.bounds.midY,
                                           width: 0,
                                           height: 0)
         }

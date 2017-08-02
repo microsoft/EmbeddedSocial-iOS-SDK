@@ -3,58 +3,81 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
+@testable import EmbeddedSocial
 
-final class UserProfileInteractor: UserProfileInteractorInput {
-    private let userService: UserServiceType
-    private let socialService: SocialServiceType
+class MockUserProfileInteractor: UserProfileInteractorInput {
+    private(set) var getUserCount = 0
+    private(set) var getMeCount = 0
+    private(set) var getRecentPostsCount = 0
+    private(set) var getPopularPostsCount = 0
+    private(set) var getMyRecentPostsCount = 0
+    private(set) var getMyPopularPostsCount = 0
     
-    init(userService: UserServiceType, socialService: SocialServiceType) {
-        self.userService = userService
-        self.socialService = socialService
-    }
+    private(set) var followCount = 0
+    private(set) var unfollowCount = 0
+    private(set) var cancelPendingCount = 0
+    private(set) var unblockCount = 0
+    private(set) var blockCount = 0
     
+    var userToReturn: User?
+    var meToReturn: User?
+
     func getUser(userID: String, completion: @escaping (Result<User>) -> Void) {
-        userService.getUserProfile(userID: userID, completion: completion)
+        getUserCount += 1
+        if let user = userToReturn {
+            completion(.success(user))
+        }
     }
     
     func getMe(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
-        userService.getMyProfile(credentials: credentials, completion: completion)
+        getMeCount += 1
+        if let user = meToReturn {
+            completion(.success(user))
+        }
     }
-
+    
     func getRecentPosts(userID: String, completion: @escaping (Result<[Any]>) -> Void) {
+        getRecentPostsCount += 1
         completion(.success([]))
     }
     
     func getPopularPosts(userID: String, completion: @escaping (Result<[Any]>) -> Void) {
+        getPopularPostsCount += 1
         completion(.success([]))
     }
     
     func getMyRecentPosts(completion: @escaping (Result<[Any]>) -> Void) {
+        getMyRecentPostsCount += 1
         completion(.success([]))
     }
     
     func getMyPopularPosts(completion: @escaping (Result<[Any]>) -> Void) {
+        getMyPopularPostsCount += 1
         completion(.success([]))
     }
     
     func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        socialService.follow(userID: userID, completion: completion)
+        followCount += 1
+        completion(.success())
     }
     
     func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        socialService.unfollow(userID: userID, completion: completion)
+        unfollowCount += 1
+        completion(.success())
     }
     
     func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        socialService.cancelPending(userID: userID, completion: completion)
+        cancelPendingCount += 1
+        completion(.success())
     }
     
     func unblock(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        socialService.unblock(userID: userID, completion: completion)
+        unblockCount += 1
+        completion(.success())
     }
     
     func block(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        socialService.block(userID: userID, completion: completion)
+        blockCount += 1
+        completion(.success())
     }
 }
