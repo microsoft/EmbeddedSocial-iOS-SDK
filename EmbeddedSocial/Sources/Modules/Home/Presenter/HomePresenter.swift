@@ -77,7 +77,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
     private var configuration: FeedType
     private var layout: HomeLayoutType = .list
-    private let limit = 3 // Default
+    private let limit = Int32(3) // Default
     private var items = [Post]()
     private var cursor: String?
     
@@ -193,14 +193,17 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
     // MARK: HomeInteractorOutput
     func didFetch(feed: PostsFeed) {
-        view.setRefreshing(state: false)
+        cursor = nil
         items = feed.items
+        
+        view.setRefreshing(state: false)
         view.reload()
     }
     
-    func didFetchMore(feed: PostsFeed) {
-        view.setRefreshing(state: false)
+    func didFetchMore(feed: PostsFeed, cursor: String?) {
         items.insert(contentsOf:feed.items, at: 0)
+        self.cursor = cursor
+        view.setRefreshing(state: false)
         view.reload()
     }
     

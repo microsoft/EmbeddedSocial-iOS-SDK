@@ -50,7 +50,6 @@ class MockPostService: PostServiceProtocol {
         fetchPostIsCalled = true
         fetchPostHandle = post
     }
-
 }
 
 class HomeInteractorTests: XCTestCase {

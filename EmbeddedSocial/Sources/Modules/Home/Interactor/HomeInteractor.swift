@@ -8,19 +8,18 @@ typealias UserHandle = String
 
 protocol HomeInteractorInput {
     
-    func fetchPosts(limit: Int?, cursor: String?, type: FeedType)
+    func fetchPosts(limit: Int32?, cursor: String?, type: FeedType)
     
     func like(with id: PostHandle)
     func unlike(with id: PostHandle)
     func pin(with id: PostHandle)
     func unpin(with id: PostHandle)
-    
 }
 
 protocol HomeInteractorOutput: class {
     
     func didFetch(feed: PostsFeed)
-    func didFetchMore(feed: PostsFeed)
+    func didFetchMore(feed: PostsFeed, cursor: String?)
     func didFail(error: FeedServiceError)
     
     func didLike(post id: PostHandle)
@@ -36,9 +35,12 @@ class HomeInteractor: HomeInteractorInput {
     var likesService: LikesServiceProtocol = LikesService()
     var pinsService: PinsServiceProtocol! = PinsService()
     
-    private var offset: String? = nil
+    var isFetching = false
+    private var fetchingCursor: String? = nil
     
     private lazy var fetchHandler: FetchResultHandler = { [unowned self] result in
+        
+        self.isFetching = false
         
         guard result.error == nil else {
             self.output.didFail(error: result.error!)
@@ -47,30 +49,30 @@ class HomeInteractor: HomeInteractorInput {
         
         let feed = PostsFeed(items: result.posts)
         
-        if self.offset == nil {
+        if self.fetchingCursor == nil {
             self.output.didFetch(feed: feed)
         } else {
-            self.output.didFetchMore(feed: feed)
+            self.output.didFetchMore(feed: feed, cursor: result.cursor)
         }
-        
-        self.offset = result.cursor
     }
     
+    func fetchPosts(limit: Int32? = nil, cursor: String? = nil, type: FeedType) {
     
-    func fetchPosts(limit: Int? = nil, cursor: String? = nil, type: FeedType) {
+        fetchingCursor = cursor
+        isFetching = true
         
         switch type {
             
         case .recent, .home:
-            // TODO: use UseAPI for feed fetch
+            // TODO: use UserAPI for home feed fetch
             var query = RecentFeedQuery()
-            query.limit = limit != nil ? Int32(limit!) : nil
+            query.limit = limit
             query.cursor = cursor
             postService.fetchRecent(query: query, completion: fetchHandler)
 
         case let .popular(type: range):
             var query = PopularFeedQuery()
-            query.limit = limit != nil ? Int32(limit!) : nil
+            query.limit = limit
             query.cursor = nil
             
             switch range {
@@ -86,7 +88,7 @@ class HomeInteractor: HomeInteractorInput {
         
         case let .user(user: user, scope: scope):
             var query = UserFeedQuery()
-            query.limit = limit != nil ? Int32(limit!) : nil
+            query.limit = limit
             query.cursor = cursor
             query.user = user
             
@@ -101,39 +103,7 @@ class HomeInteractor: HomeInteractorInput {
             postService.fetchPost(post: post, completion: fetchHandler)
         }
     }
-    
-    //
-    //        switch type {
-    //        case let .home(cursor, limit):
-    //            var query = RecentFeedQuery()
-    //            query.limit = Intcursor
-    //            query.limit = limit
-    //            postService.fetchRecent(query: <#T##RecentFeedQuery#>, result: <#T##FetchResultHandler##FetchResultHandler##(PostFetchResult) -> Void#>)
-    //        default:
-    //
-    //        }
-    
-    
-    //        postService.fetchPosts(offset: offset, limit: limit) { (result) in
-    //
-    //            guard result.error == nil else {
-    //
-    //                self.output.didFail(error: result.error!)
-    //
-    //                return
-    //            }
-    //
-    //            let feed = PostsFeed(items: result.posts)
-    //
-    //            if self.offset == nil {
-    //                self.output.didFetch(feed: feed)
-    //            } else {
-    //                self.output.didFetchMore(feed: feed)
-    //            }
-    //
-    //            self.offset = result.cursor
-    //        }
-    
+
     // TODO: refactor these methods using generics ?
     
     func unlike(with id: PostHandle) {
@@ -181,30 +151,3 @@ class HomeInteractor: HomeInteractorInput {
         }
     }
 }
-
-//extension HomeInteractor {
-//    private func fetchFeed() {
-
-//        
-//        let cursor:Int32? = Int32(fetchRequest.cursor ?? "")
-//        var timeRange: TopicsAPI.TimeRange_topicsGetPopularTopics?
-//        let limit: Int32? = Int32(fetchRequest.limit)
-//        
-//        guard case let FeedType.popular(type: feedRange) = fetchRequest.feedType else {
-//            fatalError("Wrong method is called")
-//        }
-//        
-//        switch feedRange {
-//        case .alltime:
-//            timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.allTime
-//        case .today:
-//            timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.today
-//        case .weekly:
-//            timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.thisWeek
-//        }
-//        
-
-
-//    }
-//}
-
