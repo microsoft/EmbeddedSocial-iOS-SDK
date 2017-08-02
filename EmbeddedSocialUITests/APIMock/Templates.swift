@@ -41,4 +41,23 @@ class Templates {
         return json
     }
     
+    class func loadTopics(interval: String, cursor: Int = 0, limit: Int = 10) -> Any {
+        var topics: Array<[String: Any]> = []
+        
+        for i in cursor...cursor + limit - 1 {
+            let topic = Templates.load(name: "topic",
+                                       values: ["title": interval + String(i),
+                                                "topicHandle": interval + String(i),
+                                                "text": interval + " text" + String(i),
+                                                "lastUpdatedTime": Date().ISOString,
+                                                "createdTime": Date().ISOString,
+                                                "blobType": APIConfig.showTopicImages ? "Image": "Unknown",
+                                                "blobHandle": APIConfig.showTopicImages ? UUID().uuidString : NSNull(),
+                                                "blobUrl": APIConfig.showTopicImages ? String(format: "http://localhost:8080/images/%@", UUID().uuidString) : NSNull()])
+            topics.append(topic)
+        }
+        
+        return ["data": topics, "cursor": String(cursor + limit - 1)]
+    }
+    
 }
