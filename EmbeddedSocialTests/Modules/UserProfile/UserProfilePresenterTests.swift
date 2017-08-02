@@ -10,13 +10,11 @@ class UserProfilePresenterTests: XCTestCase {
     var view: MockUserProfileView!
     var router: MockUserProfileRouter!
     var interactor: MockUserProfileInteractor!
-    
-    private let me: User = {
-        return User(uid: UUID().uuidString)
-    }()
+    var myProfileHolder: MyProfileHolder!
     
     override func setUp() {
         super.setUp()
+        myProfileHolder = MyProfileHolder()
         view = MockUserProfileView()
         router = MockUserProfileRouter()
         interactor = MockUserProfileInteractor()
@@ -24,6 +22,7 @@ class UserProfilePresenterTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
+        myProfileHolder = nil
         view = nil
         router = nil
         interactor = nil
@@ -31,6 +30,10 @@ class UserProfilePresenterTests: XCTestCase {
     
     func testThatItSetsInitialStateWhenUserIsMe() {
         // given
+        let credentials = CredentialsList(provider: .facebook, accessToken: "", socialUID: "")
+        myProfileHolder.me = User(uid: UUID().uuidString, credentials: credentials)
+        interactor.meToReturn = myProfileHolder.me
+
         let presenter = makeDefaultPresenter()
         
         // when
@@ -39,11 +42,13 @@ class UserProfilePresenterTests: XCTestCase {
         // then
         XCTAssertEqual(view.setupInitialStateCount, 1)
         XCTAssertEqual(view.setUserCount, 1)
-        XCTAssertEqual(view.lastSetUser, me)
-        XCTAssertEqual(interactor.getUserCount, 0)
+        XCTAssertEqual(view.lastSetUser, myProfileHolder.me)
+        XCTAssertNotNil(view.isLoading)
+        XCTAssertFalse(view.isLoading!)
 
-        // If current user is 'Me', it's set immediately
-        XCTAssertNil(view.isLoading)
+        XCTAssertEqual(interactor.getUserCount, 0)
+        
+        XCTAssertEqual(myProfileHolder.setMeCount, 2)
     }
     
     func testThatItSetsInitialStateWithOtherUser() {
@@ -60,11 +65,12 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertEqual(view.setupInitialStateCount, 1)
         XCTAssertEqual(view.setUserCount, 1)
         XCTAssertEqual(view.lastSetUser, user)
-        XCTAssertEqual(interactor.getUserCount, 1)
-        
-        // If current user is 'Me', it's set immediately
         XCTAssertNotNil(view.isLoading)
         XCTAssertFalse(view.isLoading!)
+
+        XCTAssertEqual(interactor.getUserCount, 1)
+        
+        XCTAssertEqual(myProfileHolder.setMeCount, 0)
     }
     
     func testThatItOpensFollowingScreen() {
@@ -179,7 +185,7 @@ class UserProfilePresenterTests: XCTestCase {
     }
     
     private func makeDefaultPresenter(userID: String? = nil) -> UserProfilePresenter {
-        let presenter = UserProfilePresenter(userID: userID, me: me)
+        let presenter = UserProfilePresenter(userID: userID, myProfileHolder: myProfileHolder)
         presenter.view = view
         presenter.router = router
         presenter.interactor = interactor

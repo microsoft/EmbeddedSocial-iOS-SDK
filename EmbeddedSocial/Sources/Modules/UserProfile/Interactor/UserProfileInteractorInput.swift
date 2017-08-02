@@ -7,6 +7,8 @@ import Foundation
 
 protocol UserProfileInteractorInput {    
     func getUser(userID: String, completion: @escaping (Result<User>) -> Void)
+    
+    func getMe(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void)
         
     func getRecentPosts(userID: String, completion: @escaping (Result<[Any]>) -> Void)
     

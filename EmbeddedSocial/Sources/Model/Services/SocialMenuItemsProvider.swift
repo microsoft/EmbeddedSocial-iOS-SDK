@@ -58,7 +58,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     @objc func testPush() {
         let config = CreatePostModuleConfigurator()
         let vc = StoryboardScene.CreatePost.instantiateCreatePostViewController()
-        config.configure(viewController: vc, user: SocialPlus.shared.sessionStore.user, cache: SocialPlus.shared.cache)
+        config.configure(viewController: vc, user: SocialPlus.shared.me, cache: SocialPlus.shared.cache)
         tempVC?.navigationController?.pushViewController(vc, animated: true)
         
     }
@@ -91,8 +91,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
             (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: self.builderForDummy),
             (title: "My pins", image: UIImage(asset: Asset.iconPins), builder: self.builderForDummy),
             (title: "Activity Feed", image: UIImage(asset: Asset.iconActivity), builder: self.builderForDummy),
-            (title: "Settings", image: UIImage(asset: Asset.iconSettings), builder: self.builderForDummy),
-            (title: "Create post", image: UIImage(asset: Asset.iconSettings), builder: self.builderForDummy)
+            (title: "Settings", image: UIImage(asset: Asset.iconSettings), builder: self.builderForDummy)
             ], State.unauthenticated: [
                 (title: "Search", image: UIImage(asset: Asset.iconSearch), builder: self.builderForDummy),
                 (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: self.builderForDummy)

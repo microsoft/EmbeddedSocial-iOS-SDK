@@ -19,7 +19,7 @@ class LoginInteractor: LoginInteractorInput {
     }
     
     func getMyProfile(socialUser: SocialUser, handler: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
-        userService.getMyProfile(socialUser: socialUser) { [weak self] result in
+        userService.getMyProfile(credentials: socialUser.credentials) { [weak self] result in
             guard let user = result.value, let credentials = user.credentials else {
                 handler(.failure(result.error ?? APIError.failedRequest))
                 return

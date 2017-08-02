@@ -6,7 +6,7 @@
 import Foundation
 
 final class SessionStore {
-    private(set) var user: User!
+    var user: User!
     private(set) var sessionToken: String!
     
     private let database: SessionStoreDatabase
