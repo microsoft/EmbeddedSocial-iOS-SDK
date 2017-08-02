@@ -17,7 +17,8 @@ class HomeModuleConfigurator {
         let router = HomeRouter()
 
 //        let presenter = HomePresenter(configuration: .single(post: "3vErWk4EMrF"))
-        let presenter = HomePresenter(configuration: .popular(type: .alltime))
+//        let presenter = HomePresenter(configuration: .popular(type: .alltime))
+        let presenter = HomePresenter(configuration: .user(user: "3v9gnzwILTS", scope: .recent))
         presenter.view = viewController
         presenter.router = router
 

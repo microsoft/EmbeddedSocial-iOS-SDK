@@ -138,7 +138,7 @@ class TopicService: PostServiceProtocol {
     }
     
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.userTopicsGetTopics(userHandle: query.user, cursor: query.user, limit: query.limit) { [weak self] response, error in
+        UsersAPI.userTopicsGetTopics(userHandle: query.user, cursor: query.cursor, limit: query.limit) { [weak self] response, error in
             self?.parseResponse(response: response, error: error, completion: completion)
         }
     }
