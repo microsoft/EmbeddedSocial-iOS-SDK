@@ -79,7 +79,6 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     private var layout: HomeLayoutType = .list
     private let limit = Int32(3) // Default
     private var items = [Post]()
-    private var cursor: String?
     
     required init(configuration: FeedType) {
         self.configuration = configuration
@@ -184,7 +183,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
     func didPullRefresh() {
         view.setRefreshing(state: true)
-        interactor.fetchPosts(limit: limit, cursor: cursor, type: configuration)
+        interactor.fetchPosts(limit: limit, type: configuration)
     }
     
     func didTapItem(path: IndexPath) {
@@ -193,16 +192,15 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
     // MARK: HomeInteractorOutput
     func didFetch(feed: PostsFeed) {
-        cursor = nil
         items = feed.items
         
         view.setRefreshing(state: false)
         view.reload()
     }
     
-    func didFetchMore(feed: PostsFeed, cursor: String?) {
+    func didFetchMore(feed: PostsFeed) {
         items.insert(contentsOf:feed.items, at: 0)
-        self.cursor = cursor
+
         view.setRefreshing(state: false)
         view.reload()
     }

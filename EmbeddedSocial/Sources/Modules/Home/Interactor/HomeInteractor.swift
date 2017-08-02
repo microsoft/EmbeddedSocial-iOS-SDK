@@ -8,7 +8,7 @@ typealias UserHandle = String
 
 protocol HomeInteractorInput {
     
-    func fetchPosts(limit: Int32?, cursor: String?, type: FeedType)
+    func fetchPosts(limit: Int32?, type: FeedType)
     
     func like(with id: PostHandle)
     func unlike(with id: PostHandle)
@@ -19,7 +19,7 @@ protocol HomeInteractorInput {
 protocol HomeInteractorOutput: class {
     
     func didFetch(feed: PostsFeed)
-    func didFetchMore(feed: PostsFeed, cursor: String?)
+    func didFetchMore(feed: PostsFeed)
     func didFail(error: FeedServiceError)
     
     func didLike(post id: PostHandle)
@@ -35,13 +35,21 @@ class HomeInteractor: HomeInteractorInput {
     var likesService: LikesServiceProtocol = LikesService()
     var pinsService: PinsServiceProtocol! = PinsService()
     
-    var isFetching = false
-    private var fetchingCursor: String? = nil
+    var isFetching = false {
+        didSet {
+            Logger.log(isFetching)
+        }
+    }
+    private var cursor: String? = nil {
+        didSet {
+            Logger.log(cursor)
+        }
+    }
     
     private lazy var fetchHandler: FetchResultHandler = { [unowned self] result in
         
         self.isFetching = false
-        
+    
         guard result.error == nil else {
             self.output.didFail(error: result.error!)
             return
@@ -49,16 +57,18 @@ class HomeInteractor: HomeInteractorInput {
         
         let feed = PostsFeed(items: result.posts)
         
-        if self.fetchingCursor == nil {
+        if self.cursor == nil {
             self.output.didFetch(feed: feed)
         } else {
-            self.output.didFetchMore(feed: feed, cursor: result.cursor)
+            self.output.didFetchMore(feed: feed)
         }
+        
+        self.cursor = result.cursor
+        
     }
     
-    func fetchPosts(limit: Int32? = nil, cursor: String? = nil, type: FeedType) {
+    func fetchPosts(limit: Int32? = nil, type: FeedType) {
     
-        fetchingCursor = cursor
         isFetching = true
         
         switch type {
@@ -67,13 +77,13 @@ class HomeInteractor: HomeInteractorInput {
             // TODO: use UserAPI for home feed fetch
             var query = RecentFeedQuery()
             query.limit = limit
-            query.cursor = cursor
+            query.cursor = self.cursor
             postService.fetchRecent(query: query, completion: fetchHandler)
 
         case let .popular(type: range):
             var query = PopularFeedQuery()
             query.limit = limit
-            query.cursor = nil
+            query.cursor = self.cursor == nil ? nil : Int32(self.cursor!)
             
             switch range {
             case .alltime:
