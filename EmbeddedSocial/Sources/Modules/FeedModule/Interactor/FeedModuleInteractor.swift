@@ -66,7 +66,6 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         }
         
         self.cursor = result.cursor
-        
     }
     
     func fetchPosts(limit: Int32? = nil, feedType: FeedType) {
@@ -113,7 +112,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             
             switch scope {
             case .popular:
-                postService.fetchRecent(query: query, completion: fetchHandler)
+                postService.fetchPopular(query: query, completion: fetchHandler)
             case .recent:
                 postService.fetchRecent(query: query, completion: fetchHandler)
             }
