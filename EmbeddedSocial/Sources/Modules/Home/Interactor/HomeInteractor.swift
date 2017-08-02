@@ -8,7 +8,7 @@ typealias UserHandle = String
 
 protocol HomeInteractorInput {
     
-    func fetchPosts(limit: Int32?, type: FeedType)
+    func fetchPosts(limit: Int32?, feedType: FeedType)
     
     func like(with id: PostHandle)
     func unlike(with id: PostHandle)
@@ -34,6 +34,8 @@ class HomeInteractor: HomeInteractorInput {
     var postService: PostServiceProtocol!
     var likesService: LikesServiceProtocol = LikesService()
     var pinsService: PinsServiceProtocol! = PinsService()
+    
+    var cachedFeedType: FeedType?
     
     var isFetching = false {
         didSet {
@@ -67,11 +69,18 @@ class HomeInteractor: HomeInteractorInput {
         
     }
     
-    func fetchPosts(limit: Int32? = nil, type: FeedType) {
+    func fetchPosts(limit: Int32? = nil, feedType: FeedType) {
     
         isFetching = true
         
-        switch type {
+        if cachedFeedType != feedType {
+            // clean
+            self.cursor = nil
+        }
+        
+        cachedFeedType = feedType
+        
+        switch feedType {
             
         case .recent, .home:
             // TODO: use UserAPI for home feed fetch

@@ -75,7 +75,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     var interactor: HomeInteractorInput!
     var router: HomeRouterInput!
     
-    private var configuration: FeedType = .home
+    private var feedType: FeedType = .home
     private var layout: HomeLayoutType = .list
     private let limit = Int32(3) // Default
     private var items = [Post]()
@@ -88,24 +88,15 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     // MARK: HomeModuleInput
     
     func setFeed(_ feed: FeedType) {
-        configuration = feed
+        feedType = feed
+    }
+    
+    func refreshData() {
+        view.setRefreshing(state: true)
+        interactor.fetchPosts(limit: limit, feedType: feedType)
     }
     
     // MARK: Private
-    
-    private func didRequestFeed() {
-        
-//        switch configuration {
-//        case .home:
-//            interactor.fetchPosts(with: limit)
-//        case .recent:
-//            interactor.fetchPosts(with: limit)
-//        case .popular(let type = Feed.PopularType.alltime)
-//            interactor.fe
-//        }
-        
-        
-    }
     
     private lazy var dateFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -184,8 +175,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     }
     
     func didPullRefresh() {
-        view.setRefreshing(state: true)
-        interactor.fetchPosts(limit: limit, type: configuration)
+        refreshData()
     }
     
     func didTapItem(path: IndexPath) {

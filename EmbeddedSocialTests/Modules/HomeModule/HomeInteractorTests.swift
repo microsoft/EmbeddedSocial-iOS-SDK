@@ -1,9 +1,6 @@
 //
-//  HomeInteractor.swift
-//  EmbeddedSocialTests
-//
-//  Created by Igor Popov on 8/2/17.
-//  Copyright © 2017 Akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import XCTest
@@ -72,7 +69,7 @@ class HomeInteractorTests: XCTestCase {
         let feedType = FeedType.home
         
         // when
-        sut.fetchPosts(type: feedType)
+        sut.fetchPosts(feedType: feedType)
         
         // then
         XCTAssertTrue(postService.fetchRecentIsCalled)
@@ -90,7 +87,7 @@ class HomeInteractorTests: XCTestCase {
         let feedType = FeedType.popular(type: .today)
         
         // when
-        sut.fetchPosts(type: feedType)
+        sut.fetchPosts(feedType: feedType)
         
         // then
         XCTAssertTrue(postService.fetchPopularIsCalled)
@@ -103,7 +100,7 @@ class HomeInteractorTests: XCTestCase {
         let feedType = FeedType.single(post: "handle")
         
         // when
-        sut.fetchPosts(type: feedType)
+        sut.fetchPosts(feedType: feedType)
         
         // then
         XCTAssertTrue(postService.fetchPostHandle == "handle")
@@ -123,5 +120,5 @@ class HomeInteractorTests: XCTestCase {
         XCTAssertTrue(postService.fetchRecentForUserQuery!.limit == 20)
         XCTAssertTrue(postService.fetchRecentForUserQuery!.user == "user")
     }
-
+    
 }

@@ -48,14 +48,17 @@ class UserProfileViewController: UIViewController {
         return summaryView
     }()
     
+    private var feedModuleInput: HomeModuleInput!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
         
         // Module
         let configurator = HomeModuleConfigurator()
+        configurator.configure()
     
-        let feedModuleInput = configurator.moduleInput!
+        feedModuleInput = configurator.moduleInput!
         let feedViewController = configurator.viewController!
         
         feedViewController.willMove(toParentViewController: self)
@@ -71,9 +74,15 @@ class UserProfileViewController: UIViewController {
         let feed = FeedType.user(user: "3v9gnzwILTS", scope: .recent)
         feedModuleInput.setFeed(feed)
         
-    }
+        // Sample for input change
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            
+            let feed = FeedType.single(post: "3vErWk4EMrF")
+            self.feedModuleInput.setFeed(feed)
+            self.feedModuleInput.refreshData()
+        }
 
-    
+    }
 }
 
 extension UserProfileViewController: UserProfileViewInput {

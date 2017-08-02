@@ -6,5 +6,6 @@
 protocol HomeModuleInput: class {
     
     func setFeed(_ feed: FeedType)
+    func refreshData()
     
 }
