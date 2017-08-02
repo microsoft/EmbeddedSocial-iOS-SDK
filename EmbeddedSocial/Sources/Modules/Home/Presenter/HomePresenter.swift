@@ -9,10 +9,16 @@ enum FeedType {
         case today, weekly, alltime
     }
     
+    enum UserFeedScope: Int {
+        case recent, popular
+    }
+    
     // Shows home feed
     case home
     // Shows recent feed
     case recent
+    // Shows users feed
+    case user(user: UserHandle, scope: UserFeedScope)
     // Shows popular feed
     case popular(type: TimeRange)
     // Shows single post
@@ -27,6 +33,8 @@ extension FeedType: Equatable {
             return true
         case (.recent, .recent):
             return true
+        case let (.user(lefthandle, leftscope), .user(righthandle, rightscope)):
+            return lefthandle == righthandle && leftscope == rightscope
         case let (.popular(left), .popular(right)):
             return left == right
         case let (.single(left), .single(right)):
@@ -71,6 +79,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     private var layout: HomeLayoutType = .list
     private let limit = 3 // Default
     private var items = [Post]()
+    private var cursor: String?
     
     required init(configuration: FeedType) {
         self.configuration = configuration
@@ -175,7 +184,7 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     
     func didPullRefresh() {
         view.setRefreshing(state: true)
-        interactor.fetchPosts(with: limit, type: configuration)
+        interactor.fetchPosts(limit: limit, cursor: cursor, type: configuration)
     }
     
     func didTapItem(path: IndexPath) {

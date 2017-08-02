@@ -8,8 +8,8 @@ import Foundation
 class Logger {
     
     enum LogEvent: String {
-        case error = "⚠️ "
-        case verbose = "💬 "
+        case error = "⚠️"
+        case verbose = "💬"
     }
     
     class func log(_ something: Any?,

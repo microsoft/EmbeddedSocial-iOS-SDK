@@ -4,10 +4,11 @@
 //
 
 typealias PostHandle = String
+typealias UserHandle = String
 
 protocol HomeInteractorInput {
     
-    func fetchPosts(with limit: Int, type: FeedType)
+    func fetchPosts(limit: Int?, cursor: String?, type: FeedType)
     
     func like(with id: PostHandle)
     func unlike(with id: PostHandle)
@@ -56,11 +57,42 @@ class HomeInteractor: HomeInteractorInput {
     }
     
     
-    func fetchPosts(with limit: Int, type: FeedType) {
-        var query = RecentFeedQuery()
-        query.limit = Int32(limit)
-        query.cursor = ""
-        postService.fetchRecent(query: query, result: fetchHandler)
+    func fetchPosts(limit: Int? = nil, cursor: String? = nil, type: FeedType) {
+        
+        switch type {
+        case .home:
+             print(type)
+        case .recent:
+            var query = RecentFeedQuery()
+            query.limit = limit != nil ? Int32(limit!) : nil
+            query.cursor = cursor
+            postService.fetchRecent(query: query, result: fetchHandler)
+
+        case let .popular(type: range):
+            var query = PopularFeedQuery()
+            query.limit = limit != nil ? Int32(limit!) : nil
+            query.cursor = nil
+            
+            switch range {
+            case .alltime:
+                query.timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.allTime
+            case .today:
+                query.timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.today
+            case .weekly:
+                query.timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.thisWeek
+            }
+            
+            postService.fetchPopular(query: query, result: fetchHandler)
+            
+        case let .single(post: post):
+            print(post)
+        
+        case .user(let user, let scope):
+            print(user, scope)
+        }
+        
+        
+        
     }
     
     //

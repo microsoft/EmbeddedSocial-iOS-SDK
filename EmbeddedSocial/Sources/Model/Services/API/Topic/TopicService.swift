@@ -40,6 +40,14 @@ struct RecentFeedQuery {
     var limit: Int32?
 }
 
+struct UserFeedQuery {
+    var cursor: String?
+    var limit: Int32?
+    var user: UserHandle!
+}
+
+
+
 protocol PostServiceProtocol {
     
     func fetchPopular(query: PopularFeedQuery, result: @escaping FetchResultHandler)
@@ -127,6 +135,12 @@ class TopicService: PostServiceProtocol {
     func fetchRecent(query: RecentFeedQuery, result: @escaping FetchResultHandler) {
         TopicsAPI.topicsGetTopics(cursor: query.cursor,
                                   limit: query.limit) { [weak self] response, error in
+            self?.parseResponse(response: response, error: error, completion: result)
+        }
+    }
+    
+    func fetchRecent(query: UserFeedQuery, result: @escaping FetchResultHandler) {
+        UsersAPI.userTopicsGetTopics(userHandle: query.user, cursor: query.user, limit: query.limit) { [weak self] response, error in
             self?.parseResponse(response: response, error: error, completion: result)
         }
     }

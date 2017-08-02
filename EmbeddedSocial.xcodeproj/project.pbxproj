@@ -850,7 +850,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				886B3ADF1F13B92B00BF1A8E /* EmbeddedSocial.framework in Frameworks */,
-				0F28FFBD2FFB53F0E69D1137 /* Pods_Group_EmbeddedSocial_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
