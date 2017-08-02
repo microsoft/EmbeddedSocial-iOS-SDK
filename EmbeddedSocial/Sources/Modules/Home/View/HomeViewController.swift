@@ -127,7 +127,7 @@ class HomeViewController: UIViewController, HomeViewInput {
     
     // MARK: HomeViewInput
     func setupInitialState() {
-        collectionView!.addSubview(refreshControl)
+    
     }
     
     func setLayout(type: HomeLayoutType) {

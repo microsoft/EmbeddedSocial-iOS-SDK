@@ -75,18 +75,20 @@ class HomePresenter: HomeModuleInput, HomeViewOutput, HomeInteractorOutput {
     var interactor: HomeInteractorInput!
     var router: HomeRouterInput!
     
-    private var configuration: FeedType
+    private var configuration: FeedType = .home
     private var layout: HomeLayoutType = .list
     private let limit = Int32(3) // Default
     private var items = [Post]()
-    
-    required init(configuration: FeedType) {
-        self.configuration = configuration
-    }
-    
+   
     func didTapChangeLayout() {
         flip(layout: &layout)
         view.setLayout(type: layout)
+    }
+    
+    // MARK: HomeModuleInput
+    
+    func setFeed(_ feed: FeedType) {
+        configuration = feed
     }
     
     // MARK: Private
