@@ -11,22 +11,23 @@ private class MockPostService: PostServiceProtocol {
     var result: PostFetchResult!
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
-    
+        completion(result)
     }
     
     func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {
+        completion(result)
     }
     
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        
+        completion(result)
     }
     
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        
+        completion(result)
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        
+        completion(result)
     }
     
 }
@@ -56,11 +57,11 @@ private class MockPresenter: FeedModuleInteractorOutput {
     
 }
 
-private class FeedModuleInteractor_Pagination_Tests: XCTestCase {
+class FeedModuleInteractor_Pagination_Tests: XCTestCase {
     
     var sut: FeedModuleInteractor!
-    var input: MockPostService!
-    var output: MockPresenter!
+    private var input: MockPostService!
+    private var output: MockPresenter!
     
     override func setUp() {
         super.setUp()
@@ -70,14 +71,13 @@ private class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         sut.postService = input
         output = MockPresenter()
         sut.output = output
-
     }
     
     override func tearDown() {
         super.tearDown()
     }
     
-    func testIfPostsEqual() {
+    func testPostsAreEqual() {
         
         let a = Post.mock(seed: 100)
         let b = Post.mock(seed: 100)
@@ -85,8 +85,17 @@ private class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         XCTAssertTrue(a == b)
     }
     
-    func testSinglePostFetchResultIsCorrect() {
+    func testPostsAreNotEqual() {
+        
+        let a = Post.mock(seed: 100)
+        let b = Post.mock(seed: 101)
+        
+        XCTAssertTrue(a != b)
+    }
     
+    
+    
+    func testSinglePostFetchResultIsCorrect() {
         // given
         let expectedPost = Post.mock(seed: 100)
         var expectedResult = PostFetchResult()
@@ -94,17 +103,34 @@ private class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         expectedResult.error = nil
         expectedResult.posts = [expectedPost]
         
-        input.result = PostFetchResult()
+        input.result = expectedResult
     
         // when
         sut.fetchPosts(limit: 23, feedType: .single(post: "handle"))
         
-        Post.mock(seed: 101)
+        // then
+        XCTAssertTrue(output.fetchedFeed.items.count == 1)
+        XCTAssertTrue(output.fetchedFeed.items.last == expectedPost)
+    }
+    
+    func testSinglePostFetchResultIsCorrect() {
+        
+        // given
+        let expectedPost = Post.mock(seed: 100)
+        var expectedResult = PostFetchResult()
+        expectedResult.cursor = nil
+        expectedResult.error = nil
+        expectedResult.posts = [expectedPost]
+        
+        input.result = expectedResult
+        
+        // when
+        sut.fetchPosts(limit: 23, feedType: .single(post: "handle"))
+        
         
         // then
         XCTAssertTrue(output.fetchedFeed.items.count == 1)
-//        XCTAssertTrue(output.fetchedFeed.items.last! == expectedPost)
-        
+        XCTAssertTrue(output.fetchedFeed.items.last == expectedPost)
     }
     
     
