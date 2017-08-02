@@ -12,26 +12,7 @@ struct MyFollowersAPI: UsersListAPI {
         self.service = service
     }
     
-    func getUsersList(completion: @escaping (Result<[User]>) -> Void) {
-        let users = [
-            makeDummyUser(),
-            makeDummyUser(),
-            makeDummyUser(),
-            makeDummyUser(),
-            makeDummyUser()
-        ]
-        completion(.success(users))
-        
-//        service.getMyFollowers(completion: completion)
-    }
-    
-    private func makeDummyUser() -> User {
-        return User(
-            uid: UUID().uuidString,
-            firstName: "\(UUID().uuidString.components(separatedBy: "-").first!)",
-            lastName: "\(UUID().uuidString.components(separatedBy: "-").first!)",
-            visibility: ._public,
-            followerStatus: .empty
-        )
+    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<([User], String?)>) -> Void) {
+        service.getMyFollowers(cursor: cursor, limit: limit, completion: completion)
     }
 }

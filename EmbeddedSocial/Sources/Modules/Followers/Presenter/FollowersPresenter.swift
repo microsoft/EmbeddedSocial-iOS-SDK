@@ -12,7 +12,6 @@ class FollowersPresenter: FollowersViewOutput {
     func viewIsReady() {
         view.setupInitialState(userListView: usersList.listView)
         usersList.setupInitialState()
-        usersList.loadList()
     }
 }
 

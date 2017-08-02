@@ -6,7 +6,7 @@
 import Foundation
 
 protocol UserListInteractorInput {
-    func getUsers(completion: @escaping (Result<[User]>) -> Void)
+    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<([User], String?)>) -> Void)
     
     func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void)
 }

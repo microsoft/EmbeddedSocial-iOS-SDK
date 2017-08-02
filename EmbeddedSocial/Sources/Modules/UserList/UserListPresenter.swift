@@ -6,9 +6,39 @@
 import Foundation
 
 class UserListPresenter {
+    typealias ListState = PaginatedResponse<User, String>
+    
     var view: UserListViewInput!
     var interactor: UserListInteractorInput!
     weak var moduleOutput: UserListModuleOutput?
+    
+    private var listState = ListState(items: [], error: nil, cursor: nil)
+    
+    fileprivate var isLoadingList = false {
+        didSet {
+            view.setIsLoading(isLoadingList)
+        }
+    }
+    
+    func loadNextPage() {
+        isLoadingList = true
+        
+        interactor.getUsersList(cursor: listState.cursor, limit: Constants.UserList.pageSize) { [weak self] result in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            if result.isSuccess {
+                strongSelf.listState = strongSelf.listState.reduce(result: result)
+                strongSelf.view.setUsers(strongSelf.listState.items)
+                strongSelf.moduleOutput?.didLoadList(listView: strongSelf.listView)
+            } else {
+                strongSelf.moduleOutput?.didFailToLoadList(listView: strongSelf.listView, error: result.error ?? APIError.unknown)
+            }
+            
+            strongSelf.isLoadingList = false
+        }
+    }
 }
 
 extension UserListPresenter: UserListViewOutput {
@@ -35,10 +65,16 @@ extension UserListPresenter: UserListViewOutput {
             }
         }
     }
+    
+    func onReachingEndOfPage() {
+        guard !isLoadingList else {
+            return
+        }
+        loadNextPage()
+    }
 }
 
 extension UserListPresenter: UserListModuleInput {
-    
     var listView: UIView {
         guard let view = view as? UIView else {
             fatalError("View not set")
@@ -48,20 +84,6 @@ extension UserListPresenter: UserListModuleInput {
     
     func setupInitialState() {
         view.setupInitialState()
-    }
-    
-    func loadList() {
-        interactor.getUsers { [weak self] result in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            if let users = result.value {
-                strongSelf.view.setUsers(users)
-                strongSelf.moduleOutput?.didLoadList(listView: strongSelf.listView)
-            } else {
-                strongSelf.moduleOutput?.didFailToLoadList(listView: strongSelf.listView, error: result.error ?? APIError.unknown)
-            }
-        }
+        loadNextPage()
     }
 }

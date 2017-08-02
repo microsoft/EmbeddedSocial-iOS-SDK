@@ -17,4 +17,13 @@ enum Visibility: Int {
             self = ._private
         }
     }
+    
+    init(visibility: UserCompactView.Visibility) {
+        switch visibility {
+        case ._public:
+            self = ._public
+        default:
+            self = ._private
+        }
+    }
 }

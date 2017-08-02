@@ -16,7 +16,7 @@ protocol SocialServiceType {
     
     func block(userID: String, completion: @escaping (Result<Void>) -> Void)
     
-    func getMyFollowers(completion: @escaping (Result<[User]>) -> Void)
+    func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<([User], String?)>) -> Void)
     
     func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void)
 }
@@ -63,8 +63,16 @@ struct SocialService: SocialServiceType {
         }
     }
     
-    func getMyFollowers(completion: @escaping (Result<[User]>) -> Void) {
-        
+    func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<([User], String?)>) -> Void) {
+        SocialAPI.myFollowingGetFollowingUsers(cursor: cursor, limit: Int32(limit)) { response, error in
+            if let response = response {
+                let users = response.data?.map(User.init) ?? []
+                let result = (users, response.cursor)
+                completion(.success(result))
+            } else {
+                completion(.failure(APIError(error: error as? ErrorResponse)))
+            }
+        }
     }
     
     func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void) {

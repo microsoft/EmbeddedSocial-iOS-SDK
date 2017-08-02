@@ -17,10 +17,9 @@ final class UserProfileRouter: UserProfileRouterInput {
     }
     
     func openFollowing(user: User) {
-        let vc = UIViewController()
-        vc.title = "Following"
-        vc.view.backgroundColor = .white
-        viewController?.navigationController?.pushViewController(vc, animated: true)
+        let configurator = FollowersConfigurator()
+        configurator.configure()
+        viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
     func openEditProfile(user: User) {

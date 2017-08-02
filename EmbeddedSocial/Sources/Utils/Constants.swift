@@ -19,6 +19,10 @@ extension Constants {
         static let uploadPhotoHeight: CGFloat = 84.0
         static let maxBioLength = 500
     }
+    
+    struct UserList {
+        static let pageSize = 10
+    }
 }
 
 extension Constants {

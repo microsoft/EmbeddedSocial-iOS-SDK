@@ -96,6 +96,22 @@ extension User {
         followerStatus = FollowStatus(status: profileView.followerStatus)
         followingStatus = FollowStatus(status: profileView.followingStatus)
     }
+    
+    init(compactView: UserCompactView) {
+        uid = compactView.userHandle!
+        firstName = compactView.firstName
+        lastName = compactView.lastName
+        photo = Photo(uid: compactView.photoHandle ?? UUID().uuidString, url: compactView.photoUrl)
+        visibility = compactView.visibility != nil ? Visibility(visibility: compactView.visibility!) : ._private
+        followerStatus = FollowStatus(status: compactView.followerStatus)
+        
+        email = nil
+        bio = nil
+        followersCount = 0
+        followingCount = 0
+        followingStatus = nil
+        credentials = nil
+    }
 }
 
 extension User: Equatable {

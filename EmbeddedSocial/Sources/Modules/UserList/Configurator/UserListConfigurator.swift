@@ -6,7 +6,7 @@
 import Foundation
 
 protocol UsersListAPI {
-    func getUsersList(completion: @escaping (Result<[User]>) -> Void)
+    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<([User], String?)>) -> Void)
 }
 
 struct UserListConfigurator {

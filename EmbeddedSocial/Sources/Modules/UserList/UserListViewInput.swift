@@ -13,4 +13,6 @@ protocol UserListViewInput: class {
     func updateListItem(with user: User, at indexPath: IndexPath)
     
     func setIsLoading(_ isLoading: Bool, itemAt indexPath: IndexPath)
+    
+    func setIsLoading(_ isLoading: Bool)
 }

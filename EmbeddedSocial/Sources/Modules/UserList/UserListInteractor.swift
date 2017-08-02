@@ -14,8 +14,8 @@ class UserListInteractor: UserListInteractorInput {
         self.socialService = socialService
     }
     
-    func getUsers(completion: @escaping (Result<[User]>) -> Void) {
-        api.getUsersList(completion: completion)
+    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<([User], String?)>) -> Void) {
+        api.getUsersList(cursor: cursor, limit: limit, completion: completion)
     }
     
     func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void) {

@@ -9,6 +9,4 @@ protocol UserListModuleInput: class {
     var listView: UIView { get }
 
     func setupInitialState()
-    
-    func loadList()
 }

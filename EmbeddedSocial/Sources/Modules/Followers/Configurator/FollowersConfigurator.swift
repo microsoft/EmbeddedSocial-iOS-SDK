@@ -10,6 +10,7 @@ final class FollowersConfigurator {
     
     init() {
         viewController = StoryboardScene.Followers.instantiateFollowersViewController()
+        viewController.title = "Followers"
     }
     
     func configure() {

@@ -7,4 +7,6 @@ import Foundation
 
 protocol UserListViewOutput: class {
     func onItemAction(item: UserListItem)
+    
+    func onReachingEndOfPage()
 }

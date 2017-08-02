@@ -6,6 +6,8 @@
 import UIKit
 import SnapKit
 
+private let loadingIndicatorHeight: CGFloat = 44.0
+
 class UserListView: UIView {
     
     weak var output: UserListViewOutput!
@@ -13,6 +15,7 @@ class UserListView: UIView {
     var dataManager: UserListDataDisplayManager! {
         didSet {
             dataManager.onItemAction = { [weak self] in self?.output.onItemAction(item: $0) }
+            dataManager.onReachingEndOfPage = { [weak self] in self?.output.onReachingEndOfPage() }
             dataManager.tableView = tableView
         }
     }
@@ -24,6 +27,13 @@ class UserListView: UIView {
         tableView.tableFooterView = UIView()
         self.addSubview(tableView)
         return tableView
+    }()
+    
+    fileprivate lazy var loadingIndicatorView: LoadingIndicatorView = { [unowned self] in
+        let frame = CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: loadingIndicatorHeight)
+        let view = LoadingIndicatorView(frame: frame)
+        view.apply(style: .standard)
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -52,5 +62,14 @@ extension UserListView: UserListViewInput {
     
     func setUsers(_ users: [User]) {
         dataManager.setup(with: users)
+    }
+    
+    func setIsLoading(_ isLoading: Bool) {
+        loadingIndicatorView.isLoading = isLoading
+        if isLoading {
+            tableView.tableFooterView = loadingIndicatorView
+        } else {
+            tableView.tableFooterView = UIView()
+        }
     }
 }

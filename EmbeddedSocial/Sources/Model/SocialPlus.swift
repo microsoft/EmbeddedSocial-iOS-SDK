@@ -32,21 +32,17 @@ public final class SocialPlus {
     }
     
     public func start(launchArguments args: LaunchArguments) {
-        let configurator = FollowersConfigurator()
-        configurator.configure()
-        args.window.rootViewController = UINavigationController(rootViewController: configurator.viewController)
+        serviceProvider.getThirdPartyConfigurator().setup(application: args.app, launchOptions: args.launchOptions)
+        coordinator.setup(launchArguments: args, loginHandler: self)
+        setupCoreDataStack()
+        setupCache(stack: coreDataStack)
         
-//        serviceProvider.getThirdPartyConfigurator().setup(application: args.app, launchOptions: args.launchOptions)
-//        coordinator.setup(launchArguments: args, loginHandler: self)
-//        setupCoreDataStack()
-//        setupCache(stack: coreDataStack)
-//        
-//        if sessionStore.isLoggedIn {
-//            APISettings.shared.customHeaders = sessionStore.user.credentials?.authHeader ?? [:]
-//            coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
-//        } else {
-//            APISettings.shared.customHeaders = APISettings.shared.anonymousHeaders
-//        }
+        if sessionStore.isLoggedIn {
+            APISettings.shared.customHeaders = sessionStore.user.credentials?.authHeader ?? [:]
+            coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
+        } else {
+            APISettings.shared.customHeaders = APISettings.shared.anonymousHeaders
+        }
     }
     
     private func setupCoreDataStack() {

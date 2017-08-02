@@ -24,8 +24,8 @@ class LoadingIndicatorView: UIView {
         label.textAlignment = .center
         self.addSubview(label)
         label.snp.makeConstraints { make in
-            make.left.equalTo(self).offset(8)
-            make.right.equalTo(self).offset(-8)
+            make.left.equalTo(self).offset(8).priority(.medium)
+            make.right.equalTo(self).offset(-8).priority(.medium)
             make.centerY.equalTo(self)
         }
         return label
