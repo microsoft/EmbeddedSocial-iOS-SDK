@@ -5,6 +5,8 @@
 
 import Foundation
 
+protocol AutoEquatable {}
+
 struct Post {
 
     public var topicHandle: String!
@@ -27,7 +29,6 @@ struct Post {
 
     public var liked: Bool!
     public var pinned: Bool!
-
 }
 
 extension Post {
@@ -42,8 +43,9 @@ extension Post {
         post.totalComments = Int64(seed) + 10
         return post
     }
-    
 }
+
+extension Post: AutoEquatable {}
 
 // MARK: PostsFeed
 
@@ -52,7 +54,7 @@ struct PostsFeed {
 }
 
 // MARK: PostsFetchResult
-
+//
 struct PostFetchResult {
     var posts: [Post] = [Post]()
     var error: FeedServiceError?

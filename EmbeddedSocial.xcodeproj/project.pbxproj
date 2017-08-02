@@ -376,6 +376,7 @@
 		8EF0E5CC1F2AA2D000E88ED6 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E5CB1F2AA2D000E88ED6 /* TextField.swift */; };
 		8EF0E5CE1F2AA66800E88ED6 /* CreatePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E5CD1F2AA66800E88ED6 /* CreatePost.swift */; };
 		8EF0E5D01F2AB17000E88ED6 /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E5CF1F2AB17000E88ED6 /* Readme.md */; };
+		9C316E141F31F7A700B90089 /* AutoEquatebale.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C316E131F31F77600B90089 /* AutoEquatebale.generated.swift */; };
 		9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8B1F25D60A00D0B59D /* PostCell.xib */; };
 		9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */; };
 		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
@@ -838,6 +839,7 @@
 		8EF0E5CB1F2AA2D000E88ED6 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		8EF0E5CD1F2AA66800E88ED6 /* CreatePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePost.swift; sourceTree = "<group>"; };
 		8EF0E5CF1F2AB17000E88ED6 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
+		9C316E131F31F77600B90089 /* AutoEquatebale.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoEquatebale.generated.swift; sourceTree = "<group>"; };
 		9C43EC8B1F25D60A00D0B59D /* PostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuButton.swift; path = ../Common/SideMenuButton.swift; sourceTree = "<group>"; };
@@ -1124,6 +1126,7 @@
 		88580AB61F2213AB00C1CBAF /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				9C316E121F31F60C00B90089 /* Sourcery */,
 				88580AB91F2213AB00C1CBAF /* APIs */,
 				88580ACC1F2213AB00C1CBAF /* Models */,
 				88580AFE1F2213AB00C1CBAF /* SwiftGen */,
@@ -2060,6 +2063,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		9C316E121F31F60C00B90089 /* Sourcery */ = {
+			isa = PBXGroup;
+			children = (
+				9C316E131F31F77600B90089 /* AutoEquatebale.generated.swift */,
+			);
+			path = Sourcery;
+			sourceTree = "<group>";
+		};
 		9C43EC8A1F25D60A00D0B59D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -2845,6 +2856,7 @@
 				88580C6A1F2213AB00C1CBAF /* TabMenuContainerInteractorInput.swift in Sources */,
 				88580C001F2213AB00C1CBAF /* PutPushRegistrationRequest.swift in Sources */,
 				88580C3C1F2213AB00C1CBAF /* CreateAccountViewController.swift in Sources */,
+				9C316E141F31F7A700B90089 /* AutoEquatebale.generated.swift in Sources */,
 				88580C091F2213AB00C1CBAF /* UserProfileView.swift in Sources */,
 				88580C2F1F2213AB00C1CBAF /* UserService.swift in Sources */,
 				3209330D1F2A50D300890218 /* Logger.swift in Sources */,
