@@ -67,7 +67,7 @@ class HomeInteractorTests: XCTestCase {
 
     }
     
-    func testThatHomeFeedSucceeds() {
+    func testThatHomeFeedFetchRequestIsValid() {
         
         // given
         let feedType = FeedType.home
@@ -85,7 +85,7 @@ class HomeInteractorTests: XCTestCase {
         XCTAssertTrue(postService.fetchRecentQuery!.limit == 20)
     }
     
-    func testThatPopularFeedSucceeds() {
+    func testThatPopularFeedFetchRequestIsValid() {
         
         // given
         let feedType = FeedType.popular(type: .today)
@@ -98,7 +98,7 @@ class HomeInteractorTests: XCTestCase {
         XCTAssertTrue(postService.fetchPopularQuery!.timeRange == .today )
     }
     
-    func testThatSinglePostFeedSucceeds() {
+    func testThatSinglePostFetchFeedRequestIsValid() {
         
         // given
         let feedType = FeedType.single(post: "handle")
@@ -110,7 +110,7 @@ class HomeInteractorTests: XCTestCase {
         XCTAssertTrue(postService.fetchPostHandle == "handle")
     }
     
-    func testThatUserFeedFetchSucceeds() {
+    func testThatUserFeedFetchRequestIsValid() {
         
         // given
         let feedType = FeedType.user(user: "user", scope: .recent)
