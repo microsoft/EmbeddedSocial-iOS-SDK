@@ -40,8 +40,8 @@ internal func == (lhs: Post, rhs: Post) -> Bool {
     guard compareOptionals(lhs: lhs.deepLink, rhs: rhs.deepLink, compare: ==) else { return false }
     guard lhs.totalLikes == rhs.totalLikes else { return false }
     guard lhs.totalComments == rhs.totalComments else { return false }
-    guard compareOptionals(lhs: lhs.liked, rhs: rhs.liked, compare: ==) else { return false }
-    guard compareOptionals(lhs: lhs.pinned, rhs: rhs.pinned, compare: ==) else { return false }
+    guard lhs.liked == rhs.liked else { return false }
+    guard lhs.pinned == rhs.pinned else { return false }
     return true
 }
 
