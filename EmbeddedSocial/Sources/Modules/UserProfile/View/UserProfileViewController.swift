@@ -7,7 +7,7 @@ import UIKit
 import SnapKit
 
 private let headerAspectRatio: CGFloat = 2.25
-private let containerInset: CGFloat = 4.0
+private let containerInset: CGFloat = 6.0
 private let filterHeight: CGFloat = 44.0
 
 class UserProfileViewController: UIViewController {
@@ -16,6 +16,7 @@ class UserProfileViewController: UIViewController {
     
     @IBOutlet fileprivate weak var containerTableView: UITableView! {
         didSet {
+            containerTableView.backgroundColor = .clear
             containerTableView.dataSource = self
             containerTableView.delegate = self
         }
@@ -45,13 +46,19 @@ class UserProfileViewController: UIViewController {
         
         let width = UIScreen.main.bounds.width - containerInset * 2
         summaryView.frame = CGRect(x: 0.0, y: 0.0, width: width, height: width / headerAspectRatio)
-        
+
         return summaryView
     }()
     
-    fileprivate lazy var filterView: UserProfileFilterView = { [unowned self] in
-        let filterView = UserProfileFilterView.fromNib()
-        filterView.backgroundColor = .yellow
+    fileprivate lazy var filterView: SegmentedControlView = { [weak self] in
+        let filterView = SegmentedControlView.fromNib()
+        filterView.setSegments([
+            SegmentedControlView.Segment(title: "Recent posts", action: { self?.output.onRecent() }),
+            SegmentedControlView.Segment(title: "Popular posts", action: { self?.output.onPopular() })
+            ])
+        filterView.selectSegment(0)
+        filterView.isSeparatorHidden = false
+        filterView.separatorColor = Palette.extraLightGrey
         return filterView
     }()
     
@@ -65,7 +72,22 @@ extension UserProfileViewController: UserProfileViewInput {
     func setupInitialState() {
         parent?.navigationItem.rightBarButtonItem = createPostButton
         view.backgroundColor = Palette.extraLightGrey
-        containerTableView.tableHeaderView = summaryView
+        containerTableView.tableHeaderView = embeddedIntoContainer(view: summaryView)
+    }
+    
+    private func embeddedIntoContainer(view: UIView) -> UIView {
+        var containerFrame = view.frame
+        containerFrame.size.height += containerInset * 2
+        
+        let headerContainer = UIView(frame: containerFrame)
+        headerContainer.backgroundColor = Palette.extraLightGrey
+        headerContainer.addSubview(view)
+        
+        var viewFrame = view.frame
+        viewFrame.origin.y = containerInset
+        view.frame = viewFrame
+        
+        return headerContainer
     }
     
     func showError(_ error: Error) {
