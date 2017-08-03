@@ -20,7 +20,13 @@ final class UserProfileRouter: UserProfileRouterInput {
     }
     
     func openFollowing(user: User) {
+        let api: UsersListAPI = user.isMe ?
+            MeFollowingAPI(service: SocialService()) :
+            UserFollowingAPI(userID: user.uid, service: SocialService())
         
+        let configurator = FollowingConfigurator()
+        configurator.configure(api: api)
+        viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
     func openEditProfile(user: User) {

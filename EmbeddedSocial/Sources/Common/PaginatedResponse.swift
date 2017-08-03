@@ -20,11 +20,11 @@ struct PaginatedResponse<Item, Cursor> {
 }
 
 extension PaginatedResponse where Item == User, Cursor == String {
-    func reduce(result: Result<([User], String?)>) -> PaginatedResponse {
-        let itemsToAdd = result.value?.0 ?? []
+    func reduce(result: Result<UsersListResponse>) -> PaginatedResponse {
+        let itemsToAdd = result.value?.users ?? []
         return PaginatedResponse(items: itemsToAdd + items,
-                                 hasMore: result.value?.1 != nil,
+                                 hasMore: result.value?.cursor != nil,
                                  error: result.error ?? error,
-                                 cursor: result.value?.1)
+                                 cursor: result.value?.cursor)
     }
 }

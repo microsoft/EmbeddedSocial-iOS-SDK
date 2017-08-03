@@ -22,6 +22,8 @@ extension UIImageView {
             image = cachedImage
         } else if let url = photo.url {
             sd_setImage(with: URL(string: url), placeholderImage: placeholder)
+        } else {
+            image = placeholder
         }
     }
 }

@@ -5,16 +5,14 @@
 
 import Foundation
 
-struct UserFollowersAPI: UsersListAPI {
+struct MeFollowingAPI: UsersListAPI {
     private let service: SocialServiceType
-    private let userID: String
     
-    init(userID: String, service: SocialServiceType) {
-        self.userID = userID
+    init(service: SocialServiceType) {
         self.service = service
     }
     
     func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        service.getMyFollowers(cursor: cursor, limit: limit, completion: completion)
+        service.getMyFollowing(cursor: cursor, limit: limit, completion: completion)
     }
 }

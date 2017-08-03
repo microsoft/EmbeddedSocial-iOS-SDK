@@ -12,7 +12,7 @@ struct MyFollowersAPI: UsersListAPI {
         self.service = service
     }
     
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<([User], String?)>) -> Void) {
+    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         service.getMyFollowers(cursor: cursor, limit: limit, completion: completion)
     }
 }
