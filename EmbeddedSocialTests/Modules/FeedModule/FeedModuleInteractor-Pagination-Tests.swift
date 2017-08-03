@@ -8,26 +8,26 @@ import XCTest
 
 private class MockPostService: PostServiceProtocol {
     
-    var result: PostFetchResult!
+    var mockedResult: PostFetchResult!
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
-        completion(result)
+        completion(mockedResult)
     }
     
     func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {
-        completion(result)
+        completion(mockedResult)
     }
     
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        completion(result)
+        completion(mockedResult)
     }
     
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        completion(result)
+        completion(mockedResult)
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        completion(result)
+        completion(mockedResult)
     }
     
 }
@@ -101,39 +101,39 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         // given
         let expectedPost = Post.mock(seed: 100)
         var expectedResult = PostFetchResult()
-        expectedResult.cursor = nil
-        expectedResult.error = nil
-        expectedResult.posts = [expectedPost]
+        mockedResult.cursor = nil
+        mockedResult.error = nil
+        mockedResult.posts = [expectedPost]
         
-        input.result = expectedResult
+        input.mockedResult = mockedResult
     
         // when
-        sut.fetchPosts(limit: 23, feedType: .single(post: "handle"))
+        sut.fetchPosts(limit: 1, feedType: .single(post: "handle"))
         
         // then
         XCTAssertTrue(output.fetchedFeed.items.count == 1)
         XCTAssertTrue(output.fetchedFeed.items.last == expectedPost)
     }
     
-    func testSinglePostFetchResultIsCorrect2() {
-        
-        // given
-        let expectedPost = Post.mock(seed: 100)
-        var expectedResult = PostFetchResult()
-        expectedResult.cursor = nil
-        expectedResult.error = nil
-        expectedResult.posts = [expectedPost]
-        
-        input.result = expectedResult
-        
-        // when
-        sut.fetchPosts(limit: 23, feedType: .single(post: "handle"))
-        
-        
-        // then
-        XCTAssertTrue(output.fetchedFeed.items.count == 1)
-        XCTAssertTrue(output.fetchedFeed.items.last == expectedPost)
-    }
+//    func testSinglePostFetchResultIsCorrect2() {
+//
+//        // given
+//        let expectedPost = Post.mock(seed: 100)
+//        var mockedResult = PostFetchResult()
+//        mockedResult.cursor = nil
+//        mockedResult.error = nil
+//        mockedResult.posts = [expectedPost]
+//
+//        input.mockedResult = mockedResult
+//
+//        // when
+//        sut.fetchPosts(limit: 1, feedType: .single(post: "handle"))
+//
+//
+//        // then
+//        XCTAssertTrue(output.fetchedFeed.items.count == 1)
+//        XCTAssertTrue(output.fetchedFeed.items.last == expectedPost)
+//    }
     
     
     

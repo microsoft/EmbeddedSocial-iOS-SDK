@@ -52,7 +52,6 @@ enum Asset: String {
   case iconSettings = "icon_settings"
   case logoWhite = "logo-white"
   case logo = "logo"
-  case placehoderPostAppIcon = "placehoder_post_app_icon"
   case placeholderPostImage = "placeholder_post_image"
   case placeholderPostNoimage = "placeholder_post_noimage"
   case placeholderPostUser1 = "placeholder_post_user_1"
