@@ -165,9 +165,15 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         case .like:
             
             let status = items[index].liked
-            let action:PostSocialAction = status ? .like : .unlike
+            let action:PostSocialAction = status ? .unlike : .like
             
             items[index].liked = !status
+            
+            if action == .like {
+                items[index].totalLikes += Int64(1)
+            } else if action == .unlike && items[index].totalLikes > 0{
+                items[index].totalLikes -= Int64(1)
+            }
             
             view.reload(with: index)
             interactor.postAction(post: postHandle, action: action)

@@ -6,7 +6,7 @@
 typealias PostHandle = String
 typealias UserHandle = String
 
-enum PostSocialAction {
+enum PostSocialAction: Int {
     case like, unlike, pin, unpin
 }
 
