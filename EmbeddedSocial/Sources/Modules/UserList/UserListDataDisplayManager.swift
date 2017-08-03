@@ -6,7 +6,6 @@
 import Foundation
 
 private let cellHeight: CGFloat = 66.0
-//private let cellHeight: CGFloat = 66.0
 
 final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
     typealias Section = SectionModel<Void, UserListItem>
@@ -15,7 +14,7 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
     
     var onItemAction: ((UserListItem) -> Void)?
     
-    var onReachingEndOfPage: (() -> Void)?
+    var onReachingEndOfContent: (() -> Void)?
     
     weak var tableView: UITableView!
     
@@ -69,7 +68,7 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
         }
     }
     
-    func isReachingEndOfScreen(scrollView: UIScrollView) -> Bool {
+    func isReachingEndOfContent(scrollView: UIScrollView) -> Bool {
         let contentLeft = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height
         let cellsLeft = contentLeft / cellHeight
         return cellsLeft < CGFloat(Constants.UserList.pageSize) / 2.0
@@ -98,8 +97,8 @@ extension UserListDataDisplayManager: UITableViewDelegate {
 
 extension UserListDataDisplayManager: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if isReachingEndOfScreen(scrollView: scrollView) {
-            onReachingEndOfPage?()
+        if isReachingEndOfContent(scrollView: scrollView) {
+            onReachingEndOfContent?()
         }
     }
 }

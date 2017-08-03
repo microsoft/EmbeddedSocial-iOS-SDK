@@ -298,6 +298,7 @@
 		886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 886B39DA1F13910B00BF1A8E /* Images.xcassets */; };
 		886B3ADF1F13B92B00BF1A8E /* EmbeddedSocial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* EmbeddedSocial.framework */; };
 		886F4B3B1F2A06E500D836C3 /* SocialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886F4B3A1F2A06E500D836C3 /* SocialService.swift */; };
+		8875CCD91F3314B6001F2474 /* UserFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCD81F3314B6001F2474 /* UserFollowersAPI.swift */; };
 		889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC021F220BCD003AAF19 /* CredentialsListTests.swift */; };
 		889AFC1E1F220BCD003AAF19 /* PhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC031F220BCD003AAF19 /* PhotoTests.swift */; };
 		889AFC1F1F220BCD003AAF19 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC041F220BCD003AAF19 /* UserTests.swift */; };
@@ -765,6 +766,7 @@
 		886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../Library/Developer/Xcode/DerivedData/EmbeddedSocial-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKLoginKit/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../Library/Developer/Xcode/DerivedData/EmbeddedSocial-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKShareKit/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		886F4B3A1F2A06E500D836C3 /* SocialService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialService.swift; sourceTree = "<group>"; };
+		8875CCD81F3314B6001F2474 /* UserFollowersAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowersAPI.swift; sourceTree = "<group>"; };
 		889AFC021F220BCD003AAF19 /* CredentialsListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsListTests.swift; sourceTree = "<group>"; };
 		889AFC031F220BCD003AAF19 /* PhotoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTests.swift; sourceTree = "<group>"; };
 		889AFC041F220BCD003AAF19 /* UserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
@@ -1835,6 +1837,15 @@
 			path = "EmbeddedSocial-Example";
 			sourceTree = "<group>";
 		};
+		8875CCDA1F33162B001F2474 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */,
+				8875CCD81F3314B6001F2474 /* UserFollowersAPI.swift */,
+			);
+			name = APIs;
+			sourceTree = "<group>";
+		};
 		889AFC011F220BCD003AAF19 /* EntitiesTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2119,7 +2130,7 @@
 				88FFFA701F30B9BB0066A1A0 /* Configurator */,
 				88FFFA781F30BAE90066A1A0 /* Presenter */,
 				88FFFA731F30B9CE0066A1A0 /* View */,
-				88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */,
+				8875CCDA1F33162B001F2474 /* APIs */,
 			);
 			path = Followers;
 			sourceTree = "<group>";
@@ -2681,6 +2692,7 @@
 				88580C471F2213AB00C1CBAF /* CreatePostPresenter.swift in Sources */,
 				8846CB4C1F30CA0E00F11EC8 /* UserListDataDisplayManager.swift in Sources */,
 				88580BC41F2213AB00C1CBAF /* UIView+Ext.swift in Sources */,
+				8875CCD91F3314B6001F2474 /* UserFollowersAPI.swift in Sources */,
 				88580C0C1F2213AB00C1CBAF /* Storyboards.swift in Sources */,
 				88580C3F1F2213AB00C1CBAF /* CreateAccountCellModelsBuilder.swift in Sources */,
 				88FFFA6F1F30B98B0066A1A0 /* FollowersConfigurator.swift in Sources */,

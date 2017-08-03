@@ -19,18 +19,6 @@ extension FollowersPresenter: UserListModuleOutput {
     func didFailToPerformSocialRequest(listView: UIView, error: Error) {
         view.showError(error)
     }
-
-    func didTriggerUserAction(_ user: User) {
-        
-    }
-
-    func didSelectListItem(listView: UIView, at indexPath: IndexPath) {
-        print("didSelectListItem \(indexPath)")
-    }
-    
-    func didLoadList(listView: UIView) {
-        
-    }
     
     func didFailToLoadList(listView: UIView, error: Error) {
         view.showError(error)

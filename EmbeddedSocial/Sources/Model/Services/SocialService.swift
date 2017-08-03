@@ -16,9 +16,16 @@ protocol SocialServiceType {
     
     func block(userID: String, completion: @escaping (Result<Void>) -> Void)
     
+    func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void)
+    
+    /// Get the feed of users that follow me
     func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<([User], String?)>) -> Void)
     
-    func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void)
+    /// Get the feed of users that I am following
+    func getUsersThatIFollow(cursor: String?, limit: Int, completion: @escaping (Result<([User], String?)>) -> Void)
+    
+    /// Get followers of a user
+    func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<([User], String?)>) -> Void)
 }
 
 struct SocialService: SocialServiceType {
@@ -63,8 +70,32 @@ struct SocialService: SocialServiceType {
         }
     }
     
-    func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<([User], String?)>) -> Void) {
+    func getUsersThatIFollow(cursor: String?, limit: Int, completion: @escaping (Result<([User], String?)>) -> Void) {
         SocialAPI.myFollowingGetFollowingUsers(cursor: cursor, limit: Int32(limit)) { response, error in
+            if let response = response {
+                let users = response.data?.map(User.init) ?? []
+                let result = (users, response.cursor)
+                completion(.success(result))
+            } else {
+                completion(.failure(APIError(error: error as? ErrorResponse)))
+            }
+        }
+    }
+    
+    func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<([User], String?)>) -> Void) {
+        SocialAPI.myFollowersGetFollowers(cursor: cursor, limit: Int32(limit)) { response, error in
+            if let response = response {
+                let users = response.data?.map(User.init) ?? []
+                let result = (users, response.cursor)
+                completion(.success(result))
+            } else {
+                completion(.failure(APIError(error: error as? ErrorResponse)))
+            }
+        }
+    }
+    
+    func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<([User], String?)>) -> Void) {
+        SocialAPI.userFollowersGetFollowers(userHandle: userID, cursor: cursor, limit: Int32(limit)) { response, error in
             if let response = response {
                 let users = response.data?.map(User.init) ?? []
                 let result = (users, response.cursor)

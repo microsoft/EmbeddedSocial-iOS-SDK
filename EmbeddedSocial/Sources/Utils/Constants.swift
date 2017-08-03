@@ -21,7 +21,7 @@ extension Constants {
     }
     
     struct UserList {
-        static let pageSize = 10
+        static let pageSize = 30
     }
 }
 

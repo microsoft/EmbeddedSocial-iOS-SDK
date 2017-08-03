@@ -13,10 +13,9 @@ final class FollowersConfigurator {
         viewController.title = "Followers"
     }
     
-    func configure() {
+    func configure(api: UsersListAPI) {
         let presenter = FollowersPresenter()
 
-        let api = MyFollowersAPI(service: SocialService())
         let listInput = UserListConfigurator().configure(api: api, output: presenter)
         
         presenter.view = viewController

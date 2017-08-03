@@ -12,7 +12,7 @@ class UserListPresenter {
     var interactor: UserListInteractorInput!
     weak var moduleOutput: UserListModuleOutput?
     
-    private var listState = ListState(items: [], error: nil, cursor: nil)
+    fileprivate var listState = ListState()
     
     fileprivate var isLoadingList = false {
         didSet {
@@ -31,7 +31,7 @@ class UserListPresenter {
             if result.isSuccess {
                 strongSelf.listState = strongSelf.listState.reduce(result: result)
                 strongSelf.view.setUsers(strongSelf.listState.items)
-                strongSelf.moduleOutput?.didLoadList(listView: strongSelf.listView)
+                strongSelf.moduleOutput?.didUpdateList(listView: strongSelf.listView)
             } else {
                 strongSelf.moduleOutput?.didFailToLoadList(listView: strongSelf.listView, error: result.error ?? APIError.unknown)
             }
@@ -67,7 +67,7 @@ extension UserListPresenter: UserListViewOutput {
     }
     
     func onReachingEndOfPage() {
-        guard !isLoadingList else {
+        guard !isLoadingList, listState.hasMore else {
             return
         }
         loadNextPage()

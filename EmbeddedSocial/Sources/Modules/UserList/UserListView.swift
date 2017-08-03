@@ -15,7 +15,7 @@ class UserListView: UIView {
     var dataManager: UserListDataDisplayManager! {
         didSet {
             dataManager.onItemAction = { [weak self] in self?.output.onItemAction(item: $0) }
-            dataManager.onReachingEndOfPage = { [weak self] in self?.output.onReachingEndOfPage() }
+            dataManager.onReachingEndOfContent = { [weak self] in self?.output.onReachingEndOfPage() }
             dataManager.tableView = tableView
         }
     }
