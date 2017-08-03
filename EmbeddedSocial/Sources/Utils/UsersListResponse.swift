@@ -9,3 +9,9 @@ struct UsersListResponse {
     let users: [User]
     let cursor: String?
 }
+
+extension UsersListResponse: Equatable {
+    static func ==(lhs: UsersListResponse, rhs: UsersListResponse) -> Bool {
+        return lhs.users == rhs.users && lhs.cursor == rhs.cursor
+    }
+}
