@@ -19,14 +19,14 @@ class LikesService: LikesServiceProtocol {
     
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         LikesAPI.topicLikesPostLike(topicHandle: postHandle) { (object, error) in
-            Logger.log(object)
+            Logger.log(object, error)
             completion(postHandle, error)
         }
     }
     
     func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         LikesAPI.topicLikesDeleteLike(topicHandle: postHandle) { (object, error) in
-            Logger.log(object)
+            Logger.log(object, error)
             completion(postHandle, error)
         }
     }

@@ -12,7 +12,7 @@ class Logger {
         case verbose = "💬"
     }
     
-    class func log(_ something: Any...,
+    class func log(_ something: Any?...,
                     event: LogEvent = .verbose,
                    fileName: String = #file,
                    line: Int = #line,

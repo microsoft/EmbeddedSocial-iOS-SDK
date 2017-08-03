@@ -96,7 +96,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput, UIScrollV
     }
     
     @objc private func onPullRefresh() {
-        output.didPullRefresh()
+        output.didAskFetchAll()
     }
     
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
