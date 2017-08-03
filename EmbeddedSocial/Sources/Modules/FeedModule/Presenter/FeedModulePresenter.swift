@@ -171,7 +171,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             
             if action == .like {
                 items[index].totalLikes += Int64(1)
-            } else if action == .unlike && items[index].totalLikes > 0{
+            } else if action == .unlike && items[index].totalLikes > 0 {
                 items[index].totalLikes -= Int64(1)
             }
             
@@ -183,6 +183,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             let action:PostSocialAction = status ? .pin : .unpin
             
             items[index].pinned = !status
+            
             view.reload(with: index)
             interactor.postAction(post: postHandle, action: action)
         }
@@ -236,7 +237,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
-        Logger.log(error)
+        Logger.log(action, post, error)
     }
  
     func didStartFetching() {
