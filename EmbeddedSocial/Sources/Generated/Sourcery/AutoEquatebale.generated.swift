@@ -23,7 +23,7 @@ fileprivate func compareArrays<T>(lhs: [T], rhs: [T], compare: (_ lhs: T, _ rhs:
 }
 
 
-// MARK: - AutoEquatable for classes, protocols, structs
+// MARK: - AutoEquatable for classes, protocols, structsа
 // MARK: - Post AutoEquatable
 extension Post: Equatable {}
 internal func == (lhs: Post, rhs: Post) -> Bool {
