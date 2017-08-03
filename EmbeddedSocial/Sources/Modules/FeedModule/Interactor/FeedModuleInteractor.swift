@@ -23,6 +23,8 @@ protocol FeedModuleInteractorOutput: class {
     func didFetch(feed: PostsFeed)
     func didFetchMore(feed: PostsFeed)
     func didFail(error: FeedServiceError)
+    func didStartFetching()
+    func didFinishFetching()
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?)
 }
@@ -37,18 +39,12 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     
     var isFetching = false {
         didSet {
-            Logger.log(isFetching)
+            isFetching ? output.didStartFetching() : output.didFinishFetching()
         }
     }
     
     var isLoadingMore = false
-    
-    private var cursor: String? = nil {
-        didSet {
-            Logger.log(cursor)
-        }
-    }
-    
+
     private lazy var fetchHandler: FetchResultHandler = { [unowned self] result in
         
         self.isFetching = false
@@ -65,8 +61,6 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         } else {
             self.output.didFetch(feed: feed)
         }
-        
-        self.cursor = result.cursor
     }
     
     func fetchPostsMore(limit: Int32? = nil, feedType: FeedType, cursor: String) {
@@ -80,7 +74,6 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     private func fetchPosts(limit: Int32? = nil, feedType: FeedType, cursor: String?) {
         
         guard isFetching == false else {
-            Logger.log("fetcher is busy")
             return
         }
         
@@ -99,7 +92,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         case let .popular(type: range):
             var query = PopularFeedQuery()
             query.limit = limit
-            query.cursor = self.cursor == nil ? nil : Int32(self.cursor!)
+            query.cursor = (cursor == nil) ? nil : Int32(cursor!)
             
             switch range {
             case .alltime:

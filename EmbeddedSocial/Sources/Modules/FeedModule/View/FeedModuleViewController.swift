@@ -145,6 +145,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput, UIScrollV
     }
     
     func setRefreshing(state: Bool) {
+        Logger.log(state)
         if state {
             if refreshControl.superview != collectionView {
                 collectionView!.addSubview(refreshControl)

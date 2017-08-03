@@ -79,7 +79,11 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     private var layout: FeedModuleLayoutType = .list
     private let limit = Int32(3) // Default
     private var items = [Post]()
-    private var cursor: String? = nil
+    private var cursor: String? = nil {
+        didSet {
+            Logger.log(cursor)
+        }
+    }
    
     func didTapChangeLayout() {
         flip(layout: &layout)
@@ -193,11 +197,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didAskFetchMore() {
-        view.setRefreshing(state: true)
         if let cursor = cursor {
             interactor.fetchPostsMore(limit: limit, feedType: feedType, cursor: cursor)
         } else {
-            Logger.log(<#T##something: Any...##Any#>)
+            Logger.log("cant fetch more, no cursor")
         }
     }
     
@@ -207,24 +210,32 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     // MARK: FeedModuleInteractorOutput
     func didFetch(feed: PostsFeed) {
+        cursor = feed.cursor
         items = feed.items
-        
-        view.setRefreshing(state: false)
+    
         view.reload()
     }
     
     func didFetchMore(feed: PostsFeed) {
+        cursor = feed.cursor
         items.append(contentsOf: feed.items)
 
-        view.setRefreshing(state: false)
         view.reload()
     }
     
     func didFail(error: FeedServiceError) {
-        Logger.log(error)
+//        Logger.log(error)
     }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
         Logger.log(error)
+    }
+ 
+    func didStartFetching() {
+        view.setRefreshing(state: true)
+    }
+    
+    func didFinishFetching() {
+        view.setRefreshing(state: false)
     }
 }

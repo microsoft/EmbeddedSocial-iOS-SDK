@@ -37,7 +37,7 @@ struct SocialService: SocialServiceType {
     func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void) {
         completion(.success())
     }
-    
+
     func unblock(userID: String, completion: @escaping (Result<Void>) -> Void) {
         completion(.success())
     }
