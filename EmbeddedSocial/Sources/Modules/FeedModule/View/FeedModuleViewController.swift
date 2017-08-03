@@ -26,6 +26,14 @@ enum FeedModuleLayoutType: Int {
 
 class FeedModuleViewController: UIViewController, FeedModuleViewInput, UIScrollViewDelegate {
     
+    private struct Style {
+        struct Collection  {
+            static var rowsMargin = CGFloat(10.0)
+            static var itemsPerRow = CGFloat(2)
+            static var gridCellsPadding = CGFloat(5)
+        }
+    }
+    
     var output: FeedModuleViewOutput!
     
     fileprivate var listLayout = UICollectionViewFlowLayout()
