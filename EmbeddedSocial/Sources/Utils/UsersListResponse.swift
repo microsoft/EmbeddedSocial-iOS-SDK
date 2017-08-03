@@ -5,8 +5,7 @@
 
 import Foundation
 
-protocol CellModel {
-    var cellClass: UITableViewCell.Type { get }
-    
-    var reuseID: String { get }
+struct UsersListResponse {
+    let users: [User]
+    let cursor: String?
 }

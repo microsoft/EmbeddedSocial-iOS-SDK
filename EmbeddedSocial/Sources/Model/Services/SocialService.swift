@@ -15,6 +15,20 @@ protocol SocialServiceType {
     func unblock(userID: String, completion: @escaping (Result<Void>) -> Void)
     
     func block(userID: String, completion: @escaping (Result<Void>) -> Void)
+    
+    func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void)
+    
+    /// Get the feed of users that follow me
+    func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
+    
+    /// Get the feed of users that I am following
+    func getMyFollowing(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
+    
+    /// Get followers of a user
+    func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
+    
+    /// Get following users of a user
+    func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
 }
 
 struct SocialService: SocialServiceType {
@@ -56,6 +70,54 @@ struct SocialService: SocialServiceType {
             completion(.success())
         } else {
             completion(.failure(APIError(error: error as? ErrorResponse)))
+        }
+    }
+    
+    func getMyFollowing(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        SocialAPI.myFollowingGetFollowingUsers(cursor: cursor, limit: Int32(limit)) {
+            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        }
+    }
+    
+    func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        SocialAPI.myFollowersGetFollowers(cursor: cursor, limit: Int32(limit)) {
+            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        }
+    }
+    
+    func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        SocialAPI.userFollowersGetFollowers(userHandle: userID, cursor: cursor, limit: Int32(limit)) {
+            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        }
+    }
+    
+    func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        SocialAPI.userFollowingGetFollowing(userHandle: userID, cursor: cursor, limit: Int32(limit)) {
+            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        }
+    }
+    
+    private func processUserFeedResponse(response: FeedResponseUserCompactView?,
+                                         error: Error?,
+                                         completion: @escaping (Result<UsersListResponse>) -> Void ) {
+        if let response = response {
+            let users = response.data?.map(User.init) ?? []
+            completion(.success(UsersListResponse(users: users, cursor: response.cursor)))
+        } else {
+            completion(.failure(APIError(error: error as? ErrorResponse)))
+        }
+    }
+    
+    func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void) {
+        switch currentFollowStatus {
+        case .empty:
+            follow(userID: userID, completion: completion)
+        case .accepted:
+            unfollow(userID: userID, completion: completion)
+        case .blocked:
+            unblock(userID: userID, completion: completion)
+        case .pending:
+            cancelPending(userID: userID, completion: completion)
         }
     }
 }
