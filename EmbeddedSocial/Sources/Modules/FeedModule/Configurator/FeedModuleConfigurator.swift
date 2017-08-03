@@ -14,10 +14,11 @@ class FeedModuleConfigurator {
     weak var viewController: UIViewController!
     weak var moduleInput: FeedModuleInput!
     
-    func configure(feed: FeedType? = nil) {
+    func configure(feed: FeedType? = nil, navigationController: UINavigationController? = nil) {
         
         let viewController = StoryboardScene.FeedModule.instantiateFeedModuleViewController()
         let router = FeedModuleRouter()
+        router.navigationController = navigationController
         
         /*
          let feed = .single(post: "3vErWk4EMrF"))
@@ -40,7 +41,6 @@ class FeedModuleConfigurator {
         
         presenter.interactor = interactor
         viewController.output = presenter
-        router.viewController = viewController
         
         self.viewController = viewController
         self.moduleInput = presenter

@@ -24,7 +24,7 @@ enum FeedModuleLayoutType: Int {
 //
 //
 
-class FeedModuleViewController: UIViewController, FeedModuleViewInput {
+class FeedModuleViewController: UIViewController, FeedModuleViewInput, UIScrollViewDelegate {
     
     var output: FeedModuleViewOutput!
     var listLayout = UICollectionViewFlowLayout()
@@ -66,6 +66,8 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         
+        self.collectionView.delegate = self
+        
         // TODO: remove parent, waiting for menu proxy controller refactor
         parent?.navigationItem.rightBarButtonItem = layoutChangeButton
     }
@@ -76,9 +78,16 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: UX
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
+            output.didAskFetchMore()
+        } else {
+            
+        }
+    }
     
     func onPullRefresh() {
-        output.didPullRefresh()
+        output.didAskFetchAll()
     }
     
     func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {

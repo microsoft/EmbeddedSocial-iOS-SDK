@@ -214,7 +214,7 @@ class TopicService: PostServiceProtocol {
             post.liked = item.liked ?? false
             post.topicHandle = item.topicHandle
             post.totalLikes = item.totalLikes ?? 0
-            post.totalComments = item.totalLikes ?? 0
+            post.totalComments = item.totalComments ?? 0
             // TODO: fullfill mapping
             posts.append(post)
         }

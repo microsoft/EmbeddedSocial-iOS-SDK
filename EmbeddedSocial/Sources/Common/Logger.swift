@@ -12,8 +12,8 @@ class Logger {
         case verbose = "💬"
     }
     
-    class func log(_ something: Any?,
-                   _ event: LogEvent = .verbose,
+    class func log(_ something: Any...,
+                    event: LogEvent = .verbose,
                    fileName: String = #file,
                    line: Int = #line,
                    column: Int = #column,
@@ -28,7 +28,7 @@ class Logger {
         return components.isEmpty ? "" : components.last!
     }
     
-    static var dateFormat = "yyyy-MM-dd hh:mm:ssSSS"
+    static var dateFormat = "HH:mm:ssSSS"
     static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = dateFormat

@@ -5,14 +5,13 @@
 
 class FeedModuleRouter: FeedModuleRouterInput {
     
-    weak var viewController: UIViewController?
+    weak var navigationController: UINavigationController?
     
     func open(route: FeedModuleRoutes) {
         let dummy = UIViewController()
         dummy.title = route.rawValue
         dummy.view = UIView()
         dummy.view.backgroundColor = UIColor.green
-        viewController?.navigationController?.pushViewController(dummy, animated: true)
+        navigationController?.pushViewController(dummy, animated: true)
     }
-
 }

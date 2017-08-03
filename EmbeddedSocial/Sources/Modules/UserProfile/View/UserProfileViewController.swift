@@ -56,7 +56,7 @@ class UserProfileViewController: UIViewController {
         
         // Module
         let configurator = FeedModuleConfigurator()
-        configurator.configure()
+        configurator.configure(navigationController: self.navigationController!)
     
         feedModuleInput = configurator.moduleInput!
         let feedViewController = configurator.viewController!

@@ -79,6 +79,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     private var layout: FeedModuleLayoutType = .list
     private let limit = Int32(3) // Default
     private var items = [Post]()
+    private var cursor: String? = nil
    
     func didTapChangeLayout() {
         flip(layout: &layout)
@@ -92,12 +93,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func refreshData() {
-        view.setRefreshing(state: true)
-        interactor.fetchPosts(limit: limit, feedType: feedType)
+        didAskFetchAll()
     }
     
     // MARK: Private
-    
     private lazy var dateFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         
@@ -121,17 +120,16 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         viewModel.title = post.title ?? ""
         viewModel.text = post.text ?? ""
         viewModel.likedBy = "" // TODO: uncomfirmed
-        
     
         viewModel.totalLikes = Localizator.localize("likes_count", post.totalLikes)
         viewModel.totalComments = Localizator.localize("comments_count", post.totalComments)
-        
+    
         viewModel.timeCreated =  post.createdTime == nil ? "" : dateFormatter.string(from: post.createdTime!, to: Date())!
         viewModel.userImageUrl = post.photoUrl
         viewModel.postImageUrl = post.imageUrl
         
-        viewModel.isLiked = post.liked ?? false
-        viewModel.isPinned = post.pinned ?? false
+        viewModel.isLiked = post.liked
+        viewModel.isPinned = post.pinned
         
         viewModel.cellType = layout.cellType
         viewModel.onAction = { [weak self] action, path in
@@ -186,15 +184,25 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         view.setupInitialState()
         view.setLayout(type: layout)
         
-        didPullRefresh()
+        didAskFetchAll()
     }
     
-    func didPullRefresh() {
-        refreshData()
+    func didAskFetchAll() {
+        view.setRefreshing(state: true)
+        interactor.fetchPosts(limit: limit, feedType: feedType)
+    }
+    
+    func didAskFetchMore() {
+        view.setRefreshing(state: true)
+        if let cursor = cursor {
+            interactor.fetchPostsMore(limit: limit, feedType: feedType, cursor: cursor)
+        } else {
+            Logger.log(<#T##something: Any...##Any#>)
+        }
     }
     
     func didTapItem(path: IndexPath) {
-//        router.open(route: .postDetails)
+        //        router.open(route: .postDetails)
     }
     
     // MARK: FeedModuleInteractorOutput
@@ -206,7 +214,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didFetchMore(feed: PostsFeed) {
-        items.insert(contentsOf:feed.items, at: 0)
+        items.append(contentsOf: feed.items)
 
         view.setRefreshing(state: false)
         view.reload()
@@ -217,6 +225,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
-        
+        Logger.log(error)
     }
 }

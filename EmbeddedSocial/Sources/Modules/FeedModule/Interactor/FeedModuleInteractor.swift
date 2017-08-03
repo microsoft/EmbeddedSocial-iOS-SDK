@@ -13,6 +13,8 @@ enum PostSocialAction {
 protocol FeedModuleInteractorInput {
     
     func fetchPosts(limit: Int32?, feedType: FeedType)
+    func fetchPostsMore(limit: Int32?, feedType: FeedType, cursor: String)
+    
     func postAction(post: PostHandle, action: PostSocialAction)
 }
 
@@ -31,7 +33,6 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     var postService: PostServiceProtocol!
     var likesService: LikesServiceProtocol = LikesService()
     var pinsService: PinsServiceProtocol! = PinsService()
-    
     var cachedFeedType: FeedType?
     
     var isFetching = false {
@@ -39,6 +40,9 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             Logger.log(isFetching)
         }
     }
+    
+    var isLoadingMore = false
+    
     private var cursor: String? = nil {
         didSet {
             Logger.log(cursor)
@@ -54,35 +58,42 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             return
         }
         
-        let feed = PostsFeed(items: result.posts)
+        var feed = PostsFeed(items: result.posts, cursor: result.cursor)
         
-        if self.cursor == nil {
-            self.output.didFetch(feed: feed)
-        } else {
+        if self.isLoadingMore {
             self.output.didFetchMore(feed: feed)
+        } else {
+            self.output.didFetch(feed: feed)
         }
         
         self.cursor = result.cursor
     }
     
+    func fetchPostsMore(limit: Int32? = nil, feedType: FeedType, cursor: String) {
+        fetchPosts(limit: limit, feedType: feedType, cursor: cursor)
+    }
+    
     func fetchPosts(limit: Int32? = nil, feedType: FeedType) {
+        fetchPosts(limit: limit, feedType: feedType, cursor: nil)
+    }
+    
+    private func fetchPosts(limit: Int32? = nil, feedType: FeedType, cursor: String?) {
         
-        isFetching = true
-        
-        if cachedFeedType != feedType {
-            // clean
-            self.cursor = nil
+        guard isFetching == false else {
+            Logger.log("fetcher is busy")
+            return
         }
         
-        cachedFeedType = feedType
-        
+        isLoadingMore = cursor != nil
+        isFetching = true
+   
         switch feedType {
             
         case .recent, .home:
             // TODO: use UserAPI for home feed fetch
             var query = RecentFeedQuery()
             query.limit = limit
-            query.cursor = self.cursor
+            query.cursor = cursor
             postService.fetchRecent(query: query, completion: fetchHandler)
             
         case let .popular(type: range):

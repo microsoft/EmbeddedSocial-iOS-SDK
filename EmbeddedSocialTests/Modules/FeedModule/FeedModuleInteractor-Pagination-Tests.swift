@@ -34,6 +34,10 @@ private class MockPostService: PostServiceProtocol {
 
 private class MockPresenter: FeedModuleInteractorOutput {
     
+    func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
+        
+    }
+    
     var fetchedFeed: PostsFeed!
     var error: FeedServiceError!
     
@@ -111,7 +115,7 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         XCTAssertTrue(output.fetchedFeed.items.last == expectedPost)
     }
     
-    func testSinglePostFetchResultIsCorrect() {
+    func testSinglePostFetchResultIsCorrect2() {
         
         // given
         let expectedPost = Post.mock(seed: 100)

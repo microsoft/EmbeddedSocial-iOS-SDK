@@ -16,7 +16,9 @@ protocol FeedModuleViewOutput {
     func item(for path: IndexPath) -> PostViewModel
     
     func didTapChangeLayout()
-    func didPullRefresh()
     func didTapItem(path: IndexPath)
+    
+    func didAskFetchAll()
+    func didAskFetchMore()
 
 }

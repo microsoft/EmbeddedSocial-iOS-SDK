@@ -51,6 +51,7 @@ extension Post: AutoEquatable {}
 
 struct PostsFeed {
     var items: [Post]
+    var cursor: String? = nil
 }
 
 // MARK: PostsFetchResult
