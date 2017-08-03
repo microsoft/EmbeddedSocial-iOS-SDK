@@ -73,6 +73,18 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum FeedModule: String, StoryboardSceneType {
+    static let storyboardName = "FeedModule"
+
+    case feedModuleViewControllerScene = "FeedModuleViewController"
+    static func instantiateFeedModuleViewController() -> EmbeddedSocial.FeedModuleViewController {
+      guard let vc = StoryboardScene.FeedModule.feedModuleViewControllerScene.viewController() as? EmbeddedSocial.FeedModuleViewController
+      else {
+        fatalError("ViewController 'FeedModuleViewController' is not of the expected class EmbeddedSocial.FeedModuleViewController.")
+      }
+      return vc
+    }
+  }
   enum Followers: String, StoryboardSceneType {
     static let storyboardName = "Followers"
 
@@ -93,18 +105,6 @@ enum StoryboardScene {
       guard let vc = StoryboardScene.Following.followingViewControllerScene.viewController() as? EmbeddedSocial.FollowingViewController
       else {
         fatalError("ViewController 'FollowingViewController' is not of the expected class EmbeddedSocial.FollowingViewController.")
-      }
-      return vc
-    }
-  }
-  enum Home: String, StoryboardSceneType {
-    static let storyboardName = "Home"
-
-    case homeViewControllerScene = "HomeViewController"
-    static func instantiateHomeViewController() -> EmbeddedSocial.HomeViewController {
-      guard let vc = StoryboardScene.Home.homeViewControllerScene.viewController() as? EmbeddedSocial.HomeViewController
-      else {
-        fatalError("ViewController 'HomeViewController' is not of the expected class EmbeddedSocial.HomeViewController.")
       }
       return vc
     }

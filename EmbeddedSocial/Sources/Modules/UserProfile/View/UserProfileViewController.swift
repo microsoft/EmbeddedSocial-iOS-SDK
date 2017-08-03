@@ -11,6 +11,9 @@ private let headerAspectRatio: CGFloat = 2.25
 class UserProfileViewController: UIViewController {
     
     var output: UserProfileViewOutput!
+    var feedModule: FeedModuleInput!
+    
+    @IBOutlet fileprivate weak var container: UIView!
     
     @IBOutlet fileprivate weak var loadingIndicatorView: LoadingIndicatorView! {
         didSet {
@@ -45,9 +48,40 @@ class UserProfileViewController: UIViewController {
         return summaryView
     }()
     
+    private var feedModuleInput: FeedModuleInput!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
+        
+        // Module
+        let configurator = FeedModuleConfigurator()
+        configurator.configure(navigationController: self.navigationController!)
+    
+        feedModuleInput = configurator.moduleInput!
+        let feedViewController = configurator.viewController!
+        
+        feedViewController.willMove(toParentViewController: self)
+        addChildViewController(feedViewController)
+        container.addSubview(feedViewController.view)
+        
+        feedViewController.view.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        feedViewController.didMove(toParentViewController: self)
+        
+        let feed = FeedType.user(user: "3v9gnzwILTS", scope: .recent)
+        feedModuleInput.setFeed(feed)
+        
+        // Sample for input change
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            
+            let feed = FeedType.single(post: "3vErWk4EMrF")
+            self.feedModuleInput.setFeed(feed)
+            self.feedModuleInput.refreshData()
+        }
+
     }
 }
 

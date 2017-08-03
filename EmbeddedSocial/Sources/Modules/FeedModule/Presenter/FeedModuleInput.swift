@@ -3,6 +3,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-protocol HomeModuleInput: class {
+protocol FeedModuleInput: class {
+    
+    func setFeed(_ feed: FeedType)
+    func refreshData()
     
 }
