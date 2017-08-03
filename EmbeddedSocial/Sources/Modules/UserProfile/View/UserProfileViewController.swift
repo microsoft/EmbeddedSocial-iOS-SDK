@@ -7,10 +7,17 @@ import UIKit
 import SnapKit
 
 private let headerAspectRatio: CGFloat = 2.25
+private let containerInset: CGFloat = 4.0
 
 class UserProfileViewController: UIViewController {
     
     var output: UserProfileViewOutput!
+    
+    @IBOutlet fileprivate weak var containerScrollView: UIScrollView! {
+        didSet {
+            containerScrollView.contentSize = UIScreen.main.bounds.insetBy(dx: containerInset, dy: containerInset).size
+        }
+    }
     
     @IBOutlet fileprivate weak var loadingIndicatorView: LoadingIndicatorView! {
         didSet {
@@ -33,16 +40,31 @@ class UserProfileViewController: UIViewController {
         summaryView.onFollowing = { self.output.onFollowing() }
         summaryView.onFollow = { self.output.onFollowRequest(currentStatus: $0) }
         summaryView.onFollowers = { self.output.onFollowers() }
-        self.view.addSubview(summaryView)
+        self.containerScrollView.addSubview(summaryView)
         
         summaryView.snp.makeConstraints { make in
-            make.left.equalTo(self.view)
-            make.top.equalTo(self.view)
-            make.right.equalTo(self.view)
+            make.left.equalTo(self.containerScrollView)
+            make.top.equalTo(self.containerScrollView).offset(4.0)
+            make.width.equalTo(self.containerScrollView.snp.width)
             make.height.equalTo(summaryView.snp.width).dividedBy(headerAspectRatio)
         }
         
         return summaryView
+    }()
+    
+    fileprivate lazy var filterView: UserProfileFilterView = { [unowned self] in
+        let filterView = UserProfileFilterView.fromNib()
+        self.containerScrollView.addSubview(filterView)
+        
+        filterView.snp.makeConstraints { make in
+            make.left.equalTo(self.containerScrollView)
+            make.top.equalTo(self.summaryView.snp.bottom).offset(4.0).priority(.low)
+            make.top.greaterThanOrEqualTo(self.view)
+//            make.width.equalTo(self.containerScrollView.snp.width)
+            make.height.equalTo(44.0)
+        }
+        
+        return filterView
     }()
     
     override func viewDidLoad() {
@@ -54,6 +76,8 @@ class UserProfileViewController: UIViewController {
 extension UserProfileViewController: UserProfileViewInput {
     func setupInitialState() {
         parent?.navigationItem.rightBarButtonItem = createPostButton
+        view.backgroundColor = Palette.extraLightGrey
+        _ = filterView
     }
     
     func showError(_ error: Error) {
@@ -63,7 +87,7 @@ extension UserProfileViewController: UserProfileViewInput {
     func setIsLoading(_ isLoading: Bool) {
         loadingIndicatorView.isHidden = !isLoading
         loadingIndicatorView.isLoading = isLoading
-        summaryView.isHidden = isLoading
+        containerScrollView.isHidden = isLoading
     }
     
     func setUser(_ user: User) {
