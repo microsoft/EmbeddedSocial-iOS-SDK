@@ -13,43 +13,58 @@ final class UserProfilePresenter: UserProfileViewOutput {
     
     private let userID: String?
     private var user: User?
-    private let me: User
+    private var me: User
     private var followersCount = 0
+    private var myProfileHolder: UserHolder?
     
-    init(userID: String? = nil, me: User) {
+    init(userID: String? = nil, myProfileHolder: UserHolder) {
         self.userID = userID
-        self.me = me
+        self.me = myProfileHolder.me
+        self.myProfileHolder = myProfileHolder
     }
-
+    
     func viewIsReady() {
         view.setupInitialState()
-        
-        if userID != nil {
-            loadUser()
-        } else {
-            view.setUser(me)
-        }
-        
+        loadUser()
         loadFeed()
     }
     
     private func loadUser() {
-        guard let userID = userID else {
-            return
-        }
-        
         view.setIsLoading(true)
-        
+
+        if let userID = userID {
+            loadOtherUser(userID)
+        } else if let credentials = me.credentials {
+            loadMe(credentials: credentials)
+        } else {
+            view.showError(APIError.missingUserData)
+        }
+    }
+    
+    private func loadMe(credentials: CredentialsList) {
+        interactor.getMe(credentials: credentials) { [weak self] result in
+            self?.processUserResult(result, setUser: {
+                self?.me = $0
+                self?.myProfileHolder?.me = $0
+            })
+        }
+    }
+    
+    private func loadOtherUser(_ userID: String) {
         interactor.getUser(userID: userID) { [weak self] result in
-            self?.view.setIsLoading(false)
-            
-            if let user = result.value {
-                self?.user = user
-                self?.followersCount = user.followersCount
-                self?.view.setUser(user)
-            } else {
-                self?.view.showError(result.error ?? APIError.unknown)
-            }
+            self?.processUserResult(result, setUser: { self?.user = $0 })
+        }
+    }
+    
+    private func processUserResult(_ result: Result<User>, setUser: (User) -> Void) {
+        view.setIsLoading(false)
+        
+        if let user = result.value {
+            setUser(user)
+            followersCount = user.followersCount
+            view.setUser(user)
+        } else {
+            view.showError(result.error ?? APIError.unknown)
         }
     }
     

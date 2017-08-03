@@ -17,6 +17,10 @@ final class UserProfileInteractor: UserProfileInteractorInput {
     func getUser(userID: String, completion: @escaping (Result<User>) -> Void) {
         userService.getUserProfile(userID: userID, completion: completion)
     }
+    
+    func getMe(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
+        userService.getMyProfile(credentials: credentials, completion: completion)
+    }
 
     func getRecentPosts(userID: String, completion: @escaping (Result<[Any]>) -> Void) {
         completion(.success([]))

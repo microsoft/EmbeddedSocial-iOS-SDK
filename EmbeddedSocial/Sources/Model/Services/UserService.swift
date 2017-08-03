@@ -6,7 +6,7 @@
 import Foundation
 
 protocol UserServiceType {
-    func getMyProfile(socialUser: SocialUser, completion: @escaping (Result<User>) -> Void)
+    func getMyProfile(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void)
     
     func getUserProfile(userID: String, completion: @escaping (Result<User>) -> Void)
     
@@ -15,8 +15,8 @@ protocol UserServiceType {
 
 struct UserService: UserServiceType {
     
-    func getMyProfile(socialUser: SocialUser, completion: @escaping (Result<User>) -> Void) {
-        APISettings.shared.customHeaders = socialUser.credentials.authHeader
+    func getMyProfile(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
+        APISettings.shared.customHeaders = credentials.authHeader
         
         UsersAPI.usersGetMyProfile { profile, error in
             guard let profile = profile else {
@@ -24,7 +24,7 @@ struct UserService: UserServiceType {
                 return
             }
             
-            let user = User(profileView: profile, credentials: socialUser.credentials)
+            let user = User(profileView: profile, credentials: credentials)
             completion(.success(user))
         }
     }

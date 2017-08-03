@@ -50,12 +50,8 @@ class CrossModuleCoordinator: LoginModuleOutput {
     }
     
     func openMyProfile() {
-        guard let user = user else {
-            return
-        }
-        
         let configurator = UserProfileConfigurator()
-        configurator.configure(me: user)
+        configurator.configure()
         menuModule.open(viewController: configurator.viewController)
     }
 }
