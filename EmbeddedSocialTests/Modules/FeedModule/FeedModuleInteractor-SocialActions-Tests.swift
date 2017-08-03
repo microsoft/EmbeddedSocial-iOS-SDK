@@ -4,29 +4,113 @@
 //
 
 import XCTest
+@testable import EmbeddedSocial
+
+private class LikesServiceMock: LikesServiceProtocol {
+    
+    var postLikeIsCalled = false
+    var deleteLikeIsCalled = false
+    
+    func postLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
+        
+        completion(postHandle, nil)
+    }
+    
+    func deleteLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
+        completion(postHandle, nil)
+    }
+}
+
+private class PinsServiceMock: PinsServiceProtocol {
+  
+    var postPinIsCalled = false
+    var deletePinIsCalled = false
+    
+    func postPin(postHandle: PinsServiceProtocol.PostHandle, completion: @escaping PinsServiceProtocol.CompletionHandler) {
+        
+        postPinIsCalled = true
+        completion(postHandle, nil)
+    }
+    
+    func deletePin(postHandle: PinsServiceProtocol.PostHandle, completion: @escaping PinsServiceProtocol.CompletionHandler) {
+        
+        deletePinIsCalled = true
+        completion(postHandle, nil)
+    }
+}
 
 class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
+
+    var sut: FeedModuleInteractor!
+    private var likesServiceMock: LikesServiceMock!
+    private var pinsServiceMock: PinsServiceMock!
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        sut = FeedModuleInteractor()
+        
+        likesServiceMock = LikesServiceMock()
+        sut.likesService = likesServiceMock
+        
+        pinsServiceMock = PinsServiceMock()
+        sut.pinsService = pinsServiceMock
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testPostLikeIsCalled() {
+        // given
+        let action = PostSocialAction.like
+        let post = "handle"
+        
+        // when
+        sut.postAction(post: post, action: action)
+        
+        // then
+        XCTAssertTrue(likesServiceMock.postLikeIsCalled)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testDeleteLikeIsCalled() {
+        
+        // given
+        let action = PostSocialAction.unlike
+        let post = "handle"
+        
+        // when
+        sut.postAction(post: post, action: action)
+        
+        // then
+        XCTAssertTrue(likesServiceMock.deleteLikeIsCalled)
     }
     
+    func testPostPinIsCalled() {
+        
+        // given
+        let action = PostSocialAction.pin
+        let post = "handle"
+        
+        // when
+        sut.postAction(post: post, action: action)
+        
+        // then
+        XCTAssertTrue(pinsServiceMock.postPinIsCalled)
+    }
+    
+    func testDeletePinIsCalled() {
+        
+        // given
+        let action = PostSocialAction.unpin
+        let post = "handle"
+        
+        // when
+        sut.postAction(post: post, action: action)
+        
+        // then
+        XCTAssertTrue(pinsServiceMock.deletePinIsCalled)
+
+    }
+
 }
