@@ -21,6 +21,9 @@
                         <segment title="First"/>
                         <segment title="Second"/>
                     </segments>
+                    <connections>
+                        <action selector="onSegmentSwitch:" destination="hJE-7L-CFS" eventType="valueChanged" id="mLZ-Jk-DM9"/>
+                    </connections>
                 </segmentedControl>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

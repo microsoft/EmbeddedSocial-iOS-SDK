@@ -22,6 +22,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Gye-sl-J7Q">
+                                <rect key="frame" x="4" y="4" width="367" height="663"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellID" id="wHL-CF-YmV">
+                                        <rect key="frame" x="0.0" y="28" width="367" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wHL-CF-YmV" id="evd-7o-Nqc">
+                                            <rect key="frame" x="0.0" y="0.0" width="367" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="irk-bM-VlQ" customClass="LoadingIndicatorView" customModule="EmbeddedSocial" customModuleProvider="target">
                                 <rect key="frame" x="36" y="20" width="303" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -29,29 +43,26 @@
                                     <constraint firstAttribute="height" constant="44" id="M8U-pV-n2d"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhN-Xg-05c">
-                                <rect key="frame" x="4" y="0.0" width="367" height="663"/>
-                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Gye-sl-J7Q" firstAttribute="top" secondItem="mwj-uJ-fuB" secondAttribute="top" constant="4" id="8pa-17-gSW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="irk-bM-VlQ" secondAttribute="trailing" constant="20" id="DfC-B5-jCH"/>
+                            <constraint firstItem="BGg-B8-9NF" firstAttribute="top" secondItem="Gye-sl-J7Q" secondAttribute="bottom" id="EfO-bP-aiR"/>
+                            <constraint firstAttribute="trailing" secondItem="Gye-sl-J7Q" secondAttribute="trailing" constant="4" id="Epb-Gv-EqQ"/>
                             <constraint firstItem="irk-bM-VlQ" firstAttribute="top" secondItem="rfm-7o-rSN" secondAttribute="bottom" id="GK3-ir-1DU"/>
-                            <constraint firstItem="lhN-Xg-05c" firstAttribute="top" secondItem="mwj-uJ-fuB" secondAttribute="topMargin" id="dmf-9N-BKy"/>
-                            <constraint firstItem="lhN-Xg-05c" firstAttribute="leading" secondItem="mwj-uJ-fuB" secondAttribute="leading" constant="4" id="iGz-iy-vsI"/>
+                            <constraint firstItem="Gye-sl-J7Q" firstAttribute="leading" secondItem="mwj-uJ-fuB" secondAttribute="leading" constant="4" id="SVu-xP-ReM"/>
                             <constraint firstItem="irk-bM-VlQ" firstAttribute="leading" secondItem="mwj-uJ-fuB" secondAttribute="leadingMargin" constant="20" id="kCx-4T-ZKV"/>
-                            <constraint firstItem="BGg-B8-9NF" firstAttribute="top" secondItem="lhN-Xg-05c" secondAttribute="bottom" constant="4" id="ucA-BO-qn2"/>
-                            <constraint firstAttribute="trailing" secondItem="lhN-Xg-05c" secondAttribute="trailing" constant="4" id="wej-ED-lrw"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="containerScrollView" destination="lhN-Xg-05c" id="Eg2-oQ-lIw"/>
+                        <outlet property="containerTableView" destination="Gye-sl-J7Q" id="V8L-V8-F2q"/>
                         <outlet property="loadingIndicatorView" destination="irk-bM-VlQ" id="ZUE-Hm-gR1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RYs-yQ-U1G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="116" y="-143"/>
+            <point key="canvasLocation" x="116" y="-143.47826086956522"/>
         </scene>
     </scenes>
 </document>

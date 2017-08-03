@@ -8,14 +8,16 @@ import SnapKit
 
 private let headerAspectRatio: CGFloat = 2.25
 private let containerInset: CGFloat = 4.0
+private let filterHeight: CGFloat = 44.0
 
 class UserProfileViewController: UIViewController {
     
     var output: UserProfileViewOutput!
     
-    @IBOutlet fileprivate weak var containerScrollView: UIScrollView! {
+    @IBOutlet fileprivate weak var containerTableView: UITableView! {
         didSet {
-            containerScrollView.contentSize = UIScreen.main.bounds.insetBy(dx: containerInset, dy: containerInset).size
+            containerTableView.dataSource = self
+            containerTableView.delegate = self
         }
     }
     
@@ -40,30 +42,16 @@ class UserProfileViewController: UIViewController {
         summaryView.onFollowing = { self.output.onFollowing() }
         summaryView.onFollow = { self.output.onFollowRequest(currentStatus: $0) }
         summaryView.onFollowers = { self.output.onFollowers() }
-        self.containerScrollView.addSubview(summaryView)
         
-        summaryView.snp.makeConstraints { make in
-            make.left.equalTo(self.containerScrollView)
-            make.top.equalTo(self.containerScrollView).offset(4.0)
-            make.width.equalTo(self.containerScrollView.snp.width)
-            make.height.equalTo(summaryView.snp.width).dividedBy(headerAspectRatio)
-        }
+        let width = UIScreen.main.bounds.width - containerInset * 2
+        summaryView.frame = CGRect(x: 0.0, y: 0.0, width: width, height: width / headerAspectRatio)
         
         return summaryView
     }()
     
     fileprivate lazy var filterView: UserProfileFilterView = { [unowned self] in
         let filterView = UserProfileFilterView.fromNib()
-        self.containerScrollView.addSubview(filterView)
-        
-        filterView.snp.makeConstraints { make in
-            make.left.equalTo(self.containerScrollView)
-            make.top.equalTo(self.summaryView.snp.bottom).offset(4.0).priority(.low)
-            make.top.greaterThanOrEqualTo(self.view)
-//            make.width.equalTo(self.containerScrollView.snp.width)
-            make.height.equalTo(44.0)
-        }
-        
+        filterView.backgroundColor = .yellow
         return filterView
     }()
     
@@ -77,7 +65,7 @@ extension UserProfileViewController: UserProfileViewInput {
     func setupInitialState() {
         parent?.navigationItem.rightBarButtonItem = createPostButton
         view.backgroundColor = Palette.extraLightGrey
-        _ = filterView
+        containerTableView.tableHeaderView = summaryView
     }
     
     func showError(_ error: Error) {
@@ -87,7 +75,7 @@ extension UserProfileViewController: UserProfileViewInput {
     func setIsLoading(_ isLoading: Bool) {
         loadingIndicatorView.isHidden = !isLoading
         loadingIndicatorView.isLoading = isLoading
-        containerScrollView.isHidden = isLoading
+        containerTableView.isHidden = isLoading
     }
     
     func setUser(_ user: User) {
@@ -104,5 +92,27 @@ extension UserProfileViewController: UserProfileViewInput {
     
     func setFollowersCount(_ followersCount: Int) {
         summaryView.followersCount = followersCount
+    }
+}
+
+extension UserProfileViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: "CellID")
+        cell.textLabel?.text = "\(indexPath.row)"
+        return cell
+    }
+}
+
+extension UserProfileViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return filterView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return filterHeight
     }
 }
