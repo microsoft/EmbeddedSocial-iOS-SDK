@@ -155,6 +155,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     private func handle(action: PostCellAction, path: IndexPath) {
         
         let postHandle = items[path.row].topicHandle!
+        let index = path.row
         
         switch action {
         case .comment:
@@ -163,19 +164,20 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             router.open(route: .extra)
         case .like:
             
-            let status = items[path.row].liked
+            let status = items[index].liked
             let action:PostSocialAction = status ? .like : .unlike
             
-            items[path.row].liked = !status
+            items[index].liked = !status
             
+            view.reload(with: index)
             interactor.postAction(post: postHandle, action: action)
             
         case .pin:
-            let status = items[path.row].pinned
+            let status = items[index].pinned
             let action:PostSocialAction = status ? .pin : .unpin
             
-            items[path.row].pinned = !status
-            
+            items[index].pinned = !status
+            view.reload(with: index)
             interactor.postAction(post: postHandle, action: action)
         }
     }
