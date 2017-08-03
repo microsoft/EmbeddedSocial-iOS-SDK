@@ -5,8 +5,8 @@
 
 import Foundation
 
-protocol CellModel {
-    var cellClass: UITableViewCell.Type { get }
+protocol UserListViewOutput: class {
+    func onItemAction(item: UserListItem)
     
-    var reuseID: String { get }
+    func onReachingEndOfPage()
 }

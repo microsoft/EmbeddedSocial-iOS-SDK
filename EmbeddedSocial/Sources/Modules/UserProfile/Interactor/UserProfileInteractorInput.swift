@@ -17,14 +17,8 @@ protocol UserProfileInteractorInput {
     func getMyRecentPosts(completion: @escaping (Result<[Any]>) -> Void)
 
     func getMyPopularPosts(completion: @escaping (Result<[Any]>) -> Void)
-
-    func follow(userID: String, completion: @escaping (Result<Void>) -> Void)
-    
-    func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void)
-    
-    func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void)
-    
-    func unblock(userID: String, completion: @escaping (Result<Void>) -> Void)
     
     func block(userID: String, completion: @escaping (Result<Void>) -> Void)
+
+    func processSocialRequest(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void)
 }
