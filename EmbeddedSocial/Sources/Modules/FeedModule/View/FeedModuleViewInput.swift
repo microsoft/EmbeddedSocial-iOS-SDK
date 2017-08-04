@@ -11,5 +11,7 @@ protocol FeedModuleViewInput: class {
     func reload()
     func reload(with index: Int)
     func setRefreshing(state: Bool)
-    
+
+    func getViewHeight() -> CGFloat
+
 }

@@ -124,7 +124,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput, UIScrollV
     }
     
     private func updateLayoutFlowForGrid(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
-
+        
         let padding = Style.Collection.gridCellsPadding
         layout.sectionInset = UIEdgeInsets(top: padding , left: padding , bottom: padding , right: padding )
         layout.minimumLineSpacing = padding
@@ -146,10 +146,14 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput, UIScrollV
     
     // MARK: FeedModuleViewInput
     func setupInitialState() {
-    
+        
     }
     
- func setLayout(type: FeedModuleLayoutType) {
+    func getViewHeight() -> CGFloat {
+        return collectionView.collectionViewLayout.collectionViewContentSize.height
+    }
+    
+    func setLayout(type: FeedModuleLayoutType) {
         self.collectionView.reloadData()
         onUpdateLayout(type: type)
     }

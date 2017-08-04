@@ -5,7 +5,11 @@
 
 protocol FeedModuleInput: class {
     
+    // For feed change
     func setFeed(_ feed: FeedType)
+    // Forcing module to update
     func refreshData()
-    
+    // Get Current Module Height
+    func moduleHeight() -> CGFloat
+
 }
