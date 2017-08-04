@@ -12,8 +12,6 @@ protocol UserListModuleOutput: class {
     
     func didFailToLoadList(listView: UIView, error: Error)
     
-    func didTriggerUserAction(_ user: User)
-    
     func didFailToPerformSocialRequest(listView: UIView, error: Error)
 }
 
@@ -21,9 +19,7 @@ protocol UserListModuleOutput: class {
 
 extension UserListModuleOutput {
     func didFailToPerformSocialRequest(listView: UIView, error: Error) { }
-    
-    func didTriggerUserAction(_ user: User) { }
-    
+        
     func didSelectListItem(listView: UIView, at indexPath: IndexPath) { }
     
     func didUpdateList(listView: UIView) { }

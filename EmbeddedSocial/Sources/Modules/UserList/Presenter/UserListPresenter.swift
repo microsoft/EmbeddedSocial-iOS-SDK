@@ -44,8 +44,6 @@ class UserListPresenter {
 extension UserListPresenter: UserListViewOutput {
     
     func onItemAction(item: UserListItem) {
-        moduleOutput?.didTriggerUserAction(item.user)
-        
         view.setIsLoading(true, itemAt: item.indexPath)
         
         interactor.processSocialRequest(to: item.user) { [weak self] result in

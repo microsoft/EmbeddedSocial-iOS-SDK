@@ -156,4 +156,12 @@ final class UserProfilePresenter: UserProfileViewOutput {
             }
         }
     }
+    
+    func onRecent() {
+        
+    }
+    
+    func onPopular() {
+        
+    }
 }

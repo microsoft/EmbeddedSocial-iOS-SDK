@@ -13,10 +13,12 @@ private class LikesServiceMock: LikesServiceProtocol {
     
     func postLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
         
+        postLikeIsCalled = true
         completion(postHandle, nil)
     }
     
     func deleteLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
+        deleteLikeIsCalled = true
         completion(postHandle, nil)
     }
 }
@@ -42,6 +44,9 @@ private class PinsServiceMock: PinsServiceProtocol {
 class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
 
     var sut: FeedModuleInteractor!
+    var view: FeedModuleViewController!
+    var presenter: FeedModulePresenter!
+    
     private var likesServiceMock: LikesServiceMock!
     private var pinsServiceMock: PinsServiceMock!
     
@@ -49,6 +54,11 @@ class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
         super.setUp()
         
         sut = FeedModuleInteractor()
+        
+        view = FeedModuleViewController()
+        presenter = FeedModulePresenter()
+        presenter.view = view
+        sut.output = presenter
         
         likesServiceMock = LikesServiceMock()
         sut.likesService = likesServiceMock

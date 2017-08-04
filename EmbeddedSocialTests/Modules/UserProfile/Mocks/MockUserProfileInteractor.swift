@@ -12,11 +12,7 @@ class MockUserProfileInteractor: UserProfileInteractorInput {
     private(set) var getPopularPostsCount = 0
     private(set) var getMyRecentPostsCount = 0
     private(set) var getMyPopularPostsCount = 0
-    
-    private(set) var followCount = 0
-    private(set) var unfollowCount = 0
-    private(set) var cancelPendingCount = 0
-    private(set) var unblockCount = 0
+    private(set) var socialRequestCount = 0
     private(set) var blockCount = 0
     
     var userToReturn: User?
@@ -56,28 +52,13 @@ class MockUserProfileInteractor: UserProfileInteractorInput {
         completion(.success([]))
     }
     
-    func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        followCount += 1
-        completion(.success())
-    }
-    
-    func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        unfollowCount += 1
-        completion(.success())
-    }
-    
-    func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        cancelPendingCount += 1
-        completion(.success())
-    }
-    
-    func unblock(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        unblockCount += 1
-        completion(.success())
-    }
-    
     func block(userID: String, completion: @escaping (Result<Void>) -> Void) {
         blockCount += 1
+        completion(.success())
+    }
+    
+    func processSocialRequest(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void) {
+        socialRequestCount += 1
         completion(.success())
     }
 }
