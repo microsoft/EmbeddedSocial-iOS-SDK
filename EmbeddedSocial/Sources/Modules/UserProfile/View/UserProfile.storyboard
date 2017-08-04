@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B6r-H0-IRq">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B6r-H0-IRq" customClass="ScrollView" customModule="EmbeddedSocial" customModuleProvider="target">
                                 <rect key="frame" x="6" y="0.0" width="363" height="667"/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="irk-bM-VlQ" customClass="LoadingIndicatorView" customModule="EmbeddedSocial" customModuleProvider="target">

@@ -367,6 +367,7 @@
 		88F551A21F34719100F4AAB9 /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385881F31BF140048B04C /* UserListCell.swift */; };
 		88F551A31F3471C500F4AAB9 /* MyFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */; };
 		88F551A41F3472E100F4AAB9 /* SegmentedControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8875CCF41F33384A001F2474 /* SegmentedControlView.xib */; };
+		88F551A61F34919600F4AAB9 /* FeedModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551A51F34919600F4AAB9 /* FeedModuleOutput.swift */; };
 		88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */; };
 		88F7A7891F27896B005FEC5F /* MockAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7881F27896B005FEC5F /* MockAuthService.swift */; };
 		88F7A78B1F2789F0005FEC5F /* MockUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A78A1F2789F0005FEC5F /* MockUserService.swift */; };
@@ -862,6 +863,7 @@
 		88F551941F336DCB00F4AAB9 /* MockUserListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListInteractor.swift; sourceTree = "<group>"; };
 		88F551981F336FB700F4AAB9 /* MockUserListModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListModuleOutput.swift; sourceTree = "<group>"; };
 		88F5519A1F33705100F4AAB9 /* MockUserListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListView.swift; sourceTree = "<group>"; };
+		88F551A51F34919600F4AAB9 /* FeedModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedModuleOutput.swift; sourceTree = "<group>"; };
 		88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInteractorTests.swift; sourceTree = "<group>"; };
 		88F7A7881F27896B005FEC5F /* MockAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAuthService.swift; sourceTree = "<group>"; };
 		88F7A78A1F2789F0005FEC5F /* MockUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserService.swift; sourceTree = "<group>"; };
@@ -2407,6 +2409,7 @@
 			isa = PBXGroup;
 			children = (
 				9CC5313C1F31CCF2004CE94F /* FeedModuleInput.swift */,
+				88F551A51F34919600F4AAB9 /* FeedModuleOutput.swift */,
 				9CC5313D1F31CCF2004CE94F /* FeedModulePresenter.swift */,
 			);
 			path = Presenter;
@@ -3045,6 +3048,7 @@
 				9C6D35A41F31D1C1005893DB /* FeedModuleViewOutput.swift in Sources */,
 				88580BBC1F2213AB00C1CBAF /* String+Encoding.swift in Sources */,
 				88580C4D1F2213AB00C1CBAF /* CreatePostViewOutput.swift in Sources */,
+				88F551A61F34919600F4AAB9 /* FeedModuleOutput.swift in Sources */,
 				8846CB491F30C98C00F11EC8 /* UserListModuleInput.swift in Sources */,
 				88580C291F2213AB00C1CBAF /* SessionStoreDatabaseFacade.swift in Sources */,
 				88580C601F2213AB00C1CBAF /* SideMenuRouter.swift in Sources */,

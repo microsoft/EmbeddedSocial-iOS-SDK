@@ -11,6 +11,8 @@ private let containerInset: CGFloat = 6.0
 private let filterHeight: CGFloat = 44.0
 private let contentWidth = UIScreen.main.bounds.width - containerInset * 2
 private let headerHeight = contentWidth / headerAspectRatio
+private let navBarHeight: CGFloat = 64.0
+private let feedHeight = UIScreen.main.bounds.height - filterHeight - navBarHeight
 
 class UserProfileViewController: UIViewController {
     
@@ -19,9 +21,7 @@ class UserProfileViewController: UIViewController {
     
     @IBOutlet weak var containerScrollView: UIScrollView! {
         didSet {
-            let navBarHeight: CGFloat = 64.0
-            let feedHeight = UIScreen.main.bounds.height - filterHeight
-            let contentHeight = headerHeight + filterHeight + feedHeight + containerInset * 2 - navBarHeight
+            let contentHeight = headerHeight + filterHeight + feedHeight + containerInset * 2
             containerScrollView.contentSize = CGSize(width: contentWidth, height: contentHeight)
             containerScrollView.delegate = self
         }
@@ -94,7 +94,7 @@ class UserProfileViewController: UIViewController {
     
     fileprivate func setupFeedModule() {
         let configurator = FeedModuleConfigurator()
-        configurator.configure(navigationController: self.navigationController!)
+        configurator.configure(navigationController: self.navigationController!, moduleOutput: self)
         
         feedModuleInput = configurator.moduleInput!
         
@@ -107,6 +107,7 @@ class UserProfileViewController: UIViewController {
         feedView = feedViewController.view
         feedModuleInput.setFeed(.user(user: "3v9gnzwILTS", scope: .recent))
         
+        
         //        // Sample for input change
         //        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
         //
@@ -117,7 +118,7 @@ class UserProfileViewController: UIViewController {
     }
     
     fileprivate func setupFeedView() {
-        feedView.isUserInteractionEnabled = false
+//        feedView.isUserInteractionEnabled = false
         
         containerScrollView.addSubview(feedView)
         
@@ -125,9 +126,13 @@ class UserProfileViewController: UIViewController {
             make.top.equalTo(filterView.snp.bottom)
             make.left.equalTo(containerScrollView)
             make.width.equalTo(summaryView.snp.width)
-            make.height.equalTo(UIScreen.main.bounds.height - filterHeight)
+            make.height.equalTo(feedHeight)
         }
     }
+    
+    var lastTouchLocation: CGPoint = .zero
+    
+    var feedCollectionView: CollectionView?
 }
 
 extension UserProfileViewController: UserProfileViewInput {
@@ -168,10 +173,72 @@ extension UserProfileViewController: UserProfileViewInput {
 extension UserProfileViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let origin = containerScrollView.convert(filterView.frame.origin, to: view)
-        let scrolledAtMax = origin.y < 1.0
-        containerScrollView.isScrollEnabled = !scrolledAtMax
-        feedView.isUserInteractionEnabled = scrolledAtMax
-        print(scrollView.contentOffset, filterView.frame.origin, origin)
+        let isContainerScrolledAtMax = containerScrollView.contentOffset.y > headerHeight + containerInset * 2
+        if isContainerScrolledAtMax {
+            feedCollectionView?.isTrackingTouches = true
+        }
+    }
+}
+
+extension UserProfileViewController: FeedModuleOutput {
+    
+    func didScrollFeed(_ feedView: UIScrollView) {
+        feedCollectionView = feedView as? CollectionView
+        
+        let touchLocation = feedView.panGestureRecognizer.translation(in: view)
+
+        guard feedView.panGestureRecognizer.state == .changed else {
+            lastTouchLocation = touchLocation
+            return
+        }
+        
+        let isContainerScrolledAtMax = containerScrollView.contentOffset.y > headerHeight + containerInset * 2
+        let distance = lastTouchLocation.y - touchLocation.y
+        let isScrollingUp = distance > 0
+        
+        print("isUp \(isScrollingUp) distance \(distance) container \(containerScrollView.contentOffset) lastOffset \(lastTouchLocation) containerOffset \(containerScrollView.contentOffset)")
+
+        if isScrollingUp {
+            if !isContainerScrolledAtMax {
+                containerScrollView.contentOffset = CGPoint(x: containerScrollView.contentOffset.x,
+                                                            y: containerScrollView.contentOffset.y + distance)
+                feedView.contentOffset = .zero
+                (feedView as? CollectionView)?.isTrackingTouches = false
+            } else {
+                (feedView as? CollectionView)?.isTrackingTouches = true
+            }
+        } else {
+            if feedView.contentOffset.y <= 0 && containerScrollView.contentOffset.y > 0 {
+                containerScrollView.contentOffset = CGPoint(x: containerScrollView.contentOffset.x,
+                                                            y: containerScrollView.contentOffset.y + distance)
+                feedView.contentOffset = .zero
+                (feedView as? CollectionView)?.isTrackingTouches = false
+            } else {
+                (feedView as? CollectionView)?.isTrackingTouches = true
+            }
+        }
+        
+        lastTouchLocation = touchLocation
+    }
+}
+
+class CollectionView: UICollectionView {
+    
+    var isTrackingTouches: Bool = true
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return isTrackingTouches ? super.point(inside: point, with: event) : false
+    }
+}
+
+class ScrollView: UIScrollView {
+    var isTrackingTouches: Bool = true {
+        didSet {
+            print("isTrackingTouches \(isTrackingTouches)")
+        }
+    }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return isTrackingTouches ? super.point(inside: point, with: event) : false
     }
 }

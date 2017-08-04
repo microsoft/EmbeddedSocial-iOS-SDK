@@ -74,6 +74,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     weak var view: FeedModuleViewInput!
     var interactor: FeedModuleInteractorInput!
     var router: FeedModuleRouterInput!
+    weak var moduleOutput: FeedModuleOutput?
     
     private var feedType: FeedType = .home
     private var layout: FeedModuleLayoutType = .list
@@ -246,5 +247,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didFinishFetching() {
         view.setRefreshing(state: false)
+    }
+    
+    func didScrollFeed(_ feedView: UIScrollView) {
+        moduleOutput?.didScrollFeed(feedView)
     }
 }
