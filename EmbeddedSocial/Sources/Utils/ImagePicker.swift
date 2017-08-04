@@ -7,6 +7,7 @@ import Foundation
 
 protocol ImagePickerDelegate: class {
     func selected(photo: Photo)
+    func removePhoto()
 }
 
 class ImagePicker: NSObject {
@@ -18,6 +19,8 @@ class ImagePicker: NSObject {
     fileprivate let imagePicker = UIImagePickerController()
     
     fileprivate var onImageSelected: ((Result<UIImage>) -> Void)?
+    
+    fileprivate var imageWasSelected = false
     
     func show(with options: Options) {
         presentingView = options.sourceViewController
@@ -44,6 +47,14 @@ class ImagePicker: NSObject {
             self.showImagePicker(sourceType: .photoLibrary)
         }
         actionSheet.addAction(chooseExistingPhotoAction)
+        
+        if imageWasSelected {
+            let removePhotoAction = UIAlertAction(title: Button.Title.removePhoto, style: .default) { (_) in
+                self.delegate?.removePhoto()
+                self.imageWasSelected = false
+            }
+            actionSheet.addAction(removePhotoAction)
+        }
         
         if let presenter = actionSheet.popoverPresentationController, let presentingView = presentingView {
             presenter.sourceView = presentingView.view
@@ -87,6 +98,7 @@ extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDe
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             let photo = Photo(uid: UUID().uuidString, url: info[UIImagePickerControllerMediaURL] as? String, image: image)
+            imageWasSelected = true
             delegate?.selected(photo: photo)
             onImageSelected?(.success(image))
         } else {
