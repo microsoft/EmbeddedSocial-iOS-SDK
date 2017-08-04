@@ -199,25 +199,25 @@ class TopicService: PostServiceProtocol {
     private func convert(data: [TopicView]) -> [Post] {
         
         var posts = [Post]()
-        for item in data {
-            var post = Post()
-            post.firstName = item.user?.firstName
-            post.lastName = item.user?.lastName
-            post.photoUrl = item.user?.photoUrl
-            post.userHandle = item.user?.userHandle
-            
-            post.createdTime = item.createdTime
-            post.imageUrl = item.blobUrl
-            post.title = item.title
-            post.text = item.text
-            post.pinned = item.pinned ?? false
-            post.liked = item.liked ?? false
-            post.topicHandle = item.topicHandle
-            post.totalLikes = item.totalLikes ?? 0
-            post.totalComments = item.totalComments ?? 0
-            // TODO: fullfill mapping
-            posts.append(post)
-        }
+//        for item in data {
+//            var post = Post()
+//            post.firstName = item.user?.firstName
+//            post.lastName = item.user?.lastName
+//            post.photoUrl = item.user?.photoUrl
+//            post.userHandle = item.user?.userHandle
+//
+//            post.createdTime = item.createdTime
+//            post.imageUrl = item.blobUrl
+//            post.title = item.title
+//            post.text = item.text
+//            post.pinned = item.pinned ?? false
+//            post.liked = item.liked ?? false
+//            post.topicHandle = item.topicHandle
+//            post.totalLikes = item.totalLikes ?? 0
+//            post.totalComments = item.totalComments ?? 0
+//            // TODO: fullfill mapping
+//            posts.append(post)
+//        }
         return posts
     }
 }

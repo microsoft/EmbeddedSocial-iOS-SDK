@@ -75,7 +75,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     var interactor: FeedModuleInteractorInput!
     var router: FeedModuleRouterInput!
     
-    private var feedType: FeedType = .home //FeedType.single(post: "3uhkWMemLBe")
+    private var feedType: FeedType = FeedType.single(post: "3uhkWMemLBe")
     private var layout: FeedModuleLayoutType = .list
     private let limit = Int32(3) // Default
     private var items = [Post]()
@@ -174,9 +174,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             items[index].liked = !status
             
             if action == .like {
-                items[index].totalLikes += Int64(1)
+                items[index].totalLikes += 1
             } else if action == .unlike && items[index].totalLikes > 0 {
-                items[index].totalLikes -= Int64(1)
+                items[index].totalLikes -= 1
             }
             
             view.reload(with: index)

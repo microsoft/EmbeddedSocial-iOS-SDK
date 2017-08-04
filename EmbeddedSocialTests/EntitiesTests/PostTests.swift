@@ -4,35 +4,47 @@
 //
 
 import XCTest
+@testable import EmbeddedSocial
 
 class PostTests: XCTestCase {
+    
+    var topicViewResponse: FeedResponseTopicView!
     
     override func setUp() {
         super.setUp()
         
         let bundle = Bundle(for: type(of: self))
         let path = bundle.path(forResource: "topicview_source", ofType: "json")
-        let data = NSData(contentsOfFile: path!)
+        let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
+        let json = try? JSONSerialization.jsonObject(with: data!)
         
-    }
+        topicViewResponse = Decoders.decode(clazz: FeedResponseTopicView.self, source: json as AnyObject)
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    }
+
+    func testPost() {
         
-    
+        // given
+        let postData = topicViewResponse.data!.first!
+        
+        // when
+        let post = Post(data: postData)
+        
+        // then
+        XCTAssertTrue(post.topicHandle == "3uhkWMemLBe")
+        XCTAssertTrue(post.userHandle == "3vasrlAHhYf")
+        XCTAssertTrue(post.firstName == "Oleg")
+        XCTAssertTrue(post.lastName == "Rezhko")
+        XCTAssertTrue(post.title == "test 1")
+        XCTAssertTrue(post.text == "Test 1")
+        
+        XCTAssertTrue(post.totalLikes == 2)
+        XCTAssertTrue(post.totalComments == 0)
+        XCTAssertTrue(post.liked == true)
+        XCTAssertTrue(post.pinned == true)
+        
+        XCTAssertTrue(post.photoHandle == nil)
+        XCTAssertTrue(post.imageUrl == nil)
+
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }
