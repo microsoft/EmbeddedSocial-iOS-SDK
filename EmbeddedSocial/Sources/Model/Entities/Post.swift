@@ -5,6 +5,8 @@
 
 import Foundation
 
+protocol AutoEquatable {}
+
 struct Post {
 
     public var topicHandle: String!
@@ -25,9 +27,8 @@ struct Post {
     public var totalLikes: Int64 = 0
     public var totalComments: Int64 = 0
 
-    public var liked: Bool!
-    public var pinned: Bool!
-
+    public var liked: Bool = false
+    public var pinned: Bool = false
 }
 
 extension Post {
@@ -42,5 +43,36 @@ extension Post {
         post.totalComments = Int64(seed) + 10
         return post
     }
-    
 }
+
+extension Post: AutoEquatable {}
+
+// MARK: PostsFeed
+
+struct PostsFeed {
+    var items: [Post]
+    var cursor: String? = nil
+}
+
+// MARK: PostsFetchResult
+//
+struct PostFetchResult {
+    var posts: [Post] = [Post]()
+    var error: FeedServiceError?
+    var cursor: String? = nil
+}
+
+extension PostFetchResult {
+    
+    static func mock() -> PostFetchResult {
+        var result = PostFetchResult()
+        
+        let number = arc4random() % 5 + 1
+        
+        for index in 0..<number {
+            result.posts.append(Post.mock(seed: Int(index)))
+        }
+        return result
+    }
+}
+

@@ -5,7 +5,7 @@
 
 import UIKit
 
-enum HomeLayoutType: Int {
+enum FeedModuleLayoutType: Int {
     case list
     case grid
     
@@ -24,11 +24,20 @@ enum HomeLayoutType: Int {
 //
 //
 
-class HomeViewController: UIViewController, HomeViewInput {
+class FeedModuleViewController: UIViewController, FeedModuleViewInput, UIScrollViewDelegate {
     
-    var output: HomeViewOutput!
-    var listLayout = UICollectionViewFlowLayout()
-    var gridLayout = UICollectionViewFlowLayout()
+    private struct Style {
+        struct Collection  {
+            static var rowsMargin = CGFloat(10.0)
+            static var itemsPerRow = CGFloat(2)
+            static var gridCellsPadding = CGFloat(5)
+        }
+    }
+    
+    var output: FeedModuleViewOutput!
+    
+    fileprivate var listLayout = UICollectionViewFlowLayout()
+    fileprivate var gridLayout = UICollectionViewFlowLayout()
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -41,7 +50,7 @@ class HomeViewController: UIViewController, HomeViewInput {
         return control
     }()
     
-    lazy var layoutChangeButton: UIBarButtonItem = { [unowned self] in
+    private lazy var layoutChangeButton: UIBarButtonItem = { [unowned self] in
         let button = UIBarButtonItem(
             image: nil,
             style: .plain,
@@ -50,7 +59,7 @@ class HomeViewController: UIViewController, HomeViewInput {
         return button
         }()
     
-    lazy var sizingCell: PostCell = { [unowned self] in
+    fileprivate lazy var sizingCell: PostCell = { [unowned self] in
         let cell = PostCell.nib.instantiate(withOwner: nil, options: nil).last as! PostCell
         let width = self.collectionView.bounds.width
         let height = cell.frame.height
@@ -66,6 +75,8 @@ class HomeViewController: UIViewController, HomeViewInput {
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         
+        self.collectionView.delegate = self
+        
         // TODO: remove parent, waiting for menu proxy controller refactor
         parent?.navigationItem.rightBarButtonItem = layoutChangeButton
     }
@@ -76,12 +87,19 @@ class HomeViewController: UIViewController, HomeViewInput {
     }
     
     // MARK: UX
-    
-    func onPullRefresh() {
-        output.didPullRefresh()
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
+            output.didAskFetchMore()
+        } else {
+            
+        }
     }
     
-    func onUpdateLayout(type: HomeLayoutType, animated: Bool = false) {
+    @objc private func onPullRefresh() {
+        output.didAskFetchAll()
+    }
+    
+    private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
         
         // switch layout
         switch type {
@@ -98,44 +116,46 @@ class HomeViewController: UIViewController, HomeViewInput {
         }
     }
     
-    func onUpdateBounds() {
+    private func onUpdateBounds() {
         if let collectionView = self.collectionView {
             updateLayoutFlowForList(layout: listLayout, containerWidth: collectionView.frame.size.width)
             updateLayoutFlowForGrid(layout: gridLayout, containerWidth: collectionView.frame.size.width)
         }
     }
     
-    func updateLayoutFlowForGrid(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
+    private func updateLayoutFlowForGrid(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
 
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 5
-        let itemsPerRow = CGFloat(2)
+        let padding = Style.Collection.gridCellsPadding
+        layout.sectionInset = UIEdgeInsets(top: padding , left: padding , bottom: padding , right: padding )
+        layout.minimumLineSpacing = padding
+        layout.minimumInteritemSpacing = padding
+        let itemsPerRow = Style.Collection.itemsPerRow
         var paddings = layout.minimumInteritemSpacing * CGFloat((itemsPerRow - 1))
         paddings += layout.sectionInset.left + layout.sectionInset.right
         let itemWidth = (containerWidth - paddings) / itemsPerRow
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
     }
     
-    func updateLayoutFlowForList(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
-        layout.minimumLineSpacing = 20
+    private func updateLayoutFlowForList(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
+        layout.minimumLineSpacing = Style.Collection.rowsMargin
     }
     
-    func didTapChangeLayout() {
+    @objc private func didTapChangeLayout() {
         output.didTapChangeLayout()
     }
     
-    // MARK: HomeViewInput
+    // MARK: FeedModuleViewInput
     func setupInitialState() {
-        collectionView!.addSubview(refreshControl)
+    
     }
     
-    func setLayout(type: HomeLayoutType) {
+ func setLayout(type: FeedModuleLayoutType) {
         self.collectionView.reloadData()
         onUpdateLayout(type: type)
     }
     
     func setRefreshing(state: Bool) {
+        Logger.log(state)
         if state {
             if refreshControl.superview != collectionView {
                 collectionView!.addSubview(refreshControl)
@@ -155,7 +175,7 @@ class HomeViewController: UIViewController, HomeViewInput {
     }
 }
 
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return output.numberOfItems()

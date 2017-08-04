@@ -76,13 +76,17 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
 //    }
     
     var builderForDummy: ModuleBuilder = { coordinator in
-        return HomeModuleConfigurator.configure()
+        let configurator = FeedModuleConfigurator()
+        configurator.configure()
+        return configurator.viewController
     }
     
     var builderForHome: ModuleBuilder = { coordinator in
-        return HomeModuleConfigurator.configure()
+        let configurator = FeedModuleConfigurator()
+        configurator.configure()
+        return configurator.viewController
     }
-    
+
     lazy var items: [State: [(title: String, image: UIImage, builder: ModuleBuilder)]] = { [unowned self] in
         
         return [State.authenticated: [

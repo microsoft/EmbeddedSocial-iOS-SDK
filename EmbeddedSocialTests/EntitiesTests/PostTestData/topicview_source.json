@@ -1,0 +1,38 @@
+{
+    "topicHandle": "3usUWglABdh",
+    "createdTime": "2017-07-28T13:09:17.3413641Z",
+    "lastUpdatedTime": "2017-07-28T13:09:17.3413641Z",
+    "publisherType": "User",
+    "user": {
+        "userHandle": "3vC_QIk24au",
+        "firstName": "Igor",
+        "lastName": "Akvelon",
+        "photoHandle": null,
+        "photoUrl": null,
+        "visibility": "Public",
+        "followerStatus": "None"
+    },
+    "title": "Notitle",
+    "text": "Home module works",
+    "blobType": "Image",
+    "blobHandle": "----8pkz2bF-9343e0a9-8fe9-45b1-ad20-9e096baddc33",
+    "blobUrl": "https://sp-ppe.azureedge.net/images/----8pkz2bF-9343e0a9-8fe9-45b1-ad20-9e096baddc33",
+    "categories": null,
+    "language": null,
+    "group": null,
+    "deepLink": null,
+    "friendlyName": null,
+    "totalLikes": 3,
+    "totalComments": 5,
+    "liked": true,
+    "pinned": true,
+    "contentStatus": "Active",
+    "app": {
+        "name": "iOS SDK Dev",
+        "iconHandle": null,
+        "iconUrl": null,
+        "platformType": "IOS",
+        "deepLink": null,
+        "storeLink": null
+    }
+}

@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-protocol HomeViewOutput {
+protocol FeedModuleViewOutput {
 
     /**
         @author igor.popov
@@ -16,7 +16,9 @@ protocol HomeViewOutput {
     func item(for path: IndexPath) -> PostViewModel
     
     func didTapChangeLayout()
-    func didPullRefresh()
     func didTapItem(path: IndexPath)
+    
+    func didAskFetchAll()
+    func didAskFetchMore()
 
 }

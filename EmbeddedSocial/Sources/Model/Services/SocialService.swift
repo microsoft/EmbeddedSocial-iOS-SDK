@@ -51,7 +51,7 @@ struct SocialService: SocialServiceType {
     func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void) {
         completion(.success())
     }
-    
+
     func unblock(userID: String, completion: @escaping (Result<Void>) -> Void) {
         completion(.success())
     }
@@ -74,46 +74,37 @@ struct SocialService: SocialServiceType {
     }
     
     func getMyFollowing(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.myFollowingGetFollowingUsers(cursor: cursor, limit: Int32(limit)) { response, error in
-            if let response = response {
-                let users = response.data?.map(User.init) ?? []
-                completion(.success(UsersListResponse(users: users, cursor: response.cursor)))
-            } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
-            }
+        SocialAPI.myFollowingGetFollowingUsers(cursor: cursor, limit: Int32(limit)) {
+            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.myFollowersGetFollowers(cursor: cursor, limit: Int32(limit)) { response, error in
-            if let response = response {
-                let users = response.data?.map(User.init) ?? []
-                completion(.success(UsersListResponse(users: users, cursor: response.cursor)))
-            } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
-            }
+        SocialAPI.myFollowersGetFollowers(cursor: cursor, limit: Int32(limit)) {
+            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.userFollowersGetFollowers(userHandle: userID, cursor: cursor, limit: Int32(limit)) { response, error in
-            if let response = response {
-                let users = response.data?.map(User.init) ?? []
-                completion(.success(UsersListResponse(users: users, cursor: response.cursor)))
-            } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
-            }
+        SocialAPI.userFollowersGetFollowers(userHandle: userID, cursor: cursor, limit: Int32(limit)) {
+            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.userFollowingGetFollowing(userHandle: userID, cursor: cursor, limit: Int32(limit)) { response, error in
-            if let response = response {
-                let users = response.data?.map(User.init) ?? []
-                completion(.success(UsersListResponse(users: users, cursor: response.cursor)))
-            } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
-            }
+        SocialAPI.userFollowingGetFollowing(userHandle: userID, cursor: cursor, limit: Int32(limit)) {
+            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        }
+    }
+    
+    private func processUserFeedResponse(response: FeedResponseUserCompactView?,
+                                         error: Error?,
+                                         completion: @escaping (Result<UsersListResponse>) -> Void ) {
+        if let response = response {
+            let users = response.data?.map(User.init) ?? []
+            completion(.success(UsersListResponse(users: users, cursor: response.cursor)))
+        } else {
+            completion(.failure(APIError(error: error as? ErrorResponse)))
         }
     }
     
