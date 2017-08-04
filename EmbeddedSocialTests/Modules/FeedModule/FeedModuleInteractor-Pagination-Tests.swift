@@ -6,8 +6,10 @@
 import XCTest
 @testable import EmbeddedSocial
 
-private class MockPostService: PostServiceProtocol {
+private class PostServiceMock: PostServiceProtocol {
     
+    var popularResult: PostFetchResult
+    var mockedResult: PostFetchResult!
     var mockedResult: PostFetchResult!
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {

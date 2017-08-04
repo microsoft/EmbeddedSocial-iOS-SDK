@@ -113,7 +113,7 @@ class TopicService: PostServiceProtocol {
     
     private func sendPostTopicRequest(request: PostTopicRequest) {
         TopicsAPI.topicsPostTopic(request: request) { [weak self] (response, error) in
-            guard let response = response else {
+            guard response != nil else {
                 self?.failure!(error!)
                 return
             }
