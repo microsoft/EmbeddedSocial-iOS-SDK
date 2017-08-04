@@ -431,6 +431,8 @@
 		9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */; };
 		9C7D9B381F2F4918005928F4 /* Localizator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7D9B371F2F4918005928F4 /* Localizator.swift */; };
 		9C8F68961F3485CA00AF4A7F /* topics&limit20.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CD760FE1F33158200ABBB2A /* topics&limit20.json */; };
+		9C8F68971F34AA4D00AF4A7F /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531341F31CCD1004CE94F /* FeedModuleInteractor-FetchQuery-Tests.swift */; };
+		9C8F68981F34AA8200AF4A7F /* FeedModuleInteractor-Pagination-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C316E101F31E3CB00B90089 /* FeedModuleInteractor-Pagination-Tests.swift */; };
 		9CB3F1FB1F3367F00099A22D /* TopicServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */; };
 		9CB3F1FC1F336B2D0099A22D /* FollowingViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCE51F331CB3001F2474 /* FollowingViewInput.swift */; };
 		9CB3F1FD1F336B620099A22D /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385881F31BF140048B04C /* UserListCell.swift */; };
@@ -3310,6 +3312,7 @@
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
 				88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */,
 				88F163871F27565400DAAF68 /* TransactionsDatabaseFacadeTests.swift in Sources */,
+				9C8F68981F34AA8200AF4A7F /* FeedModuleInteractor-Pagination-Tests.swift in Sources */,
 				881F7E5E1F2637B7003EB37A /* KeyValueRepositoryTests.swift in Sources */,
 				88F7A7A11F287D51005FEC5F /* MockCreateAccountInteractor.swift in Sources */,
 				88F1637D1F264B0F00DAAF68 /* SessionStoreTests.swift in Sources */,
@@ -3366,6 +3369,7 @@
 				88F551951F336DCB00F4AAB9 /* MockUserListInteractor.swift in Sources */,
 				88FFFA5F1F2F81A70066A1A0 /* FollowStatusTests.swift in Sources */,
 				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
+				9C8F68971F34AA4D00AF4A7F /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */,
 				88F551931F336D9200F4AAB9 /* UserListPresenterTests.swift in Sources */,
 				88FFFA591F2F7F780066A1A0 /* MockUserProfileView.swift in Sources */,
 				88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */,

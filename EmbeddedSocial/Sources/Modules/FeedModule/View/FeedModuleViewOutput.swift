@@ -5,11 +5,6 @@
 
 protocol FeedModuleViewOutput {
 
-    /**
-        @author igor.popov
-        Notify presenter that view is ready
-    */
-
     func viewIsReady()
     
     func numberOfItems() -> Int

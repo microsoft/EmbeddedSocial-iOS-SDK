@@ -19,7 +19,22 @@ class PostTests: XCTestCase {
         let json = try? JSONSerialization.jsonObject(with: data!)
         
         topicViewResponse = Decoders.decode(clazz: FeedResponseTopicView.self, source: json as AnyObject)
+    }
     
+    func testPostsAreEqual() {
+        
+        let a = Post.mock(seed: 100)
+        let b = Post.mock(seed: 100)
+        
+        XCTAssertTrue(a == b)
+    }
+    
+    func testPostsAreNotEqual() {
+        
+        let a = Post.mock(seed: 100)
+        let b = Post.mock(seed: 101)
+        
+        XCTAssertTrue(a != b)
     }
 
     func testPost() {
@@ -45,6 +60,5 @@ class PostTests: XCTestCase {
         
         XCTAssertTrue(post.photoHandle == nil)
         XCTAssertTrue(post.imageUrl == nil)
-
     }
 }

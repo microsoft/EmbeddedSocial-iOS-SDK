@@ -6,6 +6,41 @@
 import XCTest
 @testable import EmbeddedSocial
 
+private class FeedModuleViewMock: FeedModuleViewInput {
+    
+    var state = false
+    var index: Int?
+    var layout: FeedModuleLayoutType?
+    var calls = [String:Bool]()
+    
+    func setupInitialState( ) {
+        calls[#function] = true
+    }
+
+    func setLayout(type: FeedModuleLayoutType) {
+        calls[#function] = true
+        layout = type
+    }
+    
+    func reload() {
+        calls[#function] = true
+    }
+
+    func reload(with index: Int) {
+        calls[#function] = true
+        index = index
+    }
+    
+    func setRefreshing(state: Bool) {
+        calls[#function] = true
+        state = state
+    }
+    
+    func getViewHeight() -> CGFloat {
+        calls[#function] = true
+    }
+}
+
 
 private class FeedModuleInteractorMock: FeedModuleInteractorInput {
 
@@ -85,6 +120,28 @@ class FeedModulePresenterTests: XCTestCase {
         XCTAssertTrue(viewModel.totalLikes == "1 like")
         XCTAssertTrue(viewModel.totalComments == "2 comments")
         XCTAssertTrue(viewModel.timeCreated == "2d")
+    }
+    
+//    func didFetch(feed: PostsFeed)
+//    func didFetchMore(feed: PostsFeed)
+//    func didFail(error: FeedServiceError)
+//    func didStartFetching()
+//    func didFinishFetching()
+//
+//    func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?)
+    
+    func testFetch() {
+        
+        
+        // given
+        let feed = FeedType.home
+        sut.setFeed(feed)
+        
+        // when
+        sut.didFinishFetching()
+        
+        // then
+        XCTAssertTrue(view.)
     }
     
     func testThatOnFeedTypeChangeFetchingAllIsCalled() {

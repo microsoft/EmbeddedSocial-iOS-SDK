@@ -8,8 +8,7 @@ import XCTest
 
 private class PostServiceMock: PostServiceProtocol {
     
-    var popularResult: PostFetchResult
-    var mockedResult: PostFetchResult!
+    var popularResult: PostFetchResult!
     var mockedResult: PostFetchResult!
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
@@ -34,10 +33,22 @@ private class PostServiceMock: PostServiceProtocol {
     
 }
 
-private class MockPresenter: FeedModuleInteractorOutput {
+private class FeedModulePresenterMock: FeedModuleInteractorOutput {
+  
+    var startFetchingIsCalled = false
+    var finishFetchingIsCalled = false
+    var calls = [String:Bool]()
+    
+    func didFail(error: FeedServiceError) {
+        calls[#function] = true
+    }
+    
+    func didStartFetching() { calls[#function] = true }
+    
+    func didFinishFetching() { calls[#function] = true }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
-        
+        calls[#function] = true
     }
     
     var fetchedFeed: PostsFeed!
@@ -45,76 +56,51 @@ private class MockPresenter: FeedModuleInteractorOutput {
     
     func didFetch(feed: PostsFeed) {
         fetchedFeed = feed
+        calls[#function] = true
     }
     
     func didFetchMore(feed: PostsFeed) {
         fetchedFeed = feed
+        calls[#function] = true
     }
-    
-    func didFail(error: FeedServiceError) { }
-    
-    func didLike(post id: PostHandle) { }
-    
-    func didUnlike(post id: PostHandle) { }
-    
-    func didUnpin(post id: PostHandle) { }
-    
-    func didPin(post id: PostHandle) { }
-    
 }
 
 class FeedModuleInteractor_Pagination_Tests: XCTestCase {
     
     var sut: FeedModuleInteractor!
-    private var input: MockPostService!
-    private var output: MockPresenter!
+    private var service: PostServiceMock!
+    private var presenter: FeedModulePresenterMock!
     
     override func setUp() {
         super.setUp()
         
         sut = FeedModuleInteractor()
-        input = MockPostService()
-        sut.postService = input
-        output = MockPresenter()
-        sut.output = output
+        service = PostServiceMock()
+        sut.postService = service
+        presenter = FeedModulePresenterMock()
+        sut.output = presenter
     }
     
     override func tearDown() {
         super.tearDown()
     }
     
-    func testPostsAreEqual() {
-        
-        let a = Post.mock(seed: 100)
-        let b = Post.mock(seed: 100)
-        
-        XCTAssertTrue(a == b)
-    }
-    
-    func testPostsAreNotEqual() {
-        
-        let a = Post.mock(seed: 100)
-        let b = Post.mock(seed: 101)
-        
-        XCTAssertTrue(a != b)
-    }
-    
     func testSinglePostFetchResultIsCorrect() {
         // given
         let expectedPost = Post.mock(seed: 100)
         var expectedResult = PostFetchResult()
-        mockedResult.cursor = nil
-        mockedResult.error = nil
-        mockedResult.posts = [expectedPost]
+        expectedResult.cursor = nil
+        expectedResult.error = nil
+        expectedResult.posts = [expectedPost]
         
-        input.mockedResult = mockedResult
+//        service.mockedResult = mockedResult
     
         // when
         sut.fetchPosts(limit: 1, feedType: .single(post: "handle"))
         
         // then
-        XCTAssertTrue(output.fetchedFeed.items.count == 1)
-        XCTAssertTrue(output.fetchedFeed.items.last == expectedPost)
+        XCTAssertTrue(presenter.fetchedFeed.items.count == 1)
+        XCTAssertTrue(presenter.fetchedFeed.items.last == expectedPost)
     }
     
 //    func testSinglePostFetchResultIsCorrect2() {

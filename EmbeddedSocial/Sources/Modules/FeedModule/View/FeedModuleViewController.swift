@@ -36,6 +36,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput, UIScrollV
     
     var output: FeedModuleViewOutput!
     
+    var numberOfItems: Int {
+        return collectionView?.numberOfItems(inSection: 0) ?? 0
+    }
+    
     fileprivate var listLayout = UICollectionViewFlowLayout()
     fileprivate var gridLayout = UICollectionViewFlowLayout()
     
