@@ -5,6 +5,12 @@
 
 import UIKit
 
+fileprivate enum TableSections: Int {
+    case post = 0
+    case comments
+    case sectionsCount
+}
+
 class PostDetailViewController: BaseViewController, PostDetailViewInput {
 
     var output: PostDetailViewOutput!
@@ -35,16 +41,37 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     func configTableView() {
         tableView.register(UINib(nibName: CommentCell.identifier, bundle: Bundle(for: CommentCell.self)), forCellReuseIdentifier: CommentCell.identifier)
-        
         tableView.estimatedRowHeight = CommentCell.defaultHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.delegate = self
         tableView.dataSource = self
     }
     
+    func configPost() {
+        // Module
+        //        let configurator = FeedModuleConfigurator()
+        //        configurator.configure(navigationController: self.navigationController!)
+        //
+        //        feedModuleInput = configurator.moduleInput!
+        //        let feedViewController = configurator.viewController!
+        //
+        //        feedViewController.willMove(toParentViewController: self)
+        //        addChildViewController(feedViewController)
+        //        container.addSubview(feedViewController.view)
+        //
+        //        feedViewController.view.snp.makeConstraints { (make) in
+        //            make.edges.equalToSuperview()
+        //        }
+        //
+        //        feedViewController.didMove(toParentViewController: self)
+        //
+        //        let feed = FeedType.user(user: "3v9gnzwILTS", scope: .recent)
+        //        feedModuleInput.setFeed(feed)
+    }
+    
     func reload() {
         tableView.reloadData()
-        let indexPath = IndexPath(row: output.numberOfItems() - 1, section: 0)
+        let indexPath = IndexPath(row: output.numberOfItems() - 1, section: 1)
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
     
@@ -67,14 +94,34 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
 
 extension PostDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
-        cell.config(comment: output.commentForPath(path: indexPath))
-        cell.delegate = self
-        return cell
+        switch indexPath.section {
+        case TableSections.post.rawValue:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            return cell
+        case TableSections.comments.rawValue:
+            let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
+            cell.config(comment: output.commentForPath(path: indexPath))
+            cell.delegate = self
+            return cell
+        default:
+            return UITableViewCell()
+        }
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return output.numberOfItems()
+        switch section {
+        case TableSections.post.rawValue:
+            return 1
+        case TableSections.comments.rawValue:
+            return output.numberOfItems()
+        default:
+            return 0
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return TableSections.sectionsCount.rawValue
     }
 }
 

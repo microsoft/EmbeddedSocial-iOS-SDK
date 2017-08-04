@@ -7,7 +7,6 @@
 //
 
 class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDetailInteractorOutput {
-    var postHandle: String = ""
 
 
     weak var view: PostDetailViewInput!
@@ -20,7 +19,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     
     func viewIsReady() {
         view.setupInitialState()
-        interactor.fetchComments(topicHandle: postHandle)
+        interactor.fetchComments(topicHandle: (post?.topicHandle)!)
     }
     
     func didFetch(comments: [Comment]) {

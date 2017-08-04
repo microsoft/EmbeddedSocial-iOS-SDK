@@ -15,5 +15,6 @@ enum FeedModuleRoutes: String {
 protocol FeedModuleRouterInput {
     
     func open(route: FeedModuleRoutes)
+    func open(post: Post, from view: UIViewController)
 
 }
