@@ -14,7 +14,7 @@ class PostTests: XCTestCase {
         super.setUp()
         
         let bundle = Bundle(for: type(of: self))
-        let path = bundle.path(forResource: "topicview_source", ofType: "json")
+        let path = bundle.path(forResource: "topics&limit20", ofType: "json")
         let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
         let json = try? JSONSerialization.jsonObject(with: data!)
         
