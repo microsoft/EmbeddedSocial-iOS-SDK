@@ -19,23 +19,6 @@ class UserProfileViewController: UIViewController {
     
     @IBOutlet weak var containerScrollView: UIScrollView! {
         didSet {
-            containerScrollView.addSubview(summaryView)
-            summaryView.snp.makeConstraints { make in
-                make.left.equalTo(containerScrollView)
-                make.top.equalTo(containerScrollView).offset(containerInset)
-                make.width.equalTo(contentWidth)
-                make.height.equalTo(headerHeight)
-            }
-            
-            containerScrollView.addSubview(filterView)
-            filterView.snp.makeConstraints { make in
-                make.left.equalTo(containerScrollView)
-                make.top.equalTo(summaryView.snp.bottom).offset(containerInset).priority(.medium)
-                make.width.equalTo(contentWidth)
-                make.height.equalTo(filterHeight)
-                make.top.greaterThanOrEqualTo(containerScrollView.snp.top)
-            }
-            
             let navBarHeight: CGFloat = 64.0
             let feedHeight = UIScreen.main.bounds.height - filterHeight
             let contentHeight = headerHeight + filterHeight + feedHeight + containerInset * 2 - navBarHeight
@@ -65,19 +48,38 @@ class UserProfileViewController: UIViewController {
         summaryView.onFollowing = { self.output.onFollowing() }
         summaryView.onFollow = { self.output.onFollowRequest(currentStatus: $0) }
         summaryView.onFollowers = { self.output.onFollowers() }
-
+        
+        self.containerScrollView.addSubview(summaryView)
+        
+        summaryView.snp.makeConstraints { make in
+            make.left.equalTo(self.containerScrollView)
+            make.top.equalTo(self.containerScrollView).offset(containerInset)
+            make.width.equalTo(contentWidth)
+            make.height.equalTo(headerHeight)
+        }
+        
         return summaryView
     }()
     
-    fileprivate lazy var filterView: SegmentedControlView = { [weak self] in
+    fileprivate lazy var filterView: SegmentedControlView = { [unowned self] in
         let filterView = SegmentedControlView.fromNib()
         filterView.setSegments([
-            SegmentedControlView.Segment(title: "Recent posts", action: { self?.output.onRecent() }),
-            SegmentedControlView.Segment(title: "Popular posts", action: { self?.output.onPopular() })
+            SegmentedControlView.Segment(title: "Recent posts", action: { self.output.onRecent() }),
+            SegmentedControlView.Segment(title: "Popular posts", action: { self.output.onPopular() })
             ])
         filterView.selectSegment(0)
         filterView.isSeparatorHidden = false
         filterView.separatorColor = Palette.extraLightGrey
+        
+        self.containerScrollView.addSubview(filterView)
+        filterView.snp.makeConstraints { make in
+            make.left.equalTo(self.containerScrollView)
+            make.top.equalTo(self.summaryView.snp.bottom).offset(containerInset).priority(.low)
+            make.width.equalTo(contentWidth)
+            make.height.equalTo(filterHeight)
+            make.top.greaterThanOrEqualTo(self.view.snp.top)
+        }
+        
         return filterView
     }()
     
@@ -115,6 +117,8 @@ class UserProfileViewController: UIViewController {
     }
     
     fileprivate func setupFeedView() {
+        feedView.isUserInteractionEnabled = false
+        
         containerScrollView.addSubview(feedView)
         
         feedView.snp.makeConstraints { make in
@@ -164,7 +168,10 @@ extension UserProfileViewController: UserProfileViewInput {
 extension UserProfileViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        print(scrollView.contentOffset, filterView.frame.origin)
+        let origin = containerScrollView.convert(filterView.frame.origin, to: view)
+        let scrolledAtMax = origin.y < 1.0
+        containerScrollView.isScrollEnabled = !scrolledAtMax
+        feedView.isUserInteractionEnabled = scrolledAtMax
+        print(scrollView.contentOffset, filterView.frame.origin, origin)
     }
 }
