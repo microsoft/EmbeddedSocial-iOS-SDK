@@ -5,6 +5,8 @@
 
 import Foundation
 
-protocol CellModel: Reusable {
+protocol CellModel {
     var cellClass: UITableViewCell.Type { get }
+    
+    var reuseID: String { get }
 }

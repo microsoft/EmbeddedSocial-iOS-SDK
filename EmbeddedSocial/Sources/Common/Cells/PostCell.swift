@@ -17,8 +17,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
             userPhoto.layer.masksToBounds = true
         }
     }
-    @IBOutlet weak var userName: UILabel!
     
+    @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var postCreation: UILabel!
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var postTitle: UILabel!
@@ -55,12 +55,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     @IBOutlet weak var likedCount: UILabel!
     @IBOutlet weak var commentedCount: UILabel!
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
-    }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -105,13 +100,18 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     }
     
-    lazy var postImagePlaceholder: UIImage = {
+    private lazy var postImagePlaceholder: UIImage = {
         return UIImage(asset: Asset.placeholderPostNoimage)
     }()
     
-    lazy var userImagePlaceholder: UIImage = {
+    private lazy var userImagePlaceholder: UIImage = {
         return UIImage(asset: Asset.userPhotoPlaceholder)
     }()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
+    }
     
     override func awakeFromNib() {
         self.contentView.addSubview(container)

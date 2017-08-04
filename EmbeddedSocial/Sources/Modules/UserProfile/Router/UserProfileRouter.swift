@@ -10,17 +10,23 @@ final class UserProfileRouter: UserProfileRouterInput {
     weak var viewController: UIViewController?
 
     func openFollowers(user: User) {
-        let vc = UIViewController()
-        vc.title = "Followers"
-        vc.view.backgroundColor = .white
-        viewController?.navigationController?.pushViewController(vc, animated: true)
+        let api: UsersListAPI = user.isMe ?
+            MyFollowersAPI(service: SocialService()) :
+            UserFollowersAPI(userID: user.uid, service: SocialService())
+        
+        let configurator = FollowersConfigurator()
+        configurator.configure(api: api)
+        viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
     func openFollowing(user: User) {
-        let vc = UIViewController()
-        vc.title = "Following"
-        vc.view.backgroundColor = .white
-        viewController?.navigationController?.pushViewController(vc, animated: true)
+        let api: UsersListAPI = user.isMe ?
+            MeFollowingAPI(service: SocialService()) :
+            UserFollowingAPI(userID: user.uid, service: SocialService())
+        
+        let configurator = FollowingConfigurator()
+        configurator.configure(api: api)
+        viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
     func openEditProfile(user: User) {

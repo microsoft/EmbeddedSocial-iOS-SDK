@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13147.4"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="OEZ-HU-KUq" userLabel="container">
-                    <rect key="frame" x="0.0" y="0.0" width="300" height="565.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="552"/>
                     <subviews>
                         <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="oqe-ch-5n3" userLabel="header">
                             <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
@@ -80,7 +80,7 @@
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="iJH-I2-d58" userLabel="postcontent">
-                            <rect key="frame" x="15" y="245" width="270" height="260.5"/>
+                            <rect key="frame" x="15" y="245" width="270" height="247"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="998" text="Smooth Sailing Over Calm Waters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYk-wD-2lQ">
                                     <rect key="frame" x="0.0" y="0.0" width="270" height="17"/>
@@ -101,28 +101,20 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </textView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mandy Edwards, Aziz Ansari + 3 people like this" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKY-vi-P3e">
-                                    <rect key="frame" x="0.0" y="237" width="261" height="13.5"/>
-                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="11"/>
-                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="mKY-vi-P3e" secondAttribute="bottom" constant="10" id="1oR-JH-qer"/>
                                 <constraint firstItem="WYk-wD-2lQ" firstAttribute="leading" secondItem="iJH-I2-d58" secondAttribute="leading" id="6vq-lL-fQu"/>
                                 <constraint firstAttribute="trailing" secondItem="WYk-wD-2lQ" secondAttribute="trailing" id="8GG-yZ-KDO"/>
-                                <constraint firstItem="mKY-vi-P3e" firstAttribute="top" secondItem="bhP-eN-hI9" secondAttribute="bottom" id="9Ug-Ad-qlc"/>
+                                <constraint firstAttribute="bottom" secondItem="bhP-eN-hI9" secondAttribute="bottom" constant="10" id="I4q-Hm-V23"/>
                                 <constraint firstItem="bhP-eN-hI9" firstAttribute="leading" secondItem="iJH-I2-d58" secondAttribute="leading" id="Ti4-xa-hNA"/>
                                 <constraint firstAttribute="trailing" secondItem="bhP-eN-hI9" secondAttribute="trailing" id="dF4-ux-pkW"/>
-                                <constraint firstItem="mKY-vi-P3e" firstAttribute="leading" secondItem="iJH-I2-d58" secondAttribute="leading" id="eN4-Qa-Wlg"/>
                                 <constraint firstItem="bhP-eN-hI9" firstAttribute="top" secondItem="WYk-wD-2lQ" secondAttribute="bottom" constant="20" id="fJ4-uc-xJ2"/>
                                 <constraint firstItem="WYk-wD-2lQ" firstAttribute="top" secondItem="iJH-I2-d58" secondAttribute="top" id="iYV-1c-E4e"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ugb-5x-70X" userLabel="footer">
-                            <rect key="frame" x="0.0" y="505.5" width="300" height="60"/>
+                            <rect key="frame" x="0.0" y="492" width="300" height="60"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2C6-WJ-LvS" userLabel="like">
                                     <rect key="frame" x="15" y="20" width="20" height="20"/>
@@ -239,7 +231,6 @@
                 <outlet property="container" destination="OEZ-HU-KUq" id="x2e-LX-oXB"/>
                 <outlet property="likeButton" destination="2C6-WJ-LvS" id="wCV-ro-zLw"/>
                 <outlet property="likedCount" destination="YLh-Pw-0g4" id="gWy-99-c0x"/>
-                <outlet property="likedList" destination="mKY-vi-P3e" id="Rfg-jE-u17"/>
                 <outlet property="pinButton" destination="LTY-SJ-7jo" id="uwC-Md-bG8"/>
                 <outlet property="postCreation" destination="hIe-cI-XjE" id="V3T-0h-0wD"/>
                 <outlet property="postImage" destination="hHb-OE-Buk" id="qan-Kr-Kor"/>
@@ -252,9 +243,9 @@
         </view>
     </objects>
     <resources>
-        <image name="icon_comment" width="36" height="36"/>
+        <image name="icon_comment" width="48" height="48"/>
         <image name="icon_dots" width="36" height="36"/>
-        <image name="icon_liked" width="36" height="36"/>
+        <image name="icon_liked" width="48" height="48"/>
         <image name="icon_liked_active" width="48" height="48"/>
         <image name="icon_pin" width="48" height="48"/>
         <image name="icon_pin_active" width="48" height="48"/>

@@ -8,6 +8,54 @@ import Alamofire
 typealias TopicPosted = (PostTopicRequest) -> Void
 typealias Failure = (Error) -> Void
 
+enum FeedServiceError: Error {
+    case failedToFetch(message: String)
+    case failedToLike(message: String)
+    case failedToUnLike(message: String)
+    case failedToPin(message: String)
+    case failedToUnPin(message: String)
+    
+    var message: String {
+        switch self {
+        case .failedToFetch(let message),
+             .failedToPin(let message),
+             .failedToUnPin(let message),
+             .failedToLike(let message),
+             .failedToUnLike(let message):
+            return message
+        }
+    }
+}
+
+typealias FetchResultHandler = ((PostFetchResult) -> Void)
+
+struct PopularFeedQuery {
+    var cursor: Int32?
+    var limit: Int32?
+    var timeRange: TopicsAPI.TimeRange_topicsGetPopularTopics!
+}
+
+struct RecentFeedQuery {
+    var cursor: String?
+    var limit: Int32?
+}
+
+struct UserFeedQuery {
+    var cursor: String?
+    var limit: Int32?
+    var user: UserHandle!
+}
+
+protocol PostServiceProtocol {
+    
+    func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler)
+    func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler)
+    func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler)
+    func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler)
+    func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler)
+    
+}
+
 class TopicService: PostServiceProtocol {
     
     private var success: TopicPosted?
@@ -15,9 +63,12 @@ class TopicService: PostServiceProtocol {
     
     private var cache: Cachable!
     
+    // MARK: Public
     init(cache: Cachable) {
         self.cache = cache
     }
+    
+    // MARK: POST
     
     func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
         self.success = success
@@ -32,7 +83,7 @@ class TopicService: PostServiceProtocol {
                 sendPostTopicRequest(request: topic)
                 return
             }
-                
+            
             guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
                 return
             }
@@ -67,36 +118,84 @@ class TopicService: PostServiceProtocol {
                 return
             }
             
-            print(response.topicHandle!)
             self?.success!(request)
         }
     }
-
-    func fetchPosts(offset: String?, limit: Int, resultHandler: @escaping FetchResultHandler) {
-        
-        TopicsAPI.topicsGetTopics(cursor: offset, limit: Int32(limit)) { (response, error) in
-
+    
+    // MARK: GET
+    func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
+        TopicsAPI.topicsGetPopularTopics(timeRange: query.timeRange,
+                                         cursor: query.cursor,
+                                         limit: query.limit) { [weak self] response, error in
+                                            self?.parseResponse(response: response, error: error, completion: completion)
+        }
+    }
+    
+    func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {
+        TopicsAPI.topicsGetTopics(cursor: query.cursor, limit: query.limit) { [weak self] response, error in
+            self?.parseResponse(response: response, error: error, completion: completion)
+        }
+    }
+    
+    func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
+        UsersAPI.userTopicsGetTopics(userHandle: query.user, cursor: query.cursor, limit: query.limit) { [weak self] response, error in
+            self?.parseResponse(response: response, error: error, completion: completion)
+        }
+    }
+    
+    func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
+        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user) { [weak self] response, error in
+            self?.parseResponse(response: response, error: error, completion: completion)
+        }
+    }
+    
+    func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
+        TopicsAPI.topicsGetTopic(topicHandle: post) { [weak self] (topic, error) in
+            
             var result = PostFetchResult()
             
             guard error == nil else {
                 result.error = FeedServiceError.failedToFetch(message: error!.localizedDescription)
-                resultHandler(result)
+                completion(result)
                 return
             }
             
-            guard let data = response?.data else {
-                result.error = FeedServiceError.failedToFetch(message: "No Items Received")
-                resultHandler(result)
+            guard let data = topic else {
+                result.error = FeedServiceError.failedToFetch(message: "No item for \(post)")
+                completion(result)
                 return
             }
             
-            result.posts = self.convert(data: data)
-            result.cursor = response?.cursor
+            if let wself = self {
+                result.posts = wself.convert(data: [data])
+            }
             
-            resultHandler(result)
+            completion(result)
         }
     }
     
+    private func parseResponse(response: FeedResponseTopicView?, error: Error?, completion: FetchResultHandler) {
+        var result = PostFetchResult()
+        
+        guard error == nil else {
+            result.error = FeedServiceError.failedToFetch(message: error!.localizedDescription)
+            completion(result)
+            return
+        }
+        
+        guard let data = response?.data else {
+            result.error = FeedServiceError.failedToFetch(message: "No Items Received")
+            completion(result)
+            return
+        }
+        
+        result.posts = self.convert(data: data)
+        result.cursor = response?.cursor
+        
+        completion(result)
+    }
+    
+    // MARK: Private
     private func convert(data: [TopicView]) -> [Post] {
         
         var posts = [Post]()
@@ -111,15 +210,14 @@ class TopicService: PostServiceProtocol {
             post.imageUrl = item.blobUrl
             post.title = item.title
             post.text = item.text
-            post.pinned = item.pinned
-            post.liked = item.liked
+            post.pinned = item.pinned ?? false
+            post.liked = item.liked ?? false
             post.topicHandle = item.topicHandle
             post.totalLikes = item.totalLikes ?? 0
-            post.totalComments = item.totalLikes ?? 0
+            post.totalComments = item.totalComments ?? 0
             // TODO: fullfill mapping
             posts.append(post)
         }
         return posts
     }
-    
 }
