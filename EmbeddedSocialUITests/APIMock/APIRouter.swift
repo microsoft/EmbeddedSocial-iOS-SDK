@@ -21,7 +21,7 @@ open class APIRouter: WebApp {
             return ["message": "It works!"]
         })
         
-        self["/v0.6/topics/?(.*)"] = APIResponse(serviceName: "topics") { environ, sendJSON -> Void in
+        self["/v0.6/topics/?(.*(?<!likes)$)"] = APIResponse(serviceName: "topics") { environ, sendJSON -> Void in
             let input = environ["swsgi.input"] as! SWSGIInput
             let method = environ["REQUEST_METHOD"] as! String
             switch method {
@@ -38,10 +38,55 @@ open class APIRouter: WebApp {
                         interval = captures[0]
                     }
                     print(query)
-                    if let cursor = query["cursor"], let limit = query["limit"] {
+                    let cursor = query["cursor"] ?? "0"
+                    if let limit = query["limit"] {
                         sendJSON(Templates.loadTopics(interval: interval, cursor: Int(cursor)!, limit: Int(limit)!))
                     }
                     sendJSON(Templates.loadTopics(interval: interval))
+            }
+        }
+        
+        self["/v0.6/topics/(.*)/likes"] = APIResponse(serviceName: "likes") { environ, sendJSON -> Void in
+            let method = environ["REQUEST_METHOD"] as! String
+            switch method {
+                case "POST":
+                    sendJSON(Templates.load(name: "likes_post"))
+                default:
+                    break
+            }
+        }
+        
+        self["/v0.6/topics/(.*)/likes/me"] = APIResponse(serviceName: "likes") { environ, sendJSON -> Void in
+            let method = environ["REQUEST_METHOD"] as! String
+            switch method {
+            case "DELETE":
+                sendJSON(Templates.load(name: "likes_delete"))
+            default:
+                break
+            }
+        }
+        
+        self["/v0.6/users/me/pins"] = APIResponse(serviceName: "pins") { environ, sendJSON -> Void in
+            let input = environ["swsgi.input"] as! SWSGIInput
+            let method = environ["REQUEST_METHOD"] as! String
+            switch method {
+            case "POST":
+                JSONReader.read(input) { json in
+                    APIState.setLatestData(forService: "pins", data: json)
+                    sendJSON(Templates.load(name: "pins_post"))
+                }
+            default:
+                break
+            }
+        }
+        
+        self["/v0.6/users/me/pins/(.*)"] = APIResponse(serviceName: "pins") { environ, sendJSON -> Void in
+            let method = environ["REQUEST_METHOD"] as! String
+            switch method {
+            case "DELETE":
+                sendJSON(Templates.load(name: "pins_delete"))
+            default:
+                break
             }
         }
         
@@ -99,6 +144,8 @@ open class APIRouter: WebApp {
     
     private func matchRoute(to searchPath: String) -> (WebApp, [String])? {
         print("Request: " + searchPath)
+        APIState.addRequest(searchPath)
+        
         if routes[searchPath] != nil {
             return (routes[searchPath]!, [])
         }

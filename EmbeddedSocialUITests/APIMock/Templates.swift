@@ -48,7 +48,6 @@ class Templates {
             let topic = Templates.load(name: "topic",
                                        values: ["title": interval + String(i),
                                                 "topicHandle": interval + String(i),
-                                                "text": interval + " text" + String(i),
                                                 "lastUpdatedTime": Date().ISOString,
                                                 "createdTime": Date().ISOString,
                                                 "blobType": APIConfig.showTopicImages ? "Image": "Unknown",
