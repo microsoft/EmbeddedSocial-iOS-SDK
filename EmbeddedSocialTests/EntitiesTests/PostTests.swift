@@ -5,14 +5,14 @@
 
 import XCTest
 
-class Post: XCTestCase {
+class PostTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
         
         let bundle = Bundle(for: type(of: self))
-        let path = bundle.path(forResource: "topicview_source", ofType: "json")!
-        let data = NSData(contentsOfFile: path)
+        let path = bundle.path(forResource: "topicview_source", ofType: "json")
+        let data = NSData(contentsOfFile: path!)
         
     }
     

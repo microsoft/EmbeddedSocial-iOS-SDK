@@ -101,7 +101,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func refreshData() {
-        didAskFetchAll()
+        interactor.fetchPosts(limit: limit, feedType: feedType)
     }
     
     // MARK: Private
@@ -205,7 +205,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didAskFetchAll() {
-        view.setRefreshing(state: true)
         interactor.fetchPosts(limit: limit, feedType: feedType)
     }
     

@@ -7,17 +7,47 @@ import XCTest
 @testable import EmbeddedSocial
 
 
+private class FeedModuleInteractorMock: FeedModuleInteractorInput {
+
+    var didFetchPosts = false
+    var didFetchMorePosts = false
+    var didFetchMoreWithCursor: String!
+    var didFetchLimit: Int32?
+    var didFetchFeedType: FeedType?
+    
+    func fetchPosts(limit: Int32?, feedType: FeedType) {
+        didFetchPosts = true
+        didFetchLimit = limit
+        didFetchFeedType = feedType
+    }
+    
+    func fetchPostsMore(limit: Int32?, feedType: FeedType, cursor: String) {
+        didFetchMorePosts = true
+        didFetchLimit = limit
+        didFetchFeedType = feedType
+        didFetchMoreWithCursor = cursor
+    }
+    
+    func postAction(post: PostHandle, action: PostSocialAction) { }
+}
+
 class FeedModulePresenterTests: XCTestCase {
     
     var sut: FeedModulePresenter!
     var view: FeedModuleViewInput!
+    private var interactor: FeedModuleInteractorMock!
     
     override func setUp() {
         super.setUp()
         
         sut = FeedModulePresenter()
+        sut.setFeed(.home)
+        
         view = FeedModuleViewController()
         sut.view = view
+        
+        interactor = FeedModuleInteractorMock()
+        sut.interactor = interactor
     }
     
     func testThatViewModelIsCorrect() {
@@ -41,7 +71,7 @@ class FeedModulePresenterTests: XCTestCase {
         post.createdTime = creationDate
         
         let posts = [post]
-        let feed = PostsFeed(items: posts)
+        let feed = PostsFeed(items: posts, cursor: nil)
         sut.didFetch(feed: feed)
         let path = IndexPath(row: 0, section: 0)
         
@@ -57,14 +87,20 @@ class FeedModulePresenterTests: XCTestCase {
         XCTAssertTrue(viewModel.timeCreated == "2d")
     }
     
-    func testThatFeedTypeChangedSuccessfully() {
+    func testThatOnFeedTypeChangeFetchingAllIsCalled() {
         
-        // give
+        // given
+        let feedType = FeedType.single(post: "handle")
+        sut.setFeed(feedType)
         
         // when
+        sut.refreshData()
         
         // then
-        
+        XCTAssertTrue(interactor.didFetchPosts)
     }
+    
+//    func test
+    
 
 }
