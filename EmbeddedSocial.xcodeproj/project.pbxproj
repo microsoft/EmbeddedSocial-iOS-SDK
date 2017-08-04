@@ -366,6 +366,10 @@
 		88F3858B1F31BF140048B04C /* UserListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88F385891F31BF140048B04C /* UserListCell.xib */; };
 		88F5518F1F3366A100F4AAB9 /* UserListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F5518E1F3366A100F4AAB9 /* UserListInteractorTests.swift */; };
 		88F551911F3366C600F4AAB9 /* MockUsersListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551901F3366C600F4AAB9 /* MockUsersListAPI.swift */; };
+		88F551931F336D9200F4AAB9 /* UserListPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551921F336D9200F4AAB9 /* UserListPresenterTests.swift */; };
+		88F551951F336DCB00F4AAB9 /* MockUserListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551941F336DCB00F4AAB9 /* MockUserListInteractor.swift */; };
+		88F551991F336FB700F4AAB9 /* MockUserListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551981F336FB700F4AAB9 /* MockUserListModuleOutput.swift */; };
+		88F5519B1F33705100F4AAB9 /* MockUserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F5519A1F33705100F4AAB9 /* MockUserListView.swift */; };
 		88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */; };
 		88F7A7891F27896B005FEC5F /* MockAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7881F27896B005FEC5F /* MockAuthService.swift */; };
 		88F7A78B1F2789F0005FEC5F /* MockUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A78A1F2789F0005FEC5F /* MockUserService.swift */; };
@@ -852,6 +856,10 @@
 		88F385891F31BF140048B04C /* UserListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserListCell.xib; sourceTree = "<group>"; };
 		88F5518E1F3366A100F4AAB9 /* UserListInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserListInteractorTests.swift; path = UserList/UserListInteractorTests.swift; sourceTree = "<group>"; };
 		88F551901F3366C600F4AAB9 /* MockUsersListAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUsersListAPI.swift; sourceTree = "<group>"; };
+		88F551921F336D9200F4AAB9 /* UserListPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListPresenterTests.swift; sourceTree = "<group>"; };
+		88F551941F336DCB00F4AAB9 /* MockUserListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListInteractor.swift; sourceTree = "<group>"; };
+		88F551981F336FB700F4AAB9 /* MockUserListModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListModuleOutput.swift; sourceTree = "<group>"; };
+		88F5519A1F33705100F4AAB9 /* MockUserListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListView.swift; sourceTree = "<group>"; };
 		88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInteractorTests.swift; sourceTree = "<group>"; };
 		88F7A7881F27896B005FEC5F /* MockAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAuthService.swift; sourceTree = "<group>"; };
 		88F7A78A1F2789F0005FEC5F /* MockUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserService.swift; sourceTree = "<group>"; };
@@ -2155,9 +2163,21 @@
 			isa = PBXGroup;
 			children = (
 				88F5518E1F3366A100F4AAB9 /* UserListInteractorTests.swift */,
-				88F551901F3366C600F4AAB9 /* MockUsersListAPI.swift */,
+				88F551921F336D9200F4AAB9 /* UserListPresenterTests.swift */,
+				88F5519C1F33715900F4AAB9 /* Mocks */,
 			);
 			name = UserList;
+			sourceTree = "<group>";
+		};
+		88F5519C1F33715900F4AAB9 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				88F5519A1F33705100F4AAB9 /* MockUserListView.swift */,
+				88F551981F336FB700F4AAB9 /* MockUserListModuleOutput.swift */,
+				88F551901F3366C600F4AAB9 /* MockUsersListAPI.swift */,
+				88F551941F336DCB00F4AAB9 /* MockUserListInteractor.swift */,
+			);
+			name = Mocks;
 			sourceTree = "<group>";
 		};
 		88F7A7871F2788E1005FEC5F /* Login */ = {
@@ -3045,6 +3065,7 @@
 				889AFC271F220BCD003AAF19 /* AuthServiceTests.swift in Sources */,
 				88F7A7951F278D90005FEC5F /* MockLoginRouter.swift in Sources */,
 				88F7A79F1F2799F3005FEC5F /* MockCreateAccountViewController.swift in Sources */,
+				88F551991F336FB700F4AAB9 /* MockUserListModuleOutput.swift in Sources */,
 				88FFFA671F30AB170066A1A0 /* MyProfileHolder.swift in Sources */,
 				883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */,
 				88FFFA5A1F2F7F780066A1A0 /* UserProfileInteractorTests.swift in Sources */,
@@ -3062,11 +3083,14 @@
 				88F7A78D1F278AA4005FEC5F /* MockSessionService.swift in Sources */,
 				88F1638D1F27677100DAAF68 /* OutgoingTransactionTests.swift in Sources */,
 				883B9B681F277E5A00D1E66E /* CoreDataSavingTests.swift in Sources */,
+				88F5519B1F33705100F4AAB9 /* MockUserListView.swift in Sources */,
 				88087B4A1F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift in Sources */,
 				88F5518F1F3366A100F4AAB9 /* UserListInteractorTests.swift in Sources */,
 				88F7A7891F27896B005FEC5F /* MockAuthService.swift in Sources */,
+				88F551951F336DCB00F4AAB9 /* MockUserListInteractor.swift in Sources */,
 				88FFFA5F1F2F81A70066A1A0 /* FollowStatusTests.swift in Sources */,
 				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
+				88F551931F336D9200F4AAB9 /* UserListPresenterTests.swift in Sources */,
 				88FFFA591F2F7F780066A1A0 /* MockUserProfileView.swift in Sources */,
 				88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */,
 				88F163851F2745E500DAAF68 /* CreateAccountValidatorTests.swift in Sources */,
