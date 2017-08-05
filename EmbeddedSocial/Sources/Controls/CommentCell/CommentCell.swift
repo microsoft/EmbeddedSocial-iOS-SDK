@@ -1,10 +1,8 @@
 //
-//  CommentCell.swift
-//  EmbeddedSocial
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
-//  Created by Mac User on 31.07.17.
-//  Copyright © 2017 Akvelon. All rights reserved.
-//
+
 
 import UIKit
 

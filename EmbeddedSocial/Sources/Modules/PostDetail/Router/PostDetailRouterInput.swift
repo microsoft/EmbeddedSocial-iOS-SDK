@@ -1,10 +1,8 @@
 //
-//  PostDetailPostDetailRouterInput.swift
-//  EmbeddedSocial-Framework
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
-//  Created by generamba setup on 31/07/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
-//
+
 
 import Foundation
 

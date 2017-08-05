@@ -35,6 +35,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     // MARK: PostDetailViewInput
     func setupInitialState() {
         imagePikcer.delegate = self
+        configPost()
         configTableView()
         configTextView()
     }
@@ -47,32 +48,34 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         tableView.dataSource = self
     }
     
+    fileprivate var feedModuleInput: FeedModuleInput!
+    fileprivate var postView: UIView?
+    
     func configPost() {
         // Module
-        //        let configurator = FeedModuleConfigurator()
-        //        configurator.configure(navigationController: self.navigationController!)
-        //
-        //        feedModuleInput = configurator.moduleInput!
-        //        let feedViewController = configurator.viewController!
-        //
-        //        feedViewController.willMove(toParentViewController: self)
-        //        addChildViewController(feedViewController)
-        //        container.addSubview(feedViewController.view)
-        //
-        //        feedViewController.view.snp.makeConstraints { (make) in
-        //            make.edges.equalToSuperview()
-        //        }
-        //
-        //        feedViewController.didMove(toParentViewController: self)
-        //
-        //        let feed = FeedType.user(user: "3v9gnzwILTS", scope: .recent)
-        //        feedModuleInput.setFeed(feed)
+        let configurator = FeedModuleConfigurator()
+        configurator.configure(navigationController: self.navigationController!)
+
+        feedModuleInput = configurator.moduleInput!
+        let feedViewController = configurator.viewController!
+
+        feedViewController.willMove(toParentViewController: self)
+        addChildViewController(feedViewController)
+        feedViewController.didMove(toParentViewController: self)
+
+        let feed = FeedType.single(post: (output.post?.topicHandle)!)
+        feedModuleInput.setFeed(feed)
+        postView = feedViewController.view
     }
     
     func reload() {
         tableView.reloadData()
-        let indexPath = IndexPath(row: output.numberOfItems() - 1, section: 1)
-        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            if self.output.numberOfItems() > 1 {
+                let indexPath = IndexPath(row: self.output.numberOfItems() - 1, section: 1)
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+        }
     }
     
     func configTextView() {
@@ -97,6 +100,7 @@ extension PostDetailViewController: UITableViewDataSource {
         switch indexPath.section {
         case TableSections.post.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            cell.addSubview(postView!)
             return cell
         case TableSections.comments.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
@@ -126,6 +130,17 @@ extension PostDetailViewController: UITableViewDataSource {
 }
 
 extension PostDetailViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case TableSections.post.rawValue:
+            return feedModuleInput.moduleHeight()
+        case TableSections.comments.rawValue:
+            return UITableViewAutomaticDimension
+        default:
+            return 0
+        }
+    }
 }
 
 extension PostDetailViewController: CommentCellDelegate {
