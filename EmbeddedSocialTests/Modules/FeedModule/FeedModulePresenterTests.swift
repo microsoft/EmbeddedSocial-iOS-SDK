@@ -8,10 +8,11 @@ import XCTest
 
 private class FeedModuleViewMock: FeedModuleViewInput {
     
-    var state = false
+    var refreshingState = false
     var index: Int?
     var layout: FeedModuleLayoutType?
     var calls = [String:Bool]()
+    var reloadedTimes = 0
     
     func setupInitialState( ) {
         calls[#function] = true
@@ -24,20 +25,22 @@ private class FeedModuleViewMock: FeedModuleViewInput {
     
     func reload() {
         calls[#function] = true
+        reloadedTimes += 1
     }
 
     func reload(with index: Int) {
         calls[#function] = true
-        index = index
+        self.index = index
     }
     
     func setRefreshing(state: Bool) {
         calls[#function] = true
-        state = state
+        refreshingState = state
     }
     
     func getViewHeight() -> CGFloat {
         calls[#function] = true
+        return 0
     }
 }
 
@@ -69,7 +72,7 @@ private class FeedModuleInteractorMock: FeedModuleInteractorInput {
 class FeedModulePresenterTests: XCTestCase {
     
     var sut: FeedModulePresenter!
-    var view: FeedModuleViewInput!
+    private var view: FeedModuleViewMock!
     private var interactor: FeedModuleInteractorMock!
     
     override func setUp() {
@@ -78,7 +81,7 @@ class FeedModulePresenterTests: XCTestCase {
         sut = FeedModulePresenter()
         sut.setFeed(.home)
         
-        view = FeedModuleViewController()
+        view = FeedModuleViewMock()
         sut.view = view
         
         interactor = FeedModuleInteractorMock()
@@ -130,21 +133,108 @@ class FeedModulePresenterTests: XCTestCase {
 //
 //    func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?)
     
-    func testFetch() {
-        
+    
+//    func viewIsReady()
+//
+//    func numberOfItems() -> Int
+//    func item(for path: IndexPath) -> PostViewModel
+//
+//    func didTapChangeLayout()
+//    func didTapItem(path: IndexPath)
+//
+//    func didAskFetchAll()
+//    func didAskFetchMore()
+    
+    
+    
+    
+    ///
+    
+    
+    
+    
+    
+    func testThatViewHandlesEndOfFetching() {
         
         // given
-        let feed = FeedType.home
-        sut.setFeed(feed)
+        view.refreshingState = true
         
         // when
         sut.didFinishFetching()
         
         // then
-        XCTAssertTrue(view.)
+        XCTAssertTrue(view.refreshingState == false)
     }
     
-    func testThatOnFeedTypeChangeFetchingAllIsCalled() {
+    func testThatViewHandlesStartOfFetching() {
+        
+        // given
+        view.refreshingState = false
+        
+        // when
+        sut.didStartFetching()
+        
+        // then
+        XCTAssertTrue(view.refreshingState == true)
+    }
+    
+    func testThatFetchFeedProducesCorrectItems() {
+        
+        // given
+        let initialPost = Post.mock(seed: 10)
+        let initialFeed = PostsFeed(items: [initialPost], cursor: nil)
+        
+        // when
+        sut.didFetch(feed: initialFeed)
+        
+        // then
+        XCTAssertTrue(sut.item(for: IndexPath(row: 0, section: 0)).title == "Title 10")
+        XCTAssertTrue(sut.numberOfItems() == 1)
+    }
+    
+    func testThatReFetchFeedProducesCorrectItems() {
+        
+        // given
+        let path = IndexPath(row: 0, section: 0)
+        
+        let postsA = [Post.mock(seed: 1), Post.mock(seed: 2)]
+        let feedA = PostsFeed(items: postsA, cursor: nil)
+        sut.didFetch(feed: feedA)
+        
+        let postsB = [Post.mock(seed: 3), Post.mock(seed: 4), Post.mock(seed: 5)]
+        let feedB = PostsFeed(items: postsB, cursor: nil)
+        
+        // when
+        sut.didFetch(feed: feedB)
+        
+        // then
+        XCTAssert(sut.numberOfItems() == 3)
+        XCTAssertTrue(sut.item(for: path).title == "Title 3")
+    }
+    
+    
+    func testThatFetchMoreHandlesFeedCorrectly() {
+        
+        // given
+        let initialPost = Post.mock(seed: 1)
+        let initialFeed = PostsFeed(items: [initialPost], cursor: nil)
+        sut.didFetch(feed: initialFeed)
+        
+        let morePosts = [Post.mock(seed: 2), Post.mock(seed: 3)]
+        let moreFeed = PostsFeed(items: morePosts, cursor: "cursor")
+        
+        // when
+        sut.didFetchMore(feed: moreFeed)
+        
+        // then
+        XCTAssertTrue(sut.item(for: IndexPath(row: 0, section: 0)).title == "Title 1")
+        XCTAssertTrue(sut.item(for: IndexPath(row: 1, section: 0)).title == "Title 2")
+        XCTAssertTrue(sut.numberOfItems() == 3)
+        XCTAssertTrue(view.calls["reload()"] == true)
+        XCTAssertTrue(view.reloadedTimes == 2)
+    }
+    
+    func testThatOnFeedTypeChangeFetchIsDone() {
         
         // given
         let feedType = FeedType.single(post: "handle")

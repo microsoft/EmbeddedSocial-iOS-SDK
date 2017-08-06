@@ -108,12 +108,12 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput, UIScrollV
         // switch layout
         switch type {
         case .grid:
-            layoutChangeButton.image = UIImage(asset: .iconGallery)
+            layoutChangeButton.image = UIImage(asset: .iconList)
             if collectionView!.collectionViewLayout != gridLayout {
                 collectionView!.setCollectionViewLayout(gridLayout, animated: animated)
             }
         case .list:
-            layoutChangeButton.image = UIImage(asset: .iconList)
+            layoutChangeButton.image = UIImage(asset: .iconGallery)
             if collectionView!.collectionViewLayout != listLayout {
                 collectionView?.setCollectionViewLayout(listLayout, animated: animated)
             }

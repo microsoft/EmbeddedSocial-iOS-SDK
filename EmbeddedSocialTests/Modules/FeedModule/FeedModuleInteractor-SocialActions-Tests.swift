@@ -6,38 +6,54 @@
 import XCTest
 @testable import EmbeddedSocial
 
-private class LikesServiceMock: LikesServiceProtocol {
+private class SocialServicesMock: LikesServiceProtocol, PinsServiceProtocol {
     
     var postLikeIsCalled = false
     var deleteLikeIsCalled = false
+    var postPinIsCalled = false
+    var deletePinIsCalled = false
+    var error: FeedServiceError?
     
     func postLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
         
         postLikeIsCalled = true
-        completion(postHandle, nil)
+        completion(postHandle, error)
     }
     
     func deleteLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
         deleteLikeIsCalled = true
-        completion(postHandle, nil)
+        completion(postHandle, error)
     }
-}
-
-private class PinsServiceMock: PinsServiceProtocol {
-  
-    var postPinIsCalled = false
-    var deletePinIsCalled = false
     
     func postPin(postHandle: PinsServiceProtocol.PostHandle, completion: @escaping PinsServiceProtocol.CompletionHandler) {
         
         postPinIsCalled = true
-        completion(postHandle, nil)
+        completion(postHandle, error)
     }
     
     func deletePin(postHandle: PinsServiceProtocol.PostHandle, completion: @escaping PinsServiceProtocol.CompletionHandler) {
         
         deletePinIsCalled = true
-        completion(postHandle, nil)
+        completion(postHandle, error)
+    }
+}
+
+private class FeedModulePresenterMock: FeedModuleInteractorOutput {
+    
+    var didPostAction: (post: PostHandle, action: PostSocialAction, error: Error?)?
+    
+    func didFetch(feed: PostsFeed) { }
+    
+    func didFetchMore(feed: PostsFeed) { }
+    
+    func didFail(error: FeedServiceError) { }
+    
+    func didStartFetching() { }
+    
+    func didFinishFetching() { }
+    
+    func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
+        didPostAction = (post, action, error)
     }
 }
 
@@ -45,10 +61,9 @@ class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
 
     var sut: FeedModuleInteractor!
     var view: FeedModuleViewController!
-    var presenter: FeedModulePresenter!
+    private var presenter: FeedModulePresenterMock!
     
-    private var likesServiceMock: LikesServiceMock!
-    private var pinsServiceMock: PinsServiceMock!
+    private var service: SocialServicesMock!
     
     override func setUp() {
         super.setUp()
@@ -56,15 +71,12 @@ class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
         sut = FeedModuleInteractor()
         
         view = FeedModuleViewController()
-        presenter = FeedModulePresenter()
-        presenter.view = view
+        presenter = FeedModulePresenterMock()
         sut.output = presenter
         
-        likesServiceMock = LikesServiceMock()
-        sut.likesService = likesServiceMock
-        
-        pinsServiceMock = PinsServiceMock()
-        sut.pinsService = pinsServiceMock
+        service = SocialServicesMock()
+        sut.likesService = service
+        sut.pinsService = service
     }
     
     override func tearDown() {
@@ -80,7 +92,7 @@ class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
         sut.postAction(post: post, action: action)
         
         // then
-        XCTAssertTrue(likesServiceMock.postLikeIsCalled)
+        XCTAssertTrue(service.postLikeIsCalled)
     }
     
     func testDeleteLikeIsCalled() {
@@ -93,7 +105,7 @@ class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
         sut.postAction(post: post, action: action)
         
         // then
-        XCTAssertTrue(likesServiceMock.deleteLikeIsCalled)
+        XCTAssertTrue(service.deleteLikeIsCalled)
     }
     
     func testPostPinIsCalled() {
@@ -106,7 +118,7 @@ class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
         sut.postAction(post: post, action: action)
         
         // then
-        XCTAssertTrue(pinsServiceMock.postPinIsCalled)
+        XCTAssertTrue(service.postPinIsCalled)
     }
     
     func testDeletePinIsCalled() {
@@ -119,8 +131,24 @@ class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
         sut.postAction(post: post, action: action)
         
         // then
-        XCTAssertTrue(pinsServiceMock.deletePinIsCalled)
+        XCTAssertTrue(service.deletePinIsCalled)
 
+    }
+    
+    func testSocialActionErrorIsHandled() {
+        
+        // given
+        let action = PostSocialAction.unpin
+        let post = "handle"
+        service.error = FeedServiceError.failedToUnPin(message: "Ooops")
+        
+        // when
+        sut.postAction(post: post, action: action)
+        
+        // then
+        XCTAssertTrue(presenter.didPostAction!.action == .unpin)
+        XCTAssertTrue(presenter.didPostAction!.error != nil)
+        XCTAssertTrue(presenter.didPostAction!.post == "handle")
     }
 
 }
