@@ -37,6 +37,10 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         return collectionView.indexPath(for: self)!
     }
     
+    @IBAction private func onProfileInfo(_ sender: Any) {
+        viewModel.onAction?(.profile, indexPath())
+    }
+    
     @IBAction private func onTapLike(_ sender: Any) {
         viewModel.onAction?(.like, indexPath())
     }

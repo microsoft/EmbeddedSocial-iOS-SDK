@@ -46,7 +46,7 @@ extension FeedType: Equatable {
 }
 
 enum PostCellAction {
-    case like, pin, comment, extra
+    case like, pin, comment, extra, profile
 }
 
 struct PostViewModel {
@@ -167,8 +167,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     private func handle(action: PostCellAction, path: IndexPath) {
         
-        let postHandle = items[path.row].topicHandle!
         let index = path.row
+        let postHandle = items[index].topicHandle!
+        let userHandle = items[index].userHandle!
         
         switch action {
         case .comment:
@@ -199,6 +200,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             
             view.reload(with: index)
             interactor.postAction(post: postHandle, action: action)
+            
+        case .profile:
+            router.open(route: .postDetails(user: userHandle))
         }
     }
     
