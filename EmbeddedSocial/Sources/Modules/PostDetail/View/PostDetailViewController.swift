@@ -75,7 +75,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + reloadDelay) {
             if self.output.numberOfItems() > 1 {
-                let indexPath = IndexPath(row: self.output.numberOfItems() - 1, section: 1)
+                let indexPath = IndexPath(row: self.output.numberOfItems() - 1, section: TableSections.comments)
                 self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
             }
         }
