@@ -14,24 +14,51 @@ public protocol SideMenuItemsProvider: class {
     func destination(forItem index: Int) -> UIViewController
 }
 
-public class NavigationStack {
+protocol NavigationStackProtocol {
     
-    var navigationController: UINavigationController
-    var container: NavigationStackContainer
-    var window: UIWindow
+    func show(_ viewController: UIViewController)
+    func push(_ viewController: UIViewController)
+    func closeMenu()
+    func openMenu()
+    
+    var navigationController: UINavigationController { get }
+}
+
+public class NavigationStack: NavigationStackProtocol {
+    
+    private(set) var navigationController: UINavigationController
+    private var container: NavigationStackContainer
+    private var window: UIWindow
+    private var menuStackController: MenuStackController!
+    
+    func closeMenu() {
+        menuStackController.closeSideMenu()
+    }
+    
+    func openMenu() {
+        menuStackController.openSideMenu()
+    }
+    
+    func show(_ viewController: UIViewController) {
+        container.show(viewController: viewController)
+    }
+    
+    func push(_ viewController: UIViewController) {
+        navigationController.pushViewController(viewController, animated: true)
+    }
     
     init(window: UIWindow, menuViewController: UIViewController) {
         
         self.window = window
         
-        // container for all VCs go through menu
+        // container for all View Controllers shown through framework
         container = StoryboardScene.MenuStack.instantiateNavigationStackContainer()
         // container is embedded into navigation controller
         navigationController = UINavigationController(rootViewController: self.container)
         
-        let presenterController = MenuStackController(mainViewController: navigationController,
+        menuStackController = MenuStackController(mainViewController: navigationController,
                                             leftMenuViewController: menuViewController)
         
-        window.rootViewController = presenterController
+        window.rootViewController = menuStackController
     }
 }

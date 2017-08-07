@@ -178,4 +178,9 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     func open(viewController: UIViewController) {
         router.open(viewController: viewController, sender: view)
     }
+    
+    func close() {
+        router.close()
+    }
+    
 }

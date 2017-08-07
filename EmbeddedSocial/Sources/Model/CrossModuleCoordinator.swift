@@ -3,7 +3,15 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+protocol CrossModuleCoordinatorConfigurator {
+    
+    func configureHome() -> UIViewController
+    
+}
+
 protocol CrossModuleCoordinatorProtocol: class {
+    
+    func closeMenu()
     
     func openHomeScreen()
     func openMyProfile()
@@ -18,7 +26,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     weak var loginHandler: LoginModuleOutput!
     private(set) var navigationStack: NavigationStack!
     private(set) var user: User?
-    private var cache: Cache
+    fileprivate var cache: Cache
     
     required init(cache: Cache) {
         self.cache = cache
@@ -26,19 +34,20 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     
     func setup(launchArguments args: LaunchArguments, loginHandler: LoginModuleOutput) {
         self.loginHandler = loginHandler
+    
+        let socialMenuHandler = SocialMenuItemsProvider(coordinator: self)
         
-        let sideMenuVC = StoryboardScene.MenuStack.instantiateSideMenuViewController()
+        let configurator = SideMenuModuleConfigurator()
         
-        navigationStack = NavigationStack(window: args.window, menuViewController: sideMenuVC)
+        configurator.configure(coordinator: self,
+                               configuration: args.menuConfiguration,
+                               socialMenuItemsProvider: socialMenuHandler,
+                               clientMenuItemsProvider: args.menuHandler)
         
-        let socialItemsProvider = SocialMenuItemsProvider(delegate: self)
-
-        menuModule = SideMenuModuleConfigurator.configure(viewController: sideMenuVC,
-                                                          coordinator: self,
-                                                          configuration: args.menuConfiguration,
-                                                          socialMenuItemsProvider: socialItemsProvider,
-                                                          clientMenuItemsProvider: args.menuHandler,
-                                                          output: navigationStack.container)
+        menuModule = configurator.moduleInput
+        navigationStack = NavigationStack(window: args.window, menuViewController: configurator.viewController)
+        
+        configurator.router.output = navigationStack
     }
 
     // MARK: Login Delegate
@@ -48,9 +57,14 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         menuModule.user = user
         
         openHomeScreen()
+        closeMenu()
     }
     
     // MARK: Protocol
+    
+    func closeMenu() {
+        menuModule.close()
+    }
     
     func isUserAuthenticated() -> Bool {
         return (user != nil)
@@ -59,21 +73,27 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     func openLoginScreen() {
         let configurator = LoginConfigurator()
         configurator.configure(moduleOutput: loginHandler)
-        
-        menuModule.open(viewController: configurator.viewController)
+        navigationStack.show(configurator.viewController)
     }
     
     func openMyProfile() {
         let configurator = UserProfileConfigurator()
         configurator.configure()
-        menuModule.open(viewController: configurator.viewController)
+        navigationStack.show(configurator.viewController)
     }
     
     func openHomeScreen() {
+        let vc = configureHome()
+        navigationStack.show(vc)
+    }
+}
+
+extension CrossModuleCoordinator: CrossModuleCoordinatorConfigurator {
+    
+    func configureHome() -> UIViewController {
         let configurator = FeedModuleConfigurator(cache: self.cache)
         configurator.configure(feed: FeedType.home, navigationController: navigationStack.navigationController)
         let vc = configurator.viewController!
-        navigationStack.navigationController.show(vc, sender: nil)
+        return vc
     }
-    
 }

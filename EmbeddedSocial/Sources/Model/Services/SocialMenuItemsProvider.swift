@@ -7,10 +7,10 @@ import Foundation
 
 class SocialMenuItemsProvider: SideMenuItemsProvider {
     
-    private weak var coordinator: CrossModuleCoordinatorProtocol!
+    private weak var coordinator: CrossModuleCoordinator!
     
-    init(delegate: CrossModuleCoordinatorProtocol) {
-        self.coordinator = delegate
+    init(coordinator: CrossModuleCoordinator) {
+        self.coordinator = coordinator
     }
     
     enum State: Int {
@@ -37,22 +37,20 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         return items[state]![index].title
     }
     
-    
-    var tempVC: UIViewController?
     func destination(forItem index: Int) -> UIViewController {
         return items[state]![index].builder(self.coordinator)
     }
 
     // MARK: Items
     
-    typealias ModuleBuilder = (_ delegate: CrossModuleCoordinatorProtocol) -> ()
+    typealias ModuleBuilder = (_ delegate: CrossModuleCoordinator) -> (UIViewController)
     
     var builderForDummy: ModuleBuilder = { coordinator in
-        coordinator.openHomeScreen()
+        return coordinator.configureHome()
     }
     
     var builderForHome: ModuleBuilder = { coordinator in
-       coordinator.openHomeScreen()
+        return coordinator.configureHome()
     }
 
     lazy var items: [State: [(title: String, image: UIImage, builder: ModuleBuilder)]] = { [unowned self] in

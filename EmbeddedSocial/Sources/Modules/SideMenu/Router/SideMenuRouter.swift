@@ -4,22 +4,27 @@
 //
 
 class SideMenuRouter: SideMenuRouterInput {
-    
-    var output: SideMenuModuleOutput!
+
+    var output: NavigationStackProtocol!
     weak var coordinator: CrossModuleCoordinator!
     
+    func close() {
+        output.closeMenu()
+    }
+    
     func open(viewController: UIViewController, sender: Any?) {
-        
-        UIApplication.shared.sendAction(Selector(("closeSideMenu")), to: nil, from: sender, for: nil)
-        output.show(viewController: viewController)
+        output.show(viewController)
+        close()
     }
     
     func openLoginScreen() {
         coordinator.openLoginScreen()
+        close()
     }
     
     func openMyProfile() {
         coordinator.openMyProfile()
+        close()
     }
 }
 
