@@ -11,11 +11,11 @@ private class FeedModuleViewMock: FeedModuleViewInput {
     var didSetRefreshingState = false
     var didSetIndex: Int?
     var didSetLayout: FeedModuleLayoutType?
-    var calls = [String:Bool]()
     var didReloadTimes = 0
+    var didReload = false
     
     func setupInitialState( ) {
-        calls[#function] = true
+    
     }
 
     func setLayout(type: FeedModuleLayoutType) {
@@ -23,7 +23,7 @@ private class FeedModuleViewMock: FeedModuleViewInput {
     }
     
     func reload() {
-        calls[#function] = true
+        didReload = true
         didReloadTimes += 1
     }
 
@@ -36,7 +36,6 @@ private class FeedModuleViewMock: FeedModuleViewInput {
     }
     
     func getViewHeight() -> CGFloat {
-        calls[#function] = true
         return 0
     }
 }
@@ -227,7 +226,7 @@ class FeedModulePresenterTests: XCTestCase {
         XCTAssertTrue(sut.item(for: IndexPath(row: 0, section: 0)).title == "Title 1")
         XCTAssertTrue(sut.item(for: IndexPath(row: 1, section: 0)).title == "Title 2")
         XCTAssertTrue(sut.numberOfItems() == 3)
-        XCTAssertTrue(view.calls["reload()"] == true)
+        XCTAssertTrue(view.didReload == true)
         XCTAssertTrue(view.didReloadTimes == 2)
     }
     
@@ -253,7 +252,7 @@ class FeedModulePresenterTests: XCTestCase {
         sut.didFetch(feed: feed)
         
         // then
-        XCTAssertTrue(view.calls["reload()"] == true)
+        XCTAssertTrue(view.didReload == true)
     }
     
     func testThatLayoutChanges() {

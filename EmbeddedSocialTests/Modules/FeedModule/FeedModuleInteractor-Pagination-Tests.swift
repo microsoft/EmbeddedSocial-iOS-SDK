@@ -43,33 +43,35 @@ private class FeedModulePresenterMock: FeedModuleInteractorOutput {
     var finishFetchingIsCalled = false
     
     private (set) var calls = [String:Bool]()
-    var didFailError: FeedServiceError?
-    var didPostAction: (post: PostHandle, action: PostSocialAction, error: Error?)?
-    var didFetchFeed: PostsFeed?
-    var didFetchMoreFeed: PostsFeed?
+    var failedError: FeedServiceError?
+    var postedAction: (post: PostHandle, action: PostSocialAction, error: Error?)?
+    var fetchedFeed: PostsFeed?
+    var fetchedMoreFeed: PostsFeed?
+    var startedFetching = false
+    var finishedFetching = false
     
     func didFail(error: FeedServiceError) {
-        didFailError = error
+        failedError = error
     }
     
     func didStartFetching() {
-        calls[#function] = true
+        startedFetching = true
     }
     
     func didFinishFetching() {
-        calls[#function] = true
+        finishedFetching = true
     }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
-        didPostAction = (post, action, error)
+        postedAction = (post, action, error)
     }
     
     func didFetch(feed: PostsFeed) {
-        didFetchFeed = feed
+        fetchedFeed = feed
     }
     
     func didFetchMore(feed: PostsFeed) {
-        didFetchMoreFeed = feed
+        fetchedMoreFeed = feed
     }
 }
 
@@ -104,8 +106,8 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         sut.fetchPosts(feedType: feed)
     
         // then
-        XCTAssertTrue(presenter.calls["didStartFetching()"] == true)
-        XCTAssertTrue(presenter.calls["didFinishFetching()"] == true)
+        XCTAssertTrue(presenter.startedFetching == true)
+        XCTAssertTrue(presenter.finishedFetching == true)
     }
     
     func testThatFetchFeedFiresError() {
@@ -119,7 +121,7 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         sut.fetchPosts(feedType: feed)
     
         // then
-        XCTAssert(presenter.didFailError != nil)
+        XCTAssert(presenter.failedError != nil)
     }
     
     func testThatFetchMoreGetsCalled() {
@@ -132,7 +134,7 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         sut.fetchPostsMore(feedType: feed, cursor: "cursor")
         
         // then
-        XCTAssertTrue(presenter.didFetchMoreFeed != nil)
+        XCTAssertTrue(presenter.fetchedMoreFeed != nil)
     }
     
     func testThatFetchHomeResultIsCorrect() {
@@ -147,9 +149,9 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         sut.fetchPosts(feedType: feed)
         
         // then
-        XCTAssertTrue(presenter.didFetchFeed!.cursor == "--erwrw--")
-        XCTAssertTrue(presenter.didFetchFeed!.items.count == 1)
-        XCTAssertTrue(presenter.didFetchFeed!.items.last! == Post.mock(seed: 0))
+        XCTAssertTrue(presenter.fetchedFeed!.cursor == "--erwrw--")
+        XCTAssertTrue(presenter.fetchedFeed!.items.count == 1)
+        XCTAssertTrue(presenter.fetchedFeed!.items.last! == Post.mock(seed: 0))
     }
     
     func testThatFetchPopularResultIsCorrect() {
@@ -164,8 +166,8 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         sut.fetchPosts(feedType: feed)
         
         // then
-        XCTAssertTrue(presenter.didFetchFeed!.cursor == "--fwew4ef--")
-        XCTAssertTrue(presenter.didFetchFeed!.items.count == 1)
+        XCTAssertTrue(presenter.fetchedFeed!.cursor == "--fwew4ef--")
+        XCTAssertTrue(presenter.fetchedFeed!.items.count == 1)
     }
     
     func testThatUserPopularFeedIsCorrect() {
@@ -179,7 +181,7 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         sut.fetchPosts(feedType: feed)
         
         // then
-        XCTAssertTrue(presenter.didFetchFeed!.cursor == "user popular cursor")
+        XCTAssertTrue(presenter.fetchedFeed!.cursor == "user popular cursor")
     }
     
     func testThatUserRecentFeedIsCorrect() {
@@ -193,7 +195,7 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         sut.fetchPosts(feedType: feed)
         
         // then
-        XCTAssertTrue(presenter.didFetchFeed!.cursor == "user recent cursor")
+        XCTAssertTrue(presenter.fetchedFeed!.cursor == "user recent cursor")
     }
     
     func testThatSinglePostFetchResultIsCorrect() {
@@ -207,7 +209,7 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         sut.fetchPosts(feedType: feed)
         
         // then
-        XCTAssertTrue(presenter.didFetchFeed!.items.count == 1)
-        XCTAssertTrue(presenter.didFetchFeed!.items.last == Post.mock(seed: 100))
+        XCTAssertTrue(presenter.fetchedFeed!.items.count == 1)
+        XCTAssertTrue(presenter.fetchedFeed!.items.last == Post.mock(seed: 100))
     }
 }
