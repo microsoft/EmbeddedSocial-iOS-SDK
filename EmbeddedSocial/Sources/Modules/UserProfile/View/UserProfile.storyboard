@@ -22,9 +22,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B6r-H0-IRq" customClass="ScrollView" customModule="EmbeddedSocial" customModuleProvider="target">
-                                <rect key="frame" x="6" y="0.0" width="363" height="667"/>
-                            </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="irk-bM-VlQ" customClass="LoadingIndicatorView" customModule="EmbeddedSocial" customModuleProvider="target">
                                 <rect key="frame" x="36" y="20" width="303" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -35,17 +32,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="B6r-H0-IRq" firstAttribute="top" secondItem="mwj-uJ-fuB" secondAttribute="top" id="4vO-kZ-5qX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="irk-bM-VlQ" secondAttribute="trailing" constant="20" id="DfC-B5-jCH"/>
                             <constraint firstItem="irk-bM-VlQ" firstAttribute="top" secondItem="rfm-7o-rSN" secondAttribute="bottom" id="GK3-ir-1DU"/>
-                            <constraint firstItem="B6r-H0-IRq" firstAttribute="leading" secondItem="mwj-uJ-fuB" secondAttribute="leading" constant="6" id="Z6c-Rd-Q0v"/>
-                            <constraint firstItem="BGg-B8-9NF" firstAttribute="top" secondItem="B6r-H0-IRq" secondAttribute="bottom" id="jhJ-UW-GXT"/>
                             <constraint firstItem="irk-bM-VlQ" firstAttribute="leading" secondItem="mwj-uJ-fuB" secondAttribute="leadingMargin" constant="20" id="kCx-4T-ZKV"/>
-                            <constraint firstAttribute="trailing" secondItem="B6r-H0-IRq" secondAttribute="trailing" constant="6" id="kqM-uB-8uc"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="containerScrollView" destination="B6r-H0-IRq" id="Saq-Ja-efc"/>
                         <outlet property="loadingIndicatorView" destination="irk-bM-VlQ" id="ZUE-Hm-gR1"/>
                     </connections>
                 </viewController>

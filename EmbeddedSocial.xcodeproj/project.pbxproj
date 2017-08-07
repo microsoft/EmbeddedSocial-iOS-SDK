@@ -368,7 +368,9 @@
 		88F551A31F3471C500F4AAB9 /* MyFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */; };
 		88F551A41F3472E100F4AAB9 /* SegmentedControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8875CCF41F33384A001F2474 /* SegmentedControlView.xib */; };
 		88F551A61F34919600F4AAB9 /* FeedModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551A51F34919600F4AAB9 /* FeedModuleOutput.swift */; };
-		88F551A81F3865C400F4AAB9 /* UserProfileScrollCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551A71F3865C400F4AAB9 /* UserProfileScrollCoordinator.swift */; };
+		88F551AA1F386F1300F4AAB9 /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551A91F386F1300F4AAB9 /* UserProfileHeaderView.swift */; };
+		88F551AC1F38717A00F4AAB9 /* UICollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551AB1F38717A00F4AAB9 /* UICollectionView+Ext.swift */; };
+		88F551B41F38A03200F4AAB9 /* SegmentedControlView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551B31F38A03200F4AAB9 /* SegmentedControlView+Ext.swift */; };
 		88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */; };
 		88F7A7891F27896B005FEC5F /* MockAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7881F27896B005FEC5F /* MockAuthService.swift */; };
 		88F7A78B1F2789F0005FEC5F /* MockUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A78A1F2789F0005FEC5F /* MockUserService.swift */; };
@@ -865,7 +867,9 @@
 		88F551981F336FB700F4AAB9 /* MockUserListModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListModuleOutput.swift; sourceTree = "<group>"; };
 		88F5519A1F33705100F4AAB9 /* MockUserListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListView.swift; sourceTree = "<group>"; };
 		88F551A51F34919600F4AAB9 /* FeedModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedModuleOutput.swift; sourceTree = "<group>"; };
-		88F551A71F3865C400F4AAB9 /* UserProfileScrollCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileScrollCoordinator.swift; sourceTree = "<group>"; };
+		88F551A91F386F1300F4AAB9 /* UserProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderView.swift; sourceTree = "<group>"; };
+		88F551AB1F38717A00F4AAB9 /* UICollectionView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Ext.swift"; sourceTree = "<group>"; };
+		88F551B31F38A03200F4AAB9 /* SegmentedControlView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentedControlView+Ext.swift"; sourceTree = "<group>"; };
 		88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInteractorTests.swift; sourceTree = "<group>"; };
 		88F7A7881F27896B005FEC5F /* MockAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAuthService.swift; sourceTree = "<group>"; };
 		88F7A78A1F2789F0005FEC5F /* MockUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserService.swift; sourceTree = "<group>"; };
@@ -1242,6 +1246,8 @@
 				88580AB31F2213AB00C1CBAF /* UITableView+Ext.swift */,
 				88580AB41F2213AB00C1CBAF /* UIView+Ext.swift */,
 				88580AB51F2213AB00C1CBAF /* UIViewController+Alerts.swift */,
+				88F551AB1F38717A00F4AAB9 /* UICollectionView+Ext.swift */,
+				88F551B31F38A03200F4AAB9 /* SegmentedControlView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2094,7 +2100,7 @@
 				88BC5C4B1F2B65D0001FBDD2 /* UserProfileViewController.swift */,
 				88BC5C4C1F2B65D0001FBDD2 /* UserProfileViewInput.swift */,
 				88BC5C4D1F2B65D0001FBDD2 /* UserProfileViewOutput.swift */,
-				88F551A71F3865C400F4AAB9 /* UserProfileScrollCoordinator.swift */,
+				88F551A91F386F1300F4AAB9 /* UserProfileHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2983,6 +2989,7 @@
 				882AD0C31F2225FF00FC20B7 /* QueriableRepository.swift in Sources */,
 				88580C101F2213AB00C1CBAF /* CredentialsList.swift in Sources */,
 				88580C4C1F2213AB00C1CBAF /* CreatePostViewInput.swift in Sources */,
+				88F551B41F38A03200F4AAB9 /* SegmentedControlView+Ext.swift in Sources */,
 				88580C661F2213AB00C1CBAF /* SideMenuViewOutput.swift in Sources */,
 				88580C731F2213AB00C1CBAF /* Constants.swift in Sources */,
 				88580BA91F2213AB00C1CBAF /* Result.swift in Sources */,
@@ -3060,6 +3067,7 @@
 				88580C281F2213AB00C1CBAF /* SessionStoreDatabase.swift in Sources */,
 				88580BAC1F2213AB00C1CBAF /* SideMenuCellView.swift in Sources */,
 				8875CCE91F331CB3001F2474 /* FollowingPresenter.swift in Sources */,
+				88F551AC1F38717A00F4AAB9 /* UICollectionView+Ext.swift in Sources */,
 				88F385861F30D1080048B04C /* UserListInteractorInput.swift in Sources */,
 				88BC5C501F2B65D0001FBDD2 /* UserProfileInteractorInput.swift in Sources */,
 				88F3857F1F30CD890048B04C /* UserListModuleOutput.swift in Sources */,
@@ -3116,7 +3124,6 @@
 				88580C481F2213AB00C1CBAF /* CreatePostRouter.swift in Sources */,
 				88580B9F1F2213AB00C1CBAF /* ButtonWithTarget.swift in Sources */,
 				88580C771F2213AB00C1CBAF /* NameComponentsSplitter.swift in Sources */,
-				88F551A81F3865C400F4AAB9 /* UserProfileScrollCoordinator.swift in Sources */,
 				88580BB71F2213AB00C1CBAF /* TextViewCell.swift in Sources */,
 				88BC5C531F2B65D0001FBDD2 /* UserProfileRouterInput.swift in Sources */,
 				88580BD41F2213AB00C1CBAF /* SessionsAPI.swift in Sources */,
@@ -3198,6 +3205,7 @@
 				882AD0D11F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift in Sources */,
 				88580BC91F2213AB00C1CBAF /* BuildsAPI.swift in Sources */,
 				88580BC51F2213AB00C1CBAF /* UIViewController+Alerts.swift in Sources */,
+				88F551AA1F386F1300F4AAB9 /* UserProfileHeaderView.swift in Sources */,
 				88580BBD1F2213AB00C1CBAF /* String+Memento.swift in Sources */,
 				88580C121F2213AB00C1CBAF /* Photo+Memento.swift in Sources */,
 				88580BC71F2213AB00C1CBAF /* APIHelper.swift in Sources */,

@@ -5,8 +5,6 @@
 
 protocol FeedModuleViewInput: class {
 
-    var feedView: CollectionView? { get }
-
     func setupInitialState()
     
     func setLayout(type: FeedModuleLayoutType)
@@ -14,4 +12,5 @@ protocol FeedModuleViewInput: class {
     func reload(with index: Int)
     func setRefreshing(state: Bool)
     
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void)
 }

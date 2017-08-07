@@ -20,6 +20,9 @@ protocol FeedModuleViewOutput {
     
     func didAskFetchAll()
     func didAskFetchMore()
-
+    
     func didScrollFeed(_ feedView: UIScrollView)
+    
+    func configureHeader(_ headerView: UICollectionReusableView)
+    var headerSize: CGSize { get }
 }

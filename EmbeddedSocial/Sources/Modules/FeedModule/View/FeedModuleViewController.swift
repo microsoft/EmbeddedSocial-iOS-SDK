@@ -38,10 +38,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     fileprivate var listLayout = UICollectionViewFlowLayout()
     fileprivate var gridLayout = UICollectionViewFlowLayout()
-    
-    var feedView: CollectionView? {
-        return collectionView as? CollectionView
-    }
+    fileprivate var headerReuseID: String?
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -78,7 +75,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
-        
+        self.collectionView.backgroundColor = Palette.extraLightGrey
         self.collectionView.delegate = self
         
         // TODO: remove parent, waiting for menu proxy controller refactor
@@ -170,6 +167,13 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func reload(with index: Int) {
         collectionView?.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
+    
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void) {
+        collectionView.register(type,
+                                forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
+                                withReuseIdentifier: type.reuseID)
+        headerReuseID = type.reuseID
+    }
 }
 
 extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -217,6 +221,22 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         output.didTapItem(path: indexPath)
     }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerReuseID = headerReuseID else {
+            fatalError("Header wasn't registered")
+        }
+        let headerView = collectionView
+            .dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerReuseID, for: indexPath)
+        output.configureHeader(headerView)
+        return headerView
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return output.headerSize
+    }
 }
 
 extension FeedModuleViewController: UIScrollViewDelegate {
@@ -226,8 +246,6 @@ extension FeedModuleViewController: UIScrollViewDelegate {
         
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
             output.didAskFetchMore()
-        } else {
-            
         }
     }
 }
