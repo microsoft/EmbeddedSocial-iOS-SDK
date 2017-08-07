@@ -21,9 +21,19 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="190" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="U5B-NW-Mre">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="190" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="U5B-NW-Mre">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="553"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="vI4-U8-h52">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="190"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vI4-U8-h52" id="IB3-We-5cc">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="189.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hky-KE-Hsj">
                                 <rect key="frame" x="0.0" y="553" width="375" height="50"/>
@@ -62,7 +72,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NYZ-dv-R0E">
-                                        <rect key="frame" x="8" y="7" width="35" height="35"/>
+                                        <rect key="frame" x="8" y="5" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="RUd-ZF-lMh"/>
                                             <constraint firstAttribute="height" constant="35" id="p5j-eV-Zve"/>
@@ -80,8 +90,8 @@
                                     <constraint firstAttribute="trailing" secondItem="chb-a7-aAv" secondAttribute="trailing" constant="20" id="8gx-TI-C4F"/>
                                     <constraint firstAttribute="trailing" secondItem="3pF-kp-VKW" secondAttribute="trailing" id="9lx-8R-BC8"/>
                                     <constraint firstItem="chb-a7-aAv" firstAttribute="leading" secondItem="UWb-fe-MDv" secondAttribute="trailing" constant="20" id="Ast-S9-ceC"/>
-                                    <constraint firstAttribute="bottom" secondItem="NYZ-dv-R0E" secondAttribute="bottom" constant="8" id="HNq-BR-Ndh"/>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="150" id="T6f-Ie-f9K"/>
+                                    <constraint firstAttribute="bottom" secondItem="NYZ-dv-R0E" secondAttribute="bottom" constant="10" id="HNq-BR-Ndh"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="T6f-Ie-f9K"/>
                                     <constraint firstItem="UWb-fe-MDv" firstAttribute="top" secondItem="Hky-KE-Hsj" secondAttribute="top" constant="11" id="Xwh-aE-tNQ"/>
                                     <constraint firstItem="UWb-fe-MDv" firstAttribute="leading" secondItem="Hky-KE-Hsj" secondAttribute="leading" constant="50" id="jXy-jQ-zoa"/>
                                     <constraint firstItem="NYZ-dv-R0E" firstAttribute="leading" secondItem="Hky-KE-Hsj" secondAttribute="leading" constant="8" id="nRW-E8-LcF"/>

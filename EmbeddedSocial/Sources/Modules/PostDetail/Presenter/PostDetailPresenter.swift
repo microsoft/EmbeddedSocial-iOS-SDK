@@ -1,13 +1,9 @@
 //
-//  PostDetailPostDetailPresenter.swift
-//  EmbeddedSocial-Framework
-//
-//  Created by generamba setup on 31/07/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDetailInteractorOutput {
-    var postHandle: String = ""
 
 
     weak var view: PostDetailViewInput!
@@ -20,7 +16,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     
     func viewIsReady() {
         view.setupInitialState()
-        interactor.fetchComments(topicHandle: postHandle)
+        interactor.fetchComments(topicHandle: (post?.topicHandle)!)
     }
     
     func didFetch(comments: [Comment]) {

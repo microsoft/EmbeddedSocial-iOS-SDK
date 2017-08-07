@@ -14,4 +14,12 @@ class FeedModuleRouter: FeedModuleRouterInput {
         dummy.view.backgroundColor = UIColor.green
         navigationController?.pushViewController(dummy, animated: true)
     }
+    
+    func open(post: Post, from view: UIViewController) {
+        let configurator = PostDetailModuleConfigurator()
+        let vc = StoryboardScene.PostDetail.instantiatePostDetailViewController()
+        
+        configurator.configure(viewController: vc, post: post)
+        view.navigationController?.pushViewController(vc, animated: true)
+    }
 }

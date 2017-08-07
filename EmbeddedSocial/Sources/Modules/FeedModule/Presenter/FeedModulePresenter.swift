@@ -70,12 +70,12 @@ struct PostViewModel {
 }
 
 class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput {
-    
+
     weak var view: FeedModuleViewInput!
     var interactor: FeedModuleInteractorInput!
     var router: FeedModuleRouterInput!
     
-    private var feedType: FeedType = .home
+    private var feedType: FeedType = .home //FeedType.single(post: "3uhkWMemLBe")
     private var layout: FeedModuleLayoutType = .list
     private let limit = Int32(3) // Default
     private var items = [Post]()
@@ -91,6 +91,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     // MARK: FeedModuleInput
+    
+    func moduleHeight() -> CGFloat {
+        return view.getViewHeight()
+    }
     
     func setFeed(_ feed: FeedType) {
         feedType = feed
@@ -215,6 +219,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didTapItem(path: IndexPath) {
         //        router.open(route: .postDetails)
+        router.open(post: items[path.row], from: view as! UIViewController)
     }
     
     // MARK: FeedModuleInteractorOutput

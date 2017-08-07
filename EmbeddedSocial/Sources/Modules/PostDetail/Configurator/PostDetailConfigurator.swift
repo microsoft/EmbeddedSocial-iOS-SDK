@@ -1,23 +1,20 @@
 //
-//  PostDetailPostDetailConfigurator.swift
-//  EmbeddedSocial-Framework
-//
-//  Created by generamba setup on 31/07/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import UIKit
 
 class PostDetailModuleConfigurator {
 
-    func configure(viewController: PostDetailViewController, postHandle: String) {
+    func configure(viewController: PostDetailViewController, post: Post) {
 
         let router = PostDetailRouter()
 
         let presenter = PostDetailPresenter()
         presenter.view = viewController
         presenter.router = router
-        presenter.postHandle = postHandle
+        presenter.post = post
 
         let interactor = PostDetailInteractor()
         interactor.output = presenter
