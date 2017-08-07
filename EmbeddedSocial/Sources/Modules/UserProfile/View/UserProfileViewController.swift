@@ -18,12 +18,14 @@ class UserProfileViewController: UIViewController {
     
     var output: UserProfileViewOutput!
     var feedModule: FeedModuleInput!
+    var scrollCoordinator: UserProfileScrollCoordinator!
     
     @IBOutlet weak var containerScrollView: UIScrollView! {
         didSet {
             let contentHeight = headerHeight + filterHeight + feedHeight + containerInset * 2
             containerScrollView.contentSize = CGSize(width: contentWidth, height: contentHeight)
             containerScrollView.delegate = self
+            containerScrollView.showsVerticalScrollIndicator = false
         }
     }
     
@@ -83,9 +85,7 @@ class UserProfileViewController: UIViewController {
         return filterView
     }()
     
-    private var feedModuleInput: FeedModuleInput!
-    
-    fileprivate var feedView: UIView!
+    fileprivate var feedModuleInput: FeedModuleInput!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,21 +104,8 @@ class UserProfileViewController: UIViewController {
         addChildViewController(feedViewController)
         feedViewController.didMove(toParentViewController: self)
         
-        feedView = feedViewController.view
+        let feedView = feedViewController.view!
         feedModuleInput.setFeed(.user(user: "3v9gnzwILTS", scope: .recent))
-        
-        
-        //        // Sample for input change
-        //        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-        //
-        //            let feed = FeedType.single(post: "3vErWk4EMrF")
-        //            self.feedModuleInput.setFeed(feed)
-        //            self.feedModuleInput.refreshData()
-        //        }
-    }
-    
-    fileprivate func setupFeedView() {
-//        feedView.isUserInteractionEnabled = false
         
         containerScrollView.addSubview(feedView)
         
@@ -128,11 +115,15 @@ class UserProfileViewController: UIViewController {
             make.width.equalTo(summaryView.snp.width)
             make.height.equalTo(feedHeight)
         }
+        
+        //        // Sample for input change
+        //        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        //
+        //            let feed = FeedType.single(post: "3vErWk4EMrF")
+        //            self.feedModuleInput.setFeed(feed)
+        //            self.feedModuleInput.refreshData()
+        //        }
     }
-    
-    var lastTouchLocation: CGPoint = .zero
-    
-    var feedCollectionView: CollectionView?
 }
 
 extension UserProfileViewController: UserProfileViewInput {
@@ -140,7 +131,7 @@ extension UserProfileViewController: UserProfileViewInput {
         parent?.navigationItem.rightBarButtonItem = createPostButton
         view.backgroundColor = Palette.extraLightGrey
         setupFeedModule()
-        setupFeedView()
+        scrollCoordinator = UserProfileScrollCoordinator(containerScrollView: containerScrollView, mainView: view, headerHeight: headerHeight, containerInset: containerInset, feedView: feedModuleInput.feedView!)
     }
     
     func showError(_ error: Error) {
@@ -173,52 +164,20 @@ extension UserProfileViewController: UserProfileViewInput {
 extension UserProfileViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let isContainerScrolledAtMax = containerScrollView.contentOffset.y > headerHeight + containerInset * 2
-        if isContainerScrolledAtMax {
-            feedCollectionView?.isTrackingTouches = true
+        guard scrollCoordinator != nil else {
+            return
         }
+        scrollCoordinator.didScrollContainer()
     }
 }
 
 extension UserProfileViewController: FeedModuleOutput {
     
     func didScrollFeed(_ feedView: UIScrollView) {
-        feedCollectionView = feedView as? CollectionView
-        
-        let touchLocation = feedView.panGestureRecognizer.translation(in: view)
-
-        guard feedView.panGestureRecognizer.state == .changed else {
-            lastTouchLocation = touchLocation
+        guard scrollCoordinator != nil else {
             return
         }
-        
-        let isContainerScrolledAtMax = containerScrollView.contentOffset.y > headerHeight + containerInset * 2
-        let distance = lastTouchLocation.y - touchLocation.y
-        let isScrollingUp = distance > 0
-        
-        print("isUp \(isScrollingUp) distance \(distance) container \(containerScrollView.contentOffset) lastOffset \(lastTouchLocation) containerOffset \(containerScrollView.contentOffset)")
-
-        if isScrollingUp {
-            if !isContainerScrolledAtMax {
-                containerScrollView.contentOffset = CGPoint(x: containerScrollView.contentOffset.x,
-                                                            y: containerScrollView.contentOffset.y + distance)
-                feedView.contentOffset = .zero
-                (feedView as? CollectionView)?.isTrackingTouches = false
-            } else {
-                (feedView as? CollectionView)?.isTrackingTouches = true
-            }
-        } else {
-            if feedView.contentOffset.y <= 0 && containerScrollView.contentOffset.y > 0 {
-                containerScrollView.contentOffset = CGPoint(x: containerScrollView.contentOffset.x,
-                                                            y: containerScrollView.contentOffset.y + distance)
-                feedView.contentOffset = .zero
-                (feedView as? CollectionView)?.isTrackingTouches = false
-            } else {
-                (feedView as? CollectionView)?.isTrackingTouches = true
-            }
-        }
-        
-        lastTouchLocation = touchLocation
+        scrollCoordinator.didScrollFeed(feedView)
     }
 }
 

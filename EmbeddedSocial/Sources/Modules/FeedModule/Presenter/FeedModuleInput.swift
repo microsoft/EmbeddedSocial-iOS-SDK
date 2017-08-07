@@ -5,6 +5,7 @@
 
 protocol FeedModuleInput: class {
     
+    var feedView: CollectionView? { get }
     func setFeed(_ feed: FeedType)
     func refreshData()
     

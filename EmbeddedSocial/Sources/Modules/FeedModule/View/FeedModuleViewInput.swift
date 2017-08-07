@@ -5,6 +5,8 @@
 
 protocol FeedModuleViewInput: class {
 
+    var feedView: CollectionView? { get }
+
     func setupInitialState()
     
     func setLayout(type: FeedModuleLayoutType)

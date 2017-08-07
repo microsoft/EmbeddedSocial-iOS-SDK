@@ -76,6 +76,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     var router: FeedModuleRouterInput!
     weak var moduleOutput: FeedModuleOutput?
     
+    var feedView: CollectionView? {
+        return view.feedView
+    }
+    
     private var feedType: FeedType = .home
     private var layout: FeedModuleLayoutType = .list
     private let limit = Int32(3) // Default

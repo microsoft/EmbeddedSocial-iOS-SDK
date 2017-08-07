@@ -39,6 +39,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     fileprivate var listLayout = UICollectionViewFlowLayout()
     fileprivate var gridLayout = UICollectionViewFlowLayout()
     
+    var feedView: CollectionView? {
+        return collectionView as? CollectionView
+    }
+
     @IBOutlet weak var collectionView: UICollectionView!
     
     lazy var refreshControl: UIRefreshControl = {
