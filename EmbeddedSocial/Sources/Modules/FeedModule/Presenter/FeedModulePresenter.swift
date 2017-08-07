@@ -249,11 +249,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             interactor.fetchPostsMore(limit: limit, feedType: feedType, cursor: cursor)
         } else {
             Logger.log("cant fetch more, no cursor")
+            view.setRefreshing(state: false)
         }
     }
     
     func didTapItem(path: IndexPath) {
-        //        router.open(route: .postDetails)
+        
     }
     
     // MARK: FeedModuleInteractorOutput

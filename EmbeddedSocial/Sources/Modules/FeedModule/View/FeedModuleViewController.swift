@@ -31,6 +31,13 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    lazy var bottomRefreshControl: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activity.hidesWhenStopped = true
+        
+        return activity
+    }()
+    
     lazy var refreshControl: UIRefreshControl = {
         let control = UIRefreshControl()
         control.addTarget(
@@ -66,6 +73,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         self.collectionView.backgroundColor = Palette.extraLightGrey
         self.collectionView.delegate = self
+          collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
         
         // TODO: remove parent, waiting for menu proxy controller refactor
         parent?.navigationItem.rightBarButtonItem = layoutChangeButton
@@ -77,9 +85,23 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: UX
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
+            output.didAskFetchMore()
+            
+            
+        } else {
+            
+        }
+    }
     
     @objc private func onPullRefresh() {
         output.didAskFetchAll()
+    }
+    
+    @objc private func onPullRefreshBottom() {
+        output.didAskFetchMore()
     }
     
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
@@ -148,6 +170,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
                 collectionView!.addSubview(refreshControl)
             }
             refreshControl.beginRefreshing()
+
         } else {
             refreshControl.endRefreshing()
         }
@@ -215,6 +238,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         output.didTapItem(path: indexPath)
     }
     
+
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
@@ -241,4 +265,31 @@ extension FeedModuleViewController: UIScrollViewDelegate {
             output.didAskFetchMore()
         }
     }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width:collectionView.frame.size.width, height:100.0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if kind == UICollectionElementKindSectionFooter {
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                       withReuseIdentifier: "footer",
+                                                                       for: indexPath)
+            
+            view.addSubview(bottomRefreshControl)
+            bottomRefreshControl.startAnimating()
+            
+            bottomRefreshControl.snp.makeConstraints({ (make) in
+                make.center.equalToSuperview()
+            })
+            
+            
+            return view
+            
+        }
+        
+        return UICollectionReusableView()
+    }
+    
 }
