@@ -363,7 +363,6 @@
 		88F5519B1F33705100F4AAB9 /* MockUserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F5519A1F33705100F4AAB9 /* MockUserListView.swift */; };
 		88F551A11F34712700F4AAB9 /* FollowingViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCE51F331CB3001F2474 /* FollowingViewInput.swift */; };
 		88F551A21F34719100F4AAB9 /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385881F31BF140048B04C /* UserListCell.swift */; };
-		88F551A31F3471C500F4AAB9 /* MyFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */; };
 		88F551A41F3472E100F4AAB9 /* SegmentedControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8875CCF41F33384A001F2474 /* SegmentedControlView.xib */; };
 		88F551A61F34919600F4AAB9 /* FeedModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551A51F34919600F4AAB9 /* FeedModuleOutput.swift */; };
 		88F551AA1F386F1300F4AAB9 /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551A91F386F1300F4AAB9 /* UserProfileHeaderView.swift */; };
@@ -435,6 +434,7 @@
 		9C7D9B341F2F430B005928F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B331F2F430B005928F4 /* Localizable.strings */; };
 		9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */; };
 		9C7D9B381F2F4918005928F4 /* Localizator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7D9B371F2F4918005928F4 /* Localizator.swift */; };
+		9CB3F1FE1F336B780099A22D /* MyFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */; };
 		9CBA39ED1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA39EC1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift */; };
 		9CD760FC1F33149E00ABBB2A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD760FB1F33149E00ABBB2A /* Post.swift */; };
 		9CD805331F0D012F00B9B0AC /* EmbeddedSocial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* EmbeddedSocial.framework */; };
@@ -2954,6 +2954,7 @@
 				88580C5D1F2213AB00C1CBAF /* SideMenuInteractorOutput.swift in Sources */,
 				88580C491F2213AB00C1CBAF /* CreatePostRouterInput.swift in Sources */,
 				88580C191F2213AB00C1CBAF /* AuthAPIProvider.swift in Sources */,
+				9CB3F1FE1F336B780099A22D /* MyFollowersAPI.swift in Sources */,
 				88580C441F2213AB00C1CBAF /* CreatePostInteractorInput.swift in Sources */,
 				88580C561F2213AB00C1CBAF /* LoginViewController.swift in Sources */,
 				88580C171F2213AB00C1CBAF /* User.swift in Sources */,
@@ -3026,7 +3027,6 @@
 				88580C691F2213AB00C1CBAF /* TabMenuContainerInteractor.swift in Sources */,
 				88BC5C551F2B65D0001FBDD2 /* UserProfileViewController.swift in Sources */,
 				88580C711F2213AB00C1CBAF /* TabMenuContainerViewInput.swift in Sources */,
-				88F551A31F3471C500F4AAB9 /* MyFollowersAPI.swift in Sources */,
 				88580BB01F2213AB00C1CBAF /* TableDataDisplayManager.swift in Sources */,
 				8875CCE71F331CB3001F2474 /* FollowingConfigurator.swift in Sources */,
 				88BC5C5B1F2B6628001FBDD2 /* ProfileSummaryView.swift in Sources */,
