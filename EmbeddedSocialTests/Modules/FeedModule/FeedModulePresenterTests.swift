@@ -268,9 +268,5 @@ class FeedModulePresenterTests: XCTestCase {
         // then
         XCTAssertTrue(view.didSetLayout == layout)
     }
-    
-    
-//    func test
-    
 
 }

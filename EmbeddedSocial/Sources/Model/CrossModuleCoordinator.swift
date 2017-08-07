@@ -3,16 +3,26 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-class CrossModuleCoordinator: LoginModuleOutput {
+protocol CrossModuleCoordinatorProtocol: class {
+    
+    func openHomeScreen()
+    func openMyProfile()
+    func openLoginScreen()
+
+    func isUserAuthenticated() -> Bool
+}
+
+class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput {
+    
     weak var menuModule: SideMenuModuleInput!
-    
     weak var loginHandler: LoginModuleOutput!
-    
     private(set) var navigationStack: NavigationStack!
-    
-    private(set) var isUserLoggedIn = false
-    
     private(set) var user: User?
+    private var cache: Cache
+    
+    required init(cache: Cache) {
+        self.cache = cache
+    }
     
     func setup(launchArguments args: LaunchArguments, loginHandler: LoginModuleOutput) {
         self.loginHandler = loginHandler
@@ -30,16 +40,20 @@ class CrossModuleCoordinator: LoginModuleOutput {
                                                           clientMenuItemsProvider: args.menuHandler,
                                                           output: navigationStack.container)
     }
-    
+
+    // MARK: Login Delegate
     func onSessionCreated(user: User, sessionToken: String) {
-        isUserLoggedIn = true
         
         self.user = user
         menuModule.user = user
         
-        let nextVC = UIViewController()
-        nextVC.view.backgroundColor = .green
-        menuModule.open(viewController: nextVC)
+        openHomeScreen()
+    }
+    
+    // MARK: Protocol
+    
+    func isUserAuthenticated() -> Bool {
+        return (user != nil)
     }
     
     func openLoginScreen() {
@@ -54,4 +68,12 @@ class CrossModuleCoordinator: LoginModuleOutput {
         configurator.configure()
         menuModule.open(viewController: configurator.viewController)
     }
+    
+    func openHomeScreen() {
+        let configurator = FeedModuleConfigurator(cache: self.cache)
+        configurator.configure(feed: FeedType.home, navigationController: navigationStack.navigationController)
+        let vc = configurator.viewController!
+        navigationStack.navigationController.show(vc, sender: nil)
+    }
+    
 }

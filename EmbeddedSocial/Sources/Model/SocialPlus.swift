@@ -11,10 +11,16 @@ public final class SocialPlus {
     private(set) var sessionStore: SessionStore!
     fileprivate var serviceProvider: SocialPlusServicesType!
     
-    fileprivate let coordinator = CrossModuleCoordinator()
+    fileprivate var coordinator: CrossModuleCoordinator!
     private(set) var coreDataStack: CoreDataStack!
     
-    private(set) var cache: Cache!
+    private(set) var cache: Cache! {
+        didSet {
+            if coordinator == nil {
+                coordinator = CrossModuleCoordinator(cache: cache)
+            }
+        }
+    }
     
     fileprivate let queue = DispatchQueue(label: "Social Plus read-write queue")
     
