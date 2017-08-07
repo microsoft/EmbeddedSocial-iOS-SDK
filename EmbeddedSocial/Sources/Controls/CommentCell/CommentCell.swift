@@ -10,6 +10,7 @@ protocol CommentCellDelegate: class {
     func like(cell: CommentCell)
     func toReplies()
     func mediaLoaded()
+    func photoPressed(image: UIImage, in cell: CommentCell)
 }
 
 class CommentCell: UITableViewCell {
@@ -59,6 +60,7 @@ class CommentCell: UITableViewCell {
         } else {
             mediaButtonHeightConstraint.constant = 0
         }
+        selectionStyle = .none
         contentView.layoutIfNeeded()
         
         // TODO: full fit
@@ -74,5 +76,6 @@ class CommentCell: UITableViewCell {
     }
     
     @IBAction func mediaPressed(_ sender: Any) {
+        delegate?.photoPressed(image: (mediaButton.imageView?.image)!, in: self)
     }
 }

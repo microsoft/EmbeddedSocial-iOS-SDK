@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import SKPhotoBrowser
 
 fileprivate enum TableSections: Int {
     case post = 0
@@ -44,6 +45,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     func configTableView() {
+        tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: CommentCell.identifier, bundle: Bundle(for: CommentCell.self)), forCellReuseIdentifier: CommentCell.identifier)
         tableView.estimatedRowHeight = CommentCell.defaultHeight
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -75,7 +77,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + reloadDelay) {
             if self.output.numberOfItems() > 1 {
-                let indexPath = IndexPath(row: self.output.numberOfItems() - 1, section: TableSections.comments)
+                let indexPath = IndexPath(row: self.output.numberOfItems() - 1, section: TableSections.comments.rawValue)
                 self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
             }
         }
@@ -95,6 +97,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     @IBAction func postComment(_ sender: Any) {
+        output.postComment(image: mediaButton.imageView?.image, comment: commentTextView.text)
     }
 }
 
@@ -148,12 +151,12 @@ extension PostDetailViewController: UITableViewDelegate {
 
 extension PostDetailViewController: CommentCellDelegate {
     func like(cell: CommentCell) {
-        //        let comment = output.commentForPath(path: tableView.indexPath(for: cell)!)
-        //        if comment.liked {
-        //
-        //        } else {
-        //
-        //        }
+        let comment = output.commentForPath(path: tableView.indexPath(for: cell)!)
+        if comment.liked {
+            output.unlikeComment(comment: comment)
+        } else {
+            output.likeComment(comment: comment)
+        }
     }
     
     func toReplies() {
@@ -164,6 +167,11 @@ extension PostDetailViewController: CommentCellDelegate {
         tableView.reloadData()
     }
     
+    func photoPressed(image: UIImage, in cell: CommentCell) {
+        let browser = SKPhotoBrowser(originImage: image, photos: [SKPhoto.photoWithImage(image)], animatedFromView: cell)
+        browser.initializePageIndex(0)
+        present(browser, animated: true, completion: {})
+    }
 }
 
 extension PostDetailViewController: UITextViewDelegate {

@@ -30,6 +30,18 @@ class LikesService: LikesServiceProtocol {
             completion(postHandle, error)
         }
     }
+    
+    func likeComment(commentHandle: String) {
+        LikesAPI.commentLikesPostLike(commentHandle: commentHandle) { (object, error) in
+            
+        }
+    }
+    
+    func unlikeComment(commentHandle: String) {
+        LikesAPI.commentLikesDeleteLike(commentHandle: commentHandle) { (object, error) in
+            
+        }
+    }
 
 }
 

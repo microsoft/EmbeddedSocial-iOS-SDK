@@ -21,6 +21,7 @@ abstract_target 'Group' do
     pod 'SDWebImage', '~> 4.0.0'
     pod 'SwiftGen', '~> 4.2.1'
     pod 'UITextView+Placeholder', '~> 1.2.0'
+    pod 'SKPhotoBrowser', '~> 4.0.1'
     pod 'OAuthSwift', :path => 'EmbeddedSocial/Vendor/OAuthSwift'
     pod 'LiveSDK', :path => 'EmbeddedSocial/Vendor/LiveSDK'
     facebook

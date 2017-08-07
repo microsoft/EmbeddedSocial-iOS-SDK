@@ -5,7 +5,6 @@
 
 class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDetailInteractorOutput {
 
-
     weak var view: PostDetailViewInput!
     var interactor: PostDetailInteractorInput!
     var router: PostDetailRouterInput!
@@ -19,6 +18,16 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         interactor.fetchComments(topicHandle: (post?.topicHandle)!)
     }
     
+    
+    func likeComment(comment: Comment) {
+        
+    }
+    
+    func unlikeComment(comment: Comment) {
+        
+    }
+    
+    // MARK: PostDetailInteractorOutput
     func didFetch(comments: [Comment]) {
         self.comments = comments
         view.reload()
@@ -32,6 +41,16 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         
     }
     
+    
+    func commentDidPosted(comment: Comment) {
+        comments.append(comment)
+        view.reload()
+    }
+    
+    func commentPostFailed(error: Error) {
+        
+    }
+    
     // MAKR: PostDetailViewOutput
     func numberOfItems() -> Int {
         return comments.count
@@ -39,5 +58,9 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     
     func commentForPath(path: IndexPath) -> Comment {
         return comments[path.row]
+    }
+    
+    func postComment(image: UIImage?, comment: String) {
+        interactor.postComment(image: image, topicHandle: (post?.topicHandle)!, comment: comment)
     }
 }

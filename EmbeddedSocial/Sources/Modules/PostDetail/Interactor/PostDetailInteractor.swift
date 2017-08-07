@@ -7,7 +7,8 @@ class PostDetailInteractor: PostDetailInteractorInput {
 
     weak var output: PostDetailInteractorOutput!
     
-    var commentsService: CommentsService? = nil
+    var commentsService: CommentsService?
+    var likeService: LikesService?
     
     private var cursor: String?
     private let limit: Int32 = 10
@@ -21,5 +22,25 @@ class PostDetailInteractor: PostDetailInteractorInput {
             self.cursor = result.cursor
             self.output.didFetch(comments: result.comments.reversed())
         })
+    }
+    
+    func postComment(image: UIImage?, topicHandle: String, comment: String) {
+        let request = PostCommentRequest()
+        request.text = comment
+        commentsService?.postComment(topicHandle: topicHandle, comment: request, resultHandler: { (response) in
+            let comment = Comment()
+            comment.text = request.text
+            comment.firstName = SocialPlus.shared.sessionStore.user.firstName
+            comment.lastName = SocialPlus.shared.sessionStore.user.lastName
+            self.output.commentDidPosted(comment: comment)
+        })
+    }
+    
+    func likeComment(commentHandle: String) {
+        likeService?.likeComment(commentHandle: commentHandle)
+    }
+    
+    func unlikeComment(commentHandle: String) {
+        likeService?.unlikeComment(commentHandle: commentHandle)
     }
 }

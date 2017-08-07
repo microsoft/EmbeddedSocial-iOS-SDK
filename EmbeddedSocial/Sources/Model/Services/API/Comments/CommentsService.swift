@@ -6,6 +6,7 @@
 import Foundation
 
 typealias CommentFetchResultHandler = ((CommentFetchResult) -> Void)
+typealias CommentPostResultHandler = ((PostCommentResponse) -> Void)
 
 enum CommentsServiceError: Error {
     case failedToFetch(message: String)
@@ -44,6 +45,12 @@ class CommentsService {
             result.cursor = response?.cursor
             
             resultHandler(result)
+        }
+    }
+    
+    func postComment(topicHandle: String, comment: PostCommentRequest, resultHandler: @escaping CommentPostResultHandler) {
+        CommentsAPI.topicCommentsPostComment(topicHandle: topicHandle, request: comment) { (resposne, error) in
+            resultHandler(resposne!)
         }
     }
     
