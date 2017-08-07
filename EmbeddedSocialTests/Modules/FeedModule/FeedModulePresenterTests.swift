@@ -8,34 +8,31 @@ import XCTest
 
 private class FeedModuleViewMock: FeedModuleViewInput {
     
-    var refreshingState = false
-    var index: Int?
-    var layout: FeedModuleLayoutType?
+    var didSetRefreshingState = false
+    var didSetIndex: Int?
+    var didSetLayout: FeedModuleLayoutType?
     var calls = [String:Bool]()
-    var reloadedTimes = 0
+    var didReloadTimes = 0
     
     func setupInitialState( ) {
         calls[#function] = true
     }
 
     func setLayout(type: FeedModuleLayoutType) {
-        calls[#function] = true
-        layout = type
+        didSetLayout = type
     }
     
     func reload() {
         calls[#function] = true
-        reloadedTimes += 1
+        didReloadTimes += 1
     }
 
     func reload(with index: Int) {
-        calls[#function] = true
-        self.index = index
+        didSetIndex = index
     }
     
     func setRefreshing(state: Bool) {
-        calls[#function] = true
-        refreshingState = state
+        didSetRefreshingState = state
     }
     
     func getViewHeight() -> CGFloat {
@@ -157,25 +154,25 @@ class FeedModulePresenterTests: XCTestCase {
     func testThatViewHandlesEndOfFetching() {
         
         // given
-        view.refreshingState = true
+        view.didSetRefreshingState = true
         
         // when
         sut.didFinishFetching()
         
         // then
-        XCTAssertTrue(view.refreshingState == false)
+        XCTAssertTrue(view.didSetRefreshingState == false)
     }
     
     func testThatViewHandlesStartOfFetching() {
         
         // given
-        view.refreshingState = false
+        view.didSetRefreshingState = false
         
         // when
         sut.didStartFetching()
         
         // then
-        XCTAssertTrue(view.refreshingState == true)
+        XCTAssertTrue(view.didSetRefreshingState == true)
     }
     
     func testThatFetchFeedProducesCorrectItems() {
@@ -231,7 +228,7 @@ class FeedModulePresenterTests: XCTestCase {
         XCTAssertTrue(sut.item(for: IndexPath(row: 1, section: 0)).title == "Title 2")
         XCTAssertTrue(sut.numberOfItems() == 3)
         XCTAssertTrue(view.calls["reload()"] == true)
-        XCTAssertTrue(view.reloadedTimes == 2)
+        XCTAssertTrue(view.didReloadTimes == 2)
     }
     
     func testThatOnFeedTypeChangeFetchIsDone() {
@@ -246,6 +243,32 @@ class FeedModulePresenterTests: XCTestCase {
         // then
         XCTAssertTrue(interactor.didFetchPosts)
     }
+    
+    func testThatFetchDataTriggersViewReload() {
+        
+        // given
+        let feed = PostsFeed(items: [Post.mock(seed: 0)], cursor: "cursor")
+        
+        // when
+        sut.didFetch(feed: feed)
+        
+        // then
+        XCTAssertTrue(view.calls["reload()"] == true)
+    }
+    
+    func testThatLayoutChanges() {
+        
+        // given
+        let layout = FeedModuleLayoutType.grid
+        XCTAssertTrue(view.didSetLayout != layout)
+        
+        // when
+        sut.layout = layout
+        
+        // then
+        XCTAssertTrue(view.didSetLayout == layout)
+    }
+    
     
 //    func test
     

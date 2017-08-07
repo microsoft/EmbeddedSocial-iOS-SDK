@@ -69,14 +69,34 @@ struct PostViewModel {
     var onAction: ActionHandler?
 }
 
+enum FeedModuleLayoutType: Int {
+    case list
+    case grid
+    
+    var cellType:String {
+        
+        switch self {
+        case .list:
+            return PostCell.reuseID
+        case .grid:
+            return PostCellCompact.reuseID
+        }
+    }
+}
+
 class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput {
 
     weak var view: FeedModuleViewInput!
     var interactor: FeedModuleInteractorInput!
     var router: FeedModuleRouterInput!
     
-    private var feedType: FeedType = FeedType.single(post: "3uhkWMemLBe")
-    private var layout: FeedModuleLayoutType = .list
+    var layout: FeedModuleLayoutType = .list {
+        didSet {
+           view.setLayout(type: self.layout)
+        }
+    }
+    
+    private var feedType: FeedType = .home
     private let limit = Int32(3) // Default
     private var items = [Post]()
     private var cursor: String? = nil {
@@ -91,7 +111,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     // MARK: FeedModuleInput
-    
     func moduleHeight() -> CGFloat {
         return view.getViewHeight()
     }

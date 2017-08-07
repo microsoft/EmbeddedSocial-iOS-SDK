@@ -5,21 +5,6 @@
 
 import UIKit
 
-enum FeedModuleLayoutType: Int {
-    case list
-    case grid
-    
-    var cellType:String {
-        
-        switch self {
-        case .list:
-            return PostCell.reuseID
-        case .grid:
-            return PostCellCompact.reuseID
-        }
-    }
-}
-
 // TODO: remove images from cell height calculation
 //
 //

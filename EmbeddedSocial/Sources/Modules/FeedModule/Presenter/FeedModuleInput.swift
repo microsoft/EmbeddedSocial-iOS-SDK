@@ -11,5 +11,6 @@ protocol FeedModuleInput: class {
     func refreshData()
     // Get Current Module Height
     func moduleHeight() -> CGFloat
-
+    // Change layout
+    var layout: FeedModuleLayoutType { get set }
 }
