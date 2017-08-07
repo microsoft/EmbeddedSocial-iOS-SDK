@@ -10,7 +10,7 @@ enum FeedModuleRoutes {
     case postDetails
     case extra
     case comments
-    case profileDetailes(user: UserHandle)
+    case profileDetailes(userHandle: UserHandle)
     
 }
 

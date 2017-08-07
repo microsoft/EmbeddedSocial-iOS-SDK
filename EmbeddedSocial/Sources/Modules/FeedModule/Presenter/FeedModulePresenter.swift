@@ -202,7 +202,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             interactor.postAction(post: postHandle, action: action)
             
         case .profile:
-            router.open(route: .profileDetailes(user: userHandle))
+            router.open(route: .profileDetailes(userHandle: userHandle))
         }
     }
     

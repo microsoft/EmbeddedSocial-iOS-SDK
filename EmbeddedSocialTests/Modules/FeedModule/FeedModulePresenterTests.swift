@@ -40,6 +40,15 @@ private class FeedModuleViewMock: FeedModuleViewInput {
     }
 }
 
+private class FeedModuleRouterMock: FeedModuleRouterInput {
+    
+    var openedRoute: FeedModuleRoutes!
+    
+    func open(route: FeedModuleRoutes) {
+        openedRoute = route
+    }
+    
+}
 
 private class FeedModuleInteractorMock: FeedModuleInteractorInput {
 
@@ -70,6 +79,7 @@ class FeedModulePresenterTests: XCTestCase {
     var sut: FeedModulePresenter!
     private var view: FeedModuleViewMock!
     private var interactor: FeedModuleInteractorMock!
+    private var router: FeedModuleRouterMock!
     
     override func setUp() {
         super.setUp()
@@ -82,6 +92,9 @@ class FeedModulePresenterTests: XCTestCase {
         
         interactor = FeedModuleInteractorMock()
         sut.interactor = interactor
+        
+        router = FeedModuleRouterMock()
+        sut.router = router
     }
     
     func testThatViewModelIsCorrect() {
@@ -266,6 +279,29 @@ class FeedModulePresenterTests: XCTestCase {
         
         // then
         XCTAssertTrue(view.didSetLayout == layout)
+    }
+    
+    func testThatProfileOpens() {
+        
+        // given
+        var post = Post.mock(seed: 0)
+        post.userHandle = "user"
+        
+        let feed = PostsFeed(items: [post], cursor: "cursor")
+        sut.didFetch(feed: feed)
+        let path = IndexPath(row: 0, section: 0)
+        let action = PostCellAction.profile
+        let item = sut.item(for: path)
+        
+        // when
+        item.onAction!(action, path)
+        
+        // then
+        if case FeedModuleRoutes.profileDetailes(userHandle: "user" ) = router.openedRoute! {
+            XCTAssert(true)
+        } else {
+            XCTAssert(false)
+        }
     }
 
 }
