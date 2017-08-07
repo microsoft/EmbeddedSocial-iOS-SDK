@@ -75,7 +75,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     var interactor: FeedModuleInteractorInput!
     var router: FeedModuleRouterInput!
     
-    private var feedType: FeedType = FeedType.single(post: "3uhkWMemLBe")
+    private var feedType: FeedType = .home
     private var layout: FeedModuleLayoutType = .list
     private let limit = Int32(3) // Default
     private var items = [Post]()
