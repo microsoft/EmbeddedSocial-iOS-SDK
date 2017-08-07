@@ -17,14 +17,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = UIViewController()
         window?.makeKeyAndVisible()
-    
+        
+        if (ProcessInfo.processInfo.environment["EmbeddedSocial_MOCK_SERVER"] != nil) {
+            UIView.setAnimationsEnabled(false)
+        }
+        
         let args = LaunchArguments(app: application,
                                    window: window!,
                                    launchOptions: launchOptions ?? [:],
                                    menuHandler: menu,
                                    menuConfiguration: .tab)
         SocialPlus.shared.start(launchArguments: args)
-                
+        
         return true
     }
     
