@@ -23,4 +23,8 @@ extension FollowersPresenter: UserListModuleOutput {
     func didFailToLoadList(listView: UIView, error: Error) {
         view.showError(error)
     }
+    
+    func didUpdateFollowStatus(listView: UIView, followStatus: FollowStatus, forUserAt indexPath: IndexPath) {
+        
+    }
 }

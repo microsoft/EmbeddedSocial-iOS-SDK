@@ -13,6 +13,8 @@ protocol UserListModuleOutput: class {
     func didFailToLoadList(listView: UIView, error: Error)
     
     func didFailToPerformSocialRequest(listView: UIView, error: Error)
+    
+    func didUpdateFollowStatus(listView: UIView, followStatus: FollowStatus, forUserAt indexPath: IndexPath)
 }
 
 //MARK: - Optional methods
@@ -25,4 +27,6 @@ extension UserListModuleOutput {
     func didUpdateList(listView: UIView) { }
     
     func didFailToLoadList(listView: UIView, error: Error) { }
+    
+    func didUpdateFollowStatus(listView: UIView, followStatus: FollowStatus, forUserAt indexPath: IndexPath) { }
 }
