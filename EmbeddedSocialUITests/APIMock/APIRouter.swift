@@ -41,8 +41,9 @@ open class APIRouter: WebApp {
                     let cursor = query["cursor"] ?? "0"
                     if let limit = query["limit"] {
                         sendJSON(Templates.loadTopics(interval: interval, cursor: Int(cursor)!, limit: Int(limit)!))
+                    } else {
+                        sendJSON(Templates.loadTopics(interval: interval))
                     }
-                    sendJSON(Templates.loadTopics(interval: interval))
             }
         }
         

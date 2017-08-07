@@ -35,5 +35,6 @@ class SideMenu {
         self.open()
         self.app.tables.staticTexts[menuItem].tap()
         self.isOpened = false
+        sleep(1) //Required for running without animations
     }
 }

@@ -8,5 +8,6 @@ import Foundation
 struct APIConfig {
     public static var delayedResponses = false
     public static var showTopicImages = false
+    public static var numberedTopicTeasers = false
     public static var values = [:] as [String: Any]
 }

@@ -50,13 +50,14 @@ class Templates {
                                                 "topicHandle": interval + String(i),
                                                 "lastUpdatedTime": Date().ISOString,
                                                 "createdTime": Date().ISOString,
+                                                "text": APIConfig.numberedTopicTeasers ? "topic text" + String(i) : "topic text",
                                                 "blobType": APIConfig.showTopicImages ? "Image": "Unknown",
                                                 "blobHandle": APIConfig.showTopicImages ? UUID().uuidString : NSNull(),
                                                 "blobUrl": APIConfig.showTopicImages ? String(format: "http://localhost:8080/images/%@", UUID().uuidString) : NSNull()])
             topics.append(topic)
         }
         
-        return ["data": topics, "cursor": String(cursor + limit - 1)]
+        return ["data": topics, "cursor": String(cursor + limit)]
     }
     
 }
