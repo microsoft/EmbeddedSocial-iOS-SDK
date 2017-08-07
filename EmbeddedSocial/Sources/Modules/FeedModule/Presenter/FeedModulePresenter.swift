@@ -99,7 +99,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     private var formatter = DateFormatterTool()
     private var feedType: FeedType = .home
-    private var layout: FeedModuleLayoutType = .list
     private let limit = Int32(3) // Default
     private var items = [Post]()
     private var cursor: String? = nil {
@@ -249,7 +248,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             interactor.fetchPostsMore(limit: limit, feedType: feedType, cursor: cursor)
         } else {
             Logger.log("cant fetch more, no cursor")
-            view.setRefreshing(state: false)
         }
     }
     

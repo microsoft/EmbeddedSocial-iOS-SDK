@@ -11,11 +11,12 @@ import UIKit
 
 class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
-    private struct Style {
+    fileprivate struct Style {
         struct Collection  {
             static var rowsMargin = CGFloat(10.0)
             static var itemsPerRow = CGFloat(2)
             static var gridCellsPadding = CGFloat(5)
+            static var footerHeight = CGFloat(60)
         }
     }
     
@@ -85,17 +86,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: UX
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
-            output.didAskFetchMore()
-            
-            
-        } else {
-            
-        }
-    }
-    
     @objc private func onPullRefresh() {
         output.didAskFetchAll()
     }
@@ -149,6 +139,11 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         output.didTapChangeLayout()
     }
     
+    fileprivate func didReachBottom() {
+        Logger.log()
+        self.output.didAskFetchMore()
+    }
+    
     // MARK: FeedModuleViewInput
     func setupInitialState() {
         
@@ -170,9 +165,11 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
                 collectionView!.addSubview(refreshControl)
             }
             refreshControl.beginRefreshing()
+            bottomRefreshControl.startAnimating()
 
         } else {
             refreshControl.endRefreshing()
+            bottomRefreshControl.stopAnimating()
         }
     }
     
@@ -237,20 +234,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         output.didTapItem(path: indexPath)
     }
-    
-
-    func collectionView(_ collectionView: UICollectionView,
-                        viewForSupplementaryElementOfKind kind: String,
-                        at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerReuseID = headerReuseID else {
-            fatalError("Header wasn't registered")
-        }
-        let headerView = collectionView
-            .dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerReuseID, for: indexPath)
-        output.configureHeader(headerView)
-        return headerView
-    }
-    
+ 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return output.headerSize
     }
@@ -266,8 +250,10 @@ extension FeedModuleViewController: UIScrollViewDelegate {
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width:collectionView.frame.size.width, height:100.0)
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width, height: Style.Collection.footerHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -284,12 +270,31 @@ extension FeedModuleViewController: UIScrollViewDelegate {
                 make.center.equalToSuperview()
             })
             
-            
             return view
+        } else if kind == UICollectionElementKindSectionHeader {
+            
+            guard let headerReuseID = headerReuseID else {
+                fatalError("Header wasn't registered")
+            }
+            let headerView = collectionView
+                .dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerReuseID, for: indexPath)
+            output.configureHeader(headerView)
+            return headerView
             
         }
         
         return UICollectionReusableView()
     }
-    
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        let index = indexPath.row
+        
+        if index == output.numberOfItems() - 1 {
+            didReachBottom()
+        }
+        
+    }
+
+
 }
