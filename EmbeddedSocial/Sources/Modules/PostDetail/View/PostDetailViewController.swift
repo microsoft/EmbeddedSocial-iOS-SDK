@@ -14,6 +14,9 @@ fileprivate enum TableSections: Int {
 class PostDetailViewController: BaseViewController, PostDetailViewInput {
 
     var output: PostDetailViewOutput!
+    
+    //constants
+    let reloadDelay = 0.2
 
     @IBOutlet weak var postButton: UIButton!
     @IBOutlet weak var commentTextView: UITextView!
@@ -70,7 +73,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     func reload() {
         tableView.reloadData()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + reloadDelay) {
             if self.output.numberOfItems() > 1 {
                 let indexPath = IndexPath(row: self.output.numberOfItems() - 1, section: 1)
                 self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
