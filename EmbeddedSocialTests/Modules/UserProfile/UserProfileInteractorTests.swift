@@ -25,14 +25,24 @@ class UserProfileInteractorTests: XCTestCase {
         sut = nil
     }
     
-    func testThatFollowIsCalled() {
-        sut.follow(userID: UUID().uuidString) { _ in () }
-        XCTAssertEqual(socialService.followCount, 1)
+    func testThatSocialRequestIsCalledForEmptyStatus() {
+        sut.processSocialRequest(currentFollowStatus: .empty, userID: UUID().uuidString) { _ in () }
+        XCTAssertEqual(socialService.requestCount, 1)
     }
     
-    func testThatUnfollowIsCalled() {
-        sut.unfollow(userID: UUID().uuidString) { _ in () }
-        XCTAssertEqual(socialService.unfollowCount, 1)
+    func testThatSocialRequestIsCalledForAcceptedStatus() {
+        sut.processSocialRequest(currentFollowStatus: .accepted, userID: UUID().uuidString) { _ in () }
+        XCTAssertEqual(socialService.requestCount, 1)
+    }
+    
+    func testThatSocialRequestIsCalledForPendingStatus() {
+        sut.processSocialRequest(currentFollowStatus: .pending, userID: UUID().uuidString) { _ in () }
+        XCTAssertEqual(socialService.requestCount, 1)
+    }
+    
+    func testThatSocialRequestIsCalledForBlockedStatus() {
+        sut.processSocialRequest(currentFollowStatus: .blocked, userID: UUID().uuidString) { _ in () }
+        XCTAssertEqual(socialService.requestCount, 1)
     }
 }
 

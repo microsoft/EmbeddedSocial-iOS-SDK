@@ -25,5 +25,11 @@ struct UserProfileConfigurator {
         viewController.output = presenter
         
         viewController.title = "Profile"
+        
+        let feedConfigurator = FeedModuleConfigurator()
+        feedConfigurator.configure(moduleOutput: presenter)
+
+        presenter.feedViewController = feedConfigurator.viewController
+        presenter.feedModuleInput = feedConfigurator.moduleInput
     }
 }
