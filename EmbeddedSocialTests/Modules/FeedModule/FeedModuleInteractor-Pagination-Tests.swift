@@ -41,8 +41,7 @@ private class FeedModulePresenterMock: FeedModuleInteractorOutput {
   
     var startFetchingIsCalled = false
     var finishFetchingIsCalled = false
-    
-    private (set) var calls = [String:Bool]()
+
     var failedError: FeedServiceError?
     var postedAction: (post: PostHandle, action: PostSocialAction, error: Error?)?
     var fetchedFeed: PostsFeed?
