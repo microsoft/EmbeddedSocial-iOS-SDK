@@ -24,6 +24,8 @@ class MockUserProfileView: UserProfileViewInput {
     private(set) var setStickyFilterHiddenCount = 0
     private(set) var isStickyFilterHidden: Bool?
     private(set) var setupHeaderViewCount = 0
+    private(set) var setFilterEnabledCount = 0
+    private(set) var isFilterEnabled: Bool?
 
     func setupInitialState() {
         setupInitialStateCount += 1
@@ -73,5 +75,10 @@ class MockUserProfileView: UserProfileViewInput {
     
     func setupHeaderView(_ reusableView: UICollectionReusableView) {
         setupHeaderViewCount += 1
+    }
+    
+    func setFilterEnabled(_ isEnabled: Bool) {
+        setFilterEnabledCount += 1
+        isFilterEnabled = isEnabled
     }
 }

@@ -235,6 +235,67 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertEqual(router.showMyMenuCount, 0)
     }
     
+    func testThatRecentFeedIsSetWhenUserIsMe() {
+        // given
+        let presenter = makeDefaultPresenter()
+        
+        // when
+        presenter.viewIsReady()
+        presenter.onRecent()
+        
+        // then
+        validateFeedScope(.recent, user: myProfileHolder.me)
+    }
+    
+    func testThatPopularFeedIsSetWhenUserIsMe() {
+        // given
+        let presenter = makeDefaultPresenter()
+        
+        // when
+        presenter.viewIsReady()
+        presenter.onPopular()
+        
+        // then
+        validateFeedScope(.popular, user: myProfileHolder.me)
+    }
+    
+    func testThatRecentFeedIsSetForUser() {
+        // given
+        let user = User(uid: UUID().uuidString)
+        interactor.userToReturn = user
+        
+        let presenter = makeDefaultPresenter(userID: user.uid)
+        
+        // when
+        presenter.viewIsReady()
+        presenter.onRecent()
+        
+        // then
+        validateFeedScope(.recent, user: user)
+    }
+    
+    func testThatPopularFeedIsSetForUser() {
+        // given
+        let user = User(uid: UUID().uuidString)
+        interactor.userToReturn = user
+        
+        let presenter = makeDefaultPresenter(userID: user.uid)
+        
+        // when
+        presenter.viewIsReady()
+        presenter.onPopular()
+        
+        // then
+        validateFeedScope(.popular, user: user)
+    }
+    
+    private func validateFeedScope(_ scope: FeedType.UserFeedScope, user: User) {
+        XCTAssertEqual(feedInput.setFeedCount, 2)
+        XCTAssertEqual(feedInput.feedType, .user(user: user.uid, scope: scope))
+        XCTAssertEqual(view.setFilterEnabledCount, 1)
+        XCTAssertEqual(view.isFilterEnabled, false)
+    }
+    
     private func validateFollowStatusChanged(to expectedStatus: FollowStatus) {
         XCTAssertNotNil(view.lastFollowStatus)
         XCTAssertEqual(view.lastFollowStatus!, expectedStatus)
@@ -288,6 +349,30 @@ extension UserProfilePresenterTests {
         XCTAssertEqual(view.setStickyFilterHiddenCount, 1)
         XCTAssertEqual(view.isStickyFilterHidden!, false)
     }
+    
+    func testThatFilterIsEnabledWhenDataFinishesLoading() {
+        // given
+        let presenter = makeDefaultPresenter()
+
+        // when
+        presenter.didRefreshData()
+        
+        // then
+        XCTAssertEqual(view.setFilterEnabledCount, 1)
+        XCTAssertEqual(view.isFilterEnabled, true)
+    }
+    
+    func didFailToRefreshData(_ error: Error) {
+        // given
+        let presenter = makeDefaultPresenter()
+        
+        // when
+        presenter.didFailToRefreshData(APIError.unknown)
+        
+        // then
+        XCTAssertEqual(view.setFilterEnabledCount, 1)
+        XCTAssertEqual(view.isFilterEnabled, true)
+    }
 }
 
 //MARK: FollowersModuleOutput tests
@@ -340,5 +425,21 @@ extension UserProfilePresenterTests {
         testThatItUpdateFollowingStatus(with: user, expectedFollowingCount: user.followingCount) {
             $0.didUpdateFollowingStatus(newStatus: .accepted)
         }
+    }
+}
+
+//MARK: CreatePostModuleOutput tests
+
+extension UserProfilePresenterTests {
+    
+    func testThatFeedIsRefreshedWhenNewPostHasBeenAdded() {
+        // given
+        let presenter = makeDefaultPresenter()
+        
+        // when
+        presenter.didCreatePost()
+        
+        // then
+        XCTAssertEqual(feedInput.refreshDataCount, 1)
     }
 }

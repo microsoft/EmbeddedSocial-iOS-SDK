@@ -119,4 +119,9 @@ extension UserProfileViewController: UserProfileViewInput {
     func setFollowingCount(_ followingCount: Int) {
         summaryView.followingCount = followingCount
     }
+    
+    func setFilterEnabled(_ isEnabled: Bool) {
+        filterView.isEnabled = isEnabled
+        stickyFilterView.isEnabled = isEnabled
+    }
 }
