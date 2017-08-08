@@ -3,55 +3,97 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-class CrossModuleCoordinator: LoginModuleOutput {
+protocol CrossModuleCoordinatorConfigurator {
+    
+    func configureHome() -> UIViewController
+    
+}
+
+protocol CrossModuleCoordinatorProtocol: class {
+    
+    func closeMenu()
+    
+    func openHomeScreen()
+    func openMyProfile()
+    func openLoginScreen()
+
+    func isUserAuthenticated() -> Bool
+}
+
+class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput {
+    
     weak var menuModule: SideMenuModuleInput!
-    
     weak var loginHandler: LoginModuleOutput!
-    
     private(set) var navigationStack: NavigationStack!
-    
-    private(set) var isUserLoggedIn = false
-    
     private(set) var user: User?
+    fileprivate var cache: Cache
+    
+    required init(cache: Cache) {
+        self.cache = cache
+    }
     
     func setup(launchArguments args: LaunchArguments, loginHandler: LoginModuleOutput) {
         self.loginHandler = loginHandler
-        
-        let sideMenuVC = StoryboardScene.MenuStack.instantiateSideMenuViewController()
-        
-        navigationStack = NavigationStack(window: args.window, menuViewController: sideMenuVC)
-        
-        let socialItemsProvider = SocialMenuItemsProvider(delegate: self)
-
-        menuModule = SideMenuModuleConfigurator.configure(viewController: sideMenuVC,
-                                                          coordinator: self,
-                                                          configuration: args.menuConfiguration,
-                                                          socialMenuItemsProvider: socialItemsProvider,
-                                                          clientMenuItemsProvider: args.menuHandler,
-                                                          output: navigationStack.container)
-    }
     
+        let socialMenuHandler = SocialMenuItemsProvider(coordinator: self)
+        
+        let configurator = SideMenuModuleConfigurator()
+        
+        configurator.configure(coordinator: self,
+                               configuration: args.menuConfiguration,
+                               socialMenuItemsProvider: socialMenuHandler,
+                               clientMenuItemsProvider: args.menuHandler)
+        
+        menuModule = configurator.moduleInput
+        navigationStack = NavigationStack(window: args.window, menuViewController: configurator.viewController)
+        
+        configurator.router.output = navigationStack
+    }
+
+    // MARK: Login Delegate
     func onSessionCreated(user: User, sessionToken: String) {
-        isUserLoggedIn = true
         
         self.user = user
         menuModule.user = user
         
-        let nextVC = UIViewController()
-        nextVC.view.backgroundColor = .green
-        menuModule.open(viewController: nextVC)
+        openHomeScreen()
+        closeMenu()
+    }
+    
+    // MARK: Protocol
+    
+    func closeMenu() {
+        menuModule.close()
+    }
+    
+    func isUserAuthenticated() -> Bool {
+        return (user != nil)
     }
     
     func openLoginScreen() {
         let configurator = LoginConfigurator()
         configurator.configure(moduleOutput: loginHandler)
-        
-        menuModule.open(viewController: configurator.viewController)
+        navigationStack.show(configurator.viewController)
     }
     
     func openMyProfile() {
         let configurator = UserProfileConfigurator()
         configurator.configure()
-        menuModule.open(viewController: configurator.viewController)
+        navigationStack.show(configurator.viewController)
+    }
+    
+    func openHomeScreen() {
+        let vc = configureHome()
+        navigationStack.show(vc)
+    }
+}
+
+extension CrossModuleCoordinator: CrossModuleCoordinatorConfigurator {
+    
+    func configureHome() -> UIViewController {
+        let configurator = FeedModuleConfigurator(cache: self.cache)
+        configurator.configure(feed: FeedType.home, navigationController: navigationStack.navigationController)
+        let vc = configurator.viewController!
+        return vc
     }
 }

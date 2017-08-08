@@ -11,6 +11,8 @@ class MockFeedModuleInput: FeedModuleInput {
     private(set) var refreshDataCount = 0
     private(set) var registerHeaderCount = 0
     
+    var layout = FeedModuleLayoutType.grid
+    
     func setFeed(_ feed: FeedType) {
         feedType = feed
         setFeedCount += 1
@@ -24,5 +26,9 @@ class MockFeedModuleInput: FeedModuleInput {
                         size: CGSize,
                         configurator: @escaping (T) -> Void) {
         registerHeaderCount += 1
+    }
+    
+    func moduleHeight() -> CGFloat {
+        return 0.0
     }
 }

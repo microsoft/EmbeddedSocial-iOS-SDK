@@ -5,14 +5,12 @@
 
 import Foundation
 
-// TODO: remove modules buiding logic from here asap!
-
 class SocialMenuItemsProvider: SideMenuItemsProvider {
     
-    weak var delegate: CrossModuleCoordinator!
+    private weak var coordinator: CrossModuleCoordinator!
     
-    init(delegate: CrossModuleCoordinator) {
-        self.delegate = delegate
+    init(coordinator: CrossModuleCoordinator) {
+        self.coordinator = coordinator
     }
     
     enum State: Int {
@@ -24,11 +22,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     }
     
     var state: State {
-        if delegate.isUserLoggedIn {
-            return .authenticated
-        } else {
-            return .unauthenticated
-        }
+        return coordinator.isUserAuthenticated() ? .authenticated : .unauthenticated
     }
     
     func numberOfItems() -> Int {
@@ -43,48 +37,20 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         return items[state]![index].title
     }
     
-    
-    var tempVC: UIViewController?
     func destination(forItem index: Int) -> UIViewController {
-        
-        guard let builder = items[state]?[index].builder else {
-            return UIViewController()
-        }
-        
-        return builder(self.delegate)
+        return items[state]![index].builder(self.coordinator)
     }
-    
-    // TEMP
-    @objc func testPush() {
-        let config = CreatePostModuleConfigurator()
-        let vc = StoryboardScene.CreatePost.instantiateCreatePostViewController()
-        config.configure(viewController: vc, user: SocialPlus.shared.me, cache: SocialPlus.shared.cache)
-        tempVC?.navigationController?.pushViewController(vc, animated: true)
-        
-    }
-    
+
     // MARK: Items
     
-    typealias ModuleBuilder = (_ delegate: CrossModuleCoordinator) -> UIViewController
-
-    
-//    static var builderForSignIn: ModuleBuilder = { coordinator in
-//        
-//        let module = LoginConfigurator()
-//        module.configure(moduleOutput: coordinator)
-//        return module.viewController
-//    }
+    typealias ModuleBuilder = (_ delegate: CrossModuleCoordinator) -> (UIViewController)
     
     var builderForDummy: ModuleBuilder = { coordinator in
-        let configurator = FeedModuleConfigurator()
-        configurator.configure()
-        return configurator.viewController
+        return coordinator.configureHome()
     }
     
     var builderForHome: ModuleBuilder = { coordinator in
-        let configurator = FeedModuleConfigurator()
-        configurator.configure()
-        return configurator.viewController
+        return coordinator.configureHome()
     }
 
     lazy var items: [State: [(title: String, image: UIImage, builder: ModuleBuilder)]] = { [unowned self] in

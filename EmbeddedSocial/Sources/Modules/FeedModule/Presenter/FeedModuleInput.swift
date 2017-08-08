@@ -15,5 +15,6 @@ protocol FeedModuleInput: class {
                         configurator: @escaping (T) -> Void)
     // Get Current Module Height
     func moduleHeight() -> CGFloat
-
+    // Change layout
+    var layout: FeedModuleLayoutType { get set }
 }

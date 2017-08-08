@@ -6,6 +6,6 @@
 protocol SideMenuModuleInput: class {
     
     var user: User? { get set }
-    func open(viewController: UIViewController)
+    func close()
     
 }

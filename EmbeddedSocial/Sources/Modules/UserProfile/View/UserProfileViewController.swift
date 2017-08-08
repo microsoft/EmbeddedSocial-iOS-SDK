@@ -10,12 +10,6 @@ class UserProfileViewController: UIViewController {
     
     var output: UserProfileViewOutput!
     
-    @IBOutlet fileprivate weak var loadingIndicatorView: LoadingIndicatorView! {
-        didSet {
-            loadingIndicatorView.apply(style: .standard)
-        }
-    }
-    
     fileprivate lazy var createPostButton: BarButtonItemWithTarget = { [unowned self] in
         let button = BarButtonItemWithTarget()
         button.image = UIImage(asset: .iconDots)
