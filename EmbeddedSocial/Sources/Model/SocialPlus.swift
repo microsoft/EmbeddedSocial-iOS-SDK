@@ -76,7 +76,7 @@ extension SocialPlus: UserHolder {
     var me: User {
         set {
             queue.async {
-                self.sessionStore.user = newValue
+                self.sessionStore.updateSession(withUser: newValue)
                 try? self.sessionStore.saveCurrentSession()
             }
         }
