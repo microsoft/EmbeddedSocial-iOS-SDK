@@ -5,11 +5,13 @@
 
 import Foundation
 
-enum FeedModuleRoutes: String {
+enum FeedModuleRoutes {
     
     case postDetails
     case extra
     case comments
+    case profileDetailes(userHandle: UserHandle)
+    
 }
 
 protocol FeedModuleRouterInput {

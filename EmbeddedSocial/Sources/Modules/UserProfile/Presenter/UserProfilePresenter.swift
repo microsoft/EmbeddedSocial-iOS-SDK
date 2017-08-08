@@ -84,9 +84,9 @@ final class UserProfilePresenter: UserProfileViewOutput {
             configurator: view.setupHeaderView
         )
         
-        view.setFeedViewController(vc)
-
         feedModuleInput?.setFeed(.user(user: userID ?? me.uid, scope: .recent))
+        
+        view.setFeedViewController(vc)
     }
     
     func onEdit() {

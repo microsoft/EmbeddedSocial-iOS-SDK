@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13147.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -51,17 +51,27 @@
                                         <action selector="onTapExtra:" destination="iN0-l3-epB" eventType="touchUpInside" id="03H-S3-wul"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tng-AR-z1W">
+                                    <rect key="frame" x="0.0" y="0.0" width="209" height="50"/>
+                                    <connections>
+                                        <action selector="onProfileInfo:" destination="iN0-l3-epB" eventType="touchUpInside" id="nmz-6q-RKh"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="xH5-qG-Dco" firstAttribute="centerY" secondItem="bYI-rM-xRs" secondAttribute="centerY" id="0bT-8O-xFy"/>
+                                <constraint firstItem="hIe-cI-XjE" firstAttribute="leading" secondItem="tng-AR-z1W" secondAttribute="trailing" constant="20.5" id="2CW-7k-JFd"/>
                                 <constraint firstItem="bYI-rM-xRs" firstAttribute="centerY" secondItem="oqe-ch-5n3" secondAttribute="centerY" id="4Mc-gL-dXa"/>
+                                <constraint firstItem="tng-AR-z1W" firstAttribute="top" secondItem="oqe-ch-5n3" secondAttribute="top" id="Ir5-3k-RwG"/>
                                 <constraint firstAttribute="trailing" secondItem="cAQ-A1-E3u" secondAttribute="trailing" constant="20" id="Nbp-hZ-7wU"/>
+                                <constraint firstItem="tng-AR-z1W" firstAttribute="leading" secondItem="oqe-ch-5n3" secondAttribute="leading" id="QRL-7d-f2G"/>
                                 <constraint firstItem="cAQ-A1-E3u" firstAttribute="leading" secondItem="hIe-cI-XjE" secondAttribute="trailing" constant="15" id="ROR-Fk-CC4"/>
                                 <constraint firstItem="hIe-cI-XjE" firstAttribute="centerY" secondItem="cAQ-A1-E3u" secondAttribute="centerY" id="VAt-BA-Lzj"/>
                                 <constraint firstItem="bYI-rM-xRs" firstAttribute="top" secondItem="oqe-ch-5n3" secondAttribute="top" priority="999" constant="10" id="oMu-8R-0pi"/>
                                 <constraint firstItem="xH5-qG-Dco" firstAttribute="leading" secondItem="bYI-rM-xRs" secondAttribute="trailing" constant="20" id="qeA-d3-f3r"/>
                                 <constraint firstAttribute="height" constant="50" id="uKe-TH-cWk"/>
+                                <constraint firstAttribute="bottom" secondItem="tng-AR-z1W" secondAttribute="bottom" id="uaq-cA-v44"/>
                                 <constraint firstItem="bYI-rM-xRs" firstAttribute="leading" secondItem="oqe-ch-5n3" secondAttribute="leading" constant="20" id="uxM-3Y-0QF"/>
                                 <constraint firstItem="cAQ-A1-E3u" firstAttribute="centerY" secondItem="bYI-rM-xRs" secondAttribute="centerY" id="znb-tf-uqU"/>
                             </constraints>
@@ -228,13 +238,13 @@
                 <outlet property="userName" destination="xH5-qG-Dco" id="hja-Z9-zzS"/>
                 <outlet property="userPhoto" destination="bYI-rM-xRs" id="QLN-qh-MaP"/>
             </connections>
-            <point key="canvasLocation" x="68.5" y="-106"/>
+            <point key="canvasLocation" x="68" y="-106"/>
         </view>
     </objects>
     <resources>
-        <image name="icon_comment" width="48" height="48"/>
+        <image name="icon_comment" width="36" height="36"/>
         <image name="icon_dots" width="36" height="36"/>
-        <image name="icon_liked" width="48" height="48"/>
+        <image name="icon_liked" width="36" height="36"/>
         <image name="icon_liked_active" width="48" height="48"/>
         <image name="icon_pin" width="48" height="48"/>
         <image name="icon_pin_active" width="48" height="48"/>

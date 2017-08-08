@@ -6,7 +6,6 @@
 protocol FeedModuleViewInput: class {
 
     func setupInitialState()
-    
     func setLayout(type: FeedModuleLayoutType)
     func reload()
     func reload(with index: Int)

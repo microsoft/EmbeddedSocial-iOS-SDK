@@ -249,7 +249,6 @@
 		88580C5F1F2213AB00C1CBAF /* SideMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580B761F2213AB00C1CBAF /* SideMenuPresenter.swift */; };
 		88580C601F2213AB00C1CBAF /* SideMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580B781F2213AB00C1CBAF /* SideMenuRouter.swift */; };
 		88580C611F2213AB00C1CBAF /* SideMenuRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580B791F2213AB00C1CBAF /* SideMenuRouterInput.swift */; };
-		88580C621F2213AB00C1CBAF /* SideMenuRouterOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580B7A1F2213AB00C1CBAF /* SideMenuRouterOutput.swift */; };
 		88580C631F2213AB00C1CBAF /* MenuStack.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88580B7C1F2213AB00C1CBAF /* MenuStack.storyboard */; };
 		88580C641F2213AB00C1CBAF /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580B7D1F2213AB00C1CBAF /* SideMenuViewController.swift */; };
 		88580C651F2213AB00C1CBAF /* SideMenuViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580B7E1F2213AB00C1CBAF /* SideMenuViewInput.swift */; };
@@ -386,9 +385,7 @@
 		88F7A7A91F2890B1005FEC5F /* MockCreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7A81F2890B1005FEC5F /* MockCreateAccountView.swift */; };
 		88FFFA571F2F7F780066A1A0 /* MockUserProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA521F2F7F780066A1A0 /* MockUserProfileInteractor.swift */; };
 		88FFFA581F2F7F780066A1A0 /* MockUserProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA531F2F7F780066A1A0 /* MockUserProfileRouter.swift */; };
-		88FFFA591F2F7F780066A1A0 /* MockUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA541F2F7F780066A1A0 /* MockUserProfileView.swift */; };
 		88FFFA5A1F2F7F780066A1A0 /* UserProfileInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA551F2F7F780066A1A0 /* UserProfileInteractorTests.swift */; };
-		88FFFA5B1F2F7F780066A1A0 /* UserProfilePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA561F2F7F780066A1A0 /* UserProfilePresenterTests.swift */; };
 		88FFFA5D1F2F80E00066A1A0 /* MockSocialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA5C1F2F80E00066A1A0 /* MockSocialService.swift */; };
 		88FFFA5F1F2F81A70066A1A0 /* FollowStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA5E1F2F81A70066A1A0 /* FollowStatusTests.swift */; };
 		88FFFA611F306EC80066A1A0 /* BarButtonItemWithTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA601F306EC80066A1A0 /* BarButtonItemWithTarget.swift */; };
@@ -444,6 +441,8 @@
 		9CBA39ED1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA39EC1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift */; };
 		9CD760FC1F33149E00ABBB2A /* PostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD760FB1F33149E00ABBB2A /* PostTests.swift */; };
 		9CD805331F0D012F00B9B0AC /* EmbeddedSocial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* EmbeddedSocial.framework */; };
+		9CDDB2031F38866000C46785 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDB2021F38866000C46785 /* DateFormatter.swift */; };
+		9CDDB2051F38870400C46785 /* DateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDB2041F38870400C46785 /* DateFormatterTests.swift */; };
 		9CEA75241F2A0E61009FC89D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75231F2A0E61009FC89D /* Post.swift */; };
 		9CEA75281F2A1FA0009FC89D /* LikesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75271F2A1FA0009FC89D /* LikesService.swift */; };
 		9CEA752A1F2A1FAA009FC89D /* PinsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75291F2A1FAA009FC89D /* PinsService.swift */; };
@@ -736,7 +735,6 @@
 		88580B761F2213AB00C1CBAF /* SideMenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuPresenter.swift; sourceTree = "<group>"; };
 		88580B781F2213AB00C1CBAF /* SideMenuRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuRouter.swift; sourceTree = "<group>"; };
 		88580B791F2213AB00C1CBAF /* SideMenuRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuRouterInput.swift; sourceTree = "<group>"; };
-		88580B7A1F2213AB00C1CBAF /* SideMenuRouterOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuRouterOutput.swift; sourceTree = "<group>"; };
 		88580B7C1F2213AB00C1CBAF /* MenuStack.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MenuStack.storyboard; sourceTree = "<group>"; };
 		88580B7D1F2213AB00C1CBAF /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		88580B7E1F2213AB00C1CBAF /* SideMenuViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewInput.swift; sourceTree = "<group>"; };
@@ -947,6 +945,8 @@
 		9CD805291F0D012F00B9B0AC /* EmbeddedSocial.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EmbeddedSocial.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* EmbeddedSocialTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EmbeddedSocialTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805391F0D012F00B9B0AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9CDDB2021F38866000C46785 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		9CDDB2041F38870400C46785 /* DateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterTests.swift; sourceTree = "<group>"; };
 		9CEA75231F2A0E61009FC89D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		9CEA75271F2A1FA0009FC89D /* LikesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesService.swift; sourceTree = "<group>"; };
 		9CEA75291F2A1FAA009FC89D /* PinsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinsService.swift; sourceTree = "<group>"; };
@@ -1145,6 +1145,7 @@
 				88580A941F2213AB00C1CBAF /* SectionModel.swift */,
 				88580A9B1F2213AB00C1CBAF /* TableDataDisplayManager.swift */,
 				88FFFA641F30A7160066A1A0 /* UserHolder.swift */,
+				9CDDB2021F38866000C46785 /* DateFormatter.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1697,7 +1698,6 @@
 			children = (
 				88580B781F2213AB00C1CBAF /* SideMenuRouter.swift */,
 				88580B791F2213AB00C1CBAF /* SideMenuRouterInput.swift */,
-				88580B7A1F2213AB00C1CBAF /* SideMenuRouterOutput.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -1932,6 +1932,7 @@
 				88F1637A1F26494100DAAF68 /* SocialUserTests.swift */,
 				889AFC041F220BCD003AAF19 /* UserTests.swift */,
 				9CD760FB1F33149E00ABBB2A /* PostTests.swift */,
+				9CDDB2041F38870400C46785 /* DateFormatterTests.swift */,
 				9CD760FD1F33155900ABBB2A /* PostTestData */,
 			);
 			path = EntitiesTests;
@@ -2851,6 +2852,7 @@
 				88580BD51F2213AB00C1CBAF /* SocialAPI.swift in Sources */,
 				88580C3D1F2213AB00C1CBAF /* CreateAccountViewInput.swift in Sources */,
 				88FFFA651F30A7160066A1A0 /* UserHolder.swift in Sources */,
+				9CDDB2031F38866000C46785 /* DateFormatter.swift in Sources */,
 				88580C721F2213AB00C1CBAF /* TabMenuContainerViewOutput.swift in Sources */,
 				882AD0C01F221D4400FC20B7 /* ModelFileExtension.swift in Sources */,
 				88BC5C511F2B65D0001FBDD2 /* UserProfilePresenter.swift in Sources */,
@@ -2934,7 +2936,6 @@
 				88580BB31F2213AB00C1CBAF /* LoadingIndicatorView.swift in Sources */,
 				886F4B3B1F2A06E500D836C3 /* SocialService.swift in Sources */,
 				88580C7D1F2213EF00C1CBAF /* Repository.swift in Sources */,
-				88580C621F2213AB00C1CBAF /* SideMenuRouterOutput.swift in Sources */,
 				88580BF81F2213AB00C1CBAF /* PostSessionRequest.swift in Sources */,
 				88580BDA1F2213AB00C1CBAF /* ActivityView.swift in Sources */,
 				88580C411F2213AB00C1CBAF /* CreatePostConfigurator.swift in Sources */,
@@ -3128,7 +3129,6 @@
 				88F7A79D1F2799CA005FEC5F /* CreateAccountPresenterTests.swift in Sources */,
 				883B9B641F2776E600D1E66E /* Item.swift in Sources */,
 				889AFC1E1F220BCD003AAF19 /* PhotoTests.swift in Sources */,
-				88FFFA5B1F2F7F780066A1A0 /* UserProfilePresenterTests.swift in Sources */,
 				88F7A7A31F287D91005FEC5F /* MockCreateAccountRouter.swift in Sources */,
 				63A1D7231F2A04730090C67A /* CreatePostPresentorTests.swift in Sources */,
 				881F7E601F2637F7003EB37A /* MementoSerializableItem.swift in Sources */,
@@ -3171,12 +3171,12 @@
 				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
 				9C8F68971F34AA4D00AF4A7F /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */,
 				88F551931F336D9200F4AAB9 /* UserListPresenterTests.swift in Sources */,
-				88FFFA591F2F7F780066A1A0 /* MockUserProfileView.swift in Sources */,
 				88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */,
 				88F163851F2745E500DAAF68 /* CreateAccountValidatorTests.swift in Sources */,
 				883B9B661F277BE800D1E66E /* CoreDataStackTests.swift in Sources */,
 				88635D771F223F1600577140 /* CoreDataStackBuilderTests.swift in Sources */,
 				88F7A7A91F2890B1005FEC5F /* MockCreateAccountView.swift in Sources */,
+				9CDDB2051F38870400C46785 /* DateFormatterTests.swift in Sources */,
 				889AFC301F220BCD003AAF19 /* NameComponentsSplitterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
