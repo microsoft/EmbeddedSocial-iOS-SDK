@@ -14,6 +14,8 @@ private class FeedModuleViewMock: FeedModuleViewInput {
     var didReloadTimes = 0
     var didReload = false
     
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void) { }
+    
     func setupInitialState( ) {
     
     }

@@ -387,9 +387,7 @@
 		88F7A7A91F2890B1005FEC5F /* MockCreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7A81F2890B1005FEC5F /* MockCreateAccountView.swift */; };
 		88FFFA571F2F7F780066A1A0 /* MockUserProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA521F2F7F780066A1A0 /* MockUserProfileInteractor.swift */; };
 		88FFFA581F2F7F780066A1A0 /* MockUserProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA531F2F7F780066A1A0 /* MockUserProfileRouter.swift */; };
-		88FFFA591F2F7F780066A1A0 /* MockUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA541F2F7F780066A1A0 /* MockUserProfileView.swift */; };
 		88FFFA5A1F2F7F780066A1A0 /* UserProfileInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA551F2F7F780066A1A0 /* UserProfileInteractorTests.swift */; };
-		88FFFA5B1F2F7F780066A1A0 /* UserProfilePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA561F2F7F780066A1A0 /* UserProfilePresenterTests.swift */; };
 		88FFFA5D1F2F80E00066A1A0 /* MockSocialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA5C1F2F80E00066A1A0 /* MockSocialService.swift */; };
 		88FFFA5F1F2F81A70066A1A0 /* FollowStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA5E1F2F81A70066A1A0 /* FollowStatusTests.swift */; };
 		88FFFA611F306EC80066A1A0 /* BarButtonItemWithTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA601F306EC80066A1A0 /* BarButtonItemWithTarget.swift */; };
@@ -439,8 +437,6 @@
 		9C8F68971F34AA4D00AF4A7F /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531341F31CCD1004CE94F /* FeedModuleInteractor-FetchQuery-Tests.swift */; };
 		9C8F68981F34AA8200AF4A7F /* FeedModuleInteractor-Pagination-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C316E101F31E3CB00B90089 /* FeedModuleInteractor-Pagination-Tests.swift */; };
 		9CB3F1FB1F3367F00099A22D /* TopicServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */; };
-		9CB3F1FC1F336B2D0099A22D /* FollowingViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCE51F331CB3001F2474 /* FollowingViewInput.swift */; };
-		9CB3F1FD1F336B620099A22D /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385881F31BF140048B04C /* UserListCell.swift */; };
 		9CB3F1FE1F336B780099A22D /* MyFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */; };
 		9CB3F2021F346E790099A22D /* FeedModuleInteractor-SocialActions-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD761001F33218A00ABBB2A /* FeedModuleInteractor-SocialActions-Tests.swift */; };
 		9CB3F2031F3473870099A22D /* FeedModulePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531351F31CCD1004CE94F /* FeedModulePresenterTests.swift */; };
@@ -3349,7 +3345,6 @@
 				88F7A79D1F2799CA005FEC5F /* CreateAccountPresenterTests.swift in Sources */,
 				883B9B641F2776E600D1E66E /* Item.swift in Sources */,
 				889AFC1E1F220BCD003AAF19 /* PhotoTests.swift in Sources */,
-				88FFFA5B1F2F7F780066A1A0 /* UserProfilePresenterTests.swift in Sources */,
 				88F7A7A31F287D91005FEC5F /* MockCreateAccountRouter.swift in Sources */,
 				63A1D7231F2A04730090C67A /* CreatePostPresentorTests.swift in Sources */,
 				881F7E601F2637F7003EB37A /* MementoSerializableItem.swift in Sources */,
@@ -3392,7 +3387,6 @@
 				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
 				9C8F68971F34AA4D00AF4A7F /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */,
 				88F551931F336D9200F4AAB9 /* UserListPresenterTests.swift in Sources */,
-				88FFFA591F2F7F780066A1A0 /* MockUserProfileView.swift in Sources */,
 				88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */,
 				88F163851F2745E500DAAF68 /* CreateAccountValidatorTests.swift in Sources */,
 				883B9B661F277BE800D1E66E /* CoreDataStackTests.swift in Sources */,
