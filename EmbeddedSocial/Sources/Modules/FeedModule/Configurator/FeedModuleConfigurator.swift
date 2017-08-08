@@ -19,7 +19,9 @@ class FeedModuleConfigurator {
         self.cache = cache
     }
     
-    func configure(feed: FeedType? = nil, navigationController: UINavigationController? = nil) {
+    func configure(feed: FeedType? = nil,
+                   navigationController: UINavigationController? = nil,
+                   moduleOutput: FeedModuleOutput? = nil) {
         
         let viewController = StoryboardScene.FeedModule.instantiateFeedModuleViewController()
         let router = FeedModuleRouter()
@@ -39,6 +41,7 @@ class FeedModuleConfigurator {
         
         presenter.view = viewController
         presenter.router = router
+        presenter.moduleOutput = moduleOutput
         
         let interactor = FeedModuleInteractor()
         interactor.postService = TopicService(cache: cache)

@@ -88,7 +88,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         if data.userImageUrl == nil {
             userPhoto.image = userImagePlaceholder
         } else {
-            userPhoto.setPhotoWithCaching(Photo(url: data.userImageUrl), placeholder: postImagePlaceholder)
+            userPhoto.setPhotoWithCaching(Photo(url: data.userImageUrl), placeholder: userImagePlaceholder)
         }
         
         userName.text = data.userName

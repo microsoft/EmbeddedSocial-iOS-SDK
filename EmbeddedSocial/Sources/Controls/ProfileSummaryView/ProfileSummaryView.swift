@@ -49,7 +49,11 @@ class ProfileSummaryView: UIView {
         }
     }
     
-    @IBOutlet fileprivate weak var followButton: UIButton!
+    @IBOutlet fileprivate weak var followButton: UIButton! {
+        didSet {
+            followButton.setTitle(nil, for: .normal)
+        }
+    }
     
     var onFollowers: (() -> Void)?
     

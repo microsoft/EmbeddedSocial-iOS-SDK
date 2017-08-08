@@ -5,11 +5,17 @@
 
 import Foundation
 
+private let headerHeight = Constants.UserProfile.summaryHeight +
+    Constants.UserProfile.filterHeight +
+    Constants.UserProfile.containerInset
+
 final class UserProfilePresenter: UserProfileViewOutput {
     
     weak var view: UserProfileViewInput!
     var router: UserProfileRouterInput!
     var interactor: UserProfileInteractorInput!
+    var feedViewController: UIViewController?
+    var feedModuleInput: FeedModuleInput?
     
     private let userID: String?
     private var user: User?
@@ -25,12 +31,12 @@ final class UserProfilePresenter: UserProfileViewOutput {
     
     func viewIsReady() {
         view.setupInitialState()
+        setupFeed()
         loadUser()
-        loadFeed()
     }
     
     private func loadUser() {
-        view.setIsLoading(true)
+        view.setIsLoadingUser(true)
 
         if let userID = userID {
             loadOtherUser(userID)
@@ -57,7 +63,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     private func processUserResult(_ result: Result<User>, setUser: (User) -> Void) {
-        view.setIsLoading(false)
+        view.setIsLoadingUser(false)
         
         if let user = result.value {
             setUser(user)
@@ -68,8 +74,19 @@ final class UserProfilePresenter: UserProfileViewOutput {
         }
     }
     
-    private func loadFeed() {
+    private func setupFeed() {
+        guard let vc = feedViewController else {
+            return
+        }
+        feedModuleInput?.registerHeader(
+            withType: UICollectionReusableView.self,
+            size: CGSize(width: Constants.UserProfile.contentWidth, height: headerHeight),
+            configurator: view.setupHeaderView
+        )
         
+        view.setFeedViewController(vc)
+
+        feedModuleInput?.setFeed(.user(user: userID ?? me.uid, scope: .recent))
     }
     
     func onEdit() {
@@ -143,10 +160,10 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     private func block(user: User) {
-        view.setIsLoading(true)
+        view.setIsLoadingUser(true)
 
         interactor.block(userID: user.uid) { [weak self] result in
-            self?.view.setIsLoading(false)
+            self?.view.setIsLoadingUser(false)
             
             if result.isSuccess {
                 // FIXME: decide if full profile reload is needed
@@ -158,10 +175,19 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     func onRecent() {
-        
+        feedModuleInput?.setFeed(.user(user: userID ?? me.uid, scope: .recent))
+        feedModuleInput?.refreshData()
     }
     
     func onPopular() {
-        
+        feedModuleInput?.setFeed(.user(user: userID ?? me.uid, scope: .popular))
+        feedModuleInput?.refreshData()
+    }
+}
+
+extension UserProfilePresenter: FeedModuleOutput {
+    func didScrollFeed(_ feedView: UIScrollView) {
+        let isHeaderVisible = feedView.contentOffset.y < headerHeight - Constants.UserProfile.filterHeight
+        view.setStickyFilterHidden(isHeaderVisible)
     }
 }
