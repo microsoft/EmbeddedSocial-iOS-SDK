@@ -378,6 +378,7 @@
 		88F551CB1F39E7F700F4AAB9 /* AutoEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551CA1F39E7F700F4AAB9 /* AutoEquatable.swift */; };
 		88F551CE1F39E9D400F4AAB9 /* FollowersPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551CD1F39E9D400F4AAB9 /* FollowersPresenterTests.swift */; };
 		88F551D01F39E9F300F4AAB9 /* MockFollowersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551CF1F39E9F300F4AAB9 /* MockFollowersView.swift */; };
+		88F551D21F3A047F00F4AAB9 /* CreatePostModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551D11F3A047F00F4AAB9 /* CreatePostModuleOutput.swift */; };
 		88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */; };
 		88F7A7891F27896B005FEC5F /* MockAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7881F27896B005FEC5F /* MockAuthService.swift */; };
 		88F7A78B1F2789F0005FEC5F /* MockUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A78A1F2789F0005FEC5F /* MockUserService.swift */; };
@@ -892,10 +893,11 @@
 		88F551B91F39BB9700F4AAB9 /* MockFeedModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFeedModuleInput.swift; sourceTree = "<group>"; };
 		88F551BF1F39D52000F4AAB9 /* FollowingPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingPresenterTests.swift; sourceTree = "<group>"; };
 		88F551C11F39D59000F4AAB9 /* MockFollowingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFollowingView.swift; sourceTree = "<group>"; };
-		88F551C31F39D65200F4AAB9 /* MockUserListModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockUserListModuleInput.swift; path = MockUserListModuleInput.swift; sourceTree = "<group>"; };
+		88F551C31F39D65200F4AAB9 /* MockUserListModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListModuleInput.swift; sourceTree = "<group>"; };
 		88F551CA1F39E7F700F4AAB9 /* AutoEquatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoEquatable.swift; sourceTree = "<group>"; };
 		88F551CD1F39E9D400F4AAB9 /* FollowersPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersPresenterTests.swift; sourceTree = "<group>"; };
 		88F551CF1F39E9F300F4AAB9 /* MockFollowersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFollowersView.swift; sourceTree = "<group>"; };
+		88F551D11F3A047F00F4AAB9 /* CreatePostModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostModuleOutput.swift; sourceTree = "<group>"; };
 		88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInteractorTests.swift; sourceTree = "<group>"; };
 		88F7A7881F27896B005FEC5F /* MockAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAuthService.swift; sourceTree = "<group>"; };
 		88F7A78A1F2789F0005FEC5F /* MockUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserService.swift; sourceTree = "<group>"; };
@@ -939,7 +941,7 @@
 		8E60704E1F34CE5500110F4F /* TestHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHome.swift; sourceTree = "<group>"; };
 		8E6070501F34CE6900110F4F /* PostsFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsFeed.swift; sourceTree = "<group>"; };
 		8E6070511F34CE6900110F4F /* SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
-		8E6070551F34D15200110F4F /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Random.swift; path = Random.swift; sourceTree = "<group>"; };
+		8E6070551F34D15200110F4F /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		8EF0E5921F1FA5CC00E88ED6 /* EmbeddedSocialUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EmbeddedSocialUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EF0E5961F1FA5CD00E88ED6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EF0E59C1F1FA5EF00E88ED6 /* APIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
@@ -1612,6 +1614,7 @@
 			children = (
 				88580B4E1F2213AB00C1CBAF /* CreatePostModuleInput.swift */,
 				88580B4F1F2213AB00C1CBAF /* CreatePostPresenter.swift */,
+				88F551D11F3A047F00F4AAB9 /* CreatePostModuleOutput.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -2215,7 +2218,6 @@
 				88F551BF1F39D52000F4AAB9 /* FollowingPresenterTests.swift */,
 				88F551C11F39D59000F4AAB9 /* MockFollowingView.swift */,
 			);
-			name = Following;
 			path = Following;
 			sourceTree = "<group>";
 		};
@@ -2225,7 +2227,6 @@
 				88F551CD1F39E9D400F4AAB9 /* FollowersPresenterTests.swift */,
 				88F551CF1F39E9F300F4AAB9 /* MockFollowersView.swift */,
 			);
-			name = Followers;
 			path = Followers;
 			sourceTree = "<group>";
 		};
@@ -2337,7 +2338,6 @@
 			children = (
 				8E6070551F34D15200110F4F /* Random.swift */,
 			);
-			name = Utils;
 			path = Utils;
 			sourceTree = "<group>";
 		};
@@ -2979,6 +2979,7 @@
 				88580C5A1F2213AB00C1CBAF /* SideMenuInitializer.swift in Sources */,
 				88580C361F2213AB00C1CBAF /* CreateAccountPresenter.swift in Sources */,
 				88580C0E1F2213AB00C1CBAF /* CrossModuleCoordinator.swift in Sources */,
+				88F551D21F3A047F00F4AAB9 /* CreatePostModuleOutput.swift in Sources */,
 				88580C571F2213AB00C1CBAF /* LoginViewInput.swift in Sources */,
 				88580C591F2213AB00C1CBAF /* SideMenuConfigurator.swift in Sources */,
 				88580BEE1F2213AB00C1CBAF /* PostCommentResponse.swift in Sources */,

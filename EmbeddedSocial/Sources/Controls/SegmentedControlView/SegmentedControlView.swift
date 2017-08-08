@@ -29,6 +29,15 @@ class SegmentedControlView: UIView {
         }
     }
     
+    var isEnabled: Bool {
+        get {
+            return segmentedControl.isEnabled
+        }
+        set {
+            segmentedControl.isEnabled = newValue
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setup()

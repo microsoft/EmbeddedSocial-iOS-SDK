@@ -190,13 +190,17 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     func onRecent() {
-        feedModuleInput?.setFeed(.user(user: userID ?? me.uid, scope: .recent))
-        feedModuleInput?.refreshData()
+        setFeedScope(.recent)
     }
     
     func onPopular() {
-        feedModuleInput?.setFeed(.user(user: userID ?? me.uid, scope: .popular))
+        setFeedScope(.popular)
+    }
+    
+    private func setFeedScope(_ scope: FeedType.UserFeedScope) {
+        feedModuleInput?.setFeed(.user(user: userID ?? me.uid, scope: scope))
         feedModuleInput?.refreshData()
+        view.setFilterEnabled(false)
     }
 }
 
@@ -205,6 +209,14 @@ extension UserProfilePresenter: FeedModuleOutput {
     func didScrollFeed(_ feedView: UIScrollView) {
         let isHeaderVisible = feedView.contentOffset.y < UserProfilePresenter.headerHeight - Constants.UserProfile.filterHeight
         view.setStickyFilterHidden(isHeaderVisible)
+    }
+    
+    func didRefreshData() {
+        view.setFilterEnabled(true)
+    }
+    
+    func didFailToRefreshData(_ error: Error) {
+        view.setFilterEnabled(true)
     }
 }
 
@@ -223,5 +235,12 @@ extension UserProfilePresenter: FollowingModuleOutput {
         if user == nil {
             followingCount = updatedFollowCount(followingCount, with: newStatus)
         }
+    }
+}
+
+extension UserProfilePresenter: CreatePostModuleOutput {
+    
+    func didCreatePost() {
+        feedModuleInput?.refreshData()
     }
 }

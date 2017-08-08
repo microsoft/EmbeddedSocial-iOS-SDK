@@ -27,4 +27,6 @@ protocol UserProfileViewInput: class {
     func setupHeaderView(_ reusableView: UICollectionReusableView)
     
     func setStickyFilterHidden(_ isHidden: Bool)
+    
+    func setFilterEnabled(_ isEnabled: Bool)
 }

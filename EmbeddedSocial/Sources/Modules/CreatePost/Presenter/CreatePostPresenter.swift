@@ -8,6 +8,7 @@ class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePo
     weak var view: CreatePostViewInput!
     var interactor: CreatePostInteractorInput!
     var router: CreatePostRouterInput!
+    weak var moduleOutput: CreatePostModuleOutput?
     
     var user: User?
 
@@ -33,6 +34,7 @@ class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePo
     func created() {
         // TODO: handle
         view.topicCreated()
+        moduleOutput?.didCreatePost()
         back()
     }
     
