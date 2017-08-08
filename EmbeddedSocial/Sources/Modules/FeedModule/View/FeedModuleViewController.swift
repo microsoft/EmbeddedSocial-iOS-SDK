@@ -264,8 +264,6 @@ extension FeedModuleViewController: UIScrollViewDelegate {
                                                                        for: indexPath)
             
             view.addSubview(bottomRefreshControl)
-            bottomRefreshControl.startAnimating()
-            
             bottomRefreshControl.snp.makeConstraints({ (make) in
                 make.center.equalToSuperview()
             })

@@ -244,15 +244,17 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didAskFetchMore() {
-        if let cursor = cursor {
-            interactor.fetchPostsMore(limit: limit, feedType: feedType, cursor: cursor)
-        } else {
+        
+        guard let cursor = cursor else {
             Logger.log("cant fetch more, no cursor")
+            return
         }
+        
+        interactor.fetchPostsMore(limit: limit, feedType: feedType, cursor: cursor)
     }
     
     func didTapItem(path: IndexPath) {
-        
+        Logger.log(path)
     }
     
     // MARK: FeedModuleInteractorOutput
