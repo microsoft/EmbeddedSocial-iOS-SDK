@@ -89,6 +89,10 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         tableView.reloadData()
     }
     
+    func refreshCell(index: Int) {
+        tableView.reloadRows(at: [IndexPath.init(row: index, section: TableSections.comments.rawValue)], with: .none)
+    }
+    
     func postCommentSuccess() {
         clearImage()
         commentTextView.text = nil

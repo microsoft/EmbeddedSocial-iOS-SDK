@@ -70,11 +70,11 @@ class CommentsService: CommentServiceProtocol {
             comment.userHandle = commentView.user?.userHandle
             comment.createdTime = commentView.createdTime
             comment.text = commentView.text
-            comment.liked = commentView.liked
+            comment.liked = commentView.liked!
             comment.mediaUrl = commentView.blobUrl
             comment.topicHandle = commentView.topicHandle
-            comment.totalLikes = commentView.totalLikes ?? 0
-            comment.totalReplies = commentView.totalLikes ?? 0
+            comment.totalLikes = commentView.totalLikes!
+            comment.totalReplies = commentView.totalLikes!
             comments.append(comment)
         }
         return comments
@@ -88,7 +88,7 @@ struct CommentFetchResult {
     var cursor: String?
 }
 
-class Comment {
+class Comment: Equatable {
     public var commentHandle: String?
     public var topicHandle: String!
     public var createdTime: Date?
@@ -103,6 +103,10 @@ class Comment {
     public var mediaUrl: String?
     public var totalLikes: Int64 = 0
     public var totalReplies: Int64 = 0
-    public var liked: Bool!
-    public var pinned: Bool!
+    public var liked = false
+    public var pinned = false
+    
+    static func ==(left: Comment, right: Comment) -> Bool{
+        return left.commentHandle == right.commentHandle
+    }
 }

@@ -11,4 +11,6 @@ protocol PostDetailInteractorOutput: class {
     func didFail(error: CommentsServiceError)
     func commentDidPosted(comment: Comment)
     func commentPostFailed(error: Error)
+    func commentLiked(comment: Comment)
+    func commendUnliked(comment: Comment)
 }

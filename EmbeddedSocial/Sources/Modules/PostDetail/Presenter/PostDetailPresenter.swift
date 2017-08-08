@@ -50,6 +50,22 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         
     }
     
+    func commentLiked(comment: Comment) {
+        guard let index = comments.index(of: comment) else {
+            return
+        }
+        
+        view.refreshCell(index: index)
+    }
+    
+    func commendUnliked(comment: Comment) {
+        guard let index = comments.index(of: comment) else {
+            return
+        }
+        
+        view.refreshCell(index: index)
+    }
+    
     // MAKR: PostDetailViewOutput
     func numberOfItems() -> Int {
         return comments.count

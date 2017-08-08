@@ -15,4 +15,5 @@ protocol PostDetailViewInput: class {
     func reloadTable()
     func postCommentSuccess()
     func postCommentFailed(error: Error)
+    func refreshCell(index: Int)
 }

@@ -42,8 +42,7 @@ class LikesService: LikesServiceProtocol {
     
     func unlikeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
         LikesAPI.commentLikesDeleteLike(commentHandle: commentHandle) { (object, error) in
-            print(object ?? "")
-            print(error ?? "")
+            completion(commentHandle, error)
         }
     }
 
