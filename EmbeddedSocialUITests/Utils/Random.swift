@@ -5,10 +5,10 @@
 
 import Foundation
 
-extension Dictionary {
-    mutating func update(other: Dictionary) {
-        for (key, value) in other {
-            self.updateValue(value, forKey:key)
-        }
+
+class Random {
+
+    class func randomUInt(_ seed: UInt) -> UInt {
+        return UInt(arc4random_uniform(UInt32(seed)))
     }
 }
