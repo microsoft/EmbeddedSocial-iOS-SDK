@@ -70,7 +70,7 @@ struct PostViewModel {
 }
 
 class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput {
-    
+
     weak var view: FeedModuleViewInput!
     var interactor: FeedModuleInteractorInput!
     var router: FeedModuleRouterInput!
@@ -99,12 +99,16 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     // MARK: FeedModuleInput
     
+    func moduleHeight() -> CGFloat {
+        return view.getViewHeight()
+    }
+    
     func setFeed(_ feed: FeedType) {
         feedType = feed
     }
     
     func refreshData() {
-        didAskFetchAll()
+        interactor.fetchPosts(limit: limit, feedType: feedType)
     }
     
     // MARK: Private
@@ -177,9 +181,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             items[index].liked = !status
             
             if action == .like {
-                items[index].totalLikes += Int64(1)
+                items[index].totalLikes += 1
             } else if action == .unlike && items[index].totalLikes > 0 {
-                items[index].totalLikes -= Int64(1)
+                items[index].totalLikes -= 1
             }
             
             view.reload(with: index)
@@ -211,7 +215,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didAskFetchAll() {
-        view.setRefreshing(state: true)
         interactor.fetchPosts(limit: limit, feedType: feedType)
     }
     

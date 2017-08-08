@@ -6,10 +6,11 @@
 import UIKit
 
 enum FeedModuleLayoutType: Int {
+    
     case list
     case grid
     
-    var cellType:String {
+    var cellType: String {
         
         switch self {
         case .list:
@@ -35,6 +36,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     var output: FeedModuleViewOutput!
+    
+    var numberOfItems: Int {
+        return collectionView?.numberOfItems(inSection: 0) ?? 0
+    }
     
     fileprivate var listLayout = UICollectionViewFlowLayout()
     fileprivate var gridLayout = UICollectionViewFlowLayout()
@@ -98,12 +103,12 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         // switch layout
         switch type {
         case .grid:
-            layoutChangeButton.image = UIImage(asset: .iconGallery)
+            layoutChangeButton.image = UIImage(asset: .iconList)
             if collectionView!.collectionViewLayout != gridLayout {
                 collectionView!.setCollectionViewLayout(gridLayout, animated: animated)
             }
         case .list:
-            layoutChangeButton.image = UIImage(asset: .iconList)
+            layoutChangeButton.image = UIImage(asset: .iconGallery)
             if collectionView!.collectionViewLayout != listLayout {
                 collectionView?.setCollectionViewLayout(listLayout, animated: animated)
             }
@@ -118,7 +123,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     private func updateLayoutFlowForGrid(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
-
+        
         let padding = Style.Collection.gridCellsPadding
         layout.sectionInset = UIEdgeInsets(top: padding , left: padding , bottom: padding , right: padding )
         layout.minimumLineSpacing = padding
@@ -140,10 +145,14 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     // MARK: FeedModuleViewInput
     func setupInitialState() {
-    
+        
     }
     
- func setLayout(type: FeedModuleLayoutType) {
+    func getViewHeight() -> CGFloat {
+        return collectionView.collectionViewLayout.collectionViewContentSize.height
+    }
+    
+    func setLayout(type: FeedModuleLayoutType) {
         self.collectionView.reloadData()
         onUpdateLayout(type: type)
     }
