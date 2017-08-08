@@ -58,7 +58,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     func configPost() {
         // Module
-        let configurator = FeedModuleConfigurator()
+        let configurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache)
         configurator.configure(navigationController: self.navigationController!)
 
         feedModuleInput = configurator.moduleInput!

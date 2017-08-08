@@ -69,6 +69,21 @@ struct PostViewModel {
     var onAction: ActionHandler?
 }
 
+enum FeedModuleLayoutType: Int {
+    case list
+    case grid
+    
+    var cellType:String {
+        
+        switch self {
+        case .list:
+            return PostCell.reuseID
+        case .grid:
+            return PostCellCompact.reuseID
+        }
+    }
+}
+
 class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput {
 
     weak var view: FeedModuleViewInput!
@@ -76,8 +91,14 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     var router: FeedModuleRouterInput!
     weak var moduleOutput: FeedModuleOutput?
     
-    private var feedType: FeedType = .home //FeedType.single(post: "3uhkWMemLBe")
-    private var layout: FeedModuleLayoutType = .list
+    var layout: FeedModuleLayoutType = .list {
+        didSet {
+            view.setLayout(type: self.layout)
+        }
+    }
+    
+    private var formatter = DateFormatterTool()
+    private var feedType: FeedType = .home
     private let limit = Int32(3) // Default
     private var items = [Post]()
     private var cursor: String? = nil {
@@ -242,6 +263,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func didTapItem(path: IndexPath) {
         //        router.open(route: .postDetails)
         router.open(post: items[path.row], from: view as! UIViewController)
+        Logger.log(path)
     }
     
     // MARK: FeedModuleInteractorOutput

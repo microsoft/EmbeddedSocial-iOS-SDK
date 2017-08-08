@@ -452,7 +452,7 @@
 		93620D1B1F339ED500B9C794 /* CommentsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93620D1A1F339ED500B9C794 /* CommentsService.swift */; };
 		93620D1F1F339EE300B9C794 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93620D1D1F339EE300B9C794 /* CommentCell.swift */; };
 		93620D201F339EE300B9C794 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93620D1E1F339EE300B9C794 /* CommentCell.xib */; };
-		9C316E141F31F7A700B90089 /* AutoEquatebale.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C316E131F31F77600B90089 /* AutoEquatebale.generated.swift */; };
+		9C316E141F31F7A700B90089 /* AutoEquatable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C316E131F31F77600B90089 /* AutoEquatable.generated.swift */; };
 		9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8B1F25D60A00D0B59D /* PostCell.xib */; };
 		9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */; };
 		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };

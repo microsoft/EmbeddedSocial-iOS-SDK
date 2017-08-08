@@ -16,6 +16,4 @@ protocol FeedModuleViewInput: class {
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void)
 
-    func getViewHeight() -> CGFloat
-
 }
