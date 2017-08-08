@@ -28,10 +28,12 @@ class Post {
     
     func like() {
         self.likeButton.tap()
+        sleep(1)
     }
     
     func pin(){
         self.pinButton.tap()
+        sleep(1)
     }
 
 }

@@ -13,8 +13,8 @@ class SideMenu {
     
     init(_ app: XCUIApplication) {
         self.app = app
-        self.menuButton = app.navigationBars["EmbeddedSocial.NavigationStackContainer"].children(matching: .button).element
-        
+        self.menuButton = app.navigationBars["EmbeddedSocial.NavigationStackContainer"].children(matching: .button).element(boundBy: 0)
+//        self.menuButton = app.navigationBars["EmbeddedSocial.NavigationStackContainer"].children(matching: .button).element(boundBy: 0).tap()
     }
     
     func open() {

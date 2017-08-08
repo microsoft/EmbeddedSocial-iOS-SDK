@@ -45,15 +45,20 @@ class Templates {
         var topics: Array<[String: Any]> = []
         
         for i in cursor...cursor + limit - 1 {
+            var values = ["title": interval + String(i),
+                          "topicHandle": interval + String(i),
+                          "lastUpdatedTime": Date().ISOString,
+                          "createdTime": Date().ISOString,
+                          "blobType": APIConfig.showTopicImages ? "Image": "Unknown",
+                          "blobHandle": APIConfig.showTopicImages ? UUID().uuidString : NSNull(),
+                          "blobUrl": APIConfig.showTopicImages ? String(format: "http://localhost:8080/images/%@", UUID().uuidString) : NSNull()] as [String: Any]
+            
+            if APIConfig.numberedTopicTeasers {
+                values = ["text": "topic text" + String(i)]
+            }
+            
             let topic = Templates.load(name: "topic",
-                                       values: ["title": interval + String(i),
-                                                "topicHandle": interval + String(i),
-                                                "lastUpdatedTime": Date().ISOString,
-                                                "createdTime": Date().ISOString,
-                                                "text": APIConfig.numberedTopicTeasers ? "topic text" + String(i) : "topic text",
-                                                "blobType": APIConfig.showTopicImages ? "Image": "Unknown",
-                                                "blobHandle": APIConfig.showTopicImages ? UUID().uuidString : NSNull(),
-                                                "blobUrl": APIConfig.showTopicImages ? String(format: "http://localhost:8080/images/%@", UUID().uuidString) : NSNull()])
+                                       values: values)
             topics.append(topic)
         }
         
