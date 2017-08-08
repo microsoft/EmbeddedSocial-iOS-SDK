@@ -90,10 +90,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         output.didAskFetchAll()
     }
     
-    @objc private func onPullRefreshBottom() {
-        output.didAskFetchMore()
-    }
-    
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
         
         // switch layout
@@ -244,10 +240,6 @@ extension FeedModuleViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         output.didScrollFeed(scrollView)
-        
-        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
-            output.didAskFetchMore()
-        }
     }
 
     func collectionView(_ collectionView: UICollectionView,

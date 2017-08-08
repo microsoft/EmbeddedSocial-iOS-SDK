@@ -126,6 +126,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func setFeed(_ feed: FeedType) {
         feedType = feed
+        cleanFeed()
     }
     
     func refreshData() {
@@ -133,6 +134,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     // MARK: Private
+    
+    private func cleanFeed() {
+        cursor = nil
+        items.removeAll()
+    }
+    
     private lazy var dateFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         
@@ -235,7 +242,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         if let header = header {
             view.registerHeader(withType: header.type, configurator: header.configurator)
         }
-
+        
         didAskFetchAll()
     }
     
