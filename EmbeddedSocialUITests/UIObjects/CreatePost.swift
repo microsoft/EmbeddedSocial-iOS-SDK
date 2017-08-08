@@ -13,7 +13,7 @@ class CreatePost {
     var postText: XCUIElement
     var publishButton: XCUIElement
     
-    init(application: XCUIApplication) {
+    init(_ application: XCUIApplication) {
         app = application
         postTitle = app.textFields["Post Title"]
         postText = app.textViews["Post Text"]

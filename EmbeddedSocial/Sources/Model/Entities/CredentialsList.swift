@@ -45,13 +45,3 @@ struct CredentialsList {
         }
     }
 }
-
-extension CredentialsList: Equatable {
-    static func ==(_ lhs: CredentialsList, _ rhs: CredentialsList) -> Bool {
-        return lhs.provider == rhs.provider &&
-            lhs.accessToken == rhs.accessToken &&
-            lhs.requestToken == rhs.requestToken &&
-            lhs.appKey == rhs.appKey &&
-            lhs.socialUID == rhs.socialUID
-    }
-}

@@ -8,6 +8,9 @@ import Foundation
 final class UserProfileRouter: UserProfileRouterInput {
     
     weak var viewController: UIViewController?
+    weak var followersModuleOutput: FollowersModuleOutput?
+    weak var followingModuleOutput: FollowingModuleOutput?
+    weak var createPostModuleOutput: CreatePostModuleOutput?
 
     func openFollowers(user: User) {
         let api: UsersListAPI = user.isMe ?
@@ -15,7 +18,7 @@ final class UserProfileRouter: UserProfileRouterInput {
             UserFollowersAPI(userID: user.uid, service: SocialService())
         
         let configurator = FollowersConfigurator()
-        configurator.configure(api: api)
+        configurator.configure(api: api, moduleOutput: followersModuleOutput)
         viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
@@ -25,7 +28,7 @@ final class UserProfileRouter: UserProfileRouterInput {
             UserFollowingAPI(userID: user.uid, service: SocialService())
         
         let configurator = FollowingConfigurator()
-        configurator.configure(api: api)
+        configurator.configure(api: api, moduleOutput: followingModuleOutput)
         viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
@@ -39,7 +42,7 @@ final class UserProfileRouter: UserProfileRouterInput {
     func openCreatePost(user: User) {
         let config = CreatePostModuleConfigurator()
         let vc = StoryboardScene.CreatePost.instantiateCreatePostViewController()
-        config.configure(viewController: vc, user: user)
+        config.configure(viewController: vc, user: user, moduleOutput: createPostModuleOutput)
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }
     

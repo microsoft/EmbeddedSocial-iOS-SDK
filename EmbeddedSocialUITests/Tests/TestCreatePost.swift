@@ -17,11 +17,12 @@ class TestCreatePost: UITestBase {
     
     func testCreatePostWithoutImage() {
         
-        app.navigationBars["EmbeddedSocial.NavigationStackContainer"].children(matching: .button).element.tap()
-        app.tables.staticTexts["Create post"].tap()
+        let sideMenu = SideMenu(app)
+        sideMenu.navigateTo("Create post")
+
         app.buttons["push"].tap()
         
-        let createPost = CreatePost(application: app)
+        let createPost = CreatePost(app)
         createPost.postTitle.tap()
         createPost.postTitle.typeText("Post Title")
         createPost.postText.tap()

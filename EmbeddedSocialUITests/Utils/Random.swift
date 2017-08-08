@@ -3,8 +3,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-protocol SideMenuModuleOutput {
-    
-    func show(viewController: UIViewController)
-    
+import Foundation
+
+
+class Random {
+
+    class func randomUInt(_ seed: UInt) -> UInt {
+        return UInt(arc4random_uniform(UInt32(seed)))
+    }
 }

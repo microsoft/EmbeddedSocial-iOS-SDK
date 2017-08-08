@@ -7,15 +7,18 @@ import UIKit
 
 class SideMenuModuleConfigurator {
     
-    class func configure(viewController: SideMenuViewController,
-                         coordinator: CrossModuleCoordinator,
+    var viewController: SideMenuViewController!
+    var moduleInput: SideMenuModuleInput!
+    var router: SideMenuRouter!
+    
+    func configure(coordinator: CrossModuleCoordinator,
                          configuration: SideMenuType,
                          socialMenuItemsProvider: SideMenuItemsProvider,
-                         clientMenuItemsProvider: SideMenuItemsProvider?,
-                         output: SideMenuModuleOutput) -> SideMenuModuleInput {
+                         clientMenuItemsProvider: SideMenuItemsProvider?) {
         
-        let router = SideMenuRouter()
-        router.output = output
+        viewController = StoryboardScene.MenuStack.instantiateSideMenuViewController()
+        
+        router = SideMenuRouter()
         router.coordinator = coordinator
 
         let presenter = SideMenuPresenter()
@@ -31,6 +34,6 @@ class SideMenuModuleConfigurator {
         presenter.configation = configuration
         viewController.output = presenter
         
-        return presenter
+        moduleInput = presenter
     }
 }

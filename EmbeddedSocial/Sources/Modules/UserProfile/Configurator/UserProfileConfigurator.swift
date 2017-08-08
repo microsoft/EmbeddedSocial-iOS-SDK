@@ -22,11 +22,15 @@ struct UserProfileConfigurator {
         presenter.interactor = UserProfileInteractor(userService: UserService(), socialService: SocialService())
         presenter.view = viewController
         
+        router.followersModuleOutput = presenter
+        router.followingModuleOutput = presenter
+        router.createPostModuleOutput = presenter
+        
         viewController.output = presenter
         
         viewController.title = "Profile"
         
-        let feedConfigurator = FeedModuleConfigurator()
+        let feedConfigurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache) // TODO: inject cache
         feedConfigurator.configure(moduleOutput: presenter)
 
         presenter.feedViewController = feedConfigurator.viewController

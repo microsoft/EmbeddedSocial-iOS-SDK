@@ -5,42 +5,39 @@
 
 import UIKit
 
-enum FeedModuleLayoutType: Int {
-    case list
-    case grid
-    
-    var cellType:String {
-        
-        switch self {
-        case .list:
-            return PostCell.reuseID
-        case .grid:
-            return PostCellCompact.reuseID
-        }
-    }
-}
-
 // TODO: remove images from cell height calculation
 //
 //
 
 class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
-    private struct Style {
+    fileprivate struct Style {
         struct Collection  {
             static var rowsMargin = CGFloat(10.0)
             static var itemsPerRow = CGFloat(2)
             static var gridCellsPadding = CGFloat(5)
+            static var footerHeight = CGFloat(60)
         }
     }
     
     var output: FeedModuleViewOutput!
+    
+    var numberOfItems: Int {
+        return collectionView?.numberOfItems(inSection: 0) ?? 0
+    }
     
     fileprivate var listLayout = UICollectionViewFlowLayout()
     fileprivate var gridLayout = UICollectionViewFlowLayout()
     fileprivate var headerReuseID: String?
 
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    lazy var bottomRefreshControl: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activity.hidesWhenStopped = true
+        
+        return activity
+    }()
     
     lazy var refreshControl: UIRefreshControl = {
         let control = UIRefreshControl()
@@ -77,6 +74,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         self.collectionView.backgroundColor = Palette.extraLightGrey
         self.collectionView.delegate = self
+          collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
         
         // TODO: remove parent, waiting for menu proxy controller refactor
         parent?.navigationItem.rightBarButtonItem = layoutChangeButton
@@ -88,7 +86,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: UX
-    
     @objc private func onPullRefresh() {
         output.didAskFetchAll()
     }
@@ -98,12 +95,12 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         // switch layout
         switch type {
         case .grid:
-            layoutChangeButton.image = UIImage(asset: .iconGallery)
+            layoutChangeButton.image = UIImage(asset: .iconList)
             if collectionView!.collectionViewLayout != gridLayout {
                 collectionView!.setCollectionViewLayout(gridLayout, animated: animated)
             }
         case .list:
-            layoutChangeButton.image = UIImage(asset: .iconList)
+            layoutChangeButton.image = UIImage(asset: .iconGallery)
             if collectionView!.collectionViewLayout != listLayout {
                 collectionView?.setCollectionViewLayout(listLayout, animated: animated)
             }
@@ -138,6 +135,11 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         output.didTapChangeLayout()
     }
     
+    fileprivate func didReachBottom() {
+        Logger.log()
+        self.output.didAskFetchMore()
+    }
+    
     // MARK: FeedModuleViewInput
     func setupInitialState() {
         
@@ -159,8 +161,11 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
                 collectionView!.addSubview(refreshControl)
             }
             refreshControl.beginRefreshing()
+            bottomRefreshControl.startAnimating()
+
         } else {
             refreshControl.endRefreshing()
+            bottomRefreshControl.stopAnimating()
         }
     }
     
@@ -225,19 +230,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         output.didTapItem(path: indexPath)
     }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        viewForSupplementaryElementOfKind kind: String,
-                        at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerReuseID = headerReuseID else {
-            fatalError("Header wasn't registered")
-        }
-        let headerView = collectionView
-            .dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerReuseID, for: indexPath)
-        output.configureHeader(headerView)
-        return headerView
-    }
-    
+ 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return output.headerSize
     }
@@ -247,9 +240,51 @@ extension FeedModuleViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         output.didScrollFeed(scrollView)
-        
-        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
-            output.didAskFetchMore()
-        }
     }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width, height: Style.Collection.footerHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if kind == UICollectionElementKindSectionFooter {
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                       withReuseIdentifier: "footer",
+                                                                       for: indexPath)
+            
+            view.addSubview(bottomRefreshControl)
+            bottomRefreshControl.snp.makeConstraints({ (make) in
+                make.center.equalToSuperview()
+            })
+            
+            return view
+        } else if kind == UICollectionElementKindSectionHeader {
+            
+            guard let headerReuseID = headerReuseID else {
+                fatalError("Header wasn't registered")
+            }
+            let headerView = collectionView
+                .dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerReuseID, for: indexPath)
+            output.configureHeader(headerView)
+            return headerView
+            
+        }
+        
+        return UICollectionReusableView()
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        let index = indexPath.row
+        
+        if index == output.numberOfItems() - 1 {
+            didReachBottom()
+        }
+        
+    }
+
+
 }

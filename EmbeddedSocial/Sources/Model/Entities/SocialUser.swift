@@ -30,15 +30,3 @@ struct SocialUser {
         self.photo = photo
     }
 }
-
-extension SocialUser: Equatable {
-    static func ==(_ lhs: SocialUser, _ rhs: SocialUser) -> Bool {
-        return lhs.uid == rhs.uid &&
-            lhs.firstName == rhs.firstName &&
-            lhs.lastName == rhs.lastName &&
-            lhs.email == rhs.email &&
-            lhs.bio == rhs.bio &&
-            lhs.photo == rhs.photo &&
-            lhs.credentials == rhs.credentials
-    }
-}

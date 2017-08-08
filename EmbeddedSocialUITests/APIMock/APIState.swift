@@ -7,6 +7,7 @@ import Foundation
 
 
 class APIState {
+    static var requestHistory: [String] = []
     
     class func getLatestResponse(forService: String) -> Dictionary<String, Any>? {
         let data = UserDefaults.standard.string(forKey: "response" + forService)?.data(using: .utf8)
@@ -34,5 +35,13 @@ class APIState {
     class func setLatestData(forService: String, data: Any) {
         let jsonData = try! JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
         self.setLatestDataAsString(forService: forService, data: String(data: jsonData, encoding: .utf8) as String!)
+    }
+    
+    class func addRequest(_ path: String) {
+        requestHistory.append(path)
+    }
+    
+    class func getLatestRequest() -> String{
+        return requestHistory[requestHistory.count - 1]
     }
 }

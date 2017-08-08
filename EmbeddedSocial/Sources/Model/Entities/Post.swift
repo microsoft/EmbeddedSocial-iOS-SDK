@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol AutoEquatable {}
+//protocol AutoEquatable {}
 
 struct Post {
 
@@ -24,8 +24,8 @@ struct Post {
 
     public var deepLink: String?
     
-    public var totalLikes: Int64 = 0
-    public var totalComments: Int64 = 0
+    public var totalLikes: Int = 0
+    public var totalComments: Int = 0
 
     public var liked: Bool = false
     public var pinned: Bool = false
@@ -39,13 +39,34 @@ extension Post {
         post.text = "\n\(seed)\nL\n\no\nn\ng\nt\ne\nx\nt"
         post.liked = seed % 2 == 0
         post.pinned = false
-        post.totalLikes = Int64(seed)
-        post.totalComments = Int64(seed) + 10
+        post.totalLikes = seed
+        post.totalComments = seed + 10
+        post.topicHandle = "topic handle"
+        post.userHandle = "user handle"
         return post
     }
 }
 
-extension Post: AutoEquatable {}
+extension Post {
+    
+    init(data: TopicView) {
+        firstName = data.user?.firstName
+        lastName = data.user?.lastName
+        photoUrl = data.user?.photoUrl
+        userHandle = data.user?.userHandle
+        
+        createdTime = data.createdTime
+        imageUrl = data.blobUrl
+        title = data.title
+        text = data.text
+        pinned = data.pinned ?? false
+        liked = data.liked ?? false
+        topicHandle = data.topicHandle
+        totalLikes = Int(exactly: Double(data.totalLikes ?? 0))!
+        totalComments = Int(exactly: Double(data.totalComments ?? 0))!
+    }
+    
+}
 
 // MARK: PostsFeed
 

@@ -6,7 +6,7 @@
 import Foundation
 
 final class SessionStore {
-    var user: User!
+    private(set) var user: User!
     private(set) var sessionToken: String!
     
     private let database: SessionStoreDatabase
@@ -22,6 +22,10 @@ final class SessionStore {
     func createSession(withUser user: User, sessionToken: String) {
         self.user = user
         self.sessionToken = sessionToken
+    }
+    
+    func updateSession(withUser user: User) {
+        self.user = user
     }
     
     func loadLastSession() throws {

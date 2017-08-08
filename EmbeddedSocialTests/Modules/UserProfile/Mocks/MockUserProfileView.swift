@@ -9,7 +9,7 @@ class MockUserProfileView: UserProfileViewInput {
     private(set) var setupInitialStateCount = 0
     private(set) var showErrorCount = 0
     private(set) var lastShownError: Error?
-    private(set) var isLoading: Bool?
+    private(set) var isLoadingUser: Bool?
     private(set) var setUserCount = 0
     private(set) var lastSetUser: User?
     private(set) var setFollowStatusCount = 0
@@ -18,6 +18,14 @@ class MockUserProfileView: UserProfileViewInput {
     private(set) var isProcessingFollowRequest: Bool?
     private(set) var lastFollowersCount: Int?
     private(set) var setFollowersCount = 0
+    private(set) var setFeedViewControllerCount = 0
+    private(set) var setFollowingCount = 0
+    private(set) var lastFollowingCount: Int?
+    private(set) var setStickyFilterHiddenCount = 0
+    private(set) var isStickyFilterHidden: Bool?
+    private(set) var setupHeaderViewCount = 0
+    private(set) var setFilterEnabledCount = 0
+    private(set) var isFilterEnabled: Bool?
 
     func setupInitialState() {
         setupInitialStateCount += 1
@@ -28,8 +36,8 @@ class MockUserProfileView: UserProfileViewInput {
         lastShownError = error
     }
     
-    func setIsLoading(_ isLoading: Bool) {
-        self.isLoading = isLoading
+    func setIsLoadingUser(_ isLoading: Bool) {
+        self.isLoadingUser = isLoading
     }
     
     func setUser(_ user: User) {
@@ -49,5 +57,28 @@ class MockUserProfileView: UserProfileViewInput {
     func setFollowersCount(_ followersCount: Int) {
         lastFollowersCount = followersCount
         setFollowersCount += 1
+    }
+    
+    func setFeedViewController(_ feedViewController: UIViewController) {
+        setFeedViewControllerCount += 1
+    }
+    
+    func setFollowingCount(_ followingCount: Int) {
+        lastFollowingCount = followingCount
+        setFollowingCount += 1
+    }
+    
+    func setStickyFilterHidden(_ isHidden: Bool) {
+        isStickyFilterHidden = isHidden
+        setStickyFilterHiddenCount += 1
+    }
+    
+    func setupHeaderView(_ reusableView: UICollectionReusableView) {
+        setupHeaderViewCount += 1
+    }
+    
+    func setFilterEnabled(_ isEnabled: Bool) {
+        setFilterEnabledCount += 1
+        isFilterEnabled = isEnabled
     }
 }

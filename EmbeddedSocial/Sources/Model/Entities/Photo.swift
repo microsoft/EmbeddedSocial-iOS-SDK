@@ -16,9 +16,3 @@ struct Photo {
         self.image = image
     }
 }
-
-extension Photo: Equatable {
-    static func ==(_ lhs: Photo, rhs: Photo) -> Bool {
-        return lhs.uid == rhs.uid && lhs.url == rhs.url && lhs.image == rhs.image
-    }
-}

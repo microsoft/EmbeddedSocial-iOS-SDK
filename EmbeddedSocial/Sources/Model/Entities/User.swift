@@ -13,8 +13,8 @@ struct User {
     let bio: String?
     let photo: Photo?
     let credentials: CredentialsList?
-    let followersCount: Int
-    let followingCount: Int
+    var followersCount: Int
+    var followingCount: Int
     let visibility: Visibility?
     var followerStatus: FollowStatus?
     let followingStatus: FollowStatus?
@@ -111,22 +111,5 @@ extension User {
         followingCount = 0
         followingStatus = nil
         credentials = nil
-    }
-}
-
-extension User: Equatable {
-    static func ==(_ lhs: User, _ rhs: User) -> Bool {
-        return lhs.uid == rhs.uid &&
-            lhs.firstName == rhs.firstName &&
-            lhs.lastName == rhs.lastName &&
-            lhs.email == rhs.email &&
-            lhs.bio == rhs.bio &&
-            lhs.photo == rhs.photo &&
-            lhs.credentials == rhs.credentials &&
-            lhs.visibility == rhs.visibility &&
-            lhs.followerStatus == rhs.followerStatus &&
-            lhs.followingStatus == rhs.followingStatus &&
-            lhs.followingCount == rhs.followingCount &&
-            lhs.followersCount == rhs.followersCount
     }
 }

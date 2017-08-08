@@ -49,10 +49,12 @@ private class MockPostService: PostServiceProtocol {
     }
 }
 
-private class FeedModuleInteractorTests: XCTestCase {
+class FeedModuleInteractorTests: XCTestCase {
     
     var sut: FeedModuleInteractor!
-    var postService: MockPostService!
+    private var postService: MockPostService!
+    var presenter: FeedModulePresenter!
+    var view: FeedModuleViewController!
     
     override func setUp() {
         super.setUp()
@@ -60,6 +62,10 @@ private class FeedModuleInteractorTests: XCTestCase {
         sut = FeedModuleInteractor()
         postService = MockPostService()
         sut.postService = postService
+        presenter = FeedModulePresenter()
+        sut.output = presenter
+        view = FeedModuleViewController()
+        presenter.view = view
     }
     
     func testThatHomeFeedFetchRequestIsValid() {
@@ -68,10 +74,6 @@ private class FeedModuleInteractorTests: XCTestCase {
         let feedType = FeedType.home
         
         // when
-        sut.fetchPosts(feedType: feedType)
-        
-        // then
-        XCTAssertTrue(postService.fetchRecentIsCalled)
         sut.fetchPosts(limit: 20, feedType: feedType)
         
         // then

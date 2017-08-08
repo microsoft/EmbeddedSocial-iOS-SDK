@@ -4,7 +4,7 @@
 //
 
 enum FeedType {
-
+    
     enum TimeRange: Int {
         case today, weekly, alltime
     }
@@ -46,7 +46,7 @@ extension FeedType: Equatable {
 }
 
 enum PostCellAction {
-    case like, pin, comment, extra
+    case like, pin, comment, extra, profile
 }
 
 struct PostViewModel {
@@ -105,13 +105,20 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func setFeed(_ feed: FeedType) {
         feedType = feed
+        cleanFeed()
     }
     
     func refreshData() {
-        didAskFetchAll()
+        interactor.fetchPosts(limit: limit, feedType: feedType)
     }
     
     // MARK: Private
+    
+    private func cleanFeed() {
+        cursor = nil
+        items.removeAll()
+    }
+    
     private lazy var dateFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         
@@ -138,8 +145,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
         viewModel.totalLikes = Localizator.localize("likes_count", post.totalLikes)
         viewModel.totalComments = Localizator.localize("comments_count", post.totalComments)
-    
-        viewModel.timeCreated =  post.createdTime == nil ? "" : dateFormatter.string(from: post.createdTime!, to: Date())!
+        
+        viewModel.timeCreated =  post.createdTime == nil ? "" : formatter.shortStyle.string(from: post.createdTime!, to: Date())!
         viewModel.userImageUrl = post.photoUrl
         viewModel.postImageUrl = post.imageUrl
         
@@ -165,8 +172,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     private func handle(action: PostCellAction, path: IndexPath) {
         
-        let postHandle = items[path.row].topicHandle!
         let index = path.row
+        let postHandle = items[index].topicHandle!
+        let userHandle = items[index].userHandle!
         
         switch action {
         case .comment:
@@ -181,9 +189,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             items[index].liked = !status
             
             if action == .like {
-                items[index].totalLikes += Int64(1)
+                items[index].totalLikes += 1
             } else if action == .unlike && items[index].totalLikes > 0 {
-                items[index].totalLikes -= Int64(1)
+                items[index].totalLikes -= 1
             }
             
             view.reload(with: index)
@@ -191,12 +199,15 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             
         case .pin:
             let status = items[index].pinned
-            let action:PostSocialAction = status ? .pin : .unpin
+            let action:PostSocialAction = status ? .unpin : .pin
             
             items[index].pinned = !status
             
             view.reload(with: index)
             interactor.postAction(post: postHandle, action: action)
+            
+        case .profile:
+            router.open(route: .profileDetailes(userHandle: userHandle))
         }
     }
     
@@ -210,21 +221,22 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         if let header = header {
             view.registerHeader(withType: header.type, configurator: header.configurator)
         }
-
+        
         didAskFetchAll()
     }
     
     func didAskFetchAll() {
-        view.setRefreshing(state: true)
         interactor.fetchPosts(limit: limit, feedType: feedType)
     }
     
     func didAskFetchMore() {
-        if let cursor = cursor {
-            interactor.fetchPostsMore(limit: limit, feedType: feedType, cursor: cursor)
-        } else {
+        
+        guard let cursor = cursor else {
             Logger.log("cant fetch more, no cursor")
+            return
         }
+        
+        interactor.fetchPostsMore(limit: limit, feedType: feedType, cursor: cursor)
     }
     
     func didTapItem(path: IndexPath) {
@@ -236,8 +248,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func didFetch(feed: PostsFeed) {
         cursor = feed.cursor
         items = feed.items
-    
+        
         view.reload()
+        
+        moduleOutput?.didRefreshData()
     }
     
     func didFetchMore(feed: PostsFeed) {
@@ -248,7 +262,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didFail(error: FeedServiceError) {
-//        Logger.log(error)
+        //        Logger.log(error)
+        moduleOutput?.didFailToRefreshData(error)
     }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {

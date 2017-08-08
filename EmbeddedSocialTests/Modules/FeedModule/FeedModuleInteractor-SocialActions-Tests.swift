@@ -4,29 +4,151 @@
 //
 
 import XCTest
+@testable import EmbeddedSocial
+
+private class SocialServicesMock: LikesServiceProtocol, PinsServiceProtocol {
+    
+    var postLikeIsCalled = false
+    var deleteLikeIsCalled = false
+    var postPinIsCalled = false
+    var deletePinIsCalled = false
+    var error: FeedServiceError?
+    
+    func postLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
+        
+        postLikeIsCalled = true
+        completion(postHandle, error)
+    }
+    
+    func deleteLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
+        deleteLikeIsCalled = true
+        completion(postHandle, error)
+    }
+    
+    func postPin(postHandle: PinsServiceProtocol.PostHandle, completion: @escaping PinsServiceProtocol.CompletionHandler) {
+        
+        postPinIsCalled = true
+        completion(postHandle, error)
+    }
+    
+    func deletePin(postHandle: PinsServiceProtocol.PostHandle, completion: @escaping PinsServiceProtocol.CompletionHandler) {
+        
+        deletePinIsCalled = true
+        completion(postHandle, error)
+    }
+}
+
+private class FeedModulePresenterMock: FeedModuleInteractorOutput {
+    
+    var didPostAction: (post: PostHandle, action: PostSocialAction, error: Error?)?
+    
+    func didFetch(feed: PostsFeed) { }
+    
+    func didFetchMore(feed: PostsFeed) { }
+    
+    func didFail(error: FeedServiceError) { }
+    
+    func didStartFetching() { }
+    
+    func didFinishFetching() { }
+    
+    func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
+        didPostAction = (post, action, error)
+    }
+}
 
 class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
+
+    var sut: FeedModuleInteractor!
+    var view: FeedModuleViewController!
+    private var presenter: FeedModulePresenterMock!
+    
+    private var service: SocialServicesMock!
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        sut = FeedModuleInteractor()
+        
+        view = FeedModuleViewController()
+        presenter = FeedModulePresenterMock()
+        sut.output = presenter
+        
+        service = SocialServicesMock()
+        sut.likesService = service
+        sut.pinsService = service
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testPostLikeIsCalled() {
+        // given
+        let action = PostSocialAction.like
+        let post = "handle"
+        
+        // when
+        sut.postAction(post: post, action: action)
+        
+        // then
+        XCTAssertTrue(service.postLikeIsCalled)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testDeleteLikeIsCalled() {
+        
+        // given
+        let action = PostSocialAction.unlike
+        let post = "handle"
+        
+        // when
+        sut.postAction(post: post, action: action)
+        
+        // then
+        XCTAssertTrue(service.deleteLikeIsCalled)
     }
     
+    func testPostPinIsCalled() {
+        
+        // given
+        let action = PostSocialAction.pin
+        let post = "handle"
+        
+        // when
+        sut.postAction(post: post, action: action)
+        
+        // then
+        XCTAssertTrue(service.postPinIsCalled)
+    }
+    
+    func testDeletePinIsCalled() {
+        
+        // given
+        let action = PostSocialAction.unpin
+        let post = "handle"
+        
+        // when
+        sut.postAction(post: post, action: action)
+        
+        // then
+        XCTAssertTrue(service.deletePinIsCalled)
+
+    }
+    
+    func testSocialActionErrorIsHandled() {
+        
+        // given
+        let action = PostSocialAction.unpin
+        let post = "handle"
+        service.error = FeedServiceError.failedToUnPin(message: "Ooops")
+        
+        // when
+        sut.postAction(post: post, action: action)
+        
+        // then
+        XCTAssertTrue(presenter.didPostAction!.action == .unpin)
+        XCTAssertTrue(presenter.didPostAction!.error != nil)
+        XCTAssertTrue(presenter.didPostAction!.post == "handle")
+    }
+
 }

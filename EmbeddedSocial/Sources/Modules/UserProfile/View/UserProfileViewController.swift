@@ -10,12 +10,6 @@ class UserProfileViewController: UIViewController {
     
     var output: UserProfileViewOutput!
     
-    @IBOutlet fileprivate weak var loadingIndicatorView: LoadingIndicatorView! {
-        didSet {
-            loadingIndicatorView.apply(style: .standard)
-        }
-    }
-    
     fileprivate lazy var createPostButton: BarButtonItemWithTarget = { [unowned self] in
         let button = BarButtonItemWithTarget()
         button.image = UIImage(asset: .iconDots)
@@ -120,5 +114,14 @@ extension UserProfileViewController: UserProfileViewInput {
     
     func setStickyFilterHidden(_ isHidden: Bool) {
         stickyFilterView.isHidden = isHidden
+    }
+    
+    func setFollowingCount(_ followingCount: Int) {
+        summaryView.followingCount = followingCount
+    }
+    
+    func setFilterEnabled(_ isEnabled: Bool) {
+        filterView.isEnabled = isEnabled
+        stickyFilterView.isEnabled = isEnabled
     }
 }
