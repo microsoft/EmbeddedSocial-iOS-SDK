@@ -85,7 +85,7 @@ enum FeedModuleLayoutType: Int {
 }
 
 class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput {
-    
+
     weak var view: FeedModuleViewInput!
     var interactor: FeedModuleInteractorInput!
     var router: FeedModuleRouterInput!
@@ -99,6 +99,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     private var formatter = DateFormatterTool()
     private var feedType: FeedType = .home
+    private var layout: FeedModuleLayoutType = .list
     private let limit = Int32(3) // Default
     private var items = [Post]()
     private var cursor: String? = nil {
@@ -119,6 +120,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     // MARK: FeedModuleInput
+    
     func moduleHeight() -> CGFloat {
         return view.getViewHeight()
     }
@@ -132,6 +134,17 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     // MARK: Private
+    private lazy var dateFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        
+        formatter.unitsStyle = .abbreviated
+        formatter.includesApproximationPhrase = false
+        formatter.zeroFormattingBehavior = .dropAll
+        formatter.maximumUnitCount = 1
+        formatter.allowsFractionalUnits = false
+        
+        return formatter
+    }()
     
     private func flip(layout: inout FeedModuleLayoutType) {
         layout = FeedModuleLayoutType(rawValue: layout.rawValue ^ 1)!
@@ -144,11 +157,11 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         viewModel.title = post.title ?? ""
         viewModel.text = post.text ?? ""
         viewModel.likedBy = "" // TODO: uncomfirmed
-        
+    
         viewModel.totalLikes = Localizator.localize("likes_count", post.totalLikes)
         viewModel.totalComments = Localizator.localize("comments_count", post.totalComments)
-        
-        viewModel.timeCreated =  post.createdTime == nil ? "" : formatter.shortStyle.string(from: post.createdTime!, to: Date())!
+    
+        viewModel.timeCreated =  post.createdTime == nil ? "" : dateFormatter.string(from: post.createdTime!, to: Date())!
         viewModel.userImageUrl = post.photoUrl
         viewModel.postImageUrl = post.imageUrl
         
@@ -254,7 +267,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func didFetchMore(feed: PostsFeed) {
         cursor = feed.cursor
         items.append(contentsOf: feed.items)
-        
+
         view.reload()
     }
     
@@ -265,7 +278,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
         Logger.log(action, post, error)
     }
-    
+ 
     func didStartFetching() {
         view.setRefreshing(state: true)
     }
