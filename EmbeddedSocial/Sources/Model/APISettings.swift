@@ -11,7 +11,11 @@ final class APISettings {
     private let queue = DispatchQueue(label: "APISettings queue")
 
     private init() {
-        EmbeddedSocialClientAPI.basePath = Keys.ppeBasePath
+        if let path = getEnvironmentVariable("EmbeddedSocial_MOCK_SERVER") {
+            EmbeddedSocialClientAPI.basePath = path
+        } else {
+            EmbeddedSocialClientAPI.basePath = Keys.ppeBasePath
+        }
     }
     
     var anonymousHeaders: [String: String] {
