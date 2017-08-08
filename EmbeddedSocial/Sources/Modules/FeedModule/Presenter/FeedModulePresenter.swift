@@ -270,6 +270,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         items = feed.items
         
         view.reload()
+        
+        moduleOutput?.didRefreshData()
     }
     
     func didFetchMore(feed: PostsFeed) {
@@ -281,6 +283,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didFail(error: FeedServiceError) {
         //        Logger.log(error)
+        moduleOutput?.didFailToRefreshData(error)
     }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
