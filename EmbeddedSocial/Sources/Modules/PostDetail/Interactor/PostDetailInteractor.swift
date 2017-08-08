@@ -7,20 +7,44 @@ class PostDetailInteractor: PostDetailInteractorInput {
 
     weak var output: PostDetailInteractorOutput!
     
-    var commentsService: CommentsService?
-    var likeService: LikesService?
+    var commentsService: CommentServiceProtocol?
+    var likeService: LikesServiceProtocol?
+    var isLoading = false
+    
     
     private var cursor: String?
     private let limit: Int32 = 10
     
     func fetchComments(topicHandle: String) {
+        isLoading = true
         commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, resultHandler: { (result) in
             guard result.error == nil else {
                 return
             }
 
+            self.isLoading = false
             self.cursor = result.cursor
-            self.output.didFetch(comments: result.comments.reversed())
+            self.output.didFetch(comments: result.comments)
+        })
+    }
+    
+    func fetchMoreComments(topicHandle: String) {
+        if cursor == "" || cursor == nil || isLoading == true {
+            return
+        }
+        
+        isLoading = true
+        commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, resultHandler: { (result) in
+            guard result.error == nil else {
+                return
+            }
+            
+            if self.cursor == nil {
+                return
+            }
+            self.isLoading = false
+            self.cursor = result.cursor
+            self.output.didFetchMore(comments: result.comments)
         })
     }
     
@@ -36,11 +60,15 @@ class PostDetailInteractor: PostDetailInteractorInput {
         })
     }
     
-    func likeComment(commentHandle: String) {
-        likeService?.likeComment(commentHandle: commentHandle)
+    func likeComment(comment: Comment) {
+        likeService?.likeComment(commentHandle: comment.commentHandle!, completion: { (commentHandle, error) in
+            comment.liked = true
+        })
     }
     
-    func unlikeComment(commentHandle: String) {
-        likeService?.unlikeComment(commentHandle: commentHandle)
+    func unlikeComment(comment: Comment) {
+        likeService?.unlikeComment(commentHandle: comment.commentHandle!, completion: { (response, error) in
+            
+        })
     }
 }

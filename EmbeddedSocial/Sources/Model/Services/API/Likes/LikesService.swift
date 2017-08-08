@@ -9,9 +9,12 @@ protocol LikesServiceProtocol {
     
     typealias PostHandle = String
     typealias CompletionHandler = (_ postHandle: PostHandle, _ error: Error?) -> Void
+    typealias CommentCompletionHandler = (_ commentHandle: String, _ error: Error?) -> Void
     
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler)
     func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler)
+    func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) 
+    func unlikeComment(commentHandle: String, completion: @escaping CompletionHandler)
 
 }
 
@@ -31,15 +34,16 @@ class LikesService: LikesServiceProtocol {
         }
     }
     
-    func likeComment(commentHandle: String) {
+    func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
         LikesAPI.commentLikesPostLike(commentHandle: commentHandle) { (object, error) in
-            
+            completion(commentHandle, error)
         }
     }
     
-    func unlikeComment(commentHandle: String) {
+    func unlikeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
         LikesAPI.commentLikesDeleteLike(commentHandle: commentHandle) { (object, error) in
-            
+            print(object ?? "")
+            print(error ?? "")
         }
     }
 

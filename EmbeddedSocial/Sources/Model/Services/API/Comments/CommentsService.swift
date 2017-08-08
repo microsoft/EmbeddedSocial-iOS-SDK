@@ -23,7 +23,12 @@ enum CommentsServiceError: Error {
     }
 }
 
-class CommentsService {
+protocol CommentServiceProtocol {
+    func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, resultHandler: @escaping CommentFetchResultHandler)
+    func postComment(topicHandle: String, comment: PostCommentRequest, resultHandler: @escaping CommentPostResultHandler)
+}
+
+class CommentsService: CommentServiceProtocol {
     func fetchComments(topicHandle: String, cursor: String? = nil, limit: Int32? = nil, resultHandler: @escaping CommentFetchResultHandler) {
         CommentsAPI.topicCommentsGetTopicComments(topicHandle: topicHandle, cursor: cursor, limit: limit) { (response, error) in
             
@@ -58,6 +63,7 @@ class CommentsService {
         var comments = [Comment]()
         for commentView in data {
             let comment = Comment()
+            comment.commentHandle = commentView.commentHandle
             comment.firstName = commentView.user?.firstName
             comment.lastName = commentView.user?.lastName
             comment.photoUrl = commentView.user?.photoUrl
@@ -83,6 +89,7 @@ struct CommentFetchResult {
 }
 
 class Comment {
+    public var commentHandle: String?
     public var topicHandle: String!
     public var createdTime: Date?
     

@@ -7,7 +7,8 @@ import Foundation
 
 protocol PostDetailInteractorInput {
     func fetchComments(topicHandle: String)
+    func fetchMoreComments(topicHandle: String)
     func postComment(image: UIImage?, topicHandle: String, comment: String)
-    func likeComment(commentHandle: String)
-    func unlikeComment(commentHandle: String)
+    func likeComment(comment: Comment)
+    func unlikeComment(comment: Comment)
 }

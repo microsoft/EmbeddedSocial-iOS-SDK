@@ -20,6 +20,8 @@ class PostDetailModuleConfigurator {
         interactor.output = presenter
         let commentsService = CommentsService()
         interactor.commentsService = commentsService
+        let likeService = LikesService()
+        interactor.likeService = likeService
 
         presenter.interactor = interactor
         viewController.output = presenter

@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 import SKPhotoBrowser
 
 fileprivate enum TableSections: Int {
@@ -17,7 +18,8 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     var output: PostDetailViewOutput!
     
     //constants
-    let reloadDelay = 0.2
+    fileprivate let reloadDelay = 0.2
+    fileprivate var isNewDataLoading = false
 
     @IBOutlet weak var postButton: UIButton!
     @IBOutlet weak var commentTextView: UITextView!
@@ -27,8 +29,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     fileprivate var photo: Photo?
     fileprivate let imagePikcer = ImagePicker()
-    
-//    var footer: CommentInputView!
     
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -73,14 +73,38 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         postView = feedViewController.view
     }
     
-    func reload() {
+    func reload(animated: Bool) {
         tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + reloadDelay) {
             if self.output.numberOfItems() > 1 {
                 let indexPath = IndexPath(row: self.output.numberOfItems() - 1, section: TableSections.comments.rawValue)
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
             }
+            self.isNewDataLoading = false
         }
+    }
+    
+    func reloadTable() {
+        self.isNewDataLoading = false
+        tableView.reloadData()
+    }
+    
+    func postCommentSuccess() {
+        clearImage()
+        commentTextView.text = nil
+        postButton.isHidden = true
+        reload(animated: false)
+        SVProgressHUD.dismiss()
+    }
+    
+    func postCommentFailed(error: Error) {
+        postButton.isHidden = false
+        SVProgressHUD.dismiss()
+    }
+    
+    func clearImage() {
+        self.photo = nil
+        mediaButton.setImage( UIImage(asset: .placeholderPostNoimage), for: .normal)
     }
     
     func configTextView() {
@@ -97,9 +121,13 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     @IBAction func postComment(_ sender: Any) {
+        commentTextView.resignFirstResponder()
+        SVProgressHUD.show()
+        postButton.isHidden = true
         output.postComment(image: mediaButton.imageView?.image, comment: commentTextView.text)
     }
 }
+
 
 extension PostDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -112,6 +140,10 @@ extension PostDetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
             cell.config(comment: output.commentForPath(path: indexPath))
             cell.delegate = self
+            if  output.numberOfItems() > indexPath.row + 1 && isNewDataLoading == false {
+                isNewDataLoading = true
+                output.fetchMore()
+            }
             return cell
         default:
             return UITableViewCell()
@@ -191,7 +223,6 @@ extension PostDetailViewController: ImagePickerDelegate {
     }
     
     func removePhoto() {
-        self.photo = nil
-        mediaButton.setImage( UIImage(asset: .placeholderPostNoimage), for: .normal)
+        clearImage()
     }
 }

@@ -17,4 +17,5 @@ protocol PostDetailViewOutput {
     func postComment(image: UIImage?, comment: String)
     func likeComment(comment: Comment)
     func unlikeComment(comment: Comment)
+    func fetchMore()
 }

@@ -12,4 +12,8 @@ protocol FeedModuleInput: class {
     // Get Current Module Height
     func moduleHeight() -> CGFloat
 
+    
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
+                        size: CGSize,
+                        configurator: @escaping (T) -> Void)
 }

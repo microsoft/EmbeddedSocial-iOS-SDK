@@ -60,6 +60,7 @@ class CommentCell: UITableViewCell {
         } else {
             mediaButtonHeightConstraint.constant = 0
         }
+        likeButton.isSelected = comment.liked
         selectionStyle = .none
         contentView.layoutIfNeeded()
         
