@@ -6,148 +6,208 @@
 import XCTest
 @testable import EmbeddedSocial
 
-private class MockPostService: PostServiceProtocol {
+private class PostServiceMock: PostServiceProtocol {
     
-    var mockedResult: PostFetchResult!
+    typealias Result = PostFetchResult
+    
+    var popularResult: Result!
+    var userPopularResult: Result!
+    var singlePostResult: Result!
+    var userRecentResult: Result!
+    var recentResult: Result!
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
-        completion(mockedResult)
+        completion(popularResult)
     }
     
     func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {
-        completion(mockedResult)
+        completion(recentResult)
     }
     
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        completion(mockedResult)
+        completion(userRecentResult)
     }
     
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        completion(mockedResult)
+        completion(userPopularResult)
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        completion(mockedResult)
+        completion(singlePostResult)
     }
-    
 }
 
-private class MockPresenter: FeedModuleInteractorOutput {
+private class FeedModulePresenterMock: FeedModuleInteractorOutput {
+  
+    var startFetchingIsCalled = false
+    var finishFetchingIsCalled = false
     
-    func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
-        
+    private (set) var calls = [String:Bool]()
+    var didFailError: FeedServiceError?
+    var didPostAction: (post: PostHandle, action: PostSocialAction, error: Error?)?
+    var didFetchFeed: PostsFeed?
+    var didFetchMoreFeed: PostsFeed?
+    
+    func didFail(error: FeedServiceError) {
+        didFailError = error
     }
     
-    var fetchedFeed: PostsFeed!
-    var error: FeedServiceError!
+    func didStartFetching() {
+        calls[#function] = true
+    }
+    
+    func didFinishFetching() {
+        calls[#function] = true
+    }
+    
+    func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
+        didPostAction = (post, action, error)
+    }
     
     func didFetch(feed: PostsFeed) {
-        fetchedFeed = feed
+        didFetchFeed = feed
     }
     
     func didFetchMore(feed: PostsFeed) {
-        fetchedFeed = feed
+        didFetchMoreFeed = feed
     }
-    
-    func didFail(error: FeedServiceError) { }
-    
-    func didLike(post id: PostHandle) { }
-    
-    func didUnlike(post id: PostHandle) { }
-    
-    func didUnpin(post id: PostHandle) { }
-    
-    func didPin(post id: PostHandle) { }
-    
 }
 
 class FeedModuleInteractor_Pagination_Tests: XCTestCase {
     
     var sut: FeedModuleInteractor!
-    private var input: MockPostService!
-    private var output: MockPresenter!
+    private var service: PostServiceMock!
+    private var presenter: FeedModulePresenterMock!
     
     override func setUp() {
         super.setUp()
         
         sut = FeedModuleInteractor()
-        input = MockPostService()
-        sut.postService = input
-        output = MockPresenter()
-        sut.output = output
+        service = PostServiceMock()
+        sut.postService = service
+        presenter = FeedModulePresenterMock()
+        sut.output = presenter
     }
     
     override func tearDown() {
         super.tearDown()
     }
     
-    func testPostsAreEqual() {
+    func testThatFetchPostsFiresStartAndFinish() {
         
-        let a = Post.mock(seed: 100)
-        let b = Post.mock(seed: 100)
-        
-        XCTAssertTrue(a == b)
-    }
-    
-    func testPostsAreNotEqual() {
-        
-        let a = Post.mock(seed: 100)
-        let b = Post.mock(seed: 101)
-        
-        XCTAssertTrue(a != b)
-    }
-    
-    func testSinglePostFetchResultIsCorrect() {
         // given
-        let expectedPost = Post.mock(seed: 100)
-        var expectedResult = PostFetchResult()
-        mockedResult.cursor = nil
-        mockedResult.error = nil
-        mockedResult.posts = [expectedPost]
+        let feed = FeedType.home
+        service.recentResult = PostFetchResult()
+        service.recentResult.error = nil
         
-        input.mockedResult = mockedResult
-    
         // when
-        sut.fetchPosts(limit: 1, feedType: .single(post: "handle"))
+        sut.fetchPosts(feedType: feed)
+    
+        // then
+        XCTAssertTrue(presenter.calls["didStartFetching()"] == true)
+        XCTAssertTrue(presenter.calls["didFinishFetching()"] == true)
+    }
+    
+    func testThatFetchFeedFiresError() {
+        
+        // given
+        let feed = FeedType.home
+        service.recentResult = PostFetchResult()
+        service.recentResult.error = FeedServiceError.failedToFetch(message: "Ooops")
+        
+        // when
+        sut.fetchPosts(feedType: feed)
+    
+        // then
+        XCTAssert(presenter.didFailError != nil)
+    }
+    
+    func testThatFetchMoreGetsCalled() {
+        
+        // given
+        let feed = FeedType.home
+        service.recentResult = PostFetchResult()
+        
+        // when
+        sut.fetchPostsMore(feedType: feed, cursor: "cursor")
         
         // then
-        XCTAssertTrue(output.fetchedFeed.items.count == 1)
-        XCTAssertTrue(output.fetchedFeed.items.last == expectedPost)
+        XCTAssertTrue(presenter.didFetchMoreFeed != nil)
     }
     
-//    func testSinglePostFetchResultIsCorrect2() {
-//
-//        // given
-//        let expectedPost = Post.mock(seed: 100)
-//        var mockedResult = PostFetchResult()
-//        mockedResult.cursor = nil
-//        mockedResult.error = nil
-//        mockedResult.posts = [expectedPost]
-//
-//        input.mockedResult = mockedResult
-//
-//        // when
-//        sut.fetchPosts(limit: 1, feedType: .single(post: "handle"))
-//
-//
-//        // then
-//        XCTAssertTrue(output.fetchedFeed.items.count == 1)
-//        XCTAssertTrue(output.fetchedFeed.items.last == expectedPost)
-//    }
+    func testThatFetchHomeResultIsCorrect() {
+        
+        // given
+        let feed = FeedType.home
+        service.recentResult = PostFetchResult()
+        service.recentResult.cursor = "--erwrw--"
+        service.recentResult.posts = [Post.mock(seed: 0)]
+
+        // when
+        sut.fetchPosts(feedType: feed)
+        
+        // then
+        XCTAssertTrue(presenter.didFetchFeed!.cursor == "--erwrw--")
+        XCTAssertTrue(presenter.didFetchFeed!.items.count == 1)
+        XCTAssertTrue(presenter.didFetchFeed!.items.last! == Post.mock(seed: 0))
+    }
     
+    func testThatFetchPopularResultIsCorrect() {
+        
+        // given
+        let feed = FeedType.popular(type: FeedType.TimeRange.alltime)
+        service.popularResult = PostFetchResult()
+        service.popularResult.cursor = "--fwew4ef--"
+        service.popularResult.posts = [Post.mock(seed: 1)]
+        
+        // when
+        sut.fetchPosts(feedType: feed)
+        
+        // then
+        XCTAssertTrue(presenter.didFetchFeed!.cursor == "--fwew4ef--")
+        XCTAssertTrue(presenter.didFetchFeed!.items.count == 1)
+    }
     
+    func testThatUserPopularFeedIsCorrect() {
+        
+        // given
+        let feed = FeedType.user(user: "handle", scope: FeedType.UserFeedScope.popular)
+        service.userPopularResult = PostFetchResult()
+        service.userPopularResult.cursor = "user popular cursor"
+        
+        // when
+        sut.fetchPosts(feedType: feed)
+        
+        // then
+        XCTAssertTrue(presenter.didFetchFeed!.cursor == "user popular cursor")
+    }
     
+    func testThatUserRecentFeedIsCorrect() {
+        
+        // given
+        let feed = FeedType.user(user: "handle", scope: FeedType.UserFeedScope.recent)
+        service.userRecentResult = PostFetchResult()
+        service.userRecentResult.cursor = "user recent cursor"
+        
+        // when
+        sut.fetchPosts(feedType: feed)
+        
+        // then
+        XCTAssertTrue(presenter.didFetchFeed!.cursor == "user recent cursor")
+    }
     
+    func testThatSinglePostFetchResultIsCorrect() {
+        
+        // given
+        let feed = FeedType.single(post: "handle")
+        service.singlePostResult = PostFetchResult()
+        service.singlePostResult.posts = [Post.mock(seed: 100)]
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        // when
+        sut.fetchPosts(feedType: feed)
+        
+        // then
+        XCTAssertTrue(presenter.didFetchFeed!.items.count == 1)
+        XCTAssertTrue(presenter.didFetchFeed!.items.last == Post.mock(seed: 100))
+    }
 }

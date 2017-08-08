@@ -434,9 +434,15 @@
 		9C7D9B341F2F430B005928F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B331F2F430B005928F4 /* Localizable.strings */; };
 		9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */; };
 		9C7D9B381F2F4918005928F4 /* Localizator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7D9B371F2F4918005928F4 /* Localizator.swift */; };
+		9C8F68961F3485CA00AF4A7F /* topics&limit20.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CD760FE1F33158200ABBB2A /* topics&limit20.json */; };
+		9C8F68971F34AA4D00AF4A7F /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531341F31CCD1004CE94F /* FeedModuleInteractor-FetchQuery-Tests.swift */; };
+		9C8F68981F34AA8200AF4A7F /* FeedModuleInteractor-Pagination-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C316E101F31E3CB00B90089 /* FeedModuleInteractor-Pagination-Tests.swift */; };
+		9CB3F1FB1F3367F00099A22D /* TopicServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */; };
 		9CB3F1FE1F336B780099A22D /* MyFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */; };
+		9CB3F2021F346E790099A22D /* FeedModuleInteractor-SocialActions-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD761001F33218A00ABBB2A /* FeedModuleInteractor-SocialActions-Tests.swift */; };
+		9CB3F2031F3473870099A22D /* FeedModulePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531351F31CCD1004CE94F /* FeedModulePresenterTests.swift */; };
 		9CBA39ED1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA39EC1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift */; };
-		9CD760FC1F33149E00ABBB2A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD760FB1F33149E00ABBB2A /* Post.swift */; };
+		9CD760FC1F33149E00ABBB2A /* PostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD760FB1F33149E00ABBB2A /* PostTests.swift */; };
 		9CD805331F0D012F00B9B0AC /* EmbeddedSocial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* EmbeddedSocial.framework */; };
 		9CEA75241F2A0E61009FC89D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75231F2A0E61009FC89D /* Post.swift */; };
 		9CEA75281F2A1FA0009FC89D /* LikesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75271F2A1FA0009FC89D /* LikesService.swift */; };
@@ -921,6 +927,7 @@
 		9C7D9B331F2F430B005928F4 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		9C7D9B371F2F4918005928F4 /* Localizator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizator.swift; sourceTree = "<group>"; };
+		9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicServiceTests.swift; sourceTree = "<group>"; };
 		9CBA39EC1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EmbeddedSocial-Example-MenuHandler.swift"; sourceTree = "<group>"; };
 		9CC531341F31CCD1004CE94F /* FeedModuleInteractor-FetchQuery-Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedModuleInteractor-FetchQuery-Tests.swift"; sourceTree = "<group>"; };
 		9CC531351F31CCD1004CE94F /* FeedModulePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModulePresenterTests.swift; sourceTree = "<group>"; };
@@ -934,8 +941,8 @@
 		9CC531431F31CCF2004CE94F /* FeedModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModuleViewController.swift; sourceTree = "<group>"; };
 		9CC531441F31CCF2004CE94F /* FeedModuleViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModuleViewInput.swift; sourceTree = "<group>"; };
 		9CC531451F31CCF2004CE94F /* FeedModuleViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModuleViewOutput.swift; sourceTree = "<group>"; };
-		9CD760FB1F33149E00ABBB2A /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		9CD760FE1F33158200ABBB2A /* topicview_source.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = topicview_source.json; sourceTree = "<group>"; };
+		9CD760FB1F33149E00ABBB2A /* PostTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTests.swift; sourceTree = "<group>"; };
+		9CD760FE1F33158200ABBB2A /* topics&limit20.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "topics&limit20.json"; sourceTree = "<group>"; };
 		9CD761001F33218A00ABBB2A /* FeedModuleInteractor-SocialActions-Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedModuleInteractor-SocialActions-Tests.swift"; sourceTree = "<group>"; };
 		9CD805291F0D012F00B9B0AC /* EmbeddedSocial.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EmbeddedSocial.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD805321F0D012F00B9B0AC /* EmbeddedSocialTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EmbeddedSocialTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1924,7 +1931,7 @@
 				88F1637C1F264B0F00DAAF68 /* SessionStoreTests.swift */,
 				88F1637A1F26494100DAAF68 /* SocialUserTests.swift */,
 				889AFC041F220BCD003AAF19 /* UserTests.swift */,
-				9CD760FB1F33149E00ABBB2A /* Post.swift */,
+				9CD760FB1F33149E00ABBB2A /* PostTests.swift */,
 				9CD760FD1F33155900ABBB2A /* PostTestData */,
 			);
 			path = EntitiesTests;
@@ -1979,6 +1986,7 @@
 			isa = PBXGroup;
 			children = (
 				889AFC101F220BCD003AAF19 /* AuthAPIProviderTests.swift */,
+				9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */,
 				889AFC111F220BCD003AAF19 /* AuthServiceTests.swift */,
 				889AFC121F220BCD003AAF19 /* ImageCacheAdapterTests.swift */,
 				881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */,
@@ -2423,7 +2431,7 @@
 		9CD760FD1F33155900ABBB2A /* PostTestData */ = {
 			isa = PBXGroup;
 			children = (
-				9CD760FE1F33158200ABBB2A /* topicview_source.json */,
+				9CD760FE1F33158200ABBB2A /* topics&limit20.json */,
 			);
 			path = PostTestData;
 			sourceTree = "<group>";
@@ -2573,6 +2581,7 @@
 			buildPhases = (
 				9CD8052E1F0D012F00B9B0AC /* Sources */,
 				9CD8052F1F0D012F00B9B0AC /* Frameworks */,
+				9C8F68951F3485B300AF4A7F /* Resources */,
 			);
 			buildRules = (
 			);
@@ -2590,7 +2599,7 @@
 		9CD805201F0D012F00B9B0AC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Akvelon;
 				TargetAttributes = {
@@ -2651,6 +2660,14 @@
 				8EF0E5AD1F1FA5EF00E88ED6 /* topic.json in Resources */,
 				8EF0E5C41F28B86100E88ED6 /* topic_post.json in Resources */,
 				8EF0E5C21F28B4E500E88ED6 /* image_post.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C8F68951F3485B300AF4A7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C8F68961F3485CA00AF4A7F /* topics&limit20.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3081,19 +3098,21 @@
 				88F163811F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift in Sources */,
 				88F7A7A51F287DDE005FEC5F /* MockCreateAccountModuleOutput.swift in Sources */,
 				889AFC241F220BCD003AAF19 /* SideMenuInteractorTests.swift in Sources */,
+				9CB3F2031F3473870099A22D /* FeedModulePresenterTests.swift in Sources */,
 				889AFC2D1F220BCD003AAF19 /* MockURLSchemeService.swift in Sources */,
 				889AFC1F1F220BCD003AAF19 /* UserTests.swift in Sources */,
 				88FFFA5D1F2F80E00066A1A0 /* MockSocialService.swift in Sources */,
 				889AFC281F220BCD003AAF19 /* ImageCacheAdapterTests.swift in Sources */,
 				88F163831F273CEB00DAAF68 /* MockKeyValueRepository.swift in Sources */,
 				88635D7D1F22434300577140 /* CoreDataHelper.swift in Sources */,
-				9CD760FC1F33149E00ABBB2A /* Post.swift in Sources */,
+				9CD760FC1F33149E00ABBB2A /* PostTests.swift in Sources */,
 				88F7A78B1F2789F0005FEC5F /* MockUserService.swift in Sources */,
 				88FFFA571F2F7F780066A1A0 /* MockUserProfileInteractor.swift in Sources */,
 				63A1D71D1F29FC120090C67A /* MockTransactionsDatabaseFacade.swift in Sources */,
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
 				88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */,
 				88F163871F27565400DAAF68 /* TransactionsDatabaseFacadeTests.swift in Sources */,
+				9C8F68981F34AA8200AF4A7F /* FeedModuleInteractor-Pagination-Tests.swift in Sources */,
 				881F7E5E1F2637B7003EB37A /* KeyValueRepositoryTests.swift in Sources */,
 				88F7A7A11F287D51005FEC5F /* MockCreateAccountInteractor.swift in Sources */,
 				88F1637D1F264B0F00DAAF68 /* SessionStoreTests.swift in Sources */,
@@ -3116,6 +3135,7 @@
 				63A1D7261F2A23F30090C67A /* CreatePostInteractorTests.swift in Sources */,
 				88F191741F26164200B93ADF /* AuthProviderTests.swift in Sources */,
 				88F7A79B1F279788005FEC5F /* CreateAccountInteractorTests.swift in Sources */,
+				9CB3F1FB1F3367F00099A22D /* TopicServiceTests.swift in Sources */,
 				889AFC2B1F220BCD003AAF19 /* MockSocialPlusServices.swift in Sources */,
 				63A1D7281F2A24900090C67A /* MockCreatePostPresenter.swift in Sources */,
 				88F191721F26071A00B93ADF /* XCTestCase+Ext.swift in Sources */,
@@ -3131,6 +3151,7 @@
 				889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */,
 				88F163791F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift in Sources */,
 				88F163891F27569900DAAF68 /* MockQueriableRepository.swift in Sources */,
+				9CB3F2021F346E790099A22D /* FeedModuleInteractor-SocialActions-Tests.swift in Sources */,
 				88F7A78F1F278C47005FEC5F /* LoginPresenterTests.swift in Sources */,
 				88F551911F3366C600F4AAB9 /* MockUsersListAPI.swift in Sources */,
 				88F1638B1F27658B00DAAF68 /* IncomingTransactionTests.swift in Sources */,
@@ -3148,6 +3169,7 @@
 				88F551951F336DCB00F4AAB9 /* MockUserListInteractor.swift in Sources */,
 				88FFFA5F1F2F81A70066A1A0 /* FollowStatusTests.swift in Sources */,
 				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
+				9C8F68971F34AA4D00AF4A7F /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */,
 				88F551931F336D9200F4AAB9 /* UserListPresenterTests.swift in Sources */,
 				88FFFA591F2F7F780066A1A0 /* MockUserProfileView.swift in Sources */,
 				88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */,
