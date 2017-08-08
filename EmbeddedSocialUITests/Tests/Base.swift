@@ -42,6 +42,8 @@ class UITestBase: XCTestCase {
         if !startAppOnDemand {
             app.launch()
         }
+        
+        APIConfig.values = [:]
     }
     
     func setUpProperties() {

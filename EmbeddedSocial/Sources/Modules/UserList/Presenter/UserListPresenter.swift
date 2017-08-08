@@ -57,6 +57,9 @@ extension UserListPresenter: UserListViewOutput {
                 var user = item.user
                 user.followerStatus = newStatus
                 strongSelf.view.updateListItem(with: user, at: item.indexPath)
+                strongSelf.moduleOutput?.didUpdateFollowStatus(listView: strongSelf.listView,
+                                                               followStatus: newStatus,
+                                                               forUserAt: item.indexPath)
             } else {
                 strongSelf.moduleOutput?.didFailToPerformSocialRequest(listView: strongSelf.listView,
                                                                        error: result.error ?? APIError.unknown)
@@ -69,6 +72,10 @@ extension UserListPresenter: UserListViewOutput {
             return
         }
         loadNextPage()
+    }
+    
+    func onItemSelected(at indexPath: IndexPath) {
+        moduleOutput?.didSelectListItem(listView: listView, at: indexPath)
     }
 }
 

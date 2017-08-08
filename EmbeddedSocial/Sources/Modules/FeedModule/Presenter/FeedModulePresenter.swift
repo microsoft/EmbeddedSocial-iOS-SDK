@@ -220,7 +220,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             
         case .pin:
             let status = items[index].pinned
-            let action:PostSocialAction = status ? .pin : .unpin
+            let action:PostSocialAction = status ? .unpin : .pin
             
             items[index].pinned = !status
             

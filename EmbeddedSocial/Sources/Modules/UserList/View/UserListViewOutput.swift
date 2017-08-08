@@ -9,4 +9,6 @@ protocol UserListViewOutput: class {
     func onItemAction(item: UserListItem)
     
     func onReachingEndOfPage()
+    
+    func onItemSelected(at indexPath: IndexPath)
 }
