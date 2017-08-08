@@ -135,6 +135,7 @@ class UserListPresenterTests: XCTestCase {
     
     func testThatItLoadsNextPageWhenReachingEndOfContent() {
         // given
+        interactor.getUsersListResult = .success(UsersListResponse(users: [], cursor: nil))
 
         // when
         sut.onReachingEndOfPage()

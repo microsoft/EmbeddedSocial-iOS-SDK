@@ -9,6 +9,10 @@ protocol FeedModuleInput: class {
     func setFeed(_ feed: FeedType)
     // Forcing module to update
     func refreshData()
+    
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
+                        size: CGSize,
+                        configurator: @escaping (T) -> Void)
     // Get Current Module Height
     func moduleHeight() -> CGFloat
 

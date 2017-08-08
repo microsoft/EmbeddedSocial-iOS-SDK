@@ -74,6 +74,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     weak var view: FeedModuleViewInput!
     var interactor: FeedModuleInteractorInput!
     var router: FeedModuleRouterInput!
+    weak var moduleOutput: FeedModuleOutput?
     
     private var feedType: FeedType = .home
     private var layout: FeedModuleLayoutType = .list
@@ -83,6 +84,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         didSet {
             Logger.log(cursor)
         }
+    }
+    
+    fileprivate var header: SupplementaryItemModel?
+    
+    var headerSize: CGSize {
+        return header?.size ?? .zero
     }
    
     func didTapChangeLayout() {
@@ -200,7 +207,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func viewIsReady() {
         view.setupInitialState()
         view.setLayout(type: layout)
-        
+        if let header = header {
+            view.registerHeader(withType: header.type, configurator: header.configurator)
+        }
+
         didAskFetchAll()
     }
     
@@ -249,5 +259,32 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didFinishFetching() {
         view.setRefreshing(state: false)
+    }
+    
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
+                        size: CGSize,
+                        configurator: @escaping (T) -> Void) {
+        header = SupplementaryItemModel(type: type, size: size, configurator: { view in
+            guard let view = view as? T else {
+                fatalError("Unregistered header view")
+            }
+            configurator(view)
+        })
+    }
+    
+    func configureHeader(_ headerView: UICollectionReusableView) {
+        header?.configurator(headerView)
+    }
+    
+    func didScrollFeed(_ feedView: UIScrollView) {
+        moduleOutput?.didScrollFeed(feedView)
+    }
+}
+
+extension FeedModulePresenter {
+    struct SupplementaryItemModel {
+        let type: UICollectionReusableView.Type
+        let size: CGSize
+        let configurator: (UICollectionReusableView) -> Void
     }
 }
