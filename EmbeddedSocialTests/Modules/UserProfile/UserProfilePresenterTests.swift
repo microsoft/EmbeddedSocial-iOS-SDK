@@ -11,6 +11,11 @@ class UserProfilePresenterTests: XCTestCase {
     var router: MockUserProfileRouter!
     var interactor: MockUserProfileInteractor!
     var myProfileHolder: MyProfileHolder!
+    var feedInput: MockFeedModuleInput!
+    
+    var randomValue: Int {
+        return Int(arc4random() % 100)
+    }
     
     override func setUp() {
         super.setUp()
@@ -18,6 +23,7 @@ class UserProfilePresenterTests: XCTestCase {
         view = MockUserProfileView()
         router = MockUserProfileRouter()
         interactor = MockUserProfileInteractor()
+        feedInput = MockFeedModuleInput()
     }
     
     override func tearDown() {
@@ -26,12 +32,14 @@ class UserProfilePresenterTests: XCTestCase {
         view = nil
         router = nil
         interactor = nil
+        feedInput = nil
     }
     
     func testThatItSetsInitialStateWhenUserIsMe() {
         // given
         let credentials = CredentialsList(provider: .facebook, accessToken: "", socialUID: "")
-        myProfileHolder.me = User(uid: UUID().uuidString, credentials: credentials)
+        myProfileHolder.me = User(uid: UUID().uuidString, credentials: credentials,
+                                  followersCount: randomValue, followingCount: randomValue)
         interactor.meToReturn = myProfileHolder.me
 
         let presenter = makeDefaultPresenter()
@@ -40,20 +48,14 @@ class UserProfilePresenterTests: XCTestCase {
         presenter.viewIsReady()
         
         // then
-        XCTAssertEqual(view.setupInitialStateCount, 1)
-        XCTAssertEqual(view.setUserCount, 1)
-        XCTAssertEqual(view.lastSetUser, myProfileHolder.me)
-        XCTAssertNotNil(view.isLoading)
-        XCTAssertFalse(view.isLoading!)
-
-        XCTAssertEqual(interactor.getUserCount, 0)
-        
         XCTAssertEqual(myProfileHolder.setMeCount, 2)
+        XCTAssertEqual(interactor.getMeCount, 1)
+        validateInitialState(with: myProfileHolder.me)
     }
     
     func testThatItSetsInitialStateWithOtherUser() {
         // given
-        let user = User(uid: UUID().uuidString)
+        let user = User(uid: UUID().uuidString, followersCount: randomValue, followingCount: randomValue)
         interactor.userToReturn = user
         
         let presenter = makeDefaultPresenter(userID: user.uid)
@@ -62,15 +64,75 @@ class UserProfilePresenterTests: XCTestCase {
         presenter.viewIsReady()
         
         // then
+        validateInitialState(with: user)
+        XCTAssertEqual(interactor.getUserCount, 1)
+    }
+    
+    func testThatItFailsToSetFeedWithoutFeedViewController() {
+        // given
+        let user = User(uid: UUID().uuidString)
+        interactor.userToReturn = user
+        
+        let presenter = makeDefaultPresenter(userID: user.uid)
+        presenter.feedViewController = nil
+        
+        // when
+        presenter.viewIsReady()
+        
+        // then
+        validateViewInitialState(with: user)
+        
+        XCTAssertEqual(feedInput.registerHeaderCount, 0)
+        XCTAssertEqual(view.setFeedViewControllerCount, 0)
+        XCTAssertEqual(feedInput.setFeedCount, 0)
+        XCTAssertNil(feedInput.feedType)
+    }
+    
+    func testThatItFailsToSetFeedViewControllerWithoutFeedModuleInput() {
+        // given
+        let user = User(uid: UUID().uuidString)
+        interactor.userToReturn = user
+        
+        let presenter = makeDefaultPresenter(userID: user.uid)
+        presenter.feedModuleInput = nil
+        
+        // when
+        presenter.viewIsReady()
+        
+        // then
+        validateViewInitialState(with: user)
+        
+        XCTAssertEqual(feedInput.registerHeaderCount, 0)
+        XCTAssertEqual(view.setFeedViewControllerCount, 0)
+        XCTAssertEqual(feedInput.setFeedCount, 0)
+        XCTAssertNil(feedInput.feedType)
+    }
+    
+    private func validateInitialState(with user: User) {
+        validateViewInitialState(with: user)
+        validateFeedInitialState(with: user)
+    }
+    
+    private func validateViewInitialState(with user: User) {
         XCTAssertEqual(view.setupInitialStateCount, 1)
         XCTAssertEqual(view.setUserCount, 1)
         XCTAssertEqual(view.lastSetUser, user)
-        XCTAssertNotNil(view.isLoading)
-        XCTAssertFalse(view.isLoading!)
-
-        XCTAssertEqual(interactor.getUserCount, 1)
         
-        XCTAssertEqual(myProfileHolder.setMeCount, 0)
+        XCTAssertEqual(view.setFollowingCount, 1)
+        XCTAssertEqual(view.lastFollowingCount, user.followingCount)
+        
+        XCTAssertEqual(view.lastFollowersCount, user.followersCount)
+        XCTAssertEqual(view.setFollowersCount, 1)
+        
+        XCTAssertNotNil(view.isLoadingUser)
+        XCTAssertFalse(view.isLoadingUser!)
+    }
+    
+    private func validateFeedInitialState(with user: User) {
+        XCTAssertEqual(feedInput.registerHeaderCount, 1)
+        XCTAssertEqual(view.setFeedViewControllerCount, 1)
+        XCTAssertEqual(feedInput.setFeedCount, 1)
+        XCTAssertEqual(feedInput.feedType, .user(user: user.uid, scope: .recent))
     }
     
     func testThatItOpensFollowingScreen() {
@@ -184,11 +246,99 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertNotNil(view.lastFollowersCount)
     }
     
-    private func makeDefaultPresenter(userID: String? = nil) -> UserProfilePresenter {
+    fileprivate func makeDefaultPresenter(userID: String? = nil) -> UserProfilePresenter {
         let presenter = UserProfilePresenter(userID: userID, myProfileHolder: myProfileHolder)
         presenter.view = view
         presenter.router = router
         presenter.interactor = interactor
+        presenter.feedModuleInput = feedInput
+        presenter.feedViewController = UIViewController()
         return presenter
+    }
+}
+
+//MARK: FeedModuleOutput tests
+
+extension UserProfilePresenterTests {
+    
+    func testThatItDoesNotShowStickyHeaderWithoutOffset() {
+        // given
+        let scrollView = UIScrollView()
+        scrollView.contentOffset = CGPoint(x: 0.0, y: 0.0)
+        let presenter = makeDefaultPresenter()
+
+        // when
+        presenter.didScrollFeed(scrollView)
+        
+        // then
+        XCTAssertEqual(view.setStickyFilterHiddenCount, 1)
+        XCTAssertEqual(view.isStickyFilterHidden!, true)
+    }
+    
+    func testThatItShowsStickyHeaderWithBoundaryOffset() {
+        // given
+        let scrollView = UIScrollView()
+        scrollView.contentOffset = CGPoint(x: 0.0, y: UserProfilePresenter.headerHeight - Constants.UserProfile.filterHeight)
+        let presenter = makeDefaultPresenter()
+        
+        // when
+        presenter.didScrollFeed(scrollView)
+        
+        // then
+        XCTAssertEqual(view.setStickyFilterHiddenCount, 1)
+        XCTAssertEqual(view.isStickyFilterHidden!, false)
+    }
+}
+
+//MARK: FollowersModuleOutput tests
+
+extension UserProfilePresenterTests {
+    
+    func testThatFollowersModuleUpdatesFollowingStatusWhenUserIsMe() {
+        testThatItUpdateFollowingStatus(with: nil, expectedFollowingCount: myProfileHolder.me.followingCount + 1) {
+            $0.didUpdateFollowersStatus(newStatus: .accepted)
+        }
+    }
+    
+    func testThatFollowersModuleDoesNotUpdateFollowingStatusWhenUserIsNotMe() {
+        let user = User(uid: UUID().uuidString, followingCount: randomValue)
+        interactor.userToReturn = user
+        
+        testThatItUpdateFollowingStatus(with: user, expectedFollowingCount: user.followingCount) {
+            $0.didUpdateFollowersStatus(newStatus: .accepted)
+        }
+    }
+
+    func testThatItUpdateFollowingStatus(with user: User?, expectedFollowingCount: Int, update: (UserProfilePresenter) -> Void) {
+        // given
+        let presenter = makeDefaultPresenter(userID: user?.uid)
+        
+        // when
+        presenter.viewIsReady()
+        update(presenter)
+        
+        // then
+        XCTAssertEqual(view.setFollowingCount, 1)
+        XCTAssertEqual(view.lastFollowingCount!, expectedFollowingCount)
+    }
+}
+
+//MARK: FollowingModuleOutput tests
+
+extension UserProfilePresenterTests {
+    
+    func testThatFollowingModuleUpdatesFollowingStatusWhenUserIsMe() {
+        testThatItUpdateFollowingStatus(with: nil, expectedFollowingCount: myProfileHolder.me.followingCount + 1) {
+            $0.didUpdateFollowingStatus(newStatus: .accepted)
+        }
+    }
+    
+    func testThatFollowingModuleDoesNotUpdateFollowingStatusWhenUserIsNotMe() {
+        let user = User(uid: UUID().uuidString, followingCount: randomValue)
+        interactor.userToReturn = user
+        
+        testThatItUpdateFollowingStatus(with: user, expectedFollowingCount: user.followingCount) {
+            $0.didUpdateFollowingStatus(newStatus: .accepted)
+        }
     }
 }

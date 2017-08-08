@@ -11,9 +11,9 @@ class Post: XCTestCase {
         super.setUp()
         
         let bundle = Bundle(for: type(of: self))
-        let path = bundle.path(forResource: "topicview_source", ofType: "json")!
-        let data = NSData(contentsOfFile: path)
-        
+        if let path = bundle.path(forResource: "topicview_source", ofType: "json") {
+            let data = NSData(contentsOfFile: path)
+        }
     }
     
     override func tearDown() {

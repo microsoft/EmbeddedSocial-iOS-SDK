@@ -22,6 +22,8 @@ protocol UserProfileViewInput: class {
         
     func setFollowersCount(_ followersCount: Int)
     
+    func setFollowingCount(_ followingCount: Int)
+
     func setupHeaderView(_ reusableView: UICollectionReusableView)
     
     func setStickyFilterHidden(_ isHidden: Bool)

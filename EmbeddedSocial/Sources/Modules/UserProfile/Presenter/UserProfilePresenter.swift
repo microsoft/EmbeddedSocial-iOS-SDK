@@ -5,11 +5,11 @@
 
 import Foundation
 
-private let headerHeight = Constants.UserProfile.summaryHeight +
-    Constants.UserProfile.filterHeight +
-    Constants.UserProfile.containerInset
-
 final class UserProfilePresenter: UserProfileViewOutput {
+    
+    static let headerHeight = Constants.UserProfile.summaryHeight +
+        Constants.UserProfile.filterHeight +
+        Constants.UserProfile.containerInset
     
     weak var view: UserProfileViewInput!
     var router: UserProfileRouterInput!
@@ -18,14 +18,27 @@ final class UserProfilePresenter: UserProfileViewOutput {
     var feedModuleInput: FeedModuleInput?
     
     private let userID: String?
-    private var user: User?
+    fileprivate var user: User?
     private var me: User
-    private var followersCount = 0
     private var myProfileHolder: UserHolder?
+    
+    fileprivate var followersCount = 0 {
+        didSet {
+            view.setFollowersCount(followersCount)
+        }
+    }
+    
+    fileprivate var followingCount = 0 {
+        didSet {
+            view.setFollowingCount(followingCount)
+        }
+    }
     
     init(userID: String? = nil, myProfileHolder: UserHolder) {
         self.userID = userID
         self.me = myProfileHolder.me
+        followersCount = me.followersCount
+        followingCount = me.followingCount
         self.myProfileHolder = myProfileHolder
     }
     
@@ -68,6 +81,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
         if let user = result.value {
             setUser(user)
             followersCount = user.followersCount
+            followingCount = user.followingCount
             view.setUser(user)
         } else {
             view.showError(result.error ?? APIError.unknown)
@@ -75,18 +89,18 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     private func setupFeed() {
-        guard let vc = feedViewController else {
+        guard let vc = feedViewController, let feedModuleInput = feedModuleInput else {
             return
         }
-        feedModuleInput?.registerHeader(
+        feedModuleInput.registerHeader(
             withType: UICollectionReusableView.self,
-            size: CGSize(width: Constants.UserProfile.contentWidth, height: headerHeight),
+            size: CGSize(width: Constants.UserProfile.contentWidth, height: UserProfilePresenter.headerHeight),
             configurator: view.setupHeaderView
         )
         
         view.setFeedViewController(vc)
 
-        feedModuleInput?.setFeed(.user(user: userID ?? me.uid, scope: .recent))
+        feedModuleInput.setFeed(.user(user: userID ?? me.uid, scope: .recent))
     }
     
     func onEdit() {
@@ -117,19 +131,20 @@ final class UserProfilePresenter: UserProfileViewOutput {
 
         if let status = response.value {
             view.setFollowStatus(status)
-            updateFollowersCount(with: status)
+            followersCount = updatedFollowCount(followersCount, with: status)
         } else {
             view.showError(response.error ?? APIError.unknown)
         }
     }
     
-    private func updateFollowersCount(with status: FollowStatus) {
+    fileprivate func updatedFollowCount(_ count: Int, with status: FollowStatus) -> Int {
+        var count = count
         if status == .accepted {
-            followersCount += 1
+            count += 1
         } else if status == .empty || status == .blocked {
-            followersCount = max(0, followersCount - 1)
+            count = max(0, count - 1)
         }
-        view.setFollowersCount(followersCount)
+        return count
     }
     
     private func transform(result: Result<Void>) -> (FollowStatus) -> Result<FollowStatus> {
@@ -186,8 +201,27 @@ final class UserProfilePresenter: UserProfileViewOutput {
 }
 
 extension UserProfilePresenter: FeedModuleOutput {
+    
     func didScrollFeed(_ feedView: UIScrollView) {
-        let isHeaderVisible = feedView.contentOffset.y < headerHeight - Constants.UserProfile.filterHeight
+        let isHeaderVisible = feedView.contentOffset.y < UserProfilePresenter.headerHeight - Constants.UserProfile.filterHeight
         view.setStickyFilterHidden(isHeaderVisible)
+    }
+}
+
+extension UserProfilePresenter: FollowersModuleOutput {
+    
+    func didUpdateFollowersStatus(newStatus: FollowStatus) {
+        if user == nil {
+            followingCount = updatedFollowCount(followingCount, with: newStatus)
+        }
+    }
+}
+
+extension UserProfilePresenter: FollowingModuleOutput {
+    
+    func didUpdateFollowingStatus(newStatus: FollowStatus) {
+        if user == nil {
+            followingCount = updatedFollowCount(followingCount, with: newStatus)
+        }
     }
 }

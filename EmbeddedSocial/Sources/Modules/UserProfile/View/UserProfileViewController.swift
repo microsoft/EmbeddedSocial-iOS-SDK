@@ -121,4 +121,8 @@ extension UserProfileViewController: UserProfileViewInput {
     func setStickyFilterHidden(_ isHidden: Bool) {
         stickyFilterView.isHidden = isHidden
     }
+    
+    func setFollowingCount(_ followingCount: Int) {
+        summaryView.followingCount = followingCount
+    }
 }

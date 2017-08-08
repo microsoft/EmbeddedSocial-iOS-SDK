@@ -22,6 +22,9 @@ struct UserProfileConfigurator {
         presenter.interactor = UserProfileInteractor(userService: UserService(), socialService: SocialService())
         presenter.view = viewController
         
+        router.followersModuleOutput = presenter
+        router.followingModuleOutput = presenter
+        
         viewController.output = presenter
         
         viewController.title = "Profile"

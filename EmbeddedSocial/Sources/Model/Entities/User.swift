@@ -13,8 +13,8 @@ struct User {
     let bio: String?
     let photo: Photo?
     let credentials: CredentialsList?
-    let followersCount: Int
-    let followingCount: Int
+    var followersCount: Int
+    var followingCount: Int
     let visibility: Visibility?
     var followerStatus: FollowStatus?
     let followingStatus: FollowStatus?
