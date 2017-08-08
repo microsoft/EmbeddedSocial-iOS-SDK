@@ -6,10 +6,11 @@
 import UIKit
 
 enum FeedModuleLayoutType: Int {
+    
     case list
     case grid
     
-    var cellType:String {
+    var cellType: String {
         
         switch self {
         case .list:
