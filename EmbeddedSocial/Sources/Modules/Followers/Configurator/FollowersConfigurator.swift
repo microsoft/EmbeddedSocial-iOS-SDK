@@ -13,13 +13,14 @@ final class FollowersConfigurator {
         viewController.title = "Followers"
     }
     
-    func configure(api: UsersListAPI) {
+    func configure(api: UsersListAPI, moduleOutput: FollowersModuleOutput? = nil) {
         let presenter = FollowersPresenter()
 
         let listInput = UserListConfigurator().configure(api: api, output: presenter)
         
         presenter.view = viewController
         presenter.usersList = listInput
+        presenter.moduleOutput = moduleOutput
         
         viewController.output = presenter
     }

@@ -8,6 +8,8 @@ import Foundation
 final class UserProfileRouter: UserProfileRouterInput {
     
     weak var viewController: UIViewController?
+    weak var followersModuleOutput: FollowersModuleOutput?
+    weak var followingModuleOutput: FollowingModuleOutput?
 
     func openFollowers(user: User) {
         let api: UsersListAPI = user.isMe ?
@@ -15,7 +17,7 @@ final class UserProfileRouter: UserProfileRouterInput {
             UserFollowersAPI(userID: user.uid, service: SocialService())
         
         let configurator = FollowersConfigurator()
-        configurator.configure(api: api)
+        configurator.configure(api: api, moduleOutput: followersModuleOutput)
         viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
@@ -25,7 +27,7 @@ final class UserProfileRouter: UserProfileRouterInput {
             UserFollowingAPI(userID: user.uid, service: SocialService())
         
         let configurator = FollowingConfigurator()
-        configurator.configure(api: api)
+        configurator.configure(api: api, moduleOutput: followingModuleOutput)
         viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     

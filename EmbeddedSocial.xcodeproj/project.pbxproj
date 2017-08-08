@@ -367,6 +367,11 @@
 		88F551AA1F386F1300F4AAB9 /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551A91F386F1300F4AAB9 /* UserProfileHeaderView.swift */; };
 		88F551AC1F38717A00F4AAB9 /* UICollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551AB1F38717A00F4AAB9 /* UICollectionView+Ext.swift */; };
 		88F551B41F38A03200F4AAB9 /* SegmentedControlView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551B31F38A03200F4AAB9 /* SegmentedControlView+Ext.swift */; };
+		88F551B61F399F9600F4AAB9 /* FollowersModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551B51F399F9600F4AAB9 /* FollowersModuleOutput.swift */; };
+		88F551B81F39A6A300F4AAB9 /* FollowingModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551B71F39A6A300F4AAB9 /* FollowingModuleOutput.swift */; };
+		88F551BA1F39BB9700F4AAB9 /* MockFeedModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551B91F39BB9700F4AAB9 /* MockFeedModuleInput.swift */; };
+		88F551BC1F39D2B300F4AAB9 /* UserProfilePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA561F2F7F780066A1A0 /* UserProfilePresenterTests.swift */; };
+		88F551BD1F39D2EF00F4AAB9 /* MockUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA541F2F7F780066A1A0 /* MockUserProfileView.swift */; };
 		88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */; };
 		88F7A7891F27896B005FEC5F /* MockAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7881F27896B005FEC5F /* MockAuthService.swift */; };
 		88F7A78B1F2789F0005FEC5F /* MockUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A78A1F2789F0005FEC5F /* MockUserService.swift */; };
@@ -866,6 +871,9 @@
 		88F551A91F386F1300F4AAB9 /* UserProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderView.swift; sourceTree = "<group>"; };
 		88F551AB1F38717A00F4AAB9 /* UICollectionView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Ext.swift"; sourceTree = "<group>"; };
 		88F551B31F38A03200F4AAB9 /* SegmentedControlView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentedControlView+Ext.swift"; sourceTree = "<group>"; };
+		88F551B51F399F9600F4AAB9 /* FollowersModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersModuleOutput.swift; sourceTree = "<group>"; };
+		88F551B71F39A6A300F4AAB9 /* FollowingModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingModuleOutput.swift; sourceTree = "<group>"; };
+		88F551B91F39BB9700F4AAB9 /* MockFeedModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFeedModuleInput.swift; sourceTree = "<group>"; };
 		88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInteractorTests.swift; sourceTree = "<group>"; };
 		88F7A7881F27896B005FEC5F /* MockAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAuthService.swift; sourceTree = "<group>"; };
 		88F7A78A1F2789F0005FEC5F /* MockUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserService.swift; sourceTree = "<group>"; };
@@ -1887,6 +1895,7 @@
 			isa = PBXGroup;
 			children = (
 				8875CCE01F331CB3001F2474 /* FollowingPresenter.swift */,
+				88F551B71F39A6A300F4AAB9 /* FollowingModuleOutput.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -2224,6 +2233,7 @@
 				88FFFA521F2F7F780066A1A0 /* MockUserProfileInteractor.swift */,
 				88FFFA531F2F7F780066A1A0 /* MockUserProfileRouter.swift */,
 				88FFFA541F2F7F780066A1A0 /* MockUserProfileView.swift */,
+				88F551B91F39BB9700F4AAB9 /* MockFeedModuleInput.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -2262,6 +2272,7 @@
 			isa = PBXGroup;
 			children = (
 				88FFFA761F30BAE60066A1A0 /* FollowersPresenter.swift */,
+				88F551B51F399F9600F4AAB9 /* FollowersModuleOutput.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -2923,6 +2934,7 @@
 				88580C051F2213AB00C1CBAF /* PutUserVisibilityRequest.swift in Sources */,
 				88580C1F1F2213AB00C1CBAF /* TwitterAPI.swift in Sources */,
 				88580BEC1F2213AB00C1CBAF /* PostBlockedUserRequest.swift in Sources */,
+				88F551B81F39A6A300F4AAB9 /* FollowingModuleOutput.swift in Sources */,
 				88580BB91F2213AB00C1CBAF /* WebViewController.swift in Sources */,
 				88580C481F2213AB00C1CBAF /* CreatePostRouter.swift in Sources */,
 				88580B9F1F2213AB00C1CBAF /* ButtonWithTarget.swift in Sources */,
@@ -3049,6 +3061,7 @@
 				8875CCE71F331CB3001F2474 /* FollowingConfigurator.swift in Sources */,
 				88BC5C5B1F2B6628001FBDD2 /* ProfileSummaryView.swift in Sources */,
 				88580BAB1F2213AB00C1CBAF /* SideMenuAccountInfoView.swift in Sources */,
+				88F551B61F399F9600F4AAB9 /* FollowersModuleOutput.swift in Sources */,
 				88BC5C4F1F2B65D0001FBDD2 /* UserProfileInteractor.swift in Sources */,
 				88580C301F2213AB00C1CBAF /* SocialPlus.swift in Sources */,
 				88580C0B1F2213AB00C1CBAF /* Images.swift in Sources */,
@@ -3110,6 +3123,7 @@
 				88F7A78B1F2789F0005FEC5F /* MockUserService.swift in Sources */,
 				88FFFA571F2F7F780066A1A0 /* MockUserProfileInteractor.swift in Sources */,
 				63A1D71D1F29FC120090C67A /* MockTransactionsDatabaseFacade.swift in Sources */,
+				88F551BD1F39D2EF00F4AAB9 /* MockUserProfileView.swift in Sources */,
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
 				88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */,
 				88F163871F27565400DAAF68 /* TransactionsDatabaseFacadeTests.swift in Sources */,
@@ -3147,7 +3161,9 @@
 				88FFFA671F30AB170066A1A0 /* MyProfileHolder.swift in Sources */,
 				883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */,
 				88FFFA5A1F2F7F780066A1A0 /* UserProfileInteractorTests.swift in Sources */,
+				88F551BA1F39BB9700F4AAB9 /* MockFeedModuleInput.swift in Sources */,
 				88F1637B1F26494100DAAF68 /* SocialUserTests.swift in Sources */,
+				88F551BC1F39D2B300F4AAB9 /* UserProfilePresenterTests.swift in Sources */,
 				889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */,
 				88F163791F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift in Sources */,
 				88F163891F27569900DAAF68 /* MockQueriableRepository.swift in Sources */,

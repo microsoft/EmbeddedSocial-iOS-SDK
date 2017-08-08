@@ -8,6 +8,7 @@ import Foundation
 class FollowersPresenter: FollowersViewOutput {
     weak var view: FollowersViewInput!
     var usersList: UserListModuleInput!
+    weak var moduleOutput: FollowersModuleOutput?
     
     func viewIsReady() {
         view.setupInitialState(userListView: usersList.listView)
@@ -22,5 +23,9 @@ extension FollowersPresenter: UserListModuleOutput {
     
     func didFailToLoadList(listView: UIView, error: Error) {
         view.showError(error)
+    }
+    
+    func didUpdateFollowStatus(listView: UIView, followStatus: FollowStatus, forUserAt indexPath: IndexPath) {
+        moduleOutput?.didUpdateFollowersStatus(newStatus: followStatus)
     }
 }

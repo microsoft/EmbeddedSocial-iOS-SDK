@@ -5,10 +5,6 @@
 
 import Foundation
 
-protocol UserListViewOutput: class {
-    func onItemAction(item: UserListItem)
-    
-    func onReachingEndOfPage()
-    
-    func onItemSelected(at indexPath: IndexPath)
+protocol FollowingModuleOutput: class {
+    func didUpdateFollowingStatus(newStatus: FollowStatus)
 }

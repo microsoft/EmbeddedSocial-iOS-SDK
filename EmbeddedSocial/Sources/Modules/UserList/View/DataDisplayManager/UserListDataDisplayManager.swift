@@ -16,6 +16,8 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
     
     var onReachingEndOfContent: (() -> Void)?
     
+    var onItemSelected: ((IndexPath) -> Void)?
+    
     weak var tableView: UITableView!
     
     func tableDataSource(for tableView: UITableView) -> UITableViewDataSource? {
@@ -92,6 +94,11 @@ extension UserListDataDisplayManager: UITableViewDataSource {
 extension UserListDataDisplayManager: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
     }
 }
 
