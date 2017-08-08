@@ -25,5 +25,11 @@ struct UserProfileConfigurator {
         viewController.output = presenter
         
         viewController.title = "Profile"
+        
+        let feedConfigurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache) // TODO: inject cache
+        feedConfigurator.configure(moduleOutput: presenter)
+
+        presenter.feedViewController = feedConfigurator.viewController
+        presenter.feedModuleInput = feedConfigurator.moduleInput
     }
 }

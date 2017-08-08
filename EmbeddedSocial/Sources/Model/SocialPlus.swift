@@ -11,7 +11,7 @@ public final class SocialPlus {
     private(set) var sessionStore: SessionStore!
     fileprivate var serviceProvider: SocialPlusServicesType!
     
-    fileprivate let coordinator = CrossModuleCoordinator()
+    fileprivate var coordinator: CrossModuleCoordinator!
     private(set) var coreDataStack: CoreDataStack!
     
     private(set) var cache: Cache!
@@ -35,9 +35,12 @@ public final class SocialPlus {
     
     public func start(launchArguments args: LaunchArguments) {
         serviceProvider.getThirdPartyConfigurator().setup(application: args.app, launchOptions: args.launchOptions)
-        coordinator.setup(launchArguments: args, loginHandler: self)
+        
         setupCoreDataStack()
         setupCache(stack: coreDataStack)
+        
+        coordinator = CrossModuleCoordinator(cache: cache)
+        coordinator.setup(launchArguments: args, loginHandler: self)
         
         if sessionStore.isLoggedIn {
             APISettings.shared.customHeaders = sessionStore.user.credentials?.authHeader ?? [:]

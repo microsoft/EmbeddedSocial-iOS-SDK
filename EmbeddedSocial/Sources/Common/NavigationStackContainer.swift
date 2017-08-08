@@ -5,9 +5,9 @@
 
 import UIKit
 
-class NavigationStackContainer: UIViewController, SideMenuModuleOutput {
+class NavigationStackContainer: UIViewController {
     
-    var embeddedViewController: UIViewController?
+    private var embeddedViewController: UIViewController?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

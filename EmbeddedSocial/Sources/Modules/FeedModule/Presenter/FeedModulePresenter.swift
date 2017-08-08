@@ -4,7 +4,7 @@
 //
 
 enum FeedType {
-
+    
     enum TimeRange: Int {
         case today, weekly, alltime
     }
@@ -46,7 +46,7 @@ extension FeedType: Equatable {
 }
 
 enum PostCellAction {
-    case like, pin, comment, extra
+    case like, pin, comment, extra, profile
 }
 
 struct PostViewModel {
@@ -69,20 +69,48 @@ struct PostViewModel {
     var onAction: ActionHandler?
 }
 
-class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput {
+enum FeedModuleLayoutType: Int {
+    case list
+    case grid
     
+    var cellType:String {
+        
+        switch self {
+        case .list:
+            return PostCell.reuseID
+        case .grid:
+            return PostCellCompact.reuseID
+        }
+    }
+}
+
+class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput {
+
     weak var view: FeedModuleViewInput!
     var interactor: FeedModuleInteractorInput!
     var router: FeedModuleRouterInput!
+    weak var moduleOutput: FeedModuleOutput?
     
+    var layout: FeedModuleLayoutType = .list {
+        didSet {
+            view.setLayout(type: self.layout)
+        }
+    }
+    
+    private var formatter = DateFormatterTool()
     private var feedType: FeedType = .home
-    private var layout: FeedModuleLayoutType = .list
     private let limit = Int32(3) // Default
     private var items = [Post]()
     private var cursor: String? = nil {
         didSet {
             Logger.log(cursor)
         }
+    }
+    
+    fileprivate var header: SupplementaryItemModel?
+    
+    var headerSize: CGSize {
+        return header?.size ?? .zero
     }
    
     func didTapChangeLayout() {
@@ -92,15 +120,26 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     // MARK: FeedModuleInput
     
+    func moduleHeight() -> CGFloat {
+        return view.getViewHeight()
+    }
+    
     func setFeed(_ feed: FeedType) {
         feedType = feed
+        cleanFeed()
     }
     
     func refreshData() {
-        didAskFetchAll()
+        interactor.fetchPosts(limit: limit, feedType: feedType)
     }
     
     // MARK: Private
+    
+    private func cleanFeed() {
+        cursor = nil
+        items.removeAll()
+    }
+    
     private lazy var dateFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         
@@ -127,8 +166,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
         viewModel.totalLikes = Localizator.localize("likes_count", post.totalLikes)
         viewModel.totalComments = Localizator.localize("comments_count", post.totalComments)
-    
-        viewModel.timeCreated =  post.createdTime == nil ? "" : dateFormatter.string(from: post.createdTime!, to: Date())!
+        
+        viewModel.timeCreated =  post.createdTime == nil ? "" : formatter.shortStyle.string(from: post.createdTime!, to: Date())!
         viewModel.userImageUrl = post.photoUrl
         viewModel.postImageUrl = post.imageUrl
         
@@ -154,8 +193,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     private func handle(action: PostCellAction, path: IndexPath) {
         
-        let postHandle = items[path.row].topicHandle!
         let index = path.row
+        let postHandle = items[index].topicHandle!
+        let userHandle = items[index].userHandle!
         
         switch action {
         case .comment:
@@ -170,9 +210,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             items[index].liked = !status
             
             if action == .like {
-                items[index].totalLikes += Int64(1)
+                items[index].totalLikes += 1
             } else if action == .unlike && items[index].totalLikes > 0 {
-                items[index].totalLikes -= Int64(1)
+                items[index].totalLikes -= 1
             }
             
             view.reload(with: index)
@@ -186,6 +226,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             
             view.reload(with: index)
             interactor.postAction(post: postHandle, action: action)
+            
+        case .profile:
+            router.open(route: .profileDetailes(userHandle: userHandle))
         }
     }
     
@@ -196,32 +239,36 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func viewIsReady() {
         view.setupInitialState()
         view.setLayout(type: layout)
+        if let header = header {
+            view.registerHeader(withType: header.type, configurator: header.configurator)
+        }
         
         didAskFetchAll()
     }
     
     func didAskFetchAll() {
-        view.setRefreshing(state: true)
         interactor.fetchPosts(limit: limit, feedType: feedType)
     }
     
     func didAskFetchMore() {
-        if let cursor = cursor {
-            interactor.fetchPostsMore(limit: limit, feedType: feedType, cursor: cursor)
-        } else {
+        
+        guard let cursor = cursor else {
             Logger.log("cant fetch more, no cursor")
+            return
         }
+        
+        interactor.fetchPostsMore(limit: limit, feedType: feedType, cursor: cursor)
     }
     
     func didTapItem(path: IndexPath) {
-        //        router.open(route: .postDetails)
+        Logger.log(path)
     }
     
     // MARK: FeedModuleInteractorOutput
     func didFetch(feed: PostsFeed) {
         cursor = feed.cursor
         items = feed.items
-    
+        
         view.reload()
     }
     
@@ -233,7 +280,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didFail(error: FeedServiceError) {
-//        Logger.log(error)
+        //        Logger.log(error)
     }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
@@ -246,5 +293,32 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didFinishFetching() {
         view.setRefreshing(state: false)
+    }
+    
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
+                        size: CGSize,
+                        configurator: @escaping (T) -> Void) {
+        header = SupplementaryItemModel(type: type, size: size, configurator: { view in
+            guard let view = view as? T else {
+                fatalError("Unregistered header view")
+            }
+            configurator(view)
+        })
+    }
+    
+    func configureHeader(_ headerView: UICollectionReusableView) {
+        header?.configurator(headerView)
+    }
+    
+    func didScrollFeed(_ feedView: UIScrollView) {
+        moduleOutput?.didScrollFeed(feedView)
+    }
+}
+
+extension FeedModulePresenter {
+    struct SupplementaryItemModel {
+        let type: UICollectionReusableView.Type
+        let size: CGSize
+        let configurator: (UICollectionReusableView) -> Void
     }
 }

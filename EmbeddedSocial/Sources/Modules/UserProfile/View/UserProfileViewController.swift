@@ -6,14 +6,9 @@
 import UIKit
 import SnapKit
 
-private let headerAspectRatio: CGFloat = 2.25
-
 class UserProfileViewController: UIViewController {
     
     var output: UserProfileViewOutput!
-    var feedModule: FeedModuleInput!
-    
-    @IBOutlet fileprivate weak var container: UIView!
     
     @IBOutlet fileprivate weak var loadingIndicatorView: LoadingIndicatorView! {
         didSet {
@@ -24,81 +19,88 @@ class UserProfileViewController: UIViewController {
     fileprivate lazy var createPostButton: BarButtonItemWithTarget = { [unowned self] in
         let button = BarButtonItemWithTarget()
         button.image = UIImage(asset: .iconDots)
-        button.onTap = {
-            self.output.onMore()
-        }
+        button.onTap = self.output.onMore
         return button
     }()
     
-    fileprivate lazy var summaryView: ProfileSummaryView = { [unowned self] in
-        let summaryView = ProfileSummaryView.fromNib()
-        summaryView.onEdit = { self.output.onEdit() }
-        summaryView.onFollowing = { self.output.onFollowing() }
-        summaryView.onFollow = { self.output.onFollowRequest(currentStatus: $0) }
-        summaryView.onFollowers = { self.output.onFollowers() }
-        self.view.addSubview(summaryView)
-        
-        summaryView.snp.makeConstraints { make in
-            make.left.equalTo(self.view)
-            make.top.equalTo(self.view)
-            make.right.equalTo(self.view)
-            make.height.equalTo(summaryView.snp.width).dividedBy(headerAspectRatio)
-        }
-        
-        return summaryView
+    fileprivate lazy var headerView: UserProfileHeaderView = { [unowned self] in
+        let view = UserProfileHeaderView(frame: .zero)
+        view.onRecent = self.output.onRecent
+        view.onPopular = self.output.onPopular
+        view.summaryView.onEdit = self.output.onEdit
+        view.summaryView.onFollowing = self.output.onFollowing
+        view.summaryView.onFollow = { self.output.onFollowRequest(currentStatus: $0) }
+        view.summaryView.onFollowers = self.output.onFollowers
+        return view
     }()
     
-    private var feedModuleInput: FeedModuleInput!
+    fileprivate lazy var stickyFilterView: SegmentedControlView = { [unowned self] in
+        let filterView = SegmentedControlView.fromNib()
+        filterView.configureForUserProfileModule(superview: self.view,
+                                                 onRecent: self.output.onRecent,
+                                                 onPopular: self.output.onPopular)
+        filterView.isHidden = true
+        return filterView
+    }()
+    
+    var summaryView: ProfileSummaryView {
+        return headerView.summaryView
+    }
+    
+    var filterView: SegmentedControlView {
+        return headerView.filterView
+    }
+    
+    fileprivate var feedView: UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
-        
-        // Module
-//        let configurator = FeedModuleConfigurator()
-//        configurator.configure(navigationController: self.navigationController!)
-//
-//        feedModuleInput = configurator.moduleInput!
-//        let feedViewController = configurator.viewController!
-//
-//        feedViewController.willMove(toParentViewController: self)
-//        addChildViewController(feedViewController)
-//        container.addSubview(feedViewController.view)
-//
-//        feedViewController.view.snp.makeConstraints { (make) in
-//            make.edges.equalToSuperview()
-//        }
-//
-//        feedViewController.didMove(toParentViewController: self)
-//
-//        let feed = FeedType.user(user: "3v9gnzwILTS", scope: .recent)
-//        feedModuleInput.setFeed(feed)
-//
-//        // Sample for input change
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-//
-//            let feed = FeedType.single(post: "3vErWk4EMrF")
-//            self.feedModuleInput.setFeed(feed)
-//            self.feedModuleInput.refreshData()
-//        }
-
     }
 }
 
 extension UserProfileViewController: UserProfileViewInput {
+    
     func setupInitialState() {
         parent?.navigationItem.rightBarButtonItem = createPostButton
+        view.backgroundColor = Palette.extraLightGrey
+    }
+    
+    func setFeedViewController(_ feedViewController: UIViewController) {
+        feedViewController.willMove(toParentViewController: self)
+        addChildViewController(feedViewController)
+        feedViewController.didMove(toParentViewController: self)
+        
+        view.addSubview(feedViewController.view)
+        
+        feedViewController.view.snp.makeConstraints { make in
+            make.left.equalTo(self.view).offset(Constants.UserProfile.containerInset)
+            make.right.equalTo(self.view).offset(-Constants.UserProfile.containerInset)
+            make.top.equalTo(self.view)
+            make.bottom.equalTo(self.view)
+        }
+        
+        feedView = feedViewController.view
+        
+        view.bringSubview(toFront: stickyFilterView)
+    }
+    
+    func setupHeaderView(_ reusableView: UICollectionReusableView) {
+        guard headerView.superview == nil else {
+            return
+        }
+        
+        reusableView.addSubview(headerView)
+        headerView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     func showError(_ error: Error) {
         showErrorAlert(error)
     }
     
-    func setIsLoading(_ isLoading: Bool) {
-        loadingIndicatorView.isHidden = !isLoading
-        loadingIndicatorView.isLoading = isLoading
-        summaryView.isHidden = isLoading
-    }
+    func setIsLoadingUser(_ isLoading: Bool) { }
     
     func setUser(_ user: User) {
         summaryView.configure(user: user)
@@ -114,5 +116,9 @@ extension UserProfileViewController: UserProfileViewInput {
     
     func setFollowersCount(_ followersCount: Int) {
         summaryView.followersCount = followersCount
+    }
+    
+    func setStickyFilterHidden(_ isHidden: Bool) {
+        stickyFilterView.isHidden = isHidden
     }
 }

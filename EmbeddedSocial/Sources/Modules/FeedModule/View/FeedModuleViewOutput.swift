@@ -5,11 +5,6 @@
 
 protocol FeedModuleViewOutput {
 
-    /**
-        @author igor.popov
-        Notify presenter that view is ready
-    */
-
     func viewIsReady()
     
     func numberOfItems() -> Int
@@ -20,5 +15,9 @@ protocol FeedModuleViewOutput {
     
     func didAskFetchAll()
     func didAskFetchMore()
-
+    
+    func didScrollFeed(_ feedView: UIScrollView)
+    
+    func configureHeader(_ headerView: UICollectionReusableView)
+    var headerSize: CGSize { get }
 }

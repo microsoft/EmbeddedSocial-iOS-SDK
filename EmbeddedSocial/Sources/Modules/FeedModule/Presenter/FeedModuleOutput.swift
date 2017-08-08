@@ -3,8 +3,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-protocol SideMenuModuleOutput {
-    
-    func show(viewController: UIViewController)
-    
+protocol FeedModuleOutput: class {
+    func didScrollFeed(_ feedView: UIScrollView)
 }

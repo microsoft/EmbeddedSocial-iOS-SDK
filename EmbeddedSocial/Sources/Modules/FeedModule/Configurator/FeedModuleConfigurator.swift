@@ -13,8 +13,15 @@ class FeedModuleConfigurator {
     
     weak var viewController: UIViewController!
     weak var moduleInput: FeedModuleInput!
+    weak var cache: Cache!
     
-    func configure(feed: FeedType? = nil, navigationController: UINavigationController? = nil) {
+    required init(cache: Cache) {
+        self.cache = cache
+    }
+    
+    func configure(feed: FeedType? = nil,
+                   navigationController: UINavigationController? = nil,
+                   moduleOutput: FeedModuleOutput? = nil) {
         
         let viewController = StoryboardScene.FeedModule.instantiateFeedModuleViewController()
         let router = FeedModuleRouter()
@@ -34,9 +41,10 @@ class FeedModuleConfigurator {
         
         presenter.view = viewController
         presenter.router = router
+        presenter.moduleOutput = moduleOutput
         
         let interactor = FeedModuleInteractor()
-        interactor.postService = TopicService(cache: SocialPlus.shared.cache) // TODO: inject this
+        interactor.postService = TopicService(cache: cache)
         interactor.output = presenter
         
         presenter.interactor = interactor

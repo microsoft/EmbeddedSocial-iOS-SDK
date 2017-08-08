@@ -6,10 +6,13 @@
 protocol FeedModuleViewInput: class {
 
     func setupInitialState()
-    
     func setLayout(type: FeedModuleLayoutType)
     func reload()
     func reload(with index: Int)
     func setRefreshing(state: Bool)
     
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void)
+
+    func getViewHeight() -> CGFloat
+
 }

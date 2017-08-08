@@ -74,6 +74,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     private func fetchPosts(limit: Int32? = nil, feedType: FeedType, cursor: String?) {
         
         guard isFetching == false else {
+            Logger.log("Cant fetch, already fetching..")
             return
         }
         

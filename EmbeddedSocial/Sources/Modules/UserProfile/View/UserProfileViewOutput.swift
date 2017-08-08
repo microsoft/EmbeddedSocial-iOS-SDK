@@ -17,4 +17,8 @@ protocol UserProfileViewOutput {
     func onFollowers()
     
     func onMore()
+    
+    func onRecent()
+    
+    func onPopular()
 }
