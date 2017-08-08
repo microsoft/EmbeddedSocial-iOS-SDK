@@ -113,20 +113,3 @@ extension User {
         credentials = nil
     }
 }
-
-extension User: Equatable {
-    static func ==(_ lhs: User, _ rhs: User) -> Bool {
-        return lhs.uid == rhs.uid &&
-            lhs.firstName == rhs.firstName &&
-            lhs.lastName == rhs.lastName &&
-            lhs.email == rhs.email &&
-            lhs.bio == rhs.bio &&
-            lhs.photo == rhs.photo &&
-            lhs.credentials == rhs.credentials &&
-            lhs.visibility == rhs.visibility &&
-            lhs.followerStatus == rhs.followerStatus &&
-            lhs.followingStatus == rhs.followingStatus &&
-            lhs.followingCount == rhs.followingCount &&
-            lhs.followersCount == rhs.followersCount
-    }
-}

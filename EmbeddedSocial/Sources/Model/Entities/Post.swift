@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol AutoEquatable {}
+//protocol AutoEquatable {}
 
 struct Post {
 
@@ -67,9 +67,6 @@ extension Post {
     }
     
 }
-
-
-extension Post: AutoEquatable {}
 
 // MARK: PostsFeed
 
