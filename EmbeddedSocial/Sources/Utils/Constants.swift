@@ -23,6 +23,14 @@ extension Constants {
     struct UserList {
         static let pageSize = 30
     }
+    
+    struct UserProfile {
+        static let summaryAspectRatio: CGFloat = 2.25
+        static let containerInset: CGFloat = 10.0
+        static let filterHeight: CGFloat = 44.0
+        static let contentWidth = UIScreen.main.bounds.width - containerInset * 2
+        static let summaryHeight = contentWidth / summaryAspectRatio
+    }
 }
 
 extension Constants {

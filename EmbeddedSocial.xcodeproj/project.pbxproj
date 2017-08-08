@@ -301,6 +301,7 @@
 		8875CCEC1F331CB3001F2474 /* FollowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCE41F331CB3001F2474 /* FollowingViewController.swift */; };
 		8875CCEE1F331CB3001F2474 /* FollowingViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCE61F331CB3001F2474 /* FollowingViewOutput.swift */; };
 		8875CCF11F331FC9001F2474 /* UsersListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCF01F331FC9001F2474 /* UsersListResponse.swift */; };
+		8875CCF31F333835001F2474 /* SegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCF21F333835001F2474 /* SegmentedControlView.swift */; };
 		889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC021F220BCD003AAF19 /* CredentialsListTests.swift */; };
 		889AFC1E1F220BCD003AAF19 /* PhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC031F220BCD003AAF19 /* PhotoTests.swift */; };
 		889AFC1F1F220BCD003AAF19 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC041F220BCD003AAF19 /* UserTests.swift */; };
@@ -354,6 +355,19 @@
 		88F385831F30D0D80048B04C /* UserListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385821F30D0D80048B04C /* UserListInteractor.swift */; };
 		88F385861F30D1080048B04C /* UserListInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385851F30D1080048B04C /* UserListInteractorInput.swift */; };
 		88F3858B1F31BF140048B04C /* UserListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88F385891F31BF140048B04C /* UserListCell.xib */; };
+		88F5518F1F3366A100F4AAB9 /* UserListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F5518E1F3366A100F4AAB9 /* UserListInteractorTests.swift */; };
+		88F551911F3366C600F4AAB9 /* MockUsersListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551901F3366C600F4AAB9 /* MockUsersListAPI.swift */; };
+		88F551931F336D9200F4AAB9 /* UserListPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551921F336D9200F4AAB9 /* UserListPresenterTests.swift */; };
+		88F551951F336DCB00F4AAB9 /* MockUserListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551941F336DCB00F4AAB9 /* MockUserListInteractor.swift */; };
+		88F551991F336FB700F4AAB9 /* MockUserListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551981F336FB700F4AAB9 /* MockUserListModuleOutput.swift */; };
+		88F5519B1F33705100F4AAB9 /* MockUserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F5519A1F33705100F4AAB9 /* MockUserListView.swift */; };
+		88F551A11F34712700F4AAB9 /* FollowingViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCE51F331CB3001F2474 /* FollowingViewInput.swift */; };
+		88F551A21F34719100F4AAB9 /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385881F31BF140048B04C /* UserListCell.swift */; };
+		88F551A41F3472E100F4AAB9 /* SegmentedControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8875CCF41F33384A001F2474 /* SegmentedControlView.xib */; };
+		88F551A61F34919600F4AAB9 /* FeedModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551A51F34919600F4AAB9 /* FeedModuleOutput.swift */; };
+		88F551AA1F386F1300F4AAB9 /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551A91F386F1300F4AAB9 /* UserProfileHeaderView.swift */; };
+		88F551AC1F38717A00F4AAB9 /* UICollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551AB1F38717A00F4AAB9 /* UICollectionView+Ext.swift */; };
+		88F551B41F38A03200F4AAB9 /* SegmentedControlView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551B31F38A03200F4AAB9 /* SegmentedControlView+Ext.swift */; };
 		88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */; };
 		88F7A7891F27896B005FEC5F /* MockAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7881F27896B005FEC5F /* MockAuthService.swift */; };
 		88F7A78B1F2789F0005FEC5F /* MockUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A78A1F2789F0005FEC5F /* MockUserService.swift */; };
@@ -420,8 +434,6 @@
 		9C7D9B341F2F430B005928F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B331F2F430B005928F4 /* Localizable.strings */; };
 		9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */; };
 		9C7D9B381F2F4918005928F4 /* Localizator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7D9B371F2F4918005928F4 /* Localizator.swift */; };
-		9CB3F1FC1F336B2D0099A22D /* FollowingViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCE51F331CB3001F2474 /* FollowingViewInput.swift */; };
-		9CB3F1FD1F336B620099A22D /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385881F31BF140048B04C /* UserListCell.swift */; };
 		9CB3F1FE1F336B780099A22D /* MyFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */; };
 		9CBA39ED1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA39EC1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift */; };
 		9CD760FC1F33149E00ABBB2A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD760FB1F33149E00ABBB2A /* Post.swift */; };
@@ -779,6 +791,8 @@
 		8875CCE51F331CB3001F2474 /* FollowingViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingViewInput.swift; sourceTree = "<group>"; };
 		8875CCE61F331CB3001F2474 /* FollowingViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingViewOutput.swift; sourceTree = "<group>"; };
 		8875CCF01F331FC9001F2474 /* UsersListResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListResponse.swift; sourceTree = "<group>"; };
+		8875CCF21F333835001F2474 /* SegmentedControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlView.swift; sourceTree = "<group>"; };
+		8875CCF41F33384A001F2474 /* SegmentedControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedControlView.xib; sourceTree = "<group>"; };
 		889AFC021F220BCD003AAF19 /* CredentialsListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsListTests.swift; sourceTree = "<group>"; };
 		889AFC031F220BCD003AAF19 /* PhotoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTests.swift; sourceTree = "<group>"; };
 		889AFC041F220BCD003AAF19 /* UserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
@@ -838,6 +852,16 @@
 		88F385851F30D1080048B04C /* UserListInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListInteractorInput.swift; sourceTree = "<group>"; };
 		88F385881F31BF140048B04C /* UserListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListCell.swift; sourceTree = "<group>"; };
 		88F385891F31BF140048B04C /* UserListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserListCell.xib; sourceTree = "<group>"; };
+		88F5518E1F3366A100F4AAB9 /* UserListInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserListInteractorTests.swift; path = UserList/UserListInteractorTests.swift; sourceTree = "<group>"; };
+		88F551901F3366C600F4AAB9 /* MockUsersListAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUsersListAPI.swift; sourceTree = "<group>"; };
+		88F551921F336D9200F4AAB9 /* UserListPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListPresenterTests.swift; sourceTree = "<group>"; };
+		88F551941F336DCB00F4AAB9 /* MockUserListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListInteractor.swift; sourceTree = "<group>"; };
+		88F551981F336FB700F4AAB9 /* MockUserListModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListModuleOutput.swift; sourceTree = "<group>"; };
+		88F5519A1F33705100F4AAB9 /* MockUserListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListView.swift; sourceTree = "<group>"; };
+		88F551A51F34919600F4AAB9 /* FeedModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedModuleOutput.swift; sourceTree = "<group>"; };
+		88F551A91F386F1300F4AAB9 /* UserProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderView.swift; sourceTree = "<group>"; };
+		88F551AB1F38717A00F4AAB9 /* UICollectionView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Ext.swift"; sourceTree = "<group>"; };
+		88F551B31F38A03200F4AAB9 /* SegmentedControlView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentedControlView+Ext.swift"; sourceTree = "<group>"; };
 		88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInteractorTests.swift; sourceTree = "<group>"; };
 		88F7A7881F27896B005FEC5F /* MockAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAuthService.swift; sourceTree = "<group>"; };
 		88F7A78A1F2789F0005FEC5F /* MockUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserService.swift; sourceTree = "<group>"; };
@@ -1143,6 +1167,7 @@
 			children = (
 				88580A9D1F2213AB00C1CBAF /* GroupHeaderTableCell */,
 				88BC5C581F2B6628001FBDD2 /* ProfileSummaryView */,
+				8875CCF61F33384D001F2474 /* SegmentedControlView */,
 				88580AA11F2213AB00C1CBAF /* SubtitleTableCell */,
 				88580AA51F2213AB00C1CBAF /* TextViewCell */,
 				88FFFA601F306EC80066A1A0 /* BarButtonItemWithTarget.swift */,
@@ -1197,6 +1222,8 @@
 				88580AB31F2213AB00C1CBAF /* UITableView+Ext.swift */,
 				88580AB41F2213AB00C1CBAF /* UIView+Ext.swift */,
 				88580AB51F2213AB00C1CBAF /* UIViewController+Alerts.swift */,
+				88F551AB1F38717A00F4AAB9 /* UICollectionView+Ext.swift */,
+				88F551B31F38A03200F4AAB9 /* SegmentedControlView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1877,6 +1904,16 @@
 			path = APIs;
 			sourceTree = "<group>";
 		};
+		8875CCF61F33384D001F2474 /* SegmentedControlView */ = {
+			isa = PBXGroup;
+			children = (
+				8875CCF21F333835001F2474 /* SegmentedControlView.swift */,
+				8875CCF41F33384A001F2474 /* SegmentedControlView.xib */,
+			);
+			name = SegmentedControlView;
+			path = ../Modules/UserProfile/View;
+			sourceTree = "<group>";
+		};
 		889AFC011F220BCD003AAF19 /* EntitiesTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1913,6 +1950,7 @@
 				889AFC081F220BCD003AAF19 /* CreatePost */,
 				88F7A7871F2788E1005FEC5F /* Login */,
 				889AFC0C1F220BCD003AAF19 /* SideMenu */,
+				88F5518D1F33668400F4AAB9 /* UserList */,
 				88FFFA501F2F7F780066A1A0 /* UserProfile */,
 			);
 			path = Modules;
@@ -2038,6 +2076,7 @@
 				88BC5C4B1F2B65D0001FBDD2 /* UserProfileViewController.swift */,
 				88BC5C4C1F2B65D0001FBDD2 /* UserProfileViewInput.swift */,
 				88BC5C4D1F2B65D0001FBDD2 /* UserProfileViewOutput.swift */,
+				88F551A91F386F1300F4AAB9 /* UserProfileHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2094,6 +2133,27 @@
 				88F385891F31BF140048B04C /* UserListCell.xib */,
 			);
 			path = UserListCell;
+			sourceTree = "<group>";
+		};
+		88F5518D1F33668400F4AAB9 /* UserList */ = {
+			isa = PBXGroup;
+			children = (
+				88F5518E1F3366A100F4AAB9 /* UserListInteractorTests.swift */,
+				88F551921F336D9200F4AAB9 /* UserListPresenterTests.swift */,
+				88F5519C1F33715900F4AAB9 /* Mocks */,
+			);
+			name = UserList;
+			sourceTree = "<group>";
+		};
+		88F5519C1F33715900F4AAB9 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				88F5519A1F33705100F4AAB9 /* MockUserListView.swift */,
+				88F551981F336FB700F4AAB9 /* MockUserListModuleOutput.swift */,
+				88F551901F3366C600F4AAB9 /* MockUsersListAPI.swift */,
+				88F551941F336DCB00F4AAB9 /* MockUserListInteractor.swift */,
+			);
+			name = Mocks;
 			sourceTree = "<group>";
 		};
 		88F7A7871F2788E1005FEC5F /* Login */ = {
@@ -2334,6 +2394,7 @@
 			isa = PBXGroup;
 			children = (
 				9CC5313C1F31CCF2004CE94F /* FeedModuleInput.swift */,
+				88F551A51F34919600F4AAB9 /* FeedModuleOutput.swift */,
 				9CC5313D1F31CCF2004CE94F /* FeedModulePresenter.swift */,
 			);
 			path = Presenter;
@@ -2610,6 +2671,7 @@
 				88580C4A1F2213AB00C1CBAF /* CreatePost.storyboard in Resources */,
 				9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */,
 				88F3858B1F31BF140048B04C /* UserListCell.xib in Resources */,
+				88F551A41F3472E100F4AAB9 /* SegmentedControlView.xib in Resources */,
 				88580C631F2213AB00C1CBAF /* MenuStack.storyboard in Resources */,
 				88BC5C541F2B65D0001FBDD2 /* UserProfile.storyboard in Resources */,
 				3234AD1B1F2E70C3009C3327 /* PostCellCompact.xib in Resources */,
@@ -2711,6 +2773,7 @@
 				882AD0C31F2225FF00FC20B7 /* QueriableRepository.swift in Sources */,
 				88580C101F2213AB00C1CBAF /* CredentialsList.swift in Sources */,
 				88580C4C1F2213AB00C1CBAF /* CreatePostViewInput.swift in Sources */,
+				88F551B41F38A03200F4AAB9 /* SegmentedControlView+Ext.swift in Sources */,
 				88580C661F2213AB00C1CBAF /* SideMenuViewOutput.swift in Sources */,
 				88580C731F2213AB00C1CBAF /* Constants.swift in Sources */,
 				88580BA91F2213AB00C1CBAF /* Result.swift in Sources */,
@@ -2749,6 +2812,7 @@
 				88FFFA611F306EC80066A1A0 /* BarButtonItemWithTarget.swift in Sources */,
 				8846CB4B1F30CA0A00F11EC8 /* UserListPresenter.swift in Sources */,
 				882AD0CD1F2227E100FC20B7 /* CoreDataRecord.swift in Sources */,
+				88F551A21F34719100F4AAB9 /* UserListCell.swift in Sources */,
 				88580BDB1F2213AB00C1CBAF /* AppCompactView.swift in Sources */,
 				88580C4F1F2213AB00C1CBAF /* LoginInteractor.swift in Sources */,
 				88580BD71F2213AB00C1CBAF /* UsersAPI.swift in Sources */,
@@ -2778,6 +2842,7 @@
 				9C6D35A41F31D1C1005893DB /* FeedModuleViewOutput.swift in Sources */,
 				88580BBC1F2213AB00C1CBAF /* String+Encoding.swift in Sources */,
 				88580C4D1F2213AB00C1CBAF /* CreatePostViewOutput.swift in Sources */,
+				88F551A61F34919600F4AAB9 /* FeedModuleOutput.swift in Sources */,
 				8846CB491F30C98C00F11EC8 /* UserListModuleInput.swift in Sources */,
 				88580C291F2213AB00C1CBAF /* SessionStoreDatabaseFacade.swift in Sources */,
 				88580C601F2213AB00C1CBAF /* SideMenuRouter.swift in Sources */,
@@ -2786,6 +2851,7 @@
 				88580C281F2213AB00C1CBAF /* SessionStoreDatabase.swift in Sources */,
 				88580BAC1F2213AB00C1CBAF /* SideMenuCellView.swift in Sources */,
 				8875CCE91F331CB3001F2474 /* FollowingPresenter.swift in Sources */,
+				88F551AC1F38717A00F4AAB9 /* UICollectionView+Ext.swift in Sources */,
 				88F385861F30D1080048B04C /* UserListInteractorInput.swift in Sources */,
 				88BC5C501F2B65D0001FBDD2 /* UserProfileInteractorInput.swift in Sources */,
 				88F3857F1F30CD890048B04C /* UserListModuleOutput.swift in Sources */,
@@ -2858,6 +2924,7 @@
 				88580C671F2213AB00C1CBAF /* TabMenuContainerConfigurator.swift in Sources */,
 				88580C201F2213AB00C1CBAF /* TwitterWebBasedAPI.swift in Sources */,
 				882AD0C51F22266B00FC20B7 /* CoreDataRepository.swift in Sources */,
+				8875CCF31F333835001F2474 /* SegmentedControlView.swift in Sources */,
 				9C6D35A21F31D1C1005893DB /* FeedModuleViewController.swift in Sources */,
 				88580C371F2213AB00C1CBAF /* CreateAccountRouter.swift in Sources */,
 				88580BFD1F2213AB00C1CBAF /* PostUserRequest.swift in Sources */,
@@ -2880,7 +2947,6 @@
 				63A1D7051F2740910090C67A /* Cache.swift in Sources */,
 				881060F91F28E502008CA2FB /* UIButtonStyles.swift in Sources */,
 				8875CCEE1F331CB3001F2474 /* FollowingViewOutput.swift in Sources */,
-				9CB3F1FD1F336B620099A22D /* UserListCell.swift in Sources */,
 				88087B461F2A431E00A33E9A /* ButtonDecorator.swift in Sources */,
 				88580BDD1F2213AB00C1CBAF /* CommentView.swift in Sources */,
 				88635D7F1F22447C00577140 /* OutgoingTransaction.swift in Sources */,
@@ -2908,6 +2974,7 @@
 				88580C091F2213AB00C1CBAF /* UserProfileView.swift in Sources */,
 				88580C2F1F2213AB00C1CBAF /* UserService.swift in Sources */,
 				88FFFA7A1F30BAFE0066A1A0 /* FollowersViewOutput.swift in Sources */,
+				88F551A11F34712700F4AAB9 /* FollowingViewInput.swift in Sources */,
 				3209330D1F2A50D300890218 /* Logger.swift in Sources */,
 				88580C341F2213AB00C1CBAF /* CreateAccountInteractorInput.swift in Sources */,
 				88580C061F2213AB00C1CBAF /* ReplyView.swift in Sources */,
@@ -2923,6 +2990,7 @@
 				882AD0D11F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift in Sources */,
 				88580BC91F2213AB00C1CBAF /* BuildsAPI.swift in Sources */,
 				88580BC51F2213AB00C1CBAF /* UIViewController+Alerts.swift in Sources */,
+				88F551AA1F386F1300F4AAB9 /* UserProfileHeaderView.swift in Sources */,
 				88580BBD1F2213AB00C1CBAF /* String+Memento.swift in Sources */,
 				88580C121F2213AB00C1CBAF /* Photo+Memento.swift in Sources */,
 				88580BC71F2213AB00C1CBAF /* APIHelper.swift in Sources */,
@@ -2992,7 +3060,6 @@
 				88580BEA1F2213AB00C1CBAF /* Object.swift in Sources */,
 				88580BDC1F2213AB00C1CBAF /* BuildsCurrentResponse.swift in Sources */,
 				88580C081F2213AB00C1CBAF /* UserCompactView.swift in Sources */,
-				9CB3F1FC1F336B2D0099A22D /* FollowingViewInput.swift in Sources */,
 				88580BC11F2213AB00C1CBAF /* UIImage+Resize.swift in Sources */,
 				88580BA01F2213AB00C1CBAF /* CellModel.swift in Sources */,
 				88580C031F2213AB00C1CBAF /* PutUserInfoRequest.swift in Sources */,
@@ -3056,6 +3123,7 @@
 				889AFC271F220BCD003AAF19 /* AuthServiceTests.swift in Sources */,
 				88F7A7951F278D90005FEC5F /* MockLoginRouter.swift in Sources */,
 				88F7A79F1F2799F3005FEC5F /* MockCreateAccountViewController.swift in Sources */,
+				88F551991F336FB700F4AAB9 /* MockUserListModuleOutput.swift in Sources */,
 				88FFFA671F30AB170066A1A0 /* MyProfileHolder.swift in Sources */,
 				883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */,
 				88FFFA5A1F2F7F780066A1A0 /* UserProfileInteractorTests.swift in Sources */,
@@ -3064,6 +3132,7 @@
 				88F163791F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift in Sources */,
 				88F163891F27569900DAAF68 /* MockQueriableRepository.swift in Sources */,
 				88F7A78F1F278C47005FEC5F /* LoginPresenterTests.swift in Sources */,
+				88F551911F3366C600F4AAB9 /* MockUsersListAPI.swift in Sources */,
 				88F1638B1F27658B00DAAF68 /* IncomingTransactionTests.swift in Sources */,
 				889AFC2E1F220BCD003AAF19 /* SocialPlusTests.swift in Sources */,
 				88FFFA581F2F7F780066A1A0 /* MockUserProfileRouter.swift in Sources */,
@@ -3072,10 +3141,14 @@
 				88F7A78D1F278AA4005FEC5F /* MockSessionService.swift in Sources */,
 				88F1638D1F27677100DAAF68 /* OutgoingTransactionTests.swift in Sources */,
 				883B9B681F277E5A00D1E66E /* CoreDataSavingTests.swift in Sources */,
+				88F5519B1F33705100F4AAB9 /* MockUserListView.swift in Sources */,
 				88087B4A1F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift in Sources */,
+				88F5518F1F3366A100F4AAB9 /* UserListInteractorTests.swift in Sources */,
 				88F7A7891F27896B005FEC5F /* MockAuthService.swift in Sources */,
+				88F551951F336DCB00F4AAB9 /* MockUserListInteractor.swift in Sources */,
 				88FFFA5F1F2F81A70066A1A0 /* FollowStatusTests.swift in Sources */,
 				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
+				88F551931F336D9200F4AAB9 /* UserListPresenterTests.swift in Sources */,
 				88FFFA591F2F7F780066A1A0 /* MockUserProfileView.swift in Sources */,
 				88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */,
 				88F163851F2745E500DAAF68 /* CreateAccountValidatorTests.swift in Sources */,
