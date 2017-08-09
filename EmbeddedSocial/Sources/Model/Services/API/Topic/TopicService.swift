@@ -131,7 +131,7 @@ class TopicService: PostServiceProtocol {
     // MARK: GET
     
     func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
-        SocialAPI.myFollowingGetFollowingTopics(cursor: query.cursor, limit: query.limit) { [weak self] response, error in
+        SocialAPI.myFollowingGetFollowingTopics(authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!, cursor: query.cursor, limit: query.limit) { [weak self] response, error in
             self?.parseResponse(response: response, error: error, completion: completion)
         }
     }
