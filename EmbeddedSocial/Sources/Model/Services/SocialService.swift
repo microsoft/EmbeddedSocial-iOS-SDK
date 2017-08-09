@@ -37,13 +37,13 @@ struct SocialService: SocialServiceType {
         let request = PostFollowingUserRequest()
         request.userHandle = userID
         
-        SocialAPI.myFollowingPostFollowingUser(request: request, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { data, error in
+        SocialAPI.myFollowingPostFollowingUser(request: request, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { data, error in
             self.processResponse(data, error, completion)
         }
     }
     
     func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        SocialAPI.myFollowingDeleteFollowingUser(userHandle: userID, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { data, error in
+        SocialAPI.myFollowingDeleteFollowingUser(userHandle: userID, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { data, error in
             self.processResponse(data, error, completion)
         }
     }
