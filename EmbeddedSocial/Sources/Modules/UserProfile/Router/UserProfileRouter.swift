@@ -24,7 +24,7 @@ final class UserProfileRouter: UserProfileRouterInput {
     
     func openFollowing(user: User) {
         let api: UsersListAPI = user.isMe ?
-            MeFollowingAPI(service: SocialService()) :
+            MyFollowingAPI(service: SocialService()) :
             UserFollowingAPI(userID: user.uid, service: SocialService())
         
         let configurator = FollowingConfigurator()

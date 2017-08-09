@@ -8,9 +8,16 @@ import Foundation
 struct UserListItemsBuilder {
     typealias Section = UserListDataDisplayManager.Section
     
+    private let me: User
+    
+    init(me: User) {
+        self.me = me
+    }
+    
     func makeSections(users: [User], actionHandler: @escaping (UserListItem) -> Void) -> [Section] {
-        let items = users.enumerated().map {
-            UserListItem(user: $0.element, indexPath: IndexPath(row: $0.offset, section: 0), action: actionHandler)
+        let items = users.enumerated().map { pair -> UserListItem in
+            let user = pair.element.uid == self.me.uid ? self.me : pair.element
+            return UserListItem(user: user, indexPath: IndexPath(row: pair.offset, section: 0), action: actionHandler)
         }
         
         return [Section(model: (), items: items)]

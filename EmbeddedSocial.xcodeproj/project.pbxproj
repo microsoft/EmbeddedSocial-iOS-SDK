@@ -293,7 +293,7 @@
 		886F4B3B1F2A06E500D836C3 /* SocialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886F4B3A1F2A06E500D836C3 /* SocialService.swift */; };
 		8875CCD91F3314B6001F2474 /* UserFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCD81F3314B6001F2474 /* UserFollowersAPI.swift */; };
 		8875CCE71F331CB3001F2474 /* FollowingConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCDD1F331CB3001F2474 /* FollowingConfigurator.swift */; };
-		8875CCE81F331CB3001F2474 /* MeFollowingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCDE1F331CB3001F2474 /* MeFollowingAPI.swift */; };
+		8875CCE81F331CB3001F2474 /* MyFollowingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCDE1F331CB3001F2474 /* MyFollowingAPI.swift */; };
 		8875CCE91F331CB3001F2474 /* FollowingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCE01F331CB3001F2474 /* FollowingPresenter.swift */; };
 		8875CCEA1F331CB3001F2474 /* UserFollowingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCE11F331CB3001F2474 /* UserFollowingAPI.swift */; };
 		8875CCEB1F331CB3001F2474 /* Following.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8875CCE31F331CB3001F2474 /* Following.storyboard */; };
@@ -379,6 +379,10 @@
 		88F551CE1F39E9D400F4AAB9 /* FollowersPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551CD1F39E9D400F4AAB9 /* FollowersPresenterTests.swift */; };
 		88F551D01F39E9F300F4AAB9 /* MockFollowersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551CF1F39E9F300F4AAB9 /* MockFollowersView.swift */; };
 		88F551D21F3A047F00F4AAB9 /* CreatePostModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551D11F3A047F00F4AAB9 /* CreatePostModuleOutput.swift */; };
+		88F551D41F3AF6AB00F4AAB9 /* MyFollowersAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551D31F3AF6AB00F4AAB9 /* MyFollowersAPITests.swift */; };
+		88F551D61F3AF8BE00F4AAB9 /* UserFollowersAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551D51F3AF8BE00F4AAB9 /* UserFollowersAPITests.swift */; };
+		88F551D81F3AF93600F4AAB9 /* MyFollowingAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551D71F3AF93600F4AAB9 /* MyFollowingAPITests.swift */; };
+		88F551DA1F3AFA8700F4AAB9 /* UserFollowingAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551D91F3AFA8700F4AAB9 /* UserFollowingAPITests.swift */; };
 		88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */; };
 		88F7A7891F27896B005FEC5F /* MockAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7881F27896B005FEC5F /* MockAuthService.swift */; };
 		88F7A78B1F2789F0005FEC5F /* MockUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A78A1F2789F0005FEC5F /* MockUserService.swift */; };
@@ -809,7 +813,7 @@
 		886F4B3A1F2A06E500D836C3 /* SocialService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialService.swift; sourceTree = "<group>"; };
 		8875CCD81F3314B6001F2474 /* UserFollowersAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowersAPI.swift; sourceTree = "<group>"; };
 		8875CCDD1F331CB3001F2474 /* FollowingConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingConfigurator.swift; sourceTree = "<group>"; };
-		8875CCDE1F331CB3001F2474 /* MeFollowingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeFollowingAPI.swift; sourceTree = "<group>"; };
+		8875CCDE1F331CB3001F2474 /* MyFollowingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFollowingAPI.swift; sourceTree = "<group>"; };
 		8875CCE01F331CB3001F2474 /* FollowingPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingPresenter.swift; sourceTree = "<group>"; };
 		8875CCE11F331CB3001F2474 /* UserFollowingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowingAPI.swift; sourceTree = "<group>"; };
 		8875CCE31F331CB3001F2474 /* Following.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Following.storyboard; sourceTree = "<group>"; };
@@ -898,6 +902,10 @@
 		88F551CD1F39E9D400F4AAB9 /* FollowersPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersPresenterTests.swift; sourceTree = "<group>"; };
 		88F551CF1F39E9F300F4AAB9 /* MockFollowersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFollowersView.swift; sourceTree = "<group>"; };
 		88F551D11F3A047F00F4AAB9 /* CreatePostModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostModuleOutput.swift; sourceTree = "<group>"; };
+		88F551D31F3AF6AB00F4AAB9 /* MyFollowersAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFollowersAPITests.swift; sourceTree = "<group>"; };
+		88F551D51F3AF8BE00F4AAB9 /* UserFollowersAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowersAPITests.swift; sourceTree = "<group>"; };
+		88F551D71F3AF93600F4AAB9 /* MyFollowingAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFollowingAPITests.swift; sourceTree = "<group>"; };
+		88F551D91F3AFA8700F4AAB9 /* UserFollowingAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowingAPITests.swift; sourceTree = "<group>"; };
 		88F7A7851F2788DE005FEC5F /* LoginInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInteractorTests.swift; sourceTree = "<group>"; };
 		88F7A7881F27896B005FEC5F /* MockAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAuthService.swift; sourceTree = "<group>"; };
 		88F7A78A1F2789F0005FEC5F /* MockUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserService.swift; sourceTree = "<group>"; };
@@ -1613,8 +1621,8 @@
 			isa = PBXGroup;
 			children = (
 				88580B4E1F2213AB00C1CBAF /* CreatePostModuleInput.swift */,
-				88580B4F1F2213AB00C1CBAF /* CreatePostPresenter.swift */,
 				88F551D11F3A047F00F4AAB9 /* CreatePostModuleOutput.swift */,
+				88580B4F1F2213AB00C1CBAF /* CreatePostPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -1950,7 +1958,7 @@
 		8875CCEF1F331E44001F2474 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
-				8875CCDE1F331CB3001F2474 /* MeFollowingAPI.swift */,
+				8875CCDE1F331CB3001F2474 /* MyFollowingAPI.swift */,
 				8875CCE11F331CB3001F2474 /* UserFollowingAPI.swift */,
 			);
 			path = APIs;
@@ -2217,6 +2225,8 @@
 			children = (
 				88F551BF1F39D52000F4AAB9 /* FollowingPresenterTests.swift */,
 				88F551C11F39D59000F4AAB9 /* MockFollowingView.swift */,
+				88F551D71F3AF93600F4AAB9 /* MyFollowingAPITests.swift */,
+				88F551D91F3AFA8700F4AAB9 /* UserFollowingAPITests.swift */,
 			);
 			path = Following;
 			sourceTree = "<group>";
@@ -2226,6 +2236,8 @@
 			children = (
 				88F551CD1F39E9D400F4AAB9 /* FollowersPresenterTests.swift */,
 				88F551CF1F39E9F300F4AAB9 /* MockFollowersView.swift */,
+				88F551D31F3AF6AB00F4AAB9 /* MyFollowersAPITests.swift */,
+				88F551D51F3AF8BE00F4AAB9 /* UserFollowersAPITests.swift */,
 			);
 			path = Followers;
 			sourceTree = "<group>";
@@ -3151,7 +3163,7 @@
 				88BC5C4F1F2B65D0001FBDD2 /* UserProfileInteractor.swift in Sources */,
 				88580C301F2213AB00C1CBAF /* SocialPlus.swift in Sources */,
 				88580C0B1F2213AB00C1CBAF /* Images.swift in Sources */,
-				8875CCE81F331CB3001F2474 /* MeFollowingAPI.swift in Sources */,
+				8875CCE81F331CB3001F2474 /* MyFollowingAPI.swift in Sources */,
 				88580BB11F2213AB00C1CBAF /* GroupHeaderTableCell.swift in Sources */,
 				88580C351F2213AB00C1CBAF /* CreateAccountModuleOutput.swift in Sources */,
 				88580BFF1F2213AB00C1CBAF /* PutNotificationsStatusRequest.swift in Sources */,
@@ -3212,6 +3224,7 @@
 				63A1D71D1F29FC120090C67A /* MockTransactionsDatabaseFacade.swift in Sources */,
 				88F551BD1F39D2EF00F4AAB9 /* MockUserProfileView.swift in Sources */,
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
+				88F551D41F3AF6AB00F4AAB9 /* MyFollowersAPITests.swift in Sources */,
 				88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */,
 				88F163871F27565400DAAF68 /* TransactionsDatabaseFacadeTests.swift in Sources */,
 				9C8F68981F34AA8200AF4A7F /* FeedModuleInteractor-Pagination-Tests.swift in Sources */,
@@ -3247,6 +3260,7 @@
 				88F551991F336FB700F4AAB9 /* MockUserListModuleOutput.swift in Sources */,
 				88FFFA671F30AB170066A1A0 /* MyProfileHolder.swift in Sources */,
 				883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */,
+				88F551D81F3AF93600F4AAB9 /* MyFollowingAPITests.swift in Sources */,
 				88FFFA5A1F2F7F780066A1A0 /* UserProfileInteractorTests.swift in Sources */,
 				88F551BA1F39BB9700F4AAB9 /* MockFeedModuleInput.swift in Sources */,
 				88F1637B1F26494100DAAF68 /* SocialUserTests.swift in Sources */,
@@ -3254,6 +3268,7 @@
 				889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */,
 				88F163791F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift in Sources */,
 				88F163891F27569900DAAF68 /* MockQueriableRepository.swift in Sources */,
+				88F551DA1F3AFA8700F4AAB9 /* UserFollowingAPITests.swift in Sources */,
 				88F551C41F39D65200F4AAB9 /* MockUserListModuleInput.swift in Sources */,
 				9CB3F2021F346E790099A22D /* FeedModuleInteractor-SocialActions-Tests.swift in Sources */,
 				88F7A78F1F278C47005FEC5F /* LoginPresenterTests.swift in Sources */,
@@ -3267,6 +3282,7 @@
 				88F1638D1F27677100DAAF68 /* OutgoingTransactionTests.swift in Sources */,
 				883B9B681F277E5A00D1E66E /* CoreDataSavingTests.swift in Sources */,
 				88F5519B1F33705100F4AAB9 /* MockUserListView.swift in Sources */,
+				88F551D61F3AF8BE00F4AAB9 /* UserFollowersAPITests.swift in Sources */,
 				88087B4A1F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift in Sources */,
 				88F5518F1F3366A100F4AAB9 /* UserListInteractorTests.swift in Sources */,
 				88F7A7891F27896B005FEC5F /* MockAuthService.swift in Sources */,

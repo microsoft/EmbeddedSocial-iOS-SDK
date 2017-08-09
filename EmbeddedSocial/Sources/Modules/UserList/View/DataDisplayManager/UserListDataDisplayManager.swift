@@ -24,8 +24,14 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
         return self
     }
     
+    private let me: User
+    
+    init(me: User) {
+        self.me = me
+    }
+    
     func setup(with users: [User]) {
-        let builder = UserListItemsBuilder()
+        let builder = UserListItemsBuilder(me: me)
         sections = builder.makeSections(users: users, actionHandler: onItemAction)
         registerCells(for: tableView)
         tableView.reloadData()
@@ -59,7 +65,7 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
     }
     
     func updateListItem(with user: User, at indexPath: IndexPath) {
-        let builder = UserListItemsBuilder()
+        let builder = UserListItemsBuilder(me: me)
         sections = builder.updatedSections(with: user, at: indexPath, sections: sections)
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
