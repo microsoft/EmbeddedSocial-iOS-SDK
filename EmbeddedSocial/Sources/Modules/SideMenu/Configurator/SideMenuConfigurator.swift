@@ -12,15 +12,15 @@ class SideMenuModuleConfigurator {
     var router: SideMenuRouter!
     
     func configure(coordinator: CrossModuleCoordinator,
-                         configuration: SideMenuType,
-                         socialMenuItemsProvider: SideMenuItemsProvider,
-                         clientMenuItemsProvider: SideMenuItemsProvider?) {
+                   configuration: SideMenuType,
+                   socialMenuItemsProvider: SideMenuItemsProvider,
+                   clientMenuItemsProvider: SideMenuItemsProvider?) {
         
         viewController = StoryboardScene.MenuStack.instantiateSideMenuViewController()
         
         router = SideMenuRouter()
         router.coordinator = coordinator
-
+        
         let presenter = SideMenuPresenter()
         presenter.view = viewController
         presenter.router = router
@@ -29,9 +29,9 @@ class SideMenuModuleConfigurator {
         interactor.output = presenter
         interactor.clientMenuItemsProvider = clientMenuItemsProvider
         interactor.socialMenuItemsProvider = socialMenuItemsProvider
-
+        
         presenter.interactor = interactor
-        presenter.configation = configuration
+        presenter.configuration = configuration
         viewController.output = presenter
         
         moduleInput = presenter

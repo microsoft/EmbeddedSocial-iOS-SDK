@@ -3,8 +3,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-protocol SideMenuModuleInput: class {
+import Foundation
+
+extension ErrorResponse {
     
-    var user: User? { get set }
-    func close()
+    var statusCode: Int {
+        switch self {
+        case let .Error(code, _, _): return code
+        }
+    }
 }

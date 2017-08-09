@@ -15,6 +15,12 @@ protocol UserServiceType {
 
 struct UserService: UserServiceType {
     
+    private let errorHandler: APIErrorHandler
+    
+    init(errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
+        self.errorHandler = errorHandler
+    }
+    
     func getMyProfile(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
         APISettings.shared.customHeaders = credentials.authHeader
         
@@ -55,7 +61,7 @@ struct UserService: UserServiceType {
                 let user = User(profileView: profile)
                 completion(.success(user))
             } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
+                self.errorHandler.handle(error: error, completion: completion)
             }
         }
     }

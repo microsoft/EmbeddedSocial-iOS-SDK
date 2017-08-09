@@ -9,6 +9,8 @@ protocol SessionServiceType {
     func makeNewSession(with credentials: CredentialsList, userUID: String, completion: @escaping (Result<String>) -> Void)
     
     func requestToken(authProvider: AuthProvider, completion: @escaping (Result<String>) -> Void)
+    
+    func deleteCurrentSession(completion: @escaping (Result<Void>) -> Void)
 }
 
 struct SessionService: SessionServiceType {
@@ -41,6 +43,16 @@ struct SessionService: SessionServiceType {
         SessionsAPI.requestTokensGetRequestToken(identityProvider: provider) { response, error in
             if let token = response?.requestToken {
                 completion(.success(token))
+            } else {
+                completion(.failure(APIError(error: error as? ErrorResponse)))
+            }
+        }
+    }
+    
+    func deleteCurrentSession(completion: @escaping (Result<Void>) -> Void) {        
+        SessionsAPI.sessionsDeleteSession { response, error in
+            if error == nil {
+                completion(.success())
             } else {
                 completion(.failure(APIError(error: error as? ErrorResponse)))
             }

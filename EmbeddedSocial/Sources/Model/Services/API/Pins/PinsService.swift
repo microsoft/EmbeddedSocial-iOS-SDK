@@ -16,14 +16,22 @@ protocol PinsServiceProtocol {
 }
 
 class PinsService: PinsServiceProtocol {
+    private let errorHandler: APIErrorHandler
+    
+    init(errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
+        self.errorHandler = errorHandler
+    }
     
     func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
-    
         let request = PostPinRequest()
         request.topicHandle = postHandle
         PinsAPI.myPinsPostPin(request: request) { (object, error) in
             Logger.log(object, error)
-            completion(postHandle, error)
+            if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else {
+                completion(postHandle, error)
+            }
         }
     }
     
@@ -31,7 +39,11 @@ class PinsService: PinsServiceProtocol {
         
         PinsAPI.myPinsDeletePin(topicHandle: postHandle) { (object, error) in
             Logger.log(object, error)
-            completion(postHandle, error)
+            if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else {
+                completion(postHandle, error)
+            }
         }
     }
     

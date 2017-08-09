@@ -10,7 +10,7 @@ class CacheTests: XCTestCase {
     
     private var coreDataStack: CoreDataStack!
     private var transactionsDatabase: MockTransactionsDatabaseFacade!
-    private var cache: Cachable!
+    private var cache: CacheType!
     
     private let timeoutDelay: TimeInterval = 5
     

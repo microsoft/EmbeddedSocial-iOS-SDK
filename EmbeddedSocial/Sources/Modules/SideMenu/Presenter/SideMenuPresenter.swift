@@ -26,9 +26,9 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     weak var view: SideMenuViewInput!
     var interactor: SideMenuInteractorInput!
     var router: SideMenuRouterInput!
-    var configation: SideMenuType = .tab {
+    var configuration: SideMenuType = .tab {
         didSet {
-            tab = (configation == .tab) ? .social : nil
+            tab = (configuration == .tab) ? .social : nil
         }
     }
     
@@ -40,11 +40,11 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     }
     
     var accountViewAvailable: Bool {
-        return !(configation == .tab && tab == .client)
+        return !(configuration == .tab && tab == .client)
     }
     
     var tabBarViewAvailable: Bool {
-        return configation == .tab
+        return configuration == .tab
     }
     
     func accountInfo() -> SideMenuHeaderModel {
@@ -95,7 +95,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     }
     
     func didSwitch(to tab: Int) {
-        assert(configation == .tab)
+        assert(configuration == .tab)
         self.tab = SideMenuTabs(rawValue: tab)
         view.showAccountInfo(visible: accountViewAvailable)
         view.selectBar(with: self.tab!.rawValue)
@@ -118,7 +118,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         
         items = MenuItems()
         
-        let collapsible = (configation == .dual)
+        let collapsible = (configuration == .dual)
         
         let socialItems = interactor.socialMenuItems()
         let clientItems = interactor.clientMenuItems()
@@ -131,7 +131,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
                                                  isCollapsed: false,
                                                  items: clientItems)
         
-        switch configation {
+        switch configuration {
         case .tab:
             
             switch tab! {
@@ -152,7 +152,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         
         let index = path.row
         
-        switch configation {
+        switch configuration {
         case .tab:
             
             switch tab! {
@@ -182,5 +182,4 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     func close() {
         router.close()
     }
-    
 }

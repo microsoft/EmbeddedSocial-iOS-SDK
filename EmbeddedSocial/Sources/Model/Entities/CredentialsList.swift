@@ -5,6 +5,8 @@
 
 import Foundation
 
+typealias Authorization = [String: String]
+
 struct CredentialsList {
     let provider: AuthProvider
     let accessToken: String
@@ -21,7 +23,7 @@ struct CredentialsList {
         self.appKey = appKey
     }
     
-    var authHeader: [String: String] {
+    var authHeader: Authorization {
         var value: String = ""
         
         switch provider {

@@ -12,7 +12,7 @@ final class UserProfileRouter: UserProfileRouterInput {
     weak var followingModuleOutput: FollowingModuleOutput?
     weak var createPostModuleOutput: CreatePostModuleOutput?
 
-    func openFollowers(user: User) {
+    func openFollowers(user: User) {        
         let api: UsersListAPI = user.isMe ?
             MyFollowersAPI(service: SocialService()) :
             UserFollowersAPI(userID: user.uid, service: SocialService())

@@ -16,18 +16,31 @@ protocol LikesServiceProtocol {
 }
 
 class LikesService: LikesServiceProtocol {
+    private let errorHandler: APIErrorHandler
+    
+    init(errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
+        self.errorHandler = errorHandler
+    }
     
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         LikesAPI.topicLikesPostLike(topicHandle: postHandle) { (object, error) in
             Logger.log(object, error)
-            completion(postHandle, error)
+            if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else {
+                completion(postHandle, error)
+            }
         }
     }
     
     func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         LikesAPI.topicLikesDeleteLike(topicHandle: postHandle) { (object, error) in
             Logger.log(object, error)
-            completion(postHandle, error)
+            if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else {
+                completion(postHandle, error)
+            }
         }
     }
 

@@ -40,13 +40,11 @@ public enum Result<Value> {
         }
     }
     
-    public init?(value: Value?, error: Error?) {
+    public init(value: Value?, error: Error?) {
         if let value = value {
             self = .success(value)
-        } else if let error = error {
-            self = .failure(error)
+        } else {
+            self = .failure(error ?? APIError.unknown)
         }
-        
-        return nil
     }
 }

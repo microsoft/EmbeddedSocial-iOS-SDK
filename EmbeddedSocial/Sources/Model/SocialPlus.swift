@@ -8,15 +8,13 @@ import Foundation
 public final class SocialPlus {
     public static let shared = SocialPlus()
     
-    private(set) var sessionStore: SessionStore!
-    fileprivate var serviceProvider: SocialPlusServicesType!
-    
-    fileprivate var coordinator: CrossModuleCoordinator!
-    private(set) var coreDataStack: CoreDataStack!
-    
-    private(set) var cache: Cache!
-    
     fileprivate let queue = DispatchQueue(label: "Social Plus read-write queue")
+
+    private(set) var sessionStore: SessionStore!
+    private(set) var serviceProvider: SocialPlusServicesType!
+    private(set) var coordinator: CrossModuleCoordinator!
+    private(set) var coreDataStack: CoreDataStack!
+    private(set) var cache: Cache!
     
     private init() {
         setupServices(with: SocialPlusServices())
@@ -83,5 +81,20 @@ extension SocialPlus: UserHolder {
         get {
             return queue.sync { sessionStore.user }
         }
+    }
+}
+
+extension SocialPlus: LogoutController {
+    
+    func logOut(with error: Error) {
+        logOut()
+        coordinator.showError(error)
+    }
+    
+    func logOut() {
+        APISettings.shared.customHeaders = APISettings.shared.anonymousHeaders
+        try? sessionStore.deleteCurrentSession()
+        setupServices(with: SocialPlusServices())
+        coordinator.logOut()
     }
 }

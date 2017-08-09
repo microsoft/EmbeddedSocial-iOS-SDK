@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol Cachable {
+protocol CacheType {
     @discardableResult func cacheIncoming(object: JSONEncodable) -> IncomingTransaction
     
     @discardableResult func cacheOutgoing(object: JSONEncodable) -> OutgoingTransaction
@@ -18,7 +18,7 @@ protocol Cachable {
 
 typealias FetchResult = ([JSONEncodable]) -> Void
 
-class Cache: Cachable {
+class Cache: CacheType {
     
     private let database: TransactionsDatabaseFacadeType
     

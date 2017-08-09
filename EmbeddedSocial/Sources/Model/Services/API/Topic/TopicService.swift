@@ -57,68 +57,70 @@ protocol PostServiceProtocol {
 }
 
 class TopicService: PostServiceProtocol {
+    private let cache: CacheType
+    private let errorHandler: APIErrorHandler
     
-    private var success: TopicPosted?
-    private var failure: Failure?
-    
-    private var cache: Cachable!
-    
-    // MARK: Public
-    init(cache: Cachable) {
+    init(cache: CacheType, errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
         self.cache = cache
+        self.errorHandler = errorHandler
     }
     
-    // MARK: POST
-    
     func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
-        self.success = success
-        self.failure = failure
-        
         guard let network = NetworkReachabilityManager() else {
+            failure(APIError.unknown)
             return
         }
         
-        if network.isReachable {
-            guard let image = photo?.image else {
-                sendPostTopicRequest(request: topic)
-                return
+        guard network.isReachable else {
+            cacheTopic(topic, with: photo)
+            return
+        }
+        
+        guard let image = photo?.image else {
+            postTopic(request: topic, success: success, failure: failure)
+            return
+        }
+        
+        postImage(image) { [unowned self] handle, error in
+            if let handle = handle {
+                topic.blobHandle = handle
+                self.postTopic(request: topic, success: success, failure: failure)
+            } else if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else {
+                failure(error ?? APIError.unknown)
             }
-            
-            guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
-                return
-            }
-            
-            ImagesAPI.imagesPostImage(imageType: ImagesAPI.ImageType_imagesPostImage.contentBlob,
-                                      image: imageData) { [weak self] (response, error) in
-                                        guard let blobHandle = response?.blobHandle else {
-                                            if let unwrappedError = error {
-                                                failure(unwrappedError)
-                                            }
-                                            return
-                                        }
-                                        
-                                        topic.blobHandle = blobHandle
-                                        self?.sendPostTopicRequest(request: topic)
-            }
-            
-        } else {
-            if photo != nil {
-                cache?.cacheOutgoing(object: photo!)
-                topic.blobHandle = photo?.url
-            }
-            
-            cache?.cacheOutgoing(object: topic)
         }
     }
     
-    private func sendPostTopicRequest(request: PostTopicRequest) {
-        TopicsAPI.topicsPostTopic(request: request) { [weak self] (response, error) in
-            guard response != nil else {
-                self?.failure!(error!)
-                return
+    private func cacheTopic(_ topic: PostTopicRequest, with photo: Photo?) {
+        if let photo = photo {
+            cache.cacheOutgoing(object: photo)
+            topic.blobHandle = photo.uid
+        }
+        cache.cacheOutgoing(object: topic)
+    }
+
+    private func postTopic(request: PostTopicRequest, success: @escaping TopicPosted, failure: @escaping Failure) {
+        TopicsAPI.topicsPostTopic(request: request) { [unowned self] response, error in
+            if response != nil {
+                success(request)
+            } else if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else {
+                failure(error ?? APIError.unknown)
             }
-            
-            self?.success!(request)
+        }
+    }
+    
+    private func postImage(_ image: UIImage, completion: @escaping (String?, Error?) -> Void) {
+        guard let imageData = UIImageJPEGRepresentation(image, Constants.imageCompressionQuality) else {
+            completion(nil, APIError.custom("Image is invalid"))
+            return
+        }
+        
+        ImagesAPI.imagesPostImage(imageType: .contentBlob, image: imageData) { response, error in
+            completion(response?.blobHandle, error)
         }
     }
     
@@ -150,19 +152,17 @@ class TopicService: PostServiceProtocol {
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        TopicsAPI.topicsGetTopic(topicHandle: post) { (topic, error) in
+        TopicsAPI.topicsGetTopic(topicHandle: post) { [unowned self] (topic, error) in
             
             var result = PostFetchResult()
             
-            guard error == nil else {
-                result.error = FeedServiceError.failedToFetch(message: error!.localizedDescription)
-                completion(result)
-                return
-            }
-            
             guard let data = topic else {
-                result.error = FeedServiceError.failedToFetch(message: "No item for \(post)")
-                completion(result)
+                if self.errorHandler.canHandle(error) {
+                    self.errorHandler.handle(error)
+                } else {
+                    result.error = FeedServiceError.failedToFetch(message: error?.localizedDescription ?? "No item for \(post)")
+                    completion(result)
+                }
                 return
             }
             
@@ -173,16 +173,14 @@ class TopicService: PostServiceProtocol {
     
     private func parseResponse(response: FeedResponseTopicView?, error: Error?, completion: FetchResultHandler) {
         var result = PostFetchResult()
-        
-        guard error == nil else {
-            result.error = FeedServiceError.failedToFetch(message: error!.localizedDescription)
-            completion(result)
-            return
-        }
-        
+
         guard let data = response?.data else {
-            result.error = FeedServiceError.failedToFetch(message: "No Items Received")
-            completion(result)
+            if errorHandler.canHandle(error) {
+                errorHandler.handle(error)
+            } else {
+                result.error = FeedServiceError.failedToFetch(message: error?.localizedDescription ?? "No Items Received")
+                completion(result)
+            }
             return
         }
         

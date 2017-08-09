@@ -20,6 +20,8 @@ protocol NavigationStackProtocol {
     func push(_ viewController: UIViewController)
     func closeMenu()
     func openMenu()
+    func cleanStack()
+    func showError(_ error: Error)
     
     var navigationController: UINavigationController { get }
 }
@@ -45,6 +47,14 @@ public class NavigationStack: NavigationStackProtocol {
     
     func push(_ viewController: UIViewController) {
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func cleanStack() {
+        navigationController.popToRootViewController(animated: true)
+    }
+    
+    func showError(_ error: Error) {
+        navigationController.showErrorAlert(error)
     }
     
     init(window: UIWindow, menuViewController: UIViewController) {

@@ -33,6 +33,12 @@ protocol SocialServiceType {
 
 struct SocialService: SocialServiceType {
     
+    private let errorHandler: APIErrorHandler
+    
+    init(errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
+        self.errorHandler = errorHandler
+    }
+    
     func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
         let request = PostFollowingUserRequest()
         request.userHandle = userID
@@ -65,11 +71,11 @@ struct SocialService: SocialServiceType {
         }
     }
     
-    private func processResponse(_ data: Object?,_ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
+    private func processResponse(_ data: Object?, _ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
         if error == nil {
             completion(.success())
         } else {
-            completion(.failure(APIError(error: error as? ErrorResponse)))
+            errorHandler.handle(error: error, completion: completion)
         }
     }
     
@@ -104,7 +110,7 @@ struct SocialService: SocialServiceType {
             let users = response.data?.map(User.init) ?? []
             completion(.success(UsersListResponse(users: users, cursor: response.cursor)))
         } else {
-            completion(.failure(APIError(error: error as? ErrorResponse)))
+            errorHandler.handle(error: error, completion: completion)
         }
     }
     

@@ -73,6 +73,13 @@ final class SessionStore {
         database.saveUser(user)
         database.saveSessionToken(sessionToken)
     }
+    
+    func deleteCurrentSession() throws {
+        guard isLoggedIn else {
+            throw Error.notLoggedIn
+        }
+        database.cleanup()
+    }
 }
 
 extension SessionStore {
