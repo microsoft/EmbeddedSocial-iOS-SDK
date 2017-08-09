@@ -94,8 +94,8 @@ class TopicService: PostServiceProtocol {
                 return
             }
             
-            ImagesAPI.imagesPostImage(imageType: ImagesAPI.ImageType_imagesPostImage.contentBlob,
-                                      image: imageData) { [weak self] (response, error) in
+            ImagesAPI.imagesPostImage(imageType: ImagesAPI.ImageType_imagesPostImage.contentBlob, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!,
+                                      image: imageData, imageFileType: "image/jpeg") { [weak self] (response, error) in
                                         guard let blobHandle = response?.blobHandle else {
                                             if let unwrappedError = error {
                                                 failure(unwrappedError)
@@ -118,7 +118,7 @@ class TopicService: PostServiceProtocol {
     }
     
     private func sendPostTopicRequest(request: PostTopicRequest) {
-        TopicsAPI.topicsPostTopic(request: request) { [weak self] (response, error) in
+        TopicsAPI.topicsPostTopic(request: request, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { [weak self] (response, error) in
             guard response != nil else {
                 self?.failure!(error!)
                 return
@@ -137,7 +137,7 @@ class TopicService: PostServiceProtocol {
     }
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
-        TopicsAPI.topicsGetPopularTopics(timeRange: query.timeRange,
+        TopicsAPI.topicsGetPopularTopics(timeRange: query.timeRange, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!,
                                          cursor: query.cursor,
                                          limit: query.limit) { [weak self] response, error in
                                             self?.parseResponse(response: response, error: error, completion: completion)
@@ -145,25 +145,25 @@ class TopicService: PostServiceProtocol {
     }
     
     func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {
-        TopicsAPI.topicsGetTopics(cursor: query.cursor, limit: query.limit) { [weak self] response, error in
+        TopicsAPI.topicsGetTopics(authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!, cursor: query.cursor, limit: query.limit) { [weak self] response, error in
             self?.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.userTopicsGetTopics(userHandle: query.user, cursor: query.cursor, limit: query.limit) { [weak self] response, error in
+        UsersAPI.userTopicsGetTopics(userHandle: query.user, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!, cursor: query.cursor, limit: query.limit) { [weak self] response, error in
             self?.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user) { [weak self] response, error in
+        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { [weak self] response, error in
             self?.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        TopicsAPI.topicsGetTopic(topicHandle: post) { (topic, error) in
+        TopicsAPI.topicsGetTopic(topicHandle: post, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { (topic, error) in
             
             var result = PostFetchResult()
             
