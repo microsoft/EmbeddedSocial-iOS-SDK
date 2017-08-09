@@ -15,6 +15,6 @@ struct UserFollowersAPI: UsersListAPI {
     }
     
     func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        service.getMyFollowers(cursor: cursor, limit: limit, completion: completion)
+        service.getUserFollowers(userID: userID, cursor: cursor, limit: limit, completion: completion)
     }
 }

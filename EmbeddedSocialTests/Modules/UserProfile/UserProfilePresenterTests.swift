@@ -292,7 +292,7 @@ class UserProfilePresenterTests: XCTestCase {
     private func validateFeedScope(_ scope: FeedType.UserFeedScope, user: User) {
         XCTAssertEqual(feedInput.setFeedCount, 2)
         XCTAssertEqual(feedInput.feedType, .user(user: user.uid, scope: scope))
-        XCTAssertEqual(view.setFilterEnabledCount, 1)
+        XCTAssertEqual(view.setFilterEnabledCount, 2)
         XCTAssertEqual(view.isFilterEnabled, false)
     }
     
