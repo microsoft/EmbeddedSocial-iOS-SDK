@@ -130,7 +130,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func refreshData() {
-        interactor.fetchPosts(limit: limit, feedType: feedType)
+        interactor.fetchPosts(limit: limit, cursor: nil, feedType: feedType)
     }
     
     // MARK: Private
@@ -247,7 +247,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didAskFetchAll() {
-        interactor.fetchPosts(limit: limit, feedType: feedType)
+        interactor.fetchPosts(limit: limit, cursor: nil, feedType: feedType)
     }
     
     func didAskFetchMore() {
@@ -257,7 +257,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
-        interactor.fetchPostsMore(limit: limit, feedType: feedType, cursor: cursor)
+        interactor.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
     }
     
     func didTapItem(path: IndexPath) {

@@ -15,6 +15,11 @@ private class PostServiceMock: PostServiceProtocol {
     var singlePostResult: Result!
     var userRecentResult: Result!
     var recentResult: Result!
+    var homeResult: Result!
+    
+    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
+        completion(homeResult)
+    }
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
         completion(popularResult)
@@ -130,7 +135,7 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         service.recentResult = PostFetchResult()
         
         // when
-        sut.fetchPostsMore(feedType: feed, cursor: "cursor")
+        sut.fetchPosts(cursor: "cursor", feedType: feed)
         
         // then
         XCTAssertTrue(presenter.fetchedMoreFeed != nil)
@@ -152,6 +157,24 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         XCTAssertTrue(presenter.fetchedFeed!.items.count == 1)
         XCTAssertTrue(presenter.fetchedFeed!.items.last! == Post.mock(seed: 0))
     }
+    
+    func testThatFetchRecentResultIsCorrect() {
+        
+        // given
+        let feed = FeedType.recent
+        service.recentResult = PostFetchResult()
+        service.recentResult.cursor = "--erwrw--"
+        service.recentResult.posts = [Post.mock(seed: 0)]
+        
+        // when
+        sut.fetchPosts(feedType: feed)
+        
+        // then
+        XCTAssertTrue(presenter.fetchedFeed!.cursor == "--erwrw--")
+        XCTAssertTrue(presenter.fetchedFeed!.items.count == 1)
+        XCTAssertTrue(presenter.fetchedFeed!.items.last! == Post.mock(seed: 0))
+    }
+    
     
     func testThatFetchPopularResultIsCorrect() {
         
