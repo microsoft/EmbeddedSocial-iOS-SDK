@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0855D1DE5B66E528790BC37C /* PostMenuModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28DECD958AE576EC3F9A146 /* PostMenuModuleConfigurator.swift */; };
 		3209330D1F2A50D300890218 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209330C1F2A50D300890218 /* Logger.swift */; };
 		3234AD1B1F2E70C3009C3327 /* PostCellCompact.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3234AD1A1F2E70C3009C3327 /* PostCellCompact.xib */; };
 		32FAB0511F2E6D3000C5B18D /* PostCellCompact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */; };
 		32FAB0531F2E6D4700C5B18D /* PostCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */; };
+		3861695D0A31C2BEAA3E6D4E /* PostMenuModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82590CFB5BAF650FD0D7793 /* PostMenuModulePresenter.swift */; };
+		44A3709DC4E73F10BA4B80B9 /* PostMenuModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAEA86AAF62C17062D8E7F2 /* PostMenuModuleRouter.swift */; };
+		623F5618F994EDFDA1A5C64A /* PostMenuModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8C31174AF9A2AED01C9842 /* PostMenuModuleViewController.swift */; };
 		63A1D6FB1F25E78D0090C67A /* TopicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D6FA1F25E78D0090C67A /* TopicService.swift */; };
 		63A1D7011F262D1B0090C67A /* Photo+JSONEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7001F262D1B0090C67A /* Photo+JSONEncodable.swift */; };
 		63A1D7051F2740910090C67A /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7041F2740910090C67A /* Cache.swift */; };
@@ -21,6 +25,7 @@
 		63A1D7251F2A04EB0090C67A /* MockCreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7241F2A04EB0090C67A /* MockCreatePostViewController.swift */; };
 		63A1D7261F2A23F30090C67A /* CreatePostInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC091F220BCD003AAF19 /* CreatePostInteractorTests.swift */; };
 		63A1D7281F2A24900090C67A /* MockCreatePostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7271F2A24900090C67A /* MockCreatePostPresenter.swift */; };
+		745888E9451AA69C86E9EEC7 /* PostMenuModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFA0C55A65E310921E0F0B7 /* PostMenuModuleInteractor.swift */; };
 		88087B461F2A431E00A33E9A /* ButtonDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88087B451F2A431E00A33E9A /* ButtonDecorator.swift */; };
 		88087B4A1F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88087B491F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift */; };
 		881060F91F28E502008CA2FB /* UIButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881060F81F28E502008CA2FB /* UIButtonStyles.swift */; };
@@ -546,6 +551,7 @@
 		63A1D7241F2A04EB0090C67A /* MockCreatePostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostViewController.swift; sourceTree = "<group>"; };
 		63A1D7271F2A24900090C67A /* MockCreatePostPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostPresenter.swift; sourceTree = "<group>"; };
 		661DFF302C0558D6FB3A2BA5 /* Pods-Group-EmbeddedSocial-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-EmbeddedSocial-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-EmbeddedSocial-Example/Pods-Group-EmbeddedSocial-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		7DFA0C55A65E310921E0F0B7 /* PostMenuModuleInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PostMenuModuleInteractor.swift; sourceTree = "<group>"; };
 		7EAE3AD2223B5F03A0836E40 /* Pods-Group-EmbeddedSocialUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-EmbeddedSocialUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-EmbeddedSocialUITests/Pods-Group-EmbeddedSocialUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8232E56B1F5E5AB8A0F8ED10 /* Pods-EmbeddedSocialTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmbeddedSocialTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmbeddedSocialTests/Pods-EmbeddedSocialTests.release.xcconfig"; sourceTree = "<group>"; };
 		84BEF171442EDF674E82D37C /* Pods_Group_EmbeddedSocial_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_EmbeddedSocial_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1018,10 +1024,14 @@
 		9CEA75231F2A0E61009FC89D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		9CEA75271F2A1FA0009FC89D /* LikesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesService.swift; sourceTree = "<group>"; };
 		9CEA75291F2A1FAA009FC89D /* PinsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinsService.swift; sourceTree = "<group>"; };
+		9DAEA86AAF62C17062D8E7F2 /* PostMenuModuleRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PostMenuModuleRouter.swift; sourceTree = "<group>"; };
 		A57ABF4FEB4CBA2814B57CD2 /* Pods-Group-EmbeddedSocialUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-EmbeddedSocialUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-EmbeddedSocialUITests/Pods-Group-EmbeddedSocialUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD3A74CA26D4C9CC446E9942 /* Pods-EmbeddedSocialTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmbeddedSocialTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmbeddedSocialTests/Pods-EmbeddedSocialTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C243BB682FCF79FBD8FA3FB3 /* Pods_Group_EmbeddedSocial.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_EmbeddedSocial.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C28DECD958AE576EC3F9A146 /* PostMenuModuleConfigurator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PostMenuModuleConfigurator.swift; sourceTree = "<group>"; };
 		CAD615DC1F0B62869B20B76C /* Pods_Group_EmbeddedSocialUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_EmbeddedSocialUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC8C31174AF9A2AED01C9842 /* PostMenuModuleViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PostMenuModuleViewController.swift; sourceTree = "<group>"; };
+		E82590CFB5BAF650FD0D7793 /* PostMenuModulePresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1077,6 +1087,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		0BCB2846CFE048CA6F260188 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CC8C31174AF9A2AED01C9842 /* PostMenuModuleViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		2C6B77FF4F1F2F71CA420D6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1093,6 +1111,26 @@
 				CAD615DC1F0B62869B20B76C /* Pods_Group_EmbeddedSocialUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		42DCB1B2EA178D657846A921 /* PostMenuModule */ = {
+			isa = PBXGroup;
+			children = (
+				0BCB2846CFE048CA6F260188 /* View */,
+				8BD19773F5CE956453991C64 /* Presenter */,
+				9E033C36CFF82A24B9148576 /* Interactor */,
+				61FEAC04A33F4BEE7964DD1A /* Router */,
+				91FAD72DB22D9FDED7F1437C /* Configurator */,
+			);
+			path = PostMenuModule;
+			sourceTree = "<group>";
+		};
+		61FEAC04A33F4BEE7964DD1A /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				9DAEA86AAF62C17062D8E7F2 /* PostMenuModuleRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		63A1D6F81F25E7800090C67A /* API */ = {
@@ -1549,6 +1587,7 @@
 				88580B801F2213AB00C1CBAF /* TabMenuContainer */,
 				882F103D1F30C8A20068B6F2 /* UserList */,
 				88BC5C3E1F2B65D0001FBDD2 /* UserProfile */,
+				42DCB1B2EA178D657846A921 /* PostMenuModule */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -2390,6 +2429,14 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		8BD19773F5CE956453991C64 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				E82590CFB5BAF650FD0D7793 /* PostMenuModulePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		8E6070541F34D12100110F4F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -2473,6 +2520,14 @@
 				8E6070611F3A2A3E00110F4F /* UserProfile.swift */,
 			);
 			path = UIObjects;
+			sourceTree = "<group>";
+		};
+		91FAD72DB22D9FDED7F1437C /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				C28DECD958AE576EC3F9A146 /* PostMenuModuleConfigurator.swift */,
+			);
+			path = Configurator;
 			sourceTree = "<group>";
 		};
 		9C223D1E1F0FA3390058B60A /* Resources */ = {
@@ -2592,6 +2647,7 @@
 				2C6B77FF4F1F2F71CA420D6B /* Frameworks */,
 				9CD8052A1F0D012F00B9B0AC /* Products */,
 				07FD73239387AB9DBDA3FDA2 /* Pods */,
+				CE905769166C9B165947F61B /* ModulesTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2647,6 +2703,21 @@
 				9CEA75291F2A1FAA009FC89D /* PinsService.swift */,
 			);
 			path = Pins;
+			sourceTree = "<group>";
+		};
+		9E033C36CFF82A24B9148576 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				7DFA0C55A65E310921E0F0B7 /* PostMenuModuleInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		CE905769166C9B165947F61B /* ModulesTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ModulesTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3425,6 +3496,11 @@
 				88580C6C1F2213AB00C1CBAF /* TabMenuContainerModuleInput.swift in Sources */,
 				88580BB61F2213AB00C1CBAF /* TextFieldCell.swift in Sources */,
 				88580BED1F2213AB00C1CBAF /* PostCommentRequest.swift in Sources */,
+				623F5618F994EDFDA1A5C64A /* PostMenuModuleViewController.swift in Sources */,
+				3861695D0A31C2BEAA3E6D4E /* PostMenuModulePresenter.swift in Sources */,
+				745888E9451AA69C86E9EEC7 /* PostMenuModuleInteractor.swift in Sources */,
+				44A3709DC4E73F10BA4B80B9 /* PostMenuModuleRouter.swift in Sources */,
+				0855D1DE5B66E528790BC37C /* PostMenuModuleConfigurator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
