@@ -25,11 +25,11 @@ struct SessionService: SessionServiceType {
         request.instanceId = UUID().uuidString
         request.userHandle = userUID
         
-        SessionsAPI.sessionsPostSession(request: request) { response, error in
+        SessionsAPI.sessionsPostSession(request: request, authorization: credentials.accessToken) { response, error in
             if let sessionToken = response?.sessionToken {
                 completion(.success(sessionToken))
             } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
+                completion(.failure(APIError(error: error)))
             }
         }
     }
@@ -38,11 +38,11 @@ struct SessionService: SessionServiceType {
         apiSettings.customHeaders = apiSettings.anonymousHeaders
 
         let provider = authProvider.sessionServiceIdentityProvider
-        SessionsAPI.requestTokensGetRequestToken(identityProvider: provider) { response, error in
+        SessionsAPI.requestTokensGetRequestToken(identityProvider: provider, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { response, error in
             if let token = response?.requestToken {
                 completion(.success(token))
             } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
+                completion(.failure(APIError(error: error)))
             }
         }
     }

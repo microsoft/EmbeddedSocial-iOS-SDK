@@ -26,7 +26,7 @@ enum APIError: LocalizedError {
     
     init(error: ErrorResponse?) {
         guard let error = error,
-            case let ErrorResponse.Error(_, data, _) = error,
+            case let ErrorResponse.HttpError(_, data, _) = error,
             data != nil,
             let someObject = try? JSONSerialization.jsonObject(with: data!, options: []),
             let json = someObject as? [String: Any],

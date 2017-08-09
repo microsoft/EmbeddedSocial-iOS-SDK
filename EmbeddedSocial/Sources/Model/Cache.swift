@@ -46,7 +46,7 @@ class Cache: Cachable {
         database.queryIncomingTransactions(with: NSPredicate(format: "typeid = %@", String(describing: type)),
                                            sortDescriptors: sortDescriptors) { (incoming) in
             var models = [T]()
-            _ = incoming.map { models.append(Decoders.decode(clazz: type, source: $0.payload as AnyObject)) }
+//            _ = incoming.map { models.append(Decoders.decode(clazz: type, source: $0.payload as AnyObject)) }
             result(models)
         }
     }
@@ -55,7 +55,7 @@ class Cache: Cachable {
         database.queryOutgoingTransactions(with: NSPredicate(format: "typeid = %@", String(describing: type)),
                                            sortDescriptors: sortDescriptors) { (incoming) in
             var models = [T]()
-            _ = incoming.map { models.append(Decoders.decode(clazz: type, source: $0.payload as AnyObject)) }
+//            _ = incoming.map { models.append(Decoders.decode(clazz: type, source: $0.payload as AnyObject)) }
             result(models)
         }
     }
