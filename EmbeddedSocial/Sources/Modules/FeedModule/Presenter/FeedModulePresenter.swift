@@ -98,7 +98,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     private var formatter = DateFormatterTool()
-    private var feedType: FeedType = .home
+    private var feedType: FeedType?
     private let limit = Int32(3) // Default
     private var items = [Post]()
     private var cursor: String? = nil {
@@ -130,6 +130,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func refreshData() {
+        
+        guard let feedType = self.feedType else {
+            Logger.log("feed type is not set")
+            return
+        }
+        
         interactor.fetchPosts(limit: limit, cursor: nil, feedType: feedType)
     }
     
@@ -247,10 +253,21 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didAskFetchAll() {
+        
+        guard let feedType = self.feedType else {
+            Logger.log("feed type is not set")
+            return
+        }
+        
         interactor.fetchPosts(limit: limit, cursor: nil, feedType: feedType)
     }
     
     func didAskFetchMore() {
+        
+        guard let feedType = self.feedType else {
+            Logger.log("feed type is not set")
+            return
+        }
         
         guard let cursor = cursor else {
             Logger.log("cant fetch more, no cursor")

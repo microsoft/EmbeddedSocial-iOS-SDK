@@ -103,8 +103,8 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         
         // given
         let feed = FeedType.home
-        service.recentResult = PostFetchResult()
-        service.recentResult.error = nil
+        service.homeResult = PostFetchResult()
+        service.homeResult.error = nil
         
         // when
         sut.fetchPosts(feedType: feed)
@@ -118,8 +118,8 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         
         // given
         let feed = FeedType.home
-        service.recentResult = PostFetchResult()
-        service.recentResult.error = FeedServiceError.failedToFetch(message: "Ooops")
+        service.homeResult = PostFetchResult()
+        service.homeResult.error = FeedServiceError.failedToFetch(message: "Ooops")
         
         // when
         sut.fetchPosts(feedType: feed)
@@ -132,7 +132,7 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         
         // given
         let feed = FeedType.home
-        service.recentResult = PostFetchResult()
+        service.homeResult = PostFetchResult()
         
         // when
         sut.fetchPosts(cursor: "cursor", feedType: feed)
@@ -145,9 +145,9 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         
         // given
         let feed = FeedType.home
-        service.recentResult = PostFetchResult()
-        service.recentResult.cursor = "--erwrw--"
-        service.recentResult.posts = [Post.mock(seed: 0)]
+        service.homeResult = PostFetchResult()
+        service.homeResult.cursor = "--erwrw--"
+        service.homeResult.posts = [Post.mock(seed: 0)]
 
         // when
         sut.fetchPosts(feedType: feed)

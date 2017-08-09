@@ -19,8 +19,7 @@ class FeedModuleConfigurator {
         self.cache = cache
     }
     
-    func configure(feed: FeedType? = nil,
-                   navigationController: UINavigationController? = nil,
+    func configure(navigationController: UINavigationController? = nil,
                    moduleOutput: FeedModuleOutput? = nil) {
         
         let viewController = StoryboardScene.FeedModule.instantiateFeedModuleViewController()
@@ -34,11 +33,7 @@ class FeedModuleConfigurator {
          */
         
         let presenter = FeedModulePresenter()
-        
-        if let feed = feed {
-            presenter.setFeed(feed)
-        }
-        
+    
         presenter.view = viewController
         presenter.router = router
         presenter.moduleOutput = moduleOutput

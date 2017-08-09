@@ -92,7 +92,8 @@ extension CrossModuleCoordinator: CrossModuleCoordinatorConfigurator {
     
     func configureHome() -> UIViewController {
         let configurator = FeedModuleConfigurator(cache: self.cache)
-        configurator.configure(feed: FeedType.home, navigationController: navigationStack.navigationController)
+        configurator.configure(navigationController: navigationStack.navigationController)
+        configurator.moduleInput.setFeed(.home)
         let vc = configurator.viewController!
         return vc
     }
