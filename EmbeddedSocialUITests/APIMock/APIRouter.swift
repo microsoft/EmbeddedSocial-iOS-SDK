@@ -106,6 +106,16 @@ open class APIRouter: WebApp {
         })
         
         self["/images/(.*)"] = self["/v0.6/images/(.*)"]
+        
+        self["/v0.6/users/me"] = APIResponse(serviceName: "me") { environ, sendJSON -> Void in
+            let method = environ["REQUEST_METHOD"] as! String
+            switch method {
+            case "POST":
+                break
+            default:
+                sendJSON(Templates.load(name: "me"))
+            }
+        }
 
     }
     

@@ -1,0 +1,15 @@
+{
+    "userHandle": "UserHandle",
+    "firstName": "John",
+    "lastName": "Doe",
+    "bio": "User Bio",
+    "photoHandle": "MyPhoto",
+    "photoUrl": "http://localhost:8080/images/MyPhoto",
+    "visibility": "Public",
+    "totalTopics": 0,
+    "totalFollowers": 0,
+    "totalFollowing": 0,
+    "followerStatus": "None",
+    "followingStatus": "None",
+    "profileStatus": "Active"
+}
