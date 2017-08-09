@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct MeFollowingAPI: UsersListAPI {
+struct MyFollowingAPI: UsersListAPI {
     private let service: SocialServiceType
     
     init(service: SocialServiceType) {
