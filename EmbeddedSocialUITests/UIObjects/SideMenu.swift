@@ -10,11 +10,12 @@ class SideMenu {
     var app: XCUIApplication
     var menuButton: XCUIElement
     var isOpened = false
+    var userProfileOption: XCUIElement!
     
     init(_ app: XCUIApplication) {
         self.app = app
         self.menuButton = app.navigationBars["EmbeddedSocial.NavigationStackContainer"].children(matching: .button).element(boundBy: 0)
-//        self.menuButton = app.navigationBars["EmbeddedSocial.NavigationStackContainer"].children(matching: .button).element(boundBy: 0).tap()
+        self.userProfileOption = app.children(matching: .window).element(boundBy: 2).children(matching: .other).element.children(matching: .other).element(boundBy: 1).staticTexts[TestConfig.fullUserName]
     }
     
     func open() {
@@ -36,5 +37,12 @@ class SideMenu {
         self.app.tables.staticTexts[menuItem].tap()
         self.isOpened = false
         sleep(1) //Required for running without animations
+    }
+    
+    func navigateToUserProfile() {
+        self.open()
+        self.userProfileOption.tap()
+        self.isOpened = false
+        sleep(1)
     }
 }

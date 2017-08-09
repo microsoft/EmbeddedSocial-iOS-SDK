@@ -39,6 +39,7 @@ class UserListCell: UITableViewCell {
         nameLabel.text = nil
         primaryAction = nil
         item = nil
+        actionButton.isHidden = false
     }
     
     @IBAction private func onPrimaryAction(_ sender: UIButton) {
@@ -60,6 +61,8 @@ extension UserListCell {
         profileImageView.makeCircular()
 
         nameLabel.text = user.fullName
+        
+        actionButton.isHidden = user.isMe
 
         if let buttonStyle = user.followerStatus?.buttonStyle {
             actionButton.apply(style: buttonStyle)

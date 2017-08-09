@@ -100,7 +100,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
         
         view.setFeedViewController(vc)
 
-        feedModuleInput.setFeed(.user(user: userID ?? me.uid, scope: .recent))
+        setFeedScope(.recent)
     }
     
     func onEdit() {

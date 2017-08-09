@@ -6,9 +6,15 @@
 import XCTest
 
 class TestCreatePost: UITestBase {
+    var sideMenu: SideMenu!
+    var userProfile: UserProfile!
+    var createPost: CreatePost!
         
     override func setUp() {
         super.setUp()
+        sideMenu = SideMenu(app)
+        userProfile = UserProfile(app)
+        createPost = CreatePost(app)
     }
     
     override func tearDown() {
@@ -16,13 +22,11 @@ class TestCreatePost: UITestBase {
     }
     
     func testCreatePostWithoutImage() {
+        sideMenu.navigateToUserProfile()
         
-        let sideMenu = SideMenu(app)
-        sideMenu.navigateTo("Create post")
+        userProfile.openMenu()
+        userProfile.selectMenuOption("Add post")
 
-        app.buttons["push"].tap()
-        
-        let createPost = CreatePost(app)
         createPost.postTitle.tap()
         createPost.postTitle.typeText("Post Title")
         createPost.postText.tap()
