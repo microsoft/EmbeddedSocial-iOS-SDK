@@ -6,10 +6,15 @@
 
 import UIKit
 
-class PostMenuModuleModuleConfigurator {
+class PostMenuModuleConfigurator {
+    
+    var viewController: PostMenuModuleViewController!
+    var moduleInput: PostMenuModuleModuleInput!
 
-    private func configure(viewController: PostMenuModuleViewController) {
-
+    func configure() {
+        
+        viewController = PostMenuModuleViewController()
+        
         let router = PostMenuModuleRouter()
 
         let presenter = PostMenuModulePresenter()
@@ -19,8 +24,11 @@ class PostMenuModuleModuleConfigurator {
         let interactor = PostMenuModuleInteractor()
         interactor.output = presenter
 
+        
         presenter.interactor = interactor
+        
         viewController.output = presenter
+        
+        viewController.view.backgroundColor = UIColor.clear
     }
-
 }

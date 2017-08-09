@@ -8,13 +8,22 @@ protocol PostMenuModuleModuleInput: class {
     
 }
 
-class PostMenuModulePresenter: PostMenuModuleModuleInput, PostMenuModuleViewOutput, PostMenuModuleInteractorOutput {
+class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInput, PostMenuModuleInteractorOutput {
 
     weak var view: PostMenuModuleViewInput!
     var interactor: PostMenuModuleInteractorInput!
     var router: PostMenuModuleRouterInput!
-
+    
     func viewIsReady() {
-
+        
+        view.addAction(title: "test") {
+            Logger.log("test 1")
+        }
+        
+        view.addAction(title: "test 2") {
+            Logger.log("test 2")
+        }
+        
     }
+
 }
