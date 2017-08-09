@@ -30,7 +30,7 @@ protocol CommentServiceProtocol {
 
 class CommentsService: CommentServiceProtocol {
     func fetchComments(topicHandle: String, cursor: String? = nil, limit: Int32? = nil, resultHandler: @escaping CommentFetchResultHandler) {
-        CommentsAPI.topicCommentsGetTopicComments(topicHandle: topicHandle, cursor: cursor, limit: limit) { (response, error) in
+        CommentsAPI.topicCommentsGetTopicComments(topicHandle: topicHandle, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!, cursor: cursor, limit: limit) { (response, error) in
             
             var result = CommentFetchResult()
             
@@ -54,7 +54,7 @@ class CommentsService: CommentServiceProtocol {
     }
     
     func postComment(topicHandle: String, comment: PostCommentRequest, resultHandler: @escaping CommentPostResultHandler) {
-        CommentsAPI.topicCommentsPostComment(topicHandle: topicHandle, request: comment) { (resposne, error) in
+        CommentsAPI.topicCommentsPostComment(topicHandle: topicHandle, request: comment, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { (resposne, error) in
             resultHandler(resposne!)
         }
     }

@@ -21,27 +21,27 @@ protocol LikesServiceProtocol {
 class LikesService: LikesServiceProtocol {
     
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
-        LikesAPI.topicLikesPostLike(topicHandle: postHandle) { (object, error) in
+        LikesAPI.topicLikesPostLike(topicHandle: postHandle, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { (object, error) in
             Logger.log(object, error)
             completion(postHandle, error)
         }
     }
     
     func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
-        LikesAPI.topicLikesDeleteLike(topicHandle: postHandle) { (object, error) in
+        LikesAPI.topicLikesDeleteLike(topicHandle: postHandle, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { (object, error) in
             Logger.log(object, error)
             completion(postHandle, error)
         }
     }
     
     func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
-        LikesAPI.commentLikesPostLike(commentHandle: commentHandle) { (object, error) in
+        LikesAPI.commentLikesPostLike(commentHandle: commentHandle, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { (object, error) in
             completion(commentHandle, error)
         }
     }
     
     func unlikeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
-        LikesAPI.commentLikesDeleteLike(commentHandle: commentHandle) { (object, error) in
+        LikesAPI.commentLikesDeleteLike(commentHandle: commentHandle, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { (object, error) in
             completion(commentHandle, error)
         }
     }

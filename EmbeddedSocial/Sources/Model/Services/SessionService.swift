@@ -25,7 +25,7 @@ struct SessionService: SessionServiceType {
         request.instanceId = UUID().uuidString
         request.userHandle = userUID
         
-        SessionsAPI.sessionsPostSession(request: request) { response, error in
+        SessionsAPI.sessionsPostSession(request: request, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { response, error in
             if let sessionToken = response?.sessionToken {
                 completion(.success(sessionToken))
             } else {
@@ -38,7 +38,7 @@ struct SessionService: SessionServiceType {
         apiSettings.customHeaders = apiSettings.anonymousHeaders
 
         let provider = authProvider.sessionServiceIdentityProvider
-        SessionsAPI.requestTokensGetRequestToken(identityProvider: provider) { response, error in
+        SessionsAPI.requestTokensGetRequestToken(identityProvider: provider, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { response, error in
             if let token = response?.requestToken {
                 completion(.success(token))
             } else {

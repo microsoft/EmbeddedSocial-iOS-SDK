@@ -37,13 +37,13 @@ struct SocialService: SocialServiceType {
         let request = PostFollowingUserRequest()
         request.userHandle = userID
         
-        SocialAPI.myFollowingPostFollowingUser(request: request) { data, error in
+        SocialAPI.myFollowingPostFollowingUser(request: request, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { data, error in
             self.processResponse(data, error, completion)
         }
     }
     
     func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        SocialAPI.myFollowingDeleteFollowingUser(userHandle: userID) { data, error in
+        SocialAPI.myFollowingDeleteFollowingUser(userHandle: userID, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { data, error in
             self.processResponse(data, error, completion)
         }
     }
@@ -60,7 +60,7 @@ struct SocialService: SocialServiceType {
         let request = PostBlockedUserRequest()
         request.userHandle = userID
         
-        SocialAPI.myBlockedUsersPostBlockedUser(request: request) { data, error in
+        SocialAPI.myBlockedUsersPostBlockedUser(request: request, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { data, error in
             self.processResponse(data, error, completion)
         }
     }
@@ -74,25 +74,25 @@ struct SocialService: SocialServiceType {
     }
     
     func getMyFollowing(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.myFollowingGetFollowingUsers(cursor: cursor, limit: Int32(limit)) {
+        SocialAPI.myFollowingGetFollowingUsers(authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!, cursor: cursor, limit: Int32(limit)) {
             self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.myFollowersGetFollowers(cursor: cursor, limit: Int32(limit)) {
+        SocialAPI.myFollowersGetFollowers(authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!, cursor: cursor, limit: Int32(limit)) {
             self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.userFollowersGetFollowers(userHandle: userID, cursor: cursor, limit: Int32(limit)) {
+        SocialAPI.userFollowersGetFollowers(userHandle: userID, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!, cursor: cursor, limit: Int32(limit)) {
             self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.userFollowingGetFollowing(userHandle: userID, cursor: cursor, limit: Int32(limit)) {
+        SocialAPI.userFollowingGetFollowing(userHandle: userID, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!, cursor: cursor, limit: Int32(limit)) {
             self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }

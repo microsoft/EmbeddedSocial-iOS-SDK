@@ -18,7 +18,7 @@ struct UserService: UserServiceType {
     func getMyProfile(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
         APISettings.shared.customHeaders = credentials.authHeader
         
-        UsersAPI.usersGetMyProfile { profile, error in
+        UsersAPI.usersGetMyProfile(authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { profile, error in
             guard let profile = profile else {
                 completion(.failure(APIError(error: error as? ErrorResponse)))
                 return
@@ -39,7 +39,7 @@ struct UserService: UserServiceType {
         params.bio = user.bio
         params.photoHandle = user.photo?.uid
         
-        UsersAPI.usersPostUser(request: params) { response, error in
+        UsersAPI.usersPostUser(request: params, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { response, error in
             if let response = response, let userHandle = response.userHandle, let sessionToken = response.sessionToken {
                 let user = User(socialUser: user, userHandle: userHandle)
                 completion(.success((user, sessionToken)))
@@ -50,7 +50,7 @@ struct UserService: UserServiceType {
     }
     
     func getUserProfile(userID: String, completion: @escaping (Result<User>) -> Void) {
-        UsersAPI.usersGetUser(userHandle: userID) { profile, error in
+        UsersAPI.usersGetUser(userHandle: userID, authorization: (SocialPlus.shared.sessionStore.user.credentials?.accessToken)!) { profile, error in
             if let profile = profile {
                 let user = User(profileView: profile)
                 completion(.success(user))
