@@ -46,8 +46,14 @@ struct UserFeedQuery {
     var user: UserHandle!
 }
 
+struct HomeFeedQuery {
+    var cursor: String?
+    var limit: Int32?
+}
+
 protocol PostServiceProtocol {
     
+    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler)
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler)
     func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler)
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler)
@@ -123,6 +129,13 @@ class TopicService: PostServiceProtocol {
     }
     
     // MARK: GET
+    
+    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
+        SocialAPI.myFollowingGetFollowingTopics(cursor: query.cursor, limit: query.limit) { [weak self] response, error in
+            self?.parseResponse(response: response, error: error, completion: completion)
+        }
+    }
+    
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
         TopicsAPI.topicsGetPopularTopics(timeRange: query.timeRange,
                                          cursor: query.cursor,

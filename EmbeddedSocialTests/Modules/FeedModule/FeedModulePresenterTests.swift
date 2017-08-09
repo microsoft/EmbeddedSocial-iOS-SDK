@@ -54,29 +54,22 @@ private class FeedModuleRouterMock: FeedModuleRouterInput {
 
 private class FeedModuleInteractorMock: FeedModuleInteractorInput {
 
-    var didFetchPosts = false
-    var didFetchMorePosts = false
-    var didFetchMoreWithCursor: String!
-    var didFetchLimit: Int32?
-    var didFetchFeedType: FeedType?
+    var fetchedPosts = false
+    var fetchedCursor: String?
+    var fetchedLimit: Int32?
+    var fetchedFeedType: FeedType!
     
-    func fetchPosts(limit: Int32?, feedType: FeedType) {
-        didFetchPosts = true
-        didFetchLimit = limit
-        didFetchFeedType = feedType
-    }
-    
-    func fetchPostsMore(limit: Int32?, feedType: FeedType, cursor: String) {
-        didFetchMorePosts = true
-        didFetchLimit = limit
-        didFetchFeedType = feedType
-        didFetchMoreWithCursor = cursor
+    func fetchPosts(limit: Int32?, cursor: String?, feedType: FeedType) {
+        fetchedPosts = true
+        fetchedLimit = limit
+        fetchedCursor = cursor
+        fetchedFeedType = feedType
     }
     
     func postAction(post: PostHandle, action: PostSocialAction) { }
 }
 
-class FeedModulePresenterTests: XCTestCase {
+class FeedModulePresenter_Tests: XCTestCase {
     
     var sut: FeedModulePresenter!
     private var view: FeedModuleViewMock!
@@ -135,35 +128,6 @@ class FeedModulePresenterTests: XCTestCase {
         XCTAssertTrue(viewModel.totalComments == "2 comments")
         XCTAssertTrue(viewModel.timeCreated == "2d")
     }
-    
-//    func didFetch(feed: PostsFeed)
-//    func didFetchMore(feed: PostsFeed)
-//    func didFail(error: FeedServiceError)
-//    func didStartFetching()
-//    func didFinishFetching()
-//
-//    func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?)
-    
-    
-//    func viewIsReady()
-//
-//    func numberOfItems() -> Int
-//    func item(for path: IndexPath) -> PostViewModel
-//
-//    func didTapChangeLayout()
-//    func didTapItem(path: IndexPath)
-//
-//    func didAskFetchAll()
-//    func didAskFetchMore()
-    
-    
-    
-    
-    ///
-    
-    
-    
-    
     
     func testThatViewHandlesEndOfFetching() {
         
@@ -255,7 +219,8 @@ class FeedModulePresenterTests: XCTestCase {
         sut.refreshData()
         
         // then
-        XCTAssertTrue(interactor.didFetchPosts)
+        XCTAssertTrue(interactor.fetchedFeedType == FeedType.single(post: "handle"))
+        XCTAssertTrue(interactor.fetchedPosts)
     }
     
     func testThatFetchDataTriggersViewReload() {
