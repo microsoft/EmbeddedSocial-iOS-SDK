@@ -49,7 +49,6 @@ struct UserFeedQuery {
 struct HomeFeedQuery {
     var cursor: String?
     var limit: Int32?
-    var user: UserHandle!
 }
 
 protocol PostServiceProtocol {
