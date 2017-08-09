@@ -46,11 +46,18 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     typealias ModuleBuilder = (_ delegate: CrossModuleCoordinator) -> (UIViewController)
     
     var builderForDummy: ModuleBuilder = { coordinator in
-        return coordinator.configureHome()
+        let vc = UIViewController()
+        vc.view.backgroundColor = UIColor.blue
+        vc.title = "Dummy"
+        return vc
     }
     
     var builderForHome: ModuleBuilder = { coordinator in
         return coordinator.configureHome()
+    }
+    
+    var builderForPopular: ModuleBuilder = { coordinator in
+        return coordinator.configurePopular()
     }
 
     lazy var items: [State: [(title: String, image: UIImage, builder: ModuleBuilder)]] = { [unowned self] in
@@ -58,7 +65,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         return [State.authenticated: [
             (title: "Home", image: UIImage(asset: Asset.iconHome), builder: self.builderForHome),
             (title: "Search", image: UIImage(asset: Asset.iconSearch), builder: self.builderForDummy),
-            (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: self.builderForDummy),
+            (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: self.builderForPopular),
             (title: "My pins", image: UIImage(asset: Asset.iconPins), builder: self.builderForDummy),
             (title: "Activity Feed", image: UIImage(asset: Asset.iconActivity), builder: self.builderForDummy),
             (title: "Settings", image: UIImage(asset: Asset.iconSettings), builder: self.builderForDummy)
