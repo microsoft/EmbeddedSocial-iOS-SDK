@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol CacheType {
+protocol CacheType: class {
     @discardableResult func cacheIncoming(object: JSONEncodable) -> IncomingTransaction
     
     @discardableResult func cacheOutgoing(object: JSONEncodable) -> OutgoingTransaction

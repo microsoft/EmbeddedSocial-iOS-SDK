@@ -13,23 +13,14 @@ protocol SessionServiceType {
     func deleteCurrentSession(completion: @escaping (Result<Void>) -> Void)
 }
 
-struct SessionService: SessionServiceType {
-    private let apiSettings: APISettings
-    private let errorHandler: APIErrorHandler
-    
-    init(apiSettings: APISettings = APISettings.shared, errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
-        self.apiSettings = apiSettings
-        self.errorHandler = errorHandler
-    }
+class SessionService: BaseService, SessionServiceType {
     
     func makeNewSession(with credentials: CredentialsList, userUID: String, completion: @escaping (Result<String>) -> Void) {
-        apiSettings.customHeaders = credentials.authHeader
-        
         let request = PostSessionRequest()
         request.instanceId = UUID().uuidString
         request.userHandle = userUID
         
-        SessionsAPI.sessionsPostSession(request: request) { response, error in
+        SessionsAPI.sessionsPostSession(request: request, authorization: credentials.authorization) { [unowned self] response, error in
             if let sessionToken = response?.sessionToken {
                 completion(.success(sessionToken))
             } else {
@@ -39,20 +30,20 @@ struct SessionService: SessionServiceType {
     }
     
     func requestToken(authProvider: AuthProvider, completion: @escaping (Result<String>) -> Void) {
-        apiSettings.customHeaders = apiSettings.anonymousHeaders
-
         let provider = authProvider.sessionServiceIdentityProvider
-        SessionsAPI.requestTokensGetRequestToken(identityProvider: provider) { response, error in
-            if let token = response?.requestToken {
-                completion(.success(token))
-            } else {
-                self.errorHandler.handle(error: error, completion: completion)
-            }
+        SessionsAPI.requestTokensGetRequestToken(
+            identityProvider: provider,
+            authorization: Constants.anonymousAuthorization) { [unowned self] response, error in
+                if let token = response?.requestToken {
+                    completion(.success(token))
+                } else {
+                    self.errorHandler.handle(error: error, completion: completion)
+                }
         }
     }
     
-    func deleteCurrentSession(completion: @escaping (Result<Void>) -> Void) {        
-        SessionsAPI.sessionsDeleteSession { response, error in
+    func deleteCurrentSession(completion: @escaping (Result<Void>) -> Void) {
+        SessionsAPI.sessionsDeleteSession(authorization: authorization) { [unowned self] response, error in
             if error == nil {
                 completion(.success())
             } else {

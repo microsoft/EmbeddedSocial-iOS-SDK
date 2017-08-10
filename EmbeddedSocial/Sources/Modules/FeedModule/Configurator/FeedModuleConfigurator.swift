@@ -13,9 +13,9 @@ class FeedModuleConfigurator {
     
     weak var viewController: UIViewController!
     weak var moduleInput: FeedModuleInput!
-    weak var cache: Cache!
+    let cache: CacheType
     
-    required init(cache: Cache) {
+    required init(cache: CacheType) {
         self.cache = cache
     }
     

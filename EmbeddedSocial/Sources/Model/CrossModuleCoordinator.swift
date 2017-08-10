@@ -29,9 +29,9 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     weak var loginHandler: LoginModuleOutput!
     private(set) var navigationStack: NavigationStack!
     private(set) var user: User?
-    fileprivate var cache: Cache
+    fileprivate var cache: CacheType
     
-    required init(cache: Cache) {
+    required init(cache: CacheType) {
         self.cache = cache
     }
     

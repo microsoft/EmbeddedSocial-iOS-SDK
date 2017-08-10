@@ -9,7 +9,8 @@ extension ErrorResponse {
     
     var statusCode: Int {
         switch self {
-        case let .Error(code, _, _): return code
+        case let .HttpError(code, _, _): return code
+        case .DecodeError: return -1
         }
     }
 }

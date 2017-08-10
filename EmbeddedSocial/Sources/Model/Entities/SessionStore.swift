@@ -15,6 +15,13 @@ final class SessionStore {
         return user != nil && sessionToken != nil
     }
     
+    var authorization: Authorization {
+        guard isLoggedIn else {
+            return Constants.anonymousAuthorization
+        }
+        return user.credentials?.authorization ?? Constants.anonymousAuthorization
+    }
+    
     init(database: SessionStoreDatabase) {
         self.database = database
     }
@@ -29,40 +36,12 @@ final class SessionStore {
     }
     
     func loadLastSession() throws {
-        var user: User?
-        var sessionToken: String?
-        
-        if getEnvironmentVariable("EmbeddedSocial_MOCK_SERVER") != nil {
-            
-            let creds = CredentialsList(provider: .facebook,
-                                        accessToken: "AccessToken",
-                                        requestToken: "RequestToken",
-                                        socialUID: UUID().uuidString,
-                                        appKey: "AppKey")
-            
-            user = User(socialUser: SocialUser(uid: UUID().uuidString,
-                                               credentials: creds,
-                                               firstName: "John",
-                                               lastName: "Doe",
-                                               email: "jonh.doe@contoso.com",
-                                               bio: "Lorem ipsum dolor",
-                                               photo: Photo(image:(UIImage(asset: .userPhotoPlaceholder)))),
-                            userHandle: "UserHandle")
-            
-            sessionToken = "SessionToken"
-            
-        } else {
-            
-            user = database.loadLastUser()
-            sessionToken = database.loadLastSessionToken()
-            
-            if (user == nil) || (sessionToken == nil) {
+        guard let user = UITestsHelper.isRunningTests ? UITestsHelper.mockUser : database.loadLastUser(),
+            let sessionToken = UITestsHelper.isRunningTests ? UITestsHelper.mockSessionToken : database.loadLastSessionToken() else {
                 throw Error.lastSessionNotAvailable
-            }
-            
         }
         
-        createSession(withUser: user!, sessionToken: sessionToken!)
+        createSession(withUser: user, sessionToken: sessionToken)
     }
     
     func saveCurrentSession() throws {

@@ -62,7 +62,14 @@ protocol PostServiceProtocol {
     
 }
 
-class TopicService: BaseService, PostServiceProtocol {
+class TopicService: PostServiceProtocol {
+    private let cache: CacheType
+    private let errorHandler: APIErrorHandler
+    
+    init(cache: CacheType, errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
+        self.cache = cache
+        self.errorHandler = errorHandler
+    }
     
     func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
         guard let network = NetworkReachabilityManager() else {
@@ -70,6 +77,7 @@ class TopicService: BaseService, PostServiceProtocol {
             return
         }
         
+<<<<<<< HEAD:EmbeddedSocial/Sources/Model/Services/TopicService.swift
         guard network.isReachable else {
             cacheTopic(topic, with: photo)
             return
@@ -88,10 +96,40 @@ class TopicService: BaseService, PostServiceProtocol {
                 self.errorHandler.handle(error)
             } else {
                 failure(error ?? APIError.unknown)
+=======
+        if network.isReachable {
+            guard let image = photo?.image else {
+                sendPostTopicRequest(request: topic)
+                return
+            }
+            
+            guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
+                return
+            }
+            
+            ImagesAPI.imagesPostImage(imageType: ImagesAPI.ImageType_imagesPostImage.contentBlob, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!,
+                                      image: imageData, imageFileType: "image/jpeg") { [weak self] (response, error) in
+                                        guard let blobHandle = response?.blobHandle else {
+                                            if let unwrappedError = error {
+                                                failure(unwrappedError)
+                                            }
+                                            return
+                                        }
+                                        
+                                        topic.blobHandle = blobHandle
+                                        self?.sendPostTopicRequest(request: topic)
+            }
+            
+        } else {
+            if photo != nil {
+                cache?.cacheOutgoing(object: photo!)
+                topic.blobHandle = photo?.url
+>>>>>>> 73e435f7d309f01dee52dcd28252a5931ae71ea2:EmbeddedSocial/Sources/Model/Services/API/Topic/TopicService.swift
             }
         }
     }
     
+<<<<<<< HEAD:EmbeddedSocial/Sources/Model/Services/TopicService.swift
     private func cacheTopic(_ topic: PostTopicRequest, with photo: Photo?) {
         if let photo = photo {
             cache.cacheOutgoing(object: photo)
@@ -101,13 +139,20 @@ class TopicService: BaseService, PostServiceProtocol {
     }
 
     private func postTopic(request: PostTopicRequest, success: @escaping TopicPosted, failure: @escaping Failure) {
-        TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { [unowned self] response, error in
+        TopicsAPI.topicsPostTopic(request: request) { [unowned self] response, error in
             if response != nil {
                 success(request)
             } else if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
             } else {
                 failure(error ?? APIError.unknown)
+=======
+    private func sendPostTopicRequest(request: PostTopicRequest) {
+        TopicsAPI.topicsPostTopic(request: request, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { [weak self] (response, error) in
+            guard response != nil else {
+                self?.failure!(error!)
+                return
+>>>>>>> 73e435f7d309f01dee52dcd28252a5931ae71ea2:EmbeddedSocial/Sources/Model/Services/API/Topic/TopicService.swift
             }
         }
     }
@@ -118,63 +163,51 @@ class TopicService: BaseService, PostServiceProtocol {
             return
         }
         
-        ImagesAPI.imagesPostImage(
-            imageType: .contentBlob,
-            authorization: authorization,
-            image: imageData,
-            imageFileType: "image/jpeg") { response, error in
-                completion(response?.blobHandle, error)
+        ImagesAPI.imagesPostImage(imageType: .contentBlob, image: imageData) { response, error in
+            completion(response?.blobHandle, error)
         }
     }
     
     // MARK: GET
     
     func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
-        SocialAPI.myFollowingGetFollowingTopics(
-            authorization: authorization,
-            cursor: query.cursor,
-            limit: query.limit) { [weak self] response, error in
-                self?.parseResponse(response: response, error: error, completion: completion)
+        SocialAPI.myFollowingGetFollowingTopics(authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!, cursor: query.cursor, limit: query.limit) { [weak self] response, error in
+            self?.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
-        TopicsAPI.topicsGetPopularTopics(
-            timeRange: query.timeRange,
-            authorization: authorization,
-            cursor: query.cursor,
-            limit: query.limit) { [weak self] response, error in
-                self?.parseResponse(response: response, error: error, completion: completion)
+        TopicsAPI.topicsGetPopularTopics(timeRange: query.timeRange, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!,
+                                         cursor: query.cursor,
+                                         limit: query.limit) { [weak self] response, error in
+                                            self?.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
     func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {
-        TopicsAPI.topicsGetTopics(
-            authorization: authorization,
-            cursor: query.cursor,
-            limit: query.limit) { [weak self] response, error in
-                self?.parseResponse(response: response, error: error, completion: completion)
+        TopicsAPI.topicsGetTopics(authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!, cursor: query.cursor, limit: query.limit) { [weak self] response, error in
+            self?.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.userTopicsGetTopics(
-            userHandle: query.user,
-            authorization: authorization,
-            cursor: query.cursor,
-            limit: query.limit) { [weak self] response, error in
-                self?.parseResponse(response: response, error: error, completion: completion)
+        UsersAPI.userTopicsGetTopics(userHandle: query.user, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!, cursor: query.cursor, limit: query.limit) { [weak self] response, error in
+            self?.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user, authorization: authorization) { [weak self] response, error in
+        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { [weak self] response, error in
             self?.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        TopicsAPI.topicsGetTopic(topicHandle: post, authorization: authorization) { [unowned self] (topic, error) in
+<<<<<<< HEAD:EmbeddedSocial/Sources/Model/Services/TopicService.swift
+        TopicsAPI.topicsGetTopic(topicHandle: post) { [unowned self] (topic, error) in
+=======
+        TopicsAPI.topicsGetTopic(topicHandle: post, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { (topic, error) in
+>>>>>>> 73e435f7d309f01dee52dcd28252a5931ae71ea2:EmbeddedSocial/Sources/Model/Services/API/Topic/TopicService.swift
             
             var result = PostFetchResult()
             

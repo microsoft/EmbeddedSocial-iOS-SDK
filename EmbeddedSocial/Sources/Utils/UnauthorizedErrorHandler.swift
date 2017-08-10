@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol LogoutController {
     func logOut()
@@ -19,7 +20,17 @@ struct UnauthorizedErrorHandler: APIErrorHandler {
     }
     
     func canHandle(_ error: Error?) -> Bool {
-        return (error as? ErrorResponse)?.statusCode == Constants.API.unauthorizedStatusCode
+        guard !canHandle(error as? AFError) else { return true }
+        guard !canHandle(error as? ErrorResponse) else { return true }
+        return false
+    }
+    
+    private func canHandle(_ error: AFError?) -> Bool {
+        return error?.responseCode == Constants.API.unauthorizedStatusCode
+    }
+    
+    private func canHandle(_ error: ErrorResponse?) -> Bool {
+        return error?.statusCode == Constants.API.unauthorizedStatusCode
     }
     
     func handle(_ error: Error?) {

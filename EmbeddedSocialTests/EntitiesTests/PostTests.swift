@@ -18,7 +18,13 @@ class PostTests: XCTestCase {
         let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
         let json = try? JSONSerialization.jsonObject(with: data!)
         
-        topicViewResponse = Decoders.decode(clazz: FeedResponseTopicView.self, source: json as AnyObject)
+        let result = Decoders.decode(clazz: FeedResponseTopicView.self, source: json as AnyObject, instance: nil)
+        switch result {
+        case let .success(value):
+            topicViewResponse = value
+        case let .failure(error):
+            XCTFail("Failed to decode with error \(error)")
+        }
     }
     
     func testPostsAreEqual() {

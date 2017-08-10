@@ -13,30 +13,20 @@ protocol UserServiceType {
     func createAccount(for user: SocialUser, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void)
 }
 
-struct UserService: UserServiceType {
-    
-    private let errorHandler: APIErrorHandler
-    
-    init(errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
-        self.errorHandler = errorHandler
-    }
+class UserService: BaseService, UserServiceType {
     
     func getMyProfile(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
-        APISettings.shared.customHeaders = credentials.authHeader
-        
-        UsersAPI.usersGetMyProfile { profile, error in
+        UsersAPI.usersGetMyProfile(authorization: credentials.authorization) { [weak self] profile, error in
             if let profile = profile {
                 let user = User(profileView: profile, credentials: credentials)
                 completion(.success(user))
             } else {
-                self.errorHandler.handle(error: error, completion: completion)
+                self?.errorHandler.handle(error: error, completion: completion)
             }
         }
     }
     
     func createAccount(for user: SocialUser, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
-        APISettings.shared.customHeaders = user.credentials.authHeader
-
         let params = PostUserRequest()
         params.instanceId = user.uid
         params.firstName = user.firstName
@@ -44,23 +34,23 @@ struct UserService: UserServiceType {
         params.bio = user.bio
         params.photoHandle = user.photo?.uid
         
-        UsersAPI.usersPostUser(request: params) { response, error in
+        UsersAPI.usersPostUser(request: params, authorization: authorization) { [weak self] response, error in
             if let response = response, let userHandle = response.userHandle, let sessionToken = response.sessionToken {
                 let user = User(socialUser: user, userHandle: userHandle)
                 completion(.success((user, sessionToken)))
             } else {
-                self.errorHandler.handle(error: error, completion: completion)
+                self?.errorHandler.handle(error: error, completion: completion)
             }
         }
     }
     
     func getUserProfile(userID: String, completion: @escaping (Result<User>) -> Void) {
-        UsersAPI.usersGetUser(userHandle: userID) { profile, error in
+        UsersAPI.usersGetUser(userHandle: userID, authorization: authorization) { [weak self] profile, error in
             if let profile = profile {
                 let user = User(profileView: profile)
                 completion(.success(user))
             } else {
-                self.errorHandler.handle(error: error, completion: completion)
+                self?.errorHandler.handle(error: error, completion: completion)
             }
         }
     }

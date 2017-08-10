@@ -31,26 +31,20 @@ protocol SocialServiceType {
     func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
 }
 
-struct SocialService: SocialServiceType {
-    
-    private let errorHandler: APIErrorHandler
-    
-    init(errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
-        self.errorHandler = errorHandler
-    }
+class SocialService: BaseService, SocialServiceType {
     
     func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
         let request = PostFollowingUserRequest()
         request.userHandle = userID
         
-        SocialAPI.myFollowingPostFollowingUser(request: request, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { data, error in
-            self.processResponse(data, error, completion)
+        SocialAPI.myFollowingPostFollowingUser(request: request, authorization: authorization) { [weak self] data, error in
+            self?.processResponse(data, error, completion)
         }
     }
     
     func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        SocialAPI.myFollowingDeleteFollowingUser(userHandle: userID, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { data, error in
-            self.processResponse(data, error, completion)
+        SocialAPI.myFollowingDeleteFollowingUser(userHandle: userID, authorization: authorization) { [weak self] data, error in
+            self?.processResponse(data, error, completion)
         }
     }
     
@@ -66,8 +60,8 @@ struct SocialService: SocialServiceType {
         let request = PostBlockedUserRequest()
         request.userHandle = userID
         
-        SocialAPI.myBlockedUsersPostBlockedUser(request: request, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { data, error in
-            self.processResponse(data, error, completion)
+        SocialAPI.myBlockedUsersPostBlockedUser(request: request, authorization: authorization) { [weak self] data, error in
+            self?.processResponse(data, error, completion)
         }
     }
     
@@ -80,32 +74,40 @@ struct SocialService: SocialServiceType {
     }
     
     func getMyFollowing(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.myFollowingGetFollowingUsers(authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!, cursor: cursor, limit: Int32(limit)) {
-            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        SocialAPI.myFollowingGetFollowingUsers(authorization: authorization, cursor: cursor, limit: Int32(limit)) { [weak self] in
+            self?.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.myFollowersGetFollowers(authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!, cursor: cursor, limit: Int32(limit)) {
-            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        SocialAPI.myFollowersGetFollowers(authorization: authorization, cursor: cursor, limit: Int32(limit)) { [weak self] in
+            self?.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.userFollowersGetFollowers(userHandle: userID, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!, cursor: cursor, limit: Int32(limit)) {
-            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        SocialAPI.userFollowersGetFollowers(
+            userHandle: userID,
+            authorization: authorization,
+            cursor: cursor,
+            limit: Int32(limit)) { [weak self] in
+                self?.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.userFollowingGetFollowing(userHandle: userID, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!, cursor: cursor, limit: Int32(limit)) {
-            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        SocialAPI.userFollowingGetFollowing(
+            userHandle: userID,
+            authorization: authorization,
+            cursor: cursor,
+            limit: Int32(limit)) { [weak self] in
+                self?.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     private func processUserFeedResponse(response: FeedResponseUserCompactView?,
                                          error: Error?,
-                                         completion: @escaping (Result<UsersListResponse>) -> Void ) {
+                                         completion: @escaping (Result<UsersListResponse>) -> Void) {
         if let response = response {
             let users = response.data?.map(User.init) ?? []
             completion(.success(UsersListResponse(users: users, cursor: response.cursor)))
