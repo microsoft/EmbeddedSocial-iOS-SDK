@@ -20,7 +20,7 @@ class SessionService: BaseService, SessionServiceType {
         request.instanceId = UUID().uuidString
         request.userHandle = userUID
         
-        SessionsAPI.sessionsPostSession(request: request, authorization: credentials.authorization) { [unowned self] response, error in
+        SessionsAPI.sessionsPostSession(request: request, authorization: credentials.authorization) { response, error in
             if let sessionToken = response?.sessionToken {
                 completion(.success(sessionToken))
             } else {
@@ -33,7 +33,7 @@ class SessionService: BaseService, SessionServiceType {
         let provider = authProvider.sessionServiceIdentityProvider
         SessionsAPI.requestTokensGetRequestToken(
             identityProvider: provider,
-            authorization: Constants.anonymousAuthorization) { [unowned self] response, error in
+            authorization: Constants.anonymousAuthorization) { response, error in
                 if let token = response?.requestToken {
                     completion(.success(token))
                 } else {
@@ -43,7 +43,7 @@ class SessionService: BaseService, SessionServiceType {
     }
     
     func deleteCurrentSession(completion: @escaping (Result<Void>) -> Void) {
-        SessionsAPI.sessionsDeleteSession(authorization: authorization) { [unowned self] response, error in
+        SessionsAPI.sessionsDeleteSession(authorization: authorization) { response, error in
             if error == nil {
                 completion(.success())
             } else {

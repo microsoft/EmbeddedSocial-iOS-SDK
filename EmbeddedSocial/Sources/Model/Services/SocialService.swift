@@ -37,14 +37,14 @@ class SocialService: BaseService, SocialServiceType {
         let request = PostFollowingUserRequest()
         request.userHandle = userID
         
-        SocialAPI.myFollowingPostFollowingUser(request: request, authorization: authorization) { [weak self] data, error in
-            self?.processResponse(data, error, completion)
+        SocialAPI.myFollowingPostFollowingUser(request: request, authorization: authorization) { data, error in
+            self.processResponse(data, error, completion)
         }
     }
     
     func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        SocialAPI.myFollowingDeleteFollowingUser(userHandle: userID, authorization: authorization) { [weak self] data, error in
-            self?.processResponse(data, error, completion)
+        SocialAPI.myFollowingDeleteFollowingUser(userHandle: userID, authorization: authorization) { data, error in
+            self.processResponse(data, error, completion)
         }
     }
     
@@ -60,8 +60,8 @@ class SocialService: BaseService, SocialServiceType {
         let request = PostBlockedUserRequest()
         request.userHandle = userID
         
-        SocialAPI.myBlockedUsersPostBlockedUser(request: request, authorization: authorization) { [weak self] data, error in
-            self?.processResponse(data, error, completion)
+        SocialAPI.myBlockedUsersPostBlockedUser(request: request, authorization: authorization) { data, error in
+            self.processResponse(data, error, completion)
         }
     }
     
@@ -74,14 +74,14 @@ class SocialService: BaseService, SocialServiceType {
     }
     
     func getMyFollowing(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.myFollowingGetFollowingUsers(authorization: authorization, cursor: cursor, limit: Int32(limit)) { [weak self] in
-            self?.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        SocialAPI.myFollowingGetFollowingUsers(authorization: authorization, cursor: cursor, limit: Int32(limit)) {
+            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.myFollowersGetFollowers(authorization: authorization, cursor: cursor, limit: Int32(limit)) { [weak self] in
-            self?.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        SocialAPI.myFollowersGetFollowers(authorization: authorization, cursor: cursor, limit: Int32(limit)) {
+            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
@@ -90,8 +90,8 @@ class SocialService: BaseService, SocialServiceType {
             userHandle: userID,
             authorization: authorization,
             cursor: cursor,
-            limit: Int32(limit)) { [weak self] in
-                self?.processUserFeedResponse(response: $0, error: $1, completion: completion)
+            limit: Int32(limit)) {
+                self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
@@ -100,8 +100,8 @@ class SocialService: BaseService, SocialServiceType {
             userHandle: userID,
             authorization: authorization,
             cursor: cursor,
-            limit: Int32(limit)) { [weak self] in
-                self?.processUserFeedResponse(response: $0, error: $1, completion: completion)
+            limit: Int32(limit)) {
+                self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
