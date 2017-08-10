@@ -425,9 +425,10 @@
 		8E6070521F34CE6900110F4F /* PostsFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6070501F34CE6900110F4F /* PostsFeed.swift */; };
 		8E6070531F34CE6900110F4F /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6070511F34CE6900110F4F /* SideMenu.swift */; };
 		8E6070561F34D15200110F4F /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6070551F34D15200110F4F /* Random.swift */; };
-		8E60705E1F3A29FC00110F4F /* me.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E60705D1F3A29FC00110F4F /* me.json */; };
+		8E60705E1F3A29FC00110F4F /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E60705D1F3A29FC00110F4F /* user.json */; };
 		8E6070601F3A2A2400110F4F /* TestConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E60705F1F3A2A2400110F4F /* TestConfig.swift */; };
 		8E6070621F3A2A3E00110F4F /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6070611F3A2A3E00110F4F /* UserProfile.swift */; };
+		8E6070641F3B439B00110F4F /* TestMyProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6070631F3B439B00110F4F /* TestMyProfile.swift */; };
 		8EF0E5A51F1FA5EF00E88ED6 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E59C1F1FA5EF00E88ED6 /* APIResponse.swift */; };
 		8EF0E5A61F1FA5EF00E88ED6 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E59D1F1FA5EF00E88ED6 /* Base.swift */; };
 		8EF0E5A81F1FA5EF00E88ED6 /* DictionaryMerge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E59F1F1FA5EF00E88ED6 /* DictionaryMerge.swift */; };
@@ -953,9 +954,10 @@
 		8E6070501F34CE6900110F4F /* PostsFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsFeed.swift; sourceTree = "<group>"; };
 		8E6070511F34CE6900110F4F /* SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		8E6070551F34D15200110F4F /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
-		8E60705D1F3A29FC00110F4F /* me.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = me.json; sourceTree = "<group>"; };
+		8E60705D1F3A29FC00110F4F /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		8E60705F1F3A2A2400110F4F /* TestConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestConfig.swift; sourceTree = "<group>"; };
 		8E6070611F3A2A3E00110F4F /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		8E6070631F3B439B00110F4F /* TestMyProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMyProfile.swift; sourceTree = "<group>"; };
 		8EF0E5921F1FA5CC00E88ED6 /* EmbeddedSocialUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EmbeddedSocialUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EF0E5961F1FA5CD00E88ED6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EF0E59C1F1FA5EF00E88ED6 /* APIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
@@ -2409,7 +2411,7 @@
 				8E6070451F34C72A00110F4F /* pins_post.json */,
 				8EF0E5A41F1FA5EF00E88ED6 /* topic.json */,
 				8EF0E5C31F28B86100E88ED6 /* topic_post.json */,
-				8E60705D1F3A29FC00110F4F /* me.json */,
+				8E60705D1F3A29FC00110F4F /* user.json */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -2421,6 +2423,7 @@
 				8EF0E5A11F1FA5EF00E88ED6 /* Loop.swift */,
 				8EF0E5C71F2AA13E00E88ED6 /* TestCreatePost.swift */,
 				8E60704E1F34CE5500110F4F /* TestHome.swift */,
+				8E6070631F3B439B00110F4F /* TestMyProfile.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2765,7 +2768,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E6070481F34C72A00110F4F /* pins_delete.json in Resources */,
-				8E60705E1F3A29FC00110F4F /* me.json in Resources */,
+				8E60705E1F3A29FC00110F4F /* user.json in Resources */,
 				8EF0E5AD1F1FA5EF00E88ED6 /* topic.json in Resources */,
 				8EF0E5C41F28B86100E88ED6 /* topic_post.json in Resources */,
 				8E6070491F34C72A00110F4F /* pins_post.json in Resources */,
@@ -2888,6 +2891,7 @@
 				8EF0E5A91F1FA5EF00E88ED6 /* ISODate.swift in Sources */,
 				8EF0E5CE1F2AA66800E88ED6 /* CreatePost.swift in Sources */,
 				8E60704C1F34CDFB00110F4F /* ColorizedUIImage.swift in Sources */,
+				8E6070641F3B439B00110F4F /* TestMyProfile.swift in Sources */,
 				8E6070561F34D15200110F4F /* Random.swift in Sources */,
 				8E6070601F3A2A2400110F4F /* TestConfig.swift in Sources */,
 				8EF0E5A81F1FA5EF00E88ED6 /* DictionaryMerge.swift in Sources */,

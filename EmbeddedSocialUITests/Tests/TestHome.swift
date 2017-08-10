@@ -25,9 +25,14 @@ class TestHome: UITestBase {
         APIConfig.showTopicImages = false
     }
     
+    
+    func openScreen() {
+        sideMenu.navigateTo("Home")
+    }
+    
     //Post titles and handles depend on feed source
     func testFeedSource() {
-        sideMenu.navigateTo("Home")
+        openScreen()
 
         let (index, post) = feed.getRandomPost()
         
@@ -43,7 +48,7 @@ class TestHome: UITestBase {
                             "liked": true,
                             "pinned": true]
         
-        sideMenu.navigateTo("Home")
+        openScreen()
         
         let (_, post) = feed.getRandomPost()
         
@@ -58,7 +63,7 @@ class TestHome: UITestBase {
     }
     
     func testLikePost() {
-        sideMenu.navigateTo("Home")
+        openScreen()
         
         let (index, post) = feed.getRandomPost()
         
@@ -77,7 +82,7 @@ class TestHome: UITestBase {
     
     
     func testPinPost() {
-        sideMenu.navigateTo("Home")
+        openScreen()
         
         let (index, post) = feed.getRandomPost()
         
@@ -97,10 +102,10 @@ class TestHome: UITestBase {
     func testPaging() {
         APIConfig.numberedTopicTeasers = true
         
-        sideMenu.navigateTo("Home")
+        openScreen()
         
         var seenPosts = Set<String>()
-        var retryCount = 5
+        var retryCount = 10
         
         
         while seenPosts.count <= pageSize && retryCount != 0 {
@@ -116,7 +121,7 @@ class TestHome: UITestBase {
     }
     
     func testPullToRefresh() {
-        sideMenu.navigateTo("Home")
+        openScreen()
         
         for _ in 0...5 {
             app.swipeUp()
@@ -140,7 +145,7 @@ class TestHome: UITestBase {
     func testPostImagesLoaded() {
         APIConfig.showTopicImages = true
         
-        sideMenu.navigateTo("Home")
+        openScreen()
         
         sleep(2) //Wait until images loaded
         

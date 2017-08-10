@@ -34,8 +34,11 @@ open class APIRouter: WebApp {
                     let query = URLParametersReader.parseURLParameters(environ: environ)
                     let captures = environ["ambassador.router_captures"] as! [String]
                     var interval = "topics"
-                    if captures.count > 0 && captures[0] != ""{
-                        interval = captures[0]
+                    if captures.count > 0 && captures[0] != "" {
+                        interval = ""
+                        for i in 0...captures.count - 1 {
+                            interval += captures[i]
+                        }
                     }
                     print(query)
                     let cursor = query["cursor"] ?? "0"
@@ -46,6 +49,8 @@ open class APIRouter: WebApp {
                     }
             }
         }
+        
+        self["/v0.6/users/(.*)/topics/?(.*)"] = self["/v0.6/topics/?(.*(?<!likes)$)"]
         
         self["/v0.6/topics/(.*)/likes"] = APIResponse(serviceName: "likes") { environ, sendJSON -> Void in
             let method = environ["REQUEST_METHOD"] as! String
@@ -113,7 +118,7 @@ open class APIRouter: WebApp {
             case "POST":
                 break
             default:
-                sendJSON(Templates.load(name: "me"))
+                sendJSON(Templates.load(name: "user"))
             }
         }
 
