@@ -15,9 +15,11 @@ protocol SessionServiceType {
 
 struct SessionService: SessionServiceType {
     private let apiSettings: APISettings
+    private let errorHandler: APIErrorHandler
     
-    init(apiSettings: APISettings = APISettings.shared) {
+    init(apiSettings: APISettings = APISettings.shared, errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
         self.apiSettings = apiSettings
+        self.errorHandler = errorHandler
     }
     
     func makeNewSession(with credentials: CredentialsList, userUID: String, completion: @escaping (Result<String>) -> Void) {
@@ -31,7 +33,7 @@ struct SessionService: SessionServiceType {
             if let sessionToken = response?.sessionToken {
                 completion(.success(sessionToken))
             } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
+                self.errorHandler.handle(error: error, completion: completion)
             }
         }
     }
@@ -44,7 +46,7 @@ struct SessionService: SessionServiceType {
             if let token = response?.requestToken {
                 completion(.success(token))
             } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
+                self.errorHandler.handle(error: error, completion: completion)
             }
         }
     }
@@ -54,7 +56,7 @@ struct SessionService: SessionServiceType {
             if error == nil {
                 completion(.success())
             } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
+                self.errorHandler.handle(error: error, completion: completion)
             }
         }
     }

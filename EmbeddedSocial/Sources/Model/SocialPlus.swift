@@ -85,7 +85,6 @@ extension SocialPlus: UserHolder {
 }
 
 extension SocialPlus: LogoutController {
-    
     func logOut(with error: Error) {
         logOut()
         coordinator.showError(error)

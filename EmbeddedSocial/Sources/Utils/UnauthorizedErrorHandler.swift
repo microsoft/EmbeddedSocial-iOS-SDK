@@ -13,11 +13,9 @@ protocol LogoutController {
 
 struct UnauthorizedErrorHandler: APIErrorHandler {
     private let logoutController: LogoutController
-    private let sessionService: SessionServiceType
     
-    init(logoutController: LogoutController = SocialPlus.shared, sessionService: SessionServiceType = SessionService()) {
+    init(logoutController: LogoutController = SocialPlus.shared) {
         self.logoutController = logoutController
-        self.sessionService = sessionService
     }
     
     func canHandle(_ error: Error?) -> Bool {

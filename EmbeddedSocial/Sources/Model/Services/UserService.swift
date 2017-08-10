@@ -25,13 +25,12 @@ struct UserService: UserServiceType {
         APISettings.shared.customHeaders = credentials.authHeader
         
         UsersAPI.usersGetMyProfile { profile, error in
-            guard let profile = profile else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
-                return
+            if let profile = profile {
+                let user = User(profileView: profile, credentials: credentials)
+                completion(.success(user))
+            } else {
+                self.errorHandler.handle(error: error, completion: completion)
             }
-            
-            let user = User(profileView: profile, credentials: credentials)
-            completion(.success(user))
         }
     }
     
@@ -50,7 +49,7 @@ struct UserService: UserServiceType {
                 let user = User(socialUser: user, userHandle: userHandle)
                 completion(.success((user, sessionToken)))
             } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
+                self.errorHandler.handle(error: error, completion: completion)
             }
         }
     }
