@@ -74,7 +74,6 @@ class SocialPlusTests: XCTestCase {
         sut.start(launchArguments: args)
         
         // then
-        XCTAssertEqual(APISettings.shared.customHeaders, credentials.authHeader)
         XCTAssertEqual(thirdPartiesConfigurator.setupCount, 1)
     }
 }

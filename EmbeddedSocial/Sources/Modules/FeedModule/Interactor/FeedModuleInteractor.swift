@@ -12,10 +12,9 @@ enum PostSocialAction: Int {
 
 protocol FeedModuleInteractorInput {
     
-    func fetchPosts(limit: Int32?, feedType: FeedType)
-    func fetchPostsMore(limit: Int32?, feedType: FeedType, cursor: String)
-    
+    func fetchPosts(limit: Int32?, cursor: String?, feedType: FeedType)
     func postAction(post: PostHandle, action: PostSocialAction)
+    
 }
 
 protocol FeedModuleInteractorOutput: class {
@@ -25,8 +24,8 @@ protocol FeedModuleInteractorOutput: class {
     func didFail(error: FeedServiceError)
     func didStartFetching()
     func didFinishFetching()
-    
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?)
+    
 }
 
 class FeedModuleInteractor: FeedModuleInteractorInput {
@@ -63,15 +62,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         }
     }
     
-    func fetchPostsMore(limit: Int32? = nil, feedType: FeedType, cursor: String) {
-        fetchPosts(limit: limit, feedType: feedType, cursor: cursor)
-    }
-    
-    func fetchPosts(limit: Int32? = nil, feedType: FeedType) {
-        fetchPosts(limit: limit, feedType: feedType, cursor: nil)
-    }
-    
-    private func fetchPosts(limit: Int32? = nil, feedType: FeedType, cursor: String?) {
+    func fetchPosts(limit: Int32? = nil, cursor: String? = nil, feedType: FeedType) {
         
         guard isFetching == false else {
             Logger.log("Cant fetch, already fetching..")
@@ -83,8 +74,13 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
    
         switch feedType {
             
-        case .recent, .home:
-            // TODO: use UserAPI for home feed fetch
+        case .home:
+            var query = HomeFeedQuery()
+            query.limit = limit
+            query.cursor = cursor
+            postService.fetchHome(query: query, completion: fetchHandler)
+            
+        case .recent:
             var query = RecentFeedQuery()
             query.limit = limit
             query.cursor = cursor

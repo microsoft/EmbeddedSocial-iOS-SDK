@@ -12,7 +12,7 @@ class CreatePostInteractorTests: XCTestCase {
     let presenter = MockCreatePostPresenter()
     var coreDataStack: CoreDataStack!
     var transactionsDatabase: MockTransactionsDatabaseFacade!
-    var cache: Cachable!
+    var cache: CacheType!
     var topicService: TopicService!
     
     

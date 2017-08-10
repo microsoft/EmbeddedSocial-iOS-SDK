@@ -31,19 +31,19 @@ protocol SocialServiceType {
     func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
 }
 
-struct SocialService: SocialServiceType {
+class SocialService: BaseService, SocialServiceType {
     
     func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
         let request = PostFollowingUserRequest()
         request.userHandle = userID
         
-        SocialAPI.myFollowingPostFollowingUser(request: request) { data, error in
+        SocialAPI.myFollowingPostFollowingUser(request: request, authorization: authorization) { data, error in
             self.processResponse(data, error, completion)
         }
     }
     
     func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        SocialAPI.myFollowingDeleteFollowingUser(userHandle: userID) { data, error in
+        SocialAPI.myFollowingDeleteFollowingUser(userHandle: userID, authorization: authorization) { data, error in
             self.processResponse(data, error, completion)
         }
     }
@@ -60,51 +60,59 @@ struct SocialService: SocialServiceType {
         let request = PostBlockedUserRequest()
         request.userHandle = userID
         
-        SocialAPI.myBlockedUsersPostBlockedUser(request: request) { data, error in
+        SocialAPI.myBlockedUsersPostBlockedUser(request: request, authorization: authorization) { data, error in
             self.processResponse(data, error, completion)
         }
     }
     
-    private func processResponse(_ data: Object?,_ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
+    private func processResponse(_ data: Object?, _ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
         if error == nil {
             completion(.success())
         } else {
-            completion(.failure(APIError(error: error as? ErrorResponse)))
+            errorHandler.handle(error: error, completion: completion)
         }
     }
     
     func getMyFollowing(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.myFollowingGetFollowingUsers(cursor: cursor, limit: Int32(limit)) {
+        SocialAPI.myFollowingGetFollowingUsers(authorization: authorization, cursor: cursor, limit: Int32(limit)) {
             self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.myFollowersGetFollowers(cursor: cursor, limit: Int32(limit)) {
+        SocialAPI.myFollowersGetFollowers(authorization: authorization, cursor: cursor, limit: Int32(limit)) {
             self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.userFollowersGetFollowers(userHandle: userID, cursor: cursor, limit: Int32(limit)) {
-            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        SocialAPI.userFollowersGetFollowers(
+            userHandle: userID,
+            authorization: authorization,
+            cursor: cursor,
+            limit: Int32(limit)) {
+                self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.userFollowingGetFollowing(userHandle: userID, cursor: cursor, limit: Int32(limit)) {
-            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        SocialAPI.userFollowingGetFollowing(
+            userHandle: userID,
+            authorization: authorization,
+            cursor: cursor,
+            limit: Int32(limit)) {
+                self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
     
     private func processUserFeedResponse(response: FeedResponseUserCompactView?,
                                          error: Error?,
-                                         completion: @escaping (Result<UsersListResponse>) -> Void ) {
+                                         completion: @escaping (Result<UsersListResponse>) -> Void) {
         if let response = response {
             let users = response.data?.map(User.init) ?? []
             completion(.success(UsersListResponse(users: users, cursor: response.cursor)))
         } else {
-            completion(.failure(APIError(error: error as? ErrorResponse)))
+            errorHandler.handle(error: error, completion: completion)
         }
     }
     

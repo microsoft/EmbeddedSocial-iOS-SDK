@@ -16,6 +16,9 @@ protocol CrossModuleCoordinatorProtocol: class {
     func openHomeScreen()
     func openMyProfile()
     func openLoginScreen()
+    
+    func logOut()
+    func showError(_ error: Error)
 
     func isUserAuthenticated() -> Bool
 }
@@ -26,9 +29,9 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     weak var loginHandler: LoginModuleOutput!
     private(set) var navigationStack: NavigationStack!
     private(set) var user: User?
-    fileprivate var cache: Cache
+    fileprivate var cache: CacheType
     
-    required init(cache: Cache) {
+    required init(cache: CacheType) {
         self.cache = cache
     }
     
@@ -86,14 +89,37 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         let vc = configureHome()
         navigationStack.show(vc)
     }
+    
+    func logOut() {
+        user = nil
+        menuModule.user = nil
+        navigationStack.cleanStack()
+        openLoginScreen()
+    }
+    
+    func showError(_ error: Error) {
+        navigationStack.showError(error)
+    }
 }
 
 extension CrossModuleCoordinator: CrossModuleCoordinatorConfigurator {
     
     func configureHome() -> UIViewController {
         let configurator = FeedModuleConfigurator(cache: self.cache)
-        configurator.configure(feed: FeedType.home, navigationController: navigationStack.navigationController)
+        configurator.configure(navigationController: navigationStack.navigationController)
+        configurator.moduleInput.setFeed(.home)
+        configurator.viewController.title = "Home"
         let vc = configurator.viewController!
         return vc
     }
+    
+    func configurePopular() -> UIViewController {
+        let configurator = FeedModuleConfigurator(cache: self.cache)
+        configurator.configure(navigationController: navigationStack.navigationController)
+        configurator.moduleInput.setFeed(.popular(type: .alltime))
+        configurator.viewController.title = "Popular"
+        let vc = configurator.viewController!
+        return vc
+    }
+    
 }

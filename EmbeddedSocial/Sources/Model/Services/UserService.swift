@@ -13,25 +13,20 @@ protocol UserServiceType {
     func createAccount(for user: SocialUser, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void)
 }
 
-struct UserService: UserServiceType {
+class UserService: BaseService, UserServiceType {
     
     func getMyProfile(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
-        APISettings.shared.customHeaders = credentials.authHeader
-        
-        UsersAPI.usersGetMyProfile { profile, error in
-            guard let profile = profile else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
-                return
+        UsersAPI.usersGetMyProfile(authorization: credentials.authorization) { profile, error in
+            if let profile = profile {
+                let user = User(profileView: profile, credentials: credentials)
+                completion(.success(user))
+            } else {
+                self.errorHandler.handle(error: error, completion: completion)
             }
-            
-            let user = User(profileView: profile, credentials: credentials)
-            completion(.success(user))
         }
     }
     
     func createAccount(for user: SocialUser, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
-        APISettings.shared.customHeaders = user.credentials.authHeader
-
         let params = PostUserRequest()
         params.instanceId = user.uid
         params.firstName = user.firstName
@@ -39,23 +34,23 @@ struct UserService: UserServiceType {
         params.bio = user.bio
         params.photoHandle = user.photo?.uid
         
-        UsersAPI.usersPostUser(request: params) { response, error in
+        UsersAPI.usersPostUser(request: params, authorization: authorization) { response, error in
             if let response = response, let userHandle = response.userHandle, let sessionToken = response.sessionToken {
                 let user = User(socialUser: user, userHandle: userHandle)
                 completion(.success((user, sessionToken)))
             } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
+                self.errorHandler.handle(error: error, completion: completion)
             }
         }
     }
     
     func getUserProfile(userID: String, completion: @escaping (Result<User>) -> Void) {
-        UsersAPI.usersGetUser(userHandle: userID) { profile, error in
+        UsersAPI.usersGetUser(userHandle: userID, authorization: authorization) { profile, error in
             if let profile = profile {
                 let user = User(profileView: profile)
                 completion(.success(user))
             } else {
-                completion(.failure(APIError(error: error as? ErrorResponse)))
+                self.errorHandler.handle(error: error, completion: completion)
             }
         }
     }

@@ -11,15 +11,7 @@ final class APISettings {
     private let queue = DispatchQueue(label: "APISettings queue")
 
     private init() {
-        if let path = getEnvironmentVariable("EmbeddedSocial_MOCK_SERVER") {
-            EmbeddedSocialClientAPI.basePath = path
-        } else {
-            EmbeddedSocialClientAPI.basePath = Keys.ppeBasePath
-        }
-    }
-    
-    var anonymousHeaders: [String: String] {
-        return ["Authorization": "Anon AK=\(Constants.appKey)"]
+        EmbeddedSocialClientAPI.basePath = UITestsHelper.mockServerPath ?? Keys.ppeBasePath
     }
     
     var customHeaders: [String: String] {

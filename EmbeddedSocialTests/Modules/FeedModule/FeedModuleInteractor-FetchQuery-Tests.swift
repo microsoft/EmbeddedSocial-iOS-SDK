@@ -11,6 +11,9 @@ private class MockPostService: PostServiceProtocol {
     var fetchPopularIsCalled = false
     var fetchPopularQuery: PopularFeedQuery?
     
+    var fetchHomeIsCalled = false
+    var fetchHomeQuery: HomeFeedQuery?
+    
     var fetchRecentIsCalled = false
     var fetchRecentQuery: RecentFeedQuery?
     
@@ -22,6 +25,11 @@ private class MockPostService: PostServiceProtocol {
     
     var fetchPostIsCalled = false
     var fetchPostHandle: PostHandle?
+    
+    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
+        fetchHomeIsCalled = true
+        fetchHomeQuery = query
+    }
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
         fetchPopularIsCalled = true
@@ -49,7 +57,7 @@ private class MockPostService: PostServiceProtocol {
     }
 }
 
-class FeedModuleInteractorTests: XCTestCase {
+class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
     
     var sut: FeedModuleInteractor!
     private var postService: MockPostService!
@@ -68,18 +76,34 @@ class FeedModuleInteractorTests: XCTestCase {
         presenter.view = view
     }
     
+    func testThatRecentFeedFetchRequestIsValid() {
+        
+        // given
+        let feedType = FeedType.recent
+        
+        // when
+        sut.fetchPosts(limit: 5, cursor: "cursor", feedType: feedType)
+        
+        // then
+        XCTAssertTrue(postService.fetchRecentIsCalled)
+        XCTAssertTrue(postService.fetchRecentQuery?.limit == 5)
+        XCTAssertTrue(postService.fetchRecentQuery?.cursor == "cursor")
+    }
+    
     func testThatHomeFeedFetchRequestIsValid() {
         
         // given
         let feedType = FeedType.home
         
         // when
-        sut.fetchPosts(limit: 20, feedType: feedType)
+        sut.fetchPosts(limit: 5, cursor: "cursor", feedType: feedType)
         
         // then
-        XCTAssertTrue(postService.fetchRecentIsCalled)
-        XCTAssertTrue(postService.fetchRecentQuery!.limit == 20)
+        XCTAssertTrue(postService.fetchHomeIsCalled)
+        XCTAssertTrue(postService.fetchHomeQuery?.limit == 5)
+        XCTAssertTrue(postService.fetchHomeQuery?.cursor == "cursor")
     }
+    
     
     func testThatPopularFeedFetchRequestIsValid() {
         
@@ -87,11 +111,13 @@ class FeedModuleInteractorTests: XCTestCase {
         let feedType = FeedType.popular(type: .today)
         
         // when
-        sut.fetchPosts(feedType: feedType)
+        sut.fetchPosts(limit: 5, cursor: "10", feedType: feedType)
         
         // then
         XCTAssertTrue(postService.fetchPopularIsCalled)
-        XCTAssertTrue(postService.fetchPopularQuery!.timeRange == .today )
+        XCTAssertTrue(postService.fetchPopularQuery?.timeRange == .today )
+        XCTAssertTrue(postService.fetchPopularQuery?.cursor == 10)
+        XCTAssertTrue(postService.fetchPopularQuery?.limit == 5)
     }
     
     func testThatSinglePostFetchFeedRequestIsValid() {
@@ -112,12 +138,13 @@ class FeedModuleInteractorTests: XCTestCase {
         let feedType = FeedType.user(user: "user", scope: .recent)
         
         // when
-        sut.fetchPosts(limit: 20, feedType: feedType)
+        sut.fetchPosts(limit: 20, cursor: "cursor", feedType: feedType)
         
         // then
         XCTAssertTrue(postService.fetchRecentForUserIsCalled)
-        XCTAssertTrue(postService.fetchRecentForUserQuery!.limit == 20)
-        XCTAssertTrue(postService.fetchRecentForUserQuery!.user == "user")
+        XCTAssertTrue(postService.fetchRecentForUserQuery?.limit == 20)
+        XCTAssertTrue(postService.fetchRecentForUserQuery?.user == "user")
+        XCTAssertTrue(postService.fetchRecentForUserQuery?.cursor == "cursor")
     }
     
     func testThatUserPopularFeedFetchRequestIsValid() {
@@ -126,12 +153,13 @@ class FeedModuleInteractorTests: XCTestCase {
         let feedType = FeedType.user(user: "user", scope: .popular)
         
         // when
-        sut.fetchPosts(limit: 20, feedType: feedType)
+        sut.fetchPosts(limit: 20, cursor: "cursor", feedType: feedType)
         
         // then
         XCTAssertTrue(postService.fetchPopularForUserIsCalled)
-        XCTAssertTrue(postService.fetchPopularForUserQuery!.limit == 20)
-        XCTAssertTrue(postService.fetchPopularForUserQuery!.user == "user")
+        XCTAssertTrue(postService.fetchPopularForUserQuery?.limit == 20)
+        XCTAssertTrue(postService.fetchPopularForUserQuery?.user == "user")
+        XCTAssertTrue(postService.fetchPopularForUserQuery?.cursor == "cursor")
     }
     
     

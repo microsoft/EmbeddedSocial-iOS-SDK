@@ -9,9 +9,10 @@ struct Constants {
     static let appKey = "ec1665a4-920d-4449-b8a0-49ed374d4290"
     static let standardCellHeight: CGFloat = 44.0
     static let oauth1URLScheme = "embeddedsocial"
+    static let imageCompressionQuality: CGFloat = 0.8
+    static let anonymousAuthorization: Authorization = "Anon AK=\(Constants.appKey)"
 }
 
-// swiftlint:disable type_name
 extension Constants {
     
     struct CreateAccount {
@@ -38,5 +39,12 @@ extension Constants {
     struct Placeholder {
         static let unknown = "Unknown"
         static let notSpecified = "Not specified"
+    }
+}
+
+extension Constants {
+    
+    struct API {
+        static let unauthorizedStatusCode = 401
     }
 }

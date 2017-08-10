@@ -13,14 +13,13 @@ class FeedModuleConfigurator {
     
     weak var viewController: UIViewController!
     weak var moduleInput: FeedModuleInput!
-    weak var cache: Cache!
+    let cache: CacheType
     
-    required init(cache: Cache) {
+    required init(cache: CacheType) {
         self.cache = cache
     }
     
-    func configure(feed: FeedType? = nil,
-                   navigationController: UINavigationController? = nil,
+    func configure(navigationController: UINavigationController? = nil,
                    moduleOutput: FeedModuleOutput? = nil) {
         
         let viewController = StoryboardScene.FeedModule.instantiateFeedModuleViewController()
@@ -34,11 +33,7 @@ class FeedModuleConfigurator {
          */
         
         let presenter = FeedModulePresenter()
-        
-        if let feed = feed {
-            presenter.setFeed(feed)
-        }
-        
+    
         presenter.view = viewController
         presenter.router = router
         presenter.moduleOutput = moduleOutput

@@ -16,7 +16,7 @@ class TestHome: UITestBase {
         sideMenu = SideMenu(app)
         feed = PostsFeed(app)
         pageSize = 3
-        feedName = "topics"
+        feedName = "me/following"
     }
     
     override func tearDown() {
