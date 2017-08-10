@@ -9,8 +9,7 @@ class CreatePostModuleConfigurator {
 
     func configure(viewController: CreatePostViewController,
                    user: User,
-                   moduleOutput: CreatePostModuleOutput? = nil,
-                   cache: CacheType = SocialPlus.shared.cache) {
+                   moduleOutput: CreatePostModuleOutput? = nil) {
 
         let router = CreatePostRouter()
 
@@ -22,7 +21,7 @@ class CreatePostModuleConfigurator {
 
         let interactor = CreatePostInteractor()
         interactor.output = presenter
-        let topicService = TopicService(cache: cache)
+        let topicService = TopicService(imagesService: ImagesService())
         interactor.topicService = topicService
 
         presenter.interactor = interactor

@@ -7,77 +7,80 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E550E0442641893FCB08CE6 /* Pods_EmbeddedSocialTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC386DEA5CC7579EF6666AD5 /* Pods_EmbeddedSocialTests.framework */; };
+		22336814BC3C011852C42C6A /* Pods_Group_EmbeddedSocialUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DA22EE38C1B7CC10E50D599 /* Pods_Group_EmbeddedSocialUITests.framework */; };
+		285F7044DED696656910B086 /* Pods_Group_EmbeddedSocial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9831B3EA2C1D4411BAFE63E4 /* Pods_Group_EmbeddedSocial.framework */; };
 		3209330D1F2A50D300890218 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209330C1F2A50D300890218 /* Logger.swift */; };
 		3234AD1B1F2E70C3009C3327 /* PostCellCompact.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3234AD1A1F2E70C3009C3327 /* PostCellCompact.xib */; };
 		32FAB0511F2E6D3000C5B18D /* PostCellCompact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */; };
 		32FAB0531F2E6D4700C5B18D /* PostCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */; };
-		6360D8BE1F3B15EB00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8BF1F3B15EB00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8C01F3B15EB00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8C11F3B15EB00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8C21F3B15EB00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8C31F3B15EB00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8C41F3B15EB00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8C51F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8C61F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8C71F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8C81F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8C91F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8CA1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8CB1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8CC1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8CD1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8CE1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8CF1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8D01F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8D11F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8D21F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8D31F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8D41F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8D51F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8D61F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8D71F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8D81F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8D91F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8DA1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8DB1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8DC1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8DD1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8DE1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8DF1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8E01F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8E21F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8E31F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8E41F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8E51F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8E61F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8E71F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8E81F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8E91F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8EA1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8EB1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8EC1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8ED1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8EE1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8EF1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8F11F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8F31F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8F41F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8F51F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8F61F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8F71F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8F81F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8F91F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8FA1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8FB1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8FC1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8FD1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8FE1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D8FF1F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D9001F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D9011F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D9021F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		6360D9031F3B15EC00FECAEB /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		6360D8BE1F3B15EB00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8BF1F3B15EB00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8C01F3B15EB00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8C11F3B15EB00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8C21F3B15EB00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8C31F3B15EB00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8C41F3B15EB00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8C51F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8C61F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8C71F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8C81F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8C91F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8CA1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8CB1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8CC1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8CD1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8CE1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8CF1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8D01F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8D11F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8D21F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8D31F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8D41F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8D51F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8D61F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8D71F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8D81F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8D91F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8DA1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8DB1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8DC1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8DD1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8DE1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8DF1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8E01F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8E21F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8E31F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8E41F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8E51F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8E61F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8E71F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8E81F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8E91F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8EA1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8EB1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8EC1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8ED1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8EE1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8EF1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8F11F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8F31F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8F41F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8F51F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8F61F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8F71F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8F81F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8F91F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8FA1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8FB1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8FC1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8FD1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8FE1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D8FF1F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D9001F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D9011F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D9021F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6360D9031F3B15EC00FECAEB /* (null) in Sources */ = {isa = PBXBuildFile; };
 		63A1D6FB1F25E78D0090C67A /* TopicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D6FA1F25E78D0090C67A /* TopicService.swift */; };
 		63A1D7011F262D1B0090C67A /* Photo+JSONEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7001F262D1B0090C67A /* Photo+JSONEncodable.swift */; };
 		63A1D7051F2740910090C67A /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7041F2740910090C67A /* Cache.swift */; };
@@ -96,6 +99,8 @@
 		8811C8211F3C6D2400F7513D /* UITestsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8201F3C6D2400F7513D /* UITestsHelper.swift */; };
 		8811C8231F3C728E00F7513D /* UnauthorizedErrorHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8221F3C728E00F7513D /* UnauthorizedErrorHandlerTests.swift */; };
 		8811C8251F3C72CD00F7513D /* MockLogoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8241F3C72CD00F7513D /* MockLogoutController.swift */; };
+		8811C8271F3C809400F7513D /* ImagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8261F3C809400F7513D /* ImagesService.swift */; };
+		8811C8291F3C83E300F7513D /* UIImage+Compress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8281F3C83E300F7513D /* UIImage+Compress.swift */; };
 		881F7E5C1F263543003EB37A /* EmbeddedSocial.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* EmbeddedSocial.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		881F7E5E1F2637B7003EB37A /* KeyValueRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */; };
 		881F7E601F2637F7003EB37A /* MementoSerializableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */; };
@@ -517,6 +522,7 @@
 		8EF0E5CC1F2AA2D000E88ED6 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E5CB1F2AA2D000E88ED6 /* TextField.swift */; };
 		8EF0E5CE1F2AA66800E88ED6 /* CreatePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E5CD1F2AA66800E88ED6 /* CreatePost.swift */; };
 		8EF0E5D01F2AB17000E88ED6 /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E5CF1F2AB17000E88ED6 /* Readme.md */; };
+		97B2B593D34CF7106A77508B /* Pods_Group_EmbeddedSocial_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F9CB91E01832E8DE289223 /* Pods_Group_EmbeddedSocial_Example.framework */; };
 		9C316E141F31F7A700B90089 /* AutoEquatable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C316E131F31F77600B90089 /* AutoEquatable.generated.swift */; };
 		9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8B1F25D60A00D0B59D /* PostCell.xib */; };
 		9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */; };
@@ -589,10 +595,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		020FE7F028BA412475F600D7 /* Pods-Group-EmbeddedSocialUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-EmbeddedSocialUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-EmbeddedSocialUITests/Pods-Group-EmbeddedSocialUITests.release.xcconfig"; sourceTree = "<group>"; };
+		2F4D51B450EF02D7DFE85E2B /* Pods-Group-EmbeddedSocial-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-EmbeddedSocial-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-EmbeddedSocial-Example/Pods-Group-EmbeddedSocial-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		306C376A1D679CF07F282580 /* Pods-Group-EmbeddedSocialUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-EmbeddedSocialUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-EmbeddedSocialUITests/Pods-Group-EmbeddedSocialUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3209330C1F2A50D300890218 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		3234AD1A1F2E70C3009C3327 /* PostCellCompact.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCellCompact.xib; sourceTree = "<group>"; };
 		32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellCompact.swift; sourceTree = "<group>"; };
 		32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellProtocol.swift; sourceTree = "<group>"; };
+		49BA7EF459FAACA2E8684C9E /* Pods-EmbeddedSocialTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmbeddedSocialTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmbeddedSocialTests/Pods-EmbeddedSocialTests.release.xcconfig"; sourceTree = "<group>"; };
 		63A1D6FA1F25E78D0090C67A /* TopicService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicService.swift; sourceTree = "<group>"; };
 		63A1D7001F262D1B0090C67A /* Photo+JSONEncodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photo+JSONEncodable.swift"; sourceTree = "<group>"; };
 		63A1D7041F2740910090C67A /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
@@ -601,6 +611,7 @@
 		63A1D7211F2A03150090C67A /* MockCreatePostInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostInteractor.swift; sourceTree = "<group>"; };
 		63A1D7241F2A04EB0090C67A /* MockCreatePostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostViewController.swift; sourceTree = "<group>"; };
 		63A1D7271F2A24900090C67A /* MockCreatePostPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostPresenter.swift; sourceTree = "<group>"; };
+		6DA22EE38C1B7CC10E50D599 /* Pods_Group_EmbeddedSocialUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_EmbeddedSocialUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		88087B451F2A431E00A33E9A /* ButtonDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonDecorator.swift; sourceTree = "<group>"; };
 		88087B491F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockThirdPartyConfigurator.swift; sourceTree = "<group>"; };
 		881060F81F28E502008CA2FB /* UIButtonStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonStyles.swift; sourceTree = "<group>"; };
@@ -609,6 +620,8 @@
 		8811C8201F3C6D2400F7513D /* UITestsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestsHelper.swift; sourceTree = "<group>"; };
 		8811C8221F3C728E00F7513D /* UnauthorizedErrorHandlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthorizedErrorHandlerTests.swift; sourceTree = "<group>"; };
 		8811C8241F3C72CD00F7513D /* MockLogoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLogoutController.swift; sourceTree = "<group>"; };
+		8811C8261F3C809400F7513D /* ImagesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesService.swift; sourceTree = "<group>"; };
+		8811C8281F3C83E300F7513D /* UIImage+Compress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Compress.swift"; sourceTree = "<group>"; };
 		881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueRepositoryTests.swift; sourceTree = "<group>"; };
 		881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MementoSerializableItem.swift; sourceTree = "<group>"; };
 		881F7E611F263888003EB37A /* MockKeyValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeyValueStorage.swift; sourceTree = "<group>"; };
@@ -1044,6 +1057,8 @@
 		8EF0E5CB1F2AA2D000E88ED6 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		8EF0E5CD1F2AA66800E88ED6 /* CreatePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePost.swift; sourceTree = "<group>"; };
 		8EF0E5CF1F2AB17000E88ED6 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
+		97908D91742D79203B97A412 /* Pods-Group-EmbeddedSocial.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-EmbeddedSocial.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-EmbeddedSocial/Pods-Group-EmbeddedSocial.debug.xcconfig"; sourceTree = "<group>"; };
+		9831B3EA2C1D4411BAFE63E4 /* Pods_Group_EmbeddedSocial.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_EmbeddedSocial.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C316E101F31E3CB00B90089 /* FeedModuleInteractor-Pagination-Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedModuleInteractor-Pagination-Tests.swift"; sourceTree = "<group>"; };
 		9C316E131F31F77600B90089 /* AutoEquatable.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoEquatable.generated.swift; sourceTree = "<group>"; };
 		9C43EC8B1F25D60A00D0B59D /* PostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
@@ -1077,6 +1092,11 @@
 		9CEA75231F2A0E61009FC89D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		9CEA75271F2A1FA0009FC89D /* LikesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesService.swift; sourceTree = "<group>"; };
 		9CEA75291F2A1FAA009FC89D /* PinsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinsService.swift; sourceTree = "<group>"; };
+		AE9FFC1F2A6995BE1C50A356 /* Pods-EmbeddedSocialTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmbeddedSocialTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmbeddedSocialTests/Pods-EmbeddedSocialTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D252861432D54D535D1C4775 /* Pods-Group-EmbeddedSocial-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-EmbeddedSocial-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-EmbeddedSocial-Example/Pods-Group-EmbeddedSocial-Example.release.xcconfig"; sourceTree = "<group>"; };
+		E7F9CB91E01832E8DE289223 /* Pods_Group_EmbeddedSocial_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_EmbeddedSocial_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC386DEA5CC7579EF6666AD5 /* Pods_EmbeddedSocialTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmbeddedSocialTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9F133BAB929EE06F4D375D0 /* Pods-Group-EmbeddedSocial.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-EmbeddedSocial.release.xcconfig"; path = "Pods/Target Support Files/Pods-Group-EmbeddedSocial/Pods-Group-EmbeddedSocial.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1085,6 +1105,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				886B3ADF1F13B92B00BF1A8E /* EmbeddedSocial.framework in Frameworks */,
+				97B2B593D34CF7106A77508B /* Pods_Group_EmbeddedSocial_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1092,6 +1113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22336814BC3C011852C42C6A /* Pods_Group_EmbeddedSocialUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1099,6 +1121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				285F7044DED696656910B086 /* Pods_Group_EmbeddedSocial.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1107,6 +1130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CD805331F0D012F00B9B0AC /* EmbeddedSocial.framework in Frameworks */,
+				1E550E0442641893FCB08CE6 /* Pods_EmbeddedSocialTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1123,6 +1147,10 @@
 				886B3ACB1F13ABEA00BF1A8E /* Alamofire.framework */,
 				886B3ACC1F13ABEA00BF1A8E /* SnapKit.framework */,
 				886B3ACD1F13ABEA00BF1A8E /* SVProgressHUD.framework */,
+				EC386DEA5CC7579EF6666AD5 /* Pods_EmbeddedSocialTests.framework */,
+				9831B3EA2C1D4411BAFE63E4 /* Pods_Group_EmbeddedSocial.framework */,
+				E7F9CB91E01832E8DE289223 /* Pods_Group_EmbeddedSocial_Example.framework */,
+				6DA22EE38C1B7CC10E50D599 /* Pods_Group_EmbeddedSocialUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1425,6 +1453,7 @@
 				88F551AB1F38717A00F4AAB9 /* UICollectionView+Ext.swift */,
 				88580AB01F2213AB00C1CBAF /* UIColor+Hex.swift */,
 				88580AB11F2213AB00C1CBAF /* UIImage+Resize.swift */,
+				8811C8281F3C83E300F7513D /* UIImage+Compress.swift */,
 				88580AB21F2213AB00C1CBAF /* UIImageView+ImageCache.swift */,
 				88580AB31F2213AB00C1CBAF /* UITableView+Ext.swift */,
 				88580AB41F2213AB00C1CBAF /* UIView+Ext.swift */,
@@ -1511,6 +1540,7 @@
 				886F4B3A1F2A06E500D836C3 /* SocialService.swift */,
 				63A1D6FA1F25E78D0090C67A /* TopicService.swift */,
 				88580B2A1F2213AB00C1CBAF /* UserService.swift */,
+				8811C8261F3C809400F7513D /* ImagesService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -2624,6 +2654,7 @@
 				8EF0E5931F1FA5CC00E88ED6 /* EmbeddedSocialUITests */,
 				2C6B77FF4F1F2F71CA420D6B /* Frameworks */,
 				9CD8052A1F0D012F00B9B0AC /* Products */,
+				D7110FAD570AAB9A539DB8D3 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2664,6 +2695,21 @@
 			path = EmbeddedSocialTests;
 			sourceTree = "<group>";
 		};
+		D7110FAD570AAB9A539DB8D3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AE9FFC1F2A6995BE1C50A356 /* Pods-EmbeddedSocialTests.debug.xcconfig */,
+				49BA7EF459FAACA2E8684C9E /* Pods-EmbeddedSocialTests.release.xcconfig */,
+				97908D91742D79203B97A412 /* Pods-Group-EmbeddedSocial.debug.xcconfig */,
+				F9F133BAB929EE06F4D375D0 /* Pods-Group-EmbeddedSocial.release.xcconfig */,
+				2F4D51B450EF02D7DFE85E2B /* Pods-Group-EmbeddedSocial-Example.debug.xcconfig */,
+				D252861432D54D535D1C4775 /* Pods-Group-EmbeddedSocial-Example.release.xcconfig */,
+				306C376A1D679CF07F282580 /* Pods-Group-EmbeddedSocialUITests.debug.xcconfig */,
+				020FE7F028BA412475F600D7 /* Pods-Group-EmbeddedSocialUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2682,10 +2728,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 886B39D41F138F5D00BF1A8E /* Build configuration list for PBXNativeTarget "EmbeddedSocial-Example" */;
 			buildPhases = (
+				E7F1F987E9B3048DAF46D73E /* [CP] Check Pods Manifest.lock */,
 				886B39C11F138F5D00BF1A8E /* Sources */,
 				886B39C21F138F5D00BF1A8E /* Frameworks */,
 				886B39C31F138F5D00BF1A8E /* Resources */,
 				881F7E5B1F263538003EB37A /* CopyFiles */,
+				9DA6717B98F7F82AFDDCE4D8 /* [CP] Embed Pods Frameworks */,
+				482B942988B49204EA97E4B1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2701,9 +2750,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8EF0E59B1F1FA5CD00E88ED6 /* Build configuration list for PBXNativeTarget "EmbeddedSocialUITests" */;
 			buildPhases = (
+				8597DAAABD152139F1D52531 /* [CP] Check Pods Manifest.lock */,
 				8EF0E58E1F1FA5CC00E88ED6 /* Sources */,
 				8EF0E58F1F1FA5CC00E88ED6 /* Frameworks */,
 				8EF0E5901F1FA5CC00E88ED6 /* Resources */,
+				E47A63D966EF555869892174 /* [CP] Embed Pods Frameworks */,
+				1879161AEE079A65FE1BA2CB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2719,6 +2771,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9CD8053D1F0D012F00B9B0AC /* Build configuration list for PBXNativeTarget "EmbeddedSocial" */;
 			buildPhases = (
+				66AD7CC0187187AC83453F3B /* [CP] Check Pods Manifest.lock */,
 				88CEEE311F17C79900B93196 /* ShellScript */,
 				9CD805241F0D012F00B9B0AC /* Sources */,
 				9CD805251F0D012F00B9B0AC /* Frameworks */,
@@ -2726,6 +2779,7 @@
 				9CD805271F0D012F00B9B0AC /* Resources */,
 				886B39E51F1392D800BF1A8E /* ShellScript */,
 				63A1D5831F1CD12A0090C67A /* ShellScript */,
+				FB2F21D8CBACEB8F3A6CA54E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2740,9 +2794,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9CD805401F0D012F00B9B0AC /* Build configuration list for PBXNativeTarget "EmbeddedSocialTests" */;
 			buildPhases = (
+				B824D97FC3F11EFBB6899DFF /* [CP] Check Pods Manifest.lock */,
 				9CD8052E1F0D012F00B9B0AC /* Sources */,
 				9CD8052F1F0D012F00B9B0AC /* Frameworks */,
 				9C8F68951F3485B300AF4A7F /* Resources */,
+				BEE1BAE1FF0A8AB7A2AD6983 /* [CP] Embed Pods Frameworks */,
+				483BC253DB1888D0A9EBB4AA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2867,6 +2924,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1879161AEE079A65FE1BA2CB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Group-EmbeddedSocialUITests/Pods-Group-EmbeddedSocialUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		482B942988B49204EA97E4B1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Group-EmbeddedSocial-Example/Pods-Group-EmbeddedSocial-Example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		483BC253DB1888D0A9EBB4AA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EmbeddedSocialTests/Pods-EmbeddedSocialTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		63A1D5831F1CD12A0090C67A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2879,6 +2981,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "";
+			showEnvVarsInLog = 0;
+		};
+		66AD7CC0187187AC83453F3B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8597DAAABD152139F1D52531 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		886B39E51F1392D800BF1A8E /* ShellScript */ = {
@@ -2906,6 +3038,96 @@
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" storyboards --param module=\"EmbeddedSocial\" \"$PROJECT_DIR/EmbeddedSocial/Sources\" --output \"$PROJECT_DIR/EmbeddedSocial/Sources/Generated/SwiftGen/Storyboards.swift\" -t swift3\n\n\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" images \"$PROJECT_DIR/EmbeddedSocial/Resources/Images.xcassets\" --output \"$PROJECT_DIR/EmbeddedSocial/Sources/Generated/SwiftGen/Images.swift\" -t swift3";
+			showEnvVarsInLog = 0;
+		};
+		9DA6717B98F7F82AFDDCE4D8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Group-EmbeddedSocial-Example/Pods-Group-EmbeddedSocial-Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B824D97FC3F11EFBB6899DFF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BEE1BAE1FF0A8AB7A2AD6983 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EmbeddedSocialTests/Pods-EmbeddedSocialTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E47A63D966EF555869892174 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Group-EmbeddedSocialUITests/Pods-Group-EmbeddedSocialUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E7F1F987E9B3048DAF46D73E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FB2F21D8CBACEB8F3A6CA54E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Group-EmbeddedSocial/Pods-Group-EmbeddedSocial-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2954,13 +3176,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8875CCF11F331FC9001F2474 /* UsersListResponse.swift in Sources */,
-				6360D8CA1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8CA1F3B15EC00FECAEB /* (null) in Sources */,
 				88580BA71F2213AB00C1CBAF /* NavigationStackContainer.swift in Sources */,
 				88580C151F2213AB00C1CBAF /* SessionStore.swift in Sources */,
 				9CEA75241F2A0E61009FC89D /* Post.swift in Sources */,
 				882AD0BD1F221D4400FC20B7 /* CoreDataStack.swift in Sources */,
 				9C6D359E1F31D1C1005893DB /* FeedModulePresenter.swift in Sources */,
-				6360D8C31F3B15EB00FECAEB /* BuildFile in Sources */,
+				6360D8C31F3B15EB00FECAEB /* (null) in Sources */,
 				884AA9811F3C563F00B85135 /* PostSessionResponse.swift in Sources */,
 				882AD0C31F2225FF00FC20B7 /* QueriableRepository.swift in Sources */,
 				88580C101F2213AB00C1CBAF /* CredentialsList.swift in Sources */,
@@ -2972,25 +3194,25 @@
 				884AA9621F3C563F00B85135 /* ActivityView.swift in Sources */,
 				88580BA61F2213AB00C1CBAF /* NavigationStack.swift in Sources */,
 				884AA96A1F3C563F00B85135 /* FeedResponseCommentView.swift in Sources */,
-				6360D9031F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D9031F3B15EC00FECAEB /* (null) in Sources */,
 				884AA9821F3C563F00B85135 /* PostTopicNameRequest.swift in Sources */,
 				88580BBF1F2213AB00C1CBAF /* UIButton+Ext.swift in Sources */,
 				88580C701F2213AB00C1CBAF /* TabMenuContainerViewController.swift in Sources */,
 				88580C161F2213AB00C1CBAF /* SocialUser.swift in Sources */,
 				88580C2B1F2213AB00C1CBAF /* SocialMenuItemsProvider.swift in Sources */,
-				6360D8DA1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8DA1F3B15EC00FECAEB /* (null) in Sources */,
 				88580C781F2213AB00C1CBAF /* NibLoadable.swift in Sources */,
-				6360D8E31F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8E31F3B15EC00FECAEB /* (null) in Sources */,
 				88580C401F2213AB00C1CBAF /* CreateAccountDataDisplayManager.swift in Sources */,
-				6360D8C61F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8C61F3B15EC00FECAEB /* (null) in Sources */,
 				884AA9641F3C563F00B85135 /* BuildsCurrentResponse.swift in Sources */,
-				6360D8C11F3B15EB00FECAEB /* BuildFile in Sources */,
+				6360D8C11F3B15EB00FECAEB /* (null) in Sources */,
 				88580C461F2213AB00C1CBAF /* CreatePostModuleInput.swift in Sources */,
 				884AA95A1F3C563F00B85135 /* SearchAPI.swift in Sources */,
 				88580C2E1F2213AB00C1CBAF /* URLSchemeService.swift in Sources */,
-				6360D8C91F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8C91F3B15EC00FECAEB /* (null) in Sources */,
 				88580C3A1F2213AB00C1CBAF /* UploadPhotoCell.swift in Sources */,
-				6360D8D51F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8D51F3B15EC00FECAEB /* (null) in Sources */,
 				884AA9851F3C563F00B85135 /* PostUserRequest.swift in Sources */,
 				88580B9D1F2213AB00C1CBAF /* AppStrings.swift in Sources */,
 				884AA9701F3C563F00B85135 /* GetTopicByNameResponse.swift in Sources */,
@@ -2998,22 +3220,22 @@
 				88580BAE1F2213AB00C1CBAF /* SideMenuSectionHeader.swift in Sources */,
 				88580C791F2213AB00C1CBAF /* Reusable.swift in Sources */,
 				88580C6B1F2213AB00C1CBAF /* TabMenuContainerInteractorOutput.swift in Sources */,
-				6360D8C21F3B15EB00FECAEB /* BuildFile in Sources */,
-				6360D8BF1F3B15EB00FECAEB /* BuildFile in Sources */,
+				6360D8C21F3B15EB00FECAEB /* (null) in Sources */,
+				6360D8BF1F3B15EB00FECAEB /* (null) in Sources */,
 				884AA9861F3C563F00B85135 /* PostUserResponse.swift in Sources */,
 				884AA9561F3C563F00B85135 /* PinsAPI.swift in Sources */,
 				88580C641F2213AB00C1CBAF /* SideMenuViewController.swift in Sources */,
-				6360D8E01F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8E01F3B15EC00FECAEB /* (null) in Sources */,
 				884AA9771F3C563F00B85135 /* PostFollowerRequest.swift in Sources */,
 				884AA9881F3C563F00B85135 /* PutPushRegistrationRequest.swift in Sources */,
-				6360D8F11F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8F11F3B15EC00FECAEB /* (null) in Sources */,
 				88F385831F30D0D80048B04C /* UserListInteractor.swift in Sources */,
 				9C6D359B1F31D1C1005893DB /* FeedModuleConfigurator.swift in Sources */,
 				88BC5C561F2B65D0001FBDD2 /* UserProfileViewInput.swift in Sources */,
-				6360D8D01F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8D01F3B15EC00FECAEB /* (null) in Sources */,
 				884AA98F1F3C563F00B85135 /* TopicView.swift in Sources */,
-				6360D8FE1F3B15EC00FECAEB /* BuildFile in Sources */,
-				6360D8D11F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8FE1F3B15EC00FECAEB /* (null) in Sources */,
+				6360D8D11F3B15EC00FECAEB /* (null) in Sources */,
 				884AA9501F3C563F00B85135 /* BuildsAPI.swift in Sources */,
 				88580C2D1F2213AB00C1CBAF /* URLSchemes.swift in Sources */,
 				88580BA81F2213AB00C1CBAF /* Palette.swift in Sources */,
@@ -3021,16 +3243,17 @@
 				88FFFA611F306EC80066A1A0 /* BarButtonItemWithTarget.swift in Sources */,
 				8846CB4B1F30CA0A00F11EC8 /* UserListPresenter.swift in Sources */,
 				882AD0CD1F2227E100FC20B7 /* CoreDataRecord.swift in Sources */,
-				6360D8DC1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8DC1F3B15EC00FECAEB /* (null) in Sources */,
 				884AA9891F3C563F00B85135 /* PutTopicNameRequest.swift in Sources */,
 				88F551A21F34719100F4AAB9 /* UserListCell.swift in Sources */,
 				88580C4F1F2213AB00C1CBAF /* LoginInteractor.swift in Sources */,
 				884AA98C1F3C563F00B85135 /* PutUserPhotoRequest.swift in Sources */,
 				9C6D35A31F31D1C1005893DB /* FeedModuleViewInput.swift in Sources */,
 				88580C511F2213AB00C1CBAF /* LoginModuleOutput.swift in Sources */,
-				6360D8FB1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8FB1F3B15EC00FECAEB /* (null) in Sources */,
 				8811C8211F3C6D2400F7513D /* UITestsHelper.swift in Sources */,
 				88580C611F2213AB00C1CBAF /* SideMenuRouterInput.swift in Sources */,
+				8811C8271F3C809400F7513D /* ImagesService.swift in Sources */,
 				88580C131F2213AB00C1CBAF /* User+Memento.swift in Sources */,
 				88580BBA1F2213AB00C1CBAF /* Collection+Ext.swift in Sources */,
 				88BC5C621F2F5EFE001FBDD2 /* TwitterServerBasedAPI.swift in Sources */,
@@ -3051,7 +3274,7 @@
 				882AD0C01F221D4400FC20B7 /* ModelFileExtension.swift in Sources */,
 				88BC5C511F2B65D0001FBDD2 /* UserProfilePresenter.swift in Sources */,
 				88580C501F2213AB00C1CBAF /* LoginInteractorInput.swift in Sources */,
-				6360D8E61F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8E61F3B15EC00FECAEB /* (null) in Sources */,
 				9C7D9B381F2F4918005928F4 /* Localizator.swift in Sources */,
 				9C6D35A41F31D1C1005893DB /* FeedModuleViewOutput.swift in Sources */,
 				88580BBC1F2213AB00C1CBAF /* String+Encoding.swift in Sources */,
@@ -3069,7 +3292,7 @@
 				88F551AC1F38717A00F4AAB9 /* UICollectionView+Ext.swift in Sources */,
 				88F385861F30D1080048B04C /* UserListInteractorInput.swift in Sources */,
 				88BC5C501F2B65D0001FBDD2 /* UserProfileInteractorInput.swift in Sources */,
-				6360D8FD1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8FD1F3B15EC00FECAEB /* (null) in Sources */,
 				88F3857F1F30CD890048B04C /* UserListModuleOutput.swift in Sources */,
 				88580C4E1F2213AB00C1CBAF /* LoginConfigurator.swift in Sources */,
 				88580C111F2213AB00C1CBAF /* CredentialsList+Memento.swift in Sources */,
@@ -3078,7 +3301,7 @@
 				884AA9871F3C563F00B85135 /* PutNotificationsStatusRequest.swift in Sources */,
 				884AA96B1F3C563F00B85135 /* FeedResponseReplyView.swift in Sources */,
 				32FAB0531F2E6D4700C5B18D /* PostCellProtocol.swift in Sources */,
-				6360D8E41F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8E41F3B15EC00FECAEB /* (null) in Sources */,
 				9C6D359F1F31D1C1005893DB /* FeedModuleRouter.swift in Sources */,
 				88580C1B1F2213AB00C1CBAF /* AuthServiceImplementation.swift in Sources */,
 				88580C5A1F2213AB00C1CBAF /* SideMenuInitializer.swift in Sources */,
@@ -3088,20 +3311,20 @@
 				884AA9781F3C563F00B85135 /* PostFollowingTopicRequest.swift in Sources */,
 				88580C571F2213AB00C1CBAF /* LoginViewInput.swift in Sources */,
 				884AA9741F3C563F00B85135 /* PostBlockedUserRequest.swift in Sources */,
-				6360D8D61F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8D61F3B15EC00FECAEB /* (null) in Sources */,
 				88580C591F2213AB00C1CBAF /* SideMenuConfigurator.swift in Sources */,
 				8846CB4D1F30CA1000F11EC8 /* UserListView.swift in Sources */,
-				6360D8C01F3B15EB00FECAEB /* BuildFile in Sources */,
+				6360D8C01F3B15EB00FECAEB /* (null) in Sources */,
 				88580C6E1F2213AB00C1CBAF /* TabMenuContainerRouter.swift in Sources */,
-				6360D8F51F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8F51F3B15EC00FECAEB /* (null) in Sources */,
 				881060FB1F28F3E4008CA2FB /* FollowStatus.swift in Sources */,
-				6360D8EC1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8EC1F3B15EC00FECAEB /* (null) in Sources */,
 				88580C471F2213AB00C1CBAF /* CreatePostPresenter.swift in Sources */,
-				6360D9021F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D9021F3B15EC00FECAEB /* (null) in Sources */,
 				8846CB4C1F30CA0E00F11EC8 /* UserListDataDisplayManager.swift in Sources */,
 				88580BC41F2213AB00C1CBAF /* UIView+Ext.swift in Sources */,
-				6360D8F81F3B15EC00FECAEB /* BuildFile in Sources */,
-				6360D8EF1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8F81F3B15EC00FECAEB /* (null) in Sources */,
+				6360D8EF1F3B15EC00FECAEB /* (null) in Sources */,
 				8875CCD91F3314B6001F2474 /* UserFollowersAPI.swift in Sources */,
 				884AA9831F3C563F00B85135 /* PostTopicRequest.swift in Sources */,
 				88580C0C1F2213AB00C1CBAF /* Storyboards.swift in Sources */,
@@ -3110,7 +3333,7 @@
 				884AA97F1F3C563F00B85135 /* PostReportRequest.swift in Sources */,
 				88FFFA6F1F30B98B0066A1A0 /* FollowersConfigurator.swift in Sources */,
 				88580BA11F2213AB00C1CBAF /* APIError.swift in Sources */,
-				6360D9001F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D9001F3B15EC00FECAEB /* (null) in Sources */,
 				88580BA51F2213AB00C1CBAF /* LaunchArguments.swift in Sources */,
 				884AA9571F3C563F00B85135 /* PushNotificationsAPI.swift in Sources */,
 				88580C241F2213AB00C1CBAF /* MementoSerializable.swift in Sources */,
@@ -3119,14 +3342,14 @@
 				88580C6F1F2213AB00C1CBAF /* TabMenuContainerRouterInput.swift in Sources */,
 				884AA9791F3C563F00B85135 /* PostFollowingUserRequest.swift in Sources */,
 				88580C231F2213AB00C1CBAF /* KeyValueStorage.swift in Sources */,
-				6360D8F61F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8F61F3B15EC00FECAEB /* (null) in Sources */,
 				88635D751F223B6600577140 /* StoreType.swift in Sources */,
 				88580B9E1F2213AB00C1CBAF /* BaseViewController.swift in Sources */,
 				88580C2A1F2213AB00C1CBAF /* SessionStoreRepositoryProvider.swift in Sources */,
 				88580C1C1F2213AB00C1CBAF /* FacebookAPI.swift in Sources */,
 				8846CB4E1F30CA1100F11EC8 /* UserListViewInput.swift in Sources */,
 				88580C5B1F2213AB00C1CBAF /* SideMenuInteractor.swift in Sources */,
-				6360D8CE1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8CE1F3B15EC00FECAEB /* (null) in Sources */,
 				884AA98B1F3C563F00B85135 /* PutUserInfoRequest.swift in Sources */,
 				9C6D35A01F31D1C1005893DB /* FeedModuleRouterInput.swift in Sources */,
 				63A1D6FB1F25E78D0090C67A /* TopicService.swift in Sources */,
@@ -3134,7 +3357,7 @@
 				32FAB0511F2E6D3000C5B18D /* PostCellCompact.swift in Sources */,
 				88580C1F1F2213AB00C1CBAF /* TwitterAPI.swift in Sources */,
 				88F551B81F39A6A300F4AAB9 /* FollowingModuleOutput.swift in Sources */,
-				6360D8E21F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8E21F3B15EC00FECAEB /* (null) in Sources */,
 				884AA94D1F3C563F00B85135 /* AlamofireImplementations.swift in Sources */,
 				88580BB91F2213AB00C1CBAF /* WebViewController.swift in Sources */,
 				88580C481F2213AB00C1CBAF /* CreatePostRouter.swift in Sources */,
@@ -3143,7 +3366,7 @@
 				884AA97A1F3C563F00B85135 /* PostImageResponse.swift in Sources */,
 				88580BB71F2213AB00C1CBAF /* TextViewCell.swift in Sources */,
 				88BC5C531F2B65D0001FBDD2 /* UserProfileRouterInput.swift in Sources */,
-				6360D8DE1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8DE1F3B15EC00FECAEB /* (null) in Sources */,
 				881060FD1F28F4B2008CA2FB /* Visibility.swift in Sources */,
 				88580BAF1F2213AB00C1CBAF /* SideMenuStackController.swift in Sources */,
 				882AD0BC1F221D4400FC20B7 /* CoreDataModel.swift in Sources */,
@@ -3155,41 +3378,41 @@
 				884AA9591F3C563F00B85135 /* ReportingAPI.swift in Sources */,
 				88580C671F2213AB00C1CBAF /* TabMenuContainerConfigurator.swift in Sources */,
 				884AA95D1F3C563F00B85135 /* TopicsAPI.swift in Sources */,
-				6360D8EA1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8EA1F3B15EC00FECAEB /* (null) in Sources */,
 				88580C201F2213AB00C1CBAF /* TwitterWebBasedAPI.swift in Sources */,
 				882AD0C51F22266B00FC20B7 /* CoreDataRepository.swift in Sources */,
 				8875CCF31F333835001F2474 /* SegmentedControlView.swift in Sources */,
-				6360D8CB1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8CB1F3B15EC00FECAEB /* (null) in Sources */,
 				9C6D35A21F31D1C1005893DB /* FeedModuleViewController.swift in Sources */,
 				88580C371F2213AB00C1CBAF /* CreateAccountRouter.swift in Sources */,
 				88FFFA721F30B9C90066A1A0 /* FollowersViewController.swift in Sources */,
 				884AA9581F3C563F00B85135 /* RepliesAPI.swift in Sources */,
-				6360D8C71F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8C71F3B15EC00FECAEB /* (null) in Sources */,
 				88580BC31F2213AB00C1CBAF /* UITableView+Ext.swift in Sources */,
 				88580C421F2213AB00C1CBAF /* CreatePostInitializer.swift in Sources */,
 				88D8CCB21F31CA680032FB2B /* UserListItemsBuilder.swift in Sources */,
 				88580C321F2213AB00C1CBAF /* CreateAccountConfigurator.swift in Sources */,
 				882AD0BB1F221D4400FC20B7 /* CommonFunctions.swift in Sources */,
-				6360D8FA1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8FA1F3B15EC00FECAEB /* (null) in Sources */,
 				88580C311F2213AB00C1CBAF /* ThirdPartyConfigurator.swift in Sources */,
 				9CEA75281F2A1FA0009FC89D /* LikesService.swift in Sources */,
 				9CEA752A1F2A1FAA009FC89D /* PinsService.swift in Sources */,
 				882AD0BE1F221D4400FC20B7 /* CoreDataStackBuilder.swift in Sources */,
-				6360D8FC1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8FC1F3B15EC00FECAEB /* (null) in Sources */,
 				884AA9541F3C563F00B85135 /* LikesAPI.swift in Sources */,
 				884AA9841F3C563F00B85135 /* PostTopicResponse.swift in Sources */,
 				88580C181F2213AB00C1CBAF /* ImageCache.swift in Sources */,
 				88580C761F2213AB00C1CBAF /* ImagePicker.swift in Sources */,
-				6360D8F31F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8F31F3B15EC00FECAEB /* (null) in Sources */,
 				884AA9611F3C563F00B85135 /* Extensions.swift in Sources */,
 				884AA97C1F3C563F00B85135 /* PostPinRequest.swift in Sources */,
 				88FFFA771F30BAE60066A1A0 /* FollowersPresenter.swift in Sources */,
-				6360D8CC1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8CC1F3B15EC00FECAEB /* (null) in Sources */,
 				88580C521F2213AB00C1CBAF /* LoginPresenter.swift in Sources */,
 				63A1D7051F2740910090C67A /* Cache.swift in Sources */,
 				88F551CB1F39E7F700F4AAB9 /* AutoEquatable.swift in Sources */,
 				884AA9691F3C563F00B85135 /* FeedResponseActivityView.swift in Sources */,
-				6360D8F71F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8F71F3B15EC00FECAEB /* (null) in Sources */,
 				881060F91F28E502008CA2FB /* UIButtonStyles.swift in Sources */,
 				884AA9901F3C563F00B85135 /* UserCompactView.swift in Sources */,
 				884AA9911F3C563F00B85135 /* UserProfileView.swift in Sources */,
@@ -3198,13 +3421,13 @@
 				88087B461F2A431E00A33E9A /* ButtonDecorator.swift in Sources */,
 				88635D7F1F22447C00577140 /* OutgoingTransaction.swift in Sources */,
 				884AA9721F3C563F00B85135 /* Object.swift in Sources */,
-				6360D8C81F3B15EC00FECAEB /* BuildFile in Sources */,
-				6360D8CF1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8C81F3B15EC00FECAEB /* (null) in Sources */,
+				6360D8CF1F3B15EC00FECAEB /* (null) in Sources */,
 				88580BBB1F2213AB00C1CBAF /* Dictionary+Ext.swift in Sources */,
-				6360D9011F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D9011F3B15EC00FECAEB /* (null) in Sources */,
 				884AA9601F3C563F00B85135 /* Configuration.swift in Sources */,
 				88580C5D1F2213AB00C1CBAF /* SideMenuInteractorOutput.swift in Sources */,
-				6360D8CD1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8CD1F3B15EC00FECAEB /* (null) in Sources */,
 				88580C491F2213AB00C1CBAF /* CreatePostRouterInput.swift in Sources */,
 				88580C191F2213AB00C1CBAF /* AuthAPIProvider.swift in Sources */,
 				884AA97B1F3C563F00B85135 /* PostLinkedAccountRequest.swift in Sources */,
@@ -3214,13 +3437,13 @@
 				884AA9801F3C563F00B85135 /* PostSessionRequest.swift in Sources */,
 				884AA9711F3C563F00B85135 /* LinkedAccountView.swift in Sources */,
 				88580C171F2213AB00C1CBAF /* User.swift in Sources */,
-				6360D8E81F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8E81F3B15EC00FECAEB /* (null) in Sources */,
 				88580C681F2213AB00C1CBAF /* TabMenuContainerInitializer.swift in Sources */,
 				88580C751F2213AB00C1CBAF /* EquatableWithinEpsilon.swift in Sources */,
 				884AA9921F3C563F00B85135 /* Models.swift in Sources */,
 				88580C2C1F2213AB00C1CBAF /* SocialPlusServiceProvider.swift in Sources */,
 				88580C7B1F2213AB00C1CBAF /* Validator.swift in Sources */,
-				6360D8E51F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8E51F3B15EC00FECAEB /* (null) in Sources */,
 				88580C261F2213AB00C1CBAF /* UserDefaults+KeyValueStorageService.swift in Sources */,
 				88580C541F2213AB00C1CBAF /* LoginRouterInput.swift in Sources */,
 				884AA96D1F3C563F00B85135 /* FeedResponseUserCompactView.swift in Sources */,
@@ -3231,17 +3454,17 @@
 				88580C3C1F2213AB00C1CBAF /* CreateAccountViewController.swift in Sources */,
 				9C316E141F31F7A700B90089 /* AutoEquatable.generated.swift in Sources */,
 				88580C2F1F2213AB00C1CBAF /* UserService.swift in Sources */,
-				6360D8E71F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8E71F3B15EC00FECAEB /* (null) in Sources */,
 				884AA98D1F3C563F00B85135 /* PutUserVisibilityRequest.swift in Sources */,
 				88FFFA7A1F30BAFE0066A1A0 /* FollowersViewOutput.swift in Sources */,
 				88F551A11F34712700F4AAB9 /* FollowingViewInput.swift in Sources */,
-				6360D8C51F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8C51F3B15EC00FECAEB /* (null) in Sources */,
 				3209330D1F2A50D300890218 /* Logger.swift in Sources */,
 				88580C341F2213AB00C1CBAF /* CreateAccountInteractorInput.swift in Sources */,
 				88635D711F222FE800577140 /* IncomingTransaction.swift in Sources */,
 				88580C331F2213AB00C1CBAF /* CreateAccountInteractor.swift in Sources */,
 				884AA96E1F3C563F00B85135 /* FeedResponseUserProfileView.swift in Sources */,
-				6360D8E91F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8E91F3B15EC00FECAEB /* (null) in Sources */,
 				88580C221F2213AB00C1CBAF /* KeyValueRepository.swift in Sources */,
 				8846CB4A1F30CA0800F11EC8 /* UserListConfigurator.swift in Sources */,
 				884AA9731F3C563F00B85135 /* PostBlobResponse.swift in Sources */,
@@ -3255,7 +3478,7 @@
 				8875CCEA1F331CB3001F2474 /* UserFollowingAPI.swift in Sources */,
 				882AD0D11F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift in Sources */,
 				88580BC51F2213AB00C1CBAF /* UIViewController+Alerts.swift in Sources */,
-				6360D8DB1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8DB1F3B15EC00FECAEB /* (null) in Sources */,
 				88F551AA1F386F1300F4AAB9 /* UserProfileHeaderView.swift in Sources */,
 				8895111D1F3C4F39001A53F5 /* BaseService.swift in Sources */,
 				88580BBD1F2213AB00C1CBAF /* String+Memento.swift in Sources */,
@@ -3264,28 +3487,28 @@
 				884AA96F1F3C563F00B85135 /* GetRequestTokenResponse.swift in Sources */,
 				9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */,
 				88580C451F2213AB00C1CBAF /* CreatePostInteractorOutput.swift in Sources */,
-				6360D8ED1F3B15EC00FECAEB /* BuildFile in Sources */,
-				6360D8D81F3B15EC00FECAEB /* BuildFile in Sources */,
-				6360D8DD1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8ED1F3B15EC00FECAEB /* (null) in Sources */,
+				6360D8D81F3B15EC00FECAEB /* (null) in Sources */,
+				6360D8DD1F3B15EC00FECAEB /* (null) in Sources */,
 				88D8CCB01F31CA520032FB2B /* UserListItem.swift in Sources */,
 				88580C211F2213AB00C1CBAF /* AbstractKeyValueRepository.swift in Sources */,
 				88BC5C521F2B65D0001FBDD2 /* UserProfileRouter.swift in Sources */,
 				88580C531F2213AB00C1CBAF /* LoginRouter.swift in Sources */,
-				6360D8F41F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8F41F3B15EC00FECAEB /* (null) in Sources */,
 				884AA96C1F3C563F00B85135 /* FeedResponseTopicView.swift in Sources */,
 				88580C141F2213AB00C1CBAF /* Photo.swift in Sources */,
 				88580C431F2213AB00C1CBAF /* CreatePostInteractor.swift in Sources */,
 				884AA97E1F3C563F00B85135 /* PostReplyResponse.swift in Sources */,
-				6360D8D71F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8D71F3B15EC00FECAEB /* (null) in Sources */,
 				8846CB4F1F30CA1300F11EC8 /* UserListViewOutput.swift in Sources */,
 				884AA9761F3C563F00B85135 /* PostCommentResponse.swift in Sources */,
 				8875CCEC1F331CB3001F2474 /* FollowingViewController.swift in Sources */,
-				6360D8D31F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8D31F3B15EC00FECAEB /* (null) in Sources */,
 				88580C1D1F2213AB00C1CBAF /* GoogleAPI.swift in Sources */,
 				9C6D359C1F31D1C1005893DB /* FeedModuleInteractor.swift in Sources */,
 				884AA9751F3C563F00B85135 /* PostCommentRequest.swift in Sources */,
 				884AD7741F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift in Sources */,
-				6360D8C41F3B15EB00FECAEB /* BuildFile in Sources */,
+				6360D8C41F3B15EB00FECAEB /* (null) in Sources */,
 				88580C0D1F2213AB00C1CBAF /* APISettings.swift in Sources */,
 				63A1D7011F262D1B0090C67A /* Photo+JSONEncodable.swift in Sources */,
 				88580BA41F2213AB00C1CBAF /* Indetifiable.swift in Sources */,
@@ -3294,25 +3517,26 @@
 				88BC5C551F2B65D0001FBDD2 /* UserProfileViewController.swift in Sources */,
 				884AA9661F3C563F00B85135 /* ContentCompactView.swift in Sources */,
 				884AA9671F3C563F00B85135 /* CountResponse.swift in Sources */,
-				6360D8D21F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8D21F3B15EC00FECAEB /* (null) in Sources */,
 				88580C711F2213AB00C1CBAF /* TabMenuContainerViewInput.swift in Sources */,
 				88580BB01F2213AB00C1CBAF /* TableDataDisplayManager.swift in Sources */,
-				6360D8F91F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8F91F3B15EC00FECAEB /* (null) in Sources */,
 				8875CCE71F331CB3001F2474 /* FollowingConfigurator.swift in Sources */,
 				88BC5C5B1F2B6628001FBDD2 /* ProfileSummaryView.swift in Sources */,
 				88580BAB1F2213AB00C1CBAF /* SideMenuAccountInfoView.swift in Sources */,
-				6360D8DF1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8DF1F3B15EC00FECAEB /* (null) in Sources */,
 				88F551B61F399F9600F4AAB9 /* FollowersModuleOutput.swift in Sources */,
-				6360D8BE1F3B15EB00FECAEB /* BuildFile in Sources */,
+				6360D8BE1F3B15EB00FECAEB /* (null) in Sources */,
 				88BC5C4F1F2B65D0001FBDD2 /* UserProfileInteractor.swift in Sources */,
 				884AA9551F3C563F00B85135 /* NotificationsAPI.swift in Sources */,
 				88580C301F2213AB00C1CBAF /* SocialPlus.swift in Sources */,
-				6360D8D41F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8D41F3B15EC00FECAEB /* (null) in Sources */,
 				88580C0B1F2213AB00C1CBAF /* Images.swift in Sources */,
 				8875CCE81F331CB3001F2474 /* MyFollowingAPI.swift in Sources */,
 				889510811F3B1CB4001A53F5 /* APIErrorHandler.swift in Sources */,
 				88580BB11F2213AB00C1CBAF /* GroupHeaderTableCell.swift in Sources */,
 				884AA95E1F3C563F00B85135 /* UsersAPI.swift in Sources */,
+				8811C8291F3C83E300F7513D /* UIImage+Compress.swift in Sources */,
 				88580C351F2213AB00C1CBAF /* CreateAccountModuleOutput.swift in Sources */,
 				88BC5C571F2B65D0001FBDD2 /* UserProfileViewOutput.swift in Sources */,
 				88580BC01F2213AB00C1CBAF /* UIColor+Hex.swift in Sources */,
@@ -3325,13 +3549,13 @@
 				88580C3E1F2213AB00C1CBAF /* CreateAccountViewOutput.swift in Sources */,
 				88580BB41F2213AB00C1CBAF /* SubtitleTableCell.swift in Sources */,
 				88580C581F2213AB00C1CBAF /* LoginViewOutput.swift in Sources */,
-				6360D8D91F3B15EC00FECAEB /* BuildFile in Sources */,
-				6360D8FF1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8D91F3B15EC00FECAEB /* (null) in Sources */,
+				6360D8FF1F3B15EC00FECAEB /* (null) in Sources */,
 				88635D8B1F25D96800577140 /* TransactionsDatabaseFacade.swift in Sources */,
-				6360D8EB1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8EB1F3B15EC00FECAEB /* (null) in Sources */,
 				88580C651F2213AB00C1CBAF /* SideMenuViewInput.swift in Sources */,
 				88580BC11F2213AB00C1CBAF /* UIImage+Resize.swift in Sources */,
-				6360D8EE1F3B15EC00FECAEB /* BuildFile in Sources */,
+				6360D8EE1F3B15EC00FECAEB /* (null) in Sources */,
 				88580BA01F2213AB00C1CBAF /* CellModel.swift in Sources */,
 				88580C6C1F2213AB00C1CBAF /* TabMenuContainerModuleInput.swift in Sources */,
 				88580BB61F2213AB00C1CBAF /* TextFieldCell.swift in Sources */,
@@ -3488,6 +3712,7 @@
 /* Begin XCBuildConfiguration section */
 		886B39D51F138F5D00BF1A8E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F4D51B450EF02D7DFE85E2B /* Pods-Group-EmbeddedSocial-Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3512,6 +3737,7 @@
 		};
 		886B39D61F138F5D00BF1A8E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D252861432D54D535D1C4775 /* Pods-Group-EmbeddedSocial-Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3536,6 +3762,7 @@
 		};
 		8EF0E5991F1FA5CD00E88ED6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 306C376A1D679CF07F282580 /* Pods-Group-EmbeddedSocialUITests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3553,6 +3780,7 @@
 		};
 		8EF0E59A1F1FA5CD00E88ED6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 020FE7F028BA412475F600D7 /* Pods-Group-EmbeddedSocialUITests.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3681,6 +3909,7 @@
 		};
 		9CD8053E1F0D012F00B9B0AC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 97908D91742D79203B97A412 /* Pods-Group-EmbeddedSocial.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -3709,6 +3938,7 @@
 		};
 		9CD8053F1F0D012F00B9B0AC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F9F133BAB929EE06F4D375D0 /* Pods-Group-EmbeddedSocial.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -3737,6 +3967,7 @@
 		};
 		9CD805411F0D012F00B9B0AC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE9FFC1F2A6995BE1C50A356 /* Pods-EmbeddedSocialTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 285W24646W;
@@ -3752,6 +3983,7 @@
 		};
 		9CD805421F0D012F00B9B0AC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49BA7EF459FAACA2E8684C9E /* Pods-EmbeddedSocialTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 285W24646W;
