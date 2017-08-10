@@ -13,16 +13,16 @@ class CreateAccountPresenter: CreateAccountViewOutput {
     private var firstName: String?
     private var lastName: String?
     private var bio: String?
-    private var photo: UIImage?
     
     private var user: SocialUser
+    private let imageCache: ImageCache
     
-    init(user: SocialUser) {
+    init(user: SocialUser, imageCache: ImageCache = ImageCacheAdapter.shared) {
         firstName = user.firstName
         lastName = user.lastName
-        photo = user.photo?.image
         bio = user.bio
         self.user = user
+        self.imageCache = imageCache
     }
     
     func viewIsReady() {
@@ -46,7 +46,10 @@ class CreateAccountPresenter: CreateAccountViewOutput {
     }
     
     private func updateCreateAccountButtonEnabledState() {
-        let options = CreateAccountValidator.Options(firstName: firstName, lastName: lastName, bio: bio, photo: photo)
+        let options = CreateAccountValidator.Options(firstName: firstName,
+                                                     lastName: lastName,
+                                                     bio: bio,
+                                                     photo: user.photo?.image)
         view.setCreateAccountButtonEnabled(CreateAccountValidator.validate(options))
     }
     
@@ -66,7 +69,12 @@ class CreateAccountPresenter: CreateAccountViewOutput {
     func onCreateAccount() {
         view.setIsLoading(true)
         view.setCreateAccountButtonEnabled(false)
-        interactor.createAccount(for: updatedCurrentUser()) { [weak self] result in
+        
+        let photo = getPhotoFromCacheIfExists(user.photo)
+        
+        imageCache.store(photo: photo)
+        
+        interactor.createAccount(for: updatedCurrentUser(with: photo)) { [weak self] result in
             self?.view.setIsLoading(false)
             self?.view.setCreateAccountButtonEnabled(true)
             if let (user, sessionToken) = result.value {
@@ -77,8 +85,14 @@ class CreateAccountPresenter: CreateAccountViewOutput {
         }
     }
     
-    private func updatedCurrentUser() -> SocialUser {
-        return updatedCurrentUser(with: user.photo)
+    private func getPhotoFromCacheIfExists(_ photo: Photo?) -> Photo {
+        guard photo?.image == nil else {
+            return photo!
+        }
+        
+        var photo = photo ?? Photo()
+        photo.image = imageCache.image(for: photo)
+        return photo
     }
     
     private func updatedCurrentUser(with photo: Photo?) -> SocialUser {

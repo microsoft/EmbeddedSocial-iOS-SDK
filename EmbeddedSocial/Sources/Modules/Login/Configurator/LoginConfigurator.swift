@@ -21,7 +21,7 @@ final class LoginConfigurator {
         presenter.router = router
         presenter.moduleOutput = moduleOutput
         presenter.interactor = LoginInteractor(authService: AuthService(apiProvider: AuthAPIProvider()),
-                                               userService: UserService(),
+                                               userService: UserService(imagesService: ImagesService()),
                                                sessionService: SessionService())
         router.viewController = viewController
         router.createAccountOutput = presenter

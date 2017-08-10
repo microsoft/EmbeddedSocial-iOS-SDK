@@ -10,21 +10,22 @@ private let imageFileType = "image/jpeg"
 protocol ImagesServiceType {
     func uploadContentImage(_ image: UIImage, completion: @escaping (Result<String>) -> Void)
     
-    func uploadUserImage(_ image: UIImage, completion: @escaping (Result<String>) -> Void)
+    func uploadUserImage(_ image: UIImage, authorization: Authorization, completion: @escaping (Result<String>) -> Void)
 }
 
 class ImagesService: BaseService, ImagesServiceType {
     
     func uploadContentImage(_ image: UIImage, completion: @escaping (Result<String>) -> Void) {
-        uploadImageData(image.compressed(), imageType: .contentBlob, completion: completion)
+        uploadImageData(image.compressed(), imageType: .contentBlob, authorization: authorization, completion: completion)
     }
     
-    func uploadUserImage(_ image: UIImage, completion: @escaping (Result<String>) -> Void) {
-        uploadImageData(image.compressed(), imageType: .userPhoto, completion: completion)
+    func uploadUserImage(_ image: UIImage, authorization: Authorization, completion: @escaping (Result<String>) -> Void) {
+        uploadImageData(image.compressed(), imageType: .userPhoto, authorization: authorization, completion: completion)
     }
     
     private func uploadImageData(_ data: Data?,
                                  imageType: ImagesAPI.ImageType_imagesPostImage,
+                                 authorization: Authorization,
                                  completion: @escaping (Result<String>) -> Void) {
         
         guard let data = data else {

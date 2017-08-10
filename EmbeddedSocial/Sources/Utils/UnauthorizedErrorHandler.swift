@@ -21,7 +21,7 @@ struct UnauthorizedErrorHandler: APIErrorHandler {
     
     func canHandle(_ error: Error?) -> Bool {
         guard !canHandle(error as? AFError) else { return true }
-        guard !canHandle(error) else { return true }
+        guard !canHandle(error as? ErrorResponse) else { return true }
         return false
     }
     
