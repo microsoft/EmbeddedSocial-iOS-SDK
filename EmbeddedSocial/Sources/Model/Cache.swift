@@ -46,16 +46,30 @@ class Cache: CacheType {
         database.queryIncomingTransactions(with: NSPredicate(format: "typeid = %@", String(describing: type)),
                                            sortDescriptors: sortDescriptors) { (incoming) in
             var models = [T]()
-            _ = incoming.map { models.append(Decoders.decode(clazz: type, source: $0.payload as AnyObject)) }
+            for cachedModel in incoming {
+                guard let model = Decoders.decodeOptional(clazz: type, source: cachedModel.payload as AnyObject) as? T else {
+                    continue
+                }
+                
+                models.append(model)
+            }
+                                            
             result(models)
         }
     }
     
     func fetchOutgoing<T: JSONEncodable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult) {
         database.queryOutgoingTransactions(with: NSPredicate(format: "typeid = %@", String(describing: type)),
-                                           sortDescriptors: sortDescriptors) { (incoming) in
+                                           sortDescriptors: sortDescriptors) { (outgoing) in
             var models = [T]()
-            _ = incoming.map { models.append(Decoders.decode(clazz: type, source: $0.payload as AnyObject)) }
+            for cachedModel in outgoing {
+                guard let model = Decoders.decodeOptional(clazz: type, source: cachedModel.payload as AnyObject) as? T else {
+                    continue
+                }
+                
+                models.append(model)
+            }
+                                            
             result(models)
         }
     }

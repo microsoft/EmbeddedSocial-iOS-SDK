@@ -106,8 +106,20 @@ extension CrossModuleCoordinator: CrossModuleCoordinatorConfigurator {
     
     func configureHome() -> UIViewController {
         let configurator = FeedModuleConfigurator(cache: self.cache)
-        configurator.configure(feed: FeedType.home, navigationController: navigationStack.navigationController)
+        configurator.configure(navigationController: navigationStack.navigationController)
+        configurator.moduleInput.setFeed(.home)
+        configurator.viewController.title = "Home"
         let vc = configurator.viewController!
         return vc
     }
+    
+    func configurePopular() -> UIViewController {
+        let configurator = FeedModuleConfigurator(cache: self.cache)
+        configurator.configure(navigationController: navigationStack.navigationController)
+        configurator.moduleInput.setFeed(.popular(type: .alltime))
+        configurator.viewController.title = "Popular"
+        let vc = configurator.viewController!
+        return vc
+    }
+    
 }

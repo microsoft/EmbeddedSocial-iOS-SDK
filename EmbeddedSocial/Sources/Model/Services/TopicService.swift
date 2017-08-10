@@ -46,8 +46,14 @@ struct UserFeedQuery {
     var user: UserHandle!
 }
 
+struct HomeFeedQuery {
+    var cursor: String?
+    var limit: Int32?
+}
+
 protocol PostServiceProtocol {
     
+    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler)
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler)
     func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler)
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler)
@@ -119,14 +125,27 @@ class TopicService: PostServiceProtocol {
             return
         }
         
+        ImagesAPI.imagesPostImage(imageType: .contentBlob, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!,
+        image: imageData, imageFileType: "image/jpeg") { [weak self] response, error in
+            completion(response?.blobHandle, error)
+        }
+
+
         ImagesAPI.imagesPostImage(imageType: .contentBlob, image: imageData) { response, error in
             completion(response?.blobHandle, error)
         }
     }
     
     // MARK: GET
+    
+    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
+        SocialAPI.myFollowingGetFollowingTopics(authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!, cursor: query.cursor, limit: query.limit) { [weak self] response, error in
+            self?.parseResponse(response: response, error: error, completion: completion)
+        }
+    }
+    
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
-        TopicsAPI.topicsGetPopularTopics(timeRange: query.timeRange,
+        TopicsAPI.topicsGetPopularTopics(timeRange: query.timeRange, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!,
                                          cursor: query.cursor,
                                          limit: query.limit) { [weak self] response, error in
                                             self?.parseResponse(response: response, error: error, completion: completion)
@@ -134,25 +153,25 @@ class TopicService: PostServiceProtocol {
     }
     
     func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {
-        TopicsAPI.topicsGetTopics(cursor: query.cursor, limit: query.limit) { [weak self] response, error in
+        TopicsAPI.topicsGetTopics(authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!, cursor: query.cursor, limit: query.limit) { [weak self] response, error in
             self?.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.userTopicsGetTopics(userHandle: query.user, cursor: query.cursor, limit: query.limit) { [weak self] response, error in
+        UsersAPI.userTopicsGetTopics(userHandle: query.user, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!, cursor: query.cursor, limit: query.limit) { [weak self] response, error in
             self?.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user) { [weak self] response, error in
+        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { [weak self] response, error in
             self?.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        TopicsAPI.topicsGetTopic(topicHandle: post) { [unowned self] (topic, error) in
+        TopicsAPI.topicsGetTopic(topicHandle: post, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { (topic, error) in
             
             var result = PostFetchResult()
             

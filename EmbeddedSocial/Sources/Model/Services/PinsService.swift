@@ -25,7 +25,7 @@ class PinsService: PinsServiceProtocol {
     func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         let request = PostPinRequest()
         request.topicHandle = postHandle
-        PinsAPI.myPinsPostPin(request: request) { (object, error) in
+        PinsAPI.myPinsPostPin(request: request, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { (object, error) in
             Logger.log(object, error)
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
@@ -37,7 +37,7 @@ class PinsService: PinsServiceProtocol {
     
     func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         
-        PinsAPI.myPinsDeletePin(topicHandle: postHandle) { (object, error) in
+        PinsAPI.myPinsDeletePin(topicHandle: postHandle, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { (object, error) in
             Logger.log(object, error)
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
