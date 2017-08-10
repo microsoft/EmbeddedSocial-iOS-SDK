@@ -13,4 +13,6 @@ protocol SessionStoreDatabase {
     func saveSessionToken(_ token: String)
     
     func loadLastSessionToken() -> String?
+    
+    func cleanup()
 }

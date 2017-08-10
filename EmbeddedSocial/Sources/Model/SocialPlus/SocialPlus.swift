@@ -8,18 +8,23 @@ import Foundation
 public final class SocialPlus {
     public static let shared = SocialPlus()
     
-    private(set) var sessionStore: SessionStore!
-    fileprivate var serviceProvider: SocialPlusServicesType!
-    
-    fileprivate var coordinator: CrossModuleCoordinator!
-    private(set) var coreDataStack: CoreDataStack!
-    
-    private(set) var cache: Cache!
-    
     fileprivate let queue = DispatchQueue(label: "Social Plus read-write queue")
+
+    private(set) var sessionStore: SessionStore!
+    private(set) var serviceProvider: SocialPlusServicesType!
+    private(set) var coordinator: CrossModuleCoordinator!
+    private(set) var coreDataStack: CoreDataStack!
+    private(set) var cache: CacheType!
+    
+    var authorization: Authorization {
+        return sessionStore.authorization
+    }
     
     private init() {
         setupServices(with: SocialPlusServices())
+        
+        coreDataStack = serviceProvider.getCoreDataStack()
+        cache = serviceProvider.getCache(coreDataStack: coreDataStack)
     }
     
     func setupServices(with serviceProvider: SocialPlusServicesType) {
@@ -35,18 +40,13 @@ public final class SocialPlus {
     
     public func start(launchArguments args: LaunchArguments) {
         serviceProvider.getThirdPartyConfigurator().setup(application: args.app, launchOptions: args.launchOptions)
-        
-        setupCoreDataStack()
-        setupCache(stack: coreDataStack)
+        _ = APISettings.shared
         
         coordinator = CrossModuleCoordinator(cache: cache)
         coordinator.setup(launchArguments: args, loginHandler: self)
         
         if sessionStore.isLoggedIn {
-            APISettings.shared.customHeaders = sessionStore.user.credentials?.authHeader ?? [:]
             coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
-        } else {
-            APISettings.shared.customHeaders = APISettings.shared.anonymousHeaders
         }
     }
     
@@ -54,12 +54,6 @@ public final class SocialPlus {
         let model = CoreDataModel(name: "EmbeddedSocial", bundle: Bundle(for: type(of: self)))
         let builder = CoreDataStackBuilder(model: model)
         coreDataStack = builder.makeStack().value
-    }
-    
-    private func setupCache(stack: CoreDataStack) {
-        let database = TransactionsDatabaseFacade(incomingRepo: CoreDataRepository(context: stack.backgroundContext),
-                                                  outgoingRepo: CoreDataRepository(context: stack.backgroundContext))
-        cache = Cache(database: database)
     }
 }
 
@@ -83,5 +77,18 @@ extension SocialPlus: UserHolder {
         get {
             return queue.sync { sessionStore.user }
         }
+    }
+}
+
+extension SocialPlus: LogoutController {
+    func logOut(with error: Error) {
+        logOut()
+        coordinator.showError(error)
+    }
+    
+    func logOut() {
+        try? sessionStore.deleteCurrentSession()
+        setupServices(with: SocialPlusServices())
+        coordinator.logOut()
     }
 }

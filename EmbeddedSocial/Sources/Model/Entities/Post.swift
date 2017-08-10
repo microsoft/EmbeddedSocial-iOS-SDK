@@ -5,8 +5,6 @@
 
 import Foundation
 
-//protocol AutoEquatable {}
-
 struct Post {
 
     public var topicHandle: String!

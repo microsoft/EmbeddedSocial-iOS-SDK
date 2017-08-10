@@ -15,6 +15,10 @@ protocol SocialPlusServicesType {
     func getSessionStoreRepositoriesProvider() -> SessionStoreRepositoryProviderType
     
     func getThirdPartyConfigurator() -> ThirdPartyConfiguratorType
+    
+    func getCoreDataStack() -> CoreDataStack
+    
+    func getCache(coreDataStack: CoreDataStack) -> CacheType
 }
 
 struct SocialPlusServices: SocialPlusServicesType {
@@ -28,5 +32,24 @@ struct SocialPlusServices: SocialPlusServicesType {
     
     func getThirdPartyConfigurator() -> ThirdPartyConfiguratorType {
         return ThirdPartyConfigurator()
+    }
+    
+    func getCoreDataStack() -> CoreDataStack {
+        let model = CoreDataModel(name: "EmbeddedSocial", bundle: Bundle(for: SocialPlus.self))
+        let builder = CoreDataStackBuilder(model: model)
+        let result = builder.makeStack()
+        
+        switch result {
+        case let .success(stack):
+            return stack
+        case let .failure(error):
+            fatalError(error.localizedDescription)
+        }
+    }
+    
+    func getCache(coreDataStack stack: CoreDataStack) -> CacheType {
+        let database = TransactionsDatabaseFacade(incomingRepo: CoreDataRepository(context: stack.backgroundContext),
+                                                  outgoingRepo: CoreDataRepository(context: stack.backgroundContext))
+        return Cache(database: database)
     }
 }

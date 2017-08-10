@@ -16,6 +16,9 @@ protocol CrossModuleCoordinatorProtocol: class {
     func openHomeScreen()
     func openMyProfile()
     func openLoginScreen()
+    
+    func logOut()
+    func showError(_ error: Error)
 
     func isUserAuthenticated() -> Bool
 }
@@ -26,9 +29,9 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     weak var loginHandler: LoginModuleOutput!
     private(set) var navigationStack: NavigationStack!
     private(set) var user: User?
-    fileprivate var cache: Cache
+    fileprivate var cache: CacheType
     
-    required init(cache: Cache) {
+    required init(cache: CacheType) {
         self.cache = cache
     }
     
@@ -85,6 +88,17 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     func openHomeScreen() {
         let vc = configureHome()
         navigationStack.show(vc)
+    }
+    
+    func logOut() {
+        user = nil
+        menuModule.user = nil
+        navigationStack.cleanStack()
+        openLoginScreen()
+    }
+    
+    func showError(_ error: Error) {
+        navigationStack.showError(error)
     }
 }
 

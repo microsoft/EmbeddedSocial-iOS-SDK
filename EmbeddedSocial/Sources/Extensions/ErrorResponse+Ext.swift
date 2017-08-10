@@ -5,9 +5,12 @@
 
 import Foundation
 
-func getEnvironmentVariable(_ name: String) -> String? {
-    guard let rawValue = getenv(name) else {
-        return nil
+extension ErrorResponse {
+    
+    var statusCode: Int {
+        switch self {
+        case let .HttpError(code, _, _): return code
+        case .DecodeError: return -1
+        }
     }
-    return String(utf8String: rawValue)
 }

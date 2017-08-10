@@ -23,7 +23,7 @@ class NavigationStackContainer: UIViewController {
     }
     
     func show(viewController: UIViewController) {
-    
+            
         embeddedViewController?.view.removeFromSuperview()
         embeddedViewController?.removeFromParentViewController()
         

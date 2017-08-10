@@ -41,6 +41,10 @@ final class FacebookAPI: AuthAPI {
         }
     }
     
+    func logOut() {
+        loginManager.logOut()
+    }
+    
     private func makeSocialUser(json: Any?, token: String) -> SocialUser? {
         guard let json = json as? [String: Any],
             let uid = json["id"] as? String

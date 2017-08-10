@@ -7,5 +7,4 @@ protocol SideMenuModuleInput: class {
     
     var user: User? { get set }
     func close()
-    
 }

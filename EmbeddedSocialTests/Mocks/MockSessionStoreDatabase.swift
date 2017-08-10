@@ -10,7 +10,8 @@ final class MockSessionStoreDatabase: SessionStoreDatabase {
     private(set) var loadUserCount = 0
     private(set) var saveSessionTokenCount = 0
     private(set) var loadSessionTokenCount = 0
-    
+    private(set) var cleanupCount = 0
+
     var userToReturn: User?
     
     var sessionTokenToReturn: String?
@@ -31,5 +32,9 @@ final class MockSessionStoreDatabase: SessionStoreDatabase {
     func loadLastSessionToken() -> String? {
         loadSessionTokenCount += 1
         return sessionTokenToReturn
+    }
+    
+    func cleanup() {
+        cleanupCount += 1
     }
 }
