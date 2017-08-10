@@ -82,6 +82,7 @@ class TopicService: BaseService, PostServiceProtocol {
         
         postImage(image) { handle, error in
             if let handle = handle {
+                topic.blobType = .image
                 topic.blobHandle = handle
                 self.postTopic(request: topic, success: success, failure: failure)
             } else if self.errorHandler.canHandle(error) {
