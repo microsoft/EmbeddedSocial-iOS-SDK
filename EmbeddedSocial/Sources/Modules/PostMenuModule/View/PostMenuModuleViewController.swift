@@ -24,14 +24,16 @@ class PostMenuModuleViewController: UIViewController, PostMenuModuleViewInput {
     
     var output: PostMenuModuleViewOutput!
 
-    
     override func viewDidAppear(_ animated: Bool) {
-        embed()
+        super.viewDidAppear(animated)
+        presentActionController()
     }
     
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = UIColor.clear
         output.viewIsReady()
     }
     
@@ -43,21 +45,28 @@ class PostMenuModuleViewController: UIViewController, PostMenuModuleViewInput {
     
     func addAction(title: String, action: @escaping () -> ()) {
         
-        let newAction = UIAlertAction(title: title, style: .default) { (alertAction) in
+        let newAction = UIAlertAction(title: title, style: .default) { [weak self] (alertAction) in
+            
             action()
+            self?.onActionControllerDismiss()
         }
         
         actionController.addAction(newAction)
     }
     
-    // MARK: Private
+    private func onActionControllerDismiss() {
+        self.dismiss(animated: false) { [weak self] in
+            self?.parent?.dismiss(animated: false, completion: nil)
+        }
+    }
     
+    // MARK: Private
     private lazy var actionController: UIAlertController = {
         return UIAlertController(title: "A", message: "B", preferredStyle: .actionSheet)
     }()
     
-    private func embed() {
-        self.present(actionController, animated: false, completion: nil)
+    private func presentActionController() {
+        self.present(actionController, animated: true)
     }
     
 }

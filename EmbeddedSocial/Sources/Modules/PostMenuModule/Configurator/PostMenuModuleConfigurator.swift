@@ -11,7 +11,7 @@ class PostMenuModuleConfigurator {
     var viewController: PostMenuModuleViewController!
     var moduleInput: PostMenuModuleModuleInput!
 
-    func configure() {
+    func configure(post: PostHandle) {
         
         viewController = PostMenuModuleViewController()
         
@@ -20,6 +20,7 @@ class PostMenuModuleConfigurator {
         let presenter = PostMenuModulePresenter()
         presenter.view = viewController
         presenter.router = router
+        presenter.postHandle = post
 
         let interactor = PostMenuModuleInteractor()
         interactor.output = presenter

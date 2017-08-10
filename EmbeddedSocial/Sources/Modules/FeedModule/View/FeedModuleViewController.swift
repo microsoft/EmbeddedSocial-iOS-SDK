@@ -140,9 +140,13 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.output.didAskFetchMore()
     }
     
-    // MARK: FeedModuleViewInput
+    // MARK: Input
     func setupInitialState() {
         
+    }
+    
+    func showError(error: Error) {
+        self.showErrorAlert(error)
     }
     
     func getViewHeight() -> CGFloat {

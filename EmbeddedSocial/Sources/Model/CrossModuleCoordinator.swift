@@ -110,7 +110,7 @@ extension CrossModuleCoordinator: CrossModuleCoordinatorConfigurator {
     
     func configurePostMenu() -> UIViewController {
         let configurator = PostMenuModuleConfigurator()
-        configurator.configure()
+        configurator.configure(post: "3uRFIMWAT3P")
         configurator.viewController.title = "Debug"
         let vc = configurator.viewController!
         return vc

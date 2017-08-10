@@ -16,6 +16,18 @@ class FeedModuleRouter: FeedModuleRouterInput {
             configurator.configure(userID: userHandle)
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
+            
+        case .extra(post: let postHandle):
+            
+            let configurator = PostMenuModuleConfigurator()
+            configurator.configure(post: postHandle)
+            let vc = configurator.viewController!
+            if let parent = navigationController?.topViewController {
+                
+                vc.modalPresentationStyle = .overCurrentContext
+                parent.present(vc, animated: false, completion: nil)
+            }
+
 
         default:
             let dummy = UIViewController()

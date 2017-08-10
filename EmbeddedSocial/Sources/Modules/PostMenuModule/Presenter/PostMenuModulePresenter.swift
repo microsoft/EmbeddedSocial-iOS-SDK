@@ -19,6 +19,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
     weak var view: PostMenuModuleViewInput!
     var interactor: PostMenuModuleInteractorInput!
     var router: PostMenuModuleRouterInput!
+    var postHandle: PostHandle!
     
     func viewIsReady() {
         

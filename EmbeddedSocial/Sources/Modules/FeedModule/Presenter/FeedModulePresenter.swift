@@ -207,7 +207,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         case .comment:
             router.open(route: .comments)
         case .extra:
-            router.open(route: .extra)
+            router.open(route: .extra(post: postHandle))
         case .like:
             
             let status = items[index].liked
@@ -234,7 +234,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             interactor.postAction(post: postHandle, action: action)
             
         case .profile:
-            router.open(route: .profileDetailes(userHandle: userHandle))
+            router.open(route: .profileDetailes(user: userHandle))
         }
     }
     
@@ -299,8 +299,11 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didFail(error: FeedServiceError) {
-        //        Logger.log(error)
-        moduleOutput?.didFailToRefreshData(error)
+        if let output = moduleOutput {
+            output.didFailToRefreshData(error)
+        } else {
+            view.showError(error: error)
+        }
     }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
