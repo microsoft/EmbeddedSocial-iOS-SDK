@@ -30,9 +30,12 @@ class Templates {
         for (key, value) in mergedValues {
             let parts = key.components(separatedBy: "->")
             if parts.count > 1 {
-                var temp = json[parts[0]] as! [String: Any]
-                temp[parts[1]] = value
-                json[parts[0]] = temp
+                if let temp = json[parts[0]] {
+                    var tempDict = temp as! [String: Any]
+                    tempDict[parts[1]] = value
+                    json[parts[0]] = tempDict
+                }
+//                var temp = json[parts[0]] as! [String: Any]
             } else {
                 json[parts[0]] = value
             }
