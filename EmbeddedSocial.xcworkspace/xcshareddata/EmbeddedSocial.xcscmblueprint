@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "7E84D4CE1C969CD4BD141B4358E60035D4FE14A0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "7E84D4CE1C969CD4BD141B4358E60035D4FE14A0" : 9223372036854775807,
+    "34148ECDE3FF41D3B690D6B41F909BF00B89528C" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "AD2E48D9-0989-4509-8A30-FD024CF4EECE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "7E84D4CE1C969CD4BD141B4358E60035D4FE14A0" : "MSR-SocialPlus-iOS-SDK\/",
+    "34148ECDE3FF41D3B690D6B41F909BF00B89528C" : "MSR-SocialPlus-iOS-SDK\/EmbeddedSocial\/Vendor\/MSR-EmbeddedSocial-Swift-API-Library\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "EmbeddedSocial",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "EmbeddedSocial.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Microsoft\/MSR-EmbeddedSocial-Swift-API-Library.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "34148ECDE3FF41D3B690D6B41F909BF00B89528C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Microsoft\/MSR-SocialPlus-iOS-SDK.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7E84D4CE1C969CD4BD141B4358E60035D4FE14A0"
+    }
+  ]
+}
