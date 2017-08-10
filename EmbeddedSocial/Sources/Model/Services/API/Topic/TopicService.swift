@@ -103,6 +103,7 @@ class TopicService: PostServiceProtocol {
                                             return
                                         }
                                         
+                                        topic.blobType = .image
                                         topic.blobHandle = blobHandle
                                         self?.sendPostTopicRequest(request: topic)
             }
