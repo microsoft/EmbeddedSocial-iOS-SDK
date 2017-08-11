@@ -9,7 +9,6 @@ protocol PostMenuModuleModuleOutput: class {
 }
 
 protocol PostMenuModuleModuleInput: class {
-    
 //    func 
     
 }
