@@ -8,10 +8,12 @@ import Foundation
 final class UserProfileInteractor: UserProfileInteractorInput {
     private let userService: UserServiceType
     private let socialService: SocialServiceType
-    
-    init(userService: UserServiceType, socialService: SocialServiceType) {
+    private let cache: CacheType
+
+    init(userService: UserServiceType, socialService: SocialServiceType, cache: CacheType = SocialPlus.shared.cache) {
         self.userService = userService
         self.socialService = socialService
+        self.cache = cache
     }
     
     func getUser(userID: String, completion: @escaping (Result<User>) -> Void) {
@@ -44,5 +46,14 @@ final class UserProfileInteractor: UserProfileInteractorInput {
     
     func block(userID: String, completion: @escaping (Result<Void>) -> Void) {
         socialService.block(userID: userID, completion: completion)
+    }
+    
+    func cachedUser(with handle: String) -> User? {
+        let users = cache.fetchIncoming(type: UserProfileView.self, sortDescriptors: nil)
+        
+        return nil
+//        cache.fetchIncoming(type: UserProfileView.self, sortDescriptors: nil) { profiles in
+//            print(profiles)
+//        }
     }
 }

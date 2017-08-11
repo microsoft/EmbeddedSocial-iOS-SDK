@@ -22,6 +22,10 @@ class QueriableRepository<T>: Repository {
         abstractMethod()
     }
     
+    func query(with predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) -> [T] {
+        abstractMethod()
+    }
+    
     func save(_ entities: [T], completion: ((Result<Void>) -> Void)? = nil) {
         abstractMethod()
     }
