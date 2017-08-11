@@ -5,6 +5,8 @@
 
 import Foundation
 
+typealias Authorization = String
+
 struct CredentialsList {
     let provider: AuthProvider
     let accessToken: String
@@ -21,19 +23,15 @@ struct CredentialsList {
         self.appKey = appKey
     }
     
-    var authHeader: [String: String] {
-        var value: String = ""
-        
+    var authorization: Authorization {
         switch provider {
         case .facebook, .google, .microsoft:
-            value = String(format: apiTemplate, provider.name, appKey, accessToken)
+            return String(format: apiTemplate, provider.name, appKey, accessToken)
         case .twitter where requestToken != nil:
-            value = String(format: apiTemplate, provider.name, appKey, requestToken!, accessToken)
+            return String(format: apiTemplate, provider.name, appKey, requestToken!, accessToken)
         default:
             fatalError("Twitter requestToken is missing or auth provider is not supported")
         }
-        
-        return ["Authorization": value]
     }
     
     private var apiTemplate: String {

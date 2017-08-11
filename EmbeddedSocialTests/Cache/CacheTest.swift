@@ -10,7 +10,7 @@ class CacheTests: XCTestCase {
     
     private var coreDataStack: CoreDataStack!
     private var transactionsDatabase: MockTransactionsDatabaseFacade!
-    private var cache: Cachable!
+    private var cache: CacheType!
     
     private let timeoutDelay: TimeInterval = 5
     
@@ -72,6 +72,10 @@ class CacheTests: XCTestCase {
         cache.cacheIncoming(object: feedResponse)
         
         self.cache.fetchIncoming(type: FeedResponseTopicView.self, sortDescriptors: nil, result: { (results) in
+            guard !results.isEmpty else {
+                XCTAssertFalse(results.isEmpty)
+                return
+            }
             XCTAssertEqual((results.first as! FeedResponseTopicView).data?.first?.text, feedResponse.data?.first?.text)
             XCTAssertEqual((results.first as! FeedResponseTopicView).data?.first?.title, feedResponse.data?.first?.title)
             expectation.fulfill()
@@ -90,6 +94,10 @@ class CacheTests: XCTestCase {
         cache.cacheOutgoing(object: topic)
         
         self.cache.fetchOutgoing(type: PostTopicRequest.self, sortDescriptors: nil, result: { (results) in
+            guard !results.isEmpty else {
+                XCTAssertFalse(results.isEmpty)
+                return
+            }
             XCTAssertEqual((results.first as! PostTopicRequest).text , topic.text)
             XCTAssertEqual((results.first as! PostTopicRequest).title , topic.title)
             expectation.fulfill()

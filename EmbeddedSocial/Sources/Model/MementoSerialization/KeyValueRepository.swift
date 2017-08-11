@@ -13,10 +13,7 @@ class KeyValueRepository<DomainType: MementoSerializable>: AbstractKeyValueRepos
     }
     
     override func save(_ serializable: DomainType?, forKey key: String) {
-        guard let memento = serializable?.memento else {
-            return
-        }
-        storage.set(memento, forKey: key)
+        storage.set(serializable?.memento, forKey: key)
     }
     
     override func remove(forKey key: String) {

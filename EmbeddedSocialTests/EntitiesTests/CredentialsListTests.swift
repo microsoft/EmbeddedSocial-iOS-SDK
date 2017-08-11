@@ -161,13 +161,13 @@ class CredentialsListTests: XCTestCase {
         let appKey = UUID().uuidString
         let credentials = CredentialsList(provider: provider, accessToken: accessToken, socialUID: UUID().uuidString, appKey: appKey)
         
-        let expectedHeader = ["Authorization": String(format: "%@ AK=%@|TK=%@", provider.name, appKey, accessToken)]
+        let expectedAuthorization = Authorization(format: "%@ AK=%@|TK=%@", provider.name, appKey, accessToken)
         
         // when
-        let authHeader = credentials.authHeader
+        let authorization = credentials.authorization
         
         // then
-        XCTAssertEqual(authHeader, expectedHeader)
+        XCTAssertEqual(authorization, expectedAuthorization)
     }
     
     func testThatGoogleAuthHeaderIsCorrect() {
@@ -177,13 +177,13 @@ class CredentialsListTests: XCTestCase {
         let appKey = UUID().uuidString
         let credentials = CredentialsList(provider: provider, accessToken: accessToken, socialUID: UUID().uuidString, appKey: appKey)
         
-        let expectedHeader = ["Authorization": String(format: "%@ AK=%@|TK=%@", provider.name, appKey, accessToken)]
+        let expectedAuthorization = Authorization(format: "%@ AK=%@|TK=%@", provider.name, appKey, accessToken)
         
         // when
-        let authHeader = credentials.authHeader
+        let authorization = credentials.authorization
         
         // then
-        XCTAssertEqual(authHeader, expectedHeader)
+        XCTAssertEqual(authorization, expectedAuthorization)
     }
     
     func testThatAuthHeaderIsCorrect() {
@@ -195,22 +195,20 @@ class CredentialsListTests: XCTestCase {
             AuthProvider.twitter: ["accessToken": UUID().uuidString, "appKey": UUID().uuidString, "requestToken": UUID().uuidString]
         ]
         
-        var expectedHeaders: [AuthProvider: [String: Any]] = [:]
+        var expectedAuthorizations: [AuthProvider: Authorization] = [:]
         
         for pair in parameters {
             let requestToken = pair.value["requestToken"] as? String
             let appKey = pair.value["appKey"] as! String
             let token = pair.value["accessToken"] as! String
             
-            let header = requestToken == nil ?
+            expectedAuthorizations[pair.key] = requestToken == nil ?
                 "\(pair.key.name) AK=\(appKey)|TK=\(token)" :
                 "\(pair.key.name) AK=\(appKey)|RT=\(requestToken!)|TK=\(token)"
-            
-            expectedHeaders[pair.key] = ["Authorization": header]
         }
         
         // when
-        var actualHeaders: [AuthProvider: [String: Any]] = [:]
+        var actualAuthorizations: [AuthProvider: Authorization] = [:]
         
         for pair in parameters {
             let credentials = CredentialsList(provider: pair.key,
@@ -219,10 +217,10 @@ class CredentialsListTests: XCTestCase {
                                               socialUID: UUID().uuidString,
                                               appKey: pair.value["appKey"] as! String)
             
-            actualHeaders[pair.key] = credentials.authHeader
+            actualAuthorizations[pair.key] = credentials.authorization
         }
         
         // then
-        XCTAssertTrue(NSDictionary(dictionary: expectedHeaders).isEqual(to: actualHeaders))
+        XCTAssertTrue(NSDictionary(dictionary: expectedAuthorizations).isEqual(to: actualAuthorizations))
     }
 }

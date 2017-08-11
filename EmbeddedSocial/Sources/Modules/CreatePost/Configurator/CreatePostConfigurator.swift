@@ -10,7 +10,7 @@ class CreatePostModuleConfigurator {
     func configure(viewController: CreatePostViewController,
                    user: User,
                    moduleOutput: CreatePostModuleOutput? = nil,
-                   cache: Cache = SocialPlus.shared.cache) {
+                   cache: CacheType = SocialPlus.shared.cache) {
 
         let router = CreatePostRouter()
 

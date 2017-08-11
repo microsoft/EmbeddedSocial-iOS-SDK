@@ -11,7 +11,7 @@ struct MockSocialPlusServices: SocialPlusServicesType {
     private let sessionStoreRepositoriesProvider: SessionStoreRepositoryProviderType
     
     var thirdPartyConfigurator: ThirdPartyConfiguratorType = MockThirdPartyConfigurator()
-
+    
     init(urlSchemeService: URLSchemeServiceType, sessionStoreRepositoriesProvider: SessionStoreRepositoryProviderType) {
         self.urlSchemeService = urlSchemeService
         self.sessionStoreRepositoriesProvider = sessionStoreRepositoriesProvider
@@ -27,5 +27,15 @@ struct MockSocialPlusServices: SocialPlusServicesType {
     
     func getThirdPartyConfigurator() -> ThirdPartyConfiguratorType {
         return thirdPartyConfigurator
+    }
+    
+    func getCoreDataStack() -> CoreDataStack {
+        return CoreDataHelper.makeEmbeddedSocialInMemoryStack()
+    }
+    
+    func getCache(coreDataStack stack: CoreDataStack) -> CacheType {
+        let database = TransactionsDatabaseFacade(incomingRepo: CoreDataRepository(context: stack.backgroundContext),
+                                                  outgoingRepo: CoreDataRepository(context: stack.backgroundContext))
+        return Cache(database: database)
     }
 }

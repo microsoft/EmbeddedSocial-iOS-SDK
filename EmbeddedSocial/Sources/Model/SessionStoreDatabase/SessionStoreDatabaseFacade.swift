@@ -29,6 +29,11 @@ struct SessionStoreDatabaseFacade: SessionStoreDatabase {
     func loadLastSessionToken() -> String? {
         return sessionTokenRepository.deserialize(forKey: Keys.sessionToken)
     }
+    
+    func cleanup() {
+        userRepository.save(nil, forKey: Keys.lastUser)
+        sessionTokenRepository.save(nil, forKey: Keys.sessionToken)
+    }
 }
 
 fileprivate extension SessionStoreDatabaseFacade {

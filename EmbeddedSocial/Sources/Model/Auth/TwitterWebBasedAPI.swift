@@ -21,7 +21,7 @@ final class TwitterWebBasedAPI: AuthAPI {
     
     private lazy var internalWebViewController: WebViewController = {
         let controller = WebViewController()
-        controller.view = UIView(frame: UIScreen.main.bounds) // needed if no nib or not loaded from storyboard
+        controller.view = UIView(frame: UIScreen.main.bounds)
         controller.delegate = self
         controller.urlScheme = "twitterkit-\(ThirdPartyConfigurator.Keys.twitterConsumerKey)"
         controller.viewDidLoad()
