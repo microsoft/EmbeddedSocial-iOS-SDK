@@ -20,7 +20,7 @@ class PinsService: BaseService, PinsServiceProtocol {
     func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         let request = PostPinRequest()
         request.topicHandle = postHandle
-        PinsAPI.myPinsPostPin(request: request, authorization: authorization) { [unowned self] (object, error) in
+        PinsAPI.myPinsPostPin(request: request, authorization: authorization) { (object, error) in
             Logger.log(object, error)
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
@@ -32,7 +32,7 @@ class PinsService: BaseService, PinsServiceProtocol {
     
     func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         
-        PinsAPI.myPinsDeletePin(topicHandle: postHandle, authorization: authorization) { [unowned self] (object, error) in
+        PinsAPI.myPinsDeletePin(topicHandle: postHandle, authorization: authorization) { (object, error) in
             Logger.log(object, error)
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)

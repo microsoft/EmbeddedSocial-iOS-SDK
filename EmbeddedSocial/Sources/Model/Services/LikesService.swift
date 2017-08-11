@@ -18,7 +18,7 @@ protocol LikesServiceProtocol {
 class LikesService: BaseService, LikesServiceProtocol {
     
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
-        LikesAPI.topicLikesPostLike(topicHandle: postHandle, authorization: authorization) { [unowned self] (object, error) in
+        LikesAPI.topicLikesPostLike(topicHandle: postHandle, authorization: authorization) { (object, error) in
             Logger.log(object, error)
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
@@ -29,7 +29,7 @@ class LikesService: BaseService, LikesServiceProtocol {
     }
     
     func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
-        LikesAPI.topicLikesDeleteLike(topicHandle: postHandle, authorization: authorization) { [unowned self] (object, error) in
+        LikesAPI.topicLikesDeleteLike(topicHandle: postHandle, authorization: authorization) { (object, error) in
             Logger.log(object, error)
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
