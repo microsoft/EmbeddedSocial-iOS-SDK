@@ -31,7 +31,7 @@ class UserProfileHeaderView: UIView {
             SegmentedControlView.Segment(title: "Recent posts", action: { [weak self] in self?.onRecent?() }),
             SegmentedControlView.Segment(title: "Popular posts", action: { [weak self] in self?.onPopular?() })
             ])
-        filterView.selectSegment(0)
+        filterView.selectSegment(Constants.UserProfile.recentSegment)
         filterView.isSeparatorHidden = false
         filterView.separatorColor = Palette.extraLightGrey
         

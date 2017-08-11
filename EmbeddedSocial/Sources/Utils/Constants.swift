@@ -31,6 +31,8 @@ extension Constants {
         static let filterHeight: CGFloat = 44.0
         static let contentWidth = UIScreen.main.bounds.width - containerInset * 2
         static let summaryHeight = contentWidth / summaryAspectRatio
+        static let recentSegment = 0
+        static let popularSegment = 1
     }
 }
 
