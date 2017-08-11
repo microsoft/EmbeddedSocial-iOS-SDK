@@ -57,9 +57,13 @@ class UserListPresenterTests: XCTestCase {
     }
     
     private func validateNextPageLoaded() {
-        XCTAssertEqual(interactor.getUsersListCount, 1)
-        XCTAssertEqual(view.setUsersCount, 1)
-        XCTAssertEqual(moduleOutput.didUpdateListCount, 1)
+        validatePageLoaded(page: 1)
+    }
+    
+    private func validatePageLoaded(page: Int) {
+        XCTAssertEqual(interactor.getUsersListCount, page)
+        XCTAssertEqual(view.setUsersCount, page)
+        XCTAssertEqual(moduleOutput.didUpdateListCount, page)
     }
     
     func testThatItNotifiesModuleOutputWhenFailsToLoadNextPage() {
@@ -143,7 +147,40 @@ class UserListPresenterTests: XCTestCase {
         // then
         validateNextPageLoaded()
     }
+    
+    func testThatItDoesNotLoadsMultiplePagesWithCorrectOrder() {
+        // given
+        let firstPage = [User(), User()]
+        let secondPage = [User(), User()]
+        
+        // when
+        interactor.getUsersListResult = .success(UsersListResponse(users: firstPage, cursor: UUID().uuidString))
+        sut.onReachingEndOfPage()
+        validatePageLoaded(page: 1)
+        
+        interactor.getUsersListResult = .success(UsersListResponse(users: secondPage, cursor: UUID().uuidString))
+        sut.onReachingEndOfPage()
+        
+        // then
+        validatePageLoaded(page: 2)
+        XCTAssertEqual(view.users ?? [], firstPage + secondPage)
+    }
+    
+    func testThatItDoesNotLoadNextPageIfCursorIsNil() {
+        // given
+        let firstPage = [User(), User()]
+        let secondPage = [User(), User()]
+        
+        // when
+        interactor.getUsersListResult = .success(UsersListResponse(users: firstPage, cursor: nil))
+        sut.onReachingEndOfPage()
+        validatePageLoaded(page: 1)
+        
+        interactor.getUsersListResult = .success(UsersListResponse(users: secondPage, cursor: UUID().uuidString))
+        sut.onReachingEndOfPage()
+        
+        // then
+        // second page not loaded
+        validatePageLoaded(page: 1)
+    }
 }
-
-
-

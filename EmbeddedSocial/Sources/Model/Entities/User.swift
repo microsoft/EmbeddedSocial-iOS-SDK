@@ -35,7 +35,7 @@ struct User {
         return credentials != nil
     }
     
-    init(uid: String,
+    init(uid: String = UUID().uuidString,
          firstName: String? = nil,
          lastName: String? = nil,
          email: String? = nil,
