@@ -279,6 +279,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didTapItem(path: IndexPath) {
         Logger.log(path)
+        router.open(route: .postDetails(post: items[path.row]))
     }
     
     // MARK: FeedModuleInteractorOutput

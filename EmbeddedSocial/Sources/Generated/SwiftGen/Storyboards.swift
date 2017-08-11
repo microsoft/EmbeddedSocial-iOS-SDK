@@ -156,6 +156,18 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum PostDetail: String, StoryboardSceneType {
+    static let storyboardName = "PostDetail"
+
+    case postDetailViewControllerScene = "PostDetailViewController"
+    static func instantiatePostDetailViewController() -> EmbeddedSocial.PostDetailViewController {
+      guard let vc = StoryboardScene.PostDetail.postDetailViewControllerScene.viewController() as? EmbeddedSocial.PostDetailViewController
+      else {
+        fatalError("ViewController 'PostDetailViewController' is not of the expected class EmbeddedSocial.PostDetailViewController.")
+      }
+      return vc
+    }
+  }
   enum UserProfile: String, StoryboardSceneType {
     static let storyboardName = "UserProfile"
 
