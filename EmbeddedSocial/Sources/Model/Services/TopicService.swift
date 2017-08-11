@@ -109,7 +109,7 @@ class TopicService: BaseService, PostServiceProtocol {
     }
 
     private func postTopic(request: PostTopicRequest, success: @escaping TopicPosted, failure: @escaping Failure) {
-        TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { [unowned self] response, error in
+        TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { response, error in
             if response != nil {
                 success(request)
             } else if self.errorHandler.canHandle(error) {
@@ -126,8 +126,8 @@ class TopicService: BaseService, PostServiceProtocol {
         SocialAPI.myFollowingGetFollowingTopics(
             authorization: authorization,
             cursor: query.cursor,
-            limit: query.limit) { [weak self] response, error in
-                self?.parseResponse(response: response, error: error, completion: completion)
+            limit: query.limit) { response, error in
+                self.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
@@ -136,8 +136,8 @@ class TopicService: BaseService, PostServiceProtocol {
             timeRange: query.timeRange,
             authorization: authorization,
             cursor: query.cursor,
-            limit: query.limit) { [weak self] response, error in
-                self?.parseResponse(response: response, error: error, completion: completion)
+            limit: query.limit) { response, error in
+                self.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
@@ -145,8 +145,8 @@ class TopicService: BaseService, PostServiceProtocol {
         TopicsAPI.topicsGetTopics(
             authorization: authorization,
             cursor: query.cursor,
-            limit: query.limit) { [weak self] response, error in
-                self?.parseResponse(response: response, error: error, completion: completion)
+            limit: query.limit) { response, error in
+                self.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
@@ -155,19 +155,19 @@ class TopicService: BaseService, PostServiceProtocol {
             userHandle: query.user,
             authorization: authorization,
             cursor: query.cursor,
-            limit: query.limit) { [weak self] response, error in
-                self?.parseResponse(response: response, error: error, completion: completion)
+            limit: query.limit) { response, error in
+                self.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user, authorization: authorization) { [weak self] response, error in
-            self?.parseResponse(response: response, error: error, completion: completion)
+        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user, authorization: authorization) { response, error in
+            self.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        TopicsAPI.topicsGetTopic(topicHandle: post, authorization: authorization) { [unowned self] (topic, error) in
+        TopicsAPI.topicsGetTopic(topicHandle: post, authorization: authorization) { (topic, error) in
             
             var result = PostFetchResult()
             
