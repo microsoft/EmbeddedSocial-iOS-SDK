@@ -12,6 +12,7 @@ final class MockUserListView: UIView, UserListViewInput {
     var isLoadingItemAtParams: (Bool, IndexPath)?
     var setIsLoadingCount = 0
     var isLoading: Bool?
+    var users: [User]?
     
     var updateListItemCount = 0
     var updateListItemParams: (User, IndexPath)?
@@ -22,6 +23,7 @@ final class MockUserListView: UIView, UserListViewInput {
     
     func setUsers(_ users: [User]) {
         setUsersCount += 1
+        self.users = users
     }
     
     func updateListItem(with user: User, at indexPath: IndexPath) {
