@@ -14,7 +14,7 @@ class CreateAccountPresenterTests: XCTestCase {
     
     var sut: CreateAccountPresenter!
     
-    private let initialSocialUser: SocialUser = {
+    private static let initialSocialUser: SocialUser = {
         let credentials = CredentialsList(provider: .facebook, accessToken: "", socialUID: "")
         return SocialUser(credentials: credentials, firstName: nil, lastName: nil, email: nil, photo: nil)
     }()
@@ -26,11 +26,7 @@ class CreateAccountPresenterTests: XCTestCase {
         router = MockCreateAccountRouter()
         moduleOutput = MockCreateAccountModuleOutput()
         
-        sut = CreateAccountPresenter(user: initialSocialUser)
-        sut.view = view
-        sut.interactor = interactor
-        sut.router = router
-        sut.moduleOutput = moduleOutput
+        sut = makePresenter()
     }
     
     override func tearDown() {
@@ -114,7 +110,6 @@ class CreateAccountPresenterTests: XCTestCase {
         // then
         XCTAssertEqual(interactor.createAccountCount, 1)
         XCTAssertNotNil(interactor.lastSocialUser)
-        XCTAssertEqual(interactor.lastSocialUser, initialSocialUser)
         
         // stopped loading
         XCTAssertNotNil(view.isLoading)
@@ -132,6 +127,34 @@ class CreateAccountPresenterTests: XCTestCase {
             XCTFail("Error \(view.lastShownError!) does not match \(errorToShow)")
             return
         }
+    }
+    
+    func testThatItSetsImageFromCacheAndPhotoIsNotNil() {
+        testThatItSetsImageFromCache(initialPhoto: Photo())
+    }
+    
+    func testThatItSetsImageFromCacheAndPhotoIsNil() {
+        testThatItSetsImageFromCache(initialPhoto: nil)
+    }
+    
+    private func testThatItSetsImageFromCache(initialPhoto: Photo?) {
+        // given
+        let cachedImage = UIImage(color: .yellow, size: CGSize(width: 8.0, height: 8.0))
+        let credentials = CredentialsList(provider: .facebook, accessToken: "", socialUID: "")
+        let user = SocialUser(credentials: credentials, firstName: UUID().uuidString,
+                              lastName: UUID().uuidString, email: nil, photo: initialPhoto)
+        sut = makePresenter(with: user)
+        
+        interactor.updatePhotoToReturn = Photo(image: cachedImage)
+        
+        // when
+        sut.onCreateAccount()
+        
+        // then
+        XCTAssertEqual(interactor.cachePhotoCount, 1)
+        XCTAssertEqual(interactor.updatedPhotoWithImageFromCacheCount, 1)
+        XCTAssertEqual(cachedImage, interactor.lastSocialUser?.photo?.image)
+        XCTAssertEqual(interactor.cachedPhoto, interactor.updatePhotoToReturn)
     }
     
     func testThatItSucceedsToSelectImage() {
@@ -161,6 +184,15 @@ class CreateAccountPresenterTests: XCTestCase {
         
         XCTAssertEqual(view.setUserCount, 0)
         XCTAssertNil(view.lastSetUser)
+    }
+    
+    private func makePresenter(with user: SocialUser = CreateAccountPresenterTests.initialSocialUser) -> CreateAccountPresenter {
+        let sut = CreateAccountPresenter(user: user)
+        sut.view = view
+        sut.interactor = interactor
+        sut.router = router
+        sut.moduleOutput = moduleOutput
+        return sut
     }
 }
 

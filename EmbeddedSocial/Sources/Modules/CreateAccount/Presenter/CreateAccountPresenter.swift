@@ -15,14 +15,12 @@ class CreateAccountPresenter: CreateAccountViewOutput {
     private var bio: String?
     
     private var user: SocialUser
-    private let imageCache: ImageCache
     
-    init(user: SocialUser, imageCache: ImageCache = ImageCacheAdapter.shared) {
+    init(user: SocialUser) {
         firstName = user.firstName
         lastName = user.lastName
         bio = user.bio
         self.user = user
-        self.imageCache = imageCache
     }
     
     func viewIsReady() {
@@ -70,9 +68,9 @@ class CreateAccountPresenter: CreateAccountViewOutput {
         view.setIsLoading(true)
         view.setCreateAccountButtonEnabled(false)
         
-        let photo = getPhotoFromCacheIfExists(user.photo)
+        let photo = interactor.updatedPhotoWithImageFromCache(user.photo)
         
-        imageCache.store(photo: photo)
+        interactor.cachePhoto(photo)
         
         interactor.createAccount(for: updatedCurrentUser(with: photo)) { [weak self] result in
             self?.view.setIsLoading(false)
@@ -83,16 +81,6 @@ class CreateAccountPresenter: CreateAccountViewOutput {
                 self?.view.showError(error)
             }
         }
-    }
-    
-    private func getPhotoFromCacheIfExists(_ photo: Photo?) -> Photo {
-        guard photo?.image == nil else {
-            return photo!
-        }
-        
-        var photo = photo ?? Photo()
-        photo.image = imageCache.image(for: photo)
-        return photo
     }
     
     private func updatedCurrentUser(with photo: Photo?) -> SocialUser {
