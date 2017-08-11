@@ -17,7 +17,7 @@ class CreateAccountConfigurator {
         let presenter = CreateAccountPresenter(user: user)
         presenter.view = viewController
         presenter.router = CreateAccountRouter()
-        presenter.interactor = CreateAccountInteractor(userService: UserService())
+        presenter.interactor = CreateAccountInteractor(userService: UserService(imagesService: ImagesService()))
         presenter.moduleOutput = moduleOutput
         
         viewController.output = presenter

@@ -8,7 +8,7 @@ import Foundation
 struct Photo {
     let uid: String
     let url: String?
-    let image: UIImage?
+    var image: UIImage?
     
     init(uid: String = UUID().uuidString, url: String? = nil, image: UIImage? = nil) {
         self.uid = uid

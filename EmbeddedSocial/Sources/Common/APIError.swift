@@ -12,6 +12,7 @@ enum APIError: LocalizedError {
     case responseError(String)
     case cancelled
     case custom(String)
+    case imageCompression
 
     public var errorDescription: String? {
         switch self {
@@ -20,6 +21,7 @@ enum APIError: LocalizedError {
         case .missingUserData: return "User data is missing."
         case let .responseError(path): return "Response \(path) returned with error."
         case .cancelled: return "The operation has been cancelled by user."
+        case .imageCompression: return "Image compression has failed."
         case let .custom(text): return text
         }
     }

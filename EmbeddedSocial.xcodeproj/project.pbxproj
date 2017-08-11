@@ -96,6 +96,9 @@
 		8811C8211F3C6D2400F7513D /* UITestsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8201F3C6D2400F7513D /* UITestsHelper.swift */; };
 		8811C8231F3C728E00F7513D /* UnauthorizedErrorHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8221F3C728E00F7513D /* UnauthorizedErrorHandlerTests.swift */; };
 		8811C8251F3C72CD00F7513D /* MockLogoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8241F3C72CD00F7513D /* MockLogoutController.swift */; };
+		8811C8271F3C809400F7513D /* ImagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8261F3C809400F7513D /* ImagesService.swift */; };
+		8811C8291F3C83E300F7513D /* UIImage+Compress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8281F3C83E300F7513D /* UIImage+Compress.swift */; };
+		8811C82B1F3D998300F7513D /* MockImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C82A1F3D998300F7513D /* MockImageCache.swift */; };
 		881F7E5C1F263543003EB37A /* EmbeddedSocial.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* EmbeddedSocial.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		881F7E5E1F2637B7003EB37A /* KeyValueRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */; };
 		881F7E601F2637F7003EB37A /* MementoSerializableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */; };
@@ -610,6 +613,9 @@
 		8811C8201F3C6D2400F7513D /* UITestsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestsHelper.swift; sourceTree = "<group>"; };
 		8811C8221F3C728E00F7513D /* UnauthorizedErrorHandlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthorizedErrorHandlerTests.swift; sourceTree = "<group>"; };
 		8811C8241F3C72CD00F7513D /* MockLogoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLogoutController.swift; sourceTree = "<group>"; };
+		8811C8261F3C809400F7513D /* ImagesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesService.swift; sourceTree = "<group>"; };
+		8811C8281F3C83E300F7513D /* UIImage+Compress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Compress.swift"; sourceTree = "<group>"; };
+		8811C82A1F3D998300F7513D /* MockImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockImageCache.swift; sourceTree = "<group>"; };
 		881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueRepositoryTests.swift; sourceTree = "<group>"; };
 		881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MementoSerializableItem.swift; sourceTree = "<group>"; };
 		881F7E611F263888003EB37A /* MockKeyValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeyValueStorage.swift; sourceTree = "<group>"; };
@@ -1427,6 +1433,7 @@
 				88F551AB1F38717A00F4AAB9 /* UICollectionView+Ext.swift */,
 				88580AB01F2213AB00C1CBAF /* UIColor+Hex.swift */,
 				88580AB11F2213AB00C1CBAF /* UIImage+Resize.swift */,
+				8811C8281F3C83E300F7513D /* UIImage+Compress.swift */,
 				88580AB21F2213AB00C1CBAF /* UIImageView+ImageCache.swift */,
 				88580AB31F2213AB00C1CBAF /* UITableView+Ext.swift */,
 				88580AB41F2213AB00C1CBAF /* UIView+Ext.swift */,
@@ -1513,6 +1520,7 @@
 				886F4B3A1F2A06E500D836C3 /* SocialService.swift */,
 				63A1D6FA1F25E78D0090C67A /* TopicService.swift */,
 				88580B2A1F2213AB00C1CBAF /* UserService.swift */,
+				8811C8261F3C809400F7513D /* ImagesService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -2152,6 +2160,7 @@
 				88F551C31F39D65200F4AAB9 /* MockUserListModuleInput.swift */,
 				88F7A78A1F2789F0005FEC5F /* MockUserService.swift */,
 				8811C8241F3C72CD00F7513D /* MockLogoutController.swift */,
+				8811C82A1F3D998300F7513D /* MockImageCache.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -3035,6 +3044,7 @@
 				6360D8FB1F3B15EC00FECAEB /* BuildFile in Sources */,
 				8811C8211F3C6D2400F7513D /* UITestsHelper.swift in Sources */,
 				88580C611F2213AB00C1CBAF /* SideMenuRouterInput.swift in Sources */,
+				8811C8271F3C809400F7513D /* ImagesService.swift in Sources */,
 				88580C131F2213AB00C1CBAF /* User+Memento.swift in Sources */,
 				88580BBA1F2213AB00C1CBAF /* Collection+Ext.swift in Sources */,
 				88BC5C621F2F5EFE001FBDD2 /* TwitterServerBasedAPI.swift in Sources */,
@@ -3317,6 +3327,7 @@
 				889510811F3B1CB4001A53F5 /* APIErrorHandler.swift in Sources */,
 				88580BB11F2213AB00C1CBAF /* GroupHeaderTableCell.swift in Sources */,
 				884AA95E1F3C563F00B85135 /* UsersAPI.swift in Sources */,
+				8811C8291F3C83E300F7513D /* UIImage+Compress.swift in Sources */,
 				88580C351F2213AB00C1CBAF /* CreateAccountModuleOutput.swift in Sources */,
 				88BC5C571F2B65D0001FBDD2 /* UserProfileViewOutput.swift in Sources */,
 				88580BC01F2213AB00C1CBAF /* UIColor+Hex.swift in Sources */,
@@ -3438,6 +3449,7 @@
 				88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */,
 				88F551D01F39E9F300F4AAB9 /* MockFollowersView.swift in Sources */,
 				88F163851F2745E500DAAF68 /* CreateAccountValidatorTests.swift in Sources */,
+				8811C82B1F3D998300F7513D /* MockImageCache.swift in Sources */,
 				883B9B661F277BE800D1E66E /* CoreDataStackTests.swift in Sources */,
 				88635D771F223F1600577140 /* CoreDataStackBuilderTests.swift in Sources */,
 				88F7A7A91F2890B1005FEC5F /* MockCreateAccountView.swift in Sources */,

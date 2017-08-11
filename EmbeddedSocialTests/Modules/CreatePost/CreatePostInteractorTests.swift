@@ -21,7 +21,7 @@ class CreatePostInteractorTests: XCTestCase {
         coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
         transactionsDatabase = MockTransactionsDatabaseFacade(incomingRepo:  CoreDataRepository(context: coreDataStack.backgroundContext), outgoingRepo:  CoreDataRepository(context: coreDataStack.backgroundContext))
         cache = Cache(database: transactionsDatabase)
-        topicService = TopicService(cache: cache)
+        topicService = TopicService(imagesService: ImagesService())
         
         intercator.topicService = topicService
         intercator.output = presenter
