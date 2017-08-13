@@ -5,7 +5,12 @@
 
 class FeedModuleRouter: FeedModuleRouterInput {
     
+    weak var viewController: UIViewController?
     weak var navigationController: UINavigationController?
+    weak var postMenuModuleOutput: PostMenuModuleModuleOutput!
+    
+    // Keeping ref to menu
+    var postMenuViewController: UIViewController?
     
     func open(route: FeedModuleRoutes) {
         
@@ -17,17 +22,16 @@ class FeedModuleRouter: FeedModuleRouterInput {
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
             
-        case .extra(post: let postHandle):
+        case .extra(let postHandle, let userHandle):
             
             let configurator = PostMenuModuleConfigurator()
-            configurator.configure(post: postHandle)
-            let vc = configurator.viewController!
-            if let parent = navigationController?.topViewController {
-                
-                vc.modalPresentationStyle = .overCurrentContext
-                parent.present(vc, animated: false, completion: nil)
+            configurator.configure(menuType: PostMenuType.otherPost(user: userHandle, post: postHandle))
+            postMenuViewController = configurator.viewController
+            
+            if let parent = viewController {
+                postMenuViewController!.modalPresentationStyle = .overCurrentContext
+                parent.present(postMenuViewController!, animated: false, completion: nil)
             }
-
 
         default:
             let dummy = UIViewController()

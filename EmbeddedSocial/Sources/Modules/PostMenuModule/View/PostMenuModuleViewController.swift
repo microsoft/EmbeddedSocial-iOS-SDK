@@ -8,10 +8,9 @@ import UIKit
 
 protocol PostMenuModuleViewInput: class {
     
-    typealias ActionHandler = () -> ()
     
     func setupInitialState()
-    func addAction(title: String, action: @escaping ActionHandler)
+    func showItems(items: [ActionViewModel])
     
 }
 
@@ -43,15 +42,23 @@ class PostMenuModuleViewController: UIViewController, PostMenuModuleViewInput {
         
     }
     
-    func addAction(title: String, action: @escaping () -> ()) {
+    func showItems(items: [ActionViewModel]) {
         
-        let newAction = UIAlertAction(title: title, style: .default) { [weak self] (alertAction) in
+        for item in items {
+            addAction(title: item.title, action: item.action)
+        }
+        
+    }
+    
+    private func addAction(title: String, action: @escaping () -> ()) {
+        
+        let alertAction = UIAlertAction(title: title, style: .default) { [weak self] (alertAction) in
             
             action()
             self?.onActionControllerDismiss()
         }
         
-        actionController.addAction(newAction)
+        actionController.addAction(alertAction)
     }
     
     private func onActionControllerDismiss() {

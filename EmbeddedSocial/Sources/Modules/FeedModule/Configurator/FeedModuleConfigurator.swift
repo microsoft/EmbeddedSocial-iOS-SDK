@@ -45,6 +45,9 @@ class FeedModuleConfigurator {
         presenter.interactor = interactor
         viewController.output = presenter
         
+        router.postMenuModuleOutput = presenter
+        router.viewController = viewController
+        
         self.viewController = viewController
         self.moduleInput = presenter
     }

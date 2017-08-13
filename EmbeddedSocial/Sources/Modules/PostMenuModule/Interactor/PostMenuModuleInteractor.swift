@@ -12,6 +12,7 @@ protocol PostMenuModuleInteractorInput {
     func hide(post: PostHandle)
     func edit(post: PostHandle)
     func remove(post: PostHandle)
+    func report(post: PostHandle)
     
 }
 
@@ -24,18 +25,17 @@ protocol PostMenuModuleInteractorOutput: class {
     func didHide(post: PostHandle, error: Error?)
     func didEdit(post: PostHandle, error: Error?)
     func didRemove(post: PostHandle, error: Error?)
+    func didReport(post: PostHandle, error: Error?)
     
 }
 
 class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     
-   
     weak var output: PostMenuModuleInteractorOutput!
     var socialService: SocialServiceType!
     
     // MARK: Input
     
-  
     func follow(user: UserHandle) {
      
         socialService.follow(userID: user) { [weak self] (result) in
@@ -53,7 +53,7 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     }
     
     func remove(post: PostHandle) {
-        
+        self.output.didRemove(post: post, error: nil)
     }
     
     func block(user: UserHandle) {
@@ -64,17 +64,18 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     }
     
     func edit(post: PostHandle) {
-        
+        self.output.didEdit(post: post, error: nil)
     }
-    
     
     func hide(post: PostHandle) {
-        
+        self.output.didHide(post: post, error: nil)
     }
-    
     
     func repost(user: UserHandle) {
-        
+        self.output.didRepost(user: user, error: nil)
     }
-
+    
+    func report(post: PostHandle) {
+        self.output.didReport(post: post, error: nil)
+    }
 }

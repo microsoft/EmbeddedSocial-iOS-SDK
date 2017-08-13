@@ -207,7 +207,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         case .comment:
             router.open(route: .comments)
         case .extra:
-            router.open(route: .extra(post: postHandle))
+            router.open(route: .extra(post: postHandle, user: userHandle))
         case .like:
             
             let status = items[index].liked
@@ -345,3 +345,8 @@ extension FeedModulePresenter {
         let configurator: (UICollectionReusableView) -> Void
     }
 }
+
+extension FeedModulePresenter: PostMenuModuleModuleOutput {
+    
+}
+
