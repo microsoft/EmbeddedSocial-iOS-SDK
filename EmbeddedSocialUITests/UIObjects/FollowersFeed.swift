@@ -38,7 +38,12 @@ class FollowersFeed {
         return UInt(self.feedContainer.cells.count)
     }
     
-    func getFollower(_ index: UInt) -> Follower{
+    func getFollower(_ index: UInt) -> Follower {
+        var retryCount = 10
+        let element = self.feedContainer.cells.element(boundBy: index)
+        while !element.isHittable && retryCount > 0 {
+            app.swipeUp()
+        }
         return Follower(self.feedContainer.cells.element(boundBy: index))
     }
     

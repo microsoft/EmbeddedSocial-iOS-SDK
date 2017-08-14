@@ -68,13 +68,13 @@ class Templates {
         return ["data": topics, "cursor": String(cursor + limit)]
     }
     
-    class func loadFollowers(cursor: Int = 0, limit: Int = 10) -> Any {
+    class func loadFollowers(firstName: String, lastName: String, cursor: Int = 0, limit: Int = 10) -> Any {
         var followers: Array<[String: Any]> = []
         
         for i in cursor...cursor + limit - 1 {
-            let values = ["firstName": "User",
-                          "lastName": "Follower" + String(i),
-                          "userHandle": "UserFollower" + String(i),
+            let values = ["firstName": firstName,
+                          "lastName": lastName + String(i),
+                          "userHandle": firstName + lastName + String(i),
                           "photoHandle": APIConfig.showUserImages ? UUID().uuidString : NSNull(),
                           "photoUrl": APIConfig.showUserImages ? String(format: "http://localhost:8080/images/%@", UUID().uuidString) : NSNull()] as [String: Any]
             

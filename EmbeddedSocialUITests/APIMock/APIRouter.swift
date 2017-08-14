@@ -127,9 +127,9 @@ open class APIRouter: WebApp {
             print(query)
             let cursor = query["cursor"] ?? "0"
             if let limit = query["limit"] {
-                sendJSON(Templates.loadFollowers(cursor: Int(cursor)!, limit: Int(limit)!))
+                sendJSON(Templates.loadFollowers(firstName: "User", lastName: "Follower", cursor: Int(cursor)!, limit: Int(limit)!))
             } else {
-                sendJSON(Templates.loadFollowers())
+                sendJSON(Templates.loadFollowers(firstName: "User", lastName: "Follower"))
             }
         }
         
@@ -145,7 +145,14 @@ open class APIRouter: WebApp {
             case "DELETE":
                 sendJSON(Templates.load(name: ""))
             default:
-                break
+                let query = URLParametersReader.parseURLParameters(environ: environ)
+                print(query)
+                let cursor = query["cursor"] ?? "0"
+                if let limit = query["limit"] {
+                    sendJSON(Templates.loadFollowers(firstName: "User", lastName: "Following", cursor: Int(cursor)!, limit: Int(limit)!))
+                } else {
+                    sendJSON(Templates.loadFollowers(firstName: "User", lastName: "Following"))
+                }
             }
         }
 
