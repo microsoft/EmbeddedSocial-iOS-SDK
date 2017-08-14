@@ -89,7 +89,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     weak var view: FeedModuleViewInput!
     var interactor: FeedModuleInteractorInput!
     var router: FeedModuleRouterInput!
+    
     weak var moduleOutput: FeedModuleOutput?
+    weak var userHolder: UserHolder?
     
     var layout: FeedModuleLayoutType = .list {
         didSet {
@@ -206,15 +208,15 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         
         switch action {
         case .comment:
-            router.open(route: .comments)
+            router.open(route: .comments, feedSource: feedType!)
         case .extra:
             
-            let myPost = false
+            let isMyPost = (userHolder!.me.uid == postHandle)
             
-            if myPost {
-                router.open(route: .myPost(post: post))
+            if isMyPost {
+                router.open(route: .myPost(post: post), feedSource: feedType!)
             } else {
-                router.open(route: .othersPost(post: post))
+                router.open(route: .othersPost(post: post), feedSource: feedType!)
             }
         case .like:
             
@@ -242,7 +244,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             interactor.postAction(post: postHandle, action: action)
             
         case .profile:
-            router.open(route: .profileDetailes(user: userHandle))
+            router.open(route: .profileDetailes(user: userHandle), feedSource: feedType!)
         }
     }
     

@@ -15,8 +15,9 @@ enum FeedModuleRoutes {
     
 }
 
+
 protocol FeedModuleRouterInput {
     
-    func open(route: FeedModuleRoutes)
+    func open(route: FeedModuleRoutes, feedSource:FeedType)
 
 }

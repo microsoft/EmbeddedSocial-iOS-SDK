@@ -8,11 +8,12 @@ class FeedModuleRouter: FeedModuleRouterInput {
     weak var viewController: UIViewController?
     weak var navigationController: UINavigationController?
     weak var postMenuModuleOutput: PostMenuModuleModuleOutput!
+    weak var moduleInput: FeedModulePresenter!
     
     // Keeping ref to menu
     var postMenuViewController: UIViewController?
     
-    func open(route: FeedModuleRoutes) {
+    func open(route: FeedModuleRoutes, feedSource: FeedType) {
         
         switch route {
         case .profileDetailes(let userHandle):
@@ -24,9 +25,10 @@ class FeedModuleRouter: FeedModuleRouterInput {
             
         case .othersPost(let post):
             
+            let isHome = feedSource == .home
             let configurator = PostMenuModuleConfigurator()
             
-            configurator.configure(menuType: .otherPost(post: post))
+            configurator.configure(menuType: .otherPost(post: post, isHome: isHome))
             postMenuViewController = configurator.viewController
             
             if let parent = viewController {
@@ -37,6 +39,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
         case .myPost(let post):
             
             let configurator = PostMenuModuleConfigurator()
+            
             configurator.configure(menuType: .myPost(post: post))
             postMenuViewController = configurator.viewController
             

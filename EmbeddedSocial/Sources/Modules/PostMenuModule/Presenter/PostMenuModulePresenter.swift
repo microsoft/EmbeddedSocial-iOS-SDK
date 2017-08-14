@@ -15,7 +15,7 @@ protocol PostMenuModuleModuleInput: class {
 
 enum PostMenuType {
     case myPost(post: Post)
-    case otherPost(post: Post)
+    case otherPost(post: Post, isHome: Bool)
 }
 
 struct ActionViewModel {
@@ -43,12 +43,12 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
         switch type {
         case .myPost(let post):
             return buildActionListForMyPost(post: post)
-        case .otherPost(let post):
-            return buildActionListForOtherPost(post: post)
+        case .otherPost(let post, let isHomeFeed):
+            return buildActionListForOtherPost(post: post, isHomeFeed: isHomeFeed)
         }
     }
     
-    private func buildActionListForOtherPost(post: Post) -> [ActionViewModel] {
+    private func buildActionListForOtherPost(post: Post, isHomeFeed: Bool) -> [ActionViewModel] {
         
         let userHandle = post.userHandle!
         
@@ -127,39 +127,39 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
     
     // MARK: Interactor Output
     func didBlock(user: UserHandle, error: Error?) {
-        Logger.log()
+        Logger.log(user, error)
     }
     
     func didUnblock(user: UserHandle, error: Error?) {
-        Logger.log()
+        Logger.log(user, error)
     }
     
     func didRepost(user: UserHandle, error: Error?) {
-        Logger.log()
+        Logger.log(user, error)
     }
     
     func didFollow(user: UserHandle, error: Error?) {
-        Logger.log()
+        Logger.log(user, error)
     }
     
     func didUnFollow(user: UserHandle, error: Error?) {
-        Logger.log()
+        Logger.log(user, error)
     }
     
     func didHide(post: PostHandle, error: Error?) {
-        Logger.log()
+        Logger.log(post, error)
     }
     
     func didEdit(post: PostHandle, error: Error?) {
-        Logger.log()
+        Logger.log(post, error)
     }
     
     func didRemove(post: PostHandle, error: Error?) {
-        Logger.log()
+        Logger.log(post, error)
     }
     
     func didReport(post: PostHandle, error: Error?) {
-        Logger.log()
+        Logger.log(post, error)
     }
     
 }
