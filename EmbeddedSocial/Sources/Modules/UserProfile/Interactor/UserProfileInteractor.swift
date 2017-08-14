@@ -49,9 +49,11 @@ final class UserProfileInteractor: UserProfileInteractorInput {
     }
     
     func cachedUser(with handle: String) -> User? {
-        let users = cache.fetchIncoming(type: UserProfileView.self, sortDescriptors: nil)
+        guard let profileView = cache.firstIncoming(ofType: UserProfileView.self, handle: handle) else {
+            return nil
+        }
+        return User(profileView: profileView)
         
-        return nil
 //        cache.fetchIncoming(type: UserProfileView.self, sortDescriptors: nil) { profiles in
 //            print(profiles)
 //        }

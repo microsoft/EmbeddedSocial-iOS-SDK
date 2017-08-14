@@ -10,11 +10,15 @@ extension Photo: Cacheable {
         return self.memento
     }
     
-    var handle: String { return uid }
+    func getHandle() -> String? {
+        return uid
+    }
 }
 
 extension UserProfileView: Cacheable {
-    var handle: String { return userHandle! }
+    func getHandle() -> String? {
+        return userHandle
+    }
 }
 
 extension PostTopicRequest: Cacheable { }

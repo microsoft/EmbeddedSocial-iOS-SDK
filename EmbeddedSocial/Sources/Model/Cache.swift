@@ -7,71 +7,112 @@ import Foundation
 
 class Cache: CacheType {
     
+    struct Queries<T: Transaction> {
+        typealias Fetch<T: Transaction> = (NSPredicate?, [NSSortDescriptor]?) -> [T]
+        typealias Make<T: Transaction> = () -> T
+        typealias AsyncFetch<T: Transaction> = (NSPredicate?, [NSSortDescriptor]?, @escaping ([T]) -> Void) -> Void
+        
+        let fetch: Fetch<T>
+        let make: Make<T>
+        let fetchAsync: AsyncFetch<T>
+    }
+
     private let database: TransactionsDatabaseFacadeType
+    
+    private let incomingQueries: Queries<IncomingTransaction>
+    private let outgoingQueries: Queries<OutgoingTransaction>
     
     init(database: TransactionsDatabaseFacadeType) {
         self.database = database
+        
+        incomingQueries = Queries(fetch: database.queryIncomingTransactions(with:sortDescriptors:),
+                                  make: database.makeIncomingTransaction,
+                                  fetchAsync: database.queryIncomingTransactions(with:sortDescriptors:completion:))
+        
+        outgoingQueries = Queries(fetch: database.queryOutgoingTransactions(with:sortDescriptors:),
+                                  make: database.makeOutgoingTransaction,
+                                  fetchAsync: database.queryOutgoingTransactions(with:sortDescriptors:completion:))
     }
     
-    @discardableResult func cacheIncoming(object: Cacheable) -> IncomingTransaction {
-        let transactionModel = database.makeIncomingTransaction()
-        transactionModel.typeid = String(describing: type(of: object))
-        transactionModel.payload = object.encodeToJSON() as? [String : Any]
-        database.save(transaction: transactionModel)
-        return transactionModel
+    func cacheIncoming<Item: Cacheable>(_ item: Item) {
+        updateTransaction(for: item, queries: incomingQueries)
     }
     
-    @discardableResult func cacheOutgoing(object: Cacheable) -> OutgoingTransaction {
-        let transactionModel = database.makeOutgoingTransaction()
-        transactionModel.typeid = String(describing: type(of: object))
-        transactionModel.payload = object.encodeToJSON() as? [String : Any]
-        database.save(transaction: transactionModel)
-        return transactionModel
+    func cacheOutgoing<Item: Cacheable>(_ item: Item) {
+        updateTransaction(for: item, queries: outgoingQueries)
     }
-
-    func fetchIncoming<T: Cacheable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<T>) {
-        database.queryIncomingTransactions(
-            with: NSPredicate(format: "typeid = %@", String(describing: type)),
-            sortDescriptors: sortDescriptors) { transactions in
-                let models = transactions.flatMap {
-                    Decoders.decodeOptional(clazz: type, source: $0.payload as AnyObject).value as? T
-                }
-                result(models)
+    
+    private func updateTransaction<T: Transaction, Item: Cacheable>(for item: Item, queries: Queries<T>) {
+        var transaction = self.transaction(for: item, queries: queries)
+        transaction.typeid = item.typeIdentifier
+        transaction.payload = item.encodeToJSON()
+        transaction.handle = item.getHandle()
+        database.save(transaction: transaction)
+    }
+    
+    private func transaction<T: Transaction, Item: Cacheable>(for item: Item, queries: Queries<T>) -> T {
+        guard let handle = item.getHandle() else {
+            return queries.make()
+        }
+        let p = predicate(with: Item.self, handle: handle)
+        return queries.fetch(p, nil).first ?? queries.make()
+    }
+    
+    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, handle: String) -> Item? {
+        return first(ofType: Item.self, handle: handle, queries: incomingQueries)
+    }
+    
+    func firstOutgoing<Item: Cacheable>(ofType type: Item.Type, handle: String) -> Item? {
+        return first(ofType: Item.self, handle: handle, queries: outgoingQueries)
+    }
+    
+    private func first<T: Transaction, Item: Cacheable>(ofType type: Item.Type, handle: String, queries: Queries<T>) -> Item? {
+        let p = predicate(with: type, handle: handle)
+        let items = queries.fetch(p, nil).flatMap { Decoders.decodeOptional(clazz: type, source: $0.payload as AnyObject).value as? Item }
+        return items.first
+    }
+    
+    func fetchIncoming<Item: Cacheable>(type: Item.Type, sortDescriptors: [NSSortDescriptor]?) -> [Item] {
+        return fetch(type: Item.self, sortDescriptors: sortDescriptors, queries: incomingQueries)
+    }
+    
+    func fetchOutgoing<Item: Cacheable>(type: Item.Type, sortDescriptors: [NSSortDescriptor]?) -> [Item] {
+        return fetch(type: Item.self, sortDescriptors: sortDescriptors, queries: outgoingQueries)
+    }
+    
+    private func fetch<T: Transaction, Item: Cacheable>(type: Item.Type,
+                       sortDescriptors: [NSSortDescriptor]?,
+                       queries: Queries<T>) -> [Item] {
+        
+        return queries.fetch(predicate(with: Item.self), sortDescriptors).flatMap {
+            Decoders.decodeOptional(clazz: type, source: $0.payload as AnyObject).value as? Item
         }
     }
     
-    func fetchIncoming<T: Cacheable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?) -> [T] {
-        let p = NSPredicate(format: "typeid = %@", String(describing: type))
-        let records = database.queryIncomingTransactions(with: p, sortDescriptors: sortDescriptors)
-        return records.flatMap {
-            Decoders.decodeOptional(clazz: type, source: $0.payload as AnyObject).value as? T
+    func fetchIncoming<Item: Cacheable>(type: Item.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<Item>) {
+        fetchAsync(type: Item.self, sortDescriptors: sortDescriptors, queries: incomingQueries, result: result)
+    }
+    
+    func fetchOutgoing<Item: Cacheable>(type: Item.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<Item>) {
+        fetchAsync(type: Item.self, sortDescriptors: sortDescriptors, queries: outgoingQueries, result: result)
+    }
+    
+    private func fetchAsync<T: Transaction, Item: Cacheable>(type: Item.Type,
+                            sortDescriptors: [NSSortDescriptor]?,
+                            queries: Queries<T>,
+                            result: @escaping FetchResult<Item>) {
+        
+        queries.fetchAsync(predicate(with: Item.self), sortDescriptors) {
+            let items = $0.flatMap { Decoders.decodeOptional(clazz: Item.self, source: $0.payload as AnyObject).value as? Item }
+            result(items)
         }
     }
     
-    func fetchIncoming<T: Cacheable>(request: CacheRequest) -> [T] {
-        let p = NSPredicate(format: "typeid = %@ AND handle = %@", String(describing: request.type), request.handle)
-        let records = database.queryIncomingTransactions(with: p, sortDescriptors: request.sortDescriptors)
-        return records.flatMap {
-            Decoders.decodeOptional(clazz: type, source: $0.payload as AnyObject).value as? T
-        }
-    }
-    
-    func fetchOutgoing<T: Cacheable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<T>) {
-        database.queryOutgoingTransactions(
-            with: NSPredicate(format: "typeid = %@", String(describing: type)),
-            sortDescriptors: sortDescriptors) { transactions in
-                let models = transactions.flatMap {
-                    Decoders.decodeOptional(clazz: type, source: $0.payload as AnyObject).value as? T
-                }
-                result(models)
-        }
-    }
-    
-    func fetchOutgoing<T: Cacheable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?) -> [T] {
-        let p = NSPredicate(format: "typeid = %@", String(describing: type))
-        let records = database.queryOutgoingTransactions(with: p, sortDescriptors: sortDescriptors)
-        return records.flatMap {
-            Decoders.decodeOptional(clazz: type, source: $0.payload as AnyObject).value as? T
+    private func predicate(with type: Cacheable.Type, handle: String? = nil) -> NSPredicate {
+        if let handle = handle {
+            return NSPredicate(format: "typeid = %@ AND handle = %@", type.typeIdentifier, handle)
+        } else {
+            return NSPredicate(format: "typeid = %@", type.typeIdentifier)
         }
     }
 }

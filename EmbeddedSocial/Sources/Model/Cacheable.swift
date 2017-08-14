@@ -6,7 +6,7 @@
 protocol Cacheable {
     func encodeToJSON() -> Any
     
-    var handle: String { get set }
+    func getHandle() -> String?
 }
 
 struct CacheableAssociatedKey {
@@ -14,12 +14,16 @@ struct CacheableAssociatedKey {
 }
 
 extension Cacheable {
-    var handle: String {
-        get {
-            return associated(to: self, key: &CacheableAssociatedKey.handle) { UUID().uuidString }
-        }
-        set {
-            associate(to: self, key: &CacheableAssociatedKey.handle, value: newValue)
-        }
+
+    func getHandle() -> String? {
+        return nil
+    }
+    
+    var typeIdentifier: String {
+        return type(of: self).typeIdentifier
+    }
+    
+    static var typeIdentifier: String {
+        return String(describing: self)
     }
 }
