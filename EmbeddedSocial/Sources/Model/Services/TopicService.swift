@@ -123,7 +123,7 @@ class TopicService: BaseService, PostServiceProtocol {
     // MARK: GET
     
     func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
-        SocialAPI.myFollowingGetFollowingTopics(
+        SocialAPI.myFollowingGetTopics(
             authorization: authorization,
             cursor: query.cursor,
             limit: query.limit) { response, error in
