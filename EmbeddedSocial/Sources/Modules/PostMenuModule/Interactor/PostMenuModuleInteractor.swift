@@ -6,6 +6,7 @@
 protocol PostMenuModuleInteractorInput {
 
     func block(user: UserHandle)
+    func unblock(user: UserHandle)
     func repost(user: UserHandle)
     func follow(user: UserHandle)
     func unfollow(user: UserHandle)
@@ -19,6 +20,7 @@ protocol PostMenuModuleInteractorInput {
 protocol PostMenuModuleInteractorOutput: class {
     
     func didBlock(user: UserHandle, error: Error?)
+    func didUnblock(user: UserHandle, error: Error?)
     func didRepost(user: UserHandle, error: Error?)
     func didFollow(user: UserHandle, error: Error?)
     func didUnFollow(user: UserHandle, error: Error?)
@@ -41,7 +43,6 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
         socialService.follow(userID: user) { [weak self] (result) in
             self?.output.didFollow(user: user, error: result.error)
         }
-        
     }
     
     func unfollow(user: UserHandle) {
@@ -49,7 +50,6 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
         socialService.unfollow(userID: user) { [weak self] (result) in
             self?.output.didUnFollow(user: user, error: result.error)
         }
-        
     }
     
     func remove(post: PostHandle) {
@@ -60,6 +60,13 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
         
         socialService.block(userID: user) { [weak self] (result) in
             self?.output.didBlock(user: user, error: result.error)
+        }
+    }
+    
+    func unblock(user: UserHandle) {
+        
+        socialService.unblock(userID: user) { [weak self] (result) in
+            self?.output.didUnblock(user: user, error: result.error)
         }
     }
     

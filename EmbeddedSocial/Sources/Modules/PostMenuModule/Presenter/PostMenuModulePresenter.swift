@@ -4,17 +4,18 @@
 //
 
 protocol PostMenuModuleModuleOutput: class {
+
     
 
 }
 
 protocol PostMenuModuleModuleInput: class {
-
+    
 }
 
 enum PostMenuType {
-    case myPost(post: PostHandle)
-    case otherPost(user: UserHandle, post: PostHandle)
+    case myPost(post: Post)
+    case otherPost(post: Post)
 }
 
 struct ActionViewModel {
@@ -32,12 +33,9 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
     var router: PostMenuModuleRouterInput!
     var menuType: PostMenuType!
     
-    
     func viewIsReady() {
-        
         let items = itemsForMenu(type: menuType)
         view.showItems(items: items)
-        
     }
     
     // MARK: Actions
@@ -45,54 +43,94 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
         switch type {
         case .myPost(let post):
             return buildActionListForMyPost(post: post)
-        case .otherPost(let user, let post):
-            return buildActionListForOtherPost(user: user, post: post)
+        case .otherPost(let post):
+            return buildActionListForOtherPost(post: post)
         }
     }
     
-    private func buildActionListForOtherPost(user: UserHandle, post: PostHandle) -> [ActionViewModel] {
+    private func buildActionListForOtherPost(post: Post) -> [ActionViewModel] {
         
-        var followItem = ActionViewModel()
-        followItem.title = "Follow"
-        followItem.action = { [weak self] in
-            self?.interactor.follow(user: user)
-        }
+        let userHandle = post.userHandle!
         
-        var blockItem = ActionViewModel()
-        blockItem.title = "Block user"
-        blockItem.action = { [weak self] in
-            self?.interactor.block(user: user)
-        }
+        let followItem = followersViewModel(post: post)
+        let blockItem = blockViewModel(post: post)
         
         var reportItem = ActionViewModel()
         reportItem.title = "Report Post"
         reportItem.action = { [weak self] in
-            self?.interactor.repost(user: user)
+            self?.interactor.repost(user: userHandle)
         }
 
         return [followItem, blockItem, reportItem]
     }
-    
-    
-    private func buildActionListForMyPost(post: PostHandle) -> [ActionViewModel] {
+
+    private func buildActionListForMyPost(post: Post) -> [ActionViewModel] {
+        
+        let postHandle = post.topicHandle!
         
         var editItem = ActionViewModel()
         editItem.title = "Edit Post"
         editItem.action = { [weak self] in
-            self?.interactor.edit(post: post)
+            self?.interactor.edit(post: postHandle)
         }
         
         var removeitem = ActionViewModel()
         removeitem.title = "Remove Post"
         removeitem.action = { [weak self] in
-            self?.interactor.remove(post: post)
+            self?.interactor.remove(post: postHandle)
         }
         
         return [editItem, removeitem]
     }
     
+    // MARK: View Models builder
+    
+    private func followersViewModel(post: Post) -> ActionViewModel {
+        
+        var item = ActionViewModel()
+        
+        let shouldFollow = (post.userStatus == Post.UserStatus.follow) ? false : true
+        let userHandle = post.userHandle!
+        
+        item.title = shouldFollow ? "Unfollow" : "Follow"
+        item.action = { [weak self] in
+            if shouldFollow {
+                self?.interactor.follow(user: userHandle)
+            } else {
+                self?.interactor.unfollow(user: userHandle)
+            }
+        }
+        return item
+    }
+    
+    private func blockViewModel(post: Post) -> ActionViewModel {
+        
+        var item = ActionViewModel()
+        let userHandle = post.userHandle!
+        
+        let shouldUnBlock = post.userStatus == .blocked
+        
+        item.title = shouldUnBlock ? "Unblock" : "Block"
+        item.action = { [weak self] in
+            if shouldUnBlock {
+                self?.interactor.unblock(user: userHandle)
+            } else {
+                self?.interactor.block(user: userHandle)
+            }
+        }
+        return item
+    }
+    
+    
+    
+    // MARK: View Output
+    
     // MARK: Interactor Output
     func didBlock(user: UserHandle, error: Error?) {
+        Logger.log()
+    }
+    
+    func didUnblock(user: UserHandle, error: Error?) {
         Logger.log()
     }
     

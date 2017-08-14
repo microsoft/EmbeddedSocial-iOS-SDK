@@ -202,12 +202,20 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         let index = path.row
         let postHandle = items[index].topicHandle!
         let userHandle = items[index].userHandle!
+        let post = items[index]
         
         switch action {
         case .comment:
             router.open(route: .comments)
         case .extra:
-            router.open(route: .extra(post: postHandle, user: userHandle))
+            
+            let myPost = false
+            
+            if myPost {
+                router.open(route: .myPost(post: post))
+            } else {
+                router.open(route: .othersPost(post: post))
+            }
         case .like:
             
             let status = items[index].liked

@@ -36,7 +36,6 @@ class PostMenuModuleViewController: UIViewController, PostMenuModuleViewInput {
         output.viewIsReady()
     }
     
-    
     // MARK: PostMenuModuleViewInput
     func setupInitialState() {
         
@@ -48,13 +47,16 @@ class PostMenuModuleViewController: UIViewController, PostMenuModuleViewInput {
             addAction(title: item.title, action: item.action)
         }
         
+        // Default item
+        addAction(title: "Cancel", style: .cancel, action: nil)
     }
     
-    private func addAction(title: String, action: @escaping () -> ()) {
+    // MARK: Private
+    private func addAction(title: String, style: UIAlertActionStyle = .default, action: (() -> ())?) {
         
-        let alertAction = UIAlertAction(title: title, style: .default) { [weak self] (alertAction) in
+        let alertAction = UIAlertAction(title: title, style: style) { [weak self] (alertAction) in
             
-            action()
+            action?()
             self?.onActionControllerDismiss()
         }
         
@@ -66,10 +68,9 @@ class PostMenuModuleViewController: UIViewController, PostMenuModuleViewInput {
             self?.parent?.dismiss(animated: false, completion: nil)
         }
     }
-    
-    // MARK: Private
+
     private lazy var actionController: UIAlertController = {
-        return UIAlertController(title: "A", message: "B", preferredStyle: .actionSheet)
+        return UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     }()
     
     private func presentActionController() {

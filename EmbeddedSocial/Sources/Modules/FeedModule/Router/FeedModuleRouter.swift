@@ -22,10 +22,22 @@ class FeedModuleRouter: FeedModuleRouterInput {
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
             
-        case .extra(let postHandle, let userHandle):
+        case .othersPost(let post):
             
             let configurator = PostMenuModuleConfigurator()
-            configurator.configure(menuType: PostMenuType.otherPost(user: userHandle, post: postHandle))
+            
+            configurator.configure(menuType: .otherPost(post: post))
+            postMenuViewController = configurator.viewController
+            
+            if let parent = viewController {
+                postMenuViewController!.modalPresentationStyle = .overCurrentContext
+                parent.present(postMenuViewController!, animated: false, completion: nil)
+            }
+            
+        case .myPost(let post):
+            
+            let configurator = PostMenuModuleConfigurator()
+            configurator.configure(menuType: .myPost(post: post))
             postMenuViewController = configurator.viewController
             
             if let parent = viewController {

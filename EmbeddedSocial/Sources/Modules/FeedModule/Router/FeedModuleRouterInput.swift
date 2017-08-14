@@ -8,7 +8,8 @@ import Foundation
 enum FeedModuleRoutes {
     
     case postDetails
-    case extra(post: PostHandle, user: UserHandle)
+    case myPost(post: Post)
+    case othersPost(post: Post)
     case comments
     case profileDetailes(user: UserHandle)
     

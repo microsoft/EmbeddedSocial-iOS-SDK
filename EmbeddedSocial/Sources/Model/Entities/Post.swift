@@ -6,11 +6,19 @@
 import Foundation
 
 struct Post {
+    
+    enum UserStatus: Int {
+        case none
+        case follow
+        case pending
+        case blocked
+    }
 
     public var topicHandle: String!
     public var createdTime: Date?
     
     public var userHandle: String?
+    public var userStatus: UserStatus = .none
     public var firstName: String?
     public var lastName: String?
     public var photoHandle: String?
@@ -41,6 +49,7 @@ extension Post {
         post.totalComments = seed + 10
         post.topicHandle = "topic handle"
         post.userHandle = "user handle"
+        post.userStatus = Post.UserStatus.none
         return post
     }
 }
@@ -48,10 +57,24 @@ extension Post {
 extension Post {
     
     init(data: TopicView) {
-        firstName = data.user?.firstName
-        lastName = data.user?.lastName
-        photoUrl = data.user?.photoUrl
-        userHandle = data.user?.userHandle
+        
+        if let user = data.user {
+            firstName = user.firstName
+            lastName = user.lastName
+            photoUrl = user.photoUrl
+            userHandle = user.userHandle
+            
+            switch user.followerStatus! {
+            case ._none:
+                userStatus = .none
+            case .blocked:
+                userStatus = .blocked
+            case .follow:
+                userStatus = .follow
+            case .pending:
+                userStatus = .pending
+            }
+        }
         
         createdTime = data.createdTime
         imageUrl = data.blobUrl
@@ -67,14 +90,12 @@ extension Post {
 }
 
 // MARK: PostsFeed
-
 struct PostsFeed {
     var items: [Post]
     var cursor: String? = nil
 }
 
 // MARK: PostsFetchResult
-//
 struct PostFetchResult {
     var posts: [Post] = [Post]()
     var error: FeedServiceError?
