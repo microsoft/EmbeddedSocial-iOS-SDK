@@ -42,6 +42,18 @@ extension UIViewController {
 }
 
 enum StoryboardScene {
+  enum CommentReplies: String, StoryboardSceneType {
+    static let storyboardName = "CommentReplies"
+
+    case commentRepliesViewControllerScene = "CommentRepliesViewController"
+    static func instantiateCommentRepliesViewController() -> EmbeddedSocial.CommentRepliesViewController {
+      guard let vc = StoryboardScene.CommentReplies.commentRepliesViewControllerScene.viewController() as? EmbeddedSocial.CommentRepliesViewController
+      else {
+        fatalError("ViewController 'CommentRepliesViewController' is not of the expected class EmbeddedSocial.CommentRepliesViewController.")
+      }
+      return vc
+    }
+  }
   enum CreateAccount: String, StoryboardSceneType {
     static let storyboardName = "CreateAccount"
 

@@ -8,4 +8,5 @@ import Foundation
 
 protocol PostDetailRouterInput {
     func openUser(userHandle: UserHandle, from view: UIViewController)
+    func openReplies(comment: Comment, from view: UIViewController)
 }

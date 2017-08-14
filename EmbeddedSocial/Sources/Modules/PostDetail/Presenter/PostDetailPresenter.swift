@@ -55,6 +55,10 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     
     // MAKR: PostDetailViewOutput
     
+    func openReplies(index: Int) {
+        router.openReplies(comment: comments[index], from: view as! UIViewController)
+    }
+    
     func openUser(index: Int) {
         guard let userHandle =  comments[index].userHandle else {
             return

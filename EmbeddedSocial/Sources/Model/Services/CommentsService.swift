@@ -113,17 +113,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
         }
     }
     
-//    private func sendPostCommentRequest(topicHandle: String, request: PostCommentRequest) {
-//        CommentsAPI.topicCommentsPostComment(topicHandle: topicHandle, request: request, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { (response, error) in
-//            guard response != nil else {
-//                self.failure!(error!)
-//                return
-//            }
-//            
-//            self.success!(response!)
-//        }
-//    }
-    
     private func convert(data: [CommentView]) -> [Comment] {
         var comments = [Comment]()
         for commentView in data {

@@ -189,6 +189,12 @@ extension PostDetailViewController: UITableViewDelegate {
             return 0
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            output.openReplies(index: indexPath.row)
+        }
+    }
 }
 
 extension PostDetailViewController: CommentCellDelegate {

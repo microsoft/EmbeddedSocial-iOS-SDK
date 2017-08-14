@@ -13,6 +13,12 @@ class PostDetailRouter: PostDetailRouterInput {
         
         view.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
-
+    
+    func openReplies(comment: Comment, from view: UIViewController) {
+        let configurator = CommentRepliesModuleConfigurator()
+        configurator.configure(comment: comment)
+        
+        view.navigationController?.pushViewController(configurator.viewController, animated: true)
+    }
 
 }
