@@ -18,12 +18,14 @@ class Cache: CacheType {
     }
 
     private let database: TransactionsDatabaseFacadeType
+    private let decoder: JSONDecoder.Type
     
     private let incomingQueries: Queries<IncomingTransaction>
     private let outgoingQueries: Queries<OutgoingTransaction>
     
-    init(database: TransactionsDatabaseFacadeType) {
+    init(database: TransactionsDatabaseFacadeType, decoder: JSONDecoder.Type = Decoders.self) {
         self.database = database
+        self.decoder = decoder
         
         incomingQueries = Queries(fetch: database.queryIncomingTransactions(with:sortDescriptors:),
                                   make: database.makeIncomingTransaction,
@@ -68,7 +70,7 @@ class Cache: CacheType {
     
     private func first<T: Transaction, Item: Cacheable>(ofType type: Item.Type, handle: String, queries: Queries<T>) -> Item? {
         let p = predicate(with: type, handle: handle)
-        let items = queries.fetch(p, nil).flatMap { Decoders.decodeOptional(clazz: type, source: $0.payload as AnyObject).value as? Item }
+        let items = queries.fetch(p, nil).flatMap { self.decoder.decode(type: type, payload: $0.payload) }
         return items.first
     }
     
@@ -85,7 +87,7 @@ class Cache: CacheType {
                        queries: Queries<T>) -> [Item] {
         
         return queries.fetch(predicate(with: Item.self), sortDescriptors).flatMap {
-            Decoders.decodeOptional(clazz: type, source: $0.payload as AnyObject).value as? Item
+            self.decoder.decode(type: type, payload: $0.payload)
         }
     }
     
@@ -103,7 +105,7 @@ class Cache: CacheType {
                             result: @escaping FetchResult<Item>) {
         
         queries.fetchAsync(predicate(with: Item.self), sortDescriptors) {
-            let items = $0.flatMap { Decoders.decodeOptional(clazz: Item.self, source: $0.payload as AnyObject).value as? Item }
+            let items = $0.flatMap { self.decoder.decode(type: Item.self, payload: $0.payload) }
             result(items)
         }
     }
