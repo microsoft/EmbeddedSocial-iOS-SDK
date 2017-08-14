@@ -92,7 +92,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
         let shouldFollow = (post.userStatus == Post.UserStatus.follow) ? false : true
         let userHandle = post.userHandle!
         
-        item.title = shouldFollow ? "Unfollow" : "Follow"
+        item.title = shouldFollow ? "Follow" : "Unfollow"
         item.action = { [weak self] in
             if shouldFollow {
                 self?.interactor.follow(user: userHandle)
@@ -108,11 +108,11 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
         var item = ActionViewModel()
         let userHandle = post.userHandle!
         
-        let shouldUnBlock = post.userStatus == .blocked
+        let shouldUnblock = post.userStatus == .blocked
         
-        item.title = shouldUnBlock ? "Unblock" : "Block"
+        item.title = shouldUnblock ? "Unblock" : "Block"
         item.action = { [weak self] in
-            if shouldUnBlock {
+            if shouldUnblock {
                 self?.interactor.unblock(user: userHandle)
             } else {
                 self?.interactor.block(user: userHandle)
@@ -120,8 +120,6 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
         }
         return item
     }
-    
-    
     
     // MARK: View Output
     

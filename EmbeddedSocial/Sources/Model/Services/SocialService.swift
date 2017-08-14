@@ -29,6 +29,9 @@ protocol SocialServiceType {
     
     /// Get following users of a user
     func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
+    
+    func deletePostFromMyFollowing(postID: String, completion: @escaping (Result<Void>) -> Void)
+    
 }
 
 class SocialService: BaseService, SocialServiceType {
@@ -104,6 +107,17 @@ class SocialService: BaseService, SocialServiceType {
                 self.processUserFeedResponse(response: $0, error: $1, completion: completion)
         }
     }
+    
+    func deletePostFromMyFollowing(postID: String, completion: @escaping (Result<Void>) -> Void) {
+        SocialAPI.myFollowingDeleteFollowingTopic(topicHandle: postID,
+                                                  authorization: authorization) { (object, errorResponse) in
+                                                    if let error = errorResponse {
+                                                        errorHandler.handle(error)
+                                                    } else {
+                                                        
+                                                    }
+    }
+    
     
     private func processUserFeedResponse(response: FeedResponseUserCompactView?,
                                          error: Error?,
