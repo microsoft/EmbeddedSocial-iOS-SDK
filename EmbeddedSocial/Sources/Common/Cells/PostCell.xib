@@ -80,15 +80,6 @@
                                 <constraint firstItem="cAQ-A1-E3u" firstAttribute="centerY" secondItem="bYI-rM-xRs" secondAttribute="centerY" id="znb-tf-uqU"/>
                             </constraints>
                         </view>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="999" image="placeholder_post_image" translatesAutoresizingMaskIntoConstraints="NO" id="hHb-OE-Buk">
-                            <rect key="frame" x="0.0" y="50" width="300" height="180"/>
-                            <accessibility key="accessibilityConfiguration" identifier="Image" label="Image">
-                                <bool key="isElement" value="YES"/>
-                            </accessibility>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="180" id="e3C-99-3B3"/>
-                            </constraints>
-                        </imageView>
                         <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="iJH-I2-d58" userLabel="postcontent">
                             <rect key="frame" x="15" y="245" width="270" height="247"/>
                             <subviews>
@@ -210,19 +201,28 @@
                                 <constraint firstItem="LTY-SJ-7jo" firstAttribute="leading" secondItem="6te-RD-RH1" secondAttribute="trailing" constant="20" id="wcC-iB-S6i"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3kI-kt-ADv">
+                            <rect key="frame" x="0.0" y="50" width="300" height="180"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="180" id="IKi-3a-VjQ"/>
+                            </constraints>
+                            <connections>
+                                <action selector="onTapPhoto:" destination="iN0-l3-epB" eventType="touchUpInside" id="B2r-fc-sOk"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="hHb-OE-Buk" firstAttribute="leading" secondItem="OEZ-HU-KUq" secondAttribute="leading" id="AhB-Vm-66Q"/>
+                        <constraint firstItem="3kI-kt-ADv" firstAttribute="leading" secondItem="OEZ-HU-KUq" secondAttribute="leading" id="6mF-Md-SgL"/>
                         <constraint firstItem="Ugb-5x-70X" firstAttribute="top" secondItem="iJH-I2-d58" secondAttribute="bottom" id="BKX-Sv-a61"/>
                         <constraint firstItem="oqe-ch-5n3" firstAttribute="top" secondItem="OEZ-HU-KUq" secondAttribute="top" id="DCk-be-WSU"/>
-                        <constraint firstItem="hHb-OE-Buk" firstAttribute="top" secondItem="oqe-ch-5n3" secondAttribute="bottom" id="IjP-Zq-Ghb"/>
                         <constraint firstItem="Ugb-5x-70X" firstAttribute="left" secondItem="OEZ-HU-KUq" secondAttribute="left" id="MgW-dl-a4i"/>
                         <constraint firstAttribute="trailing" secondItem="oqe-ch-5n3" secondAttribute="trailing" id="OXB-yI-2as"/>
+                        <constraint firstItem="3kI-kt-ADv" firstAttribute="top" secondItem="oqe-ch-5n3" secondAttribute="bottom" id="TfN-yV-UrG"/>
                         <constraint firstItem="oqe-ch-5n3" firstAttribute="leading" secondItem="OEZ-HU-KUq" secondAttribute="leading" id="Ujk-CD-tye"/>
-                        <constraint firstItem="iJH-I2-d58" firstAttribute="top" secondItem="hHb-OE-Buk" secondAttribute="bottom" constant="15" id="XWB-PI-9bK"/>
+                        <constraint firstItem="iJH-I2-d58" firstAttribute="top" secondItem="3kI-kt-ADv" secondAttribute="bottom" constant="15" id="ZAp-05-Pv0"/>
+                        <constraint firstAttribute="trailing" secondItem="3kI-kt-ADv" secondAttribute="trailing" id="k2U-Wn-6UZ"/>
                         <constraint firstAttribute="trailing" secondItem="iJH-I2-d58" secondAttribute="trailing" constant="15" id="oLt-mS-jOt"/>
-                        <constraint firstAttribute="trailing" secondItem="hHb-OE-Buk" secondAttribute="trailing" id="pDe-qv-KUB"/>
                         <constraint firstAttribute="bottom" secondItem="Ugb-5x-70X" secondAttribute="bottom" id="qa8-yC-g9j"/>
                         <constraint firstAttribute="trailing" secondItem="Ugb-5x-70X" secondAttribute="trailing" id="soU-zi-fAV"/>
                         <constraint firstItem="iJH-I2-d58" firstAttribute="leading" secondItem="OEZ-HU-KUq" secondAttribute="leading" constant="15" id="zD3-kk-f6j"/>
@@ -243,7 +243,7 @@
                 <outlet property="likedCount" destination="YLh-Pw-0g4" id="gWy-99-c0x"/>
                 <outlet property="pinButton" destination="LTY-SJ-7jo" id="uwC-Md-bG8"/>
                 <outlet property="postCreation" destination="hIe-cI-XjE" id="V3T-0h-0wD"/>
-                <outlet property="postImage" destination="hHb-OE-Buk" id="qan-Kr-Kor"/>
+                <outlet property="postImageButton" destination="3kI-kt-ADv" id="hxL-BH-Mlo"/>
                 <outlet property="postText" destination="bhP-eN-hI9" id="2me-8O-h5I"/>
                 <outlet property="postTitle" destination="WYk-wD-2lQ" id="OJU-HT-vgq"/>
                 <outlet property="userName" destination="xH5-qG-Dco" id="hja-Z9-zzS"/>
@@ -259,7 +259,6 @@
         <image name="icon_liked_active" width="48" height="48"/>
         <image name="icon_pin" width="48" height="48"/>
         <image name="icon_pin_active" width="48" height="48"/>
-        <image name="placeholder_post_image" width="400" height="265"/>
         <image name="user_photo_placeholder" width="150" height="150"/>
     </resources>
 </document>
