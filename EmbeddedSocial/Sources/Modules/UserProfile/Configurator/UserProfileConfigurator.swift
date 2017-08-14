@@ -17,9 +17,10 @@ struct UserProfileConfigurator {
         let router = UserProfileRouter()
         router.viewController = viewController
         
+        let userService = UserService(imagesService: ImagesService())
         let presenter = UserProfilePresenter(userID: userID, myProfileHolder: myProfileHolder)
         presenter.router = router
-        presenter.interactor = UserProfileInteractor(userService: UserService(), socialService: SocialService())
+        presenter.interactor = UserProfileInteractor(userService: userService, socialService: SocialService())
         presenter.view = viewController
         
         router.followersModuleOutput = presenter

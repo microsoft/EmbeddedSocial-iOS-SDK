@@ -8,17 +8,20 @@ import XCTest
 
 class CreateAccountInteractorTests: XCTestCase {
     var userService: MockUserService!
+    var imageCache: MockImageCache!
     var sut: CreateAccountInteractor!
     
     override func setUp() {
         super.setUp()
         userService = MockUserService()
-        sut = CreateAccountInteractor(userService: userService)
+        imageCache = MockImageCache()
+        sut = CreateAccountInteractor(userService: userService, imageCache: imageCache)
     }
     
     override func tearDown() {
         super.tearDown()
         userService = nil
+        imageCache = nil
         sut = nil
     }
     
@@ -32,5 +35,29 @@ class CreateAccountInteractorTests: XCTestCase {
         
         // then
         XCTAssertEqual(userService.createAccountCount, 1)
+    }
+    
+    func testThatPhotoIsCached() {
+        // given
+        let photo = Photo()
+        
+        // when
+        sut.cachePhoto(photo)
+        
+        // then
+        XCTAssertEqual(imageCache.storePhotoSyncCount, 1)
+    }
+    
+    func testThatPhotoIsUpdatedWithImageFromCache() {
+        // given
+        let photo = Photo()
+        let image = UIImage(color: .yellow, size: CGSize(width: 8.0, height: 8.0))
+        imageCache.imageToReturn = image
+        
+        // when
+        let updatedPhoto = sut.updatedPhotoWithImageFromCache(photo)
+        
+        // then
+        XCTAssertEqual(updatedPhoto.image, image)
     }
 }
