@@ -65,7 +65,7 @@ extension NSManagedObjectContext {
                 print("Unable to execute asynchronous fetch result: \(error.localizedDescription).")
             }
         }
-        print(records)
+        
         return records
     }
 }
