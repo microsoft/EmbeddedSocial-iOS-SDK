@@ -43,7 +43,6 @@ final class LoginPresenter: LoginViewOutput {
         }
     }
     
-    
     private func processUser(_ user: SocialUser) {
         interactor.getMyProfile(socialUser: user) { [weak self] result in
             self?.view.setIsLoading(false)

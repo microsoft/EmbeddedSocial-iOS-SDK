@@ -10,7 +10,7 @@ class CreateAccountViewController: UIViewController, CreateAccountViewInput {
     @IBOutlet fileprivate weak var tableView: UITableView!
     
     @IBOutlet fileprivate weak var loadingView: LoadingIndicatorView!
-    
+
     var dataManager: CreateAccountDataDisplayManager!
     
     var output: CreateAccountViewOutput!
@@ -25,7 +25,7 @@ class CreateAccountViewController: UIViewController, CreateAccountViewInput {
         
         loadingView.apply(style: .standard)
         
-        dataManager.update(tableView: tableView, with: user)
+        dataManager.setup(with: tableView, user: user)
         
         tableView.dataSource = dataManager.tableDataSource(for: tableView)
         tableView.delegate = dataManager.tableDelegate
@@ -51,7 +51,7 @@ class CreateAccountViewController: UIViewController, CreateAccountViewInput {
     }
     
     func setUser(_ user: SocialUser) {
-        dataManager.update(tableView: tableView, with: user)
+        dataManager.setup(with: tableView, user: user)
         tableView.reloadData()
     }
     

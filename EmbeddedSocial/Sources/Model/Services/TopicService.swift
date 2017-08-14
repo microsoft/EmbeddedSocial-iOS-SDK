@@ -64,6 +64,13 @@ protocol PostServiceProtocol {
 
 class TopicService: BaseService, PostServiceProtocol {
     
+    private var imagesService: ImagesServiceType!
+    
+    init(imagesService: ImagesServiceType) {
+        super.init()
+        self.imagesService = imagesService
+    }
+    
     func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
         guard let network = NetworkReachabilityManager() else {
             failure(APIError.unknown)
@@ -80,15 +87,15 @@ class TopicService: BaseService, PostServiceProtocol {
             return
         }
         
-        postImage(image) { handle, error in
-            if let handle = handle {
-                topic.blobType = .image
+        imagesService.uploadContentImage(image) { [unowned self] result in
+            if let handle = result.value {
                 topic.blobHandle = handle
+                topic.blobType = .image
                 self.postTopic(request: topic, success: success, failure: failure)
-            } else if self.errorHandler.canHandle(error) {
-                self.errorHandler.handle(error)
+            } else if self.errorHandler.canHandle(result.error) {
+                self.errorHandler.handle(result.error)
             } else {
-                failure(error ?? APIError.unknown)
+                failure(result.error ?? APIError.unknown)
             }
         }
     }
@@ -113,25 +120,10 @@ class TopicService: BaseService, PostServiceProtocol {
         }
     }
     
-    private func postImage(_ image: UIImage, completion: @escaping (String?, Error?) -> Void) {
-        guard let imageData = UIImageJPEGRepresentation(image, Constants.imageCompressionQuality) else {
-            completion(nil, APIError.custom("Image is invalid"))
-            return
-        }
-        
-        ImagesAPI.imagesPostImage(
-            imageType: .contentBlob,
-            authorization: authorization,
-            image: imageData,
-            imageFileType: "image/jpeg") { response, error in
-                completion(response?.blobHandle, error)
-        }
-    }
-    
     // MARK: GET
     
     func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
-        SocialAPI.myFollowingGetFollowingTopics(
+        SocialAPI.myFollowingGetTopics(
             authorization: authorization,
             cursor: query.cursor,
             limit: query.limit) { response, error in

@@ -19,8 +19,8 @@ class UserProfileViewController: UIViewController {
     
     fileprivate lazy var headerView: UserProfileHeaderView = { [unowned self] in
         let view = UserProfileHeaderView(frame: .zero)
-        view.onRecent = self.output.onRecent
-        view.onPopular = self.output.onPopular
+        view.onRecent = self.onRecent
+        view.onPopular = self.onPopular
         view.summaryView.onEdit = self.output.onEdit
         view.summaryView.onFollowing = self.output.onFollowing
         view.summaryView.onFollow = { self.output.onFollowRequest(currentStatus: $0) }
@@ -31,8 +31,8 @@ class UserProfileViewController: UIViewController {
     fileprivate lazy var stickyFilterView: SegmentedControlView = { [unowned self] in
         let filterView = SegmentedControlView.fromNib()
         filterView.configureForUserProfileModule(superview: self.view,
-                                                 onRecent: self.output.onRecent,
-                                                 onPopular: self.output.onPopular)
+                                                 onRecent: self.onRecent,
+                                                 onPopular: self.onPopular)
         filterView.isHidden = true
         return filterView
     }()
@@ -50,6 +50,18 @@ class UserProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
+    }
+    
+    private func onRecent() {
+        stickyFilterView.selectSegment(Constants.UserProfile.recentSegment)
+        filterView.selectSegment(Constants.UserProfile.recentSegment)
+        output.onRecent()
+    }
+    
+    private func onPopular() {
+        stickyFilterView.selectSegment(Constants.UserProfile.popularSegment)
+        filterView.selectSegment(Constants.UserProfile.popularSegment)
+        output.onPopular()
     }
 }
 

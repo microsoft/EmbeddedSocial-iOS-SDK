@@ -43,7 +43,7 @@ class FeedModuleConfigurator {
         presenter.userHolder = userHolder
         
         let interactor = FeedModuleInteractor()
-        interactor.postService = TopicService(cache: cache)
+        interactor.postService = TopicService(imagesService: ImagesService())
         interactor.output = presenter
         
         presenter.interactor = interactor
@@ -55,5 +55,4 @@ class FeedModuleConfigurator {
         self.viewController = viewController
         self.moduleInput = presenter
     }
-    
 }
