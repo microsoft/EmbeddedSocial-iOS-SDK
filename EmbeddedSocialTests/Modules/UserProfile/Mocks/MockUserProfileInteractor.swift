@@ -18,7 +18,7 @@ class MockUserProfileInteractor: UserProfileInteractorInput {
     
     var userToReturn: User?
     var meToReturn: User?
-    var cachedUserToRetur: User?
+    var cachedUserToReturn: User?
 
     func getUser(userID: String, completion: @escaping (Result<User>) -> Void) {
         getUserCount += 1
@@ -65,6 +65,7 @@ class MockUserProfileInteractor: UserProfileInteractorInput {
     }
     
     func cachedUser(with handle: String) -> User? {
-        return cachedUserToRetur
+        cachedUserCount += 1
+        return cachedUserToReturn
     }
 }

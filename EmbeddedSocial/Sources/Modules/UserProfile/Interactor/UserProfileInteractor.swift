@@ -53,9 +53,5 @@ final class UserProfileInteractor: UserProfileInteractorInput {
             return nil
         }
         return User(profileView: profileView)
-        
-//        cache.fetchIncoming(type: UserProfileView.self, sortDescriptors: nil) { profiles in
-//            print(profiles)
-//        }
     }
 }
