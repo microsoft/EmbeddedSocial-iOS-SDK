@@ -7,9 +7,10 @@ import Foundation
 
 enum FeedModuleRoutes {
     
-    case postDetails
+    case postDetails(post: Post)
     case myPost(post: Post)
     case othersPost(post: Post)
+    case openImage(image: String)
     case comments
     case profileDetailes(user: UserHandle)
     

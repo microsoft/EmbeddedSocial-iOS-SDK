@@ -191,6 +191,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func reload() {
         Logger.log()
         collectionView?.reloadData()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "RefreshFeedM"), object: nil)
     }
     
     func reload(with index: Int) {
@@ -266,7 +267,6 @@ extension FeedModuleViewController: UIScrollViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForFooterInSection section: Int) -> CGSize {
-        
         if collectionView.numberOfItems(inSection: 0) > 1 {
             return CGSize(width: collectionView.frame.size.width, height: Style.Collection.footerHeight)
         } else {

@@ -46,7 +46,7 @@ extension FeedType: Equatable {
 }
 
 enum PostCellAction {
-    case like, pin, comment, extra, profile
+    case like, pin, comment, extra, profile, photo
 }
 
 struct PostViewModel {
@@ -255,7 +255,15 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             
         case .profile:
             router.open(route: .profileDetailes(user: userHandle), feedSource: feedType!)
+            
+        case .photo:
+            guard let imageUrl = items[path.row].imageUrl else {
+                return
+            }
+            
+            router.open(route: .openImage(image: imageUrl), feedSource: feedType!)
         }
+        
     }
     
     func numberOfItems() -> Int {
@@ -300,6 +308,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didTapItem(path: IndexPath) {
         Logger.log(path)
+        router.open(route: .postDetails(post: items[path.row]), feedSource: feedType!)
     }
     
     // MARK: FeedModuleInteractorOutput

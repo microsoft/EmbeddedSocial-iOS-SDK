@@ -23,6 +23,7 @@ abstract_target 'Group' do
     pod 'UITextView+Placeholder', '~> 1.2.0'
     pod 'OAuthSwift', :path => 'EmbeddedSocial/Vendor/OAuthSwift'
     pod 'LiveSDK', :path => 'EmbeddedSocial/Vendor/LiveSDK'
+    pod 'SKPhotoBrowser', '~> 4.0.1'
     facebook
 
     target 'EmbeddedSocial' do
