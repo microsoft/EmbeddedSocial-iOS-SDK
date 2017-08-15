@@ -1,5 +1,6 @@
 platform :ios, ‘9.0’
 
+use_frameworks!
 inhibit_all_warnings!
 
 def facebook
@@ -10,7 +11,6 @@ end
 
 abstract_target 'Group' do
 
-    use_frameworks!
     pod 'Alamofire', '~> 4.5.0'
     pod 'SwiftLint', '~> 0.20.1'
     pod 'SVProgressHUD', '~> 2.1.2'
