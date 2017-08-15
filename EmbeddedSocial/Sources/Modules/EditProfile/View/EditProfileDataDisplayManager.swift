@@ -5,12 +5,12 @@
 
 import Foundation
 
-final class CreateAccountDataDisplayManager: NSObject, TableDataDisplayManager {
-    typealias Section = SectionModel<CreateAccountGroupHeader?, CreateAccountItem>
+final class EditProfileDataDisplayManager: NSObject, TableDataDisplayManager {
+    typealias Section = SectionModel<EditProfileGroupHeader?, EditProfileItem>
     typealias TextChangedHandler = (String?) -> Void
     
     fileprivate let groupHeaderCellClass = GroupHeaderTableCell.self
-
+    
     fileprivate(set) var sections: [Section] = []
     
     fileprivate weak var tableView: UITableView?
@@ -21,9 +21,9 @@ final class CreateAccountDataDisplayManager: NSObject, TableDataDisplayManager {
     var onLastNameChanged: TextChangedHandler?
     var onBioChanged: TextChangedHandler?
     var onSelectPhoto: (() -> Void)?
-
-    private lazy var builder: CreateAccountCellModelsBuilder = { [unowned self] in
-        var builder = CreateAccountCellModelsBuilder()
+    
+    private lazy var builder: EditProfileCellsBuilder = { [unowned self] in
+        var builder = EditProfileCellsBuilder()
         builder.onFirstNameChanged = { self.onFirstNameChanged?($0) }
         builder.onLastNameChanged = { self.onLastNameChanged?($0) }
         builder.onBioChanged = {
@@ -43,7 +43,7 @@ final class CreateAccountDataDisplayManager: NSObject, TableDataDisplayManager {
         return self
     }
     
-    func setup(with tableView: UITableView, user: SocialUser) {
+    func setup(with tableView: UITableView, user: User) {
         sections = builder.makeSections(user: user)
         setupTableWithSections(tableView, sections: sections)
     }
@@ -73,9 +73,9 @@ final class CreateAccountDataDisplayManager: NSObject, TableDataDisplayManager {
         return cell
     }
     
-    private func configure(cell: UITableViewCell, with item: CreateAccountItem) {
+    private func configure(cell: UITableViewCell, with item: EditProfileItem) {
         cell.selectionStyle = .none
-
+        
         switch item {
         case let .uploadPhoto(photo):
             (cell as? UploadPhotoCell)?.configure(photo: photo)
@@ -87,7 +87,7 @@ final class CreateAccountDataDisplayManager: NSObject, TableDataDisplayManager {
     }
 }
 
-extension CreateAccountDataDisplayManager: UITableViewDataSource {
+extension EditProfileDataDisplayManager: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].items.count
     }
@@ -101,7 +101,7 @@ extension CreateAccountDataDisplayManager: UITableViewDataSource {
     }
 }
 
-extension CreateAccountDataDisplayManager: UITableViewDelegate {
+extension EditProfileDataDisplayManager: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard case .uploadPhoto = sections[indexPath.section].items[indexPath.row] else {
             return
@@ -132,7 +132,7 @@ extension CreateAccountDataDisplayManager: UITableViewDelegate {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case .uploadPhoto:
-            return Constants.CreateAccount.uploadPhotoHeight
+            return Constants.EditProfile.uploadPhotoHeight
         case .firstName, .lastName:
             return Constants.standardCellHeight
         case .bio:

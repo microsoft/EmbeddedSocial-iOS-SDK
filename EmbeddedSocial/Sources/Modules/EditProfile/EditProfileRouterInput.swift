@@ -5,6 +5,6 @@
 
 import Foundation
 
-protocol LoginRouterInput {
-    func openCreateAccount(user: User)
+protocol EditProfileRouterInput: class {
+    func openImagePicker(from vc: UIViewController, completion: @escaping (Result<UIImage>) -> Void)
 }

@@ -6,9 +6,5 @@
 import Foundation
 
 protocol CreateAccountInteractorInput {
-    func updatedPhotoWithImageFromCache(_ photo: Photo?) -> Photo
-    
-    func cachePhoto(_ photo: Photo)
-    
-    func createAccount(for user: SocialUser, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void)
+    func createAccount(for user: User, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void)
 }

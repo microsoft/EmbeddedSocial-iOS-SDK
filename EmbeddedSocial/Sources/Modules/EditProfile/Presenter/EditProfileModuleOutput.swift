@@ -5,6 +5,8 @@
 
 import Foundation
 
-protocol LoginRouterInput {
-    func openCreateAccount(user: User)
+protocol EditProfileModuleOutput: class {
+    var viewController: UIViewController? { get }
+    
+    func setRightNavigationButtonEnabled(_ isEnabled: Bool)
 }

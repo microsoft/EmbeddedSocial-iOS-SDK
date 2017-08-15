@@ -3,8 +3,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
+protocol EditProfileViewInput: class {
+    func setupInitialState(with user: User)
+    
+    func setUser(_ user: User)
 
-protocol LoginRouterInput {
-    func openCreateAccount(user: User)
+    func setIsLoading(_ isLoading: Bool)
 }

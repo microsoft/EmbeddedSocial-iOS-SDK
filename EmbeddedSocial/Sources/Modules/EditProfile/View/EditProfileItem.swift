@@ -5,18 +5,18 @@
 
 import Foundation
 
-enum CreateAccountItem {
+enum EditProfileItem {
     case uploadPhoto(Photo?)
     case firstName(TextFieldCell.Style)
     case lastName(TextFieldCell.Style)
     case bio(TextViewCell.Style)
 }
 
-enum CreateAccountGroupHeader {
+enum EditProfileGroupHeader {
     case accountInformation(GroupHeaderTableCell.Style, String?)
 }
 
-extension CreateAccountItem: CellModel {
+extension EditProfileItem: CellModel {
     var reuseID: String {
         switch self {
         case .uploadPhoto:

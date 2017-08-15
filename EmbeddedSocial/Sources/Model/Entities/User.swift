@@ -6,12 +6,12 @@
 import Foundation
 
 struct User {
-    let uid: String
-    let firstName: String?
-    let lastName: String?
+    var uid: String
+    var firstName: String?
+    var lastName: String?
     let email: String?
-    let bio: String?
-    let photo: Photo?
+    var bio: String?
+    var photo: Photo?
     let credentials: CredentialsList?
     var followersCount: Int
     var followingCount: Int
@@ -64,8 +64,8 @@ struct User {
 }
 
 extension User {
-    init(socialUser: SocialUser, userHandle: String) {
-        uid = userHandle
+    init(socialUser: SocialUser) {
+        uid = UUID().uuidString
         firstName = socialUser.firstName
         lastName = socialUser.lastName
         email = socialUser.email

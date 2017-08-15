@@ -10,7 +10,7 @@ protocol UserServiceType {
     
     func getUserProfile(userID: String, completion: @escaping (Result<User>) -> Void)
     
-    func createAccount(for user: SocialUser, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void)
+    func createAccount(for user: User, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void)
 }
 
 class UserService: BaseService, UserServiceType {
@@ -32,13 +32,18 @@ class UserService: BaseService, UserServiceType {
         }
     }
     
-    func createAccount(for user: SocialUser, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
+    func createAccount(for user: User, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
+        guard let credentials = user.credentials else {
+            completion(.failure(APIError.missingCredentials))
+            return
+        }
+        
         guard let image = user.photo?.image else {
             createAccount(for: user, photoHandle: nil, completion: completion)
             return
         }
         
-        imagesService.uploadUserImage(image, authorization: user.credentials.authorization) { [weak self] result in
+        imagesService.uploadUserImage(image, authorization: credentials.authorization) { [weak self] result in
             if let photoHandle = result.value {
                 self?.createAccount(for: user, photoHandle: photoHandle, completion: completion)
             } else {
@@ -47,9 +52,15 @@ class UserService: BaseService, UserServiceType {
         }
     }
 
-    private func createAccount(for user: SocialUser,
+    private func createAccount(for user: User,
                                photoHandle: String?,
                                completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
+        
+        guard let credentials = user.credentials else {
+            completion(.failure(APIError.missingCredentials))
+            return
+        }
+        
         let params = PostUserRequest()
         params.instanceId = user.uid
         params.firstName = user.firstName
@@ -57,10 +68,10 @@ class UserService: BaseService, UserServiceType {
         params.bio = user.bio
         params.photoHandle = photoHandle
 
-        let auth = user.credentials.authorization
-        UsersAPI.usersPostUser(request: params, authorization: auth) { response, error in
+        UsersAPI.usersPostUser(request: params, authorization: credentials.authorization) { response, error in
             if let response = response, let userHandle = response.userHandle, let sessionToken = response.sessionToken {
-                let user = User(socialUser: user, userHandle: userHandle)
+                var user = user
+                user.uid = userHandle
                 completion(.success((user, sessionToken)))
             } else {
                 self.errorHandler.handle(error: error, completion: completion)
