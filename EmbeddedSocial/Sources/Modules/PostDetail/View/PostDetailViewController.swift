@@ -141,7 +141,8 @@ extension PostDetailViewController: UITableViewDataSource {
         case TableSections.comments.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
             cell.tag = indexPath.row
-            cell.config(comment: output.comment(index: indexPath.row))
+//            cell.config(comment: output.comment(index: indexPath.row))
+            cell.config(commentView: output.commentViewModel(index: indexPath.row))
             cell.delegate = self
             if  output.numberOfItems() > indexPath.row + 1 && isNewDataLoading == false {
                 isNewDataLoading = true

@@ -3,6 +3,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+enum CommentSocialAction: Int {
+    case like, unlike
+}
+
 class PostDetailInteractor: PostDetailInteractorInput {
 
     weak var output: PostDetailInteractorOutput!
@@ -14,6 +18,24 @@ class PostDetailInteractor: PostDetailInteractorInput {
     
     private var cursor: String?
     private let limit: Int32 = 10
+    
+    
+    // MARK: Social Actions
+    
+    func commentAction(commentHandle: String, action: CommentSocialAction) {
+        
+        let completion: LikesServiceProtocol.CompletionHandler = { [weak self] (handle, err) in
+            //            self?.output.didPostAction(post: post, action: action, error: err)
+        }
+        
+        switch action {
+        case .like:
+            likeService?.likeComment(commentHandle: commentHandle, completion: completion)
+        case .unlike:
+            likeService?.unlikeComment(commentHandle: commentHandle, completion: completion)
+        }
+        
+    }
     
     func fetchComments(topicHandle: String) {
         isLoading = true

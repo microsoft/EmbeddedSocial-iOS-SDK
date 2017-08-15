@@ -11,4 +11,6 @@ protocol PostDetailInteractorInput {
     func postComment(photo: Photo?, topicHandle: String, comment: String)
     func likeComment(comment: Comment)
     func unlikeComment(comment: Comment)
+    
+    func commentAction(commentHandle: String, action: CommentSocialAction)
 }
