@@ -18,6 +18,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
 
     @IBOutlet weak var postButton: UIButton!
     @IBOutlet weak var replyTextView: UITextView!
+    @IBOutlet weak var replyTextViewHeightConstraint: NSLayoutConstraint!
     
     var output: CommentRepliesViewOutput!
 
@@ -41,6 +42,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     }
     
     func configTextView() {
+        replyTextView.delegate = self
         replyTextView.layer.borderWidth = 1
         replyTextView.layer.borderColor = UIColor.lightGray.cgColor
         replyTextView.layer.cornerRadius = 1
@@ -48,7 +50,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     
     @IBAction func postReply(_ sender: Any) {
     }
-
+    
     // MARK: CommentRepliesViewInput
     func setupInitialState() {
     }
@@ -92,4 +94,13 @@ extension CommentRepliesViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return RepliesSections.sectionsCount.rawValue
     }
+}
+
+extension CommentRepliesViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        replyTextViewHeightConstraint.constant = replyTextView.contentSize.height
+        view.layoutIfNeeded()
+        postButton.isHidden = textView.text.isEmpty
+    }
+    
 }

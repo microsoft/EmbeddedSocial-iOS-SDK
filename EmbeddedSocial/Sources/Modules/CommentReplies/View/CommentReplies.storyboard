@@ -90,6 +90,7 @@
                         <outlet property="bottomConstraint" destination="8rN-Bc-YM7" id="ETW-b8-uWA"/>
                         <outlet property="postButton" destination="Qut-uO-elp" id="oTp-EQ-JK1"/>
                         <outlet property="replyTextView" destination="4yC-A1-pmT" id="bbB-M1-mcR"/>
+                        <outlet property="replyTextViewHeightConstraint" destination="NFE-vQ-A56" id="mtd-f6-8Nd"/>
                         <outlet property="tableView" destination="n71-h4-Ngk" id="Obr-MC-WhD"/>
                     </connections>
                 </viewController>
