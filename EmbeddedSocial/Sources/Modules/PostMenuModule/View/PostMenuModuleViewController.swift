@@ -8,7 +8,6 @@ import UIKit
 
 protocol PostMenuModuleViewInput: class {
     
-    
     func setupInitialState()
     func showItems(items: [ActionViewModel])
     

@@ -140,7 +140,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
         Logger.log(user, error)
     }
     
-    func didUnFollow(user: UserHandle, error: Error?) {
+    func didUnfollow(user: UserHandle, error: Error?) {
         Logger.log(user, error)
     }
     

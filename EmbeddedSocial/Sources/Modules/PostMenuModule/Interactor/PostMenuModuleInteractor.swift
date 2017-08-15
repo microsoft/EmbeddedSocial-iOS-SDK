@@ -23,7 +23,7 @@ protocol PostMenuModuleInteractorOutput: class {
     func didUnblock(user: UserHandle, error: Error?)
     func didRepost(user: UserHandle, error: Error?)
     func didFollow(user: UserHandle, error: Error?)
-    func didUnFollow(user: UserHandle, error: Error?)
+    func didUnfollow(user: UserHandle, error: Error?)
     func didHide(post: PostHandle, error: Error?)
     func didEdit(post: PostHandle, error: Error?)
     func didRemove(post: PostHandle, error: Error?)
@@ -49,7 +49,7 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     func unfollow(user: UserHandle) {
         
         socialService.unfollow(userID: user) { [weak self] (result) in
-            self?.output.didUnFollow(user: user, error: result.error)
+            self?.output.didUnfollow(user: user, error: result.error)
         }
     }
     

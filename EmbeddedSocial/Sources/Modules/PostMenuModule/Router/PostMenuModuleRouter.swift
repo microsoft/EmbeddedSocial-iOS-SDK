@@ -5,8 +5,19 @@
 
 protocol PostMenuModuleRouterInput {
     
+    func openEdit(post: Post)
+    func openReport(post: Post)
+    
 }
 
 class PostMenuModuleRouter: PostMenuModuleRouterInput {
+    
+    func openEdit(post: Post) {
+        Logger.log(post.topicHandle)
+    }
+    
+    func openReport(post: Post) {
+        Logger.log(post.topicHandle)
+    }
 
 }
