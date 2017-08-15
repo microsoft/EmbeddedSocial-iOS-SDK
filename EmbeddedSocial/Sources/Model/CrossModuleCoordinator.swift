@@ -56,6 +56,8 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     // MARK: Login Delegate
     func onSessionCreated(user: User, sessionToken: String) {
         
+        Logger.log(user.credentials?.authorization, event: .important)
+        
         self.user = user
         menuModule.user = user
         

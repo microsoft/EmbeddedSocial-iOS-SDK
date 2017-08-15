@@ -5,11 +5,15 @@
 
 protocol PostMenuModuleModuleOutput: class {
 
-    func didChangeItems()
-    func didChangeItem(user: UserHandle)
-    func didChangeItem(post: PostHandle)
-    func didRemoveItem(post: PostHandle)
-    func didFail(_ error: Error)
+    func didBlock(user: UserHandle, error: Error?)
+    func didUnblock(user: UserHandle, error: Error?)
+    func didRepost(user: UserHandle, error: Error?)
+    func didFollow(user: UserHandle, error: Error?)
+    func didUnfollow(user: UserHandle, error: Error?)
+    func didHide(post: PostHandle, error: Error?)
+    func didEdit(post: PostHandle, error: Error?)
+    func didRemove(post: PostHandle, error: Error?)
+    func didReport(post: PostHandle, error: Error?)
 }
 
 protocol PostMenuModuleModuleInput: class {
@@ -146,74 +150,48 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
     
     // MARK: Interactor Output
     func didBlock(user: UserHandle, error: Error?) {
-        if let error = error {
-            output?.didFail(error)
-        } else {
-            output?.didChangeItems()
-        }
         Logger.log(user, error)
+        output?.didBlock(user: user, error: error)
     }
     
     func didUnblock(user: UserHandle, error: Error?) {
-        if let error = error {
-            output?.didFail(error)
-        } else {
-            output?.didChangeItems()
-        }
         Logger.log(user, error)
+        output?.didUnblock(user: user, error: error)
     }
     
     func didRepost(user: UserHandle, error: Error?) {
         Logger.log(user, error)
+        output?.didRepost(user: user, error: error)
     }
     
     func didFollow(user: UserHandle, error: Error?) {
-        if let error = error {
-            output?.didFail(error)
-        } else {
-            output?.didChangeItems()
-        }
         Logger.log(user, error)
+        output?.didFollow(user: user, error: error)
     }
     
     func didUnfollow(user: UserHandle, error: Error?) {
-        if let error = error {
-            output?.didFail(error)
-        } else {
-            output?.didChangeItems()
-        }
         Logger.log(user, error)
+        output?.didUnfollow(user: user, error: error)
     }
     
     func didHide(post: PostHandle, error: Error?) {
-        if let error = error {
-            output?.didFail(error)
-        } else {
-            output?.didRemoveItem(post: post)
-        }
         Logger.log(post, error)
+        output?.didHide(post: post, error: error)
     }
     
     func didEdit(post: PostHandle, error: Error?) {
-        if let error = error {
-            output?.didFail(error)
-        } else {
-            output?.didChangeItem(post: post)
-        }
         Logger.log(post, error)
+        output?.didHide(post: post, error: error)
     }
     
     func didRemove(post: PostHandle, error: Error?) {
-        if let error = error {
-            output?.didFail(error)
-        } else {
-            output?.didRemoveItem(post: post)
-        }
         Logger.log(post, error)
+        output?.didRemove(post: post, error: error)
     }
     
     func didReport(post: PostHandle, error: Error?) {
         Logger.log(post, error)
+        output?.didReport(post: post, error: error)
     }
     
 }

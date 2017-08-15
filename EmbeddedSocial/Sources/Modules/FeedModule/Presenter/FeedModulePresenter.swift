@@ -100,7 +100,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     private var formatter = DateFormatterTool()
-    private var feedType: FeedType?
+    fileprivate var feedType: FeedType?
     private let limit = Int32(3) // Default
     fileprivate var items = [Post]()
     private var cursor: String? = nil {
@@ -142,6 +142,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     // MARK: Private
+    
+    fileprivate func isHome() -> Bool {
+        return feedType == .home
+    }
     
     private func cleanFeed() {
         cursor = nil
@@ -358,30 +362,115 @@ extension FeedModulePresenter {
 
 extension FeedModulePresenter: PostMenuModuleModuleOutput {
     
-    func didChangeItems() {
+    func didBlock(user: UserHandle, error: Error?) {
+        guard error == nil else {
+            didFail(error!)
+            return
+        }
+        
+        didChangeItem(user: user)
+    }
+    
+    func didUnblock(user: UserHandle, error: Error?) {
+        guard error == nil else {
+            didFail(error!)
+            return
+        }
+        
+        didChangeItem(user: user)
+    }
+    
+    func didRepost(user: UserHandle, error: Error?) {
+        guard error == nil else {
+            didFail(error!)
+            return
+        }
+    }
+    
+    func didFollow(user: UserHandle, error: Error?) {
+        guard error == nil else {
+            didFail(error!)
+            return
+        }
+        
+        if isHome() {
+            didChangeItems()
+        } else {
+            didChangeItem(user: user)
+        }
+    }
+    
+    func didUnfollow(user: UserHandle, error: Error?) {
+        guard error == nil else {
+            didFail(error!)
+            return
+        }
+        
+        if isHome() {
+            didChangeItems()
+        } else {
+            didChangeItem(user: user)
+        }
+    }
+    
+    func didHide(post: PostHandle, error: Error?) {
+        guard error == nil else {
+            didFail(error!)
+            return
+        }
+        
+        didRemoveItem(post: post)
+    }
+    
+    func didEdit(post: PostHandle, error: Error?) {
+        guard error == nil else {
+            didFail(error!)
+            return
+        }
+        
+        didChangeItem(post: post)
+    }
+    
+    func didRemove(post: PostHandle, error: Error?) {
+        guard error == nil else {
+            didFail(error!)
+            return
+        }
+        
+        didRemoveItem(post: post)
+    }
+    
+    func didReport(post: PostHandle, error: Error?) {
+        guard error == nil else {
+            didFail(error!)
+            return
+        }
+    }
+    
+    private func didChangeItems() {
         didAskFetchAll()
     }
     
-    func didChangeItem(user: UserHandle) {
+    private func didChangeItem(user: UserHandle) {
         if let index = items.index(where: { $0.userHandle == user }) {
             view.reload(with: index)
         }
     }
     
-    func didChangeItem(post: PostHandle) {
+    private func didChangeItem(post: PostHandle) {
         if let index = items.index(where: { $0.topicHandle == post }) {
             view.reload(with: index)
         }
     }
     
-    func didRemoveItem(post: PostHandle) {
+    private func didRemoveItem(post: PostHandle) {
         if let index = items.index(where: { $0.topicHandle == post }) {
             items.remove(at: index)
             view.removeItem(index: index)
         }
     }
     
-    func didFail(_ error: Error) {
+    private func didFail(_ error: Error) {
         view.showError(error: error)
     }
     
