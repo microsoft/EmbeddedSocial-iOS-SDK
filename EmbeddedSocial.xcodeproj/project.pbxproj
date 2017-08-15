@@ -99,23 +99,23 @@
 		8811C8271F3C809400F7513D /* ImagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8261F3C809400F7513D /* ImagesService.swift */; };
 		8811C8291F3C83E300F7513D /* UIImage+Compress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8281F3C83E300F7513D /* UIImage+Compress.swift */; };
 		8811C82B1F3D998300F7513D /* MockImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C82A1F3D998300F7513D /* MockImageCache.swift */; };
-		8811C83D1F42E03A00F7513D /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C83C1F42E03A00F7513D /* EditProfileView.swift */; };
+		8811C83D1F42E03A00F7513D /* EmbeddedEditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C83C1F42E03A00F7513D /* EmbeddedEditProfileView.swift */; };
 		8811C8481F42F83000F7513D /* AutoEquatable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8441F42F83000F7513D /* AutoEquatable.generated.swift */; };
 		8811C8491F42F83000F7513D /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8461F42F83000F7513D /* Images.swift */; };
 		8811C84A1F42F83000F7513D /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8471F42F83000F7513D /* Storyboards.swift */; };
-		8811C8541F42F88D00F7513D /* EditProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8511F42F88D00F7513D /* EditProfilePresenter.swift */; };
-		8811C8551F42F88D00F7513D /* EditProfileViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8521F42F88D00F7513D /* EditProfileViewInput.swift */; };
-		8811C8561F42F88D00F7513D /* EditProfileViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8531F42F88D00F7513D /* EditProfileViewOutput.swift */; };
-		8811C8581F42F8E300F7513D /* EditProfileConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8571F42F8E300F7513D /* EditProfileConfigurator.swift */; };
-		8811C85D1F42FB6B00F7513D /* EditProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C85B1F42FB6B00F7513D /* EditProfileInteractor.swift */; };
-		8811C85E1F42FB6B00F7513D /* EditProfileInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C85C1F42FB6B00F7513D /* EditProfileInteractorInput.swift */; };
-		8811C8601F42FBD100F7513D /* EditProfileModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C85F1F42FBD100F7513D /* EditProfileModuleOutput.swift */; };
-		8811C8641F42FDEF00F7513D /* EditProfileDataDisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8631F42FDEF00F7513D /* EditProfileDataDisplayManager.swift */; };
-		8811C8671F42FE5A00F7513D /* EditProfileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8661F42FE5A00F7513D /* EditProfileItem.swift */; };
-		8811C86A1F42FFDA00F7513D /* EditProfileCellsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8691F42FFDA00F7513D /* EditProfileCellsBuilder.swift */; };
-		8811C86D1F43008000F7513D /* EditProfileRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C86C1F43008000F7513D /* EditProfileRouterInput.swift */; };
-		8811C86F1F43023400F7513D /* EditProfileModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C86E1F43023400F7513D /* EditProfileModuleInput.swift */; };
-		8811C8711F43059200F7513D /* EditProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8701F43059200F7513D /* EditProfileRouter.swift */; };
+		8811C8541F42F88D00F7513D /* EmbeddedEditProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8511F42F88D00F7513D /* EmbeddedEditProfilePresenter.swift */; };
+		8811C8551F42F88D00F7513D /* EmbeddedEditProfileViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8521F42F88D00F7513D /* EmbeddedEditProfileViewInput.swift */; };
+		8811C8561F42F88D00F7513D /* EmbeddedEditProfileViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8531F42F88D00F7513D /* EmbeddedEditProfileViewOutput.swift */; };
+		8811C8581F42F8E300F7513D /* EmbeddedEditProfileConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8571F42F8E300F7513D /* EmbeddedEditProfileConfigurator.swift */; };
+		8811C85D1F42FB6B00F7513D /* EmbeddedEditProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C85B1F42FB6B00F7513D /* EmbeddedEditProfileInteractor.swift */; };
+		8811C85E1F42FB6B00F7513D /* EmbeddedEditProfileInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C85C1F42FB6B00F7513D /* EmbeddedEditProfileInteractorInput.swift */; };
+		8811C8601F42FBD100F7513D /* EmbeddedEditProfileModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C85F1F42FBD100F7513D /* EmbeddedEditProfileModuleOutput.swift */; };
+		8811C8641F42FDEF00F7513D /* EmbeddedEditProfileDataDisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8631F42FDEF00F7513D /* EmbeddedEditProfileDataDisplayManager.swift */; };
+		8811C8671F42FE5A00F7513D /* EmbeddedEditProfileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8661F42FE5A00F7513D /* EmbeddedEditProfileItem.swift */; };
+		8811C86A1F42FFDA00F7513D /* EmbeddedEditProfileCellsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8691F42FFDA00F7513D /* EmbeddedEditProfileCellsBuilder.swift */; };
+		8811C86D1F43008000F7513D /* EmbeddedEditProfileRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C86C1F43008000F7513D /* EmbeddedEditProfileRouterInput.swift */; };
+		8811C86F1F43023400F7513D /* EmbeddedEditProfileModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C86E1F43023400F7513D /* EmbeddedEditProfileModuleInput.swift */; };
+		8811C8711F43059200F7513D /* EmbeddedEditProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8701F43059200F7513D /* EmbeddedEditProfileRouter.swift */; };
 		881F7E5C1F263543003EB37A /* EmbeddedSocial.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* EmbeddedSocial.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		881F7E5E1F2637B7003EB37A /* KeyValueRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */; };
 		881F7E601F2637F7003EB37A /* MementoSerializableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */; };
@@ -637,23 +637,23 @@
 		8811C8261F3C809400F7513D /* ImagesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesService.swift; sourceTree = "<group>"; };
 		8811C8281F3C83E300F7513D /* UIImage+Compress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Compress.swift"; sourceTree = "<group>"; };
 		8811C82A1F3D998300F7513D /* MockImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockImageCache.swift; sourceTree = "<group>"; };
-		8811C83C1F42E03A00F7513D /* EditProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		8811C83C1F42E03A00F7513D /* EmbeddedEditProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedEditProfileView.swift; sourceTree = "<group>"; };
 		8811C8441F42F83000F7513D /* AutoEquatable.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoEquatable.generated.swift; sourceTree = "<group>"; };
 		8811C8461F42F83000F7513D /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		8811C8471F42F83000F7513D /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
-		8811C8511F42F88D00F7513D /* EditProfilePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfilePresenter.swift; sourceTree = "<group>"; };
-		8811C8521F42F88D00F7513D /* EditProfileViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProfileViewInput.swift; path = ../Presenter/EditProfileViewInput.swift; sourceTree = "<group>"; };
-		8811C8531F42F88D00F7513D /* EditProfileViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProfileViewOutput.swift; path = ../Presenter/EditProfileViewOutput.swift; sourceTree = "<group>"; };
-		8811C8571F42F8E300F7513D /* EditProfileConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProfileConfigurator.swift; path = Configurator/EditProfileConfigurator.swift; sourceTree = "<group>"; };
-		8811C85B1F42FB6B00F7513D /* EditProfileInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileInteractor.swift; sourceTree = "<group>"; };
-		8811C85C1F42FB6B00F7513D /* EditProfileInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileInteractorInput.swift; sourceTree = "<group>"; };
-		8811C85F1F42FBD100F7513D /* EditProfileModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileModuleOutput.swift; sourceTree = "<group>"; };
-		8811C8631F42FDEF00F7513D /* EditProfileDataDisplayManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileDataDisplayManager.swift; sourceTree = "<group>"; };
-		8811C8661F42FE5A00F7513D /* EditProfileItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileItem.swift; sourceTree = "<group>"; };
-		8811C8691F42FFDA00F7513D /* EditProfileCellsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileCellsBuilder.swift; sourceTree = "<group>"; };
-		8811C86C1F43008000F7513D /* EditProfileRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileRouterInput.swift; sourceTree = "<group>"; };
-		8811C86E1F43023400F7513D /* EditProfileModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileModuleInput.swift; sourceTree = "<group>"; };
-		8811C8701F43059200F7513D /* EditProfileRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileRouter.swift; sourceTree = "<group>"; };
+		8811C8511F42F88D00F7513D /* EmbeddedEditProfilePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedEditProfilePresenter.swift; sourceTree = "<group>"; };
+		8811C8521F42F88D00F7513D /* EmbeddedEditProfileViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmbeddedEditProfileViewInput.swift; path = ../Presenter/EmbeddedEditProfileViewInput.swift; sourceTree = "<group>"; };
+		8811C8531F42F88D00F7513D /* EmbeddedEditProfileViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmbeddedEditProfileViewOutput.swift; path = ../Presenter/EmbeddedEditProfileViewOutput.swift; sourceTree = "<group>"; };
+		8811C8571F42F8E300F7513D /* EmbeddedEditProfileConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmbeddedEditProfileConfigurator.swift; path = Configurator/EmbeddedEditProfileConfigurator.swift; sourceTree = "<group>"; };
+		8811C85B1F42FB6B00F7513D /* EmbeddedEditProfileInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedEditProfileInteractor.swift; sourceTree = "<group>"; };
+		8811C85C1F42FB6B00F7513D /* EmbeddedEditProfileInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedEditProfileInteractorInput.swift; sourceTree = "<group>"; };
+		8811C85F1F42FBD100F7513D /* EmbeddedEditProfileModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedEditProfileModuleOutput.swift; sourceTree = "<group>"; };
+		8811C8631F42FDEF00F7513D /* EmbeddedEditProfileDataDisplayManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedEditProfileDataDisplayManager.swift; sourceTree = "<group>"; };
+		8811C8661F42FE5A00F7513D /* EmbeddedEditProfileItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedEditProfileItem.swift; sourceTree = "<group>"; };
+		8811C8691F42FFDA00F7513D /* EmbeddedEditProfileCellsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedEditProfileCellsBuilder.swift; sourceTree = "<group>"; };
+		8811C86C1F43008000F7513D /* EmbeddedEditProfileRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedEditProfileRouterInput.swift; sourceTree = "<group>"; };
+		8811C86E1F43023400F7513D /* EmbeddedEditProfileModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedEditProfileModuleInput.swift; sourceTree = "<group>"; };
+		8811C8701F43059200F7513D /* EmbeddedEditProfileRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedEditProfileRouter.swift; sourceTree = "<group>"; };
 		881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueRepositoryTests.swift; sourceTree = "<group>"; };
 		881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MementoSerializableItem.swift; sourceTree = "<group>"; };
 		881F7E611F263888003EB37A /* MockKeyValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeyValueStorage.swift; sourceTree = "<group>"; };
@@ -1187,7 +1187,7 @@
 			path = Mock;
 			sourceTree = "<group>";
 		};
-		8811C83B1F42E00000F7513D /* EditProfile */ = {
+		8811C83B1F42E00000F7513D /* EmbeddedEditProfile */ = {
 			isa = PBXGroup;
 			children = (
 				8811C86B1F43006700F7513D /* Router */,
@@ -1196,16 +1196,17 @@
 				8811C8501F42F88D00F7513D /* Presenter */,
 				8811C8401F42F68500F7513D /* View */,
 			);
+			name = EmbeddedEditProfile;
 			path = EditProfile;
 			sourceTree = "<group>";
 		};
 		8811C8401F42F68500F7513D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8811C83C1F42E03A00F7513D /* EditProfileView.swift */,
+				8811C83C1F42E03A00F7513D /* EmbeddedEditProfileView.swift */,
 				8811C8651F42FE5000F7513D /* DataDisplayManager */,
-				8811C8521F42F88D00F7513D /* EditProfileViewInput.swift */,
-				8811C8531F42F88D00F7513D /* EditProfileViewOutput.swift */,
+				8811C8521F42F88D00F7513D /* EmbeddedEditProfileViewInput.swift */,
+				8811C8531F42F88D00F7513D /* EmbeddedEditProfileViewOutput.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1230,9 +1231,9 @@
 		8811C8501F42F88D00F7513D /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				8811C85F1F42FBD100F7513D /* EditProfileModuleOutput.swift */,
-				8811C86E1F43023400F7513D /* EditProfileModuleInput.swift */,
-				8811C8511F42F88D00F7513D /* EditProfilePresenter.swift */,
+				8811C85F1F42FBD100F7513D /* EmbeddedEditProfileModuleOutput.swift */,
+				8811C86E1F43023400F7513D /* EmbeddedEditProfileModuleInput.swift */,
+				8811C8511F42F88D00F7513D /* EmbeddedEditProfilePresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -1240,7 +1241,7 @@
 		8811C8591F42F8EB00F7513D /* Configurator */ = {
 			isa = PBXGroup;
 			children = (
-				8811C8571F42F8E300F7513D /* EditProfileConfigurator.swift */,
+				8811C8571F42F8E300F7513D /* EmbeddedEditProfileConfigurator.swift */,
 			);
 			name = Configurator;
 			sourceTree = "<group>";
@@ -1248,8 +1249,8 @@
 		8811C85A1F42FB6B00F7513D /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				8811C85B1F42FB6B00F7513D /* EditProfileInteractor.swift */,
-				8811C85C1F42FB6B00F7513D /* EditProfileInteractorInput.swift */,
+				8811C85B1F42FB6B00F7513D /* EmbeddedEditProfileInteractor.swift */,
+				8811C85C1F42FB6B00F7513D /* EmbeddedEditProfileInteractorInput.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -1257,9 +1258,9 @@
 		8811C8651F42FE5000F7513D /* DataDisplayManager */ = {
 			isa = PBXGroup;
 			children = (
-				8811C8631F42FDEF00F7513D /* EditProfileDataDisplayManager.swift */,
-				8811C8661F42FE5A00F7513D /* EditProfileItem.swift */,
-				8811C8691F42FFDA00F7513D /* EditProfileCellsBuilder.swift */,
+				8811C8631F42FDEF00F7513D /* EmbeddedEditProfileDataDisplayManager.swift */,
+				8811C8661F42FE5A00F7513D /* EmbeddedEditProfileItem.swift */,
+				8811C8691F42FFDA00F7513D /* EmbeddedEditProfileCellsBuilder.swift */,
 			);
 			name = DataDisplayManager;
 			sourceTree = "<group>";
@@ -1267,8 +1268,8 @@
 		8811C86B1F43006700F7513D /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				8811C86C1F43008000F7513D /* EditProfileRouterInput.swift */,
-				8811C8701F43059200F7513D /* EditProfileRouter.swift */,
+				8811C86C1F43008000F7513D /* EmbeddedEditProfileRouterInput.swift */,
+				8811C8701F43059200F7513D /* EmbeddedEditProfileRouter.swift */,
 			);
 			name = Router;
 			sourceTree = "<group>";
@@ -1687,7 +1688,7 @@
 			children = (
 				88580B2E1F2213AB00C1CBAF /* CreateAccount */,
 				88580B451F2213AB00C1CBAF /* CreatePost */,
-				8811C83B1F42E00000F7513D /* EditProfile */,
+				8811C83B1F42E00000F7513D /* EmbeddedEditProfile */,
 				9CC531361F31CCF2004CE94F /* FeedModule */,
 				88FFFA6D1F30B9720066A1A0 /* Followers */,
 				8875CCDB1F331CB3001F2474 /* Following */,
@@ -3373,13 +3374,13 @@
 			files = (
 				8875CCF11F331FC9001F2474 /* UsersListResponse.swift in Sources */,
 				6360D8CA1F3B15EC00FECAEB /* (null) in Sources */,
-				8811C8601F42FBD100F7513D /* EditProfileModuleOutput.swift in Sources */,
+				8811C8601F42FBD100F7513D /* EmbeddedEditProfileModuleOutput.swift in Sources */,
 				88580BA71F2213AB00C1CBAF /* NavigationStackContainer.swift in Sources */,
 				88580C151F2213AB00C1CBAF /* SessionStore.swift in Sources */,
 				9CEA75241F2A0E61009FC89D /* Post.swift in Sources */,
 				882AD0BD1F221D4400FC20B7 /* CoreDataStack.swift in Sources */,
 				9C6D359E1F31D1C1005893DB /* FeedModulePresenter.swift in Sources */,
-				8811C8671F42FE5A00F7513D /* EditProfileItem.swift in Sources */,
+				8811C8671F42FE5A00F7513D /* EmbeddedEditProfileItem.swift in Sources */,
 				6360D8C31F3B15EB00FECAEB /* (null) in Sources */,
 				884AA9811F3C563F00B85135 /* PostSessionResponse.swift in Sources */,
 				882AD0C31F2225FF00FC20B7 /* QueriableRepository.swift in Sources */,
@@ -3393,7 +3394,7 @@
 				88580BA61F2213AB00C1CBAF /* NavigationStack.swift in Sources */,
 				884AA96A1F3C563F00B85135 /* FeedResponseCommentView.swift in Sources */,
 				6360D9031F3B15EC00FECAEB /* (null) in Sources */,
-				8811C85D1F42FB6B00F7513D /* EditProfileInteractor.swift in Sources */,
+				8811C85D1F42FB6B00F7513D /* EmbeddedEditProfileInteractor.swift in Sources */,
 				884AA9821F3C563F00B85135 /* PostTopicNameRequest.swift in Sources */,
 				88580BBF1F2213AB00C1CBAF /* UIButton+Ext.swift in Sources */,
 				88580C701F2213AB00C1CBAF /* TabMenuContainerViewController.swift in Sources */,
@@ -3407,13 +3408,13 @@
 				6360D8C11F3B15EB00FECAEB /* (null) in Sources */,
 				88580C461F2213AB00C1CBAF /* CreatePostModuleInput.swift in Sources */,
 				884AA95A1F3C563F00B85135 /* SearchAPI.swift in Sources */,
-				8811C86A1F42FFDA00F7513D /* EditProfileCellsBuilder.swift in Sources */,
+				8811C86A1F42FFDA00F7513D /* EmbeddedEditProfileCellsBuilder.swift in Sources */,
 				88580C2E1F2213AB00C1CBAF /* URLSchemeService.swift in Sources */,
 				6360D8C91F3B15EC00FECAEB /* (null) in Sources */,
 				88580C3A1F2213AB00C1CBAF /* UploadPhotoCell.swift in Sources */,
 				6360D8D51F3B15EC00FECAEB /* (null) in Sources */,
 				884AA9851F3C563F00B85135 /* PostUserRequest.swift in Sources */,
-				8811C86D1F43008000F7513D /* EditProfileRouterInput.swift in Sources */,
+				8811C86D1F43008000F7513D /* EmbeddedEditProfileRouterInput.swift in Sources */,
 				88580B9D1F2213AB00C1CBAF /* AppStrings.swift in Sources */,
 				884AA9701F3C563F00B85135 /* GetTopicByNameResponse.swift in Sources */,
 				884AA9651F3C563F00B85135 /* CommentView.swift in Sources */,
@@ -3460,7 +3461,7 @@
 				88580C271F2213AB00C1CBAF /* SessionService.swift in Sources */,
 				884AA94E1F3C563F00B85135 /* APIHelper.swift in Sources */,
 				88580BAA1F2213AB00C1CBAF /* SectionModel.swift in Sources */,
-				8811C8581F42F8E300F7513D /* EditProfileConfigurator.swift in Sources */,
+				8811C8581F42F8E300F7513D /* EmbeddedEditProfileConfigurator.swift in Sources */,
 				88580C4B1F2213AB00C1CBAF /* CreatePostViewController.swift in Sources */,
 				88580BBE1F2213AB00C1CBAF /* UIBarButtonItem+Ext.swift in Sources */,
 				884AA97D1F3C563F00B85135 /* PostReplyRequest.swift in Sources */,
@@ -3475,7 +3476,7 @@
 				882AD0C01F221D4400FC20B7 /* ModelFileExtension.swift in Sources */,
 				88BC5C511F2B65D0001FBDD2 /* UserProfilePresenter.swift in Sources */,
 				88580C501F2213AB00C1CBAF /* LoginInteractorInput.swift in Sources */,
-				8811C85E1F42FB6B00F7513D /* EditProfileInteractorInput.swift in Sources */,
+				8811C85E1F42FB6B00F7513D /* EmbeddedEditProfileInteractorInput.swift in Sources */,
 				6360D8E61F3B15EC00FECAEB /* (null) in Sources */,
 				9C7D9B381F2F4918005928F4 /* Localizator.swift in Sources */,
 				9C6D35A41F31D1C1005893DB /* FeedModuleViewOutput.swift in Sources */,
@@ -3530,7 +3531,7 @@
 				8875CCD91F3314B6001F2474 /* UserFollowersAPI.swift in Sources */,
 				884AA9831F3C563F00B85135 /* PostTopicRequest.swift in Sources */,
 				8811C84A1F42F83000F7513D /* Storyboards.swift in Sources */,
-				8811C8541F42F88D00F7513D /* EditProfilePresenter.swift in Sources */,
+				8811C8541F42F88D00F7513D /* EmbeddedEditProfilePresenter.swift in Sources */,
 				884AA95B1F3C563F00B85135 /* SessionsAPI.swift in Sources */,
 				884AA97F1F3C563F00B85135 /* PostReportRequest.swift in Sources */,
 				88FFFA6F1F30B98B0066A1A0 /* FollowersConfigurator.swift in Sources */,
@@ -3554,7 +3555,7 @@
 				6360D8CE1F3B15EC00FECAEB /* (null) in Sources */,
 				884AA98B1F3C563F00B85135 /* PutUserInfoRequest.swift in Sources */,
 				9C6D35A01F31D1C1005893DB /* FeedModuleRouterInput.swift in Sources */,
-				8811C8551F42F88D00F7513D /* EditProfileViewInput.swift in Sources */,
+				8811C8551F42F88D00F7513D /* EmbeddedEditProfileViewInput.swift in Sources */,
 				63A1D6FB1F25E78D0090C67A /* TopicService.swift in Sources */,
 				884AA95C1F3C563F00B85135 /* SocialAPI.swift in Sources */,
 				32FAB0511F2E6D3000C5B18D /* PostCellCompact.swift in Sources */,
@@ -3571,7 +3572,7 @@
 				88BC5C531F2B65D0001FBDD2 /* UserProfileRouterInput.swift in Sources */,
 				6360D8DE1F3B15EC00FECAEB /* (null) in Sources */,
 				881060FD1F28F4B2008CA2FB /* Visibility.swift in Sources */,
-				8811C8711F43059200F7513D /* EditProfileRouter.swift in Sources */,
+				8811C8711F43059200F7513D /* EmbeddedEditProfileRouter.swift in Sources */,
 				88580BAF1F2213AB00C1CBAF /* SideMenuStackController.swift in Sources */,
 				882AD0BC1F221D4400FC20B7 /* CoreDataModel.swift in Sources */,
 				884AA9681F3C563F00B85135 /* DeleteTopicNameRequest.swift in Sources */,
@@ -3593,7 +3594,7 @@
 				6360D8C71F3B15EC00FECAEB /* (null) in Sources */,
 				88580BC31F2213AB00C1CBAF /* UITableView+Ext.swift in Sources */,
 				88580C421F2213AB00C1CBAF /* CreatePostInitializer.swift in Sources */,
-				8811C8561F42F88D00F7513D /* EditProfileViewOutput.swift in Sources */,
+				8811C8561F42F88D00F7513D /* EmbeddedEditProfileViewOutput.swift in Sources */,
 				88D8CCB21F31CA680032FB2B /* UserListItemsBuilder.swift in Sources */,
 				88580C321F2213AB00C1CBAF /* CreateAccountConfigurator.swift in Sources */,
 				882AD0BB1F221D4400FC20B7 /* CommonFunctions.swift in Sources */,
@@ -3605,7 +3606,7 @@
 				6360D8FC1F3B15EC00FECAEB /* (null) in Sources */,
 				884AA9541F3C563F00B85135 /* LikesAPI.swift in Sources */,
 				884AA9841F3C563F00B85135 /* PostTopicResponse.swift in Sources */,
-				8811C8641F42FDEF00F7513D /* EditProfileDataDisplayManager.swift in Sources */,
+				8811C8641F42FDEF00F7513D /* EmbeddedEditProfileDataDisplayManager.swift in Sources */,
 				88580C181F2213AB00C1CBAF /* ImageCache.swift in Sources */,
 				88580C761F2213AB00C1CBAF /* ImagePicker.swift in Sources */,
 				6360D8F31F3B15EC00FECAEB /* (null) in Sources */,
@@ -3731,7 +3732,7 @@
 				88580BAB1F2213AB00C1CBAF /* SideMenuAccountInfoView.swift in Sources */,
 				6360D8DF1F3B15EC00FECAEB /* (null) in Sources */,
 				88F551B61F399F9600F4AAB9 /* FollowersModuleOutput.swift in Sources */,
-				8811C86F1F43023400F7513D /* EditProfileModuleInput.swift in Sources */,
+				8811C86F1F43023400F7513D /* EmbeddedEditProfileModuleInput.swift in Sources */,
 				6360D8BE1F3B15EB00FECAEB /* (null) in Sources */,
 				88BC5C4F1F2B65D0001FBDD2 /* UserProfileInteractor.swift in Sources */,
 				884AA9551F3C563F00B85135 /* NotificationsAPI.swift in Sources */,
@@ -3743,7 +3744,7 @@
 				884AA95E1F3C563F00B85135 /* UsersAPI.swift in Sources */,
 				8811C8291F3C83E300F7513D /* UIImage+Compress.swift in Sources */,
 				88580C351F2213AB00C1CBAF /* CreateAccountModuleOutput.swift in Sources */,
-				8811C83D1F42E03A00F7513D /* EditProfileView.swift in Sources */,
+				8811C83D1F42E03A00F7513D /* EmbeddedEditProfileView.swift in Sources */,
 				88BC5C571F2B65D0001FBDD2 /* UserProfileViewOutput.swift in Sources */,
 				88580BC01F2213AB00C1CBAF /* UIColor+Hex.swift in Sources */,
 				88FFFA631F3080340066A1A0 /* UserProfileActionSheetBuilder.swift in Sources */,

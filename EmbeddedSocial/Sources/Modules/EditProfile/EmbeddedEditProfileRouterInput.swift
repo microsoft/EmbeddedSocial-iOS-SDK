@@ -5,6 +5,6 @@
 
 import Foundation
 
-protocol EditProfileRouterInput: class {
+protocol EmbeddedEditProfileRouterInput: class {
     func openImagePicker(from vc: UIViewController, completion: @escaping (Result<UIImage>) -> Void)
 }

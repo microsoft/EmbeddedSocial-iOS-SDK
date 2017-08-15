@@ -5,12 +5,12 @@
 
 import Foundation
 
-final class EditProfilePresenter {
-    var view: EditProfileViewInput!
+final class EmbeddedEditProfilePresenter {
+    var view: EmbeddedEditProfileViewInput!
     
-    var interactor: EditProfileInteractorInput!
-    var router: EditProfileRouterInput!
-    weak var moduleOutput: EditProfileModuleOutput?
+    var interactor: EmbeddedEditProfileInteractorInput!
+    var router: EmbeddedEditProfileRouterInput!
+    weak var moduleOutput: EmbeddedEditProfileModuleOutput?
     
     fileprivate var user: User
     
@@ -19,7 +19,7 @@ final class EditProfilePresenter {
     }
 }
 
-extension EditProfilePresenter: EditProfileViewOutput {
+extension EmbeddedEditProfilePresenter: EmbeddedEditProfileViewOutput {
     
     func setupInitialState() {
         view.setupInitialState(with: user)
@@ -70,7 +70,7 @@ extension EditProfilePresenter: EditProfileViewOutput {
     }
 }
 
-extension EditProfilePresenter: EditProfileModuleInput {
+extension EmbeddedEditProfilePresenter: EmbeddedEditProfileModuleInput {
     
     func setIsLoading(_ isLoading: Bool) {
         view.setIsLoading(isLoading)

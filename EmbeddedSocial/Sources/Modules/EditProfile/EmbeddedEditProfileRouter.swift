@@ -5,7 +5,7 @@
 
 import UIKit
 
-final class EditProfileRouter: EditProfileRouterInput {
+final class EmbeddedEditProfileRouter: EmbeddedEditProfileRouterInput {
     func openImagePicker(from vc: UIViewController, completion: @escaping (Result<UIImage>) -> Void) {
         let picker = ImagePicker()
         picker.show(with: ImagePicker.Options(sourceViewController: vc)) { result in

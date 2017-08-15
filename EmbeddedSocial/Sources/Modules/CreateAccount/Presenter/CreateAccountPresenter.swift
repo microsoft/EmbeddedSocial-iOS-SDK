@@ -8,7 +8,7 @@ class CreateAccountPresenter: CreateAccountViewOutput {
     weak var view: CreateAccountViewInput!
     var interactor: CreateAccountInteractorInput!
     weak var moduleOutput: CreateAccountModuleOutput?
-    var editModuleInput: EditProfileModuleInput!
+    var editModuleInput: EmbeddedEditProfileModuleInput!
     
     fileprivate let user: User
     
@@ -35,7 +35,7 @@ class CreateAccountPresenter: CreateAccountViewOutput {
     }
 }
 
-extension CreateAccountPresenter: EditProfileModuleOutput {
+extension CreateAccountPresenter: EmbeddedEditProfileModuleOutput {
     
     var viewController: UIViewController? {
         return view as? UIViewController

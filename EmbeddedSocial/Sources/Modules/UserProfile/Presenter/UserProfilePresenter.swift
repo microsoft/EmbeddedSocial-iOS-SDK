@@ -104,7 +104,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     func onEdit() {
-        router.openEditProfile(user: me)
+        router.openEmbeddedEditProfile(user: me)
     }
     
     func onFollowing() {

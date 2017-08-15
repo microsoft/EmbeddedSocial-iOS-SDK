@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-final class EditProfileInteractor: EditProfileInteractorInput {
+final class EmbeddedEditProfileInteractor: EmbeddedEditProfileInteractorInput {
     private let userService: UserServiceType
     private let imageCache: ImageCache
 

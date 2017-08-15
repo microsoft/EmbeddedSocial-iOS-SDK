@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol EditProfileModuleOutput: class {
+protocol EmbeddedEditProfileModuleOutput: class {
     var viewController: UIViewController? { get }
     
     func setRightNavigationButtonEnabled(_ isEnabled: Bool)

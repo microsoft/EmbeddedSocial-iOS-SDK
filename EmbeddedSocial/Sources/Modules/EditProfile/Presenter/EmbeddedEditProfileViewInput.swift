@@ -3,14 +3,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
+protocol EmbeddedEditProfileViewInput: class {
+    func setupInitialState(with user: User)
+    
+    func setUser(_ user: User)
 
-protocol EditProfileModuleInput: class {
     func setIsLoading(_ isLoading: Bool)
-    
-    func getFinalUser() -> User
-    
-    func getModuleView() -> UIView
-    
-    func setupInitialState()
 }

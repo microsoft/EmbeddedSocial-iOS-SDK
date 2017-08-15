@@ -1,5 +1,5 @@
 //
-//  EditProfileViewController.swift
+//  EmbeddedEditProfileViewController.swift
 //  EmbeddedSocial
 //
 //  Created by Vadim Bulavin on 8/15/17.
@@ -9,10 +9,10 @@
 import UIKit
 import SnapKit
 
-class EditProfileView: UIView {
+class EmbeddedEditProfileView: UIView {
     
-    weak var output: EditProfileViewOutput!
-    var dataManager: EditProfileDataDisplayManager!
+    weak var output: EmbeddedEditProfileViewOutput!
+    var dataManager: EmbeddedEditProfileDataDisplayManager!
     
     fileprivate lazy var tableView: UITableView = { [unowned self] in
         let tableView = UITableView()
@@ -38,7 +38,7 @@ class EditProfileView: UIView {
     }()
 }
 
-extension EditProfileView: EditProfileViewInput {
+extension EmbeddedEditProfileView: EmbeddedEditProfileViewInput {
     
     func setupInitialState(with user: User) {
         dataManager.setup(with: tableView, user: user)

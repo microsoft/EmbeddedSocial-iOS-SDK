@@ -5,8 +5,8 @@
 
 import Foundation
 
-final class EditProfileDataDisplayManager: NSObject, TableDataDisplayManager {
-    typealias Section = SectionModel<EditProfileGroupHeader?, EditProfileItem>
+final class EmbeddedEditProfileDataDisplayManager: NSObject, TableDataDisplayManager {
+    typealias Section = SectionModel<EmbeddedEditProfileGroupHeader?, EmbeddedEditProfileItem>
     typealias TextChangedHandler = (String?) -> Void
     
     fileprivate let groupHeaderCellClass = GroupHeaderTableCell.self
@@ -22,8 +22,8 @@ final class EditProfileDataDisplayManager: NSObject, TableDataDisplayManager {
     var onBioChanged: TextChangedHandler?
     var onSelectPhoto: (() -> Void)?
     
-    private lazy var builder: EditProfileCellsBuilder = { [unowned self] in
-        var builder = EditProfileCellsBuilder()
+    private lazy var builder: EmbeddedEditProfileCellsBuilder = { [unowned self] in
+        var builder = EmbeddedEditProfileCellsBuilder()
         builder.onFirstNameChanged = { self.onFirstNameChanged?($0) }
         builder.onLastNameChanged = { self.onLastNameChanged?($0) }
         builder.onBioChanged = {
@@ -73,7 +73,7 @@ final class EditProfileDataDisplayManager: NSObject, TableDataDisplayManager {
         return cell
     }
     
-    private func configure(cell: UITableViewCell, with item: EditProfileItem) {
+    private func configure(cell: UITableViewCell, with item: EmbeddedEditProfileItem) {
         cell.selectionStyle = .none
         
         switch item {
@@ -87,7 +87,7 @@ final class EditProfileDataDisplayManager: NSObject, TableDataDisplayManager {
     }
 }
 
-extension EditProfileDataDisplayManager: UITableViewDataSource {
+extension EmbeddedEditProfileDataDisplayManager: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].items.count
     }
@@ -101,7 +101,7 @@ extension EditProfileDataDisplayManager: UITableViewDataSource {
     }
 }
 
-extension EditProfileDataDisplayManager: UITableViewDelegate {
+extension EmbeddedEditProfileDataDisplayManager: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard case .uploadPhoto = sections[indexPath.section].items[indexPath.row] else {
             return

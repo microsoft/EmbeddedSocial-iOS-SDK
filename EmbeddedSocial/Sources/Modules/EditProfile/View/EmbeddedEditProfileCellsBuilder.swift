@@ -5,8 +5,8 @@
 
 import Foundation
 
-struct EditProfileCellsBuilder {
-    typealias Section = EditProfileDataDisplayManager.Section
+struct EmbeddedEditProfileCellsBuilder {
+    typealias Section = EmbeddedEditProfileDataDisplayManager.Section
     typealias TextChangedHandler = (String?) -> Void
     
     var onFirstNameChanged: TextChangedHandler?
@@ -57,7 +57,7 @@ struct EditProfileCellsBuilder {
             onLinesCountChanged: { _ in self.onBioLinesCountChanged?() }
         )
         
-        let headerModel = EditProfileGroupHeader.accountInformation(.createAccount, "ACCOUNT INFORMATION")
+        let headerModel = EmbeddedEditProfileGroupHeader.accountInformation(.editProfile, "ACCOUNT INFORMATION")
         return Section(model: headerModel, items: [
             .firstName(firstNameStyle),
             .lastName(lastNameStyle),

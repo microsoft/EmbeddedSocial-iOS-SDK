@@ -22,7 +22,7 @@ class CreateAccountConfigurator {
         viewController.output = presenter
         viewController.title = "Create an account"
         
-        let editConfigurator = EditProfileConfigurator()
+        let editConfigurator = EmbeddedEditProfileConfigurator()
         presenter.editModuleInput = editConfigurator.configure(user: user, moduleOutput: presenter)
     }
 }

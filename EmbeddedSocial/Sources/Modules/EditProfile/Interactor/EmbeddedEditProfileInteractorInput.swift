@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol EditProfileInteractorInput {
+protocol EmbeddedEditProfileInteractorInput {
     func updatedPhotoWithImageFromCache(_ photo: Photo?) -> Photo
     
     func cachePhoto(_ photo: Photo)

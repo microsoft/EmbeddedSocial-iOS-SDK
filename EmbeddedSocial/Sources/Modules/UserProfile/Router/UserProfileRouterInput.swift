@@ -10,7 +10,7 @@ protocol UserProfileRouterInput {
     
     func openFollowing(user: User)
     
-    func openEditProfile(user: User)
+    func openEmbeddedEditProfile(user: User)
     
     func openCreatePost(user: User)
     

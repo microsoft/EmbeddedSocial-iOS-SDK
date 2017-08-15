@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-protocol EditProfileViewOutput: class {    
+protocol EmbeddedEditProfileViewOutput: class {    
     func onFirstNameChanged(_ text: String?)
     
     func onLastNameChanged(_ text: String?)

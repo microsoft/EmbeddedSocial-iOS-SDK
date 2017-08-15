@@ -32,7 +32,7 @@ final class UserProfileRouter: UserProfileRouterInput {
         viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
-    func openEditProfile(user: User) {
+    func openEmbeddedEditProfile(user: User) {
         let vc = UIViewController()
         vc.title = "Edit"
         vc.view.backgroundColor = .white
