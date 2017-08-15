@@ -266,7 +266,12 @@ extension FeedModuleViewController: UIScrollViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width, height: Style.Collection.footerHeight)
+        
+        if collectionView.numberOfItems(inSection: 0) > 1 {
+            return CGSize(width: collectionView.frame.size.width, height: Style.Collection.footerHeight)
+        } else {
+            return CGSize.zero
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
