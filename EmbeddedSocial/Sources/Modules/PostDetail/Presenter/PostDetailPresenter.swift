@@ -66,6 +66,14 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         router.openUser(userHandle: userHandle, from: view as! UIViewController)
     }
     
+    func feedModuleHeight() -> CGFloat {
+        guard let moduleHeight = feedModuleInput?.moduleHeight() else {
+            return 0
+        }
+        
+        return moduleHeight
+    }
+    
     func viewIsReady() {
         view.setupInitialState()
         setupFeed()

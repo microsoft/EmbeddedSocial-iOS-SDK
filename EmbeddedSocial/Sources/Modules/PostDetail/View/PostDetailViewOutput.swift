@@ -19,4 +19,5 @@ protocol PostDetailViewOutput {
     func unlikeComment(comment: Comment)
     func fetchMore()
     func openUser(index: Int)
+    func feedModuleHeight() -> CGFloat
 }

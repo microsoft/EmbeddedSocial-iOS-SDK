@@ -7,6 +7,7 @@ import Foundation
 import Alamofire
 
 typealias CommentFetchResultHandler = ((CommentFetchResult) -> Void)
+typealias CommentHandler = ((Comment) -> Void)
 typealias CommentPostResultHandler = ((PostCommentResponse) -> Void)
 
 enum CommentsServiceError: Error {
@@ -26,6 +27,7 @@ enum CommentsServiceError: Error {
 
 protocol CommentServiceProtocol {
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, resultHandler: @escaping CommentFetchResultHandler)
+    func comment(commentHandle: String, success: @escaping CommentHandler, failure: @escaping Failure)
     func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure)
 }
 
@@ -37,6 +39,16 @@ class CommentsService: BaseService, CommentServiceProtocol {
     init(imagesService: ImagesServiceType) {
         super.init()
         self.imagesService = imagesService
+    }
+    
+    func comment(commentHandle: String, success: @escaping CommentHandler, failure: @escaping Failure) {
+        CommentsAPI.commentsGetComment(commentHandle: commentHandle, authorization: authorization) { (commentView, error) in
+            if error != nil {
+                failure(error!)
+            } else {
+                success(self.convert(data: [commentView!]).first!)
+            }
+        }
     }
     
     func fetchComments(topicHandle: String, cursor: String? = nil, limit: Int32? = nil, resultHandler: @escaping CommentFetchResultHandler) {
@@ -94,11 +106,11 @@ class CommentsService: BaseService, CommentServiceProtocol {
     }
     
     private func cacheComment(_ comment: PostCommentRequest, with photo: Photo?) {
-        if let photo = photo {
-            cache.cacheOutgoing(object: photo)
-            comment.blobHandle = photo.uid
-        }
-        cache.cacheOutgoing(object: comment)
+//        if let photo = photo {
+//            cache.cacheOutgoing(photo)
+//            comment.blobHandle = photo.uid
+//        }
+//        cache.cacheOutgoing(comment)
     }
     
     private func postComment(topicHandle: String, request: PostCommentRequest, success: @escaping CommentPostResultHandler, failure: @escaping Failure) {
@@ -112,17 +124,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
             }
         }
     }
-    
-//    private func sendPostCommentRequest(topicHandle: String, request: PostCommentRequest) {
-//        CommentsAPI.topicCommentsPostComment(topicHandle: topicHandle, request: request, authorization: (SocialPlus.shared.sessionStore.user.credentials?.authHeader.values.first)!) { (response, error) in
-//            guard response != nil else {
-//                self.failure!(error!)
-//                return
-//            }
-//            
-//            self.success!(response!)
-//        }
-//    }
     
     private func convert(data: [CommentView]) -> [Comment] {
         var comments = [Comment]()

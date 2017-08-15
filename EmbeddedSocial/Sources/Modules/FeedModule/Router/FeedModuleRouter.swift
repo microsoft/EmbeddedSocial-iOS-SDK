@@ -35,6 +35,31 @@ class FeedModuleRouter: FeedModuleRouterInput {
             let browser = SKPhotoBrowser(photos: [photo])
             browser.initializePageIndex(0)
             navigationController?.present(browser, animated: true, completion: {})
+            
+        case .othersPost(let post):
+            
+            let isHome = feedSource == .home
+            let configurator = PostMenuModuleConfigurator()
+            
+            configurator.configure(menuType: .otherPost(post: post, isHome: isHome), moduleOutput: moduleInput)
+            postMenuViewController = configurator.viewController
+            
+            if let parent = viewController {
+                postMenuViewController!.modalPresentationStyle = .overCurrentContext
+                parent.present(postMenuViewController!, animated: false, completion: nil)
+            }
+            
+        case .myPost(let post):
+            
+            let configurator = PostMenuModuleConfigurator()
+            
+            configurator.configure(menuType: .myPost(post: post), moduleOutput: moduleInput)
+            postMenuViewController = configurator.viewController
+            
+            if let parent = viewController {
+                postMenuViewController!.modalPresentationStyle = .overCurrentContext
+                parent.present(postMenuViewController!, animated: false, completion: nil)
+            }
         default:
             let dummy = UIViewController()
             dummy.view = UIView()

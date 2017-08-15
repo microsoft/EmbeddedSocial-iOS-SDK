@@ -54,13 +54,11 @@ class PostDetailInteractor: PostDetailInteractorInput {
         request.text = comment
         
         commentsService?.postComment(topicHandle: topicHandle, request: request, photo: photo, resultHandler: { (response) in
-            let comment = Comment()
-            comment.text = request.text
-            comment.createdTime = Date()
-            comment.firstName = SocialPlus.shared.sessionStore.user.firstName
-            comment.lastName = SocialPlus.shared.sessionStore.user.lastName
-            comment.mediaUrl = photo?.url
-            self.output.commentDidPosted(comment: comment)
+            self.commentsService?.comment(commentHandle: response.commentHandle!, success: { (comment) in
+                self.output.commentDidPosted(comment: comment)
+            }, failure: { (errpr) in
+                print("error fetching single comment")
+            })
         }, failure: { (error) in
             print("error posting comment")
         })

@@ -16,8 +16,6 @@ class BaseViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configNotifications()
-        self.view.setNeedsLayout()
-        self.view.layoutIfNeeded()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

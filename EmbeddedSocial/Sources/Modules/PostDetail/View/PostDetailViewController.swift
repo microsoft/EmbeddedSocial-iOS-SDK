@@ -30,26 +30,42 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     @IBOutlet weak var mediaButton: UIButton!
     
     fileprivate var photo: Photo?
+    fileprivate var postView: UIView!
     fileprivate let imagePikcer = ImagePicker()
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(PostDetailViewController.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        return refreshControl
+    }()
     
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.addSubview(self.refreshControl)
+        tableView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
+        refreshControl.beginRefreshing()
         output.viewIsReady()
+    }
+    
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
 
     // MARK: PostDetailViewInput
     func setupInitialState() {
         imagePikcer.delegate = self
-        configPost()
         configTableView()
         configTextView()
     }
     
-    
     func updateFeed(view: UIView) {
         postView = view
-        tableView.reloadRows(at: [IndexPath(item: 0, section: 0)], with: .none)
+        refreshControl.endRefreshing()
+        tableView.reloadData()
     }
 
     func configTableView() {
@@ -59,29 +75,11 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.delegate = self
         tableView.dataSource = self
-    }
-    
-    fileprivate var feedModuleInput: FeedModuleInput!
-    fileprivate var postView: UIView?
-    
-    func configPost() {
-        // Module
-        let configurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache)
-        configurator.configure(navigationController: self.navigationController!)
-
-        feedModuleInput = configurator.moduleInput!
-        let feedViewController = configurator.viewController!
-
-        feedViewController.willMove(toParentViewController: self)
-        addChildViewController(feedViewController)
-        feedViewController.didMove(toParentViewController: self)
-
-        let feed = FeedType.single(post: (output.post?.topicHandle)!)
-        feedModuleInput.setFeed(feed)
-        postView = feedViewController.view
+       
     }
     
     func reloadTable() {
+        refreshControl.endRefreshing()
         self.isNewDataLoading = false
         tableView.reloadData()
     }
@@ -97,6 +95,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         postButton.isHidden = true
         SVProgressHUD.dismiss()
         view.layoutIfNeeded()
+        tableView.reloadData()
     }
     
     func postCommentFailed(error: Error) {
@@ -158,7 +157,11 @@ extension PostDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case TableSections.post.rawValue:
+            if postView == nil {
+                return 0
+            }
             return 1
+            
         case TableSections.comments.rawValue:
             return output.numberOfItems()
         default:
@@ -176,7 +179,7 @@ extension PostDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case TableSections.post.rawValue:
-            return feedModuleInput.moduleHeight()
+            return output.feedModuleHeight()
         case TableSections.comments.rawValue:
             return UITableViewAutomaticDimension
         default:
