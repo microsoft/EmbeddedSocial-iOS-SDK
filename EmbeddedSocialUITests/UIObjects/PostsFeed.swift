@@ -26,12 +26,18 @@ class Post {
         return self.cell.staticTexts[text].exists
     }
     
+    func getLabelByText(_ text: String) -> XCUIElement {
+        return self.cell.staticTexts[text]
+    }
+    
     func like() {
+        scrollToElement(self.likeButton, self.cell)
         self.likeButton.tap()
         sleep(1)
     }
     
     func pin(){
+        scrollToElement(self.pinButton, self.cell)
         self.pinButton.tap()
         sleep(1)
     }
@@ -51,7 +57,7 @@ class PostsFeed {
         return UInt(self.feedContainer.cells.count)
     }
     
-    func getPost(_ index: UInt) -> Post{
+    func getPost(_ index: UInt) -> Post {
         return Post(self.feedContainer.children(matching: .cell).element(boundBy: index))
     }
     
