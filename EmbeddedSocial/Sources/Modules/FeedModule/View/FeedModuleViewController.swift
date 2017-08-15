@@ -173,6 +173,19 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         }
     }
     
+    func reloadVisible() {
+        if let paths = collectionView?.indexPathsForVisibleItems {
+            collectionView?.reloadItems(at: paths)
+        }
+    }
+    
+    func removeItem(index: Int) {
+        collectionView?.performBatchUpdates({ [weak self] in
+            self?.collectionView?.deleteItems(at: [IndexPath(item: index, section: 0)])
+        }, completion: nil)
+    }
+    
+    
     func reload() {
         collectionView?.reloadData()
     }
@@ -287,8 +300,5 @@ extension FeedModuleViewController: UIScrollViewDelegate {
         if index == output.numberOfItems() - 1 {
             didReachBottom()
         }
-        
     }
-
-
 }

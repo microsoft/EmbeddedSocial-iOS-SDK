@@ -85,7 +85,7 @@ enum FeedModuleLayoutType: Int {
 }
 
 class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput {
-
+    
     weak var view: FeedModuleViewInput!
     var interactor: FeedModuleInteractorInput!
     var router: FeedModuleRouterInput!
@@ -102,7 +102,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     private var formatter = DateFormatterTool()
     private var feedType: FeedType?
     private let limit = Int32(3) // Default
-    private var items = [Post]()
+    fileprivate var items = [Post]()
     private var cursor: String? = nil {
         didSet {
             Logger.log(cursor)
@@ -114,7 +114,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     var headerSize: CGSize {
         return header?.size ?? .zero
     }
-   
+    
     func didTapChangeLayout() {
         flip(layout: &layout)
         view.setLayout(type: layout)
@@ -171,7 +171,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         viewModel.title = post.title ?? ""
         viewModel.text = post.text ?? ""
         viewModel.likedBy = "" // TODO: uncomfirmed
-    
+        
         viewModel.totalLikes = Localizator.localize("likes_count", post.totalLikes)
         viewModel.totalComments = Localizator.localize("comments_count", post.totalComments)
         
@@ -304,7 +304,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func didFetchMore(feed: PostsFeed) {
         cursor = feed.cursor
         items.append(contentsOf: feed.items)
-
+        
         view.reload()
     }
     
@@ -319,7 +319,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
         Logger.log(action, post, error)
     }
- 
+    
     func didStartFetching() {
         view.setRefreshing(state: true)
     }
@@ -358,8 +358,31 @@ extension FeedModulePresenter {
 
 extension FeedModulePresenter: PostMenuModuleModuleOutput {
     
-    func shouldRefreshData() {
+    func didChangeItems() {
         didAskFetchAll()
+    }
+    
+    func didChangeItem(user: UserHandle) {
+        if let index = items.index(where: { $0.userHandle == user }) {
+            view.reload(with: index)
+        }
+    }
+    
+    func didChangeItem(post: PostHandle) {
+        if let index = items.index(where: { $0.topicHandle == post }) {
+            view.reload(with: index)
+        }
+    }
+    
+    func didRemoveItem(post: PostHandle) {
+        if let index = items.index(where: { $0.topicHandle == post }) {
+            items.remove(at: index)
+            view.removeItem(index: index)
+        }
+    }
+    
+    func didFail(_ error: Error) {
+        view.showError(error: error)
     }
     
 }

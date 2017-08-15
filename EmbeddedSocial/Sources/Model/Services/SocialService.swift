@@ -114,13 +114,12 @@ class SocialService: BaseService, SocialServiceType {
                                                   authorization: authorization) { (object, errorResponse) in
                                                     
                                                     if let error = errorResponse {
-                                                        self.errorHandler.handle(error)
+                                                        self.errorHandler.handle(error: error, completion: completion)
                                                     } else {
                                                         completion(.success())
                                                     }
         }
     }
-    
     
     private func processUserFeedResponse(response: FeedResponseUserCompactView?,
                                          error: Error?,

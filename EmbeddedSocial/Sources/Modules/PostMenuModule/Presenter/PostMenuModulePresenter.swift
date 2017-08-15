@@ -5,8 +5,11 @@
 
 protocol PostMenuModuleModuleOutput: class {
 
-    func shouldRefreshData()
-
+    func didChangeItems()
+    func didChangeItem(user: UserHandle)
+    func didChangeItem(post: PostHandle)
+    func didRemoveItem(post: PostHandle)
+    func didFail(_ error: Error)
 }
 
 protocol PostMenuModuleModuleInput: class {
@@ -51,18 +54,24 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
     
     private func buildActionListForOtherPost(post: Post, isHomeFeed: Bool) -> [ActionViewModel] {
         
-        let userHandle = post.userHandle!
-        
+    
         let followItem = followersViewModel(post: post)
         let blockItem = blockViewModel(post: post)
         
         var reportItem = ActionViewModel()
         reportItem.title = "Report Post"
         reportItem.action = { [weak self] in
-            self?.interactor.report(user: userHandle)
+            self?.interactor.report(post: post.topicHandle)
         }
-
-        return [followItem, blockItem, reportItem]
+        
+        var items = [followItem, blockItem, reportItem]
+        
+        if isHomeFeed {
+            let item = hideViewModel(post: post)
+            items.append(item)
+        }
+        
+        return items
     }
 
     private func buildActionListForMyPost(post: Post) -> [ActionViewModel] {
@@ -122,16 +131,35 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
         return item
     }
     
+    private func hideViewModel(post: Post) -> ActionViewModel {
+        
+        var item = ActionViewModel()
+        item.title = "Hide"
+        item.action = { [weak self] in
+            self?.interactor.hide(post: post.topicHandle)
+        }
+        
+        return item
+    }
+    
     // MARK: View Output
     
     // MARK: Interactor Output
     func didBlock(user: UserHandle, error: Error?) {
-        output?.shouldRefreshData()
+        if let error = error {
+            output?.didFail(error)
+        } else {
+            output?.didChangeItems()
+        }
         Logger.log(user, error)
     }
     
     func didUnblock(user: UserHandle, error: Error?) {
-        output?.shouldRefreshData()
+        if let error = error {
+            output?.didFail(error)
+        } else {
+            output?.didChangeItems()
+        }
         Logger.log(user, error)
     }
     
@@ -140,26 +168,47 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
     }
     
     func didFollow(user: UserHandle, error: Error?) {
-        output?.shouldRefreshData()
+        if let error = error {
+            output?.didFail(error)
+        } else {
+            output?.didChangeItems()
+        }
         Logger.log(user, error)
     }
     
     func didUnfollow(user: UserHandle, error: Error?) {
-        output?.shouldRefreshData()
+        if let error = error {
+            output?.didFail(error)
+        } else {
+            output?.didChangeItems()
+        }
         Logger.log(user, error)
     }
     
     func didHide(post: PostHandle, error: Error?) {
+        if let error = error {
+            output?.didFail(error)
+        } else {
+            output?.didRemoveItem(post: post)
+        }
         Logger.log(post, error)
-        output?.shouldRefreshData()
     }
     
     func didEdit(post: PostHandle, error: Error?) {
+        if let error = error {
+            output?.didFail(error)
+        } else {
+            output?.didChangeItem(post: post)
+        }
         Logger.log(post, error)
     }
     
     func didRemove(post: PostHandle, error: Error?) {
-        output?.shouldRefreshData()
+        if let error = error {
+            output?.didFail(error)
+        } else {
+            output?.didRemoveItem(post: post)
+        }
         Logger.log(post, error)
     }
     

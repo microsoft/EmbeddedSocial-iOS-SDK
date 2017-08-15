@@ -190,7 +190,7 @@ class TopicService: BaseService, PostServiceProtocol {
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
         TopicsAPI.topicsDeleteTopic(topicHandle: post, authorization: authorization) { (object, errorResponse) in
             if let error = errorResponse {
-                self.errorHandler.handle(error)
+                self.errorHandler.handle(error: error, completion: completion)
             } else {
                 completion(.success())
             }
