@@ -59,7 +59,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
         var reportItem = ActionViewModel()
         reportItem.title = "Report Post"
         reportItem.action = { [weak self] in
-            self?.interactor.repost(user: userHandle)
+            self?.interactor.report(user: userHandle)
         }
 
         return [followItem, blockItem, reportItem]
