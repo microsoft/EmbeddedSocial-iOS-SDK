@@ -22,6 +22,8 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     
     var output: CommentRepliesViewOutput!
 
+    fileprivate var isNewDataLoading = false
+    
     @IBOutlet weak var tableView: UITableView!
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -62,6 +64,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     }
     
     func reloadTable() {
+        self.isNewDataLoading = false
         tableView.reloadData()
     }
 }
@@ -79,6 +82,10 @@ extension CommentRepliesViewController: UITableViewDataSource {
             return cell
         case RepliesSections.replies.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
+            if  output.numberOfItems() > indexPath.row + 1 && isNewDataLoading == false {
+                isNewDataLoading = true
+//                output.fetchMore()
+            }
             return cell
         default:
             return UITableViewCell()

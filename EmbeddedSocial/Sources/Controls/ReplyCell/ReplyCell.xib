@@ -42,6 +42,9 @@
                                     <constraint firstAttribute="width" constant="20" id="stN-G4-zAB"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="icon_dots"/>
+                                <connections>
+                                    <action selector="actionsPressed:" destination="nhO-4a-4u6" eventType="touchUpInside" id="6Qy-h9-o2X"/>
+                                </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JpR-mM-m4x">
                                 <rect key="frame" x="55" y="10" width="30" height="30"/>
@@ -87,6 +90,9 @@
                         </constraints>
                         <state key="normal" title="Button" image="icon_liked"/>
                         <state key="selected" image="icon_liked_active"/>
+                        <connections>
+                            <action selector="like:" destination="nhO-4a-4u6" eventType="touchUpInside" id="MWl-QO-Ksz"/>
+                        </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_liked" translatesAutoresizingMaskIntoConstraints="NO" id="aww-Vf-3nw" userLabel="liked_icon">
                         <rect key="frame" x="266" y="94.5" width="10" height="10"/>
@@ -105,6 +111,9 @@
                         <state key="normal" title="0 likes">
                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         </state>
+                        <connections>
+                            <action selector="toLikes:" destination="nhO-4a-4u6" eventType="touchUpInside" id="p8t-no-HfK"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -129,8 +138,10 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="avatarButton" destination="JpR-mM-m4x" id="UGP-nW-dzg"/>
+                <outlet property="likeButton" destination="Aee-Xh-0BU" id="G8u-wq-h4L"/>
                 <outlet property="postTimeLabel" destination="PAy-YL-Rmb" id="V9A-Wp-4H0"/>
                 <outlet property="replyLabel" destination="iVa-xE-iTU" id="mdB-pf-bh1"/>
+                <outlet property="totalLikesButton" destination="msp-3d-v9M" id="H2l-nt-dvu"/>
                 <outlet property="usernameLabel" destination="i0y-Dh-weR" id="2Ah-rx-iIu"/>
             </connections>
             <point key="canvasLocation" x="85.5" y="-48"/>
