@@ -20,7 +20,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var postCreation: UILabel!
-    @IBOutlet weak var postImage: UIImageView!
+    @IBOutlet weak var postImageButton: UIButton!
     @IBOutlet weak var postTitle: UILabel!
     @IBOutlet weak var postText: UITextView! {
         didSet {
@@ -35,6 +35,10 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     func indexPath() -> IndexPath {
         return collectionView.indexPath(for: self)!
+    }
+    
+    @IBAction private func onTapPhoto(_ sender: Any) {
+        viewModel.onAction?(.photo, indexPath())
     }
     
     @IBAction private func onProfileInfo(_ sender: Any) {
@@ -80,9 +84,9 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         self.collectionView = collectionView
         
         if data.postImageUrl == nil {
-            postImage.image = postImagePlaceholder
+            postImageButton.setImage(postImagePlaceholder, for: .normal)
         } else {
-            postImage.setPhotoWithCaching(Photo(url: data.postImageUrl), placeholder: postImagePlaceholder)
+            postImageButton.setPhotoWithCaching(Photo(url: data.postImageUrl), placeholder: postImagePlaceholder)
         }
         
         if data.userImageUrl == nil {
@@ -119,6 +123,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     override func awakeFromNib() {
         self.contentView.addSubview(container)
+        self.postImageButton.imageView?.contentMode = .scaleAspectFill
     }
     
 }

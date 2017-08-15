@@ -171,6 +171,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     func reload() {
         collectionView?.reloadData()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "RefreshFeedM"), object: nil)
     }
     
     func reload(with index: Int) {
