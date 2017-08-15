@@ -35,6 +35,7 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     
     weak var output: PostMenuModuleInteractorOutput!
     var socialService: SocialServiceType!
+    var topicsService: PostServiceProtocol!
     
     // MARK: Input
     
@@ -53,7 +54,10 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     }
     
     func remove(post: PostHandle) {
-        self.output.didRemove(post: post, error: nil)
+        
+        topicsService.deletePost(post: post) { [weak self] (result) in
+            self?.output.didRemove(post: post, error: result.error)
+        }
     }
     
     func block(user: UserHandle) {
@@ -75,7 +79,10 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     }
     
     func hide(post: PostHandle) {
-        self.output.didHide(post: post, error: nil)
+        
+        socialService.deletePostFromMyFollowing(postID: post) { (result) in
+            self.output.didHide(post: post, error: result.error)
+        }
     }
     
     func repost(user: UserHandle) {

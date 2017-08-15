@@ -3,7 +3,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-
 import UIKit
 
 class PostMenuModuleConfigurator {
@@ -25,8 +24,8 @@ class PostMenuModuleConfigurator {
         let interactor = PostMenuModuleInteractor()
         interactor.output = presenter
         interactor.socialService = SocialService()
+        interactor.topicsService = TopicService(imagesService: ImagesService())
 
-        
         presenter.interactor = interactor
         
         viewController.output = presenter
