@@ -9,4 +9,6 @@ protocol EditProfileViewInput: class {
     func showError(_ error: Error)
     
     func setSaveButtonEnabled(_ isEnabled: Bool)
+    
+    func setBackButtonEnabled(_ isEnabled: Bool)
 }

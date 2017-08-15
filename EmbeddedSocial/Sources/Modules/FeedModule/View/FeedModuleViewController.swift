@@ -140,9 +140,13 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.output.didAskFetchMore()
     }
     
-    // MARK: FeedModuleViewInput
+    // MARK: Input
     func setupInitialState() {
         
+    }
+    
+    func showError(error: Error) {
+        self.showErrorAlert(error)
     }
     
     func getViewHeight() -> CGFloat {
@@ -169,11 +173,28 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         }
     }
     
+    func reloadVisible() {
+        Logger.log()
+        if let paths = collectionView?.indexPathsForVisibleItems {
+            collectionView?.reloadItems(at: paths)
+        }
+    }
+    
+    func removeItem(index: Int) {
+        Logger.log(index)
+        collectionView?.performBatchUpdates({ [weak self] in
+            self?.collectionView?.deleteItems(at: [IndexPath(item: index, section: 0)])
+        }, completion: nil)
+    }
+    
+    
     func reload() {
+        Logger.log()
         collectionView?.reloadData()
     }
     
     func reload(with index: Int) {
+        Logger.log(index)
         collectionView?.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
     
@@ -283,8 +304,5 @@ extension FeedModuleViewController: UIScrollViewDelegate {
         if index == output.numberOfItems() - 1 {
             didReachBottom()
         }
-        
     }
-
-
 }

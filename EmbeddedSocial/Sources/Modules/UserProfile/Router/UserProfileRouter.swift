@@ -73,4 +73,8 @@ final class UserProfileRouter: UserProfileRouterInput {
         )
         vc.present(menu, animated: true, completion: nil)
     }
+    
+    func popTopScreen() {
+        viewController?.navigationController?.popViewController(animated: true)
+    }
 }

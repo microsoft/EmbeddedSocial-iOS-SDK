@@ -7,4 +7,6 @@ import Foundation
 
 protocol EditProfileInteractorInput {
     func editProfile(me: User, completion: @escaping (Result<User>) -> Void)
+    
+    func cachePhoto(_ photo: Photo)
 }

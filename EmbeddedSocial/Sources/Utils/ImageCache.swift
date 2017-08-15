@@ -55,7 +55,8 @@ final class ImageCacheAdapter: ImageCache {
     }
     
     func image(for photo: Photo) -> UIImage? {
-        return SDImageCache.shared().imageFromCache(forKey: photo.url ?? photo.uid)
+        return SDImageCache.shared().imageFromCache(forKey: photo.uid) ??
+            SDImageCache.shared().imageFromCache(forKey: photo.url)
     }
     
     func key(for photo: Photo) -> String {

@@ -5,6 +5,6 @@
 
 import Foundation
 
-protocol UserHolder {
+protocol UserHolder: class {
     var me: User { get set }
 }

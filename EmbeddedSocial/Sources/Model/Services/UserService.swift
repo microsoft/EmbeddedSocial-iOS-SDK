@@ -85,6 +85,7 @@ class UserService: BaseService, UserServiceType {
         UsersAPI.usersGetUser(userHandle: userID, authorization: authorization) { profile, error in
             if let profile = profile {
                 let user = User(profileView: profile)
+                self.cache.cacheIncoming(profile)
                 completion(.success(user))
             } else {
                 self.errorHandler.handle(error: error, completion: completion)

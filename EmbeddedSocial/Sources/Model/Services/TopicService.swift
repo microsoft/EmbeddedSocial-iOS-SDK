@@ -60,10 +60,11 @@ protocol PostServiceProtocol {
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler)
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler)
     
+    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
 }
 
 class TopicService: BaseService, PostServiceProtocol {
-    
+
     private var imagesService: ImagesServiceType!
     
     init(imagesService: ImagesServiceType) {
@@ -102,10 +103,10 @@ class TopicService: BaseService, PostServiceProtocol {
     
     private func cacheTopic(_ topic: PostTopicRequest, with photo: Photo?) {
         if let photo = photo {
-            cache.cacheOutgoing(object: photo)
+            cache.cacheOutgoing(photo)
             topic.blobHandle = photo.uid
         }
-        cache.cacheOutgoing(object: topic)
+        cache.cacheOutgoing(topic)
     }
 
     private func postTopic(request: PostTopicRequest, success: @escaping TopicPosted, failure: @escaping Failure) {
@@ -185,6 +186,18 @@ class TopicService: BaseService, PostServiceProtocol {
             completion(result)
         }
     }
+    
+    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
+        TopicsAPI.topicsDeleteTopic(topicHandle: post, authorization: authorization) { (object, errorResponse) in
+            if let error = errorResponse {
+                self.errorHandler.handle(error: error, completion: completion)
+            } else {
+                completion(.success())
+            }
+        }
+    }
+    
+    // MARK: Private
     
     private func parseResponse(response: FeedResponseTopicView?, error: Error?, completion: FetchResultHandler) {
         var result = PostFetchResult()

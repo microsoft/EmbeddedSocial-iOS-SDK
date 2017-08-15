@@ -23,10 +23,16 @@ class EditProfilePresenter: EditProfileViewOutput {
     
     func onEditProfile() {
         editModuleInput.setIsLoading(true)
+        view.setBackButtonEnabled(false)
         
         interactor.editProfile(me: editModuleInput.getFinalUser()) { [weak self] result in
             self?.editModuleInput.setIsLoading(false)
+            self?.view.setBackButtonEnabled(true)
+            
             if let user = result.value {
+                if let photo = user.photo {
+                    self?.interactor.cachePhoto(photo)
+                }
                 self?.moduleOutput?.onProfileEdited(me: user)
             } else if let error = result.error {
                 self?.view.showError(error)

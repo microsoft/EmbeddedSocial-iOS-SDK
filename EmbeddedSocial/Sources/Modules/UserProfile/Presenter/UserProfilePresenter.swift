@@ -19,8 +19,8 @@ final class UserProfilePresenter: UserProfileViewOutput {
     
     private let userID: String?
     fileprivate var user: User?
-    private var me: User
-    private var myProfileHolder: UserHolder?
+    fileprivate var me: User
+    fileprivate var myProfileHolder: UserHolder?
     
     fileprivate var followersCount = 0 {
         didSet {
@@ -61,8 +61,10 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     private func loadMe(credentials: CredentialsList) {
+        setUser(me)
+        
         interactor.getMe(credentials: credentials) { [weak self] result in
-            self?.processUserResult(result, setUser: {
+            self?.processUserResult(result, setter: {
                 self?.me = $0
                 self?.myProfileHolder?.me = $0
             })
@@ -70,22 +72,30 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     private func loadOtherUser(_ userID: String) {
+        if let user = interactor.cachedUser(with: userID) {
+            setUser(user, setter: { [weak self] in self?.user = $0 })
+        }
+        
         interactor.getUser(userID: userID) { [weak self] result in
-            self?.processUserResult(result, setUser: { self?.user = $0 })
+            self?.processUserResult(result, setter: { self?.user = $0 })
         }
     }
     
-    private func processUserResult(_ result: Result<User>, setUser: (User) -> Void) {
+    private func processUserResult(_ result: Result<User>, setter: @escaping (User) -> Void) {
         view.setIsLoadingUser(false)
         
         if let user = result.value {
-            setUser(user)
-            followersCount = user.followersCount
-            followingCount = user.followingCount
-            view.setUser(user)
+            setUser(user, setter: setter)
         } else {
             view.showError(result.error ?? APIError.unknown)
         }
+    }
+    
+    fileprivate func setUser(_ user: User, setter: ((User) -> Void)? = nil) {
+        setter?(user)
+        followersCount = user.followersCount
+        followingCount = user.followingCount
+        view.setUser(user)
     }
     
     private func setupFeed() {
@@ -248,6 +258,10 @@ extension UserProfilePresenter: CreatePostModuleOutput {
 extension UserProfilePresenter: EditProfileModuleOutput {
     
     func onProfileEdited(me: User) {
-        
+        router.popTopScreen()
+        setUser(me) { [weak self] in
+            self?.me = $0
+            self?.myProfileHolder?.me = $0
+        }
     }
 }

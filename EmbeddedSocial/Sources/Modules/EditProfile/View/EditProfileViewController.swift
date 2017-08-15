@@ -45,4 +45,8 @@ extension EditProfileViewController: EditProfileViewInput {
     func setSaveButtonEnabled(_ isEnabled: Bool) {
         navigationItem.rightBarButtonItem?.isEnabled = isEnabled
     }
+    
+    func setBackButtonEnabled(_ isEnabled: Bool) {
+        navigationItem.hidesBackButton = !isEnabled
+    }
 }

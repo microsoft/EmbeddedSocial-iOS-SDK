@@ -40,6 +40,10 @@ extension Constants {
         static let recentSegment = 0
         static let popularSegment = 1
     }
+    
+    struct Feed {
+        static let pageSize = 3
+    }
 }
 
 extension Constants {

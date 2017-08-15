@@ -51,6 +51,7 @@ open class APIRouter: WebApp {
         }
         
         self["/v0.7/users/(.*)/topics/?(.*)"] = self["/v0.7/topics/?(.*(?<!likes)$)"]
+        self["/v0.7/users/me/following/combined"] = self["/v0.7/topics/?(.*(?<!likes)$)"]
         
         self["/v0.7/topics/(.*)/likes"] = APIResponse(serviceName: "likes") { environ, sendJSON -> Void in
             let method = environ["REQUEST_METHOD"] as! String
@@ -119,6 +120,40 @@ open class APIRouter: WebApp {
                 break
             default:
                 sendJSON(Templates.load(name: "user"))
+            }
+        }
+        
+        self["/v0.7/users/me/followers"] = APIResponse(serviceName: "followers") { environ, sendJSON -> Void in
+            let query = URLParametersReader.parseURLParameters(environ: environ)
+            print(query)
+            let cursor = query["cursor"] ?? "0"
+            if let limit = query["limit"] {
+                sendJSON(Templates.loadFollowers(firstName: "User", lastName: "Follower", cursor: Int(cursor)!, limit: Int(limit)!))
+            } else {
+                sendJSON(Templates.loadFollowers(firstName: "User", lastName: "Follower"))
+            }
+        }
+        
+        self["/v0.7/users/me/following/users/?(.*)"] = APIResponse(serviceName: "followers") { environ, sendJSON -> Void in
+            let method = environ["REQUEST_METHOD"] as! String
+            let input = environ["swsgi.input"] as! SWSGIInput
+            switch method {
+            case "POST":
+                JSONReader.read(input) { json in
+                    APIState.setLatestData(forService: "followers", data: json)
+                    sendJSON(Templates.load(name: "follower_post"))
+                }
+            case "DELETE":
+                sendJSON(Templates.load(name: ""))
+            default:
+                let query = URLParametersReader.parseURLParameters(environ: environ)
+                print(query)
+                let cursor = query["cursor"] ?? "0"
+                if let limit = query["limit"] {
+                    sendJSON(Templates.loadFollowers(firstName: "User", lastName: "Following", cursor: Int(cursor)!, limit: Int(limit)!))
+                } else {
+                    sendJSON(Templates.loadFollowers(firstName: "User", lastName: "Following"))
+                }
             }
         }
 

@@ -5,12 +5,18 @@
 
 final class EditProfileInteractor: EditProfileInteractorInput {
     private let userService: UserServiceType
+    private let imageCache: ImageCache
 
-    init(userService: UserServiceType) {
+    init(userService: UserServiceType, imageCache: ImageCache = ImageCacheAdapter.shared) {
         self.userService = userService
+        self.imageCache = imageCache
     }
     
     func editProfile(me: User, completion: @escaping (Result<User>) -> Void) {
         userService.updateProfile(me: me, completion: completion)
+    }
+    
+    func cachePhoto(_ photo: Photo) {
+        imageCache.store(photo: photo)
     }
 }
