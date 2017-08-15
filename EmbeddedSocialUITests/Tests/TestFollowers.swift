@@ -5,6 +5,7 @@
 
 import Foundation
 import XCTest
+@testable import EmbeddedSocial
 
 class TestFollowers: UITestBase {
     var menu: SideMenu!
@@ -21,7 +22,7 @@ class TestFollowers: UITestBase {
         followers = FollowersFeed(app)
         feedName = "User Follower"
         feedHandle = "UserFollower"
-        pageSize = 30
+        pageSize = EmbeddedSocial.Constants.UserList.pageSize
     }
     
     override func tearDown() {

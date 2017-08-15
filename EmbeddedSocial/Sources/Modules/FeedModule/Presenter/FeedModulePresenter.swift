@@ -99,7 +99,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     private var formatter = DateFormatterTool()
     private var feedType: FeedType?
-    private let limit = Int32(3) // Default
+    private let limit = Int32(Constants.Feed.pageSize) // Default
     private var items = [Post]()
     private var cursor: String? = nil {
         didSet {
