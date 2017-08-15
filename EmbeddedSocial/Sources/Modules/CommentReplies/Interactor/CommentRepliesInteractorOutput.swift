@@ -10,4 +10,5 @@ import Foundation
 
 protocol CommentRepliesInteractorOutput: class {
     func fetched(replies: [Reply])
+    func fetchedMore(replies: [Reply])
 }

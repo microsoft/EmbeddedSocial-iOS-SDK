@@ -23,11 +23,12 @@ enum RepliesServiceError: Error {
 }
 
 protocol RepliesServiceProtcol {
-    func fetchComments(commentHandle: String, cursor: String, limit: Int, resultHandler: @escaping RepliesFetchResultHandler)
+    func fetchReplies(commentHandle: String, cursor: String?, limit: Int, resultHandler: @escaping RepliesFetchResultHandler)
+    func postReply(commentHandle: String, request: PostReplyRequest)
 }
 
 class RepliesService: BaseService, RepliesServiceProtcol {
-    func fetchComments(commentHandle: String, cursor: String, limit: Int, resultHandler: @escaping RepliesFetchResultHandler) {
+    func fetchReplies(commentHandle: String, cursor: String?, limit: Int, resultHandler: @escaping RepliesFetchResultHandler) {
         RepliesAPI.commentRepliesGetReplies(commentHandle: commentHandle, authorization: authorization, cursor: cursor, limit: Int32(limit)) { (response, error) in
             var result = RepliesFetchResult()
             
@@ -47,6 +48,12 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             result.cursor = response?.cursor
             
             resultHandler(result)
+        }
+    }
+    
+    func postReply(commentHandle: String, request: PostReplyRequest) {
+        RepliesAPI.commentRepliesPostReply(commentHandle: commentHandle, request: request, authorization: authorization) { (response, error) in
+            
         }
     }
     

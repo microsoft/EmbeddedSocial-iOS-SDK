@@ -16,8 +16,17 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     var replies = [Reply]()
 
+    func fetchedMore(replies: [Reply]) {
+        self.replies.append(contentsOf: replies)
+        view.reloadTable()
+    }
+    
     func viewIsReady() {
         interactor.fetchReplies(commentHandle: (comment?.commentHandle)!)
+    }
+    
+    func mainComment() -> Comment {
+        return comment!
     }
     
     func numberOfItems() -> Int {
