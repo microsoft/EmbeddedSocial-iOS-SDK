@@ -44,11 +44,24 @@ struct UserFeedQuery {
     var cursor: String?
     var limit: Int32?
     var user: UserHandle!
+    
+    func cursorInt() -> Int32? {
+        return (cursor == nil) ? nil : Int32(cursor!)
+    }
 }
 
 struct HomeFeedQuery {
     var cursor: String?
     var limit: Int32?
+}
+
+struct MyFeedQuery {
+    var cursor: String?
+    var limit: Int32?
+    
+    func cursorInt() -> Int32? {
+        return (cursor == nil) ? nil : Int32(cursor!)
+    }
 }
 
 protocol PostServiceProtocol {
@@ -59,6 +72,8 @@ protocol PostServiceProtocol {
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler)
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler)
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler)
+    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler)
+    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler)
     
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
 }
@@ -162,8 +177,7 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        let cursor = (query.cursor == nil) ? nil : Int32(query.cursor!)
-        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user, authorization: authorization, cursor: cursor) { response, error in
+        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user, authorization: authorization, cursor: query.cursorInt()) { response, error in
             self.parseResponse(response: response, error: error, completion: completion)
         }
     }
@@ -185,6 +199,23 @@ class TopicService: BaseService, PostServiceProtocol {
             
             result.posts = [Post(data: data)]
             completion(result)
+        }
+    }
+    
+    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+        UsersAPI.myTopicsGetTopics(authorization: authorization,
+                                   cursor: query.cursor,
+                                   limit: query.limit) { (response, error) in
+                                    self.parseResponse(response: response, error: error, completion: completion)
+        }
+    }
+    
+    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+        UsersAPI.myTopicsGetPopularTopics(authorization: authorization,
+                                          cursor: query.cursorInt(),
+                                          limit: query.limit) { (response, error) in
+                                            self.parseResponse(response: response, error: error, completion: completion)
+                                            
         }
     }
     
