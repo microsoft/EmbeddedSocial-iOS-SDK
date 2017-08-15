@@ -5,7 +5,7 @@
 
 protocol PostMenuModuleModuleOutput: class {
 
-    
+    func shouldRefreshData()
 
 }
 
@@ -29,6 +29,7 @@ struct ActionViewModel {
 class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInput, PostMenuModuleInteractorOutput {
 
     weak var view: PostMenuModuleViewInput!
+    weak var output: PostMenuModuleModuleOutput?
     var interactor: PostMenuModuleInteractorInput!
     var router: PostMenuModuleRouterInput!
     var menuType: PostMenuType!
@@ -125,10 +126,12 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
     
     // MARK: Interactor Output
     func didBlock(user: UserHandle, error: Error?) {
+        output?.shouldRefreshData()
         Logger.log(user, error)
     }
     
     func didUnblock(user: UserHandle, error: Error?) {
+        output?.shouldRefreshData()
         Logger.log(user, error)
     }
     
@@ -137,15 +140,18 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
     }
     
     func didFollow(user: UserHandle, error: Error?) {
+        output?.shouldRefreshData()
         Logger.log(user, error)
     }
     
     func didUnfollow(user: UserHandle, error: Error?) {
+        output?.shouldRefreshData()
         Logger.log(user, error)
     }
     
     func didHide(post: PostHandle, error: Error?) {
         Logger.log(post, error)
+        output?.shouldRefreshData()
     }
     
     func didEdit(post: PostHandle, error: Error?) {
@@ -153,6 +159,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
     }
     
     func didRemove(post: PostHandle, error: Error?) {
+        output?.shouldRefreshData()
         Logger.log(post, error)
     }
     

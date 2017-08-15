@@ -358,5 +358,9 @@ extension FeedModulePresenter {
 
 extension FeedModulePresenter: PostMenuModuleModuleOutput {
     
+    func shouldRefreshData() {
+        didAskFetchAll()
+    }
+    
 }
 
