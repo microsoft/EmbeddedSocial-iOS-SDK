@@ -66,4 +66,9 @@ final class MockSocialService: SocialServiceType {
         requestCount += 1
         completion(.success())
     }
+    
+    func deletePostFromMyFollowing(postID: String, completion: @escaping (Result<Void>) -> Void) {
+        
+    }
+    
 }
