@@ -51,6 +51,7 @@ open class APIRouter: WebApp {
         }
         
         self["/v0.7/users/(.*)/topics/?(.*)"] = self["/v0.7/topics/?(.*(?<!likes)$)"]
+        self["/v0.7/users/me/following/combined"] = self["/v0.7/topics/?(.*(?<!likes)$)"]
         
         self["/v0.7/topics/(.*)/likes"] = APIResponse(serviceName: "likes") { environ, sendJSON -> Void in
             let method = environ["REQUEST_METHOD"] as! String
