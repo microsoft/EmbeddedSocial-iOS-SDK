@@ -12,7 +12,6 @@ enum APIError: LocalizedError {
     case responseError(String)
     case cancelled
     case custom(String)
-    case imageCompression
 
     public var errorDescription: String? {
         switch self {
@@ -21,21 +20,31 @@ enum APIError: LocalizedError {
         case .missingUserData: return "User data is missing."
         case let .responseError(path): return "Response \(path) returned with error."
         case .cancelled: return "The operation has been cancelled by user."
-        case .imageCompression: return "Image compression has failed."
         case let .custom(text): return text
         }
     }
     
     init(error: ErrorResponse?) {
-        guard let error = error,
-            case let ErrorResponse.HttpError(_, data, _) = error,
-            data != nil,
-            let someObject = try? JSONSerialization.jsonObject(with: data!, options: []),
-            let json = someObject as? [String: Any],
-            let message = json["message"] as? String else {
-                self = .unknown
-                return
+        guard let error = error else {
+            self = .unknown
+            return
         }
-        self = .custom(message)
+        
+        var message: String?
+        
+        switch error {
+        case let .HttpError(_, data, _) where data != nil:
+            let someObject = try? JSONSerialization.jsonObject(with: data!, options: [])
+            let json = someObject as? [String: Any]
+            message = json?["message"] as? String
+            
+        case let .DecodeError(_, decodeError):
+            message = "\(decodeError)"
+            
+        default:
+            message = nil
+        }
+        
+        self = message != nil ? .custom(message!) : .unknown
     }
 }

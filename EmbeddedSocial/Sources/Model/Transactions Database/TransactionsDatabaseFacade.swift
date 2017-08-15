@@ -30,10 +30,18 @@ class TransactionsDatabaseFacade: TransactionsDatabaseFacadeType {
         return outgoingRepo.create()
     }
     
+    func queryIncomingTransactions(with predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [IncomingTransaction] {
+        return incomingRepo.query(with: predicate, sortDescriptors: sortDescriptors)
+    }
+    
     func queryIncomingTransactions(with predicate: NSPredicate? = nil,
                                    sortDescriptors: [NSSortDescriptor]? = nil,
                                    completion: @escaping ([IncomingTransaction]) -> Void) {
         return incomingRepo.query(with: predicate, sortDescriptors: sortDescriptors, completion: completion)
+    }
+    
+    func queryOutgoingTransactions(with predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [OutgoingTransaction] {
+        return outgoingRepo.query(with: predicate, sortDescriptors: sortDescriptors)
     }
     
     func queryOutgoingTransactions(with predicate: NSPredicate? = nil,
