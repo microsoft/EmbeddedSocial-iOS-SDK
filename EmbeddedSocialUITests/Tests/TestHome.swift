@@ -17,7 +17,7 @@ class TestHome: UITestBase {
         sideMenu = SideMenu(app)
         feed = PostsFeed(app)
         pageSize = EmbeddedSocial.Constants.Feed.pageSize
-        feedName = "me/following"
+        feedName = "topics"
     }
     
     override func tearDown() {
