@@ -34,7 +34,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     var postService: PostServiceProtocol!
     var likesService: LikesServiceProtocol = LikesService()
     var pinsService: PinsServiceProtocol! = PinsService()
-    var cachedFeedType: FeedType?
+    private weak var userHolder: UserHolder? = SocialPlus.shared
     
     var isFetching = false {
         didSet {
@@ -42,7 +42,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         }
     }
     
-    var isLoadingMore = false
+    private var isLoadingMore = false
 
     private lazy var fetchHandler: FetchResultHandler = { [weak self] result in
         
@@ -107,16 +107,33 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             postService.fetchPopular(query: query, completion: fetchHandler)
             
         case let .user(user: user, scope: scope):
-            var query = UserFeedQuery()
-            query.limit = limit
-            query.cursor = cursor
-            query.user = user
             
-            switch scope {
-            case .popular:
-                postService.fetchPopular(query: query, completion: fetchHandler)
-            case .recent:
-                postService.fetchRecent(query: query, completion: fetchHandler)
+            let isMyFeed = userHolder?.me.uid == user
+            
+            if isMyFeed {
+                var query = MyFeedQuery()
+                query.cursor = cursor
+                query.limit = limit
+                
+                switch scope {
+                case .popular:
+                    postService.fetchMyPopular(query: query, completion: fetchHandler)
+                case .recent:
+                    postService.fetchMyPosts(query: query, completion: fetchHandler)
+                }
+            }
+            else {
+                var query = UserFeedQuery()
+                query.limit = limit
+                query.cursor = cursor
+                query.user = user
+                
+                switch scope {
+                case .popular:
+                    postService.fetchPopular(query: query, completion: fetchHandler)
+                case .recent:
+                    postService.fetchRecent(query: query, completion: fetchHandler)
+                }
             }
             
         case let .single(post: post):

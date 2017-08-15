@@ -99,16 +99,21 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
     }
     
-    private var formatter = DateFormatterTool()
-    fileprivate var feedType: FeedType?
-    private let limit = Int32(Constants.Feed.pageSize) // Default
-    fileprivate var items = [Post]()
-    private var cursor: String? = nil {
+    fileprivate var feedType: FeedType? {
+        didSet {
+            Logger.log(feedType)
+        }
+    }
+    
+    fileprivate var cursor: String? = nil {
         didSet {
             Logger.log(cursor)
         }
     }
     
+    private var formatter = DateFormatterTool()
+    private let limit = Int32(Constants.Feed.pageSize) // Default
+    fileprivate var items = [Post]()
     fileprivate var header: SupplementaryItemModel?
     
     var headerSize: CGSize {
@@ -138,6 +143,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
+        Logger.log()
         interactor.fetchPosts(limit: limit, cursor: nil, feedType: feedType)
     }
     
@@ -296,6 +302,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
+        Logger.log(cursor)
         interactor.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
     }
     
