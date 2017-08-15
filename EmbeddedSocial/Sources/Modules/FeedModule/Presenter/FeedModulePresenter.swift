@@ -407,17 +407,14 @@ extension FeedModulePresenter: PostMenuModuleModuleOutput {
     }
     
     func didHide(post: PostHandle) {
-       
         didRemoveItem(post: post)
     }
     
     func didEdit(post: PostHandle) {
-       
         didChangeItem(post: post)
     }
     
     func didRemove(post: PostHandle) {
-       
         didRemoveItem(post: post)
     }
     
