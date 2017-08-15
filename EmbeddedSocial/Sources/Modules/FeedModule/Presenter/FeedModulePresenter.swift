@@ -450,6 +450,5 @@ extension FeedModulePresenter: PostMenuModuleModuleOutput {
     private func didFail(_ error: Error) {
         view.showError(error: error)
     }
-    
 }
 

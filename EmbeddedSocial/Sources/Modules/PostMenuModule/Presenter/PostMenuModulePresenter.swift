@@ -260,4 +260,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
         }
     }
     
+    deinit {
+        Logger.log()
+    }
 }

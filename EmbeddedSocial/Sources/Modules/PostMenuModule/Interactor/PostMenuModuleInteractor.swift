@@ -40,35 +40,30 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     // MARK: Input
     
     func follow(user: UserHandle) {
-     
         socialService.follow(userID: user) { [weak self] (result) in
             self?.output.didFollow(user: user, error: result.error)
         }
     }
     
     func unfollow(user: UserHandle) {
-        
         socialService.unfollow(userID: user) { [weak self] (result) in
             self?.output.didUnfollow(user: user, error: result.error)
         }
     }
     
     func remove(post: PostHandle) {
-        
         topicsService.deletePost(post: post) { [weak self] (result) in
             self?.output.didRemove(post: post, error: result.error)
         }
     }
     
     func block(user: UserHandle) {
-        
         socialService.block(userID: user) { [weak self] (result) in
             self?.output.didBlock(user: user, error: result.error)
         }
     }
     
     func unblock(user: UserHandle) {
-        
         socialService.unblock(userID: user) { [weak self] (result) in
             self?.output.didUnblock(user: user, error: result.error)
         }
@@ -79,7 +74,6 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     }
     
     func hide(post: PostHandle) {
-        
         socialService.deletePostFromMyFollowing(postID: post) { (result) in
             self.output.didHide(post: post, error: result.error)
         }
