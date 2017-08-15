@@ -397,7 +397,7 @@ extension FeedModulePresenter: PostMenuModuleModuleOutput {
             
             // Update following status for current posts
             for (index, item) in items.enumerated() {
-                if item.userHandle == user {
+                if item.userHandle == user && item.userStatus == .follow {
                     items[index].userStatus = .none
                 }
             }
