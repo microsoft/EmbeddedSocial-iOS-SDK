@@ -55,6 +55,10 @@ private class MockPostService: PostServiceProtocol {
         fetchPostIsCalled = true
         fetchPostHandle = post
     }
+    
+    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
+        
+    }
 }
 
 class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {

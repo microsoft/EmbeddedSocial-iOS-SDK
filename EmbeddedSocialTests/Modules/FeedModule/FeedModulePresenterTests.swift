@@ -40,13 +40,25 @@ private class FeedModuleViewMock: FeedModuleViewInput {
     func getViewHeight() -> CGFloat {
         return 0
     }
+    
+    func reloadVisible() {
+        
+    }
+    
+    func removeItem(index: Int) {
+        
+    }
+    
+    func showError(error: Error) {
+        
+    }
 }
 
 private class FeedModuleRouterMock: FeedModuleRouterInput {
     
     var openedRoute: FeedModuleRoutes!
     
-    func open(route: FeedModuleRoutes) {
+    func open(route: FeedModuleRoutes, feedSource:FeedType) {
         openedRoute = route
     }
     
@@ -264,7 +276,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         item.onAction!(action, path)
         
         // then
-        if case FeedModuleRoutes.profileDetailes(userHandle: "user" ) = router.openedRoute! {
+        if case FeedModuleRoutes.profileDetailes(user: "user" ) = router.openedRoute! {
             XCTAssert(true)
         } else {
             XCTAssert(false)
