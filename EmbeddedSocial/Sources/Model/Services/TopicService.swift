@@ -162,7 +162,8 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user, authorization: authorization) { response, error in
+        let cursor = (query.cursor == nil) ? nil : Int32(query.cursor!)
+        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user, authorization: authorization, cursor: cursor) { response, error in
             self.parseResponse(response: response, error: error, completion: completion)
         }
     }
