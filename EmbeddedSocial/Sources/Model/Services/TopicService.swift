@@ -59,10 +59,6 @@ protocol PostServiceProtocol {
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler)
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler)
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler)
-    
-    myFollowingDeleteTopicFromCombinedFollowingFeed
-    
-    
 }
 
 class TopicService: BaseService, PostServiceProtocol {

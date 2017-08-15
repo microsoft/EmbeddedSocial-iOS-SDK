@@ -30,6 +30,7 @@ protocol SocialServiceType {
     /// Get following users of a user
     func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
     
+    /// Hide for post
     func deletePostFromMyFollowing(postID: String, completion: @escaping (Result<Void>) -> Void)
     
 }
@@ -111,11 +112,13 @@ class SocialService: BaseService, SocialServiceType {
     func deletePostFromMyFollowing(postID: String, completion: @escaping (Result<Void>) -> Void) {
         SocialAPI.myFollowingDeleteFollowingTopic(topicHandle: postID,
                                                   authorization: authorization) { (object, errorResponse) in
+                                                    
                                                     if let error = errorResponse {
-                                                        errorHandler.handle(error)
+                                                        self.errorHandler.handle(error)
                                                     } else {
-                                                        
+                                                        completion(.success())
                                                     }
+        }
     }
     
     
