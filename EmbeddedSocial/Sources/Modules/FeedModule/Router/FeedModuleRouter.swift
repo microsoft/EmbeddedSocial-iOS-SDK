@@ -21,7 +21,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
         case .postDetails(let post):
             
             let configurator = PostDetailModuleConfigurator()
-            configurator.configure(post: post)
+            configurator.configure(post: post, navigationController: navigationController)
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
         case .openImage(let imageUrl):

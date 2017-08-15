@@ -9,6 +9,9 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     var interactor: PostDetailInteractorInput!
     var router: PostDetailRouterInput!
     
+    var feedViewController: UIViewController?
+    var feedModuleInput: FeedModuleInput?
+    
     var post: Post?
 
     var comments = [Comment]()
@@ -16,7 +19,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     // MARK: PostDetailInteractorOutput
     func didFetch(comments: [Comment]) {
         self.comments = comments
-        view.reload(animated: true)
+        view.reloadTable()
     }
     
     func didFetchMore(comments: [Comment]) {
@@ -65,7 +68,13 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     
     func viewIsReady() {
         view.setupInitialState()
+        setupFeed()
         interactor.fetchComments(topicHandle: (post?.topicHandle)!)
+    }
+    
+    private func setupFeed() {
+        feedModuleInput?.setFeed(.single(post: (post?.topicHandle)!))
+        feedModuleInput?.refreshData()
     }
     
     func likeComment(comment: Comment) {
@@ -90,5 +99,16 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     
     func postComment(photo: Photo?, comment: String) {
         interactor.postComment(photo: photo, topicHandle: (post?.topicHandle)!, comment: comment)
+    }
+}
+
+extension PostDetailPresenter: FeedModuleOutput {
+    
+    func didRefreshData() {
+        view.updateFeed(view: (feedViewController?.view)!)
+    }
+    
+    func didFailToRefreshData(_ error: Error) {
+//        view.setFilterEnabled(true)
     }
 }

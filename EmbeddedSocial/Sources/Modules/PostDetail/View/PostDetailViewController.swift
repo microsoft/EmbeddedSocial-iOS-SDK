@@ -46,6 +46,12 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         configTextView()
     }
     
+    
+    func updateFeed(view: UIView) {
+        postView = view
+        tableView.reloadRows(at: [IndexPath(item: 0, section: 0)], with: .none)
+    }
+
     func configTableView() {
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: CommentCell.identifier, bundle: Bundle(for: CommentCell.self)), forCellReuseIdentifier: CommentCell.identifier)
@@ -75,17 +81,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         postView = feedViewController.view
     }
     
-    func reload(animated: Bool) {
-        tableView.reloadData()
-        DispatchQueue.main.asyncAfter(deadline: .now() + reloadDelay) {
-            if self.output.numberOfItems() > 1 {
-                let indexPath = IndexPath(row: self.output.numberOfItems() - 1, section: TableSections.comments.rawValue)
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
-            }
-            self.isNewDataLoading = false
-        }
-    }
-    
     func reloadTable() {
         self.isNewDataLoading = false
         tableView.reloadData()
@@ -100,7 +95,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         commentTextViewHeightConstraint.constant = commentViewHeight
         commentTextView.text = nil
         postButton.isHidden = true
-        reload(animated: false)
         SVProgressHUD.dismiss()
         view.layoutIfNeeded()
     }
