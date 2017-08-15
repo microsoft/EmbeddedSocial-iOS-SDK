@@ -11,6 +11,8 @@ protocol ImagesServiceType {
     func uploadContentImage(_ image: UIImage, completion: @escaping (Result<String>) -> Void)
     
     func uploadUserImage(_ image: UIImage, authorization: Authorization, completion: @escaping (Result<String>) -> Void)
+    
+    func updateUserPhoto(_ photo: Photo, completion: @escaping (Result<Photo>) -> Void)
 }
 
 class ImagesService: BaseService, ImagesServiceType {
@@ -43,6 +45,32 @@ class ImagesService: BaseService, ImagesServiceType {
                 } else {
                     self?.errorHandler.handle(error: error, completion: completion)
                 }
+        }
+    }
+    
+    func updateUserPhoto(_ photo: Photo, completion: @escaping (Result<Photo>) -> Void) {
+        guard let image = photo.image else {
+            completion(.failure(APIError.custom("Image is missing")))
+            return
+        }
+        
+        uploadImageData(image.compressed(), imageType: .userPhoto, authorization: authorization) { [unowned self] result in
+            guard let handle = result.value else {
+                completion(.failure(result.error ?? APIError.unknown))
+                return
+            }
+            
+            let request = PutUserPhotoRequest()
+            request.photoHandle = handle
+            
+            UsersAPI.usersPutUserPhoto(request: request, authorization: self.authorization) { response, error in
+                if error == nil {
+                    let photo = Photo(uid: handle, url: photo.url, image: image)
+                    completion(.success(photo))
+                } else {
+                    self.errorHandler.handle(error: error, completion: completion)
+                }
+            }
         }
     }
 }

@@ -73,6 +73,25 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum EditProfile: String, StoryboardSceneType {
+    static let storyboardName = "EditProfile"
+
+    static func initialViewController() -> EmbeddedSocial.EditProfileViewController {
+      guard let vc = storyboard().instantiateInitialViewController() as? EmbeddedSocial.EditProfileViewController else {
+        fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
+      }
+      return vc
+    }
+
+    case editProfileViewControllerScene = "EditProfileViewController"
+    static func instantiateEditProfileViewController() -> EmbeddedSocial.EditProfileViewController {
+      guard let vc = StoryboardScene.EditProfile.editProfileViewControllerScene.viewController() as? EmbeddedSocial.EditProfileViewController
+      else {
+        fatalError("ViewController 'EditProfileViewController' is not of the expected class EmbeddedSocial.EditProfileViewController.")
+      }
+      return vc
+    }
+  }
   enum FeedModule: String, StoryboardSceneType {
     static let storyboardName = "FeedModule"
 

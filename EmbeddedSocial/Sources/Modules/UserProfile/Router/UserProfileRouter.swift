@@ -11,6 +11,7 @@ final class UserProfileRouter: UserProfileRouterInput {
     weak var followersModuleOutput: FollowersModuleOutput?
     weak var followingModuleOutput: FollowingModuleOutput?
     weak var createPostModuleOutput: CreatePostModuleOutput?
+    weak var editProfileModuleOutput: EditProfileModuleOutput?
 
     func openFollowers(user: User) {        
         let api: UsersListAPI = user.isMe ?
@@ -32,11 +33,10 @@ final class UserProfileRouter: UserProfileRouterInput {
         viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
-    func openEmbeddedEditProfile(user: User) {
-        let vc = UIViewController()
-        vc.title = "Edit"
-        vc.view.backgroundColor = .white
-        viewController?.navigationController?.pushViewController(vc, animated: true)
+    func openEditProfile(user: User) {
+        let configurator = EditProfileConfigurator()
+        configurator.configure(user: user, moduleOutput: editProfileModuleOutput)
+        viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
     func openCreatePost(user: User) {
