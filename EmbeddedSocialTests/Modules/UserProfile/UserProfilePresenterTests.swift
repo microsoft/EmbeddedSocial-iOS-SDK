@@ -50,7 +50,9 @@ class UserProfilePresenterTests: XCTestCase {
         // then
         XCTAssertEqual(myProfileHolder.setMeCount, 2)
         XCTAssertEqual(interactor.getMeCount, 1)
-        validateInitialState(with: myProfileHolder.me)
+        XCTAssertEqual(interactor.cachedUserCount, 0)
+        validateViewInitialState(with: myProfileHolder.me, userIsCached: true)
+        validateFeedInitialState(with: myProfileHolder.me)
     }
     
     func testThatItSetsInitialStateWithOtherUser() {
@@ -66,6 +68,7 @@ class UserProfilePresenterTests: XCTestCase {
         // then
         validateInitialState(with: user)
         XCTAssertEqual(interactor.getUserCount, 1)
+        XCTAssertEqual(interactor.cachedUserCount, 1)
     }
     
     func testThatItFailsToSetFeedWithoutFeedViewController() {
@@ -113,16 +116,16 @@ class UserProfilePresenterTests: XCTestCase {
         validateFeedInitialState(with: user)
     }
     
-    private func validateViewInitialState(with user: User) {
+    private func validateViewInitialState(with user: User, userIsCached: Bool = false) {
         XCTAssertEqual(view.setupInitialStateCount, 1)
-        XCTAssertEqual(view.setUserCount, 1)
+        XCTAssertEqual(view.setUserCount, userIsCached ? 2 : 1)
         XCTAssertEqual(view.lastSetUser, user)
         
-        XCTAssertEqual(view.setFollowingCount, 1)
+        XCTAssertEqual(view.setFollowingCount, userIsCached ? 2 : 1)
         XCTAssertEqual(view.lastFollowingCount, user.followingCount)
         
         XCTAssertEqual(view.lastFollowersCount, user.followersCount)
-        XCTAssertEqual(view.setFollowersCount, 1)
+        XCTAssertEqual(view.setFollowersCount, userIsCached ? 2 : 1)
         
         XCTAssertNotNil(view.isLoadingUser)
         XCTAssertFalse(view.isLoadingUser!)

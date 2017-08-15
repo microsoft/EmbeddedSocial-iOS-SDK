@@ -11,12 +11,13 @@ enum FeedModuleRoutes {
     case extra
     case openImage(image: String)
     case comments
-    case profileDetailes(userHandle: UserHandle)
+    case profileDetailes(user: UserHandle)
     
 }
 
+
 protocol FeedModuleRouterInput {
     
-    func open(route: FeedModuleRoutes)
+    func open(route: FeedModuleRoutes, feedSource:FeedType)
 
 }

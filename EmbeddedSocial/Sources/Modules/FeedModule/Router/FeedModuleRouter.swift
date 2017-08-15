@@ -7,9 +7,15 @@ import SKPhotoBrowser
 
 class FeedModuleRouter: FeedModuleRouterInput {
     
+    weak var viewController: UIViewController?
     weak var navigationController: UINavigationController?
+    weak var postMenuModuleOutput: PostMenuModuleModuleOutput!
+    weak var moduleInput: FeedModulePresenter!
     
-    func open(route: FeedModuleRoutes) {
+    // Keeping ref to menu
+    var postMenuViewController: UIViewController?
+    
+    func open(route: FeedModuleRoutes, feedSource: FeedType) {
         
         switch route {
         case .profileDetailes(let userHandle):

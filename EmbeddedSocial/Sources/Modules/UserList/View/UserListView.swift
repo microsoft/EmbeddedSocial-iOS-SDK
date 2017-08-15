@@ -26,6 +26,7 @@ class UserListView: UIView {
         tableView.delegate = self.dataManager.tableDelegate
         tableView.dataSource = self.dataManager.tableDataSource(for: tableView)
         tableView.tableFooterView = UIView()
+        tableView.accessibilityIdentifier = "UserList"
         self.addSubview(tableView)
         return tableView
     }()

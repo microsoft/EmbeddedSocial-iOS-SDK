@@ -18,11 +18,27 @@ protocol TransactionsDatabaseFacadeType {
                                    sortDescriptors: [NSSortDescriptor]?,
                                    completion: @escaping ([IncomingTransaction]) -> Void)
     
+    func queryIncomingTransactions(with predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [IncomingTransaction]
+    
     func queryOutgoingTransactions(with predicate: NSPredicate?,
                                    sortDescriptors: [NSSortDescriptor]?,
                                    completion: @escaping ([OutgoingTransaction]) -> Void)
     
+    func queryOutgoingTransactions(with predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [OutgoingTransaction]
+
     func deleteIncomingTransactions(_ entities: [IncomingTransaction], completion: ((Result<Void>) -> Void)?)
     
     func deleteOutgoingTransactions(_ entities: [OutgoingTransaction], completion: ((Result<Void>) -> Void)?)
+}
+
+extension TransactionsDatabaseFacadeType {
+    func save(transaction: Transaction) {
+        if let tr = transaction as? IncomingTransaction {
+            save(transaction: tr)
+        } else if let tr = transaction as? OutgoingTransaction {
+            save(transaction: tr)
+        } else {
+            fatalError("Cannot save transaction \(transaction)")
+        }
+    }
 }

@@ -44,21 +44,25 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     
     var isLoadingMore = false
 
-    private lazy var fetchHandler: FetchResultHandler = { [unowned self] result in
+    private lazy var fetchHandler: FetchResultHandler = { [weak self] result in
         
-        self.isFetching = false
+        guard let strongSelf = self else {
+            return
+        }
+        
+        strongSelf.isFetching = false
         
         guard result.error == nil else {
-            self.output.didFail(error: result.error!)
+            strongSelf.output.didFail(error: result.error!)
             return
         }
         
         var feed = PostsFeed(items: result.posts, cursor: result.cursor)
         
-        if self.isLoadingMore {
-            self.output.didFetchMore(feed: feed)
+        if strongSelf.isLoadingMore {
+            strongSelf.output.didFetchMore(feed: feed)
         } else {
-            self.output.didFetch(feed: feed)
+            strongSelf.output.didFetch(feed: feed)
         }
     }
     
