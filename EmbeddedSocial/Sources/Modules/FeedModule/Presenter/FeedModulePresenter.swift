@@ -393,11 +393,13 @@ extension FeedModulePresenter: PostMenuModuleModuleOutput {
             return
         }
         
-        if isHome() {
-            didChangeItems()
-        } else {
-            didChangeItem(user: user)
+        for (index, item) in items.enumerated() {
+            if item.userHandle == user {
+                items[index].userStatus = .follow
+            }
         }
+        
+        view.reloadVisible()
     }
     
     func didUnfollow(user: UserHandle, error: Error?) {
@@ -407,9 +409,21 @@ extension FeedModulePresenter: PostMenuModuleModuleOutput {
         }
         
         if isHome() {
-            didChangeItems()
+            
+            // Clean non following users
+            items = items.filter({ $0.userHandle != user })
+            view.reload()
+            
         } else {
-            didChangeItem(user: user)
+            
+            // Update following status for current posts
+            for (index, item) in items.enumerated() {
+                if item.userHandle == user {
+                    items[index].userStatus = .none
+                }
+            }
+            
+            view.reloadVisible()
         }
     }
     
