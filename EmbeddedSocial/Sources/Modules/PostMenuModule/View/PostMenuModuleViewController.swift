@@ -16,6 +16,7 @@ protocol PostMenuModuleViewInput: class {
 protocol PostMenuModuleViewOutput {
     
     func viewIsReady()
+    
 }
 
 class PostMenuModuleViewController: UIViewController, PostMenuModuleViewInput {

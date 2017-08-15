@@ -5,18 +5,27 @@
 
 protocol PostMenuModuleModuleOutput: class {
 
-    func didBlock(user: UserHandle, error: Error?)
-    func didUnblock(user: UserHandle, error: Error?)
-    func didRepost(user: UserHandle, error: Error?)
-    func didFollow(user: UserHandle, error: Error?)
-    func didUnfollow(user: UserHandle, error: Error?)
-    func didHide(post: PostHandle, error: Error?)
-    func didEdit(post: PostHandle, error: Error?)
-    func didRemove(post: PostHandle, error: Error?)
-    func didReport(post: PostHandle, error: Error?)
+    func didBlock(user: UserHandle)
+    func didUnblock(user: UserHandle)
+    func didRepost(user: UserHandle)
+    func didFollow(user: UserHandle)
+    func didUnfollow(user: UserHandle)
+    func didHide(post: PostHandle)
+    func didEdit(post: PostHandle)
+    func didRemove(post: PostHandle)
+    func didReport(post: PostHandle)
+    func didRequestFail(error: Error)
 }
 
 protocol PostMenuModuleModuleInput: class {
+    
+    func didTapBlock(user: UserHandle)
+    func didTapUnblock(user: UserHandle)
+    func didTapHide(post: PostHandle)
+    func didTapFollow(user: UserHandle)
+    func didTapUnfollow(user: UserHandle)
+    func didTapEditPost(post: PostHandle)
+    func didTapRemovePost(post: PostHandle)
     
 }
 
@@ -58,14 +67,13 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
     
     private func buildActionListForOtherPost(post: Post, isHomeFeed: Bool) -> [ActionViewModel] {
         
-    
         let followItem = followersViewModel(post: post)
         let blockItem = blockViewModel(post: post)
         
         var reportItem = ActionViewModel()
         reportItem.title = "Report Post"
         reportItem.action = { [weak self] in
-            self?.interactor.report(post: post.topicHandle)
+            self?.didTapRemovePost(post: post.topicHandle!)
         }
         
         var items = [followItem, blockItem, reportItem]
@@ -85,13 +93,13 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
         var editItem = ActionViewModel()
         editItem.title = "Edit Post"
         editItem.action = { [weak self] in
-            self?.interactor.edit(post: postHandle)
+            self?.didTapEditPost(post: postHandle)
         }
         
         var removeitem = ActionViewModel()
         removeitem.title = "Remove Post"
         removeitem.action = { [weak self] in
-            self?.interactor.remove(post: postHandle)
+            self?.didTapRemovePost(post: postHandle)
         }
         
         return [editItem, removeitem]
@@ -109,9 +117,9 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
         item.title = shouldFollow ? "Follow" : "Unfollow"
         item.action = { [weak self] in
             if shouldFollow {
-                self?.interactor.follow(user: userHandle)
+                self?.didTapFollow(user: userHandle)
             } else {
-                self?.interactor.unfollow(user: userHandle)
+                self?.didTapUnfollow(user: userHandle)
             }
         }
         return item
@@ -127,9 +135,9 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
         item.title = shouldUnblock ? "Unblock" : "Block"
         item.action = { [weak self] in
             if shouldUnblock {
-                self?.interactor.unblock(user: userHandle)
+                self?.didTapUnblock(user: userHandle)
             } else {
-                self?.interactor.block(user: userHandle)
+                self?.didTapBlock(user: userHandle)
             }
         }
         return item
@@ -140,58 +148,116 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
         var item = ActionViewModel()
         item.title = "Hide"
         item.action = { [weak self] in
-            self?.interactor.hide(post: post.topicHandle)
+            self?.didTapHide(post: post.topicHandle!)
         }
         
         return item
     }
     
-    // MARK: View Output
+    // MARK: Module Input
+    
+    func didTapBlock(user: UserHandle) {
+        self.output?.didBlock(user: user)
+        self.interactor.block(user: user)
+    }
+    
+    func didTapUnblock(user: UserHandle) {
+        self.output?.didUnblock(user: user)
+        self.interactor.unblock(user: user)
+    }
+    
+    func didTapHide(post: PostHandle) {
+        self.output?.didHide(post: post)
+        self.interactor.hide(post: post)
+    }
+    
+    func didTapFollow(user: UserHandle) {
+        self.output?.didFollow(user: user)
+        self.interactor.follow(user: user)
+    }
+    
+    func didTapUnfollow(user: UserHandle) {
+        self.output?.didUnfollow(user: user)
+        self.interactor.unfollow(user: user)
+    }
+    
+    func didTapEditPost(post: PostHandle) {
+        self.output?.didEdit(post: post)
+        self.interactor.edit(post: post)
+    }
+    
+    func didTapRemovePost(post: PostHandle) {
+        self.output?.didRemove(post: post)
+        self.interactor.remove(post: post)
+    }
+    
+    func didTapReportPost(post: PostHandle) {
+        self.output?.didReport(post: post)
+        self.interactor.report(post: post)
+    }
     
     // MARK: Interactor Output
     func didBlock(user: UserHandle, error: Error?) {
         Logger.log(user, error)
-        output?.didBlock(user: user, error: error)
+        if let error = error {
+            output?.didRequestFail(error: error)
+        }
     }
     
     func didUnblock(user: UserHandle, error: Error?) {
         Logger.log(user, error)
-        output?.didUnblock(user: user, error: error)
+        if let error = error {
+            output?.didRequestFail(error: error)
+        }
     }
     
     func didRepost(user: UserHandle, error: Error?) {
         Logger.log(user, error)
-        output?.didRepost(user: user, error: error)
+        if let error = error {
+            output?.didRequestFail(error: error)
+        }
     }
     
     func didFollow(user: UserHandle, error: Error?) {
         Logger.log(user, error)
-        output?.didFollow(user: user, error: error)
+        if let error = error {
+            output?.didRequestFail(error: error)
+        }
     }
     
     func didUnfollow(user: UserHandle, error: Error?) {
         Logger.log(user, error)
-        output?.didUnfollow(user: user, error: error)
+        if let error = error {
+            output?.didRequestFail(error: error)
+        }
     }
     
     func didHide(post: PostHandle, error: Error?) {
         Logger.log(post, error)
-        output?.didHide(post: post, error: error)
+        if let error = error {
+            output?.didRequestFail(error: error)
+        }
     }
     
     func didEdit(post: PostHandle, error: Error?) {
         Logger.log(post, error)
-        output?.didHide(post: post, error: error)
+        if let error = error {
+            output?.didRequestFail(error: error)
+        }
     }
     
     func didRemove(post: PostHandle, error: Error?) {
         Logger.log(post, error)
-        output?.didRemove(post: post, error: error)
+        if let error = error {
+            output?.didRequestFail(error: error)
+        }
     }
     
     func didReport(post: PostHandle, error: Error?) {
         Logger.log(post, error)
-        output?.didReport(post: post, error: error)
+        if let error = error {
+            output?.didRequestFail(error: error)
+        }
     }
     
 }

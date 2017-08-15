@@ -101,7 +101,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     private var formatter = DateFormatterTool()
     fileprivate var feedType: FeedType?
-    private let limit = Int32(3) // Default
+    private let limit = Int32(5) // Default
     fileprivate var items = [Post]()
     private var cursor: String? = nil {
         didSet {
@@ -362,37 +362,20 @@ extension FeedModulePresenter {
 
 extension FeedModulePresenter: PostMenuModuleModuleOutput {
     
-    func didBlock(user: UserHandle, error: Error?) {
-        guard error == nil else {
-            didFail(error!)
-            return
-        }
-        
+    func didBlock(user: UserHandle) {
         didChangeItem(user: user)
     }
     
-    func didUnblock(user: UserHandle, error: Error?) {
-        guard error == nil else {
-            didFail(error!)
-            return
-        }
-        
+    func didUnblock(user: UserHandle) {
         didChangeItem(user: user)
     }
     
-    func didRepost(user: UserHandle, error: Error?) {
-        guard error == nil else {
-            didFail(error!)
-            return
-        }
+    func didRepost(user: UserHandle) {
+        
     }
     
-    func didFollow(user: UserHandle, error: Error?) {
-        guard error == nil else {
-            didFail(error!)
-            return
-        }
-        
+    func didFollow(user: UserHandle) {
+       
         for (index, item) in items.enumerated() {
             if item.userHandle == user {
                 items[index].userStatus = .follow
@@ -402,12 +385,8 @@ extension FeedModulePresenter: PostMenuModuleModuleOutput {
         view.reloadVisible()
     }
     
-    func didUnfollow(user: UserHandle, error: Error?) {
-        guard error == nil else {
-            didFail(error!)
-            return
-        }
-        
+    func didUnfollow(user: UserHandle) {
+       
         if isHome() {
             
             // Clean non following users
@@ -427,44 +406,31 @@ extension FeedModulePresenter: PostMenuModuleModuleOutput {
         }
     }
     
-    func didHide(post: PostHandle, error: Error?) {
-        guard error == nil else {
-            didFail(error!)
-            return
-        }
-        
+    func didHide(post: PostHandle) {
+       
         didRemoveItem(post: post)
     }
     
-    func didEdit(post: PostHandle, error: Error?) {
-        guard error == nil else {
-            didFail(error!)
-            return
-        }
-        
+    func didEdit(post: PostHandle) {
+       
         didChangeItem(post: post)
     }
     
-    func didRemove(post: PostHandle, error: Error?) {
-        guard error == nil else {
-            didFail(error!)
-            return
-        }
-        
+    func didRemove(post: PostHandle) {
+       
         didRemoveItem(post: post)
     }
     
-    func didReport(post: PostHandle, error: Error?) {
-        guard error == nil else {
-            didFail(error!)
-            return
-        }
+    func didReport(post: PostHandle) {
+        
     }
     
-    private func didChangeItems() {
+    func didRequestFail(error: Error) {
+        Logger.log("Reloading feed", error, event: .error)
+        view.showError(error: error)
         didAskFetchAll()
     }
-    
+
     private func didChangeItem(user: UserHandle) {
         if let index = items.index(where: { $0.userHandle == user }) {
             view.reload(with: index)
