@@ -9,101 +9,153 @@ import XCTest
 class CacheTests: XCTestCase {
     
     private var coreDataStack: CoreDataStack!
-    private var transactionsDatabase: MockTransactionsDatabaseFacade!
-    private var cache: CacheType!
+    private var database: MockTransactionsDatabaseFacade!
+    private var sut: Cache!
     
-    private let timeoutDelay: TimeInterval = 5
+    private let timeout: TimeInterval = 5
     
     override func setUp() {
         super.setUp()
         coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
-        transactionsDatabase = MockTransactionsDatabaseFacade(incomingRepo:  CoreDataRepository(context: coreDataStack.backgroundContext), outgoingRepo:  CoreDataRepository(context: coreDataStack.backgroundContext))
-        cache = Cache(database: transactionsDatabase)
+        database = MockTransactionsDatabaseFacade(incomingRepo: CoreDataRepository(context: coreDataStack.mainContext),
+                                                  outgoingRepo: CoreDataRepository(context: coreDataStack.mainContext))
+        sut = Cache(database: database, decoder: ItemDecoder.self)
     }
     
     override func tearDown() {
         super.tearDown()
         coreDataStack = nil
-        transactionsDatabase = nil
-        cache = nil
+        database = nil
+        sut = nil
     }
     
-    func testThatIncomingCacheReturnsCorrectModel() {
-        let postRequest = PostTopicRequest()
-        postRequest.title = "Title"
-        postRequest.text = "Text"
+    func testThatItCachesIncomingItemAndLoadsItByHandle() {
+        // given
+        let item = Item(handle: UUID().uuidString, name: UUID().uuidString)
         
-        let cachedModel = cache.cacheIncoming(object: postRequest)
-        let cachedTitle = cachedModel.payload?["title"] as! String
-        let cachedText = cachedModel.payload?["text"] as! String
+        // when
+        sut.cacheIncoming(item)
+        let fetchedItem = sut.firstIncoming(ofType: Item.self, handle: item.handle)
         
-        XCTAssertEqual(cachedTitle, postRequest.title)
-        XCTAssertEqual(cachedText, postRequest.text)
-        XCTAssertEqual(cachedModel.typeid, String(describing: PostTopicRequest.self))
-        XCTAssertEqual(transactionsDatabase.saveIncomingCalled, 1)
+        // then
+        XCTAssertEqual(fetchedItem, item)
     }
     
-    func testThatOutgoingCacheReturnsCorrectModel() {
-        let postRequest = PostTopicRequest()
-        postRequest.title = "Title"
-        postRequest.text = "Text"
+    func testThatItCachesOutgoingItemAndLoadsItByHandle() {
+        // given
+        let item = Item(handle: UUID().uuidString, name: UUID().uuidString)
         
-        let cachedModel = cache.cacheOutgoing(object: postRequest)
-        let cachedTitle = cachedModel.payload?["title"] as! String
-        let cachedText = cachedModel.payload?["text"] as! String
+        // when
+        sut.cacheOutgoing(item)
+        let fetchedItem = sut.firstOutgoing(ofType: Item.self, handle: item.handle)
         
-        XCTAssertEqual(cachedTitle, postRequest.title)
-        XCTAssertEqual(cachedText, postRequest.text)
-        XCTAssertEqual(cachedModel.typeid, String(describing: PostTopicRequest.self))
-        XCTAssertEqual(transactionsDatabase.saveOutgoingCalled, 1)
+        // then
+        XCTAssertEqual(fetchedItem, item)
     }
     
-    func testThatIncomingDataFetchedCorrect() {
-        let expectation = self.expectation(description: "test")
-        let feedResponse = FeedResponseTopicView()
-        let topicView = TopicView()
+    func testThatItFetchesIncomingTransactionsAndSortsByName() {
+        // given
+        let items = makeItems()
+        let sortDescriptor = NSSortDescriptor(key: "payload.name", ascending: true)
         
-        topicView.text = "Text"
-        topicView.title = "Title"
-        feedResponse.cursor = "cursor"
+        // when
+        items.forEach(sut.cacheIncoming)
+        let fetchedItems = sut.fetchIncoming(type: Item.self, sortDescriptors: [sortDescriptor])
         
-        feedResponse.data = [topicView]
+        // then
+        XCTAssertEqual(items, fetchedItems)
+    }
+    
+    func testThatItFetchesOutgoingTransactionsAndSortsByName() {
+        // given
+        let items = makeItems()
+        let sortDescriptor = NSSortDescriptor(key: "payload.name", ascending: true)
         
-        cache.cacheIncoming(object: feedResponse)
+        // when
+        items.forEach(sut.cacheOutgoing)
+        let fetchedItems = sut.fetchOutgoing(type: Item.self, sortDescriptors: [sortDescriptor])
         
-        self.cache.fetchIncoming(type: FeedResponseTopicView.self, sortDescriptors: nil, result: { (results) in
-            guard !results.isEmpty else {
-                XCTAssertFalse(results.isEmpty)
-                return
-            }
-            XCTAssertEqual((results.first as! FeedResponseTopicView).data?.first?.text, feedResponse.data?.first?.text)
-            XCTAssertEqual((results.first as! FeedResponseTopicView).data?.first?.title, feedResponse.data?.first?.title)
+        // then
+        XCTAssertEqual(items, fetchedItems)
+    }
+    
+    func testThatItFetchesIncomingAsync() {
+        // given
+        let items = makeItems()
+        let sortDescriptor = NSSortDescriptor(key: "payload.name", ascending: true)
+        
+        // when
+        items.forEach(sut.cacheIncoming)
+        
+        // then
+        let expectation = self.expectation(description: #function)
+        
+        sut.fetchIncoming(type: Item.self, sortDescriptors: [sortDescriptor]) { fetchedItems in
+            XCTAssertTrue(Thread.isMainThread)
+            XCTAssertEqual(items, fetchedItems)
             expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: timeoutDelay, handler: nil)
+        }
+        waitForExpectations(timeout: timeout, handler: nil)
     }
     
-    func testThatOutgoingDataFetchedCorrect() {
-        let expectation = self.expectation(description: "test")
+    func testThatItFetchesOutgoingAsync() {
+        // given
+        let items = makeItems()
+        let sortDescriptor = NSSortDescriptor(key: "payload.name", ascending: true)
         
-        let topic = PostTopicRequest()
-        topic.text = "Text"
-        topic.title = "Title"
+        // when
+        items.forEach(sut.cacheOutgoing)
         
-        cache.cacheOutgoing(object: topic)
+        // then
+        let expectation = self.expectation(description: #function)
         
-        self.cache.fetchOutgoing(type: PostTopicRequest.self, sortDescriptors: nil, result: { (results) in
-            guard !results.isEmpty else {
-                XCTAssertFalse(results.isEmpty)
-                return
-            }
-            XCTAssertEqual((results.first as! PostTopicRequest).text , topic.text)
-            XCTAssertEqual((results.first as! PostTopicRequest).title , topic.title)
+        sut.fetchOutgoing(type: Item.self, sortDescriptors: [sortDescriptor]) { fetchedItems in
+            XCTAssertTrue(Thread.isMainThread)
+            XCTAssertEqual(items, fetchedItems)
             expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: timeoutDelay, handler: nil)
+        }
+        waitForExpectations(timeout: timeout, handler: nil)
     }
     
+    private func makeItems() -> [Item] {
+        return [
+            Item(handle: UUID().uuidString, name: "A"),
+            Item(handle: UUID().uuidString, name: "B"),
+            Item(handle: UUID().uuidString, name: "C"),
+            Item(handle: UUID().uuidString, name: "D"),
+            Item(handle: UUID().uuidString, name: "E")
+        ]
+    }
+}
+
+extension CacheTests {
+    
+    struct Item: Cacheable, Equatable {
+        let handle: String
+        let name: String
+        
+        func encodeToJSON() -> Any {
+            return ["handle": handle, "name": name]
+        }
+        
+        func getHandle() -> String? {
+            return handle
+        }
+        
+        static func ==(lhs: Item, rhs: Item) -> Bool {
+            return lhs.handle == rhs.handle && lhs.name == rhs.name
+        }
+    }
+    
+    struct ItemDecoder: JSONDecoder {
+        static func decode<T>(type: T.Type, payload: Any?) -> T? {
+            guard T.self is Item.Type,
+                let payload = payload as? [String: Any],
+                let name = payload["name"] as? String,
+                let handle = payload["handle"] as? String else {
+                    return nil
+            }
+            return Item(handle: handle, name: name) as? T
+        }
+    }
 }

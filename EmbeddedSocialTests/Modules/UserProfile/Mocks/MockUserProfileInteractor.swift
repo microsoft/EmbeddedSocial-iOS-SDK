@@ -14,9 +14,11 @@ class MockUserProfileInteractor: UserProfileInteractorInput {
     private(set) var getMyPopularPostsCount = 0
     private(set) var socialRequestCount = 0
     private(set) var blockCount = 0
+    private(set) var cachedUserCount = 0
     
     var userToReturn: User?
     var meToReturn: User?
+    var cachedUserToReturn: User?
 
     func getUser(userID: String, completion: @escaping (Result<User>) -> Void) {
         getUserCount += 1
@@ -60,5 +62,10 @@ class MockUserProfileInteractor: UserProfileInteractorInput {
     func processSocialRequest(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void) {
         socialRequestCount += 1
         completion(.success())
+    }
+    
+    func cachedUser(with handle: String) -> User? {
+        cachedUserCount += 1
+        return cachedUserToReturn
     }
 }

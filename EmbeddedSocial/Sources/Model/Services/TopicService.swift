@@ -102,10 +102,10 @@ class TopicService: BaseService, PostServiceProtocol {
     
     private func cacheTopic(_ topic: PostTopicRequest, with photo: Photo?) {
         if let photo = photo {
-            cache.cacheOutgoing(object: photo)
+            cache.cacheOutgoing(photo)
             topic.blobHandle = photo.uid
         }
-        cache.cacheOutgoing(object: topic)
+        cache.cacheOutgoing(topic)
     }
 
     private func postTopic(request: PostTopicRequest, success: @escaping TopicPosted, failure: @escaping Failure) {

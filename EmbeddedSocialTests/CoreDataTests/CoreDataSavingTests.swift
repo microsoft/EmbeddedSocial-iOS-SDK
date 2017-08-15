@@ -19,6 +19,7 @@ class CoreDataSavingTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
+        CoreDataHelper.cleanUpTestModel()
         stack = nil
     }
     
