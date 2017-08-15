@@ -11,4 +11,6 @@ import Foundation
 protocol CommentRepliesInteractorOutput: class {
     func fetched(replies: [Reply])
     func fetchedMore(replies: [Reply])
+    func replyPosted(reply: Reply)
+    func replyFailPost(error: Error)
 }

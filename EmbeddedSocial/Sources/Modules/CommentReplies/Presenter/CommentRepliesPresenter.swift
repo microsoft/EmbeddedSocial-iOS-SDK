@@ -8,6 +8,7 @@
 
 class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutput, CommentRepliesInteractorOutput {
 
+
     weak var view: CommentRepliesViewInput!
     var interactor: CommentRepliesInteractorInput!
     var router: CommentRepliesRouterInput!
@@ -21,6 +22,15 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         view.reloadTable()
     }
     
+    func replyPosted(reply: Reply) {
+        replies.append(reply)
+        view.reloadReplies()
+    }
+    
+    func replyFailPost(error: Error) {
+        
+    }
+    
     func viewIsReady() {
         interactor.fetchReplies(commentHandle: (comment?.commentHandle)!)
     }
@@ -31,6 +41,10 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     func numberOfItems() -> Int {
         return replies.count
+    }
+    
+    func postReply(text: String) {
+        interactor.postReply(commentHandle: (comment?.topicHandle)!, text: text)
     }
     
     func fetched(replies: [Reply]) {

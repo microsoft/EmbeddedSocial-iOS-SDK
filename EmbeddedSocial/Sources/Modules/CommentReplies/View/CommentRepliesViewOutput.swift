@@ -16,4 +16,5 @@ protocol CommentRepliesViewOutput {
     func viewIsReady()
     func numberOfItems() -> Int
     func mainComment() -> Comment
+    func postReply(text: String)
 }

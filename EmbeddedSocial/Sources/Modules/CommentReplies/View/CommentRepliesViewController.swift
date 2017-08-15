@@ -48,7 +48,13 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         replyTextView.layer.cornerRadius = 1
     }
     
+    func reloadReplies() {
+        tableView.reloadSections(IndexSet(integer: RepliesSections.replies.rawValue), with: .none)
+    }
+
+    
     @IBAction func postReply(_ sender: Any) {
+        output.postReply(text: replyTextView.text)
     }
     
     // MARK: CommentRepliesViewInput

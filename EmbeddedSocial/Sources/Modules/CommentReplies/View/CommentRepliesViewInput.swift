@@ -15,4 +15,5 @@ protocol CommentRepliesViewInput: class {
 
     func setupInitialState()
     func reloadTable()
+    func reloadReplies()
 }

@@ -6,6 +6,7 @@
 import Foundation
 
 typealias RepliesFetchResultHandler = ((RepliesFetchResult) -> Void)
+typealias PostReplyResultHandler = ((PostReplyResponse) -> Void)
 
 enum RepliesServiceError: Error {
     case failedToFetch(message: String)
@@ -24,7 +25,7 @@ enum RepliesServiceError: Error {
 
 protocol RepliesServiceProtcol {
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int, resultHandler: @escaping RepliesFetchResultHandler)
-    func postReply(commentHandle: String, request: PostReplyRequest)
+    func postReply(commentHandle: String, request: PostReplyRequest, success: @escaping PostReplyResultHandler, failure: @escaping Failure)
 }
 
 class RepliesService: BaseService, RepliesServiceProtcol {
@@ -51,9 +52,15 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         }
     }
     
-    func postReply(commentHandle: String, request: PostReplyRequest) {
+    func postReply(commentHandle: String, request: PostReplyRequest, success: @escaping PostReplyResultHandler, failure: @escaping Failure) {
         RepliesAPI.commentRepliesPostReply(commentHandle: commentHandle, request: request, authorization: authorization) { (response, error) in
-            
+            if response != nil {
+                success(response!)
+            } else if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else {
+                failure(error ?? APIError.unknown)
+            }
         }
     }
     

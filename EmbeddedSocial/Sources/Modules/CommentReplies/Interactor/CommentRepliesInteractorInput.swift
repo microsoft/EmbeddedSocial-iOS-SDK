@@ -10,4 +10,6 @@ import Foundation
 
 protocol CommentRepliesInteractorInput {
     func fetchReplies(commentHandle: String)
+    func fetchMoreReplies(commentHandle: String) 
+    func postReply(commentHandle: String, text: String)
 }

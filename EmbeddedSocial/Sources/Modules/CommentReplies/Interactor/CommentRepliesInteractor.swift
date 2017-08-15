@@ -54,7 +54,12 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         let request = PostReplyRequest()
         request.text = text
         
-        repliesService?.postReply(commentHandle: commentHandle, request: request)
+        repliesService?.postReply(commentHandle: commentHandle, request: request, success: { (response) in
+            let reply = Reply()
+            self.output.replyPosted(reply: reply)
+        }, failure: { (error) in
+            self.output.replyFailPost(error: error)
+        })
     }
 
     
