@@ -1,0 +1,9 @@
+{
+    "userHandle": "FollowerHandle",
+    "firstName": "User",
+    "lastName": "Follower",
+    "photoHandle": "FollowerPhoto",
+    "photoUrl": "http://localhost:8080/images/FollowerPhoto",
+    "visibility": "Public",
+    "followerStatus": "None"
+}

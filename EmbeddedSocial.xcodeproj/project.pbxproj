@@ -506,6 +506,12 @@
 		8E6070621F3A2A3E00110F4F /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6070611F3A2A3E00110F4F /* UserProfile.swift */; };
 		8E6070661F3CB61F00110F4F /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6070651F3CB61F00110F4F /* user.json */; };
 		8E6070681F3CB63F00110F4F /* TestMyProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6070671F3CB63F00110F4F /* TestMyProfile.swift */; };
+		8E60706A1F3D9E4000110F4F /* follower.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6070691F3D9E4000110F4F /* follower.json */; };
+		8E60706C1F3DC07600110F4F /* follower_post.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E60706B1F3DC07600110F4F /* follower_post.json */; };
+		8E60706E1F3DC6D400110F4F /* follower_delete.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E60706D1F3DC6D400110F4F /* follower_delete.json */; };
+		8E6070701F3DC9CF00110F4F /* TestFollowers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E60706F1F3DC9CF00110F4F /* TestFollowers.swift */; };
+		8E6070721F3DCCEA00110F4F /* FollowersFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6070711F3DCCEA00110F4F /* FollowersFeed.swift */; };
+		8E6070741F41DD2000110F4F /* TestFollowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6070731F41DD2000110F4F /* TestFollowing.swift */; };
 		8EF0E5A51F1FA5EF00E88ED6 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E59C1F1FA5EF00E88ED6 /* APIResponse.swift */; };
 		8EF0E5A61F1FA5EF00E88ED6 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E59D1F1FA5EF00E88ED6 /* Base.swift */; };
 		8EF0E5A81F1FA5EF00E88ED6 /* DictionaryMerge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E59F1F1FA5EF00E88ED6 /* DictionaryMerge.swift */; };
@@ -1035,6 +1041,12 @@
 		8E6070611F3A2A3E00110F4F /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		8E6070651F3CB61F00110F4F /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		8E6070671F3CB63F00110F4F /* TestMyProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMyProfile.swift; sourceTree = "<group>"; };
+		8E6070691F3D9E4000110F4F /* follower.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = follower.json; sourceTree = "<group>"; };
+		8E60706B1F3DC07600110F4F /* follower_post.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = follower_post.json; sourceTree = "<group>"; };
+		8E60706D1F3DC6D400110F4F /* follower_delete.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = follower_delete.json; sourceTree = "<group>"; };
+		8E60706F1F3DC9CF00110F4F /* TestFollowers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestFollowers.swift; sourceTree = "<group>"; };
+		8E6070711F3DCCEA00110F4F /* FollowersFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersFeed.swift; sourceTree = "<group>"; };
+		8E6070731F41DD2000110F4F /* TestFollowing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestFollowing.swift; sourceTree = "<group>"; };
 		8EF0E5921F1FA5CC00E88ED6 /* EmbeddedSocialUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EmbeddedSocialUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EF0E5961F1FA5CD00E88ED6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EF0E59C1F1FA5EF00E88ED6 /* APIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
@@ -2493,6 +2505,9 @@
 				8EF0E5A41F1FA5EF00E88ED6 /* topic.json */,
 				8EF0E5C31F28B86100E88ED6 /* topic_post.json */,
 				8E6070651F3CB61F00110F4F /* user.json */,
+				8E6070691F3D9E4000110F4F /* follower.json */,
+				8E60706B1F3DC07600110F4F /* follower_post.json */,
+				8E60706D1F3DC6D400110F4F /* follower_delete.json */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -2505,6 +2520,8 @@
 				8EF0E5C71F2AA13E00E88ED6 /* TestCreatePost.swift */,
 				8E60704E1F34CE5500110F4F /* TestHome.swift */,
 				8E6070671F3CB63F00110F4F /* TestMyProfile.swift */,
+				8E60706F1F3DC9CF00110F4F /* TestFollowers.swift */,
+				8E6070731F41DD2000110F4F /* TestFollowing.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2516,6 +2533,7 @@
 				8E6070501F34CE6900110F4F /* PostsFeed.swift */,
 				8E6070511F34CE6900110F4F /* SideMenu.swift */,
 				8E6070611F3A2A3E00110F4F /* UserProfile.swift */,
+				8E6070711F3DCCEA00110F4F /* FollowersFeed.swift */,
 			);
 			path = UIObjects;
 			sourceTree = "<group>";
@@ -2830,12 +2848,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E60706E1F3DC6D400110F4F /* follower_delete.json in Resources */,
 				8E6070661F3CB61F00110F4F /* user.json in Resources */,
 				8E6070481F34C72A00110F4F /* pins_delete.json in Resources */,
 				8EF0E5AD1F1FA5EF00E88ED6 /* topic.json in Resources */,
+				8E60706A1F3D9E4000110F4F /* follower.json in Resources */,
 				8EF0E5C41F28B86100E88ED6 /* topic_post.json in Resources */,
 				8E6070491F34C72A00110F4F /* pins_post.json in Resources */,
 				8E6070471F34C72A00110F4F /* likes_post.json in Resources */,
+				8E60706C1F3DC07600110F4F /* follower_post.json in Resources */,
 				8EF0E5C21F28B4E500E88ED6 /* image_post.json in Resources */,
 				8E6070461F34C72A00110F4F /* likes_delete.json in Resources */,
 			);
@@ -2941,6 +2962,7 @@
 				8EF0E5C01F28B17D00E88ED6 /* APIState.swift in Sources */,
 				8E6070621F3A2A3E00110F4F /* UserProfile.swift in Sources */,
 				8E60704F1F34CE5500110F4F /* TestHome.swift in Sources */,
+				8E6070741F41DD2000110F4F /* TestFollowing.swift in Sources */,
 				8E6070531F34CE6900110F4F /* SideMenu.swift in Sources */,
 				8EF0E5CC1F2AA2D000E88ED6 /* TextField.swift in Sources */,
 				8E6070521F34CE6900110F4F /* PostsFeed.swift in Sources */,
@@ -2952,7 +2974,9 @@
 				8EF0E5AC1F1FA5EF00E88ED6 /* Templates.swift in Sources */,
 				8E6070411F34C68900110F4F /* APIConfig.swift in Sources */,
 				8EF0E5A91F1FA5EF00E88ED6 /* ISODate.swift in Sources */,
+				8E6070721F3DCCEA00110F4F /* FollowersFeed.swift in Sources */,
 				8EF0E5CE1F2AA66800E88ED6 /* CreatePost.swift in Sources */,
+				8E6070701F3DC9CF00110F4F /* TestFollowers.swift in Sources */,
 				8E60704C1F34CDFB00110F4F /* ColorizedUIImage.swift in Sources */,
 				8E6070681F3CB63F00110F4F /* TestMyProfile.swift in Sources */,
 				8E6070561F34D15200110F4F /* Random.swift in Sources */,

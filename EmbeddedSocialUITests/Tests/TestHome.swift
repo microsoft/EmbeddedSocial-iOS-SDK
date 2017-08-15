@@ -4,6 +4,7 @@
 //
 
 import XCTest
+@testable import EmbeddedSocial
 
 class TestHome: UITestBase {
     var sideMenu: SideMenu!
@@ -15,7 +16,7 @@ class TestHome: UITestBase {
         super.setUp()
         sideMenu = SideMenu(app)
         feed = PostsFeed(app)
-        pageSize = 3
+        pageSize = EmbeddedSocial.Constants.Feed.pageSize
         feedName = "me/following"
     }
     
