@@ -5,9 +5,15 @@
 
 class FeedModuleRouter: FeedModuleRouterInput {
     
+    weak var viewController: UIViewController?
     weak var navigationController: UINavigationController?
+    weak var postMenuModuleOutput: PostMenuModuleModuleOutput!
+    weak var moduleInput: FeedModulePresenter!
     
-    func open(route: FeedModuleRoutes) {
+    // Keeping ref to menu
+    var postMenuViewController: UIViewController?
+    
+    func open(route: FeedModuleRoutes, feedSource: FeedType) {
         
         switch route {
         case .profileDetailes(let userHandle):
@@ -16,6 +22,31 @@ class FeedModuleRouter: FeedModuleRouterInput {
             configurator.configure(userID: userHandle)
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
+            
+        case .othersPost(let post):
+            
+            let isHome = feedSource == .home
+            let configurator = PostMenuModuleConfigurator()
+            
+            configurator.configure(menuType: .otherPost(post: post, isHome: isHome), moduleOutput: moduleInput)
+            postMenuViewController = configurator.viewController
+            
+            if let parent = viewController {
+                postMenuViewController!.modalPresentationStyle = .overCurrentContext
+                parent.present(postMenuViewController!, animated: false, completion: nil)
+            }
+            
+        case .myPost(let post):
+            
+            let configurator = PostMenuModuleConfigurator()
+            
+            configurator.configure(menuType: .myPost(post: post), moduleOutput: moduleInput)
+            postMenuViewController = configurator.viewController
+            
+            if let parent = viewController {
+                postMenuViewController!.modalPresentationStyle = .overCurrentContext
+                parent.present(postMenuViewController!, animated: false, completion: nil)
+            }
 
         default:
             let dummy = UIViewController()

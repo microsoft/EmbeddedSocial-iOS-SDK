@@ -56,6 +56,8 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     // MARK: Login Delegate
     func onSessionCreated(user: User, sessionToken: String) {
         
+        Logger.log(user.credentials?.authorization, event: .important)
+        
         self.user = user
         menuModule.user = user
         
@@ -118,6 +120,14 @@ extension CrossModuleCoordinator: CrossModuleCoordinatorConfigurator {
         configurator.configure(navigationController: navigationStack.navigationController)
         configurator.moduleInput.setFeed(.popular(type: .alltime))
         configurator.viewController.title = "Popular"
+        let vc = configurator.viewController!
+        return vc
+    }
+    
+    func configurePostMenu() -> UIViewController {
+        let configurator = PostMenuModuleConfigurator()
+//        configurator.configure(menuType: PostMenuType.
+        configurator.viewController.title = "Debug"
         let vc = configurator.viewController!
         return vc
     }

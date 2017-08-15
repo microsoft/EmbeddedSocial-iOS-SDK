@@ -59,6 +59,10 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     var builderForPopular: ModuleBuilder = { coordinator in
         return coordinator.configurePopular()
     }
+    
+    var builderForPostMenu: ModuleBuilder = { coordinator in
+        return coordinator.configurePostMenu()
+    }
 
     lazy var items: [State: [(title: String, image: UIImage, builder: ModuleBuilder)]] = { [unowned self] in
         
@@ -68,7 +72,8 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
             (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: self.builderForPopular),
             (title: "My pins", image: UIImage(asset: Asset.iconPins), builder: self.builderForDummy),
             (title: "Activity Feed", image: UIImage(asset: Asset.iconActivity), builder: self.builderForDummy),
-            (title: "Settings", image: UIImage(asset: Asset.iconSettings), builder: self.builderForDummy)
+            (title: "Settings", image: UIImage(asset: Asset.iconSettings), builder: self.builderForDummy),
+            (title: "Debug", image: UIImage(asset: Asset.iconPrivate), builder: self.builderForPostMenu)
             ], State.unauthenticated: [
                 (title: "Search", image: UIImage(asset: Asset.iconSearch), builder: self.builderForDummy),
                 (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: self.builderForDummy)

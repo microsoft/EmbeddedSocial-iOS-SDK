@@ -85,11 +85,13 @@ enum FeedModuleLayoutType: Int {
 }
 
 class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput {
-
+    
     weak var view: FeedModuleViewInput!
     var interactor: FeedModuleInteractorInput!
     var router: FeedModuleRouterInput!
+    
     weak var moduleOutput: FeedModuleOutput?
+    weak var userHolder: UserHolder?
     
     var layout: FeedModuleLayoutType = .list {
         didSet {
@@ -98,9 +100,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     private var formatter = DateFormatterTool()
-    private var feedType: FeedType?
+    fileprivate var feedType: FeedType?
     private let limit = Int32(Constants.Feed.pageSize) // Default
-    private var items = [Post]()
+    fileprivate var items = [Post]()
     private var cursor: String? = nil {
         didSet {
             Logger.log(cursor)
@@ -112,7 +114,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     var headerSize: CGSize {
         return header?.size ?? .zero
     }
-   
+    
     func didTapChangeLayout() {
         flip(layout: &layout)
         view.setLayout(type: layout)
@@ -140,6 +142,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     // MARK: Private
+    
+    fileprivate func isHome() -> Bool {
+        return feedType == .home
+    }
     
     private func cleanFeed() {
         cursor = nil
@@ -169,7 +175,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         viewModel.title = post.title ?? ""
         viewModel.text = post.text ?? ""
         viewModel.likedBy = "" // TODO: uncomfirmed
-    
+        
         viewModel.totalLikes = Localizator.localize("likes_count", post.totalLikes)
         viewModel.totalComments = Localizator.localize("comments_count", post.totalComments)
         
@@ -202,12 +208,20 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         let index = path.row
         let postHandle = items[index].topicHandle!
         let userHandle = items[index].userHandle!
+        let post = items[index]
         
         switch action {
         case .comment:
-            router.open(route: .comments)
+            router.open(route: .comments, feedSource: feedType!)
         case .extra:
-            router.open(route: .extra)
+            
+            let isMyPost = (userHolder?.me.uid == userHandle)
+            
+            if isMyPost {
+                router.open(route: .myPost(post: post), feedSource: feedType!)
+            } else {
+                router.open(route: .othersPost(post: post), feedSource: feedType!)
+            }
         case .like:
             
             let status = items[index].liked
@@ -234,7 +248,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             interactor.postAction(post: postHandle, action: action)
             
         case .profile:
-            router.open(route: .profileDetailes(userHandle: userHandle))
+            router.open(route: .profileDetailes(user: userHandle), feedSource: feedType!)
         }
     }
     
@@ -294,19 +308,22 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func didFetchMore(feed: PostsFeed) {
         cursor = feed.cursor
         items.append(contentsOf: feed.items)
-
+        
         view.reload()
     }
     
     func didFail(error: FeedServiceError) {
-        //        Logger.log(error)
-        moduleOutput?.didFailToRefreshData(error)
+        if let output = moduleOutput {
+            output.didFailToRefreshData(error)
+        } else {
+            view.showError(error: error)
+        }
     }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
         Logger.log(action, post, error)
     }
- 
+    
     func didStartFetching() {
         view.setRefreshing(state: true)
     }
@@ -342,3 +359,96 @@ extension FeedModulePresenter {
         let configurator: (UICollectionReusableView) -> Void
     }
 }
+
+extension FeedModulePresenter: PostMenuModuleModuleOutput {
+    
+    func didBlock(user: UserHandle) {
+        didChangeItem(user: user)
+    }
+    
+    func didUnblock(user: UserHandle) {
+        didChangeItem(user: user)
+    }
+    
+    func didRepost(user: UserHandle) {
+        
+    }
+    
+    func didFollow(user: UserHandle) {
+       
+        for (index, item) in items.enumerated() {
+            if item.userHandle == user {
+                items[index].userStatus = .follow
+            }
+        }
+        
+        view.reloadVisible()
+    }
+    
+    func didUnfollow(user: UserHandle) {
+       
+        if isHome() {
+            
+            // Clean non following users
+            items = items.filter({ $0.userHandle != user })
+            view.reload()
+            
+        } else {
+            
+            // Update following status for current posts
+            for (index, item) in items.enumerated() {
+                if item.userHandle == user && item.userStatus == .follow {
+                    items[index].userStatus = .none
+                }
+            }
+            
+            view.reloadVisible()
+        }
+    }
+    
+    func didHide(post: PostHandle) {
+        didRemoveItem(post: post)
+    }
+    
+    func didEdit(post: PostHandle) {
+        didChangeItem(post: post)
+    }
+    
+    func didRemove(post: PostHandle) {
+        didRemoveItem(post: post)
+    }
+    
+    func didReport(post: PostHandle) {
+        
+    }
+    
+    func didRequestFail(error: Error) {
+        Logger.log("Reloading feed", error, event: .error)
+        view.showError(error: error)
+        didAskFetchAll()
+    }
+
+    private func didChangeItem(user: UserHandle) {
+        if let index = items.index(where: { $0.userHandle == user }) {
+            view.reload(with: index)
+        }
+    }
+    
+    private func didChangeItem(post: PostHandle) {
+        if let index = items.index(where: { $0.topicHandle == post }) {
+            view.reload(with: index)
+        }
+    }
+    
+    private func didRemoveItem(post: PostHandle) {
+        if let index = items.index(where: { $0.topicHandle == post }) {
+            items.remove(at: index)
+            view.removeItem(index: index)
+        }
+    }
+    
+    private func didFail(_ error: Error) {
+        view.showError(error: error)
+    }
+}
+

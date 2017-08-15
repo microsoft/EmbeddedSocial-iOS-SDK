@@ -24,6 +24,11 @@ fileprivate func compareArrays<T>(lhs: [T], rhs: [T], compare: (_ lhs: T, _ rhs:
 
 
 // MARK: - AutoEquatable for classes, protocols, structs
+// MARK: - APIError AutoEquatable
+extension APIError: Equatable {}
+ func == (lhs: APIError, rhs: APIError) -> Bool {
+    return true
+}
 // MARK: - CredentialsList AutoEquatable
 extension CredentialsList: Equatable {}
 internal func == (lhs: CredentialsList, rhs: CredentialsList) -> Bool {

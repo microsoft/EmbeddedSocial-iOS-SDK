@@ -8,14 +8,16 @@ import Foundation
 enum FeedModuleRoutes {
     
     case postDetails
-    case extra
+    case myPost(post: Post)
+    case othersPost(post: Post)
     case comments
-    case profileDetailes(userHandle: UserHandle)
+    case profileDetailes(user: UserHandle)
     
 }
 
+
 protocol FeedModuleRouterInput {
     
-    func open(route: FeedModuleRoutes)
+    func open(route: FeedModuleRoutes, feedSource:FeedType)
 
 }
