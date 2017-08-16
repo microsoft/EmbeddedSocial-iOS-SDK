@@ -31,10 +31,10 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
 
     // MARK: CreatePostViewInput
     func setupInitialState() {
-        postButton = UIBarButtonItem(title: Button.Title.post, style: .plain,
+        postButton = UIBarButtonItem(title: L10n.CreatePost.post, style: .plain,
                                      target: self, action: #selector(post))
         imagePikcer.delegate = self
-        title = Titles.addPost
+        title = L10n.CreatePost.addPost
         postButton.isEnabled = false
         let backButton = UIBarButtonItem(image: UIImage(named:"icon_back"), style: .plain, target: self, action: #selector(back))
         navigationItem.rightBarButtonItem = postButton
@@ -54,7 +54,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     func show(error: Error) {
         SVProgressHUD.dismiss()
         let alert = UIAlertController(title: error.localizedDescription, message: nil, preferredStyle: .alert)
-        let action = UIAlertAction(title: Button.Title.ok, style: .default, handler: nil)
+        let action = UIAlertAction(title: L10n.Common.ok, style: .default, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
@@ -80,10 +80,10 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         let actionSheet = UIAlertController(title: Alerts.Titles.returnToFeed,
                                             message: Alerts.Messages.leaveNewPost, preferredStyle: .actionSheet)
         
-        let cancelAction = UIAlertAction(title: Button.Title.cancel, style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: L10n.Common.cancel, style: .cancel, handler: nil)
         actionSheet.addAction(cancelAction)
         
-        let leavePostAction = UIAlertAction(title: Button.Title.leavePost, style: .default) { (_) in
+        let leavePostAction = UIAlertAction(title: L10n.CreatePost.leavePost, style: .default) { (_) in
             self.output.back()
         }
         actionSheet.addAction(leavePostAction)

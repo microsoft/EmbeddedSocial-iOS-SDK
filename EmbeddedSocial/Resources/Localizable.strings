@@ -9,3 +9,13 @@
 "error.cancelled_by_user" = "The operation has been cancelled by user.";
 "error.image_compression_failed" = "Image compression has failed.";
 "error.missing_credentials" = "User credentials are missing.";
+
+"common.ok" = "OK";
+"common.cancel" = "Cancel";
+
+"image_picker.take_photo" = "Take photo";
+
+"create_post.leave_post" = "Leave post";
+"create_post.choose_existing" = "Choose existing";
+"create_post.post" = "Post";
+"create_post.add_post" = "Add new post";

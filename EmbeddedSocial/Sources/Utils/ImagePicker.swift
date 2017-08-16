@@ -35,15 +35,15 @@ class ImagePicker: NSObject {
     
     private func openSourceSelectionSheet(with options: Options) {
         let actionSheet = UIAlertController(title: options.title, message: options.message, preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: Button.Title.cancel, style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: L10n.Common.cancel, style: .cancel, handler: nil)
         actionSheet.addAction(cancelAction)
         
-        let takeNewPhotoAction = UIAlertAction(title: Button.Title.takePhoto, style: .default) { (_) in
+        let takeNewPhotoAction = UIAlertAction(title: L10n.ImagePicker.takePhoto, style: .default) { (_) in
             self.showImagePicker(sourceType: .camera)
         }
         actionSheet.addAction(takeNewPhotoAction)
         
-        let chooseExistingPhotoAction = UIAlertAction(title: Button.Title.chooseExisting, style: .default) { (_) in
+        let chooseExistingPhotoAction = UIAlertAction(title: L10n.CreatePost.chooseExisting, style: .default) { (_) in
             self.showImagePicker(sourceType: .photoLibrary)
         }
         actionSheet.addAction(chooseExistingPhotoAction)
