@@ -19,8 +19,8 @@ final class UserProfilePresenter: UserProfileViewOutput {
     
     private let userID: String?
     fileprivate var user: User?
-    private var me: User?
-    private var myProfileHolder: UserHolder?
+    fileprivate var me: User?
+    fileprivate var myProfileHolder: UserHolder?
     
     fileprivate var followersCount = 0 {
         didSet {
@@ -95,7 +95,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
         }
     }
     
-    private func setUser(_ user: User, setter: ((User) -> Void)? = nil) {
+    fileprivate func setUser(_ user: User, setter: ((User) -> Void)? = nil) {
         setter?(user)
         followersCount = user.followersCount
         followingCount = user.followingCount
@@ -262,5 +262,16 @@ extension UserProfilePresenter: CreatePostModuleOutput {
     
     func didCreatePost() {
         feedModuleInput?.refreshData()
+    }
+}
+
+extension UserProfilePresenter: EditProfileModuleOutput {
+    
+    func onProfileEdited(me: User) {
+        router.popTopScreen()
+        setUser(me) { [weak self] in
+            self?.me = $0
+            self?.myProfileHolder?.me = $0
+        }
     }
 }

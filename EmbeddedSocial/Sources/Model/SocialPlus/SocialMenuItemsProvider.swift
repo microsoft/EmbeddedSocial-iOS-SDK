@@ -53,15 +53,15 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     }
     
     var builderForHome: ModuleBuilder = { coordinator in
-        return coordinator.configureHome()
+        return coordinator.configuredHome
     }
     
     var builderForPopular: ModuleBuilder = { coordinator in
-        return coordinator.configurePopular()
+        return coordinator.configuredPopular
     }
     
     var builderForPostMenu: ModuleBuilder = { coordinator in
-        return coordinator.configurePostMenu()
+        return coordinator.configuredDebug
     }
 
     lazy var items: [State: [(title: String, image: UIImage, builder: ModuleBuilder)]] = { [unowned self] in
@@ -76,7 +76,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
             (title: "Debug", image: UIImage(asset: Asset.iconPrivate), builder: self.builderForPostMenu)
             ], State.unauthenticated: [
                 (title: "Search", image: UIImage(asset: Asset.iconSearch), builder: self.builderForDummy),
-                (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: self.builderForDummy)
+                (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: self.builderForPopular)
             ]]
         
     }()

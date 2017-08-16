@@ -69,10 +69,13 @@ extension SocialPlus: LoginModuleOutput {
 extension SocialPlus: UserHolder {
     var me: User? {
         set {
-            guard let newValue = newValue else { return }
+            guard newValue != me, let newValue = newValue else { return }
             queue.async {
                 self.sessionStore.updateSession(withUser: newValue)
                 try? self.sessionStore.saveCurrentSession()
+                DispatchQueue.main.async {
+                    self.coordinator.updateUser(newValue)
+                }
             }
         }
         get {
