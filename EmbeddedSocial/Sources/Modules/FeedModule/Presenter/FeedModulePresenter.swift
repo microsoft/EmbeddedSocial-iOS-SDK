@@ -379,15 +379,15 @@ extension FeedModulePresenter {
 extension FeedModulePresenter: PostMenuModuleModuleOutput {
     
     func didBlock(user: UserHandle) {
-        didChangeItem(user: user)
+        Logger.log("Success")
     }
     
     func didUnblock(user: UserHandle) {
-        didChangeItem(user: user)
+        Logger.log("Success")
     }
     
     func didRepost(user: UserHandle) {
-        
+        Logger.log("Not implemented")
     }
     
     func didFollow(user: UserHandle) {
@@ -405,9 +405,8 @@ extension FeedModulePresenter: PostMenuModuleModuleOutput {
        
         if isHome() {
             
-            // Clean non following users
-            items = items.filter({ $0.userHandle != user })
-            view.reload()
+            // Refetch Data
+            didAskFetchAll()
             
         } else {
             
@@ -435,7 +434,7 @@ extension FeedModulePresenter: PostMenuModuleModuleOutput {
     }
     
     func didReport(post: PostHandle) {
-        
+        Logger.log("Not implemented")
     }
     
     func didRequestFail(error: Error) {

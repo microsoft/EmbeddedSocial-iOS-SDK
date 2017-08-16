@@ -74,8 +74,8 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     }
     
     func hide(post: PostHandle) {
-        socialService.deletePostFromMyFollowing(postID: post) { (result) in
-            self.output.didHide(post: post, error: result.error)
+        socialService.deletePostFromMyFollowing(postID: post) { [strongOutput = output!] (result) in
+            strongOutput.didHide(post: post, error: result.error)
         }
     }
     
@@ -85,5 +85,9 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     
     func report(post: PostHandle) {
         self.output.didReport(post: post, error: nil)
+    }
+    
+    deinit {
+        Logger.log()
     }
 }
