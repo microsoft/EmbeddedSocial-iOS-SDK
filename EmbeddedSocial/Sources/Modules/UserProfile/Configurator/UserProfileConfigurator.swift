@@ -13,7 +13,7 @@ struct UserProfileConfigurator {
         viewController = StoryboardScene.UserProfile.instantiateUserProfileViewController()
     }
     
-    func configure(userID: String? = nil, myProfileHolder: UserHolder = SocialPlus.shared) {
+    func configure(userID: String? = nil, myProfileHolder: UserHolder = SocialPlus.shared, navigationController: UINavigationController? = nil) {
         let router = UserProfileRouter()
         router.viewController = viewController
         
@@ -33,7 +33,7 @@ struct UserProfileConfigurator {
         viewController.title = "Profile"
         
         let feedConfigurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache) // TODO: inject cache
-        feedConfigurator.configure(moduleOutput: presenter)
+        feedConfigurator.configure(navigationController: navigationController, moduleOutput: presenter)
 
         presenter.feedViewController = feedConfigurator.viewController
         presenter.feedModuleInput = feedConfigurator.moduleInput

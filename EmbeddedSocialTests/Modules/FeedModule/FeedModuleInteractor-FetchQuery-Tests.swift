@@ -26,9 +26,6 @@ private class MockPostService: PostServiceProtocol {
     var fetchPostIsCalled = false
     var fetchPostHandle: PostHandle?
     
-    var deletePostIsCalled = false
-    var deletePostHandle: PostHandle?
-    
     func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
         fetchHomeIsCalled = true
         fetchHomeQuery = query
@@ -60,8 +57,7 @@ private class MockPostService: PostServiceProtocol {
     }
     
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
-        deletePostIsCalled = true
-        deletePostHandle = post
+        
     }
 }
 

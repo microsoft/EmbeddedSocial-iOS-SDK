@@ -8,16 +8,13 @@ import XCTest
 
 private class PostServiceMock: PostServiceProtocol {
     
-    typealias Result = PostFetchResult
+    var popularResult: PostFetchResult!
+    var userPopularResult: PostFetchResult!
+    var singlePostResult: PostFetchResult!
+    var userRecentResult: PostFetchResult!
+    var recentResult: PostFetchResult!
+    var homeResult: PostFetchResult!
     
-    var popularResult: Result!
-    var userPopularResult: Result!
-    var singlePostResult: Result!
-    var userRecentResult: Result!
-    var recentResult: Result!
-    var homeResult: Result!
-    var deletePostResult: EmbeddedSocial.Result<Void>!
-
     func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
         completion(homeResult)
     }
@@ -42,8 +39,8 @@ private class PostServiceMock: PostServiceProtocol {
         completion(singlePostResult)
     }
     
-    func deletePost(post: PostHandle, completion: @escaping ((EmbeddedSocial.Result<Void>) -> Void)) {
-        completion(deletePostResult)
+    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
+        
     }
 }
 

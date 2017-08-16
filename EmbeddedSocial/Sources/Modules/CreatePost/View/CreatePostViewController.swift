@@ -94,6 +94,13 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
 
 // MARK: ImagePickerDelegate
 extension CreatePostViewController: ImagePickerDelegate {
+    
+    func removePhoto() {
+        photo = nil
+        mediaButton.setImage(nil, for: .normal)
+        mediaButton.setTitle("Tap here to add a picture", for: .normal)
+    }
+
     func selected(photo: Photo) {
         mediaButtonHeightConstraint.priority = 250
         self.photo = photo

@@ -46,7 +46,7 @@ extension FeedType: Equatable {
 }
 
 enum PostCellAction {
-    case like, pin, comment, extra, profile
+    case like, pin, comment, extra, profile, photo
 }
 
 struct PostViewModel {
@@ -99,16 +99,21 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
     }
     
-    private var formatter = DateFormatterTool()
-    fileprivate var feedType: FeedType?
-    private let limit = Int32(Constants.Feed.pageSize) // Default
-    fileprivate var items = [Post]()
-    private var cursor: String? = nil {
+    fileprivate var feedType: FeedType? {
+        didSet {
+            Logger.log(feedType)
+        }
+    }
+    
+    fileprivate var cursor: String? = nil {
         didSet {
             Logger.log(cursor)
         }
     }
     
+    private var formatter = DateFormatterTool()
+    private let limit = Int32(Constants.Feed.pageSize) // Default
+    fileprivate var items = [Post]()
     fileprivate var header: SupplementaryItemModel?
     
     var headerSize: CGSize {
@@ -138,6 +143,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
+        Logger.log()
         interactor.fetchPosts(limit: limit, cursor: nil, feedType: feedType)
     }
     
@@ -249,7 +255,15 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             
         case .profile:
             router.open(route: .profileDetailes(user: userHandle), feedSource: feedType!)
+            
+        case .photo:
+            guard let imageUrl = items[path.row].imageUrl else {
+                return
+            }
+            
+            router.open(route: .openImage(image: imageUrl), feedSource: feedType!)
         }
+        
     }
     
     func numberOfItems() -> Int {
@@ -288,11 +302,13 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
+        Logger.log(cursor)
         interactor.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
     }
     
     func didTapItem(path: IndexPath) {
         Logger.log(path)
+        router.open(route: .postDetails(post: items[path.row]), feedSource: feedType!)
     }
     
     // MARK: FeedModuleInteractorOutput

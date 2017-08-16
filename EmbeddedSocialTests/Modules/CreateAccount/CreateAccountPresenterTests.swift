@@ -9,201 +9,101 @@ import XCTest
 class CreateAccountPresenterTests: XCTestCase {
     var view: MockCreateAccountViewController!
     var interactor: MockCreateAccountInteractor!
-    var router: MockCreateAccountRouter!
     var moduleOutput: MockCreateAccountModuleOutput!
-    
-    var sut: CreateAccountPresenter!
-    
-    private static let initialSocialUser: SocialUser = {
-        let credentials = CredentialsList(provider: .facebook, accessToken: "", socialUID: "")
-        return SocialUser(credentials: credentials, firstName: nil, lastName: nil, email: nil, photo: nil)
-    }()
+    var mockEditModule: MockEmbeddedEditProfileModuleInput!
+    var editModule: EmbeddedEditProfilePresenter!
     
     override func setUp() {
         super.setUp()
         view = MockCreateAccountViewController()
         interactor = MockCreateAccountInteractor()
-        router = MockCreateAccountRouter()
         moduleOutput = MockCreateAccountModuleOutput()
-        
-        sut = makePresenter()
+        mockEditModule = MockEmbeddedEditProfileModuleInput()
     }
     
     override func tearDown() {
         super.tearDown()
         view = nil
         interactor = nil
-        router = nil
         moduleOutput = nil
-        sut = nil
+        mockEditModule = nil
     }
     
     func testThatItSetsInitialState() {
-        // given: initial user
+        // given
+        let user = User()
+        let sut = makePresenter(user: user)
+        sut.editModuleInput = makeEditModule(user: user, moduleOutput: sut)
         
         // when
         sut.viewIsReady()
         
         // then
-        XCTAssertNotNil(view.lastSetupInitialStateUser)
+        XCTAssertNotNil(view.editView)
         XCTAssertEqual(view.setupInitialStateCount, 1)
         
         XCTAssertEqual(view.setCreateAccountButtonEnabledCount, 1)
-        XCTAssertNotNil(view.isCreateAccountButtonEnabled)
-        XCTAssertFalse(view.isCreateAccountButtonEnabled!)
+        XCTAssertEqual(view.isCreateAccountButtonEnabled, false)
     }
     
-    func testThatItChangesInputs() {
+    func testThatItCreatesAccount() {
         // given
-        let firstName = UUID().uuidString
-        let lastName = UUID().uuidString
-        let bio = UUID().uuidString
+        let user = User()
+        let sessionToken = UUID().uuidString
+        let sut = makePresenter(user: user)
+        sut.editModuleInput = mockEditModule
+        mockEditModule.finalUser = user
+        
+        interactor.resultMaker = { .success($0, sessionToken) }
         
         // when
-        sut.onFirstNameChanged(firstName)
-        sut.onLastNameChanged(lastName)
-        sut.onBioChanged(bio)
-
-        // then
-        XCTAssertEqual(view.setCreateAccountButtonEnabledCount, 3)
-        XCTAssertNotNil(view.isCreateAccountButtonEnabled)
-        XCTAssertTrue(view.isCreateAccountButtonEnabled!)
-    }
-    
-    func testThatItCreatesAccountFromInputAndSetsLoadingStateOnView() {
-        // given
-        let firstName = UUID().uuidString
-        let lastName = UUID().uuidString
-        let bio = UUID().uuidString
-        
-        // when
-        sut.onFirstNameChanged(firstName)
-        sut.onLastNameChanged(lastName)
-        sut.onBioChanged(bio)
-        
         sut.onCreateAccount()
         
         // then
-        XCTAssertEqual(interactor.createAccountCount, 1)
-        XCTAssertNotNil(interactor.lastSocialUser)
-        XCTAssertEqual(interactor.lastSocialUser?.firstName, firstName)
-        XCTAssertEqual(interactor.lastSocialUser?.lastName, lastName)
-        XCTAssertEqual(interactor.lastSocialUser?.bio, bio)
+        XCTAssertEqual(mockEditModule.setIsLoadingCount, 2)
+        XCTAssertEqual(mockEditModule.isLoading, false)
         
-        // stopped loading
-        XCTAssertNotNil(view.isLoading)
-        XCTAssertFalse(view.isLoading!)
-        
-        // button enabled
-        XCTAssertNotNil(view.isCreateAccountButtonEnabled)
-        XCTAssertTrue(view.isCreateAccountButtonEnabled!)
+        XCTAssertEqual(moduleOutput.onAccountCreatedCount, 1)
+        XCTAssertEqual(moduleOutput.lastOnAccountCreatedUser, user)
+        XCTAssertEqual(moduleOutput.lastOnAccountSessionToken, sessionToken)
     }
     
     func testThatItFailsToCreateAccount() {
         // given
-        let errorToShow = Error.custom("")
+        let error = APIError.unknown
+        let sut = makePresenter(user: User())
+        sut.editModuleInput = mockEditModule
+        
+        interactor.resultMaker = { _ in .failure(error) }
         
         // when
-        interactor.resultMaker = { _ in .failure(errorToShow) }
         sut.onCreateAccount()
-
+        
         // then
-        XCTAssertEqual(interactor.createAccountCount, 1)
-        XCTAssertNotNil(interactor.lastSocialUser)
+        XCTAssertEqual(mockEditModule.setIsLoadingCount, 2)
+        XCTAssertEqual(mockEditModule.isLoading, false)
         
-        // stopped loading
-        XCTAssertNotNil(view.isLoading)
-        XCTAssertFalse(view.isLoading!)
-        
-        // button enabled
-        XCTAssertNotNil(view.isCreateAccountButtonEnabled)
-        XCTAssertTrue(view.isCreateAccountButtonEnabled!)
-        
-        // error shown
         XCTAssertEqual(view.showErrorCount, 1)
-        XCTAssertNotNil(view.lastShownError)
-        
-        guard case CreateAccountPresenterTests.Error.custom = view.lastShownError! else {
-            XCTFail("Error \(view.lastShownError!) does not match \(errorToShow)")
+        guard let e = view.lastShownError as? APIError, case APIError.unknown = e else {
+            XCTFail("Unexpected error \(view.lastShownError as Optional)")
             return
         }
     }
     
-    func testThatItSetsImageFromCacheAndPhotoIsNotNil() {
-        testThatItSetsImageFromCache(initialPhoto: Photo())
-    }
-    
-    func testThatItSetsImageFromCacheAndPhotoIsNil() {
-        testThatItSetsImageFromCache(initialPhoto: nil)
-    }
-    
-    private func testThatItSetsImageFromCache(initialPhoto: Photo?) {
-        // given
-        let cachedImage = UIImage(color: .yellow, size: CGSize(width: 8.0, height: 8.0))
-        let credentials = CredentialsList(provider: .facebook, accessToken: "", socialUID: "")
-        let user = SocialUser(credentials: credentials, firstName: UUID().uuidString,
-                              lastName: UUID().uuidString, email: nil, photo: initialPhoto)
-        sut = makePresenter(with: user)
-        
-        interactor.updatePhotoToReturn = Photo(image: cachedImage)
-        
-        // when
-        sut.onCreateAccount()
-        
-        // then
-        XCTAssertEqual(interactor.cachePhotoCount, 1)
-        XCTAssertEqual(interactor.updatedPhotoWithImageFromCacheCount, 1)
-        XCTAssertEqual(cachedImage, interactor.lastSocialUser?.photo?.image)
-        XCTAssertEqual(interactor.cachedPhoto, interactor.updatePhotoToReturn)
-    }
-    
-    func testThatItSucceedsToSelectImage() {
-        // given
-        
-        // when
-        sut.onSelectPhoto()
-        
-        // then
-        XCTAssertEqual(router.openImagePickerCount, 1)
-        
-        XCTAssertEqual(view.setUserCount, 1)
-        XCTAssertNotNil(view.lastSetUser)
-        XCTAssertEqual(view.lastSetUser?.photo?.image, router.lastReturnedImage)
-    }
-    
-    func testThatItFailsToSelectImage() {
-        // given
-        let view = MockCreateAccountViewPlainObject()
-        
-        // when
-        sut.view = view
-        sut.onSelectPhoto()
-
-        // then
-        XCTAssertEqual(router.openImagePickerCount, 0)
-        
-        XCTAssertEqual(view.setUserCount, 0)
-        XCTAssertNil(view.lastSetUser)
-    }
-    
-    private func makePresenter(with user: SocialUser = CreateAccountPresenterTests.initialSocialUser) -> CreateAccountPresenter {
+    private func makePresenter(user: User) -> CreateAccountPresenter {
         let sut = CreateAccountPresenter(user: user)
         sut.view = view
         sut.interactor = interactor
-        sut.router = router
         sut.moduleOutput = moduleOutput
         return sut
     }
-}
-
-extension CreateAccountPresenterTests {
-    enum Error: LocalizedError {
-        case custom(String)
-        
-        public var errorDescription: String? {
-            switch self {
-            case let .custom(text): return text
-            }
-        }
+    
+    private func makeEditModule(user: User, moduleOutput: EmbeddedEditProfileModuleOutput) -> EmbeddedEditProfilePresenter {
+        let editModule = EmbeddedEditProfilePresenter(user: user)
+        editModule.view = MockEmbeddedEditProfileView()
+        editModule.router = MockEmbeddedEditProfileRouter()
+        editModule.interactor = MockEmbeddedEditProfileInteractor()
+        editModule.moduleOutput = moduleOutput
+        return editModule
     }
 }
