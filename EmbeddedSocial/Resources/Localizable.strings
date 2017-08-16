@@ -3,3 +3,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+"error.failed_request" = "The request has failed.";
+"error.unknown" = "Unknown error occurred.";
+"error.missing_user_data" = "User data is missing.";
+"error.cancelled_by_user" = "The operation has been cancelled by user.";
+"error.image_compression_failed" = "Image compression has failed.";
+"error.missing_credentials" = "User credentials are missing.";
