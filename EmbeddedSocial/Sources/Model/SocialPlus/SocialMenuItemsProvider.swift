@@ -53,15 +53,15 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     }
     
     var builderForHome: ModuleBuilder = { coordinator in
-        return coordinator.configureHome()
+        return coordinator.configuredHome
     }
     
     var builderForPopular: ModuleBuilder = { coordinator in
-        return coordinator.configurePopular()
+        return coordinator.configuredPopular
     }
     
     var builderForPostMenu: ModuleBuilder = { coordinator in
-        return coordinator.configurePostMenu()
+        return coordinator.configuredDebug
     }
 
     lazy var items: [State: [(title: String, image: UIImage, builder: ModuleBuilder)]] = { [unowned self] in

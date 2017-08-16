@@ -3,12 +3,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-protocol CrossModuleCoordinatorConfigurator {
-    
-    func configureHome() -> UIViewController
-    
-}
-
 protocol CrossModuleCoordinatorProtocol: class {
     
     func closeMenu()
@@ -21,6 +15,11 @@ protocol CrossModuleCoordinatorProtocol: class {
     func showError(_ error: Error)
 
     func isUserAuthenticated() -> Bool
+    
+    var configuredHome: UIViewController { get }
+    var configuredPopular: UIViewController { get }
+    var configuredDebug: UIViewController { get }
+    
 }
 
 class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput {
@@ -88,7 +87,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     }
     
     func openHomeScreen() {
-        let vc = configureHome()
+        let vc = configuredHome
         navigationStack.show(vc)
     }
     
@@ -102,34 +101,31 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     func showError(_ error: Error) {
         navigationStack.showError(error)
     }
-}
-
-extension CrossModuleCoordinator: CrossModuleCoordinatorConfigurator {
     
-    func configureHome() -> UIViewController {
+    // Modules Builder
+    
+    lazy var configuredHome: UIViewController = {
         let configurator = FeedModuleConfigurator(cache: self.cache)
-        configurator.configure(navigationController: navigationStack.navigationController)
+        configurator.configure(navigationController: self.navigationStack.navigationController)
         configurator.moduleInput.setFeed(.home)
         configurator.viewController.title = "Home"
         let vc = configurator.viewController!
         return vc
-    }
-    
-    func configurePopular() -> UIViewController {
+    }()
+
+    lazy var configuredPopular: UIViewController = {
         let configurator = FeedModuleConfigurator(cache: self.cache)
-        configurator.configure(navigationController: navigationStack.navigationController)
+        configurator.configure(navigationController: self.navigationStack.navigationController)
         configurator.moduleInput.setFeed(.popular(type: .alltime))
         configurator.viewController.title = "Popular"
         let vc = configurator.viewController!
         return vc
-    }
-    
-    func configurePostMenu() -> UIViewController {
-        let configurator = PostMenuModuleConfigurator()
-//        configurator.configure(menuType: PostMenuType.
-        configurator.viewController.title = "Debug"
-        let vc = configurator.viewController!
+    }()
+
+    lazy var configuredDebug: UIViewController = {
+        let vc = UIViewController()
+        vc.view.backgroundColor = UIColor.purple
         return vc
-    }
+    }()
     
 }
