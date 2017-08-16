@@ -15,7 +15,6 @@ private class SocialServicesMock: LikesServiceProtocol, PinsServiceProtocol {
     var error: FeedServiceError?
     
     func postLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
-        
         postLikeIsCalled = true
         completion(postHandle, error)
     }
@@ -26,13 +25,11 @@ private class SocialServicesMock: LikesServiceProtocol, PinsServiceProtocol {
     }
     
     func postPin(postHandle: PinsServiceProtocol.PostHandle, completion: @escaping PinsServiceProtocol.CompletionHandler) {
-        
         postPinIsCalled = true
         completion(postHandle, error)
     }
     
     func deletePin(postHandle: PinsServiceProtocol.PostHandle, completion: @escaping PinsServiceProtocol.CompletionHandler) {
-        
         deletePinIsCalled = true
         completion(postHandle, error)
     }

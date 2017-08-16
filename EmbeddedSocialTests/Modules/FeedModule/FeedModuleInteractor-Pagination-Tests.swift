@@ -103,6 +103,8 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         sut.postService = service
         presenter = FeedModulePresenterMock()
         sut.output = presenter
+        
+        sut.userHolder = nil
     }
     
     override func tearDown() {

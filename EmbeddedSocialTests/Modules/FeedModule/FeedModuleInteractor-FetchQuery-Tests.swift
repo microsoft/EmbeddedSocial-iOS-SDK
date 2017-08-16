@@ -86,6 +86,8 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         sut.output = presenter
         view = FeedModuleViewController()
         presenter.view = view
+        
+        sut.userHolder = nil
     }
     
     func testThatRecentFeedFetchRequestIsValid() {
