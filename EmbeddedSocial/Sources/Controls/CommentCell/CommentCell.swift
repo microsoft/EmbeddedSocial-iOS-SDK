@@ -26,6 +26,8 @@ class CommentCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         avatarButton.imageView?.contentMode = .scaleAspectFill
+        avatarButton.layer.shouldRasterize = true
+        avatarButton.layer.drawsAsynchronously = true
     }
     
     static let identifier = "CommentCell"
