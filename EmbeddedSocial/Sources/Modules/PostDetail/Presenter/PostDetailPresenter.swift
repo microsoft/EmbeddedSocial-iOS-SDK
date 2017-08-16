@@ -68,7 +68,6 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         
         let commentHandle = comments[index].commentHandle!
         let userHandle = comments[index].userHandle!
-        let comment = comments[index]
         
         switch action {
         case .replies: break
@@ -97,8 +96,8 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
             guard let imageUrl = comments[index].mediaUrl else {
                 return
             }
-            
-            //            router.open(route: .openImage(image: imageUrl), feedSource: feedType!)
+
+            router.openImage(imageUrl: imageUrl, from: view as! UIViewController)
         }
         
     }

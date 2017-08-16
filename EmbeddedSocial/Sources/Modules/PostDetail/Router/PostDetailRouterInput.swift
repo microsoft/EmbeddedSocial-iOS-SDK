@@ -8,4 +8,5 @@ import Foundation
 
 protocol PostDetailRouterInput {
     func openUser(userHandle: UserHandle, from view: UIViewController)
+    func openImage(imageUrl: String, from view: UIViewController)
 }

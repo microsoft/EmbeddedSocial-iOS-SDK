@@ -15,7 +15,7 @@
 			<key>one</key>
 			<string>%d reply</string>
 			<key>other</key>
-			<string>$d replies</string>
+			<string>%d replies</string>
 		</dict>
 	</dict>
 	<key>likes_count</key>
