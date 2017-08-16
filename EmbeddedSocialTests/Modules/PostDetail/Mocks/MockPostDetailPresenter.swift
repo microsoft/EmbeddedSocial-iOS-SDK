@@ -9,15 +9,15 @@ import Foundation
 class MockPostDetailPresenter: PostDetailPresenter {
     
     var fetchedMoreCommentsCount = 0
-    override func didFetchMore(comments: [Comment]) {
+    override func didFetchMore(comments: [Comment], cursor: String?) {
         fetchedMoreCommentsCount = comments.count
     }
     
     var fetchedCommentsCount = 0
-    override func didFetch(comments: [Comment]) {
+    override func didFetch(comments: [Comment], cursor: String?) {
         fetchedCommentsCount = comments.count
     }
-    
+
     var postedComment: Comment?
     override func commentDidPosted(comment: Comment) {
         postedComment = comment

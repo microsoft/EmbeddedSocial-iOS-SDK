@@ -12,18 +12,22 @@ class PostDetailsPresenterTests: XCTestCase {
     let interactor = MockPostDetailsInteractor()
     let view = MockPostDetailViewController()
     
-    let post = Post(topicHandle: "handle", createdTime: Date(), userHandle: "userHandle", firstName: "FirstName", lastName: "LastName", photoHandle: "photoHandle", photoUrl: "photoUrl", title: "Title", text: "Text", imageUrl: "imageUrl", deepLink: nil, totalLikes: 5, totalComments: 5, liked: true, pinned: true)
+    var post: Post!
     
     override func setUp() {
         super.setUp()
+        post = Post(topicHandle: "topicHandle", createdTime: Date(), userHandle: "userHandle", userStatus: Post.UserStatus.none, firstName: "firstName", lastName: "lastName", photoHandle: "photoHandle", photoUrl: "photoUrl", title: "title", text: "text", imageUrl: "imageUrl", deepLink: "deepLink", totalLikes: 0, totalComments: 0, liked: true, pinned: true)
         presentor.interactor = interactor
+        presentor.view = view
+        presentor.post = post
         interactor.output = presentor
         view.output = presentor
-        presentor.view = view
     }
     
     override func tearDown() {
         super.tearDown()
+        post = nil
+        presentor.post = nil
         presentor.interactor = nil
         interactor.output = nil
         presentor.view = nil
@@ -35,13 +39,14 @@ class PostDetailsPresenterTests: XCTestCase {
         //given
         let comment = Comment()
         comment.text = "Text"
-        let photo = Photo(image: UIImage())
+        let photo = Photo(uid: "testid", url: "Url", image: UIImage())
         
         //when
         presentor.postComment(photo: photo, comment: comment.text!)
         
         //then
-        XCTAssertEqual(view.commentPostedCount, 1)
+        XCTAssertEqual(presentor.comments.count, 1)
+        XCTAssertEqual(view.commentPostFailed, 0)
         
         
     }

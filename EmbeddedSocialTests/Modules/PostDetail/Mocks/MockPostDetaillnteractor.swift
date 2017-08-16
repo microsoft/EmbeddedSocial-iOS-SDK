@@ -6,10 +6,25 @@
 import Foundation
 @testable import EmbeddedSocial
 
-class MockPostDetailsInteractor: PostDetailInteractor {
+class MockPostDetailsInteractor: PostDetailInteractorInput {
     
-    override func fetchMoreComments(topicHandle: String) {
-        output.didFetchMore(comments: [Comment()])
+    weak var output: PostDetailInteractorOutput!
+    
+    func fetchComments(topicHandle: String, cursor: String?, limit: Int32) {
+        output.didFetchMore(comments: [Comment()], cursor: cursor)
     }
     
+    func fetchMoreComments(topicHandle: String, cursor: String?, limit: Int32) {
+        output.didFetchMore(comments: [Comment()], cursor: cursor)
+    }
+    
+    func postComment(photo: Photo?, topicHandle: String, comment: String) {
+        let comment = Comment()
+        comment.photoUrl = photo?.url
+        output.commentDidPosted(comment: comment)
+    }
+    
+    func commentAction(commentHandle: String, action: CommentSocialAction) {
+        
+    }
 }

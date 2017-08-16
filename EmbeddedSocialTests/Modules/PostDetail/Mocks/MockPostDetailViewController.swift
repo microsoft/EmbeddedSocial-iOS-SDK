@@ -6,17 +6,36 @@
 import Foundation
 @testable import EmbeddedSocial
 
-class MockPostDetailViewController: PostDetailViewController {
+class MockPostDetailViewController: PostDetailViewInput {
+    
+    var output: PostDetailViewOutput!
+    
+    func setupInitialState() {
+        
+    }
+    
+    func reloadTable() {
+        
+    }
+    
+    func updateFeed(view: UIView) {
+        
+    }
     
     var commentPostedCount = 0
-    override func postCommentSuccess() {
+    func postCommentSuccess() {
+        commentPostedCount += 1
+    }
+    
+    var commentPostFailed = 0
+    func postCommentFailed(error: Error) {
         commentPostedCount += 1
     }
     
     var commentsLike = 0
-    override func refreshCell(index: Int) {
-        let comment = output.comment(index: index)
-        commentsLike = Int(comment.totalLikes)
+    func refreshCell(index: Int) {
+        let comment = output.commentViewModel(index: index)
+        commentsLike = Int(comment.totalLikes)!
     }
     
 }
