@@ -86,28 +86,4 @@ class PostDetailInteractor: PostDetailInteractorInput {
         })
         
     }
-    
-    func likeComment(comment: Comment) {
-        likeService?.likeComment(commentHandle: comment.commentHandle!, completion: { (commentHandle, error) in
-            if error != nil {
-                return
-            }
-            
-            comment.liked = true
-            comment.totalLikes += 1
-            self.output.commentLiked(comment: comment)
-        })
-    }
-    
-    func unlikeComment(comment: Comment) {
-        likeService?.unlikeComment(commentHandle: comment.commentHandle!, completion: { (response, error) in
-            if error != nil {
-                return
-            }
-            
-            comment.liked = false
-            comment.totalLikes -= 1
-            self.output.commentUnliked(comment: comment)
-        })
-    }
 }

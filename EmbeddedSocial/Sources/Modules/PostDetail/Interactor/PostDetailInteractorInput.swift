@@ -9,8 +9,5 @@ protocol PostDetailInteractorInput {
     func fetchComments(topicHandle: String)
     func fetchMoreComments(topicHandle: String)
     func postComment(photo: Photo?, topicHandle: String, comment: String)
-    func likeComment(comment: Comment)
-    func unlikeComment(comment: Comment)
-    
     func commentAction(commentHandle: String, action: CommentSocialAction)
 }
