@@ -54,7 +54,7 @@ class ImagesService: BaseService, ImagesServiceType {
             return
         }
         
-        uploadImageData(image.compressed(), imageType: .userPhoto, authorization: authorization) { [unowned self] result in
+        uploadImageData(image.compressed(), imageType: .userPhoto, authorization: authorization) { result in
             guard let handle = result.value else {
                 completion(.failure(result.error ?? APIError.unknown))
                 return
