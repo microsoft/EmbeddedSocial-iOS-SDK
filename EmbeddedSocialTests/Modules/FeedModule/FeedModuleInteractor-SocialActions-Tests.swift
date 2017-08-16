@@ -36,6 +36,15 @@ private class SocialServicesMock: LikesServiceProtocol, PinsServiceProtocol {
         deletePinIsCalled = true
         completion(postHandle, error)
     }
+    
+    func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
+        
+    }
+    
+    func unlikeComment(commentHandle: String, completion: @escaping CompletionHandler) {
+        
+    }
+    
 }
 
 private class FeedModulePresenterMock: FeedModuleInteractorOutput {

@@ -39,6 +39,14 @@ private class PostServiceMock: PostServiceProtocol {
         completion(singlePostResult)
     }
     
+    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+        
+    }
+    
+    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+        
+    }
+    
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
         
     }
