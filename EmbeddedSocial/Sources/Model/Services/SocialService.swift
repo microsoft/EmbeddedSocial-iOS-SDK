@@ -32,7 +32,6 @@ protocol SocialServiceType {
     
     /// Hide for post
     func deletePostFromMyFollowing(postID: String, completion: @escaping (Result<Void>) -> Void)
-    
 }
 
 class SocialService: BaseService, SocialServiceType {

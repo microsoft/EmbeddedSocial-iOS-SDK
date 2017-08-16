@@ -16,7 +16,8 @@ private class PostServiceMock: PostServiceProtocol {
     var userRecentResult: Result!
     var recentResult: Result!
     var homeResult: Result!
-    
+    var deletePostResult: EmbeddedSocial.Result<Void>!
+
     func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
         completion(homeResult)
     }
@@ -39,6 +40,10 @@ private class PostServiceMock: PostServiceProtocol {
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
         completion(singlePostResult)
+    }
+    
+    func deletePost(post: PostHandle, completion: @escaping ((EmbeddedSocial.Result<Void>) -> Void)) {
+        completion(deletePostResult)
     }
 }
 
