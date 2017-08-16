@@ -6,24 +6,24 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class CreateAccountPresenterTests: XCTestCase {
-    var view: MockCreateAccountViewController!
-    var interactor: MockCreateAccountInteractor!
-    var moduleOutput: MockCreateAccountModuleOutput!
+class EditProfilePresenterTests: XCTestCase {
+    var interactor: MockEditProfileInteractor!
+    var view: MockEditProfileView!
+    var moduleOutput: MockEditProfileModuleOutput!
     var mockEditModule: MockEmbeddedEditProfileModuleInput!
-    
+
     override func setUp() {
         super.setUp()
-        view = MockCreateAccountViewController()
-        interactor = MockCreateAccountInteractor()
-        moduleOutput = MockCreateAccountModuleOutput()
+        interactor = MockEditProfileInteractor()
+        view = MockEditProfileView()
+        moduleOutput = MockEditProfileModuleOutput()
         mockEditModule = MockEmbeddedEditProfileModuleInput()
     }
     
     override func tearDown() {
         super.tearDown()
-        view = nil
         interactor = nil
+        view = nil
         moduleOutput = nil
         mockEditModule = nil
     }
@@ -41,42 +41,49 @@ class CreateAccountPresenterTests: XCTestCase {
         XCTAssertNotNil(view.editView)
         XCTAssertEqual(view.setupInitialStateCount, 1)
         
-        XCTAssertEqual(view.setCreateAccountButtonEnabledCount, 1)
-        XCTAssertEqual(view.isCreateAccountButtonEnabled, false)
+        XCTAssertEqual(view.setBackButtonEnabledCount, 0)
+        XCTAssertNil(view.isBackButtonEnabled)
+        XCTAssertEqual(view.setSaveButtonEnabledCount, 1)
+        XCTAssertEqual(view.isSaveButtonEnabled, false)
     }
     
-    func testThatItCreatesAccount() {
+    func testThatItEditsProfile() {
         // given
-        let user = User()
-        let sessionToken = UUID().uuidString
+        let photo = Photo()
+        let user = User(photo: photo)
         let sut = makePresenter(user: user)
         sut.editModuleInput = mockEditModule
         mockEditModule.finalUser = user
         
-        interactor.resultMaker = { .success($0, sessionToken) }
+        interactor.editResult = .success(user)
         
         // when
-        sut.onCreateAccount()
+        sut.onEditProfile()
         
         // then
         XCTAssertEqual(mockEditModule.setIsLoadingCount, 2)
         XCTAssertEqual(mockEditModule.isLoading, false)
         
-        XCTAssertEqual(moduleOutput.onAccountCreatedCount, 1)
-        XCTAssertEqual(moduleOutput.lastOnAccountCreatedUser, user)
-        XCTAssertEqual(moduleOutput.lastOnAccountSessionToken, sessionToken)
+        XCTAssertEqual(interactor.cachedPhoto, photo)
+        XCTAssertEqual(interactor.cachePhotoCount, 1)
+        
+        XCTAssertEqual(view.setBackButtonEnabledCount, 2)
+        XCTAssertEqual(view.isBackButtonEnabled, true)
+        
+        XCTAssertEqual(moduleOutput.onProfileEditedCount, 1)
+        XCTAssertEqual(moduleOutput.me, user)
     }
     
-    func testThatItFailsToCreateAccount() {
+    func testThatItFailsToEditProfile() {
         // given
         let error = APIError.unknown
         let sut = makePresenter(user: User())
         sut.editModuleInput = mockEditModule
         
-        interactor.resultMaker = { _ in .failure(error) }
+        interactor.editResult = .failure(error)
         
         // when
-        sut.onCreateAccount()
+        sut.onEditProfile()
         
         // then
         XCTAssertEqual(mockEditModule.setIsLoadingCount, 2)
@@ -94,7 +101,7 @@ class CreateAccountPresenterTests: XCTestCase {
         XCTAssertEqual(sut.viewController, view)
     }
     
-    func testThatItSetsRightNavigationBarEnabled() {
+    func testThatItSetsRightNavigationButtonEnabled() {
         // given
         let sut = makePresenter(user: User())
         
@@ -102,19 +109,19 @@ class CreateAccountPresenterTests: XCTestCase {
         sut.setRightNavigationButtonEnabled(true)
         
         // then
-        XCTAssertEqual(view.isCreateAccountButtonEnabled, true)
-        XCTAssertEqual(view.setCreateAccountButtonEnabledCount, 1)
+        XCTAssertEqual(view.isSaveButtonEnabled, true)
+        XCTAssertEqual(view.setSaveButtonEnabledCount, 1)
         
         // when
         sut.setRightNavigationButtonEnabled(false)
         
         // then
-        XCTAssertEqual(view.isCreateAccountButtonEnabled, false)
-        XCTAssertEqual(view.setCreateAccountButtonEnabledCount, 2)
+        XCTAssertEqual(view.isSaveButtonEnabled, false)
+        XCTAssertEqual(view.setSaveButtonEnabledCount, 2)
     }
     
-    private func makePresenter(user: User) -> CreateAccountPresenter {
-        let sut = CreateAccountPresenter(user: user)
+    private func makePresenter(user: User) -> EditProfilePresenter {
+        let sut = EditProfilePresenter(user: user)
         sut.view = view
         sut.interactor = interactor
         sut.moduleOutput = moduleOutput
