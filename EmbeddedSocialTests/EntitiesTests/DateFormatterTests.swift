@@ -33,7 +33,6 @@ class DateFormatterTests: XCTestCase {
         // then
         XCTAssert(result == "2w")
     }
-
 }
 
 

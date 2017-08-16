@@ -76,7 +76,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
             (title: "Debug", image: UIImage(asset: Asset.iconPrivate), builder: self.builderForPostMenu)
             ], State.unauthenticated: [
                 (title: "Search", image: UIImage(asset: Asset.iconSearch), builder: self.builderForDummy),
-                (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: self.builderForDummy)
+                (title: "Popular", image: UIImage(asset: Asset.iconPopular), builder: self.builderForPopular)
             ]]
         
     }()
