@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lMg-g5-yE1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lMg-g5-yE1">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -20,35 +20,8 @@
                     <view key="view" contentMode="scaleToFill" id="pwt-8c-tH6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SM9-Qz-xeC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oyE-0R-a9v" customClass="LoadingIndicatorView" customModule="EmbeddedSocial" customModuleProvider="target">
-                                <rect key="frame" x="20" y="311" width="335" height="44"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="kal-AY-hqs"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="SM9-Qz-xeC" firstAttribute="leading" secondItem="pwt-8c-tH6" secondAttribute="leading" id="0dz-cO-JNs"/>
-                            <constraint firstAttribute="trailing" secondItem="oyE-0R-a9v" secondAttribute="trailing" constant="20" id="8QC-tG-Mve"/>
-                            <constraint firstItem="oyE-0R-a9v" firstAttribute="leading" secondItem="pwt-8c-tH6" secondAttribute="leading" constant="20" id="HV6-kR-dzl"/>
-                            <constraint firstItem="SM9-Qz-xeC" firstAttribute="top" secondItem="pwt-8c-tH6" secondAttribute="top" id="Nbg-6w-C7d"/>
-                            <constraint firstItem="o86-CF-2u3" firstAttribute="top" secondItem="SM9-Qz-xeC" secondAttribute="bottom" id="Pck-Gj-8Wz"/>
-                            <constraint firstItem="oyE-0R-a9v" firstAttribute="centerX" secondItem="pwt-8c-tH6" secondAttribute="centerX" id="cgq-wk-T17"/>
-                            <constraint firstAttribute="trailing" secondItem="SM9-Qz-xeC" secondAttribute="trailing" id="evP-9E-gQO"/>
-                            <constraint firstItem="oyE-0R-a9v" firstAttribute="centerY" secondItem="pwt-8c-tH6" secondAttribute="centerY" id="o0k-cE-PjG"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="loadingView" destination="oyE-0R-a9v" id="AdE-WR-ndd"/>
-                        <outlet property="tableView" destination="SM9-Qz-xeC" id="Uva-5c-krf"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yeW-To-ncr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -5,8 +5,8 @@
 
 import Foundation
 
-struct CreateAccountCellModelsBuilder {
-    typealias Section = CreateAccountDataDisplayManager.Section
+struct EmbeddedEditProfileCellsBuilder {
+    typealias Section = EmbeddedEditProfileDataDisplayManager.Section
     typealias TextChangedHandler = (String?) -> Void
     
     var onFirstNameChanged: TextChangedHandler?
@@ -14,22 +14,22 @@ struct CreateAccountCellModelsBuilder {
     var onBioChanged: TextChangedHandler?
     var onBioLinesCountChanged: (() -> Void)?
     
-    func makeSections(user: SocialUser) -> [Section] {
+    func makeSections(user: User) -> [Section] {
         return [makeSection1(user: user), makeSection2(user: user)]
     }
     
-    private func makeSection1(user: SocialUser) -> Section {
+    private func makeSection1(user: User) -> Section {
         return Section(model: nil, items: [
             .uploadPhoto(user.photo)
-            ])
+        ])
     }
     
-    private func makeSection2(user: SocialUser) -> Section {
+    private func makeSection2(user: User) -> Section {
         let bioVerticalOffset: CGFloat = 12.0
         let edgeInsets = UIEdgeInsets(top: bioVerticalOffset,
-                                      left: Constants.CreateAccount.contentPadding,
+                                      left: Constants.EditProfile.contentPadding,
                                       bottom: bioVerticalOffset,
-                                      right: Constants.CreateAccount.contentPadding)
+                                      right: Constants.EditProfile.contentPadding)
         
         let firstNameStyle = TextFieldCell.Style(
             text: user.firstName,
@@ -52,16 +52,16 @@ struct CreateAccountCellModelsBuilder {
             font: Fonts.regular,
             placeholder: "Bio",
             edgeInsets: edgeInsets,
-            charactersLimit: Constants.CreateAccount.maxBioLength,
+            charactersLimit: Constants.EditProfile.maxBioLength,
             onTextChanged: onBioChanged,
             onLinesCountChanged: { _ in self.onBioLinesCountChanged?() }
         )
         
-        let headerModel = CreateAccountGroupHeader.accountInformation(.createAccount, "ACCOUNT INFORMATION")
+        let headerModel = EmbeddedEditProfileGroupHeader.accountInformation(.editProfile, "ACCOUNT INFORMATION")
         return Section(model: headerModel, items: [
             .firstName(firstNameStyle),
             .lastName(lastNameStyle),
             .bio(bioStyle)
-            ])
+        ])
     }
 }
