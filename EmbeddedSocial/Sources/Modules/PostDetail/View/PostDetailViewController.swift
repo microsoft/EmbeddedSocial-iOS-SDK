@@ -141,8 +141,7 @@ extension PostDetailViewController: UITableViewDataSource {
         case TableSections.comments.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
             cell.tag = indexPath.row
-            cell.config(comment: output.comment(index: indexPath.row))
-            cell.delegate = self
+            cell.config(commentView: output.commentViewModel(index: indexPath.row))
             if  output.numberOfItems() > indexPath.row + 1 && isNewDataLoading == false {
                 isNewDataLoading = true
                 output.fetchMore()
@@ -185,39 +184,6 @@ extension PostDetailViewController: UITableViewDelegate {
         default:
             return 0
         }
-    }
-}
-
-extension PostDetailViewController: CommentCellDelegate {
-    
-    func openUser(index: Int) {
-        output.openUser(index: index)
-    }
-    
-    func like(index: Int) {
-        let comment = output.comment(index: index)
-        if comment.liked {
-            output.unlikeComment(comment: comment)
-        } else {
-            output.likeComment(comment: comment)
-        }
-    }
-
-    func toReplies() {
-        
-    }
-    
-    func mediaLoaded() {
-        tableView.reloadData()
-    }
-    
-    func photoPressed(image: UIImage, in cell: CommentCell) {
-        let browser = SKPhotoBrowser(originImage: image, photos: [SKPhoto.photoWithImage(image)], animatedFromView: cell)
-        browser.initializePageIndex(0)
-        present(browser, animated: true, completion: {})
-    }
-    
-    func commentOptionsPressed(index: Int) {
     }
 }
 

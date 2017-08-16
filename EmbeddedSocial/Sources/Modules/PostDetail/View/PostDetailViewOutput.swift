@@ -13,11 +13,8 @@ protocol PostDetailViewOutput {
     func viewIsReady()
     func numberOfItems() -> Int
     var post: Post? {get set}
-    func comment(index: Int) -> Comment
+    func commentViewModel(index: Int) -> CommentViewModel
     func postComment(photo: Photo?, comment: String)
-    func likeComment(comment: Comment)
-    func unlikeComment(comment: Comment)
     func fetchMore()
-    func openUser(index: Int)
     func feedModuleHeight() -> CGFloat
 }
