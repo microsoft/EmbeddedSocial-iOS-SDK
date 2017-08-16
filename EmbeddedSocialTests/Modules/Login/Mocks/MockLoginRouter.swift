@@ -8,7 +8,7 @@
 final class MockLoginRouter: LoginRouterInput {
     private(set) var openCreateAccountCount = 0
     
-    func openCreateAccount(user: SocialUser) {
+    func openCreateAccount(user: User) {
         openCreateAccountCount += 1
     }
 }

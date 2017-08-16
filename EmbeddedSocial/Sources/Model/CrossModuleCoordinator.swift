@@ -53,7 +53,6 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         configurator.router.output = navigationStack
     }
 
-    // MARK: Login Delegate
     func onSessionCreated(user: User, sessionToken: String) {
         
         Logger.log(user.credentials?.authorization, event: .important)
@@ -63,6 +62,11 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         
         openHomeScreen()
         closeMenu()
+    }
+    
+    func updateUser(_ user: User) {
+        self.user = user
+        menuModule.user = user
     }
     
     // MARK: Protocol

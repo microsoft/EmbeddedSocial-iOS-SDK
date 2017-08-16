@@ -42,7 +42,7 @@ final class TwitterAPI: AuthAPI {
             group.leave()
         }
         
-        group.notify(queue: DispatchQueue.main) {
+        group.notify(queue: .main) {
             guard let twitterUser = twitterUser else {
                 completion(.failure(APIError.missingUserData))
                 return

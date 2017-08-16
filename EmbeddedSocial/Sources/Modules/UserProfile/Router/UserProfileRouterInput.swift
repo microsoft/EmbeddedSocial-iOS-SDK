@@ -19,4 +19,6 @@ protocol UserProfileRouterInput {
     func showUserMenu(_ user: User, blockHandler: @escaping () -> Void, reportHandler: @escaping () -> Void)
     
     func openReport(user: User)
+    
+    func popTopScreen()
 }

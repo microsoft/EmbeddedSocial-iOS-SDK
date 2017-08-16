@@ -26,6 +26,7 @@ struct UserProfileConfigurator {
         router.followersModuleOutput = presenter
         router.followingModuleOutput = presenter
         router.createPostModuleOutput = presenter
+        router.editProfileModuleOutput = presenter
         
         viewController.output = presenter
         
