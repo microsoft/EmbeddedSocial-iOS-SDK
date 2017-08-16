@@ -171,24 +171,12 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         feedModuleInput?.refreshData()
     }
     
-    func likeComment(comment: Comment) {
-        interactor.likeComment(comment: comment)
-    }
-    
-    func unlikeComment(comment: Comment) {
-        interactor.unlikeComment(comment: comment)
-    }
-    
     func numberOfItems() -> Int {
         return comments.count
     }
     
     func fetchMore() {
         interactor.fetchMoreComments(topicHandle: (post?.topicHandle)!)
-    }
-    
-    func comment(index: Int) -> Comment {
-        return comments[index]
     }
     
     func commentViewModel(index: Int) -> CommentViewModel {
