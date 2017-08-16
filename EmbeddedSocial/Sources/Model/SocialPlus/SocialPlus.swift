@@ -46,7 +46,7 @@ public final class SocialPlus {
         coordinator.setup(launchArguments: args, loginHandler: self)
         
         if sessionStore.isLoggedIn {
-            coordinator.onSessionCreated(user: sessionStore.user, sessionToken: sessionStore.sessionToken)
+            coordinator.onSessionCreated(user: sessionStore.user!, sessionToken: sessionStore.sessionToken!)
         }
     }
     
@@ -67,9 +67,9 @@ extension SocialPlus: LoginModuleOutput {
 }
 
 extension SocialPlus: UserHolder {
-    var me: User {
+    var me: User? {
         set {
-            guard newValue != me else { return }
+            guard let newValue = newValue, newValue != me else { return }
             
             queue.async {
                 self.sessionStore.updateSession(withUser: newValue)
