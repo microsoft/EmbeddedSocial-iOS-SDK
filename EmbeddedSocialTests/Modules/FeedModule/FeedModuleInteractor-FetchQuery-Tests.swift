@@ -56,6 +56,14 @@ private class MockPostService: PostServiceProtocol {
         fetchPostHandle = post
     }
     
+    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+        
+    }
+    
+    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+        
+    }
+    
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
         
     }
@@ -78,6 +86,8 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         sut.output = presenter
         view = FeedModuleViewController()
         presenter.view = view
+        
+        sut.userHolder = nil
     }
     
     func testThatRecentFeedFetchRequestIsValid() {
