@@ -3,11 +3,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-protocol PostMenuModuleModuleOutput: class {
+protocol PostMenuModuleOutput: class {
 
     func didBlock(user: UserHandle)
     func didUnblock(user: UserHandle)
-    func didRepost(user: UserHandle)
     func didFollow(user: UserHandle)
     func didUnfollow(user: UserHandle)
     func didHide(post: PostHandle)
@@ -17,7 +16,7 @@ protocol PostMenuModuleModuleOutput: class {
     func didRequestFail(error: Error)
 }
 
-protocol PostMenuModuleModuleInput: class {
+protocol PostMenuModuleInput: class {
     
     func didTapBlock(user: UserHandle)
     func didTapUnblock(user: UserHandle)
@@ -26,7 +25,6 @@ protocol PostMenuModuleModuleInput: class {
     func didTapUnfollow(user: UserHandle)
     func didTapEditPost(post: PostHandle)
     func didTapRemovePost(post: PostHandle)
-    
 }
 
 enum PostMenuType: CustomStringConvertible {
@@ -51,10 +49,10 @@ struct ActionViewModel {
     var action: ActionHandler!
 }
 
-class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInput, PostMenuModuleInteractorOutput {
+class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, PostMenuModuleInteractorOutput {
 
     weak var view: PostMenuModuleViewInput!
-    weak var output: PostMenuModuleModuleOutput?
+    weak var output: PostMenuModuleOutput?
     var interactor: PostMenuModuleInteractorInput!
     var router: PostMenuModuleRouterInput!
     var menuType: PostMenuType!
@@ -213,13 +211,6 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
     }
     
     func didUnblock(user: UserHandle, error: Error?) {
-        Logger.log(user, error)
-        if let error = error {
-            output?.didRequestFail(error: error)
-        }
-    }
-    
-    func didRepost(user: UserHandle, error: Error?) {
         Logger.log(user, error)
         if let error = error {
             output?.didRequestFail(error: error)

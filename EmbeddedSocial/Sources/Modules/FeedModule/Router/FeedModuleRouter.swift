@@ -9,7 +9,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
     
     weak var viewController: UIViewController?
     weak var navigationController: UINavigationController?
-    weak var postMenuModuleOutput: PostMenuModuleModuleOutput!
+    weak var postMenuModuleOutput: PostMenuModuleOutput!
     weak var moduleInput: FeedModulePresenter!
     
     // Keeping ref to menu

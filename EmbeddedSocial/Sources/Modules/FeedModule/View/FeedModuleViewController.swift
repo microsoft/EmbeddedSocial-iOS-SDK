@@ -187,7 +187,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         }, completion: nil)
     }
     
-    
     func reload() {
         Logger.log()
         collectionView?.reloadData()
