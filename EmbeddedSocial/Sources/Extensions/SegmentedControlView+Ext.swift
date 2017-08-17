@@ -9,8 +9,8 @@ import SnapKit
 extension SegmentedControlView {
     func configureForUserProfileModule(superview: UIView, onRecent: @escaping () -> Void, onPopular: @escaping () -> Void) {
         setSegments([
-            SegmentedControlView.Segment(title: "Recent posts", action: { onRecent() }),
-            SegmentedControlView.Segment(title: "Popular posts", action: { onPopular() })
+            SegmentedControlView.Segment(title: L10n.UserProfile.Button.recentPosts, action: { onRecent() }),
+            SegmentedControlView.Segment(title: L10n.UserProfile.Button.popularPosts, action: { onPopular() })
             ])
         selectSegment(0)
         isSeparatorHidden = false

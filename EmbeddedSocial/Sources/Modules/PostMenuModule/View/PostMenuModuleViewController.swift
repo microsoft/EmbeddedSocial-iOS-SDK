@@ -48,7 +48,7 @@ class PostMenuModuleViewController: UIViewController, PostMenuModuleViewInput {
         }
         
         // Default item
-        addAction(title: "Cancel", style: .cancel, action: nil)
+        addAction(title: L10n.Common.cancel, style: .cancel, action: nil)
     }
     
     // MARK: Private

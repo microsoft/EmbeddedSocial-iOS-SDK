@@ -35,21 +35,21 @@ class ImagePicker: NSObject {
     
     private func openSourceSelectionSheet(with options: Options) {
         let actionSheet = UIAlertController(title: options.title, message: options.message, preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: Button.Title.cancel, style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: L10n.Common.cancel, style: .cancel, handler: nil)
         actionSheet.addAction(cancelAction)
         
-        let takeNewPhotoAction = UIAlertAction(title: Button.Title.takePhoto, style: .default) { (_) in
+        let takeNewPhotoAction = UIAlertAction(title: L10n.ImagePicker.takePhoto, style: .default) { (_) in
             self.showImagePicker(sourceType: .camera)
         }
         actionSheet.addAction(takeNewPhotoAction)
         
-        let chooseExistingPhotoAction = UIAlertAction(title: Button.Title.chooseExisting, style: .default) { (_) in
+        let chooseExistingPhotoAction = UIAlertAction(title: L10n.ImagePicker.chooseExisting, style: .default) { (_) in
             self.showImagePicker(sourceType: .photoLibrary)
         }
         actionSheet.addAction(chooseExistingPhotoAction)
         
         if imageWasSelected {
-            let removePhotoAction = UIAlertAction(title: "Remove photo", style: .default) { (_) in
+            let removePhotoAction = UIAlertAction(title: L10n.ImagePicker.removePhoto, style: .default) { (_) in
                 self.delegate?.removePhoto()
                 self.imageWasSelected = false
             }
@@ -91,7 +91,7 @@ extension ImagePicker {
 // MARK: UIImagePickerControllerDelegate
 extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        onImageSelected?(.failure(Error.cancelled))
+        onImageSelected?(.failure(APIError.cancelled))
         presentingView?.dismiss(animated: true, completion: nil)
     }
     
@@ -102,22 +102,8 @@ extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDe
             delegate?.selected(photo: photo)
             onImageSelected?(.success(image))
         } else {
-            onImageSelected?(.failure(Error.unkown))
+            onImageSelected?(.failure(APIError.unknown))
         }
         presentingView?.dismiss(animated: true, completion: nil)
-    }
-}
-
-extension ImagePicker {
-    enum Error: LocalizedError {
-        case cancelled
-        case unkown
-        
-        public var errorDescription: String? {
-            switch self {
-            case .cancelled: return "Cancelled by user."
-            case .unkown: return "Unknown error."
-            }
-        }
     }
 }

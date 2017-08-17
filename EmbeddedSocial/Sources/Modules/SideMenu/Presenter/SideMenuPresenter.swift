@@ -57,7 +57,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         } else {
             let photo = Photo(image:(UIImage(asset: .userPhotoPlaceholder)))
             
-            return SideMenuHeaderModel(title: "Sign In", image: photo)
+            return SideMenuHeaderModel(title: L10n.SideMenu.signIn, image: photo)
         }
     }
     
@@ -122,7 +122,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         
         let socialItems = interactor.socialMenuItems()
         let clientItems = interactor.clientMenuItems()
-        let socialSection = SideMenuSectionModel(title: "Social",
+        let socialSection = SideMenuSectionModel(title: L10n.SideMenu.social,
                                                  collapsible: collapsible,
                                                  isCollapsed: false,
                                                  items: socialItems)

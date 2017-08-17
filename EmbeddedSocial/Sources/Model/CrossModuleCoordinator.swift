@@ -113,7 +113,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         let configurator = FeedModuleConfigurator(cache: self.cache)
         configurator.configure(navigationController: self.navigationStack.navigationController)
         configurator.moduleInput.setFeed(.home)
-        configurator.viewController.title = "Home"
+        configurator.viewController.title = L10n.Home.screenTitle
         let vc = configurator.viewController!
         return vc
     }()
@@ -122,7 +122,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         let configurator = FeedModuleConfigurator(cache: self.cache)
         configurator.configure(navigationController: self.navigationStack.navigationController)
         configurator.moduleInput.setFeed(.popular(type: .alltime))
-        configurator.viewController.title = "Popular"
+        configurator.viewController.title = L10n.Popular.screenTitle
         let vc = configurator.viewController!
         return vc
     }()

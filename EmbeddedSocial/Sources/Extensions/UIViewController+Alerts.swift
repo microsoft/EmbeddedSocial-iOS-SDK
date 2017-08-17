@@ -8,7 +8,7 @@ import Foundation
 extension UIViewController {
     typealias AlertActionHandler = ((UIAlertAction) -> Void)
     
-    func showAlert(message: String, closeTitle: String = "Close") {
+    func showAlert(message: String, closeTitle: String = L10n.Common.close) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let closeButton = UIAlertAction(title: closeTitle, style: .default, handler: nil)
         alert.addAction(closeButton)
@@ -19,8 +19,8 @@ extension UIViewController {
     }
     
     func showYesNoAlert(message: String?,
-                        yesTitle: String = "OK",
-                        noTitle: String = "Cancel",
+                        yesTitle: String = L10n.Common.ok,
+                        noTitle: String = L10n.Common.cancel,
                         noHandler: AlertActionHandler? = nil,
                         yesHandler: AlertActionHandler? = nil) {
         

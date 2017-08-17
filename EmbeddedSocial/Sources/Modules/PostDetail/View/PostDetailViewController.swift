@@ -116,7 +116,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     @IBAction func mediaButtonPressed(_ sender: Any) {
-        let options = ImagePicker.Options(title: Alerts.Titles.choose,
+        let options = ImagePicker.Options(title: L10n.ImagePicker.choosePlease,
                                           message: nil,
                                           sourceViewController: self)
         imagePikcer.show(with: options)

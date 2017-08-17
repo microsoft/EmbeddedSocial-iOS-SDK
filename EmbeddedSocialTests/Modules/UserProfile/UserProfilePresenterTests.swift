@@ -38,9 +38,10 @@ class UserProfilePresenterTests: XCTestCase {
     func testThatItSetsInitialStateWhenUserIsMe() {
         // given
         let credentials = CredentialsList(provider: .facebook, accessToken: "", socialUID: "")
-        myProfileHolder.me = User(uid: UUID().uuidString, credentials: credentials,
-                                  followersCount: randomValue, followingCount: randomValue)
-        interactor.meToReturn = myProfileHolder.me
+        let user = User(uid: UUID().uuidString, credentials: credentials,
+                        followersCount: randomValue, followingCount: randomValue)
+        myProfileHolder.me = user
+        interactor.meToReturn = user
 
         let presenter = makeDefaultPresenter()
         
@@ -51,8 +52,8 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertEqual(myProfileHolder.setMeCount, 2)
         XCTAssertEqual(interactor.getMeCount, 1)
         XCTAssertEqual(interactor.cachedUserCount, 0)
-        validateViewInitialState(with: myProfileHolder.me, userIsCached: true)
-        validateFeedInitialState(with: myProfileHolder.me)
+        validateViewInitialState(with: user, userIsCached: true)
+        validateFeedInitialState(with: user)
     }
     
     func testThatItSetsInitialStateWithOtherUser() {
@@ -247,7 +248,7 @@ class UserProfilePresenterTests: XCTestCase {
         presenter.onRecent()
         
         // then
-        validateFeedScope(.recent, user: myProfileHolder.me)
+        validateFeedScope(.recent, user: myProfileHolder.me!)
     }
     
     func testThatPopularFeedIsSetWhenUserIsMe() {
@@ -259,7 +260,7 @@ class UserProfilePresenterTests: XCTestCase {
         presenter.onPopular()
         
         // then
-        validateFeedScope(.popular, user: myProfileHolder.me)
+        validateFeedScope(.popular, user: myProfileHolder.me!)
     }
     
     func testThatRecentFeedIsSetForUser() {
@@ -383,7 +384,7 @@ extension UserProfilePresenterTests {
 extension UserProfilePresenterTests {
     
     func testThatFollowersModuleUpdatesFollowingStatusWhenUserIsMe() {
-        testThatItUpdateFollowingStatus(with: nil, expectedFollowingCount: myProfileHolder.me.followingCount + 1) {
+        testThatItUpdateFollowingStatus(with: nil, expectedFollowingCount: myProfileHolder.me!.followingCount + 1) {
             $0.didUpdateFollowersStatus(newStatus: .accepted)
         }
     }
@@ -416,7 +417,7 @@ extension UserProfilePresenterTests {
 extension UserProfilePresenterTests {
     
     func testThatFollowingModuleUpdatesFollowingStatusWhenUserIsMe() {
-        testThatItUpdateFollowingStatus(with: nil, expectedFollowingCount: myProfileHolder.me.followingCount + 1) {
+        testThatItUpdateFollowingStatus(with: nil, expectedFollowingCount: myProfileHolder.me!.followingCount + 1) {
             $0.didUpdateFollowingStatus(newStatus: .accepted)
         }
     }

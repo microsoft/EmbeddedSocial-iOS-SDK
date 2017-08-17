@@ -48,14 +48,6 @@ extension Constants {
 
 extension Constants {
     
-    struct Placeholder {
-        static let unknown = "Unknown"
-        static let notSpecified = "Not specified"
-    }
-}
-
-extension Constants {
-    
     struct API {
         static let unauthorizedStatusCode = 401
     }

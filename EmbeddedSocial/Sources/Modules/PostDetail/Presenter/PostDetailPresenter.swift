@@ -49,8 +49,8 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         viewModel.userName = String(format: "%@ %@", (comment.firstName ?? ""), (comment.lastName ?? ""))
         viewModel.text = comment.text ?? ""
         
-        viewModel.totalLikes = Localizator.localize("likes_count", comment.totalLikes)
-        viewModel.totalReplies = Localizator.localize("replies_count", comment.totalReplies)
+        viewModel.totalLikes = L10n.Post.likesCount(Int(comment.totalLikes))
+        viewModel.totalReplies = L10n.Post.repliesCount(Int(comment.totalReplies))
         
         viewModel.timeCreated =  comment.createdTime == nil ? "" : formatter.shortStyle.string(from: comment.createdTime!, to: Date())!
         viewModel.userImageUrl = comment.photoUrl

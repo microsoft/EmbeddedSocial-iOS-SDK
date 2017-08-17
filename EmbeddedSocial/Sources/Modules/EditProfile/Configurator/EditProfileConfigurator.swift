@@ -20,7 +20,7 @@ class EditProfileConfigurator {
         presenter.moduleOutput = moduleOutput
         
         viewController.output = presenter
-        viewController.title = "Edit profile"
+        viewController.title = L10n.EditProfile.screenTitle
         
         let editConfigurator = EmbeddedEditProfileConfigurator()
         presenter.editModuleInput = editConfigurator.configure(user: user, moduleOutput: presenter)
