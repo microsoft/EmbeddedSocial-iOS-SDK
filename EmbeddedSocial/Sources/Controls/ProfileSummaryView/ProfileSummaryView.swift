@@ -11,7 +11,7 @@ class ProfileSummaryView: UIView {
     
     @IBOutlet fileprivate weak var nameLabel: UILabel! {
         didSet {
-            nameLabel.text = Constants.Placeholder.unknown
+            nameLabel.text = L10n.Common.Placeholder.unknown
             nameLabel.font = Fonts.bold.large
             nameLabel.textColor = Palette.black
         }
@@ -19,7 +19,7 @@ class ProfileSummaryView: UIView {
     
     @IBOutlet fileprivate weak var detailsLabel: UILabel! {
         didSet {
-            detailsLabel.text = Constants.Placeholder.notSpecified
+            detailsLabel.text = L10n.Common.Placeholder.notSpecified
             detailsLabel.font = Fonts.medium
             detailsLabel.textColor = Palette.black
         }
@@ -27,7 +27,8 @@ class ProfileSummaryView: UIView {
     
     @IBOutlet fileprivate weak var followersButton: UIButton! {
         didSet {
-            followersButton.setAttributedTitle(attributedString("followers", withBoldNumber: 0), for: .normal)
+            let title = attributedString(L10n.ProfileSummary.Button.followers, withBoldNumber: 0)
+            followersButton.setAttributedTitle(title, for: .normal)
             followersButton.setTitleColor(Palette.green, for: .normal)
             followersButton.titleLabel?.font = Fonts.small
         }
@@ -35,7 +36,7 @@ class ProfileSummaryView: UIView {
     
     @IBOutlet fileprivate weak var editButton: UIButton! {
         didSet {
-            editButton.setTitle("Edit profile", for: .normal)
+            editButton.setTitle(L10n.ProfileSummary.Button.edit, for: .normal)
             editButton.setTitleColor(Palette.green, for: .normal)
             editButton.titleLabel?.font = Fonts.small
         }
@@ -43,7 +44,8 @@ class ProfileSummaryView: UIView {
     
     @IBOutlet fileprivate weak var followingButton: UIButton! {
         didSet {
-            followingButton.setAttributedTitle(attributedString("following", withBoldNumber: 0), for: .normal)
+            let title = attributedString(L10n.ProfileSummary.Button.following, withBoldNumber: 0)
+            followingButton.setAttributedTitle(title, for: .normal)
             followingButton.setTitleColor(Palette.green, for: .normal)
             followingButton.titleLabel?.font = Fonts.small
         }
@@ -73,13 +75,15 @@ class ProfileSummaryView: UIView {
     
     var followersCount: Int = 0 {
         didSet {
-            followersButton.setAttributedTitle(attributedString("followers", withBoldNumber: followersCount), for: .normal)
+            let title = attributedString(L10n.ProfileSummary.Button.followers, withBoldNumber: followersCount)
+            followersButton.setAttributedTitle(title, for: .normal)
         }
     }
     
     var followingCount: Int = 0 {
         didSet {
-            followingButton.setAttributedTitle(attributedString("following", withBoldNumber: followingCount), for: .normal)
+            let title = attributedString(L10n.ProfileSummary.Button.following, withBoldNumber: followingCount)
+            followingButton.setAttributedTitle(title, for: .normal)
         }
     }
     
@@ -94,7 +98,7 @@ class ProfileSummaryView: UIView {
     
     func configure(user: User) {
         nameLabel.text = user.fullName
-        detailsLabel.text = user.bio ?? Constants.Placeholder.notSpecified
+        detailsLabel.text = user.bio ?? L10n.Common.Placeholder.notSpecified
         imageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: .userPhotoPlaceholder))
         
         followersCount = user.followersCount

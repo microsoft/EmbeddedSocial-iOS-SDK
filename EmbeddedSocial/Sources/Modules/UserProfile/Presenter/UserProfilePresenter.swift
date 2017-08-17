@@ -19,8 +19,8 @@ final class UserProfilePresenter: UserProfileViewOutput {
     
     private let userID: String?
     fileprivate var user: User?
-    private var me: User
-    private var myProfileHolder: UserHolder?
+    fileprivate var me: User?
+    fileprivate var myProfileHolder: UserHolder?
     
     fileprivate var followersCount = 0 {
         didSet {
@@ -35,10 +35,12 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     init(userID: String? = nil, myProfileHolder: UserHolder) {
+        guard myProfileHolder.me != nil || userID != nil else { fatalError("Either userID or myProfileHolder must be supplied") }
+        
         self.userID = userID
         self.me = myProfileHolder.me
-        followersCount = me.followersCount
-        followingCount = me.followingCount
+        followersCount = 0
+        followingCount = 0
         self.myProfileHolder = myProfileHolder
     }
     
@@ -53,7 +55,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
 
         if let userID = userID {
             loadOtherUser(userID)
-        } else if let credentials = me.credentials {
+        } else if let credentials = me?.credentials {
             loadMe(credentials: credentials)
         } else {
             view.showError(APIError.missingUserData)
@@ -61,8 +63,12 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     private func loadMe(credentials: CredentialsList) {
+        if let me = me {
+            setUser(me)
+        }
+        
         interactor.getMe(credentials: credentials) { [weak self] result in
-            self?.processUserResult(result, setUser: {
+            self?.processUserResult(result, setter: {
                 self?.me = $0
                 self?.myProfileHolder?.me = $0
             })
@@ -70,22 +76,30 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     private func loadOtherUser(_ userID: String) {
+        if let user = interactor.cachedUser(with: userID) {
+            setUser(user, setter: { [weak self] in self?.user = $0 })
+        }
+        
         interactor.getUser(userID: userID) { [weak self] result in
-            self?.processUserResult(result, setUser: { self?.user = $0 })
+            self?.processUserResult(result, setter: { self?.user = $0 })
         }
     }
     
-    private func processUserResult(_ result: Result<User>, setUser: (User) -> Void) {
+    private func processUserResult(_ result: Result<User>, setter: @escaping (User) -> Void) {
         view.setIsLoadingUser(false)
         
         if let user = result.value {
-            setUser(user)
-            followersCount = user.followersCount
-            followingCount = user.followingCount
-            view.setUser(user)
+            setUser(user, setter: setter)
         } else {
             view.showError(result.error ?? APIError.unknown)
         }
+    }
+    
+    fileprivate func setUser(_ user: User, setter: ((User) -> Void)? = nil) {
+        setter?(user)
+        followersCount = user.followersCount
+        followingCount = user.followingCount
+        view.setUser(user)
     }
     
     private func setupFeed() {
@@ -104,11 +118,15 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     func onEdit() {
-        router.openEditProfile(user: me)
+        if let me = me {
+            router.openEditProfile(user: me)
+        }
     }
     
     func onFollowing() {
-        router.openFollowing(user: user ?? me)
+        if let user = user ?? me {
+            router.openFollowing(user: user)
+        }
     }
     
     func onFollowRequest(currentStatus followStatus: FollowStatus) {
@@ -158,7 +176,9 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     func onFollowers() {
-        router.openFollowers(user: user ?? me)
+        if let user = user ?? me {
+            router.openFollowers(user: user)
+        }
     }
     
     func onMore() {
@@ -168,8 +188,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
                 blockHandler: { [weak self] in self?.block(user: user) },
                 reportHandler: { [weak self] in self?.router.openReport(user: user) }
             )
-        } else {
-            let me = self.me
+        } else if let me = me {
             router.showMyMenu { [weak self] in self?.router.openCreatePost(user: me) }
         }
     }
@@ -198,7 +217,8 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     private func setFeedScope(_ scope: FeedType.UserFeedScope) {
-        feedModuleInput?.setFeed(.user(user: userID ?? me.uid, scope: scope))
+        guard let uid = userID ?? me?.uid else { return }
+        feedModuleInput?.setFeed(.user(user: uid, scope: scope))
         feedModuleInput?.refreshData()
         view.setFilterEnabled(false)
     }
@@ -242,5 +262,16 @@ extension UserProfilePresenter: CreatePostModuleOutput {
     
     func didCreatePost() {
         feedModuleInput?.refreshData()
+    }
+}
+
+extension UserProfilePresenter: EditProfileModuleOutput {
+    
+    func onProfileEdited(me: User) {
+        router.popTopScreen()
+        setUser(me) { [weak self] in
+            self?.me = $0
+            self?.myProfileHolder?.me = $0
+        }
     }
 }

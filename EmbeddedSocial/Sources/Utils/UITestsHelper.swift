@@ -25,7 +25,7 @@ struct UITestsHelper {
                                     socialUID: UUID().uuidString,
                                     appKey: "AppKey")
         
-        return User(uid: UUID().uuidString,
+        return User(uid: "UserHandle",
                     firstName: "John",
                     lastName: "Doe",
                     email: "jonh.doe@contoso.com",

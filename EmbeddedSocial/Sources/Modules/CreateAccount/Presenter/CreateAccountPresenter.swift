@@ -7,74 +7,25 @@ class CreateAccountPresenter: CreateAccountViewOutput {
     
     weak var view: CreateAccountViewInput!
     var interactor: CreateAccountInteractorInput!
-    var router: CreateAccountRouterInput!
     weak var moduleOutput: CreateAccountModuleOutput?
+    var editModuleInput: EmbeddedEditProfileModuleInput!
     
-    private var firstName: String?
-    private var lastName: String?
-    private var bio: String?
+    fileprivate let user: User
     
-    private var user: SocialUser
-    
-    init(user: SocialUser) {
-        firstName = user.firstName
-        lastName = user.lastName
-        bio = user.bio
+    init(user: User) {
         self.user = user
     }
     
     func viewIsReady() {
-        view.setupInitialState(with: user)
-        updateCreateAccountButtonEnabledState()
-    }
-    
-    func onFirstNameChanged(_ text: String?) {
-        firstName = text
-        updateCreateAccountButtonEnabledState()
-    }
-    
-    func onLastNameChanged(_ text: String?) {
-        lastName = text
-        updateCreateAccountButtonEnabledState()
-    }
-    
-    func onBioChanged(_ text: String?) {
-        bio = text
-        updateCreateAccountButtonEnabledState()
-    }
-    
-    private func updateCreateAccountButtonEnabledState() {
-        let options = CreateAccountValidator.Options(firstName: firstName,
-                                                     lastName: lastName,
-                                                     bio: bio,
-                                                     photo: user.photo?.image)
-        view.setCreateAccountButtonEnabled(CreateAccountValidator.validate(options))
-    }
-    
-    func onSelectPhoto() {
-        guard let vc = view as? UIViewController else {
-            return
-        }
-        
-        router.openImagePicker(from: vc) { [unowned self] result in
-            if let image = result.value {
-                let user = self.updatedCurrentUser(with: Photo(image: image))
-                self.view.setUser(user)
-            }
-        }
+        editModuleInput.setupInitialState()
+        view.setupInitialState(with: editModuleInput.getModuleView())
     }
     
     func onCreateAccount() {
-        view.setIsLoading(true)
-        view.setCreateAccountButtonEnabled(false)
+        editModuleInput.setIsLoading(true)
         
-        let photo = interactor.updatedPhotoWithImageFromCache(user.photo)
-        
-        interactor.cachePhoto(photo)
-        
-        interactor.createAccount(for: updatedCurrentUser(with: photo)) { [weak self] result in
-            self?.view.setIsLoading(false)
-            self?.view.setCreateAccountButtonEnabled(true)
+        interactor.createAccount(for: editModuleInput.getFinalUser()) { [weak self] result in
+            self?.editModuleInput.setIsLoading(false)
             if let (user, sessionToken) = result.value {
                 self?.moduleOutput?.onAccountCreated(user: user, sessionToken: sessionToken)
             } else if let error = result.error {
@@ -82,15 +33,15 @@ class CreateAccountPresenter: CreateAccountViewOutput {
             }
         }
     }
+}
+
+extension CreateAccountPresenter: EmbeddedEditProfileModuleOutput {
     
-    private func updatedCurrentUser(with photo: Photo?) -> SocialUser {
-        user = SocialUser(uid: user.uid,
-                          credentials: user.credentials,
-                          firstName: firstName,
-                          lastName: lastName,
-                          email: user.email,
-                          bio: bio,
-                          photo: photo)
-        return user
+    var viewController: UIViewController? {
+        return view as? UIViewController
+    }
+    
+    func setRightNavigationButtonEnabled(_ isEnabled: Bool) {
+        view.setCreateAccountButtonEnabled(isEnabled)
     }
 }

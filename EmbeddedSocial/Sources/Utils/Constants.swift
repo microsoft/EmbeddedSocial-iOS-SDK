@@ -21,6 +21,12 @@ extension Constants {
         static let maxBioLength = 500
     }
     
+    struct EditProfile {
+        static let contentPadding: CGFloat = 20.0
+        static let uploadPhotoHeight: CGFloat = 84.0
+        static let maxBioLength = 500
+    }
+    
     struct UserList {
         static let pageSize = 30
     }
@@ -34,13 +40,9 @@ extension Constants {
         static let recentSegment = 0
         static let popularSegment = 1
     }
-}
-
-extension Constants {
     
-    struct Placeholder {
-        static let unknown = "Unknown"
-        static let notSpecified = "Not specified"
+    struct Feed {
+        static let pageSize = 3
     }
 }
 

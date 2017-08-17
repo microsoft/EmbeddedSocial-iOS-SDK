@@ -5,11 +5,11 @@
 
 import CoreData
 
-final class IncomingTransaction: NSManagedObject {
+final class IncomingTransaction: NSManagedObject, Transaction {
     @NSManaged var typeid: String?
     @NSManaged var createdAt: Date?
     @NSManaged var handle: String?
-    @NSManaged var payload: [String: Any]?
+    @NSManaged var payload: Any?
     
     override func awakeFromInsert() {
         createdAt = Date()

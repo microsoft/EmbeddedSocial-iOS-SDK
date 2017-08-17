@@ -44,11 +44,24 @@ struct UserFeedQuery {
     var cursor: String?
     var limit: Int32?
     var user: UserHandle!
+    
+    func cursorInt() -> Int32? {
+        return (cursor == nil) ? nil : Int32(cursor!)
+    }
 }
 
 struct HomeFeedQuery {
     var cursor: String?
     var limit: Int32?
+}
+
+struct MyFeedQuery {
+    var cursor: String?
+    var limit: Int32?
+    
+    func cursorInt() -> Int32? {
+        return (cursor == nil) ? nil : Int32(cursor!)
+    }
 }
 
 protocol PostServiceProtocol {
@@ -59,11 +72,28 @@ protocol PostServiceProtocol {
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler)
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler)
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler)
+    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler)
+    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler)
     
+    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
 }
 
-class TopicService: BaseService, PostServiceProtocol {
+extension PostServiceProtocol {
     
+    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
+    func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
+    func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
+    func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
+    func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
+    func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
+    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
+    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
+    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) { Logger.log("No Implementation") }
+}
+
+
+class TopicService: BaseService, PostServiceProtocol {
+
     private var imagesService: ImagesServiceType!
     
     init(imagesService: ImagesServiceType) {
@@ -102,10 +132,10 @@ class TopicService: BaseService, PostServiceProtocol {
     
     private func cacheTopic(_ topic: PostTopicRequest, with photo: Photo?) {
         if let photo = photo {
-            cache.cacheOutgoing(object: photo)
+            cache.cacheOutgoing(photo)
             topic.blobHandle = photo.uid
         }
-        cache.cacheOutgoing(object: topic)
+        cache.cacheOutgoing(topic)
     }
 
     private func postTopic(request: PostTopicRequest, success: @escaping TopicPosted, failure: @escaping Failure) {
@@ -123,7 +153,7 @@ class TopicService: BaseService, PostServiceProtocol {
     // MARK: GET
     
     func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
-        SocialAPI.myFollowingGetFollowingTopics(
+        SocialAPI.myFollowingGetTopics(
             authorization: authorization,
             cursor: query.cursor,
             limit: query.limit) { response, error in
@@ -161,7 +191,7 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user, authorization: authorization) { response, error in
+        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user, authorization: authorization, cursor: query.cursorInt()) { response, error in
             self.parseResponse(response: response, error: error, completion: completion)
         }
     }
@@ -175,7 +205,8 @@ class TopicService: BaseService, PostServiceProtocol {
                 if self.errorHandler.canHandle(error) {
                     self.errorHandler.handle(error)
                 } else {
-                    result.error = FeedServiceError.failedToFetch(message: error?.localizedDescription ?? "No item for \(post)")
+                    let message = error?.localizedDescription ?? L10n.Error.noItemFor("\(post)")
+                    result.error = FeedServiceError.failedToFetch(message: message)
                     completion(result)
                 }
                 return
@@ -186,6 +217,34 @@ class TopicService: BaseService, PostServiceProtocol {
         }
     }
     
+    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+        UsersAPI.myTopicsGetTopics(authorization: authorization,
+                                   cursor: query.cursor,
+                                   limit: query.limit) { (response, error) in
+                                    self.parseResponse(response: response, error: error, completion: completion)
+        }
+    }
+    
+    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+        UsersAPI.myTopicsGetPopularTopics(authorization: authorization,
+                                          cursor: query.cursorInt(),
+                                          limit: query.limit) { (response, error) in
+                                            self.parseResponse(response: response, error: error, completion: completion)
+        }
+    }
+    
+    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
+        TopicsAPI.topicsDeleteTopic(topicHandle: post, authorization: authorization) { (object, errorResponse) in
+            if let error = errorResponse {
+                self.errorHandler.handle(error: error, completion: completion)
+            } else {
+                completion(.success())
+            }
+        }
+    }
+    
+    // MARK: Private
+    
     private func parseResponse(response: FeedResponseTopicView?, error: Error?, completion: FetchResultHandler) {
         var result = PostFetchResult()
 
@@ -193,7 +252,8 @@ class TopicService: BaseService, PostServiceProtocol {
             if errorHandler.canHandle(error) {
                 errorHandler.handle(error)
             } else {
-                result.error = FeedServiceError.failedToFetch(message: error?.localizedDescription ?? "No Items Received")
+                let message = error?.localizedDescription ?? L10n.Error.noItemsReceived
+                result.error = FeedServiceError.failedToFetch(message: message)
                 completion(result)
             }
             return

@@ -3,6 +3,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+enum CommentSocialAction: Int {
+    case like, unlike
+}
+
 class PostDetailInteractor: PostDetailInteractorInput {
 
     weak var output: PostDetailInteractorOutput!
@@ -11,11 +15,24 @@ class PostDetailInteractor: PostDetailInteractorInput {
     var likeService: LikesServiceProtocol?
     var isLoading = false
     
+    // MARK: Social Actions
     
-    private var cursor: String?
-    private let limit: Int32 = 10
+    func commentAction(commentHandle: String, action: CommentSocialAction) {
+        
+        let completion: LikesServiceProtocol.CommentCompletionHandler = { [weak self] (handle, error) in
+                self?.output.didPostAction(commentHandle: commentHandle, action: action, error: error)
+        }
+        
+        switch action {
+        case .like:
+            likeService?.likeComment(commentHandle: commentHandle, completion: completion)
+        case .unlike:
+            likeService?.unlikeComment(commentHandle: commentHandle, completion: completion)
+        }
+        
+    }
     
-    func fetchComments(topicHandle: String) {
+    func fetchComments(topicHandle: String, cursor: String?, limit: Int32) {
         isLoading = true
         commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, resultHandler: { (result) in
             guard result.error == nil else {
@@ -23,12 +40,11 @@ class PostDetailInteractor: PostDetailInteractorInput {
             }
 
             self.isLoading = false
-            self.cursor = result.cursor
-            self.output.didFetch(comments: result.comments)
+            self.output.didFetch(comments: result.comments, cursor: cursor)
         })
     }
     
-    func fetchMoreComments(topicHandle: String) {
+    func fetchMoreComments(topicHandle: String, cursor: String?, limit: Int32) {
         if cursor == "" || cursor == nil || isLoading == true {
             return
         }
@@ -39,13 +55,8 @@ class PostDetailInteractor: PostDetailInteractorInput {
                 return
             }
             
-            if self.cursor == nil {
-                return
-            }
-            
             self.isLoading = false
-            self.cursor = result.cursor
-            self.output.didFetchMore(comments: result.comments)
+            self.output.didFetchMore(comments: result.comments, cursor: cursor)
         })
     }
     
@@ -54,40 +65,14 @@ class PostDetailInteractor: PostDetailInteractorInput {
         request.text = comment
         
         commentsService?.postComment(topicHandle: topicHandle, request: request, photo: photo, resultHandler: { (response) in
-            let comment = Comment()
-            comment.text = request.text
-            comment.createdTime = Date()
-            comment.firstName = SocialPlus.shared.sessionStore.user.firstName
-            comment.lastName = SocialPlus.shared.sessionStore.user.lastName
-            comment.mediaUrl = photo?.url
-            self.output.commentDidPosted(comment: comment)
+            self.commentsService?.comment(commentHandle: response.commentHandle!, success: { (comment) in
+                self.output.commentDidPosted(comment: comment)
+            }, failure: { (errpr) in
+                print("error fetching single comment")
+            })
         }, failure: { (error) in
             print("error posting comment")
         })
         
-    }
-    
-    func likeComment(comment: Comment) {
-        likeService?.likeComment(commentHandle: comment.commentHandle!, completion: { (commentHandle, error) in
-            if error != nil {
-                return
-            }
-            
-            comment.liked = true
-            comment.totalLikes += 1
-            self.output.commentLiked(comment: comment)
-        })
-    }
-    
-    func unlikeComment(comment: Comment) {
-        likeService?.unlikeComment(commentHandle: comment.commentHandle!, completion: { (response, error) in
-            if error != nil {
-                return
-            }
-            
-            comment.liked = false
-            comment.totalLikes -= 1
-            self.output.commentUnliked(comment: comment)
-        })
     }
 }

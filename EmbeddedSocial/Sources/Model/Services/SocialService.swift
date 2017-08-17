@@ -29,7 +29,25 @@ protocol SocialServiceType {
     
     /// Get following users of a user
     func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
+    
+    /// Hide for post
+    func deletePostFromMyFollowing(postID: String, completion: @escaping (Result<Void>) -> Void)
 }
+
+extension SocialServiceType {
+    func follow(userID: String, completion: @escaping (Result<Void>) -> Void) { Logger.log("No Implementation") }
+    func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) { Logger.log("No Implementation") }
+    func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void) { Logger.log("No Implementation") }
+    func unblock(userID: String, completion: @escaping (Result<Void>) -> Void) { Logger.log("No Implementation") }
+    func block(userID: String, completion: @escaping (Result<Void>) -> Void) { Logger.log("No Implementation") }
+    func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void) { Logger.log("No Implementation") }
+    func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) { Logger.log("No Implementation") }
+    func getMyFollowing(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) { Logger.log("No Implementation") }
+    func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) { Logger.log("No Implementation") }
+    func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) { Logger.log("No Implementation") }
+    func deletePostFromMyFollowing(postID: String, completion: @escaping (Result<Void>) -> Void) { Logger.log("No Implementation") }
+}
+
 
 class SocialService: BaseService, SocialServiceType {
     
@@ -102,6 +120,18 @@ class SocialService: BaseService, SocialServiceType {
             cursor: cursor,
             limit: Int32(limit)) {
                 self.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        }
+    }
+    
+    func deletePostFromMyFollowing(postID: String, completion: @escaping (Result<Void>) -> Void) {
+        SocialAPI.myFollowingDeleteFollowingTopic(topicHandle: postID,
+                                                  authorization: authorization) { (object, errorResponse) in
+                                                    
+                                                    if let error = errorResponse {
+                                                        self.errorHandler.handle(error: error, completion: completion)
+                                                    } else {
+                                                        completion(.success())
+                                                    }
         }
     }
     

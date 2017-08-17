@@ -8,14 +8,12 @@ import XCTest
 
 private class PostServiceMock: PostServiceProtocol {
     
-    typealias Result = PostFetchResult
-    
-    var popularResult: Result!
-    var userPopularResult: Result!
-    var singlePostResult: Result!
-    var userRecentResult: Result!
-    var recentResult: Result!
-    var homeResult: Result!
+    var popularResult: PostFetchResult!
+    var userPopularResult: PostFetchResult!
+    var singlePostResult: PostFetchResult!
+    var userRecentResult: PostFetchResult!
+    var recentResult: PostFetchResult!
+    var homeResult: PostFetchResult!
     
     func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
         completion(homeResult)
@@ -39,6 +37,18 @@ private class PostServiceMock: PostServiceProtocol {
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
         completion(singlePostResult)
+    }
+    
+    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+        
+    }
+    
+    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+        
+    }
+    
+    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
+        
     }
 }
 
@@ -93,6 +103,8 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         sut.postService = service
         presenter = FeedModulePresenterMock()
         sut.output = presenter
+        
+        sut.userHolder = nil
     }
     
     override func tearDown() {

@@ -9,7 +9,10 @@ protocol FeedModuleViewInput: class {
     func setLayout(type: FeedModuleLayoutType)
     func reload()
     func reload(with index: Int)
+    func reloadVisible()
+    func removeItem(index: Int)
     func setRefreshing(state: Bool)
+    func showError(error: Error)
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void)
 

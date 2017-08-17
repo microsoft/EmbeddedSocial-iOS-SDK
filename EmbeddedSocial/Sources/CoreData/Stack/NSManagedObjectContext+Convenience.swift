@@ -47,4 +47,25 @@ extension NSManagedObjectContext {
             }
         }
     }
+    
+    func entities<Record: CoreDataRecord>(_ type: Record.Type = Record.self,
+                  predicate: NSPredicate? = nil,
+                  sortDescriptors: [NSSortDescriptor]? = nil) -> [Record] {
+        
+        let request = Record.fetchRequest()
+        request.predicate = predicate
+        request.sortDescriptors = sortDescriptors
+        
+        var records: [Record] = []
+        
+        performAndWait { [weak self] in
+            do {
+                records = try self?.fetch(request) ?? []
+            } catch {
+                print("Unable to execute asynchronous fetch result: \(error.localizedDescription).")
+            }
+        }
+        
+        return records
+    }
 }

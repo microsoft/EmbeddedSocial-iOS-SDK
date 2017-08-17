@@ -140,9 +140,13 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.output.didAskFetchMore()
     }
     
-    // MARK: FeedModuleViewInput
+    // MARK: Input
     func setupInitialState() {
         
+    }
+    
+    func showError(error: Error) {
+        self.showErrorAlert(error)
     }
     
     func getViewHeight() -> CGFloat {
@@ -169,11 +173,28 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         }
     }
     
+    func reloadVisible() {
+        Logger.log()
+        if let paths = collectionView?.indexPathsForVisibleItems {
+            collectionView?.reloadItems(at: paths)
+        }
+    }
+    
+    func removeItem(index: Int) {
+        Logger.log(index)
+        collectionView?.performBatchUpdates({ [weak self] in
+            self?.collectionView?.deleteItems(at: [IndexPath(item: index, section: 0)])
+        }, completion: nil)
+    }
+    
     func reload() {
+        Logger.log()
         collectionView?.reloadData()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "RefreshFeedM"), object: nil)
     }
     
     func reload(with index: Int) {
+        Logger.log(index)
         collectionView?.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
     
@@ -245,7 +266,11 @@ extension FeedModuleViewController: UIScrollViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width, height: Style.Collection.footerHeight)
+        if collectionView.numberOfItems(inSection: 0) > 1 {
+            return CGSize(width: collectionView.frame.size.width, height: Style.Collection.footerHeight)
+        } else {
+            return CGSize.zero
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -283,8 +308,5 @@ extension FeedModuleViewController: UIScrollViewDelegate {
         if index == output.numberOfItems() - 1 {
             didReachBottom()
         }
-        
     }
-
-
 }

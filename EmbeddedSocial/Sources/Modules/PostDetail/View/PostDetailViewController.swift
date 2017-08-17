@@ -30,22 +30,44 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     @IBOutlet weak var mediaButton: UIButton!
     
     fileprivate var photo: Photo?
+    fileprivate var postView: UIView!
     fileprivate let imagePikcer = ImagePicker()
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(PostDetailViewController.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        return refreshControl
+    }()
     
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.addSubview(self.refreshControl)
+        tableView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
+        refreshControl.beginRefreshing()
         output.viewIsReady()
+    }
+    
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
 
     // MARK: PostDetailViewInput
     func setupInitialState() {
         imagePikcer.delegate = self
-        configPost()
         configTableView()
         configTextView()
     }
     
+    func updateFeed(view: UIView) {
+        postView = view
+        refreshControl.endRefreshing()
+        tableView.reloadData()
+    }
+
     func configTableView() {
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: CommentCell.identifier, bundle: Bundle(for: CommentCell.self)), forCellReuseIdentifier: CommentCell.identifier)
@@ -53,40 +75,11 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.delegate = self
         tableView.dataSource = self
-    }
-    
-    fileprivate var feedModuleInput: FeedModuleInput!
-    fileprivate var postView: UIView?
-    
-    func configPost() {
-        // Module
-        let configurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache)
-        configurator.configure(navigationController: self.navigationController!)
-
-        feedModuleInput = configurator.moduleInput!
-        let feedViewController = configurator.viewController!
-
-        feedViewController.willMove(toParentViewController: self)
-        addChildViewController(feedViewController)
-        feedViewController.didMove(toParentViewController: self)
-
-        let feed = FeedType.single(post: (output.post?.topicHandle)!)
-        feedModuleInput.setFeed(feed)
-        postView = feedViewController.view
-    }
-    
-    func reload(animated: Bool) {
-        tableView.reloadData()
-        DispatchQueue.main.asyncAfter(deadline: .now() + reloadDelay) {
-            if self.output.numberOfItems() > 1 {
-                let indexPath = IndexPath(row: self.output.numberOfItems() - 1, section: TableSections.comments.rawValue)
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
-            }
-            self.isNewDataLoading = false
-        }
+       
     }
     
     func reloadTable() {
+        refreshControl.endRefreshing()
         self.isNewDataLoading = false
         tableView.reloadData()
     }
@@ -100,9 +93,9 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         commentTextViewHeightConstraint.constant = commentViewHeight
         commentTextView.text = nil
         postButton.isHidden = true
-        reload(animated: false)
         SVProgressHUD.dismiss()
         view.layoutIfNeeded()
+        tableView.reloadData()
     }
     
     func postCommentFailed(error: Error) {
@@ -123,7 +116,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     @IBAction func mediaButtonPressed(_ sender: Any) {
-        let options = ImagePicker.Options(title: Alerts.Titles.choose,
+        let options = ImagePicker.Options(title: L10n.ImagePicker.choosePlease,
                                           message: nil,
                                           sourceViewController: self)
         imagePikcer.show(with: options)
@@ -148,8 +141,7 @@ extension PostDetailViewController: UITableViewDataSource {
         case TableSections.comments.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
             cell.tag = indexPath.row
-            cell.config(comment: output.comment(index: indexPath.row))
-            cell.delegate = self
+            cell.config(commentView: output.commentViewModel(index: indexPath.row))
             if  output.numberOfItems() > indexPath.row + 1 && isNewDataLoading == false {
                 isNewDataLoading = true
                 output.fetchMore()
@@ -164,7 +156,11 @@ extension PostDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case TableSections.post.rawValue:
+            if postView == nil {
+                return 0
+            }
             return 1
+            
         case TableSections.comments.rawValue:
             return output.numberOfItems()
         default:
@@ -182,7 +178,7 @@ extension PostDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case TableSections.post.rawValue:
-            return feedModuleInput.moduleHeight()
+            return output.feedModuleHeight()
         case TableSections.comments.rawValue:
             return UITableViewAutomaticDimension
         default:
@@ -194,39 +190,6 @@ extension PostDetailViewController: UITableViewDelegate {
         if indexPath.section == 1 {
             output.openReplies(index: indexPath.row)
         }
-    }
-}
-
-extension PostDetailViewController: CommentCellDelegate {
-    
-    func openUser(index: Int) {
-        output.openUser(index: index)
-    }
-    
-    func like(index: Int) {
-        let comment = output.comment(index: index)
-        if comment.liked {
-            output.unlikeComment(comment: comment)
-        } else {
-            output.likeComment(comment: comment)
-        }
-    }
-
-    func toReplies() {
-        
-    }
-    
-    func mediaLoaded() {
-        tableView.reloadData()
-    }
-    
-    func photoPressed(image: UIImage, in cell: CommentCell) {
-        let browser = SKPhotoBrowser(originImage: image, photos: [SKPhoto.photoWithImage(image)], animatedFromView: cell)
-        browser.initializePageIndex(0)
-        present(browser, animated: true, completion: {})
-    }
-    
-    func commentOptionsPressed(index: Int) {
     }
 }
 

@@ -13,6 +13,7 @@ class UserProfile {
     var followersButton: XCUIElement!
     var followingButton: XCUIElement!
     var editProfileButton: XCUIElement!
+    var followButton: XCUIElement!
     var recentPostsButton: XCUIElement!
     var popularPostsButton: XCUIElement!
     var menuButton: XCUIElement!
@@ -27,8 +28,11 @@ class UserProfile {
         self.followersButton = details.buttons.element(boundBy: 0)
         self.followingButton = details.buttons.element(boundBy: 1)
         self.editProfileButton = details.buttons.element(boundBy: 2)
+        // Edit profile in My Profile and Follow in other user profiles
+        self.followButton = self.editProfileButton
         self.recentPostsButton = app.collectionViews.buttons["Recent posts"]
         self.popularPostsButton = app.collectionViews.buttons["Popular posts"]
+        
     }
     
     func openMenu() {
@@ -41,5 +45,13 @@ class UserProfile {
     
     func textExists(_ text: String) -> Bool {
         return self.details.staticTexts[text].exists
+    }
+    
+    func follow() {
+        self.followButton.tap()
+    }
+    
+    func back() {
+        app.navigationBars.children(matching: .button).matching(identifier: "Back").element(boundBy: 0).tap()
     }
 }

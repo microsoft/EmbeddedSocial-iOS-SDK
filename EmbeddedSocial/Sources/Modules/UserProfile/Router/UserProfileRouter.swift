@@ -11,6 +11,7 @@ final class UserProfileRouter: UserProfileRouterInput {
     weak var followersModuleOutput: FollowersModuleOutput?
     weak var followingModuleOutput: FollowingModuleOutput?
     weak var createPostModuleOutput: CreatePostModuleOutput?
+    weak var editProfileModuleOutput: EditProfileModuleOutput?
 
     func openFollowers(user: User) {        
         let api: UsersListAPI = user.isMe ?
@@ -33,10 +34,9 @@ final class UserProfileRouter: UserProfileRouterInput {
     }
     
     func openEditProfile(user: User) {
-        let vc = UIViewController()
-        vc.title = "Edit"
-        vc.view.backgroundColor = .white
-        viewController?.navigationController?.pushViewController(vc, animated: true)
+        let configurator = EditProfileConfigurator()
+        configurator.configure(user: user, moduleOutput: editProfileModuleOutput)
+        viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
     func openCreatePost(user: User) {
@@ -48,7 +48,7 @@ final class UserProfileRouter: UserProfileRouterInput {
     
     func openReport(user: User) {
         let vc = UIViewController()
-        vc.title = "Report \(user.fullName)"
+        vc.title = L10n.Report.screenTitle(user.fullName)
         vc.view.backgroundColor = .white
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }
@@ -72,5 +72,9 @@ final class UserProfileRouter: UserProfileRouterInput {
             blockHandler: blockHandler
         )
         vc.present(menu, animated: true, completion: nil)
+    }
+    
+    func popTopScreen() {
+        viewController?.navigationController?.popViewController(animated: true)
     }
 }

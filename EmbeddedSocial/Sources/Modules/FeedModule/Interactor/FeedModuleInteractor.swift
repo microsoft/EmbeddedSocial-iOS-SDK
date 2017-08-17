@@ -34,7 +34,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     var postService: PostServiceProtocol!
     var likesService: LikesServiceProtocol = LikesService()
     var pinsService: PinsServiceProtocol! = PinsService()
-    var cachedFeedType: FeedType?
+    weak var userHolder: UserHolder? = SocialPlus.shared
     
     var isFetching = false {
         didSet {
@@ -42,23 +42,27 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         }
     }
     
-    var isLoadingMore = false
+    private var isLoadingMore = false
 
-    private lazy var fetchHandler: FetchResultHandler = { [unowned self] result in
+    private lazy var fetchHandler: FetchResultHandler = { [weak self] result in
         
-        self.isFetching = false
+        guard let strongSelf = self else {
+            return
+        }
+        
+        strongSelf.isFetching = false
         
         guard result.error == nil else {
-            self.output.didFail(error: result.error!)
+            strongSelf.output.didFail(error: result.error!)
             return
         }
         
         var feed = PostsFeed(items: result.posts, cursor: result.cursor)
         
-        if self.isLoadingMore {
-            self.output.didFetchMore(feed: feed)
+        if strongSelf.isLoadingMore {
+            strongSelf.output.didFetchMore(feed: feed)
         } else {
-            self.output.didFetch(feed: feed)
+            strongSelf.output.didFetch(feed: feed)
         }
     }
     
@@ -103,16 +107,33 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             postService.fetchPopular(query: query, completion: fetchHandler)
             
         case let .user(user: user, scope: scope):
-            var query = UserFeedQuery()
-            query.limit = limit
-            query.cursor = cursor
-            query.user = user
             
-            switch scope {
-            case .popular:
-                postService.fetchPopular(query: query, completion: fetchHandler)
-            case .recent:
-                postService.fetchRecent(query: query, completion: fetchHandler)
+            let isMyFeed = userHolder?.me?.uid == user
+            
+            if isMyFeed {
+                var query = MyFeedQuery()
+                query.cursor = cursor
+                query.limit = limit
+                
+                switch scope {
+                case .popular:
+                    postService.fetchMyPopular(query: query, completion: fetchHandler)
+                case .recent:
+                    postService.fetchMyPosts(query: query, completion: fetchHandler)
+                }
+            }
+            else {
+                var query = UserFeedQuery()
+                query.limit = limit
+                query.cursor = cursor
+                query.user = user
+                
+                switch scope {
+                case .popular:
+                    postService.fetchPopular(query: query, completion: fetchHandler)
+                case .recent:
+                    postService.fetchRecent(query: query, completion: fetchHandler)
+                }
             }
             
         case let .single(post: post):

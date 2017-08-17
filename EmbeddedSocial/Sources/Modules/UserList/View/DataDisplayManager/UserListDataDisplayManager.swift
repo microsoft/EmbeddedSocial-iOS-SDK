@@ -24,9 +24,9 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
         return self
     }
     
-    private let me: User
+    private let me: User?
     
-    init(me: User) {
+    init(me: User?) {
         self.me = me
     }
     

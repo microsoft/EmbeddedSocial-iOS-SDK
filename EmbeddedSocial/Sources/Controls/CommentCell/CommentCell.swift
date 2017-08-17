@@ -6,15 +6,6 @@
 
 import UIKit
 
-protocol CommentCellDelegate: class {
-    func like(index: Int)
-    func toReplies()
-    func mediaLoaded()
-    func photoPressed(image: UIImage, in cell: CommentCell)
-    func commentOptionsPressed(index: Int)
-    func openUser(index: Int)
-}
-
 class CommentCell: UITableViewCell {
 
     @IBOutlet weak var likesCountButton: UIButton!
@@ -28,13 +19,15 @@ class CommentCell: UITableViewCell {
     @IBOutlet weak var avatarButton: UIButton!
     @IBOutlet weak var postedTimeLabel: UILabel!
     
-    var delegate: CommentCellDelegate?
+    var commentView: CommentViewModel!
     
     private var formatter = DateFormatterTool()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         avatarButton.imageView?.contentMode = .scaleAspectFill
+        avatarButton.layer.shouldRasterize = true
+        avatarButton.layer.drawsAsynchronously = true
     }
     
     static let identifier = "CommentCell"
@@ -44,16 +37,18 @@ class CommentCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func config(comment: Comment) {
+    
+    func config(commentView: CommentViewModel) {
+        self.commentView = commentView
         avatarButton.setPhotoWithCaching(Photo(uid: UUID().uuidString,
-                                               url: comment.photoUrl,
+                                               url: commentView.userImageUrl,
                                                image: nil),
                                          placeholder: UIImage(asset: .userPhotoPlaceholder))
-        repliesCountButton.setTitle("\(comment.totalReplies ) replies", for: .normal)
-        likesCountButton.setTitle("\(comment.totalLikes ) likes", for: .normal)
-        commentTextLabel.text = comment.text
-        usernameLabel.text = "\(comment.firstName ?? "") \(comment.lastName ?? "")"
-        if let url = comment.mediaUrl {
+        repliesCountButton.setTitle(commentView.totalReplies, for: .normal)
+        likesCountButton.setTitle(commentView.totalLikes, for: .normal)
+        commentTextLabel.text = commentView.text
+        usernameLabel.text = commentView.userName
+        if let url = commentView.commentImageUrl {
             mediaButton.imageView?.contentMode = .scaleAspectFill
             mediaButton.setPhotoWithCaching(Photo(uid: UUID().uuidString,
                                                   url: url,
@@ -65,29 +60,26 @@ class CommentCell: UITableViewCell {
             mediaButtonHeightConstraint.constant = 0
         }
         
-        postedTimeLabel.text = comment.createdTime.map{ formatter.shortStyle.string(from: $0, to: Date()) }!
-        likeButton.isSelected = comment.liked
+        postedTimeLabel.text = commentView.timeCreated
+        likeButton.isSelected = commentView.isLiked
         selectionStyle = .none
         contentView.layoutIfNeeded()
-        
-        // TODO: full fit
-        
     }
+    
     @IBAction func commentOptionsPressed(_ sender: Any) {
     }
     
     @IBAction func likePressed(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        delegate?.like(index: tag)
+        commentView.onAction?(.like, tag)
     }
 
     @IBAction func commentPressed(_ sender: Any) {
     }
     @IBAction func avatarPressed(_ sender: Any) {
-        delegate?.openUser(index: tag)
+        commentView.onAction?(.profile, tag)
     }
     
     @IBAction func mediaPressed(_ sender: Any) {
-        delegate?.photoPressed(image: (mediaButton.imageView?.image)!, in: self)
+        commentView.onAction?(.photo, tag)
     }
 }

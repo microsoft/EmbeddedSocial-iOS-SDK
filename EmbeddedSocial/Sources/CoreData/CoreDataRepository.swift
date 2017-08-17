@@ -23,6 +23,10 @@ class CoreDataRepository<T: CoreDataRecord>: QueriableRepository<T> {
         context.entities(T.self, predicate: predicate, sortDescriptors: sortDescriptors, onResult: completion)
     }
     
+    override func query(with predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) -> [T] {
+        return context.entities(T.self, predicate: predicate, sortDescriptors: sortDescriptors)
+    }
+    
     override func save(_ entities: [T], completion: ((Result<Void>) -> Void)? = nil) {
         saveContext(context, completion: completion)
     }

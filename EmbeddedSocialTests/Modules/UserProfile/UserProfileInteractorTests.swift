@@ -9,19 +9,22 @@ import XCTest
 class UserProfileInteractorTests: XCTestCase {
     var userService: MockUserService!
     var socialService: MockSocialService!
+    var cache: MockCache!
     var sut: UserProfileInteractor!
     
     override func setUp() {
         super.setUp()
         userService = MockUserService()
         socialService = MockSocialService()
-        sut = UserProfileInteractor(userService: userService, socialService: socialService)
+        cache = MockCache()
+        sut = UserProfileInteractor(userService: userService, socialService: socialService, cache: cache)
     }
     
     override func tearDown() {
         super.tearDown()
         userService = nil
         socialService = nil
+        cache = nil
         sut = nil
     }
     
@@ -43,6 +46,11 @@ class UserProfileInteractorTests: XCTestCase {
     func testThatSocialRequestIsCalledForBlockedStatus() {
         sut.processSocialRequest(currentFollowStatus: .blocked, userID: UUID().uuidString) { _ in () }
         XCTAssertEqual(socialService.requestCount, 1)
+    }
+    
+    func testThatUserIsLoadedFromCache() {
+        _ = sut.cachedUser(with: "")
+        XCTAssertEqual(cache.firstIncomingCount, 1)
     }
 }
 

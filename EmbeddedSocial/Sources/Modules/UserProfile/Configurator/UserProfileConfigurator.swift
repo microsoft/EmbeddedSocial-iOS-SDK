@@ -13,7 +13,10 @@ struct UserProfileConfigurator {
         viewController = StoryboardScene.UserProfile.instantiateUserProfileViewController()
     }
     
-    func configure(userID: String? = nil, myProfileHolder: UserHolder = SocialPlus.shared, navigationController: UINavigationController? = nil) {
+    func configure(userID: String? = nil,
+                   myProfileHolder: UserHolder = SocialPlus.shared,
+                   navigationController: UINavigationController? = nil) {
+        
         let router = UserProfileRouter()
         router.viewController = viewController
         
@@ -26,12 +29,13 @@ struct UserProfileConfigurator {
         router.followersModuleOutput = presenter
         router.followingModuleOutput = presenter
         router.createPostModuleOutput = presenter
+        router.editProfileModuleOutput = presenter
         
         viewController.output = presenter
         
-        viewController.title = "Profile"
+        viewController.title = L10n.UserProfile.screenTitle
         
-        let feedConfigurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache) // TODO: inject cache
+        let feedConfigurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache)
         feedConfigurator.configure(navigationController: navigationController, moduleOutput: presenter)
 
         presenter.feedViewController = feedConfigurator.viewController

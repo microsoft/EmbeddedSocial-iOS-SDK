@@ -13,14 +13,21 @@ class PostDetailModuleConfigurator {
         viewController = StoryboardScene.PostDetail.instantiatePostDetailViewController()
     }
 
-    func configure(post: Post) {
+    func configure(post: Post, navigationController: UINavigationController? = nil) {
 
+
+        
         let router = PostDetailRouter()
 
         let presenter = PostDetailPresenter()
         presenter.view = viewController
         presenter.router = router
         presenter.post = post
+        
+        let feedConfigurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache)
+        feedConfigurator.configure(navigationController: navigationController, moduleOutput: presenter)
+        
+        feedConfigurator.moduleInput.refreshData()
 
         let interactor = PostDetailInteractor()
         interactor.output = presenter
@@ -32,6 +39,12 @@ class PostDetailModuleConfigurator {
 
         presenter.interactor = interactor
         viewController.output = presenter
+        
+        
+        presenter.feedViewController = feedConfigurator.viewController
+        presenter.feedModuleInput = feedConfigurator.moduleInput
+        
+        
     }
 
 }

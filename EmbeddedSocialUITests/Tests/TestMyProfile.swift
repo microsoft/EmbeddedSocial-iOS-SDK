@@ -7,17 +7,21 @@ import Foundation
 import XCTest
 
 class TestMyProfile: UITestBase {
-    var menu: SideMenu!
+    var sideMenu: SideMenu!
     var profile: UserProfile!
     
     override func setUp() {
         super.setUp()
-        menu = SideMenu(app)
+        sideMenu = SideMenu(app)
         profile = UserProfile(app)
     }
     
     override func tearDown() {
         super.tearDown()
+    }
+    
+    func openScreen() {
+        sideMenu.navigateToUserProfile()
     }
     
     func testProfileAttributes() {
@@ -27,7 +31,7 @@ class TestMyProfile: UITestBase {
                             "totalFollowers": 5,
                             "totalFollowing": 7]
         
-        menu.navigateToUserProfile()
+        openScreen()
         
         XCTAssert(profile.textExists("Alan Poe"), "Username doesn't match")
         XCTAssert(profile.textExists("Lorem ipsum dolor sit amet, consectetur adipiscing elit."), "User bio doesn't match")
@@ -41,7 +45,7 @@ class TestMyProfileRecentPosts: TestHome {
     
     override func setUp() {
         super.setUp()
-        feedName = "UserHandle"
+        feedName = "me"
         profile = UserProfile(app)
     }
     
@@ -58,7 +62,7 @@ class TestMyProfilePopularPosts: TestHome {
 
     override func setUp() {
         super.setUp()
-        feedName = "UserHandlepopular"
+        feedName = "mepopular"
         profile = UserProfile(app)
     }
     

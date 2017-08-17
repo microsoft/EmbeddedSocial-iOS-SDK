@@ -38,9 +38,10 @@ class UserProfilePresenterTests: XCTestCase {
     func testThatItSetsInitialStateWhenUserIsMe() {
         // given
         let credentials = CredentialsList(provider: .facebook, accessToken: "", socialUID: "")
-        myProfileHolder.me = User(uid: UUID().uuidString, credentials: credentials,
-                                  followersCount: randomValue, followingCount: randomValue)
-        interactor.meToReturn = myProfileHolder.me
+        let user = User(uid: UUID().uuidString, credentials: credentials,
+                        followersCount: randomValue, followingCount: randomValue)
+        myProfileHolder.me = user
+        interactor.meToReturn = user
 
         let presenter = makeDefaultPresenter()
         
@@ -50,7 +51,9 @@ class UserProfilePresenterTests: XCTestCase {
         // then
         XCTAssertEqual(myProfileHolder.setMeCount, 2)
         XCTAssertEqual(interactor.getMeCount, 1)
-        validateInitialState(with: myProfileHolder.me)
+        XCTAssertEqual(interactor.cachedUserCount, 0)
+        validateViewInitialState(with: user, userIsCached: true)
+        validateFeedInitialState(with: user)
     }
     
     func testThatItSetsInitialStateWithOtherUser() {
@@ -66,6 +69,7 @@ class UserProfilePresenterTests: XCTestCase {
         // then
         validateInitialState(with: user)
         XCTAssertEqual(interactor.getUserCount, 1)
+        XCTAssertEqual(interactor.cachedUserCount, 1)
     }
     
     func testThatItFailsToSetFeedWithoutFeedViewController() {
@@ -113,16 +117,16 @@ class UserProfilePresenterTests: XCTestCase {
         validateFeedInitialState(with: user)
     }
     
-    private func validateViewInitialState(with user: User) {
+    private func validateViewInitialState(with user: User, userIsCached: Bool = false) {
         XCTAssertEqual(view.setupInitialStateCount, 1)
-        XCTAssertEqual(view.setUserCount, 1)
+        XCTAssertEqual(view.setUserCount, userIsCached ? 2 : 1)
         XCTAssertEqual(view.lastSetUser, user)
         
-        XCTAssertEqual(view.setFollowingCount, 1)
+        XCTAssertEqual(view.setFollowingCount, userIsCached ? 2 : 1)
         XCTAssertEqual(view.lastFollowingCount, user.followingCount)
         
         XCTAssertEqual(view.lastFollowersCount, user.followersCount)
-        XCTAssertEqual(view.setFollowersCount, 1)
+        XCTAssertEqual(view.setFollowersCount, userIsCached ? 2 : 1)
         
         XCTAssertNotNil(view.isLoadingUser)
         XCTAssertFalse(view.isLoadingUser!)
@@ -244,7 +248,7 @@ class UserProfilePresenterTests: XCTestCase {
         presenter.onRecent()
         
         // then
-        validateFeedScope(.recent, user: myProfileHolder.me)
+        validateFeedScope(.recent, user: myProfileHolder.me!)
     }
     
     func testThatPopularFeedIsSetWhenUserIsMe() {
@@ -256,7 +260,7 @@ class UserProfilePresenterTests: XCTestCase {
         presenter.onPopular()
         
         // then
-        validateFeedScope(.popular, user: myProfileHolder.me)
+        validateFeedScope(.popular, user: myProfileHolder.me!)
     }
     
     func testThatRecentFeedIsSetForUser() {
@@ -380,7 +384,7 @@ extension UserProfilePresenterTests {
 extension UserProfilePresenterTests {
     
     func testThatFollowersModuleUpdatesFollowingStatusWhenUserIsMe() {
-        testThatItUpdateFollowingStatus(with: nil, expectedFollowingCount: myProfileHolder.me.followingCount + 1) {
+        testThatItUpdateFollowingStatus(with: nil, expectedFollowingCount: myProfileHolder.me!.followingCount + 1) {
             $0.didUpdateFollowersStatus(newStatus: .accepted)
         }
     }
@@ -413,7 +417,7 @@ extension UserProfilePresenterTests {
 extension UserProfilePresenterTests {
     
     func testThatFollowingModuleUpdatesFollowingStatusWhenUserIsMe() {
-        testThatItUpdateFollowingStatus(with: nil, expectedFollowingCount: myProfileHolder.me.followingCount + 1) {
+        testThatItUpdateFollowingStatus(with: nil, expectedFollowingCount: myProfileHolder.me!.followingCount + 1) {
             $0.didUpdateFollowingStatus(newStatus: .accepted)
         }
     }
