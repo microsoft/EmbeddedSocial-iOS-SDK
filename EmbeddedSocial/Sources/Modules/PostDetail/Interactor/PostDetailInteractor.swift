@@ -15,17 +15,12 @@ class PostDetailInteractor: PostDetailInteractorInput {
     var likeService: LikesServiceProtocol?
     var isLoading = false
     
-    
-    private var cursor: String?
-    private let limit: Int32 = 10
-    
-    
     // MARK: Social Actions
     
     func commentAction(commentHandle: String, action: CommentSocialAction) {
         
-        let completion: LikesServiceProtocol.CompletionHandler = { [weak self] (handle, err) in
-            //            self?.output.didPostAction(post: post, action: action, error: err)
+        let completion: LikesServiceProtocol.CommentCompletionHandler = { [weak self] (handle, error) in
+                self?.output.didPostAction(commentHandle: commentHandle, action: action, error: error)
         }
         
         switch action {
@@ -37,7 +32,7 @@ class PostDetailInteractor: PostDetailInteractorInput {
         
     }
     
-    func fetchComments(topicHandle: String) {
+    func fetchComments(topicHandle: String, cursor: String?, limit: Int32) {
         isLoading = true
         commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, resultHandler: { (result) in
             guard result.error == nil else {
@@ -45,12 +40,11 @@ class PostDetailInteractor: PostDetailInteractorInput {
             }
 
             self.isLoading = false
-            self.cursor = result.cursor
-            self.output.didFetch(comments: result.comments)
+            self.output.didFetch(comments: result.comments, cursor: cursor)
         })
     }
     
-    func fetchMoreComments(topicHandle: String) {
+    func fetchMoreComments(topicHandle: String, cursor: String?, limit: Int32) {
         if cursor == "" || cursor == nil || isLoading == true {
             return
         }
@@ -61,13 +55,8 @@ class PostDetailInteractor: PostDetailInteractorInput {
                 return
             }
             
-            if self.cursor == nil {
-                return
-            }
-            
             self.isLoading = false
-            self.cursor = result.cursor
-            self.output.didFetchMore(comments: result.comments)
+            self.output.didFetchMore(comments: result.comments, cursor: cursor)
         })
     }
     

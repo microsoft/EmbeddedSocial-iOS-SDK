@@ -182,8 +182,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         viewModel.text = post.text ?? ""
         viewModel.likedBy = "" // TODO: uncomfirmed
         
-        viewModel.totalLikes = Localizator.localize("likes_count", post.totalLikes)
-        viewModel.totalComments = Localizator.localize("comments_count", post.totalComments)
+        viewModel.totalLikes = L10n.Post.likesCount(post.totalLikes)
+        viewModel.totalComments = L10n.Post.commentsCount(post.totalComments)
         
         viewModel.timeCreated =  post.createdTime == nil ? "" : formatter.shortStyle.string(from: post.createdTime!, to: Date())!
         viewModel.userImageUrl = post.photoUrl
@@ -218,7 +218,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         
         switch action {
         case .comment:
-            router.open(route: .comments, feedSource: feedType!)
+            router.open(route: .comments(post: post), feedSource: feedType!)
         case .extra:
             
             let isMyPost = (userHolder?.me?.uid == userHandle)

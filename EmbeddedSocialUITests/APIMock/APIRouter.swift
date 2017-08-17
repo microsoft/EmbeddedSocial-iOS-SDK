@@ -113,7 +113,7 @@ open class APIRouter: WebApp {
         
         self["/images/(.*)"] = self["/v0.7/images/(.*)"]
         
-        self["/v0.7/users/me"] = APIResponse(serviceName: "me") { environ, sendJSON -> Void in
+        self["/v0.7/users/(.*(?<!follow)$)"] = APIResponse(serviceName: "me") { environ, sendJSON -> Void in
             let method = environ["REQUEST_METHOD"] as! String
             switch method {
             case "POST":

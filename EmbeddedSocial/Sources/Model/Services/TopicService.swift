@@ -205,7 +205,8 @@ class TopicService: BaseService, PostServiceProtocol {
                 if self.errorHandler.canHandle(error) {
                     self.errorHandler.handle(error)
                 } else {
-                    result.error = FeedServiceError.failedToFetch(message: error?.localizedDescription ?? "No item for \(post)")
+                    let message = error?.localizedDescription ?? L10n.Error.noItemFor("\(post)")
+                    result.error = FeedServiceError.failedToFetch(message: message)
                     completion(result)
                 }
                 return
@@ -251,7 +252,8 @@ class TopicService: BaseService, PostServiceProtocol {
             if errorHandler.canHandle(error) {
                 errorHandler.handle(error)
             } else {
-                result.error = FeedServiceError.failedToFetch(message: error?.localizedDescription ?? "No Items Received")
+                let message = error?.localizedDescription ?? L10n.Error.noItemsReceived
+                result.error = FeedServiceError.failedToFetch(message: message)
                 completion(result)
             }
             return

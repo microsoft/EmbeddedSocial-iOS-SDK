@@ -12,22 +12,34 @@ class PostDetailsPresenterTests: XCTestCase {
     let interactor = MockPostDetailsInteractor()
     let view = MockPostDetailViewController()
     
-    let post = Post(topicHandle: "handle", createdTime: Date(), userHandle: "userHandle", firstName: "FirstName", lastName: "LastName", photoHandle: "photoHandle", photoUrl: "photoUrl", title: "Title", text: "Text", imageUrl: "imageUrl", deepLink: nil, totalLikes: 5, totalComments: 5, liked: true, pinned: true)
+    var post: Post!
     
     override func setUp() {
         super.setUp()
+        post = Post(topicHandle: "topicHandle", createdTime: Date(), userHandle: "userHandle", userStatus: Post.UserStatus.none, firstName: "firstName", lastName: "lastName", photoHandle: "photoHandle", photoUrl: "photoUrl", title: "title", text: "text", imageUrl: "imageUrl", deepLink: "deepLink", totalLikes: 0, totalComments: 0, liked: true, pinned: true)
         presentor.interactor = interactor
+        presentor.view = view
+        presentor.post = post
         interactor.output = presentor
         view.output = presentor
-        presentor.view = view
     }
     
     override func tearDown() {
         super.tearDown()
+        post = nil
+        presentor.post = nil
         presentor.interactor = nil
         interactor.output = nil
         presentor.view = nil
         view.output = nil
+    }
+    
+    
+    func testThatStateSetup() {
+        
+        presentor.viewIsReady()
+        
+        XCTAssertEqual(view.setupCount, 1)
     }
     
     func testThatCommentPosted() {
@@ -35,13 +47,14 @@ class PostDetailsPresenterTests: XCTestCase {
         //given
         let comment = Comment()
         comment.text = "Text"
-        let photo = Photo(image: UIImage())
+        let photo = Photo(uid: "testid", url: "Url", image: UIImage())
         
         //when
         presentor.postComment(photo: photo, comment: comment.text!)
         
         //then
-        XCTAssertEqual(view.commentPostedCount, 1)
+        XCTAssertEqual(presentor.comments.count, 1)
+        XCTAssertEqual(view.commentPostFailed, 0)
         
         
     }
@@ -61,28 +74,31 @@ class PostDetailsPresenterTests: XCTestCase {
     func testThatCommentLiked() {
         
         //given
-        let comment = Comment()
-        comment.text = "Text"
-        
-        //when
-        presentor.likeComment(comment: comment)
-        
-        //then
-        XCTAssertEqual(view.commentsLike, 1)
+//        let commentHandle = "Handle"
+//        let comment = Comment()
+//        comment.commentHandle = commentHandle
+//        presentor.comments = [comment]
+//        
+//        //when
+//        interactor.commentAction(commentHandle: commentHandle, action: .like)
+//        
+//        //then
+//        XCTAssertEqual(view.commentsLike, "1 like")
     }
     
     func testThatCommentUnliked() {
         
-        //given
-        let comment = Comment()
-        comment.text = "Text"
-        comment.totalLikes = 1
-        
-        //when
-        presentor.likeComment(comment: comment)
-        
-        //then
-        XCTAssertEqual(view.commentsLike, 0)
+//        //given
+//        let commentHandle = "Handle"
+//        let comment = Comment()
+//        comment.commentHandle = commentHandle
+//        presentor.comments = [comment]
+//        
+//        //when
+//        interactor.commentAction(commentHandle: commentHandle, action: .like)
+//        
+//        //then
+//        XCTAssertEqual(view.commentsLike, "0 likes")
     }
     
     func testThatFetchMore() {

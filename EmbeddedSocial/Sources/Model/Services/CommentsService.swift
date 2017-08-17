@@ -63,7 +63,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
             }
             
             guard let data = response?.data else {
-                result.error = CommentsServiceError.failedToFetch(message: "No Items Received")
+                result.error = CommentsServiceError.failedToFetch(message: L10n.Error.noItemsReceived)
                 resultHandler(result)
                 return
             }
@@ -113,7 +113,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
 //        cache.cacheOutgoing(comment)
     }
     
-    private func postComment(topicHandle: String, request: PostCommentRequest, success: @escaping CommentPostResultHandler, failure: @escaping Failure) {
+    func postComment(topicHandle: String, request: PostCommentRequest, success: @escaping CommentPostResultHandler, failure: @escaping Failure) {
         CommentsAPI.topicCommentsPostComment(topicHandle: topicHandle, request: request, authorization: authorization) { (response, error) in
             if response != nil {
                 success(response!)

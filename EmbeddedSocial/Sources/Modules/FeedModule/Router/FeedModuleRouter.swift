@@ -24,7 +24,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
             configurator.configure(userID: userHandle, navigationController: navigationController)
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
-        case .postDetails(let post):
+        case .postDetails(let post), .comments(let post):
             
             let configurator = PostDetailModuleConfigurator()
             configurator.configure(post: post, navigationController: navigationController)

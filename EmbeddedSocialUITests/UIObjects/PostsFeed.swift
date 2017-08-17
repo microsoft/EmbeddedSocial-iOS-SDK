@@ -7,12 +7,14 @@ import Foundation
 import XCTest
 
 class Post {
+    var app: XCUIApplication
     var cell: XCUIElement
     var teaser: XCUIElement
     var likeButton: XCUIElement
     var pinButton: XCUIElement
     
-    init(_ cell: XCUIElement) {
+    init(_ cell: XCUIElement, _ application: XCUIApplication) {
+        self.app = application
         self.cell = cell
         self.teaser = self.cell.textViews["Teaser"]
         self.likeButton = self.cell.buttons["Like"]
@@ -26,12 +28,18 @@ class Post {
         return self.cell.staticTexts[text].exists
     }
     
+    func getLabelByText(_ text: String) -> XCUIElement {
+        return self.cell.staticTexts[text]
+    }
+    
     func like() {
+        scrollToElement(self.likeButton, self.app)
         self.likeButton.tap()
         sleep(1)
     }
     
     func pin(){
+        scrollToElement(self.pinButton, self.app)
         self.pinButton.tap()
         sleep(1)
     }
@@ -51,8 +59,8 @@ class PostsFeed {
         return UInt(self.feedContainer.cells.count)
     }
     
-    func getPost(_ index: UInt) -> Post{
-        return Post(self.feedContainer.children(matching: .cell).element(boundBy: index))
+    func getPost(_ index: UInt) -> Post {
+        return Post(self.feedContainer.children(matching: .cell).element(boundBy: index), self.app)
     }
     
     func getRandomPost() -> (UInt, Post) {
