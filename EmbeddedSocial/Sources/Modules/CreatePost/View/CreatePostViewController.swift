@@ -36,7 +36,25 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         imagePikcer.delegate = self
         title = Titles.addPost
         postButton.isEnabled = false
-        let backButton = UIBarButtonItem(image: UIImage(named:"icon_back"), style: .plain, target: self, action: #selector(back))
+        let backButton = UIBarButtonItem(asset: .iconBack, title: "", font: nil, color: .black) {
+            if self.postBodyTextView.text.isEmpty && (self.titleTextField.text?.isEmpty)! && self.photo == nil {
+                self.output.back()
+            }
+            
+            let actionSheet = UIAlertController(title: Alerts.Titles.returnToFeed,
+                                                message: Alerts.Messages.leaveNewPost, preferredStyle: .actionSheet)
+            
+            let cancelAction = UIAlertAction(title: Button.Title.cancel, style: .cancel, handler: nil)
+            actionSheet.addAction(cancelAction)
+            
+            let leavePostAction = UIAlertAction(title: Button.Title.leavePost, style: .default) { (_) in
+                self.output.back()
+            }
+            actionSheet.addAction(leavePostAction)
+            
+            self.present(actionSheet, animated: true, completion: nil)
+        }
+        
         navigationItem.rightBarButtonItem = postButton
         navigationItem.leftBarButtonItem = backButton
     }
@@ -70,25 +88,6 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
                                           message: nil,
                                           sourceViewController: self)
         imagePikcer.show(with: options)
-    }
-    
-    @objc fileprivate func back() {
-        if postBodyTextView.text.isEmpty && (titleTextField.text?.isEmpty)! && photo == nil {
-            output.back()
-        }
-        
-        let actionSheet = UIAlertController(title: Alerts.Titles.returnToFeed,
-                                            message: Alerts.Messages.leaveNewPost, preferredStyle: .actionSheet)
-        
-        let cancelAction = UIAlertAction(title: Button.Title.cancel, style: .cancel, handler: nil)
-        actionSheet.addAction(cancelAction)
-        
-        let leavePostAction = UIAlertAction(title: Button.Title.leavePost, style: .default) { (_) in
-            self.output.back()
-        }
-        actionSheet.addAction(leavePostAction)
-        
-        present(actionSheet, animated: true, completion: nil)
     }
 }
 
