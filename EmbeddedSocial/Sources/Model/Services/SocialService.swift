@@ -18,6 +18,8 @@ protocol SocialServiceType {
     
     func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void)
     
+    func getSuggestedUsers(completion: @escaping (Result<UsersListResponse>) -> Void)
+    
     /// Get the feed of users that follow me
     func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
     
@@ -141,6 +143,17 @@ class SocialService: BaseService, SocialServiceType {
             unblock(userID: userID, completion: completion)
         case .pending:
             cancelPending(userID: userID, completion: completion)
+        }
+    }
+    
+    func getSuggestedUsers(completion: @escaping (Result<UsersListResponse>) -> Void) {
+        SocialAPI.myFollowingGetSuggestionsUsers(authorization: authorization) { responseUsers, error in
+            if let responseUsers = responseUsers {
+                let users = responseUsers.map(User.init)
+                completion(.success(UsersListResponse(users: users, cursor: nil)))
+            } else {
+                self.errorHandler.handle(error: error, completion: completion)
+            }
         }
     }
 }

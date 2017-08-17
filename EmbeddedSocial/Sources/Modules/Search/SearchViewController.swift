@@ -38,7 +38,7 @@ class SearchViewController: UIViewController {
     
     private func setupUsersListModule(parentViewController vc: UIViewController) {
         let conf = UserListConfigurator()
-        usersListModule = conf.configure(api: QueryPeopleAPI(query: ""), output: nil)
+        usersListModule = conf.configure(api: SuggestedUsersAPI(socialService: SocialService()), output: nil)
         usersListModule.setupInitialState()
         let listView = usersListModule.listView
         listView.backgroundColor = .yellow
@@ -52,7 +52,7 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        // Throttle search events. Shamelessly taken from https://stackoverflow.com/a/29760716/6870041
+        // Throttle search events https://stackoverflow.com/a/29760716/6870041
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.runSearchQuery), object: nil)
         perform(#selector(self.runSearchQuery), with: nil, afterDelay: 0.3)
     }
@@ -62,7 +62,8 @@ extension SearchViewController: UISearchResultsUpdating {
             return
         }
         
-        let queryAPI = QueryPeopleAPI(query: searchText)
+        let searchService = SearchService()
+        let queryAPI = QueryPeopleAPI(query: searchText, searchService: searchService)
         usersListModule.reload(with: queryAPI)
     }
 }
