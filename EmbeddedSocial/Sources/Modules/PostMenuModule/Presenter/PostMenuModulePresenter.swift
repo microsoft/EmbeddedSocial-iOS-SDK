@@ -164,7 +164,6 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
     }
     
     // MARK: Module Input
-    
     func didTapBlock(user: UserHandle) {
         self.output?.didBlock(user: user)
         self.interactor.block(user: user)

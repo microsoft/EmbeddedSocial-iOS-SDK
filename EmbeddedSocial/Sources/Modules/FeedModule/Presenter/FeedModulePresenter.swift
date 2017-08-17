@@ -366,6 +366,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func didScrollFeed(_ feedView: UIScrollView) {
         moduleOutput?.didScrollFeed(feedView)
     }
+    
+    deinit {
+        Logger.log()
+    }
 }
 
 extension FeedModulePresenter {
@@ -398,7 +402,14 @@ extension FeedModulePresenter: PostMenuModuleModuleOutput {
             }
         }
         
-        view.reloadVisible()
+        if isHome() {
+            
+            // Refetch Data
+            didAskFetchAll()
+            
+        } else {
+            view.reloadVisible()
+        }
     }
     
     func didUnfollow(user: UserHandle) {
