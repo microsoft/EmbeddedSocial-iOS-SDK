@@ -6,5 +6,5 @@
 import Foundation
 
 protocol LoginRouterInput {
-    func openCreateAccount(user: SocialUser)
+    func openCreateAccount(user: User)
 }

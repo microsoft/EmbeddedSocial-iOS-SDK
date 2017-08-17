@@ -6,5 +6,5 @@
 import Foundation
 
 protocol UserHolder: class {
-    var me: User { get set }
+    var me: User? { get set }
 }

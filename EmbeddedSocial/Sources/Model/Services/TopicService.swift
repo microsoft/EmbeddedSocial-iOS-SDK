@@ -215,7 +215,6 @@ class TopicService: BaseService, PostServiceProtocol {
                                           cursor: query.cursorInt(),
                                           limit: query.limit) { (response, error) in
                                             self.parseResponse(response: response, error: error, completion: completion)
-                                            
         }
     }
     

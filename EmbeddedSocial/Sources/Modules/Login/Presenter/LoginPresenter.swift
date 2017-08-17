@@ -52,7 +52,7 @@ final class LoginPresenter: LoginViewOutput {
             } else if user.credentials.provider == .twitter {
                 self?.logIntoTwitter()
             } else {
-                self?.router.openCreateAccount(user: user)
+                self?.router.openCreateAccount(user: User(socialUser: user))
             }
         }
     }
@@ -64,7 +64,7 @@ final class LoginPresenter: LoginViewOutput {
 
         interactor.login(provider: .twitter, from: view as? UIViewController) { [weak self] result in
             if let user = result.value {
-                self?.router.openCreateAccount(user: user)
+                self?.router.openCreateAccount(user: User(socialUser: user))
             } else {
                 self?.view.setIsLoading(false)
                 self?.view.showError(result.error ?? APIError.unknown)

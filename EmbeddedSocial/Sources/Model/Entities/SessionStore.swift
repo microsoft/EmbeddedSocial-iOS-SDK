@@ -6,8 +6,8 @@
 import Foundation
 
 final class SessionStore {
-    private(set) var user: User!
-    private(set) var sessionToken: String!
+    private(set) var user: User?
+    private(set) var sessionToken: String?
     
     private let database: SessionStoreDatabase
     
@@ -19,7 +19,7 @@ final class SessionStore {
         guard isLoggedIn else {
             return Constants.anonymousAuthorization
         }
-        return user.credentials?.authorization ?? Constants.anonymousAuthorization
+        return user?.credentials?.authorization ?? Constants.anonymousAuthorization
     }
     
     init(database: SessionStoreDatabase) {
@@ -49,8 +49,8 @@ final class SessionStore {
             throw Error.notLoggedIn
         }
         
-        database.saveUser(user)
-        database.saveSessionToken(sessionToken)
+        database.saveUser(user!)
+        database.saveSessionToken(sessionToken!)
     }
     
     func deleteCurrentSession() throws {

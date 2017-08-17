@@ -5,6 +5,8 @@
 
 import Foundation
 
-protocol CreateAccountRouterInput {
-    func openImagePicker(from vc: UIViewController, completion: @escaping (Result<UIImage>) -> Void)
+protocol EmbeddedEditProfileInteractorInput {
+    func updatedPhotoWithImageFromCache(_ photo: Photo?) -> Photo
+    
+    func cachePhoto(_ photo: Photo)
 }

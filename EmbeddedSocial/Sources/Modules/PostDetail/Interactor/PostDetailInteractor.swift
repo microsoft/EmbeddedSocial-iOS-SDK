@@ -3,6 +3,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+enum CommentSocialAction: Int {
+    case like, unlike
+}
+
 class PostDetailInteractor: PostDetailInteractorInput {
 
     weak var output: PostDetailInteractorOutput!
@@ -14,6 +18,24 @@ class PostDetailInteractor: PostDetailInteractorInput {
     
     private var cursor: String?
     private let limit: Int32 = 10
+    
+    
+    // MARK: Social Actions
+    
+    func commentAction(commentHandle: String, action: CommentSocialAction) {
+        
+        let completion: LikesServiceProtocol.CompletionHandler = { [weak self] (handle, err) in
+            //            self?.output.didPostAction(post: post, action: action, error: err)
+        }
+        
+        switch action {
+        case .like:
+            likeService?.likeComment(commentHandle: commentHandle, completion: completion)
+        case .unlike:
+            likeService?.unlikeComment(commentHandle: commentHandle, completion: completion)
+        }
+        
+    }
     
     func fetchComments(topicHandle: String) {
         isLoading = true
@@ -63,29 +85,5 @@ class PostDetailInteractor: PostDetailInteractorInput {
             print("error posting comment")
         })
         
-    }
-    
-    func likeComment(comment: Comment) {
-        likeService?.likeComment(commentHandle: comment.commentHandle!, completion: { (commentHandle, error) in
-            if error != nil {
-                return
-            }
-            
-            comment.liked = true
-            comment.totalLikes += 1
-            self.output.commentLiked(comment: comment)
-        })
-    }
-    
-    func unlikeComment(comment: Comment) {
-        likeService?.unlikeComment(commentHandle: comment.commentHandle!, completion: { (response, error) in
-            if error != nil {
-                return
-            }
-            
-            comment.liked = false
-            comment.totalLikes -= 1
-            self.output.commentUnliked(comment: comment)
-        })
     }
 }

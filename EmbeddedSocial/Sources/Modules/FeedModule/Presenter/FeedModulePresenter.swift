@@ -221,7 +221,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             router.open(route: .comments, feedSource: feedType!)
         case .extra:
             
-            let isMyPost = (userHolder?.me.uid == userHandle)
+            let isMyPost = (userHolder?.me?.uid == userHandle)
             
             if isMyPost {
                 router.open(route: .myPost(post: post), feedSource: feedType!)
@@ -366,6 +366,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func didScrollFeed(_ feedView: UIScrollView) {
         moduleOutput?.didScrollFeed(feedView)
     }
+    
+    deinit {
+        Logger.log()
+    }
 }
 
 extension FeedModulePresenter {
@@ -379,15 +383,15 @@ extension FeedModulePresenter {
 extension FeedModulePresenter: PostMenuModuleModuleOutput {
     
     func didBlock(user: UserHandle) {
-        didChangeItem(user: user)
+        Logger.log("Success")
     }
     
     func didUnblock(user: UserHandle) {
-        didChangeItem(user: user)
+        Logger.log("Success")
     }
     
     func didRepost(user: UserHandle) {
-        
+        Logger.log("Not implemented")
     }
     
     func didFollow(user: UserHandle) {
@@ -398,16 +402,22 @@ extension FeedModulePresenter: PostMenuModuleModuleOutput {
             }
         }
         
-        view.reloadVisible()
+        if isHome() {
+            
+            // Refetch Data
+            didAskFetchAll()
+            
+        } else {
+            view.reloadVisible()
+        }
     }
     
     func didUnfollow(user: UserHandle) {
        
         if isHome() {
             
-            // Clean non following users
-            items = items.filter({ $0.userHandle != user })
-            view.reload()
+            // Refetch Data
+            didAskFetchAll()
             
         } else {
             
@@ -435,7 +445,7 @@ extension FeedModulePresenter: PostMenuModuleModuleOutput {
     }
     
     func didReport(post: PostHandle) {
-        
+        Logger.log("Not implemented")
     }
     
     func didRequestFail(error: Error) {
