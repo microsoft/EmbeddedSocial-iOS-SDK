@@ -129,7 +129,7 @@ class PostDetailsInteractorTests: XCTestCase {
         output.comments = [comment]
         
         //when
-        interactor.commentAction(commentHandle: comment.commentHandle!, action: .like)
+        interactor.commentAction(commentHandle: comment.commentHandle!, action: .unlike)
         
         //then
         XCTAssertEqual(output.comments.first?.totalLikes , 0)
