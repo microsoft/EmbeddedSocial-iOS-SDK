@@ -218,7 +218,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         
         switch action {
         case .comment:
-            router.open(route: .comments, feedSource: feedType!)
+            router.open(route: .comments(post: post), feedSource: feedType!)
         case .extra:
             
             let isMyPost = (userHolder?.me?.uid == userHandle)
