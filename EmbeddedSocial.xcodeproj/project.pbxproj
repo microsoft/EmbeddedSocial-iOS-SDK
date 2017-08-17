@@ -536,6 +536,7 @@
 		9C7D9B341F2F430B005928F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B331F2F430B005928F4 /* Localizable.strings */; };
 		9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */; };
 		9C7D9B381F2F4918005928F4 /* Localizator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7D9B371F2F4918005928F4 /* Localizator.swift */; };
+		9C813A4A1F45A21900462950 /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531341F31CCD1004CE94F /* FeedModuleInteractor-FetchQuery-Tests.swift */; };
 		9C8F68961F3485CA00AF4A7F /* topics&limit20.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CD760FE1F33158200ABBB2A /* topics&limit20.json */; };
 		9CB3F1FB1F3367F00099A22D /* TopicServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */; };
 		9CB3F1FE1F336B780099A22D /* MyFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */; };
@@ -4123,6 +4124,7 @@
 				88F7A7951F278D90005FEC5F /* MockLoginRouter.swift in Sources */,
 				88F551991F336FB700F4AAB9 /* MockUserListModuleOutput.swift in Sources */,
 				93AC65B51F3E05DA00FE5A3A /* MockPostDetailPresenter.swift in Sources */,
+				9C813A4A1F45A21900462950 /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */,
 				883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */,
 				88F551D81F3AF93600F4AAB9 /* MyFollowingAPITests.swift in Sources */,
 				88FFFA5A1F2F7F780066A1A0 /* UserProfileInteractorTests.swift in Sources */,
