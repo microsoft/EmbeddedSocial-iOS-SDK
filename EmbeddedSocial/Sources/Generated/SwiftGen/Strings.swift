@@ -17,12 +17,14 @@ enum L10n {
   enum CreatePost {
     /// Add new post
     static let addPost = L10n.tr("Localizable", "create_post.add_post")
-    /// Choose existing
-    static let chooseExisting = L10n.tr("Localizable", "create_post.choose_existing")
+    /// Going back to the feed will delete the content of this draft, are you sure you want to go back?
+    static let leaveNewPost = L10n.tr("Localizable", "create_post.leave_new_post")
     /// Leave post
     static let leavePost = L10n.tr("Localizable", "create_post.leave_post")
     /// Post
     static let post = L10n.tr("Localizable", "create_post.post")
+    /// Return to feed?
+    static let returnToFeed = L10n.tr("Localizable", "create_post.return_to_feed")
   }
 
   enum Error {
@@ -41,6 +43,10 @@ enum L10n {
   }
 
   enum ImagePicker {
+    /// Choose existing
+    static let chooseExisting = L10n.tr("Localizable", "image_picker.choose_existing")
+    /// Choose please
+    static let choosePlease = L10n.tr("Localizable", "image_picker.choose_please")
     /// Take photo
     static let takePhoto = L10n.tr("Localizable", "image_picker.take_photo")
   }

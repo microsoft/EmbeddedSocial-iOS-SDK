@@ -43,7 +43,7 @@ class ImagePicker: NSObject {
         }
         actionSheet.addAction(takeNewPhotoAction)
         
-        let chooseExistingPhotoAction = UIAlertAction(title: L10n.CreatePost.chooseExisting, style: .default) { (_) in
+        let chooseExistingPhotoAction = UIAlertAction(title: L10n.ImagePicker.chooseExisting, style: .default) { (_) in
             self.showImagePicker(sourceType: .photoLibrary)
         }
         actionSheet.addAction(chooseExistingPhotoAction)

@@ -19,7 +19,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     @IBOutlet fileprivate weak var postBodyTextView: UITextView!
     @IBOutlet weak var mediaButtonHeightConstraint: NSLayoutConstraint!
     
-    fileprivate let imagePikcer = ImagePicker()
+    fileprivate let imagePicker = ImagePicker()
     fileprivate var photo: Photo?
     fileprivate var postButton: UIBarButtonItem!
 
@@ -33,7 +33,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     func setupInitialState() {
         postButton = UIBarButtonItem(title: L10n.CreatePost.post, style: .plain,
                                      target: self, action: #selector(post))
-        imagePikcer.delegate = self
+        imagePicker.delegate = self
         title = L10n.CreatePost.addPost
         postButton.isEnabled = false
         let backButton = UIBarButtonItem(image: UIImage(named:"icon_back"), style: .plain, target: self, action: #selector(back))
@@ -66,10 +66,10 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     }
     
     @IBAction fileprivate func mediaButtonPressed(_ sender: Any) {
-        let options = ImagePicker.Options(title: Alerts.Titles.choose,
+        let options = ImagePicker.Options(title: L10n.ImagePicker.choosePlease,
                                           message: nil,
                                           sourceViewController: self)
-        imagePikcer.show(with: options)
+        imagePicker.show(with: options)
     }
     
     @objc fileprivate func back() {
@@ -77,8 +77,8 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
             output.back()
         }
         
-        let actionSheet = UIAlertController(title: Alerts.Titles.returnToFeed,
-                                            message: Alerts.Messages.leaveNewPost, preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: L10n.CreatePost.returnToFeed,
+                                            message: L10n.CreatePost.leaveNewPost, preferredStyle: .actionSheet)
         
         let cancelAction = UIAlertAction(title: L10n.Common.cancel, style: .cancel, handler: nil)
         actionSheet.addAction(cancelAction)
