@@ -14,9 +14,3 @@ input_sourcery="EmbeddedSocial/Sources/Model/"
 output_sourcery="EmbeddedSocial/Sources/Generated/Sourcery/"
 
 sourcery --sources $input_sourcery --templates ./templates --output $output_sourcery
-
-###
-
-swiftgen strings -p "EmbeddedSocial/Templates/structured-swift3.stencil" "EmbeddedSocial/Resources/Localizable.strings" -o "EmbeddedSocial/Sources/Generated/SwiftGen/Strings.swift"
-
-swiftgen strings -p "/Users/vadim.bulavin/Projects/MSR-SocialPlus-iOS-SDK/Templates/structured-swift3.stencil" "EmbeddedSocial/Resources/Localizable.strings"

@@ -8,7 +8,7 @@
 class MyProfileHolder: UserHolder {
     var setMeCount = 0
     
-    var me: User? = User(uid: UUID().uuidString) {
+    var me = User(uid: UUID().uuidString) {
         didSet {
             setMeCount += 1
         }

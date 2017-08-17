@@ -156,6 +156,21 @@ enum L10n {
     static let screenTitle = L10n.tr("Localizable", "popular.screen_title")
   }
 
+  enum Post {
+    /// %d comments
+    static func commentsCount(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "post.comments_count", p1)
+    }
+    /// %d likes
+    static func likesCount(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "post.likes_count", p1)
+    }
+    /// %d replies
+    static func repliesCount(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "post.replies_count", p1)
+    }
+  }
+
   enum PostMenu {
     /// Block
     static let block = L10n.tr("Localizable", "post_menu.block")

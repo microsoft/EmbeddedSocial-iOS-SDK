@@ -93,3 +93,8 @@
 "settings.screen_title" = "Settings";
 
 "upload_photo_cell.upload_photo" = "Upload photo";
+
+"post.likes_count" = "%d likes";
+"post.comments_count" = "%d comments";
+"post.replies_count" = "%d replies";
+
