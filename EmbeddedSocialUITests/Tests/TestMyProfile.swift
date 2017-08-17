@@ -45,7 +45,7 @@ class TestMyProfileRecentPosts: TestHome {
     
     override func setUp() {
         super.setUp()
-        feedName = "UserHandle"
+        feedName = "me"
         profile = UserProfile(app)
     }
     
@@ -62,7 +62,7 @@ class TestMyProfilePopularPosts: TestHome {
 
     override func setUp() {
         super.setUp()
-        feedName = "UserHandlepopular"
+        feedName = "mepopular"
         profile = UserProfile(app)
     }
     
