@@ -92,6 +92,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     
     func openHomeScreen() {
         let vc = configuredHome
+        navigationStack.cleanStack()
         navigationStack.show(vc)
     }
     
