@@ -65,7 +65,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
     }
     
     private func convert(data: [ReplyView]) -> [Reply] {
-        let replies = [Reply]()
+        var replies = [Reply]()
         for replyView in data {
             let reply = Reply()
             reply.commentHandle = replyView.commentHandle
@@ -78,6 +78,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             reply.userFirstName = replyView.user?.firstName
             reply.userLastName = replyView.user?.lastName
             reply.userPhotoUrl = replyView.user?.photoUrl
+            replies.append(reply)
         }
         return replies
     }

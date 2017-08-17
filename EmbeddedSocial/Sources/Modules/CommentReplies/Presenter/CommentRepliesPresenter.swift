@@ -44,7 +44,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func postReply(text: String) {
-        interactor.postReply(commentHandle: (comment?.topicHandle)!, text: text)
+        interactor.postReply(commentHandle: (comment?.commentHandle)!, text: text)
     }
     
     func fetched(replies: [Reply]) {
