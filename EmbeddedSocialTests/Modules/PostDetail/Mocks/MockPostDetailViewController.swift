@@ -10,16 +10,19 @@ class MockPostDetailViewController: PostDetailViewInput {
     
     var output: PostDetailViewOutput!
     
+    var setupCount = 0
     func setupInitialState() {
-        
+        setupCount += 1
     }
     
+    var tableRelaodedCount = 0
     func reloadTable() {
-        
+        tableRelaodedCount += 1
     }
     
+    var updatedFeedCount = 0
     func updateFeed(view: UIView) {
-        
+        updatedFeedCount += 1
     }
     
     var commentPostedCount = 0

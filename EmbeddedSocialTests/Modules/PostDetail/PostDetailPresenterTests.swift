@@ -34,6 +34,14 @@ class PostDetailsPresenterTests: XCTestCase {
         view.output = nil
     }
     
+    
+    func testThatStateSetup() {
+        
+        presentor.viewIsReady()
+        
+        XCTAssertEqual(view.setupCount, 1)
+    }
+    
     func testThatCommentPosted() {
         
         //given
