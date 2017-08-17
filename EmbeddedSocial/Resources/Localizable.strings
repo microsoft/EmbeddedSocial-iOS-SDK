@@ -9,17 +9,87 @@
 "error.cancelled_by_user" = "The operation has been cancelled by user.";
 "error.image_compression_failed" = "Image compression has failed.";
 "error.missing_credentials" = "User credentials are missing.";
+"error.no_items_received" = "No Items Received";
+"error.invalid_image" = "Image is invalid";
+"error.user_not_logged_in" = "User is not logged in.";
+"error.last_session_not_available" = "Last session is not available.";
+"error.no_item_for" = "No item for %@";
+"error.no_items_received" = "No Items Received";
 
 "common.ok" = "OK";
 "common.cancel" = "Cancel";
+"common.close" = "Close";
+"common.placeholder.unknown" = "Unknown";
+"common.placeholder.not_specified" = "Not specified";
+"common.follow" = "Follow";
+"common.pending" = "Pending";
+"common.following" = "Following";
+"common.blocked" = "Blocked";
 
 "image_picker.take_photo" = "Take photo";
 "image_picker.choose_existing" = "Choose existing";
 "image_picker.choose_please" = "Choose please";
+"image_picker.remove_photo" = "Remove photo";
 
 "create_post.leave_post" = "Leave post";
 "create_post.post" = "Post";
-"create_post.add_post" = "Add new post";
+"create_post.button.add_post" = "Add new post";
 "create_post.leave_new_post" = "Going back to the feed will delete the content of this draft, are you sure you want to go back?";
 "create_post.return_to_feed" = "Return to feed?";
+"create_post.button.add_picture" = "Tap here to add a picture";
 
+"create_account.screen_title" = "Create an account";
+"create_account.button.sign_up" = "Sign up";
+
+"home.screen_title" = "Home";
+
+"popular.screen_title" = "Popular";
+
+"edit_profile.screen_title" = "Edit profile";
+"edit_profile.button.save" = "Save";
+"edit_profile.placeholder.first_name" = "First name";
+"edit_profile.placeholder.last_name" = "Last name";
+"edit_profile.placeholder.bio" = "Bio";
+"edit_profile.label.account_information" = "Account Information";
+
+"followers.screen_title" = "Followers";
+
+"following.screen_title" = "Following";
+
+"login.screen_title" = "Sign in";
+
+"post_menu.report" = "Report post";
+"post_menu.edit" = "Edit post";
+"post_menu.remove" = "Remove post";
+"post_menu.follow" = "Follow";
+"post_menu.unfollow" = "Unfollow";
+"post_menu.block" = "Block";
+"post_menu.unblock" = "Unblock";
+"post_menu.hide" = "Hide";
+
+"profile_summary.button.followers" = "followers";
+"profile_summary.button.following" = "following";
+"profile_summary.button.edit" = "Edit profile";
+
+"user_profile.button.recent_posts" = "Recent posts";
+"user_profile.button.popular_posts" = "Popular posts";
+"user_profile.button.add_post" = "Add post";
+"user_profile.button.block_user" = "Block user";
+"user_profile.button.report_user" = "Report user";
+"user_profile.screen_title" = "Profile";
+
+"side_menu.sign_in" = "Sign In";
+"side_menu.social" = "Social";
+"side_menu.debug" = "Debug";
+
+"report.screen_title" = "Report %@";
+
+"search.screen_title" = "Search";
+
+"my_pins.screen_title" = "My pins";
+
+"activity_feed.screen_title" = "Activity Feed";
+
+"settings.screen_title" = "Settings";
+
+"upload_photo_cell.upload_photo" = "Upload photo";

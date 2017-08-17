@@ -13,6 +13,7 @@ enum APIError: LocalizedError {
     case custom(String)
     case imageCompression
     case missingCredentials
+    case invalidImage
 
     public var errorDescription: String? {
         switch self {
@@ -22,6 +23,7 @@ enum APIError: LocalizedError {
         case .cancelled: return L10n.Error.cancelledByUser
         case .imageCompression: return L10n.Error.imageCompressionFailed
         case .missingCredentials: return L10n.Error.missingCredentials
+        case .invalidImage: return L10n.Error.invalidImage
         case let .custom(text): return text
         }
     }

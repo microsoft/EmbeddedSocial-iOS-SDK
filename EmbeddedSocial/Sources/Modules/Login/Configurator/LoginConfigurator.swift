@@ -28,6 +28,6 @@ final class LoginConfigurator {
         
         viewController.output = presenter
         
-        viewController.title = "Sign in"
+        viewController.title = L10n.Login.screenTitle
     }
 }

@@ -49,7 +49,7 @@ class ImagePicker: NSObject {
         actionSheet.addAction(chooseExistingPhotoAction)
         
         if imageWasSelected {
-            let removePhotoAction = UIAlertAction(title: "Remove photo", style: .default) { (_) in
+            let removePhotoAction = UIAlertAction(title: L10n.ImagePicker.removePhoto, style: .default) { (_) in
                 self.delegate?.removePhoto()
                 self.imageWasSelected = false
             }
@@ -91,7 +91,7 @@ extension ImagePicker {
 // MARK: UIImagePickerControllerDelegate
 extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        onImageSelected?(.failure(Error.cancelled))
+        onImageSelected?(.failure(APIError.cancelled))
         presentingView?.dismiss(animated: true, completion: nil)
     }
     
@@ -102,22 +102,8 @@ extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDe
             delegate?.selected(photo: photo)
             onImageSelected?(.success(image))
         } else {
-            onImageSelected?(.failure(Error.unkown))
+            onImageSelected?(.failure(APIError.unknown))
         }
         presentingView?.dismiss(animated: true, completion: nil)
-    }
-}
-
-extension ImagePicker {
-    enum Error: LocalizedError {
-        case cancelled
-        case unkown
-        
-        public var errorDescription: String? {
-            switch self {
-            case .cancelled: return "Cancelled by user."
-            case .unkown: return "Unknown error."
-            }
-        }
     }
 }

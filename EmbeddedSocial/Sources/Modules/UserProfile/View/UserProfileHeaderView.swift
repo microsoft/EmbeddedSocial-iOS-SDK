@@ -28,8 +28,11 @@ class UserProfileHeaderView: UIView {
     lazy var filterView: SegmentedControlView = { [unowned self] in
         let filterView = SegmentedControlView.fromNib()
         filterView.setSegments([
-            SegmentedControlView.Segment(title: "Recent posts", action: { [weak self] in self?.onRecent?() }),
-            SegmentedControlView.Segment(title: "Popular posts", action: { [weak self] in self?.onPopular?() })
+            SegmentedControlView.Segment(title: L10n.UserProfile.Button.recentPosts,
+                                         action: { [weak self] in self?.onRecent?() }),
+            
+            SegmentedControlView.Segment(title: L10n.UserProfile.Button.popularPosts,
+                                         action: { [weak self] in self?.onPopular?() })
             ])
         filterView.selectSegment(Constants.UserProfile.recentSegment)
         filterView.isSeparatorHidden = false

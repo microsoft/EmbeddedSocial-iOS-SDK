@@ -34,7 +34,7 @@ extension UIButton {
 extension UIButton.Style {
     
     static var follow: UIButton.Style {
-        return UIButton.Style(title: "FOLLOW",
+        return UIButton.Style(title: L10n.Common.follow.uppercased(),
                               backgroundColor: .clear,
                               tintColor: Palette.green,
                               titleColor: Palette.green,
@@ -45,7 +45,7 @@ extension UIButton.Style {
     }
     
     static var pending: UIButton.Style {
-        return UIButton.Style(title: "PENDING",
+        return UIButton.Style(title: L10n.Common.pending.uppercased(),
                               backgroundColor: .clear,
                               tintColor: Palette.lightGrey,
                               titleColor: Palette.lightGrey,
@@ -56,7 +56,7 @@ extension UIButton.Style {
     }
     
     static var following: UIButton.Style {
-        return UIButton.Style(title: "FOLLOWING",
+        return UIButton.Style(title: L10n.Common.following.uppercased(),
                               backgroundColor: Palette.green,
                               tintColor: Palette.green,
                               titleColor: Palette.white,
@@ -67,7 +67,7 @@ extension UIButton.Style {
     }
     
     static var blocked: UIButton.Style {
-        return UIButton.Style(title: "BLOCKED",
+        return UIButton.Style(title: L10n.Common.blocked.uppercased(),
                               backgroundColor: .clear,
                               tintColor: Palette.lightGrey,
                               titleColor: Palette.lightGrey,

@@ -34,7 +34,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         postButton = UIBarButtonItem(title: L10n.CreatePost.post, style: .plain,
                                      target: self, action: #selector(post))
         imagePicker.delegate = self
-        title = L10n.CreatePost.addPost
+        title = L10n.CreatePost.Button.addPost
         postButton.isEnabled = false
         let backButton = UIBarButtonItem(image: UIImage(named:"icon_back"), style: .plain, target: self, action: #selector(back))
         navigationItem.rightBarButtonItem = postButton
@@ -98,7 +98,7 @@ extension CreatePostViewController: ImagePickerDelegate {
     func removePhoto() {
         photo = nil
         mediaButton.setImage(nil, for: .normal)
-        mediaButton.setTitle("Tap here to add a picture", for: .normal)
+        mediaButton.setTitle(L10n.CreatePost.Button.addPicture, for: .normal)
     }
 
     func selected(photo: Photo) {

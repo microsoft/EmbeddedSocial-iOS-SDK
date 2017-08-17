@@ -68,8 +68,8 @@ extension SessionStore {
 
         var errorDescription: String? {
             switch self {
-            case .notLoggedIn: return "User is not logged in."
-            case .lastSessionNotAvailable: return "Last session is not available."
+            case .notLoggedIn: return L10n.Error.userNotLoggedIn
+            case .lastSessionNotAvailable: return L10n.Error.lastSessionNotAvailable
             }
         }
     }

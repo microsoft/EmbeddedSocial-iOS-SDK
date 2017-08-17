@@ -63,7 +63,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
             }
             
             guard let data = response?.data else {
-                result.error = CommentsServiceError.failedToFetch(message: "No Items Received")
+                result.error = CommentsServiceError.failedToFetch(message: L10n.Error.noItemsReceived)
                 resultHandler(result)
                 return
             }

@@ -17,7 +17,7 @@ class EditProfileViewController: UIViewController {
     
     private func setupNavBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "Save",
+            title: L10n.EditProfile.Button.save,
             style: .plain,
             target: self,
             action: #selector(self.signIn)

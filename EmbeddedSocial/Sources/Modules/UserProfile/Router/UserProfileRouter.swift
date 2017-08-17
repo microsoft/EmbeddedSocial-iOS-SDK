@@ -48,7 +48,7 @@ final class UserProfileRouter: UserProfileRouterInput {
     
     func openReport(user: User) {
         let vc = UIViewController()
-        vc.title = "Report \(user.fullName)"
+        vc.title = L10n.Report.screenTitle(user.fullName)
         vc.view.backgroundColor = .white
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }

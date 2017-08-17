@@ -17,7 +17,7 @@ class CreateAccountViewController: UIViewController {
     
     private func setupNavBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "Sign up",
+            title: L10n.CreateAccount.Button.signUp,
             style: .plain,
             target: self,
             action: #selector(self.signIn)
