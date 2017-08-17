@@ -29,9 +29,18 @@ protocol PostMenuModuleModuleInput: class {
     
 }
 
-enum PostMenuType {
+enum PostMenuType: CustomStringConvertible {
     case myPost(post: Post)
     case otherPost(post: Post, isHome: Bool)
+    
+    var description: String  {
+        get {
+            switch self {
+            case .myPost(let post ), .otherPost(let post, _):
+                return post.topicHandle!
+            }
+        }
+    }
 }
 
 struct ActionViewModel {
@@ -155,7 +164,6 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
     }
     
     // MARK: Module Input
-    
     func didTapBlock(user: UserHandle) {
         self.output?.didBlock(user: user)
         self.interactor.block(user: user)
@@ -261,6 +269,6 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleModuleInp
     }
     
     deinit {
-        Logger.log()
+        Logger.log(menuType)
     }
 }

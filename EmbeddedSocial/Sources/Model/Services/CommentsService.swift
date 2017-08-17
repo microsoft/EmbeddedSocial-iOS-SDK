@@ -113,7 +113,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
 //        cache.cacheOutgoing(comment)
     }
     
-    private func postComment(topicHandle: String, request: PostCommentRequest, success: @escaping CommentPostResultHandler, failure: @escaping Failure) {
+    func postComment(topicHandle: String, request: PostCommentRequest, success: @escaping CommentPostResultHandler, failure: @escaping Failure) {
         CommentsAPI.topicCommentsPostComment(topicHandle: topicHandle, request: request, authorization: authorization) { (response, error) in
             if response != nil {
                 success(response!)

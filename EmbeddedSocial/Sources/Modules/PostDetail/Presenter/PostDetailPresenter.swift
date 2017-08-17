@@ -26,7 +26,7 @@ struct CommentViewModel {
 }
 
 class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDetailInteractorOutput {
-
+    
     weak var view: PostDetailViewInput!
     var interactor: PostDetailInteractorInput!
     var router: PostDetailRouterInput!
@@ -39,6 +39,8 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     var comments = [Comment]()
     
     private var formatter = DateFormatterTool()
+    private var cursor: String?
+    private let limit: Int32 = 10
     
     
     private func viewModel(with comment: Comment) -> CommentViewModel {
@@ -103,12 +105,14 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     }
     
     // MARK: PostDetailInteractorOutput
-    func didFetch(comments: [Comment]) {
+    func didFetch(comments: [Comment], cursor: String?) {
+        self.cursor = cursor
         self.comments = comments
         view.reloadTable()
     }
     
-    func didFetchMore(comments: [Comment]) {
+    func didFetchMore(comments: [Comment], cursor: String?) {
+        self.cursor = cursor
         self.comments.append(contentsOf: comments)
         view.reloadTable()
     }
@@ -126,16 +130,9 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         
     }
     
-    func commentLiked(comment: Comment) {
-        guard let index = comments.index(of: comment) else {
-            return
-        }
+    func didPostAction(commentHandle: String, action: CommentSocialAction, error: Error?) {
         
-        view.refreshCell(index: index)
-    }
-    
-    func commentUnliked(comment: Comment) {
-        guard let index = comments.index(of: comment) else {
+        guard let index = comments.enumerated().first(where: { $0.element.commentHandle == commentHandle })?.offset else {
             return
         }
         
@@ -163,7 +160,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     func viewIsReady() {
         view.setupInitialState()
         setupFeed()
-        interactor.fetchComments(topicHandle: (post?.topicHandle)!)
+        interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: limit)
     }
     
     private func setupFeed() {
@@ -176,7 +173,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     }
     
     func fetchMore() {
-        interactor.fetchMoreComments(topicHandle: (post?.topicHandle)!)
+        interactor.fetchMoreComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: limit)
     }
     
     func commentViewModel(index: Int) -> CommentViewModel {
