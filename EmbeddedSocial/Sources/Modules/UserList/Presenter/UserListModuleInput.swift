@@ -9,4 +9,6 @@ protocol UserListModuleInput: class {
     var listView: UIView { get }
 
     func setupInitialState()
+    
+    func reload(with api: UsersListAPI)
 }

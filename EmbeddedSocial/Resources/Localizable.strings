@@ -85,6 +85,7 @@
 "report.screen_title" = "Report %@";
 
 "search.screen_title" = "Search";
+"search.placeholder.search_people" = "Search people";
 
 "my_pins.screen_title" = "My pins";
 
@@ -97,4 +98,3 @@
 "post.likes_count" = "%d likes";
 "post.comments_count" = "%d comments";
 "post.replies_count" = "%d replies";
-

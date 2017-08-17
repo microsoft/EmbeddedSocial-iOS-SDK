@@ -212,6 +212,11 @@ enum L10n {
   enum Search {
     /// Search
     static let screenTitle = L10n.tr("Localizable", "search.screen_title")
+
+    enum Placeholder {
+      /// Search people
+      static let searchPeople = L10n.tr("Localizable", "search.placeholder.search_people")
+    }
   }
 
   enum Settings {

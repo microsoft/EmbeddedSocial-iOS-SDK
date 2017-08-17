@@ -48,6 +48,9 @@ public final class SocialPlus {
         if sessionStore.isLoggedIn {
             coordinator.onSessionCreated(user: sessionStore.user!, sessionToken: sessionStore.sessionToken!)
         }
+        
+        let vc = StoryboardScene.Search.instantiateSearchViewController()
+        args.window.rootViewController = UINavigationController(rootViewController: vc)
     }
     
     private func setupCoreDataStack() {
