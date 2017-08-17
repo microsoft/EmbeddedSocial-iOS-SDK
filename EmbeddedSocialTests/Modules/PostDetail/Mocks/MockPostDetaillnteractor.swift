@@ -25,6 +25,6 @@ class MockPostDetailsInteractor: PostDetailInteractorInput {
     }
     
     func commentAction(commentHandle: String, action: CommentSocialAction) {
-        
+        output.didPostAction(commentHandle: commentHandle, action: action, error: nil)
     }
 }

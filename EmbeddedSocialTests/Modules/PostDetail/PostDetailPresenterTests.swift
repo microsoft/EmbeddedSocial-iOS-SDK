@@ -66,14 +66,16 @@ class PostDetailsPresenterTests: XCTestCase {
     func testThatCommentLiked() {
         
         //given
+        let commentHandle = "Handle"
         let comment = Comment()
-        comment.text = "Text"
+        comment.commentHandle = commentHandle
+        presentor.comments = [comment]
         
         //when
-        presentor.likeComment(comment: comment)
+        interactor.commentAction(commentHandle: commentHandle, action: .like)
         
         //then
-        XCTAssertEqual(view.commentsLike, 1)
+        XCTAssertEqual(view.commentsLike, "1 like")
     }
     
     func testThatCommentUnliked() {
@@ -83,11 +85,11 @@ class PostDetailsPresenterTests: XCTestCase {
         comment.text = "Text"
         comment.totalLikes = 1
         
-        //when
-        presentor.likeComment(comment: comment)
-        
-        //then
-        XCTAssertEqual(view.commentsLike, 0)
+//        //when
+//        presentor.likeComment(comment: comment)
+//        
+//        //then
+//        XCTAssertEqual(view.commentsLike, 0)
     }
     
     func testThatFetchMore() {

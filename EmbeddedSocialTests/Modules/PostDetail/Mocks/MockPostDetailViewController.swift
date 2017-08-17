@@ -32,10 +32,10 @@ class MockPostDetailViewController: PostDetailViewInput {
         commentPostedCount += 1
     }
     
-    var commentsLike = 0
+    var commentsLike = ""
     func refreshCell(index: Int) {
         let comment = output.commentViewModel(index: index)
-        commentsLike = Int(comment.totalLikes)!
+        commentsLike = comment.totalLikes
     }
     
 }
