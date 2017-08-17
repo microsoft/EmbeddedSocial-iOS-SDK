@@ -36,7 +36,9 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         imagePicker.delegate = self
         title = L10n.CreatePost.Button.addPost
         postButton.isEnabled = false
-        let backButton = UIBarButtonItem(image: UIImage(named:"icon_back"), style: .plain, target: self, action: #selector(back))
+        let backButton = UIBarButtonItem(asset: .iconBack, title: "", font: nil, color: .black) { [weak self] in
+            self?.back()
+        }
         navigationItem.rightBarButtonItem = postButton
         navigationItem.leftBarButtonItem = backButton
     }
@@ -72,7 +74,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         imagePicker.show(with: options)
     }
     
-    @objc fileprivate func back() {
+    fileprivate func back() {
         if postBodyTextView.text.isEmpty && (titleTextField.text?.isEmpty)! && photo == nil {
             output.back()
         }

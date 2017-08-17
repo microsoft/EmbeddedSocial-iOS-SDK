@@ -39,11 +39,7 @@ class FollowersFeed {
     }
     
     func getFollower(_ index: UInt) -> Follower {
-        var retryCount = 10
-        let element = self.feedContainer.cells.element(boundBy: index)
-        while !element.isHittable && retryCount > 0 {
-            app.swipeUp()
-        }
+        scrollToElement(self.feedContainer.cells.element(boundBy: index), self.app)
         return Follower(self.feedContainer.cells.element(boundBy: index))
     }
     
