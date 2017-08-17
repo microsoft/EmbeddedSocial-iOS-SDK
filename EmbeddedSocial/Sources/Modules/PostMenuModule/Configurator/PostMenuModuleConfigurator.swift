@@ -8,9 +8,9 @@ import UIKit
 class PostMenuModuleConfigurator {
     
     var viewController: PostMenuModuleViewController!
-    var moduleInput: PostMenuModuleModuleInput!
+    var moduleInput: PostMenuModuleInput!
 
-    func configure(menuType: PostMenuType, moduleOutput: PostMenuModuleModuleOutput? = nil) {
+    func configure(menuType: PostMenuType, moduleOutput: PostMenuModuleOutput? = nil) {
         
         viewController = PostMenuModuleViewController()
         

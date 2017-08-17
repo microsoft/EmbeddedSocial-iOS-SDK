@@ -85,15 +85,7 @@ private class PostMenuModulePresenterMock: PostMenuModuleInteractorOutput {
         unblockedUser = user
         unblockedUserError = error
     }
-    
-    var repostedUser: UserHandle?
-    var repostedUserError: Error?
-    
-    func didRepost(user: UserHandle, error: Error?) {
-        repostedUser = user
-        repostedUserError = error
-    }
-    
+ 
     var followedUser: UserHandle?
     var followedUserError: Error?
     
@@ -236,9 +228,4 @@ class PostMenuModuleInteractorTests: XCTestCase {
     private var randomHandle: String {
         return UUID().uuidString
     }
-    
-    
-    
-    
-    
 }

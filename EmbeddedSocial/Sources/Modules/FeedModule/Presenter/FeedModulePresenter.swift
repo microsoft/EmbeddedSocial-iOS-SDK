@@ -380,7 +380,7 @@ extension FeedModulePresenter {
     }
 }
 
-extension FeedModulePresenter: PostMenuModuleModuleOutput {
+extension FeedModulePresenter: PostMenuModuleOutput {
     
     func didBlock(user: UserHandle) {
         Logger.log("Success")
@@ -388,10 +388,6 @@ extension FeedModulePresenter: PostMenuModuleModuleOutput {
     
     func didUnblock(user: UserHandle) {
         Logger.log("Success")
-    }
-    
-    func didRepost(user: UserHandle) {
-        Logger.log("Not implemented")
     }
     
     func didFollow(user: UserHandle) {

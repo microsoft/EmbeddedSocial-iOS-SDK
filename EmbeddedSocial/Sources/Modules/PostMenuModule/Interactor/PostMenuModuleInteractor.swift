@@ -7,7 +7,6 @@ protocol PostMenuModuleInteractorInput {
 
     func block(user: UserHandle)
     func unblock(user: UserHandle)
-    func repost(user: UserHandle)
     func follow(user: UserHandle)
     func unfollow(user: UserHandle)
     func hide(post: PostHandle)
@@ -21,7 +20,6 @@ protocol PostMenuModuleInteractorOutput: class {
     
     func didBlock(user: UserHandle, error: Error?)
     func didUnblock(user: UserHandle, error: Error?)
-    func didRepost(user: UserHandle, error: Error?)
     func didFollow(user: UserHandle, error: Error?)
     func didUnfollow(user: UserHandle, error: Error?)
     func didHide(post: PostHandle, error: Error?)
@@ -78,11 +76,7 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
             strongOutput.didHide(post: post, error: result.error)
         }
     }
-    
-    func repost(user: UserHandle) {
-        self.output.didRepost(user: user, error: nil)
-    }
-    
+ 
     func report(post: PostHandle) {
         self.output.didReport(post: post, error: nil)
     }
