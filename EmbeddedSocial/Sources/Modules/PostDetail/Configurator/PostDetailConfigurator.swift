@@ -5,6 +5,11 @@
 
 import UIKit
 
+enum CommentsScrollType {
+    case none
+    case bottom
+}
+
 class PostDetailModuleConfigurator {
     
     let viewController: PostDetailViewController
@@ -13,9 +18,7 @@ class PostDetailModuleConfigurator {
         viewController = StoryboardScene.PostDetail.instantiatePostDetailViewController()
     }
 
-    func configure(post: Post, navigationController: UINavigationController? = nil) {
-
-
+    func configure(post: Post, navigationController: UINavigationController? = nil, scrollType: CommentsScrollType) {
         
         let router = PostDetailRouter()
 
@@ -36,7 +39,8 @@ class PostDetailModuleConfigurator {
         interactor.commentsService = commentsService
         let likeService = LikesService()
         interactor.likeService = likeService
-
+        presenter.scrollType = scrollType
+        
         presenter.interactor = interactor
         viewController.output = presenter
         

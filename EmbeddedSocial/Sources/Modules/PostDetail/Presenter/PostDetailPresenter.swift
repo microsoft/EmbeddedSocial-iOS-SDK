@@ -30,6 +30,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     weak var view: PostDetailViewInput!
     var interactor: PostDetailInteractorInput!
     var router: PostDetailRouterInput!
+    var scrollType: CommentsScrollType = .none
     
     var feedViewController: UIViewController?
     var feedModuleInput: FeedModuleInput?
@@ -40,7 +41,8 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     
     private var formatter = DateFormatterTool()
     private var cursor: String?
-    private let limit: Int32 = 10
+    private let normalLimit: Int32 = 10
+    private let maxLimit: Int32 = 10000
     
     
     private func viewModel(with comment: Comment) -> CommentViewModel {
@@ -108,13 +110,14 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     func didFetch(comments: [Comment], cursor: String?) {
         self.cursor = cursor
         self.comments = comments
-        view.reloadTable()
+        view.reloadTable(scrollType: scrollType)
+        scrollType = .none
     }
     
     func didFetchMore(comments: [Comment], cursor: String?) {
         self.cursor = cursor
         self.comments.append(contentsOf: comments)
-        view.reloadTable()
+        view.reloadTable(scrollType: .none)
     }
     
     func didFail(error: CommentsServiceError) {
@@ -160,7 +163,12 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     func viewIsReady() {
         view.setupInitialState()
         setupFeed()
-        interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: limit)
+        switch scrollType {
+            case .bottom:
+                interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: maxLimit)
+            default:
+                interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: normalLimit)
+        }
     }
     
     private func setupFeed() {
@@ -173,7 +181,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     }
     
     func fetchMore() {
-        interactor.fetchMoreComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: limit)
+        interactor.fetchMoreComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: normalLimit)
     }
     
     func commentViewModel(index: Int) -> CommentViewModel {

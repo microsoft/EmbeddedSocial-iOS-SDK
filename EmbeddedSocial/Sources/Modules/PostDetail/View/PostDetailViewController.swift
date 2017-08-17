@@ -78,10 +78,15 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
        
     }
     
-    func reloadTable() {
+    func reloadTable(scrollType: CommentsScrollType) {
         refreshControl.endRefreshing()
         self.isNewDataLoading = false
         tableView.reloadData()
+        switch scrollType {
+            case .bottom:
+                tableView.scrollToRow(at: IndexPath(row: output.numberOfItems() - 1, section: TableSections.comments.rawValue), at: .bottom, animated: false)
+            default: break
+        }
     }
     
     func refreshCell(index: Int) {
