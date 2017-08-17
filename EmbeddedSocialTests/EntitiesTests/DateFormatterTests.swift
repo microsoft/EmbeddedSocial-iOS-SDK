@@ -23,7 +23,7 @@ class DateFormatterTests: XCTestCase {
         let cal = Calendar.current
         var comps = DateComponents()
         comps.calendar = cal
-        comps.day = -12
+        comps.day = -14
         let to = Date()
         let from = cal.date(byAdding: comps, to: to)
 
@@ -33,7 +33,6 @@ class DateFormatterTests: XCTestCase {
         // then
         XCTAssert(result == "2w")
     }
-
 }
 
 

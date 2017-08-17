@@ -39,6 +39,14 @@ private class PostServiceMock: PostServiceProtocol {
         completion(singlePostResult)
     }
     
+    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+        
+    }
+    
+    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+        
+    }
+    
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
         
     }
@@ -95,6 +103,8 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         sut.postService = service
         presenter = FeedModulePresenterMock()
         sut.output = presenter
+        
+        sut.userHolder = nil
     }
     
     override func tearDown() {

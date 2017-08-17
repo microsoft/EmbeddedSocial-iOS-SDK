@@ -34,7 +34,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     var postService: PostServiceProtocol!
     var likesService: LikesServiceProtocol = LikesService()
     var pinsService: PinsServiceProtocol! = PinsService()
-    private weak var userHolder: UserHolder? = SocialPlus.shared
+    weak var userHolder: UserHolder? = SocialPlus.shared
     
     var isFetching = false {
         didSet {
@@ -108,7 +108,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             
         case let .user(user: user, scope: scope):
             
-            let isMyFeed = userHolder?.me.uid == user
+            let isMyFeed = userHolder?.me?.uid == user
             
             if isMyFeed {
                 var query = MyFeedQuery()
