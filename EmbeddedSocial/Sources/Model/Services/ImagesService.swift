@@ -31,7 +31,7 @@ class ImagesService: BaseService, ImagesServiceType {
                                  completion: @escaping (Result<String>) -> Void) {
         
         guard let data = data else {
-            completion(.failure(APIError.custom("Image is invalid")))
+            completion(.failure(APIError.invalidImage))
             return
         }
         
@@ -50,7 +50,7 @@ class ImagesService: BaseService, ImagesServiceType {
     
     func updateUserPhoto(_ photo: Photo, completion: @escaping (Result<Photo>) -> Void) {
         guard let image = photo.image else {
-            completion(.failure(APIError.custom("Image is missing")))
+            completion(.failure(APIError.invalidImage))
             return
         }
         

@@ -33,7 +33,7 @@ struct EmbeddedEditProfileCellsBuilder {
         
         let firstNameStyle = TextFieldCell.Style(
             text: user.firstName,
-            placeholderText: "First name",
+            placeholderText: L10n.EditProfile.Placeholder.firstName,
             font: Fonts.regular,
             edgeInsets: edgeInsets,
             onTextChanged: onFirstNameChanged
@@ -41,7 +41,7 @@ struct EmbeddedEditProfileCellsBuilder {
         
         let lastNameStyle = TextFieldCell.Style(
             text: user.lastName,
-            placeholderText: "Last name",
+            placeholderText: L10n.EditProfile.Placeholder.lastName,
             font: Fonts.regular,
             edgeInsets: edgeInsets,
             onTextChanged: onLastNameChanged
@@ -50,14 +50,15 @@ struct EmbeddedEditProfileCellsBuilder {
         let bioStyle = TextViewCell.Style(
             text: user.bio,
             font: Fonts.regular,
-            placeholder: "Bio",
+            placeholder: L10n.EditProfile.Placeholder.bio,
             edgeInsets: edgeInsets,
             charactersLimit: Constants.EditProfile.maxBioLength,
             onTextChanged: onBioChanged,
             onLinesCountChanged: { _ in self.onBioLinesCountChanged?() }
         )
         
-        let headerModel = EmbeddedEditProfileGroupHeader.accountInformation(.editProfile, "ACCOUNT INFORMATION")
+        let headerModel = EmbeddedEditProfileGroupHeader.accountInformation(
+            .editProfile, L10n.EditProfile.Label.accountInformation.uppercased())
         return Section(model: headerModel, items: [
             .firstName(firstNameStyle),
             .lastName(lastNameStyle),

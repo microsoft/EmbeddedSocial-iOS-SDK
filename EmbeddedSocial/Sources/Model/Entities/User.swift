@@ -21,11 +21,11 @@ struct User {
     
     var fullName: String {
         if firstName == nil {
-            return lastName ?? Constants.Placeholder.unknown
+            return lastName ?? L10n.Common.Placeholder.unknown
         }
         
         if lastName == nil {
-            return firstName ?? Constants.Placeholder.unknown
+            return firstName ?? L10n.Common.Placeholder.unknown
         }
         
         return "\(firstName!) \(lastName!)"

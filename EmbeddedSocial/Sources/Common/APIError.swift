@@ -9,21 +9,21 @@ enum APIError: LocalizedError {
     case failedRequest
     case unknown
     case missingUserData
-    case responseError(String)
     case cancelled
     case custom(String)
     case imageCompression
     case missingCredentials
+    case invalidImage
 
     public var errorDescription: String? {
         switch self {
-        case .failedRequest: return "The request has failed."
-        case .unknown: return "Unknown error occurred."
-        case .missingUserData: return "User data is missing."
-        case let .responseError(path): return "Response \(path) returned with error."
-        case .cancelled: return "The operation has been cancelled by user."
-        case .imageCompression: return "Image compression has failed."
-        case .missingCredentials: return "User credentials are missing."
+        case .failedRequest: return L10n.Error.failedRequest
+        case .unknown: return L10n.Error.unknown
+        case .missingUserData: return L10n.Error.missingUserData
+        case .cancelled: return L10n.Error.cancelledByUser
+        case .imageCompression: return L10n.Error.imageCompressionFailed
+        case .missingCredentials: return L10n.Error.missingCredentials
+        case .invalidImage: return L10n.Error.invalidImage
         case let .custom(text): return text
         }
     }

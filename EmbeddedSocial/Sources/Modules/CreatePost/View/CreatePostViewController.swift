@@ -19,7 +19,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     @IBOutlet fileprivate weak var postBodyTextView: UITextView!
     @IBOutlet weak var mediaButtonHeightConstraint: NSLayoutConstraint!
     
-    fileprivate let imagePikcer = ImagePicker()
+    fileprivate let imagePicker = ImagePicker()
     fileprivate var photo: Photo?
     fileprivate var postButton: UIBarButtonItem!
 
@@ -31,30 +31,14 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
 
     // MARK: CreatePostViewInput
     func setupInitialState() {
-        postButton = UIBarButtonItem(title: Button.Title.post, style: .plain,
+        postButton = UIBarButtonItem(title: L10n.CreatePost.post, style: .plain,
                                      target: self, action: #selector(post))
-        imagePikcer.delegate = self
-        title = Titles.addPost
+        imagePicker.delegate = self
+        title = L10n.CreatePost.Button.addPost
         postButton.isEnabled = false
-        let backButton = UIBarButtonItem(asset: .iconBack, title: "", font: nil, color: .black) {
-            if self.postBodyTextView.text.isEmpty && (self.titleTextField.text?.isEmpty)! && self.photo == nil {
-                self.output.back()
-            }
-            
-            let actionSheet = UIAlertController(title: Alerts.Titles.returnToFeed,
-                                                message: Alerts.Messages.leaveNewPost, preferredStyle: .actionSheet)
-            
-            let cancelAction = UIAlertAction(title: Button.Title.cancel, style: .cancel, handler: nil)
-            actionSheet.addAction(cancelAction)
-            
-            let leavePostAction = UIAlertAction(title: Button.Title.leavePost, style: .default) { (_) in
-                self.output.back()
-            }
-            actionSheet.addAction(leavePostAction)
-            
-            self.present(actionSheet, animated: true, completion: nil)
+        let backButton = UIBarButtonItem(asset: .iconBack, title: "", font: nil, color: .black) { [weak self] in
+            self?.back()
         }
-        
         navigationItem.rightBarButtonItem = postButton
         navigationItem.leftBarButtonItem = backButton
     }
@@ -72,7 +56,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     func show(error: Error) {
         SVProgressHUD.dismiss()
         let alert = UIAlertController(title: error.localizedDescription, message: nil, preferredStyle: .alert)
-        let action = UIAlertAction(title: Button.Title.ok, style: .default, handler: nil)
+        let action = UIAlertAction(title: L10n.Common.ok, style: .default, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
@@ -84,10 +68,29 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     }
     
     @IBAction fileprivate func mediaButtonPressed(_ sender: Any) {
-        let options = ImagePicker.Options(title: Alerts.Titles.choose,
+        let options = ImagePicker.Options(title: L10n.ImagePicker.choosePlease,
                                           message: nil,
                                           sourceViewController: self)
-        imagePikcer.show(with: options)
+        imagePicker.show(with: options)
+    }
+    
+    fileprivate func back() {
+        if postBodyTextView.text.isEmpty && (titleTextField.text?.isEmpty)! && photo == nil {
+            output.back()
+        }
+        
+        let actionSheet = UIAlertController(title: L10n.CreatePost.returnToFeed,
+                                            message: L10n.CreatePost.leaveNewPost, preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: L10n.Common.cancel, style: .cancel, handler: nil)
+        actionSheet.addAction(cancelAction)
+        
+        let leavePostAction = UIAlertAction(title: L10n.CreatePost.leavePost, style: .default) { (_) in
+            self.output.back()
+        }
+        actionSheet.addAction(leavePostAction)
+        
+        present(actionSheet, animated: true, completion: nil)
     }
 }
 
@@ -97,7 +100,7 @@ extension CreatePostViewController: ImagePickerDelegate {
     func removePhoto() {
         photo = nil
         mediaButton.setImage(nil, for: .normal)
-        mediaButton.setTitle("Tap here to add a picture", for: .normal)
+        mediaButton.setTitle(L10n.CreatePost.Button.addPicture, for: .normal)
     }
 
     func selected(photo: Photo) {
