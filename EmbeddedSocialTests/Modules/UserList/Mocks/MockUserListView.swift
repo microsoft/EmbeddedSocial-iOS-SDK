@@ -6,16 +6,19 @@
 @testable import EmbeddedSocial
 
 final class MockUserListView: UIView, UserListViewInput {
-    var setupInitialStateCount = 0
-    var setUsersCount = 0
-    var setIsLoadingItemAtCount = 0
-    var isLoadingItemAtParams: (Bool, IndexPath)?
-    var setIsLoadingCount = 0
-    var isLoading: Bool?
-    var users: [User]?
+    private(set) var setupInitialStateCount = 0
+    private(set) var setUsersCount = 0
+    private(set) var setIsLoadingItemAtCount = 0
+    private(set) var isLoadingItemAtParams: (Bool, IndexPath)?
+    private(set) var setIsLoadingCount = 0
+    private(set) var isLoading: Bool?
+    private(set) var users: [User]?
     
-    var updateListItemCount = 0
-    var updateListItemParams: (User, IndexPath)?
+    private(set) var updateListItemCount = 0
+    private(set) var updateListItemParams: (User, IndexPath)?
+    
+    private(set) var setListHeaderViewCount = 0
+    private(set) var headerView: UIView?
     
     func setupInitialState() {
         setupInitialStateCount += 1
@@ -39,5 +42,10 @@ final class MockUserListView: UIView, UserListViewInput {
     func setIsLoading(_ isLoading: Bool) {
         setIsLoadingCount += 1
         self.isLoading = isLoading
+    }
+    
+    func setListHeaderView(_ view: UIView?) {
+        setListHeaderViewCount += 1
+        headerView = view
     }
 }

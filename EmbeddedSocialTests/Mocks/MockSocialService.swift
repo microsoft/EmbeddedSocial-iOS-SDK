@@ -16,6 +16,7 @@ final class MockSocialService: SocialServiceType {
     private(set) var getUserFollowersCount = 0
     private(set) var getUserFollowingCount = 0
     private(set) var requestCount = 0
+    private(set) var getSuggestedUsersCount = 0
 
     func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
         followCount += 1
@@ -69,6 +70,12 @@ final class MockSocialService: SocialServiceType {
     
     func deletePostFromMyFollowing(postID: String, completion: @escaping (Result<Void>) -> Void) {
         
+    }
+    
+    func getSuggestedUsers(completion: @escaping (Result<UsersListResponse>) -> Void) {
+        getSuggestedUsersCount += 1
+        let response = UsersListResponse(users: [], cursor: nil)
+        completion(.success(response))
     }
     
 }

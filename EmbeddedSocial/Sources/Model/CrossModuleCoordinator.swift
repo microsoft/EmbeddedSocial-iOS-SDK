@@ -20,6 +20,7 @@ protocol CrossModuleCoordinatorProtocol: class {
     var configuredPopular: UIViewController { get }
     var configuredUserProfile: UIViewController { get }
     var configuredLogin: UIViewController { get }
+    var configuredSearch: UIViewController { get }
 }
 
 class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput {
@@ -139,6 +140,12 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         let vc = UIViewController()
         vc.view.backgroundColor = UIColor.purple
         return vc
+    }()
+    
+    lazy var configuredSearch: UIViewController = {
+        let configurator = SearchConfigurator()
+        configurator.configure()
+        return configurator.viewController
     }()
     
 }

@@ -69,6 +69,10 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         return coordinator.configuredPopular
     }
     
+    var builderForSearch: ModuleBuilder = { coordinator in
+        return coordinator.configuredSearch
+    }
+    
     typealias MenuItem = (
         key: SocialItem,
         title: String,
@@ -80,6 +84,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     func getMenuItemIndex(for item: SocialItem) -> Int? {
         return items[state]!.index(where: { $0.key == item })
     }
+    
     
     lazy var items: [State: [MenuItem]] = { [unowned self] in
         
@@ -94,7 +99,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
                  title: L10n.Search.screenTitle,
                  image: UIImage(asset: Asset.iconSearch),
                  highlighted: UIImage(asset: Asset.iconSearchActive),
-                 builder: self.builderForDummy),
+                 builder: self.builderForSearch),
                 (key: .popular,
                  title: L10n.Popular.screenTitle,
                  image: UIImage(asset: Asset.iconPopular),
@@ -117,7 +122,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
                 (key: .search, title: L10n.Search.screenTitle,
                  image: UIImage(asset: Asset.iconSearch),
                  highlighted: UIImage(asset: Asset.iconSearchActive),
-                 builder: self.builderForDummy),
+                 builder: self.builderForSearch),
                 (key: .popular, title: L10n.Popular.screenTitle,
                  image: UIImage(asset: Asset.iconPopular),
                  highlighted: UIImage(asset: Asset.iconPopularActive),

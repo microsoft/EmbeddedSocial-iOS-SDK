@@ -68,4 +68,12 @@ extension GroupHeaderTableCell.Style {
                      backgroundColor: Palette.extraLightGrey,
                      titleInsets: insets)
     }
+    
+    static var peopleSearch: Style {
+        let insets = UIEdgeInsets(top: 0.0, left: Constants.CreateAccount.contentPadding, bottom: 0.0, right: 0.0)
+        return Style(titleColor: Palette.darkGrey,
+                     titleFont: Fonts.regular,
+                     backgroundColor: Palette.extraLightGrey,
+                     titleInsets: insets)
+    }
 }

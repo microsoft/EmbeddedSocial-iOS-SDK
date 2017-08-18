@@ -5,12 +5,12 @@
 
 import Foundation
 
-protocol UserListModuleInput: class {
-    var listView: UIView { get }
-
+protocol SearchPeopleModuleInput: class {
     func setupInitialState()
     
-    func reload(with api: UsersListAPI)
+    func searchResultsHandler() -> UISearchResultsUpdating
     
-    func setListHeaderView(_ view: UIView?)
+    func backgroundView() -> UIView
+    
+    func searchResultsController() -> UIViewController
 }

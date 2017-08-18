@@ -6,7 +6,7 @@
 import Foundation
 
 class UserListInteractor: UserListInteractorInput {
-    private let api: UsersListAPI
+    private var api: UsersListAPI
     private let socialService: SocialServiceType
 
     init(api: UsersListAPI, socialService: SocialServiceType) {
@@ -33,5 +33,9 @@ class UserListInteractor: UserListInteractorInput {
                 completion(.failure(result.error ?? APIError.unknown))
             }
         }
+    }
+    
+    func setAPI(_ api: UsersListAPI) {
+        self.api = api
     }
 }

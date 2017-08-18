@@ -326,6 +326,25 @@
 		88635D7F1F22447C00577140 /* OutgoingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D7E1F22447C00577140 /* OutgoingTransaction.swift */; };
 		88635D881F224F3200577140 /* CoreDataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */; };
 		88635D8B1F25D96800577140 /* TransactionsDatabaseFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */; };
+		8864C8221F45BA6000ADCE13 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8211F45BA6000ADCE13 /* SearchViewController.swift */; };
+		8864C8241F45BA7000ADCE13 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8864C8231F45BA7000ADCE13 /* Search.storyboard */; };
+		8864C8261F45C57700ADCE13 /* QueryPeopleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8251F45C57700ADCE13 /* QueryPeopleAPI.swift */; };
+		8864C82A1F45EAC600ADCE13 /* SuggestedUsersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8291F45EAC600ADCE13 /* SuggestedUsersAPI.swift */; };
+		8864C82C1F45EC2A00ADCE13 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C82B1F45EC2A00ADCE13 /* SearchService.swift */; };
+		8864C8311F46DA6800ADCE13 /* SearchPeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8301F46DA6800ADCE13 /* SearchPeopleViewController.swift */; };
+		8864C8331F46DA7800ADCE13 /* SearchPeople.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8864C8321F46DA7800ADCE13 /* SearchPeople.storyboard */; };
+		8864C8361F46DB7D00ADCE13 /* SearchPeopleViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8351F46DB7D00ADCE13 /* SearchPeopleViewInput.swift */; };
+		8864C8381F46DBA700ADCE13 /* SearchPeopleViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8371F46DBA700ADCE13 /* SearchPeopleViewOutput.swift */; };
+		8864C83A1F46DBC200ADCE13 /* SearchPeoplePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8391F46DBC200ADCE13 /* SearchPeoplePresenter.swift */; };
+		8864C83D1F46DBF700ADCE13 /* SearchPeopleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C83C1F46DBF700ADCE13 /* SearchPeopleConfigurator.swift */; };
+		8864C8401F46DC6800ADCE13 /* SearchPeopleModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C83F1F46DC6800ADCE13 /* SearchPeopleModuleInput.swift */; };
+		8864C8431F46DDBE00ADCE13 /* SearchPeopleInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8421F46DDBE00ADCE13 /* SearchPeopleInteractorInput.swift */; };
+		8864C8451F46DDC600ADCE13 /* SearchPeopleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8441F46DDC600ADCE13 /* SearchPeopleInteractor.swift */; };
+		8864C8491F4707BB00ADCE13 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8481F4707BB00ADCE13 /* SearchPresenter.swift */; };
+		8864C84C1F4707D600ADCE13 /* SearchViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C84B1F4707D600ADCE13 /* SearchViewInput.swift */; };
+		8864C84E1F4707DE00ADCE13 /* SearchViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C84D1F4707DE00ADCE13 /* SearchViewOutput.swift */; };
+		8864C8501F4709D300ADCE13 /* SearchPageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C84F1F4709D300ADCE13 /* SearchPageInfo.swift */; };
+		8864C8521F470AA100ADCE13 /* SearchConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8511F470AA100ADCE13 /* SearchConfigurator.swift */; };
 		886B39C81F138F5D00BF1A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C71F138F5D00BF1A8E /* AppDelegate.swift */; };
 		886B39CA1F138F5D00BF1A8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B39C91F138F5D00BF1A8E /* ViewController.swift */; };
 		886B39CD1F138F5D00BF1A8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B39CB1F138F5D00BF1A8E /* Main.storyboard */; };
@@ -344,6 +363,8 @@
 		8875CCEE1F331CB3001F2474 /* FollowingViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCE61F331CB3001F2474 /* FollowingViewOutput.swift */; };
 		8875CCF11F331FC9001F2474 /* UsersListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCF01F331FC9001F2474 /* UsersListResponse.swift */; };
 		8875CCF31F333835001F2474 /* SegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCF21F333835001F2474 /* SegmentedControlView.swift */; };
+		889119A41F470E1E005B3B32 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119A31F470E1E005B3B32 /* SearchInteractor.swift */; };
+		889119A71F470E3E005B3B32 /* SearchInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119A61F470E3E005B3B32 /* SearchInteractorInput.swift */; };
 		8895107F1F3B0FDC001A53F5 /* EmbeddedSocial.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8895107D1F3B0FDC001A53F5 /* EmbeddedSocial.xcdatamodeld */; };
 		889510811F3B1CB4001A53F5 /* APIErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */; };
 		889510831F3B1FCA001A53F5 /* ErrorResponse+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889510821F3B1FCA001A53F5 /* ErrorResponse+Ext.swift */; };
@@ -892,6 +913,25 @@
 		88635D7E1F22447C00577140 /* OutgoingTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingTransaction.swift; sourceTree = "<group>"; };
 		88635D871F224F3200577140 /* CoreDataRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataRepositoryTests.swift; sourceTree = "<group>"; };
 		88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDatabaseFacade.swift; sourceTree = "<group>"; };
+		8864C8211F45BA6000ADCE13 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		8864C8231F45BA7000ADCE13 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
+		8864C8251F45C57700ADCE13 /* QueryPeopleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryPeopleAPI.swift; sourceTree = "<group>"; };
+		8864C8291F45EAC600ADCE13 /* SuggestedUsersAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestedUsersAPI.swift; sourceTree = "<group>"; };
+		8864C82B1F45EC2A00ADCE13 /* SearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		8864C8301F46DA6800ADCE13 /* SearchPeopleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPeopleViewController.swift; sourceTree = "<group>"; };
+		8864C8321F46DA7800ADCE13 /* SearchPeople.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchPeople.storyboard; sourceTree = "<group>"; };
+		8864C8351F46DB7D00ADCE13 /* SearchPeopleViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPeopleViewInput.swift; sourceTree = "<group>"; };
+		8864C8371F46DBA700ADCE13 /* SearchPeopleViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPeopleViewOutput.swift; sourceTree = "<group>"; };
+		8864C8391F46DBC200ADCE13 /* SearchPeoplePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPeoplePresenter.swift; sourceTree = "<group>"; };
+		8864C83C1F46DBF700ADCE13 /* SearchPeopleConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPeopleConfigurator.swift; sourceTree = "<group>"; };
+		8864C83F1F46DC6800ADCE13 /* SearchPeopleModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPeopleModuleInput.swift; sourceTree = "<group>"; };
+		8864C8421F46DDBE00ADCE13 /* SearchPeopleInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPeopleInteractorInput.swift; sourceTree = "<group>"; };
+		8864C8441F46DDC600ADCE13 /* SearchPeopleInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPeopleInteractor.swift; sourceTree = "<group>"; };
+		8864C8481F4707BB00ADCE13 /* SearchPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		8864C84B1F4707D600ADCE13 /* SearchViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewInput.swift; sourceTree = "<group>"; };
+		8864C84D1F4707DE00ADCE13 /* SearchViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewOutput.swift; sourceTree = "<group>"; };
+		8864C84F1F4709D300ADCE13 /* SearchPageInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPageInfo.swift; sourceTree = "<group>"; };
+		8864C8511F470AA100ADCE13 /* SearchConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchConfigurator.swift; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* EmbeddedSocial-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EmbeddedSocial-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B39C91F138F5D00BF1A8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -920,6 +960,8 @@
 		8875CCF01F331FC9001F2474 /* UsersListResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListResponse.swift; sourceTree = "<group>"; };
 		8875CCF21F333835001F2474 /* SegmentedControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlView.swift; sourceTree = "<group>"; };
 		8875CCF41F33384A001F2474 /* SegmentedControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedControlView.xib; sourceTree = "<group>"; };
+		889119A31F470E1E005B3B32 /* SearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
+		889119A61F470E3E005B3B32 /* SearchInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchInteractorInput.swift; sourceTree = "<group>"; };
 		8895107E1F3B0FDC001A53F5 /* MSGP.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MSGP.xcdatamodel; sourceTree = "<group>"; };
 		889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIErrorHandler.swift; sourceTree = "<group>"; };
 		889510821F3B1FCA001A53F5 /* ErrorResponse+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ErrorResponse+Ext.swift"; sourceTree = "<group>"; };
@@ -1759,6 +1801,7 @@
 				886F4B3A1F2A06E500D836C3 /* SocialService.swift */,
 				63A1D6FA1F25E78D0090C67A /* TopicService.swift */,
 				88580B2A1F2213AB00C1CBAF /* UserService.swift */,
+				8864C82B1F45EC2A00ADCE13 /* SearchService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1813,6 +1856,8 @@
 				88580B581F2213AB00C1CBAF /* Login */,
 				93AC65841F3E056F00FE5A3A /* PostDetail */,
 				9C21696E1F3C68350052FB90 /* PostMenuModule */,
+				8864C82D1F46DA3C00ADCE13 /* SearchPeople */,
+				8864C8201F45BA6000ADCE13 /* Search */,
 				88580B6C1F2213AB00C1CBAF /* SideMenu */,
 				88580B801F2213AB00C1CBAF /* TabMenuContainer */,
 				882F103D1F30C8A20068B6F2 /* UserList */,
@@ -2174,6 +2219,103 @@
 			path = SessionStoreDatabase;
 			sourceTree = "<group>";
 		};
+		8864C8201F45BA6000ADCE13 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				8864C8531F470AA300ADCE13 /* Configurator */,
+				8864C84A1F4707BF00ADCE13 /* Presenter */,
+				8864C8471F46E3B700ADCE13 /* View */,
+				889119A51F470E21005B3B32 /* SearchInteractor */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		8864C82D1F46DA3C00ADCE13 /* SearchPeople */ = {
+			isa = PBXGroup;
+			children = (
+				8864C83E1F46DBFA00ADCE13 /* Configurator */,
+				8864C8411F46DDAD00ADCE13 /* Interactor */,
+				8864C83B1F46DBCC00ADCE13 /* Presenter */,
+				8864C8341F46DB6E00ADCE13 /* View */,
+			);
+			name = SearchPeople;
+			path = Search;
+			sourceTree = "<group>";
+		};
+		8864C8341F46DB6E00ADCE13 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8864C8301F46DA6800ADCE13 /* SearchPeopleViewController.swift */,
+				8864C8321F46DA7800ADCE13 /* SearchPeople.storyboard */,
+				8864C8351F46DB7D00ADCE13 /* SearchPeopleViewInput.swift */,
+				8864C8371F46DBA700ADCE13 /* SearchPeopleViewOutput.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8864C83B1F46DBCC00ADCE13 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8864C8391F46DBC200ADCE13 /* SearchPeoplePresenter.swift */,
+				8864C83F1F46DC6800ADCE13 /* SearchPeopleModuleInput.swift */,
+			);
+			name = Presenter;
+			sourceTree = "<group>";
+		};
+		8864C83E1F46DBFA00ADCE13 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				8864C83C1F46DBF700ADCE13 /* SearchPeopleConfigurator.swift */,
+			);
+			name = Configurator;
+			sourceTree = "<group>";
+		};
+		8864C8411F46DDAD00ADCE13 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				8864C8461F46E39700ADCE13 /* UsersListAPIs */,
+				8864C8421F46DDBE00ADCE13 /* SearchPeopleInteractorInput.swift */,
+				8864C8441F46DDC600ADCE13 /* SearchPeopleInteractor.swift */,
+			);
+			name = Interactor;
+			sourceTree = "<group>";
+		};
+		8864C8461F46E39700ADCE13 /* UsersListAPIs */ = {
+			isa = PBXGroup;
+			children = (
+				8864C8251F45C57700ADCE13 /* QueryPeopleAPI.swift */,
+				8864C8291F45EAC600ADCE13 /* SuggestedUsersAPI.swift */,
+			);
+			name = UsersListAPIs;
+			sourceTree = "<group>";
+		};
+		8864C8471F46E3B700ADCE13 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8864C8211F45BA6000ADCE13 /* SearchViewController.swift */,
+				8864C8231F45BA7000ADCE13 /* Search.storyboard */,
+				8864C84B1F4707D600ADCE13 /* SearchViewInput.swift */,
+				8864C84D1F4707DE00ADCE13 /* SearchViewOutput.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8864C84A1F4707BF00ADCE13 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8864C8481F4707BB00ADCE13 /* SearchPresenter.swift */,
+			);
+			name = Presenter;
+			sourceTree = "<group>";
+		};
+		8864C8531F470AA300ADCE13 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				8864C8511F470AA100ADCE13 /* SearchConfigurator.swift */,
+			);
+			name = Configurator;
+			sourceTree = "<group>";
+		};
 		886B39C61F138F5D00BF1A8E /* EmbeddedSocial-Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -2253,6 +2395,16 @@
 				8875CCF41F33384A001F2474 /* SegmentedControlView.xib */,
 			);
 			path = SegmentedControlView;
+			sourceTree = "<group>";
+		};
+		889119A51F470E21005B3B32 /* SearchInteractor */ = {
+			isa = PBXGroup;
+			children = (
+				8864C84F1F4709D300ADCE13 /* SearchPageInfo.swift */,
+				889119A31F470E1E005B3B32 /* SearchInteractor.swift */,
+				889119A61F470E3E005B3B32 /* SearchInteractorInput.swift */,
+			);
+			name = SearchInteractor;
 			sourceTree = "<group>";
 		};
 		8895108B1F3B5589001A53F5 /* SocialPlus */ = {
@@ -3100,7 +3252,6 @@
 				9CD805261F0D012F00B9B0AC /* Headers */,
 				9CD805271F0D012F00B9B0AC /* Resources */,
 				886B39E51F1392D800BF1A8E /* ShellScript */,
-				63A1D5831F1CD12A0090C67A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -3235,12 +3386,14 @@
 				9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */,
 				88F3858B1F31BF140048B04C /* UserListCell.xib in Resources */,
 				88F551A41F3472E100F4AAB9 /* SegmentedControlView.xib in Resources */,
+				8864C8331F46DA7800ADCE13 /* SearchPeople.storyboard in Resources */,
 				88580C631F2213AB00C1CBAF /* MenuStack.storyboard in Resources */,
 				88BC5C541F2B65D0001FBDD2 /* UserProfile.storyboard in Resources */,
 				3234AD1B1F2E70C3009C3327 /* PostCellCompact.xib in Resources */,
 				9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */,
 				93AC65A81F3E057C00FE5A3A /* CommentCell.xib in Resources */,
 				88FFFA751F30B9D90066A1A0 /* Followers.storyboard in Resources */,
+				8864C8241F45BA7000ADCE13 /* Search.storyboard in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3248,20 +3401,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		63A1D5831F1CD12A0090C67A /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "";
-			showEnvVarsInLog = 0;
-		};
 		886B39E51F1392D800BF1A8E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -3399,6 +3538,7 @@
 				88FFFA611F306EC80066A1A0 /* BarButtonItemWithTarget.swift in Sources */,
 				8846CB4B1F30CA0A00F11EC8 /* UserListPresenter.swift in Sources */,
 				882AD0CD1F2227E100FC20B7 /* CoreDataRecord.swift in Sources */,
+				8864C84E1F4707DE00ADCE13 /* SearchViewOutput.swift in Sources */,
 				884AA9891F3C563F00B85135 /* PutTopicNameRequest.swift in Sources */,
 				88F551A21F34719100F4AAB9 /* UserListCell.swift in Sources */,
 				88580C4F1F2213AB00C1CBAF /* LoginInteractor.swift in Sources */,
@@ -3411,6 +3551,7 @@
 				88580C131F2213AB00C1CBAF /* User+Memento.swift in Sources */,
 				88580BBA1F2213AB00C1CBAF /* Collection+Ext.swift in Sources */,
 				88BC5C621F2F5EFE001FBDD2 /* TwitterServerBasedAPI.swift in Sources */,
+				8864C8491F4707BB00ADCE13 /* SearchPresenter.swift in Sources */,
 				88580C271F2213AB00C1CBAF /* SessionService.swift in Sources */,
 				884AA94E1F3C563F00B85135 /* APIHelper.swift in Sources */,
 				88580BAA1F2213AB00C1CBAF /* SectionModel.swift in Sources */,
@@ -3420,6 +3561,8 @@
 				88580C4B1F2213AB00C1CBAF /* CreatePostViewController.swift in Sources */,
 				88580BBE1F2213AB00C1CBAF /* UIBarButtonItem+Ext.swift in Sources */,
 				884AA97D1F3C563F00B85135 /* PostReplyRequest.swift in Sources */,
+				8864C82A1F45EAC600ADCE13 /* SuggestedUsersAPI.swift in Sources */,
+				889119A41F470E1E005B3B32 /* SearchInteractor.swift in Sources */,
 				9C6D359D1F31D1C1005893DB /* FeedModuleInput.swift in Sources */,
 				884AA9531F3C563F00B85135 /* ImagesAPI.swift in Sources */,
 				88580C3D1F2213AB00C1CBAF /* CreateAccountViewInput.swift in Sources */,
@@ -3430,6 +3573,7 @@
 				88580C721F2213AB00C1CBAF /* TabMenuContainerViewOutput.swift in Sources */,
 				882AD0C01F221D4400FC20B7 /* ModelFileExtension.swift in Sources */,
 				88BC5C511F2B65D0001FBDD2 /* UserProfilePresenter.swift in Sources */,
+				8864C8311F46DA6800ADCE13 /* SearchPeopleViewController.swift in Sources */,
 				88580C501F2213AB00C1CBAF /* LoginInteractorInput.swift in Sources */,
 				8811C85E1F42FB6B00F7513D /* EmbeddedEditProfileInteractorInput.swift in Sources */,
 				9C6D35A41F31D1C1005893DB /* FeedModuleViewOutput.swift in Sources */,
@@ -3439,14 +3583,17 @@
 				8846CB491F30C98C00F11EC8 /* UserListModuleInput.swift in Sources */,
 				88580C291F2213AB00C1CBAF /* SessionStoreDatabaseFacade.swift in Sources */,
 				88580C601F2213AB00C1CBAF /* SideMenuRouter.swift in Sources */,
+				8864C83A1F46DBC200ADCE13 /* SearchPeoplePresenter.swift in Sources */,
 				88FFFA7C1F30BB5E0066A1A0 /* FollowersViewInput.swift in Sources */,
 				93AC65A71F3E057C00FE5A3A /* CommentCell.swift in Sources */,
 				88580C1A1F2213AB00C1CBAF /* AuthService.swift in Sources */,
 				884AA9631F3C563F00B85135 /* AppCompactView.swift in Sources */,
 				88580C281F2213AB00C1CBAF /* SessionStoreDatabase.swift in Sources */,
+				8864C8451F46DDC600ADCE13 /* SearchPeopleInteractor.swift in Sources */,
 				88580BAC1F2213AB00C1CBAF /* SideMenuCellView.swift in Sources */,
 				8875CCE91F331CB3001F2474 /* FollowingPresenter.swift in Sources */,
 				88F551AC1F38717A00F4AAB9 /* UICollectionView+Ext.swift in Sources */,
+				8864C8401F46DC6800ADCE13 /* SearchPeopleModuleInput.swift in Sources */,
 				88F385861F30D1080048B04C /* UserListInteractorInput.swift in Sources */,
 				88BC5C501F2B65D0001FBDD2 /* UserProfileInteractorInput.swift in Sources */,
 				88F3857F1F30CD890048B04C /* UserListModuleOutput.swift in Sources */,
@@ -3456,7 +3603,9 @@
 				88580C5F1F2213AB00C1CBAF /* SideMenuPresenter.swift in Sources */,
 				93AC65971F3E056F00FE5A3A /* PostDetailConfigurator.swift in Sources */,
 				884AA9871F3C563F00B85135 /* PutNotificationsStatusRequest.swift in Sources */,
+				8864C8221F45BA6000ADCE13 /* SearchViewController.swift in Sources */,
 				8811C8881F431B9A00F7513D /* EditProfileViewInput.swift in Sources */,
+				8864C83D1F46DBF700ADCE13 /* SearchPeopleConfigurator.swift in Sources */,
 				884AA96B1F3C563F00B85135 /* FeedResponseReplyView.swift in Sources */,
 				32FAB0531F2E6D4700C5B18D /* PostCellProtocol.swift in Sources */,
 				9C6D359F1F31D1C1005893DB /* FeedModuleRouter.swift in Sources */,
@@ -3493,15 +3642,18 @@
 				9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */,
 				884AA98A1F3C563F00B85135 /* PutTopicRequest.swift in Sources */,
 				88580C6F1F2213AB00C1CBAF /* TabMenuContainerRouterInput.swift in Sources */,
+				8864C8521F470AA100ADCE13 /* SearchConfigurator.swift in Sources */,
 				884AA9791F3C563F00B85135 /* PostFollowingUserRequest.swift in Sources */,
 				88580C231F2213AB00C1CBAF /* KeyValueStorage.swift in Sources */,
 				88D45C1A1F4491F600DCB475 /* Strings.swift in Sources */,
 				9C21697A1F3C68350052FB90 /* PostMenuModuleInteractor.swift in Sources */,
+				8864C8361F46DB7D00ADCE13 /* SearchPeopleViewInput.swift in Sources */,
 				88635D751F223B6600577140 /* StoreType.swift in Sources */,
 				88580B9E1F2213AB00C1CBAF /* BaseViewController.swift in Sources */,
 				88580C2A1F2213AB00C1CBAF /* SessionStoreRepositoryProvider.swift in Sources */,
 				88580C1C1F2213AB00C1CBAF /* FacebookAPI.swift in Sources */,
 				8846CB4E1F30CA1100F11EC8 /* UserListViewInput.swift in Sources */,
+				8864C8381F46DBA700ADCE13 /* SearchPeopleViewOutput.swift in Sources */,
 				88580C5B1F2213AB00C1CBAF /* SideMenuInteractor.swift in Sources */,
 				884AA98B1F3C563F00B85135 /* PutUserInfoRequest.swift in Sources */,
 				9C6D35A01F31D1C1005893DB /* FeedModuleRouterInput.swift in Sources */,
@@ -3520,6 +3672,7 @@
 				88580C771F2213AB00C1CBAF /* NameComponentsSplitter.swift in Sources */,
 				884AA97A1F3C563F00B85135 /* PostImageResponse.swift in Sources */,
 				88580BB71F2213AB00C1CBAF /* TextViewCell.swift in Sources */,
+				8864C82C1F45EC2A00ADCE13 /* SearchService.swift in Sources */,
 				88BC5C531F2B65D0001FBDD2 /* UserProfileRouterInput.swift in Sources */,
 				881060FD1F28F4B2008CA2FB /* Visibility.swift in Sources */,
 				8811C8711F43059200F7513D /* EmbeddedEditProfileRouter.swift in Sources */,
@@ -3529,6 +3682,7 @@
 				88580BB31F2213AB00C1CBAF /* LoadingIndicatorView.swift in Sources */,
 				886F4B3B1F2A06E500D836C3 /* SocialService.swift in Sources */,
 				88580C7D1F2213EF00C1CBAF /* Repository.swift in Sources */,
+				8864C8261F45C57700ADCE13 /* QueryPeopleAPI.swift in Sources */,
 				88580C411F2213AB00C1CBAF /* CreatePostConfigurator.swift in Sources */,
 				884AA9591F3C563F00B85135 /* ReportingAPI.swift in Sources */,
 				88580C671F2213AB00C1CBAF /* TabMenuContainerConfigurator.swift in Sources */,
@@ -3558,6 +3712,7 @@
 				88580C181F2213AB00C1CBAF /* ImageCache.swift in Sources */,
 				88580C761F2213AB00C1CBAF /* ImagePicker.swift in Sources */,
 				884AA9611F3C563F00B85135 /* Extensions.swift in Sources */,
+				8864C8431F46DDBE00ADCE13 /* SearchPeopleInteractorInput.swift in Sources */,
 				884AA97C1F3C563F00B85135 /* PostPinRequest.swift in Sources */,
 				88FFFA771F30BAE60066A1A0 /* FollowersPresenter.swift in Sources */,
 				88580C521F2213AB00C1CBAF /* LoginPresenter.swift in Sources */,
@@ -3575,6 +3730,7 @@
 				884AA9721F3C563F00B85135 /* Object.swift in Sources */,
 				88580BBB1F2213AB00C1CBAF /* Dictionary+Ext.swift in Sources */,
 				884AA9601F3C563F00B85135 /* Configuration.swift in Sources */,
+				8864C84C1F4707D600ADCE13 /* SearchViewInput.swift in Sources */,
 				93AC659C1F3E056F00FE5A3A /* PostDetailModuleInput.swift in Sources */,
 				88580C491F2213AB00C1CBAF /* CreatePostRouterInput.swift in Sources */,
 				88580C191F2213AB00C1CBAF /* AuthAPIProvider.swift in Sources */,
@@ -3600,6 +3756,7 @@
 				889510831F3B1FCA001A53F5 /* ErrorResponse+Ext.swift in Sources */,
 				88580C6A1F2213AB00C1CBAF /* TabMenuContainerInteractorInput.swift in Sources */,
 				8811C8921F4334F800F7513D /* Cacheable.swift in Sources */,
+				8864C8501F4709D300ADCE13 /* SearchPageInfo.swift in Sources */,
 				88580C3C1F2213AB00C1CBAF /* CreateAccountViewController.swift in Sources */,
 				88580C2F1F2213AB00C1CBAF /* UserService.swift in Sources */,
 				884AA98D1F3C563F00B85135 /* PutUserVisibilityRequest.swift in Sources */,
@@ -3692,6 +3849,7 @@
 				88580BA01F2213AB00C1CBAF /* CellModel.swift in Sources */,
 				88580C6C1F2213AB00C1CBAF /* TabMenuContainerModuleInput.swift in Sources */,
 				88580BB61F2213AB00C1CBAF /* TextFieldCell.swift in Sources */,
+				889119A71F470E3E005B3B32 /* SearchInteractorInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3871,7 +4029,7 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "EmbeddedSocial-Example/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "akvelon.EmbeddedSocial-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3895,7 +4053,7 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "EmbeddedSocial-Example/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "akvelon.EmbeddedSocial-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4065,7 +4223,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/EmbeddedSocial/SupportingFiles/Info.plist";
 				INSTALL_PATH = Library/Frameworks;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$(PROJECT_DIR)/EmbeddedSocial/SupportingFiles/EmbeddedSocial.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.microsoft.embeddedsocial;
@@ -4093,7 +4251,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/EmbeddedSocial/SupportingFiles/Info.plist";
 				INSTALL_PATH = Library/Frameworks;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$(PROJECT_DIR)/EmbeddedSocial/SupportingFiles/EmbeddedSocial.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.microsoft.embeddedsocial;
