@@ -79,10 +79,16 @@ final class EmbeddedEditProfileDataDisplayManager: NSObject, TableDataDisplayMan
         switch item {
         case let .uploadPhoto(photo):
             (cell as? UploadPhotoCell)?.configure(photo: photo)
-        case .firstName(let style), .lastName(let style):
+            cell.accessibilityIdentifier = "Photo"
+        case .firstName(let style):
             (cell as? TextFieldCell)?.apply(style: style)
+            cell.accessibilityIdentifier = "First Name"
+        case .lastName(let style):
+            (cell as? TextFieldCell)?.apply(style: style)
+            cell.accessibilityIdentifier = "Last Name"
         case let .bio(style):
             (cell as? TextViewCell)?.apply(style: style)
+            cell.accessibilityIdentifier = "Bio"
         }
     }
 }

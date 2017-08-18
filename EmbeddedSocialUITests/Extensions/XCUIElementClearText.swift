@@ -12,7 +12,10 @@ extension XCUIElement {
             return
         }
         
-        self.tap()
+//        self.tap()
+        
+        let lowerRightCorner = self.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.9))
+        lowerRightCorner.tap()
         
         let deleteString = stringValue.characters.map { _ in XCUIKeyboardKeyDelete }.joined(separator: "")
         

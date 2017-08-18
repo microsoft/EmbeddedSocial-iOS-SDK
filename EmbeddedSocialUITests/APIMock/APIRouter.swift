@@ -156,6 +156,21 @@ open class APIRouter: WebApp {
                 }
             }
         }
+        
+        self["/v0.7/users/me/info"] = APIResponse(serviceName: "me") { environ, sendJSON -> Void in
+            let method = environ["REQUEST_METHOD"] as! String
+            let input = environ["swsgi.input"] as! SWSGIInput
+            switch method {
+            case "PUT":
+                JSONReader.read(input) { json in
+                    APIState.setLatestData(forService: "me", data: json)
+                    print (json)
+                    sendJSON(Templates.load(name: "info"))
+                }
+            default:
+                break
+            }
+        }
 
     }
     
