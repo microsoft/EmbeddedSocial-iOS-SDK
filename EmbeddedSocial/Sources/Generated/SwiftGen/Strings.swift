@@ -156,6 +156,18 @@ enum L10n {
     static let screenTitle = L10n.tr("Localizable", "popular.screen_title")
   }
 
+  enum PopularModule {
+
+    enum FeedOption {
+      /// All time
+      static let allTime = L10n.tr("Localizable", "popular_module.feed_option.all_time")
+      /// This week
+      static let thisWeek = L10n.tr("Localizable", "popular_module.feed_option.this_week")
+      /// Today
+      static let today = L10n.tr("Localizable", "popular_module.feed_option.today")
+    }
+  }
+
   enum Post {
     /// %d comments
     static func commentsCount(_ p1: Int) -> String {

@@ -7,7 +7,7 @@ import UIKit
 
 /*
  
- */
+*/
 
 class FeedModuleConfigurator {
     
@@ -16,7 +16,7 @@ class FeedModuleConfigurator {
     let cache: CacheType
     weak var userHolder: UserHolder?
     
-    required init(cache: CacheType, userHolder: UserHolder? = SocialPlus.shared) {
+    required init(cache: CacheType = SocialPlus.shared.cache, userHolder: UserHolder? = SocialPlus.shared) {
         self.cache = cache
         self.userHolder = userHolder
     }

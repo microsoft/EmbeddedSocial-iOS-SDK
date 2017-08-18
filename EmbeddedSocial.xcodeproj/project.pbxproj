@@ -519,6 +519,10 @@
 		93AC65B31F3E05DA00FE5A3A /* MockCommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65AD1F3E05DA00FE5A3A /* MockCommentService.swift */; };
 		93AC65B41F3E05DA00FE5A3A /* MockPostDetaillnteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65AE1F3E05DA00FE5A3A /* MockPostDetaillnteractor.swift */; };
 		93AC65B51F3E05DA00FE5A3A /* MockPostDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65AF1F3E05DA00FE5A3A /* MockPostDetailPresenter.swift */; };
+		9C00C9B31F47288400111D51 /* PopularModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C00C9B21F47288400111D51 /* PopularModuleView.swift */; };
+		9C00C9B51F47289D00111D51 /* PopularModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C00C9B41F47289D00111D51 /* PopularModulePresenter.swift */; };
+		9C00C9B71F4728BE00111D51 /* PopularModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C00C9B61F4728BE00111D51 /* PopularModuleInteractor.swift */; };
+		9C00C9B91F4728C900111D51 /* PopularModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C00C9B81F4728C900111D51 /* PopularModuleConfigurator.swift */; };
 		9C2169791F3C68350052FB90 /* PostMenuModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169701F3C68350052FB90 /* PostMenuModuleConfigurator.swift */; };
 		9C21697A1F3C68350052FB90 /* PostMenuModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169721F3C68350052FB90 /* PostMenuModuleInteractor.swift */; };
 		9C21697B1F3C68350052FB90 /* PostMenuModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169741F3C68350052FB90 /* PostMenuModulePresenter.swift */; };
@@ -1124,6 +1128,10 @@
 		93AC65B01F3E05DA00FE5A3A /* MockPostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPostDetailViewController.swift; sourceTree = "<group>"; };
 		93AC65B11F3E05DA00FE5A3A /* PostDetailInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailInteractorTests.swift; sourceTree = "<group>"; };
 		93AC65B21F3E05DA00FE5A3A /* PostDetailPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailPresenterTests.swift; sourceTree = "<group>"; };
+		9C00C9B21F47288400111D51 /* PopularModuleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularModuleView.swift; sourceTree = "<group>"; };
+		9C00C9B41F47289D00111D51 /* PopularModulePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularModulePresenter.swift; sourceTree = "<group>"; };
+		9C00C9B61F4728BE00111D51 /* PopularModuleInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularModuleInteractor.swift; sourceTree = "<group>"; };
+		9C00C9B81F4728C900111D51 /* PopularModuleConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularModuleConfigurator.swift; sourceTree = "<group>"; };
 		9C2169701F3C68350052FB90 /* PostMenuModuleConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleConfigurator.swift; sourceTree = "<group>"; };
 		9C2169721F3C68350052FB90 /* PostMenuModuleInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleInteractor.swift; sourceTree = "<group>"; };
 		9C2169741F3C68350052FB90 /* PostMenuModulePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenter.swift; sourceTree = "<group>"; };
@@ -1852,6 +1860,7 @@
 		88580B2D1F2213AB00C1CBAF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				9C00C9B11F47287500111D51 /* Popular */,
 				88580B2E1F2213AB00C1CBAF /* CreateAccount */,
 				88580B451F2213AB00C1CBAF /* CreatePost */,
 				8811C8731F431B9A00F7513D /* EditProfile */,
@@ -2884,6 +2893,17 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		9C00C9B11F47287500111D51 /* Popular */ = {
+			isa = PBXGroup;
+			children = (
+				9C00C9B21F47288400111D51 /* PopularModuleView.swift */,
+				9C00C9B81F4728C900111D51 /* PopularModuleConfigurator.swift */,
+				9C00C9B61F4728BE00111D51 /* PopularModuleInteractor.swift */,
+				9C00C9B41F47289D00111D51 /* PopularModulePresenter.swift */,
+			);
+			path = Popular;
+			sourceTree = "<group>";
+		};
 		9C21696E1F3C68350052FB90 /* PostMenuModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -3719,6 +3739,7 @@
 				882AD0C31F2225FF00FC20B7 /* QueriableRepository.swift in Sources */,
 				88580C101F2213AB00C1CBAF /* CredentialsList.swift in Sources */,
 				88580C4C1F2213AB00C1CBAF /* CreatePostViewInput.swift in Sources */,
+				9C00C9B71F4728BE00111D51 /* PopularModuleInteractor.swift in Sources */,
 				9C21697C1F3C68350052FB90 /* PostMenuModuleRouter.swift in Sources */,
 				88F551B41F38A03200F4AAB9 /* SegmentedControlView+Ext.swift in Sources */,
 				88580C661F2213AB00C1CBAF /* SideMenuViewOutput.swift in Sources */,
@@ -3769,6 +3790,7 @@
 				884AA9891F3C563F00B85135 /* PutTopicNameRequest.swift in Sources */,
 				88F551A21F34719100F4AAB9 /* UserListCell.swift in Sources */,
 				88580C4F1F2213AB00C1CBAF /* LoginInteractor.swift in Sources */,
+				9C00C9B31F47288400111D51 /* PopularModuleView.swift in Sources */,
 				884AA98C1F3C563F00B85135 /* PutUserPhotoRequest.swift in Sources */,
 				9C6D35A31F31D1C1005893DB /* FeedModuleViewInput.swift in Sources */,
 				88580C511F2213AB00C1CBAF /* LoginModuleOutput.swift in Sources */,
@@ -3938,6 +3960,7 @@
 				884AA9911F3C563F00B85135 /* UserProfileView.swift in Sources */,
 				884AA94F1F3C563F00B85135 /* BlobsAPI.swift in Sources */,
 				8811C8971F43358C00F7513D /* SideMenuAccountInfoView.swift in Sources */,
+				9C00C9B51F47289D00111D51 /* PopularModulePresenter.swift in Sources */,
 				8875CCEE1F331CB3001F2474 /* FollowingViewOutput.swift in Sources */,
 				88087B461F2A431E00A33E9A /* ButtonDecorator.swift in Sources */,
 				88635D7F1F22447C00577140 /* OutgoingTransaction.swift in Sources */,
@@ -3971,6 +3994,7 @@
 				88580C6A1F2213AB00C1CBAF /* TabMenuContainerInteractorInput.swift in Sources */,
 				8811C8921F4334F800F7513D /* Cacheable.swift in Sources */,
 				88580C3C1F2213AB00C1CBAF /* CreateAccountViewController.swift in Sources */,
+				9C00C9B91F4728C900111D51 /* PopularModuleConfigurator.swift in Sources */,
 				88580C2F1F2213AB00C1CBAF /* UserService.swift in Sources */,
 				884AA98D1F3C563F00B85135 /* PutUserVisibilityRequest.swift in Sources */,
 				88FFFA7A1F30BAFE0066A1A0 /* FollowersViewOutput.swift in Sources */,
