@@ -9,10 +9,19 @@ public enum SideMenuType {
     case tab, dual, single
 }
 
+protocol SideMenuModuleInput: class {
+    
+    var user: User? { get set }
+    func close()
+    func openSocialItem(index: Int)
+    func openMyProfile()
+    func openLogin()
+}
+
 class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuInteractorOutput {
     
     enum SideMenuTabs: Int {
-        case client, social
+        case client, social, none
     }
     
     var user: User? {
@@ -23,45 +32,78 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         }
     }
     
-    weak var view: SideMenuViewInput!
-    var interactor: SideMenuInteractorInput!
-    var router: SideMenuRouterInput!
-    var configuration: SideMenuType = .tab {
-        didSet {
-            tab = (configuration == .tab) ? .social : nil
+    enum SelectedMenuItem: Equatable {
+        case none
+        case item(IndexPath, SideMenuTabs)
+        case accountHeader
+        
+        static func == (lhs: SelectedMenuItem, rhs: SelectedMenuItem) -> Bool {
+            switch (lhs, rhs) {
+            case (.none, .none):
+                return true
+            case (let item(lhsPath, lhsTab), let item(rhsPath, rhsTab)) :
+                return lhsPath == rhsPath && lhsTab == rhsTab
+            case (.accountHeader, .accountHeader):
+                return true
+            default:
+                return false
+            }
         }
     }
     
-    var tab: SideMenuTabs? {
+    private var selectedMenuItem: SelectedMenuItem = .none {
+        didSet {
+            buildItems()
+            view.reload()
+            view.showAccountInfo(visible: accountViewAvailable)
+        }
+    }
+    
+    weak var view: SideMenuViewInput!
+    var interactor: SideMenuInteractorInput!
+    var router: SideMenuRouterInput!
+    
+    // Menu Configuration
+    var configuration: SideMenuType = .tab {
+        didSet {
+            // Setting default tab
+            tab = (configuration == .tab) ? .social : .none
+        }
+    }
+    
+    // Current Tab
+    private var tab: SideMenuTabs = .none {
         didSet {
             buildItems()
             view.reload()
         }
     }
     
-    var accountViewAvailable: Bool {
+    private var accountViewAvailable: Bool {
         return !(configuration == .tab && tab == .client)
     }
     
-    var tabBarViewAvailable: Bool {
+    private var tabBarViewAvailable: Bool {
         return configuration == .tab
     }
     
     func accountInfo() -> SideMenuHeaderModel {
         
+        let isSelected = selectedMenuItem == .accountHeader
+        
         if let user = self.user, let firstname = user.firstName, let lastname = user.lastName {
             
             let accountName = "\(firstname) \(lastname)"
             
-            return SideMenuHeaderModel(title: accountName, image: user.photo!)
+            return SideMenuHeaderModel(title: accountName, image: user.photo!, isSelected: isSelected)
         } else {
             let photo = Photo(image:(UIImage(asset: .userPhotoPlaceholder)))
             
-            return SideMenuHeaderModel(title: L10n.SideMenu.signIn, image: photo)
+            return SideMenuHeaderModel(title: L10n.SideMenu.signIn, image: photo, isSelected: isSelected)
         }
     }
     
-    var items = MenuItems()
+    private var items = MenuItems()
     
     func viewIsReady() {
         view.setupInitialState()
@@ -69,7 +111,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         view.reload()
         view.showTabBar(visible: tabBarViewAvailable )
         view.showAccountInfo(visible: accountViewAvailable)
-        if let tab = self.tab {
+        if self.tab != .none {
             view.selectBar(with: tab.rawValue)
         }
     }
@@ -96,12 +138,22 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     
     func didSwitch(to tab: Int) {
         assert(configuration == .tab)
-        self.tab = SideMenuTabs(rawValue: tab)
+        switch tab {
+        case 0:
+            self.tab = .client
+        case 1:
+            self.tab = .social
+        default:
+            fatalError("Unsupported")
+        }
         view.showAccountInfo(visible: accountViewAvailable)
-        view.selectBar(with: self.tab!.rawValue)
+        view.selectBar(with: tab)
     }
     
     func didTapAccountInfo() {
+        
+        selectedMenuItem = .accountHeader
+        
         if user == nil {
             router.openLoginScreen()
         } else {
@@ -113,8 +165,8 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         items[index].setCollapsed(collapsed: !items[index].isCollapsed)
         view.reload(section: index)
     }
-
-    func buildItems() {
+    
+    private func buildItems() {
         
         items = MenuItems()
         
@@ -133,12 +185,13 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         
         switch configuration {
         case .tab:
-            
-            switch tab! {
+            switch tab {
             case .social:
                 items.append(socialSection)
             case .client:
                 items.append(clientSection)
+            case .none:
+                fatalError("Unexpected")
             }
             
         case .dual:
@@ -146,37 +199,82 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         case .single:
             items.append(clientSection)
         }
+        
+        // Mark item as selected
+        
+        if case let .item(path, tab) = selectedMenuItem {
+            if self.tab == tab {
+                items[path.section].items[path.row].selected = true
+            }
+        }
     }
     
     func didSelectItem(with path: IndexPath) {
+        
+        selectedMenuItem = .item(path, tab)
         
         let index = path.row
         
         switch configuration {
         case .tab:
             
-            switch tab! {
+            switch tab {
             case .social:
-                router.open(viewController: interactor.targetForSocialMenuItem(with: index), sender: view)
+                router.open(interactor.targetForSocialMenuItem(with: index))
             case .client:
-                router.open(viewController: interactor.targetForClientMenuItem(with: index), sender: view)
+                router.open(interactor.targetForClientMenuItem(with: index))
+            case .none:
+                fatalError("Unexpected")
             }
             
         case .dual:
             if path.section == 0 {
-                router.open(viewController: interactor.targetForSocialMenuItem(with: path.row), sender: view)
+                router.open(interactor.targetForSocialMenuItem(with: path.row))
             } else if path.section == 1 {
-                router.open(viewController: interactor.targetForClientMenuItem(with: path.row), sender: view)
+                router.open(interactor.targetForClientMenuItem(with: path.row))
             }
         case .single:
-           router.open(viewController: interactor.targetForSocialMenuItem(with: index), sender: view)
+            router.open(interactor.targetForSocialMenuItem(with: index))
         }
-}
+    }
     
     // MARK: Module Input
+    func openLogin() {
+        router.openLoginScreen()
+    }
     
-    func open(viewController: UIViewController) {
-        router.open(viewController: viewController, sender: view)
+    func openMyProfile() {
+        
+        selectedMenuItem = .accountHeader
+        
+        if user == nil {
+            router.openLoginScreen()
+        } else {
+            router.openMyProfile()
+        }
+    }
+    
+    private func getSocialItemIndexPath(index: Int, configuation: SideMenuType) -> IndexPath {
+        switch configuration {
+        case .tab, .single:
+            return IndexPath(row: index, section: 0)
+            
+        case .dual:
+            return IndexPath(row: index, section: 0)
+        }
+    }
+    
+    func openSocialItem(index: Int) {
+        
+        let viewController = interactor.targetForSocialMenuItem(with: index)
+        router.open(viewController)
+        
+        
+        
+        let socItemIndexPath = getSocialItemIndexPath(index: index, configuation: configuration)
+        
+        selectedMenuItem = .item(socItemIndexPath, tab)
+        view.reload()
     }
     
     func close() {

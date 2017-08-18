@@ -3,6 +3,17 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+protocol SideMenuInteractorInput {
+    func socialMenuItems() -> [SideMenuItemModel]
+    func clientMenuItems() -> [SideMenuItemModel]
+    func targetForSocialMenuItem(with index:Int) -> UIViewController
+    func targetForClientMenuItem(with index:Int) -> UIViewController
+}
+
+protocol SideMenuInteractorOutput: class {
+    
+}
+
 class SideMenuInteractor: SideMenuInteractorInput {
     
     weak var output: SideMenuInteractorOutput!

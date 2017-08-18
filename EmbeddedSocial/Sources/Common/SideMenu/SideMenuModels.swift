@@ -21,9 +21,17 @@ struct SideMenuSectionModel {
 struct SideMenuItemModel {
     var title: String
     var image: UIImage
+    var selected: Bool
+    
+    init(title: String, image: UIImage, selected: Bool = false) {
+        self.title = title
+        self.image = image
+        self.selected = selected
+    }
 }
 
 struct SideMenuHeaderModel {
     var title: String
     var image: Photo
+    var isSelected: Bool
 }
