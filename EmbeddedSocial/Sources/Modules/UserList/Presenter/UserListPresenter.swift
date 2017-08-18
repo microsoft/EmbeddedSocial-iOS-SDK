@@ -98,4 +98,8 @@ extension UserListPresenter: UserListModuleInput {
         isLoadingList = false
         loadNextPage()
     }
+    
+    func setListHeaderView(_ headerView: UIView?) {
+        view.setListHeaderView(headerView)
+    }
 }

@@ -111,6 +111,8 @@ enum L10n {
     static let noItemsReceived = L10n.tr("Localizable", "error.no_items_received")
     /// Unknown error occurred.
     static let unknown = L10n.tr("Localizable", "error.unknown")
+    /// User list module configuration error: API not set.
+    static let userListNoApi = L10n.tr("Localizable", "error.user_list_no_api")
     /// User is not logged in.
     static let userNotLoggedIn = L10n.tr("Localizable", "error.user_not_logged_in")
   }
@@ -212,6 +214,11 @@ enum L10n {
   enum Search {
     /// Search
     static let screenTitle = L10n.tr("Localizable", "search.screen_title")
+
+    enum Label {
+      /// Based on who you follow
+      static let basedOnWhoYouFollow = L10n.tr("Localizable", "search.label.based_on_who_you_follow")
+    }
 
     enum Placeholder {
       /// Search people

@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import Alamofire
 
 class UserListInteractor: UserListInteractorInput {
     private var api: UsersListAPI

@@ -9,24 +9,31 @@ import SnapKit
 class SearchViewController: UIViewController {
     
     fileprivate var searchController: UISearchController!
-    fileprivate var usersListModule: UserListModuleInput!
+    
+    var output: SearchViewOutput!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let vc = UIViewController()
-        setupUsersListModule(parentViewController: vc)
-        setupSearchController(resultsController: vc)
+        output.viewIsReady()
     }
     
-    private func setupSearchController(resultsController: UIViewController) {
-        searchController = UISearchController(searchResultsController: resultsController)
-        searchController.searchResultsUpdater = self
+    fileprivate func setupSearchController(_ pageInfo: SearchPageInfo) {
+        searchController = UISearchController(searchResultsController: pageInfo.searchResultsController)
+        searchController.searchResultsUpdater = pageInfo.searchResultsHandler
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
         searchController.hidesNavigationBarDuringPresentation = false
         
         definesPresentationContext = true
+        
         setupSearchBar()
+    }
+    
+    fileprivate func addBackgroundView(_ backgroundView: UIView) {
+        view.addSubview(backgroundView)
+        backgroundView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     private func setupSearchBar() {
@@ -35,36 +42,13 @@ class SearchViewController: UIViewController {
         navigationItem.rightBarButtonItem = nil
         searchController.searchBar.placeholder = L10n.Search.Placeholder.searchPeople
     }
-    
-    private func setupUsersListModule(parentViewController vc: UIViewController) {
-        let conf = UserListConfigurator()
-        usersListModule = conf.configure(api: SuggestedUsersAPI(socialService: SocialService()), output: nil)
-        usersListModule.setupInitialState()
-        let listView = usersListModule.listView
-        listView.backgroundColor = .yellow
-        vc.view.addSubview(listView)
-        listView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-    }
 }
 
-extension SearchViewController: UISearchResultsUpdating {
+extension SearchViewController: SearchViewInput {
     
-    func updateSearchResults(for searchController: UISearchController) {
-        // Throttle search events https://stackoverflow.com/a/29760716/6870041
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.runSearchQuery), object: nil)
-        perform(#selector(self.runSearchQuery), with: nil, afterDelay: 0.3)
-    }
-    
-    @objc private func runSearchQuery() {
-        guard let searchText = searchController.searchBar.text?.trimmingCharacters(in: .whitespaces) else {
-            return
-        }
-        
-        let searchService = SearchService()
-        let queryAPI = QueryPeopleAPI(query: searchText, searchService: searchService)
-        usersListModule.reload(with: queryAPI)
+    func setupInitialState(_ pageInfo: SearchPageInfo) {
+        setupSearchController(pageInfo)
+        addBackgroundView(pageInfo.backgroundView)
     }
 }
 
