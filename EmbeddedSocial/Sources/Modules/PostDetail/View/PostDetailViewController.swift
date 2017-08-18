@@ -33,6 +33,8 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     fileprivate var postView: UIView!
     fileprivate let imagePikcer = ImagePicker()
     
+    fileprivate var prototypeCell: CommentCell?
+    
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -51,31 +53,30 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
-        self.tableView.reloadData()
-        refreshControl.endRefreshing()
+        output.refresh()
     }
 
     // MARK: PostDetailViewInput
     func setupInitialState() {
         imagePikcer.delegate = self
+        mediaButton.isEnabled = false
         configTableView()
         configTextView()
     }
     
-    func updateFeed(view: UIView) {
+    func updateFeed(view: UIView, scrollType: CommentsScrollType) {
+        commentTextView.isEditable = true
+        mediaButton.isEnabled = true
         postView = view
-        refreshControl.endRefreshing()
-        tableView.reloadData()
+        reloadTable(scrollType: scrollType)
     }
 
-    func configTableView() {
+    private func configTableView() {
+        prototypeCell = UINib(nibName: CommentCell.identifier, bundle: Bundle(for: CommentCell.self)).instantiate(withOwner: nil, options: nil).first as? CommentCell
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: CommentCell.identifier, bundle: Bundle(for: CommentCell.self)), forCellReuseIdentifier: CommentCell.identifier)
-        tableView.estimatedRowHeight = CommentCell.defaultHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.delegate = self
         tableView.dataSource = self
-       
     }
     
     func reloadTable(scrollType: CommentsScrollType) {
@@ -84,8 +85,16 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         tableView.reloadData()
         switch scrollType {
             case .bottom:
-                tableView.scrollToRow(at: IndexPath(row: output.numberOfItems() - 1, section: TableSections.comments.rawValue), at: .bottom, animated: false)
+                DispatchQueue.main.asyncAfter(deadline: .now() + reloadDelay) {
+                    self.scrollTableToBottom()
+                }
             default: break
+        }
+    }
+    
+    fileprivate func scrollTableToBottom() {
+        if  output.numberOfItems() > 1 {
+            tableView.scrollToRow(at: IndexPath(row: output.numberOfItems() - 1, section: TableSections.comments.rawValue), at: .bottom, animated: true)
         }
     }
     
@@ -101,6 +110,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         SVProgressHUD.dismiss()
         view.layoutIfNeeded()
         tableView.reloadData()
+        scrollTableToBottom()
     }
     
     func postCommentFailed(error: Error) {
@@ -115,6 +125,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     func configTextView() {
+        commentTextView.isEditable = false
         commentTextView.layer.borderWidth = 1
         commentTextView.layer.borderColor = UIColor.lightGray.cgColor
         commentTextView.layer.cornerRadius = 1
@@ -135,7 +146,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
 }
 
-
 extension PostDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
@@ -147,7 +157,7 @@ extension PostDetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
             cell.tag = indexPath.row
             cell.config(commentView: output.commentViewModel(index: indexPath.row))
-            if  output.numberOfItems() > indexPath.row + 1 && isNewDataLoading == false {
+            if  output.numberOfItems() - 1 < indexPath.row + 2  && isNewDataLoading == false {
                 isNewDataLoading = true
                 output.fetchMore()
             }
@@ -185,7 +195,8 @@ extension PostDetailViewController: UITableViewDelegate {
         case TableSections.post.rawValue:
             return output.feedModuleHeight()
         case TableSections.comments.rawValue:
-            return UITableViewAutomaticDimension
+            prototypeCell?.config(commentView: output.commentViewModel(index: indexPath.row))
+            return prototypeCell!.cellHeight()
         default:
             return 0
         }
@@ -197,6 +208,10 @@ extension PostDetailViewController: UITextViewDelegate {
         commentTextViewHeightConstraint.constant = commentTextView.contentSize.height
         view.layoutIfNeeded()
         postButton.isHidden = textView.text.isEmpty
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        output.loadRestComments()
     }
     
 }

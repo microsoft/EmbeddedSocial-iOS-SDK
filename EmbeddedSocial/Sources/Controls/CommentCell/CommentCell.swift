@@ -65,6 +65,10 @@ class CommentCell: UITableViewCell {
         selectionStyle = .none
         contentView.layoutIfNeeded()
     }
+
+    func cellHeight() -> CGFloat {
+        return self.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
+    }
     
     @IBAction func commentOptionsPressed(_ sender: Any) {
     }
