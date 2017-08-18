@@ -20,9 +20,10 @@ class CrossModuleCoordinatorMock: CrossModuleCoordinatorProtocol {
     func showError(_ error: Error) {}
     var configuredHome: UIViewController { return UIViewController() }
     var configuredPopular: UIViewController { return UIViewController() }
-    var configuredDebug: UIViewController { return UIViewController() }
-    
+    var configuredUserProfile: UIViewController { return UIViewController() }
+    var configuredLogin: UIViewController { return UIViewController() }
 }
+
 class SocialMenuItemsProviderTests: XCTestCase {
 
     var coordinator: CrossModuleCoordinatorMock!
