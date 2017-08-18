@@ -14,5 +14,13 @@ class SideMenuAccountInfoView: UIControl {
     func configure(with model: SideMenuHeaderModel) {
         accountImage?.setPhotoWithCaching(model.image, placeholder: nil)
         accountName?.text = model.title
+        isSelected = model.isSelected
     }
+    
+    override var isSelected: Bool {
+        didSet {
+            accountName?.textColor = isSelected ? Constants.Menu.selectedItemColor : Constants.Menu.defaultItemColor
+        }
+    }
+    
 }

@@ -7,18 +7,23 @@ import Foundation
 
 class SocialMenuItemsProvider: SideMenuItemsProvider {
     
-    private weak var coordinator: CrossModuleCoordinator!
+    private weak var coordinator: CrossModuleCoordinatorProtocol!
     
-    init(coordinator: CrossModuleCoordinator) {
+    init(coordinator: CrossModuleCoordinatorProtocol) {
         self.coordinator = coordinator
+    }
+    
+    enum SocialItem: Int {
+        case home
+        case search
+        case popular
+        case myPins
+        case activity
+        case settings
     }
     
     enum State: Int {
         case authenticated, unauthenticated
-    }
-    
-    enum Route: Int {
-        case home, signin, createPost = 6
     }
     
     var state: State {
@@ -33,6 +38,10 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         return items[state]![index].image
     }
     
+    func imageHighlighted(forItem index: Int) -> UIImage {
+        return items[state]![index].highlighted
+    }
+    
     func title(forItem index: Int) -> String {
         return items[state]![index].title
     }
@@ -40,10 +49,10 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     func destination(forItem index: Int) -> UIViewController {
         return items[state]![index].builder(self.coordinator)
     }
-
+    
     // MARK: Items
     
-    typealias ModuleBuilder = (_ delegate: CrossModuleCoordinator) -> (UIViewController)
+    typealias ModuleBuilder = (_ delegate: CrossModuleCoordinatorProtocol) -> (UIViewController)
     
     var builderForDummy: ModuleBuilder = { coordinator in
         let vc = UIViewController()
@@ -60,24 +69,60 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         return coordinator.configuredPopular
     }
     
-    var builderForPostMenu: ModuleBuilder = { coordinator in
-        return coordinator.configuredDebug
+    typealias MenuItem = (
+        key: SocialItem,
+        title: String,
+        image: UIImage,
+        highlighted: UIImage,
+        builder: ModuleBuilder
+    )
+    
+    func getMenuItemIndex(for item: SocialItem) -> Int? {
+        return items[state]!.index(where: { $0.key == item })
     }
-
-    lazy var items: [State: [(title: String, image: UIImage, builder: ModuleBuilder)]] = { [unowned self] in
+    
+    lazy var items: [State: [MenuItem]] = { [unowned self] in
         
-        return [State.authenticated: [
-            (title: L10n.Home.screenTitle, image: UIImage(asset: Asset.iconHome), builder: self.builderForHome),
-            (title: L10n.Search.screenTitle, image: UIImage(asset: Asset.iconSearch), builder: self.builderForDummy),
-            (title: L10n.Popular.screenTitle, image: UIImage(asset: Asset.iconPopular), builder: self.builderForPopular),
-            (title: L10n.MyPins.screenTitle, image: UIImage(asset: Asset.iconPins), builder: self.builderForDummy),
-            (title: L10n.ActivityFeed.screenTitle, image: UIImage(asset: Asset.iconActivity), builder: self.builderForDummy),
-            (title: L10n.Settings.screenTitle, image: UIImage(asset: Asset.iconSettings), builder: self.builderForDummy),
-            (title: L10n.SideMenu.debug, image: UIImage(asset: Asset.iconPrivate), builder: self.builderForPostMenu)
-            ], State.unauthenticated: [
-                (title: L10n.Search.screenTitle, image: UIImage(asset: Asset.iconSearch), builder: self.builderForDummy),
-                (title: L10n.Popular.screenTitle, image: UIImage(asset: Asset.iconPopular), builder: self.builderForPopular)
+        return [
+            State.authenticated: [
+                (key: .home,
+                 title: L10n.Home.screenTitle,
+                 image: UIImage(asset: Asset.iconHome),
+                 highlighted: UIImage(asset: Asset.iconHomeActive),
+                 builder: self.builderForHome),
+                (key: .search,
+                 title: L10n.Search.screenTitle,
+                 image: UIImage(asset: Asset.iconSearch),
+                 highlighted: UIImage(asset: Asset.iconSearchActive),
+                 builder: self.builderForDummy),
+                (key: .popular,
+                 title: L10n.Popular.screenTitle,
+                 image: UIImage(asset: Asset.iconPopular),
+                 highlighted: UIImage(asset: Asset.iconPopularActive),
+                 builder: self.builderForPopular),
+                (key: .myPins, title: L10n.MyPins.screenTitle,
+                 image: UIImage(asset: Asset.iconPins),
+                 highlighted: UIImage(asset: Asset.iconPinsActive),
+                 builder: self.builderForDummy),
+                (key: .activity, title: L10n.ActivityFeed.screenTitle,
+                 image: UIImage(asset: Asset.iconActivity),
+                 highlighted: UIImage(asset: Asset.iconActivityActive),
+                 builder: self.builderForDummy),
+                (key: .settings, title: L10n.Settings.screenTitle,
+                 image: UIImage(asset: Asset.iconSettings),
+                 highlighted: UIImage(asset: Asset.iconSettingsActive),
+                 builder: self.builderForDummy)
+            ],
+            State.unauthenticated: [
+                (key: .search, title: L10n.Search.screenTitle,
+                 image: UIImage(asset: Asset.iconSearch),
+                 highlighted: UIImage(asset: Asset.iconSearchActive),
+                 builder: self.builderForDummy),
+                (key: .popular, title: L10n.Popular.screenTitle,
+                 image: UIImage(asset: Asset.iconPopular),
+                 highlighted: UIImage(asset: Asset.iconPopularActive),
+                 builder: self.builderForPopular)
             ]]
         
-    }()
+        }()
 }
