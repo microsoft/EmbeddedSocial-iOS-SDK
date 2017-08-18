@@ -164,7 +164,6 @@ open class APIRouter: WebApp {
             case "PUT":
                 JSONReader.read(input) { json in
                     APIState.setLatestData(forService: "me", data: json)
-                    print (json)
                     sendJSON(Templates.load(name: "info"))
                 }
             default:
