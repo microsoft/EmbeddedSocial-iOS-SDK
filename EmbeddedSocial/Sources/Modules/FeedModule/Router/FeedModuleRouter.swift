@@ -9,7 +9,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
     
     weak var viewController: UIViewController?
     weak var navigationController: UINavigationController?
-    weak var postMenuModuleOutput: PostMenuModuleModuleOutput!
+    weak var postMenuModuleOutput: PostMenuModuleOutput!
     weak var moduleInput: FeedModulePresenter!
     
     // Keeping ref to menu
@@ -24,7 +24,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
             configurator.configure(userID: userHandle, navigationController: navigationController)
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
-        case .postDetails(let post):
+        case .postDetails(let post), .comments(let post):
             
             let configurator = PostDetailModuleConfigurator()
             configurator.configure(post: post, navigationController: navigationController)

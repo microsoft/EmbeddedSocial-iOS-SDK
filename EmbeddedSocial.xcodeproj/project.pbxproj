@@ -446,7 +446,6 @@
 		88F551B61F399F9600F4AAB9 /* FollowersModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551B51F399F9600F4AAB9 /* FollowersModuleOutput.swift */; };
 		88F551B81F39A6A300F4AAB9 /* FollowingModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551B71F39A6A300F4AAB9 /* FollowingModuleOutput.swift */; };
 		88F551BA1F39BB9700F4AAB9 /* MockFeedModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551B91F39BB9700F4AAB9 /* MockFeedModuleInput.swift */; };
-		88F551BC1F39D2B300F4AAB9 /* UserProfilePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA561F2F7F780066A1A0 /* UserProfilePresenterTests.swift */; };
 		88F551BD1F39D2EF00F4AAB9 /* MockUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA541F2F7F780066A1A0 /* MockUserProfileView.swift */; };
 		88F551C01F39D52000F4AAB9 /* FollowingPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551BF1F39D52000F4AAB9 /* FollowingPresenterTests.swift */; };
 		88F551C21F39D59000F4AAB9 /* MockFollowingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551C11F39D59000F4AAB9 /* MockFollowingView.swift */; };
@@ -476,7 +475,6 @@
 		88FFFA611F306EC80066A1A0 /* BarButtonItemWithTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA601F306EC80066A1A0 /* BarButtonItemWithTarget.swift */; };
 		88FFFA631F3080340066A1A0 /* UserProfileActionSheetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA621F3080340066A1A0 /* UserProfileActionSheetBuilder.swift */; };
 		88FFFA651F30A7160066A1A0 /* UserHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA641F30A7160066A1A0 /* UserHolder.swift */; };
-		88FFFA671F30AB170066A1A0 /* MyProfileHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA661F30AB170066A1A0 /* MyProfileHolder.swift */; };
 		88FFFA6F1F30B98B0066A1A0 /* FollowersConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA6E1F30B98B0066A1A0 /* FollowersConfigurator.swift */; };
 		88FFFA721F30B9C90066A1A0 /* FollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA711F30B9C90066A1A0 /* FollowersViewController.swift */; };
 		88FFFA751F30B9D90066A1A0 /* Followers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88FFFA741F30B9D90066A1A0 /* Followers.storyboard */; };
@@ -545,6 +543,8 @@
 		9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8B1F25D60A00D0B59D /* PostCell.xib */; };
 		9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */; };
 		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
+		9C6244F21F457DED004814BB /* PostMenuModuleInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6244F11F457DED004814BB /* PostMenuModuleInteractorTests.swift */; };
+		9C6244F41F4580FC004814BB /* PostMenuModulePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6244F31F4580FC004814BB /* PostMenuModulePresenterTests.swift */; };
 		9C6D359B1F31D1C1005893DB /* FeedModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531381F31CCF2004CE94F /* FeedModuleConfigurator.swift */; };
 		9C6D359C1F31D1C1005893DB /* FeedModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313A1F31CCF2004CE94F /* FeedModuleInteractor.swift */; };
 		9C6D359D1F31D1C1005893DB /* FeedModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313C1F31CCF2004CE94F /* FeedModuleInput.swift */; };
@@ -557,6 +557,7 @@
 		9C6D35A41F31D1C1005893DB /* FeedModuleViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531451F31CCF2004CE94F /* FeedModuleViewOutput.swift */; };
 		9C7D9B341F2F430B005928F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B331F2F430B005928F4 /* Localizable.strings */; };
 		9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */; };
+		9C813A4A1F45A21900462950 /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531341F31CCD1004CE94F /* FeedModuleInteractor-FetchQuery-Tests.swift */; };
 		9C8F68961F3485CA00AF4A7F /* topics&limit20.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CD760FE1F33158200ABBB2A /* topics&limit20.json */; };
 		9CB3F1FB1F3367F00099A22D /* TopicServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */; };
 		9CB3F1FE1F336B780099A22D /* MyFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */; };
@@ -1164,6 +1165,8 @@
 		9C43EC8B1F25D60A00D0B59D /* PostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuButton.swift; sourceTree = "<group>"; };
+		9C6244F11F457DED004814BB /* PostMenuModuleInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleInteractorTests.swift; sourceTree = "<group>"; };
+		9C6244F31F4580FC004814BB /* PostMenuModulePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenterTests.swift; sourceTree = "<group>"; };
 		9C7D9B331F2F430B005928F4 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicServiceTests.swift; sourceTree = "<group>"; };
@@ -2462,6 +2465,7 @@
 		889AFC071F220BCD003AAF19 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				9C6244F01F457DDC004814BB /* PostMenu */,
 				88F7A7991F27976E005FEC5F /* CreateAccount */,
 				889AFC081F220BCD003AAF19 /* CreatePost */,
 				8811C8B21F44542600F7513D /* EditProfile */,
@@ -3065,6 +3069,15 @@
 				32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */,
 			);
 			path = PostCells;
+			sourceTree = "<group>";
+		};
+		9C6244F01F457DDC004814BB /* PostMenu */ = {
+			isa = PBXGroup;
+			children = (
+				9C6244F11F457DED004814BB /* PostMenuModuleInteractorTests.swift */,
+				9C6244F31F4580FC004814BB /* PostMenuModulePresenterTests.swift */,
+			);
+			path = PostMenu;
 			sourceTree = "<group>";
 		};
 		9CC531331F31CCD1004CE94F /* FeedModule */ = {
@@ -3913,8 +3926,10 @@
 				8811C8B11F4443AD00F7513D /* MockEmbeddedEditProfileModuleInput.swift in Sources */,
 				8811C8AC1F4441E500F7513D /* CreateAccountInteractorTests.swift in Sources */,
 				88F1637F1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift in Sources */,
+				9C6244F21F457DED004814BB /* PostMenuModuleInteractorTests.swift in Sources */,
 				88635D881F224F3200577140 /* CoreDataRepositoryTests.swift in Sources */,
 				889AFC261F220BCD003AAF19 /* AuthAPIProviderTests.swift in Sources */,
+				9C6244F41F4580FC004814BB /* PostMenuModulePresenterTests.swift in Sources */,
 				88F7A7931F278D33005FEC5F /* MockLoginInteractor.swift in Sources */,
 				88635D7B1F22430300577140 /* CoreDataEntititesTests.swift in Sources */,
 				8811C83A1F41F30B00F7513D /* MockCache.swift in Sources */,
@@ -3939,13 +3954,12 @@
 				88F7A7951F278D90005FEC5F /* MockLoginRouter.swift in Sources */,
 				88F551991F336FB700F4AAB9 /* MockUserListModuleOutput.swift in Sources */,
 				93AC65B51F3E05DA00FE5A3A /* MockPostDetailPresenter.swift in Sources */,
-				88FFFA671F30AB170066A1A0 /* MyProfileHolder.swift in Sources */,
+				9C813A4A1F45A21900462950 /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */,
 				883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */,
 				88F551D81F3AF93600F4AAB9 /* MyFollowingAPITests.swift in Sources */,
 				88FFFA5A1F2F7F780066A1A0 /* UserProfileInteractorTests.swift in Sources */,
 				88F551BA1F39BB9700F4AAB9 /* MockFeedModuleInput.swift in Sources */,
 				88F1637B1F26494100DAAF68 /* SocialUserTests.swift in Sources */,
-				88F551BC1F39D2B300F4AAB9 /* UserProfilePresenterTests.swift in Sources */,
 				889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */,
 				88F163791F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift in Sources */,
 				88F163891F27569900DAAF68 /* MockQueriableRepository.swift in Sources */,

@@ -11,7 +11,7 @@ enum FeedModuleRoutes {
     case myPost(post: Post)
     case othersPost(post: Post)
     case openImage(image: String)
-    case comments
+    case comments(post: Post)
     case profileDetailes(user: UserHandle)
     
 }
