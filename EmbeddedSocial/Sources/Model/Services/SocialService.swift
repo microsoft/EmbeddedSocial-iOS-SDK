@@ -48,8 +48,9 @@ extension SocialServiceType {
     func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) { Logger.log("No Implementation") }
     func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) { Logger.log("No Implementation") }
     func deletePostFromMyFollowing(postID: String, completion: @escaping (Result<Void>) -> Void) { Logger.log("No Implementation") }
+    
+    func getSuggestedUsers(completion: @escaping (Result<UsersListResponse>) -> Void) { Logger.log("No Implementation") }
 }
-
 
 class SocialService: BaseService, SocialServiceType {
     

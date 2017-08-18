@@ -8,8 +8,10 @@
 final class MockUserListInteractor: UserListInteractorInput {
     private(set) var getUsersListCount = 0
     private(set) var processSocialRequestCount = 0
+    private(set) var setAPICount = 0
     var socialRequestResult: Result<FollowStatus>?
     var getUsersListResult: Result<UsersListResponse>?
+    private(set) var api: UsersListAPI?
 
     func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         getUsersListCount += 1
@@ -23,5 +25,10 @@ final class MockUserListInteractor: UserListInteractorInput {
         if let result = socialRequestResult {
             completion(result)
         }
+    }
+    
+    func setAPI(_ api: UsersListAPI) {
+        setAPICount += 1
+        self.api = api
     }
 }
