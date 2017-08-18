@@ -8,7 +8,7 @@ import SnapKit
 
 class SearchViewController: UIViewController {
     
-    fileprivate var searchController: UISearchController!
+    fileprivate var searchController: UISearchController?
     
     var output: SearchViewOutput!
     
@@ -17,12 +17,26 @@ class SearchViewController: UIViewController {
         output.viewIsReady()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        parent?.navigationItem.titleView = nil
+        searchController?.isActive = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let searchController = searchController {
+            parent?.navigationItem.titleView = searchController.searchBar
+            parent?.navigationItem.rightBarButtonItem = nil
+        }
+    }
+    
     fileprivate func setupSearchController(_ pageInfo: SearchPageInfo) {
         searchController = UISearchController(searchResultsController: pageInfo.searchResultsController)
-        searchController.searchResultsUpdater = pageInfo.searchResultsHandler
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.delegate = self
-        searchController.hidesNavigationBarDuringPresentation = false
+        searchController?.searchResultsUpdater = pageInfo.searchResultsHandler
+        searchController?.dimsBackgroundDuringPresentation = false
+        searchController?.searchBar.delegate = self
+        searchController?.hidesNavigationBarDuringPresentation = false
         
         definesPresentationContext = true
         
@@ -37,10 +51,10 @@ class SearchViewController: UIViewController {
     }
     
     private func setupSearchBar() {
-        navigationItem.hidesBackButton = true
-        navigationItem.titleView = searchController.searchBar
-        navigationItem.rightBarButtonItem = nil
-        searchController.searchBar.placeholder = L10n.Search.Placeholder.searchPeople
+        parent?.navigationItem.titleView = searchController?.searchBar
+        parent?.navigationItem.rightBarButtonItem = nil
+        searchController?.searchBar.placeholder = L10n.Search.Placeholder.searchPeople
+        searchController?.searchBar.searchBarStyle = .minimal
     }
 }
 

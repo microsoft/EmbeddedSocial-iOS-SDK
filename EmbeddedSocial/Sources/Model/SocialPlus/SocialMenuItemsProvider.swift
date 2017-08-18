@@ -43,7 +43,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
 
     // MARK: Items
     
-    typealias ModuleBuilder = (_ delegate: CrossModuleCoordinator) -> (UIViewController)
+    typealias ModuleBuilder = (_ delegate: CrossModuleCoordinator) -> UIViewController
     
     var builderForDummy: ModuleBuilder = { coordinator in
         let vc = UIViewController()
@@ -63,19 +63,23 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     var builderForPostMenu: ModuleBuilder = { coordinator in
         return coordinator.configuredDebug
     }
+    
+    var builderForSearch: ModuleBuilder = { coordinator in
+        return coordinator.configuredSearch
+    }
 
     lazy var items: [State: [(title: String, image: UIImage, builder: ModuleBuilder)]] = { [unowned self] in
         
         return [State.authenticated: [
             (title: L10n.Home.screenTitle, image: UIImage(asset: Asset.iconHome), builder: self.builderForHome),
-            (title: L10n.Search.screenTitle, image: UIImage(asset: Asset.iconSearch), builder: self.builderForDummy),
+            (title: L10n.Search.screenTitle, image: UIImage(asset: Asset.iconSearch), builder: self.builderForSearch),
             (title: L10n.Popular.screenTitle, image: UIImage(asset: Asset.iconPopular), builder: self.builderForPopular),
             (title: L10n.MyPins.screenTitle, image: UIImage(asset: Asset.iconPins), builder: self.builderForDummy),
             (title: L10n.ActivityFeed.screenTitle, image: UIImage(asset: Asset.iconActivity), builder: self.builderForDummy),
             (title: L10n.Settings.screenTitle, image: UIImage(asset: Asset.iconSettings), builder: self.builderForDummy),
             (title: L10n.SideMenu.debug, image: UIImage(asset: Asset.iconPrivate), builder: self.builderForPostMenu)
             ], State.unauthenticated: [
-                (title: L10n.Search.screenTitle, image: UIImage(asset: Asset.iconSearch), builder: self.builderForDummy),
+                (title: L10n.Search.screenTitle, image: UIImage(asset: Asset.iconSearch), builder: self.builderForSearch),
                 (title: L10n.Popular.screenTitle, image: UIImage(asset: Asset.iconPopular), builder: self.builderForPopular)
             ]]
         

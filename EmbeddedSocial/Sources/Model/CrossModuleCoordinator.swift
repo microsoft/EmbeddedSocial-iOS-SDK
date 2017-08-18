@@ -133,4 +133,10 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         return vc
     }()
     
+    lazy var configuredSearch: UIViewController = {
+        let configurator = SearchConfigurator()
+        configurator.configure()
+        return configurator.viewController
+    }()
+    
 }
