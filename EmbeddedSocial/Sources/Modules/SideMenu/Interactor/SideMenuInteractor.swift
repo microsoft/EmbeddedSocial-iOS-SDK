@@ -27,7 +27,7 @@ class SideMenuInteractor: SideMenuInteractorInput {
         
         for index in 0..<count {
             let image = socialMenuItemsProvider!.image(forItem: index)
-            let imageHighlighted = socialMenuItemsProvider!.image(forItem: index)
+            let imageHighlighted = socialMenuItemsProvider!.imageHighlighted(forItem: index)
             let title = socialMenuItemsProvider!.title(forItem: index)
             items.append(SideMenuItemModel(title: title, image: image, imageHighlighted: imageHighlighted))
         }

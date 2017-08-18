@@ -29,7 +29,7 @@ class MyAppMenu: SideMenuItemsProvider {
     
     // MARK: Protocol
     func imageHighlighted(forItem index: Int) -> UIImage {
-        return UIImage(named: images[index])!
+        return UIImage(named: imagesHighlighted[index])!
     }
     
     func title(forItem index: Int) -> String {

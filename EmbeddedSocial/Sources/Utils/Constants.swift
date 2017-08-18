@@ -17,7 +17,7 @@ extension Constants {
     
     struct Menu {
         static let defaultItemColor = UIColor.white
-        static let selectedItemColor = UIColor.green
+        static let selectedItemColor = UIColor.init(r: 80, g: 173, b: 85)
     }
     
     struct CreateAccount {
