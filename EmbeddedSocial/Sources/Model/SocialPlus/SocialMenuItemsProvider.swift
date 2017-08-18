@@ -38,6 +38,10 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         return items[state]![index].image
     }
     
+    func imageHighlighted(forItem index: Int) -> UIImage {
+        return items[state]![index].highlighted
+    }
+    
     func title(forItem index: Int) -> String {
         return items[state]![index].title
     }
@@ -64,9 +68,14 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     var builderForPopular: ModuleBuilder = { coordinator in
         return coordinator.configuredPopular
     }
-
-    typealias MenuItem = (key: SocialItem, title: String, image: UIImage, builder: ModuleBuilder)
     
+    typealias MenuItem = (
+        key: SocialItem,
+        title: String,
+        image: UIImage,
+        highlighted: UIImage,
+        builder: ModuleBuilder
+    )
     
     func getMenuItemIndex(for item: SocialItem) -> Int? {
         return items[state]!.index(where: { $0.key == item })
@@ -79,31 +88,39 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
                 (key: .home,
                  title: L10n.Home.screenTitle,
                  image: UIImage(asset: Asset.iconHome),
+                 highlighted: UIImage(asset: Asset.iconHomeActive),
                  builder: self.builderForHome),
                 (key: .search,
                  title: L10n.Search.screenTitle,
                  image: UIImage(asset: Asset.iconSearch),
+                 highlighted: UIImage(asset: Asset.iconSearchActive),
                  builder: self.builderForDummy),
                 (key: .popular,
                  title: L10n.Popular.screenTitle,
                  image: UIImage(asset: Asset.iconPopular),
+                 highlighted: UIImage(asset: Asset.iconPopularActive),
                  builder: self.builderForPopular),
                 (key: .myPins, title: L10n.MyPins.screenTitle,
                  image: UIImage(asset: Asset.iconPins),
+                 highlighted: UIImage(asset: Asset.iconPinsActive),
                  builder: self.builderForDummy),
                 (key: .activity, title: L10n.ActivityFeed.screenTitle,
                  image: UIImage(asset: Asset.iconActivity),
+                 highlighted: UIImage(asset: Asset.iconActivityActive),
                  builder: self.builderForDummy),
                 (key: .settings, title: L10n.Settings.screenTitle,
                  image: UIImage(asset: Asset.iconSettings),
+                 highlighted: UIImage(asset: Asset.iconSettingsActive),
                  builder: self.builderForDummy)
             ],
             State.unauthenticated: [
                 (key: .search, title: L10n.Search.screenTitle,
                  image: UIImage(asset: Asset.iconSearch),
+                 highlighted: UIImage(asset: Asset.iconSearchActive),
                  builder: self.builderForDummy),
                 (key: .popular, title: L10n.Popular.screenTitle,
                  image: UIImage(asset: Asset.iconPopular),
+                 highlighted: UIImage(asset: Asset.iconPopularActive),
                  builder: self.builderForPopular)
             ]]
         

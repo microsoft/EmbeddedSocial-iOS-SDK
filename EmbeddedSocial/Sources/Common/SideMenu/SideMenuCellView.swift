@@ -11,9 +11,9 @@ class SideMenuCellView: UITableViewCell {
     @IBOutlet weak var title: UILabel?
 
     func configure(withModel model: SideMenuItemModel)  {
-        picture!.image = model.image
+        picture!.image = model.isSelected ? model.imageHighlighted : model.image
         title!.text = model.title
-        isSelected = model.selected
+        isSelected = model.isSelected
     }
     
     override public var isSelected: Bool {

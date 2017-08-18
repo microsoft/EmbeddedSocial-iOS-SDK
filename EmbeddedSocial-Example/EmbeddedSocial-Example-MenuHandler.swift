@@ -7,22 +7,12 @@ import Foundation
 import EmbeddedSocial
 
 class MyAppMenu: SideMenuItemsProvider {
-    
-//    static var nav: UINavigationController?
 
     func destination(forItem index: Int) -> UIViewController {
         let vc = UIViewController()
-        
-        
-//        let nav = UINavigationController(rootViewController: vc)
-    
         vc.view = UIView()
         vc.view.backgroundColor = index == 0 ? UIColor.red : UIColor.yellow
         vc.title = "Title \(index)"
-        
-//        nav.pushViewController(blueVC, animated: false)
-        
-        
         return vc
     }
     
@@ -34,9 +24,13 @@ class MyAppMenu: SideMenuItemsProvider {
     }()
     
     var images = ["icon_comment", "icon_liked"]
+    var imagesHighlighted = ["icon_comment_active", "icon_liked_active"]
     var items = ["Screen #1", "Screen #2"]
     
     // MARK: Protocol
+    func imageHighlighted(forItem index: Int) -> UIImage {
+        return UIImage(named: images[index])!
+    }
     
     func title(forItem index: Int) -> String {
         return items[index]

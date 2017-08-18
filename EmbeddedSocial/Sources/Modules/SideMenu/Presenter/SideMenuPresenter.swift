@@ -204,7 +204,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         
         if case let .item(path, tab) = selectedMenuItem {
             if self.tab == tab {
-                items[path.section].items[path.row].selected = true
+                items[path.section].items[path.row].isSelected = true
             }
         }
     }
