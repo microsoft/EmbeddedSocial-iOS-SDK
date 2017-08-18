@@ -13,7 +13,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     var interactor: CommentRepliesInteractorInput!
     var router: CommentRepliesRouterInput!
     
-    var comment: Comment?
+    var commentView: CommentViewModel?
     
     var replies = [Reply]()
 
@@ -32,11 +32,11 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func viewIsReady() {
-        interactor.fetchReplies(commentHandle: (comment?.commentHandle)!)
+        interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!)
     }
     
-    func mainComment() -> Comment {
-        return comment!
+    func mainComment() -> CommentViewModel {
+        return commentView!
     }
     
     func numberOfItems() -> Int {
@@ -44,7 +44,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func postReply(text: String) {
-        interactor.postReply(commentHandle: (comment?.commentHandle)!, text: text)
+        interactor.postReply(commentHandle: (commentView?.commentHandle)!, text: text)
     }
     
     func fetched(replies: [Reply]) {

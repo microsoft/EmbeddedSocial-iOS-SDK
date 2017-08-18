@@ -20,6 +20,7 @@ struct CommentViewModel {
     var timeCreated: String = ""
     var userImageUrl: String? = nil
     var commentImageUrl: String? = nil
+    var commentHandle: String = ""
     
     var cellType: String = CommentCell.reuseID
     var onAction: ActionHandler?
@@ -46,6 +47,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     private func viewModel(with comment: Comment) -> CommentViewModel {
         
         var viewModel = CommentViewModel()
+        viewModel.commentHandle = comment.commentHandle!
         viewModel.userName = String(format: "%@ %@", (comment.firstName ?? ""), (comment.lastName ?? ""))
         viewModel.text = comment.text ?? ""
         
@@ -142,7 +144,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     // MAKR: PostDetailViewOutput
     
     func openReplies(index: Int) {
-        router.openReplies(comment: comments[index], from: view as! UIViewController)
+        router.openReplies(commentView: viewModel(with:  comments[index]), from: view as! UIViewController)
     }
     
     func openUser(index: Int) {

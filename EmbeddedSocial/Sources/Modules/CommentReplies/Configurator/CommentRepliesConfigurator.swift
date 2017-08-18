@@ -16,7 +16,7 @@ class CommentRepliesModuleConfigurator {
         viewController = StoryboardScene.CommentReplies.instantiateCommentRepliesViewController()
     }
     
-    func configure(comment: Comment) {
+    func configure(commentView: CommentViewModel) {
 
         let router = CommentRepliesRouter()
         
@@ -25,7 +25,7 @@ class CommentRepliesModuleConfigurator {
         let presenter = CommentRepliesPresenter()
         presenter.view = viewController
         presenter.router = router
-        presenter.comment = comment
+        presenter.commentView = commentView
 
         let interactor = CommentRepliesInteractor()
         interactor.output = presenter

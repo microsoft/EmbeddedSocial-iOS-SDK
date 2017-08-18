@@ -18,4 +18,5 @@ protocol PostDetailViewOutput {
     func fetchMore()
     func openUser(index: Int)
     func openReplies(index: Int)
+    func feedModuleHeight() -> CGFloat
 }

@@ -78,7 +78,7 @@ extension CommentRepliesViewController: UITableViewDataSource {
         switch indexPath.section {
         case RepliesSections.comment.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
-            cell.config(comment: output.mainComment())
+            cell.config(commentView: output.mainComment())
             return cell
         case RepliesSections.replies.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
