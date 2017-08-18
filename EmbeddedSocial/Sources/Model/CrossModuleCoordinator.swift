@@ -18,14 +18,16 @@ protocol CrossModuleCoordinatorProtocol: class {
     
     var configuredHome: UIViewController { get }
     var configuredPopular: UIViewController { get }
-    var configuredDebug: UIViewController { get }
-    
+    var configuredUserProfile: UIViewController { get }
+    var configuredLogin: UIViewController { get }
+    var configuredSearch: UIViewController { get }
 }
 
 class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput {
     
-    weak var menuModule: SideMenuModuleInput!
-    weak var loginHandler: LoginModuleOutput!
+    private(set) weak var menuModule: SideMenuModuleInput!
+    private(set) weak var loginHandler: LoginModuleOutput!
+    private(set) var menuItemsProvider: SocialMenuItemsProvider!
     private(set) var navigationStack: NavigationStack!
     private(set) var user: User?
     fileprivate var cache: CacheType
@@ -37,13 +39,14 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     func setup(launchArguments args: LaunchArguments, loginHandler: LoginModuleOutput) {
         self.loginHandler = loginHandler
     
-        let socialMenuHandler = SocialMenuItemsProvider(coordinator: self)
+        menuItemsProvider = SocialMenuItemsProvider(coordinator: self)
+    
         
         let configurator = SideMenuModuleConfigurator()
         
         configurator.configure(coordinator: self,
                                configuration: args.menuConfiguration,
-                               socialMenuItemsProvider: socialMenuHandler,
+                               socialMenuItemsProvider: menuItemsProvider,
                                clientMenuItemsProvider: args.menuHandler)
         
         menuModule = configurator.moduleInput
@@ -79,21 +82,16 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     }
     
     func openLoginScreen() {
-        let configurator = LoginConfigurator()
-        configurator.configure(moduleOutput: loginHandler)
-        navigationStack.show(configurator.viewController)
+        menuModule.openLogin()
     }
     
     func openMyProfile() {
-        let configurator = UserProfileConfigurator()
-        configurator.configure()
-        navigationStack.show(configurator.viewController)
+        menuModule.openMyProfile()
     }
     
     func openHomeScreen() {
-        let vc = configuredHome
-        navigationStack.cleanStack()
-        navigationStack.show(vc)
+        let index = menuItemsProvider.getMenuItemIndex(for: .home)!
+        menuModule.openSocialItem(index: index)
     }
     
     func logOut() {
@@ -107,7 +105,18 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         navigationStack.showError(error)
     }
     
-    // Modules Builder
+    // MARK: Modules Builder
+    var configuredLogin: UIViewController {
+        let configurator = LoginConfigurator()
+        configurator.configure(moduleOutput: loginHandler)
+        return configurator.viewController
+    }
+    
+    var configuredUserProfile: UIViewController {
+        let configurator = UserProfileConfigurator()
+        configurator.configure()
+        return configurator.viewController
+    }
     
     lazy var configuredHome: UIViewController = {
         let configurator = FeedModuleConfigurator(cache: self.cache)

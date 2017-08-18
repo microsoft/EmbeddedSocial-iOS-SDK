@@ -5,6 +5,33 @@
 
 import UIKit
 
+protocol SideMenuViewInput: class {
+    
+    func setupInitialState()
+    func reload()
+    func reload(section: Int)
+    func showTabBar(visible: Bool)
+    func selectBar(with index: Int)
+    func showAccountInfo(visible: Bool)
+}
+
+protocol SideMenuViewOutput {
+  
+    func viewIsReady()
+    func didSwitch(to tab: Int)
+    func didTapAccountInfo()
+    func didSelectItem(with path: IndexPath)
+    func didToggleSection(with index: Int)
+    
+    func itemsCount(in section: Int) -> Int
+    func sectionsCount() -> Int
+    func section(with index: Int) -> SideMenuSectionModel
+    func item(at index: IndexPath) -> SideMenuItemModel
+    func headerTitle(for section: Int) -> String
+    func accountInfo() -> SideMenuHeaderModel
+}
+
+
 class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSectionHeaderDelegate {
     
     var output: SideMenuViewOutput!
@@ -20,7 +47,6 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
-
     }
     
     // MARK: SideMenuViewInput
@@ -41,6 +67,10 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     func selectBar(with index: Int) {
         socialButton?.isSelected = socialButton?.tag == index
         clientButton?.isSelected = clientButton?.tag == index
+    }
+    
+    func selectItem(with index: Int) {
+        
     }
     
     // MARK: UX
