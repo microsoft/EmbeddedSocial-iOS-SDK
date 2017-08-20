@@ -19,6 +19,10 @@ class ReplyCell: UITableViewCell {
     @IBOutlet weak var avatarButton: UIButton!
     @IBOutlet weak var replyLabel: UILabel!
     
+    var replyView: ReplyViewModel!
+    
+    private var formatter = DateFormatterTool()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -30,16 +34,35 @@ class ReplyCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func config(reply: Reply) {
-        usernameLabel.text = "\(reply.userFirstName ?? "") \(reply.userLastName ?? "")"
+    func config(replyView: ReplyViewModel) {
+        self.replyView = replyView
+        avatarButton.setPhotoWithCaching(Photo(uid: UUID().uuidString,
+                                               url: replyView.userImageUrl,
+                                               image: nil),
+                                         placeholder: UIImage(asset: .userPhotoPlaceholder))
+
+        totalLikesButton.setTitle(replyView.totalLikes, for: .normal)
+        replyLabel.text = replyView.text
+        usernameLabel.text = replyView.userName
+        
+        postTimeLabel.text = replyView.timeCreated
+        likeButton.isSelected = replyView.isLiked
         selectionStyle = .none
+        contentView.layoutIfNeeded()
     }
+    
     @IBAction func like(_ sender: Any) {
+        replyView.onAction?(.like, tag)
     }
 
     @IBAction func toLikes(_ sender: Any) {
     }
+    
     @IBAction func actionsPressed(_ sender: Any) {
+    }
+    
+    @IBAction func toProfile(_ sender: Any) {
+        replyView.onAction?(.profile, tag)
     }
 
 }

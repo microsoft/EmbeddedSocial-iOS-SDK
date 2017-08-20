@@ -1,9 +1,6 @@
 //
-//  CommentRepliesCommentRepliesConfigurator.swift
-//  EmbeddedSocial-Framework
-//
-//  Created by generamba setup on 14/08/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import UIKit
@@ -16,7 +13,7 @@ class CommentRepliesModuleConfigurator {
         viewController = StoryboardScene.CommentReplies.instantiateCommentRepliesViewController()
     }
     
-    func configure(commentView: CommentViewModel) {
+    func configure(commentView: CommentViewModel, postDetailsPresenter: PostDetailPresenter?) {
 
         let router = CommentRepliesRouter()
         
@@ -26,13 +23,18 @@ class CommentRepliesModuleConfigurator {
         presenter.view = viewController
         presenter.router = router
         presenter.commentView = commentView
-
+        
         let interactor = CommentRepliesInteractor()
         interactor.output = presenter
 
+        let likeService = LikesService()
+        interactor.likeService = likeService
+        
         presenter.interactor = interactor
         interactor.repliesService = repliesService
         viewController.output = presenter
+        
+        postDetailsPresenter?.repliesPresenter = presenter
     }
 
 }

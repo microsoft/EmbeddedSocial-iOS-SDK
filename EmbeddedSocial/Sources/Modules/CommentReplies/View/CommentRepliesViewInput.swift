@@ -1,9 +1,6 @@
 //
-//  CommentRepliesCommentRepliesViewInput.swift
-//  EmbeddedSocial-Framework
-//
-//  Created by generamba setup on 14/08/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 protocol CommentRepliesViewInput: class {
@@ -16,4 +13,7 @@ protocol CommentRepliesViewInput: class {
     func setupInitialState()
     func reloadTable()
     func reloadReplies()
+    func refreshReplyCell(index: Int)
+    func refreshCommentCell()
+    func replyPosted()
 }

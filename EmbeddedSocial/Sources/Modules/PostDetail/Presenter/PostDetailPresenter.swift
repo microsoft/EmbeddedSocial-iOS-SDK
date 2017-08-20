@@ -22,6 +22,7 @@ struct CommentViewModel {
     var commentImageUrl: String? = nil
     var commentHandle: String = ""
     
+    var tag: Int = 0
     var cellType: String = CommentCell.reuseID
     var onAction: ActionHandler?
 }
@@ -31,6 +32,8 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     weak var view: PostDetailViewInput!
     var interactor: PostDetailInteractorInput!
     var router: PostDetailRouterInput!
+    
+    var repliesPresenter: CommentRepliesPresenter?
     
     var feedViewController: UIViewController?
     var feedModuleInput: FeedModuleInput?
@@ -59,6 +62,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         viewModel.commentImageUrl = comment.mediaUrl
         
         viewModel.isLiked = comment.liked
+        viewModel.tag = comments.index(of: comment) ?? 0
         
         viewModel.cellType = CommentCell.reuseID
         viewModel.onAction = { [weak self] action, index in
@@ -89,9 +93,10 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
                 comments[index].totalLikes -= 1
             }
             
-            view.refreshCell(index: index)
-            interactor.commentAction(commentHandle: commentHandle, action: action)
             
+            view.refreshCell(index: index)
+            repliesPresenter?.refreshCommentCell(commentView: viewModel(with: comments[index]))
+            interactor.commentAction(commentHandle: commentHandle, action: action)
             
         case .profile:
             router.openUser(userHandle: userHandle, from: view as! UIViewController)
@@ -144,7 +149,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     // MAKR: PostDetailViewOutput
     
     func openReplies(index: Int) {
-        router.openReplies(commentView: viewModel(with:  comments[index]), from: view as! UIViewController)
+        router.openReplies(commentView: viewModel(with:  comments[index]), from: view as! UIViewController, postDetailPresenter: self)
     }
     
     func openUser(index: Int) {

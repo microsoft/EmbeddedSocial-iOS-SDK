@@ -26,6 +26,7 @@ enum RepliesServiceError: Error {
 protocol RepliesServiceProtcol {
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int, resultHandler: @escaping RepliesFetchResultHandler)
     func postReply(commentHandle: String, request: PostReplyRequest, success: @escaping PostReplyResultHandler, failure: @escaping Failure)
+    func reply(replyHandle: String, success: @escaping ((Reply) -> Void), failure: Failure) 
 }
 
 class RepliesService: BaseService, RepliesServiceProtcol {
@@ -49,6 +50,16 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             result.cursor = response?.cursor
             
             resultHandler(result)
+        }
+    }
+    
+    func reply(replyHandle: String, success: @escaping ((Reply) -> Void), failure: Failure) {
+        RepliesAPI.repliesGetReply(replyHandle: replyHandle, authorization: authorization) { (replyView, error) in
+            if error != nil {
+                self.errorHandler.handle(error)
+            } else {
+                success(self.convert(data: [replyView!]).first!)
+            }
         }
     }
     
@@ -78,6 +89,8 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             reply.userFirstName = replyView.user?.firstName
             reply.userLastName = replyView.user?.lastName
             reply.userPhotoUrl = replyView.user?.photoUrl
+            reply.userHandle = replyView.user?.userHandle
+            reply.totalLikes = Int(replyView.totalLikes!)
             replies.append(reply)
         }
         return replies
@@ -85,6 +98,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
 }
 
 class Reply {
+    var userHandle: String?
     var userFirstName: String?
     var userLastName: String?
     var userPhotoUrl: String?

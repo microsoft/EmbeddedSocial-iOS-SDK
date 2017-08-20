@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -54,6 +53,9 @@
                                     <constraint firstAttribute="width" secondItem="JpR-mM-m4x" secondAttribute="height" multiplier="1:1" id="Xcs-GM-hmu"/>
                                 </constraints>
                                 <state key="normal" image="user_photo_placeholder"/>
+                                <connections>
+                                    <action selector="toProfile:" destination="nhO-4a-4u6" eventType="touchUpInside" id="FNA-vj-wWR"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -88,7 +90,7 @@
                             <constraint firstAttribute="width" secondItem="Aee-Xh-0BU" secondAttribute="height" multiplier="1:1" id="75y-3r-8OS"/>
                             <constraint firstAttribute="width" constant="20" id="A8X-93-ISN"/>
                         </constraints>
-                        <state key="normal" title="Button" image="icon_liked"/>
+                        <state key="normal" image="icon_liked"/>
                         <state key="selected" image="icon_liked_active"/>
                         <connections>
                             <action selector="like:" destination="nhO-4a-4u6" eventType="touchUpInside" id="MWl-QO-Ksz"/>

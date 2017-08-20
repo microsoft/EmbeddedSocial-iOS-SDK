@@ -1,12 +1,10 @@
 //
-//  CommentRepliesCommentRepliesViewController.swift
-//  EmbeddedSocial-Framework
-//
-//  Created by generamba setup on 14/08/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 import UIKit
+import SVProgressHUD
 
 enum RepliesSections: Int {
     case comment = 0
@@ -25,12 +23,29 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     fileprivate var isNewDataLoading = false
     
     @IBOutlet weak var tableView: UITableView!
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(PostDetailViewController.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        return refreshControl
+    }()
+    
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
+        tableView.addSubview(self.refreshControl)
+        tableView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
+        refreshControl.beginRefreshing()
         configTableView()
         configTextView()
+    }
+    
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
 
     func configTableView() {
@@ -54,8 +69,22 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         tableView.reloadSections(IndexSet(integer: RepliesSections.replies.rawValue), with: .none)
     }
 
+    func refreshReplyCell(index: Int) {
+        tableView.reloadRows(at: [IndexPath(item: index, section: RepliesSections.replies.rawValue)], with: .none)
+    }
+    
+    private func lockUI() {
+        view.isUserInteractionEnabled = false
+        SVProgressHUD.show()
+    }
+    
+    private func unlockUI() {
+        view.isUserInteractionEnabled = true
+        SVProgressHUD.dismiss()
+    }
     
     @IBAction func postReply(_ sender: Any) {
+        lockUI()
         output.postReply(text: replyTextView.text)
     }
     
@@ -63,9 +92,20 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     func setupInitialState() {
     }
     
+    func replyPosted() {
+        reloadReplies()
+        replyTextView.text = ""
+        unlockUI()
+    }
+    
     func reloadTable() {
+        refreshControl.endRefreshing()
         self.isNewDataLoading = false
         tableView.reloadData()
+    }
+    
+    func refreshCommentCell() {
+        tableView.reloadRows(at: [IndexPath(item: 0, section: RepliesSections.comment.rawValue)], with: .none)
     }
 }
 
@@ -79,9 +119,12 @@ extension CommentRepliesViewController: UITableViewDataSource {
         case RepliesSections.comment.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
             cell.config(commentView: output.mainComment())
+            cell.tag = output.mainComment().tag
             return cell
         case RepliesSections.replies.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
+            cell.config(replyView: output.replyView(index: indexPath.row))
+            cell.tag = indexPath.row
             if  output.numberOfItems() > indexPath.row + 1 && isNewDataLoading == false {
                 isNewDataLoading = true
 //                output.fetchMore()

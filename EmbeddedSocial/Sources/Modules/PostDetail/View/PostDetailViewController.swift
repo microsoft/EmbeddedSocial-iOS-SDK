@@ -75,7 +75,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.delegate = self
         tableView.dataSource = self
-       
     }
     
     func reloadTable() {
@@ -187,7 +186,7 @@ extension PostDetailViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
+        if indexPath.section == TableSections.comments.rawValue {
             output.openReplies(index: indexPath.row)
         }
     }

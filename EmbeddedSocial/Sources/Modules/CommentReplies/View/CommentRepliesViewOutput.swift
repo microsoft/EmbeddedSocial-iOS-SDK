@@ -1,20 +1,12 @@
 //
-//  CommentRepliesCommentRepliesViewOutput.swift
-//  EmbeddedSocial-Framework
-//
-//  Created by generamba setup on 14/08/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 protocol CommentRepliesViewOutput {
-
-    /**
-        @author generamba setup
-        Notify presenter that view is ready
-    */
-
     func viewIsReady()
     func numberOfItems() -> Int
     func mainComment() -> CommentViewModel
     func postReply(text: String)
+    func replyView(index: Int) -> ReplyViewModel
 }
