@@ -3,30 +3,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-enum CommentCellAction {
-    case like, replies, profile, photo
-}
-
-struct CommentViewModel {
-    
-    typealias ActionHandler = (CommentCellAction, Int) -> Void
-    
-    var userName: String = ""
-    var title: String = ""
-    var text: String = ""
-    var isLiked: Bool = false
-    var totalLikes: String = ""
-    var totalReplies: String = ""
-    var timeCreated: String = ""
-    var userImageUrl: String? = nil
-    var commentImageUrl: String? = nil
-    var commentHandle: String = ""
-    
-    var tag: Int = 0
-    var cellType: String = CommentCell.reuseID
-    var onAction: ActionHandler?
-}
-
 class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDetailInteractorOutput {
     
     weak var view: PostDetailViewInput!
@@ -50,6 +26,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     private func viewModel(with comment: Comment) -> CommentViewModel {
         
         var viewModel = CommentViewModel()
+        viewModel.comment = comment
         viewModel.commentHandle = comment.commentHandle!
         viewModel.userName = String(format: "%@ %@", (comment.firstName ?? ""), (comment.lastName ?? ""))
         viewModel.text = comment.text ?? ""
@@ -149,7 +126,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     // MAKR: PostDetailViewOutput
     
     func openReplies(index: Int) {
-        router.openReplies(commentView: viewModel(with:  comments[index]), from: view as! UIViewController, postDetailPresenter: self)
+        router.openReplies(commentView: viewModel(with:  comments[index]), scrollType: .none, from: view as! UIViewController, postDetailPresenter: self)
     }
     
     func openUser(index: Int) {

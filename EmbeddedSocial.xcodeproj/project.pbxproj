@@ -1300,7 +1300,6 @@
 			path = Mock;
 			sourceTree = "<group>";
 		};
-		87458D5FAE6545C251C16F7F /* Presenter */ = {
 		87458D5FAE6545C251C16F7F /* EmbeddedEditProfile */ = {
 			isa = PBXGroup;
 			children = (

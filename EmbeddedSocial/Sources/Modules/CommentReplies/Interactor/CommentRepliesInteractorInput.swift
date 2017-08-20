@@ -6,8 +6,8 @@
 import Foundation
 
 protocol CommentRepliesInteractorInput {
-    func fetchReplies(commentHandle: String)
-    func fetchMoreReplies(commentHandle: String) 
+    func fetchReplies(commentHandle: String, cursor: String?, limit: Int)
+    func fetchMoreReplies(commentHandle: String, cursor: String?, limit: Int)
     func postReply(commentHandle: String, text: String)
     func replyAction(replyHandle: String, action: RepliesSocialAction)
 }

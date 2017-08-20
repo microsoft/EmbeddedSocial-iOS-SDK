@@ -21,6 +21,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     var output: CommentRepliesViewOutput!
 
     fileprivate var isNewDataLoading = false
+    fileprivate let reloadDelay = 0.2
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -35,12 +36,12 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        output.viewIsReady()
         tableView.addSubview(self.refreshControl)
         tableView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
         refreshControl.beginRefreshing()
         configTableView()
         configTextView()
+        output.viewIsReady()
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
@@ -73,6 +74,25 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         tableView.reloadRows(at: [IndexPath(item: index, section: RepliesSections.replies.rawValue)], with: .none)
     }
     
+    func reloadTable(scrollType: RepliesScrollType) {
+        refreshControl.endRefreshing()
+        self.isNewDataLoading = false
+        tableView.reloadData()
+        switch scrollType {
+        case .bottom:
+            DispatchQueue.main.asyncAfter(deadline: .now() + reloadDelay) {
+                self.scrollTableToBottom()
+            }
+        default: break
+        }
+    }
+    
+    fileprivate func scrollTableToBottom() {
+        if  output.numberOfItems() > 1 {
+            tableView.scrollToRow(at: IndexPath(row: output.numberOfItems() - 1, section: RepliesSections.replies.rawValue), at: .bottom, animated: true)
+        }
+    }
+    
     private func lockUI() {
         view.isUserInteractionEnabled = false
         SVProgressHUD.show()
@@ -96,12 +116,6 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         reloadReplies()
         replyTextView.text = ""
         unlockUI()
-    }
-    
-    func reloadTable() {
-        refreshControl.endRefreshing()
-        self.isNewDataLoading = false
-        tableView.reloadData()
     }
     
     func refreshCommentCell() {
@@ -157,6 +171,10 @@ extension CommentRepliesViewController: UITextViewDelegate {
         replyTextViewHeightConstraint.constant = replyTextView.contentSize.height
         view.layoutIfNeeded()
         postButton.isHidden = textView.text.isEmpty
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        output.loadRestReplies()
     }
     
 }

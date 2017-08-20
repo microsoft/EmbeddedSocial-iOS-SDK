@@ -27,18 +27,22 @@ struct ReplyViewModel {
 
 class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutput, CommentRepliesInteractorOutput {
 
-
     weak var view: CommentRepliesViewInput?
     var interactor: CommentRepliesInteractorInput!
     var router: CommentRepliesRouterInput!
     
     var commentView: CommentViewModel?
     
+    var scrollType: RepliesScrollType?
+    
     var replies = [Reply]()
     
     private var formatter = DateFormatterTool()
+    fileprivate var shouldFetchRestOfReplies = false
+    
     private var cursor: String?
-    private let limit: Int32 = 10
+    private let maxLimit: Int = 10
+    private let normalLimit: Int = 10000
     
     private func viewModel(with reply: Reply) -> ReplyViewModel {
         
@@ -125,9 +129,10 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         return viewModel(with: replies[index])
     }
 
-    func fetchedMore(replies: [Reply]) {
+    func fetchedMore(replies: [Reply], cursor: String?) {
+        self.cursor = cursor
         self.replies.append(contentsOf: replies)
-        view?.reloadTable()
+        view?.reloadTable(scrollType: .none)
     }
     
     func replyPosted(reply: Reply) {
@@ -141,7 +146,29 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func viewIsReady() {
-        interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!)
+        if (commentView?.comment?.totalReplies)! > 0 {
+            interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: normalLimit)
+        } else {
+            view?.reloadTable(scrollType: scrollType ?? .none)
+        }
+        
+    }
+    
+    func fetchMore() {
+        if shouldFetchRestOfReplies {
+            interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: maxLimit)
+        } else {
+            interactor.fetchMoreReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: normalLimit)
+        }
+    }
+    
+    func loadRestReplies() {
+        if cursor == nil {
+            view?.reloadTable(scrollType: .bottom)
+        } else {
+            shouldFetchRestOfReplies = true
+            fetchMore()
+        }
     }
     
     func mainComment() -> CommentViewModel {
@@ -156,8 +183,9 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         interactor.postReply(commentHandle: (commentView?.commentHandle)!, text: text)
     }
     
-    func fetched(replies: [Reply]) {
+    func fetched(replies: [Reply], cursor: String?) {
+        self.cursor = cursor
         self.replies = replies
-        view?.reloadTable()
+        view?.reloadTable(scrollType: .none)
     }
 }

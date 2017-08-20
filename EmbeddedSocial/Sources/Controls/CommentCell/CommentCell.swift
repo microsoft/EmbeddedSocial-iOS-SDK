@@ -6,6 +6,10 @@
 
 import UIKit
 
+enum CommentCellAction {
+    case like, replies, profile, photo
+}
+
 class CommentCell: UITableViewCell {
 
     @IBOutlet weak var likesCountButton: UIButton!

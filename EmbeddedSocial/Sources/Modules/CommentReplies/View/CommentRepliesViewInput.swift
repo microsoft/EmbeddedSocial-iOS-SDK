@@ -11,7 +11,7 @@ protocol CommentRepliesViewInput: class {
     */
 
     func setupInitialState()
-    func reloadTable()
+    func reloadTable(scrollType: RepliesScrollType)
     func reloadReplies()
     func refreshReplyCell(index: Int)
     func refreshCommentCell()

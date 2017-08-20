@@ -5,6 +5,11 @@
 
 import UIKit
 
+enum RepliesScrollType {
+    case none
+    case bottom
+}
+
 class CommentRepliesModuleConfigurator {
 
     let viewController: CommentRepliesViewController
@@ -13,7 +18,7 @@ class CommentRepliesModuleConfigurator {
         viewController = StoryboardScene.CommentReplies.instantiateCommentRepliesViewController()
     }
     
-    func configure(commentView: CommentViewModel, postDetailsPresenter: PostDetailPresenter?) {
+    func configure(commentView: CommentViewModel, scrollType: RepliesScrollType, postDetailsPresenter: PostDetailPresenter?) {
 
         let router = CommentRepliesRouter()
         
@@ -23,7 +28,7 @@ class CommentRepliesModuleConfigurator {
         presenter.view = viewController
         presenter.router = router
         presenter.commentView = commentView
-        
+        presenter.scrollType = scrollType
         let interactor = CommentRepliesInteractor()
         interactor.output = presenter
 

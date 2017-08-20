@@ -9,4 +9,5 @@ protocol CommentRepliesViewOutput {
     func mainComment() -> CommentViewModel
     func postReply(text: String)
     func replyView(index: Int) -> ReplyViewModel
+    func loadRestReplies()
 }

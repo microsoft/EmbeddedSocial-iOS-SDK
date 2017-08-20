@@ -10,9 +10,6 @@ enum RepliesSocialAction: Int {
 class CommentRepliesInteractor: CommentRepliesInteractorInput {
 
     weak var output: CommentRepliesInteractorOutput!
-    
-    private var cursor: String?
-    private let limit = 10
     private var isLoading = false
     
     var repliesService: RepliesServiceProtcol?
@@ -35,7 +32,7 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         
     }
 
-    func fetchReplies(commentHandle: String) {
+    func fetchReplies(commentHandle: String, cursor: String?, limit: Int) {
         isLoading = true
         repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit) { (result) in
             guard result.error == nil else {
@@ -43,12 +40,11 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
             }
             
             self.isLoading = false
-            self.cursor = result.cursor
-            self.output.fetched(replies: result.replies)
+            self.output.fetched(replies: result.replies,  cursor: cursor)
         }
     }
     
-    func fetchMoreReplies(commentHandle: String) {
+    func fetchMoreReplies(commentHandle: String, cursor: String?, limit: Int) {
         if cursor == "" || cursor == nil || isLoading == true {
             return
         }
@@ -59,13 +55,8 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
                 return
             }
             
-            if self.cursor == nil {
-                return
-            }
-            
             self.isLoading = false
-            self.cursor = result.cursor
-            self.output.fetchedMore(replies: result.replies)
+            self.output.fetchedMore(replies: result.replies, cursor: cursor)
         })
         
     }
