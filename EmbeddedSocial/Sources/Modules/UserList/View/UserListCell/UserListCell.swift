@@ -62,7 +62,7 @@ extension UserListCell {
 
         nameLabel.text = user.fullName
         
-        actionButton.isHidden = user.isMe
+        actionButton.isHidden = item.isActionButtonHidden
 
         if let buttonStyle = user.followerStatus?.buttonStyle {
             actionButton.apply(style: buttonStyle)

@@ -8,5 +8,5 @@ import Foundation
 struct SearchPageInfo {
     let searchResultsController: UIViewController
     let searchResultsHandler: UISearchResultsUpdating
-    let backgroundView: UIView
+    let backgroundView: UIView?
 }
