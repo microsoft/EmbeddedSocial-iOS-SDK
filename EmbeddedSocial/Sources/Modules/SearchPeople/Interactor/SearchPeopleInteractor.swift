@@ -24,7 +24,6 @@ final class SearchPeopleInteractor: SearchPeopleInteractorInput {
     }
     
     func runSearchQuery(for searchController: UISearchController, usersListModule: UserListModuleInput) {
-        print(searchController.searchBar)
         guard let searchText = searchController.searchBar.text?.trimmingCharacters(in: .whitespaces) else {
             return
         }
