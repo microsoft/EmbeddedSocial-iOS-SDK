@@ -7,16 +7,16 @@ import UIKit
 
 /*
  
- */
+*/
 
 class FeedModuleConfigurator {
     
-    weak var viewController: UIViewController!
-    weak var moduleInput: FeedModuleInput!
+    var viewController: UIViewController!
+    var moduleInput: FeedModuleInput!
     let cache: CacheType
     weak var userHolder: UserHolder?
     
-    required init(cache: CacheType, userHolder: UserHolder? = SocialPlus.shared) {
+    required init(cache: CacheType = SocialPlus.shared.cache, userHolder: UserHolder? = SocialPlus.shared) {
         self.cache = cache
         self.userHolder = userHolder
     }

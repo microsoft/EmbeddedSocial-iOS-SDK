@@ -374,7 +374,6 @@
 		889AFC1E1F220BCD003AAF19 /* PhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC031F220BCD003AAF19 /* PhotoTests.swift */; };
 		889AFC1F1F220BCD003AAF19 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC041F220BCD003AAF19 /* UserTests.swift */; };
 		889AFC201F220BCD003AAF19 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC061F220BCD003AAF19 /* UIImage+Ext.swift */; };
-		889AFC241F220BCD003AAF19 /* SideMenuInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC0D1F220BCD003AAF19 /* SideMenuInteractorTests.swift */; };
 		889AFC261F220BCD003AAF19 /* AuthAPIProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC101F220BCD003AAF19 /* AuthAPIProviderTests.swift */; };
 		889AFC271F220BCD003AAF19 /* AuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC111F220BCD003AAF19 /* AuthServiceTests.swift */; };
 		889AFC281F220BCD003AAF19 /* ImageCacheAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC121F220BCD003AAF19 /* ImageCacheAdapterTests.swift */; };
@@ -537,6 +536,12 @@
 		9C21697A1F3C68350052FB90 /* PostMenuModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169721F3C68350052FB90 /* PostMenuModuleInteractor.swift */; };
 		9C21697B1F3C68350052FB90 /* PostMenuModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169741F3C68350052FB90 /* PostMenuModulePresenter.swift */; };
 		9C21697C1F3C68350052FB90 /* PostMenuModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169761F3C68350052FB90 /* PostMenuModuleRouter.swift */; };
+		9C2D9C061F4ADEE6001514C3 /* PopularModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2D9C011F4ADEE6001514C3 /* PopularModuleConfigurator.swift */; };
+		9C2D9C071F4ADEE6001514C3 /* PopularModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2D9C021F4ADEE6001514C3 /* PopularModuleInteractor.swift */; };
+		9C2D9C081F4ADEE6001514C3 /* PopularModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2D9C031F4ADEE6001514C3 /* PopularModulePresenter.swift */; };
+		9C2D9C091F4ADEE6001514C3 /* PopularModuleView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C2D9C041F4ADEE6001514C3 /* PopularModuleView.storyboard */; };
+		9C2D9C0A1F4ADEE6001514C3 /* PopularModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2D9C051F4ADEE6001514C3 /* PopularModuleView.swift */; };
+		9C2D9C0C1F4AF3EE001514C3 /* PopularModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2D9C0B1F4AF3EE001514C3 /* PopularModuleRouter.swift */; };
 		9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8B1F25D60A00D0B59D /* PostCell.xib */; };
 		9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */; };
 		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
@@ -556,7 +561,6 @@
 		9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */; };
 		9C813A4A1F45A21900462950 /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531341F31CCD1004CE94F /* FeedModuleInteractor-FetchQuery-Tests.swift */; };
 		9C8F68961F3485CA00AF4A7F /* topics&limit20.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CD760FE1F33158200ABBB2A /* topics&limit20.json */; };
-		9CA8646F1F46C98C00199E29 /* SocialMenuItemsProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA8646E1F46C98C00199E29 /* SocialMenuItemsProviderTests.swift */; };
 		9CB3F1FB1F3367F00099A22D /* TopicServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */; };
 		9CB3F1FE1F336B780099A22D /* MyFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */; };
 		9CBA39ED1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA39EC1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift */; };
@@ -1156,6 +1160,12 @@
 		9C2169741F3C68350052FB90 /* PostMenuModulePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenter.swift; sourceTree = "<group>"; };
 		9C2169761F3C68350052FB90 /* PostMenuModuleRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleRouter.swift; sourceTree = "<group>"; };
 		9C2169781F3C68350052FB90 /* PostMenuModuleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleViewController.swift; sourceTree = "<group>"; };
+		9C2D9C011F4ADEE6001514C3 /* PopularModuleConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularModuleConfigurator.swift; sourceTree = "<group>"; };
+		9C2D9C021F4ADEE6001514C3 /* PopularModuleInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularModuleInteractor.swift; sourceTree = "<group>"; };
+		9C2D9C031F4ADEE6001514C3 /* PopularModulePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularModulePresenter.swift; sourceTree = "<group>"; };
+		9C2D9C041F4ADEE6001514C3 /* PopularModuleView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PopularModuleView.storyboard; sourceTree = "<group>"; };
+		9C2D9C051F4ADEE6001514C3 /* PopularModuleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularModuleView.swift; sourceTree = "<group>"; };
+		9C2D9C0B1F4AF3EE001514C3 /* PopularModuleRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularModuleRouter.swift; sourceTree = "<group>"; };
 		9C316E101F31E3CB00B90089 /* FeedModuleInteractor-Pagination-Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedModuleInteractor-Pagination-Tests.swift"; sourceTree = "<group>"; };
 		9C43EC8B1F25D60A00D0B59D /* PostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
@@ -1852,6 +1862,7 @@
 		88580B2D1F2213AB00C1CBAF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				9C2D9C001F4ADEE6001514C3 /* Popular */,
 				88580B2E1F2213AB00C1CBAF /* CreateAccount */,
 				88580B451F2213AB00C1CBAF /* CreatePost */,
 				8811C8731F431B9A00F7513D /* EditProfile */,
@@ -3053,6 +3064,19 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		9C2D9C001F4ADEE6001514C3 /* Popular */ = {
+			isa = PBXGroup;
+			children = (
+				9C2D9C011F4ADEE6001514C3 /* PopularModuleConfigurator.swift */,
+				9C2D9C021F4ADEE6001514C3 /* PopularModuleInteractor.swift */,
+				9C2D9C031F4ADEE6001514C3 /* PopularModulePresenter.swift */,
+				9C2D9C041F4ADEE6001514C3 /* PopularModuleView.storyboard */,
+				9C2D9C051F4ADEE6001514C3 /* PopularModuleView.swift */,
+				9C2D9C0B1F4AF3EE001514C3 /* PopularModuleRouter.swift */,
+			);
+			path = Popular;
+			sourceTree = "<group>";
+		};
 		9C43EC8A1F25D60A00D0B59D /* PostCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -3405,6 +3429,7 @@
 				88FFFA751F30B9D90066A1A0 /* Followers.storyboard in Resources */,
 				8864C8241F45BA7000ADCE13 /* Search.storyboard in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
+				9C2D9C091F4ADEE6001514C3 /* PopularModuleView.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3540,6 +3565,7 @@
 				884AA9771F3C563F00B85135 /* PostFollowerRequest.swift in Sources */,
 				884AA9881F3C563F00B85135 /* PutPushRegistrationRequest.swift in Sources */,
 				88F385831F30D0D80048B04C /* UserListInteractor.swift in Sources */,
+				9C2D9C071F4ADEE6001514C3 /* PopularModuleInteractor.swift in Sources */,
 				9C6D359B1F31D1C1005893DB /* FeedModuleConfigurator.swift in Sources */,
 				88BC5C561F2B65D0001FBDD2 /* UserProfileViewInput.swift in Sources */,
 				884AA98F1F3C563F00B85135 /* TopicView.swift in Sources */,
@@ -3575,6 +3601,7 @@
 				884AA97D1F3C563F00B85135 /* PostReplyRequest.swift in Sources */,
 				8864C82A1F45EAC600ADCE13 /* SuggestedUsersAPI.swift in Sources */,
 				889119A41F470E1E005B3B32 /* SearchInteractor.swift in Sources */,
+				9C2D9C0A1F4ADEE6001514C3 /* PopularModuleView.swift in Sources */,
 				9C6D359D1F31D1C1005893DB /* FeedModuleInput.swift in Sources */,
 				884AA9531F3C563F00B85135 /* ImagesAPI.swift in Sources */,
 				88580C3D1F2213AB00C1CBAF /* CreateAccountViewInput.swift in Sources */,
@@ -3713,6 +3740,7 @@
 				88D8CCB21F31CA680032FB2B /* UserListItemsBuilder.swift in Sources */,
 				93AC65AA1F3E05C000FE5A3A /* CommentsService.swift in Sources */,
 				88580C321F2213AB00C1CBAF /* CreateAccountConfigurator.swift in Sources */,
+				9C2D9C0C1F4AF3EE001514C3 /* PopularModuleRouter.swift in Sources */,
 				882AD0BB1F221D4400FC20B7 /* CommonFunctions.swift in Sources */,
 				88580C311F2213AB00C1CBAF /* ThirdPartyConfigurator.swift in Sources */,
 				9CEA75281F2A1FA0009FC89D /* LikesService.swift in Sources */,
@@ -3846,6 +3874,7 @@
 				88580C351F2213AB00C1CBAF /* CreateAccountModuleOutput.swift in Sources */,
 				8811C83D1F42E03A00F7513D /* EmbeddedEditProfileView.swift in Sources */,
 				88BC5C571F2B65D0001FBDD2 /* UserProfileViewOutput.swift in Sources */,
+				9C2D9C081F4ADEE6001514C3 /* PopularModulePresenter.swift in Sources */,
 				88580BC01F2213AB00C1CBAF /* UIColor+Hex.swift in Sources */,
 				88FFFA631F3080340066A1A0 /* UserProfileActionSheetBuilder.swift in Sources */,
 				88580BA21F2213AB00C1CBAF /* Fonts.swift in Sources */,
@@ -3862,6 +3891,7 @@
 				88580C6C1F2213AB00C1CBAF /* TabMenuContainerModuleInput.swift in Sources */,
 				88580BB61F2213AB00C1CBAF /* TextFieldCell.swift in Sources */,
 				889119A71F470E3E005B3B32 /* SearchInteractorInput.swift in Sources */,
+				9C2D9C061F4ADEE6001514C3 /* PopularModuleConfigurator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3873,7 +3903,6 @@
 				889AFC2F1F220BCD003AAF19 /* URLSchemeServiceTests.swift in Sources */,
 				889AFC2C1F220BCD003AAF19 /* MockURLScheme.swift in Sources */,
 				88F163811F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift in Sources */,
-				889AFC241F220BCD003AAF19 /* SideMenuInteractorTests.swift in Sources */,
 				889AFC2D1F220BCD003AAF19 /* MockURLSchemeService.swift in Sources */,
 				93AC65B41F3E05DA00FE5A3A /* MockPostDetaillnteractor.swift in Sources */,
 				889AFC1F1F220BCD003AAF19 /* UserTests.swift in Sources */,
@@ -3886,7 +3915,6 @@
 				9CD760FC1F33149E00ABBB2A /* PostTests.swift in Sources */,
 				88F7A78B1F2789F0005FEC5F /* MockUserService.swift in Sources */,
 				88FFFA571F2F7F780066A1A0 /* MockUserProfileInteractor.swift in Sources */,
-				9CA8646F1F46C98C00199E29 /* SocialMenuItemsProviderTests.swift in Sources */,
 				63A1D71D1F29FC120090C67A /* MockTransactionsDatabaseFacade.swift in Sources */,
 				88F551BD1F39D2EF00F4AAB9 /* MockUserProfileView.swift in Sources */,
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,

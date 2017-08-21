@@ -6,16 +6,14 @@
 protocol FeedModuleOutput: class {
     func didScrollFeed(_ feedView: UIScrollView)
     
-    func didRefreshData()
-    
-    func didFailToRefreshData(_ error: Error)
+    func didStartRefreshingData()
+    func didFinishRefreshingData(_ error: Error?)
 }
 
 //MARK: Optional methods
 extension FeedModuleOutput {
     func didScrollFeed(_ feedView: UIScrollView) { }
     
-    func didRefreshData() { }
-    
-    func didFailToRefreshData(_ error: Error) { }
+    func didStartRefreshingData() { }
+    func didFinishRefreshingData() { }
 }

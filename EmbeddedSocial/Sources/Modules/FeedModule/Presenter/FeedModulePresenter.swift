@@ -317,8 +317,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         items = feed.items
         
         view.reload()
-        
-        moduleOutput?.didRefreshData()
     }
     
     func didFetchMore(feed: PostsFeed) {
@@ -329,11 +327,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didFail(error: FeedServiceError) {
-        if let output = moduleOutput {
-            output.didFailToRefreshData(error)
-        } else {
-            view.showError(error: error)
-        }
+        view.showError(error: error)
     }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
@@ -342,10 +336,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didStartFetching() {
         view.setRefreshing(state: true)
+        moduleOutput?.didStartRefreshingData()
     }
     
     func didFinishFetching() {
         view.setRefreshing(state: false)
+        moduleOutput?.didFinishRefreshingData(nil)
     }
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type,

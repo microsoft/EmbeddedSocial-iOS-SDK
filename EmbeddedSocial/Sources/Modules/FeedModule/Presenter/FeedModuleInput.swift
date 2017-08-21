@@ -7,7 +7,8 @@ protocol FeedModuleInput: class {
     
     // For feed change
     func setFeed(_ feed: FeedType)
-    // Forcing module to update
+    // Forcing module to update 
+    // Triggers callbacks for start/finish
     func refreshData()
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type,

@@ -359,7 +359,7 @@ extension UserProfilePresenterTests {
         let presenter = makeDefaultPresenter()
 
         // when
-        presenter.didRefreshData()
+        presenter.didFinishRefreshingData()
         
         // then
         XCTAssertEqual(view.setFilterEnabledCount, 1)

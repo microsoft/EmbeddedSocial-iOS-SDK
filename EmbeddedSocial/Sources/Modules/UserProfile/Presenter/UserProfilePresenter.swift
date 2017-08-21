@@ -231,11 +231,7 @@ extension UserProfilePresenter: FeedModuleOutput {
         view.setStickyFilterHidden(isHeaderVisible)
     }
     
-    func didRefreshData() {
-        view.setFilterEnabled(true)
-    }
-    
-    func didFailToRefreshData(_ error: Error) {
+    func didFinishRefreshingData(_ error: Error?) {
         view.setFilterEnabled(true)
     }
 }
