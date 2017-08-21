@@ -3,8 +3,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-protocol SideMenuModuleInput: class {
-    
-    var user: User? { get set }
-    func close()
+protocol SearchPeopleViewInput: class {
+    func setupInitialState(listView: UIView)
 }

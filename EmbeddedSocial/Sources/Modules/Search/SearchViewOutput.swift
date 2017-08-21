@@ -5,10 +5,7 @@
 
 import Foundation
 
-protocol SideMenuRouterInput {
+protocol SearchViewOutput: class {
     
-    func close()
-    func open(viewController: UIViewController, sender: Any?)
-    func openLoginScreen()
-    func openMyProfile()
+    func viewIsReady()
 }

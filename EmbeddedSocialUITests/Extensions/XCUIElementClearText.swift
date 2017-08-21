@@ -12,7 +12,8 @@ extension XCUIElement {
             return
         }
         
-        self.tap()
+        let stringEnd = self.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.9))
+        stringEnd.tap()
         
         let deleteString = stringValue.characters.map { _ in XCUIKeyboardKeyDelete }.joined(separator: "")
         

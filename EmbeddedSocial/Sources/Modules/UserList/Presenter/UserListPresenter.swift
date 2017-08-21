@@ -91,4 +91,15 @@ extension UserListPresenter: UserListModuleInput {
         view.setupInitialState()
         loadNextPage()
     }
+    
+    func reload(with api: UsersListAPI) {
+        interactor.setAPI(api)
+        listState = ListState()
+        isLoadingList = false
+        loadNextPage()
+    }
+    
+    func setListHeaderView(_ headerView: UIView?) {
+        view.setListHeaderView(headerView)
+    }
 }

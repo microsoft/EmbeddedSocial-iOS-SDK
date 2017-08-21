@@ -199,6 +199,30 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum Search: String, StoryboardSceneType {
+    static let storyboardName = "Search"
+
+    case searchViewControllerScene = "SearchViewController"
+    static func instantiateSearchViewController() -> EmbeddedSocial.SearchViewController {
+      guard let vc = StoryboardScene.Search.searchViewControllerScene.viewController() as? EmbeddedSocial.SearchViewController
+      else {
+        fatalError("ViewController 'SearchViewController' is not of the expected class EmbeddedSocial.SearchViewController.")
+      }
+      return vc
+    }
+  }
+  enum SearchPeople: String, StoryboardSceneType {
+    static let storyboardName = "SearchPeople"
+
+    case searchPeopleViewControllerScene = "SearchPeopleViewController"
+    static func instantiateSearchPeopleViewController() -> EmbeddedSocial.SearchPeopleViewController {
+      guard let vc = StoryboardScene.SearchPeople.searchPeopleViewControllerScene.viewController() as? EmbeddedSocial.SearchPeopleViewController
+      else {
+        fatalError("ViewController 'SearchPeopleViewController' is not of the expected class EmbeddedSocial.SearchPeopleViewController.")
+      }
+      return vc
+    }
+  }
   enum UserProfile: String, StoryboardSceneType {
     static let storyboardName = "UserProfile"
 

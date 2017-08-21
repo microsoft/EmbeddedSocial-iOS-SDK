@@ -5,7 +5,6 @@
 
 import Foundation
 
-protocol SideMenuInteractorOutput: class {
-    
-    
+protocol SearchInteractorInput: class {
+    func makePageInfo(from searchPeopleModule: SearchPeopleModuleInput) -> SearchPageInfo
 }
