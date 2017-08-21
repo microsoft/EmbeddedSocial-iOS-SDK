@@ -10,3 +10,11 @@ struct SearchPageInfo {
     let searchResultsHandler: UISearchResultsUpdating
     let backgroundView: UIView?
 }
+
+extension SearchPageInfo: Equatable {
+    static func ==(lhs: SearchPageInfo, rhs: SearchPageInfo) -> Bool {
+        return lhs.searchResultsController == rhs.searchResultsController &&
+            lhs.searchResultsHandler === rhs.searchResultsHandler &&
+            lhs.backgroundView == rhs.backgroundView
+    }
+}

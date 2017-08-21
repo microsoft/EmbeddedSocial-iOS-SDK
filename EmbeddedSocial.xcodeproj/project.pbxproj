@@ -365,6 +365,19 @@
 		8875CCF31F333835001F2474 /* SegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCF21F333835001F2474 /* SegmentedControlView.swift */; };
 		889119A41F470E1E005B3B32 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119A31F470E1E005B3B32 /* SearchInteractor.swift */; };
 		889119A71F470E3E005B3B32 /* SearchInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119A61F470E3E005B3B32 /* SearchInteractorInput.swift */; };
+		889119AA1F4AE071005B3B32 /* SearchPeopleInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119A91F4AE071005B3B32 /* SearchPeopleInteractorTests.swift */; };
+		889119AC1F4AE0C8005B3B32 /* QueryPeopleAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119AB1F4AE0C8005B3B32 /* QueryPeopleAPITests.swift */; };
+		889119AE1F4AE10C005B3B32 /* MockSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119AD1F4AE10C005B3B32 /* MockSearchService.swift */; };
+		889119B01F4AE3BF005B3B32 /* SuggestedUsersAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119AF1F4AE3BF005B3B32 /* SuggestedUsersAPITests.swift */; };
+		889119B31F4AE771005B3B32 /* MockSearchPeopleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119B21F4AE771005B3B32 /* MockSearchPeopleInteractor.swift */; };
+		889119B51F4AE7F5005B3B32 /* MockSearchPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119B41F4AE7F5005B3B32 /* MockSearchPeopleView.swift */; };
+		889119B71F4AE873005B3B32 /* SearchPeoplePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119B61F4AE873005B3B32 /* SearchPeoplePresenterTests.swift */; };
+		889119BA1F4AF7CF005B3B32 /* SearchInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119B91F4AF7CF005B3B32 /* SearchInteractorTests.swift */; };
+		889119BC1F4AF868005B3B32 /* MockSearchPeopleModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119BB1F4AF868005B3B32 /* MockSearchPeopleModule.swift */; };
+		889119BF1F4AFA50005B3B32 /* MockSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119BE1F4AFA50005B3B32 /* MockSearchInteractor.swift */; };
+		889119C11F4AFA8E005B3B32 /* MockSearchResultsUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119C01F4AFA8E005B3B32 /* MockSearchResultsUpdating.swift */; };
+		889119C31F4AFBB1005B3B32 /* MockSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119C21F4AFBB1005B3B32 /* MockSearchView.swift */; };
+		889119C51F4AFC00005B3B32 /* SearchPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119C41F4AFC00005B3B32 /* SearchPresenterTests.swift */; };
 		8895107F1F3B0FDC001A53F5 /* EmbeddedSocial.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8895107D1F3B0FDC001A53F5 /* EmbeddedSocial.xcdatamodeld */; };
 		889510811F3B1CB4001A53F5 /* APIErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */; };
 		889510831F3B1FCA001A53F5 /* ErrorResponse+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889510821F3B1FCA001A53F5 /* ErrorResponse+Ext.swift */; };
@@ -969,6 +982,19 @@
 		8875CCF41F33384A001F2474 /* SegmentedControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedControlView.xib; sourceTree = "<group>"; };
 		889119A31F470E1E005B3B32 /* SearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
 		889119A61F470E3E005B3B32 /* SearchInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchInteractorInput.swift; sourceTree = "<group>"; };
+		889119A91F4AE071005B3B32 /* SearchPeopleInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchPeopleInteractorTests.swift; path = SearchPeopleInteractorTests.swift; sourceTree = "<group>"; };
+		889119AB1F4AE0C8005B3B32 /* QueryPeopleAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryPeopleAPITests.swift; sourceTree = "<group>"; };
+		889119AD1F4AE10C005B3B32 /* MockSearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSearchService.swift; sourceTree = "<group>"; };
+		889119AF1F4AE3BF005B3B32 /* SuggestedUsersAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestedUsersAPITests.swift; path = SuggestedUsersAPITests.swift; sourceTree = "<group>"; };
+		889119B21F4AE771005B3B32 /* MockSearchPeopleInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockSearchPeopleInteractor.swift; path = MockSearchPeopleInteractor.swift; sourceTree = "<group>"; };
+		889119B41F4AE7F5005B3B32 /* MockSearchPeopleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSearchPeopleView.swift; sourceTree = "<group>"; };
+		889119B61F4AE873005B3B32 /* SearchPeoplePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPeoplePresenterTests.swift; sourceTree = "<group>"; };
+		889119B91F4AF7CF005B3B32 /* SearchInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchInteractorTests.swift; path = SearchInteractorTests.swift; sourceTree = "<group>"; };
+		889119BB1F4AF868005B3B32 /* MockSearchPeopleModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockSearchPeopleModule.swift; path = MockSearchPeopleModule.swift; sourceTree = "<group>"; };
+		889119BE1F4AFA50005B3B32 /* MockSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSearchInteractor.swift; sourceTree = "<group>"; };
+		889119C01F4AFA8E005B3B32 /* MockSearchResultsUpdating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSearchResultsUpdating.swift; sourceTree = "<group>"; };
+		889119C21F4AFBB1005B3B32 /* MockSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSearchView.swift; sourceTree = "<group>"; };
+		889119C41F4AFC00005B3B32 /* SearchPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPresenterTests.swift; sourceTree = "<group>"; };
 		8895107E1F3B0FDC001A53F5 /* MSGP.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MSGP.xcdatamodel; sourceTree = "<group>"; };
 		889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIErrorHandler.swift; sourceTree = "<group>"; };
 		889510821F3B1FCA001A53F5 /* ErrorResponse+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ErrorResponse+Ext.swift"; sourceTree = "<group>"; };
@@ -1814,11 +1840,11 @@
 				8811C8261F3C809400F7513D /* ImagesService.swift */,
 				9CEA75271F2A1FA0009FC89D /* LikesService.swift */,
 				9CEA75291F2A1FAA009FC89D /* PinsService.swift */,
+				8864C82B1F45EC2A00ADCE13 /* SearchService.swift */,
 				88580B211F2213AB00C1CBAF /* SessionService.swift */,
 				886F4B3A1F2A06E500D836C3 /* SocialService.swift */,
 				63A1D6FA1F25E78D0090C67A /* TopicService.swift */,
 				88580B2A1F2213AB00C1CBAF /* UserService.swift */,
-				8864C82B1F45EC2A00ADCE13 /* SearchService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1874,8 +1900,8 @@
 				88580B581F2213AB00C1CBAF /* Login */,
 				93AC65841F3E056F00FE5A3A /* PostDetail */,
 				9C21696E1F3C68350052FB90 /* PostMenuModule */,
-				8864C82D1F46DA3C00ADCE13 /* SearchPeople */,
 				8864C8201F45BA6000ADCE13 /* Search */,
+				8864C82D1F46DA3C00ADCE13 /* SearchPeople */,
 				88580B6C1F2213AB00C1CBAF /* SideMenu */,
 				88580B801F2213AB00C1CBAF /* TabMenuContainer */,
 				882F103D1F30C8A20068B6F2 /* UserList */,
@@ -2242,8 +2268,8 @@
 			children = (
 				8864C8531F470AA300ADCE13 /* Configurator */,
 				8864C84A1F4707BF00ADCE13 /* Presenter */,
-				8864C8471F46E3B700ADCE13 /* View */,
 				889119A51F470E21005B3B32 /* SearchInteractor */,
+				8864C8471F46E3B700ADCE13 /* View */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -2257,27 +2283,29 @@
 				8864C8341F46DB6E00ADCE13 /* View */,
 			);
 			name = SearchPeople;
-			path = Search;
+			path = SearchPeople;
 			sourceTree = "<group>";
 		};
 		8864C8341F46DB6E00ADCE13 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8864C8301F46DA6800ADCE13 /* SearchPeopleViewController.swift */,
 				8864C8321F46DA7800ADCE13 /* SearchPeople.storyboard */,
+				8864C8301F46DA6800ADCE13 /* SearchPeopleViewController.swift */,
 				8864C8351F46DB7D00ADCE13 /* SearchPeopleViewInput.swift */,
 				8864C8371F46DBA700ADCE13 /* SearchPeopleViewOutput.swift */,
 			);
 			name = View;
+			path = View;
 			sourceTree = "<group>";
 		};
 		8864C83B1F46DBCC00ADCE13 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				8864C8391F46DBC200ADCE13 /* SearchPeoplePresenter.swift */,
 				8864C83F1F46DC6800ADCE13 /* SearchPeopleModuleInput.swift */,
+				8864C8391F46DBC200ADCE13 /* SearchPeoplePresenter.swift */,
 			);
 			name = Presenter;
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		8864C83E1F46DBFA00ADCE13 /* Configurator */ = {
@@ -2286,16 +2314,18 @@
 				8864C83C1F46DBF700ADCE13 /* SearchPeopleConfigurator.swift */,
 			);
 			name = Configurator;
+			path = Configurator;
 			sourceTree = "<group>";
 		};
 		8864C8411F46DDAD00ADCE13 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
 				8864C8461F46E39700ADCE13 /* UsersListAPIs */,
-				8864C8421F46DDBE00ADCE13 /* SearchPeopleInteractorInput.swift */,
 				8864C8441F46DDC600ADCE13 /* SearchPeopleInteractor.swift */,
+				8864C8421F46DDBE00ADCE13 /* SearchPeopleInteractorInput.swift */,
 			);
 			name = Interactor;
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		8864C8461F46E39700ADCE13 /* UsersListAPIs */ = {
@@ -2305,17 +2335,19 @@
 				8864C8291F45EAC600ADCE13 /* SuggestedUsersAPI.swift */,
 			);
 			name = UsersListAPIs;
+			path = UsersListAPIs;
 			sourceTree = "<group>";
 		};
 		8864C8471F46E3B700ADCE13 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8864C8211F45BA6000ADCE13 /* SearchViewController.swift */,
 				8864C8231F45BA7000ADCE13 /* Search.storyboard */,
+				8864C8211F45BA6000ADCE13 /* SearchViewController.swift */,
 				8864C84B1F4707D600ADCE13 /* SearchViewInput.swift */,
 				8864C84D1F4707DE00ADCE13 /* SearchViewOutput.swift */,
 			);
 			name = View;
+			path = View;
 			sourceTree = "<group>";
 		};
 		8864C84A1F4707BF00ADCE13 /* Presenter */ = {
@@ -2324,6 +2356,7 @@
 				8864C8481F4707BB00ADCE13 /* SearchPresenter.swift */,
 			);
 			name = Presenter;
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		8864C8531F470AA300ADCE13 /* Configurator */ = {
@@ -2332,6 +2365,7 @@
 				8864C8511F470AA100ADCE13 /* SearchConfigurator.swift */,
 			);
 			name = Configurator;
+			path = Configurator;
 			sourceTree = "<group>";
 		};
 		886B39C61F138F5D00BF1A8E /* EmbeddedSocial-Example */ = {
@@ -2418,11 +2452,57 @@
 		889119A51F470E21005B3B32 /* SearchInteractor */ = {
 			isa = PBXGroup;
 			children = (
-				8864C84F1F4709D300ADCE13 /* SearchPageInfo.swift */,
 				889119A31F470E1E005B3B32 /* SearchInteractor.swift */,
 				889119A61F470E3E005B3B32 /* SearchInteractorInput.swift */,
+				8864C84F1F4709D300ADCE13 /* SearchPageInfo.swift */,
 			);
 			name = SearchInteractor;
+			path = SearchInteractor;
+			sourceTree = "<group>";
+		};
+		889119A81F4AE05D005B3B32 /* SearchPeople */ = {
+			isa = PBXGroup;
+			children = (
+				889119B11F4AE766005B3B32 /* Mocks */,
+				889119AB1F4AE0C8005B3B32 /* QueryPeopleAPITests.swift */,
+				889119A91F4AE071005B3B32 /* SearchPeopleInteractorTests.swift */,
+				889119B61F4AE873005B3B32 /* SearchPeoplePresenterTests.swift */,
+				889119AF1F4AE3BF005B3B32 /* SuggestedUsersAPITests.swift */,
+			);
+			name = SearchPeople;
+			path = SearchPeople;
+			sourceTree = "<group>";
+		};
+		889119B11F4AE766005B3B32 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				889119B21F4AE771005B3B32 /* MockSearchPeopleInteractor.swift */,
+				889119B41F4AE7F5005B3B32 /* MockSearchPeopleView.swift */,
+			);
+			name = Mocks;
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		889119B81F4AF7A0005B3B32 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				889119BD1F4AF9EE005B3B32 /* Mocks */,
+				889119B91F4AF7CF005B3B32 /* SearchInteractorTests.swift */,
+				889119C41F4AFC00005B3B32 /* SearchPresenterTests.swift */,
+			);
+			name = Search;
+			path = Search;
+			sourceTree = "<group>";
+		};
+		889119BD1F4AF9EE005B3B32 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				889119BE1F4AFA50005B3B32 /* MockSearchInteractor.swift */,
+				889119BB1F4AF868005B3B32 /* MockSearchPeopleModule.swift */,
+				889119C21F4AFBB1005B3B32 /* MockSearchView.swift */,
+			);
+			name = Mocks;
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		8895108B1F3B5589001A53F5 /* SocialPlus */ = {
@@ -2446,9 +2526,9 @@
 				889AFC031F220BCD003AAF19 /* PhotoTests.swift */,
 				9CD760FB1F33149E00ABBB2A /* PostTests.swift */,
 				88F1637C1F264B0F00DAAF68 /* SessionStoreTests.swift */,
+				9CA8646E1F46C98C00199E29 /* SocialMenuItemsProviderTests.swift */,
 				88F1637A1F26494100DAAF68 /* SocialUserTests.swift */,
 				889AFC041F220BCD003AAF19 /* UserTests.swift */,
-				9CA8646E1F46C98C00199E29 /* SocialMenuItemsProviderTests.swift */,
 			);
 			path = EntitiesTests;
 			sourceTree = "<group>";
@@ -2469,7 +2549,6 @@
 			isa = PBXGroup;
 			children = (
 				9C2D9C0D1F4AFB81001514C3 /* Popular */,
-				9C6244F01F457DDC004814BB /* PostMenu */,
 				88F7A7991F27976E005FEC5F /* CreateAccount */,
 				889AFC081F220BCD003AAF19 /* CreatePost */,
 				8811C8B21F44542600F7513D /* EditProfile */,
@@ -2479,6 +2558,9 @@
 				88F551BE1F39D50700F4AAB9 /* Following */,
 				88F7A7871F2788E1005FEC5F /* Login */,
 				93AC65AB1F3E05DA00FE5A3A /* PostDetail */,
+				9C6244F01F457DDC004814BB /* PostMenu */,
+				889119B81F4AF7A0005B3B32 /* Search */,
+				889119A81F4AE05D005B3B32 /* SearchPeople */,
 				889AFC0C1F220BCD003AAF19 /* SideMenu */,
 				88F5518D1F33668400F4AAB9 /* UserList */,
 				88FFFA501F2F7F780066A1A0 /* UserProfile */,
@@ -2534,6 +2616,8 @@
 				881F7E611F263888003EB37A /* MockKeyValueStorage.swift */,
 				8811C8241F3C72CD00F7513D /* MockLogoutController.swift */,
 				88F163881F27569900DAAF68 /* MockQueriableRepository.swift */,
+				889119C01F4AFA8E005B3B32 /* MockSearchResultsUpdating.swift */,
+				889119AD1F4AE10C005B3B32 /* MockSearchService.swift */,
 				88F7A78C1F278AA4005FEC5F /* MockSessionService.swift */,
 				88F1637E1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift */,
 				88F163801F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift */,
@@ -2873,6 +2957,7 @@
 				8E60706D1F3DC6D400110F4F /* follower_delete.json */,
 				8E60706B1F3DC07600110F4F /* follower_post.json */,
 				8EF0E5C11F28B4E500E88ED6 /* image_post.json */,
+				8EE2C6C91F46D04A00CFFE21 /* info.json */,
 				8E6070421F34C72A00110F4F /* likes_delete.json */,
 				8E6070431F34C72A00110F4F /* likes_post.json */,
 				8E6070441F34C72A00110F4F /* pins_delete.json */,
@@ -2880,7 +2965,6 @@
 				8EF0E5A41F1FA5EF00E88ED6 /* topic.json */,
 				8EF0E5C31F28B86100E88ED6 /* topic_post.json */,
 				8E6070651F3CB61F00110F4F /* user.json */,
-				8EE2C6C91F46D04A00CFFE21 /* info.json */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -2891,12 +2975,12 @@
 				8EF0E59D1F1FA5EF00E88ED6 /* Base.swift */,
 				8EF0E5A11F1FA5EF00E88ED6 /* Loop.swift */,
 				8EF0E5C71F2AA13E00E88ED6 /* TestCreatePost.swift */,
+				8EE2C6CB1F46D8DB00CFFE21 /* TestEditProfile.swift */,
 				8E60706F1F3DC9CF00110F4F /* TestFollowers.swift */,
 				8E6070731F41DD2000110F4F /* TestFollowing.swift */,
 				8E60704E1F34CE5500110F4F /* TestHome.swift */,
 				8E6070671F3CB63F00110F4F /* TestMyProfile.swift */,
 				8EE2C6C71F4594ED00CFFE21 /* TestUserProfile.swift */,
-				8EE2C6CB1F46D8DB00CFFE21 /* TestEditProfile.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2905,11 +2989,11 @@
 			isa = PBXGroup;
 			children = (
 				8EF0E5CD1F2AA66800E88ED6 /* CreatePost.swift */,
+				8EE2C6CD1F46DB3000CFFE21 /* EditProfile.swift */,
 				8E6070711F3DCCEA00110F4F /* FollowersFeed.swift */,
 				8E6070501F34CE6900110F4F /* PostsFeed.swift */,
 				8E6070511F34CE6900110F4F /* SideMenu.swift */,
 				8E6070611F3A2A3E00110F4F /* UserProfile.swift */,
-				8EE2C6CD1F46DB3000CFFE21 /* EditProfile.swift */,
 			);
 			path = UIObjects;
 			sourceTree = "<group>";
@@ -3925,6 +4009,7 @@
 				88635D7D1F22434300577140 /* CoreDataHelper.swift in Sources */,
 				9CD760FC1F33149E00ABBB2A /* PostTests.swift in Sources */,
 				88F7A78B1F2789F0005FEC5F /* MockUserService.swift in Sources */,
+				889119AA1F4AE071005B3B32 /* SearchPeopleInteractorTests.swift in Sources */,
 				88FFFA571F2F7F780066A1A0 /* MockUserProfileInteractor.swift in Sources */,
 				63A1D71D1F29FC120090C67A /* MockTransactionsDatabaseFacade.swift in Sources */,
 				88F551BD1F39D2EF00F4AAB9 /* MockUserProfileView.swift in Sources */,
@@ -3936,14 +4021,19 @@
 				881F7E5E1F2637B7003EB37A /* KeyValueRepositoryTests.swift in Sources */,
 				88F1637D1F264B0F00DAAF68 /* SessionStoreTests.swift in Sources */,
 				889AFC291F220BCD003AAF19 /* MockAuthAPI.swift in Sources */,
+				889119B01F4AE3BF005B3B32 /* SuggestedUsersAPITests.swift in Sources */,
 				889AFC201F220BCD003AAF19 /* UIImage+Ext.swift in Sources */,
 				88F7A7971F278E24005FEC5F /* MockLoginModuleOutput.swift in Sources */,
 				88F7A7911F278C9B005FEC5F /* MockLoginViewInput.swift in Sources */,
+				889119B31F4AE771005B3B32 /* MockSearchPeopleInteractor.swift in Sources */,
 				8811C8B11F4443AD00F7513D /* MockEmbeddedEditProfileModuleInput.swift in Sources */,
 				8811C8AC1F4441E500F7513D /* CreateAccountInteractorTests.swift in Sources */,
+				889119AC1F4AE0C8005B3B32 /* QueryPeopleAPITests.swift in Sources */,
 				88F1637F1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift in Sources */,
 				9C6244F21F457DED004814BB /* PostMenuModuleInteractorTests.swift in Sources */,
+				889119C11F4AFA8E005B3B32 /* MockSearchResultsUpdating.swift in Sources */,
 				88635D881F224F3200577140 /* CoreDataRepositoryTests.swift in Sources */,
+				889119C51F4AFC00005B3B32 /* SearchPresenterTests.swift in Sources */,
 				889AFC261F220BCD003AAF19 /* AuthAPIProviderTests.swift in Sources */,
 				9C6244F41F4580FC004814BB /* PostMenuModulePresenterTests.swift in Sources */,
 				88F7A7931F278D33005FEC5F /* MockLoginInteractor.swift in Sources */,
@@ -3957,6 +4047,8 @@
 				8811C8AA1F4441C700F7513D /* MockCreateAccountInteractor.swift in Sources */,
 				8811C8B61F4455F700F7513D /* EditProfileInteractorTests.swift in Sources */,
 				63A1D7261F2A23F30090C67A /* CreatePostInteractorTests.swift in Sources */,
+				889119B51F4AE7F5005B3B32 /* MockSearchPeopleView.swift in Sources */,
+				889119AE1F4AE10C005B3B32 /* MockSearchService.swift in Sources */,
 				88F191741F26164200B93ADF /* AuthProviderTests.swift in Sources */,
 				9CB3F1FB1F3367F00099A22D /* TopicServiceTests.swift in Sources */,
 				889AFC2B1F220BCD003AAF19 /* MockSocialPlusServices.swift in Sources */,
@@ -3977,6 +4069,7 @@
 				88F551BA1F39BB9700F4AAB9 /* MockFeedModuleInput.swift in Sources */,
 				88F1637B1F26494100DAAF68 /* SocialUserTests.swift in Sources */,
 				889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */,
+				889119BC1F4AF868005B3B32 /* MockSearchPeopleModule.swift in Sources */,
 				88F163791F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift in Sources */,
 				88F163891F27569900DAAF68 /* MockQueriableRepository.swift in Sources */,
 				8811C8251F3C72CD00F7513D /* MockLogoutController.swift in Sources */,
@@ -3985,7 +4078,9 @@
 				88F551C41F39D65200F4AAB9 /* MockUserListModuleInput.swift in Sources */,
 				88F7A78F1F278C47005FEC5F /* LoginPresenterTests.swift in Sources */,
 				88F551911F3366C600F4AAB9 /* MockUsersListAPI.swift in Sources */,
+				889119BF1F4AFA50005B3B32 /* MockSearchInteractor.swift in Sources */,
 				88F1638B1F27658B00DAAF68 /* IncomingTransactionTests.swift in Sources */,
+				889119B71F4AE873005B3B32 /* SearchPeoplePresenterTests.swift in Sources */,
 				889AFC2E1F220BCD003AAF19 /* SocialPlusTests.swift in Sources */,
 				88FFFA581F2F7F780066A1A0 /* MockUserProfileRouter.swift in Sources */,
 				63A1D7251F2A04EB0090C67A /* MockCreatePostViewController.swift in Sources */,
@@ -3999,6 +4094,7 @@
 				8811C8AF1F44431B00F7513D /* CreateAccountPresenterTests.swift in Sources */,
 				88087B4A1F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift in Sources */,
 				8811C89F1F44332B00F7513D /* EmbeddedEditProfilePresenterTests.swift in Sources */,
+				889119BA1F4AF7CF005B3B32 /* SearchInteractorTests.swift in Sources */,
 				88F5518F1F3366A100F4AAB9 /* UserListInteractorTests.swift in Sources */,
 				88F7A7891F27896B005FEC5F /* MockAuthService.swift in Sources */,
 				88F551951F336DCB00F4AAB9 /* MockUserListInteractor.swift in Sources */,
@@ -4006,6 +4102,7 @@
 				88F551CE1F39E9D400F4AAB9 /* FollowersPresenterTests.swift in Sources */,
 				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
 				88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */,
+				889119C31F4AFBB1005B3B32 /* MockSearchView.swift in Sources */,
 				8811C8BD1F4457E500F7513D /* MockEditProfileView.swift in Sources */,
 				88F551D01F39E9F300F4AAB9 /* MockFollowersView.swift in Sources */,
 				88F163851F2745E500DAAF68 /* CreateAccountValidatorTests.swift in Sources */,
