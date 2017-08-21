@@ -377,7 +377,6 @@
 		889AFC1E1F220BCD003AAF19 /* PhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC031F220BCD003AAF19 /* PhotoTests.swift */; };
 		889AFC1F1F220BCD003AAF19 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC041F220BCD003AAF19 /* UserTests.swift */; };
 		889AFC201F220BCD003AAF19 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC061F220BCD003AAF19 /* UIImage+Ext.swift */; };
-		889AFC241F220BCD003AAF19 /* SideMenuInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC0D1F220BCD003AAF19 /* SideMenuInteractorTests.swift */; };
 		889AFC261F220BCD003AAF19 /* AuthAPIProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC101F220BCD003AAF19 /* AuthAPIProviderTests.swift */; };
 		889AFC271F220BCD003AAF19 /* AuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC111F220BCD003AAF19 /* AuthServiceTests.swift */; };
 		889AFC281F220BCD003AAF19 /* ImageCacheAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC121F220BCD003AAF19 /* ImageCacheAdapterTests.swift */; };
@@ -565,7 +564,6 @@
 		9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */; };
 		9C813A4A1F45A21900462950 /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531341F31CCD1004CE94F /* FeedModuleInteractor-FetchQuery-Tests.swift */; };
 		9C8F68961F3485CA00AF4A7F /* topics&limit20.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CD760FE1F33158200ABBB2A /* topics&limit20.json */; };
-		9CA8646F1F46C98C00199E29 /* SocialMenuItemsProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA8646E1F46C98C00199E29 /* SocialMenuItemsProviderTests.swift */; };
 		9CB3F1FB1F3367F00099A22D /* TopicServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */; };
 		9CB3F1FE1F336B780099A22D /* MyFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */; };
 		9CBA39ED1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA39EC1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift */; };
@@ -4256,7 +4254,6 @@
 				889AFC2F1F220BCD003AAF19 /* URLSchemeServiceTests.swift in Sources */,
 				889AFC2C1F220BCD003AAF19 /* MockURLScheme.swift in Sources */,
 				88F163811F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift in Sources */,
-				889AFC241F220BCD003AAF19 /* SideMenuInteractorTests.swift in Sources */,
 				889AFC2D1F220BCD003AAF19 /* MockURLSchemeService.swift in Sources */,
 				93AC65B41F3E05DA00FE5A3A /* MockPostDetaillnteractor.swift in Sources */,
 				889AFC1F1F220BCD003AAF19 /* UserTests.swift in Sources */,
@@ -4269,7 +4266,6 @@
 				9CD760FC1F33149E00ABBB2A /* PostTests.swift in Sources */,
 				88F7A78B1F2789F0005FEC5F /* MockUserService.swift in Sources */,
 				88FFFA571F2F7F780066A1A0 /* MockUserProfileInteractor.swift in Sources */,
-				9CA8646F1F46C98C00199E29 /* SocialMenuItemsProviderTests.swift in Sources */,
 				63A1D71D1F29FC120090C67A /* MockTransactionsDatabaseFacade.swift in Sources */,
 				88F551BD1F39D2EF00F4AAB9 /* MockUserProfileView.swift in Sources */,
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
