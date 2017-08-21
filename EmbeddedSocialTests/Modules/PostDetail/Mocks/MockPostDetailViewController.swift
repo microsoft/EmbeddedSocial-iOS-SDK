@@ -16,12 +16,12 @@ class MockPostDetailViewController: PostDetailViewInput {
     }
     
     var tableRelaodedCount = 0
-    func reloadTable() {
+    func reloadTable(scrollType: CommentsScrollType) {
         tableRelaodedCount += 1
     }
     
     var updatedFeedCount = 0
-    func updateFeed(view: UIView) {
+    func updateFeed(view: UIView, scrollType: CommentsScrollType) {
         updatedFeedCount += 1
     }
     

@@ -22,6 +22,14 @@ private class MockLikeSerivce: LikesServiceProtocol {
     func postLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
         
     }
+    
+    func likeReply(replyHandle: String, completion: @escaping LikesServiceProtocol.ReplyLikeCompletionHandler) {
+        
+    }
+    
+    func unlikeReply(replyHandle: String, completion: @escaping LikesServiceProtocol.ReplyLikeCompletionHandler) {
+        
+    }
 }
 
 class PostDetailsInteractorTests: XCTestCase {

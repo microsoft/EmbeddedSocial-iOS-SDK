@@ -14,8 +14,6 @@
 		32FAB0511F2E6D3000C5B18D /* PostCellCompact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */; };
 		32FAB0531F2E6D4700C5B18D /* PostCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */; };
 		3FED379D7A0000A8961BD478 /* CommentRepliesViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222D29CB76E365F11BA0B3F0 /* CommentRepliesViewOutput.swift */; };
-		45F59C2216FBCC5546538A53 /* CommentRepliesRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B27BDF191BA56A0790B2ECC /* CommentRepliesRouterTests.swift */; };
-		4FB65FC23B8903F7F6EEFE3F /* CommentRepliesViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED05D407CE4557EE57011B1 /* CommentRepliesViewTests.swift */; };
 		63148EA71F41D3EA00407C4B /* RepliesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63148EA61F41D3EA00407C4B /* RepliesService.swift */; };
 		6387F54D1F41B1D10066628E /* ReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6387F54C1F41B1D10066628E /* ReplyCell.swift */; };
 		6387F54F1F41B1DA0066628E /* ReplyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6387F54E1F41B1DA0066628E /* ReplyCell.xib */; };
@@ -28,6 +26,14 @@
 		63A1D7251F2A04EB0090C67A /* MockCreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7241F2A04EB0090C67A /* MockCreatePostViewController.swift */; };
 		63A1D7261F2A23F30090C67A /* CreatePostInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC091F220BCD003AAF19 /* CreatePostInteractorTests.swift */; };
 		63A1D7281F2A24900090C67A /* MockCreatePostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7271F2A24900090C67A /* MockCreatePostPresenter.swift */; };
+		63F8488B1F4ACEDC00D434CF /* PostDetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65B11F3E05DA00FE5A3A /* PostDetailInteractorTests.swift */; };
+		63F8488C1F4ACEDF00D434CF /* PostDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65B21F3E05DA00FE5A3A /* PostDetailPresenterTests.swift */; };
+		63F8488D1F4ACEE600D434CF /* MockPostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65B01F3E05DA00FE5A3A /* MockPostDetailViewController.swift */; };
+		63F848931F4ADD6F00D434CF /* CommentRepliesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F848921F4ADD6F00D434CF /* CommentRepliesPresenterTests.swift */; };
+		63F848951F4ADD8700D434CF /* CommentRepliesInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F848941F4ADD8700D434CF /* CommentRepliesInteractorTests.swift */; };
+		63F848971F4ADF3500D434CF /* MockCommentRepliesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F848961F4ADF3500D434CF /* MockCommentRepliesPresenter.swift */; };
+		63F8489B1F4AE81F00D434CF /* MockCommentRepliesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F8489A1F4AE81F00D434CF /* MockCommentRepliesInteractor.swift */; };
+		63F8489D1F4AE85E00D434CF /* MockCommentRepliesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F8489C1F4AE85E00D434CF /* MockCommentRepliesViewController.swift */; };
 		837524BE76C276DF2DA68F21 /* CommentRepliesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03953E1FFCBD39CDB219B8 /* CommentRepliesRouter.swift */; };
 		88087B461F2A431E00A33E9A /* ButtonDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88087B451F2A431E00A33E9A /* ButtonDecorator.swift */; };
 		88087B4A1F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88087B491F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift */; };
@@ -384,7 +390,6 @@
 		889AFC1E1F220BCD003AAF19 /* PhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC031F220BCD003AAF19 /* PhotoTests.swift */; };
 		889AFC1F1F220BCD003AAF19 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC041F220BCD003AAF19 /* UserTests.swift */; };
 		889AFC201F220BCD003AAF19 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC061F220BCD003AAF19 /* UIImage+Ext.swift */; };
-		889AFC241F220BCD003AAF19 /* SideMenuInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC0D1F220BCD003AAF19 /* SideMenuInteractorTests.swift */; };
 		889AFC261F220BCD003AAF19 /* AuthAPIProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC101F220BCD003AAF19 /* AuthAPIProviderTests.swift */; };
 		889AFC271F220BCD003AAF19 /* AuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC111F220BCD003AAF19 /* AuthServiceTests.swift */; };
 		889AFC281F220BCD003AAF19 /* ImageCacheAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC121F220BCD003AAF19 /* ImageCacheAdapterTests.swift */; };
@@ -568,7 +573,6 @@
 		9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */; };
 		9C813A4A1F45A21900462950 /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531341F31CCD1004CE94F /* FeedModuleInteractor-FetchQuery-Tests.swift */; };
 		9C8F68961F3485CA00AF4A7F /* topics&limit20.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CD760FE1F33158200ABBB2A /* topics&limit20.json */; };
-		9CA8646F1F46C98C00199E29 /* SocialMenuItemsProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA8646E1F46C98C00199E29 /* SocialMenuItemsProviderTests.swift */; };
 		9CB3F1FB1F3367F00099A22D /* TopicServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */; };
 		9CB3F1FE1F336B780099A22D /* MyFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */; };
 		9CBA39ED1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA39EC1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift */; };
@@ -582,13 +586,10 @@
 		9CEA752A1F2A1FAA009FC89D /* PinsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75291F2A1FAA009FC89D /* PinsService.swift */; };
 		9FCA74B90B4330F6AA55D489 /* CommentRepliesViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C62BB243EDEFCA43C5601F8 /* CommentRepliesViewInput.swift */; };
 		A0085564D72F1BAC0C676EE8 /* CommentRepliesModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E537C9BF30C28352B846B1 /* CommentRepliesModuleInput.swift */; };
-		A80537CA81122E3E037A0D82 /* CommentRepliesInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332BAC58DDD97AA68CF0AA8D /* CommentRepliesInteractorTests.swift */; };
-		C98CFD52FB0A2B76EC860397 /* CommentRepliesConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5997A8F84355EBC2780AA37 /* CommentRepliesConfiguratorTests.swift */; };
 		CCEF0A3F609F1EE21AE975DC /* CommentRepliesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04309D4B677733DD5F9F4809 /* CommentRepliesPresenter.swift */; };
 		D8AF057A0B27A37AF1438B4E /* CommentRepliesRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD82867111B8BF3556D3CC /* CommentRepliesRouterInput.swift */; };
 		EB45E0D87E3DCF49B5A22162 /* CommentRepliesInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC43B539B5A91FF6D4EAB9B /* CommentRepliesInitializer.swift */; };
 		EC75A126A73CC5F294926613 /* CommentRepliesConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C6D69159F11B9D4D3F7000 /* CommentRepliesConfigurator.swift */; };
-		F2C923BB4FA89CF29EF836D5 /* CommentRepliesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C6A6E34FBBA201E3AF310 /* CommentRepliesPresenterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -638,7 +639,6 @@
 		3234AD1A1F2E70C3009C3327 /* PostCellCompact.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCellCompact.xib; sourceTree = "<group>"; };
 		32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellCompact.swift; sourceTree = "<group>"; };
 		32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellProtocol.swift; sourceTree = "<group>"; };
-		332BAC58DDD97AA68CF0AA8D /* CommentRepliesInteractorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesInteractorTests.swift; sourceTree = "<group>"; };
 		33AA90FDAE2627B036CBE5CC /* CommentRepliesInteractorInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesInteractorInput.swift; sourceTree = "<group>"; };
 		4BC43B539B5A91FF6D4EAB9B /* CommentRepliesInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesInitializer.swift; sourceTree = "<group>"; };
 		4BCD82867111B8BF3556D3CC /* CommentRepliesRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesRouterInput.swift; sourceTree = "<group>"; };
@@ -652,8 +652,11 @@
 		63A1D7211F2A03150090C67A /* MockCreatePostInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostInteractor.swift; sourceTree = "<group>"; };
 		63A1D7241F2A04EB0090C67A /* MockCreatePostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostViewController.swift; sourceTree = "<group>"; };
 		63A1D7271F2A24900090C67A /* MockCreatePostPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostPresenter.swift; sourceTree = "<group>"; };
-		6B27BDF191BA56A0790B2ECC /* CommentRepliesRouterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesRouterTests.swift; sourceTree = "<group>"; };
-		6ED05D407CE4557EE57011B1 /* CommentRepliesViewTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesViewTests.swift; sourceTree = "<group>"; };
+		63F848921F4ADD6F00D434CF /* CommentRepliesPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentRepliesPresenterTests.swift; sourceTree = "<group>"; };
+		63F848941F4ADD8700D434CF /* CommentRepliesInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentRepliesInteractorTests.swift; sourceTree = "<group>"; };
+		63F848961F4ADF3500D434CF /* MockCommentRepliesPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentRepliesPresenter.swift; sourceTree = "<group>"; };
+		63F8489A1F4AE81F00D434CF /* MockCommentRepliesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentRepliesInteractor.swift; sourceTree = "<group>"; };
+		63F8489C1F4AE85E00D434CF /* MockCommentRepliesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentRepliesViewController.swift; sourceTree = "<group>"; };
 		74C6D69159F11B9D4D3F7000 /* CommentRepliesConfigurator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesConfigurator.swift; sourceTree = "<group>"; };
 		7C62BB243EDEFCA43C5601F8 /* CommentRepliesViewInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesViewInput.swift; sourceTree = "<group>"; };
 		88087B451F2A431E00A33E9A /* ButtonDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonDecorator.swift; sourceTree = "<group>"; };
@@ -1229,9 +1232,7 @@
 		9CEA75231F2A0E61009FC89D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		9CEA75271F2A1FA0009FC89D /* LikesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesService.swift; sourceTree = "<group>"; };
 		9CEA75291F2A1FAA009FC89D /* PinsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinsService.swift; sourceTree = "<group>"; };
-		9F3C6A6E34FBBA201E3AF310 /* CommentRepliesPresenterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesPresenterTests.swift; sourceTree = "<group>"; };
 		CE03953E1FFCBD39CDB219B8 /* CommentRepliesRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesRouter.swift; sourceTree = "<group>"; };
-		D5997A8F84355EBC2780AA37 /* CommentRepliesConfiguratorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesConfiguratorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1285,7 +1286,6 @@
 		39501BE5C00E37ABACD8C41A /* ModulesTests */ = {
 			isa = PBXGroup;
 			children = (
-				624D30EC8D97B37EEA216027 /* CommentReplies */,
 			);
 			path = ModulesTests;
 			sourceTree = "<group>";
@@ -1297,26 +1297,6 @@
 				04309D4B677733DD5F9F4809 /* CommentRepliesPresenter.swift */,
 			);
 			path = Presenter;
-			sourceTree = "<group>";
-		};
-		624D30EC8D97B37EEA216027 /* CommentReplies */ = {
-			isa = PBXGroup;
-			children = (
-				A0733BF965658F5A7CEDD2F4 /* Configurator */,
-				94E5181573B193CF2F3294CF /* PostMenuModule */,
-				FDC824DC754F66D9F1C5717E /* Interactor */,
-				87458D5FAE6545C251C16F7F /* EmbeddedEditProfile */,
-				6267772EA729883F10BC0D46 /* Router */,
-			);
-			path = CommentReplies;
-			sourceTree = "<group>";
-		};
-		6267772EA729883F10BC0D46 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				6B27BDF191BA56A0790B2ECC /* CommentRepliesRouterTests.swift */,
-			);
-			path = Router;
 			sourceTree = "<group>";
 		};
 		6387F54B1F41B1B80066628E /* ReplyCell */ = {
@@ -1338,12 +1318,24 @@
 			path = Mock;
 			sourceTree = "<group>";
 		};
-		87458D5FAE6545C251C16F7F /* EmbeddedEditProfile */ = {
+		63F8488E1F4ADD3B00D434CF /* CommentReplies */ = {
 			isa = PBXGroup;
 			children = (
-				9F3C6A6E34FBBA201E3AF310 /* CommentRepliesPresenterTests.swift */,
+				63F8488F1F4ADD3B00D434CF /* Mocks */,
+				63F848921F4ADD6F00D434CF /* CommentRepliesPresenterTests.swift */,
+				63F848941F4ADD8700D434CF /* CommentRepliesInteractorTests.swift */,
 			);
-			path = EmbeddedEditProfile;
+			path = CommentReplies;
+			sourceTree = "<group>";
+		};
+		63F8488F1F4ADD3B00D434CF /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				63F848961F4ADF3500D434CF /* MockCommentRepliesPresenter.swift */,
+				63F8489A1F4AE81F00D434CF /* MockCommentRepliesInteractor.swift */,
+				63F8489C1F4AE85E00D434CF /* MockCommentRepliesViewController.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		8811C83B1F42E00000F7513D /* EmbeddedEditProfile */ = {
@@ -1904,8 +1896,8 @@
 				886F4B3A1F2A06E500D836C3 /* SocialService.swift */,
 				63A1D6FA1F25E78D0090C67A /* TopicService.swift */,
 				88580B2A1F2213AB00C1CBAF /* UserService.swift */,
-				8811C8261F3C809400F7513D /* ImagesService.swift */,
 				63148EA61F41D3EA00407C4B /* RepliesService.swift */,
+				8864C82B1F45EC2A00ADCE13 /* SearchService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -2555,6 +2547,7 @@
 		889AFC071F220BCD003AAF19 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				63F8488E1F4ADD3B00D434CF /* CommentReplies */,
 				9C6244F01F457DDC004814BB /* PostMenu */,
 				88F7A7991F27976E005FEC5F /* CreateAccount */,
 				889AFC081F220BCD003AAF19 /* CreatePost */,
@@ -3090,14 +3083,6 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
-		94E5181573B193CF2F3294CF /* PostMenuModule */ = {
-			isa = PBXGroup;
-			children = (
-				6ED05D407CE4557EE57011B1 /* CommentRepliesViewTests.swift */,
-			);
-			path = PostMenuModule;
-			sourceTree = "<group>";
-		};
 		9C21696E1F3C68350052FB90 /* PostMenuModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -3308,14 +3293,6 @@
 			path = EmbeddedSocialTests;
 			sourceTree = "<group>";
 		};
-		A0733BF965658F5A7CEDD2F4 /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				D5997A8F84355EBC2780AA37 /* CommentRepliesConfiguratorTests.swift */,
-			);
-			path = Configurator;
-			sourceTree = "<group>";
-		};
 		B48781F6DD616BA50A2359DF /* Configurator */ = {
 			isa = PBXGroup;
 			children = (
@@ -3365,14 +3342,6 @@
 				CE03953E1FFCBD39CDB219B8 /* CommentRepliesRouter.swift */,
 			);
 			path = Router;
-			sourceTree = "<group>";
-		};
-		FDC824DC754F66D9F1C5717E /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				332BAC58DDD97AA68CF0AA8D /* CommentRepliesInteractorTests.swift */,
-			);
-			path = Interactor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -4052,6 +4021,7 @@
 				837524BE76C276DF2DA68F21 /* CommentRepliesRouter.swift in Sources */,
 				EC75A126A73CC5F294926613 /* CommentRepliesConfigurator.swift in Sources */,
 				EB45E0D87E3DCF49B5A22162 /* CommentRepliesInitializer.swift in Sources */,
+				889119A71F470E3E005B3B32 /* SearchInteractorInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4063,20 +4033,21 @@
 				889AFC2F1F220BCD003AAF19 /* URLSchemeServiceTests.swift in Sources */,
 				889AFC2C1F220BCD003AAF19 /* MockURLScheme.swift in Sources */,
 				88F163811F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift in Sources */,
-				889AFC241F220BCD003AAF19 /* SideMenuInteractorTests.swift in Sources */,
 				889AFC2D1F220BCD003AAF19 /* MockURLSchemeService.swift in Sources */,
 				93AC65B41F3E05DA00FE5A3A /* MockPostDetaillnteractor.swift in Sources */,
+				63F8488C1F4ACEDF00D434CF /* PostDetailPresenterTests.swift in Sources */,
 				889AFC1F1F220BCD003AAF19 /* UserTests.swift in Sources */,
 				88FFFA5D1F2F80E00066A1A0 /* MockSocialService.swift in Sources */,
 				8811C8A11F44336800F7513D /* MockEmbeddedEditProfileView.swift in Sources */,
 				889AFC281F220BCD003AAF19 /* ImageCacheAdapterTests.swift in Sources */,
 				88F163831F273CEB00DAAF68 /* MockKeyValueRepository.swift in Sources */,
 				88F551C01F39D52000F4AAB9 /* FollowingPresenterTests.swift in Sources */,
+				63F8489D1F4AE85E00D434CF /* MockCommentRepliesViewController.swift in Sources */,
 				88635D7D1F22434300577140 /* CoreDataHelper.swift in Sources */,
 				9CD760FC1F33149E00ABBB2A /* PostTests.swift in Sources */,
 				88F7A78B1F2789F0005FEC5F /* MockUserService.swift in Sources */,
 				88FFFA571F2F7F780066A1A0 /* MockUserProfileInteractor.swift in Sources */,
-				9CA8646F1F46C98C00199E29 /* SocialMenuItemsProviderTests.swift in Sources */,
+				63F8488D1F4ACEE600D434CF /* MockPostDetailViewController.swift in Sources */,
 				63A1D71D1F29FC120090C67A /* MockTransactionsDatabaseFacade.swift in Sources */,
 				88F551BD1F39D2EF00F4AAB9 /* MockUserProfileView.swift in Sources */,
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
@@ -4104,6 +4075,7 @@
 				883B9B641F2776E600D1E66E /* Item.swift in Sources */,
 				889AFC1E1F220BCD003AAF19 /* PhotoTests.swift in Sources */,
 				63A1D7231F2A04730090C67A /* CreatePostPresentorTests.swift in Sources */,
+				63F848931F4ADD6F00D434CF /* CommentRepliesPresenterTests.swift in Sources */,
 				881F7E601F2637F7003EB37A /* MementoSerializableItem.swift in Sources */,
 				8811C8AA1F4441C700F7513D /* MockCreateAccountInteractor.swift in Sources */,
 				8811C8B61F4455F700F7513D /* EditProfileInteractorTests.swift in Sources */,
@@ -4130,8 +4102,10 @@
 				889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */,
 				88F163791F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift in Sources */,
 				88F163891F27569900DAAF68 /* MockQueriableRepository.swift in Sources */,
+				63F8488B1F4ACEDC00D434CF /* PostDetailInteractorTests.swift in Sources */,
 				8811C8251F3C72CD00F7513D /* MockLogoutController.swift in Sources */,
 				93AC65B31F3E05DA00FE5A3A /* MockCommentService.swift in Sources */,
+				63F848971F4ADF3500D434CF /* MockCommentRepliesPresenter.swift in Sources */,
 				88F551DA1F3AFA8700F4AAB9 /* UserFollowingAPITests.swift in Sources */,
 				88F551C41F39D65200F4AAB9 /* MockUserListModuleInput.swift in Sources */,
 				88F7A78F1F278C47005FEC5F /* LoginPresenterTests.swift in Sources */,
@@ -4144,6 +4118,7 @@
 				88F7A78D1F278AA4005FEC5F /* MockSessionService.swift in Sources */,
 				88F1638D1F27677100DAAF68 /* OutgoingTransactionTests.swift in Sources */,
 				8811C8BF1F4457EB00F7513D /* EditProfilePresenterTests.swift in Sources */,
+				63F848951F4ADD8700D434CF /* CommentRepliesInteractorTests.swift in Sources */,
 				883B9B681F277E5A00D1E66E /* CoreDataSavingTests.swift in Sources */,
 				88F5519B1F33705100F4AAB9 /* MockUserListView.swift in Sources */,
 				88F551D61F3AF8BE00F4AAB9 /* UserFollowersAPITests.swift in Sources */,
@@ -4166,16 +4141,12 @@
 				88635D771F223F1600577140 /* CoreDataStackBuilderTests.swift in Sources */,
 				8811C8A81F4435E800F7513D /* MockEmbeddedEditProfileModuleOutput.swift in Sources */,
 				9CDDB2051F38870400C46785 /* DateFormatterTests.swift in Sources */,
+				63F8489B1F4AE81F00D434CF /* MockCommentRepliesInteractor.swift in Sources */,
 				889AFC301F220BCD003AAF19 /* NameComponentsSplitterTests.swift in Sources */,
 				8811C8C51F4459B700F7513D /* MockEditProfileModuleOutput.swift in Sources */,
 				88F551C21F39D59000F4AAB9 /* MockFollowingView.swift in Sources */,
 				8811C8A61F44352200F7513D /* MockEmbeddedEditProfileInteractor.swift in Sources */,
 				8811C8231F3C728E00F7513D /* UnauthorizedErrorHandlerTests.swift in Sources */,
-				C98CFD52FB0A2B76EC860397 /* CommentRepliesConfiguratorTests.swift in Sources */,
-				4FB65FC23B8903F7F6EEFE3F /* CommentRepliesViewTests.swift in Sources */,
-				A80537CA81122E3E037A0D82 /* CommentRepliesInteractorTests.swift in Sources */,
-				F2C923BB4FA89CF29EF836D5 /* CommentRepliesPresenterTests.swift in Sources */,
-				45F59C2216FBCC5546538A53 /* CommentRepliesRouterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
