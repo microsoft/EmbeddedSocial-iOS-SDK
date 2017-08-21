@@ -13,7 +13,7 @@ enum FeedModuleRoutes {
     case openImage(image: String)
     case comments(post: Post)
     case profileDetailes(user: UserHandle)
-    
+    case myProfile
 }
 
 
