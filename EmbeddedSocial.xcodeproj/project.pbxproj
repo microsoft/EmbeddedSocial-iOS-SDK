@@ -428,7 +428,6 @@
 		88F3858B1F31BF140048B04C /* UserListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88F385891F31BF140048B04C /* UserListCell.xib */; };
 		88F5518F1F3366A100F4AAB9 /* UserListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F5518E1F3366A100F4AAB9 /* UserListInteractorTests.swift */; };
 		88F551911F3366C600F4AAB9 /* MockUsersListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551901F3366C600F4AAB9 /* MockUsersListAPI.swift */; };
-		88F551931F336D9200F4AAB9 /* UserListPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551921F336D9200F4AAB9 /* UserListPresenterTests.swift */; };
 		88F551951F336DCB00F4AAB9 /* MockUserListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551941F336DCB00F4AAB9 /* MockUserListInteractor.swift */; };
 		88F551991F336FB700F4AAB9 /* MockUserListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551981F336FB700F4AAB9 /* MockUserListModuleOutput.swift */; };
 		88F5519B1F33705100F4AAB9 /* MockUserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F5519A1F33705100F4AAB9 /* MockUserListView.swift */; };
@@ -4357,7 +4356,6 @@
 				88FFFA5F1F2F81A70066A1A0 /* FollowStatusTests.swift in Sources */,
 				88F551CE1F39E9D400F4AAB9 /* FollowersPresenterTests.swift in Sources */,
 				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
-				88F551931F336D9200F4AAB9 /* UserListPresenterTests.swift in Sources */,
 				88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */,
 				8811C8BD1F4457E500F7513D /* MockEditProfileView.swift in Sources */,
 				88F551D01F39E9F300F4AAB9 /* MockFollowersView.swift in Sources */,
