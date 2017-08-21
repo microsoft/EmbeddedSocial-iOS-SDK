@@ -8,6 +8,9 @@ import Foundation
 protocol PopularModuleViewInput: class {
     func setCurrentFeedType(to index: Int)
     func setFeedTypesAvailable(types: [String])
+    func lockFeedControl()
+    func unlockFeedControl()
+    func handleError(error: Error)
 }
 
 protocol PopularModuleViewOutput {
@@ -15,17 +18,11 @@ protocol PopularModuleViewOutput {
     func feedTypeDidChange(to index: Int)
 }
 
-class PopularModuleView: UIViewController, PopularModuleViewInput {
+class PopularModuleView: UIViewController {
 
     var output: PopularModuleViewOutput!
-    
-    private lazy var feedControl: UISegmentedControl = {
-  
-        let control = UISegmentedControl()
-        control.addTarget(self, action: #selector(onOptionChange(_:)), for: .valueChanged)
-        
-        return control
-    }()
+    @IBOutlet var container: UIView!
+    @IBOutlet var feedControl: UISegmentedControl!
     
     // MARK: Private
     @objc private func onOptionChange(_ sender: UISegmentedControl) {
@@ -34,10 +31,30 @@ class PopularModuleView: UIViewController, PopularModuleViewInput {
     
     // MARK: Life Cycle
     override func viewDidLoad() {
+        
+        feedControl.tintColor = Palette.green
+        feedControl.addTarget(self,
+                              action: #selector(onOptionChange(_:)),
+                              for: .valueChanged)
+    
         output.viewIsReady()
     }
+}
+
+extension PopularModuleView: PopularModuleViewInput {
     
-    // MARK: Input
+    func handleError(error: Error) {
+        showErrorAlert(error)
+    }
+    
+    func lockFeedControl() {
+        feedControl.isEnabled = false
+    }
+    
+    func unlockFeedControl() {
+        feedControl.isEnabled = true
+    }
+    
     func setFeedTypesAvailable(types: [String]) {
         
         feedControl.removeAllSegments()
@@ -50,3 +67,5 @@ class PopularModuleView: UIViewController, PopularModuleViewInput {
         feedControl.selectedSegmentIndex = index
     }
 }
+
+

@@ -11,4 +11,11 @@ extension UIView {
         layer.cornerRadius = bounds.height / 2.0
         layer.masksToBounds = true
     }
+    
+    func embed(view: UIView) {
+        addSubview(view)
+        view.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+    }
 }

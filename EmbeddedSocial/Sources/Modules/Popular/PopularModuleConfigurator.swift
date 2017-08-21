@@ -11,14 +11,21 @@ class PopularModuleConfigurator {
     
     func configure() {
         
-        let view = PopularModuleView()
+        let view = StoryboardScene.PopularModuleView.instantiatePopularModuleView()
         
         let presenter = PopularModulePresenter()
         presenter.view = view
-        
-        presenter.feedModule = configuredFeedConfigurator.view
+        presenter.feedModule = configuredFeedConfigurator.moduleInput
         
         view.output = presenter
+        
+        let feedViewController = configuredFeedConfigurator.viewController!
+     
+        feedViewController.willMove(toParentViewController: view)
+        view.addChildViewController(feedViewController)
+        view.container.addSubview(feedViewController.view)
+        feedViewController.view.snp.makeConstraints { $0.edges.equalToSuperview() }
+        feedViewController.didMove(toParentViewController: view)
     }
     
     private lazy var configuredFeedConfigurator: FeedModuleConfigurator = {
@@ -27,7 +34,7 @@ class PopularModuleConfigurator {
         
         configurator.configure()
         
-        return configurator.
+        return configurator
         
     }()
     

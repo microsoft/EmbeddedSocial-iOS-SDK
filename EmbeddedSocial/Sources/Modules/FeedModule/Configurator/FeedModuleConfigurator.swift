@@ -11,8 +11,8 @@ import UIKit
 
 class FeedModuleConfigurator {
     
-    weak var viewController: UIViewController!
-    weak var moduleInput: FeedModuleInput!
+    var viewController: UIViewController!
+    var moduleInput: FeedModuleInput!
     let cache: CacheType
     weak var userHolder: UserHolder?
     

@@ -31,7 +31,23 @@ class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, Popul
     func feedTypeDidChange(to index: Int) {
         let timeRange = feedMapping[index].feed
         let feedType = FeedType.popular(type: timeRange)
+        view.lockFeedControl()
         feedModule.setFeed(feedType)
         feedModule.refreshData()
+    }
+}
+
+extension PopularModulePresenter: FeedModuleOutput {
+    
+    func didScrollFeed(_ feedView: UIScrollView) {
+        
+    }
+    
+    func didRefreshData() {
+        view.unlockFeedControl()
+    }
+    
+    func didFailToRefreshData(_ error: Error) {
+        view.handleError(error: error)
     }
 }

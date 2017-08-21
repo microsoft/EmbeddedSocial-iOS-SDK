@@ -175,6 +175,18 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum PopularModuleView: String, StoryboardSceneType {
+    static let storyboardName = "PopularModuleView"
+
+    case popularModuleViewScene = "PopularModuleView"
+    static func instantiatePopularModuleView() -> EmbeddedSocial.PopularModuleView {
+      guard let vc = StoryboardScene.PopularModuleView.popularModuleViewScene.viewController() as? EmbeddedSocial.PopularModuleView
+      else {
+        fatalError("ViewController 'PopularModuleView' is not of the expected class EmbeddedSocial.PopularModuleView.")
+      }
+      return vc
+    }
+  }
   enum PostDetail: String, StoryboardSceneType {
     static let storyboardName = "PostDetail"
 
