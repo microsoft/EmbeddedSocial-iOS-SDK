@@ -6,7 +6,7 @@
 import Foundation
 
 final class QueryPeopleAPI: UsersListAPI {
-    private let query: String
+    let query: String
     private let searchService: SearchServiceType
 
     init(query: String, searchService: SearchServiceType) {

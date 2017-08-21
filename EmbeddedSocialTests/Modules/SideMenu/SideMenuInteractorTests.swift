@@ -57,7 +57,8 @@ class DummyMenuProviderMock: SideMenuItemsProvider {
     let itemDestination = UIViewController()
     let itemsCount = 2
     let itemImage = UIImage()
-    
+    let itemHighlightedImage = UIImage()
+
     func numberOfItems() -> Int {
         return itemsCount
     }
@@ -72,6 +73,10 @@ class DummyMenuProviderMock: SideMenuItemsProvider {
     
     func destination(forItem index: Int) -> UIViewController {
         return itemDestination
+    }
+    
+    func imageHighlighted(forItem index: Int) -> UIImage {
+        return itemHighlightedImage
     }
 }
 
