@@ -546,6 +546,7 @@
 		9C2D9C091F4ADEE6001514C3 /* PopularModuleView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C2D9C041F4ADEE6001514C3 /* PopularModuleView.storyboard */; };
 		9C2D9C0A1F4ADEE6001514C3 /* PopularModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2D9C051F4ADEE6001514C3 /* PopularModuleView.swift */; };
 		9C2D9C0C1F4AF3EE001514C3 /* PopularModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2D9C0B1F4AF3EE001514C3 /* PopularModuleRouter.swift */; };
+		9C2D9C0F1F4AFB94001514C3 /* PopularModulePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2D9C0E1F4AFB93001514C3 /* PopularModulePresenterTests.swift */; };
 		9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8B1F25D60A00D0B59D /* PostCell.xib */; };
 		9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */; };
 		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
@@ -1177,6 +1178,7 @@
 		9C2D9C041F4ADEE6001514C3 /* PopularModuleView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PopularModuleView.storyboard; sourceTree = "<group>"; };
 		9C2D9C051F4ADEE6001514C3 /* PopularModuleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularModuleView.swift; sourceTree = "<group>"; };
 		9C2D9C0B1F4AF3EE001514C3 /* PopularModuleRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularModuleRouter.swift; sourceTree = "<group>"; };
+		9C2D9C0E1F4AFB93001514C3 /* PopularModulePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularModulePresenterTests.swift; sourceTree = "<group>"; };
 		9C316E101F31E3CB00B90089 /* FeedModuleInteractor-Pagination-Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedModuleInteractor-Pagination-Tests.swift"; sourceTree = "<group>"; };
 		9C43EC8B1F25D60A00D0B59D /* PostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
@@ -2491,6 +2493,7 @@
 		889AFC071F220BCD003AAF19 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				9C2D9C0D1F4AFB81001514C3 /* Popular */,
 				9C6244F01F457DDC004814BB /* PostMenu */,
 				88F7A7991F27976E005FEC5F /* CreateAccount */,
 				889AFC081F220BCD003AAF19 /* CreatePost */,
@@ -3097,6 +3100,14 @@
 				9C2D9C041F4ADEE6001514C3 /* PopularModuleView.storyboard */,
 				9C2D9C051F4ADEE6001514C3 /* PopularModuleView.swift */,
 				9C2D9C0B1F4AF3EE001514C3 /* PopularModuleRouter.swift */,
+			);
+			path = Popular;
+			sourceTree = "<group>";
+		};
+		9C2D9C0D1F4AFB81001514C3 /* Popular */ = {
+			isa = PBXGroup;
+			children = (
+				9C2D9C0E1F4AFB93001514C3 /* PopularModulePresenterTests.swift */,
 			);
 			path = Popular;
 			sourceTree = "<group>";
@@ -4255,6 +4266,7 @@
 				889AFC2C1F220BCD003AAF19 /* MockURLScheme.swift in Sources */,
 				88F163811F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift in Sources */,
 				889AFC2D1F220BCD003AAF19 /* MockURLSchemeService.swift in Sources */,
+				9C2D9C0F1F4AFB94001514C3 /* PopularModulePresenterTests.swift in Sources */,
 				93AC65B41F3E05DA00FE5A3A /* MockPostDetaillnteractor.swift in Sources */,
 				889AFC1F1F220BCD003AAF19 /* UserTests.swift in Sources */,
 				88FFFA5D1F2F80E00066A1A0 /* MockSocialService.swift in Sources */,
