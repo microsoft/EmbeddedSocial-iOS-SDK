@@ -8,6 +8,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     weak var view: PostDetailViewInput!
     var interactor: PostDetailInteractorInput!
     var router: PostDetailRouterInput!
+    var scrollType: CommentsScrollType = .none
     
     var repliesPresenter: CommentRepliesPresenter?
     
@@ -20,7 +21,9 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     
     private var formatter = DateFormatterTool()
     private var cursor: String?
-    private let limit: Int32 = 10
+    private let normalLimit: Int32 = 50
+    private let maxLimit: Int32 = 10000
+    private var shouldFetchRestOfComments = false
     
     
     private func viewModel(with comment: Comment) -> CommentViewModel {
@@ -92,18 +95,26 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     func didFetch(comments: [Comment], cursor: String?) {
         self.cursor = cursor
         self.comments = comments
-        view.reloadTable()
+        view.reloadTable(scrollType: scrollType)
+        scrollType = .none
     }
     
     func didFetchMore(comments: [Comment], cursor: String?) {
         self.cursor = cursor
         self.comments.append(contentsOf: comments)
-        view.reloadTable()
+        if cursor != nil && shouldFetchRestOfComments == true {
+            self.fetchMore()
+        } else if shouldFetchRestOfComments == true {
+            view.reloadTable(scrollType: .bottom)
+            shouldFetchRestOfComments = false
+        } else {
+            view.reloadTable(scrollType: .none)
+        }
+        
     }
     
     func didFail(error: CommentsServiceError) {
     }
-    
     
     func commentDidPosted(comment: Comment) {
         comments.append(comment)
@@ -137,6 +148,10 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         router.openUser(userHandle: userHandle, from: view as! UIViewController)
     }
     
+    func refresh() {
+        interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: normalLimit)
+    }
+    
     func feedModuleHeight() -> CGFloat {
         guard let moduleHeight = feedModuleInput?.moduleHeight() else {
             return 0
@@ -148,7 +163,12 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     func viewIsReady() {
         view.setupInitialState()
         setupFeed()
-        interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: limit)
+        switch scrollType {
+            case .bottom:
+                interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: maxLimit)
+            default:
+                interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: normalLimit)
+        }
     }
     
     private func setupFeed() {
@@ -156,12 +176,26 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         feedModuleInput?.refreshData()
     }
     
+    func loadRestComments() {
+        if cursor == nil {
+            view.reloadTable(scrollType: .bottom)
+        } else {
+            shouldFetchRestOfComments = true
+            fetchMore()
+        }
+    }
+    
     func numberOfItems() -> Int {
         return comments.count
     }
     
     func fetchMore() {
-        interactor.fetchMoreComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: limit)
+        if shouldFetchRestOfComments {
+            interactor.fetchMoreComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: maxLimit)
+        } else {
+            interactor.fetchMoreComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: normalLimit)
+        }
+        
     }
     
     func commentViewModel(index: Int) -> CommentViewModel {
@@ -176,7 +210,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
 extension PostDetailPresenter: FeedModuleOutput {
     
     func didRefreshData() {
-        view.updateFeed(view: (feedViewController?.view)!)
+        view.updateFeed(view: (feedViewController?.view)!, scrollType: scrollType)
     }
     
     func didFailToRefreshData(_ error: Error) {
