@@ -15,5 +15,5 @@ extension FeedModuleOutput {
     func didScrollFeed(_ feedView: UIScrollView) { }
     
     func didStartRefreshingData() { }
-    func didFinishRefreshingData() { }
+    func didFinishRefreshingData(_ error: Error?) { }
 }

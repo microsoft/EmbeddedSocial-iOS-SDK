@@ -79,7 +79,7 @@ class PopularModulePresenterTests: XCTestCase {
             
             let configurator = FeedModuleConfigurator()
             
-            configurator.configure( moduleOutput: output)
+            configurator.configure(moduleOutput: output)
             configurator.viewController = UIViewController()
             configurator.moduleInput = feedModule
             
@@ -88,7 +88,7 @@ class PopularModulePresenterTests: XCTestCase {
         
     }
 
-    func testThatPresenterLoadsViewCorrectly() {
+    func testThatPresenterLoadsCorrectly() {
     
         // given
       
@@ -98,28 +98,59 @@ class PopularModulePresenterTests: XCTestCase {
         // then
         XCTAssertTrue(view.didEmbedViewController)
         XCTAssertTrue(view.availableFeeds != nil)
-        XCTAssertTrue(view.feedType != nil)
+        XCTAssertNotNil(view.feedType)
+        XCTAssertNotNil(feedModule.didSetFeed)
+        XCTAssertTrue(feedModule.didRefreshData)
     }
     
-    func testThatFeedChangeTriggersSubmodule() {
+    func testThatFeedChangesFeedModule() {
         
         // given
+        sut.feedMapping = [
+            (feed: FeedType.TimeRange.today, title: L10n.PopularModule.FeedOption.today),
+            (feed: FeedType.TimeRange.weekly, title: L10n.PopularModule.FeedOption.thisWeek),
+            (feed: FeedType.TimeRange.alltime, title: L10n.PopularModule.FeedOption.allTime)
+        ]
+        
         sut.viewIsReady()
         
         // when
-        sut.feedTypeDidChange(to: 0)
+        sut.feedTypeDidChange(to: 1)
         
         // then
-//        XCTAssertTrue(view.didLockFeed)
-//        XCTAssertTrue(view.didUnlockFeed)
-        
+        XCTAssertNotNil(feedModule.didSetFeed)
+        XCTAssertTrue(feedModule.didSetFeed == .popular(type: FeedType.TimeRange.weekly))
     }
     
-    func testThatViewGetsLockedUnlocked() {
+    func testThatViewGetsLocked() {
         
         // when 
         sut.didStartRefreshingData()
+    
+        // then
+        XCTAssertTrue(view.didLockFeed)
+    }
+    
+    func testThatViewGetsUnlocked() {
         
+        // when
+        sut.didFinishRefreshingData(nil)
+        // then
+        XCTAssertTrue(view.didUnlockFeed)
+    }
+    
+    func testThatViewHandlesEror() {
+        
+        // given
+        let error = NSError(domain: "test error", code: 0, userInfo: nil)
+        
+        // when
+        sut.didFinishRefreshingData(error)
+        
+        // then
+        XCTAssertTrue(view.didUnlockFeed)
+        XCTAssertNotNil(view.didHandleError)
     }
 
+    
 }
