@@ -4,12 +4,6 @@
 //
 
 protocol CommentRepliesViewInput: class {
-
-    /**
-        @author generamba setup
-        Setup initial state of the view
-    */
-
     func setupInitialState()
     func reloadTable(scrollType: RepliesScrollType)
     func reloadReplies()

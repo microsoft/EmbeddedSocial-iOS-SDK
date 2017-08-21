@@ -12,6 +12,8 @@ enum RepliesSections: Int {
     case sectionsCount
 }
 
+fileprivate let indicatorViewHeight: CGFloat = 44
+
 class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput {
 
     @IBOutlet weak var postButton: UIButton!
@@ -33,20 +35,28 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         return refreshControl
     }()
     
+    fileprivate lazy var loadingIndicatorView: LoadingIndicatorView = { [unowned self] in
+        let frame = CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: indicatorViewHeight)
+        let view = LoadingIndicatorView(frame: frame)
+        view.apply(style: .standard)
+        return view
+    }()
+    
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.addSubview(self.refreshControl)
         tableView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
         refreshControl.beginRefreshing()
+        view.isUserInteractionEnabled = false
         configTableView()
         configTextView()
         output.viewIsReady()
     }
     
+    // MARK: Internal
     func handleRefresh(_ refreshControl: UIRefreshControl) {
-        self.tableView.reloadData()
-        refreshControl.endRefreshing()
+        output.refresh()
     }
 
     func configTableView() {
@@ -66,27 +76,6 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         replyTextView.layer.cornerRadius = 1
     }
     
-    func reloadReplies() {
-        tableView.reloadSections(IndexSet(integer: RepliesSections.replies.rawValue), with: .none)
-    }
-
-    func refreshReplyCell(index: Int) {
-        tableView.reloadRows(at: [IndexPath(item: index, section: RepliesSections.replies.rawValue)], with: .none)
-    }
-    
-    func reloadTable(scrollType: RepliesScrollType) {
-        refreshControl.endRefreshing()
-        self.isNewDataLoading = false
-        tableView.reloadData()
-        switch scrollType {
-        case .bottom:
-            DispatchQueue.main.asyncAfter(deadline: .now() + reloadDelay) {
-                self.scrollTableToBottom()
-            }
-        default: break
-        }
-    }
-    
     fileprivate func scrollTableToBottom() {
         if  output.numberOfItems() > 1 {
             tableView.scrollToRow(at: IndexPath(row: output.numberOfItems() - 1, section: RepliesSections.replies.rawValue), at: .bottom, animated: true)
@@ -103,12 +92,45 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         SVProgressHUD.dismiss()
     }
     
+    func setIsLoading(_ isLoading: Bool) {
+        loadingIndicatorView.isLoading = isLoading
+        if isLoading {
+            tableView.tableFooterView = loadingIndicatorView
+        } else {
+            tableView.tableFooterView = UIView()
+        }
+    }
+    
     @IBAction func postReply(_ sender: Any) {
         lockUI()
         output.postReply(text: replyTextView.text)
     }
     
     // MARK: CommentRepliesViewInput
+    func reloadReplies() {
+        tableView.reloadSections(IndexSet(integer: RepliesSections.replies.rawValue), with: .none)
+    }
+
+    func refreshReplyCell(index: Int) {
+        tableView.reloadRows(at: [IndexPath(item: index, section: RepliesSections.replies.rawValue)], with: .none)
+    }
+    
+    func reloadTable(scrollType: RepliesScrollType) {
+        refreshControl.endRefreshing()
+        setIsLoading(false)
+        self.isNewDataLoading = false
+        unlockUI()
+        postButton.isHidden = replyTextView.text.isEmpty
+        tableView.reloadData()
+        switch scrollType {
+        case .bottom:
+            DispatchQueue.main.asyncAfter(deadline: .now() + reloadDelay) {
+                self.scrollTableToBottom()
+            }
+        default: break
+        }
+    }
+
     func setupInitialState() {
     }
     
@@ -121,6 +143,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     func refreshCommentCell() {
         tableView.reloadRows(at: [IndexPath(item: 0, section: RepliesSections.comment.rawValue)], with: .none)
     }
+    
 }
 
 extension CommentRepliesViewController: UITableViewDelegate {
@@ -139,9 +162,10 @@ extension CommentRepliesViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
             cell.config(replyView: output.replyView(index: indexPath.row))
             cell.tag = indexPath.row
-            if  output.numberOfItems() > indexPath.row + 1 && isNewDataLoading == false {
+            if  output.numberOfItems() - 1 < indexPath.row + 1 && isNewDataLoading == false && output.canFetchMore() {
                 isNewDataLoading = true
-//                output.fetchMore()
+                setIsLoading(true)
+                output.fetchMore()
             }
             return cell
         default:

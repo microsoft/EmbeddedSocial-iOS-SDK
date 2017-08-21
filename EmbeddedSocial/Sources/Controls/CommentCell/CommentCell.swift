@@ -82,6 +82,7 @@ class CommentCell: UITableViewCell {
     }
 
     @IBAction func commentPressed(_ sender: Any) {
+        commentView.onAction?(.replies, tag)
     }
     @IBAction func avatarPressed(_ sender: Any) {
         commentView.onAction?(.profile, tag)

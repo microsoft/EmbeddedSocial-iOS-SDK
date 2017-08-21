@@ -40,7 +40,7 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
             }
             
             self.isLoading = false
-            self.output.fetched(replies: result.replies,  cursor: cursor)
+            self.output.fetched(replies: result.replies,  cursor: result.cursor)
         }
     }
     
@@ -56,7 +56,7 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
             }
             
             self.isLoading = false
-            self.output.fetchedMore(replies: result.replies, cursor: cursor)
+            self.output.fetchedMore(replies: result.replies, cursor: result.cursor)
         })
         
     }

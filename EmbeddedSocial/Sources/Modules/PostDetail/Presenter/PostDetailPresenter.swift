@@ -58,8 +58,8 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         let userHandle = comments[index].userHandle!
         
         switch action {
-        case .replies: break
-        //            router.open(route: .comments, feedSource: feedType!)
+        case .replies:
+            router.openReplies(commentView: viewModel(with:  comments[index]), scrollType: .bottom, from: view as! UIViewController, postDetailPresenter: self)
         case .like:
             
             let status = comments[index].liked

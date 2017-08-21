@@ -33,7 +33,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     var commentView: CommentViewModel?
     
-    var scrollType: RepliesScrollType?
+    var scrollType: RepliesScrollType = .none
     
     var replies = [Reply]()
     
@@ -41,9 +41,10 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     fileprivate var shouldFetchRestOfReplies = false
     
     private var cursor: String?
-    private let maxLimit: Int = 10
-    private let normalLimit: Int = 10000
+    private let maxLimit: Int = 10000
+    private let normalLimit: Int = 50
     
+    //MARK Internal
     private func viewModel(with reply: Reply) -> ReplyViewModel {
         
         var viewModel = ReplyViewModel()
@@ -96,28 +97,9 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         
     }
     
-    func didPostAction(replyHandle: String, action: RepliesSocialAction, error: Error?) {
-        
-        if error != nil {
-            
-            guard let index = replies.enumerated().first(where: { $0.element.replyHandle == replyHandle })?.offset else {
-                return
-            }
-            
-            let status = replies[index].liked
-            
-            replies[index].liked = !status
-            
-            switch action {
-            case .like:
-                replies[index].totalLikes -= 1
-            default:
-                replies[index].totalLikes += 1
-            }
-            
-            view?.refreshReplyCell(index: index)
-        }
-    
+    // MARK: CommentRepliesViewOutput
+    func refresh() {
+        interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: nil, limit: normalLimit)
     }
     
     func refreshCommentCell(commentView: CommentViewModel) {
@@ -128,28 +110,25 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     func replyView(index: Int) -> ReplyViewModel {
         return viewModel(with: replies[index])
     }
-
-    func fetchedMore(replies: [Reply], cursor: String?) {
-        self.cursor = cursor
-        self.replies.append(contentsOf: replies)
-        view?.reloadTable(scrollType: .none)
-    }
     
-    func replyPosted(reply: Reply) {
-        reply.userHandle = SocialPlus.shared.me?.uid
-        replies.append(reply)
-        view?.replyPosted()
-    }
-    
-    func replyFailPost(error: Error) {
+    func canFetchMore() -> Bool {
+        if cursor == nil || cursor == "" {
+            return false
+        }
         
+        return true
     }
     
     func viewIsReady() {
         if (commentView?.comment?.totalReplies)! > 0 {
-            interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: normalLimit)
+            switch scrollType {
+            case .bottom:
+                interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: maxLimit)
+            default:
+                interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: normalLimit)
+            }
         } else {
-            view?.reloadTable(scrollType: scrollType ?? .none)
+            view?.reloadTable(scrollType: scrollType)
         }
         
     }
@@ -183,9 +162,52 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         interactor.postReply(commentHandle: (commentView?.commentHandle)!, text: text)
     }
     
+    
+    // MARK: CommentRepliesInteractorOutput
     func fetched(replies: [Reply], cursor: String?) {
         self.cursor = cursor
         self.replies = replies
+        view?.reloadTable(scrollType: scrollType)
+        scrollType = .none
+    }
+    
+    func fetchedMore(replies: [Reply], cursor: String?) {
+        self.cursor = cursor
+        self.replies.append(contentsOf: replies)
         view?.reloadTable(scrollType: .none)
+    }
+    
+    func replyPosted(reply: Reply) {
+        reply.userHandle = SocialPlus.shared.me?.uid
+        replies.append(reply)
+        view?.replyPosted()
+    }
+    
+    func replyFailPost(error: Error) {
+        
+    }
+    
+    func didPostAction(replyHandle: String, action: RepliesSocialAction, error: Error?) {
+        
+        if error != nil {
+            
+            guard let index = replies.enumerated().first(where: { $0.element.replyHandle == replyHandle })?.offset else {
+                return
+            }
+            
+            let status = replies[index].liked
+            
+            replies[index].liked = !status
+            
+            switch action {
+            case .like:
+                replies[index].totalLikes -= 1
+            default:
+                replies[index].totalLikes += 1
+            }
+            
+            view?.refreshReplyCell(index: index)
+        }
+        
     }
 }

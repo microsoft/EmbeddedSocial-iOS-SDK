@@ -10,4 +10,7 @@ protocol CommentRepliesViewOutput {
     func postReply(text: String)
     func replyView(index: Int) -> ReplyViewModel
     func loadRestReplies()
+    func fetchMore()
+    func canFetchMore() -> Bool
+    func refresh()
 }
