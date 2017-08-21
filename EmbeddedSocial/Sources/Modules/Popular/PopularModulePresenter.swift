@@ -12,9 +12,12 @@ protocol PopularModuleInput {
 class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, PopularModuleInteractorOutput {
     
     weak var view: PopularModuleViewInput!
-    var feedModule: FeedModuleInput!
+    var configuredFeedModule: ((UINavigationController, FeedModuleOutput) -> FeedModuleConfigurator)!
+    var router: PopularModuleRouterInput!
     
     // MARK: Private
+    private var feedModule: FeedModuleInput!
+    private var feedModuleViewController: UIViewController!
     private var currentFeed: FeedType.TimeRange = .today
     private var feedMapping = [
         (feed: FeedType.TimeRange.today, title: L10n.PopularModule.FeedOption.today),
@@ -26,12 +29,20 @@ class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, Popul
     func viewIsReady() {
         view.setFeedTypesAvailable(types: feedMapping.map { $0.title })
         view.setCurrentFeedType(to: currentFeed.rawValue)
+        
+        let configured = configuredFeedModule(router.navigationController, self)
+        feedModule = configured.moduleInput
+        feedModuleViewController = configured.viewController
+        
+        view.embedFeedViewController(feedModuleViewController)
+        
+        feedModule.setFeed(.popular(type: currentFeed))
+        feedModule.refreshData()
     }
-    
+
     func feedTypeDidChange(to index: Int) {
         let timeRange = feedMapping[index].feed
         let feedType = FeedType.popular(type: timeRange)
-        view.lockFeedControl()
         feedModule.setFeed(feedType)
         feedModule.refreshData()
     }
@@ -39,15 +50,15 @@ class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, Popul
 
 extension PopularModulePresenter: FeedModuleOutput {
     
-    func didScrollFeed(_ feedView: UIScrollView) {
-        
+    func didStartRefreshingData() {
+        view.lockFeedControl()
     }
     
-    func didRefreshData() {
+    func didFinishRefreshingData(_ error: Error?) {
         view.unlockFeedControl()
-    }
-    
-    func didFailToRefreshData(_ error: Error) {
-        view.handleError(error: error)
+        
+        if let error = error {
+            view.handleError(error: error)
+        }
     }
 }

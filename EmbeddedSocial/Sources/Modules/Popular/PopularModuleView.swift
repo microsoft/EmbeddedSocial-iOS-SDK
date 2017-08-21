@@ -11,6 +11,7 @@ protocol PopularModuleViewInput: class {
     func lockFeedControl()
     func unlockFeedControl()
     func handleError(error: Error)
+    func embedFeedViewController(_ viewController: UIViewController)
 }
 
 protocol PopularModuleViewOutput {
@@ -25,6 +26,19 @@ class PopularModuleView: UIViewController {
     @IBOutlet var feedControl: UISegmentedControl!
     
     // MARK: Private
+    
+    fileprivate var isLockedUI = 0 {
+        didSet {
+            
+            guard isLockedUI >= 0 else {
+                fatalError()
+            }
+            
+           feedControl.isEnabled = isLockedUI == 0
+            Logger.log(isLockedUI, feedControl.isEnabled)
+        }
+    }
+    
     @objc private func onOptionChange(_ sender: UISegmentedControl) {
         output.feedTypeDidChange(to: sender.selectedSegmentIndex)
     }
@@ -43,23 +57,31 @@ class PopularModuleView: UIViewController {
 
 extension PopularModuleView: PopularModuleViewInput {
     
+    func embedFeedViewController(_ viewController: UIViewController) {
+        viewController.willMove(toParentViewController: self)
+        addChildViewController(viewController)
+        container.addSubview(viewController.view)
+        viewController.view.snp.makeConstraints { $0.edges.equalToSuperview() }
+        viewController.didMove(toParentViewController: self)
+    }
+
     func handleError(error: Error) {
         showErrorAlert(error)
     }
     
     func lockFeedControl() {
-        feedControl.isEnabled = false
+        isLockedUI += 1
     }
     
     func unlockFeedControl() {
-        feedControl.isEnabled = true
+        isLockedUI -= 1
     }
     
     func setFeedTypesAvailable(types: [String]) {
         
         feedControl.removeAllSegments()
         for (index, type) in types.enumerated() {
-            feedControl.setTitle(type, forSegmentAt: index)
+            feedControl.insertSegment(withTitle: type, at: index, animated: false)
         }
     }
     

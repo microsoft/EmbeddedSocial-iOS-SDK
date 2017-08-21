@@ -9,33 +9,28 @@ class PopularModuleConfigurator {
     
     var viewController: UIViewController!
     
-    func configure() {
+    func configure(navigationController: UINavigationController) {
         
-        let view = StoryboardScene.PopularModuleView.instantiatePopularModuleView()
+        let popularViewController = StoryboardScene.PopularModuleView.instantiatePopularModuleView()
+        
+        let router = PopularModuleRouter()
+        router.navigationController = navigationController
         
         let presenter = PopularModulePresenter()
-        presenter.view = view
-        presenter.feedModule = configuredFeedConfigurator.moduleInput
+        presenter.view = popularViewController
+        presenter.router = router
+        presenter.configuredFeedModule = { navigationController, output in
+
+            let configurator = FeedModuleConfigurator()
+            
+            configurator.configure(navigationController: navigationController, moduleOutput: output)
+            
+            return configurator
+        }
         
-        view.output = presenter
+        popularViewController.output = presenter
         
-        let feedViewController = configuredFeedConfigurator.viewController!
-     
-        feedViewController.willMove(toParentViewController: view)
-        view.addChildViewController(feedViewController)
-        view.container.addSubview(feedViewController.view)
-        feedViewController.view.snp.makeConstraints { $0.edges.equalToSuperview() }
-        feedViewController.didMove(toParentViewController: view)
+        viewController = popularViewController
     }
-    
-    private lazy var configuredFeedConfigurator: FeedModuleConfigurator = {
-       
-        let configurator = FeedModuleConfigurator()
-        
-        configurator.configure()
-        
-        return configurator
-        
-    }()
     
 }
