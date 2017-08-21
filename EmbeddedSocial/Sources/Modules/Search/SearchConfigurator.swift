@@ -13,14 +13,14 @@ struct SearchConfigurator {
         viewController = StoryboardScene.Search.instantiateSearchViewController()
     }
     
-    func configure() {
+    func configure(isLoggedInUser: Bool) {
         let conf = SearchPeopleConfigurator()
         let peopleSearchModule = conf.configure()
         
         let presenter = SearchPresenter()
         presenter.view = viewController
         presenter.peopleSearchModule = peopleSearchModule
-        presenter.interactor = SearchInteractor()
+        presenter.interactor = SearchInteractor(isLoggedInUser: isLoggedInUser)
         
         viewController.output = presenter
     }

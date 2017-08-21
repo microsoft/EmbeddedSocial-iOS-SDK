@@ -25,9 +25,8 @@ class SearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let searchController = searchController {
-            parent?.navigationItem.titleView = searchController.searchBar
-            parent?.navigationItem.rightBarButtonItem = nil
+        if searchController != nil {
+            setupSearchBar()
         }
     }
     
@@ -37,10 +36,6 @@ class SearchViewController: UIViewController {
         searchController?.dimsBackgroundDuringPresentation = false
         searchController?.searchBar.delegate = self
         searchController?.hidesNavigationBarDuringPresentation = false
-        
-        definesPresentationContext = true
-        
-        setupSearchBar()
     }
     
     fileprivate func addBackgroundView(_ backgroundView: UIView) {
@@ -50,7 +45,7 @@ class SearchViewController: UIViewController {
         }
     }
     
-    private func setupSearchBar() {
+    fileprivate func setupSearchBar() {
         parent?.navigationItem.titleView = searchController?.searchBar
         parent?.navigationItem.rightBarButtonItem = nil
         searchController?.searchBar.placeholder = L10n.Search.Placeholder.searchPeople
@@ -61,12 +56,17 @@ class SearchViewController: UIViewController {
 extension SearchViewController: SearchViewInput {
     
     func setupInitialState(_ pageInfo: SearchPageInfo) {
+        definesPresentationContext = true
         setupSearchController(pageInfo)
-        addBackgroundView(pageInfo.backgroundView)
+        setupSearchBar()
+        if let backgroundView = pageInfo.backgroundView {
+            addBackgroundView(backgroundView)
+        }
     }
 }
 
 extension SearchViewController: UISearchBarDelegate {
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
