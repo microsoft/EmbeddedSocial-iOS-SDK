@@ -41,7 +41,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             }
             
             guard let data = response?.data else {
-                result.error = RepliesServiceError.failedToFetch(message: "No Items Received")
+                result.error = RepliesServiceError.failedToFetch(message: L10n.Error.noItemsReceived)
                 resultHandler(result)
                 return
             }
