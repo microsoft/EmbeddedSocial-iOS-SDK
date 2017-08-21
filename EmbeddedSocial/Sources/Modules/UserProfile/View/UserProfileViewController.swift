@@ -10,11 +10,12 @@ class UserProfileViewController: UIViewController {
     
     var output: UserProfileViewOutput!
     
-    fileprivate lazy var createPostButton: BarButtonItemWithTarget = { [unowned self] in
-        let button = BarButtonItemWithTarget()
-        button.image = UIImage(asset: .iconDots)
-        button.onTap = self.output.onMore
-        return button
+    fileprivate lazy var createPostButton: UIBarButtonItem = { [unowned self] in
+        return UIBarButtonItem(asset: .iconDots, color: Palette.defaultTint, action: self.output.onMore)
+    }()
+    
+    fileprivate lazy var feedLayoutButton: UIButton = { [unowned self] in
+        return UIButton.makeButton(asset: nil, color: Palette.defaultTint, action: self.output.onFlipFeedLayout)
     }()
     
     fileprivate lazy var headerView: UserProfileHeaderView = { [unowned self] in
@@ -68,8 +69,9 @@ class UserProfileViewController: UIViewController {
 extension UserProfileViewController: UserProfileViewInput {
     
     func setupInitialState() {
-        parent?.navigationItem.rightBarButtonItem = createPostButton
         view.backgroundColor = Palette.extraLightGrey
+        let feedLayoutButton = UIBarButtonItem(customView: self.feedLayoutButton)
+        parent?.navigationItem.rightBarButtonItems = [createPostButton, feedLayoutButton]
     }
     
     func setFeedViewController(_ feedViewController: UIViewController) {
@@ -135,5 +137,10 @@ extension UserProfileViewController: UserProfileViewInput {
     func setFilterEnabled(_ isEnabled: Bool) {
         filterView.isEnabled = isEnabled
         stickyFilterView.isEnabled = isEnabled
+    }
+    
+    func setLayoutAsset(_ asset: Asset) {
+        feedLayoutButton.setImage(UIImage(asset: asset), for: .normal)
+        feedLayoutButton.sizeToFit()
     }
 }

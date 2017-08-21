@@ -113,6 +113,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
         )
         
         view.setFeedViewController(vc)
+        view.setLayoutAsset(feedModuleInput.layout.nextLayoutAsset)
 
         setFeedScope(.recent)
     }
@@ -221,6 +222,14 @@ final class UserProfilePresenter: UserProfileViewOutput {
         feedModuleInput?.setFeed(.user(user: uid, scope: scope))
         feedModuleInput?.refreshData()
         view.setFilterEnabled(false)
+    }
+    
+    func onFlipFeedLayout() {
+        guard let feedModuleInput = feedModuleInput else {
+            return
+        }
+        feedModuleInput.layout = feedModuleInput.layout.flipped
+        view.setLayoutAsset(feedModuleInput.layout.nextLayoutAsset)
     }
 }
 
