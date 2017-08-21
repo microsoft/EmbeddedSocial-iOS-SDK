@@ -15,6 +15,11 @@ struct Constants {
 
 extension Constants {
     
+    struct Menu {
+        static let defaultItemColor = UIColor.white
+        static let selectedItemColor = UIColor.init(r: 80, g: 173, b: 85)
+    }
+    
     struct CreateAccount {
         static let contentPadding: CGFloat = 20.0
         static let uploadPhotoHeight: CGFloat = 84.0

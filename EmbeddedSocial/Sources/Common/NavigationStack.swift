@@ -10,6 +10,7 @@ public protocol SideMenuItemsProvider: class {
     
     func numberOfItems() -> Int
     func image(forItem index: Int) -> UIImage
+    func imageHighlighted(forItem index: Int) -> UIImage
     func title(forItem index: Int) -> String
     func destination(forItem index: Int) -> UIViewController
 }

@@ -15,6 +15,7 @@
 "error.last_session_not_available" = "Last session is not available.";
 "error.no_item_for" = "No item for %@";
 "error.no_items_received" = "No Items Received";
+"error.user_list_no_api" = "User list module configuration error: API not set.";
 
 "common.ok" = "OK";
 "common.cancel" = "Cancel";
@@ -85,6 +86,8 @@
 "report.screen_title" = "Report %@";
 
 "search.screen_title" = "Search";
+"search.placeholder.search_people" = "Search people";
+"search.label.based_on_who_you_follow" = "Based on who you follow";
 
 "my_pins.screen_title" = "My pins";
 

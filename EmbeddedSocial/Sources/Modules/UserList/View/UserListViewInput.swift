@@ -15,4 +15,6 @@ protocol UserListViewInput: class {
     func setIsLoading(_ isLoading: Bool, itemAt indexPath: IndexPath)
     
     func setIsLoading(_ isLoading: Bool)
+    
+    func setListHeaderView(_ view: UIView?)
 }

@@ -74,4 +74,8 @@ extension UserListView: UserListViewInput {
             tableView.tableFooterView = UIView()
         }
     }
+    
+    func setListHeaderView(_ view: UIView?) {
+        tableView.tableHeaderView = view
+    }
 }
