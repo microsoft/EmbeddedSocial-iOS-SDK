@@ -93,7 +93,7 @@ extension PostServiceProtocol {
 
 
 class TopicService: BaseService, PostServiceProtocol {
-
+    
     private var imagesService: ImagesServiceType!
     
     init(imagesService: ImagesServiceType) {
@@ -137,7 +137,7 @@ class TopicService: BaseService, PostServiceProtocol {
         }
         cache.cacheOutgoing(topic)
     }
-
+    
     private func postTopic(request: PostTopicRequest, success: @escaping TopicPosted, failure: @escaping Failure) {
         TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { response, error in
             if response != nil {
@@ -191,7 +191,12 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.userTopicsGetPopularTopics(userHandle: query.user, authorization: authorization, cursor: query.cursorInt()) { response, error in
+        UsersAPI.userTopicsGetPopularTopics(
+            userHandle: query.user,
+            authorization: authorization,
+            cursor: query.cursorInt(),
+            limit: query.limit
+        ) { response, error in
             self.parseResponse(response: response, error: error, completion: completion)
         }
     }
@@ -218,18 +223,20 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.myTopicsGetTopics(authorization: authorization,
-                                   cursor: query.cursor,
-                                   limit: query.limit) { (response, error) in
-                                    self.parseResponse(response: response, error: error, completion: completion)
+        UsersAPI.myTopicsGetTopics(
+            authorization: authorization,
+            cursor: query.cursor,
+            limit: query.limit) { (response, error) in
+                self.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
     func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.myTopicsGetPopularTopics(authorization: authorization,
-                                          cursor: query.cursorInt(),
-                                          limit: query.limit) { (response, error) in
-                                            self.parseResponse(response: response, error: error, completion: completion)
+        UsersAPI.myTopicsGetPopularTopics(
+            authorization: authorization,
+            cursor: query.cursorInt(),
+            limit: query.limit) { (response, error) in
+                self.parseResponse(response: response, error: error, completion: completion)
         }
     }
     
@@ -247,7 +254,7 @@ class TopicService: BaseService, PostServiceProtocol {
     
     private func parseResponse(response: FeedResponseTopicView?, error: Error?, completion: FetchResultHandler) {
         var result = PostFetchResult()
-
+        
         guard let data = response?.data else {
             if errorHandler.canHandle(error) {
                 errorHandler.handle(error)
