@@ -10,12 +10,10 @@ final class MockEmbeddedEditProfileRouter: EmbeddedEditProfileRouterInput {
     private(set) var openImagePickerCount = 0
     var imageToReturn: UIImage?
     
-    func openImagePicker(from vc: UIViewController, completion: @escaping (Result<UIImage>) -> Void) {
+    func openImagePicker(from vc: UIViewController, isImageSelected: Bool, completion: @escaping (UIImage?) -> Void) {
         openImagePickerCount += 1
         if let image = imageToReturn {
-            completion(.success(image))
-        } else {
-            completion(.failure(APIError.custom("Image is missing")))
+            completion(image)
         }
     }
 }
