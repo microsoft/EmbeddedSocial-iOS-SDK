@@ -25,10 +25,16 @@ class FeedModuleRouter: FeedModuleRouterInput {
             configurator.configure(userID: userHandle, navigationController: navigationController)
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
-        case .postDetails(let post), .comments(let post):
+        case .postDetails(let post):
             
             let configurator = PostDetailModuleConfigurator()
-            configurator.configure(post: post, navigationController: navigationController)
+            configurator.configure(post: post, navigationController: navigationController, scrollType: .none)
+            
+            navigationController?.pushViewController(configurator.viewController, animated: true)
+        case .comments(let post):
+            
+            let configurator = PostDetailModuleConfigurator()
+            configurator.configure(post: post, navigationController: navigationController, scrollType: .bottom)
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
         case .openImage(let imageUrl):

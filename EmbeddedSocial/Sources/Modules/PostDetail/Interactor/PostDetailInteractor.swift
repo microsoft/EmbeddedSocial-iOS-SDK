@@ -9,7 +9,7 @@ enum CommentSocialAction: Int {
 
 class PostDetailInteractor: PostDetailInteractorInput {
 
-    weak var output: PostDetailInteractorOutput!
+    weak var output: PostDetailInteractorOutput?
     
     var commentsService: CommentServiceProtocol?
     var likeService: LikesServiceProtocol?
@@ -20,7 +20,7 @@ class PostDetailInteractor: PostDetailInteractorInput {
     func commentAction(commentHandle: String, action: CommentSocialAction) {
         
         let completion: LikesServiceProtocol.CommentCompletionHandler = { [weak self] (handle, error) in
-                self?.output.didPostAction(commentHandle: commentHandle, action: action, error: error)
+                self?.output?.didPostAction(commentHandle: commentHandle, action: action, error: error)
         }
         
         switch action {
@@ -40,7 +40,7 @@ class PostDetailInteractor: PostDetailInteractorInput {
             }
 
             self.isLoading = false
-            self.output.didFetch(comments: result.comments, cursor: cursor)
+            self.output?.didFetch(comments: result.comments, cursor: result.cursor)
         })
     }
     
@@ -56,7 +56,7 @@ class PostDetailInteractor: PostDetailInteractorInput {
             }
             
             self.isLoading = false
-            self.output.didFetchMore(comments: result.comments, cursor: cursor)
+            self.output?.didFetchMore(comments: result.comments, cursor: result.cursor)
         })
     }
     
@@ -66,7 +66,7 @@ class PostDetailInteractor: PostDetailInteractorInput {
         
         commentsService?.postComment(topicHandle: topicHandle, request: request, photo: photo, resultHandler: { (response) in
             self.commentsService?.comment(commentHandle: response.commentHandle!, success: { (comment) in
-                self.output.commentDidPosted(comment: comment)
+                self.output?.commentDidPosted(comment: comment)
             }, failure: { (errpr) in
                 print("error fetching single comment")
             })

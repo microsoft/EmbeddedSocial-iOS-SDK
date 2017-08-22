@@ -154,6 +154,27 @@ struct CommentFetchResult {
     var cursor: String?
 }
 
+struct CommentViewModel {
+    
+    typealias ActionHandler = (CommentCellAction, Int) -> Void
+    
+    var comment: Comment?
+    var userName: String = ""
+    var title: String = ""
+    var text: String = ""
+    var isLiked: Bool = false
+    var totalLikes: String = ""
+    var totalReplies: String = ""
+    var timeCreated: String = ""
+    var userImageUrl: String? = nil
+    var commentImageUrl: String? = nil
+    var commentHandle: String = ""
+    
+    var tag: Int = 0
+    var cellType: String = CommentCell.reuseID
+    var onAction: ActionHandler?
+}
+
 class Comment: Equatable {
     public var commentHandle: String?
     public var topicHandle: String!

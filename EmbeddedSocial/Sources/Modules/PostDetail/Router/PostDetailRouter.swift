@@ -16,11 +16,17 @@ class PostDetailRouter: PostDetailRouterInput {
         view.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
+    func openReplies(commentView: CommentViewModel, scrollType: RepliesScrollType, from view: UIViewController, postDetailPresenter: PostDetailPresenter?) {
+        let configurator = CommentRepliesModuleConfigurator()
+        configurator.configure(commentView: commentView, scrollType: scrollType, postDetailsPresenter: postDetailPresenter)
+        
+        view.navigationController?.pushViewController(configurator.viewController, animated: true)
+    }
+    
     func openImage(imageUrl: String, from view: UIViewController) {
         let browser = SKPhotoBrowser(photos: [SKPhoto.photoWithImageURL(imageUrl)])
         browser.initializePageIndex(0)
         view.present(browser, animated: true, completion: {})
     }
-
 
 }

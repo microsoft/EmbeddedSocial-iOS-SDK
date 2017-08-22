@@ -3,33 +3,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-enum CommentCellAction {
-    case like, replies, profile, photo
-}
-
-struct CommentViewModel {
-    
-    typealias ActionHandler = (CommentCellAction, Int) -> Void
-    
-    var userName: String = ""
-    var title: String = ""
-    var text: String = ""
-    var isLiked: Bool = false
-    var totalLikes: String = ""
-    var totalReplies: String = ""
-    var timeCreated: String = ""
-    var userImageUrl: String? = nil
-    var commentImageUrl: String? = nil
-    
-    var cellType: String = CommentCell.reuseID
-    var onAction: ActionHandler?
-}
-
 class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDetailInteractorOutput {
     
     weak var view: PostDetailViewInput!
     var interactor: PostDetailInteractorInput!
     var router: PostDetailRouterInput!
+    var scrollType: CommentsScrollType = .none
+    
+    var repliesPresenter: CommentRepliesPresenter?
     
     var feedViewController: UIViewController?
     var feedModuleInput: FeedModuleInput?
@@ -40,12 +21,16 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     
     private var formatter = DateFormatterTool()
     private var cursor: String?
-    private let limit: Int32 = 10
+    private let normalLimit: Int32 = 50
+    private let maxLimit: Int32 = 10000
+    private var shouldFetchRestOfComments = false
     
     
     private func viewModel(with comment: Comment) -> CommentViewModel {
         
         var viewModel = CommentViewModel()
+        viewModel.comment = comment
+        viewModel.commentHandle = comment.commentHandle!
         viewModel.userName = String(format: "%@ %@", (comment.firstName ?? ""), (comment.lastName ?? ""))
         viewModel.text = comment.text ?? ""
         
@@ -57,6 +42,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         viewModel.commentImageUrl = comment.mediaUrl
         
         viewModel.isLiked = comment.liked
+        viewModel.tag = comments.index(of: comment) ?? 0
         
         viewModel.cellType = CommentCell.reuseID
         viewModel.onAction = { [weak self] action, index in
@@ -72,8 +58,8 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         let userHandle = comments[index].userHandle!
         
         switch action {
-        case .replies: break
-        //            router.open(route: .comments, feedSource: feedType!)
+        case .replies:
+            router.openReplies(commentView: viewModel(with:  comments[index]), scrollType: .bottom, from: view as! UIViewController, postDetailPresenter: self)
         case .like:
             
             let status = comments[index].liked
@@ -87,9 +73,10 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
                 comments[index].totalLikes -= 1
             }
             
-            view.refreshCell(index: index)
-            interactor.commentAction(commentHandle: commentHandle, action: action)
             
+            view.refreshCell(index: index)
+            repliesPresenter?.refreshCommentCell(commentView: viewModel(with: comments[index]))
+            interactor.commentAction(commentHandle: commentHandle, action: action)
             
         case .profile:
             router.openUser(userHandle: userHandle, from: view as! UIViewController)
@@ -108,18 +95,26 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     func didFetch(comments: [Comment], cursor: String?) {
         self.cursor = cursor
         self.comments = comments
-        view.reloadTable()
+        view.reloadTable(scrollType: scrollType)
+        scrollType = .none
     }
     
     func didFetchMore(comments: [Comment], cursor: String?) {
         self.cursor = cursor
         self.comments.append(contentsOf: comments)
-        view.reloadTable()
+        if cursor != nil && shouldFetchRestOfComments == true {
+            self.fetchMore()
+        } else if shouldFetchRestOfComments == true {
+            view.reloadTable(scrollType: .bottom)
+            shouldFetchRestOfComments = false
+        } else {
+            view.reloadTable(scrollType: .none)
+        }
+        
     }
     
     func didFail(error: CommentsServiceError) {
     }
-    
     
     func commentDidPosted(comment: Comment) {
         comments.append(comment)
@@ -141,12 +136,20 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     
     // MAKR: PostDetailViewOutput
     
+    func openReplies(index: Int) {
+        router.openReplies(commentView: viewModel(with:  comments[index]), scrollType: .none, from: view as! UIViewController, postDetailPresenter: self)
+    }
+    
     func openUser(index: Int) {
         guard let userHandle =  comments[index].userHandle else {
             return
         }
         
         router.openUser(userHandle: userHandle, from: view as! UIViewController)
+    }
+    
+    func refresh() {
+        interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: normalLimit)
     }
     
     func feedModuleHeight() -> CGFloat {
@@ -160,7 +163,12 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     func viewIsReady() {
         view.setupInitialState()
         setupFeed()
-        interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: limit)
+        switch scrollType {
+            case .bottom:
+                interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: maxLimit)
+            default:
+                interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: normalLimit)
+        }
     }
     
     private func setupFeed() {
@@ -168,12 +176,26 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         feedModuleInput?.refreshData()
     }
     
+    func loadRestComments() {
+        if cursor == nil {
+            view.reloadTable(scrollType: .bottom)
+        } else {
+            shouldFetchRestOfComments = true
+            fetchMore()
+        }
+    }
+    
     func numberOfItems() -> Int {
         return comments.count
     }
     
     func fetchMore() {
-        interactor.fetchMoreComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: limit)
+        if shouldFetchRestOfComments {
+            interactor.fetchMoreComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: maxLimit)
+        } else {
+            interactor.fetchMoreComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: normalLimit)
+        }
+        
     }
     
     func commentViewModel(index: Int) -> CommentViewModel {
@@ -188,6 +210,6 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
 extension PostDetailPresenter: FeedModuleOutput {
     
     func didFinishRefreshingData(_ error: Error?) {
-        view.updateFeed(view: (feedViewController?.view)!)
+        view.updateFeed(view: (feedViewController?.view)!, scrollType: scrollType)
     }
 }
