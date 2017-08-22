@@ -84,7 +84,7 @@ class UserListPresenterTests: XCTestCase {
         // given
         let user = User(uid: UUID().uuidString, followerStatus: .empty)
         let indexPath = IndexPath(row: 0, section: 0)
-        let listItem = UserListItem(user: user, indexPath: indexPath, action: nil)
+        let listItem = UserListItem(user: user, isActionButtonHidden: true, indexPath: indexPath, action: nil)
         interactor.socialRequestResult = .success(.empty)
 
         // when
@@ -112,7 +112,7 @@ class UserListPresenterTests: XCTestCase {
         // given
         let user = User(uid: UUID().uuidString, followerStatus: .empty)
         let indexPath = IndexPath(row: 0, section: 0)
-        let listItem = UserListItem(user: user, indexPath: indexPath, action: nil)
+        let listItem = UserListItem(user: user, isActionButtonHidden: true, indexPath: indexPath, action: nil)
         interactor.socialRequestResult = .failure(APIError.unknown)
         
         // when
@@ -181,6 +181,35 @@ class UserListPresenterTests: XCTestCase {
         
         // then
         // second page not loaded
+        validatePageLoaded(page: 1)
+    }
+    
+    func testThatItSetsListHeaderView() {
+        // given
+        let headerView = UIView()
+        
+        // when
+        sut.setListHeaderView(headerView)
+        
+        // then
+        XCTAssertEqual(view.setListHeaderViewCount, 1)
+        XCTAssertEqual(view.headerView, headerView)
+    }
+    
+    func testThatItReloadsWithNewAPI() {
+        // given
+        let api = MockUsersListAPI()
+        let pageResponse = UsersListResponse(users: [], cursor: nil)
+        interactor.getUsersListResult = .success(pageResponse)
+
+        // when
+        sut.reload(with: api)
+        
+        // then
+        XCTAssertEqual(interactor.setAPICount, 1)
+        let interactorAPI = interactor.api as? MockUsersListAPI
+        XCTAssertTrue(interactorAPI === api)
+        
         validatePageLoaded(page: 1)
     }
 }

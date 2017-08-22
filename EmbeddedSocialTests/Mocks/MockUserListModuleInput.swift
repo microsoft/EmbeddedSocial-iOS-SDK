@@ -13,7 +13,7 @@ class MockUserListModuleInput: UserListModuleInput {
     private(set) var api: UsersListAPI?
     private(set) var headerView: UIView?
     
-    let listView = UIView()
+    var listView = UIView()
 
     func setupInitialState() {
         setupInitialStateCount += 1

@@ -7,26 +7,28 @@ import UIKit
 
 /*
  
- */
+*/
 
 class FeedModuleConfigurator {
     
-    weak var viewController: UIViewController!
-    weak var moduleInput: FeedModuleInput!
+    var viewController: UIViewController!
+    var moduleInput: FeedModuleInput!
     let cache: CacheType
     weak var userHolder: UserHolder?
     
-    required init(cache: CacheType, userHolder: UserHolder? = SocialPlus.shared) {
+    required init(cache: CacheType = SocialPlus.shared.cache, userHolder: UserHolder? = SocialPlus.shared) {
         self.cache = cache
         self.userHolder = userHolder
     }
     
     func configure(navigationController: UINavigationController? = nil,
-                   moduleOutput: FeedModuleOutput? = nil) {
+                   moduleOutput: FeedModuleOutput? = nil,
+                   myProfileOpener: MyProfileOpener? = SocialPlus.shared.coordinator) {
         
         let viewController = StoryboardScene.FeedModule.instantiateFeedModuleViewController()
         let router = FeedModuleRouter()
         router.navigationController = navigationController
+        router.myProfileOpener = myProfileOpener
         
         /*
          let feed = .single(post: "3vErWk4EMrF"))

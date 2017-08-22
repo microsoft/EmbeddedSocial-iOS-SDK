@@ -212,8 +212,4 @@ extension PostDetailPresenter: FeedModuleOutput {
     func didRefreshData() {
         view.updateFeed(view: (feedViewController?.view)!, scrollType: scrollType)
     }
-    
-    func didFailToRefreshData(_ error: Error) {
-//        view.setFilterEnabled(true)
-    }
 }

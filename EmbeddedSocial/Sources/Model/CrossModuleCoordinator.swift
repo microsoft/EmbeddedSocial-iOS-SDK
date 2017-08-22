@@ -128,9 +128,8 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     }()
 
     lazy var configuredPopular: UIViewController = {
-        let configurator = FeedModuleConfigurator(cache: self.cache)
+        let configurator = PopularModuleConfigurator()
         configurator.configure(navigationController: self.navigationStack.navigationController)
-        configurator.moduleInput.setFeed(.popular(type: .alltime))
         configurator.viewController.title = L10n.Popular.screenTitle
         let vc = configurator.viewController!
         return vc
@@ -149,3 +148,5 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     }()
     
 }
+
+extension CrossModuleCoordinator: MyProfileOpener { }

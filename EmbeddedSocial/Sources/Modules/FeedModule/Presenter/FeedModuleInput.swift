@@ -7,7 +7,9 @@ protocol FeedModuleInput: class {
     
     // For feed change
     func setFeed(_ feed: FeedType)
-    // Forcing module to update
+    
+    // Forcing module to update 
+    // Triggers callbacks for start/finish
     func refreshData()
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
@@ -17,4 +19,13 @@ protocol FeedModuleInput: class {
     func moduleHeight() -> CGFloat
     // Change layout
     var layout: FeedModuleLayoutType { get set }
+}
+
+// Optional
+extension FeedModuleInput {
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
+                        size: CGSize,
+                        configurator: @escaping (T) -> Void) { }
+    
+    func moduleHeight() -> CGFloat { return 0 }
 }

@@ -5,8 +5,6 @@
 
 import Foundation
 
-struct SearchPageInfo {
-    let searchResultsController: UIViewController
-    let searchResultsHandler: UISearchResultsUpdating
-    let backgroundView: UIView?
+protocol MyProfileOpener: class {
+    func openMyProfile()
 }

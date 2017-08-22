@@ -22,6 +22,7 @@ class CrossModuleCoordinatorMock: CrossModuleCoordinatorProtocol {
     var configuredPopular: UIViewController { return UIViewController() }
     var configuredUserProfile: UIViewController { return UIViewController() }
     var configuredLogin: UIViewController { return UIViewController() }
+    var configuredSearch: UIViewController { return UIViewController() }
 }
 
 class SocialMenuItemsProviderTests: XCTestCase {
