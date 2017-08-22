@@ -11,9 +11,9 @@ protocol PostDetailViewInput: class {
     */
 
     func setupInitialState()
-    func updateFeed(view: UIView, scrollType: CommentsScrollType)
     func reloadTable(scrollType: CommentsScrollType)
     func postCommentSuccess()
     func postCommentFailed(error: Error)
     func refreshCell(index: Int)
+    func refreshPostCell()
 }

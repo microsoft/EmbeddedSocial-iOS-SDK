@@ -10,7 +10,7 @@ enum CommentCellAction {
     case like, replies, profile, photo
 }
 
-class CommentCell: UITableViewCell {
+class CommentCell: UICollectionViewCell {
 
     @IBOutlet weak var likesCountButton: UIButton!
     @IBOutlet weak var repliesCountButton: UIButton!
@@ -19,6 +19,7 @@ class CommentCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var mediaButton: UIButton!
     @IBOutlet weak var mediaButtonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var repliesButton: UIButton!
 
     @IBOutlet weak var avatarButton: UIButton!
     @IBOutlet weak var postedTimeLabel: UILabel!
@@ -37,12 +38,7 @@ class CommentCell: UITableViewCell {
     static let identifier = "CommentCell"
     static let defaultHeight: CGFloat = 190
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
-    
-    func config(commentView: CommentViewModel) {
+    func config(commentView: CommentViewModel, blockAction: Bool) {
         self.commentView = commentView
         avatarButton.setPhotoWithCaching(Photo(uid: UUID().uuidString,
                                                url: commentView.userImageUrl,
@@ -66,12 +62,15 @@ class CommentCell: UITableViewCell {
         
         postedTimeLabel.text = commentView.timeCreated
         likeButton.isSelected = commentView.isLiked
-        selectionStyle = .none
+
+        repliesButton.isEnabled = !blockAction
+
+        
         contentView.layoutIfNeeded()
     }
 
-    func cellHeight() -> CGFloat {
-        return self.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
+    func cellSize() -> CGSize {
+        return CGSize(width: UIScreen.main.bounds.size.width, height: self.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)
     }
     
     @IBAction func commentOptionsPressed(_ sender: Any) {
