@@ -66,6 +66,12 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         }()
     
     // MARK: Life cycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // TODO: remove parent, waiting for menu proxy controller refactor
+        parent?.navigationItem.rightBarButtonItem = layoutChangeButton
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
@@ -75,9 +81,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.collectionView.backgroundColor = Palette.extraLightGrey
         self.collectionView.delegate = self
           collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
-        
-        // TODO: remove parent, waiting for menu proxy controller refactor
-        parent?.navigationItem.rightBarButtonItem = layoutChangeButton
     }
     
     override func viewDidLayoutSubviews() {
