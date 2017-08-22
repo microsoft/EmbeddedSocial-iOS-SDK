@@ -5,7 +5,7 @@
 
 import UIKit
 
-class ReplyCell: UITableViewCell {
+class ReplyCell: UICollectionViewCell {
 
     static let defaultHeight: CGFloat = 120
 
@@ -22,13 +22,6 @@ class ReplyCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func config(replyView: ReplyViewModel) {
@@ -44,8 +37,11 @@ class ReplyCell: UITableViewCell {
         
         postTimeLabel.text = replyView.timeCreated
         likeButton.isSelected = replyView.isLiked
-        selectionStyle = .none
         contentView.layoutIfNeeded()
+    }
+    
+    func cellSize() -> CGSize {
+        return CGSize(width: UIScreen.main.bounds.size.width, height: self.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)
     }
     
     @IBAction func like(_ sender: Any) {

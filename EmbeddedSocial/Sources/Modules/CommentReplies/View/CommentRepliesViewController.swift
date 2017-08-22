@@ -25,12 +25,15 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     fileprivate var isNewDataLoading = false
     fileprivate let reloadDelay = 0.2
     
-    @IBOutlet weak var tableView: UITableView!
+    fileprivate var prototypeCommentCell: CommentCell!
+    fileprivate var prototypeReplyCell: ReplyCell!
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
-            #selector(PostDetailViewController.handleRefresh(_:)),
+            #selector(CommentRepliesViewController.handleRefresh(_:)),
                                  for: UIControlEvents.valueChanged)
         return refreshControl
     }()
@@ -45,11 +48,11 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.addSubview(self.refreshControl)
-        tableView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
+        collectionView.addSubview(self.refreshControl)
+        collectionView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
         refreshControl.beginRefreshing()
         view.isUserInteractionEnabled = false
-        configTableView()
+        configCollecionView()
         configTextView()
         output.viewIsReady()
     }
@@ -59,14 +62,13 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         output.refresh()
     }
 
-    func configTableView() {
-        tableView.tableFooterView = UIView()
-        tableView.register(UINib(nibName: ReplyCell.reuseID, bundle: Bundle(for: ReplyCell.self)), forCellReuseIdentifier: ReplyCell.reuseID)
-        tableView.register(UINib(nibName: CommentCell.reuseID, bundle: Bundle(for: CommentCell.self)), forCellReuseIdentifier: CommentCell.reuseID)
-        tableView.estimatedRowHeight = ReplyCell.defaultHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.delegate = self
-        tableView.dataSource = self
+    func configCollecionView() {
+        prototypeReplyCell = ReplyCell.nib.instantiate(withOwner: nil, options: nil).first as? ReplyCell
+        prototypeCommentCell = CommentCell.nib.instantiate(withOwner: nil, options: nil).first as? CommentCell
+        collectionView.register(ReplyCell.nib, forCellWithReuseIdentifier: ReplyCell.reuseID)
+        collectionView.register(CommentCell.nib, forCellWithReuseIdentifier: CommentCell.reuseID)
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     func configTextView() {
@@ -78,7 +80,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     
     fileprivate func scrollTableToBottom() {
         if  output.numberOfItems() > 1 {
-            tableView.scrollToRow(at: IndexPath(row: output.numberOfItems() - 1, section: RepliesSections.replies.rawValue), at: .bottom, animated: true)
+            collectionView.scrollToItem(at: IndexPath(row: output.numberOfItems() - 1, section: RepliesSections.replies.rawValue), at: .bottom, animated: true)
         }
     }
     
@@ -91,16 +93,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         view.isUserInteractionEnabled = true
         SVProgressHUD.dismiss()
     }
-    
-    func setIsLoading(_ isLoading: Bool) {
-        loadingIndicatorView.isLoading = isLoading
-        if isLoading {
-            tableView.tableFooterView = loadingIndicatorView
-        } else {
-            tableView.tableFooterView = UIView()
-        }
-    }
-    
+ 
     @IBAction func postReply(_ sender: Any) {
         lockUI()
         output.postReply(text: replyTextView.text)
@@ -108,20 +101,19 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     
     // MARK: CommentRepliesViewInput
     func reloadReplies() {
-        tableView.reloadSections(IndexSet(integer: RepliesSections.replies.rawValue), with: .none)
+        collectionView.reloadSections(IndexSet(integer: RepliesSections.replies.rawValue))
     }
 
     func refreshReplyCell(index: Int) {
-        tableView.reloadRows(at: [IndexPath(item: index, section: RepliesSections.replies.rawValue)], with: .none)
+        collectionView.reloadItems(at: [IndexPath(item: index, section: RepliesSections.replies.rawValue)])
     }
     
     func reloadTable(scrollType: RepliesScrollType) {
         refreshControl.endRefreshing()
-        setIsLoading(false)
         self.isNewDataLoading = false
         unlockUI()
         postButton.isHidden = replyTextView.text.isEmpty
-        tableView.reloadData()
+        collectionView.reloadData()
         switch scrollType {
         case .bottom:
             DispatchQueue.main.asyncAfter(deadline: .now() + reloadDelay) {
@@ -141,40 +133,17 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     }
     
     func refreshCommentCell() {
-        tableView.reloadRows(at: [IndexPath(item: 0, section: RepliesSections.comment.rawValue)], with: .none)
+        collectionView.reloadItems(at: [IndexPath(item: 0, section: RepliesSections.comment.rawValue)])
     }
     
 }
 
-extension CommentRepliesViewController: UITableViewDelegate {
-    
-}
-
-extension CommentRepliesViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case RepliesSections.comment.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
-            cell.config(commentView: output.mainComment())
-            cell.tag = output.mainComment().tag
-            return cell
-        case RepliesSections.replies.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
-            cell.config(replyView: output.replyView(index: indexPath.row))
-            cell.tag = indexPath.row
-            if  output.numberOfItems() - 1 < indexPath.row + 1 && isNewDataLoading == false && output.canFetchMore() {
-                isNewDataLoading = true
-                setIsLoading(true)
-                output.fetchMore()
-            }
-            return cell
-        default:
-            return UITableViewCell()
-        }
-
+extension CommentRepliesViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return RepliesSections.sectionsCount.rawValue
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case RepliesSections.comment.rawValue:
             return 1
@@ -185,8 +154,40 @@ extension CommentRepliesViewController: UITableViewDataSource {
         }
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return RepliesSections.sectionsCount.rawValue
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch indexPath.section {
+            case RepliesSections.comment.rawValue:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
+                cell.config(commentView: output.mainComment(), blockAction: true)
+                cell.tag = output.mainComment().tag
+                return cell
+            case RepliesSections.replies.rawValue:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
+                cell.config(replyView: output.replyView(index: indexPath.row))
+                cell.tag = indexPath.row
+                if  output.numberOfItems() - 1 < indexPath.row + 1 && isNewDataLoading == false && output.canFetchMore() {
+                    isNewDataLoading = true
+                    output.fetchMore()
+                }
+                return cell
+            default:
+                return UICollectionViewCell()
+            }
+    }
+}
+
+extension CommentRepliesViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        switch indexPath.section {
+        case RepliesSections.comment.rawValue:
+            prototypeCommentCell.config(commentView: output.mainComment(), blockAction: true)
+            return prototypeCommentCell.cellSize()
+        case RepliesSections.replies.rawValue:
+            prototypeReplyCell.config(replyView: output.replyView(index: indexPath.row))
+            return prototypeReplyCell.cellSize()
+        default:
+            return CGSize()
+        }
     }
 }
 
@@ -194,7 +195,7 @@ extension CommentRepliesViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         replyTextViewHeightConstraint.constant = replyTextView.contentSize.height
         view.layoutIfNeeded()
-        postButton.isHidden = textView.text.isEmpty
+        postButton.isHidden = textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

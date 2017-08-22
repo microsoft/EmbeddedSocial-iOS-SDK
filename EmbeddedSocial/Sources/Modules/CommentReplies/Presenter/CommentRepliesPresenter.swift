@@ -25,7 +25,11 @@ struct ReplyViewModel {
     var onAction: ActionHandler?
 }
 
-class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutput, CommentRepliesInteractorOutput {
+protocol SharedCommentsPresenterProtocol {
+    func refreshCommentCell(commentView: CommentViewModel)
+}
+
+class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutput, CommentRepliesInteractorOutput, SharedCommentsPresenterProtocol {
 
     weak var view: CommentRepliesViewInput?
     var interactor: CommentRepliesInteractorInput!
@@ -59,6 +63,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         viewModel.userImageUrl = reply.userPhotoUrl
         
         viewModel.isLiked = reply.liked
+        
         
         viewModel.cellType = CommentCell.reuseID
         viewModel.onAction = { [weak self] action, index in
