@@ -209,7 +209,7 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
 
 extension PostDetailPresenter: FeedModuleOutput {
     
-    func didRefreshData() {
+    func didFinishRefreshingData(_ error: Error?) {
         view.updateFeed(view: (feedViewController?.view)!, scrollType: scrollType)
     }
 }

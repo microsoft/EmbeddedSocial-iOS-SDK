@@ -2632,7 +2632,7 @@
 			isa = PBXGroup;
 			children = (
 				63F8488E1F4ADD3B00D434CF /* CommentReplies */,
-				9C6244F01F457DDC004814BB /* PostMenu */,
+				9C2D9C0D1F4AFB81001514C3 /* Popular */,
 				88F7A7991F27976E005FEC5F /* CreateAccount */,
 				889AFC081F220BCD003AAF19 /* CreatePost */,
 				8811C8B21F44542600F7513D /* EditProfile */,
