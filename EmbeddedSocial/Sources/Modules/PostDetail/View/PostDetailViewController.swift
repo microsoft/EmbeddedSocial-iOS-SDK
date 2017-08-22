@@ -7,7 +7,7 @@ import UIKit
 import SVProgressHUD
 import SKPhotoBrowser
 
-fileprivate enum TableSections: Int {
+fileprivate enum CollectionViewSections: Int {
     case post = 0
     case comments
     case sectionsCount
@@ -15,7 +15,18 @@ fileprivate enum TableSections: Int {
 
 class PostDetailViewController: BaseViewController, PostDetailViewInput {
 
+    @IBOutlet weak var collectionView: UICollectionView!
     var output: PostDetailViewOutput!
+    
+    fileprivate lazy var sizingCell: PostCell = { [unowned self] in
+        let cell = PostCell.nib.instantiate(withOwner: nil, options: nil).last as! PostCell
+        let width = self.collectionView.bounds.width
+        let height = cell.frame.height
+        cell.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        return cell
+        }()
+    
+    fileprivate var prototypeCommentCell: CommentCell?
     
     //constants
     fileprivate let reloadDelay = 0.2
@@ -25,7 +36,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
 
     @IBOutlet weak var postButton: UIButton!
     @IBOutlet weak var commentTextView: UITextView!
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var commentTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var mediaButton: UIButton!
     
@@ -46,8 +56,8 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.addSubview(self.refreshControl)
-        tableView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
+        collectionView.addSubview(self.refreshControl)
+        collectionView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
         refreshControl.beginRefreshing()
         output.viewIsReady()
     }
@@ -60,46 +70,45 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     func setupInitialState() {
         imagePikcer.delegate = self
         mediaButton.isEnabled = false
-        configTableView()
+        configCollectionView()
         configTextView()
     }
     
-    func updateFeed(view: UIView, scrollType: CommentsScrollType) {
-        commentTextView.isEditable = true
-        mediaButton.isEnabled = true
-        postView = view
-        reloadTable(scrollType: scrollType)
+    func refreshPostCell() {
+        collectionView.reloadItems(at: [IndexPath(item: 0, section: CollectionViewSections.post.rawValue)])
     }
 
-    private func configTableView() {
-        prototypeCell = UINib(nibName: CommentCell.identifier, bundle: Bundle(for: CommentCell.self)).instantiate(withOwner: nil, options: nil).first as? CommentCell
-        tableView.tableFooterView = UIView()
-        tableView.register(UINib(nibName: CommentCell.identifier, bundle: Bundle(for: CommentCell.self)), forCellReuseIdentifier: CommentCell.identifier)
-        tableView.delegate = self
-        tableView.dataSource = self
+    private func configCollectionView() {
+        prototypeCommentCell = CommentCell.nib.instantiate(withOwner: nil, options: nil).first as? CommentCell
+        self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
+        self.collectionView.register(CommentCell.nib, forCellWithReuseIdentifier: CommentCell.reuseID)
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
     
     func reloadTable(scrollType: CommentsScrollType) {
+        collectionView.reloadData()
         refreshControl.endRefreshing()
         self.isNewDataLoading = false
-        tableView.reloadData()
+        commentTextView.isEditable = true
+        mediaButton.isEnabled = true
         switch scrollType {
             case .bottom:
                 DispatchQueue.main.asyncAfter(deadline: .now() + reloadDelay) {
-                    self.scrollTableToBottom()
+                    self.scrollCollectionViewToBottom()
                 }
             default: break
         }
     }
     
-    fileprivate func scrollTableToBottom() {
+    fileprivate func scrollCollectionViewToBottom() {
         if  output.numberOfItems() > 1 {
-            tableView.scrollToRow(at: IndexPath(row: output.numberOfItems() - 1, section: TableSections.comments.rawValue), at: .bottom, animated: true)
+            collectionView.scrollToItem(at: IndexPath(row: output.numberOfItems() - 1, section: CollectionViewSections.comments.rawValue), at: .bottom, animated: true)
         }
     }
     
     func refreshCell(index: Int) {
-        tableView.reloadRows(at: [IndexPath.init(row: index, section: TableSections.comments.rawValue)], with: .none)
+        collectionView.reloadItems(at: [IndexPath.init(row: index, section: CollectionViewSections.comments.rawValue)])
     }
     
     func postCommentSuccess() {
@@ -109,8 +118,9 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         postButton.isHidden = true
         SVProgressHUD.dismiss()
         view.layoutIfNeeded()
-        tableView.reloadData()
-        scrollTableToBottom()
+        collectionView.reloadData()
+        scrollCollectionViewToBottom()
+
     }
     
     func postCommentFailed(error: Error) {
@@ -118,13 +128,13 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         SVProgressHUD.dismiss()
     }
     
-    func clearImage() {
+    fileprivate func clearImage() {
         photo = nil
         imagePikcer.imageWasSelected = false
         mediaButton.setImage( UIImage(asset: .placeholderPostNoimage), for: .normal)
     }
     
-    func configTextView() {
+    private func configTextView() {
         commentTextView.isEditable = false
         commentTextView.layer.borderWidth = 1
         commentTextView.layer.borderColor = UIColor.lightGray.cgColor
@@ -146,65 +156,72 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
 }
 
-extension PostDetailViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case TableSections.post.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            cell.addSubview(postView!)
-            return cell
-        case TableSections.comments.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
-            cell.tag = indexPath.row
-            cell.config(commentView: output.commentViewModel(index: indexPath.row))
-            if  output.numberOfItems() - 1 < indexPath.row + 2  && isNewDataLoading == false {
-                isNewDataLoading = true
-                output.fetchMore()
-            }
-            return cell
-        default:
-            return UITableViewCell()
-        }
 
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension PostDetailViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case TableSections.post.rawValue:
-            if postView == nil {
-                return 0
-            }
+        case CollectionViewSections.post.rawValue:
             return 1
-            
-        case TableSections.comments.rawValue:
+        case CollectionViewSections.comments.rawValue:
             return output.numberOfItems()
         default:
             return 0
         }
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return TableSections.sectionsCount.rawValue
-    }
-}
-
-extension PostDetailViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
-        case TableSections.post.rawValue:
-            return output.feedModuleHeight()
-        case TableSections.comments.rawValue:
-            prototypeCell?.config(commentView: output.commentViewModel(index: indexPath.row))
-            return prototypeCell!.cellHeight()
+        case CollectionViewSections.post.rawValue:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.reuseID, for: indexPath) as! PostCell
+            cell.configure(with: output.post!, collectionView: collectionView)
+            cell.commentButton.isEnabled = false
+            cell.tag = (output.post?.tag)!
+            return cell
+        case CollectionViewSections.comments.rawValue:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
+            cell.config(commentView: output.commentViewModel(index: indexPath.row), blockAction: false)
+            cell.tag = indexPath.row
+            if  output.numberOfItems() > indexPath.row + 1 && isNewDataLoading == false {
+                isNewDataLoading = true
+                output.fetchMore()
+            }
+            return cell
         default:
-            return 0
+            return UICollectionViewCell()
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == TableSections.comments.rawValue {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return CollectionViewSections.sectionsCount.rawValue
+    }
+}
+
+extension PostDetailViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == CollectionViewSections.comments.rawValue {
             output.openReplies(index: indexPath.row)
+        }
+    }
+}
+
+extension PostDetailViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        switch indexPath.section {
+        case CollectionViewSections.post.rawValue:
+            sizingCell.configure(with: output.post!, collectionView: collectionView)
+            
+            // TODO: remake via manual calculation
+            sizingCell.needsUpdateConstraints()
+            sizingCell.updateConstraints()
+            sizingCell.setNeedsLayout()
+            sizingCell.layoutIfNeeded()
+            
+            return sizingCell.container.bounds.size
+        case CollectionViewSections.comments.rawValue:
+            prototypeCommentCell?.config(commentView: output.commentViewModel(index: indexPath.row), blockAction: false)
+            return CGSize(width: UIScreen.main.bounds.size.width, height: (prototypeCommentCell?.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)!)
+        default:
+            return CGSize(width: 0, height: 0)
         }
     }
 }
@@ -213,7 +230,7 @@ extension PostDetailViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         commentTextViewHeightConstraint.constant = commentTextView.contentSize.height
         view.layoutIfNeeded()
-        postButton.isHidden = textView.text.isEmpty
+        postButton.isHidden = textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

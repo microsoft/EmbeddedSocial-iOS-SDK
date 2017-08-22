@@ -16,6 +16,25 @@ class FeedModuleRouter: FeedModuleRouterInput {
     // Keeping ref to menu
     var postMenuViewController: UIViewController?
     
+    func open(route: FeedModuleRoutes, presenter: FeedModulePresenter) {
+        switch route {
+        case .postDetails(let post):
+        
+            let configurator = PostDetailModuleConfigurator()
+            configurator.configure(post: post, scrollType: .none, postPresenter: presenter)
+            
+            navigationController?.pushViewController(configurator.viewController, animated: true)
+        case .comments(let post):
+            
+            let configurator = PostDetailModuleConfigurator()
+            configurator.configure(post: post, scrollType: .bottom, postPresenter: presenter)
+            
+            navigationController?.pushViewController(configurator.viewController, animated: true)
+        default: break     
+        }
+       
+    }
+    
     func open(route: FeedModuleRoutes, feedSource: FeedType) {
         
         switch route {
@@ -25,18 +44,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
             configurator.configure(userID: userHandle, navigationController: navigationController)
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
-        case .postDetails(let post):
-            
-            let configurator = PostDetailModuleConfigurator()
-            configurator.configure(post: post, navigationController: navigationController, scrollType: .none)
-            
-            navigationController?.pushViewController(configurator.viewController, animated: true)
-        case .comments(let post):
-            
-            let configurator = PostDetailModuleConfigurator()
-            configurator.configure(post: post, navigationController: navigationController, scrollType: .bottom)
-            
-            navigationController?.pushViewController(configurator.viewController, animated: true)
+
         case .openImage(let imageUrl):
             let photo = SKPhoto.photoWithImageURL(imageUrl)
             let browser = SKPhotoBrowser(photos: [photo])

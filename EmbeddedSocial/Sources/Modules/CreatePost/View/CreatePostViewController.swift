@@ -120,6 +120,6 @@ extension CreatePostViewController: UITextViewDelegate {
         postBodyTextViewHeightConstraint.constant = postBodyTextView.contentSize.height
         view.layoutIfNeeded()
         textView.setContentOffset(CGPoint.zero, animated:false)
-        postButton.isEnabled = !textView.text.trimmingCharacters(in: CharacterSet(charactersIn: " ")).isEmpty
+        postButton.isEnabled = !textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }

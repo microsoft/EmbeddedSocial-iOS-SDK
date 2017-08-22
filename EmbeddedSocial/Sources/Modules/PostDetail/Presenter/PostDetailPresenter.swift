@@ -3,19 +3,20 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDetailInteractorOutput {
+protocol SharedPostDetailPresenterProtocol: class {
+    func refresh(post: PostViewModel)
+}
+
+class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, SharedPostDetailPresenterProtocol {
     
     weak var view: PostDetailViewInput!
     var interactor: PostDetailInteractorInput!
     var router: PostDetailRouterInput!
     var scrollType: CommentsScrollType = .none
     
-    var repliesPresenter: CommentRepliesPresenter?
+    var repliesPresenter: SharedCommentsPresenterProtocol?
     
-    var feedViewController: UIViewController?
-    var feedModuleInput: FeedModuleInput?
-    
-    var post: Post?
+    var post: PostViewModel?
 
     var comments = [Comment]()
     
@@ -91,6 +92,12 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         
     }
     
+    // MARK: SharedPostDetailPresenterProtocol
+    func refresh(post: PostViewModel) {
+        self.post = post
+        view.refreshPostCell()
+    }
+    
     // MARK: PostDetailInteractorOutput
     func didFetch(comments: [Comment], cursor: String?) {
         self.cursor = cursor
@@ -152,28 +159,14 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
         interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: normalLimit)
     }
     
-    func feedModuleHeight() -> CGFloat {
-        guard let moduleHeight = feedModuleInput?.moduleHeight() else {
-            return 0
-        }
-        
-        return moduleHeight
-    }
-    
     func viewIsReady() {
         view.setupInitialState()
-        setupFeed()
         switch scrollType {
             case .bottom:
                 interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: maxLimit)
             default:
                 interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: normalLimit)
         }
-    }
-    
-    private func setupFeed() {
-        feedModuleInput?.setFeed(.single(post: (post?.topicHandle)!))
-        feedModuleInput?.refreshData()
     }
     
     func loadRestComments() {
@@ -207,9 +200,3 @@ class PostDetailPresenter: PostDetailModuleInput, PostDetailViewOutput, PostDeta
     }
 }
 
-extension PostDetailPresenter: FeedModuleOutput {
-    
-    func didFinishRefreshingData(_ error: Error?) {
-        view.updateFeed(view: (feedViewController?.view)!, scrollType: scrollType)
-    }
-}

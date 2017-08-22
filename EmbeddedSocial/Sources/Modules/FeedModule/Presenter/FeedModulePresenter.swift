@@ -53,6 +53,7 @@ struct PostViewModel {
     
     typealias ActionHandler = (PostCellAction, IndexPath) -> Void
     
+    var topicHandle: String = ""
     var userName: String = ""
     var title: String = ""
     var text: String = ""
@@ -65,6 +66,7 @@ struct PostViewModel {
     var userImageUrl: String? = nil
     var postImageUrl: String? = nil
     
+    var tag: Int = 0
     var cellType: String = PostCell.reuseID
     var onAction: ActionHandler?
 }
@@ -109,6 +111,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     weak var moduleOutput: FeedModuleOutput?
     weak var userHolder: UserHolder?
+    
+    weak var commentsPresenter: SharedPostDetailPresenterProtocol?
     
     var layout: FeedModuleLayoutType = .list {
         didSet {
@@ -190,6 +194,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     private func viewModel(with post: Post) -> PostViewModel {
         
         var viewModel = PostViewModel()
+        viewModel.topicHandle = post.topicHandle
         viewModel.userName = String(format: "%@ %@", (post.firstName ?? ""), (post.lastName ?? ""))
         viewModel.title = post.title ?? ""
         viewModel.text = post.text ?? ""
@@ -205,6 +210,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         viewModel.isLiked = post.liked
         viewModel.isPinned = post.pinned
         
+        viewModel.tag = items.index(of: post) ?? 0
         viewModel.cellType = layout.cellType
         viewModel.onAction = { [weak self] action, path in
             self?.handle(action: action, path: path)
@@ -231,7 +237,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         
         switch action {
         case .comment:
-            router.open(route: .comments(post: post), feedSource: feedType!)
+            router.open(route: .comments(post: viewModel(with: post)), presenter: self)
         case .extra:
             
             let isMyPost = (userHolder?.me?.uid == userHandle)
@@ -255,6 +261,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             }
             
             view.reload(with: index)
+            commentsPresenter?.refresh(post: viewModel(with: items[index]))
             interactor.postAction(post: postHandle, action: action)
             
         case .pin:
@@ -329,7 +336,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didTapItem(path: IndexPath) {
         Logger.log(path)
-        router.open(route: .postDetails(post: items[path.row]), feedSource: feedType!)
+        router.open(route: .postDetails(post: viewModel(with: items[path.row])), presenter: self)
     }
     
     // MARK: FeedModuleInteractorOutput

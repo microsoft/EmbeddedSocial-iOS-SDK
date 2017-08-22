@@ -7,11 +7,11 @@ import Foundation
 
 enum FeedModuleRoutes {
     
-    case postDetails(post: Post)
+    case postDetails(post: PostViewModel)
     case myPost(post: Post)
     case othersPost(post: Post)
     case openImage(image: String)
-    case comments(post: Post)
+    case comments(post: PostViewModel)
     case profileDetailes(user: UserHandle)
     case myProfile
 }
@@ -20,5 +20,6 @@ enum FeedModuleRoutes {
 protocol FeedModuleRouterInput {
     
     func open(route: FeedModuleRoutes, feedSource:FeedType)
+    func open(route: FeedModuleRoutes, presenter: FeedModulePresenter)
 
 }
