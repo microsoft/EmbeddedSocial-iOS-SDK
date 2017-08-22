@@ -15,12 +15,12 @@ struct SearchConfigurator {
     
     func configure(isLoggedInUser: Bool) {
         let conf = SearchPeopleConfigurator()
-        let peopleSearchModule = conf.configure()
+        let peopleSearchModule = conf.configure(isLoggedInUser: isLoggedInUser)
         
         let presenter = SearchPresenter()
         presenter.view = viewController
         presenter.peopleSearchModule = peopleSearchModule
-        presenter.interactor = SearchInteractor(isLoggedInUser: isLoggedInUser)
+        presenter.interactor = SearchInteractor()
         
         viewController.output = presenter
     }

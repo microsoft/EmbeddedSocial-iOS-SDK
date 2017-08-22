@@ -10,7 +10,7 @@ protocol SearchPeopleModuleInput: class {
     
     func searchResultsHandler() -> UISearchResultsUpdating
     
-    func backgroundView() -> UIView
+    func backgroundView() -> UIView?
     
     func searchResultsController() -> UIViewController
 }

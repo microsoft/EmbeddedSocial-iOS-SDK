@@ -267,6 +267,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             interactor.postAction(post: postHandle, action: action)
             
         case .profile:
+            guard moduleOutput?.shouldOpenProfile(for: userHandle) ?? true else { return }
+            
             let isMyProfile = userHolder?.me?.uid == userHandle
             
             if isMyProfile {

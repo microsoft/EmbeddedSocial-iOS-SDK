@@ -8,6 +8,8 @@ protocol FeedModuleOutput: class {
     
     func didStartRefreshingData()
     func didFinishRefreshingData(_ error: Error?)
+    
+    func shouldOpenProfile(for userID: String) -> Bool
 }
 
 //MARK: Optional methods
@@ -16,4 +18,8 @@ extension FeedModuleOutput {
     
     func didStartRefreshingData() { }
     func didFinishRefreshingData(_ error: Error?) { }
+    
+    func shouldOpenProfile(for userID: String) -> Bool {
+        return true
+    }
 }

@@ -198,6 +198,9 @@
 		884AA9911F3C563F00B85135 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884AA94B1F3C563F00B85135 /* UserProfileView.swift */; };
 		884AA9921F3C563F00B85135 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884AA94C1F3C563F00B85135 /* Models.swift */; };
 		884AD7741F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884AD7731F25E7C900536494 /* TransactionsDatabaseFacadeProtocol.swift */; };
+		884C9C321F4C36B90004907F /* UserProfilePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA561F2F7F780066A1A0 /* UserProfilePresenterTests.swift */; };
+		884C9C331F4C371B0004907F /* MyProfileHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA661F30AB170066A1A0 /* MyProfileHolder.swift */; };
+		884C9C341F4C3E940004907F /* UserListPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F551921F336D9200F4AAB9 /* UserListPresenterTests.swift */; };
 		88580B9E1F2213AB00C1CBAF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580A881F2213AB00C1CBAF /* BaseViewController.swift */; };
 		88580B9F1F2213AB00C1CBAF /* ButtonWithTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580A891F2213AB00C1CBAF /* ButtonWithTarget.swift */; };
 		88580BA01F2213AB00C1CBAF /* CellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580A8A1F2213AB00C1CBAF /* CellModel.swift */; };
@@ -1934,7 +1937,6 @@
 				8811C8261F3C809400F7513D /* ImagesService.swift */,
 				9CEA75271F2A1FA0009FC89D /* LikesService.swift */,
 				9CEA75291F2A1FAA009FC89D /* PinsService.swift */,
-				8864C82B1F45EC2A00ADCE13 /* SearchService.swift */,
 				88580B211F2213AB00C1CBAF /* SessionService.swift */,
 				886F4B3A1F2A06E500D836C3 /* SocialService.swift */,
 				63A1D6FA1F25E78D0090C67A /* TopicService.swift */,
@@ -2365,7 +2367,7 @@
 			children = (
 				8864C8531F470AA300ADCE13 /* Configurator */,
 				8864C84A1F4707BF00ADCE13 /* Presenter */,
-				889119A51F470E21005B3B32 /* SearchInteractor */,
+				889119A51F470E21005B3B32 /* Interactor */,
 				8864C8471F46E3B700ADCE13 /* View */,
 			);
 			path = Search;
@@ -2537,13 +2539,14 @@
 			path = SegmentedControlView;
 			sourceTree = "<group>";
 		};
-		889119A51F470E21005B3B32 /* SearchInteractor */ = {
+		889119A51F470E21005B3B32 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
 				889119A31F470E1E005B3B32 /* SearchInteractor.swift */,
 				889119A61F470E3E005B3B32 /* SearchInteractorInput.swift */,
 				8864C84F1F4709D300ADCE13 /* SearchPageInfo.swift */,
 			);
+			name = Interactor;
 			path = SearchInteractor;
 			sourceTree = "<group>";
 		};
@@ -4163,6 +4166,7 @@
 				63F8489D1F4AE85E00D434CF /* MockCommentRepliesViewController.swift in Sources */,
 				88635D7D1F22434300577140 /* CoreDataHelper.swift in Sources */,
 				9CD760FC1F33149E00ABBB2A /* PostTests.swift in Sources */,
+				884C9C321F4C36B90004907F /* UserProfilePresenterTests.swift in Sources */,
 				88F7A78B1F2789F0005FEC5F /* MockUserService.swift in Sources */,
 				889119AA1F4AE071005B3B32 /* SearchPeopleInteractorTests.swift in Sources */,
 				88FFFA571F2F7F780066A1A0 /* MockUserProfileInteractor.swift in Sources */,
@@ -4178,6 +4182,7 @@
 				88F1637D1F264B0F00DAAF68 /* SessionStoreTests.swift in Sources */,
 				889AFC291F220BCD003AAF19 /* MockAuthAPI.swift in Sources */,
 				889119B01F4AE3BF005B3B32 /* SuggestedUsersAPITests.swift in Sources */,
+				884C9C331F4C371B0004907F /* MyProfileHolder.swift in Sources */,
 				889AFC201F220BCD003AAF19 /* UIImage+Ext.swift in Sources */,
 				88F7A7971F278E24005FEC5F /* MockLoginModuleOutput.swift in Sources */,
 				88F7A7911F278C9B005FEC5F /* MockLoginViewInput.swift in Sources */,
@@ -4261,6 +4266,7 @@
 				88FFFA5F1F2F81A70066A1A0 /* FollowStatusTests.swift in Sources */,
 				88F551CE1F39E9D400F4AAB9 /* FollowersPresenterTests.swift in Sources */,
 				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
+				884C9C341F4C3E940004907F /* UserListPresenterTests.swift in Sources */,
 				88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */,
 				889119C31F4AFBB1005B3B32 /* MockSearchView.swift in Sources */,
 				8811C8BD1F4457E500F7513D /* MockEditProfileView.swift in Sources */,

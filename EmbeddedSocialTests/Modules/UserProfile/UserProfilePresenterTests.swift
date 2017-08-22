@@ -52,6 +52,8 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertEqual(myProfileHolder.setMeCount, 2)
         XCTAssertEqual(interactor.getMeCount, 1)
         XCTAssertEqual(interactor.cachedUserCount, 0)
+        XCTAssertEqual(view.layoutAsset, feedInput.layout.nextLayoutAsset)
+
         validateViewInitialState(with: user, userIsCached: true)
         validateFeedInitialState(with: user)
     }
@@ -68,6 +70,9 @@ class UserProfilePresenterTests: XCTestCase {
         
         // then
         validateInitialState(with: user)
+        
+        XCTAssertEqual(view.layoutAsset, feedInput.layout.nextLayoutAsset)
+
         XCTAssertEqual(interactor.getUserCount, 1)
         XCTAssertEqual(interactor.cachedUserCount, 1)
     }
@@ -135,6 +140,8 @@ class UserProfilePresenterTests: XCTestCase {
     private func validateFeedInitialState(with user: User) {
         XCTAssertEqual(feedInput.registerHeaderCount, 1)
         XCTAssertEqual(view.setFeedViewControllerCount, 1)
+        XCTAssertEqual(view.setLayoutAssetCount, 1)
+        XCTAssertEqual(view.layoutAsset, Asset.iconList)
         XCTAssertEqual(feedInput.setFeedCount, 1)
         XCTAssertEqual(feedInput.feedType, .user(user: user.uid, scope: .recent))
     }
@@ -311,6 +318,23 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertNotNil(view.lastFollowersCount)
     }
     
+    func testThatItFlipsFeedLayout() {
+        // given
+        let initialLayout = feedInput.layout
+        let flippedLayout = initialLayout.flipped
+        let presenter = makeDefaultPresenter()
+        
+        // when
+        presenter.onFlipFeedLayout()
+        
+        // then
+        XCTAssertEqual(feedInput.setLayoutCount, 1)
+        XCTAssertEqual(feedInput.layout, flippedLayout)
+        
+        XCTAssertEqual(view.setLayoutAssetCount, 1)
+        XCTAssertEqual(view.layoutAsset, flippedLayout.nextLayoutAsset)
+    }
+    
     fileprivate func makeDefaultPresenter(userID: String? = nil) -> UserProfilePresenter {
         let presenter = UserProfilePresenter(userID: userID, myProfileHolder: myProfileHolder)
         presenter.view = view
@@ -359,7 +383,7 @@ extension UserProfilePresenterTests {
         let presenter = makeDefaultPresenter()
 
         // when
-        presenter.didFinishRefreshingData()
+        presenter.didFinishRefreshingData(nil)
         
         // then
         XCTAssertEqual(view.setFilterEnabledCount, 1)
@@ -371,11 +395,35 @@ extension UserProfilePresenterTests {
         let presenter = makeDefaultPresenter()
         
         // when
-        presenter.didFailToRefreshData(APIError.unknown)
+        presenter.didFinishRefreshingData(APIError.unknown)
         
         // then
         XCTAssertEqual(view.setFilterEnabledCount, 1)
         XCTAssertEqual(view.isFilterEnabled, true)
+    }
+    
+    func testThatItShouldNotOpenMyProfileFromMyFeed() {
+        // given
+        let presenter = makeDefaultPresenter()
+        
+        // when
+        
+        // then
+        XCTAssertFalse(presenter.shouldOpenProfile(for: myProfileHolder.me!.uid))
+        XCTAssertTrue(presenter.shouldOpenProfile(for: UUID().uuidString))
+    }
+    
+    func testThatItShouldNotOpenOtherUserProfileFromHisFeed() {
+        // given
+        let userID = UUID().uuidString
+        let presenter = makeDefaultPresenter(userID: userID)
+        
+        // when
+        
+        // then
+        XCTAssertFalse(presenter.shouldOpenProfile(for: myProfileHolder.me!.uid))
+        XCTAssertFalse(presenter.shouldOpenProfile(for: userID))
+        XCTAssertTrue(presenter.shouldOpenProfile(for: UUID().uuidString))
     }
 }
 

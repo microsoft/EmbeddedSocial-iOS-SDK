@@ -10,8 +10,13 @@ class MockFeedModuleInput: FeedModuleInput {
     private(set) var feedType: FeedType?
     private(set) var refreshDataCount = 0
     private(set) var registerHeaderCount = 0
-    
-    var layout = FeedModuleLayoutType.grid
+    private(set) var setLayoutCount = 0
+
+    var layout = FeedModuleLayoutType.grid {
+        didSet {
+            setLayoutCount += 1
+        }
+    }
     
     func setFeed(_ feed: FeedType) {
         feedType = feed
