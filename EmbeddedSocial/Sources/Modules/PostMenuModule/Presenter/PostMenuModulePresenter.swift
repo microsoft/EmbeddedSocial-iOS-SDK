@@ -178,12 +178,10 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     }
     
     func didTapFollow(user: UserHandle) {
-        self.output?.didFollow(user: user)
         self.interactor.follow(user: user)
     }
     
     func didTapUnfollow(user: UserHandle) {
-        self.output?.didUnfollow(user: user)
         self.interactor.unfollow(user: user)
     }
     
@@ -221,6 +219,8 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         Logger.log(user, error)
         if let error = error {
             output?.didRequestFail(error: error)
+        } else {
+            output?.didFollow(user: user)
         }
     }
     
@@ -228,6 +228,8 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         Logger.log(user, error)
         if let error = error {
             output?.didRequestFail(error: error)
+        } else {
+            output?.didUnfollow(user: user)
         }
     }
     

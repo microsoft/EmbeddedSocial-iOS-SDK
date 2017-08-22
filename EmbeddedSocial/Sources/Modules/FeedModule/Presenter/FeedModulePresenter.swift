@@ -3,6 +3,38 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+protocol FeedModuleInput: class {
+    
+    // For feed change
+    func setFeed(_ feed: FeedType)
+    // Forcing module to update
+    // Triggers callbacks for start/finish
+    func refreshData()
+    
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
+                        size: CGSize,
+                        configurator: @escaping (T) -> Void)
+    // Get Current Module Height
+    func moduleHeight() -> CGFloat
+    // Change layout
+    var layout: FeedModuleLayoutType { get set }
+}
+
+protocol FeedModuleOutput: class {
+    func didScrollFeed(_ feedView: UIScrollView)
+    
+    func didStartRefreshingData()
+    func didFinishRefreshingData(_ error: Error?)
+}
+
+//MARK: Optional methods
+extension FeedModuleOutput {
+    func didScrollFeed(_ feedView: UIScrollView) { }
+    
+    func didStartRefreshingData() { }
+    func didFinishRefreshingData() { }
+}
+
 enum FeedType {
     
     enum TimeRange: Int {
@@ -269,11 +301,14 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func viewDidAppear() {
-        didAskFetchAll()
+    
+        if isHome() {
+            didAskFetchAll()
+        }
     }
     
     func didAskFetchAll() {
-        
+    
         guard let feedType = self.feedType else {
             Logger.log("feed type is not set")
             return
@@ -327,13 +362,13 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didStartFetching() {
-//        view.lockUI()
+        view.lockUI()
         view.setRefreshing(state: true)
         moduleOutput?.didStartRefreshingData()
     }
     
     func didFinishFetching() {
-//        view.unLockUI()
+        view.unLockUI()
         view.setRefreshing(state: false)
         moduleOutput?.didFinishRefreshingData(nil)
     }
@@ -381,12 +416,6 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     }
     
     func didFollow(user: UserHandle) {
-       
-        for (index, item) in items.enumerated() {
-            if item.userHandle == user {
-                items[index].userStatus = .follow
-            }
-        }
         
         if isHome() {
             
@@ -394,6 +423,13 @@ extension FeedModulePresenter: PostMenuModuleOutput {
             didAskFetchAll()
             
         } else {
+            
+            for (index, item) in items.enumerated() {
+                if item.userHandle == user {
+                    items[index].userStatus = .follow
+                }
+            }
+            
             view.reloadVisible()
         }
     }

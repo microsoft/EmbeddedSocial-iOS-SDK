@@ -5,9 +5,24 @@
 
 import UIKit
 
-// TODO: remove images from cell height calculation
-//
-//
+protocol FeedModuleViewInput: class {
+    
+    func setupInitialState()
+    func setLayout(type: FeedModuleLayoutType)
+    func reload()
+    func reload(with index: Int)
+    func reloadVisible()
+    func removeItem(index: Int)
+    func setRefreshing(state: Bool)
+    func showError(error: Error)
+    func lockUI()
+    func unLockUI()
+    
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void)
+    
+    func getViewHeight() -> CGFloat
+    
+}
 
 class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
@@ -29,6 +44,18 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     fileprivate var listLayout = UICollectionViewFlowLayout()
     fileprivate var gridLayout = UICollectionViewFlowLayout()
     fileprivate var headerReuseID: String?
+    fileprivate var didPull = false {
+        didSet {
+            if didPull == true && didPull != oldValue {
+                self.output.didAskFetchMore()
+            }
+        }
+    }
+    fileprivate var isLockedUI = false {
+        didSet {
+//            collectionView.isScrollEnabled = !isLockedUI
+        }
+    }
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -148,11 +175,11 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     // MARK: Input
     
     func lockUI() {
-        
+        isLockedUI = true
     }
     
     func unLockUI() {
-        
+        isLockedUI = false
     }
     
     func setupInitialState() {
@@ -184,6 +211,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         } else {
             refreshControl.endRefreshing()
             bottomRefreshControl.stopAnimating()
+            didPull = false
         }
     }
     
@@ -275,6 +303,12 @@ extension FeedModuleViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         output.didScrollFeed(scrollView)
+        
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let containerHeight = scrollView.frame.size.height
+        
+        didPull = offsetY > 0 && (contentHeight - offsetY) < (containerHeight - 10)
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -313,14 +347,5 @@ extension FeedModuleViewController: UIScrollViewDelegate {
         }
         
         return UICollectionReusableView()
-    }
-
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        let index = indexPath.row
-        
-        if index == output.numberOfItems() - 1 {
-            didReachBottom()
-        }
     }
 }

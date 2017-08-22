@@ -106,7 +106,7 @@ class TestHome: UITestBase {
         openScreen()
         
         var seenPosts = Set<String>()
-        var retryCount = 10
+        var retryCount = 15
         
         
         while seenPosts.count <= pageSize && retryCount != 0 {

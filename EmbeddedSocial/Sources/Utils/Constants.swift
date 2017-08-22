@@ -30,7 +30,7 @@ extension Constants {
         static let contentPadding: CGFloat = 20.0
         static let uploadPhotoHeight: CGFloat = 84.0
         static let maxBioLength = 500
-    }
+}
     
     struct UserList {
         static let pageSize = 30
