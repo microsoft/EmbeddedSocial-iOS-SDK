@@ -10,7 +10,7 @@ final class MockSearchPeopleModule: SearchPeopleModuleInput {
     
     var searchResultsHandlerToReturn = MockSearchResultsUpdating()
     var searchResultsControllerToReturn = UIViewController()
-    var backgroundViewToReturn = UIView()
+    var backgroundViewToReturn: UIView?
 
     func setupInitialState() {
         setupInitialStateCount += 1
@@ -20,7 +20,7 @@ final class MockSearchPeopleModule: SearchPeopleModuleInput {
         return searchResultsHandlerToReturn
     }
     
-    func backgroundView() -> UIView {
+    func backgroundView() -> UIView? {
         return backgroundViewToReturn
     }
     

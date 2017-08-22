@@ -17,7 +17,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     var feedViewController: UIViewController?
     var feedModuleInput: FeedModuleInput?
     
-    private let userID: String?
+    fileprivate let userID: String?
     fileprivate var user: User?
     fileprivate var me: User?
     fileprivate var myProfileHolder: UserHolder?
@@ -242,6 +242,10 @@ extension UserProfilePresenter: FeedModuleOutput {
     
     func didFinishRefreshingData(_ error: Error?) {
         view.setFilterEnabled(true)
+    }
+    
+    func shouldOpenProfile(for userID: String) -> Bool {
+        return userID != self.userID && userID != me?.uid
     }
 }
 

@@ -26,6 +26,8 @@ class MockUserProfileView: UserProfileViewInput {
     private(set) var setupHeaderViewCount = 0
     private(set) var setFilterEnabledCount = 0
     private(set) var isFilterEnabled: Bool?
+    private(set) var setLayoutAssetCount = 0
+    private(set) var layoutAsset: Asset?
 
     func setupInitialState() {
         setupInitialStateCount += 1
@@ -80,5 +82,10 @@ class MockUserProfileView: UserProfileViewInput {
     func setFilterEnabled(_ isEnabled: Bool) {
         setFilterEnabledCount += 1
         isFilterEnabled = isEnabled
+    }
+    
+    func setLayoutAsset(_ asset: Asset) {
+        layoutAsset = asset
+        setLayoutAssetCount += 1
     }
 }

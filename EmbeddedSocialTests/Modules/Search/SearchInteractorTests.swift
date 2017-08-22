@@ -16,32 +16,18 @@ class SearchInteractorTests: XCTestCase {
         super.tearDown()
     }
     
-    func testThatItMakesPageInfoForLoggedInUser() {
+    func testThatItCorrectlyMakesPageInfo() {
         // given
-        let isLoggedIn = true
-        let sut = SearchInteractor(isLoggedInUser: isLoggedIn)
+        let sut = SearchInteractor()
         let searchPeopleModule = MockSearchPeopleModule()
+        let view = UIView()
+        searchPeopleModule.backgroundViewToReturn = view
         
         // when
         let pageInfo = sut.makePageInfo(from: searchPeopleModule)
         
         // then
         XCTAssertEqual(pageInfo.backgroundView, searchPeopleModule.backgroundView())
-        XCTAssertEqual(pageInfo.searchResultsController, searchPeopleModule.searchResultsController())
-        XCTAssertTrue(pageInfo.searchResultsHandler === searchPeopleModule.searchResultsHandler())
-    }
-    
-    func testThatItMakesPageInfoWhenUserNotLoggedIn() {
-        // given
-        let isLoggedIn = false
-        let sut = SearchInteractor(isLoggedInUser: isLoggedIn)
-        let searchPeopleModule = MockSearchPeopleModule()
-        
-        // when
-        let pageInfo = sut.makePageInfo(from: searchPeopleModule)
-        
-        // then
-        XCTAssertNil(pageInfo.backgroundView)
         XCTAssertEqual(pageInfo.searchResultsController, searchPeopleModule.searchResultsController())
         XCTAssertTrue(pageInfo.searchResultsHandler === searchPeopleModule.searchResultsHandler())
     }

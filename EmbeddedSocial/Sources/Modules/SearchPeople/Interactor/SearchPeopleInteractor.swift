@@ -7,16 +7,7 @@ import Foundation
 
 final class SearchPeopleInteractor: SearchPeopleInteractorInput {
     
-    private lazy var backgroudListModule: UserListModuleInput = { [unowned self] in
-        let conf = UserListConfigurator()
-        let api = SuggestedUsersAPI(socialService: SocialService())
-        let module = conf.configure(api: api, output: nil)
-        module.setupInitialState()
-        module.setListHeaderView(self.makeListHeaderView())
-        return module
-    }()
-    
-    private func makeListHeaderView() -> UIView {
+    func makeBackgroundListHeaderView() -> UIView {
         let cell = GroupHeaderTableCell.fromNib()
         cell.apply(style: .peopleSearch)
         cell.configure(title: L10n.Search.Label.basedOnWhoYouFollow.uppercased())
@@ -29,9 +20,5 @@ final class SearchPeopleInteractor: SearchPeopleInteractorInput {
         }
         let api = QueryPeopleAPI(query: searchText, searchService: SearchService())
         usersListModule.reload(with: api)
-    }
-    
-    func makeBackgroundView() -> UIView {
-        return backgroudListModule.listView
     }
 }

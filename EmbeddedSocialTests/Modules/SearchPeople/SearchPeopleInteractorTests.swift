@@ -19,10 +19,8 @@ class SearchPeopleInteractorTests: XCTestCase {
         sut = nil
     }
     
-    func testThatBackgroundViewIsCached() {
-        let view1 = sut.makeBackgroundView()
-        let view2 = sut.makeBackgroundView()
-        XCTAssertEqual(view1, view2)
+    func testThatItMakesBackgroundListHeaderViewOfCorrectClass() {
+        XCTAssertTrue(sut.makeBackgroundListHeaderView() is GroupHeaderTableCell)
     }
     
     func testThatItRunsSearchQueryAndReloadsUsersList() {
