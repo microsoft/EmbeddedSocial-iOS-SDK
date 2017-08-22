@@ -104,7 +104,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
           collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
         
         // TODO: remove parent, waiting for menu proxy controller refactor
-        parent?.navigationItem.rightBarButtonItem = layoutChangeButton
+        navigationItem.rightBarButtonItem = layoutChangeButton
     }
     
     override func viewDidAppear(_ animated: Bool) {
