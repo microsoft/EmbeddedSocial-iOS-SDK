@@ -6,7 +6,7 @@
 class CommentRepliesRouter: CommentRepliesRouterInput {
     func openUser(userHandle: UserHandle, from view: UIViewController) {
         let configurator = UserProfileConfigurator()
-        configurator.configure(userID: userHandle)
+        configurator.configure(userID: userHandle, navigationController: view.navigationController)
         
         view.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
