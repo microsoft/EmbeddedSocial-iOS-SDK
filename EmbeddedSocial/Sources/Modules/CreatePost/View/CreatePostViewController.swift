@@ -28,7 +28,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         super.viewDidLoad()
         output.viewIsReady()
     }
-
+    
     // MARK: CreatePostViewInput
     func setupInitialState() {
         postButton = UIBarButtonItem(title: L10n.CreatePost.post, style: .plain,
@@ -120,6 +120,6 @@ extension CreatePostViewController: UITextViewDelegate {
         postBodyTextViewHeightConstraint.constant = postBodyTextView.contentSize.height
         view.layoutIfNeeded()
         textView.setContentOffset(CGPoint.zero, animated:false)
-        postButton.isEnabled = !textView.text.isEmpty
+        postButton.isEnabled = !textView.text.trimmingCharacters(in: CharacterSet(charactersIn: " ")).isEmpty
     }
 }

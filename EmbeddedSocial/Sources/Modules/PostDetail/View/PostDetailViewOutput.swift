@@ -16,5 +16,9 @@ protocol PostDetailViewOutput {
     func commentViewModel(index: Int) -> CommentViewModel
     func postComment(photo: Photo?, comment: String)
     func fetchMore()
+    func openUser(index: Int)
+    func openReplies(index: Int)
+    func loadRestComments()
+    func refresh()
     func feedModuleHeight() -> CGFloat
 }

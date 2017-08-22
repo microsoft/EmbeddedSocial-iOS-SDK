@@ -6,6 +6,10 @@
 
 import UIKit
 
+enum CommentCellAction {
+    case like, replies, profile, photo
+}
+
 class CommentCell: UITableViewCell {
 
     @IBOutlet weak var likesCountButton: UIButton!
@@ -65,6 +69,10 @@ class CommentCell: UITableViewCell {
         selectionStyle = .none
         contentView.layoutIfNeeded()
     }
+
+    func cellHeight() -> CGFloat {
+        return self.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
+    }
     
     @IBAction func commentOptionsPressed(_ sender: Any) {
     }
@@ -74,6 +82,7 @@ class CommentCell: UITableViewCell {
     }
 
     @IBAction func commentPressed(_ sender: Any) {
+        commentView.onAction?(.replies, tag)
     }
     @IBAction func avatarPressed(_ sender: Any) {
         commentView.onAction?(.profile, tag)

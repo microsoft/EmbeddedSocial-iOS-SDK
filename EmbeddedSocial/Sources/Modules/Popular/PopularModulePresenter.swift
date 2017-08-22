@@ -18,8 +18,8 @@ class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, Popul
     // MARK: Private
     private var feedModule: FeedModuleInput!
     private var feedModuleViewController: UIViewController!
-    private var currentFeed: FeedType.TimeRange = .today
-    private var feedMapping = [
+    private var currentFeed: FeedType.TimeRange = .alltime
+    var feedMapping = [
         (feed: FeedType.TimeRange.today, title: L10n.PopularModule.FeedOption.today),
         (feed: FeedType.TimeRange.weekly, title: L10n.PopularModule.FeedOption.thisWeek),
         (feed: FeedType.TimeRange.alltime, title: L10n.PopularModule.FeedOption.allTime)
