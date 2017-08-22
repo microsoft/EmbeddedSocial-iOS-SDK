@@ -11,6 +11,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
     weak var navigationController: UINavigationController?
     weak var postMenuModuleOutput: PostMenuModuleOutput!
     weak var moduleInput: FeedModulePresenter!
+    weak var myProfileOpener: MyProfileOpener?
     
     // Keeping ref to menu
     var postMenuViewController: UIViewController?
@@ -60,6 +61,10 @@ class FeedModuleRouter: FeedModuleRouterInput {
                 postMenuViewController!.modalPresentationStyle = .overCurrentContext
                 parent.present(postMenuViewController!, animated: false, completion: nil)
             }
+            
+        case .myProfile:
+            myProfileOpener?.openMyProfile()
+            
         default:
             let dummy = UIViewController()
             dummy.view = UIView()

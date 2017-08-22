@@ -148,3 +148,5 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     }()
     
 }
+
+extension CrossModuleCoordinator: MyProfileOpener { }
