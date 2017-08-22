@@ -82,6 +82,23 @@ enum FeedModuleLayoutType: Int {
             return PostCellCompact.reuseID
         }
     }
+    
+    var nextLayoutAsset: Asset {
+        switch self {
+        case .list:
+            return .iconGallery
+        case .grid:
+            return .iconList
+        }
+    }
+    
+    var flipped: FeedModuleLayoutType {
+        return FeedModuleLayoutType(rawValue: rawValue ^ 1)!
+    }
+    
+    mutating func flip() {
+        self = flipped
+    }
 }
 
 class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput {
@@ -121,7 +138,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didTapChangeLayout() {
-        flip(layout: &layout)
+        layout = layout.flipped
         view.setLayout(type: layout)
     }
     
@@ -169,10 +186,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         
         return formatter
     }()
-    
-    private func flip(layout: inout FeedModuleLayoutType) {
-        layout = FeedModuleLayoutType(rawValue: layout.rawValue ^ 1)!
-    }
     
     private func viewModel(with post: Post) -> PostViewModel {
         

@@ -29,4 +29,6 @@ protocol UserProfileViewInput: class {
     func setStickyFilterHidden(_ isHidden: Bool)
     
     func setFilterEnabled(_ isEnabled: Bool)
+    
+    func setLayoutAsset(_ asset: Asset)
 }
