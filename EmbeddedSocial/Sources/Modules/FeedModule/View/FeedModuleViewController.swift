@@ -80,6 +80,11 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         parent?.navigationItem.rightBarButtonItem = layoutChangeButton
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        output.viewDidAppear()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         onUpdateBounds()
@@ -141,6 +146,15 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: Input
+    
+    func lockUI() {
+        
+    }
+    
+    func unLockUI() {
+        
+    }
+    
     func setupInitialState() {
         
     }

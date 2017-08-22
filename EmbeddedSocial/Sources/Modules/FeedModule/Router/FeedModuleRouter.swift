@@ -60,11 +60,6 @@ class FeedModuleRouter: FeedModuleRouterInput {
                 postMenuViewController!.modalPresentationStyle = .overCurrentContext
                 parent.present(postMenuViewController!, animated: false, completion: nil)
             }
-        default:
-            let dummy = UIViewController()
-            dummy.view = UIView()
-            dummy.view.backgroundColor = UIColor.yellow
-            navigationController?.pushViewController(dummy, animated: true)
         }
     }
 }

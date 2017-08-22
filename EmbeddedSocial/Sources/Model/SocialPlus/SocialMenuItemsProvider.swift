@@ -20,6 +20,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         case myPins
         case activity
         case settings
+        case debug
     }
     
     enum State: Int {
@@ -61,6 +62,18 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         return vc
     }
     
+    var builderForDebug: ModuleBuilder = { coordinator in
+        let vc = UIViewController()
+        vc.view.backgroundColor = UIColor.blue
+        vc.title = "Debug"
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { 
+            SocialPlus.shared.logOut()
+        })
+        
+        return vc
+    }
+    
     var builderForHome: ModuleBuilder = { coordinator in
         return coordinator.configuredHome
     }
@@ -85,7 +98,6 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         return items[state]!.index(where: { $0.key == item })
     }
     
-    
     lazy var items: [State: [MenuItem]] = { [unowned self] in
         
         return [
@@ -105,18 +117,27 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
                  image: UIImage(asset: Asset.iconPopular),
                  highlighted: UIImage(asset: Asset.iconPopularActive),
                  builder: self.builderForPopular),
-                (key: .myPins, title: L10n.MyPins.screenTitle,
+                (key: .myPins,
+                 title: L10n.MyPins.screenTitle,
                  image: UIImage(asset: Asset.iconPins),
                  highlighted: UIImage(asset: Asset.iconPinsActive),
                  builder: self.builderForDummy),
-                (key: .activity, title: L10n.ActivityFeed.screenTitle,
+                (key: .activity,
+                 title: L10n.ActivityFeed.screenTitle,
                  image: UIImage(asset: Asset.iconActivity),
                  highlighted: UIImage(asset: Asset.iconActivityActive),
                  builder: self.builderForDummy),
-                (key: .settings, title: L10n.Settings.screenTitle,
+                (key: .settings,
+                 title: L10n.Settings.screenTitle,
                  image: UIImage(asset: Asset.iconSettings),
                  highlighted: UIImage(asset: Asset.iconSettingsActive),
-                 builder: self.builderForDummy)
+                 builder: self.builderForDummy),
+                (key: .settings,
+                 title: "DEBUG",
+                 image: UIImage(asset: Asset.iconLogout),
+                 highlighted: UIImage(asset: Asset.iconLogout),
+                 builder: self.builderForDebug)
+                
             ],
             State.unauthenticated: [
                 (key: .search, title: L10n.Search.screenTitle,

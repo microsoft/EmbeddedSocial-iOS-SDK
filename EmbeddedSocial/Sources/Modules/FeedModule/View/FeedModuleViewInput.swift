@@ -13,6 +13,8 @@ protocol FeedModuleViewInput: class {
     func removeItem(index: Int)
     func setRefreshing(state: Bool)
     func showError(error: Error)
+    func lockUI()
+    func unLockUI()
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void)
 

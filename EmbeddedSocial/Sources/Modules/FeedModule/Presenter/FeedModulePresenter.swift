@@ -158,18 +158,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         items.removeAll()
     }
     
-    private lazy var dateFormatter: DateComponentsFormatter = {
-        let formatter = DateComponentsFormatter()
-        
-        formatter.unitsStyle = .abbreviated
-        formatter.includesApproximationPhrase = false
-        formatter.zeroFormattingBehavior = .dropAll
-        formatter.maximumUnitCount = 1
-        formatter.allowsFractionalUnits = false
-        
-        return formatter
-    }()
-    
     private func flip(layout: inout FeedModuleLayoutType) {
         layout = FeedModuleLayoutType(rawValue: layout.rawValue ^ 1)!
     }
@@ -280,6 +268,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         didAskFetchAll()
     }
     
+    func viewDidAppear() {
+        didAskFetchAll()
+    }
+    
     func didAskFetchAll() {
         
         guard let feedType = self.feedType else {
@@ -335,11 +327,13 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didStartFetching() {
+//        view.lockUI()
         view.setRefreshing(state: true)
         moduleOutput?.didStartRefreshingData()
     }
     
     func didFinishFetching() {
+//        view.unLockUI()
         view.setRefreshing(state: false)
         moduleOutput?.didFinishRefreshingData(nil)
     }

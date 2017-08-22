@@ -8,6 +8,7 @@ protocol CrossModuleCoordinatorProtocol: class {
     func closeMenu()
     
     func openHomeScreen()
+    func openPopularScreen()
     func openMyProfile()
     func openLoginScreen()
     
@@ -91,6 +92,11 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     
     func openHomeScreen() {
         let index = menuItemsProvider.getMenuItemIndex(for: .home)!
+        menuModule.openSocialItem(index: index)
+    }
+    
+    func openPopularScreen() {
+        let index = menuItemsProvider.getMenuItemIndex(for: .popular)!
         menuModule.openSocialItem(index: index)
     }
     
