@@ -301,10 +301,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func viewDidAppear() {
-    
-        if isHome() {
-            didAskFetchAll()
-        }
+        
+        //        if isHome() {
+        didAskFetchAll()
+        //        }
     }
     
     func didAskFetchAll() {
@@ -362,13 +362,11 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didStartFetching() {
-        view.lockUI()
         view.setRefreshing(state: true)
         moduleOutput?.didStartRefreshingData()
     }
     
     func didFinishFetching() {
-        view.unLockUI()
         view.setRefreshing(state: false)
         moduleOutput?.didFinishRefreshingData(nil)
     }
@@ -407,6 +405,14 @@ extension FeedModulePresenter {
 
 extension FeedModulePresenter: PostMenuModuleOutput {
     
+    func didStartLoading() {
+        view.setRefreshingWithBlocking(state: true)
+    }
+    
+    func didFinishLoading() {
+        view.setRefreshingWithBlocking(state: false)
+    }
+    
     func didBlock(user: UserHandle) {
         Logger.log("Success")
     }
@@ -417,7 +423,9 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     
     func didFollow(user: UserHandle) {
         
-        if isHome() {
+        didAskFetchAll()
+        
+        /*if isHome() {
             
             // Refetch Data
             didAskFetchAll()
@@ -432,6 +440,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
             
             view.reloadVisible()
         }
+         */
     }
     
     func didUnfollow(user: UserHandle) {

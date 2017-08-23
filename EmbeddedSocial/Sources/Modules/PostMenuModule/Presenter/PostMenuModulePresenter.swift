@@ -14,6 +14,8 @@ protocol PostMenuModuleOutput: class {
     func didRemove(post: PostHandle)
     func didReport(post: PostHandle)
     func didRequestFail(error: Error)
+    func didStartLoading()
+    func didFinishLoading()
 }
 
 protocol PostMenuModuleInput: class {
@@ -178,10 +180,12 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     }
     
     func didTapFollow(user: UserHandle) {
+        self.output?.didStartLoading()
         self.interactor.follow(user: user)
     }
     
     func didTapUnfollow(user: UserHandle) {
+        self.output?.didStartLoading()
         self.interactor.unfollow(user: user)
     }
     
@@ -217,6 +221,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     
     func didFollow(user: UserHandle, error: Error?) {
         Logger.log(user, error)
+        output?.didFinishLoading()
         if let error = error {
             output?.didRequestFail(error: error)
         } else {
@@ -226,6 +231,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     
     func didUnfollow(user: UserHandle, error: Error?) {
         Logger.log(user, error)
+        output?.didFinishLoading()
         if let error = error {
             output?.didRequestFail(error: error)
         } else {

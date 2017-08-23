@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import SVProgressHUD
 
 protocol PopularModuleViewInput: class {
     func setCurrentFeedType(to index: Int)
@@ -20,7 +21,7 @@ protocol PopularModuleViewOutput {
 }
 
 class PopularModuleView: UIViewController {
-
+    
     var output: PopularModuleViewOutput!
     @IBOutlet var container: UIView!
     @IBOutlet var feedControl: UISegmentedControl!
@@ -34,7 +35,15 @@ class PopularModuleView: UIViewController {
                 fatalError()
             }
             
-           feedControl.isEnabled = isLockedUI == 0
+            feedControl.isEnabled = isLockedUI == 0
+            container.isUserInteractionEnabled = isLockedUI == 0
+            
+            if isLockedUI == 0 {
+                SVProgressHUD.dismiss()
+            } else {
+                SVProgressHUD.show()
+            }
+            
             Logger.log(isLockedUI, feedControl.isEnabled)
         }
     }
@@ -50,8 +59,12 @@ class PopularModuleView: UIViewController {
         feedControl.addTarget(self,
                               action: #selector(onOptionChange(_:)),
                               for: .valueChanged)
-    
+        
         output.viewIsReady()
+    }
+    
+    deinit {
+        Logger.log()
     }
 }
 
@@ -64,7 +77,7 @@ extension PopularModuleView: PopularModuleViewInput {
         viewController.view.snp.makeConstraints { $0.edges.equalToSuperview() }
         viewController.didMove(toParentViewController: self)
     }
-
+    
     func handleError(error: Error) {
         showErrorAlert(error)
     }

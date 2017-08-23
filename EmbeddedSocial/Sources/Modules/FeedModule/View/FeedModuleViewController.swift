@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 protocol FeedModuleViewInput: class {
     
@@ -14,9 +15,8 @@ protocol FeedModuleViewInput: class {
     func reloadVisible()
     func removeItem(index: Int)
     func setRefreshing(state: Bool)
+    func setRefreshingWithBlocking(state: Bool)
     func showError(error: Error)
-    func lockUI()
-    func unLockUI()
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void)
     
@@ -44,19 +44,14 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     fileprivate var listLayout = UICollectionViewFlowLayout()
     fileprivate var gridLayout = UICollectionViewFlowLayout()
     fileprivate var headerReuseID: String?
-    fileprivate var didPull = false {
+    fileprivate var didPullBottom = false {
         didSet {
-            if didPull == true && didPull != oldValue {
+            if didPullBottom == true && didPullBottom != oldValue {
                 self.output.didAskFetchMore()
             }
         }
     }
-    fileprivate var isLockedUI = false {
-        didSet {
-//            collectionView.isScrollEnabled = !isLockedUI
-        }
-    }
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     lazy var bottomRefreshControl: UIActivityIndicatorView = {
@@ -173,15 +168,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: Input
-    
-    func lockUI() {
-        isLockedUI = true
-    }
-    
-    func unLockUI() {
-        isLockedUI = false
-    }
-    
+  
     func setupInitialState() {
         
     }
@@ -211,7 +198,17 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         } else {
             refreshControl.endRefreshing()
             bottomRefreshControl.stopAnimating()
-            didPull = false
+            didPullBottom = false
+        }
+    }
+    
+    func setRefreshingWithBlocking(state: Bool) {
+        Logger.log(state)
+        if state {
+            SVProgressHUD.show()
+            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        } else {
+            SVProgressHUD.dismiss()
         }
     }
     
@@ -245,6 +242,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
                                 forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
                                 withReuseIdentifier: type.reuseID)
         headerReuseID = type.reuseID
+    }
+    
+    deinit {
+        Logger.log()
     }
 }
 
@@ -308,7 +309,7 @@ extension FeedModuleViewController: UIScrollViewDelegate {
         let contentHeight = scrollView.contentSize.height
         let containerHeight = scrollView.frame.size.height
         
-        didPull = offsetY > 0 && (contentHeight - offsetY) < (containerHeight - 10)
+        didPullBottom = offsetY > 0 && (contentHeight - offsetY) < (containerHeight - 10)
     }
 
     func collectionView(_ collectionView: UICollectionView,
