@@ -32,6 +32,7 @@
 		63F848971F4ADF3500D434CF /* MockCommentRepliesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F848961F4ADF3500D434CF /* MockCommentRepliesPresenter.swift */; };
 		63F8489B1F4AE81F00D434CF /* MockCommentRepliesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F8489A1F4AE81F00D434CF /* MockCommentRepliesInteractor.swift */; };
 		63F8489D1F4AE85E00D434CF /* MockCommentRepliesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F8489C1F4AE85E00D434CF /* MockCommentRepliesViewController.swift */; };
+		63F8489F1F4DA52700D434CF /* MockPostDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F8489E1F4DA52700D434CF /* MockPostDetailRouter.swift */; };
 		837524BE76C276DF2DA68F21 /* CommentRepliesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03953E1FFCBD39CDB219B8 /* CommentRepliesRouter.swift */; };
 		88087B461F2A431E00A33E9A /* ButtonDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88087B451F2A431E00A33E9A /* ButtonDecorator.swift */; };
 		88087B4A1F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88087B491F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift */; };
@@ -674,6 +675,7 @@
 		63F848961F4ADF3500D434CF /* MockCommentRepliesPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentRepliesPresenter.swift; sourceTree = "<group>"; };
 		63F8489A1F4AE81F00D434CF /* MockCommentRepliesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentRepliesInteractor.swift; sourceTree = "<group>"; };
 		63F8489C1F4AE85E00D434CF /* MockCommentRepliesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentRepliesViewController.swift; sourceTree = "<group>"; };
+		63F8489E1F4DA52700D434CF /* MockPostDetailRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPostDetailRouter.swift; sourceTree = "<group>"; };
 		74C6D69159F11B9D4D3F7000 /* CommentRepliesConfigurator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesConfigurator.swift; sourceTree = "<group>"; };
 		7C62BB243EDEFCA43C5601F8 /* CommentRepliesViewInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesViewInput.swift; sourceTree = "<group>"; };
 		88087B451F2A431E00A33E9A /* ButtonDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonDecorator.swift; sourceTree = "<group>"; };
@@ -3163,6 +3165,7 @@
 				93AC65AF1F3E05DA00FE5A3A /* MockPostDetailPresenter.swift */,
 				93AC65B01F3E05DA00FE5A3A /* MockPostDetailViewController.swift */,
 				93AC65AE1F3E05DA00FE5A3A /* MockPostDetaillnteractor.swift */,
+				63F8489E1F4DA52700D434CF /* MockPostDetailRouter.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -4164,6 +4167,7 @@
 				88F1637D1F264B0F00DAAF68 /* SessionStoreTests.swift in Sources */,
 				889AFC291F220BCD003AAF19 /* MockAuthAPI.swift in Sources */,
 				889119B01F4AE3BF005B3B32 /* SuggestedUsersAPITests.swift in Sources */,
+				63F8489F1F4DA52700D434CF /* MockPostDetailRouter.swift in Sources */,
 				884C9C331F4C371B0004907F /* MyProfileHolder.swift in Sources */,
 				889AFC201F220BCD003AAF19 /* UIImage+Ext.swift in Sources */,
 				88F7A7971F278E24005FEC5F /* MockLoginModuleOutput.swift in Sources */,
