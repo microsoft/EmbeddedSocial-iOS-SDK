@@ -19,7 +19,7 @@ class CacheTests: XCTestCase {
         coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
         database = MockTransactionsDatabaseFacade(incomingRepo: CoreDataRepository(context: coreDataStack.mainContext),
                                                   outgoingRepo: CoreDataRepository(context: coreDataStack.mainContext))
-        sut = Cache(database: database, decoder: ItemDecoder.self)
+        sut = Cache(database: database, decoder: CacheableItemDecoder.self)
     }
     
     override func tearDown() {
@@ -31,11 +31,11 @@ class CacheTests: XCTestCase {
     
     func testThatItCachesIncomingItemAndLoadsItByHandle() {
         // given
-        let item = Item(handle: UUID().uuidString, name: UUID().uuidString)
+        let item = CacheableItem(handle: UUID().uuidString, name: UUID().uuidString, relatedHandle: UUID().uuidString)
         
         // when
         sut.cacheIncoming(item)
-        let fetchedItem = sut.firstIncoming(ofType: Item.self, handle: item.handle)
+        let fetchedItem = sut.firstIncoming(ofType: CacheableItem.self, handle: item.handle)
         
         // then
         XCTAssertEqual(fetchedItem, item)
@@ -43,11 +43,11 @@ class CacheTests: XCTestCase {
     
     func testThatItCachesOutgoingItemAndLoadsItByHandle() {
         // given
-        let item = Item(handle: UUID().uuidString, name: UUID().uuidString)
+        let item = CacheableItem(handle: UUID().uuidString, name: UUID().uuidString, relatedHandle: UUID().uuidString)
         
         // when
         sut.cacheOutgoing(item)
-        let fetchedItem = sut.firstOutgoing(ofType: Item.self, handle: item.handle)
+        let fetchedItem = sut.firstOutgoing(ofType: CacheableItem.self, handle: item.handle)
         
         // then
         XCTAssertEqual(fetchedItem, item)
@@ -60,7 +60,7 @@ class CacheTests: XCTestCase {
         
         // when
         items.forEach(sut.cacheIncoming)
-        let fetchedItems = sut.fetchIncoming(type: Item.self, sortDescriptors: [sortDescriptor])
+        let fetchedItems = sut.fetchIncoming(type: CacheableItem.self, sortDescriptors: [sortDescriptor])
         
         // then
         XCTAssertEqual(items, fetchedItems)
@@ -73,7 +73,7 @@ class CacheTests: XCTestCase {
         
         // when
         items.forEach(sut.cacheOutgoing)
-        let fetchedItems = sut.fetchOutgoing(type: Item.self, sortDescriptors: [sortDescriptor])
+        let fetchedItems = sut.fetchOutgoing(type: CacheableItem.self, sortDescriptors: [sortDescriptor])
         
         // then
         XCTAssertEqual(items, fetchedItems)
@@ -90,7 +90,7 @@ class CacheTests: XCTestCase {
         // then
         let expectation = self.expectation(description: #function)
         
-        sut.fetchIncoming(type: Item.self, sortDescriptors: [sortDescriptor]) { fetchedItems in
+        sut.fetchIncoming(type: CacheableItem.self, sortDescriptors: [sortDescriptor]) { fetchedItems in
             XCTAssertTrue(Thread.isMainThread)
             XCTAssertEqual(items, fetchedItems)
             expectation.fulfill()
@@ -109,7 +109,7 @@ class CacheTests: XCTestCase {
         // then
         let expectation = self.expectation(description: #function)
         
-        sut.fetchOutgoing(type: Item.self, sortDescriptors: [sortDescriptor]) { fetchedItems in
+        sut.fetchOutgoing(type: CacheableItem.self, sortDescriptors: [sortDescriptor]) { fetchedItems in
             XCTAssertTrue(Thread.isMainThread)
             XCTAssertEqual(items, fetchedItems)
             expectation.fulfill()
@@ -117,45 +117,13 @@ class CacheTests: XCTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
     }
     
-    private func makeItems() -> [Item] {
+    private func makeItems() -> [CacheableItem] {
         return [
-            Item(handle: UUID().uuidString, name: "A"),
-            Item(handle: UUID().uuidString, name: "B"),
-            Item(handle: UUID().uuidString, name: "C"),
-            Item(handle: UUID().uuidString, name: "D"),
-            Item(handle: UUID().uuidString, name: "E")
+            CacheableItem(handle: UUID().uuidString, name: "A", relatedHandle: UUID().uuidString),
+            CacheableItem(handle: UUID().uuidString, name: "B", relatedHandle: UUID().uuidString),
+            CacheableItem(handle: UUID().uuidString, name: "C", relatedHandle: UUID().uuidString),
+            CacheableItem(handle: UUID().uuidString, name: "D", relatedHandle: UUID().uuidString),
+            CacheableItem(handle: UUID().uuidString, name: "E", relatedHandle: UUID().uuidString)
         ]
-    }
-}
-
-extension CacheTests {
-    
-    struct Item: Cacheable, Equatable {
-        let handle: String
-        let name: String
-        
-        func encodeToJSON() -> Any {
-            return ["handle": handle, "name": name]
-        }
-        
-        func getHandle() -> String? {
-            return handle
-        }
-        
-        static func ==(lhs: Item, rhs: Item) -> Bool {
-            return lhs.handle == rhs.handle && lhs.name == rhs.name
-        }
-    }
-    
-    struct ItemDecoder: JSONDecoder {
-        static func decode<T>(type: T.Type, payload: Any?) -> T? {
-            guard T.self is Item.Type,
-                let payload = payload as? [String: Any],
-                let name = payload["name"] as? String,
-                let handle = payload["handle"] as? String else {
-                    return nil
-            }
-            return Item(handle: handle, name: name) as? T
-        }
     }
 }

@@ -10,7 +10,8 @@ final class IncomingTransaction: NSManagedObject, Transaction {
     @NSManaged var createdAt: Date?
     @NSManaged var handle: String?
     @NSManaged var payload: Any?
-    
+    @NSManaged var relatedHandle: String?
+
     override func awakeFromInsert() {
         createdAt = Date()
     }

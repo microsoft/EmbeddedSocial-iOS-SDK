@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="1.0">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="1.0">
     <entity name="IncomingTransaction" representedClassName=".IncomingTransaction" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="handle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="payload" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="relatedHandle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="typeid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="OutgoingTransaction" representedClassName=".OutgoingTransaction" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="handle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="payload" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="relatedHandle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="typeid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="IncomingTransaction" positionX="-63" positionY="-18" width="128" height="105"/>
-        <element name="OutgoingTransaction" positionX="-54" positionY="-9" width="128" height="105"/>
+        <element name="IncomingTransaction" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="OutgoingTransaction" positionX="-54" positionY="-9" width="128" height="120"/>
     </elements>
 </model>
