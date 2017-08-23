@@ -44,9 +44,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     fileprivate var listLayout = UICollectionViewFlowLayout()
     fileprivate var gridLayout = UICollectionViewFlowLayout()
     fileprivate var headerReuseID: String?
-    fileprivate var didPullBottom = false {
+    fileprivate var isPullingBottom = false {
         didSet {
-            if didPullBottom == true && didPullBottom != oldValue {
+            if isPullingBottom == true && isPullingBottom != oldValue {
+                Logger.log("Requesting fetch more")
                 self.output.didAskFetchMore()
             }
         }
@@ -199,14 +200,16 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
                 collectionView!.addSubview(refreshControl)
             }
             
-    
-            refreshControl.beginRefreshing()
+            if refreshControl.isHidden == false {
+                refreshControl.beginRefreshing()
+            }
+            
             bottomRefreshControl.startAnimating()
 
         } else {
             refreshControl.endRefreshing()
             bottomRefreshControl.stopAnimating()
-            didPullBottom = false
+//            isPullingBottom = false
         }
     }
     
@@ -319,7 +322,7 @@ extension FeedModuleViewController: UIScrollViewDelegate {
         let contentHeight = scrollView.contentSize.height
         let containerHeight = scrollView.frame.size.height
         
-        didPullBottom = offsetY > 0 && (contentHeight - offsetY) < (containerHeight - 10)
+        isPullingBottom = offsetY > 0 && (contentHeight - offsetY) < (containerHeight - 10)
     }
 
     func collectionView(_ collectionView: UICollectionView,
