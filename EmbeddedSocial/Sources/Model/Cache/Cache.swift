@@ -94,7 +94,9 @@ class Cache: CacheType {
             .first
     }
     
-    func fetchIncoming<Item: Cacheable>(type: Item.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [Item] {
+    func fetchIncoming<Item: Cacheable>(type: Item.Type,
+                       predicate: NSPredicate?,
+                       sortDescriptors: [NSSortDescriptor]?) -> [Item] {
         return fetch(predicate: predicate, sortDescriptors: sortDescriptors, queries: incomingQueries)
     }
     

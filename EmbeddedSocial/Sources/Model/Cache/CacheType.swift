@@ -13,7 +13,11 @@ protocol CacheType: class {
     
     func firstOutgoing<T: Cacheable>(ofType type: T.Type, typeID: String, handle: String, sortDescriptors: [NSSortDescriptor]?) -> T?
 
-    func fetchIncoming<T: Cacheable>(type: T.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [T]
+    func fetchIncoming<T: Cacheable>(type: T.Type,
+                       predicate: NSPredicate?,
+                       page: (limit: Int, offset: Int)?,
+                       sortDescriptors: [NSSortDescriptor]?) -> [T]
+    
     func fetchIncoming<T: Cacheable>(type: T.Type, predicate: NSPredicate?,
                        sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<T>)
 
@@ -34,5 +38,11 @@ extension CacheType {
     
     func cacheIncoming(_ item: Cacheable) {
         cacheIncoming(item, typeID: item.typeIdentifier)
+    }
+    
+    func fetchIncoming<T: Cacheable>(type: T.Type,
+                       predicate: NSPredicate?,
+                       sortDescriptors: [NSSortDescriptor]?) -> [T] {
+        return fetchIncoming(type: type, predicate: predicate, page: nil, sortDescriptors: sortDescriptors)
     }
 }

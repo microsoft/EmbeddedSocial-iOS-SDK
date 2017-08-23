@@ -15,16 +15,22 @@ protocol TransactionsDatabaseFacadeType {
     func makeOutgoingTransaction() -> OutgoingTransaction
     
     func queryIncomingTransactions(with predicate: NSPredicate?,
+                                   page: (limit: Int, offset: Int)?,
                                    sortDescriptors: [NSSortDescriptor]?,
                                    completion: @escaping ([IncomingTransaction]) -> Void)
     
-    func queryIncomingTransactions(with predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [IncomingTransaction]
+    func queryIncomingTransactions(with predicate: NSPredicate?,
+                                   page: (limit: Int, offset: Int)?,
+                                   sortDescriptors: [NSSortDescriptor]?) -> [IncomingTransaction]
     
     func queryOutgoingTransactions(with predicate: NSPredicate?,
+                                   page: (limit: Int, offset: Int)?,
                                    sortDescriptors: [NSSortDescriptor]?,
                                    completion: @escaping ([OutgoingTransaction]) -> Void)
     
-    func queryOutgoingTransactions(with predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [OutgoingTransaction]
+    func queryOutgoingTransactions(with predicate: NSPredicate?,
+                                   page: (limit: Int, offset: Int)?,
+                                   sortDescriptors: [NSSortDescriptor]?) -> [OutgoingTransaction]
 
     func deleteIncomingTransactions(_ entities: [IncomingTransaction], completion: ((Result<Void>) -> Void)?)
     
@@ -40,5 +46,27 @@ extension TransactionsDatabaseFacadeType {
         } else {
             fatalError("Cannot save transaction \(transaction)")
         }
+    }
+    
+    func queryIncomingTransactions(with predicate: NSPredicate?,
+                                   sortDescriptors: [NSSortDescriptor]?,
+                                   completion: @escaping ([IncomingTransaction]) -> Void) {
+        queryIncomingTransactions(with: predicate, page: nil, sortDescriptors: sortDescriptors, completion: completion)
+    }
+    
+    func queryIncomingTransactions(with predicate: NSPredicate?,
+                                   sortDescriptors: [NSSortDescriptor]?) -> [IncomingTransaction]{
+        return queryIncomingTransactions(with: predicate, sortDescriptors: sortDescriptors)
+    }
+    
+    func queryOutgoingTransactions(with predicate: NSPredicate?,
+                                   sortDescriptors: [NSSortDescriptor]?,
+                                   completion: @escaping ([OutgoingTransaction]) -> Void){
+        queryOutgoingTransactions(with: predicate, sortDescriptors: sortDescriptors, completion: completion)
+    }
+    
+    func queryOutgoingTransactions(with predicate: NSPredicate?,
+                                   sortDescriptors: [NSSortDescriptor]?) -> [OutgoingTransaction] {
+        return queryOutgoingTransactions(with: predicate, sortDescriptors: sortDescriptors)
     }
 }
