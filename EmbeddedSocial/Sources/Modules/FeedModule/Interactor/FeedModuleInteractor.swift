@@ -161,4 +161,8 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         }
         
     }
+    
+    deinit {
+        Logger.log()
+    }
 }
