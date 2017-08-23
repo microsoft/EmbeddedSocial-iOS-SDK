@@ -169,7 +169,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     // MARK: Input
   
     func setupInitialState() {
-        
+        collectionView.alwaysBounceVertical = true
     }
     
     func showError(error: Error) {
@@ -191,6 +191,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
             if refreshControl.superview != collectionView {
                 collectionView!.addSubview(refreshControl)
             }
+            collectionView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
             refreshControl.beginRefreshing()
             bottomRefreshControl.startAnimating()
 
