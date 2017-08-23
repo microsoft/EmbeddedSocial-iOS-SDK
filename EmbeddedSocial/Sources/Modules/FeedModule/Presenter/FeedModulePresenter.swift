@@ -3,6 +3,42 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+protocol FeedModuleInput: class {
+    
+    // For feed change
+    func setFeed(_ feed: FeedType)
+    // Forcing module to update
+    // Triggers callbacks for start/finish
+    func refreshData()
+    
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
+                        size: CGSize,
+                        configurator: @escaping (T) -> Void)
+    // Get Current Module Height
+    func moduleHeight() -> CGFloat
+    // Change layout
+    var layout: FeedModuleLayoutType { get set }
+}
+
+protocol FeedModuleOutput: class {
+    func didScrollFeed(_ feedView: UIScrollView)
+    
+    func didStartRefreshingData()
+    func didFinishRefreshingData(_ error: Error?)
+    
+    func shouldOpenProfile(for userID: String) -> Bool
+}
+
+//MARK: Optional methods
+extension FeedModuleOutput {
+    func didScrollFeed(_ feedView: UIScrollView) { }
+    
+    func didStartRefreshingData() { }
+    func didFinishRefreshingData() { }
+    
+    func shouldOpenProfile(for userID: String) -> Bool { return false }
+}
+
 enum FeedType {
     
     enum TimeRange: Int {
@@ -179,18 +215,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         items.removeAll()
     }
     
-    private lazy var dateFormatter: DateComponentsFormatter = {
-        let formatter = DateComponentsFormatter()
-        
-        formatter.unitsStyle = .abbreviated
-        formatter.includesApproximationPhrase = false
-        formatter.zeroFormattingBehavior = .dropAll
-        formatter.maximumUnitCount = 1
-        formatter.allowsFractionalUnits = false
-        
-        return formatter
-    }()
-    
     private func viewModel(with post: Post) -> PostViewModel {
         
         var viewModel = PostViewModel()
@@ -308,8 +332,15 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         didAskFetchAll()
     }
     
-    func didAskFetchAll() {
+    func viewDidAppear() {
         
+        //        if isHome() {
+        didAskFetchAll()
+        //        }
+    }
+    
+    func didAskFetchAll() {
+    
         guard let feedType = self.feedType else {
             Logger.log("feed type is not set")
             return
@@ -363,11 +394,13 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didStartFetching() {
+        Logger.log()
         view.setRefreshing(state: true)
         moduleOutput?.didStartRefreshingData()
     }
     
     func didFinishFetching() {
+        Logger.log()
         view.setRefreshing(state: false)
         moduleOutput?.didFinishRefreshingData(nil)
     }
@@ -406,6 +439,14 @@ extension FeedModulePresenter {
 
 extension FeedModulePresenter: PostMenuModuleOutput {
     
+    func postMenuProcessDidStart() {
+        view.setRefreshingWithBlocking(state: true)
+    }
+    
+    func postMenuProcessDidFinish() {
+        view.setRefreshingWithBlocking(state: false)
+    }
+    
     func didBlock(user: UserHandle) {
         Logger.log("Success")
     }
@@ -415,12 +456,6 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     }
     
     func didFollow(user: UserHandle) {
-       
-        for (index, item) in items.enumerated() {
-            if item.userHandle == user {
-                items[index].userStatus = .follow
-            }
-        }
         
         if isHome() {
             
@@ -428,6 +463,14 @@ extension FeedModulePresenter: PostMenuModuleOutput {
             didAskFetchAll()
             
         } else {
+            
+            // Update following status for current posts
+            for (index, item) in items.enumerated() {
+                if item.userHandle == user {
+                    items[index].userStatus = .follow
+                }
+            }
+            
             view.reloadVisible()
         }
     }

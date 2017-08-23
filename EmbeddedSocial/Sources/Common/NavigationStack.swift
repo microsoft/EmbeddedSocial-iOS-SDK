@@ -43,7 +43,14 @@ public class NavigationStack: NavigationStackProtocol {
     }
     
     func show(_ viewController: UIViewController) {
-        container.show(viewController: viewController)
+//        container.show(viewController: viewController)
+        
+        let image = UIImage(named: "icon_hamburger", in: Bundle(for: type(of: self)), compatibleWith: nil)!
+        viewController.addLeftBarButtonWithImage(image)
+        viewController.slideMenuController()?.removeLeftGestures()
+        viewController.slideMenuController()?.addLeftGestures()
+        
+        navigationController.setViewControllers([viewController], animated: true)
     }
     
     func push(_ viewController: UIViewController) {

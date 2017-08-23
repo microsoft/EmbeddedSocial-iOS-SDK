@@ -4,10 +4,25 @@
 //
 
 import UIKit
+import SVProgressHUD
 
-// TODO: remove images from cell height calculation
-//
-//
+protocol FeedModuleViewInput: class {
+    
+    func setupInitialState()
+    func setLayout(type: FeedModuleLayoutType)
+    func reload()
+    func reload(with index: Int)
+    func reloadVisible()
+    func removeItem(index: Int)
+    func setRefreshing(state: Bool)
+    func setRefreshingWithBlocking(state: Bool)
+    func showError(error: Error)
+    
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void)
+    
+    func getViewHeight() -> CGFloat
+    
+}
 
 class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
@@ -29,7 +44,14 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     fileprivate var listLayout = UICollectionViewFlowLayout()
     fileprivate var gridLayout = UICollectionViewFlowLayout()
     fileprivate var headerReuseID: String?
-
+    fileprivate var didPullBottom = false {
+        didSet {
+            if didPullBottom == true && didPullBottom != oldValue {
+                self.output.didAskFetchMore()
+            }
+        }
+    }
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     lazy var bottomRefreshControl: UIActivityIndicatorView = {
@@ -66,12 +88,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         }()
     
     // MARK: Life cycle
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        // TODO: remove parent, waiting for menu proxy controller refactor
-        parent?.navigationItem.rightBarButtonItem = layoutChangeButton
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
@@ -81,6 +97,13 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.collectionView.backgroundColor = Palette.extraLightGrey
         self.collectionView.delegate = self
           collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
+        
+        navigationItem.rightBarButtonItem = layoutChangeButton
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        output.viewDidAppear()
     }
     
     override func viewDidLayoutSubviews() {
@@ -144,8 +167,9 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: Input
+  
     func setupInitialState() {
-        
+        collectionView.alwaysBounceVertical = true
     }
     
     func showError(error: Error) {
@@ -167,12 +191,24 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
             if refreshControl.superview != collectionView {
                 collectionView!.addSubview(refreshControl)
             }
+            collectionView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
             refreshControl.beginRefreshing()
             bottomRefreshControl.startAnimating()
 
         } else {
             refreshControl.endRefreshing()
             bottomRefreshControl.stopAnimating()
+            didPullBottom = false
+        }
+    }
+    
+    func setRefreshingWithBlocking(state: Bool) {
+        Logger.log(state)
+        if state {
+            SVProgressHUD.show()
+            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        } else {
+            SVProgressHUD.dismiss()
         }
     }
     
@@ -205,6 +241,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
                                 forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
                                 withReuseIdentifier: type.reuseID)
         headerReuseID = type.reuseID
+    }
+    
+    deinit {
+        Logger.log()
     }
 }
 
@@ -263,6 +303,12 @@ extension FeedModuleViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         output.didScrollFeed(scrollView)
+        
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let containerHeight = scrollView.frame.size.height
+        
+        didPullBottom = offsetY > 0 && (contentHeight - offsetY) < (containerHeight - 10)
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -301,14 +347,5 @@ extension FeedModuleViewController: UIScrollViewDelegate {
         }
         
         return UICollectionReusableView()
-    }
-
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        let index = indexPath.row
-        
-        if index == output.numberOfItems() - 1 {
-            didReachBottom()
-        }
     }
 }

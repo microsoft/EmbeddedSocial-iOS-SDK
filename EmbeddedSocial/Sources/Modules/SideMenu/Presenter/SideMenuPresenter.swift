@@ -26,6 +26,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     
     var user: User? {
         didSet {
+            selectedMenuItem = .none
             view.showAccountInfo(visible: accountViewAvailable)
             buildItems()
             view.reload()
@@ -240,6 +241,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     
     // MARK: Module Input
     func openLogin() {
+        selectedMenuItem = .accountHeader
         router.openLoginScreen()
     }
     
@@ -268,8 +270,6 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         
         let viewController = interactor.targetForSocialMenuItem(with: index)
         router.open(viewController)
-        
-        
         
         let socItemIndexPath = getSocialItemIndexPath(index: index, configuation: configuration)
         

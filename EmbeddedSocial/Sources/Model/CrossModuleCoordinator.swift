@@ -8,6 +8,7 @@ protocol CrossModuleCoordinatorProtocol: class {
     func closeMenu()
     
     func openHomeScreen()
+    func openPopularScreen()
     func openMyProfile()
     func openLoginScreen()
     
@@ -16,8 +17,8 @@ protocol CrossModuleCoordinatorProtocol: class {
 
     func isUserAuthenticated() -> Bool
     
-    var configuredHome: UIViewController { get }
-    var configuredPopular: UIViewController { get }
+    var configuredHome: UIViewController! { get }
+    var configuredPopular: UIViewController! { get }
     var configuredUserProfile: UIViewController { get }
     var configuredLogin: UIViewController { get }
     var configuredSearch: UIViewController { get }
@@ -94,10 +95,16 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         menuModule.openSocialItem(index: index)
     }
     
+    func openPopularScreen() {
+        let index = menuItemsProvider.getMenuItemIndex(for: .popular)!
+        menuModule.openSocialItem(index: index)
+    }
+    
     func logOut() {
         user = nil
         menuModule.user = nil
-        navigationStack.cleanStack()
+        configuredHome = nil
+        configuredPopular = nil
         openLoginScreen()
     }
     
@@ -118,7 +125,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         return configurator.viewController
     }
     
-    lazy var configuredHome: UIViewController = {
+    lazy var configuredHome: UIViewController! = {
         let configurator = FeedModuleConfigurator(cache: self.cache)
         configurator.configure(navigationController: self.navigationStack.navigationController)
         configurator.moduleInput.setFeed(.home)
@@ -127,7 +134,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         return vc
     }()
 
-    lazy var configuredPopular: UIViewController = {
+    lazy var configuredPopular: UIViewController! = {
         let configurator = PopularModuleConfigurator()
         configurator.configure(navigationController: self.navigationStack.navigationController)
         configurator.viewController.title = L10n.Popular.screenTitle
