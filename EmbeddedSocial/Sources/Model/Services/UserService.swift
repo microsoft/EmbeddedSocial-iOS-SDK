@@ -6,7 +6,7 @@
 import Foundation
 
 protocol UserServiceType {
-    func getMyProfile(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void)
+    func getMyProfile(authorization: Authorization, credentials: CredentialsList, completion: @escaping (Result<User>) -> Void)
     
     func getUserProfile(userID: String, completion: @escaping (Result<User>) -> Void)
     
@@ -23,8 +23,8 @@ class UserService: BaseService, UserServiceType {
         self.imagesService = imagesService
     }
     
-    func getMyProfile(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
-        UsersAPI.usersGetMyProfile(authorization: credentials.authorization) { profile, error in
+    func getMyProfile(authorization: Authorization, credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
+        UsersAPI.usersGetMyProfile(authorization: authorization) { profile, error in
             if let profile = profile {
                 let user = User(profileView: profile, credentials: credentials)
                 completion(.success(user))

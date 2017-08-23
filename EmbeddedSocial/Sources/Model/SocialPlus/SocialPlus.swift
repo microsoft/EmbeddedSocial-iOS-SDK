@@ -47,6 +47,8 @@ public final class SocialPlus {
         
         if sessionStore.isLoggedIn {
             coordinator.onSessionCreated(user: sessionStore.user!, sessionToken: sessionStore.sessionToken!)
+        } else {
+            coordinator.openPopularScreen()
         }
     }
     

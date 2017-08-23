@@ -153,10 +153,10 @@ class TopicService: BaseService, PostServiceProtocol {
     // MARK: GET
     
     func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
+        
         SocialAPI.myFollowingGetTopics(
             authorization: authorization,
-            cursor: query.cursor,
-            limit: query.limit) { response, error in
+            cursor: query.cursor) { response, error in // TODO: add limit, currently its broken
                 self.parseResponse(response: response, error: error, completion: completion)
         }
     }

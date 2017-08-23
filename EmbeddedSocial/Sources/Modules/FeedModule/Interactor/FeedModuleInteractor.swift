@@ -69,7 +69,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     func fetchPosts(limit: Int32? = nil, cursor: String? = nil, feedType: FeedType) {
         
         guard isFetching == false else {
-            Logger.log("Cant fetch, already fetching..")
+            Logger.log("Cant fetch, already fetching..", event: .error)
             return
         }
         
@@ -160,5 +160,9 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             pinsService.deletePin(postHandle: post, completion: completion)
         }
         
+    }
+    
+    deinit {
+        Logger.log()
     }
 }
