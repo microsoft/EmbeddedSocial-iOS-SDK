@@ -44,100 +44,83 @@ class Cache: CacheType {
                                   fetchAsync: database.queryOutgoingTransactions(with:sortDescriptors:completion:))
     }
     
-    func cacheIncoming<Item: Cacheable>(_ item: Item) {
-        updateTransaction(for: item, queries: incomingQueries)
+    func cacheIncoming(_ item: Cacheable, typeID: String) {
+        updateTransaction(for: item, typeID: typeID, queries: incomingQueries)
     }
     
-    func cacheOutgoing<Item: Cacheable>(_ item: Item) {
-        updateTransaction(for: item, queries: outgoingQueries)
+    func cacheOutgoing(_ item: Cacheable, typeID: String) {
+        updateTransaction(for: item, typeID: typeID, queries: outgoingQueries)
     }
     
-    private func updateTransaction<T: Transaction, Item: Cacheable>(for item: Item, queries: Queries<T>) {
-        var transaction = self.transaction(for: item, queries: queries)
+    private func updateTransaction<T: Transaction>(for item: Cacheable, typeID: String, queries: Queries<T>) {
+        var transaction = self.transaction(handle: item.getHandle(), typeID: typeID, queries: queries)
         transaction.typeid = item.typeIdentifier
         transaction.payload = item.encodeToJSON()
         transaction.handle = item.getHandle()
+        transaction.relatedHandle = item.getRelatedHandle()
         database.save(transaction: transaction)
     }
     
-    private func transaction<T: Transaction, Item: Cacheable>(for item: Item, queries: Queries<T>) -> T {
-        guard let handle = item.getHandle() else {
+    private func transaction<T: Transaction>(handle: String?, typeID: String, queries: Queries<T>) -> T {
+        guard let handle = handle else {
             return queries.make()
         }
-        let p = predicateBuilder.predicate(with: Item.self, handle: handle)
+        let p = predicateBuilder.predicate(handle: handle)
         return queries.fetch(p, nil).first ?? queries.make()
     }
     
-    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, handle: String) -> Item? {
-        return first(predicate: predicateBuilder.predicate(with: type, handle: handle), queries: incomingQueries)
+    func firstIncoming<Item: Cacheable>(ofType type: Item.Type,
+                       typeID: String,
+                       handle: String,
+                       sortDescriptors: [NSSortDescriptor]?) -> Item? {
+        let p = predicateBuilder.predicate(typeID: typeID, handle: handle)
+        return first(predicate: p, sortDescriptors: sortDescriptors, queries: incomingQueries)
     }
     
-    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]) -> Item? {
-        return first(predicate: predicate, sortDescriptors: sortDescriptors, queries: incomingQueries)
+    func firstOutgoing<Item: Cacheable>(ofType type: Item.Type,
+                       typeID: String,
+                       handle: String,
+                       sortDescriptors: [NSSortDescriptor]?) -> Item? {
+        let p = predicateBuilder.predicate(typeID: typeID, handle: handle)
+        return first(predicate: p, sortDescriptors: sortDescriptors, queries: outgoingQueries)
     }
     
-    func firstOutgoing<Item: Cacheable>(ofType type: Item.Type, handle: String) -> Item? {
-        return first(predicate: predicateBuilder.predicate(with: type, handle: handle), queries: outgoingQueries)
-    }
-    
-    func firstOutgoing<Item: Cacheable>(ofType type: Item.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]) -> Item? {
-        return first(predicate: predicate, sortDescriptors: sortDescriptors, queries: outgoingQueries)
-    }
-    
-    private func first<T: Transaction, Item: Cacheable>(predicate: NSPredicate,
-                       sortDescriptors: [NSSortDescriptor]? = [Cache.createdAtSortDescriptor],
+    private func first<T: Transaction, Item: Cacheable>(predicate: NSPredicate?,
+                       sortDescriptors: [NSSortDescriptor]?,
                        queries: Queries<T>) -> Item? {
+        
         return queries.fetch(predicate, sortDescriptors)
             .flatMap { self.decoder.decode(type: Item.self, payload: $0.payload) }
             .first
     }
     
-    func fetchIncoming<Item: Cacheable>(type: Item.Type, sortDescriptors: [NSSortDescriptor]?) -> [Item] {
-        return fetch(predicate: predicateBuilder.predicate(with: type), sortDescriptors: sortDescriptors, queries: incomingQueries)
-    }
-    
-    func fetchIncoming<Item: Cacheable>(type: Item.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]?) -> [Item] {
+    func fetchIncoming<Item: Cacheable>(type: Item.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [Item] {
         return fetch(predicate: predicate, sortDescriptors: sortDescriptors, queries: incomingQueries)
     }
     
-    func fetchOutgoing<Item: Cacheable>(type: Item.Type, sortDescriptors: [NSSortDescriptor]?) -> [Item] {
-        return fetch(predicate: predicateBuilder.predicate(with: type), sortDescriptors: sortDescriptors, queries: outgoingQueries)
-    }
-    
-    func fetchOutgoing<Item: Cacheable>(type: Item.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]?) -> [Item] {
+    func fetchOutgoing<Item: Cacheable>(type: Item.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [Item] {
         return fetch(predicate: predicate, sortDescriptors: sortDescriptors, queries: outgoingQueries)
     }
     
-    private func fetch<T: Transaction, Item: Cacheable>(predicate: NSPredicate,
-                       sortDescriptors: [NSSortDescriptor]? = [Cache.createdAtSortDescriptor],
+    private func fetch<T: Transaction, Item: Cacheable>(predicate: NSPredicate?,
+                       sortDescriptors: [NSSortDescriptor]?,
                        queries: Queries<T>) -> [Item] {
-        
-        return queries.fetch(predicateBuilder.predicate(with: Item.self), sortDescriptors).flatMap {
+        return queries.fetch(predicate, sortDescriptors).flatMap {
             self.decoder.decode(type: Item.self, payload: $0.payload)
         }
     }
     
-    func fetchIncoming<Item: Cacheable>(type: Item.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<Item>) {
-        let p = predicateBuilder.predicate(with: type)
-        fetchAsync(predicate: p, sortDescriptors: sortDescriptors, queries: incomingQueries, result: result)
-    }
-    
-    func fetchIncoming<Item: Cacheable>(type: Item.Type, predicate: NSPredicate,
-                       sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<Item>){
+    func fetchIncoming<Item: Cacheable>(type: Item.Type, predicate: NSPredicate?,
+                       sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<Item>) {
         fetchAsync(predicate: predicate, sortDescriptors: sortDescriptors, queries: incomingQueries, result: result)
     }
     
-    func fetchOutgoing<Item: Cacheable>(type: Item.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<Item>) {
-        let p = predicateBuilder.predicate(with: type)
-        fetchAsync(predicate: p, sortDescriptors: sortDescriptors, queries: outgoingQueries, result: result)
-    }
-    
-    func fetchOutgoing<Item: Cacheable>(type: Item.Type, predicate: NSPredicate,
+    func fetchOutgoing<Item: Cacheable>(type: Item.Type, predicate: NSPredicate?,
                        sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<Item>){
         fetchAsync(predicate: predicate, sortDescriptors: sortDescriptors, queries: outgoingQueries, result: result)
     }
     
-    private func fetchAsync<T: Transaction, Item: Cacheable>(predicate: NSPredicate,
+    private func fetchAsync<T: Transaction, Item: Cacheable>(predicate: NSPredicate?,
                             sortDescriptors: [NSSortDescriptor]?,
                             queries: Queries<T>,
                             result: @escaping FetchResult<Item>) {

@@ -6,24 +6,33 @@
 protocol CacheType: class {
     typealias FetchResult<T> = ([T]) -> Void
 
-    func cacheIncoming<T: Cacheable>(_ item: T)
-    func cacheOutgoing<T: Cacheable>(_ item: T)
+    func cacheIncoming(_ item: Cacheable, typeID: String)
+    func cacheOutgoing(_ item: Cacheable, typeID: String)
     
-    func firstIncoming<T: Cacheable>(ofType type: T.Type, handle: String) -> T?
-    func firstIncoming<T: Cacheable>(ofType type: T.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]) -> T?
+    func firstIncoming<T: Cacheable>(ofType type: T.Type, typeID: String, handle: String, sortDescriptors: [NSSortDescriptor]?) -> T?
     
-    func firstOutgoing<T: Cacheable>(ofType type: T.Type, handle: String) -> T?
-    func firstOutgoing<T: Cacheable>(ofType type: T.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]) -> T?
+    func firstOutgoing<T: Cacheable>(ofType type: T.Type, typeID: String, handle: String, sortDescriptors: [NSSortDescriptor]?) -> T?
 
-    func fetchIncoming<T: Cacheable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?) -> [T]
-    func fetchIncoming<T: Cacheable>(type: T.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]?) -> [T]
-    func fetchIncoming<T: Cacheable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<T>)
-    func fetchIncoming<T: Cacheable>(type: T.Type, predicate: NSPredicate,
+    func fetchIncoming<T: Cacheable>(type: T.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [T]
+    func fetchIncoming<T: Cacheable>(type: T.Type, predicate: NSPredicate?,
                        sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<T>)
 
-    func fetchOutgoing<T: Cacheable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?) -> [T]
-    func fetchOutgoing<T: Cacheable>(type: T.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]?) -> [T]
-    func fetchOutgoing<T: Cacheable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<T>)
-    func fetchOutgoing<T: Cacheable>(type: T.Type, predicate: NSPredicate,
+    func fetchOutgoing<T: Cacheable>(type: T.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [T]
+    func fetchOutgoing<T: Cacheable>(type: T.Type, predicate: NSPredicate?,
                        sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<T>)
+}
+
+extension CacheType {
+    
+    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, handle: String) -> Item? {
+        return firstIncoming(ofType: type, typeID: Item.typeIdentifier, handle: handle, sortDescriptors: nil)
+    }
+    
+    func cacheOutgoing(_ item: Cacheable) {
+        cacheOutgoing(item, typeID: item.typeIdentifier)
+    }
+    
+    func cacheIncoming(_ item: Cacheable) {
+        cacheIncoming(item, typeID: item.typeIdentifier)
+    }
 }

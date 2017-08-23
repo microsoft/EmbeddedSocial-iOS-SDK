@@ -6,18 +6,18 @@
 import Foundation
 
 protocol CachePredicateBuilderType {
-    func predicate(with type: Cacheable.Type) -> NSPredicate
+    func predicate(handle: String) -> NSPredicate
     
-    func predicate(with type: Cacheable.Type, handle: String) -> NSPredicate
+    func predicate(typeID: String, handle: String) -> NSPredicate
 }
 
 struct CachePredicateBuilder: CachePredicateBuilderType {
     
-    func predicate(with type: Cacheable.Type) -> NSPredicate {
-        return NSPredicate(format: "typeid = %@", type.typeIdentifier)
+    func predicate(handle: String) -> NSPredicate {
+        return NSPredicate(format: "handle = %@", handle)
     }
     
-    func predicate(with type: Cacheable.Type, handle: String) -> NSPredicate {
-        return NSPredicate(format: "typeid = %@ AND handle = %@", type.typeIdentifier, handle)
+    func predicate(typeID: String, handle: String) -> NSPredicate {
+        return NSPredicate(format: "typeid = %@ AND handle = %@", typeID, handle)
     }
 }
