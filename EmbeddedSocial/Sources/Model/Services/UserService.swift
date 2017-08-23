@@ -6,7 +6,7 @@
 import Foundation
 
 protocol UserServiceType {
-    func getMyProfile(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void)
+    func getMyProfile(authorization: Authorization, credentials: CredentialsList, completion: @escaping (Result<User>) -> Void)
     
     func getUserProfile(userID: String, completion: @escaping (Result<User>) -> Void)
     
@@ -23,8 +23,8 @@ class UserService: BaseService, UserServiceType {
         self.imagesService = imagesService
     }
     
-    func getMyProfile(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
-        UsersAPI.usersGetMyProfile(authorization: credentials.authorization) { profile, error in
+    func getMyProfile(authorization: Authorization, credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
+        UsersAPI.usersGetMyProfile(authorization: authorization) { profile, error in
             if let profile = profile {
                 let user = User(profileView: profile, credentials: credentials)
                 completion(.success(user))
@@ -95,34 +95,46 @@ class UserService: BaseService, UserServiceType {
     
     func updateProfile(me: User, completion: @escaping (Result<User>) -> Void) {
         var me = me
-        var error: Error?
-        let group = DispatchGroup()
         
-        if let photo = me.photo, photo.image != nil {
-            group.enter()
-            imagesService.updateUserPhoto(photo) { result in
-                me.photo = result.value ?? me.photo
-                error = result.error ?? error
-                group.leave()
+        updateUserPhoto(me.photo) { [weak self] result in
+            guard result.isSuccess else {
+                self?.errorHandler.handle(error: result.error, completion: completion)
+                return
+            }
+            me.photo = result.value ?? me.photo
+            
+            self?.updateUserInfo(me) { result in
+                guard result.isSuccess else {
+                    self?.errorHandler.handle(error: result.error, completion: completion)
+                    return
+                }
+                completion(.success(me))
             }
         }
-        
-        let request = PutUserInfoRequest()
-        request.firstName = me.firstName
-        request.lastName = me.lastName
-        request.bio = me.bio
-        
-        group.enter()
-        UsersAPI.usersPutUserInfo(request: request, authorization: authorization) { response, responseError in
-            error = responseError ?? error
-            group.leave()
+    }
+    
+    func updateUserPhoto(_ photo: Photo?, completion: @escaping (Result<Photo>) -> Void) {
+        if let photo = photo, photo.image != nil {
+            imagesService.updateUserPhoto(photo, completion: completion)
+        } else {
+            imagesService.deleteUserPhoto(authorization: authorization) {
+                let result = $0.map { _ in Photo() }
+                completion(result)
+            }
         }
+    }
+    
+    private func updateUserInfo(_ user: User, completion: @escaping (Result<Void>) -> Void) {
+        let request = PutUserInfoRequest()
+        request.firstName = user.firstName
+        request.lastName = user.lastName
+        request.bio = user.bio
         
-        group.notify(queue: .main) { [weak self] in
+        UsersAPI.usersPutUserInfo(request: request, authorization: authorization) { response, error in
             if error == nil {
-                completion(.success(me))
+                completion(.success())
             } else {
-                self?.errorHandler.handle(error: error, completion: completion)
+                self.errorHandler.handle(error: error, completion: completion)
             }
         }
     }

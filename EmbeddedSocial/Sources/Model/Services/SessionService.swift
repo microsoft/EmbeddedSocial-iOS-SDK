@@ -33,7 +33,7 @@ class SessionService: BaseService, SessionServiceType {
         let provider = authProvider.sessionServiceIdentityProvider
         SessionsAPI.requestTokensGetRequestToken(
             identityProvider: provider,
-            authorization: Constants.anonymousAuthorization) { response, error in
+            authorization: Constants.API.anonymousAuthorization) { response, error in
                 if let token = response?.requestToken {
                     completion(.success(token))
                 } else {

@@ -4,12 +4,6 @@
 //
 
 protocol PostDetailViewInput: class {
-
-    /**
-        @author generamba setup
-        Setup initial state of the view
-    */
-
     func setupInitialState()
     func reloadTable(scrollType: CommentsScrollType)
     func postCommentSuccess()

@@ -11,7 +11,7 @@ final class MockUserService: UserServiceType {
     private(set) var getUserProfileCount = 0
     private(set) var updateProfileCount = 0
 
-    func getMyProfile(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
+    func getMyProfile(authorization: Authorization, credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
         getMyProfileCount += 1
     }
     

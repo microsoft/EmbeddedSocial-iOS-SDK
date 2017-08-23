@@ -64,6 +64,7 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
     private var postService: MockPostService!
     var presenter: FeedModulePresenter!
     var view: FeedModuleViewController!
+    var collectionView: UICollectionView!
     
     override func setUp() {
         super.setUp()
@@ -74,6 +75,10 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         presenter = FeedModulePresenter()
         sut.output = presenter
         view = FeedModuleViewController()
+        
+        collectionView = UICollectionView(frame: CGRect.zero,
+                                          collectionViewLayout: UICollectionViewFlowLayout.init())
+        view.collectionView = collectionView
         presenter.view = view
         
         sut.userHolder = nil
