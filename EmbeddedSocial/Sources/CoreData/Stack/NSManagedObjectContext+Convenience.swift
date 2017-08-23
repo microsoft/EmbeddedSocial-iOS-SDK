@@ -18,7 +18,6 @@ extension NSManagedObjectContext {
     }
     
     func create<Record: CoreDataRecord>(_ type: Record.Type = Record.self) -> Record {
-        print(Record.entityName)
         guard let record = NSEntityDescription.insertNewObject(forEntityName: Record.entityName, into: self) as? Record else {
             fatalError()
         }
