@@ -17,7 +17,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     var feedViewController: UIViewController?
     var feedModuleInput: FeedModuleInput?
     
-    private let userID: String?
+    fileprivate let userID: String?
     fileprivate var user: User?
     fileprivate var me: User?
     fileprivate var myProfileHolder: UserHolder?
@@ -113,6 +113,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
         )
         
         view.setFeedViewController(vc)
+        view.setLayoutAsset(feedModuleInput.layout.nextLayoutAsset)
 
         setFeedScope(.recent)
     }
@@ -222,6 +223,14 @@ final class UserProfilePresenter: UserProfileViewOutput {
         feedModuleInput?.refreshData()
         view.setFilterEnabled(false)
     }
+    
+    func onFlipFeedLayout() {
+        guard let feedModuleInput = feedModuleInput else {
+            return
+        }
+        feedModuleInput.layout = feedModuleInput.layout.flipped
+        view.setLayoutAsset(feedModuleInput.layout.nextLayoutAsset)
+    }
 }
 
 extension UserProfilePresenter: FeedModuleOutput {
@@ -233,6 +242,10 @@ extension UserProfilePresenter: FeedModuleOutput {
     
     func didFinishRefreshingData(_ error: Error?) {
         view.setFilterEnabled(true)
+    }
+    
+    func shouldOpenProfile(for userID: String) -> Bool {
+        return userID != self.userID && userID != me?.uid
     }
 }
 

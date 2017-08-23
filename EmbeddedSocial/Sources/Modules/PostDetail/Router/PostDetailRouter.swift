@@ -11,7 +11,14 @@ class PostDetailRouter: PostDetailRouterInput {
     
     func openUser(userHandle: UserHandle, from view: UIViewController) {
         let configurator = UserProfileConfigurator()
-        configurator.configure(userID: userHandle)
+        configurator.configure(userID: userHandle, navigationController: view.navigationController)
+        
+        view.navigationController?.pushViewController(configurator.viewController, animated: true)
+    }
+    
+    func openReplies(commentView: CommentViewModel, scrollType: RepliesScrollType, from view: UIViewController, postDetailPresenter: PostDetailPresenter?) {
+        let configurator = CommentRepliesModuleConfigurator()
+        configurator.configure(commentView: commentView, scrollType: scrollType, postDetailsPresenter: postDetailPresenter)
         
         view.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
@@ -21,6 +28,5 @@ class PostDetailRouter: PostDetailRouterInput {
         browser.initializePageIndex(0)
         view.present(browser, animated: true, completion: {})
     }
-
 
 }

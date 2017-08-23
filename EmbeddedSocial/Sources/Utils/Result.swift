@@ -48,3 +48,20 @@ public enum Result<Value> {
         }
     }
 }
+
+extension Result {
+    
+    func map<T>(_ transform: (Value) throws -> T) -> Result<T> {
+        switch self {
+        case .success(let value):
+            do {
+                let result = try transform(value)
+                return .success(result)
+            } catch {
+                return .failure(error)
+            }
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+}

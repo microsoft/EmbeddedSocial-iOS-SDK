@@ -18,18 +18,10 @@ class ImagePicker: NSObject {
     
     fileprivate let imagePicker = UIImagePickerController()
     
-    fileprivate var onImageSelected: ((Result<UIImage>) -> Void)?
-    
     var imageWasSelected = false
     
     func show(with options: Options) {
         presentingView = options.sourceViewController
-        openSourceSelectionSheet(with: options)
-    }
-    
-    func show(with options: Options, completion: @escaping (Result<UIImage>) -> Void) {
-        presentingView = options.sourceViewController
-        onImageSelected = completion
         openSourceSelectionSheet(with: options)
     }
     
@@ -91,18 +83,14 @@ extension ImagePicker {
 // MARK: UIImagePickerControllerDelegate
 extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        onImageSelected?(.failure(APIError.cancelled))
         presentingView?.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            let photo = Photo(uid: UUID().uuidString, url: String(describing: info[UIImagePickerControllerReferenceURL]!) , image: image)
+            let photo = Photo(image: image)
             imageWasSelected = true
             delegate?.selected(photo: photo)
-            onImageSelected?(.success(image))
-        } else {
-            onImageSelected?(.failure(APIError.unknown))
         }
         presentingView?.dismiss(animated: true, completion: nil)
     }

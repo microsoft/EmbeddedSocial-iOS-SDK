@@ -11,9 +11,29 @@ class FeedModuleRouter: FeedModuleRouterInput {
     weak var navigationController: UINavigationController?
     weak var postMenuModuleOutput: PostMenuModuleOutput!
     weak var moduleInput: FeedModulePresenter!
+    weak var myProfileOpener: MyProfileOpener?
     
     // Keeping ref to menu
     var postMenuViewController: UIViewController?
+    
+    func open(route: FeedModuleRoutes, presenter: FeedModulePresenter) {
+        switch route {
+        case .postDetails(let post):
+        
+            let configurator = PostDetailModuleConfigurator()
+            configurator.configure(post: post, scrollType: .none, postPresenter: presenter)
+            
+            navigationController?.pushViewController(configurator.viewController, animated: true)
+        case .comments(let post):
+            
+            let configurator = PostDetailModuleConfigurator()
+            configurator.configure(post: post, scrollType: .bottom, postPresenter: presenter)
+            
+            navigationController?.pushViewController(configurator.viewController, animated: true)
+        default: break     
+        }
+       
+    }
     
     func open(route: FeedModuleRoutes, feedSource: FeedType) {
         
@@ -24,12 +44,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
             configurator.configure(userID: userHandle, navigationController: navigationController)
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
-        case .postDetails(let post), .comments(let post):
-            
-            let configurator = PostDetailModuleConfigurator()
-            configurator.configure(post: post, navigationController: navigationController)
-            
-            navigationController?.pushViewController(configurator.viewController, animated: true)
+
         case .openImage(let imageUrl):
             let photo = SKPhoto.photoWithImageURL(imageUrl)
             let browser = SKPhotoBrowser(photos: [photo])
@@ -60,6 +75,9 @@ class FeedModuleRouter: FeedModuleRouterInput {
                 postMenuViewController!.modalPresentationStyle = .overCurrentContext
                 parent.present(postMenuViewController!, animated: false, completion: nil)
             }
+            
+        case .myProfile:
+            myProfileOpener?.openMyProfile()
         }
     }
 }

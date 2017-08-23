@@ -21,4 +21,6 @@ protocol UserProfileViewOutput {
     func onRecent()
     
     func onPopular()
+    
+    func onFlipFeedLayout()
 }

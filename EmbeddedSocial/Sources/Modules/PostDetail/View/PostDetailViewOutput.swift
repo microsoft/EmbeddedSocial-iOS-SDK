@@ -5,16 +5,14 @@
 
 protocol PostDetailViewOutput {
 
-    /**
-        @author generamba setup
-        Notify presenter that view is ready
-    */
-
     func viewIsReady()
     func numberOfItems() -> Int
-    var post: Post? {get set}
+    var post: PostViewModel? {get set}
     func commentViewModel(index: Int) -> CommentViewModel
     func postComment(photo: Photo?, comment: String)
     func fetchMore()
-    func feedModuleHeight() -> CGFloat
+    func openUser(index: Int)
+    func openReplies(index: Int)
+    func loadRestComments()
+    func refresh()
 }

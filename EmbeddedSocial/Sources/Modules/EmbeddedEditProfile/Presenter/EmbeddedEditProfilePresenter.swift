@@ -54,11 +54,11 @@ extension EmbeddedEditProfilePresenter: EmbeddedEditProfileViewOutput {
             return
         }
         
-        router.openImagePicker(from: vc) { [unowned self] result in
-            if let image = result.value {
-                self.user.photo = Photo(image: image)
-                self.view.setUser(self.user)
-            }
+        let photo = interactor.updatedPhotoWithImageFromCache(user.photo)
+        
+        router.openImagePicker(from: vc, isImageSelected: photo.image != nil) { [unowned self] image in
+            self.user.photo = Photo(image: image)
+            self.view.setUser(self.user)
         }
     }
     

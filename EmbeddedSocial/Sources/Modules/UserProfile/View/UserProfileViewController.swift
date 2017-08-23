@@ -10,11 +10,12 @@ class UserProfileViewController: UIViewController {
     
     var output: UserProfileViewOutput!
     
-    fileprivate lazy var createPostButton: BarButtonItemWithTarget = { [unowned self] in
-        let button = BarButtonItemWithTarget()
-        button.image = UIImage(asset: .iconDots)
-        button.onTap = self.output.onMore
-        return button
+    fileprivate lazy var createPostButton: UIBarButtonItem = { [unowned self] in
+        return UIBarButtonItem(asset: .iconDots, color: Palette.defaultTint, action: self.output.onMore)
+    }()
+    
+    fileprivate lazy var feedLayoutButton: UIButton = { [unowned self] in
+        return UIButton.makeButton(asset: nil, color: Palette.defaultTint, action: self.output.onFlipFeedLayout)
     }()
     
     fileprivate lazy var headerView: UserProfileHeaderView = { [unowned self] in
@@ -30,9 +31,7 @@ class UserProfileViewController: UIViewController {
     
     fileprivate lazy var stickyFilterView: SegmentedControlView = { [unowned self] in
         let filterView = SegmentedControlView.fromNib()
-        filterView.configureForUserProfileModule(superview: self.view,
-                                                 onRecent: self.onRecent,
-                                                 onPopular: self.onPopular)
+        filterView.configureForUserProfileModule(superview: self.view, onRecent: self.onRecent, onPopular: self.onPopular)
         filterView.isHidden = true
         return filterView
     }()
@@ -46,6 +45,16 @@ class UserProfileViewController: UIViewController {
     }
     
     fileprivate var feedView: UIView?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        parent?.navigationItem.rightBarButtonItems = [createPostButton, UIBarButtonItem(customView: self.feedLayoutButton)]
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        parent?.navigationItem.rightBarButtonItems = nil
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +77,6 @@ class UserProfileViewController: UIViewController {
 extension UserProfileViewController: UserProfileViewInput {
     
     func setupInitialState() {
-        parent?.navigationItem.rightBarButtonItem = createPostButton
         view.backgroundColor = Palette.extraLightGrey
     }
     
@@ -135,5 +143,10 @@ extension UserProfileViewController: UserProfileViewInput {
     func setFilterEnabled(_ isEnabled: Bool) {
         filterView.isEnabled = isEnabled
         stickyFilterView.isEnabled = isEnabled
+    }
+    
+    func setLayoutAsset(_ asset: Asset) {
+        feedLayoutButton.setImage(UIImage(asset: asset), for: .normal)
+        feedLayoutButton.sizeToFit()
     }
 }

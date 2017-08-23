@@ -12,7 +12,7 @@ struct SearchPeopleConfigurator {
         viewController = StoryboardScene.SearchPeople.instantiateSearchPeopleViewController()
     }
     
-    func configure() -> SearchPeopleModuleInput {
+    func configure(isLoggedInUser: Bool) -> SearchPeopleModuleInput {
         let interactor = SearchPeopleInteractor()
         
         let api = QueryPeopleAPI(query: "", searchService: SearchService())
@@ -24,8 +24,18 @@ struct SearchPeopleConfigurator {
         presenter.usersListModule = usersListModule
         presenter.interactor = interactor
         
+        if isLoggedInUser {
+            presenter.backgroundUsersListModule = makeBackgroundUsersListModule()
+        }
+        
         viewController.output = presenter
         
         return presenter
+    }
+    
+    private func makeBackgroundUsersListModule() -> UserListModuleInput {
+        let api = SuggestedUsersAPI(socialService: SocialService())
+        let conf = UserListConfigurator()
+        return conf.configure(api: api, output: nil)
     }
 }

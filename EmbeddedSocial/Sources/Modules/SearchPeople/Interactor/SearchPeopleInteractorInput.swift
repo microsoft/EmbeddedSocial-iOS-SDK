@@ -5,8 +5,8 @@
 
 import UIKit
 
-protocol SearchPeopleInteractorInput: class {
-    func makeBackgroundView() -> UIView
+protocol SearchPeopleInteractorInput: class {    
+    func makeBackgroundListHeaderView() -> UIView
     
     func runSearchQuery(for searchController: UISearchController, usersListModule: UserListModuleInput)
 }

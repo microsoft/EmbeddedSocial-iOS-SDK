@@ -10,11 +10,14 @@ protocol LikesServiceProtocol {
     typealias PostHandle = String
     typealias CompletionHandler = (_ postHandle: PostHandle, _ error: Error?) -> Void
     typealias CommentCompletionHandler = (_ commentHandle: String, _ error: Error?) -> Void
+    typealias ReplyLikeCompletionHandler = (_ commentHandle: String, _ error: Error?) -> Void
     
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler)
     func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler)
     func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler)
     func unlikeComment(commentHandle: String, completion: @escaping CompletionHandler)
+    func likeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler)
+    func unlikeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler)
 
 }
 
@@ -51,6 +54,18 @@ class LikesService: BaseService, LikesServiceProtocol {
     func unlikeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
         LikesAPI.commentLikesDeleteLike(commentHandle: commentHandle, authorization: authorization) { (object, error) in
             completion(commentHandle, error)
+        }
+    }
+    
+    func likeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler) {
+        LikesAPI.replyLikesPostLike(replyHandle: replyHandle, authorization: authorization) { (object, error) in
+            completion(replyHandle, error)
+        }
+    }
+    
+    func unlikeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler) {
+        LikesAPI.replyLikesDeleteLike(replyHandle: replyHandle, authorization: authorization) { (object, error) in
+            completion(replyHandle, error)
         }
     }
 }

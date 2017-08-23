@@ -121,7 +121,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     
     var configuredUserProfile: UIViewController {
         let configurator = UserProfileConfigurator()
-        configurator.configure()
+        configurator.configure(navigationController: navigationStack.navigationController)
         return configurator.viewController
     }
     
@@ -155,3 +155,5 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     }()
     
 }
+
+extension CrossModuleCoordinator: MyProfileOpener { }

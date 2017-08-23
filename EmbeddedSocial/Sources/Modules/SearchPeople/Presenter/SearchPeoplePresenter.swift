@@ -8,6 +8,7 @@ import Foundation
 final class SearchPeoplePresenter: NSObject {
     var view: SearchPeopleViewInput!
     var usersListModule: UserListModuleInput!
+    var backgroundUsersListModule: UserListModuleInput?
     var interactor: SearchPeopleInteractorInput!
 }
 
@@ -19,6 +20,8 @@ extension SearchPeoplePresenter: SearchPeopleModuleInput {
     
     func setupInitialState() {
         usersListModule.setupInitialState()
+        backgroundUsersListModule?.setupInitialState()
+        backgroundUsersListModule?.setListHeaderView(interactor.makeBackgroundListHeaderView())
         view.setupInitialState(listView: usersListModule.listView)
     }
     
@@ -26,8 +29,8 @@ extension SearchPeoplePresenter: SearchPeopleModuleInput {
         return self
     }
     
-    func backgroundView() -> UIView {
-        return interactor.makeBackgroundView()
+    func backgroundView() -> UIView? {
+        return backgroundUsersListModule?.listView
     }
 }
 

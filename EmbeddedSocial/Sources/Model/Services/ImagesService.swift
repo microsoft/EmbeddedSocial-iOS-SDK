@@ -13,6 +13,8 @@ protocol ImagesServiceType {
     func uploadUserImage(_ image: UIImage, authorization: Authorization, completion: @escaping (Result<String>) -> Void)
     
     func updateUserPhoto(_ photo: Photo, completion: @escaping (Result<Photo>) -> Void)
+    
+    func deleteUserPhoto(authorization: Authorization, completion: @escaping (Result<Void>) -> Void)
 }
 
 class ImagesService: BaseService, ImagesServiceType {
@@ -73,4 +75,18 @@ class ImagesService: BaseService, ImagesServiceType {
             }
         }
     }
+    
+    func deleteUserPhoto(authorization: Authorization, completion: @escaping (Result<Void>) -> Void) {
+        let request = PutUserPhotoRequest()
+        request.photoHandle = "null"
+        
+        UsersAPI.usersPutUserPhoto(request: request, authorization: authorization) { response, error in
+            if error == nil {
+                completion(.success())
+            } else {
+                self.errorHandler.handle(error: error, completion: completion)
+            }
+        }
+    }
+    
 }

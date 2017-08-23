@@ -10,6 +10,7 @@ class SearchPeoplePresenterTests: XCTestCase {
     var view: MockSearchPeopleView!
     var interactor: MockSearchPeopleInteractor!
     var usersListModule: MockUserListModuleInput!
+    var backgroundUsersListModule: MockUserListModuleInput!
     var sut: SearchPeoplePresenter!
     
     override func setUp() {
@@ -17,11 +18,13 @@ class SearchPeoplePresenterTests: XCTestCase {
         view = MockSearchPeopleView()
         interactor = MockSearchPeopleInteractor()
         usersListModule = MockUserListModuleInput()
+        backgroundUsersListModule = MockUserListModuleInput()
         sut = SearchPeoplePresenter()
         
         sut.view = view
         sut.interactor = interactor
         sut.usersListModule = usersListModule
+        sut.backgroundUsersListModule = backgroundUsersListModule
     }
     
     override func tearDown() {
@@ -29,6 +32,7 @@ class SearchPeoplePresenterTests: XCTestCase {
         view = nil
         interactor = nil
         usersListModule = nil
+        backgroundUsersListModule = nil
         sut = nil
     }
 }
@@ -37,19 +41,45 @@ class SearchPeoplePresenterTests: XCTestCase {
 
 extension SearchPeoplePresenterTests {
     
-    func testThatItSetsInitialState() {
+    func testThatItSetsInitialStateWhenUserIsLoggedIn() {
         // given
-        let listView = UIView()
-        usersListModule.listView = listView
+        usersListModule.listView = UIView()
+        interactor.backgroundListHeaderView = UIView()
         
         // when
         sut.setupInitialState()
         
         // then
-        XCTAssertEqual(usersListModule.setupInitialStateCount, 1)
-        XCTAssertEqual(view.setupInitialStateCount, 1)
+        validateViewAndUsersListInitialState()
+
+        XCTAssertEqual(interactor.makeBackgroundListHeaderViewCount, 1)
         
-        XCTAssertEqual(view.listView, listView)
+        XCTAssertEqual(backgroundUsersListModule.setupInitialStateCount, 1)
+        XCTAssertEqual(backgroundUsersListModule.setListHeaderViewCount, 1)
+        XCTAssertEqual(backgroundUsersListModule.headerView, interactor.backgroundListHeaderView)
+    }
+    
+    func testThatItSetsInitialStateWhenUserIsNotLoggedIn() {
+        // given
+        usersListModule.listView = UIView()
+        sut.backgroundUsersListModule = nil
+        
+        // when
+        sut.setupInitialState()
+        
+        // then
+        validateViewAndUsersListInitialState()
+        
+        XCTAssertEqual(interactor.makeBackgroundListHeaderViewCount, 0)
+        
+        XCTAssertEqual(backgroundUsersListModule.setupInitialStateCount, 0)
+    }
+    
+    func validateViewAndUsersListInitialState() {
+        XCTAssertEqual(usersListModule.setupInitialStateCount, 1)
+        
+        XCTAssertEqual(view.setupInitialStateCount, 1)
+        XCTAssertEqual(view.listView, usersListModule.listView)
     }
     
     func testThatItReturnsSelfAsSearchResultsHandler() {
@@ -59,14 +89,13 @@ extension SearchPeoplePresenterTests {
     func testThatItReturnsBackgroundView() {
         // given
         let backgroundView = UIView()
-        interactor.backgroundViewToReturn = backgroundView
+        backgroundUsersListModule.listView = backgroundView
         
         // when
         let returnedBackgroundView = sut.backgroundView()
         
         // then
         XCTAssertEqual(backgroundView, returnedBackgroundView)
-        XCTAssertEqual(interactor.makeBackgroundViewCount, 1)
     }
     
     func testThatItReturnsViewAsSearchResultsController() {

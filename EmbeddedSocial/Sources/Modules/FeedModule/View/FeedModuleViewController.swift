@@ -98,7 +98,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.collectionView.delegate = self
           collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
         
-        // TODO: remove parent, waiting for menu proxy controller refactor
         navigationItem.rightBarButtonItem = layoutChangeButton
     }
     
