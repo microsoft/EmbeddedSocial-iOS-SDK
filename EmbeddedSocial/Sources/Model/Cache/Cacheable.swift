@@ -7,17 +7,11 @@ protocol Cacheable {
     func encodeToJSON() -> Any
     
     func getHandle() -> String?
-    
-    func getRelatedHandle() -> String?
 }
 
 extension Cacheable {
 
     func getHandle() -> String? {
-        return nil
-    }
-    
-    func getRelatedHandle() -> String? {
         return nil
     }
     

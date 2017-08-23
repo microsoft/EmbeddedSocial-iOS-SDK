@@ -57,7 +57,6 @@ class Cache: CacheType {
         transaction.typeid = item.typeIdentifier
         transaction.payload = item.encodeToJSON()
         transaction.handle = item.getHandle()
-        transaction.relatedHandle = item.getRelatedHandle()
         database.save(transaction: transaction)
     }
     
@@ -73,20 +72,12 @@ class Cache: CacheType {
         return first(predicate: predicateBuilder.predicate(with: type, handle: handle), queries: incomingQueries)
     }
     
-    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, relatedHandle: String) -> Item? {
-        return first(predicate: predicateBuilder.predicate(with: type, relatedHandle: relatedHandle), queries: incomingQueries)
-    }
-    
     func firstIncoming<Item: Cacheable>(ofType type: Item.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]) -> Item? {
         return first(predicate: predicate, sortDescriptors: sortDescriptors, queries: incomingQueries)
     }
     
     func firstOutgoing<Item: Cacheable>(ofType type: Item.Type, handle: String) -> Item? {
         return first(predicate: predicateBuilder.predicate(with: type, handle: handle), queries: outgoingQueries)
-    }
-    
-    func firstOutgoing<Item: Cacheable>(ofType type: Item.Type, relatedHandle: String) -> Item? {
-        return first(predicate: predicateBuilder.predicate(with: type, relatedHandle: relatedHandle), queries: outgoingQueries)
     }
     
     func firstOutgoing<Item: Cacheable>(ofType type: Item.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]) -> Item? {

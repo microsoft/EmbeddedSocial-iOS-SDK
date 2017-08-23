@@ -9,10 +9,6 @@ protocol CachePredicateBuilderType {
     func predicate(with type: Cacheable.Type) -> NSPredicate
     
     func predicate(with type: Cacheable.Type, handle: String) -> NSPredicate
-    
-    func predicate(with type: Cacheable.Type, handle: String, relatedHandle: String) -> NSPredicate
-    
-    func predicate(with type: Cacheable.Type, relatedHandle: String) -> NSPredicate
 }
 
 struct CachePredicateBuilder: CachePredicateBuilderType {
@@ -23,14 +19,5 @@ struct CachePredicateBuilder: CachePredicateBuilderType {
     
     func predicate(with type: Cacheable.Type, handle: String) -> NSPredicate {
         return NSPredicate(format: "typeid = %@ AND handle = %@", type.typeIdentifier, handle)
-    }
-    
-    func predicate(with type: Cacheable.Type, handle: String, relatedHandle: String) -> NSPredicate {
-        return NSPredicate(format: "typeid = %@ AND handle = %@ AND relatedHandle = %@",
-                           type.typeIdentifier, handle, relatedHandle)
-    }
-    
-    func predicate(with type: Cacheable.Type, relatedHandle: String) -> NSPredicate {
-        return NSPredicate(format: "typeid = %@ AND relatedHandle = %@", type.typeIdentifier, relatedHandle)
     }
 }

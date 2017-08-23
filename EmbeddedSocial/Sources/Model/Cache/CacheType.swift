@@ -10,11 +10,9 @@ protocol CacheType: class {
     func cacheOutgoing<T: Cacheable>(_ item: T)
     
     func firstIncoming<T: Cacheable>(ofType type: T.Type, handle: String) -> T?
-    func firstIncoming<T: Cacheable>(ofType type: T.Type, relatedHandle: String) -> T?
     func firstIncoming<T: Cacheable>(ofType type: T.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]) -> T?
     
     func firstOutgoing<T: Cacheable>(ofType type: T.Type, handle: String) -> T?
-    func firstOutgoing<T: Cacheable>(ofType type: T.Type, relatedHandle: String) -> T?
     func firstOutgoing<T: Cacheable>(ofType type: T.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]) -> T?
 
     func fetchIncoming<T: Cacheable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?) -> [T]

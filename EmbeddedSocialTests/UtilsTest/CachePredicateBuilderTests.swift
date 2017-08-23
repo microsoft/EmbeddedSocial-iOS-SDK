@@ -21,7 +21,7 @@ class CachePredicateBuilderTests: XCTestCase {
     
     func testThatItMakesCorrectTypeIDPredicate() {
         // given
-        let item = PredicateTestableItem(name: "", handle: "", relatedHandle: "")
+        let item = PredicateTestableItem(name: "", handle: "")
         
         // when
         let p = sut.predicate(with: PredicateTestableItem.self)
@@ -32,7 +32,7 @@ class CachePredicateBuilderTests: XCTestCase {
     
     func testThatItMakesCorrectTypeIDAndHandlePredicate() {
         // given
-        let item = PredicateTestableItem(name: "", handle: UUID().uuidString, relatedHandle: "")
+        let item = PredicateTestableItem(name: "", handle: UUID().uuidString)
         
         // when
         let p = sut.predicate(with: PredicateTestableItem.self, handle: item.handle)
