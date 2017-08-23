@@ -5,10 +5,27 @@
 
 import SKPhotoBrowser
 
+enum FeedModuleRoutes {
+    
+    case postDetails(post: PostViewModel)
+    case myPost(post: Post)
+    case othersPost(post: Post)
+    case openImage(image: String)
+    case comments(post: PostViewModel)
+    case profileDetailes(user: UserHandle)
+    case myProfile
+}
+
+protocol FeedModuleRouterInput {
+    
+    func open(route: FeedModuleRoutes, feedSource:FeedType)
+    func open(route: FeedModuleRoutes, presenter: FeedModulePresenter)
+}
+
 class FeedModuleRouter: FeedModuleRouterInput {
     
     weak var viewController: UIViewController?
-    weak var navigationController: UINavigationController?
+    weak var navigationController: UINavigationController? // Replace this with protocol
     weak var postMenuModuleOutput: PostMenuModuleOutput!
     weak var moduleInput: FeedModulePresenter!
     weak var myProfileOpener: MyProfileOpener?
@@ -80,10 +97,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
             myProfileOpener?.openMyProfile()
             
         default:
-            let dummy = UIViewController()
-            dummy.view = UIView()
-            dummy.view.backgroundColor = UIColor.yellow
-            navigationController?.pushViewController(dummy, animated: true)
+            fatalError("Unexpected case")
         }
     }
 }

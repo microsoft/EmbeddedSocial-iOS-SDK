@@ -17,9 +17,9 @@ final class SessionStore {
     
     var authorization: Authorization {
         guard isLoggedIn else {
-            return Constants.anonymousAuthorization
+            return Constants.API.anonymousAuthorization
         }
-        return user?.credentials?.authorization ?? Constants.anonymousAuthorization
+        return Constants.API.authorization(sessionToken!)
     }
     
     init(database: SessionStoreDatabase) {

@@ -53,7 +53,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
         return viewModel
     }
     
-    private func handle(action: CommentCellAction, index: Int) {
+    func handle(action: CommentCellAction, index: Int) {
         
         let commentHandle = comments[index].commentHandle!
         let userHandle = comments[index].userHandle!

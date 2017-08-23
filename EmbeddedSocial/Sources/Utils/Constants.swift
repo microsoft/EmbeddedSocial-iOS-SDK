@@ -10,14 +10,13 @@ struct Constants {
     static let standardCellHeight: CGFloat = 44.0
     static let oauth1URLScheme = "embeddedsocial"
     static let imageCompressionQuality: CGFloat = 0.8
-    static let anonymousAuthorization: Authorization = "Anon AK=\(Constants.appKey)"
 }
 
 extension Constants {
     
     struct Menu {
         static let defaultItemColor = UIColor.white
-        static let selectedItemColor = UIColor.init(r: 80, g: 173, b: 85)
+        static let selectedItemColor = UIColor(r: 80, g: 173, b: 85)
     }
     
     struct CreateAccount {
@@ -30,7 +29,7 @@ extension Constants {
         static let contentPadding: CGFloat = 20.0
         static let uploadPhotoHeight: CGFloat = 84.0
         static let maxBioLength = 500
-    }
+}
     
     struct UserList {
         static let pageSize = 30
@@ -47,7 +46,7 @@ extension Constants {
     }
     
     struct Feed {
-        static let pageSize = 3
+        static let pageSize = 5
     }
 }
 
@@ -55,5 +54,7 @@ extension Constants {
     
     struct API {
         static let unauthorizedStatusCode = 401
+        static let anonymousAuthorization: Authorization = "Anon AK=\(Constants.appKey)"
+        static func authorization(_ sessionToken: String) -> Authorization { return "SocialPlus TK=\(sessionToken)" }
     }
 }

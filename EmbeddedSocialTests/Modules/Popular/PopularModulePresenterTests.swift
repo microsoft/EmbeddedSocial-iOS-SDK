@@ -52,6 +52,13 @@ private class FeedModuleMock: FeedModuleInput {
     }
 
     var layout: FeedModuleLayoutType = .list
+    
+    
+    // Unused
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
+                        size: CGSize,
+                        configurator: @escaping (T) -> Void) {}
+    func moduleHeight() -> CGFloat { return 0 }
 }
 
 

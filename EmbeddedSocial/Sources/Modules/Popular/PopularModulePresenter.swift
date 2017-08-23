@@ -46,6 +46,10 @@ class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, Popul
         feedModule.setFeed(feedType)
         feedModule.refreshData()
     }
+    
+    deinit {
+        Logger.log()
+    }
 }
 
 extension PopularModulePresenter: FeedModuleOutput {
