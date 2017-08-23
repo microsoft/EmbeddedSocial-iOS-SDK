@@ -9,10 +9,6 @@ protocol Cacheable {
     func getHandle() -> String?
 }
 
-struct CacheableAssociatedKey {
-    static var handle: UInt8 = 0
-}
-
 extension Cacheable {
 
     func getHandle() -> String? {

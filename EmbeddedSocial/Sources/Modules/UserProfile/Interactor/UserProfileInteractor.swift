@@ -8,11 +8,16 @@ import Foundation
 final class UserProfileInteractor: UserProfileInteractorInput {
     private let userService: UserServiceType
     private let socialService: SocialServiceType
+    private let authorization: Authorization
     private let cache: CacheType
 
-    init(userService: UserServiceType, socialService: SocialServiceType, cache: CacheType = SocialPlus.shared.cache) {
+    init(userService: UserServiceType,
+         socialService: SocialServiceType,
+         authorization: Authorization = SocialPlus.shared.authorization,
+         cache: CacheType = SocialPlus.shared.cache) {
         self.userService = userService
         self.socialService = socialService
+        self.authorization = authorization
         self.cache = cache
     }
     
@@ -21,7 +26,7 @@ final class UserProfileInteractor: UserProfileInteractorInput {
     }
     
     func getMe(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
-        userService.getMyProfile(credentials: credentials, completion: completion)
+        userService.getMyProfile(authorization: authorization, credentials: credentials, completion: completion)
     }
 
     func getRecentPosts(userID: String, completion: @escaping (Result<[Any]>) -> Void) {
