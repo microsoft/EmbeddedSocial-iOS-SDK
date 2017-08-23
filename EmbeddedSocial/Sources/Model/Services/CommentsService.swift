@@ -56,6 +56,15 @@ class CommentsService: BaseService, CommentServiceProtocol {
             
             var result = CommentFetchResult()
             
+            guard let network = NetworkReachabilityManager() else {
+                return
+            }
+            
+            if !network.isReachable {
+                result.comments = self.convert(data: self.cache.fetchIncoming(type: CommentView.self, sortDescriptors: nil))
+                resultHandler(result)
+            }
+            
             guard error == nil else {
                 result.error = CommentsServiceError.failedToFetch(message: error!.localizedDescription)
                 resultHandler(result)
@@ -68,6 +77,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 return
             }
             
+            response?.data?.forEach( { self.cache.cacheIncoming($0) } )
             result.comments = self.convert(data: data)
             result.cursor = response?.cursor
             
