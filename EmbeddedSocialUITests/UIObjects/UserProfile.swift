@@ -21,7 +21,7 @@ class UserProfile {
     
     init(_ application: XCUIApplication) {
         self.app = application
-        self.menuButton = app.navigationBars["EmbeddedSocial.NavigationStackContainer"].children(matching: .button).element(boundBy: 2)
+        self.menuButton = app.navigationBars.children(matching: .button).element(boundBy: 2)
         self.menu = app.sheets
         self.feed = PostsFeed(app)
         self.details = app.collectionViews.children(matching: .other).element
