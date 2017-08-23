@@ -425,13 +425,14 @@ extension FeedModulePresenter: PostMenuModuleOutput {
         
         didAskFetchAll()
         
-        /*if isHome() {
+        if isHome() {
             
             // Refetch Data
             didAskFetchAll()
             
         } else {
             
+            // Update following status for current posts
             for (index, item) in items.enumerated() {
                 if item.userHandle == user {
                     items[index].userStatus = .follow
@@ -440,7 +441,6 @@ extension FeedModulePresenter: PostMenuModuleOutput {
             
             view.reloadVisible()
         }
-         */
     }
     
     func didUnfollow(user: UserHandle) {
