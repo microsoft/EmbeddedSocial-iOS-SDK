@@ -150,6 +150,59 @@ class TestHome: UITestBase {
         
         sleep(2) //Wait until images loaded
         
-        XCTAssertNotNil(XCTAssertNotNil(APIState.getLatestRequest().contains("/images/")), "Post images weren't loaded")
+        XCTAssertNotNil(APIState.getLatestRequest().contains("/images/"), "Post images weren't loaded")
+    }
+    
+    func testPagingTileMode() {
+        APIConfig.numberedTopicTeasers = true
+        
+        openScreen()
+        
+        feed.switchViewMode()
+        
+        var retryCount = 10
+        var response = APIState.getLatestResponse(forService: "topics")
+        
+        while Int(response?["cursor"] as! String)! <= pageSize && retryCount != 0 {
+            retryCount -= 1
+            response = APIState.getLatestResponse(forService: "topics")
+            app.swipeUp()
+        }
+        
+        XCTAssertGreaterThan(Int(response?["cursor"] as! String)!, pageSize, "New posts weren't loaded while swiping feed up")
+    }
+    
+    func testPostImagesLoadedTileMode() {
+        APIConfig.showTopicImages = true
+        
+        openScreen()
+        
+        feed.switchViewMode()
+        
+        sleep(2)
+        
+        XCTAssertNotNil(APIState.getLatestRequest().contains("/images/"), "Post images weren't loaded")
+    }
+    
+    func testPullToRefreshTileMode() {
+        openScreen()
+        
+        feed.switchViewMode()
+        
+        for _ in 0...5 {
+            app.swipeUp()
+        }
+        
+        for _ in 0...5 {
+            app.swipeDown()
+        }
+        
+        let post = feed.getPost(0)
+        let start = post.cell.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 0)))
+        let finish = post.cell.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
+        start.press(forDuration: 0, thenDragTo: finish)
+        
+        let response = APIState.getLatestResponse(forService: "topics")
+        XCTAssertGreaterThanOrEqual(Int(response?["cursor"] as! String)!, pageSize, "Pages weren't loaded on Pull to Refresh")
     }
 }

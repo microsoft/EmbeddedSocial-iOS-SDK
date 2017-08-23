@@ -55,6 +55,16 @@ class PostsFeed {
         self.feedContainer = self.app.collectionViews
     }
     
+    func switchViewMode() {
+        var viewModeButton: XCUIElement
+        if app.navigationBars["EmbeddedSocial.NavigationStackContainer"].children(matching: .button).element(boundBy: 1).exists {
+            viewModeButton = app.navigationBars["EmbeddedSocial.NavigationStackContainer"].children(matching: .button).element(boundBy: 1)
+        } else {
+            viewModeButton = app.navigationBars["Profile"].children(matching: .button).element(boundBy: 2)
+        }
+        viewModeButton.tap()
+    }
+    
     func getPostsCount() -> UInt {
         return UInt(self.feedContainer.cells.count)
     }
