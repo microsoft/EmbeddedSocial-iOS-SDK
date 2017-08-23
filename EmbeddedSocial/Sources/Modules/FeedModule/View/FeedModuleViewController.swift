@@ -106,6 +106,13 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         output.viewDidAppear()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Turn off UI block on exit
+        setRefreshingWithBlocking(state: false)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         onUpdateBounds()
@@ -191,7 +198,8 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
             if refreshControl.superview != collectionView {
                 collectionView!.addSubview(refreshControl)
             }
-            collectionView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
+            
+    
             refreshControl.beginRefreshing()
             bottomRefreshControl.startAnimating()
 
@@ -205,9 +213,11 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func setRefreshingWithBlocking(state: Bool) {
         Logger.log(state)
         if state {
+            collectionView.isUserInteractionEnabled = false
+            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.none)
             SVProgressHUD.show()
-            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
         } else {
+            collectionView.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
         }
     }

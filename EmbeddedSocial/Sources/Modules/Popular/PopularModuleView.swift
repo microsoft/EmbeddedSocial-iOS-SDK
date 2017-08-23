@@ -41,8 +41,8 @@ class PopularModuleView: UIViewController {
             if isLockedUI == 0 {
                 SVProgressHUD.dismiss()
             } else {
-                SVProgressHUD.show()
                 SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.none)
+                SVProgressHUD.show()
             }
             
             Logger.log(isLockedUI, feedControl.isEnabled)
@@ -62,6 +62,13 @@ class PopularModuleView: UIViewController {
                               for: .valueChanged)
         
         output.viewIsReady()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Unlock on dismiss
+        isLockedUI = 0
     }
     
     deinit {
