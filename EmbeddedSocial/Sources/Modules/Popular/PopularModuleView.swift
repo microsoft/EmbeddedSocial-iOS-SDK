@@ -42,6 +42,7 @@ class PopularModuleView: UIViewController {
                 SVProgressHUD.dismiss()
             } else {
                 SVProgressHUD.show()
+                SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.none)
             }
             
             Logger.log(isLockedUI, feedControl.isEnabled)

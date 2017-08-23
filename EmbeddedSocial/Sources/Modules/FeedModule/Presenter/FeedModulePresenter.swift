@@ -362,11 +362,13 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didStartFetching() {
+        Logger.log()
         view.setRefreshing(state: true)
         moduleOutput?.didStartRefreshingData()
     }
     
     func didFinishFetching() {
+        Logger.log()
         view.setRefreshing(state: false)
         moduleOutput?.didFinishRefreshingData(nil)
     }
@@ -405,11 +407,11 @@ extension FeedModulePresenter {
 
 extension FeedModulePresenter: PostMenuModuleOutput {
     
-    func didStartLoading() {
+    func postMenuProcessDidStart() {
         view.setRefreshingWithBlocking(state: true)
     }
     
-    func didFinishLoading() {
+    func postMenuProcessDidFinish() {
         view.setRefreshingWithBlocking(state: false)
     }
     
@@ -422,8 +424,6 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     }
     
     func didFollow(user: UserHandle) {
-        
-        didAskFetchAll()
         
         if isHome() {
             
