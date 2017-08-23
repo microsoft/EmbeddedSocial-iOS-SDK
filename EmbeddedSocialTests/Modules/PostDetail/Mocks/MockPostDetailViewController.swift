@@ -41,4 +41,7 @@ class MockPostDetailViewController: PostDetailViewInput {
         commentsLike = comment.totalLikes
     }
     
+    func refreshPostCell() {
+        
+    }
 }

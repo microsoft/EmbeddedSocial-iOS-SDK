@@ -102,4 +102,20 @@ class SessionStoreTests: XCTestCase {
         // then
         XCTAssertEqual(errors.count, descriptions.count)
     }
+    
+    func testThatAuthorizationIsCorrectForAnonymousUser() {
+        XCTAssertEqual(sut.authorization, Constants.API.anonymousAuthorization)
+    }
+    
+    func testThatAuthorizationIsCorrectForLoggedInUser() {
+        // given
+        let sessionToken = UUID().uuidString
+        let user = User()
+        
+        // when
+        sut.createSession(withUser: user, sessionToken: sessionToken)
+        
+        // then
+        XCTAssertEqual(sut.authorization, Constants.API.authorization(sessionToken))
+    }
 }
