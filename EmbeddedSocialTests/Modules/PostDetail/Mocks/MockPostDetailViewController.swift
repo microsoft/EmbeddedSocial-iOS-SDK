@@ -6,7 +6,7 @@
 import Foundation
 @testable import EmbeddedSocial
 
-class MockPostDetailViewController: PostDetailViewInput {
+class MockPostDetailViewController: UIViewController, PostDetailViewInput {
     
     var output: PostDetailViewOutput!
     
@@ -41,4 +41,8 @@ class MockPostDetailViewController: PostDetailViewInput {
         commentsLike = comment.totalLikes
     }
     
+    var postCellRefreshCount = 0
+    func refreshPostCell() {
+        postCellRefreshCount = 1
+    }
 }

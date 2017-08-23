@@ -11,15 +11,17 @@ class PostDetailsPresenterTests: XCTestCase {
     let presenter = PostDetailPresenter()
     let interactor = MockPostDetailsInteractor()
     let view = MockPostDetailViewController()
+    let router = MockPostDetailRouter()
     
-    var post: Post!
+    var post: PostViewModel!
     
     override func setUp() {
         super.setUp()
-        post = Post(topicHandle: "topicHandle", createdTime: Date(), userHandle: "userHandle", userStatus: Post.UserStatus.none, firstName: "firstName", lastName: "lastName", photoHandle: "photoHandle", photoUrl: "photoUrl", title: "title", text: "text", imageUrl: "imageUrl", deepLink: "deepLink", totalLikes: 0, totalComments: 0, liked: true, pinned: true)
+        post = PostViewModel(topicHandle: "topicHandle", userName: "username", title: "title", text: "text", isLiked: false, isPinned: false, likedBy: "", totalLikes: "0 likes", totalComments: "0 comments", timeCreated: "date", userImageUrl: "", postImageUrl: "", tag: 0, cellType: "PostCell", onAction: nil)
         presenter.interactor = interactor
         presenter.view = view
         presenter.post = post
+        presenter.router = router
         interactor.output = presenter
         view.output = presenter
     }
@@ -31,6 +33,7 @@ class PostDetailsPresenterTests: XCTestCase {
         presenter.interactor = nil
         interactor.output = nil
         presenter.view = nil
+        presenter.router = nil
         view.output = nil
     }
     
@@ -55,8 +58,6 @@ class PostDetailsPresenterTests: XCTestCase {
         //then
         XCTAssertEqual(presenter.comments.count, 1)
         XCTAssertEqual(view.commentPostFailed, 0)
-        
-        
     }
     
     func testThatNumberOfItemsCorrect() {
@@ -68,37 +69,77 @@ class PostDetailsPresenterTests: XCTestCase {
         
         //then
         XCTAssertEqual(presenter.numberOfItems(), 1)
-        
     }
     
-    func testThatCommentLiked() {
+    func testThatCommentLikedAndUnliked() {
         
         //given
-//        let commentHandle = "Handle"
-//        let comment = Comment()
-//        comment.commentHandle = commentHandle
-//        presentor.comments = [comment]
-//        
-//        //when
-//        interactor.commentAction(commentHandle: commentHandle, action: .like)
-//        
-//        //then
-//        XCTAssertEqual(view.commentsLike, "1 like")
+        let commentHandle = "Handle"
+        let comment = Comment()
+        comment.commentHandle = commentHandle
+        comment.userHandle = "user"
+        presenter.comments = [comment]
+        
+        //when like
+        presenter.handle(action: .like, index: 0)
+        
+        //then
+        XCTAssertEqual(view.commentsLike, "1 like")
+        
+        //when unlike
+        presenter.handle(action: .like, index: 0)
+        
+        //then
+        XCTAssertEqual(view.commentsLike, "0 likes")
     }
     
-    func testThatCommentUnliked() {
+    func testThatRepliesOpen() {
         
-//        //given
-//        let commentHandle = "Handle"
-//        let comment = Comment()
-//        comment.commentHandle = commentHandle
-//        presentor.comments = [comment]
-//        
-//        //when
-//        interactor.commentAction(commentHandle: commentHandle, action: .like)
-//        
-//        //then
-//        XCTAssertEqual(view.commentsLike, "0 likes")
+        //given
+        let commentHandle = "Handle"
+        let comment = Comment()
+        comment.commentHandle = commentHandle
+        comment.userHandle = "user"
+        presenter.comments = [comment]
+        
+        //when
+        presenter.handle(action: .replies, index: 0)
+        
+        //then
+        XCTAssertEqual(router.openRepliesCount, 1)
+    }
+
+    func testThatUserOpen() {
+        
+        //given
+        let commentHandle = "Handle"
+        let comment = Comment()
+        comment.commentHandle = commentHandle
+        comment.userHandle = "user"
+        presenter.comments = [comment]
+        
+        //when
+        presenter.handle(action: .profile, index: 0)
+        
+        //then
+        XCTAssertEqual(router.openUserCount, 1)
+    }
+    
+    func testThatPhotoOpen() {
+        
+        //given
+        let commentHandle = "Handle"
+        let comment = Comment()
+        comment.commentHandle = commentHandle
+        comment.userHandle = "user"
+        comment.mediaUrl = "url"
+        presenter.comments = [comment]
+        
+        //when
+        presenter.handle(action: .photo, index: 0)
+        
+        //then
+        XCTAssertEqual(router.openImageCount, 1)
     }
     
     func testThatFetchMore() {
