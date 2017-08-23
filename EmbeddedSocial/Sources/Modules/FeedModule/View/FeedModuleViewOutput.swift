@@ -6,6 +6,7 @@
 protocol FeedModuleViewOutput {
 
     func viewIsReady()
+    func viewDidAppear()
     
     func numberOfItems() -> Int
     func item(for path: IndexPath) -> PostViewModel
