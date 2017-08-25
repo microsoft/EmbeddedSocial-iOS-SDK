@@ -119,6 +119,9 @@
 		8834A74D1F5011B600F1D383 /* CacheQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A74C1F5011B600F1D383 /* CacheQueries.swift */; };
 		8834A74F1F5011CB00F1D383 /* CacheSortDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A74E1F5011CB00F1D383 /* CacheSortDescriptors.swift */; };
 		8834A7501F5016BA00F1D383 /* MockCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8391F41F30B00F7513D /* MockCache.swift */; };
+		8834A7511F50348300F1D383 /* CachePredicateBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884C9C3F1F4D911C0004907F /* CachePredicateBuilderTests.swift */; };
+		8834A7521F50367600F1D383 /* TransactionsDatabaseFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F163861F27565400DAAF68 /* TransactionsDatabaseFacadeTests.swift */; };
+		8834A7531F5036B700F1D383 /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7191F29FBAE0090C67A /* CacheTests.swift */; };
 		883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */; };
 		883B9B601F276BCF00D1E66E /* TestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B5E1F276BCF00D1E66E /* TestModel.xcdatamodeld */; };
 		883B9B641F2776E600D1E66E /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B631F2776E600D1E66E /* Item.swift */; };
@@ -4537,6 +4540,7 @@
 				889119AA1F4AE071005B3B32 /* SearchPeopleInteractorTests.swift in Sources */,
 				88FFFA571F2F7F780066A1A0 /* MockUserProfileInteractor.swift in Sources */,
 				63A1D71D1F29FC120090C67A /* MockTransactionsDatabaseFacade.swift in Sources */,
+				8834A7511F50348300F1D383 /* CachePredicateBuilderTests.swift in Sources */,
 				88F551BD1F39D2EF00F4AAB9 /* MockUserProfileView.swift in Sources */,
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
 				8811C89D1F4431BC00F7513D /* EmbeddedEditProfileInteractorTests.swift in Sources */,
@@ -4557,9 +4561,11 @@
 				889119AC1F4AE0C8005B3B32 /* QueryPeopleAPITests.swift in Sources */,
 				88F1637F1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift in Sources */,
 				9C6244F21F457DED004814BB /* PostMenuModuleInteractorTests.swift in Sources */,
+				8834A7531F5036B700F1D383 /* CacheTests.swift in Sources */,
 				889119C11F4AFA8E005B3B32 /* MockSearchResultsUpdating.swift in Sources */,
 				88635D881F224F3200577140 /* CoreDataRepositoryTests.swift in Sources */,
 				889119C51F4AFC00005B3B32 /* SearchPresenterTests.swift in Sources */,
+				8834A7521F50367600F1D383 /* TransactionsDatabaseFacadeTests.swift in Sources */,
 				889AFC261F220BCD003AAF19 /* AuthAPIProviderTests.swift in Sources */,
 				88F7A7931F278D33005FEC5F /* MockLoginInteractor.swift in Sources */,
 				88635D7B1F22430300577140 /* CoreDataEntititesTests.swift in Sources */,

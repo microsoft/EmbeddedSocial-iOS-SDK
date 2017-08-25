@@ -65,7 +65,7 @@ class TransactionsDatabaseFacadeTests: XCTestCase {
         
         let transactionsFetchedExpectation = expectation(description: "Transactions fetched")
         var fetchedTransactions: [IncomingTransaction] = []
-        sut.queryIncomingTransactions { transactions in
+        sut.queryIncomingTransactions(page: nil) { transactions in
             fetchedTransactions = transactions
             transactionsFetchedExpectation.fulfill()
         }
@@ -135,7 +135,7 @@ class TransactionsDatabaseFacadeTests: XCTestCase {
         
         let transactionsFetchedExpectation = expectation(description: "Transactions fetched")
         var fetchedTransactions: [OutgoingTransaction] = []
-        sut.queryOutgoingTransactions { transactions in
+        sut.queryOutgoingTransactions(page: nil) { transactions in
             fetchedTransactions = transactions
             transactionsFetchedExpectation.fulfill()
         }

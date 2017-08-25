@@ -57,20 +57,17 @@ class Cache: CacheType {
         return queries.fetch(p, nil, nil).first ?? queries.make()
     }
     
-    func firstIncoming<Item: Cacheable>(ofType type: Item.Type,
-                       typeID: String,
-                       handle: String,
-                       sortDescriptors: [NSSortDescriptor]?) -> Item? {
-        let p = predicateBuilder.predicate(typeID: typeID, handle: handle)
-        return first(predicate: p, sortDescriptors: sortDescriptors, queries: incomingQueries)
+    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> Item? {
+        return first(predicate: predicate, sortDescriptors: sortDescriptors, queries: incomingQueries)
     }
     
-    func firstOutgoing<Item: Cacheable>(ofType type: Item.Type,
-                       typeID: String,
-                       handle: String,
-                       sortDescriptors: [NSSortDescriptor]?) -> Item? {
-        let p = predicateBuilder.predicate(typeID: typeID, handle: handle)
-        return first(predicate: p, sortDescriptors: sortDescriptors, queries: outgoingQueries)
+    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, handle: String) -> Item? {
+        let p = predicateBuilder.predicate(typeID: type.typeIdentifier, handle: handle)
+        return firstIncoming(ofType: type, predicate: p, sortDescriptors: nil)
+    }
+    
+    func firstOutgoing<Item: Cacheable>(ofType type: Item.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> Item? {
+        return first(predicate: predicate, sortDescriptors: sortDescriptors, queries: outgoingQueries)
     }
     
     private func first<T: Transaction, Item: Cacheable>(predicate: NSPredicate?,

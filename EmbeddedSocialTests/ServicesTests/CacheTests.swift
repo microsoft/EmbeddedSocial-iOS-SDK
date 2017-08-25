@@ -29,37 +29,34 @@ class CacheTests: XCTestCase {
         sut = nil
     }
     
-    func testThatItCachesItemAndLoadsItByHandle() {
+    func testThatItCachesItemAndLoadsItByPredicate() {
         // given
-        let item = CacheableItem(handle: UUID().uuidString, name: UUID().uuidString)
-        
+        let item = CacheableItem(handle: UUID().uuidString, name: UUID().uuidString, relatedHandle: UUID().uuidString)
+        let predicate = NSPredicate(format: "typeid = %@ AND handle = %@", CacheableItem.typeIdentifier, item.handle)
+
         // when
         sut.cacheIncoming(item)
         sut.cacheOutgoing(item)
         
-        let fetchedIncomingItem = sut.firstIncoming(ofType: CacheableItem.self, handle: item.handle)
-        let fetchedOutgoingItem = sut.firstOutgoing(ofType: CacheableItem.self, handle: item.handle)
+        let fetchedIncomingItem = sut.firstIncoming(ofType: CacheableItem.self, predicate: predicate, sortDescriptors: nil)
+        let fetchedOutgoingItem = sut.firstOutgoing(ofType: CacheableItem.self, predicate: predicate, sortDescriptors: nil)
 
         // then
         XCTAssertEqual(item, fetchedIncomingItem)
         XCTAssertEqual(item, fetchedOutgoingItem)
     }
     
-    func testThatItCachesItemAndLoadsItByPredicate() {
+    func testThatItCachesIncomingItemAndLoadsItByHandle() {
         // given
-        let item = CacheableItem(handle: UUID().uuidString, name: UUID().uuidString)
-        let predicate = NSPredicate(format: "typeid = %@ AND handle = %@", CacheableItem.typeIdentifier, item.handle)
+        let item = CacheableItem(handle: UUID().uuidString, name: UUID().uuidString, relatedHandle: UUID().uuidString)
         
         // when
         sut.cacheIncoming(item)
-        sut.cacheOutgoing(item)
         
-        let fetchedIncomingItem = sut.firstIncoming(ofType: CacheableItem.self, predicate: predicate, sortDescriptors: [])
-        let fetchedOutgoingItem = sut.firstOutgoing(ofType: CacheableItem.self, predicate: predicate, sortDescriptors: [])
+        let fetchedItem = sut.firstIncoming(ofType: CacheableItem.self, handle: item.handle)
 
         // then
-        XCTAssertEqual(fetchedIncomingItem, item)
-        XCTAssertEqual(fetchedOutgoingItem, item)
+        XCTAssertEqual(fetchedItem, item)
     }
     
     func testThatItCachesItemsAndLoadsItByPredicateAndSortDescriptors() {
@@ -83,36 +80,29 @@ class CacheTests: XCTestCase {
         XCTAssertEqual(fetchedOutgoingItem, lastItem)
     }
     
-    func testThatItFetchesIncomingTransactionsAndSortsByName() {
+    func testThatItFetchesIncomingAndOutgoingTransactionsAndSortsByName() {
         // given
         let items = makeItems()
         let sortDescriptor = NSSortDescriptor(key: "payload.name", ascending: true)
+        let request = CacheFetchRequest(resultType: CacheableItem.self, sortDescriptors: [sortDescriptor])
         
         // when
         items.forEach(sut.cacheIncoming)
-        let fetchedItems = sut.fetchIncoming(type: CacheableItem.self, sortDescriptors: [sortDescriptor])
-        
-        // then
-        XCTAssertEqual(items, fetchedItems)
-    }
-    
-    func testThatItFetchesOutgoingTransactionsAndSortsByName() {
-        // given
-        let items = makeItems()
-        let sortDescriptor = NSSortDescriptor(key: "payload.name", ascending: true)
-        
-        // when
         items.forEach(sut.cacheOutgoing)
-        let fetchedItems = sut.fetchOutgoing(type: CacheableItem.self, sortDescriptors: [sortDescriptor])
+        
+        let fetchedIncomingItems = sut.fetchIncoming(with: request)
+        let fetchedOutgoingItems = sut.fetchOutgoing(with: request)
         
         // then
-        XCTAssertEqual(items, fetchedItems)
+        XCTAssertEqual(items, fetchedIncomingItems)
+        XCTAssertEqual(items, fetchedOutgoingItems)
     }
     
     func testThatItFetchesIncomingAsync() {
         // given
         let items = makeItems()
         let sortDescriptor = NSSortDescriptor(key: "payload.name", ascending: true)
+        let request = CacheFetchRequest(resultType: CacheableItem.self, sortDescriptors: [sortDescriptor])
         
         // when
         items.forEach(sut.cacheIncoming)
@@ -120,7 +110,7 @@ class CacheTests: XCTestCase {
         // then
         let expectation = self.expectation(description: #function)
         
-        sut.fetchIncoming(type: CacheableItem.self, sortDescriptors: [sortDescriptor]) { fetchedItems in
+        sut.fetchIncoming(with: request) { fetchedItems in
             XCTAssertTrue(Thread.isMainThread)
             XCTAssertEqual(items, fetchedItems)
             expectation.fulfill()
@@ -135,14 +125,15 @@ class CacheTests: XCTestCase {
         let items = itemsWithSameUniqueName + makeItems()
         let predicate = NSPredicate(format: "payload.name = %@", name)
         let sortDescriptor = NSSortDescriptor(key: "payload.handle", ascending: true)
-
+        let request = CacheFetchRequest(resultType: CacheableItem.self, predicate: predicate, sortDescriptors: [sortDescriptor])
+        
         // when
         items.forEach(sut.cacheIncoming)
         
         // then
         let expectation = self.expectation(description: #function)
         
-        sut.fetchIncoming(type: CacheableItem.self, predicate: predicate, sortDescriptors: [sortDescriptor]) { fetchedItems in
+        sut.fetchIncoming(with: request) { fetchedItems in
             XCTAssertTrue(Thread.isMainThread)
             XCTAssertEqual(itemsWithSameUniqueName, fetchedItems)
             expectation.fulfill()
@@ -154,6 +145,7 @@ class CacheTests: XCTestCase {
         // given
         let items = makeItems()
         let sortDescriptor = NSSortDescriptor(key: "payload.name", ascending: true)
+        let request = CacheFetchRequest(resultType: CacheableItem.self, sortDescriptors: [sortDescriptor])
         
         // when
         items.forEach(sut.cacheOutgoing)
@@ -161,7 +153,7 @@ class CacheTests: XCTestCase {
         // then
         let expectation = self.expectation(description: #function)
         
-        sut.fetchOutgoing(type: CacheableItem.self, sortDescriptors: [sortDescriptor]) { fetchedItems in
+        sut.fetchOutgoing(with: request) { fetchedItems in
             XCTAssertTrue(Thread.isMainThread)
             XCTAssertEqual(items, fetchedItems)
             expectation.fulfill()
@@ -176,14 +168,15 @@ class CacheTests: XCTestCase {
         let items = itemsWithSameUniqueName + makeItems()
         let predicate = NSPredicate(format: "payload.name = %@", name)
         let sortDescriptor = NSSortDescriptor(key: "payload.handle", ascending: true)
-        
+        let request = CacheFetchRequest(resultType: CacheableItem.self, predicate: predicate, sortDescriptors: [sortDescriptor])
+
         // when
         items.forEach(sut.cacheOutgoing)
         
         // then
         let expectation = self.expectation(description: #function)
         
-        sut.fetchOutgoing(type: CacheableItem.self, predicate: predicate, sortDescriptors: [sortDescriptor]) { fetchedItems in
+        sut.fetchOutgoing(with: request) { fetchedItems in
             XCTAssertTrue(Thread.isMainThread)
             XCTAssertEqual(itemsWithSameUniqueName, fetchedItems)
             expectation.fulfill()
@@ -193,19 +186,19 @@ class CacheTests: XCTestCase {
     
     private func makeItemsWithSameName(_ name: String, sort: (CacheableItem, CacheableItem) -> Bool) -> [CacheableItem] {
         return [
-            CacheableItem(handle: UUID().uuidString, name: name),
-            CacheableItem(handle: UUID().uuidString, name: name),
-            CacheableItem(handle: UUID().uuidString, name: name)
+            CacheableItem(handle: UUID().uuidString, name: name, relatedHandle: UUID().uuidString),
+            CacheableItem(handle: UUID().uuidString, name: name, relatedHandle: UUID().uuidString),
+            CacheableItem(handle: UUID().uuidString, name: name, relatedHandle: UUID().uuidString)
         ].sorted(by: sort)
     }
     
     private func makeItems() -> [CacheableItem] {
         return [
-            CacheableItem(handle: UUID().uuidString, name: "A"),
-            CacheableItem(handle: UUID().uuidString, name: "B"),
-            CacheableItem(handle: UUID().uuidString, name: "C"),
-            CacheableItem(handle: UUID().uuidString, name: "D"),
-            CacheableItem(handle: UUID().uuidString, name: "E")
+            CacheableItem(handle: UUID().uuidString, name: "A", relatedHandle: UUID().uuidString),
+            CacheableItem(handle: UUID().uuidString, name: "B", relatedHandle: UUID().uuidString),
+            CacheableItem(handle: UUID().uuidString, name: "C", relatedHandle: UUID().uuidString),
+            CacheableItem(handle: UUID().uuidString, name: "D", relatedHandle: UUID().uuidString),
+            CacheableItem(handle: UUID().uuidString, name: "E", relatedHandle: UUID().uuidString)
         ]
     }
 }
