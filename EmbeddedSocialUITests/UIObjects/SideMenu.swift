@@ -14,7 +14,7 @@ class SideMenu {
     
     init(_ app: XCUIApplication) {
         self.app = app
-        self.menuButton = app.navigationBars["EmbeddedSocial.NavigationStackContainer"].children(matching: .button).element(boundBy: 0)
+        self.menuButton = app.navigationBars.children(matching: .button).element(boundBy: 0)
         self.userProfileOption = app.children(matching: .window).element(boundBy: 2).children(matching: .other).element.children(matching: .other).element(boundBy: 1).staticTexts[TestConfig.fullUserName]
     }
     
