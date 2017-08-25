@@ -10,7 +10,9 @@ protocol UsersListAPI {
 }
 
 struct UserListConfigurator {
-    func configure(api: UsersListAPI, me: User? = SocialPlus.shared.me, output: UserListModuleOutput?) -> UserListModuleInput {
+    func configure(api: UsersListAPI,
+                   me: User? = SocialPlus.shared.me,
+                   output: UserListModuleOutput?) -> UserListModuleInput {
         let view = UserListView()
         
         let presenter = UserListPresenter()

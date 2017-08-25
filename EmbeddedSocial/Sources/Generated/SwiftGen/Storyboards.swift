@@ -140,6 +140,18 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum LikesList: String, StoryboardSceneType {
+    static let storyboardName = "LikesList"
+
+    case likesListViewControllerScene = "LikesListViewController"
+    static func instantiateLikesListViewController() -> EmbeddedSocial.LikesListViewController {
+      guard let vc = StoryboardScene.LikesList.likesListViewControllerScene.viewController() as? EmbeddedSocial.LikesListViewController
+      else {
+        fatalError("ViewController 'LikesListViewController' is not of the expected class EmbeddedSocial.LikesListViewController.")
+      }
+      return vc
+    }
+  }
   enum Login: String, StoryboardSceneType {
     static let storyboardName = "Login"
 

@@ -14,6 +14,7 @@ enum FeedModuleRoutes {
     case comments(post: PostViewModel)
     case profileDetailes(user: UserHandle)
     case myProfile
+    case likesList(postHandle: String)
 }
 
 protocol FeedModuleRouterInput {
@@ -95,6 +96,11 @@ class FeedModuleRouter: FeedModuleRouterInput {
             
         case .myProfile:
             myProfileOpener?.openMyProfile()
+            
+        case .likesList(let handle):
+            let configurator = LikesListConfigurator()
+            configurator.configure(postHandle: handle)
+            navigationController?.pushViewController(configurator.viewController, animated: true)
             
         default:
             fatalError("Unexpected case")
