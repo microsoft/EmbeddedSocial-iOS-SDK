@@ -36,7 +36,7 @@ extension FeedModuleOutput {
     func didStartRefreshingData() { }
     func didFinishRefreshingData() { }
     
-    func shouldOpenProfile(for userID: String) -> Bool { return false }
+    func shouldOpenProfile(for userID: String) -> Bool { return true }
 }
 
 enum FeedType {
