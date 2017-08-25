@@ -10,4 +10,5 @@ protocol Transaction {
     var createdAt: Date? { get set }
     var handle: String? { get set }
     var payload: Any? { get set }
+    var relatedHandle: String? { get set }
 }
