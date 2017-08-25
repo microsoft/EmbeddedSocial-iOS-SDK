@@ -18,6 +18,8 @@
 		6387F54D1F41B1D10066628E /* ReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6387F54C1F41B1D10066628E /* ReplyCell.swift */; };
 		6387F54F1F41B1DA0066628E /* ReplyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6387F54E1F41B1DA0066628E /* ReplyCell.xib */; };
 		6387F5531F41B95A0066628E /* CommentReplies.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6387F5521F41B95A0066628E /* CommentReplies.storyboard */; };
+		639E62231F5050750030C1F2 /* PostDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65B21F3E05DA00FE5A3A /* PostDetailPresenterTests.swift */; };
+		639E62241F5050F40030C1F2 /* MockPostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65B01F3E05DA00FE5A3A /* MockPostDetailViewController.swift */; };
 		63A1D6FB1F25E78D0090C67A /* TopicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D6FA1F25E78D0090C67A /* TopicService.swift */; };
 		63A1D71B1F29FBB80090C67A /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7191F29FBAE0090C67A /* CacheTests.swift */; };
 		63A1D71D1F29FC120090C67A /* MockTransactionsDatabaseFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D71C1F29FC120090C67A /* MockTransactionsDatabaseFacade.swift */; };
@@ -4217,6 +4219,7 @@
 				889119AE1F4AE10C005B3B32 /* MockSearchService.swift in Sources */,
 				88F191741F26164200B93ADF /* AuthProviderTests.swift in Sources */,
 				9CB3F1FB1F3367F00099A22D /* TopicServiceTests.swift in Sources */,
+				639E62241F5050F40030C1F2 /* MockPostDetailViewController.swift in Sources */,
 				889AFC2B1F220BCD003AAF19 /* MockSocialPlusServices.swift in Sources */,
 				63A1D7281F2A24900090C67A /* MockCreatePostPresenter.swift in Sources */,
 				88F191721F26071A00B93ADF /* XCTestCase+Ext.swift in Sources */,
@@ -4235,6 +4238,7 @@
 				88F551BA1F39BB9700F4AAB9 /* MockFeedModuleInput.swift in Sources */,
 				88F1637B1F26494100DAAF68 /* SocialUserTests.swift in Sources */,
 				889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */,
+				639E62231F5050750030C1F2 /* PostDetailPresenterTests.swift in Sources */,
 				889119BC1F4AF868005B3B32 /* MockSearchPeopleModule.swift in Sources */,
 				88F163791F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift in Sources */,
 				88F163891F27569900DAAF68 /* MockQueriableRepository.swift in Sources */,

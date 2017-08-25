@@ -19,12 +19,14 @@ class CreatePostPresentorTests: XCTestCase {
         presentor.user = user
         view.output = presentor
         presentor.view = view
+        interactor.output = presentor
     }
     
     override func tearDown() {
         super.tearDown()
         presentor.interactor = nil
         presentor.view = nil
+        presentor.post = nil
     }
     
     func testThatPostInInteractorCalled() {
@@ -37,6 +39,7 @@ class CreatePostPresentorTests: XCTestCase {
         XCTAssertEqual(body, interactor.body, "should save in interactor")
         XCTAssertEqual(photo, interactor.photo, "should save in interactor")
         XCTAssertEqual(interactor.postTopicCalledCount, 1)
+        XCTAssertEqual(view.topicCreatedCount, 1)
     }
     
     func testThatViewShowedError() {
@@ -50,6 +53,21 @@ class CreatePostPresentorTests: XCTestCase {
         view.show(user: user)
 
         XCTAssertEqual(view.userShowedCount, 1)
+    }
+    
+    func testThatPostUpdating() {
+        
+        //given
+        var post = Post()
+        post.topicHandle = "handle"
+        presentor.post = post
+        
+        //when
+        presentor.post(photo: nil, title: "title", body: "test")
+        
+        //then
+        XCTAssertEqual(interactor.updateTopicCount, 1)
+        XCTAssertEqual(view.topicUpdatedCount, 1)
     }
     
     

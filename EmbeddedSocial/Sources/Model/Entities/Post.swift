@@ -109,7 +109,9 @@ extension Post {
         
         viewModel.isLiked = self.liked
         viewModel.isPinned = self.pinned
+        
         viewModel.onAction = handler
+    
         
         return viewModel
     }
