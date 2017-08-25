@@ -7,11 +7,11 @@ import XCTest
 @testable import EmbeddedSocial
 
 class CachePredicateBuilderTests: XCTestCase {
-    var sut: CachePredicateBuilder!
+    var sut: PredicateBuilder!
     
     override func setUp() {
         super.setUp()
-        sut = CachePredicateBuilder()
+        sut = PredicateBuilder()
     }
     
     override func tearDown() {
@@ -19,12 +19,23 @@ class CachePredicateBuilderTests: XCTestCase {
         sut = nil
     }
     
-    func testThatItMakesCorrectTypeIDPredicate() {
+    func testThatItMakesCorrectHandlePredicate() {
         // given
-        let item = PredicateTestableItem(name: "", handle: "")
+        let item = PredicateTestableItem(name: "", handle: UUID().uuidString, relatedHandle: "")
         
         // when
-        let p = sut.predicate(with: PredicateTestableItem.self)
+        let p = sut.predicate(handle: item.handle)
+        
+        // then
+        XCTAssertTrue(p.evaluate(with: item))
+    }
+    
+    func testThatItMakesCorrectTypeIDPredicate() {
+        // given
+        let item = PredicateTestableItem(name: "", handle: "", relatedHandle: "")
+        
+        // when
+        let p = sut.predicate(typeID: item.typeid)
         
         // then
         XCTAssertTrue(p.evaluate(with: item))
@@ -32,10 +43,32 @@ class CachePredicateBuilderTests: XCTestCase {
     
     func testThatItMakesCorrectTypeIDAndHandlePredicate() {
         // given
-        let item = PredicateTestableItem(name: "", handle: UUID().uuidString)
+        let item = PredicateTestableItem(name: "", handle: UUID().uuidString, relatedHandle: "")
         
         // when
-        let p = sut.predicate(with: PredicateTestableItem.self, handle: item.handle)
+        let p = sut.predicate(typeID: item.typeid, handle: item.handle)
+        
+        // then
+        XCTAssertTrue(p.evaluate(with: item))
+    }
+    
+    func testThatItMakesCorrectTypeIDHandleAndRelatedHandlePredicate() {
+        // given
+        let item = PredicateTestableItem(name: "", handle: UUID().uuidString, relatedHandle: UUID().uuidString)
+        
+        // when
+        let p = sut.predicate(typeID: item.typeid, handle: item.handle, relatedHandle: item.relatedHandle)
+        
+        // then
+        XCTAssertTrue(p.evaluate(with: item))
+    }
+    
+    func testThatItMakesCorrectTypeIDAndRelatedHandlePredicate() {
+        // given
+        let item = PredicateTestableItem(name: "", handle: "", relatedHandle: UUID().uuidString)
+        
+        // when
+        let p = sut.predicate(typeID: item.typeid, relatedHandle: item.relatedHandle)
         
         // then
         XCTAssertTrue(p.evaluate(with: item))
