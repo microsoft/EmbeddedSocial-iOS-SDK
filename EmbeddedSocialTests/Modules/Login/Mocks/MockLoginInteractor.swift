@@ -15,7 +15,9 @@ final class MockLoginInteractor: LoginInteractorInput {
         lastProvider = provider
     }
     
-    func getMyProfile(socialUser: SocialUser, handler: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
+    func getMyProfile(socialUser: SocialUser,
+                      from viewController: UIViewController?,
+                      handler: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
         getMyProfileCount += 1
     }
 }
