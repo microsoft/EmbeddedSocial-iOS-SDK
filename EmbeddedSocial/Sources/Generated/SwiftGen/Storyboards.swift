@@ -247,6 +247,18 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum UsersWhoLikedPost: String, StoryboardSceneType {
+    static let storyboardName = "UsersWhoLikedPost"
+
+    case usersWhoLikedPostViewControllerScene = "UsersWhoLikedPostViewController"
+    static func instantiateUsersWhoLikedPostViewController() -> EmbeddedSocial.UsersWhoLikedPostViewController {
+      guard let vc = StoryboardScene.UsersWhoLikedPost.usersWhoLikedPostViewControllerScene.viewController() as? EmbeddedSocial.UsersWhoLikedPostViewController
+      else {
+        fatalError("ViewController 'UsersWhoLikedPostViewController' is not of the expected class EmbeddedSocial.UsersWhoLikedPostViewController.")
+      }
+      return vc
+    }
+  }
 }
 
 enum StoryboardSegue {

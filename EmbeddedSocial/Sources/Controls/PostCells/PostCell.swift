@@ -61,6 +61,10 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         viewModel.onAction?(.extra, indexPath())
     }
     
+    @IBAction func onLikesList(_ sender: UIButton) {
+        viewModel.onAction?(.likesList, indexPath())
+    }
+    
     @IBOutlet weak var likedCount: UILabel!
     @IBOutlet weak var commentedCount: UILabel!
 

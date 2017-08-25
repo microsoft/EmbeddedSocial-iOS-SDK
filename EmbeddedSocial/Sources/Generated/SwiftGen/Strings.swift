@@ -143,6 +143,11 @@ enum L10n {
     static let takePhoto = L10n.tr("Localizable", "image_picker.take_photo")
   }
 
+  enum LikesList {
+    /// Like this post
+    static let screenTitle = L10n.tr("Localizable", "likes_list.screen_title")
+  }
+
   enum Login {
     /// Sign in
     static let screenTitle = L10n.tr("Localizable", "login.screen_title")
