@@ -17,12 +17,12 @@ struct PredicateBuilder: CachePredicateBuilder {
         return NSPredicate(format: "handle = %@", handle)
     }
     
-    func predicate(typeID: String, handle: String) -> NSPredicate {
-        return NSPredicate(format: "typeid = %@ AND handle = %@", typeID, handle)
-    }
-    
     func predicate(typeID: String) -> NSPredicate {
         return NSPredicate(format: "typeid = %@", typeID)
+    }
+    
+    func predicate(typeID: String, handle: String) -> NSPredicate {
+        return NSPredicate(format: "typeid = %@ AND handle = %@", typeID, handle)
     }
     
     func predicate(typeID: String, handle: String, relatedHandle: String) -> NSPredicate {

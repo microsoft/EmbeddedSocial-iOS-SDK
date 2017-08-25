@@ -18,15 +18,27 @@ class MockCache: CacheType {
     }
     
     //MARK: - firstIncoming<Item: Cacheable>
+
+    var firstIncoming_ofType_handle_Called = false
+    var firstIncoming_ofType_handle_ReceivedArguments: (type: Cacheable.Type, handle: String)?
+    var firstIncoming_ofType_handle_ReturnValue: Cacheable?
     
-    var firstIncoming_ofType_typeID_handle_sortDescriptors_Called = false
-    var firstIncoming_ofType_typeID_handle_sortDescriptors_ReceivedArguments: (type: Cacheable.Type, typeID: String, handle: String, sortDescriptors: [NSSortDescriptor]?)?
-    var firstIncoming_ofType_typeID_handle_sortDescriptors_ReturnValue: Cacheable?
+    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, handle: String) -> Item? {
+        firstIncoming_ofType_handle_Called = true
+        firstIncoming_ofType_handle_ReceivedArguments = (type: type, handle: handle)
+        return firstIncoming_ofType_handle_ReturnValue as? Item
+    }
     
-    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, typeID: String, handle: String, sortDescriptors: [NSSortDescriptor]?) -> Item? {
-        firstIncoming_ofType_typeID_handle_sortDescriptors_Called = true
-        firstIncoming_ofType_typeID_handle_sortDescriptors_ReceivedArguments = (type: type, typeID: typeID, handle: handle, sortDescriptors: sortDescriptors)
-        return firstIncoming_ofType_typeID_handle_sortDescriptors_ReturnValue as? Item
+    //MARK: - firstIncoming<Item: Cacheable>
+    
+    var firstIncoming_ofType_predicate_sortDescriptors_Called = false
+    var firstIncoming_ofType_predicate_sortDescriptors_ReceivedArguments: (type: Cacheable.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?)?
+    var firstIncoming_ofType_predicate_sortDescriptors_ReturnValue: Cacheable?
+    
+    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> Item? {
+        firstIncoming_ofType_predicate_sortDescriptors_Called = true
+        firstIncoming_ofType_predicate_sortDescriptors_ReceivedArguments = (type: type, predicate: predicate, sortDescriptors: sortDescriptors)
+        return firstIncoming_ofType_predicate_sortDescriptors_ReturnValue as? Item
     }
     
     //MARK: - fetchIncoming<Item: Cacheable>
@@ -65,14 +77,14 @@ class MockCache: CacheType {
     
     //MARK: - firstOutgoing<Item: Cacheable>
     
-    var firstOutgoing_ofType_typeID_handle_sortDescriptors_Called = false
-    var firstOutgoing_ofType_typeID_handle_sortDescriptors_ReceivedArguments: (type: Cacheable.Type, typeID: String, handle: String, sortDescriptors: [NSSortDescriptor]?)?
-    var firstOutgoing_ofType_typeID_handle_sortDescriptors_ReturnValue: Cacheable?
+    var firstOutgoing_ofType_predicate_sortDescriptors_Called = false
+    var firstOutgoing_ofType_predicate_sortDescriptors_ReceivedArguments: (type: Cacheable.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?)?
+    var firstOutgoing_ofType_predicate_sortDescriptors_ReturnValue: Cacheable?
     
-    func firstOutgoing<Item: Cacheable>(ofType type: Item.Type, typeID: String, handle: String, sortDescriptors: [NSSortDescriptor]?) -> Item? {
-        firstOutgoing_ofType_typeID_handle_sortDescriptors_Called = true
-        firstOutgoing_ofType_typeID_handle_sortDescriptors_ReceivedArguments = (type: type, typeID: typeID, handle: handle, sortDescriptors: sortDescriptors)
-        return firstOutgoing_ofType_typeID_handle_sortDescriptors_ReturnValue as? Item
+    func firstOutgoing<Item: Cacheable>(ofType type: Item.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> Item? {
+        firstOutgoing_ofType_predicate_sortDescriptors_Called = true
+        firstOutgoing_ofType_predicate_sortDescriptors_ReceivedArguments = (type: type, predicate: predicate, sortDescriptors: sortDescriptors)
+        return firstOutgoing_ofType_predicate_sortDescriptors_ReturnValue as? Item
     }
     
     //MARK: - fetchOutgoing<Item: Cacheable>

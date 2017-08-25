@@ -46,16 +46,6 @@ class UserProfileViewController: UIViewController {
     
     fileprivate var feedView: UIView?
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        parent?.navigationItem.rightBarButtonItems = [createPostButton, UIBarButtonItem(customView: self.feedLayoutButton)]
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        parent?.navigationItem.rightBarButtonItems = nil
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
@@ -78,6 +68,7 @@ extension UserProfileViewController: UserProfileViewInput {
     
     func setupInitialState() {
         view.backgroundColor = Palette.extraLightGrey
+        navigationItem.rightBarButtonItems = [createPostButton, UIBarButtonItem(customView: self.feedLayoutButton)]
     }
     
     func setFeedViewController(_ feedViewController: UIViewController) {
