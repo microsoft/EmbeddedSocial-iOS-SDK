@@ -10,6 +10,7 @@ final class MockUserService: UserServiceType {
     private(set) var createAccountCount = 0
     private(set) var getUserProfileCount = 0
     private(set) var updateProfileCount = 0
+    private(set) var createAccountForUserPhotoHandleCount = 0
 
     func getMyProfile(authorization: Authorization, credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
         getMyProfileCount += 1
@@ -26,5 +27,11 @@ final class MockUserService: UserServiceType {
     func updateProfile(me: User, completion: @escaping (Result<User>) -> Void) {
         updateProfileCount += 1
         completion(.success(me))
+    }
+    
+    func createAccount(for user: User,
+                       photoHandle: String?,
+                       completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void){
+        createAccountForUserPhotoHandleCount += 1
     }
 }

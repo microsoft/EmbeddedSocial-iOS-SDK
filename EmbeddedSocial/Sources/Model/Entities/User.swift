@@ -12,7 +12,7 @@ struct User {
     let email: String?
     var bio: String?
     var photo: Photo?
-    let credentials: CredentialsList?
+    var credentials: CredentialsList?
     var followersCount: Int
     var followingCount: Int
     let visibility: Visibility?
