@@ -31,7 +31,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
         
         var viewModel = CommentViewModel()
         viewModel.comment = comment
-        viewModel.commentHandle = comment.commentHandle!
+        viewModel.commentHandle = comment.commentHandle ?? ""
         viewModel.userName = String(format: "%@ %@", (comment.firstName ?? ""), (comment.lastName ?? ""))
         viewModel.text = comment.text ?? ""
         

@@ -209,7 +209,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         } else {
             refreshControl.endRefreshing()
             bottomRefreshControl.stopAnimating()
-//            isPullingBottom = false
         }
     }
     
