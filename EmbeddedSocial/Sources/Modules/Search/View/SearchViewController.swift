@@ -19,15 +19,7 @@ class SearchViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        parent?.navigationItem.titleView = nil
         searchController?.isActive = false
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if searchController != nil {
-            setupSearchBar()
-        }
     }
     
     fileprivate func setupSearchController(_ pageInfo: SearchPageInfo) {
@@ -46,8 +38,8 @@ class SearchViewController: UIViewController {
     }
     
     fileprivate func setupSearchBar() {
-        parent?.navigationItem.titleView = searchController?.searchBar
-        parent?.navigationItem.rightBarButtonItem = nil
+        navigationItem.titleView = searchController?.searchBar
+        navigationItem.rightBarButtonItem = nil
         searchController?.searchBar.placeholder = L10n.Search.Placeholder.searchPeople
         searchController?.searchBar.searchBarStyle = .minimal
     }
