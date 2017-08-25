@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Users Who Liked Post View Controller-->
+        <!--Likes List View Controller-->
         <scene sceneID="Eai-S6-gn6">
             <objects>
-                <viewController storyboardIdentifier="UsersWhoLikedPostViewController" id="2SM-Ji-owD" customClass="UsersWhoLikedPostViewController" customModule="EmbeddedSocial" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LikesListViewController" id="2SM-Ji-owD" customClass="LikesListViewController" customModule="EmbeddedSocial" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EnS-DP-1ov"/>
                         <viewControllerLayoutGuide type="bottom" id="bnt-h2-DyV"/>

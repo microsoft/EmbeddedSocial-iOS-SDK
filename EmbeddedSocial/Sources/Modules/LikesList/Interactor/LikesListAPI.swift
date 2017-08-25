@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct UsersWhoLikedPostAPI: UsersListAPI {
+struct LikesListAPI: UsersListAPI {
     private let likesService: LikesServiceProtocol
     private let postHandle: String
 

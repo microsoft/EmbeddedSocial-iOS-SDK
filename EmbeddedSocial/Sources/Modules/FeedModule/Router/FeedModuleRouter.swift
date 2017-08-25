@@ -98,7 +98,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
             myProfileOpener?.openMyProfile()
             
         case .likesList(let handle):
-            let configurator = UsersWhoLikedPostConfigurator()
+            let configurator = LikesListConfigurator()
             configurator.configure(postHandle: handle)
             navigationController?.pushViewController(configurator.viewController, animated: true)
             

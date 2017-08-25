@@ -6,9 +6,9 @@
 import UIKit
 import SnapKit
 
-class UsersWhoLikedPostViewController: UIViewController {
+class LikesListViewController: UIViewController {
     
-    var output: UsersWhoLikedPostViewOutput!
+    var output: LikesListViewOutput!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,7 +16,7 @@ class UsersWhoLikedPostViewController: UIViewController {
     }
 }
 
-extension UsersWhoLikedPostViewController: UsersWhoLikedPostViewInput {
+extension LikesListViewController: LikesListViewInput {
     func setupInitialState(userListView: UIView) {
         view.addSubview(userListView)
         userListView.snp.makeConstraints { make in

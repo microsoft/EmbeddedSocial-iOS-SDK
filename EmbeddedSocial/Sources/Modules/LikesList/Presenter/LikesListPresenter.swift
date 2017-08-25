@@ -5,13 +5,13 @@
 
 import Foundation
 
-final class UsersWhoLikedPostPresenter {
-    weak var view: UsersWhoLikedPostViewInput!
-    var interactor: UsersWhoLikedPostInteractorInput!
+final class LikesListPresenter {
+    weak var view: LikesListViewInput!
+    var interactor: LikesListInteractorInput!
     var usersListModule: UserListModuleInput!
 }
 
-extension UsersWhoLikedPostPresenter: UsersWhoLikedPostViewOutput {
+extension LikesListPresenter: LikesListViewOutput {
     
     func viewIsReady() {
         view.setupInitialState(userListView: usersListModule.listView)
@@ -19,7 +19,7 @@ extension UsersWhoLikedPostPresenter: UsersWhoLikedPostViewOutput {
     }
 }
 
-extension UsersWhoLikedPostPresenter: UserListModuleOutput {
+extension LikesListPresenter: UserListModuleOutput {
     
     func didFailToPerformSocialRequest(listView: UIView, error: Error) {
         view.showError(error)

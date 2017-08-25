@@ -5,21 +5,21 @@
 
 import Foundation
 
-struct UsersWhoLikedPostConfigurator {
+struct LikesListConfigurator {
     
-    let viewController: UsersWhoLikedPostViewController
+    let viewController: LikesListViewController
     
     init() {
-        viewController = StoryboardScene.UsersWhoLikedPost.instantiateUsersWhoLikedPostViewController()
+        viewController = StoryboardScene.LikesList.instantiateLikesListViewController()
         viewController.title = L10n.LikesList.screenTitle
     }
     
     func configure(postHandle: String) {
-        let presenter = UsersWhoLikedPostPresenter()
+        let presenter = LikesListPresenter()
         presenter.view = viewController
-        presenter.interactor = UsersWhoLikedPostInteractor()
+        presenter.interactor = LikesListInteractor()
         
-        let api = UsersWhoLikedPostAPI(postHandle: postHandle, likesService: LikesService())
+        let api = LikesListAPI(postHandle: postHandle, likesService: LikesService())
         presenter.usersListModule = UserListConfigurator().configure(api: api, output: presenter)
         
         viewController.output = presenter

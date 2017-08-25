@@ -5,6 +5,6 @@
 
 import Foundation
 
-final class UsersWhoLikedPostInteractor: UsersWhoLikedPostInteractorInput {
-    
+protocol LikesListViewOutput: class {
+    func viewIsReady()
 }

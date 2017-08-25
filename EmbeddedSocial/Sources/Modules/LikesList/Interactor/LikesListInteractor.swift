@@ -5,8 +5,6 @@
 
 import Foundation
 
-protocol UsersWhoLikedPostViewInput: class {
-    func setupInitialState(userListView: UIView)
-
-    func showError(_ error: Error)
+final class LikesListInteractor: LikesListInteractorInput {
+    
 }
