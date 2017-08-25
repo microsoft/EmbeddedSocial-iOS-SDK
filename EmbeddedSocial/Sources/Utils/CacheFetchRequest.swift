@@ -6,8 +6,16 @@
 import Foundation
 
 struct CacheFetchRequest<FetchResult: Cacheable> {
-    let type: FetchResult.Type
+    let resultType: FetchResult.Type
     let page: QueryPage?
     let predicate: NSPredicate?
     let sortDescriptors: [NSSortDescriptor]?
+    
+    init(resultType: FetchResult.Type, page: QueryPage? = nil,
+         predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) {
+        self.resultType = resultType
+        self.page = page
+        self.predicate = predicate
+        self.sortDescriptors = sortDescriptors
+    }
 }

@@ -6,12 +6,12 @@
 protocol CacheType: class {
     typealias FetchResult<T> = ([T]) -> Void
 
-    func cacheIncoming(_ item: Cacheable, typeID: String)
+    func cacheIncoming(_ item: Cacheable, for typeID: String)
     func firstIncoming<Item: Cacheable>(ofType type: Item.Type, typeID: String, handle: String, sortDescriptors: [NSSortDescriptor]?) -> Item?
     func fetchIncoming<Item: Cacheable>(with request: CacheFetchRequest<Item>) -> [Item]
     func fetchIncoming<Item: Cacheable>(with request: CacheFetchRequest<Item>, result: @escaping FetchResult<Item>)
     
-    func cacheOutgoing(_ item: Cacheable, typeID: String)
+    func cacheOutgoing(_ item: Cacheable, for typeID: String)
     func firstOutgoing<Item: Cacheable>(ofType type: Item.Type, typeID: String, handle: String, sortDescriptors: [NSSortDescriptor]?) -> Item?
     func fetchOutgoing<Item: Cacheable>(with request: CacheFetchRequest<Item>) -> [Item]
     func fetchOutgoing<Item: Cacheable>(with request: CacheFetchRequest<Item>, result: @escaping FetchResult<Item>)
@@ -24,16 +24,10 @@ extension CacheType {
     }
     
     func cacheOutgoing(_ item: Cacheable) {
-        cacheOutgoing(item, typeID: item.typeIdentifier)
+        cacheOutgoing(item, for: item.typeIdentifier)
     }
     
     func cacheIncoming(_ item: Cacheable) {
-        cacheIncoming(item, typeID: item.typeIdentifier)
+        cacheIncoming(item, for: item.typeIdentifier)
     }
-    
-//    func fetchIncoming<T: Cacheable>(type: T.Type,
-//                       predicate: NSPredicate?,
-//                       sortDescriptors: [NSSortDescriptor]?) -> [T] {
-//        return fetchIncoming(type: type, predicate: predicate, page: nil, sortDescriptors: sortDescriptors)
-//    }
 }

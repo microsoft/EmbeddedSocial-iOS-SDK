@@ -21,6 +21,10 @@ struct PredicateBuilder: CachePredicateBuilder {
         return NSPredicate(format: "typeid = %@ AND handle = %@", typeID, handle)
     }
     
+    func predicate(typeID: String) -> NSPredicate {
+        return NSPredicate(format: "typeid = %@", typeID)
+    }
+    
     func predicate(typeID: String, handle: String, relatedHandle: String) -> NSPredicate {
         return NSPredicate(format: "typeid = %@ AND handle = %@ AND relatedHandle = %@", typeID, handle, relatedHandle)
     }
