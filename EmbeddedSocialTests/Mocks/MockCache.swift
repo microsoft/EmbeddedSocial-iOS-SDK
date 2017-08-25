@@ -7,196 +7,107 @@
 
 class MockCache: CacheType {
     
-    //MARK: - cacheIncoming<T: Cacheable>
+    //MARK: - cacheIncoming
     
-    var cacheIncoming_Called = false
-    var cacheIncoming_ReceivedItem: Cacheable?
+    var cacheIncoming_typeID_Called = false
+    var cacheIncoming_typeID_ReceivedArguments: (item: Cacheable, typeID: String)?
     
-    func cacheIncoming<T: Cacheable>(_ item: T) {
-        cacheIncoming_Called = true
-        cacheIncoming_ReceivedItem = item
+    func cacheIncoming(_ item: Cacheable, for typeID: String) {
+        cacheIncoming_typeID_Called = true
+        cacheIncoming_typeID_ReceivedArguments = (item: item, typeID: typeID)
     }
     
-    //MARK: - cacheOutgoing<T: Cacheable>
-    
-    var cacheOutgoing_Called = false
-    var cacheOutgoing_ReceivedItem: Cacheable?
-    
-    func cacheOutgoing<T: Cacheable>(_ item: T) {
-        cacheOutgoing_Called = true
-        cacheOutgoing_ReceivedItem = item
-    }
-    
-    //MARK: - firstIncoming<T: Cacheable>
-    
+    //MARK: - firstIncoming<Item: Cacheable>
+
     var firstIncoming_ofType_handle_Called = false
     var firstIncoming_ofType_handle_ReceivedArguments: (type: Cacheable.Type, handle: String)?
     var firstIncoming_ofType_handle_ReturnValue: Cacheable?
     
-    func firstIncoming<T: Cacheable>(ofType type: T.Type, handle: String) -> T? {
+    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, handle: String) -> Item? {
         firstIncoming_ofType_handle_Called = true
         firstIncoming_ofType_handle_ReceivedArguments = (type: type, handle: handle)
-        return firstIncoming_ofType_handle_ReturnValue as? T
+        return firstIncoming_ofType_handle_ReturnValue as? Item
     }
     
-    //MARK: - firstIncoming<T: Cacheable>
-    
-    var firstIncoming_ofType_relatedHandle_Called = false
-    var firstIncoming_ofType_relatedHandle_ReceivedArguments: (type: Cacheable.Type, relatedHandle: String)?
-    var firstIncoming_ofType_relatedHandle_ReturnValue: Cacheable?
-    
-    func firstIncoming<T: Cacheable>(ofType type: T.Type, relatedHandle: String) -> T? {
-        firstIncoming_ofType_relatedHandle_Called = true
-        firstIncoming_ofType_relatedHandle_ReceivedArguments = (type: type, relatedHandle: relatedHandle)
-        return firstIncoming_ofType_relatedHandle_ReturnValue as? T
-    }
-    
-    //MARK: - firstIncoming<T: Cacheable>
+    //MARK: - firstIncoming<Item: Cacheable>
     
     var firstIncoming_ofType_predicate_sortDescriptors_Called = false
-    var firstIncoming_ofType_predicate_sortDescriptors_ReceivedArguments: (type: Cacheable.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor])?
+    var firstIncoming_ofType_predicate_sortDescriptors_ReceivedArguments: (type: Cacheable.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?)?
     var firstIncoming_ofType_predicate_sortDescriptors_ReturnValue: Cacheable?
     
-    func firstIncoming<T: Cacheable>(ofType type: T.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]) -> T? {
+    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> Item? {
         firstIncoming_ofType_predicate_sortDescriptors_Called = true
         firstIncoming_ofType_predicate_sortDescriptors_ReceivedArguments = (type: type, predicate: predicate, sortDescriptors: sortDescriptors)
-        return firstIncoming_ofType_predicate_sortDescriptors_ReturnValue as? T
+        return firstIncoming_ofType_predicate_sortDescriptors_ReturnValue as? Item
     }
     
-    //MARK: - firstOutgoing<T: Cacheable>
+    //MARK: - fetchIncoming<Item: Cacheable>
     
-    var firstOutgoing_ofType_handle_Called = false
-    var firstOutgoing_ofType_handle_ReceivedArguments: (type: Cacheable.Type, handle: String)?
-    var firstOutgoing_ofType_handle_ReturnValue: Cacheable?
+    var fetchIncoming_with_Called = false
+    var fetchIncoming_with_ReceivedRequest: Any?
+    var fetchIncoming_with_ReturnValue: [Cacheable] = []
     
-    func firstOutgoing<T: Cacheable>(ofType type: T.Type, handle: String) -> T? {
-        firstOutgoing_ofType_handle_Called = true
-        firstOutgoing_ofType_handle_ReceivedArguments = (type: type, handle: handle)
-        return firstOutgoing_ofType_handle_ReturnValue as? T
+    func fetchIncoming<Item: Cacheable>(with request: CacheFetchRequest<Item>) -> [Item] {
+        fetchIncoming_with_Called = true
+        fetchIncoming_with_ReceivedRequest = request
+        return fetchIncoming_with_ReturnValue as? [Item] ?? []
     }
     
-    //MARK: - firstOutgoing<T: Cacheable>
+    //MARK: - fetchIncoming<Item: Cacheable>
     
-    var firstOutgoing_ofType_relatedHandle_Called = false
-    var firstOutgoing_ofType_relatedHandle_ReceivedArguments: (type: Cacheable.Type, relatedHandle: String)?
-    var firstOutgoing_ofType_relatedHandle_ReturnValue: Cacheable?
-    
-    func firstOutgoing<T: Cacheable>(ofType type: T.Type, relatedHandle: String) -> T? {
-        firstOutgoing_ofType_relatedHandle_Called = true
-        firstOutgoing_ofType_relatedHandle_ReceivedArguments = (type: type, relatedHandle: relatedHandle)
-        return firstOutgoing_ofType_relatedHandle_ReturnValue as? T
+    var fetchIncoming_with_result_Called = false
+    var fetchIncoming_with_result_ReceivedRequest: Any?
+    var fetchIncoming_with_result_ReturnValue: [Cacheable] = []
+
+    func fetchIncoming<Item: Cacheable>(with request: CacheFetchRequest<Item>, result: @escaping FetchResult<Item>) {
+        fetchIncoming_with_result_Called = true
+        fetchIncoming_with_result_ReceivedRequest = request
+        result(fetchIncoming_with_result_ReturnValue as? [Item] ?? [])
     }
     
-    //MARK: - firstOutgoing<T: Cacheable>
+    //MARK: - cacheOutgoing
+    
+    var cacheOutgoing_typeID_Called = false
+    var cacheOutgoing_typeID_ReceivedArguments: (item: Cacheable, typeID: String)?
+    
+    func cacheOutgoing(_ item: Cacheable, for typeID: String) {
+        cacheOutgoing_typeID_Called = true
+        cacheOutgoing_typeID_ReceivedArguments = (item: item, typeID: typeID)
+    }
+    
+    //MARK: - firstOutgoing<Item: Cacheable>
     
     var firstOutgoing_ofType_predicate_sortDescriptors_Called = false
-    var firstOutgoing_ofType_predicate_sortDescriptors_ReceivedArguments: (type: Cacheable.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor])?
+    var firstOutgoing_ofType_predicate_sortDescriptors_ReceivedArguments: (type: Cacheable.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?)?
     var firstOutgoing_ofType_predicate_sortDescriptors_ReturnValue: Cacheable?
     
-    func firstOutgoing<T: Cacheable>(ofType type: T.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]) -> T? {
+    func firstOutgoing<Item: Cacheable>(ofType type: Item.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> Item? {
         firstOutgoing_ofType_predicate_sortDescriptors_Called = true
         firstOutgoing_ofType_predicate_sortDescriptors_ReceivedArguments = (type: type, predicate: predicate, sortDescriptors: sortDescriptors)
-        return firstOutgoing_ofType_predicate_sortDescriptors_ReturnValue as? T
+        return firstOutgoing_ofType_predicate_sortDescriptors_ReturnValue as? Item
     }
     
-    //MARK: - fetchIncoming<T: Cacheable>
+    //MARK: - fetchOutgoing<Item: Cacheable>
     
-    var fetchIncoming_type_sortDescriptors_Called = false
-    var fetchIncoming_type_sortDescriptors_ReceivedArguments: (type: Cacheable.Type, sortDescriptors: [NSSortDescriptor]?)?
-    var fetchIncoming_type_sortDescriptors_ReturnValue: [Cacheable] = []
+    var fetchOutgoing_with_Called = false
+    var fetchOutgoing_with_ReceivedRequest: Any?
+    var fetchOutgoing_with_ReturnValue: [Cacheable] = []
     
-    func fetchIncoming<T: Cacheable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?) -> [T] {
-        fetchIncoming_type_sortDescriptors_Called = true
-        fetchIncoming_type_sortDescriptors_ReceivedArguments = (type: type, sortDescriptors: sortDescriptors)
-        return fetchIncoming_type_sortDescriptors_ReturnValue as! [T]
+    func fetchOutgoing<Item: Cacheable>(with request: CacheFetchRequest<Item>) -> [Item] {
+        fetchOutgoing_with_Called = true
+        fetchOutgoing_with_ReceivedRequest = request
+        return fetchOutgoing_with_ReturnValue as? [Item] ?? []
     }
     
-    //MARK: - fetchIncoming<T: Cacheable>
+    //MARK: - fetchOutgoing<Item: Cacheable>
     
-    var fetchIncoming_type_predicate_sortDescriptors_Called = false
-    var fetchIncoming_type_predicate_sortDescriptors_ReceivedArguments: (type: Cacheable.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]?)?
-    var fetchIncoming_type_predicate_sortDescriptors_ReturnValue: [Cacheable] = []
+    var fetchOutgoing_with_result_Called = false
+    var fetchOutgoing_with_result_ReceivedRequest: Any?
+    var fetchOutgoing_with_result_ReturnValue: [Cacheable] = []
     
-    func fetchIncoming<T: Cacheable>(type: T.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]?) -> [T] {
-        fetchIncoming_type_predicate_sortDescriptors_Called = true
-        fetchIncoming_type_predicate_sortDescriptors_ReceivedArguments = (type: type, predicate: predicate, sortDescriptors: sortDescriptors)
-        return fetchIncoming_type_predicate_sortDescriptors_ReturnValue as! [T]
+    func fetchOutgoing<Item: Cacheable>(with request: CacheFetchRequest<Item>, result: @escaping FetchResult<Item>) {
+        fetchOutgoing_with_result_Called = true
+        fetchOutgoing_with_ReceivedRequest = request
+        result(fetchOutgoing_with_result_ReturnValue as? [Item] ?? [])
     }
-    
-    //MARK: - fetchIncoming<T: Cacheable>
-    
-    var fetchIncoming_type_sortDescriptors_result_Called = false
-    var fetchIncoming_type_sortDescriptors_result_ReceivedArguments: (type: Cacheable.Type, sortDescriptors: [NSSortDescriptor]?)?
-    var fetchIncoming_type_sortDescriptors_result_ReturnValue: [Cacheable] = []
-
-    func fetchIncoming<T: Cacheable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<T>) {
-        fetchIncoming_type_sortDescriptors_result_Called = true
-        fetchIncoming_type_sortDescriptors_result_ReceivedArguments = (type: type, sortDescriptors: sortDescriptors)
-        result(fetchIncoming_type_sortDescriptors_result_ReturnValue as! [T])
-    }
-    
-    //MARK: - fetchIncoming<T: Cacheable>
-    
-    var fetchIncoming_type_predicate_sortDescriptors_result_Called = false
-    var fetchIncoming_type_predicate_sortDescriptors_result_ReceivedArguments: (type: Cacheable.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]?)?
-    var fetchIncoming_type_predicate_sortDescriptors_result_ReturnValue: [Cacheable] = []
-
-    func fetchIncoming<T: Cacheable>(type: T.Type, predicate: NSPredicate,
-                       sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<T>) {
-        fetchIncoming_type_predicate_sortDescriptors_result_Called = true
-        fetchIncoming_type_predicate_sortDescriptors_result_ReceivedArguments =
-            (type: type, predicate: predicate, sortDescriptors: sortDescriptors)
-        result(fetchIncoming_type_predicate_sortDescriptors_result_ReturnValue as! [T])
-    }
-    
-    //MARK: - fetchOutgoing<T: Cacheable>
-    
-    var fetchOutgoing_type_sortDescriptors_Called = false
-    var fetchOutgoing_type_sortDescriptors_ReceivedArguments: (type: Cacheable.Type, sortDescriptors: [NSSortDescriptor]?)?
-    var fetchOutgoing_type_sortDescriptors_ReturnValue: [Cacheable]!
-    
-    func fetchOutgoing<T: Cacheable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?) -> [T] {
-        fetchOutgoing_type_sortDescriptors_Called = true
-        fetchOutgoing_type_sortDescriptors_ReceivedArguments = (type: type, sortDescriptors: sortDescriptors)
-        return fetchOutgoing_type_sortDescriptors_ReturnValue as! [T]
-    }
-    
-    //MARK: - fetchOutgoing<T: Cacheable>
-    
-    var fetchOutgoing_type_predicate_sortDescriptors_Called = false
-    var fetchOutgoing_type_predicate_sortDescriptors_ReceivedArguments: (type: Cacheable.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]?)?
-    var fetchOutgoing_type_predicate_sortDescriptors_ReturnValue: [Cacheable]!
-    
-    func fetchOutgoing<T: Cacheable>(type: T.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]?) -> [T] {
-        fetchOutgoing_type_predicate_sortDescriptors_Called = true
-        fetchOutgoing_type_predicate_sortDescriptors_ReceivedArguments = (type: type, predicate: predicate, sortDescriptors: sortDescriptors)
-        return fetchOutgoing_type_predicate_sortDescriptors_ReturnValue as! [T]
-    }
-    
-    //MARK: - fetchOutgoing<T: Cacheable>
-    
-    var fetchOutgoing_type_sortDescriptors_result_Called = false
-    var fetchOutgoing_type_sortDescriptors_result_ReceivedArguments: (type: Cacheable.Type, sortDescriptors: [NSSortDescriptor]?)?
-    var fetchOutgoing_type_sortDescriptors_result_ReturnValue: [Cacheable]!
-    
-    func fetchOutgoing<T: Cacheable>(type: T.Type, sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<T>) {
-        fetchOutgoing_type_sortDescriptors_result_Called = true
-        fetchOutgoing_type_sortDescriptors_result_ReceivedArguments = (type: type, sortDescriptors: sortDescriptors)
-        result(fetchOutgoing_type_sortDescriptors_result_ReturnValue as! [T])
-    }
-    
-    //MARK: - fetchOutgoing<T: Cacheable>
-    
-    var fetchOutgoing_type_predicate_sortDescriptors_result_Called = false
-    var fetchOutgoing_type_predicate_sortDescriptors_result_ReceivedArguments: (type: Cacheable.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]?)?
-    var fetchOutgoing_type_predicate_sortDescriptors_result_ReturnValue: [Cacheable]!
-    
-    func fetchOutgoing<T: Cacheable>(type: T.Type, predicate: NSPredicate,
-                       sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<T>) {
-        fetchOutgoing_type_predicate_sortDescriptors_result_Called = true
-        fetchOutgoing_type_predicate_sortDescriptors_result_ReceivedArguments = (type: type, predicate: predicate, sortDescriptors: sortDescriptors)
-        result(fetchOutgoing_type_predicate_sortDescriptors_result_ReturnValue as! [T])
-    }
-    
 }
-

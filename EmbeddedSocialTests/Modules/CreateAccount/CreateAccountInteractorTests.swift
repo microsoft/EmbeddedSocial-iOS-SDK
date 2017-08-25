@@ -8,17 +8,23 @@ import XCTest
 
 class CreateAccountInteractorTests: XCTestCase {
     var userService: MockUserService!
+    var authService: MockAuthService!
+    var imagesService: MockImagesService!
     var sut: CreateAccountInteractor!
     
     override func setUp() {
         super.setUp()
         userService = MockUserService()
-        sut = CreateAccountInteractor(userService: userService)
+        authService = MockAuthService()
+        imagesService = MockImagesService()
+        sut = CreateAccountInteractor(userService: userService, imagesService: imagesService, authService: authService)
     }
     
     override func tearDown() {
         super.tearDown()
         userService = nil
+        authService = nil
+        imagesService = nil
         sut = nil
     }
     
