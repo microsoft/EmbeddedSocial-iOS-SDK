@@ -5,13 +5,12 @@
 
 protocol CreatePostViewInput: class {
 
-    /**
-        @author generamba setup
-        Setup initial state of the view
-    */
-
     func setupInitialState()
+    func configTitlesForExistingPost()
+    func configTitlesWithoutPost()
     func show(error: Error)
     func show(user: User)
+    func show(post: Post)
     func topicCreated()
+    func topicUpdated()
 }

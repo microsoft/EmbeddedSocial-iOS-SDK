@@ -15,4 +15,5 @@ protocol PostDetailViewOutput {
     func openReplies(index: Int)
     func loadRestComments()
     func refresh()
+    func refreshPost()
 }

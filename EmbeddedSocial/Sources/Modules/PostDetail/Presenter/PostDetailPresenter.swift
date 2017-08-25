@@ -141,7 +141,18 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
         view.refreshCell(index: index)
     }
     
+    func postFetched(post: Post) {
+        var viewModel = post.viewModel(handler: (self.post?.onAction)!)
+        viewModel.tag = (self.post?.tag)!
+        self.post = viewModel
+        view.refreshPostCell()
+    }
+    
     // MAKR: PostDetailViewOutput
+    
+    func refreshPost() {
+        interactor.loadPost(topicHandle: (post?.topicHandle)!)
+    }
     
     func openReplies(index: Int) {
         router.openReplies(commentView: viewModel(with:  comments[index]), scrollType: .none, from: view as! UIViewController, postDetailPresenter: self)

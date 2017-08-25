@@ -89,6 +89,32 @@ extension Post {
     
 }
 
+extension Post {
+    
+    func viewModel(handler: @escaping PostViewModel.ActionHandler) -> PostViewModel {
+        let formatter = DateFormatterTool()
+        var viewModel = PostViewModel()
+        viewModel.topicHandle = self.topicHandle
+        viewModel.userName = String(format: "%@ %@", (self.firstName ?? ""), (self.lastName ?? ""))
+        viewModel.title = self.title ?? ""
+        viewModel.text = self.text ?? ""
+        viewModel.likedBy = "" // TODO: uncomfirmed
+        
+        viewModel.totalLikes = L10n.Post.likesCount(self.totalLikes)
+        viewModel.totalComments = L10n.Post.commentsCount(self.totalComments)
+        
+        viewModel.timeCreated =  self.createdTime == nil ? "" : formatter.shortStyle.string(from: self.createdTime!, to: Date())!
+        viewModel.userImageUrl = self.photoUrl
+        viewModel.postImageUrl = self.imageUrl
+        
+        viewModel.isLiked = self.liked
+        viewModel.isPinned = self.pinned
+        viewModel.onAction = handler
+        
+        return viewModel
+    }
+}
+
 // MARK: PostsFeed
 struct PostsFeed {
     var items: [Post]

@@ -85,7 +85,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
             
             let configurator = PostMenuModuleConfigurator()
             
-            configurator.configure(menuType: .myPost(post: post), moduleOutput: moduleInput)
+            configurator.configure(menuType: .myPost(post: post), moduleOutput: moduleInput, navigationComtroller: navigationController)
             postMenuViewController = configurator.viewController
             
             if let parent = viewController {

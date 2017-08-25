@@ -62,6 +62,11 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         output.viewIsReady()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        output.refreshPost()
+    }
+    
     func handleRefresh(_ refreshControl: UIRefreshControl) {
         output.refresh()
     }

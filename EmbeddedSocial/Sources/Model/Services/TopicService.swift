@@ -100,6 +100,10 @@ class TopicService: BaseService, PostServiceProtocol {
         super.init()
         self.imagesService = imagesService
     }
+
+    init() {
+        super.init()
+    }
     
     func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
         guard let network = NetworkReachabilityManager() else {
@@ -126,6 +130,16 @@ class TopicService: BaseService, PostServiceProtocol {
                 self.errorHandler.handle(result.error)
             } else {
                 failure(result.error ?? APIError.unknown)
+            }
+        }
+    }
+    
+    func updateTopic(topicHandle: String, request: PutTopicRequest, success: @escaping () ->(), failure: @escaping (Error) ->() ) {
+        TopicsAPI.topicsPutTopic(topicHandle: topicHandle, request: request, authorization: authorization) { (object, error) in
+            if error != nil {
+                failure(error!)
+            } else {
+                success()
             }
         }
     }

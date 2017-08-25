@@ -9,14 +9,15 @@ class CreatePostModuleConfigurator {
 
     func configure(viewController: CreatePostViewController,
                    user: User,
-                   moduleOutput: CreatePostModuleOutput? = nil) {
+                   moduleOutput: CreatePostModuleOutput? = nil,
+                   post: Post? = nil) {
 
         let router = CreatePostRouter()
-
         let presenter = CreatePostPresenter()
         presenter.view = viewController
         presenter.router = router
         presenter.user = user
+        presenter.post = post
         presenter.moduleOutput = moduleOutput
 
         let interactor = CreatePostInteractor()
