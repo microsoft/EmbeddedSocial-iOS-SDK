@@ -31,26 +31,26 @@ class TransactionsDatabaseFacade: TransactionsDatabaseFacadeType {
     }
     
     func queryIncomingTransactions(with predicate: NSPredicate?,
-                                   page: (limit: Int, offset: Int)?,
+                                   page: QueryPage?,
                                    sortDescriptors: [NSSortDescriptor]?) -> [IncomingTransaction] {
         return incomingRepo.query(with: predicate, page: page, sortDescriptors: sortDescriptors)
     }
     
     func queryIncomingTransactions(with predicate: NSPredicate? = nil,
-                                   page: (limit: Int, offset: Int)?,
+                                   page: QueryPage?,
                                    sortDescriptors: [NSSortDescriptor]? = nil,
                                    completion: @escaping ([IncomingTransaction]) -> Void) {
         return incomingRepo.query(with: predicate, page: page, sortDescriptors: sortDescriptors, completion: completion)
     }
     
     func queryOutgoingTransactions(with predicate: NSPredicate?,
-                                   page: (limit: Int, offset: Int)?,
+                                   page: QueryPage?,
                                    sortDescriptors: [NSSortDescriptor]?) -> [OutgoingTransaction] {
         return outgoingRepo.query(with: predicate, page: page, sortDescriptors: sortDescriptors)
     }
     
     func queryOutgoingTransactions(with predicate: NSPredicate? = nil,
-                                   page: (limit: Int, offset: Int)?,
+                                   page: QueryPage?,
                                    sortDescriptors: [NSSortDescriptor]? = nil,
                                    completion: @escaping ([OutgoingTransaction]) -> Void) {
         return outgoingRepo.query(with: predicate, page: page, sortDescriptors: sortDescriptors, completion: completion)

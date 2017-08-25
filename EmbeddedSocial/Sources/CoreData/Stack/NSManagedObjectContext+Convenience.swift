@@ -25,7 +25,7 @@ extension NSManagedObjectContext {
     }
     
     func entities<Record: CoreDataRecord>(_ type: Record.Type = Record.self,
-                  page: (limit: Int, offset: Int)? = nil,
+                  page: QueryPage? = nil,
                   predicate: NSPredicate? = nil,
                   sortDescriptors: [NSSortDescriptor]? = nil,
                   onResult: @escaping ([Record]) -> Void) {
@@ -46,7 +46,7 @@ extension NSManagedObjectContext {
     }
     
     func entities<Record: CoreDataRecord>(_ type: Record.Type = Record.self,
-                  page: (limit: Int, offset: Int)? = nil,
+                  page: QueryPage? = nil,
                   predicate: NSPredicate? = nil,
                   sortDescriptors: [NSSortDescriptor]? = nil) -> [Record] {
         
@@ -66,7 +66,7 @@ extension NSManagedObjectContext {
     }
     
     private func makeFetchRequest<T: CoreDataRecord>(type: T.Type = T.self,
-                                  page: (limit: Int, offset: Int)?,
+                                  page: QueryPage?,
                                   predicate: NSPredicate?,
                                   sortDescriptors: [NSSortDescriptor]?) -> NSFetchRequest<T> {
         
@@ -74,9 +74,9 @@ extension NSManagedObjectContext {
         request.predicate = predicate
         request.sortDescriptors = sortDescriptors
         
-        if let (limit, offset) = page {
-            request.fetchBatchSize = limit
-            request.fetchOffset = offset
+        if let page = page {
+            request.fetchBatchSize = page.limit
+            request.fetchOffset = page.offset
         }
         
         return request

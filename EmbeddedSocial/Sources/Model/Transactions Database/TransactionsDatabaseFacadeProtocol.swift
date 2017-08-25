@@ -15,21 +15,21 @@ protocol TransactionsDatabaseFacadeType {
     func makeOutgoingTransaction() -> OutgoingTransaction
     
     func queryIncomingTransactions(with predicate: NSPredicate?,
-                                   page: (limit: Int, offset: Int)?,
+                                   page: QueryPage?,
                                    sortDescriptors: [NSSortDescriptor]?,
                                    completion: @escaping ([IncomingTransaction]) -> Void)
     
     func queryIncomingTransactions(with predicate: NSPredicate?,
-                                   page: (limit: Int, offset: Int)?,
+                                   page: QueryPage?,
                                    sortDescriptors: [NSSortDescriptor]?) -> [IncomingTransaction]
     
     func queryOutgoingTransactions(with predicate: NSPredicate?,
-                                   page: (limit: Int, offset: Int)?,
+                                   page: QueryPage?,
                                    sortDescriptors: [NSSortDescriptor]?,
                                    completion: @escaping ([OutgoingTransaction]) -> Void)
     
     func queryOutgoingTransactions(with predicate: NSPredicate?,
-                                   page: (limit: Int, offset: Int)?,
+                                   page: QueryPage?,
                                    sortDescriptors: [NSSortDescriptor]?) -> [OutgoingTransaction]
 
     func deleteIncomingTransactions(_ entities: [IncomingTransaction], completion: ((Result<Void>) -> Void)?)

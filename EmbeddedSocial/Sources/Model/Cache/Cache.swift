@@ -8,9 +8,9 @@ import Foundation
 class Cache: CacheType {
     
     struct Queries<T: Transaction> {
-        typealias Fetch<T: Transaction> = (NSPredicate?, [NSSortDescriptor]?) -> [T]
+        typealias Fetch<T: Transaction> = (NSPredicate?, QueryPage?, [NSSortDescriptor]?) -> [T]
         typealias Make<T: Transaction> = () -> T
-        typealias AsyncFetch<T: Transaction> = (NSPredicate?, [NSSortDescriptor]?, @escaping ([T]) -> Void) -> Void
+        typealias AsyncFetch<T: Transaction> = (NSPredicate?, QueryPage?, [NSSortDescriptor]?, @escaping ([T]) -> Void) -> Void
         
         let fetch: Fetch<T>
         let make: Make<T>
@@ -25,23 +25,23 @@ class Cache: CacheType {
     private let incomingQueries: Queries<IncomingTransaction>
     private let outgoingQueries: Queries<OutgoingTransaction>
     
-    private let predicateBuilder: CachePredicateBuilderType
+    private let predicateBuilder: CachePredicateBuilder
     
     init(database: TransactionsDatabaseFacadeType,
          decoder: JSONDecoder.Type = Decoders.self,
-         predicateBuilder: CachePredicateBuilderType = CachePredicateBuilder()) {
+         predicateBuilder: CachePredicateBuilder = PredicateBuilder()) {
         
         self.database = database
         self.decoder = decoder
         self.predicateBuilder = predicateBuilder
         
-        incomingQueries = Queries(fetch: database.queryIncomingTransactions(with:sortDescriptors:),
+        incomingQueries = Queries(fetch: database.queryIncomingTransactions(with:page:sortDescriptors:),
                                   make: database.makeIncomingTransaction,
-                                  fetchAsync: database.queryIncomingTransactions(with:sortDescriptors:completion:))
+                                  fetchAsync: database.queryIncomingTransactions(with:page:sortDescriptors:completion:))
         
-        outgoingQueries = Queries(fetch: database.queryOutgoingTransactions(with:sortDescriptors:),
+        outgoingQueries = Queries(fetch: database.queryOutgoingTransactions(with:page:sortDescriptors:),
                                   make: database.makeOutgoingTransaction,
-                                  fetchAsync: database.queryOutgoingTransactions(with:sortDescriptors:completion:))
+                                  fetchAsync: database.queryOutgoingTransactions(with:page:sortDescriptors:completion:))
     }
     
     func cacheIncoming(_ item: Cacheable, typeID: String) {
@@ -66,7 +66,7 @@ class Cache: CacheType {
             return queries.make()
         }
         let p = predicateBuilder.predicate(handle: handle)
-        return queries.fetch(p, nil).first ?? queries.make()
+        return queries.fetch(p, nil, nil).first ?? queries.make()
     }
     
     func firstIncoming<Item: Cacheable>(ofType type: Item.Type,
@@ -89,45 +89,71 @@ class Cache: CacheType {
                        sortDescriptors: [NSSortDescriptor]?,
                        queries: Queries<T>) -> Item? {
         
-        return queries.fetch(predicate, sortDescriptors)
+        return queries.fetch(predicate, nil, sortDescriptors)
             .flatMap { self.decoder.decode(type: Item.self, payload: $0.payload) }
             .first
     }
     
-    func fetchIncoming<Item: Cacheable>(type: Item.Type,
-                       predicate: NSPredicate?,
-                       sortDescriptors: [NSSortDescriptor]?) -> [Item] {
-        return fetch(predicate: predicate, sortDescriptors: sortDescriptors, queries: incomingQueries)
-    }
-    
-    func fetchOutgoing<Item: Cacheable>(type: Item.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [Item] {
-        return fetch(predicate: predicate, sortDescriptors: sortDescriptors, queries: outgoingQueries)
-    }
-    
-    private func fetch<T: Transaction, Item: Cacheable>(predicate: NSPredicate?,
-                       sortDescriptors: [NSSortDescriptor]?,
-                       queries: Queries<T>) -> [Item] {
-        return queries.fetch(predicate, sortDescriptors).flatMap {
-            self.decoder.decode(type: Item.self, payload: $0.payload)
+    func fetchIncoming<Item: Cacheable>(with request: CacheFetchRequest<Item>) -> [Item] {
+        return incomingQueries.fetch(request.predicate, request.page, request.sortDescriptors).flatMap { [weak self] tr in
+            return self?.decoder.decode(type: Item.self, payload: tr.payload)
         }
     }
     
-    func fetchIncoming<Item: Cacheable>(type: Item.Type, predicate: NSPredicate?,
-                       sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<Item>) {
-        fetchAsync(predicate: predicate, sortDescriptors: sortDescriptors, queries: incomingQueries, result: result)
+    func fetchIncoming<Item: Cacheable>(with request: CacheFetchRequest<Item>, result: @escaping FetchResult<Item>) {
+        incomingQueries.fetchAsync(request.predicate, request.page, request.sortDescriptors) {
+            let items = $0.flatMap { self.decoder.decode(type: Item.self, payload: $0.payload) }
+            result(items)
+        }
     }
     
-    func fetchOutgoing<Item: Cacheable>(type: Item.Type, predicate: NSPredicate?,
-                       sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<Item>){
-        fetchAsync(predicate: predicate, sortDescriptors: sortDescriptors, queries: outgoingQueries, result: result)
+    func fetchOutgoing<Item: Cacheable>(with request: CacheFetchRequest<Item>) -> [Item] {
+        return outgoingQueries.fetch(request.predicate, request.page, request.sortDescriptors).flatMap { [weak self] tr in
+            return self?.decoder.decode(type: Item.self, payload: tr.payload)
+        }
     }
     
+    func fetchOutgoing<Item: Cacheable>(with request: CacheFetchRequest<Item>, result: @escaping FetchResult<Item>) {
+        outgoingQueries.fetchAsync(request.predicate, request.page, request.sortDescriptors) {
+            let items = $0.flatMap { self.decoder.decode(type: Item.self, payload: $0.payload) }
+            result(items)
+        }
+    }
+    
+//    func fetchIncoming<Item: Cacheable>(type: Item.Type,
+//                       predicate: NSPredicate?,
+//                       sortDescriptors: [NSSortDescriptor]?) -> [Item] {
+//        return fetch(predicate: predicate, sortDescriptors: sortDescriptors, queries: incomingQueries)
+//    }
+//    
+//    func fetchOutgoing<Item: Cacheable>(type: Item.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [Item] {
+//        return fetch(predicate: predicate, sortDescriptors: sortDescriptors, queries: outgoingQueries)
+//    }
+//    
+//    private func fetch<T: Transaction, Item: Cacheable>(predicate: NSPredicate?,
+//                       sortDescriptors: [NSSortDescriptor]?,
+//                       queries: Queries<T>) -> [Item] {
+//        return queries.fetch(predicate, nil, sortDescriptors).flatMap {
+//            self.decoder.decode(type: Item.self, payload: $0.payload)
+//        }
+//    }
+//    
+//    func fetchIncoming<Item: Cacheable>(type: Item.Type, predicate: NSPredicate?,
+//                       sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<Item>) {
+//        fetchAsync(predicate: predicate, sortDescriptors: sortDescriptors, queries: incomingQueries, result: result)
+//    }
+//    
+//    func fetchOutgoing<Item: Cacheable>(type: Item.Type, predicate: NSPredicate?,
+//                       sortDescriptors: [NSSortDescriptor]?, result: @escaping FetchResult<Item>){
+//        fetchAsync(predicate: predicate, sortDescriptors: sortDescriptors, queries: outgoingQueries, result: result)
+//    }
+//    
     private func fetchAsync<T: Transaction, Item: Cacheable>(predicate: NSPredicate?,
                             sortDescriptors: [NSSortDescriptor]?,
                             queries: Queries<T>,
                             result: @escaping FetchResult<Item>) {
         
-        queries.fetchAsync(predicate, sortDescriptors) {
+        queries.fetchAsync(predicate, nil, sortDescriptors) {
             let items = $0.flatMap { self.decoder.decode(type: Item.self, payload: $0.payload) }
             result(items)
         }

@@ -18,14 +18,14 @@ class CoreDataRepository<T: CoreDataRecord>: QueriableRepository<T> {
     }
     
     override func query(with predicate: NSPredicate? = nil,
-                        page: (limit: Int, offset: Int)? = nil,
+                        page: QueryPage? = nil,
                         sortDescriptors: [NSSortDescriptor]? = nil,
                         completion: @escaping ([T]) -> Void) {
         context.entities(T.self, page: page, predicate: predicate, sortDescriptors: sortDescriptors, onResult: completion)
     }
     
     override func query(with predicate: NSPredicate? = nil,
-                        page: (limit: Int, offset: Int)? = nil,
+                        page: QueryPage? = nil,
                         sortDescriptors: [NSSortDescriptor]? = nil) -> [T] {
         return context.entities(T.self, page: page, predicate: predicate, sortDescriptors: sortDescriptors)
     }

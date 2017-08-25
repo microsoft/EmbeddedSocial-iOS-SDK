@@ -117,6 +117,8 @@
 		882AD0C51F22266B00FC20B7 /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0C41F22266B00FC20B7 /* CoreDataRepository.swift */; };
 		882AD0CD1F2227E100FC20B7 /* CoreDataRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0CC1F2227E100FC20B7 /* CoreDataRecord.swift */; };
 		882AD0D11F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0D01F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift */; };
+		8834A7491F50071300F1D383 /* QueryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A7481F50071300F1D383 /* QueryPage.swift */; };
+		8834A74B1F50095B00F1D383 /* CacheFetchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */; };
 		883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */; };
 		883B9B601F276BCF00D1E66E /* TestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B5E1F276BCF00D1E66E /* TestModel.xcdatamodeld */; };
 		883B9B641F2776E600D1E66E /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B631F2776E600D1E66E /* Item.swift */; };
@@ -768,6 +770,8 @@
 		882F10411F30C8A20068B6F2 /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
 		882F10421F30C8A20068B6F2 /* UserListViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewInput.swift; sourceTree = "<group>"; };
 		882F10431F30C8A20068B6F2 /* UserListViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewOutput.swift; sourceTree = "<group>"; };
+		8834A7481F50071300F1D383 /* QueryPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryPage.swift; sourceTree = "<group>"; };
+		8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheFetchRequest.swift; sourceTree = "<group>"; };
 		883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModelTests.swift; sourceTree = "<group>"; };
 		883B9B5F1F276BCF00D1E66E /* TestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModel.xcdatamodel; sourceTree = "<group>"; };
 		883B9B631F2776E600D1E66E /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -2339,6 +2343,7 @@
 				889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */,
 				8811C8331F3DE8A500F7513D /* AssociatedValue.swift */,
 				88087B451F2A431E00A33E9A /* ButtonDecorator.swift */,
+				8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */,
 				88580B931F2213AB00C1CBAF /* Constants.swift */,
 				88580B951F2213AB00C1CBAF /* EquatableWithinEpsilon.swift */,
 				88580B0F1F2213AB00C1CBAF /* ImageCache.swift */,
@@ -2354,6 +2359,7 @@
 				8811C8201F3C6D2400F7513D /* UITestsHelper.swift */,
 				889510871F3B2539001A53F5 /* UnauthorizedErrorHandler.swift */,
 				8875CCF01F331FC9001F2474 /* UsersListResponse.swift */,
+				8834A7481F50071300F1D383 /* QueryPage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -4390,6 +4396,7 @@
 				8864C8501F4709D300ADCE13 /* SearchPageInfo.swift in Sources */,
 				88580C3C1F2213AB00C1CBAF /* CreateAccountViewController.swift in Sources */,
 				88580C2F1F2213AB00C1CBAF /* UserService.swift in Sources */,
+				8834A7491F50071300F1D383 /* QueryPage.swift in Sources */,
 				884AA98D1F3C563F00B85135 /* PutUserVisibilityRequest.swift in Sources */,
 				88FFFA7A1F30BAFE0066A1A0 /* FollowersViewOutput.swift in Sources */,
 				88F551A11F34712700F4AAB9 /* FollowingViewInput.swift in Sources */,
@@ -4460,6 +4467,7 @@
 				8875CCE81F331CB3001F2474 /* MyFollowingAPI.swift in Sources */,
 				889510811F3B1CB4001A53F5 /* APIErrorHandler.swift in Sources */,
 				88580BB11F2213AB00C1CBAF /* GroupHeaderTableCell.swift in Sources */,
+				8834A74B1F50095B00F1D383 /* CacheFetchRequest.swift in Sources */,
 				8811C89A1F442FD100F7513D /* PostDetailRouterInput.swift in Sources */,
 				884AA95E1F3C563F00B85135 /* UsersAPI.swift in Sources */,
 				8811C8291F3C83E300F7513D /* UIImage+Compress.swift in Sources */,
