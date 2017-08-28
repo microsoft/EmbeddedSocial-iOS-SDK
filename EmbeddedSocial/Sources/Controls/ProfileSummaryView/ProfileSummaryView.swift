@@ -96,7 +96,7 @@ class ProfileSummaryView: UIView {
         imageView.makeCircular()
     }
     
-    func configure(user: User) {
+    func configure(user: User, isAnonymous: Bool) {
         nameLabel.text = user.fullName
         detailsLabel.text = user.bio ?? L10n.Common.Placeholder.notSpecified
         imageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: .userPhotoPlaceholder))
@@ -104,9 +104,14 @@ class ProfileSummaryView: UIView {
         followersCount = user.followersCount
         followingCount = user.followingCount
         
-        editButton.isHidden = !user.isMe
-        followButton.isHidden = user.isMe
-        
+        if isAnonymous {
+            editButton.isHidden = true
+            followButton.isHidden = true
+        } else {
+            editButton.isHidden = !user.isMe
+            followButton.isHidden = user.isMe
+        }
+
         configure(followStatus: user.followerStatus)
     }
     

@@ -11,6 +11,7 @@ class UserListPresenter {
     var view: UserListViewInput!
     var interactor: UserListInteractorInput!
     weak var moduleOutput: UserListModuleOutput?
+    var router: UserListRouterInput!
     
     fileprivate var listState = ListState()
     
@@ -74,8 +75,13 @@ extension UserListPresenter: UserListViewOutput {
         loadNextPage()
     }
     
-    func onItemSelected(at indexPath: IndexPath) {
-        moduleOutput?.didSelectListItem(listView: listView, at: indexPath)
+    func onItemSelected(_ item: UserListItem) {
+        moduleOutput?.didSelectListItem(listView: listView, at: item.indexPath)
+        if item.user.isMe {
+            router.openMyProfile()
+        } else {
+            router.openUserProfile(item.user.uid)
+        }
     }
 }
 

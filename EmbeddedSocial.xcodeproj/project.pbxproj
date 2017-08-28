@@ -394,6 +394,8 @@
 		886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 886B39DA1F13910B00BF1A8E /* Images.xcassets */; };
 		886B3ADF1F13B92B00BF1A8E /* EmbeddedSocial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* EmbeddedSocial.framework */; };
 		886F4B3B1F2A06E500D836C3 /* SocialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886F4B3A1F2A06E500D836C3 /* SocialService.swift */; };
+		8874C92F1F54069A002B8337 /* UserListRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8874C92E1F54069A002B8337 /* UserListRouterInput.swift */; };
+		8874C9321F540701002B8337 /* UserListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8874C9311F540701002B8337 /* UserListRouter.swift */; };
 		8875CCD91F3314B6001F2474 /* UserFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCD81F3314B6001F2474 /* UserFollowersAPI.swift */; };
 		8875CCE71F331CB3001F2474 /* FollowingConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCDD1F331CB3001F2474 /* FollowingConfigurator.swift */; };
 		8875CCE81F331CB3001F2474 /* MyFollowingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875CCDE1F331CB3001F2474 /* MyFollowingAPI.swift */; };
@@ -1053,6 +1055,8 @@
 		886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../Library/Developer/Xcode/DerivedData/EmbeddedSocial-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKLoginKit/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../Library/Developer/Xcode/DerivedData/EmbeddedSocial-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKShareKit/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		886F4B3A1F2A06E500D836C3 /* SocialService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialService.swift; sourceTree = "<group>"; };
+		8874C92E1F54069A002B8337 /* UserListRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserListRouterInput.swift; path = Router/UserListRouterInput.swift; sourceTree = "<group>"; };
+		8874C9311F540701002B8337 /* UserListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserListRouter.swift; path = Router/UserListRouter.swift; sourceTree = "<group>"; };
 		8875CCD81F3314B6001F2474 /* UserFollowersAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowersAPI.swift; sourceTree = "<group>"; };
 		8875CCDD1F331CB3001F2474 /* FollowingConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingConfigurator.swift; sourceTree = "<group>"; };
 		8875CCDE1F331CB3001F2474 /* MyFollowingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFollowingAPI.swift; sourceTree = "<group>"; };
@@ -1639,6 +1643,7 @@
 				882F10441F30C8A90068B6F2 /* Configurator */,
 				88F385841F30D0DB0048B04C /* Interactor */,
 				8846CB471F30C91D00F11EC8 /* Presenter */,
+				8874C9301F54069C002B8337 /* Router */,
 				8846CB461F30C91700F11EC8 /* View */,
 			);
 			path = UserList;
@@ -2575,6 +2580,15 @@
 				886B39C91F138F5D00BF1A8E /* ViewController.swift */,
 			);
 			path = "EmbeddedSocial-Example";
+			sourceTree = "<group>";
+		};
+		8874C9301F54069C002B8337 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				8874C92E1F54069A002B8337 /* UserListRouterInput.swift */,
+				8874C9311F540701002B8337 /* UserListRouter.swift */,
+			);
+			name = Router;
 			sourceTree = "<group>";
 		};
 		8875CCDA1F33162B001F2474 /* APIs */ = {
@@ -4055,12 +4069,14 @@
 				9C2169791F3C68350052FB90 /* PostMenuModuleConfigurator.swift in Sources */,
 				88580C771F2213AB00C1CBAF /* NameComponentsSplitter.swift in Sources */,
 				884AA97A1F3C563F00B85135 /* PostImageResponse.swift in Sources */,
+				8874C92F1F54069A002B8337 /* UserListRouterInput.swift in Sources */,
 				88580BB71F2213AB00C1CBAF /* TextViewCell.swift in Sources */,
 				8864C82C1F45EC2A00ADCE13 /* SearchService.swift in Sources */,
 				88BC5C531F2B65D0001FBDD2 /* UserProfileRouterInput.swift in Sources */,
 				881060FD1F28F4B2008CA2FB /* Visibility.swift in Sources */,
 				63148EA71F41D3EA00407C4B /* RepliesService.swift in Sources */,
 				8811C8711F43059200F7513D /* EmbeddedEditProfileRouter.swift in Sources */,
+				8874C9321F540701002B8337 /* UserListRouter.swift in Sources */,
 				88580BAF1F2213AB00C1CBAF /* SideMenuStackController.swift in Sources */,
 				882AD0BC1F221D4400FC20B7 /* CoreDataModel.swift in Sources */,
 				884AA9681F3C563F00B85135 /* DeleteTopicNameRequest.swift in Sources */,
