@@ -22,6 +22,26 @@ protocol LikesServiceProtocol {
                       completion: @escaping (Result<UsersListResponse>) -> Void)
 }
 
+//MARK: - Optional methods
+
+extension LikesServiceProtocol {
+    
+    func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) { }
+    
+    func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler) { }
+    
+    func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) { }
+    
+    func unlikeComment(commentHandle: String, completion: @escaping CompletionHandler) { }
+    
+    func likeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler) { }
+    
+    func unlikeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler) { }
+    
+    func getPostLikes(postHandle: String, cursor: String?, limit: Int,
+                      completion: @escaping (Result<UsersListResponse>) -> Void) { }
+}
+
 class LikesService: BaseService, LikesServiceProtocol {
     
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {

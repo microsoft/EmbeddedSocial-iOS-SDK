@@ -129,6 +129,8 @@
 		8834A7651F5067AC00F1D383 /* LikesListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A7641F5067AC00F1D383 /* LikesListInteractor.swift */; };
 		8834A7681F5067C700F1D383 /* LikesListInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A7671F5067C700F1D383 /* LikesListInteractorInput.swift */; };
 		8834A76A1F506A4F00F1D383 /* LikesListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A7691F506A4F00F1D383 /* LikesListAPI.swift */; };
+		8834A76D1F53FE3900F1D383 /* LikesListPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A76C1F53FE3900F1D383 /* LikesListPresenterTests.swift */; };
+		8834A76F1F53FE6600F1D383 /* MockLikesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A76E1F53FE6600F1D383 /* MockLikesListView.swift */; };
 		883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */; };
 		883B9B601F276BCF00D1E66E /* TestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B5E1F276BCF00D1E66E /* TestModel.xcdatamodeld */; };
 		883B9B641F2776E600D1E66E /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B631F2776E600D1E66E /* Item.swift */; };
@@ -776,15 +778,17 @@
 		8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheFetchRequest.swift; sourceTree = "<group>"; };
 		8834A74C1F5011B600F1D383 /* CacheQueries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheQueries.swift; sourceTree = "<group>"; };
 		8834A74E1F5011CB00F1D383 /* CacheSortDescriptors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheSortDescriptors.swift; sourceTree = "<group>"; };
-		8834A7551F50647400F1D383 /* LikesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikesListViewController.swift; path = LikesListViewController.swift; sourceTree = "<group>"; };
-		8834A7571F5064BC00F1D383 /* LikesList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LikesList.storyboard; path = LikesList.storyboard; sourceTree = "<group>"; };
-		8834A75A1F50665000F1D383 /* LikesListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikesListPresenter.swift; path = LikesListPresenter.swift; sourceTree = "<group>"; };
-		8834A75D1F50666800F1D383 /* LikesListViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikesListViewOutput.swift; path = LikesListViewOutput.swift; sourceTree = "<group>"; };
-		8834A75F1F50669800F1D383 /* LikesListViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikesListViewInput.swift; path = LikesListViewInput.swift; sourceTree = "<group>"; };
-		8834A7611F5066ED00F1D383 /* LikesListConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikesListConfigurator.swift; path = LikesListConfigurator.swift; sourceTree = "<group>"; };
-		8834A7641F5067AC00F1D383 /* LikesListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikesListInteractor.swift; path = LikesListInteractor.swift; sourceTree = "<group>"; };
-		8834A7671F5067C700F1D383 /* LikesListInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikesListInteractorInput.swift; path = LikesListInteractorInput.swift; sourceTree = "<group>"; };
-		8834A7691F506A4F00F1D383 /* LikesListAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikesListAPI.swift; path = LikesListAPI.swift; sourceTree = "<group>"; };
+		8834A7551F50647400F1D383 /* LikesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesListViewController.swift; sourceTree = "<group>"; };
+		8834A7571F5064BC00F1D383 /* LikesList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LikesList.storyboard; sourceTree = "<group>"; };
+		8834A75A1F50665000F1D383 /* LikesListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesListPresenter.swift; sourceTree = "<group>"; };
+		8834A75D1F50666800F1D383 /* LikesListViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesListViewOutput.swift; sourceTree = "<group>"; };
+		8834A75F1F50669800F1D383 /* LikesListViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesListViewInput.swift; sourceTree = "<group>"; };
+		8834A7611F5066ED00F1D383 /* LikesListConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesListConfigurator.swift; sourceTree = "<group>"; };
+		8834A7641F5067AC00F1D383 /* LikesListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesListInteractor.swift; sourceTree = "<group>"; };
+		8834A7671F5067C700F1D383 /* LikesListInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesListInteractorInput.swift; sourceTree = "<group>"; };
+		8834A7691F506A4F00F1D383 /* LikesListAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesListAPI.swift; sourceTree = "<group>"; };
+		8834A76C1F53FE3900F1D383 /* LikesListPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikesListPresenterTests.swift; path = LikesList/LikesListPresenterTests.swift; sourceTree = "<group>"; };
+		8834A76E1F53FE6600F1D383 /* MockLikesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockLikesListView.swift; path = LikesList/MockLikesListView.swift; sourceTree = "<group>"; };
 		883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModelTests.swift; sourceTree = "<group>"; };
 		883B9B5F1F276BCF00D1E66E /* TestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModel.xcdatamodel; sourceTree = "<group>"; };
 		883B9B631F2776E600D1E66E /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -1656,7 +1660,6 @@
 				8834A75C1F50665400F1D383 /* Presenter */,
 				8834A7591F50662200F1D383 /* View */,
 			);
-			name = LikesList;
 			path = LikesList;
 			sourceTree = "<group>";
 		};
@@ -1668,7 +1671,6 @@
 				8834A75F1F50669800F1D383 /* LikesListViewInput.swift */,
 				8834A75D1F50666800F1D383 /* LikesListViewOutput.swift */,
 			);
-			name = View;
 			path = View;
 			sourceTree = "<group>";
 		};
@@ -1677,7 +1679,6 @@
 			children = (
 				8834A75A1F50665000F1D383 /* LikesListPresenter.swift */,
 			);
-			name = Presenter;
 			path = Presenter;
 			sourceTree = "<group>";
 		};
@@ -1686,7 +1687,6 @@
 			children = (
 				8834A7611F5066ED00F1D383 /* LikesListConfigurator.swift */,
 			);
-			name = Configurator;
 			path = Configurator;
 			sourceTree = "<group>";
 		};
@@ -1697,8 +1697,24 @@
 				8834A7641F5067AC00F1D383 /* LikesListInteractor.swift */,
 				8834A7671F5067C700F1D383 /* LikesListInteractorInput.swift */,
 			);
-			name = Interactor;
 			path = Interactor;
+			sourceTree = "<group>";
+		};
+		8834A76B1F53FE0800F1D383 /* LikesList */ = {
+			isa = PBXGroup;
+			children = (
+				8834A7701F53FF4F00F1D383 /* Mocks */,
+				8834A76C1F53FE3900F1D383 /* LikesListPresenterTests.swift */,
+			);
+			name = LikesList;
+			sourceTree = "<group>";
+		};
+		8834A7701F53FF4F00F1D383 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				8834A76E1F53FE6600F1D383 /* MockLikesListView.swift */,
+			);
+			name = Mocks;
 			sourceTree = "<group>";
 		};
 		8846CB461F30C91700F11EC8 /* View */ = {
@@ -2634,7 +2650,6 @@
 				889119A61F470E3E005B3B32 /* SearchInteractorInput.swift */,
 				8864C84F1F4709D300ADCE13 /* SearchPageInfo.swift */,
 			);
-			name = Interactor;
 			path = Interactor;
 			sourceTree = "<group>";
 		};
@@ -2725,6 +2740,7 @@
 		889AFC071F220BCD003AAF19 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				8834A76B1F53FE0800F1D383 /* LikesList */,
 				63F8488E1F4ADD3B00D434CF /* CommentReplies */,
 				88F7A7991F27976E005FEC5F /* CreateAccount */,
 				889AFC081F220BCD003AAF19 /* CreatePost */,
@@ -4338,6 +4354,7 @@
 				88F163891F27569900DAAF68 /* MockQueriableRepository.swift in Sources */,
 				63F8488B1F4ACEDC00D434CF /* PostDetailInteractorTests.swift in Sources */,
 				8811C8251F3C72CD00F7513D /* MockLogoutController.swift in Sources */,
+				8834A76D1F53FE3900F1D383 /* LikesListPresenterTests.swift in Sources */,
 				93AC65B31F3E05DA00FE5A3A /* MockCommentService.swift in Sources */,
 				63F848971F4ADF3500D434CF /* MockCommentRepliesPresenter.swift in Sources */,
 				88F551DA1F3AFA8700F4AAB9 /* UserFollowingAPITests.swift in Sources */,
@@ -4358,6 +4375,7 @@
 				884C9C441F4D91CF0004907F /* CacheableItemDecoder.swift in Sources */,
 				883B9B681F277E5A00D1E66E /* CoreDataSavingTests.swift in Sources */,
 				88F5519B1F33705100F4AAB9 /* MockUserListView.swift in Sources */,
+				8834A76F1F53FE6600F1D383 /* MockLikesListView.swift in Sources */,
 				88F551D61F3AF8BE00F4AAB9 /* UserFollowersAPITests.swift in Sources */,
 				8811C8AF1F44431B00F7513D /* CreateAccountPresenterTests.swift in Sources */,
 				88087B4A1F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift in Sources */,
