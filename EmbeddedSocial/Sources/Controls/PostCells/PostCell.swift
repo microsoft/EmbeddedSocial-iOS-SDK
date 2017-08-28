@@ -33,32 +33,34 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     @IBOutlet weak var appImage: UIImageView!
     @IBOutlet weak var likedList: UILabel!
     
+    var usedInThirdPartModule = false
+    
     func indexPath() -> IndexPath {
         return collectionView.indexPath(for: self)!
     }
     
     @IBAction private func onTapPhoto(_ sender: Any) {
-        viewModel.onAction?(.photo, indexPath())
+        usedInThirdPartModule ? viewModel.onAction?(.photo, IndexPath(item: tag, section: 0)) : viewModel.onAction?(.photo, indexPath())
     }
     
     @IBAction private func onProfileInfo(_ sender: Any) {
-        viewModel.onAction?(.profile, indexPath())
+        usedInThirdPartModule ? viewModel.onAction?(.profile, IndexPath(item: tag, section: 0)) : viewModel.onAction?(.profile, indexPath())
     }
     
     @IBAction private func onTapLike(_ sender: Any) {
-        viewModel.onAction?(.like, indexPath())
+        usedInThirdPartModule ? viewModel.onAction?(.like, IndexPath(item: tag, section: 0)) : viewModel.onAction?(.like, indexPath())
     }
     
     @IBAction private func onTapCommented(_ sender: Any) {
-        viewModel.onAction?(.comment, indexPath())
+        usedInThirdPartModule ? viewModel.onAction?(.comment, IndexPath(item: tag, section: 0)) : viewModel.onAction?(.comment, indexPath())
     }
     
     @IBAction private func onTapPin(_ sender: Any) {
-        viewModel.onAction?(.pin, indexPath())
+         usedInThirdPartModule ? viewModel.onAction?(.pin, IndexPath(item: tag, section: 0)) : viewModel.onAction?(.pin, indexPath())
     }
     
     @IBAction private func onTapExtra(_ sender: Any) {
-        viewModel.onAction?(.extra, indexPath())
+        usedInThirdPartModule ? viewModel.onAction?(.extra, IndexPath(item: tag, section: 0)) : viewModel.onAction?(.extra, indexPath())
     }
     
     @IBOutlet weak var likedCount: UILabel!
@@ -105,6 +107,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         // Buttons
         likeButton.isSelected = data.isLiked
         pinButton.isSelected = data.isPinned
+        commentButton.isEnabled = !usedInThirdPartModule
     
     }
     

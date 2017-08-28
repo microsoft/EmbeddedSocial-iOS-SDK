@@ -85,28 +85,6 @@ enum PostCellAction {
     case like, pin, comment, extra, profile, photo
 }
 
-struct PostViewModel {
-    
-    typealias ActionHandler = (PostCellAction, IndexPath) -> Void
-    
-    var topicHandle: String = ""
-    var userName: String = ""
-    var title: String = ""
-    var text: String = ""
-    var isLiked: Bool = false
-    var isPinned: Bool = false
-    var likedBy: String = ""
-    var totalLikes: String = ""
-    var totalComments: String = ""
-    var timeCreated: String = ""
-    var userImageUrl: String? = nil
-    var postImageUrl: String? = nil
-    
-    var tag: Int = 0
-    var cellType: String = PostCell.reuseID
-    var onAction: ActionHandler?
-}
-
 enum FeedModuleLayoutType: Int {
     case list
     case grid
@@ -139,7 +117,7 @@ enum FeedModuleLayoutType: Int {
     }
 }
 
-class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput {
+class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput, PostViewModelActionsProtocol {
     
     weak var view: FeedModuleViewInput!
     var interactor: FeedModuleInteractorInput!
@@ -215,44 +193,23 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         items.removeAll()
     }
     
-    private func viewModel(with post: Post) -> PostViewModel {
-        
-        var viewModel = PostViewModel()
-        viewModel.topicHandle = post.topicHandle
-        viewModel.userName = String(format: "%@ %@", (post.firstName ?? ""), (post.lastName ?? ""))
-        viewModel.title = post.title ?? ""
-        viewModel.text = post.text ?? ""
-        viewModel.likedBy = "" // TODO: uncomfirmed
-        
-        viewModel.totalLikes = L10n.Post.likesCount(post.totalLikes)
-        viewModel.totalComments = L10n.Post.commentsCount(post.totalComments)
-        
-        viewModel.timeCreated =  post.createdTime == nil ? "" : formatter.shortStyle.string(from: post.createdTime!, to: Date())!
-        viewModel.userImageUrl = post.photoUrl
-        viewModel.postImageUrl = post.imageUrl
-        
-        viewModel.isLiked = post.liked
-        viewModel.isPinned = post.pinned
-        
-        viewModel.tag = items.index(of: post) ?? 0
-        viewModel.cellType = layout.cellType
-        viewModel.onAction = { [weak self] action, path in
-            self?.handle(action: action, path: path)
-        }
-        
-        return viewModel
-    }
-    
     // MARK: FeedModuleViewOutput
     func item(for path: IndexPath) -> PostViewModel {
-        return viewModel(with: items[path.row])
+        var viewModel = PostViewModel()
+        
+        guard let index = items.index(of: items[path.row]) else {
+            return viewModel
+        }
+        
+        viewModel.config(with: items[index], index: index, cellType: layout.cellType, actionHandler: self)
+        return viewModel
     }
     
     private func itemIndex(with postHandle:PostHandle) -> Int? {
         return items.index(where: { $0.topicHandle == postHandle } )
     }
     
-    private func handle(action: PostCellAction, path: IndexPath) {
+    func handle(action: PostCellAction, path: IndexPath) {
         
         let index = path.row
         let postHandle = items[index].topicHandle!
@@ -261,7 +218,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         
         switch action {
         case .comment:
-            router.open(route: .comments(post: viewModel(with: post)), presenter: self)
+            router.open(route: .comments(post: item(for: path)), presenter: self)
         case .extra:
             
             let isMyPost = (userHolder?.me?.uid == userHandle)
@@ -285,7 +242,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             }
             
             view.reload(with: index)
-            commentsPresenter?.refresh(post: viewModel(with: items[index]))
+            commentsPresenter?.refresh(post: item(for: path))
             interactor.postAction(post: postHandle, action: action)
             
         case .pin:
@@ -295,6 +252,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             items[index].pinned = !status
             
             view.reload(with: index)
+            commentsPresenter?.refresh(post: item(for: path))
             interactor.postAction(post: postHandle, action: action)
             
         case .profile:
@@ -367,7 +325,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didTapItem(path: IndexPath) {
         Logger.log(path)
-        router.open(route: .postDetails(post: viewModel(with: items[path.row])), presenter: self)
+        router.open(route: .postDetails(post: item(for: path)), presenter: self)
     }
     
     // MARK: FeedModuleInteractorOutput

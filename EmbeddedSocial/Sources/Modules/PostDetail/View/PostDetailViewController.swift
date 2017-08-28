@@ -178,9 +178,9 @@ extension PostDetailViewController: UICollectionViewDataSource {
         switch indexPath.section {
         case CollectionViewSections.post.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.reuseID, for: indexPath) as! PostCell
-            cell.configure(with: output.post!, collectionView: collectionView)
-            cell.commentButton.isEnabled = false
-            cell.tag = (output.post?.tag)!
+            cell.configure(with: output.postViewModel!, collectionView: collectionView)
+            cell.usedInThirdPartModule = true
+            cell.tag = (output.postViewModel?.tag)!
             return cell
         case CollectionViewSections.comments.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
@@ -213,7 +213,7 @@ extension PostDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case CollectionViewSections.post.rawValue:
-            sizingCell.configure(with: output.post!, collectionView: collectionView)
+            sizingCell.configure(with: output.postViewModel!, collectionView: collectionView)
             
             // TODO: remake via manual calculation
             sizingCell.needsUpdateConstraints()

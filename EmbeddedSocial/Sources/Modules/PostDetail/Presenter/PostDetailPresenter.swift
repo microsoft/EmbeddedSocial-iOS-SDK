@@ -16,7 +16,8 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     var repliesPresenter: SharedCommentsPresenterProtocol?
     
-    var post: PostViewModel?
+    var postViewModel: PostViewModel?
+    weak var postViewModelActionsHandler: PostViewModelActionsProtocol!
 
     var comments = [Comment]()
     
@@ -74,7 +75,6 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
                 comments[index].totalLikes -= 1
             }
             
-            
             view.refreshCell(index: index)
             repliesPresenter?.refreshCommentCell(commentView: viewModel(with: comments[index]))
             interactor.commentAction(commentHandle: commentHandle, action: action)
@@ -94,7 +94,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     // MARK: SharedPostDetailPresenterProtocol
     func refresh(post: PostViewModel) {
-        self.post = post
+        self.postViewModel = post
         view.refreshPostCell()
     }
     
@@ -142,21 +142,14 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     }
     
     func postFetched(post: Post) {
-        
-        guard let action = self.post?.onAction else {
-            return
-        }
-
-        var viewModel = post.viewModel(handler: action)
-        viewModel.tag = (self.post?.tag)!
-        self.post = viewModel
+        postViewModel?.config(with: post, index: self.postViewModel?.tag, cellType: self.postViewModel?.cellType, actionHandler: postViewModelActionsHandler)
         view.refreshPostCell()
     }
     
     // MAKR: PostDetailViewOutput
     
     func refreshPost() {
-        interactor.loadPost(topicHandle: (post?.topicHandle)!)
+        interactor.loadPost(topicHandle: (postViewModel?.topicHandle)!)
     }
     
     func openReplies(index: Int) {
@@ -172,16 +165,16 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     }
     
     func refresh() {
-        interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: normalLimit)
+        interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: normalLimit)
     }
     
     func viewIsReady() {
         view.setupInitialState()
         switch scrollType {
             case .bottom:
-                interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: maxLimit)
+                interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: maxLimit)
             default:
-                interactor.fetchComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: normalLimit)
+                interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: normalLimit)
         }
     }
     
@@ -200,9 +193,9 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     func fetchMore() {
         if shouldFetchRestOfComments {
-            interactor.fetchMoreComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: maxLimit)
+            interactor.fetchMoreComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: maxLimit)
         } else {
-            interactor.fetchMoreComments(topicHandle: (post?.topicHandle)!, cursor: cursor, limit: normalLimit)
+            interactor.fetchMoreComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: normalLimit)
         }
         
     }
@@ -212,7 +205,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     }
     
     func postComment(photo: Photo?, comment: String) {
-        interactor.postComment(photo: photo, topicHandle: (post?.topicHandle)!, comment: comment)
+        interactor.postComment(photo: photo, topicHandle: (postViewModel?.topicHandle)!, comment: comment)
     }
 }
 

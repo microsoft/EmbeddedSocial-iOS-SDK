@@ -18,14 +18,15 @@ class PostDetailModuleConfigurator {
         viewController = StoryboardScene.PostDetail.instantiatePostDetailViewController()
     }
 
-    func configure(post: PostViewModel, scrollType: CommentsScrollType, postPresenter: FeedModulePresenter) {
+    func configure(postViewModel: PostViewModel, scrollType: CommentsScrollType, postPresenter: FeedModulePresenter) {
         
         let router = PostDetailRouter()
 
         let presenter = PostDetailPresenter()
         presenter.view = viewController
         presenter.router = router
-        presenter.post = post
+        presenter.postViewModel = postViewModel
+        presenter.postViewModelActionsHandler = postPresenter
 
         let interactor = PostDetailInteractor()
         interactor.output = presenter

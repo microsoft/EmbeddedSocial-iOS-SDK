@@ -38,13 +38,13 @@ class FeedModuleRouter: FeedModuleRouterInput {
         case .postDetails(let post):
         
             let configurator = PostDetailModuleConfigurator()
-            configurator.configure(post: post, scrollType: .none, postPresenter: presenter)
+            configurator.configure(postViewModel: post, scrollType: .none, postPresenter: presenter)
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
         case .comments(let post):
             
             let configurator = PostDetailModuleConfigurator()
-            configurator.configure(post: post, scrollType: .bottom, postPresenter: presenter)
+            configurator.configure(postViewModel: post, scrollType: .bottom, postPresenter: presenter)
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
         default: break     
