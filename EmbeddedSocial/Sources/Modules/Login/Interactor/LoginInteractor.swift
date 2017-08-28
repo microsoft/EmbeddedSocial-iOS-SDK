@@ -31,7 +31,7 @@ class LoginInteractor: LoginInteractorInput {
             }
             
             if creds.provider == .twitter {
-                self?.logIntoTwitterAndMakeSession(from: viewController, handler: handler)
+                self?.logIntoTwitterAndMakeSession(from: viewController, user: user, handler: handler)
             } else {
                 self?.makeNewSession(user: user, handler: handler)
             }
@@ -44,7 +44,7 @@ class LoginInteractor: LoginInteractorInput {
             return
         }
         
-        sessionService.makeNewSession(with: credentials, userUID: user.uid) { result in
+        sessionService.makeNewSession(with: credentials, userID: user.uid) { result in
             if let sessionToken = result.value {
                 handler(.success((user, sessionToken)))
             } else {
@@ -54,11 +54,13 @@ class LoginInteractor: LoginInteractorInput {
     }
     
     private func logIntoTwitterAndMakeSession(from viewController: UIViewController?,
+                                              user: User,
                                               handler: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
         
         login(provider: .twitter, from: viewController) { [weak self] result in
             if let socialUser = result.value {
-                let user = User(socialUser: socialUser)
+                var user = user
+                user.credentials = socialUser.credentials
                 self?.makeNewSession(user: user, handler: handler)
             } else {
                 handler(.failure(result.error ?? APIError.failedRequest))

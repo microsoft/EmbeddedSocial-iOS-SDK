@@ -10,7 +10,7 @@ final class MockSessionService: SessionServiceType {
     private(set) var requestTokenCount = 0
     private(set) var deleteCurrentSessionCount = 0
 
-    func makeNewSession(with credentials: CredentialsList, userUID: String, completion: @escaping (Result<String>) -> Void) {
+    func makeNewSession(with credentials: CredentialsList, userID: String, completion: @escaping (Result<String>) -> Void) {
         makeNewSessionCount += 1
     }
     
