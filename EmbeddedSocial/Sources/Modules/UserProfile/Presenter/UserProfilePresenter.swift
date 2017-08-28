@@ -99,7 +99,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
         setter?(user)
         followersCount = user.followersCount
         followingCount = user.followingCount
-        view.setUser(user)
+        view.setUser(user, isAnonymous: me == nil)
     }
     
     private func setupFeed() {

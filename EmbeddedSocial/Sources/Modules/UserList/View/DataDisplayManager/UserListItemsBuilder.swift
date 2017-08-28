@@ -18,8 +18,9 @@ final class UserListItemsBuilder {
         let items = users.enumerated().map { pair -> UserListItem in
             let isMe = pair.element.uid == self.me?.uid
             let isActionButtonHidden = isMe || me == nil
+            let user = isMe ? me! : pair.element
             let indexPath = IndexPath(row: pair.offset, section: 0)
-            return UserListItem(user: pair.element, isActionButtonHidden: isActionButtonHidden,
+            return UserListItem(user: user, isActionButtonHidden: isActionButtonHidden,
                                 indexPath: indexPath, action: actionHandler)
         }
         
