@@ -5,10 +5,6 @@
 
 import Foundation
 
-protocol UserListViewOutput: class {
-    func onItemAction(item: UserListItem)
+final class LikesListInteractor: LikesListInteractorInput {
     
-    func onReachingEndOfPage()
-    
-    func onItemSelected(_ item: UserListItem)
 }

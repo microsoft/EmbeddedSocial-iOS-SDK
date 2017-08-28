@@ -5,10 +5,7 @@
 
 import Foundation
 
-protocol UserListViewOutput: class {
-    func onItemAction(item: UserListItem)
-    
-    func onReachingEndOfPage()
-    
-    func onItemSelected(_ item: UserListItem)
+protocol UserListRouterInput: class {
+    func openUserProfile(_ userID: String)
+    func openMyProfile()
 }

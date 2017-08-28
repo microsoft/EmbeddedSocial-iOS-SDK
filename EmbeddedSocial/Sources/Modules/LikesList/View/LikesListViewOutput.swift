@@ -5,10 +5,6 @@
 
 import Foundation
 
-protocol UserListViewOutput: class {
-    func onItemAction(item: UserListItem)
-    
-    func onReachingEndOfPage()
-    
-    func onItemSelected(_ item: UserListItem)
+protocol LikesListViewOutput: class {
+    func viewIsReady()
 }

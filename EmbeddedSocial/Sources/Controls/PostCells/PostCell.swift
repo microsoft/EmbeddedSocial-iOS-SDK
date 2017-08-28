@@ -63,6 +63,10 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         usedInThirdPartModule ? viewModel.onAction?(.extra, IndexPath(item: tag, section: 0)) : viewModel.onAction?(.extra, indexPath())
     }
     
+    @IBAction func onLikesList(_ sender: UIButton) {
+        viewModel.onAction?(.likesList, indexPath())
+    }
+    
     @IBOutlet weak var likedCount: UILabel!
     @IBOutlet weak var commentedCount: UILabel!
 

@@ -104,9 +104,14 @@ class ProfileSummaryView: UIView {
         followersCount = user.followersCount
         followingCount = user.followingCount
         
-        editButton.isHidden = !user.isMe
-        followButton.isHidden = user.isMe
-        
+        if isAnonymous {
+            editButton.isHidden = true
+            followButton.isHidden = true
+        } else {
+            editButton.isHidden = !user.isMe
+            followButton.isHidden = user.isMe
+        }
+
         configure(followStatus: user.followerStatus)
     }
     

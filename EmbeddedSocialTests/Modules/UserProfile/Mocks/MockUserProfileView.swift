@@ -12,6 +12,7 @@ class MockUserProfileView: UserProfileViewInput {
     private(set) var isLoadingUser: Bool?
     private(set) var setUserCount = 0
     private(set) var lastSetUser: User?
+    private(set) var setUserIsAnonymous: Bool?
     private(set) var setFollowStatusCount = 0
     private(set) var lastFollowStatus: FollowStatus?
     private(set) var setIsProcessingFollowRequestCount = 0
@@ -42,9 +43,10 @@ class MockUserProfileView: UserProfileViewInput {
         self.isLoadingUser = isLoading
     }
     
-    func setUser(_ user: User) {
+    func setUser(_ user: User, isAnonymous: Bool) {
         setUserCount += 1
         lastSetUser = user
+        setUserIsAnonymous = isAnonymous
     }
     
     func setFollowStatus(_ followStatus: FollowStatus) {
