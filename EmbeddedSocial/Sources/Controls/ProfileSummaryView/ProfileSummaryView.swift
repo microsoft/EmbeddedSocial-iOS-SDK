@@ -96,7 +96,7 @@ class ProfileSummaryView: UIView {
         imageView.makeCircular()
     }
     
-    func configure(user: User) {
+    func configure(user: User, isAnonymous: Bool) {
         nameLabel.text = User.fullName(firstName: user.firstName, lastName: user.lastName)
         detailsLabel.text = user.bio ?? L10n.Common.Placeholder.notSpecified
         imageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: .userPhotoPlaceholder))
