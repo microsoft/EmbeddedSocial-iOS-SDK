@@ -17,11 +17,11 @@ class ProfileSummaryView: UIView {
         }
     }
     
-    @IBOutlet weak var detailsTextView: UITextView! {
+    @IBOutlet weak var detailsLabel: UILabel! {
         didSet {
-            detailsTextView.text = L10n.Common.Placeholder.notSpecified
-            detailsTextView.font = Fonts.medium
-            detailsTextView.textColor = Palette.black
+            detailsLabel.text = L10n.Common.Placeholder.notSpecified
+            detailsLabel.font = Fonts.medium
+            detailsLabel.textColor = Palette.black
         }
     }
     
@@ -89,16 +89,6 @@ class ProfileSummaryView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        guard let superview = imageView.superview else {
-            return
-        }
-        let intersection = imageView.frame.intersection(detailsTextView.frame)
-        let convertedPaddedIntersection = detailsTextView
-            .convert(intersection, from: superview)
-            .insetBy(dx: -Constants.UserProfile.containerInset, dy: 0)
-        let path = UIBezierPath(rect: convertedPaddedIntersection)
-        detailsTextView.textContainer.exclusionPaths = [path]
     }
     
     override func layoutSubviews() {
@@ -108,7 +98,7 @@ class ProfileSummaryView: UIView {
     
     func configure(user: User, isAnonymous: Bool) {
         nameLabel.text = user.fullName
-        detailsTextView.text = user.bio ?? L10n.Common.Placeholder.notSpecified
+        detailsLabel.text = user.bio ?? L10n.Common.Placeholder.notSpecified
         imageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: .userPhotoPlaceholder))
         
         followersCount = user.followersCount
