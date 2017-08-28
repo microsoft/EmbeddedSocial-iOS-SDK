@@ -136,6 +136,16 @@
 		883B9B641F2776E600D1E66E /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B631F2776E600D1E66E /* Item.swift */; };
 		883B9B661F277BE800D1E66E /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B651F277BE800D1E66E /* CoreDataStackTests.swift */; };
 		883B9B681F277E5A00D1E66E /* CoreDataSavingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B671F277E5A00D1E66E /* CoreDataSavingTests.swift */; };
+		883E1E441F546517004B4861 /* BlockedUsersConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883E1E381F546517004B4861 /* BlockedUsersConfigurator.swift */; };
+		883E1E451F546517004B4861 /* BlockedUsersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883E1E3A1F546517004B4861 /* BlockedUsersAPI.swift */; };
+		883E1E481F546517004B4861 /* BlockedUsersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883E1E3E1F546517004B4861 /* BlockedUsersPresenter.swift */; };
+		883E1E491F546517004B4861 /* BlockedUsers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 883E1E401F546517004B4861 /* BlockedUsers.storyboard */; };
+		883E1E4A1F546517004B4861 /* BlockedUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883E1E411F546517004B4861 /* BlockedUsersViewController.swift */; };
+		883E1E4B1F546517004B4861 /* BlockedUsersViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883E1E421F546517004B4861 /* BlockedUsersViewInput.swift */; };
+		883E1E4C1F546517004B4861 /* BlockedUsersViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883E1E431F546517004B4861 /* BlockedUsersViewOutput.swift */; };
+		883E1E4F1F5465C4004B4861 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883E1E4E1F5465C4004B4861 /* SettingsViewController.swift */; };
+		883E1E531F5465FF004B4861 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 883E1E521F5465FF004B4861 /* Settings.storyboard */; };
+		883E1E561F546632004B4861 /* SettingsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883E1E551F546632004B4861 /* SettingsConfigurator.swift */; };
 		8846CB491F30C98C00F11EC8 /* UserListModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846CB481F30C98C00F11EC8 /* UserListModuleInput.swift */; };
 		8846CB4A1F30CA0800F11EC8 /* UserListConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882F103E1F30C8A20068B6F2 /* UserListConfigurator.swift */; };
 		8846CB4B1F30CA0A00F11EC8 /* UserListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882F10401F30C8A20068B6F2 /* UserListPresenter.swift */; };
@@ -789,13 +799,23 @@
 		8834A7641F5067AC00F1D383 /* LikesListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesListInteractor.swift; sourceTree = "<group>"; };
 		8834A7671F5067C700F1D383 /* LikesListInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesListInteractorInput.swift; sourceTree = "<group>"; };
 		8834A7691F506A4F00F1D383 /* LikesListAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesListAPI.swift; sourceTree = "<group>"; };
-		8834A76C1F53FE3900F1D383 /* LikesListPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikesListPresenterTests.swift; path = LikesList/LikesListPresenterTests.swift; sourceTree = "<group>"; };
-		8834A76E1F53FE6600F1D383 /* MockLikesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockLikesListView.swift; path = LikesList/MockLikesListView.swift; sourceTree = "<group>"; };
+		8834A76C1F53FE3900F1D383 /* LikesListPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikesListPresenterTests.swift; path = LikesListPresenterTests.swift; sourceTree = "<group>"; };
+		8834A76E1F53FE6600F1D383 /* MockLikesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockLikesListView.swift; path = MockLikesListView.swift; sourceTree = "<group>"; };
 		883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModelTests.swift; sourceTree = "<group>"; };
 		883B9B5F1F276BCF00D1E66E /* TestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModel.xcdatamodel; sourceTree = "<group>"; };
 		883B9B631F2776E600D1E66E /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		883B9B651F277BE800D1E66E /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		883B9B671F277E5A00D1E66E /* CoreDataSavingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataSavingTests.swift; sourceTree = "<group>"; };
+		883E1E381F546517004B4861 /* BlockedUsersConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersConfigurator.swift; sourceTree = "<group>"; };
+		883E1E3A1F546517004B4861 /* BlockedUsersAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersAPI.swift; sourceTree = "<group>"; };
+		883E1E3E1F546517004B4861 /* BlockedUsersPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersPresenter.swift; sourceTree = "<group>"; };
+		883E1E401F546517004B4861 /* BlockedUsers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BlockedUsers.storyboard; sourceTree = "<group>"; };
+		883E1E411F546517004B4861 /* BlockedUsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersViewController.swift; sourceTree = "<group>"; };
+		883E1E421F546517004B4861 /* BlockedUsersViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersViewInput.swift; sourceTree = "<group>"; };
+		883E1E431F546517004B4861 /* BlockedUsersViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersViewOutput.swift; sourceTree = "<group>"; };
+		883E1E4E1F5465C4004B4861 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		883E1E521F5465FF004B4861 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		883E1E551F546632004B4861 /* SettingsConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsConfigurator.swift; sourceTree = "<group>"; };
 		8846CB481F30C98C00F11EC8 /* UserListModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListModuleInput.swift; sourceTree = "<group>"; };
 		884AA9051F3C563F00B85135 /* AlamofireImplementations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireImplementations.swift; sourceTree = "<group>"; };
 		884AA9061F3C563F00B85135 /* APIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
@@ -1055,8 +1075,8 @@
 		886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../Library/Developer/Xcode/DerivedData/EmbeddedSocial-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKLoginKit/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		886B3AE91F13D1EC00BF1A8E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../Library/Developer/Xcode/DerivedData/EmbeddedSocial-gobcdcyimpgdhlbezfdqionxbkfv/Build/Products/Debug-iphonesimulator/FBSDKShareKit/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		886F4B3A1F2A06E500D836C3 /* SocialService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialService.swift; sourceTree = "<group>"; };
-		8874C92E1F54069A002B8337 /* UserListRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserListRouterInput.swift; path = Router/UserListRouterInput.swift; sourceTree = "<group>"; };
-		8874C9311F540701002B8337 /* UserListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserListRouter.swift; path = Router/UserListRouter.swift; sourceTree = "<group>"; };
+		8874C92E1F54069A002B8337 /* UserListRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserListRouterInput.swift; path = UserListRouterInput.swift; sourceTree = "<group>"; };
+		8874C9311F540701002B8337 /* UserListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserListRouter.swift; path = UserListRouter.swift; sourceTree = "<group>"; };
 		8875CCD81F3314B6001F2474 /* UserFollowersAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowersAPI.swift; sourceTree = "<group>"; };
 		8875CCDD1F331CB3001F2474 /* FollowingConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingConfigurator.swift; sourceTree = "<group>"; };
 		8875CCDE1F331CB3001F2474 /* MyFollowingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFollowingAPI.swift; sourceTree = "<group>"; };
@@ -1712,6 +1732,7 @@
 				8834A76C1F53FE3900F1D383 /* LikesListPresenterTests.swift */,
 			);
 			name = LikesList;
+			path = LikesList;
 			sourceTree = "<group>";
 		};
 		8834A7701F53FF4F00F1D383 /* Mocks */ = {
@@ -1720,6 +1741,82 @@
 				8834A76E1F53FE6600F1D383 /* MockLikesListView.swift */,
 			);
 			name = Mocks;
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		883E1E361F546507004B4861 /* BlockedUsers */ = {
+			isa = PBXGroup;
+			children = (
+				883E1E391F546517004B4861 /* API */,
+				883E1E371F546517004B4861 /* Configurator */,
+				883E1E3D1F546517004B4861 /* Presenter */,
+				883E1E3F1F546517004B4861 /* View */,
+			);
+			path = BlockedUsers;
+			sourceTree = "<group>";
+		};
+		883E1E371F546517004B4861 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				883E1E381F546517004B4861 /* BlockedUsersConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		883E1E391F546517004B4861 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				883E1E3A1F546517004B4861 /* BlockedUsersAPI.swift */,
+			);
+			name = API;
+			path = API;
+			sourceTree = "<group>";
+		};
+		883E1E3D1F546517004B4861 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				883E1E3E1F546517004B4861 /* BlockedUsersPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		883E1E3F1F546517004B4861 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				883E1E401F546517004B4861 /* BlockedUsers.storyboard */,
+				883E1E411F546517004B4861 /* BlockedUsersViewController.swift */,
+				883E1E421F546517004B4861 /* BlockedUsersViewInput.swift */,
+				883E1E431F546517004B4861 /* BlockedUsersViewOutput.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		883E1E4D1F5465B7004B4861 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				883E1E571F546634004B4861 /* Configurator */,
+				883E1E541F546625004B4861 /* View */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		883E1E541F546625004B4861 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				883E1E521F5465FF004B4861 /* Settings.storyboard */,
+				883E1E4E1F5465C4004B4861 /* SettingsViewController.swift */,
+			);
+			name = View;
+			path = View;
+			sourceTree = "<group>";
+		};
+		883E1E571F546634004B4861 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				883E1E551F546632004B4861 /* SettingsConfigurator.swift */,
+			);
+			name = Configurator;
+			path = Configurator;
 			sourceTree = "<group>";
 		};
 		8846CB461F30C91700F11EC8 /* View */ = {
@@ -2093,6 +2190,7 @@
 		88580B2D1F2213AB00C1CBAF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				883E1E361F546507004B4861 /* BlockedUsers */,
 				D2963907A98CF650595729E4 /* CommentReplies */,
 				88580B2E1F2213AB00C1CBAF /* CreateAccount */,
 				88580B451F2213AB00C1CBAF /* CreatePost */,
@@ -2108,6 +2206,7 @@
 				9C21696E1F3C68350052FB90 /* PostMenuModule */,
 				8864C8201F45BA6000ADCE13 /* Search */,
 				8864C82D1F46DA3C00ADCE13 /* SearchPeople */,
+				883E1E4D1F5465B7004B4861 /* Settings */,
 				88580B6C1F2213AB00C1CBAF /* SideMenu */,
 				88580B801F2213AB00C1CBAF /* TabMenuContainer */,
 				882F103D1F30C8A20068B6F2 /* UserList */,
@@ -2585,10 +2684,11 @@
 		8874C9301F54069C002B8337 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				8874C92E1F54069A002B8337 /* UserListRouterInput.swift */,
 				8874C9311F540701002B8337 /* UserListRouter.swift */,
+				8874C92E1F54069A002B8337 /* UserListRouterInput.swift */,
 			);
 			name = Router;
+			path = Router;
 			sourceTree = "<group>";
 		};
 		8875CCDA1F33162B001F2474 /* APIs */ = {
@@ -2754,7 +2854,6 @@
 		889AFC071F220BCD003AAF19 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				8834A76B1F53FE0800F1D383 /* LikesList */,
 				63F8488E1F4ADD3B00D434CF /* CommentReplies */,
 				88F7A7991F27976E005FEC5F /* CreateAccount */,
 				889AFC081F220BCD003AAF19 /* CreatePost */,
@@ -2763,6 +2862,7 @@
 				9CC531331F31CCD1004CE94F /* FeedModule */,
 				88F551CC1F39E9B400F4AAB9 /* Followers */,
 				88F551BE1F39D50700F4AAB9 /* Following */,
+				8834A76B1F53FE0800F1D383 /* LikesList */,
 				88F7A7871F2788E1005FEC5F /* Login */,
 				9C2D9C0D1F4AFB81001514C3 /* Popular */,
 				93AC65AB1F3E05DA00FE5A3A /* PostDetail */,
@@ -3768,6 +3868,7 @@
 				88580BB51F2213AB00C1CBAF /* SubtitleTableCell.xib in Resources */,
 				8834A7581F5064BC00F1D383 /* LikesList.storyboard in Resources */,
 				88BC5C5C1F2B6628001FBDD2 /* ProfileSummaryView.xib in Resources */,
+				883E1E491F546517004B4861 /* BlockedUsers.storyboard in Resources */,
 				6387F54F1F41B1DA0066628E /* ReplyCell.xib in Resources */,
 				9C6D35A11F31D1C1005893DB /* FeedModule.storyboard in Resources */,
 				93AC65A01F3E056F00FE5A3A /* PostDetail.storyboard in Resources */,
@@ -3783,6 +3884,7 @@
 				9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */,
 				93AC65A81F3E057C00FE5A3A /* CommentCell.xib in Resources */,
 				88FFFA751F30B9D90066A1A0 /* Followers.storyboard in Resources */,
+				883E1E531F5465FF004B4861 /* Settings.storyboard in Resources */,
 				8864C8241F45BA7000ADCE13 /* Search.storyboard in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
 				9C2D9C091F4ADEE6001514C3 /* PopularModuleView.storyboard in Resources */,
@@ -3915,6 +4017,7 @@
 				884AA9651F3C563F00B85135 /* CommentView.swift in Sources */,
 				88580BAE1F2213AB00C1CBAF /* SideMenuSectionHeader.swift in Sources */,
 				88580C791F2213AB00C1CBAF /* Reusable.swift in Sources */,
+				883E1E4B1F546517004B4861 /* BlockedUsersViewInput.swift in Sources */,
 				88580C6B1F2213AB00C1CBAF /* TabMenuContainerInteractorOutput.swift in Sources */,
 				884AA9861F3C563F00B85135 /* PostUserResponse.swift in Sources */,
 				884AA9561F3C563F00B85135 /* PinsAPI.swift in Sources */,
@@ -3923,10 +4026,12 @@
 				884AA9771F3C563F00B85135 /* PostFollowerRequest.swift in Sources */,
 				884AA9881F3C563F00B85135 /* PutPushRegistrationRequest.swift in Sources */,
 				88F385831F30D0D80048B04C /* UserListInteractor.swift in Sources */,
+				883E1E561F546632004B4861 /* SettingsConfigurator.swift in Sources */,
 				9C2D9C071F4ADEE6001514C3 /* PopularModuleInteractor.swift in Sources */,
 				9C6D359B1F31D1C1005893DB /* FeedModuleConfigurator.swift in Sources */,
 				88BC5C561F2B65D0001FBDD2 /* UserProfileViewInput.swift in Sources */,
 				884AA98F1F3C563F00B85135 /* TopicView.swift in Sources */,
+				883E1E451F546517004B4861 /* BlockedUsersAPI.swift in Sources */,
 				884AA9501F3C563F00B85135 /* BuildsAPI.swift in Sources */,
 				88580C2D1F2213AB00C1CBAF /* URLSchemes.swift in Sources */,
 				88580BA81F2213AB00C1CBAF /* Palette.swift in Sources */,
@@ -4008,6 +4113,7 @@
 				93AC659E1F3E056F00FE5A3A /* PostDetailRouter.swift in Sources */,
 				88580C1B1F2213AB00C1CBAF /* AuthServiceImplementation.swift in Sources */,
 				8834A7601F50669800F1D383 /* LikesListViewInput.swift in Sources */,
+				883E1E441F546517004B4861 /* BlockedUsersConfigurator.swift in Sources */,
 				88580C5A1F2213AB00C1CBAF /* SideMenuInitializer.swift in Sources */,
 				88580C361F2213AB00C1CBAF /* CreateAccountPresenter.swift in Sources */,
 				88580C0E1F2213AB00C1CBAF /* CrossModuleCoordinator.swift in Sources */,
@@ -4021,6 +4127,7 @@
 				88580C6E1F2213AB00C1CBAF /* TabMenuContainerRouter.swift in Sources */,
 				8811C8911F4334F800F7513D /* Cache.swift in Sources */,
 				881060FB1F28F3E4008CA2FB /* FollowStatus.swift in Sources */,
+				883E1E4C1F546517004B4861 /* BlockedUsersViewOutput.swift in Sources */,
 				88580C471F2213AB00C1CBAF /* CreatePostPresenter.swift in Sources */,
 				8846CB4C1F30CA0E00F11EC8 /* UserListDataDisplayManager.swift in Sources */,
 				88580BC41F2213AB00C1CBAF /* UIView+Ext.swift in Sources */,
@@ -4188,6 +4295,7 @@
 				882AD0D11F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift in Sources */,
 				88580BC51F2213AB00C1CBAF /* UIViewController+Alerts.swift in Sources */,
 				8811C8871F431B9A00F7513D /* EditProfileViewController.swift in Sources */,
+				883E1E481F546517004B4861 /* BlockedUsersPresenter.swift in Sources */,
 				88F551AA1F386F1300F4AAB9 /* UserProfileHeaderView.swift in Sources */,
 				8895111D1F3C4F39001A53F5 /* BaseService.swift in Sources */,
 				88580BBD1F2213AB00C1CBAF /* String+Memento.swift in Sources */,
@@ -4199,9 +4307,11 @@
 				88D8CCB01F31CA520032FB2B /* UserListItem.swift in Sources */,
 				88580C211F2213AB00C1CBAF /* AbstractKeyValueRepository.swift in Sources */,
 				88BC5C521F2B65D0001FBDD2 /* UserProfileRouter.swift in Sources */,
+				883E1E4A1F546517004B4861 /* BlockedUsersViewController.swift in Sources */,
 				88580C531F2213AB00C1CBAF /* LoginRouter.swift in Sources */,
 				8834A74F1F5011CB00F1D383 /* CacheSortDescriptors.swift in Sources */,
 				884AA96C1F3C563F00B85135 /* FeedResponseTopicView.swift in Sources */,
+				883E1E4F1F5465C4004B4861 /* SettingsViewController.swift in Sources */,
 				88580C141F2213AB00C1CBAF /* Photo.swift in Sources */,
 				8834A76A1F506A4F00F1D383 /* LikesListAPI.swift in Sources */,
 				8811C8491F42F83000F7513D /* Images.swift in Sources */,
