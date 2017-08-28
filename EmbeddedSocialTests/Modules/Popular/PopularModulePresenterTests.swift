@@ -59,6 +59,15 @@ private class FeedModuleMock: FeedModuleInput {
                         size: CGSize,
                         configurator: @escaping (T) -> Void) {}
     func moduleHeight() -> CGFloat { return 0 }
+    
+    
+    var setHeaderHeightCalled = false
+    var headerHeight: CGFloat? = nil
+    
+    func setHeaderHeight(_ height: CGFloat) {
+        setHeaderHeightCalled = true
+        headerHeight = height
+    }
 }
 
 
