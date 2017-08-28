@@ -34,14 +34,20 @@ class PostDetailInteractor: PostDetailInteractorInput {
     
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32) {
         isLoading = true
-        commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, resultHandler: { (result) in
-            guard result.error == nil else {
-                return
-            }
-
-            self.isLoading = false
-            self.output?.didFetch(comments: result.comments, cursor: result.cursor)
+        commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
+            self.fetchedItems(result: cachedResult)
+        }, resultHandler: { (webResult) in
+            self.fetchedItems(result: webResult)
         })
+    }
+    
+    private func fetchedItems(result: CommentFetchResult) {
+        guard result.error == nil else {
+            return
+        }
+        
+        self.isLoading = false
+        self.output?.didFetch(comments: result.comments, cursor: result.cursor)
     }
     
     func fetchMoreComments(topicHandle: String, cursor: String?, limit: Int32) {
@@ -50,14 +56,20 @@ class PostDetailInteractor: PostDetailInteractorInput {
         }
         
         isLoading = true
-        commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, resultHandler: { (result) in
-            guard result.error == nil else {
-                return
-            }
-            
-            self.isLoading = false
-            self.output?.didFetchMore(comments: result.comments, cursor: result.cursor)
+        commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
+            self.fetchedMoreItems(result: cachedResult)
+        }, resultHandler: { (webResult) in
+            self.fetchedMoreItems(result: webResult)
         })
+    }
+    
+    private func fetchedMoreItems(result: CommentFetchResult) {
+        guard result.error == nil else {
+            return
+        }
+        
+        self.isLoading = false
+        self.output?.didFetchMore(comments: result.comments, cursor: result.cursor)
     }
     
     func postComment(photo: Photo?, topicHandle: String, comment: String) {

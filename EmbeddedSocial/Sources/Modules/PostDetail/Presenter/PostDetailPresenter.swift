@@ -74,7 +74,6 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
                 comments[index].totalLikes -= 1
             }
             
-            
             view.refreshCell(index: index)
             repliesPresenter?.refreshCommentCell(commentView: viewModel(with: comments[index]))
             interactor.commentAction(commentHandle: commentHandle, action: action)

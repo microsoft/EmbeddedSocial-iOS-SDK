@@ -26,7 +26,7 @@ enum CommentsServiceError: Error {
 }
 
 protocol CommentServiceProtocol {
-    func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, resultHandler: @escaping CommentFetchResultHandler)
+    func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, cachedResult: @escaping CommentFetchResultHandler, resultHandler: @escaping CommentFetchResultHandler)
     func comment(commentHandle: String, success: @escaping CommentHandler, failure: @escaping Failure)
     func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure)
 }
@@ -51,9 +51,28 @@ class CommentsService: BaseService, CommentServiceProtocol {
         }
     }
     
-    func fetchComments(topicHandle: String, cursor: String? = nil, limit: Int32? = nil, resultHandler: @escaping CommentFetchResultHandler) {
-        CommentsAPI.topicCommentsGetTopicComments(topicHandle: topicHandle, authorization: authorization, cursor: cursor, limit: limit) { (response, error) in
-            
+    func fetchComments(topicHandle: String, cursor: String? = nil, limit: Int32? = nil, cachedResult: @escaping CommentFetchResultHandler , resultHandler: @escaping CommentFetchResultHandler) {
+        
+        let request = CommentsAPI.topicCommentsGetTopicCommentsWithRequestBuilder(topicHandle: topicHandle, authorization: authorization, cursor: cursor, limit: limit)
+        let requestURLString = request.URLString
+        
+        var cacheResult = CommentFetchResult()
+        
+        if let cachedNewComments = self.cache.firstOutgoing(ofType: PostTopicRequest.self, predicate: NSPredicate(format: "typeid = %@", requestURLString), sortDescriptors: nil) {
+            let comment = Comment()
+            comment.text = cachedNewComments.text
+            comment.userHandle = SocialPlus.shared.me?.uid
+            comment.firstName = SocialPlus.shared.me?.firstName
+            comment.firstName = SocialPlus.shared.me?.lastName
+            cacheResult.comments.append(comment)
+        }
+        
+        if let cachedComments = self.cache.firstIncoming(ofType: FeedResponseCommentView.self, predicate: NSPredicate(format: "typeid = %@", requestURLString), sortDescriptors: nil)?.data  {
+            cacheResult.comments.append(contentsOf: self.convert(data: cachedComments))
+            cachedResult(cacheResult)
+        }
+        
+        request.execute { (response, error) in
             var result = CommentFetchResult()
             
             guard let network = NetworkReachabilityManager() else {
@@ -61,8 +80,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
             }
             
             if !network.isReachable {
-                result.comments = self.convert(data: self.cache.fetchIncoming(type: CommentView.self, sortDescriptors: nil))
-                resultHandler(result)
+                cachedResult(cacheResult)
             }
             
             guard error == nil else {
@@ -71,18 +89,19 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 return
             }
             
-            guard let data = response?.data else {
+            guard let data = response?.body?.data else {
                 result.error = CommentsServiceError.failedToFetch(message: L10n.Error.noItemsReceived)
                 resultHandler(result)
                 return
             }
             
-            response?.data?.forEach( { self.cache.cacheIncoming($0) } )
+            self.cache.cacheIncoming(response!.body!, for: requestURLString)
             result.comments = self.convert(data: data)
-            result.cursor = response?.cursor
+            result.cursor = cursor
             
             resultHandler(result)
         }
+        
     }
     
     func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure) {
@@ -116,17 +135,22 @@ class CommentsService: BaseService, CommentServiceProtocol {
     }
     
     private func cacheComment(_ comment: PostCommentRequest, with photo: Photo?) {
-//        if let photo = photo {
-//            cache.cacheOutgoing(photo)
-//            comment.blobHandle = photo.uid
-//        }
-//        cache.cacheOutgoing(comment)
+        
+        if let photo = photo {
+            cache.cacheOutgoing(photo)
+            comment.blobHandle = photo.uid
+        }
+//        cache.cacheOutgoing(<#T##item: Cacheable##Cacheable#>, for: <#T##String#>)
     }
     
     func postComment(topicHandle: String, request: PostCommentRequest, success: @escaping CommentPostResultHandler, failure: @escaping Failure) {
-        CommentsAPI.topicCommentsPostComment(topicHandle: topicHandle, request: request, authorization: authorization) { (response, error) in
+        
+        let request = CommentsAPI.topicCommentsPostCommentWithRequestBuilder(topicHandle: topicHandle, request: request, authorization: authorization)
+        let requestURLString = request.URLString
+        
+        request.execute { (response, error) in
             if response != nil {
-                success(response!)
+                success(response!.body!)
             } else if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
             } else {
