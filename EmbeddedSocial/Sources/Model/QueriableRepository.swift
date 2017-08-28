@@ -17,12 +17,15 @@ class QueriableRepository<T>: Repository {
     }
     
     func query(with predicate: NSPredicate? = nil,
+               page: QueryPage? = nil,
                sortDescriptors: [NSSortDescriptor]? = nil,
                completion: @escaping ([T]) -> Void) {
         abstractMethod()
     }
     
-    func query(with predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) -> [T] {
+    func query(with predicate: NSPredicate? = nil,
+               page: QueryPage? = nil,
+               sortDescriptors: [NSSortDescriptor]? = nil) -> [T] {
         abstractMethod()
     }
     

@@ -11,9 +11,11 @@ struct CacheableItemDecoder: JSONDecoder {
         guard T.self is CacheableItem.Type,
             let payload = payload as? [String: Any],
             let name = payload["name"] as? String,
-            let handle = payload["handle"] as? String else {
+            let handle = payload["handle"] as? String,
+            let relatedHandle = payload["relatedHandle"] as? String
+            else {
                 return nil
         }
-        return CacheableItem(handle: handle, name: name) as? T
+        return CacheableItem(handle: handle, name: name, relatedHandle: relatedHandle) as? T
     }
 }

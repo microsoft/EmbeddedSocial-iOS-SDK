@@ -9,9 +9,10 @@ import Foundation
 struct CacheableItem: Cacheable, Equatable {
     let handle: String
     let name: String
+    let relatedHandle: String
 
     func encodeToJSON() -> Any {
-        return ["handle": handle, "name": name]
+        return ["handle": handle, "name": name, "relatedHandle": relatedHandle]
     }
     
     func getHandle() -> String? {
@@ -19,6 +20,6 @@ struct CacheableItem: Cacheable, Equatable {
     }
     
     static func ==(lhs: CacheableItem, rhs: CacheableItem) -> Bool {
-        return lhs.handle == rhs.handle && lhs.name == rhs.name
+        return lhs.handle == rhs.handle && lhs.name == rhs.name && lhs.relatedHandle == rhs.relatedHandle
     }
 }

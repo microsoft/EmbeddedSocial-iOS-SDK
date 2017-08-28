@@ -12,6 +12,10 @@ protocol UserServiceType {
     
     func createAccount(for user: User, completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void)
     
+    func createAccount(for user: User,
+                       photoHandle: String?,
+                       completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void)
+    
     func updateProfile(me: User, completion: @escaping (Result<User>) -> Void)
 }
 
@@ -54,9 +58,9 @@ class UserService: BaseService, UserServiceType {
         }
     }
 
-    private func createAccount(for user: User,
-                               photoHandle: String?,
-                               completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
+    func createAccount(for user: User,
+                       photoHandle: String?,
+                       completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
         
         guard let credentials = user.credentials else {
             completion(.failure(APIError.missingCredentials))

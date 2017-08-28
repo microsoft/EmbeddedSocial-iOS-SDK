@@ -24,15 +24,13 @@ extension NSManagedObjectContext {
         return record
     }
     
-    func entities<Record: CoreDataRecord>(
-        _ type: Record.Type = Record.self,
-        predicate: NSPredicate? = nil,
-        sortDescriptors: [NSSortDescriptor]? = nil,
-        onResult: @escaping ([Record]) -> Void) {
+    func entities<Record: CoreDataRecord>(_ type: Record.Type = Record.self,
+                  page: QueryPage? = nil,
+                  predicate: NSPredicate? = nil,
+                  sortDescriptors: [NSSortDescriptor]? = nil,
+                  onResult: @escaping ([Record]) -> Void) {
         
-        let request = Record.fetchRequest()
-        request.predicate = predicate
-        request.sortDescriptors = sortDescriptors
+        let request = makeFetchRequest(type: type, page: page, predicate: predicate, sortDescriptors: sortDescriptors)
         
         let asyncRequest = NSAsynchronousFetchRequest(fetchRequest: request) { result in
             onResult(result.finalResult ?? [])
@@ -48,12 +46,11 @@ extension NSManagedObjectContext {
     }
     
     func entities<Record: CoreDataRecord>(_ type: Record.Type = Record.self,
+                  page: QueryPage? = nil,
                   predicate: NSPredicate? = nil,
                   sortDescriptors: [NSSortDescriptor]? = nil) -> [Record] {
         
-        let request = Record.fetchRequest()
-        request.predicate = predicate
-        request.sortDescriptors = sortDescriptors
+        let request = makeFetchRequest(type: type, page: page, predicate: predicate, sortDescriptors: sortDescriptors)
         
         var records: [Record] = []
         
@@ -66,5 +63,22 @@ extension NSManagedObjectContext {
         }
         
         return records
+    }
+    
+    private func makeFetchRequest<T: CoreDataRecord>(type: T.Type = T.self,
+                                  page: QueryPage?,
+                                  predicate: NSPredicate?,
+                                  sortDescriptors: [NSSortDescriptor]?) -> NSFetchRequest<T> {
+        
+        let request = T.fetchRequest()
+        request.predicate = predicate
+        request.sortDescriptors = sortDescriptors
+        
+        if let page = page {
+            request.fetchBatchSize = page.limit
+            request.fetchOffset = page.offset
+        }
+        
+        return request
     }
 }

@@ -30,24 +30,30 @@ class TransactionsDatabaseFacade: TransactionsDatabaseFacadeType {
         return outgoingRepo.create()
     }
     
-    func queryIncomingTransactions(with predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [IncomingTransaction] {
-        return incomingRepo.query(with: predicate, sortDescriptors: sortDescriptors)
+    func queryIncomingTransactions(with predicate: NSPredicate?,
+                                   page: QueryPage?,
+                                   sortDescriptors: [NSSortDescriptor]?) -> [IncomingTransaction] {
+        return incomingRepo.query(with: predicate, page: page, sortDescriptors: sortDescriptors)
     }
     
     func queryIncomingTransactions(with predicate: NSPredicate? = nil,
+                                   page: QueryPage?,
                                    sortDescriptors: [NSSortDescriptor]? = nil,
                                    completion: @escaping ([IncomingTransaction]) -> Void) {
-        return incomingRepo.query(with: predicate, sortDescriptors: sortDescriptors, completion: completion)
+        return incomingRepo.query(with: predicate, page: page, sortDescriptors: sortDescriptors, completion: completion)
     }
     
-    func queryOutgoingTransactions(with predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> [OutgoingTransaction] {
-        return outgoingRepo.query(with: predicate, sortDescriptors: sortDescriptors)
+    func queryOutgoingTransactions(with predicate: NSPredicate?,
+                                   page: QueryPage?,
+                                   sortDescriptors: [NSSortDescriptor]?) -> [OutgoingTransaction] {
+        return outgoingRepo.query(with: predicate, page: page, sortDescriptors: sortDescriptors)
     }
     
     func queryOutgoingTransactions(with predicate: NSPredicate? = nil,
+                                   page: QueryPage?,
                                    sortDescriptors: [NSSortDescriptor]? = nil,
                                    completion: @escaping ([OutgoingTransaction]) -> Void) {
-        return outgoingRepo.query(with: predicate, sortDescriptors: sortDescriptors, completion: completion)
+        return outgoingRepo.query(with: predicate, page: page, sortDescriptors: sortDescriptors, completion: completion)
     }
     
     func deleteIncomingTransactions(_ entities: [IncomingTransaction], completion: ((Result<Void>) -> Void)?) {

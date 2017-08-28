@@ -20,8 +20,9 @@ final class MockQueriableRepository<DomainType>: QueriableRepository<DomainType>
     }
     
     override func query(with predicate: NSPredicate? = nil,
-               sortDescriptors: [NSSortDescriptor]? = nil,
-               completion: @escaping ([DomainType]) -> Void) {
+                        page: QueryPage? = nil,
+                        sortDescriptors: [NSSortDescriptor]? = nil,
+                        completion: @escaping ([DomainType]) -> Void) {
         queryCount += 1
         completion(itemsToQuery)
     }

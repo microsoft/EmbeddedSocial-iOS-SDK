@@ -36,7 +36,7 @@ extension FeedModuleOutput {
     func didStartRefreshingData() { }
     func didFinishRefreshingData() { }
     
-    func shouldOpenProfile(for userID: String) -> Bool { return false }
+    func shouldOpenProfile(for userID: String) -> Bool { return true }
 }
 
 enum FeedType {
@@ -82,7 +82,7 @@ extension FeedType: Equatable {
 }
 
 enum PostCellAction {
-    case like, pin, comment, extra, profile, photo
+    case like, pin, comment, extra, profile, photo, likesList
 }
 
 struct PostViewModel {
@@ -314,6 +314,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             }
             
             router.open(route: .openImage(image: imageUrl), feedSource: feedType!)
+            
+        case .likesList:
+            router.open(route: .likesList(postHandle: post.topicHandle), feedSource: feedType!)
         }
         
     }

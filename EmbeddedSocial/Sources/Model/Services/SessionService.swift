@@ -6,7 +6,7 @@
 import Foundation
 
 protocol SessionServiceType {
-    func makeNewSession(with credentials: CredentialsList, userUID: String, completion: @escaping (Result<String>) -> Void)
+    func makeNewSession(with credentials: CredentialsList, userID: String, completion: @escaping (Result<String>) -> Void)
     
     func requestToken(authProvider: AuthProvider, completion: @escaping (Result<String>) -> Void)
     
@@ -15,10 +15,10 @@ protocol SessionServiceType {
 
 class SessionService: BaseService, SessionServiceType {
     
-    func makeNewSession(with credentials: CredentialsList, userUID: String, completion: @escaping (Result<String>) -> Void) {
+    func makeNewSession(with credentials: CredentialsList, userID: String, completion: @escaping (Result<String>) -> Void) {
         let request = PostSessionRequest()
         request.instanceId = UUID().uuidString
-        request.userHandle = userUID
+        request.userHandle = userID
         
         SessionsAPI.sessionsPostSession(request: request, authorization: credentials.authorization) { response, error in
             if let sessionToken = response?.sessionToken {

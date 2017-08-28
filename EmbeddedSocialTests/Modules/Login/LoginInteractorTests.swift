@@ -42,9 +42,10 @@ class LoginInteractorTests: XCTestCase {
         // given
         let credentials = CredentialsList(provider: .facebook, accessToken: UUID().uuidString, socialUID: UUID().uuidString)
         let user = SocialUser(credentials: credentials, firstName: nil, lastName: nil, email: nil, photo: nil)
+        let vc = UIViewController()
         
         // when
-        sut.getMyProfile(socialUser: user) { _ in () }
+        sut.getMyProfile(socialUser: user, from: vc) { _ in () }
         
         // then
         XCTAssertEqual(userService.getMyProfileCount, 1)

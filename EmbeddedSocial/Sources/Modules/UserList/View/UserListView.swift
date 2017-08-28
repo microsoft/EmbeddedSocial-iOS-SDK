@@ -16,7 +16,7 @@ class UserListView: UIView {
         didSet {
             dataManager.onItemAction = { [weak self] in self?.output.onItemAction(item: $0) }
             dataManager.onReachingEndOfContent = { [weak self] in self?.output.onReachingEndOfPage() }
-            dataManager.onItemSelected = { [weak self] in self?.output.onItemSelected(at: $0) }
+            dataManager.onItemSelected = { [weak self] in self?.output.onItemSelected($0) }
             dataManager.tableView = tableView
         }
     }

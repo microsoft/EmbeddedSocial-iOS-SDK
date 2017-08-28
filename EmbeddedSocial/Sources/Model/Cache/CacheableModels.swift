@@ -28,3 +28,13 @@ extension  CommentView: Cacheable {
 }
 
 extension PostTopicRequest: Cacheable { }
+
+extension CommentView: Cacheable {
+    func getHandle() -> String? {
+        return commentHandle
+    }
+    
+    func getRelatedHandle() -> String? {
+        return topicHandle
+    }
+}

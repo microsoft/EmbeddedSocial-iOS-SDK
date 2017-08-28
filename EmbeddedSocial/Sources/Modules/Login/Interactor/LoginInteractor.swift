@@ -18,20 +18,52 @@ class LoginInteractor: LoginInteractorInput {
         authService.login(with: provider, from: viewController, handler: handler)
     }
     
-    func getMyProfile(socialUser: SocialUser, handler: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
+    func getMyProfile(socialUser: SocialUser,
+                      from viewController: UIViewController?,
+                      handler: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
+        
         let creds = socialUser.credentials
+        
         userService.getMyProfile(authorization: creds.authorization, credentials: creds) { [weak self] result in
-            guard let user = result.value, let credentials = user.credentials else {
+            guard let user = result.value else {
                 handler(.failure(result.error ?? APIError.failedRequest))
                 return
             }
             
-            self?.sessionService.makeNewSession(with: credentials, userUID: user.uid) { result in
-                if let sessionToken = result.value {
-                    handler(.success((user, sessionToken)))
-                } else {
-                    handler(.failure(result.error ?? APIError.failedRequest))
-                }
+            if creds.provider == .twitter {
+                self?.logIntoTwitterAndMakeSession(from: viewController, user: user, handler: handler)
+            } else {
+                self?.makeNewSession(user: user, handler: handler)
+            }
+        }
+    }
+    
+    private func makeNewSession(user: User, handler: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
+        guard let credentials = user.credentials else {
+            handler(.failure(APIError.failedRequest))
+            return
+        }
+        
+        sessionService.makeNewSession(with: credentials, userID: user.uid) { result in
+            if let sessionToken = result.value {
+                handler(.success((user, sessionToken)))
+            } else {
+                handler(.failure(result.error ?? APIError.failedRequest))
+            }
+        }
+    }
+    
+    private func logIntoTwitterAndMakeSession(from viewController: UIViewController?,
+                                              user: User,
+                                              handler: @escaping (Result<(user: User, sessionToken: String)>) -> Void) {
+        
+        login(provider: .twitter, from: viewController) { [weak self] result in
+            if let socialUser = result.value {
+                var user = user
+                user.credentials = socialUser.credentials
+                self?.makeNewSession(user: user, handler: handler)
+            } else {
+                handler(.failure(result.error ?? APIError.failedRequest))
             }
         }
     }

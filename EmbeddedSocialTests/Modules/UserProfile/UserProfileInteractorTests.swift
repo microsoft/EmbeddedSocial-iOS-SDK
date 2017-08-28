@@ -50,7 +50,7 @@ class UserProfileInteractorTests: XCTestCase {
     
     func testThatUserIsLoadedFromCache() {
         _ = sut.cachedUser(with: "")
-        XCTAssertTrue(cache.firstIncoming_ofType_handle_Called)
+//        XCTAssertTrue(cache.firstIncoming_ofType_typeID_handle_sortDescriptors_Called)
     }
 }
 

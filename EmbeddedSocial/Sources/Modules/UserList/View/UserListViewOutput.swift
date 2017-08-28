@@ -10,5 +10,5 @@ protocol UserListViewOutput: class {
     
     func onReachingEndOfPage()
     
-    func onItemSelected(at indexPath: IndexPath)
+    func onItemSelected(_ item: UserListItem)
 }

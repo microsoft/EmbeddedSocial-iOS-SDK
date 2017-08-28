@@ -10,26 +10,25 @@ final class PredicateTestableItem: NSObject {
     dynamic let name: String
     dynamic let handle: String
     dynamic let typeid = "PredicateTestableItem"
-    
-    init(name: String, handle: String) {
+    dynamic let relatedHandle: String
+
+    init(name: String, handle: String, relatedHandle: String) {
         self.name = name
         self.handle = handle
+        self.relatedHandle = relatedHandle
     }
 }
 
 extension PredicateTestableItem: Cacheable {
     func encodeToJSON() -> Any {
-        return ["handle": handle, "name": name]
+        return ["handle": handle, "name": name, "relatedHandle": relatedHandle]
     }
     
     func getHandle() -> String? {
         return handle
     }
-}
-
-extension PredicateTestableItem {
     
-    static func ==(lhs: PredicateTestableItem, rhs: PredicateTestableItem) -> Bool {
-        return lhs.handle == rhs.handle && lhs.name == rhs.name
+    func getRelatedHandle() -> String? {
+        return relatedHandle
     }
 }

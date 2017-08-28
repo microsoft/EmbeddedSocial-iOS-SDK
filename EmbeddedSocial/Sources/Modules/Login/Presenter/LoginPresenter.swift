@@ -44,7 +44,7 @@ final class LoginPresenter: LoginViewOutput {
     }
     
     private func processUser(_ user: SocialUser) {
-        interactor.getMyProfile(socialUser: user) { [weak self] result in
+        interactor.getMyProfile(socialUser: user, from: view as? UIViewController) { [weak self] result in
             self?.view.setIsLoading(false)
             
             if let (user, sessionToken) = result.value {
