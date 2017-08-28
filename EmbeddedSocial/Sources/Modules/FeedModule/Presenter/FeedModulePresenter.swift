@@ -14,6 +14,9 @@ protocol FeedModuleInput: class {
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
                         size: CGSize,
                         configurator: @escaping (T) -> Void)
+    
+    func setHeaderHeight(_ height: CGFloat)
+    
     // Get Current Module Height
     func moduleHeight() -> CGFloat
     // Change layout
@@ -427,6 +430,13 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         })
     }
     
+    func setHeaderHeight(_ height: CGFloat) {
+        guard var header = header else { return }
+        header.size = CGSize(width: header.size.width, height: height)
+        self.header = header
+        view.refreshLayout()
+    }
+    
     func configureHeader(_ headerView: UICollectionReusableView) {
         header?.configurator(headerView)
     }
@@ -443,7 +453,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
 extension FeedModulePresenter {
     struct SupplementaryItemModel {
         let type: UICollectionReusableView.Type
-        let size: CGSize
+        var size: CGSize
         let configurator: (UICollectionReusableView) -> Void
     }
 }

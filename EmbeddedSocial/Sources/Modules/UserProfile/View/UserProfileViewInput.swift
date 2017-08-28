@@ -31,4 +31,6 @@ protocol UserProfileViewInput: class {
     func setFilterEnabled(_ isEnabled: Bool)
     
     func setLayoutAsset(_ asset: Asset)
+    
+    func headerContentHeight(with user: User) -> CGFloat
 }

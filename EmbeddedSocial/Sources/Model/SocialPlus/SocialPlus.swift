@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import SnapKit
 
 public final class SocialPlus {
     public static let shared = SocialPlus()

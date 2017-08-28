@@ -1,4 +1,4 @@
-//
+ //
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
@@ -44,6 +44,7 @@ final class EmbeddedEditProfileDataDisplayManager: NSObject, TableDataDisplayMan
     }
     
     func setup(with tableView: UITableView, user: User) {
+        self.tableView = tableView
         sections = builder.makeSections(user: user)
         setupTableWithSections(tableView, sections: sections)
     }
@@ -108,6 +109,7 @@ extension EmbeddedEditProfileDataDisplayManager: UITableViewDataSource {
 }
 
 extension EmbeddedEditProfileDataDisplayManager: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard case .uploadPhoto = sections[indexPath.section].items[indexPath.row] else {
             return
