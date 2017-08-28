@@ -15,7 +15,7 @@ struct UserProfileConfigurator {
     
     func configure(userID: String? = nil,
                    myProfileHolder: UserHolder = SocialPlus.shared,
-                   navigationController: UINavigationController? = nil) {
+                   navigationController: UINavigationController?) {
         
         let router = UserProfileRouter()
         router.viewController = viewController

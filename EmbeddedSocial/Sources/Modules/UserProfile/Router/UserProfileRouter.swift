@@ -19,7 +19,9 @@ final class UserProfileRouter: UserProfileRouterInput {
             UserFollowersAPI(userID: user.uid, service: SocialService())
         
         let configurator = FollowersConfigurator()
-        configurator.configure(api: api, moduleOutput: followersModuleOutput)
+        configurator.configure(api: api,
+                               navigationController: viewController?.navigationController,
+                               moduleOutput: followersModuleOutput)
         viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
@@ -29,7 +31,9 @@ final class UserProfileRouter: UserProfileRouterInput {
             UserFollowingAPI(userID: user.uid, service: SocialService())
         
         let configurator = FollowingConfigurator()
-        configurator.configure(api: api, moduleOutput: followingModuleOutput)
+        configurator.configure(api: api,
+                               navigationController: viewController?.navigationController,
+                               moduleOutput: followingModuleOutput)
         viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
