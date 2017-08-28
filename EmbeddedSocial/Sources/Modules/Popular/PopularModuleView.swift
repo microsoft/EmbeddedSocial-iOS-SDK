@@ -32,7 +32,8 @@ class PopularModuleView: UIViewController {
         didSet {
             
             guard isLockedUI >= 0 else {
-                fatalError()
+                isLockedUI = 0
+                return
             }
             
             feedControl.isEnabled = isLockedUI == 0

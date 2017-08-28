@@ -8,10 +8,6 @@ import Foundation
 import XCTest
 @testable import EmbeddedSocial
 
-extension FeedResponseTopicView: Cacheable {
-    
-}
-
 class FeedCacheTests: XCTestCase {
     
     var topicViewResponse: FeedResponseTopicView!
@@ -67,22 +63,24 @@ class FeedCacheTests: XCTestCase {
     func testThatItCachesIncomingItemAndLoadsItByHandle() {
         
         // given
-        let requestURLString = "get my feed"
-        let item = CacheableResponse(response: topicViewResponse )
+        let cacheKey = "aaa"//"/v0.7/users/me/topics/popular"
+//        let item = CacheableResponse(response: topicViewResponse )
 //        cache.cacheIncoming(item, for: requestURLString)
-        cache.cacheIncoming(topicViewResponse, for: requestURLString)
+        cache.cacheIncoming(topicViewResponse, for: cacheKey)
         
-        let request = CacheFetchRequest(resultType: FeedResponseTopicView.self)
-        let predicate = PredicateBuilder().predicate(typeID: requestURLString)
+//        let request = CacheFetchRequest(resultType: FeedResponseTopicView.self)
+//        let predicate = PredicateBuilder().predicate(typeID: requestURLString)
         
         // when
-        let fetchedItem = cache.firstIncoming(ofType: FeedResponseTopicView.self,
-                                              predicate: predicate,
-                                              sortDescriptors: nil)
+//        let fetchedItem = cache.firstIncoming(ofType: FeedResponseTopicView.self,
+//                                              predicate: predicate,
+//                                              sortDescriptors: nil)
         
+        let cachedItem = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: cacheKey)
+
         let a = 1
         // then
-//        XCTAssertEqual(fetchedItem, item)
+//        XCTAssertEqual(cachedItem, cachedItem)
     }
     
     func testFeedGetsCached() {

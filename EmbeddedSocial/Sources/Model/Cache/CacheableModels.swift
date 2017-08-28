@@ -32,3 +32,7 @@ extension CommentView: Cacheable {
         return topicHandle
     }
 }
+
+extension FeedResponseTopicView: Cacheable {
+    
+}
