@@ -40,6 +40,19 @@ private class MockTopicService: PostServiceProtocol {
     }
 }
 
+extension MockTopicService {
+    
+    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {}
+    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {}
+
+}
+
 class PostDetailsInteractorTests: XCTestCase {
     
     var output = MockPostDetailPresenter()
