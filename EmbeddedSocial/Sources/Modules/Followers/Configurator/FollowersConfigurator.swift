@@ -13,10 +13,12 @@ final class FollowersConfigurator {
         viewController.title = L10n.Followers.screenTitle
     }
     
-    func configure(api: UsersListAPI, moduleOutput: FollowersModuleOutput? = nil) {
+    func configure(api: UsersListAPI,
+                   navigationController: UINavigationController?,
+                   moduleOutput: FollowersModuleOutput? = nil) {
         let presenter = FollowersPresenter()
 
-        let listInput = UserListConfigurator().configure(api: api, output: presenter)
+        let listInput = UserListConfigurator().configure(api: api, navigationController: navigationController, output: presenter)
         
         presenter.view = viewController
         presenter.usersList = listInput

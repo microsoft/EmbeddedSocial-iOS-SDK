@@ -26,6 +26,9 @@ class UserProfileViewController: UIViewController {
         view.summaryView.onFollowing = self.output.onFollowing
         view.summaryView.onFollow = { self.output.onFollowRequest(currentStatus: $0) }
         view.summaryView.onFollowers = self.output.onFollowers
+        view.snp.makeConstraints { make in
+            make.width.equalTo(Constants.UserProfile.contentWidth)
+        }
         return view
     }()
     
@@ -98,6 +101,7 @@ extension UserProfileViewController: UserProfileViewInput {
         reusableView.addSubview(headerView)
         headerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+            make.height.equalTo(0).priority(.low)
         }
     }
     
@@ -107,8 +111,8 @@ extension UserProfileViewController: UserProfileViewInput {
     
     func setIsLoadingUser(_ isLoading: Bool) { }
     
-    func setUser(_ user: User) {
-        summaryView.configure(user: user)
+    func setUser(_ user: User, isAnonymous: Bool) {
+        summaryView.configure(user: user, isAnonymous: isAnonymous)
     }
     
     func setFollowStatus(_ followStatus: FollowStatus) {
@@ -139,5 +143,10 @@ extension UserProfileViewController: UserProfileViewInput {
     func setLayoutAsset(_ asset: Asset) {
         feedLayoutButton.setImage(UIImage(asset: asset), for: .normal)
         feedLayoutButton.sizeToFit()
+    }
+    
+    func headerContentHeight(with user: User) -> CGFloat {
+        let size = CGSize(width: headerView.bounds.width, height: .greatestFiniteMagnitude)
+        return headerView.systemLayoutSizeFitting(size).height
     }
 }

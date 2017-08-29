@@ -8,4 +8,6 @@ import Foundation
 protocol CreatePostInteractorOutput: class {
     func created()
     func postCreationFailed(error: Error)
+    func postUpdated()
+    func postUpdateFailed(error: Error)
 }

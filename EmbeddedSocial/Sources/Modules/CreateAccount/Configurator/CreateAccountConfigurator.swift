@@ -14,15 +14,21 @@ class CreateAccountConfigurator {
     }
 
     func configure(user: User, moduleOutput: CreateAccountModuleOutput?) {
+        let imagesService = ImagesService()
+        let userService = UserService(imagesService: ImagesService())
+        let authService = AuthService(apiProvider: AuthAPIProvider())
+        let interactor = CreateAccountInteractor(userService: userService, imagesService: imagesService, authService: authService)
+        interactor.loginViewController = viewController
+        
         let presenter = CreateAccountPresenter(user: user)
         presenter.view = viewController
-        presenter.interactor = CreateAccountInteractor(userService: UserService(imagesService: ImagesService()))
+        presenter.interactor = interactor
         presenter.moduleOutput = moduleOutput
-        
-        viewController.output = presenter
-        viewController.title = L10n.CreateAccount.screenTitle
         
         let editConfigurator = EmbeddedEditProfileConfigurator()
         presenter.editModuleInput = editConfigurator.configure(user: user, moduleOutput: presenter)
+        
+        viewController.output = presenter
+        viewController.title = L10n.CreateAccount.screenTitle
     }
 }

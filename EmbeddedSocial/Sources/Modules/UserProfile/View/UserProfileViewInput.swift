@@ -14,7 +14,7 @@ protocol UserProfileViewInput: class {
     
     func setIsLoadingUser(_ isLoading: Bool)
     
-    func setUser(_ user: User)
+    func setUser(_ user: User, isAnonymous: Bool)
     
     func setFollowStatus(_ followStatus: FollowStatus)
     
@@ -31,4 +31,6 @@ protocol UserProfileViewInput: class {
     func setFilterEnabled(_ isEnabled: Bool)
     
     func setLayoutAsset(_ asset: Asset)
+    
+    func headerContentHeight(with user: User) -> CGFloat
 }

@@ -34,7 +34,9 @@
 
 "create_post.leave_post" = "Leave post";
 "create_post.post" = "Post";
+"create_post.save" = "Save";
 "create_post.button.add_post" = "Add new post";
+"create_post.button.update_post" = "Update post";
 "create_post.leave_new_post" = "Going back to the feed will delete the content of this draft, are you sure you want to go back?";
 "create_post.return_to_feed" = "Return to feed?";
 "create_post.button.add_picture" = "Tap here to add a picture";
@@ -104,4 +106,6 @@
 "popular_module.feed_option.today" = "Today";
 "popular_module.feed_option.this_week" = "This week";
 "popular_module.feed_option.all_time" = "All time";
+
+"likes_list.screen_title" = "Like this post";
 

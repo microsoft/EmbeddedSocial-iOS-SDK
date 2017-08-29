@@ -14,6 +14,9 @@ protocol FeedModuleInput: class {
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
                         size: CGSize,
                         configurator: @escaping (T) -> Void)
+    
+    func setHeaderHeight(_ height: CGFloat)
+    
     // Get Current Module Height
     func moduleHeight() -> CGFloat
     // Change layout
@@ -82,29 +85,7 @@ extension FeedType: Equatable {
 }
 
 enum PostCellAction {
-    case like, pin, comment, extra, profile, photo
-}
-
-struct PostViewModel {
-    
-    typealias ActionHandler = (PostCellAction, IndexPath) -> Void
-    
-    var topicHandle: String = ""
-    var userName: String = ""
-    var title: String = ""
-    var text: String = ""
-    var isLiked: Bool = false
-    var isPinned: Bool = false
-    var likedBy: String = ""
-    var totalLikes: String = ""
-    var totalComments: String = ""
-    var timeCreated: String = ""
-    var userImageUrl: String? = nil
-    var postImageUrl: String? = nil
-    
-    var tag: Int = 0
-    var cellType: String = PostCell.reuseID
-    var onAction: ActionHandler?
+    case like, pin, comment, extra, profile, photo, likesList
 }
 
 enum FeedModuleLayoutType: Int {
@@ -139,7 +120,7 @@ enum FeedModuleLayoutType: Int {
     }
 }
 
-class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput {
+class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput, PostViewModelActionsProtocol {
     
     weak var view: FeedModuleViewInput!
     var interactor: FeedModuleInteractorInput!
@@ -215,31 +196,15 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         items.removeAll()
     }
     
-    private func viewModel(with post: Post) -> PostViewModel {
-        
+    // MARK: FeedModuleViewOutput
+    func item(for path: IndexPath) -> PostViewModel {
         var viewModel = PostViewModel()
-        viewModel.topicHandle = post.topicHandle
-        viewModel.userName = String(format: "%@ %@", (post.firstName ?? ""), (post.lastName ?? ""))
-        viewModel.title = post.title ?? ""
-        viewModel.text = post.text ?? ""
-        viewModel.likedBy = "" // TODO: uncomfirmed
         
-        viewModel.totalLikes = L10n.Post.likesCount(post.totalLikes)
-        viewModel.totalComments = L10n.Post.commentsCount(post.totalComments)
-        
-        viewModel.timeCreated =  post.createdTime == nil ? "" : formatter.shortStyle.string(from: post.createdTime!, to: Date())!
-        viewModel.userImageUrl = post.photoUrl
-        viewModel.postImageUrl = post.imageUrl
-        
-        viewModel.isLiked = post.liked
-        viewModel.isPinned = post.pinned
-        
-        viewModel.tag = items.index(of: post) ?? 0
-        viewModel.cellType = layout.cellType
-        viewModel.onAction = { [weak self] action, path in
-            self?.handle(action: action, path: path)
+        guard let index = items.index(of: items[path.row]) else {
+            return viewModel
         }
         
+        viewModel.config(with: items[index], index: index, cellType: layout.cellType, actionHandler: self)
         return viewModel
     }
     
@@ -264,7 +229,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         return items.index(where: { $0.topicHandle == postHandle } )
     }
     
-    private func handle(action: PostCellAction, path: IndexPath) {
+    func handle(action: PostCellAction, path: IndexPath) {
         
         let index = path.row
         let postHandle = items[index].topicHandle!
@@ -273,7 +238,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         
         switch action {
         case .comment:
-            router.open(route: .comments(post: viewModel(with: post)), presenter: self)
+            router.open(route: .comments(post: item(for: path)), presenter: self)
         case .extra:
             
             let isMyPost = (userHolder?.me?.uid == userHandle)
@@ -297,7 +262,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             }
             
             view.reload(with: index)
-            commentsPresenter?.refresh(post: viewModel(with: items[index]))
+            commentsPresenter?.refresh(post: item(for: path))
             interactor.postAction(post: postHandle, action: action)
             
         case .pin:
@@ -307,6 +272,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             items[index].pinned = !status
             
             view.reload(with: index)
+            commentsPresenter?.refresh(post: item(for: path))
             interactor.postAction(post: postHandle, action: action)
             
         case .profile:
@@ -326,6 +292,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             }
             
             router.open(route: .openImage(image: imageUrl), feedSource: feedType!)
+            
+        case .likesList:
+            router.open(route: .likesList(postHandle: post.topicHandle), feedSource: feedType!)
         }
         
     }
@@ -379,7 +348,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didTapItem(path: IndexPath) {
         Logger.log(path)
-        router.open(route: .postDetails(post: viewModel(with: items[path.row])), presenter: self)
+        router.open(route: .postDetails(post: item(for: path)), presenter: self)
     }
     
     // MARK: FeedModuleInteractorOutput
@@ -446,6 +415,13 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         })
     }
     
+    func setHeaderHeight(_ height: CGFloat) {
+        guard var header = header else { return }
+        header.size = CGSize(width: header.size.width, height: height)
+        self.header = header
+        view.refreshLayout()
+    }
+    
     func configureHeader(_ headerView: UICollectionReusableView) {
         header?.configurator(headerView)
     }
@@ -462,7 +438,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
 extension FeedModulePresenter {
     struct SupplementaryItemModel {
         let type: UICollectionReusableView.Type
-        let size: CGSize
+        var size: CGSize
         let configurator: (UICollectionReusableView) -> Void
     }
 }

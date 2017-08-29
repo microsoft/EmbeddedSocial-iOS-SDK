@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct UserListItemsBuilder {
+final class UserListItemsBuilder {
     typealias Section = UserListDataDisplayManager.Section
     
     private let me: User?
@@ -17,8 +17,11 @@ struct UserListItemsBuilder {
     func makeSections(users: [User], actionHandler: @escaping (UserListItem) -> Void) -> [Section] {
         let items = users.enumerated().map { pair -> UserListItem in
             let isMe = pair.element.uid == self.me?.uid
+            let isActionButtonHidden = isMe || me == nil
+            let user = isMe ? me! : pair.element
             let indexPath = IndexPath(row: pair.offset, section: 0)
-            return UserListItem(user: pair.element, isActionButtonHidden: isMe, indexPath: indexPath, action: actionHandler)
+            return UserListItem(user: user, isActionButtonHidden: isActionButtonHidden,
+                                indexPath: indexPath, action: actionHandler)
         }
         
         return [Section(model: (), items: items)]

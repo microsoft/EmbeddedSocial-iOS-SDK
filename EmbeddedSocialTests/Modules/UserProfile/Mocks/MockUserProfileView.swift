@@ -12,6 +12,7 @@ class MockUserProfileView: UserProfileViewInput {
     private(set) var isLoadingUser: Bool?
     private(set) var setUserCount = 0
     private(set) var lastSetUser: User?
+    private(set) var setUserIsAnonymous: Bool?
     private(set) var setFollowStatusCount = 0
     private(set) var lastFollowStatus: FollowStatus?
     private(set) var setIsProcessingFollowRequestCount = 0
@@ -28,6 +29,9 @@ class MockUserProfileView: UserProfileViewInput {
     private(set) var isFilterEnabled: Bool?
     private(set) var setLayoutAssetCount = 0
     private(set) var layoutAsset: Asset?
+    private(set) var headerContentHeightCount = 0
+    private(set) var headerContentHeightUser: User?
+    private(set) var headerContentHeightReturnValue: CGFloat = 0.0
 
     func setupInitialState() {
         setupInitialStateCount += 1
@@ -42,9 +46,10 @@ class MockUserProfileView: UserProfileViewInput {
         self.isLoadingUser = isLoading
     }
     
-    func setUser(_ user: User) {
+    func setUser(_ user: User, isAnonymous: Bool) {
         setUserCount += 1
         lastSetUser = user
+        setUserIsAnonymous = isAnonymous
     }
     
     func setFollowStatus(_ followStatus: FollowStatus) {
@@ -87,5 +92,11 @@ class MockUserProfileView: UserProfileViewInput {
     func setLayoutAsset(_ asset: Asset) {
         layoutAsset = asset
         setLayoutAssetCount += 1
+    }
+    
+    func headerContentHeight(with user: User) -> CGFloat {
+        headerContentHeightCount += 1
+        headerContentHeightUser = user
+        return headerContentHeightReturnValue
     }
 }

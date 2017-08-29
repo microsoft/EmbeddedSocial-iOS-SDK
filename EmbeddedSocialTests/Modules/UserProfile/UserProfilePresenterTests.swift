@@ -55,7 +55,7 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertEqual(view.layoutAsset, feedInput.layout.nextLayoutAsset)
 
         validateViewInitialState(with: user, userIsCached: true)
-        validateFeedInitialState(with: user)
+        validateFeedInitialState(with: user, userIsCached: true)
     }
     
     func testThatItSetsInitialStateWithOtherUser() {
@@ -73,6 +73,27 @@ class UserProfilePresenterTests: XCTestCase {
         
         XCTAssertEqual(view.layoutAsset, feedInput.layout.nextLayoutAsset)
 
+        XCTAssertEqual(interactor.getUserCount, 1)
+        XCTAssertEqual(interactor.cachedUserCount, 1)
+    }
+    
+    func testThatItSetsInitialStateAnonymously() {
+        // given
+        myProfileHolder.me = nil
+        let user = User(uid: UUID().uuidString, followersCount: randomValue, followingCount: randomValue)
+        interactor.userToReturn = user
+        
+        let presenter = makeDefaultPresenter(userID: user.uid)
+        
+        // when
+        presenter.viewIsReady()
+        
+        // then
+        validateViewInitialState(with: user, isAnonymous: true)
+        validateFeedInitialState(with: user)
+        
+        XCTAssertEqual(view.layoutAsset, feedInput.layout.nextLayoutAsset)
+        
         XCTAssertEqual(interactor.getUserCount, 1)
         XCTAssertEqual(interactor.cachedUserCount, 1)
     }
@@ -122,10 +143,11 @@ class UserProfilePresenterTests: XCTestCase {
         validateFeedInitialState(with: user)
     }
     
-    private func validateViewInitialState(with user: User, userIsCached: Bool = false) {
+    private func validateViewInitialState(with user: User, userIsCached: Bool = false, isAnonymous: Bool = false) {
         XCTAssertEqual(view.setupInitialStateCount, 1)
         XCTAssertEqual(view.setUserCount, userIsCached ? 2 : 1)
         XCTAssertEqual(view.lastSetUser, user)
+        XCTAssertEqual(view.setUserIsAnonymous, isAnonymous)
         
         XCTAssertEqual(view.setFollowingCount, userIsCached ? 2 : 1)
         XCTAssertEqual(view.lastFollowingCount, user.followingCount)
@@ -137,13 +159,15 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertFalse(view.isLoadingUser!)
     }
     
-    private func validateFeedInitialState(with user: User) {
+    private func validateFeedInitialState(with user: User, userIsCached: Bool = false) {
         XCTAssertEqual(feedInput.registerHeaderCount, 1)
         XCTAssertEqual(view.setFeedViewControllerCount, 1)
         XCTAssertEqual(view.setLayoutAssetCount, 1)
         XCTAssertEqual(view.layoutAsset, Asset.iconList)
         XCTAssertEqual(feedInput.setFeedCount, 1)
         XCTAssertEqual(feedInput.feedType, .user(user: user.uid, scope: .recent))
+        XCTAssertEqual(feedInput.setHeaderHeightCount, userIsCached ? 2 : 1)
+        XCTAssertTrue(abs(feedInput.headerHeight! - view.headerContentHeightReturnValue) < 0.0001)
     }
     
     func testThatItOpensFollowingScreen() {

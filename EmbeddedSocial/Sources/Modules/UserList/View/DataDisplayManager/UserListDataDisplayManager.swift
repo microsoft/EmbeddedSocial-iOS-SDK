@@ -16,7 +16,7 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
     
     var onReachingEndOfContent: (() -> Void)?
     
-    var onItemSelected: ((IndexPath) -> Void)?
+    var onItemSelected: ((UserListItem) -> Void)?
     
     weak var tableView: UITableView!
     
@@ -104,7 +104,7 @@ extension UserListDataDisplayManager: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+        onItemSelected?(sections[indexPath.section].items[indexPath.row])
     }
 }
 

@@ -12,14 +12,18 @@ struct User {
     let email: String?
     var bio: String?
     var photo: Photo?
-    let credentials: CredentialsList?
+    var credentials: CredentialsList?
     var followersCount: Int
     var followingCount: Int
     let visibility: Visibility?
     var followerStatus: FollowStatus?
     let followingStatus: FollowStatus?
     
-    var fullName: String {
+    var isMe: Bool {
+        return credentials != nil
+    }
+    
+    static func fullName(firstName: String?, lastName: String?) -> String {
         if firstName == nil {
             return lastName ?? L10n.Common.Placeholder.unknown
         }
@@ -29,10 +33,6 @@ struct User {
         }
         
         return "\(firstName!) \(lastName!)"
-    }
-    
-    var isMe: Bool {
-        return credentials != nil
     }
     
     init(uid: String = UUID().uuidString,

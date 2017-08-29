@@ -150,7 +150,8 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     
     lazy var configuredSearch: UIViewController = {
         let configurator = SearchConfigurator()
-        configurator.configure(isLoggedInUser: self.isUserAuthenticated())
+        configurator.configure(isLoggedInUser: self.isUserAuthenticated(),
+                               navigationController: self.navigationStack.navigationController)
         return configurator.viewController
     }()
     

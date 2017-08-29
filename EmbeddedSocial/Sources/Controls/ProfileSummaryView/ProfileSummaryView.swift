@@ -17,7 +17,7 @@ class ProfileSummaryView: UIView {
         }
     }
     
-    @IBOutlet fileprivate weak var detailsLabel: UILabel! {
+    @IBOutlet weak var detailsLabel: UILabel! {
         didSet {
             detailsLabel.text = L10n.Common.Placeholder.notSpecified
             detailsLabel.font = Fonts.medium
@@ -96,17 +96,22 @@ class ProfileSummaryView: UIView {
         imageView.makeCircular()
     }
     
-    func configure(user: User) {
-        nameLabel.text = user.fullName
+    func configure(user: User, isAnonymous: Bool) {
+        nameLabel.text = User.fullName(firstName: user.firstName, lastName: user.lastName)
         detailsLabel.text = user.bio ?? L10n.Common.Placeholder.notSpecified
         imageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: .userPhotoPlaceholder))
         
         followersCount = user.followersCount
         followingCount = user.followingCount
         
-        editButton.isHidden = !user.isMe
-        followButton.isHidden = user.isMe
-        
+        if isAnonymous {
+            editButton.isHidden = true
+            followButton.isHidden = true
+        } else {
+            editButton.isHidden = !user.isMe
+            followButton.isHidden = user.isMe
+        }
+
         configure(followStatus: user.followerStatus)
     }
     

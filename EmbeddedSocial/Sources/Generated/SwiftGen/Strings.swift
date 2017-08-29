@@ -55,12 +55,16 @@ enum L10n {
     static let post = L10n.tr("Localizable", "create_post.post")
     /// Return to feed?
     static let returnToFeed = L10n.tr("Localizable", "create_post.return_to_feed")
+    /// Save
+    static let save = L10n.tr("Localizable", "create_post.save")
 
     enum Button {
       /// Tap here to add a picture
       static let addPicture = L10n.tr("Localizable", "create_post.button.add_picture")
       /// Add new post
       static let addPost = L10n.tr("Localizable", "create_post.button.add_post")
+      /// Update post
+      static let updatePost = L10n.tr("Localizable", "create_post.button.update_post")
     }
   }
 
@@ -141,6 +145,11 @@ enum L10n {
     static let removePhoto = L10n.tr("Localizable", "image_picker.remove_photo")
     /// Take photo
     static let takePhoto = L10n.tr("Localizable", "image_picker.take_photo")
+  }
+
+  enum LikesList {
+    /// Like this post
+    static let screenTitle = L10n.tr("Localizable", "likes_list.screen_title")
   }
 
   enum Login {

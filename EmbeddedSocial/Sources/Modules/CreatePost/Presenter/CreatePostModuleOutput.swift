@@ -7,10 +7,12 @@ import Foundation
 
 protocol CreatePostModuleOutput: class {
     func didCreatePost()
+    func didUpdatePost()
 }
 
 //MARK: Optional methods
 
 extension CreatePostModuleOutput {
     func didCreatePost() { }
+    func didUpdatePost() { }
 }

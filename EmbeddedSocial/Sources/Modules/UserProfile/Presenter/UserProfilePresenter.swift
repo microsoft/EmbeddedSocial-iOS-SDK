@@ -99,7 +99,8 @@ final class UserProfilePresenter: UserProfileViewOutput {
         setter?(user)
         followersCount = user.followersCount
         followingCount = user.followingCount
-        view.setUser(user)
+        view.setUser(user, isAnonymous: me == nil)
+        feedModuleInput?.setHeaderHeight(view.headerContentHeight(with: user))
     }
     
     private func setupFeed() {
@@ -268,6 +269,9 @@ extension UserProfilePresenter: FollowingModuleOutput {
 }
 
 extension UserProfilePresenter: CreatePostModuleOutput {
+    func didUpdatePost() {
+        feedModuleInput?.refreshData()
+    }
     
     func didCreatePost() {
         feedModuleInput?.refreshData()

@@ -19,7 +19,8 @@ class UserProfileHeaderView: UIView {
             make.left.equalTo(self)
             make.top.equalTo(self)
             make.width.equalTo(self)
-            make.height.equalTo(summaryView.snp.width).dividedBy(Constants.UserProfile.summaryAspectRatio)
+            make.height.equalTo(Constants.UserProfile.summaryHeight).priority(.low)
+            make.bottom.equalTo(self.filterView.snp.top).offset(-Constants.UserProfile.containerInset)
         }
         
         return summaryView
@@ -41,9 +42,9 @@ class UserProfileHeaderView: UIView {
         self.addSubview(filterView)
         filterView.snp.makeConstraints { make in
             make.left.equalTo(self)
-            make.top.equalTo(self.summaryView.snp.bottom).offset(Constants.UserProfile.containerInset).priority(.low)
             make.width.equalTo(self)
             make.height.equalTo(Constants.UserProfile.filterHeight)
+            make.bottom.equalTo(self)
         }
         
         return filterView
