@@ -36,4 +36,8 @@ extension CommentView: Cacheable {
 extension FeedResponseCommentView: Cacheable {
 }
 
-extension PostCommentRequest: Cacheable {}
+extension PostCommentRequest: Cacheable {
+    func getHandle() -> String? {
+        return UUID().uuidString
+    }
+}

@@ -22,7 +22,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     private var formatter = DateFormatterTool()
     private var cursor: String?
-    private let normalLimit: Int32 = 50
+    private let normalLimit: Int32 = 10
     private let maxLimit: Int32 = 10000
     private var shouldFetchRestOfComments = false
     
@@ -31,7 +31,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
         
         var viewModel = CommentViewModel()
         viewModel.comment = comment
-        viewModel.commentHandle = comment.commentHandle!
+        viewModel.commentHandle = comment.commentHandle
         viewModel.userName = String(format: "%@ %@", (comment.firstName ?? ""), (comment.lastName ?? ""))
         viewModel.text = comment.text ?? ""
         
@@ -55,7 +55,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     func handle(action: CommentCellAction, index: Int) {
         
-        let commentHandle = comments[index].commentHandle!
+        let commentHandle = comments[index].commentHandle
         let userHandle = comments[index].userHandle!
         
         switch action {
@@ -107,7 +107,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     func didFetchMore(comments: [Comment], cursor: String?) {
         self.cursor = cursor
-        self.comments.append(contentsOf: comments)
+        appendWithReplacing(original: &self.comments, appending: comments)
         if cursor != nil && shouldFetchRestOfComments == true {
             self.fetchMore()
         } else if shouldFetchRestOfComments == true {
@@ -117,6 +117,16 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
             view.reloadTable(scrollType: .none)
         }
         
+    }
+    
+    private func appendWithReplacing(original: inout [Comment], appending: [Comment]) {
+        for appendingItem in appending {
+            if let index = original.index(where: { $0.commentHandle == appendingItem.commentHandle }) {
+                original[index] = appendingItem
+            } else {
+                original.append(appendingItem)
+            }
+        }
     }
     
     func didFail(error: CommentsServiceError) {
@@ -144,6 +154,10 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     func openReplies(index: Int) {
         router.openReplies(commentView: viewModel(with:  comments[index]), scrollType: .none, from: view as! UIViewController, postDetailPresenter: self)
+    }
+    
+    func enableFetchFore() -> Bool {
+        return cursor != nil
     }
     
     func openUser(index: Int) {

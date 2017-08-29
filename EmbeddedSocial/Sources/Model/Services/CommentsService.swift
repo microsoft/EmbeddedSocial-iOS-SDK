@@ -58,12 +58,15 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
         var cacheResult = CommentFetchResult()
         
-        if let cachedNewComments = self.cache.firstOutgoing(ofType: PostTopicRequest.self, predicate: NSPredicate(format: "typeid = %@", requestURLString), sortDescriptors: nil) {
+        let cacheRequest = CacheFetchRequest(resultType: PostTopicRequest.self, predicate: NSPredicate(format: "typeid = %@", topicHandle))
+        
+        cache.fetchOutgoing(with: cacheRequest).forEach { (cachedNewComments) in
             let comment = Comment()
             comment.text = cachedNewComments.text
             comment.userHandle = SocialPlus.shared.me?.uid
             comment.firstName = SocialPlus.shared.me?.firstName
             comment.firstName = SocialPlus.shared.me?.lastName
+            print("COMMENT HANDLE: \(comment.commentHandle)")
             cacheResult.comments.append(comment)
         }
         
@@ -72,16 +75,16 @@ class CommentsService: BaseService, CommentServiceProtocol {
             cachedResult(cacheResult)
         }
         
+        guard let network = NetworkReachabilityManager() else {
+            return
+        }
+        
+        if !network.isReachable {
+            return
+        }
+        
         request.execute { (response, error) in
             var result = CommentFetchResult()
-            
-            guard let network = NetworkReachabilityManager() else {
-                return
-            }
-            
-            if !network.isReachable {
-                cachedResult(cacheResult)
-            }
             
             guard error == nil else {
                 result.error = CommentsServiceError.failedToFetch(message: error!.localizedDescription)
@@ -97,7 +100,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
             
             self.cache.cacheIncoming(response!.body!, for: requestURLString)
             result.comments = self.convert(data: data)
-            result.cursor = cursor
+            result.cursor = response?.body?.cursor
             
             resultHandler(result)
         }
@@ -111,9 +114,10 @@ class CommentsService: BaseService, CommentServiceProtocol {
             return
         }
         
-        guard network.isReachable else {
-            cacheComment(request, with: photo)
-            return
+        if !network.isReachable {
+            if let unwrapptedPhoto = photo {
+                cachePhoto(photo: unwrapptedPhoto, for: topicHandle)
+            }
         }
         
         guard let image = photo?.image else {
@@ -134,21 +138,24 @@ class CommentsService: BaseService, CommentServiceProtocol {
         }
     }
     
-    private func cacheComment(_ comment: PostCommentRequest, with photo: Photo?) {
-        
-        if let photo = photo {
-            cache.cacheOutgoing(photo)
-            comment.blobHandle = photo.uid
-        }
-//        cache.cacheOutgoing(<#T##item: Cacheable##Cacheable#>, for: <#T##String#>)
+    private func cachePhoto(photo: Photo, for topicHandle: String) {
+        cache.cacheOutgoing(photo, for: topicHandle)
     }
     
     func postComment(topicHandle: String, request: PostCommentRequest, success: @escaping CommentPostResultHandler, failure: @escaping Failure) {
         
-        let request = CommentsAPI.topicCommentsPostCommentWithRequestBuilder(topicHandle: topicHandle, request: request, authorization: authorization)
-        let requestURLString = request.URLString
+        let requestBuilder = CommentsAPI.topicCommentsPostCommentWithRequestBuilder(topicHandle: topicHandle, request: request, authorization: authorization)
         
-        request.execute { (response, error) in
+        guard let network = NetworkReachabilityManager() else {
+            return
+        }
+        
+        if !network.isReachable {
+            cache.cacheOutgoing(request, for: topicHandle)
+            return
+        }
+        
+        requestBuilder.execute { (response, error) in
             if response != nil {
                 success(response!.body!)
             } else if self.errorHandler.canHandle(error) {
@@ -163,7 +170,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         var comments = [Comment]()
         for commentView in data {
             let comment = Comment()
-            comment.commentHandle = commentView.commentHandle
+            comment.commentHandle = commentView.commentHandle!
             comment.firstName = commentView.user?.firstName
             comment.lastName = commentView.user?.lastName
             comment.photoUrl = commentView.user?.photoUrl
@@ -210,7 +217,7 @@ struct CommentViewModel {
 }
 
 class Comment: Equatable {
-    public var commentHandle: String?
+    public var commentHandle =  NSUUID().uuidString
     public var topicHandle: String!
     public var createdTime: Date?
     

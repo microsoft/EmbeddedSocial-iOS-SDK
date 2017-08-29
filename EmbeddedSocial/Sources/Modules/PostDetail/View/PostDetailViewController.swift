@@ -181,7 +181,7 @@ extension PostDetailViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
             cell.config(commentView: output.commentViewModel(index: indexPath.row), blockAction: false)
             cell.tag = indexPath.row
-            if  output.numberOfItems() - 1 < indexPath.row + 1 && isNewDataLoading == false {
+            if  output.numberOfItems() - 1 < indexPath.row + 1 && output.enableFetchFore() {
                 isNewDataLoading = true
                 output.fetchMore()
             }

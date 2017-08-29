@@ -14,5 +14,6 @@ protocol PostDetailViewOutput {
     func openUser(index: Int)
     func openReplies(index: Int)
     func loadRestComments()
+    func enableFetchFore() -> Bool
     func refresh()
 }
