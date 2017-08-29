@@ -23,6 +23,10 @@ struct User {
         return credentials != nil
     }
     
+    var fullName: String {
+        return User.fullName(firstName: firstName, lastName: lastName)
+    }
+    
     static func fullName(firstName: String?, lastName: String?) -> String {
         if firstName == nil {
             return lastName ?? L10n.Common.Placeholder.unknown
