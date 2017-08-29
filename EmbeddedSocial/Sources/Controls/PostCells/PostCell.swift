@@ -40,31 +40,31 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     }
     
     @IBAction private func onTapPhoto(_ sender: Any) {
-        usedInThirdPartModule ? viewModel.onAction?(.photo, IndexPath(item: tag, section: 0)) : viewModel.onAction?(.photo, indexPath())
+        handleAction(action: .photo)
     }
     
     @IBAction private func onProfileInfo(_ sender: Any) {
-        usedInThirdPartModule ? viewModel.onAction?(.profile, IndexPath(item: tag, section: 0)) : viewModel.onAction?(.profile, indexPath())
+        handleAction(action: .profile)
     }
     
     @IBAction private func onTapLike(_ sender: Any) {
-        usedInThirdPartModule ? viewModel.onAction?(.like, IndexPath(item: tag, section: 0)) : viewModel.onAction?(.like, indexPath())
+        handleAction(action: .like)
     }
     
     @IBAction private func onTapCommented(_ sender: Any) {
-        usedInThirdPartModule ? viewModel.onAction?(.comment, IndexPath(item: tag, section: 0)) : viewModel.onAction?(.comment, indexPath())
+        handleAction(action: .comment)
     }
     
     @IBAction private func onTapPin(_ sender: Any) {
-         usedInThirdPartModule ? viewModel.onAction?(.pin, IndexPath(item: tag, section: 0)) : viewModel.onAction?(.pin, indexPath())
+         handleAction(action: .pin)
     }
     
     @IBAction private func onTapExtra(_ sender: Any) {
-        usedInThirdPartModule ? viewModel.onAction?(.extra, IndexPath(item: tag, section: 0)) : viewModel.onAction?(.extra, indexPath())
+        handleAction(action: .extra)
     }
     
     @IBAction func onLikesList(_ sender: UIButton) {
-        viewModel.onAction?(.likesList, indexPath())
+        handleAction(action: .likesList)
     }
     
     @IBOutlet weak var likedCount: UILabel!
@@ -78,6 +78,10 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
+    }
+    
+    private func handleAction(action: PostCellAction) {
+        usedInThirdPartModule ? viewModel.onAction?(action, IndexPath(item: tag, section: 0)) : viewModel.onAction?(action, indexPath())
     }
     
     func setup() {
