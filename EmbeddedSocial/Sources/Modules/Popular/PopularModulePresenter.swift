@@ -65,4 +65,10 @@ extension PopularModulePresenter: FeedModuleOutput {
             view.handleError(error: error)
         }
     }
+    
+    func didScrollFeed(_ feedView: UIScrollView) { }
+    
+    func shouldOpenProfile(for userID: String) -> Bool {
+        return true
+    }
 }

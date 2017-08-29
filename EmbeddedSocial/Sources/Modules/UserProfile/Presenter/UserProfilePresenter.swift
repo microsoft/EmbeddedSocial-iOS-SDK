@@ -248,6 +248,13 @@ extension UserProfilePresenter: FeedModuleOutput {
     func shouldOpenProfile(for userID: String) -> Bool {
         return userID != self.userID && userID != me?.uid
     }
+    
+}
+
+extension UserProfilePresenter {
+    
+    func didStartRefreshingData() { }
+    
 }
 
 extension UserProfilePresenter: FollowersModuleOutput {
