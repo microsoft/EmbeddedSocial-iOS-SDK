@@ -97,7 +97,7 @@ class Cache: CacheType {
 
     private func fetch<T: Transaction, Item: Cacheable>(request: CacheFetchRequest<Item>, queries: Queries<T>) -> [Item] {
         return queries.fetch(request.predicate, request.page, request.sortDescriptors).flatMap { [weak self] tr in
-            self?.decoder.decode(type: request.resultType, payload: tr.payload)
+            self?.decodeTransaction(tr, itemType: request.resultType)
         }
     }
 
@@ -106,8 +106,15 @@ class Cache: CacheType {
                             result: @escaping FetchResult<Item>) {
         
         queries.fetchAsync(request.predicate, request.page, request.sortDescriptors) { [weak self] trs in
-            let items = trs.flatMap { self?.decoder.decode(type: request.resultType, payload: $0.payload) }
+            let items = trs.flatMap { self?.decodeTransaction($0, itemType: request.resultType) }
             result(items)
         }
+    }
+    
+    private func decodeTransaction<Item: Cacheable>(_ tr: Transaction, itemType: Item.Type) -> Item? {
+        let item = decoder.decode(type: itemType, payload: tr.payload)
+        item?.setHandle(tr.handle)
+        item?.setRelatedHandle(tr.relatedHandle)
+        return item
     }
 }

@@ -30,6 +30,18 @@ extension PostTopicRequest: Cacheable, HandleMixin, RelatedHandleMixin {
     func getRelatedHandle() -> String? {
         return relatedHandle
     }
+    
+    func setHandle(_ handle: String?) {
+        if let handle = handle {
+            self.handle = handle
+        }
+    }
+    
+    func setRelatedHandle(_ relatedHandle: String?) {
+        if let relatedHandle = relatedHandle {
+            self.relatedHandle = relatedHandle
+        }
+    }
 }
 
 extension CommentView: Cacheable {
