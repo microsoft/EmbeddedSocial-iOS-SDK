@@ -8,7 +8,11 @@ protocol Cacheable {
     
     func getHandle() -> String?
     
+    func setHandle(_ handle: String?)
+    
     func getRelatedHandle() -> String?
+    
+    func setRelatedHandle(_ relatedHandle: String?)
 }
 
 extension Cacheable {
@@ -17,8 +21,16 @@ extension Cacheable {
         return nil
     }
     
+    func setHandle(_ handle: String?) {
+        
+    }
+    
     func getRelatedHandle() -> String? {
         return nil
+    }
+    
+    func setRelatedHandle(_ relatedHandle: String?) {
+        
     }
     
     var typeIdentifier: String {
