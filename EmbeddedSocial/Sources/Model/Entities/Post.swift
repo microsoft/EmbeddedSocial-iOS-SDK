@@ -47,7 +47,7 @@ extension Post {
         post.pinned = false
         post.totalLikes = seed
         post.totalComments = seed + 10
-        post.topicHandle = "topic handle"
+        post.topicHandle = "topic handle \(seed)"
         post.userHandle = "user handle"
         post.userStatus = Post.UserStatus.none
         return post
