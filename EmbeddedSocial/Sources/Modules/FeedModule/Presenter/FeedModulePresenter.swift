@@ -345,8 +345,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             Logger.log("feed type is not set")
             return
         }
-        
-        interactor.fetchPosts(limit: limit, cursor: nil, feedType: feedType)
     }
     
     func didAskFetchMore() {

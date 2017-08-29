@@ -36,45 +36,25 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     var pinsService: PinsServiceProtocol! = PinsService()
     weak var userHolder: UserHolder? = SocialPlus.shared
     
-    var isFetching = false {
-        didSet {
-            isFetching ? output.didStartFetching() : output.didFinishFetching()
-        }
-    }
-    
-    private var isLoadingMore = false
-
-    private lazy var fetchHandler: FetchResultHandler = { [weak self] result in
-        
-        guard let strongSelf = self else {
-            return
-        }
-        
-        strongSelf.isFetching = false
+    func handleFetch(result: PostFetchResult, feedType: FeedType, isLoadingMore: Bool = false) {
         
         guard result.error == nil else {
-            strongSelf.output.didFail(error: result.error!)
+            output.didFail(error: result.error!)
             return
         }
         
-        var feed = PostsFeed(items: result.posts, cursor: result.cursor)
+        let feed = PostsFeed(feedType: feedType, items: result.posts, cursor: result.cursor)
         
-        if strongSelf.isLoadingMore {
-            strongSelf.output.didFetchMore(feed: feed)
+        if isLoadingMore {
+           output.didFetchMore(feed: feed)
         } else {
-            strongSelf.output.didFetch(feed: feed)
+           output.didFetch(feed: feed)
         }
     }
     
     func fetchPosts(limit: Int32? = nil, cursor: String? = nil, feedType: FeedType) {
         
-        guard isFetching == false else {
-            Logger.log("Cant fetch, already fetching..", event: .error)
-            return
-        }
-        
-        isLoadingMore = cursor != nil
-        isFetching = true
+        let isLoadingMore = cursor != nil
    
         switch feedType {
             
@@ -82,13 +62,17 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             var query = HomeFeedQuery()
             query.limit = limit
             query.cursor = cursor
-            postService.fetchHome(query: query, completion: fetchHandler)
+            postService.fetchHome(query: query) { result in
+                self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+            }
             
         case .recent:
             var query = RecentFeedQuery()
             query.limit = limit
             query.cursor = cursor
-            postService.fetchRecent(query: query, completion: fetchHandler)
+            postService.fetchRecent(query: query) { result in
+                self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+            }
             
         case let .popular(type: range):
             var query = PopularFeedQuery()
@@ -104,7 +88,9 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
                 query.timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.thisWeek
             }
             
-            postService.fetchPopular(query: query, completion: fetchHandler)
+            postService.fetchPopular(query: query) { result in
+                self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+            }
             
         case let .user(user: user, scope: scope):
             
@@ -117,9 +103,14 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
                 
                 switch scope {
                 case .popular:
-                    postService.fetchMyPopular(query: query, completion: fetchHandler)
+                    postService.fetchMyPopular(query: query) { result in
+                        self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                    }
+
                 case .recent:
-                    postService.fetchMyPosts(query: query, completion: fetchHandler)
+                    postService.fetchMyPosts(query: query) { result in
+                        self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                    }
                 }
             }
             else {
@@ -130,14 +121,20 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
                 
                 switch scope {
                 case .popular:
-                    postService.fetchPopular(query: query, completion: fetchHandler)
+                    postService.fetchPopular(query: query) { result in
+                        self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                    }
                 case .recent:
-                    postService.fetchRecent(query: query, completion: fetchHandler)
+                    postService.fetchRecent(query: query) { result in
+                        self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                    }
                 }
             }
             
         case let .single(post: post):
-            postService.fetchPost(post: post, completion: fetchHandler)
+            postService.fetchPost(post: post) { result in
+                self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+            }
         }
     }
     

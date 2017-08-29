@@ -10,7 +10,8 @@ import XCTest
 
 class FeedCacheTests: XCTestCase {
     
-    var topicViewResponse: FeedResponseTopicView!
+    var topicViewResponseA: FeedResponseTopicView!
+    var topicViewResponseB: FeedResponseTopicView!
     
     var coreDataStack: CoreDataStack!
     var cache: CacheType!
@@ -25,13 +26,8 @@ class FeedCacheTests: XCTestCase {
         let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
         let json = try? JSONSerialization.jsonObject(with: data!)
         
-        let result = Decoders.decode(clazz: FeedResponseTopicView.self, source: json as AnyObject, instance: nil)
-        switch result {
-        case let .success(value):
-            topicViewResponse = value
-        case let .failure(error):
-            XCTFail("Failed to decode with error \(error)")
-        }
+        topicViewResponseA = loadFeedResponseFrom(json)
+        topicViewResponseB = loadFeedResponseFrom(json)
         
         // Set services for cache
         services = SocialPlusServices()
@@ -45,6 +41,17 @@ class FeedCacheTests: XCTestCase {
         coreDataStack = nil
         cache = nil
         services = nil
+    }
+    
+    private func loadFeedResponseFrom(_ source: Any) -> FeedResponseTopicView? {
+        let result = Decoders.decode(clazz: FeedResponseTopicView.self, source: source as AnyObject, instance: nil)
+        switch result {
+        case let .success(value):
+            return value
+        case let .failure(error):
+            XCTFail("Failed to decode with error \(error)")
+            return nil
+        }
     }
     
     struct CacheableResponse<T: JSONEncodable>: Cacheable {
@@ -63,10 +70,15 @@ class FeedCacheTests: XCTestCase {
     func testThatItCachesIncomingItemAndLoadsItByHandle() {
         
         // given
-        let cacheKey = "aaa"//"/v0.7/users/me/topics/popular"
+        topicViewResponseA.cursor = "original cursor"
+        topicViewResponseB.cursor = "new cursor"
+        XCTAssert(topicViewResponseB.cursor != topicViewResponseA.cursor)
+        
+        let cacheKey = "http:/server/v0.7/users/me/topics/popular"
 //        let item = CacheableResponse(response: topicViewResponse )
 //        cache.cacheIncoming(item, for: requestURLString)
-        cache.cacheIncoming(topicViewResponse, for: cacheKey)
+        cache.cacheIncoming(topicViewResponseA, for: cacheKey)
+        cache.cacheIncoming(topicViewResponseB, for: cacheKey)
         
 //        let request = CacheFetchRequest(resultType: FeedResponseTopicView.self)
 //        let predicate = PredicateBuilder().predicate(typeID: requestURLString)
@@ -77,10 +89,10 @@ class FeedCacheTests: XCTestCase {
 //                                              sortDescriptors: nil)
         
         let cachedItem = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: cacheKey)
-
+        
         let a = 1
-        // then
-//        XCTAssertEqual(cachedItem, cachedItem)
+
+        XCTAssertEqual(cachedItem!.cursor, "new cursor")
     }
     
     func testFeedGetsCached() {

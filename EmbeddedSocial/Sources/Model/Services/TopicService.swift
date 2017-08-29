@@ -74,8 +74,13 @@ protocol PostServiceProtocol {
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler)
     func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler)
     func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler)
-    
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
+
+}
+
+protocol PostServiceDelegate: class {
+    
+    func didFetchHome(query: HomeFeedQuery, result: PostFetchResult)
 }
 
 extension PostServiceProtocol {
@@ -147,29 +152,6 @@ class TopicService: BaseService, PostServiceProtocol {
             } else {
                 failure(error ?? APIError.unknown)
             }
-        }
-    }
-    
-    private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
-                                                     completion: @escaping FetchResultHandler) {
-        
-        let requestURL = requestBuilder.URLString
-
-        requestBuilder.execute { (response, error) in
-            self.parseResponse(requestURL: requestURL,
-                               response: response?.body,
-                               error: error,
-                               completion: completion)
-        }
-    }
-    
-    private func processCache(with requestBuilder:RequestBuilder<FeedResponseTopicView>,
-                                   completion: @escaping FetchResultHandler) {
-        
-        let requestURL = requestBuilder.URLString
-        
-        if let cachedResponse = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: requestURL) {
-            self.parseResponse(response: cachedResponse, error: nil, completion: completion)
         }
     }
     
@@ -280,6 +262,29 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     // MARK: Private
+    
+    private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
+                                completion: @escaping FetchResultHandler) {
+        
+        let requestURL = requestBuilder.URLString
+        
+        requestBuilder.execute { (response, error) in
+            self.parseResponse(requestURL: requestURL,
+                               response: response?.body,
+                               error: error,
+                               completion: completion)
+        }
+    }
+    
+    private func processCache(with requestBuilder:RequestBuilder<FeedResponseTopicView>,
+                              completion: @escaping FetchResultHandler) {
+        
+        let requestURL = requestBuilder.URLString
+        
+        if let cachedResponse = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: requestURL) {
+            self.parseResponse(response: cachedResponse, error: nil, completion: completion)
+        }
+    }
     
     private func parseResponse(requestURL: String? = nil,
                                response: FeedResponseTopicView?,
