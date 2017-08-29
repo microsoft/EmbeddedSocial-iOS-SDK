@@ -219,16 +219,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             }
         }
     }
-    
-    // MARK: FeedModuleViewOutput
-    func item(for path: IndexPath) -> PostViewModel {
-        return viewModel(with: items[path.row])
-    }
-    
-    private func itemIndex(with postHandle:PostHandle) -> Int? {
-        return items.index(where: { $0.topicHandle == postHandle } )
-    }
-    
+
     func handle(action: PostCellAction, path: IndexPath) {
         
         let index = path.row
