@@ -8,6 +8,7 @@ import Foundation
 final class SettingsPresenter {
     weak var view: SettingsViewInput!
     var router: SettingsRouterInput!
+    var interactor: SettingsInteractorInput!
     
     fileprivate var myProfileHolder: UserHolder
     
@@ -18,6 +19,11 @@ final class SettingsPresenter {
 
 extension SettingsPresenter: SettingsViewOutput {
     
+    func viewIsReady() {
+        let isOn = myProfileHolder.me?.visibility == ._public
+        view.setSwitchIsOn(isOn)
+    }
+    
     func onBlockedList() {
         router.openBlockedList()
     }
@@ -27,6 +33,17 @@ extension SettingsPresenter: SettingsViewOutput {
             return
         }
         
-        user.visibility = visibility.switched
+        view.setPrivacySwitchEnabled(false)
+        
+        interactor.switchVisibility(visibility) { [weak self] result in
+            self?.view.setPrivacySwitchEnabled(true)
+            
+            if let newVisibility = result.value {
+                user.visibility = newVisibility
+                self?.myProfileHolder.me = user
+            } else {
+                self?.view.showError(result.error ?? APIError.unknown)
+            }
+        }
     }
 }

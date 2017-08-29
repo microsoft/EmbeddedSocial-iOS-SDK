@@ -5,10 +5,6 @@
 
 import Foundation
 
-protocol SettingsViewOutput: class {
-    func viewIsReady()
-    
-    func onBlockedList()
-    
-    func onPrivacySwitch()
+protocol SettingsInteractorInput: class {
+    func switchVisibility(_ visibility: Visibility, completion: @escaping (Result<Visibility>) -> Void)
 }

@@ -26,7 +26,7 @@ extension User: MementoSerializable {
         let photoMemento = memento["photo"] as? Memento
         photo = photoMemento != nil ? Photo(memento: photoMemento!) : nil
         
-        if let rawVisibility = memento["visibility"] as? Int,
+        if let rawVisibility = memento["visibility"] as? String,
             let visibility = Visibility(rawValue: rawVisibility) {
             self.visibility = visibility
         } else {

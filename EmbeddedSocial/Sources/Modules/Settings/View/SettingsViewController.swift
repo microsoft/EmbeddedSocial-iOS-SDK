@@ -9,10 +9,13 @@ class SettingsViewController: UITableViewController {
     
     var output: SettingsViewOutput!
     
+    @IBOutlet fileprivate weak var privacySwitch: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = Constants.standardCellHeight
+        output.viewIsReady()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -30,5 +33,17 @@ class SettingsViewController: UITableViewController {
     }
 }
 
-extension SettingsViewController: SettingsViewInput { }
+extension SettingsViewController: SettingsViewInput {
+    func showError(_ error: Error) {
+        showErrorAlert(error)
+    }
+    
+    func setPrivacySwitchEnabled(_ isEnabled: Bool) {
+        privacySwitch.isEnabled = isEnabled
+    }
+    
+    func setSwitchIsOn(_ isOn: Bool) {
+        privacySwitch.setOn(isOn, animated: false)
+    }
+}
 

@@ -80,6 +80,9 @@
                             <outlet property="delegate" destination="7UB-4J-oOc" id="zTl-Vb-wUg"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="privacySwitch" destination="wKI-R6-QhL" id="o7V-1U-Ixz"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hb3-J3-AYt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

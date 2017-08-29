@@ -5,9 +5,9 @@
 
 import Foundation
 
-enum Visibility: Int {
-    case _public
-    case _private
+enum Visibility: String {
+    case _public = "Public"
+    case _private = "Private"
     
     init(visibility: UserProfileView.Visibility) {
         switch visibility {
@@ -35,4 +35,8 @@ enum Visibility: Int {
             return ._public
         }
     }
+}
+
+extension UserProfileView.Visibility {
+    
 }

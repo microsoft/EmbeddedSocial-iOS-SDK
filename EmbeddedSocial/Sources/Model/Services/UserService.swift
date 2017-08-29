@@ -18,7 +18,7 @@ protocol UserServiceType {
     
     func updateProfile(me: User, completion: @escaping (Result<User>) -> Void)
     
-    func updateVisibility(_ visibility: Visibility, completion: @escaping (Result<Void>) -> Void)
+    func updateVisibility(to visibility: Visibility, completion: @escaping (Result<Void>) -> Void)
 }
 
 class UserService: BaseService, UserServiceType {
@@ -137,15 +137,23 @@ class UserService: BaseService, UserServiceType {
         request.bio = user.bio
         
         UsersAPI.usersPutUserInfo(request: request, authorization: authorization) { response, error in
-            if error == nil {
-                completion(.success())
-            } else {
-                self.errorHandler.handle(error: error, completion: completion)
-            }
+            self.processResult(response, error, completion: completion)
         }
     }
     
-    func updateVisibility(_ visibility: Visibility, completion: @escaping (Result<Void>) -> Void) {
-        UsersAPI.usersPutUserVisibility(request: <#T##PutUserVisibilityRequest#>, authorization: <#T##String#>, completion: <#T##((Object?, ErrorResponse?) -> Void)##((Object?, ErrorResponse?) -> Void)##(Object?, ErrorResponse?) -> Void#>)
+    func updateVisibility(to visibility: Visibility, completion: @escaping (Result<Void>) -> Void) {
+        let request = PutUserVisibilityRequest()
+        request.visibility = PutUserVisibilityRequest.Visibility(rawValue: visibility.rawValue)
+        UsersAPI.usersPutUserVisibility(request: request, authorization: authorization) { response, error in
+            self.processResult(response, error, completion: completion)
+        }
+    }
+    
+    private func processResult(_ data: Object?, _ error: ErrorResponse?, completion: @escaping (Result<Void>) -> Void) {
+        if error == nil {
+            completion(.success())
+        } else {
+            self.errorHandler.handle(error: error, completion: completion)
+        }
     }
 }
