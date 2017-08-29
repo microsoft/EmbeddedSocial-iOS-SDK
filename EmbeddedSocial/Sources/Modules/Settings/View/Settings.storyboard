@@ -36,6 +36,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wKI-R6-QhL">
                                                     <rect key="frame" x="318" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="onPrivacySwitch:" destination="7UB-4J-oOc" eventType="valueChanged" id="76A-8g-E6w"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>

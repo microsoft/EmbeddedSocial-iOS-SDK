@@ -24,6 +24,10 @@ class SettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
+    
+    @IBAction func onPrivacySwitch(_ sender: UISwitch) {
+        output.onPrivacySwitch()
+    }
 }
 
 extension SettingsViewController: SettingsViewInput { }

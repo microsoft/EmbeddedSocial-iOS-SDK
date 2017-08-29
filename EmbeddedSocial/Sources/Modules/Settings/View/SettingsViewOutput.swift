@@ -7,4 +7,6 @@ import Foundation
 
 protocol SettingsViewOutput: class {
     func onBlockedList()
+    
+    func onPrivacySwitch()
 }

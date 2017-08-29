@@ -17,6 +17,8 @@ protocol UserServiceType {
                        completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void)
     
     func updateProfile(me: User, completion: @escaping (Result<User>) -> Void)
+    
+    func updateVisibility(_ visibility: Visibility, completion: @escaping (Result<Void>) -> Void)
 }
 
 class UserService: BaseService, UserServiceType {
@@ -141,5 +143,9 @@ class UserService: BaseService, UserServiceType {
                 self.errorHandler.handle(error: error, completion: completion)
             }
         }
+    }
+    
+    func updateVisibility(_ visibility: Visibility, completion: @escaping (Result<Void>) -> Void) {
+        UsersAPI.usersPutUserVisibility(request: <#T##PutUserVisibilityRequest#>, authorization: <#T##String#>, completion: <#T##((Object?, ErrorResponse?) -> Void)##((Object?, ErrorResponse?) -> Void)##(Object?, ErrorResponse?) -> Void#>)
     }
 }

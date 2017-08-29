@@ -15,7 +15,7 @@ struct User {
     var credentials: CredentialsList?
     var followersCount: Int
     var followingCount: Int
-    let visibility: Visibility?
+    var visibility: Visibility?
     var followerStatus: FollowStatus?
     let followingStatus: FollowStatus?
     

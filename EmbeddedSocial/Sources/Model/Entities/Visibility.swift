@@ -26,4 +26,13 @@ enum Visibility: Int {
             self = ._private
         }
     }
+    
+    var switched: Visibility {
+        switch self {
+        case ._public:
+            return ._private
+        case ._private:
+            return ._public
+        }
+    }
 }
