@@ -7,22 +7,20 @@ import Foundation
 
 struct BlockedUsersConfigurator {
     
-    let viewController: LikesListViewController
+    let viewController: BlockedUsersViewController
     
     init() {
-        viewController = StoryboardScene.LikesList.instantiateLikesListViewController()
-        viewController.title = L10n.LikesList.screenTitle
+        viewController = StoryboardScene.BlockedUsers.instantiateBlockedUsersViewController()
+        viewController.title = L10n.BlockedUsers.screenTitle
     }
     
-    func configure(postHandle: String, navigationController: UINavigationController?) {
-        let presenter = LikesListPresenter()
+    func configure(navigationController: UINavigationController?) {
+        let presenter = BlockedUsersPresenter()
         presenter.view = viewController
-        presenter.interactor = LikesListInteractor()
         
-        let api = LikesListAPI(postHandle: postHandle, likesService: LikesService())
-        presenter.usersListModule = UserListConfigurator().configure(api: api,
-                                                                     navigationController: navigationController,
-                                                                     output: presenter)
+        let api = BlockedUsersAPI(socialService: SocialService())
+        presenter.usersListModule = UserListConfigurator()
+            .configure(api: api, navigationController: navigationController, output: presenter)
         
         viewController.output = presenter
     }

@@ -158,7 +158,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     
     lazy var configuredSettings: UIViewController = {
         let configurator = SettingsConfigurator()
-        configurator.configure()
+        configurator.configure(navigationController: self.navigationStack.navigationController)
         return configurator.viewController
     }()
 }

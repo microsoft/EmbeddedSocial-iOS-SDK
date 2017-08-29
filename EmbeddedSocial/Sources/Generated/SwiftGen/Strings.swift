@@ -12,6 +12,11 @@ enum L10n {
     static let screenTitle = L10n.tr("Localizable", "activity_feed.screen_title")
   }
 
+  enum BlockedUsers {
+    /// Blocked users
+    static let screenTitle = L10n.tr("Localizable", "blocked_users.screen_title")
+  }
+
   enum Common {
     /// Blocked
     static let blocked = L10n.tr("Localizable", "common.blocked")

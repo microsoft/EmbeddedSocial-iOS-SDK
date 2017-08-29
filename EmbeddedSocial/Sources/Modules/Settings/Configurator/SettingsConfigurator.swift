@@ -10,9 +10,16 @@ struct SettingsConfigurator {
     
     init() {
         viewController = StoryboardScene.Settings.instantiateSettingsViewController()
+        viewController.title = L10n.Settings.screenTitle
     }
     
-    func configure() {
+    func configure(navigationController: UINavigationController?) {
+        let router = SettingsRouter(navigationController: navigationController)
         
+        let presenter = SettingsPresenter()
+        presenter.router = router
+        presenter.view = viewController
+        
+        viewController.output = presenter
     }
 }

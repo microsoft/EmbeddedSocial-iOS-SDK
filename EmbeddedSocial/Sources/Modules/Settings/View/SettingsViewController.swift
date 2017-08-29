@@ -7,6 +7,8 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
     
+    var output: SettingsViewOutput!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -14,8 +16,8 @@ class SettingsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 && indexPath.row == 0 {
-            // show blocked users
+        if indexPath.section == 1 && indexPath.row == 0 {
+            output.onBlockedList()
         }
     }
     
@@ -23,4 +25,6 @@ class SettingsViewController: UITableViewController {
         return UITableViewAutomaticDimension
     }
 }
+
+extension SettingsViewController: SettingsViewInput { }
 

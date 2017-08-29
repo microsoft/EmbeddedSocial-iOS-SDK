@@ -6,15 +6,13 @@
 import Foundation
 
 struct BlockedUsersAPI: UsersListAPI {
-    private let likesService: LikesServiceProtocol
-    private let postHandle: String
+    private let socialService: SocialServiceType
 
-    init(postHandle: String, likesService: LikesServiceProtocol) {
-        self.likesService = likesService
-        self.postHandle = postHandle
+    init(socialService: SocialServiceType) {
+        self.socialService = socialService
     }
     
     func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        likesService.getPostLikes(postHandle: postHandle, cursor: cursor, limit: limit, completion: completion)
+        socialService.getMyBlockedUsers(cursor: cursor, limit: limit, completion: completion)
     }
 }
