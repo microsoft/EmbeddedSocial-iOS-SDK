@@ -1839,10 +1839,10 @@
 			isa = PBXGroup;
 			children = (
 				883E1E571F546634004B4861 /* Configurator */,
+				88E3AC281F5583DD0016357F /* Interactor */,
 				88E3AC0E1F5557030016357F /* Presenter */,
 				88E3AC111F5557140016357F /* Router */,
 				883E1E541F546625004B4861 /* View */,
-				88E3AC281F5583DD0016357F /* Interactor */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2135,7 +2135,6 @@
 		88580B011F2213AB00C1CBAF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				639E62281F54335C0030C1F2 /* ViewModels */,
 				88580B111F2213AB00C1CBAF /* Auth */,
 				8811C88A1F4334F800F7513D /* Cache */,
 				88580B041F2213AB00C1CBAF /* Entities */,
@@ -2145,6 +2144,7 @@
 				8895108B1F3B5589001A53F5 /* SocialPlus */,
 				884AD7721F25E76300536494 /* Transactions Database */,
 				88580B271F2213AB00C1CBAF /* URLSchemeService */,
+				639E62281F54335C0030C1F2 /* ViewModels */,
 				88580B021F2213AB00C1CBAF /* APISettings.swift */,
 				88F551CA1F39E7F700F4AAB9 /* AutoEquatable.swift */,
 				88580B031F2213AB00C1CBAF /* CrossModuleCoordinator.swift */,
@@ -3138,20 +3138,22 @@
 		88E3AC281F5583DD0016357F /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				88E3AC261F5583DB0016357F /* SettingsInteractorInput.swift */,
 				88E3AC291F55840D0016357F /* SettingsInteractor.swift */,
+				88E3AC261F5583DB0016357F /* SettingsInteractorInput.swift */,
 			);
 			name = Interactor;
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		88E3AC2D1F5590CF0016357F /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				88E3AC2E1F5590D90016357F /* MockSettingsInteractor.swift */,
 				88E3AC241F5568FC0016357F /* MockSettingsRouter.swift */,
 				88E3AC2B1F558FA90016357F /* MockSettingsView.swift */,
-				88E3AC2E1F5590D90016357F /* MockSettingsInteractor.swift */,
 			);
 			name = Mocks;
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		88F385841F30D0DB0048B04C /* Interactor */ = {
