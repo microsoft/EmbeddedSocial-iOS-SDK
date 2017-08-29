@@ -50,10 +50,7 @@ class Cache: CacheType {
     }
     
     private func transaction<T: Transaction>(handle: String?, typeID: String, queries: Queries<T>) -> T {
-        guard let handle = handle else {
-            return queries.make()
-        }
-        let p = predicateBuilder.predicate(handle: handle)
+        let p = handle == nil ? predicateBuilder.predicate(typeID: typeID) : predicateBuilder.predicate(typeID: typeID, handle: handle!)
         return queries.fetch(p, nil, nil).first ?? queries.make()
     }
     
