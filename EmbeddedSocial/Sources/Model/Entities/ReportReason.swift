@@ -13,19 +13,32 @@ enum ReportReason: String {
     case contentInfringement = "ContentInfringement"
     case other = "Other"
     case _none = "None"
+    
+    static var orderedReasons: [ReportReason] = [
+        .virusSpywareMalware,
+        .threatsCyberbullyingHarassment,
+        .childEndangermentExploitation,
+        .offensiveContent,
+        .contentInfringement,
+        .other
+    ]
+    
+    static var readableReasons: [ReportReason: String] = [
+        .threatsCyberbullyingHarassment: "Threats, Cyberbullying, Harassment",
+        .childEndangermentExploitation: "Child Endangerment or Exploitation",
+        .offensiveContent: "Offensive Content",
+        .virusSpywareMalware: "Unsolicited/spam",
+        .contentInfringement: "Content Infringement",
+        .other: "Other"
+    ]
 }
 
-//extension ReportReason {
-//    init(reason: PostReportRequest.Reason) {
-//        self = ReportReason(rawValue: reason.rawValue)
-//        switch reason {
-//        case .threatsCyberbullyingHarassment: self = .threatsCyberbullyingHarassment
-//        case .childEndangermentExploitation: self = .childEndangermentExploitation
-//        case offensiveContent = "OffensiveContent"
-//        case virusSpywareMalware = "VirusSpywareMalware"
-//        case contentInfringement = "ContentInfringement"
-//        case other = "Other"
-//        case _none = "None"
-//        }
-//    }
-//}
+extension ReportReason {
+    init(reason: PostReportRequest.Reason) {
+        if let mappedReason = ReportReason(rawValue: reason.rawValue) {
+            self = mappedReason
+        } else {
+            self = .other
+        }
+    }
+}
