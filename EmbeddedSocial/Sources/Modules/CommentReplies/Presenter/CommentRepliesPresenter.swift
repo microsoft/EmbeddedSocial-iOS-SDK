@@ -171,15 +171,25 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     // MARK: CommentRepliesInteractorOutput
     func fetched(replies: [Reply], cursor: String?) {
         self.cursor = cursor
-        self.replies = replies
+        appendWithReplacing(original: &self.replies, appending: replies)
         view?.reloadTable(scrollType: scrollType)
         scrollType = .none
     }
     
     func fetchedMore(replies: [Reply], cursor: String?) {
         self.cursor = cursor
-        self.replies.append(contentsOf: replies)
+        appendWithReplacing(original: &self.replies, appending: replies)
         view?.reloadTable(scrollType: .none)
+    }
+    
+    private func appendWithReplacing(original: inout [Reply], appending: [Reply]) {
+        for appendingItem in appending {
+            if let index = original.index(where: { $0.replyHandle == appendingItem.replyHandle }) {
+                original[index] = appendingItem
+            } else {
+                original.append(appendingItem)
+            }
+        }
     }
     
     func replyPosted(reply: Reply) {

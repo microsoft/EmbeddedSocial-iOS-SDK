@@ -27,7 +27,7 @@ enum CommentsServiceError: Error {
 
 protocol CommentServiceProtocol {
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, cachedResult: @escaping CommentFetchResultHandler, resultHandler: @escaping CommentFetchResultHandler)
-    func comment(commentHandle: String, success: @escaping CommentHandler, failure: @escaping Failure)
+    func comment(commentHandle: String, cachedResult: @escaping CommentHandler, success: @escaping CommentHandler, failure: @escaping Failure)
     func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure)
 }
 
@@ -41,12 +41,34 @@ class CommentsService: BaseService, CommentServiceProtocol {
         self.imagesService = imagesService
     }
     
-    func comment(commentHandle: String, success: @escaping CommentHandler, failure: @escaping Failure) {
-        CommentsAPI.commentsGetComment(commentHandle: commentHandle, authorization: authorization) { (commentView, error) in
+    func comment(commentHandle: String, cachedResult: @escaping CommentHandler, success: @escaping CommentHandler, failure: @escaping Failure) {
+        
+        let request = CommentsAPI.commentsGetCommentWithRequestBuilder(commentHandle: commentHandle, authorization: authorization)
+        let requesURLString = request.URLString
+        
+        let cacheRequestForOutgoing = CacheFetchRequest(resultType: PostTopicRequest.self, predicate: PredicateBuilder().predicate(handle: commentHandle))
+        let outgoingFetchResult = cache.fetchOutgoing(with: cacheRequestForOutgoing)
+        if !outgoingFetchResult.isEmpty {
+            let comment = Comment()
+            comment.text = outgoingFetchResult.first?.text
+            comment.commentHandle = (outgoingFetchResult.first?.handle)!
+            comment.userHandle = SocialPlus.shared.me?.uid
+            comment.firstName = SocialPlus.shared.me?.firstName
+            comment.firstName = SocialPlus.shared.me?.lastName
+            print("COMMENT HANDLE: \(comment.commentHandle)")
+            cachedResult(comment)
+        } else {
+            let cacheRequestForIncoming = CacheFetchRequest(resultType: CommentView.self, predicate: PredicateBuilder().predicate(typeID: requesURLString))
+            cachedResult(convert(data: cache.fetchIncoming(with: cacheRequestForIncoming)).first!)
+        }
+        
+        
+        request.execute { (result, error) in
             if error != nil {
                 failure(error!)
             } else {
-                success(self.convert(data: [commentView!]).first!)
+//                self.cache.cacheIncoming(result?.body, for: requesURLString)
+                success(self.convert(data: [(result?.body)!]).first!)
             }
         }
     }
@@ -58,11 +80,12 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
         var cacheResult = CommentFetchResult()
         
-        let cacheRequest = CacheFetchRequest(resultType: PostTopicRequest.self, predicate: NSPredicate(format: "typeid = %@", topicHandle))
+        let cacheRequest = CacheFetchRequest(resultType: PostTopicRequest.self, predicate: PredicateBuilder().predicate(typeID: topicHandle))
         
         cache.fetchOutgoing(with: cacheRequest).forEach { (cachedNewComments) in
             let comment = Comment()
             comment.text = cachedNewComments.text
+            comment.commentHandle = cachedNewComments.handle
             comment.userHandle = SocialPlus.shared.me?.uid
             comment.firstName = SocialPlus.shared.me?.firstName
             comment.firstName = SocialPlus.shared.me?.lastName
@@ -70,8 +93,8 @@ class CommentsService: BaseService, CommentServiceProtocol {
             cacheResult.comments.append(comment)
         }
         
-        if let cachedComments = self.cache.firstIncoming(ofType: FeedResponseCommentView.self, predicate: NSPredicate(format: "typeid = %@", requestURLString), sortDescriptors: nil)?.data  {
-            cacheResult.comments.append(contentsOf: self.convert(data: cachedComments))
+        if let cachedComments = self.cache.firstIncoming(ofType: FeedResponseCommentView.self, predicate:  PredicateBuilder().predicate(typeID: requestURLString), sortDescriptors: nil)?.data  {
+            cacheResult.comments.append(contentsOf: convert(data: cachedComments))
             cachedResult(cacheResult)
         }
         
@@ -152,6 +175,16 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
         if !network.isReachable {
             cache.cacheOutgoing(request, for: topicHandle)
+            
+            let cacheRequest = CacheFetchRequest(resultType: PostTopicRequest.self, predicate: NSPredicate(format: "typeid = %@", topicHandle))
+            
+            let commentHandle = self.cache.fetchOutgoing(with: cacheRequest).last?.handle
+            
+            let result = PostCommentResponse()
+            result.commentHandle = commentHandle
+            
+            success(result)
+            
             return
         }
         

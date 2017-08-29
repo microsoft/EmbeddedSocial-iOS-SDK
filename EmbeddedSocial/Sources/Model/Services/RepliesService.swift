@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import Alamofire
 
 typealias RepliesFetchResultHandler = ((RepliesFetchResult) -> Void)
 typealias PostReplyResultHandler = ((PostReplyResponse) -> Void)
@@ -24,14 +25,36 @@ enum RepliesServiceError: Error {
 }
 
 protocol RepliesServiceProtcol {
-    func fetchReplies(commentHandle: String, cursor: String?, limit: Int, resultHandler: @escaping RepliesFetchResultHandler)
+    func fetchReplies(commentHandle: String, cursor: String?, limit: Int,cachedResult:  @escaping RepliesFetchResultHandler,resultHandler: @escaping RepliesFetchResultHandler)
     func postReply(commentHandle: String, request: PostReplyRequest, success: @escaping PostReplyResultHandler, failure: @escaping Failure)
     func reply(replyHandle: String, success: @escaping ((Reply) -> Void), failure: Failure) 
 }
 
 class RepliesService: BaseService, RepliesServiceProtcol {
-    func fetchReplies(commentHandle: String, cursor: String?, limit: Int, resultHandler: @escaping RepliesFetchResultHandler) {
-        RepliesAPI.commentRepliesGetReplies(commentHandle: commentHandle, authorization: authorization, cursor: cursor, limit: Int32(limit)) { (response, error) in
+    func fetchReplies(commentHandle: String, cursor: String?, limit: Int,cachedResult:  @escaping RepliesFetchResultHandler,resultHandler: @escaping RepliesFetchResultHandler) {
+        
+        let request = RepliesAPI.commentRepliesGetRepliesWithRequestBuilder(commentHandle: commentHandle, authorization: authorization, cursor: cursor, limit: Int32(limit))
+        let requestURLString = request.URLString
+        
+        var cacheResult = RepliesFetchResult()
+        
+        let cacheRequest = CacheFetchRequest(resultType: PostReplyRequest.self, predicate: PredicateBuilder().predicate(typeID: commentHandle)
+        )
+        
+        if let cachedReplies = self.cache.firstIncoming(ofType: FeedResponseReplyView.self, predicate: PredicateBuilder().predicate(typeID: requestURLString), sortDescriptors: nil)?.data {
+            cacheResult.replies.append(contentsOf: convert(data: cachedReplies))
+            cachedResult(cacheResult)
+        }
+    
+        guard let network = NetworkReachabilityManager() else {
+            return
+        }
+        
+        if !network.isReachable {
+            return
+        }
+        
+        request.execute { (response, error) in
             var result = RepliesFetchResult()
             
             guard error == nil else {
@@ -40,14 +63,15 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                 return
             }
             
-            guard let data = response?.data else {
+            guard let data = response?.body?.data else {
                 result.error = RepliesServiceError.failedToFetch(message: L10n.Error.noItemsReceived)
                 resultHandler(result)
                 return
             }
             
+            self.cache.cacheIncoming(response!.body!, for: requestURLString)
             result.replies = self.convert(data: data)
-            result.cursor = response?.cursor
+            result.cursor = response?.body?.cursor
             
             resultHandler(result)
         }

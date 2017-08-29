@@ -78,11 +78,14 @@ class PostDetailInteractor: PostDetailInteractorInput {
         request.text = comment
         
         commentsService?.postComment(topicHandle: topicHandle, request: request, photo: photo, resultHandler: { (response) in
-            self.commentsService?.comment(commentHandle: response.commentHandle!, success: { (comment) in
-                self.output?.commentDidPosted(comment: comment)
+            self.commentsService?.comment(commentHandle: response.commentHandle!, cachedResult: { (cachedComment) in
+                self.output?.commentDidPosted(comment: cachedComment)
+            }, success: { (webComment) in
+                self.output?.commentDidPosted(comment: webComment)
             }, failure: { (errpr) in
                 print("error fetching single comment")
             })
+
         }, failure: { (error) in
             print("error posting comment")
         })

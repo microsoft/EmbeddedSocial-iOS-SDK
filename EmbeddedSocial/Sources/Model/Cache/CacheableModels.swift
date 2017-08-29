@@ -54,11 +54,25 @@ extension CommentView: Cacheable {
     }
 }
 
+extension ReplyView: Cacheable {
+    func getHandle() -> String? {
+        return replyHandle
+    }
+    
+    func getRelatedHandle() -> String? {
+        return commentHandle
+    }
+}
+
 extension FeedResponseCommentView: Cacheable {
 }
+
+extension FeedResponseReplyView: Cacheable {}
 
 extension PostCommentRequest: Cacheable {
     func getHandle() -> String? {
         return UUID().uuidString
     }
 }
+
+extension PostReplyRequest: Cacheable {}
