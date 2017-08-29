@@ -12,6 +12,7 @@ class PostDetailInteractor: PostDetailInteractorInput {
     weak var output: PostDetailInteractorOutput?
     
     var commentsService: CommentServiceProtocol?
+    var topicService: PostServiceProtocol?
     var likeService: LikesServiceProtocol?
     var isLoading = false
     
@@ -86,5 +87,15 @@ class PostDetailInteractor: PostDetailInteractorInput {
             print("error posting comment")
         })
         
+    }
+    
+    func loadPost(topicHandle: String) {
+        topicService?.fetchPost(post: topicHandle, completion: { (result) in
+            guard let post = result.posts.first else {
+                return
+            }
+            
+            self.output?.postFetched(post: post)
+        })
     }
 }

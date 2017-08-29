@@ -33,36 +33,38 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     @IBOutlet weak var appImage: UIImageView!
     @IBOutlet weak var likedList: UILabel!
     
+    var usedInThirdPartModule = false
+    
     func indexPath() -> IndexPath {
         return collectionView.indexPath(for: self)!
     }
     
     @IBAction private func onTapPhoto(_ sender: Any) {
-        viewModel.onAction?(.photo, indexPath())
+        handleAction(action: .photo)
     }
     
     @IBAction private func onProfileInfo(_ sender: Any) {
-        viewModel.onAction?(.profile, indexPath())
+        handleAction(action: .profile)
     }
     
     @IBAction private func onTapLike(_ sender: Any) {
-        viewModel.onAction?(.like, indexPath())
+        handleAction(action: .like)
     }
     
     @IBAction private func onTapCommented(_ sender: Any) {
-        viewModel.onAction?(.comment, indexPath())
+        handleAction(action: .comment)
     }
     
     @IBAction private func onTapPin(_ sender: Any) {
-        viewModel.onAction?(.pin, indexPath())
+         handleAction(action: .pin)
     }
     
     @IBAction private func onTapExtra(_ sender: Any) {
-        viewModel.onAction?(.extra, indexPath())
+        handleAction(action: .extra)
     }
     
     @IBAction func onLikesList(_ sender: UIButton) {
-        viewModel.onAction?(.likesList, indexPath())
+        handleAction(action: .likesList)
     }
     
     @IBOutlet weak var likedCount: UILabel!
@@ -76,6 +78,10 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
+    }
+    
+    private func handleAction(action: PostCellAction) {
+        usedInThirdPartModule ? viewModel.onAction?(action, IndexPath(item: tag, section: 0)) : viewModel.onAction?(action, indexPath())
     }
     
     func setup() {
@@ -109,6 +115,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         // Buttons
         likeButton.isSelected = data.isLiked
         pinButton.isSelected = data.isPinned
+        commentButton.isEnabled = !usedInThirdPartModule
     
     }
     

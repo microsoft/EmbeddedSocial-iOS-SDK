@@ -17,7 +17,7 @@ class ProfileSummaryView: UIView {
         }
     }
     
-    @IBOutlet fileprivate weak var detailsLabel: UILabel! {
+    @IBOutlet weak var detailsLabel: UILabel! {
         didSet {
             detailsLabel.text = L10n.Common.Placeholder.notSpecified
             detailsLabel.font = Fonts.medium

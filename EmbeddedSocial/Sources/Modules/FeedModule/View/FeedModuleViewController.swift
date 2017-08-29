@@ -19,6 +19,7 @@ protocol FeedModuleViewInput: class {
     func showError(error: Error)
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void)
+    func refreshLayout()
     
     func getViewHeight() -> CGFloat
     
@@ -193,6 +194,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         onUpdateLayout(type: type)
     }
     
+    func refreshLayout() {
+        collectionView?.collectionViewLayout.invalidateLayout()
+    }
+    
     func setRefreshing(state: Bool) {
         Logger.log(state)
         if state {
@@ -310,20 +315,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return output.headerSize
     }
-}
-
-extension FeedModuleViewController: UIScrollViewDelegate {
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        output.didScrollFeed(scrollView)
-        
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let containerHeight = scrollView.frame.size.height
-        
-        isPullingBottom = offsetY > 0 && (contentHeight - offsetY) < (containerHeight - 10)
-    }
-
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForFooterInSection section: Int) -> CGSize {
@@ -360,5 +352,18 @@ extension FeedModuleViewController: UIScrollViewDelegate {
         }
         
         return UICollectionReusableView()
+    }
+}
+
+extension FeedModuleViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        output.didScrollFeed(scrollView)
+        
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let containerHeight = scrollView.frame.size.height
+        
+        isPullingBottom = offsetY > 0 && (contentHeight - offsetY) < (containerHeight - 10)
     }
 }

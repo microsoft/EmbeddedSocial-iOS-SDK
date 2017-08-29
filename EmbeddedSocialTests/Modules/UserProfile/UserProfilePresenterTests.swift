@@ -55,7 +55,7 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertEqual(view.layoutAsset, feedInput.layout.nextLayoutAsset)
 
         validateViewInitialState(with: user, userIsCached: true)
-        validateFeedInitialState(with: user)
+        validateFeedInitialState(with: user, userIsCached: true)
     }
     
     func testThatItSetsInitialStateWithOtherUser() {
@@ -159,13 +159,15 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertFalse(view.isLoadingUser!)
     }
     
-    private func validateFeedInitialState(with user: User) {
+    private func validateFeedInitialState(with user: User, userIsCached: Bool = false) {
         XCTAssertEqual(feedInput.registerHeaderCount, 1)
         XCTAssertEqual(view.setFeedViewControllerCount, 1)
         XCTAssertEqual(view.setLayoutAssetCount, 1)
         XCTAssertEqual(view.layoutAsset, Asset.iconList)
         XCTAssertEqual(feedInput.setFeedCount, 1)
         XCTAssertEqual(feedInput.feedType, .user(user: user.uid, scope: .recent))
+        XCTAssertEqual(feedInput.setHeaderHeightCount, userIsCached ? 2 : 1)
+        XCTAssertTrue(abs(feedInput.headerHeight! - view.headerContentHeightReturnValue) < 0.0001)
     }
     
     func testThatItOpensFollowingScreen() {

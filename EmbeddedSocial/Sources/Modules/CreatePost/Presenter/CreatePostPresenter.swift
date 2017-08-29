@@ -11,15 +11,28 @@ class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePo
     weak var moduleOutput: CreatePostModuleOutput?
     
     var user: User?
+    var post: Post?
 
     // MARK: CreatePostViewOutput
     func viewIsReady() {
         view.setupInitialState()
         view.show(user: user!)
+        
+        guard let post = post else {
+            view.configTitlesWithoutPost()
+            return
+        }
+        
+        view.configTitlesForExistingPost()
+        view.show(post: post)
     }
     
     func post(photo: Photo?, title: String?, body: String!) {
-        interactor.postTopic(photo: photo, title: title, body: body)
+        if post != nil {
+            interactor.updateTopic(topicHandle: (post?.topicHandle)!, title: title, body: body)
+        } else {
+            interactor.postTopic(photo: photo, title: title, body: body)
+        }
     }
     
     func back() {
@@ -31,6 +44,17 @@ class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePo
     }
     
     // MARK: CreatePostInteractorOutput
+    
+    func postUpdateFailed(error: Error) {
+        view.show(error: error)
+    }
+    
+    func postUpdated() {
+        view.topicUpdated()
+        moduleOutput?.didUpdatePost()
+        back()
+    }
+    
     func created() {
         // TODO: handle
         view.topicCreated()

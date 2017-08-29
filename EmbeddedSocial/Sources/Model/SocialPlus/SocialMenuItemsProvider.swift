@@ -74,17 +74,13 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         return vc
     }
     
-    var builderForHome: ModuleBuilder = { coordinator in
-        return coordinator.configuredHome
-    }
+    var builderForHome: ModuleBuilder = { $0.configuredHome }
     
-    var builderForPopular: ModuleBuilder = { coordinator in
-        return coordinator.configuredPopular
-    }
+    var builderForPopular: ModuleBuilder = { $0.configuredPopular }
     
-    var builderForSearch: ModuleBuilder = { coordinator in
-        return coordinator.configuredSearch
-    }
+    var builderForSearch: ModuleBuilder = { $0.configuredSearch }
+    
+    var builderForSettings: ModuleBuilder = { $0.configuredSettings }
     
     typealias MenuItem = (
         key: SocialItem,
@@ -131,7 +127,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
                  title: L10n.Settings.screenTitle,
                  image: UIImage(asset: Asset.iconSettings),
                  highlighted: UIImage(asset: Asset.iconSettingsActive),
-                 builder: self.builderForDummy),
+                 builder: self.builderForSettings),
                 (key: .settings,
                  title: "DEBUG",
                  image: UIImage(asset: Asset.iconLogout),

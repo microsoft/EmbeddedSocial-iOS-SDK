@@ -7,4 +7,5 @@ import Foundation
 
 protocol CreatePostInteractorInput {
     func postTopic(photo: Photo?, title: String?, body: String!)
+    func updateTopic(topicHandle: String, title: String?, body: String)
 }

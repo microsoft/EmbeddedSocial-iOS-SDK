@@ -7,7 +7,7 @@ protocol PostDetailViewOutput {
 
     func viewIsReady()
     func numberOfItems() -> Int
-    var post: PostViewModel? {get set}
+    var postViewModel: PostViewModel? {get set}
     func commentViewModel(index: Int) -> CommentViewModel
     func postComment(photo: Photo?, comment: String)
     func fetchMore()
@@ -16,4 +16,5 @@ protocol PostDetailViewOutput {
     func loadRestComments()
     func enableFetchFore() -> Bool
     func refresh()
+    func refreshPost()
 }

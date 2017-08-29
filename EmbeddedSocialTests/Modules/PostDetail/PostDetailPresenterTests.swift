@@ -17,10 +17,11 @@ class PostDetailsPresenterTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        post = PostViewModel(topicHandle: "topicHandle", userName: "username", title: "title", text: "text", isLiked: false, isPinned: false, likedBy: "", totalLikes: "0 likes", totalComments: "0 comments", timeCreated: "date", userImageUrl: "", postImageUrl: "", tag: 0, cellType: "PostCell", onAction: nil)
+        post = PostViewModel(topicHandle: "topicHandle", userName: "username", title: "title", text: "text", isLiked: false, isPinned: false, likedBy: "", totalLikes: "0 likes", totalComments: "0 comments", timeCreated: "date", userImageUrl: "", postImageUrl: "", tag: 0, cellType: "PostCell", onAction: { action, path in
+            print("asdsa")})
         presenter.interactor = interactor
         presenter.view = view
-        presenter.post = post
+        presenter.postViewModel = post
         presenter.router = router
         interactor.output = presenter
         view.output = presenter
@@ -29,7 +30,7 @@ class PostDetailsPresenterTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         post = nil
-        presenter.post = nil
+        presenter.postViewModel = nil
         presenter.interactor = nil
         interactor.output = nil
         presenter.view = nil
@@ -39,10 +40,7 @@ class PostDetailsPresenterTests: XCTestCase {
     
     
     func testThatStateSetup() {
-        XCTFail()
-        return;
             
-        //FIXME: Next line crashes
         presenter.viewIsReady()
         
         XCTAssertEqual(view.setupCount, 1)
@@ -56,8 +54,7 @@ class PostDetailsPresenterTests: XCTestCase {
         let photo = Photo(uid: "testid", url: "Url", image: UIImage())
         
         //when
-        //FIXME: Next line crashes
-//        presenter.postComment(photo: photo, comment: comment.text!)
+        presenter.postComment(photo: photo, comment: comment.text!)
         
         //then
         XCTAssertEqual(presenter.comments.count, 1)
@@ -149,14 +146,26 @@ class PostDetailsPresenterTests: XCTestCase {
     func testThatFetchMore() {
         
         //given
-        //In interactor default fetching 1 element
+//        In interactor default fetching 1 element
         
         //when
-        //FIXME: Next line crashes
-//        presenter.fetchMore()
+        presenter.fetchMore()
         
         //then
         XCTAssertEqual(presenter.comments.count, 1)
+    }
+    
+    func testThatPostFetching() {
+        XCTFail("Next line crashes")
+        return;
+            
+        //when
+        presenter.refreshPost()
+        
+        //then
+        XCTAssertEqual(interactor.loadPostCount, 1)
+        XCTAssertEqual(view.postCellRefreshCount, 1)
+        
     }
     
     

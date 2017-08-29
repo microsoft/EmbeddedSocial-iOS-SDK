@@ -12,6 +12,11 @@ enum L10n {
     static let screenTitle = L10n.tr("Localizable", "activity_feed.screen_title")
   }
 
+  enum BlockedUsers {
+    /// Blocked users
+    static let screenTitle = L10n.tr("Localizable", "blocked_users.screen_title")
+  }
+
   enum Common {
     /// Blocked
     static let blocked = L10n.tr("Localizable", "common.blocked")
@@ -55,12 +60,16 @@ enum L10n {
     static let post = L10n.tr("Localizable", "create_post.post")
     /// Return to feed?
     static let returnToFeed = L10n.tr("Localizable", "create_post.return_to_feed")
+    /// Save
+    static let save = L10n.tr("Localizable", "create_post.save")
 
     enum Button {
       /// Tap here to add a picture
       static let addPicture = L10n.tr("Localizable", "create_post.button.add_picture")
       /// Add new post
       static let addPost = L10n.tr("Localizable", "create_post.button.add_post")
+      /// Update post
+      static let updatePost = L10n.tr("Localizable", "create_post.button.update_post")
     }
   }
 
