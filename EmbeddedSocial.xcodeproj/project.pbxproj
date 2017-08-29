@@ -491,6 +491,8 @@
 		88E3AC2A1F55840D0016357F /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E3AC291F55840D0016357F /* SettingsInteractor.swift */; };
 		88E3AC2C1F558FA90016357F /* MockSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E3AC2B1F558FA90016357F /* MockSettingsView.swift */; };
 		88E3AC2F1F5590D90016357F /* MockSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E3AC2E1F5590D90016357F /* MockSettingsInteractor.swift */; };
+		88E3AC311F559D0B0016357F /* HandleMixin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E3AC301F559D0B0016357F /* HandleMixin.swift */; };
+		88E3AC331F55A01D0016357F /* RelatedHandleMixin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E3AC321F55A01D0016357F /* RelatedHandleMixin.swift */; };
 		88F163791F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F163781F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift */; };
 		88F1637B1F26494100DAAF68 /* SocialUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1637A1F26494100DAAF68 /* SocialUserTests.swift */; };
 		88F1637D1F264B0F00DAAF68 /* SessionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1637C1F264B0F00DAAF68 /* SessionStoreTests.swift */; };
@@ -1187,6 +1189,8 @@
 		88E3AC291F55840D0016357F /* SettingsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		88E3AC2B1F558FA90016357F /* MockSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSettingsView.swift; sourceTree = "<group>"; };
 		88E3AC2E1F5590D90016357F /* MockSettingsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSettingsInteractor.swift; sourceTree = "<group>"; };
+		88E3AC301F559D0B0016357F /* HandleMixin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandleMixin.swift; sourceTree = "<group>"; };
+		88E3AC321F55A01D0016357F /* RelatedHandleMixin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelatedHandleMixin.swift; sourceTree = "<group>"; };
 		88F163781F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionStoreDatabaseFacadeTests.swift; sourceTree = "<group>"; };
 		88F1637A1F26494100DAAF68 /* SocialUserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialUserTests.swift; sourceTree = "<group>"; };
 		88F1637C1F264B0F00DAAF68 /* SessionStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionStoreTests.swift; sourceTree = "<group>"; };
@@ -2568,6 +2572,8 @@
 				8811C8201F3C6D2400F7513D /* UITestsHelper.swift */,
 				889510871F3B2539001A53F5 /* UnauthorizedErrorHandler.swift */,
 				8875CCF01F331FC9001F2474 /* UsersListResponse.swift */,
+				88E3AC301F559D0B0016357F /* HandleMixin.swift */,
+				88E3AC321F55A01D0016357F /* RelatedHandleMixin.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3141,7 +3147,6 @@
 				88E3AC291F55840D0016357F /* SettingsInteractor.swift */,
 				88E3AC261F5583DB0016357F /* SettingsInteractorInput.swift */,
 			);
-			name = Interactor;
 			path = Interactor;
 			sourceTree = "<group>";
 		};
@@ -3152,7 +3157,6 @@
 				88E3AC241F5568FC0016357F /* MockSettingsRouter.swift */,
 				88E3AC2B1F558FA90016357F /* MockSettingsView.swift */,
 			);
-			name = Mocks;
 			path = Mocks;
 			sourceTree = "<group>";
 		};
@@ -4104,6 +4108,7 @@
 				8811C8361F41901800F7513D /* Transaction.swift in Sources */,
 				884AA96A1F3C563F00B85135 /* FeedResponseCommentView.swift in Sources */,
 				8811C85D1F42FB6B00F7513D /* EmbeddedEditProfileInteractor.swift in Sources */,
+				88E3AC331F55A01D0016357F /* RelatedHandleMixin.swift in Sources */,
 				884AA9821F3C563F00B85135 /* PostTopicNameRequest.swift in Sources */,
 				88580BBF1F2213AB00C1CBAF /* UIButton+Ext.swift in Sources */,
 				88580C701F2213AB00C1CBAF /* TabMenuContainerViewController.swift in Sources */,
@@ -4125,6 +4130,7 @@
 				8811C8991F442FCD00F7513D /* PostDetailViewInput.swift in Sources */,
 				884AA9651F3C563F00B85135 /* CommentView.swift in Sources */,
 				88580BAE1F2213AB00C1CBAF /* SideMenuSectionHeader.swift in Sources */,
+				88E3AC311F559D0B0016357F /* HandleMixin.swift in Sources */,
 				88580C791F2213AB00C1CBAF /* Reusable.swift in Sources */,
 				883E1E4B1F546517004B4861 /* BlockedUsersViewInput.swift in Sources */,
 				88E3AC271F5583DB0016357F /* SettingsInteractorInput.swift in Sources */,
