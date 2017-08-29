@@ -12,4 +12,5 @@ protocol PostDetailInteractorOutput: class {
     func commentDidPosted(comment: Comment)
     func commentPostFailed(error: Error)
     func didPostAction(commentHandle: String, action: CommentSocialAction, error: Error?)
+    func postFetched(post: Post)
 }

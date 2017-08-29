@@ -8,23 +8,25 @@ import XCTest
 
 class CreatePostPresentorTests: XCTestCase {
     
-    let presentor = CreatePostPresenter()
+    let presenter = CreatePostPresenter()
     let interactor = MockCreatePostInteractor()
     let view = MockCreatePostViewController()
     let user =  User(uid: "test", firstName: "First name", lastName: "Last name", email: "email@test.com", bio: nil, photo: nil, credentials: CredentialsList(provider: AuthProvider(rawValue: 0)!, accessToken: "token", socialUID: "uid"))
     
     override func setUp() {
         super.setUp()
-        presentor.interactor = interactor
-        presentor.user = user
+        presenter.interactor = interactor
+        presenter.user = user
         view.output = presentor
-        presentor.view = view
+        presenter.view = view
+        interactor.output = presenter
     }
     
     override func tearDown() {
         super.tearDown()
-        presentor.interactor = nil
-        presentor.view = nil
+        presenter.interactor = nil
+        presenter.view = nil
+        presenter.post = nil
     }
     
     func testThatPostInInteractorCalled() {
@@ -37,11 +39,12 @@ class CreatePostPresentorTests: XCTestCase {
         XCTAssertEqual(body, interactor.body, "should save in interactor")
         XCTAssertEqual(photo, interactor.photo, "should save in interactor")
         XCTAssertEqual(interactor.postTopicCalledCount, 1)
+        XCTAssertEqual(view.topicCreatedCount, 1)
     }
     
     func testThatViewShowedError() {
         let error = TestError()
-        presentor.postCreationFailed(error: error)
+        presenter.postCreationFailed(error: error)
         
         XCTAssertEqual(view.errorShowedCount, 1)
     }
@@ -50,6 +53,21 @@ class CreatePostPresentorTests: XCTestCase {
         view.show(user: user)
 
         XCTAssertEqual(view.userShowedCount, 1)
+    }
+    
+    func testThatPostIsUpdating() {
+        
+        //given
+        var post = Post()
+        post.topicHandle = "handle"
+        presenter.post = post
+        
+        //when
+        presenter.post(photo: nil, title: "title", body: "test")
+        
+        //then
+        XCTAssertEqual(interactor.updateTopicCount, 1)
+        XCTAssertEqual(view.topicUpdatedCount, 1)
     }
     
     

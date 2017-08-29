@@ -25,7 +25,7 @@ protocol PostMenuModuleInput: class {
     func didTapHide(post: PostHandle)
     func didTapFollow(user: UserHandle)
     func didTapUnfollow(user: UserHandle)
-    func didTapEditPost(post: PostHandle)
+    func didTapEditPost(post: Post)
     func didTapRemovePost(post: PostHandle)
 }
 
@@ -52,6 +52,7 @@ struct ActionViewModel {
 }
 
 class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, PostMenuModuleInteractorOutput {
+
 
     weak var view: PostMenuModuleViewInput!
     weak var output: PostMenuModuleOutput?
@@ -102,7 +103,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         var editItem = ActionViewModel()
         editItem.title = L10n.PostMenu.edit
         editItem.action = { [weak self] in
-            self?.didTapEditPost(post: postHandle)
+            self?.didTapEditPost(post: post)
         }
         
         var removeitem = ActionViewModel()
@@ -189,9 +190,8 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         self.interactor.unfollow(user: user)
     }
     
-    func didTapEditPost(post: PostHandle) {
-        self.output?.didEdit(post: post)
-        self.interactor.edit(post: post)
+    func didTapEditPost(post: Post) {
+        self.router.openEdit(post: post)
     }
     
     func didTapRemovePost(post: PostHandle) {

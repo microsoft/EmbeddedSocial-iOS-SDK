@@ -12,8 +12,18 @@ protocol PostMenuModuleRouterInput {
 
 class PostMenuModuleRouter: PostMenuModuleRouterInput {
     
+    weak var navigationController: UINavigationController?
+    
     func openEdit(post: Post) {
         Logger.log(post.topicHandle)
+        let vc = StoryboardScene.CreatePost.instantiateCreatePostViewController()
+        let configurator = CreatePostModuleConfigurator()
+        var user = User()
+        user.uid = post.userHandle!
+        user.firstName = post.firstName
+        user.lastName = post.lastName
+        configurator.configure(viewController: vc, user: user, post: post)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func openReport(post: Post) {

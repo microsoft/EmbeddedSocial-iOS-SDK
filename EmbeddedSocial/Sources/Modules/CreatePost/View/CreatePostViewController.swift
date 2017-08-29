@@ -31,19 +31,33 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     
     // MARK: CreatePostViewInput
     func setupInitialState() {
-        postButton = UIBarButtonItem(title: L10n.CreatePost.post, style: .plain,
-                                     target: self, action: #selector(post))
-        imagePicker.delegate = self
-        title = L10n.CreatePost.Button.addPost
-        postButton.isEnabled = false
         let backButton = UIBarButtonItem(asset: .iconBack, title: "", font: nil, color: .black) { [weak self] in
             self?.back()
         }
-        navigationItem.rightBarButtonItem = postButton
         navigationItem.leftBarButtonItem = backButton
     }
     
+    func configTitlesForExistingPost() {
+        postButton = UIBarButtonItem(title: L10n.CreatePost.save, style: .plain,
+                                     target: self, action: #selector(post))
+        title = L10n.CreatePost.Button.updatePost
+        navigationItem.rightBarButtonItem = postButton
+    }
+    
+    func configTitlesWithoutPost() {
+        postButton = UIBarButtonItem(title: L10n.CreatePost.post, style: .plain,
+                                     target: self, action: #selector(post))
+        postButton.isEnabled = false
+        imagePicker.delegate = self
+        title = L10n.CreatePost.Button.addPost
+        navigationItem.rightBarButtonItem = postButton
+    }
+    
     func topicCreated() {
+        SVProgressHUD.dismiss()
+    }
+    
+    func topicUpdated() {
         SVProgressHUD.dismiss()
     }
     
@@ -51,6 +65,16 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         userImageView.layer.cornerRadius = userImageView.bounds.size.height/2
         usernameLabel.text = "\(user.firstName!) \(user.lastName!)"
         userImageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: .userPhotoPlaceholder))
+    }
+    
+    func show(post: Post) {
+        postBodyTextView.text = post.text
+        titleTextField.text = post.title
+        postBodyTextViewHeightConstraint.constant = postBodyTextView.contentSize.height
+        mediaButton.setPhotoWithCaching(Photo(url: post.imageUrl), placeholder: UIImage(asset: .placeholderPostNoimage))
+        mediaButton.isEnabled = false
+        postButton.isEnabled = true
+        view.layoutIfNeeded()
     }
     
     func show(error: Error) {
@@ -101,6 +125,7 @@ extension CreatePostViewController: ImagePickerDelegate {
         photo = nil
         mediaButton.setImage(nil, for: .normal)
         mediaButton.setTitle(L10n.CreatePost.Button.addPicture, for: .normal)
+        postButton.isEnabled = !postBodyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
     func selected(photo: Photo) {

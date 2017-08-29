@@ -269,6 +269,9 @@ extension UserProfilePresenter: FollowingModuleOutput {
 }
 
 extension UserProfilePresenter: CreatePostModuleOutput {
+    func didUpdatePost() {
+        feedModuleInput?.refreshData()
+    }
     
     func didCreatePost() {
         feedModuleInput?.refreshData()

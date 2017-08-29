@@ -32,6 +32,14 @@ private class MockLikeSerivce: LikesServiceProtocol {
     }
 }
 
+private class MockTopicService: PostServiceProtocol {
+    func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
+        var result = PostFetchResult()
+        result.posts = [Post()]
+        completion(result)
+    }
+}
+
 class PostDetailsInteractorTests: XCTestCase {
     
     var output = MockPostDetailPresenter()
@@ -43,6 +51,7 @@ class PostDetailsInteractorTests: XCTestCase {
     
     var commentsService: CommentServiceProtocol?
     var likeService: LikesServiceProtocol?
+    var topicServer: PostServiceProtocol?
     var imageService: ImagesServiceType?
     
     override func setUp() {
@@ -55,8 +64,10 @@ class PostDetailsInteractorTests: XCTestCase {
         imageService = ImagesService()
         commentsService = MockCommentService(imagesService: imageService!)
         likeService = MockLikeSerivce()
+        topicServer = MockTopicService()
         interactor.commentsService = commentsService
         interactor.likeService = likeService
+        interactor.topicService = topicServer
 
     }
     
@@ -69,6 +80,7 @@ class PostDetailsInteractorTests: XCTestCase {
         cache = nil
         commentsService = nil
         likeService = nil
+        topicServer = nil
     }
     
     func testThatFetchedComments() {
@@ -142,6 +154,16 @@ class PostDetailsInteractorTests: XCTestCase {
         //then
         XCTAssertEqual(output.comments.first?.totalLikes , 0)
         XCTAssertEqual(output.comments.first?.liked , false)
+    }
+    
+    func testThatPostUpdates() {
+        
+        //when
+        interactor.loadPost(topicHandle: "handle")
+        
+        //then
+        XCTAssertEqual(output.postFetchedCount, 1)
+        
     }
     
 }
