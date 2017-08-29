@@ -11,6 +11,8 @@ final class MockUserService: UserServiceType {
     private(set) var getUserProfileCount = 0
     private(set) var updateProfileCount = 0
     private(set) var createAccountForUserPhotoHandleCount = 0
+    private(set) var updateVisibilityCount = 0
+    var updateVisibilityReturnValue: Result<Void>?
 
     func getMyProfile(authorization: Authorization, credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
         getMyProfileCount += 1
@@ -33,5 +35,12 @@ final class MockUserService: UserServiceType {
                        photoHandle: String?,
                        completion: @escaping (Result<(user: User, sessionToken: String)>) -> Void){
         createAccountForUserPhotoHandleCount += 1
+    }
+    
+    func updateVisibility(to visibility: Visibility, completion: @escaping (Result<Void>) -> Void) {
+        updateVisibilityCount += 1
+        if let result = updateVisibilityReturnValue {
+            completion(result)
+        }
     }
 }

@@ -21,7 +21,7 @@ class PostDetailsPresenterTests: XCTestCase {
             print("asdsa")})
         presenter.interactor = interactor
         presenter.view = view
-        presenter.post = post
+        presenter.postViewModel = post
         presenter.router = router
         interactor.output = presenter
         view.output = presenter
@@ -30,7 +30,7 @@ class PostDetailsPresenterTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         post = nil
-        presenter.post = nil
+        presenter.postViewModel = nil
         presenter.interactor = nil
         interactor.output = nil
         presenter.view = nil
@@ -156,7 +156,9 @@ class PostDetailsPresenterTests: XCTestCase {
     }
     
     func testThatPostFetching() {
-        
+        XCTFail("Next line crashes")
+        return;
+            
         //when
         presenter.refreshPost()
         

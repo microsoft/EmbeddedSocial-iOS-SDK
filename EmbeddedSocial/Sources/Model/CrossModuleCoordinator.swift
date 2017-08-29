@@ -22,6 +22,7 @@ protocol CrossModuleCoordinatorProtocol: class {
     var configuredUserProfile: UIViewController { get }
     var configuredLogin: UIViewController { get }
     var configuredSearch: UIViewController { get }
+    var configuredSettings: UIViewController { get }
 }
 
 class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput {
@@ -155,6 +156,11 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         return configurator.viewController
     }()
     
+    lazy var configuredSettings: UIViewController = {
+        let configurator = SettingsConfigurator()
+        configurator.configure(navigationController: self.navigationStack.navigationController)
+        return configurator.viewController
+    }()
 }
 
 extension CrossModuleCoordinator: MyProfileOpener { }

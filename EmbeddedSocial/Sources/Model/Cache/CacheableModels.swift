@@ -21,7 +21,16 @@ extension UserProfileView: Cacheable {
     }
 }
 
-extension PostTopicRequest: Cacheable { }
+extension PostTopicRequest: Cacheable, HandleMixin, RelatedHandleMixin {
+    
+    func getHandle() -> String? {
+        return handle
+    }
+    
+    func getRelatedHandle() -> String? {
+        return relatedHandle
+    }
+}
 
 extension CommentView: Cacheable {
     func getHandle() -> String? {

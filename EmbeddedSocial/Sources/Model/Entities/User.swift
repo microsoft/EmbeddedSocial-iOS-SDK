@@ -15,12 +15,16 @@ struct User {
     var credentials: CredentialsList?
     var followersCount: Int
     var followingCount: Int
-    let visibility: Visibility?
+    var visibility: Visibility?
     var followerStatus: FollowStatus?
     let followingStatus: FollowStatus?
     
     var isMe: Bool {
         return credentials != nil
+    }
+    
+    var fullName: String {
+        return User.fullName(firstName: firstName, lastName: lastName)
     }
     
     static func fullName(firstName: String?, lastName: String?) -> String {

@@ -17,7 +17,7 @@ class CreatePostPresentorTests: XCTestCase {
         super.setUp()
         presenter.interactor = interactor
         presenter.user = user
-        view.output = presentor
+        view.output = presenter
         presenter.view = view
         interactor.output = presenter
     }
@@ -34,7 +34,7 @@ class CreatePostPresentorTests: XCTestCase {
         let title = "Title"
         let body = "body"
         
-        presentor.post(photo: photo, title: title, body: body)
+        presenter.post(photo: photo, title: title, body: body)
         XCTAssertEqual(title, interactor.title, "should save in interactor")
         XCTAssertEqual(body, interactor.body, "should save in interactor")
         XCTAssertEqual(photo, interactor.photo, "should save in interactor")
