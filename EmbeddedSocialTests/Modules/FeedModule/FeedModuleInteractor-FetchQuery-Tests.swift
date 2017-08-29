@@ -75,13 +75,10 @@ extension PostServiceMock {
 }
 
 private class UserHolderMock: UserHolder {
-    
     var me: User? = {
         return User()
     }()
-    
 }
-
 
 class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
     
@@ -202,30 +199,39 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
     func testThatMyPopularRequestIsCalled() {
         
         // given
+        let limit = Int32(5)
+        let cursor = UUID().uuidString
         let myUserHandle = UUID().uuidString
         let scope = FeedType.UserFeedScope.popular
         let feed = FeedType.user(user: myUserHandle, scope: scope)
         sut.userHolder!.me!.uid = myUserHandle
         
         // when
-        sut.fetchPosts(feedType: feed)
+        sut.fetchPosts(limit: limit, cursor: cursor, feedType: feed)
         
         // then
         XCTAssertNotNil(postService.fetchedMyPopularQuery)
+        XCTAssert(postService.fetchedMyPopularQuery?.cursor == cursor)
+        XCTAssert(postService.fetchedMyPopularQuery?.limit == limit)
     }
     
     func testThatMyPostsRequestIsCalled() {
+        
         // given
+        let limit = Int32(5)
+        let cursor = UUID().uuidString
         let myUserHandle = UUID().uuidString
         let scope = FeedType.UserFeedScope.recent
         let feed = FeedType.user(user: myUserHandle, scope: scope)
         sut.userHolder!.me!.uid = myUserHandle
         
         // when
-        sut.fetchPosts(feedType: feed)
+        sut.fetchPosts(limit: limit, cursor: cursor, feedType: feed)
         
         // then
         XCTAssertNotNil(postService.fetchedMyPostsQuery)
+        XCTAssert(postService.fetchedMyPostsQuery?.cursor == cursor)
+        XCTAssert(postService.fetchedMyPostsQuery?.limit == limit)
     }
 
 }
