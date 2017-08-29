@@ -65,16 +65,16 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             var query = HomeFeedQuery()
             query.limit = limit
             query.cursor = cursor
-            postService.fetchHome(query: query) { result in
-                self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+            postService.fetchHome(query: query) { [weak self] result in
+                self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
             }
             
         case .recent:
             var query = RecentFeedQuery()
             query.limit = limit
             query.cursor = cursor
-            postService.fetchRecent(query: query) { result in
-                self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+            postService.fetchRecent(query: query) { [weak self] result in
+                self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
             }
             
         case let .popular(type: range):
@@ -91,8 +91,8 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
                 query.timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.thisWeek
             }
             
-            postService.fetchPopular(query: query) { result in
-                self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+            postService.fetchPopular(query: query) { [weak self] result in
+                self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
             }
             
         case let .user(user: user, scope: scope):
@@ -106,13 +106,13 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
                 
                 switch scope {
                 case .popular:
-                    postService.fetchMyPopular(query: query) { result in
-                        self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                    postService.fetchMyPopular(query: query) { [weak self] result in
+                        self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
                     }
 
                 case .recent:
-                    postService.fetchMyPosts(query: query) { result in
-                        self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                    postService.fetchMyPosts(query: query) { [weak self] result in
+                        self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
                     }
                 }
             }
@@ -124,19 +124,19 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
                 
                 switch scope {
                 case .popular:
-                    postService.fetchPopular(query: query) { result in
-                        self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                    postService.fetchPopular(query: query) { [weak self] result in
+                        self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
                     }
                 case .recent:
-                    postService.fetchRecent(query: query) { result in
-                        self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                    postService.fetchRecent(query: query) { [weak self] result in
+                        self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
                     }
                 }
             }
             
         case let .single(post: post):
-            postService.fetchPost(post: post) { result in
-                self.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+            postService.fetchPost(post: post) { [weak self] result in
+                self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
             }
         }
     }
