@@ -27,4 +27,11 @@ class MockPostDetailsInteractor: PostDetailInteractorInput {
     func commentAction(commentHandle: String, action: CommentSocialAction) {
         output.didPostAction(commentHandle: commentHandle, action: action, error: nil)
     }
+    
+    var loadPostCount = 0
+    func loadPost(topicHandle: String) {
+        loadPostCount += 1
+        let post = Post(topicHandle: "handle", createdTime: Date(), userHandle: "user", userStatus: .none, firstName: "first", lastName: "last", photoHandle: "photoHandle", photoUrl: "photoUrl", title: "title", text: "text", imageUrl: "imageUrl", deepLink: nil, totalLikes: 0, totalComments: 0, liked: false, pinned: false)
+        output.postFetched(post:post)
+    }
 }

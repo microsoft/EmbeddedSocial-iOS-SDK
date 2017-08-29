@@ -6,14 +6,40 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class CreatePostInteractorTests: XCTestCase {
+
+fileprivate class MockTopicService: TopicService {
     
+    var fetchPostCount = 0
+    override func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
+        fetchPostCount += 1
+        var post = Post()
+        post.topicHandle = "fsdf"
+        var result = PostFetchResult()
+        result.posts = [post]
+        completion(result)
+    }
+    
+    var postTopicCount = 0
+    override func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
+        postTopicCount += 1
+        success(PostTopicRequest())
+    }
+    
+    var updateTopicCount = 0
+    override func updateTopic(topicHandle: String, request: PutTopicRequest, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        updateTopicCount += 1
+        success()
+    }
+}
+
+class CreatePostInteractorTests: XCTestCase {
+
     let intercator = CreatePostInteractor()
     let presenter = MockCreatePostPresenter()
     var coreDataStack: CoreDataStack!
     var transactionsDatabase: MockTransactionsDatabaseFacade!
     var cache: CacheType!
-    var topicService: TopicService!
+    fileprivate var topicService: MockTopicService!
     
     
     override func setUp() {
@@ -21,8 +47,7 @@ class CreatePostInteractorTests: XCTestCase {
         coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
         transactionsDatabase = MockTransactionsDatabaseFacade(incomingRepo:  CoreDataRepository(context: coreDataStack.backgroundContext), outgoingRepo:  CoreDataRepository(context: coreDataStack.backgroundContext))
         cache = Cache(database: transactionsDatabase)
-        topicService = TopicService(imagesService: ImagesService())
-        
+        topicService = MockTopicService()
         intercator.topicService = topicService
         intercator.output = presenter
     }
@@ -34,6 +59,27 @@ class CreatePostInteractorTests: XCTestCase {
         cache = nil
         topicService = nil
     }
+    
+    func testThatPostUpdating() {
+        
+        //when
+        intercator.updateTopic(topicHandle: "handle", title: "title", body: "body")
+        
+        //then
+        XCTAssertEqual(topicService.updateTopicCount, 1)
+        XCTAssertEqual(presenter.postUpdatedCount, 1)
+        
+    }
+    
+    func testThatTopicPosted() {
+        //when
+        intercator.postTopic(photo: nil, title: "title", body: "body")
+        
+        //then
+        XCTAssertEqual(topicService.postTopicCount, 1)
+        XCTAssertEqual(presenter.postCreatedCalledCount, 1)
+    }
+    
     
 //    func testThatDataPosting() {
 //        let title = "title"

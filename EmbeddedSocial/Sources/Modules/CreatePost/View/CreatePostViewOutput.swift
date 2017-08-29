@@ -6,12 +6,6 @@
 import UIKit
 
 protocol CreatePostViewOutput {
-
-    /**
-        @author generamba setup
-        Notify presenter that view is ready
-    */
-
     func viewIsReady()
     func post(photo: Photo?, title: String?, body: String!)
     func back()

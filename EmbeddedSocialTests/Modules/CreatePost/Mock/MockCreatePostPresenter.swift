@@ -17,4 +17,9 @@ class MockCreatePostPresenter: CreatePostPresenter {
     override func postCreationFailed(error: Error) {
         postCreationFailed = true
     }
+    
+    var postUpdatedCount = 0
+    override func postUpdated() {
+        postUpdatedCount += 1
+    }
 }

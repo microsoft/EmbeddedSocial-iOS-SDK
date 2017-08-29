@@ -23,6 +23,10 @@ class MockPostDetailPresenter: PostDetailPresenter {
         postedComment = comment
     }
     
+    var postFetchedCount = 0
+    override func postFetched(post: Post) {
+        postFetchedCount += 1
+    }
     
     override func didPostAction(commentHandle: String, action: CommentSocialAction, error: Error?) {
         guard let index = comments.enumerated().first(where: { $0.element.commentHandle == commentHandle })?.offset else {

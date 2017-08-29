@@ -19,4 +19,16 @@ class CreatePostInteractor: CreatePostInteractorInput {
             self.output.postCreationFailed(error: error)
         })
     }
+    
+    func updateTopic(topicHandle: String, title: String?, body: String) {
+        let topic = PutTopicRequest()
+        topic.title = title
+        topic.text = body
+        
+        topicService?.updateTopic(topicHandle: topicHandle, request: topic, success: { (object) in
+            self.output.postUpdated()
+        }, failure: { (error) in
+            self.output.postUpdateFailed(error: error)
+        })
+    }
 }
