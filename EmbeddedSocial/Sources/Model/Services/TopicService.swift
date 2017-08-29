@@ -83,20 +83,6 @@ protocol PostServiceDelegate: class {
     func didFetchHome(query: HomeFeedQuery, result: PostFetchResult)
 }
 
-extension PostServiceProtocol {
-    
-    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) { Logger.log("No Implementation") }
-}
-
-
 class TopicService: BaseService, PostServiceProtocol {
     
     private var imagesService: ImagesServiceType!

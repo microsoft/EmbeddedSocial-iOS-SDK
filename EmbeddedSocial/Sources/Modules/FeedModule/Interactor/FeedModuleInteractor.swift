@@ -97,7 +97,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             
         case let .user(user: user, scope: scope):
             
-            let isMyFeed = userHolder?.me?.uid == user
+            let isMyFeed = userHolder?.me?.isMyHandle(user) == true
             
             if isMyFeed {
                 var query = MyFeedQuery()

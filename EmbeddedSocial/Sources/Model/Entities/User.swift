@@ -23,6 +23,10 @@ struct User {
         return credentials != nil
     }
     
+    func isMyHandle(_ handle: String) -> Bool {
+        return uid == handle
+    }
+    
     static func fullName(firstName: String?, lastName: String?) -> String {
         if firstName == nil {
             return lastName ?? L10n.Common.Placeholder.unknown
