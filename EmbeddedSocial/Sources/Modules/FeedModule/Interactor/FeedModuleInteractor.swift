@@ -38,6 +38,8 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     
     func handleFetch(result: PostFetchResult, feedType: FeedType, isLoadingMore: Bool = false) {
         
+        output.didFinishFetching()
+        
         guard result.error == nil else {
             output.didFail(error: result.error!)
             return
@@ -55,7 +57,8 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     func fetchPosts(limit: Int32? = nil, cursor: String? = nil, feedType: FeedType) {
         
         let isLoadingMore = cursor != nil
-   
+        output.didStartFetching()
+        
         switch feedType {
             
         case .home:

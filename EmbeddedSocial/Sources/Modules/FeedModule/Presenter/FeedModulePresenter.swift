@@ -243,6 +243,18 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         return viewModel
     }
     
+    private func appendWithReplacing(original: inout [Post], appending: [Post]) {
+        
+        for appendingItem in appending {
+            
+            if let index = original.index(where: { $0.topicHandle == appendingItem.topicHandle }) {
+                original[index] = appendingItem
+            } else {
+                original.append(appendingItem)
+            }
+        }
+    }
+    
     // MARK: FeedModuleViewOutput
     func item(for path: IndexPath) -> PostViewModel {
         return viewModel(with: items[path.row])
@@ -345,6 +357,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             Logger.log("feed type is not set")
             return
         }
+        
+        interactor.fetchPosts(limit: limit, cursor: nil, feedType: feedType)
     }
     
     func didAskFetchMore() {
@@ -370,6 +384,11 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     // MARK: FeedModuleInteractorOutput
     func didFetch(feed: PostsFeed) {
+        
+        guard feedType == feed.feedType else {
+            return
+        }
+        
         cursor = feed.cursor
         items = feed.items
         
@@ -377,8 +396,13 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didFetchMore(feed: PostsFeed) {
+        
+        guard feedType == feed.feedType else {
+            return
+        }
+        
         cursor = feed.cursor
-        items.append(contentsOf: feed.items)
+        appendWithReplacing(original: &items, appending: feed.items)
         
         view.reload()
     }
@@ -522,7 +546,9 @@ extension FeedModulePresenter: PostMenuModuleOutput {
         view.showError(error: error)
         didAskFetchAll()
     }
-
+    
+    // MARK: Private
+    
     private func didChangeItem(user: UserHandle) {
         if let index = items.index(where: { $0.userHandle == user }) {
             view.reload(with: index)

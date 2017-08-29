@@ -175,9 +175,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: Input
-  
+    
     func setupInitialState() {
         collectionView.alwaysBounceVertical = true
+        collectionView.addSubview(refreshControl)
     }
     
     func showError(error: Error) {
@@ -196,10 +197,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func setRefreshing(state: Bool) {
         Logger.log(state)
         if state {
-            if refreshControl.superview != collectionView {
-                collectionView!.addSubview(refreshControl)
-            }
-            
             if refreshControl.isHidden == false {
                 refreshControl.beginRefreshing()
             }
