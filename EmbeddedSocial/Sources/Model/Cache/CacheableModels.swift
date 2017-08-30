@@ -44,6 +44,54 @@ extension PostTopicRequest: Cacheable, HandleMixin, RelatedHandleMixin {
     }
 }
 
+extension PostCommentRequest: Cacheable, HandleMixin, RelatedHandleMixin {
+    
+    func getHandle() -> String? {
+        return handle
+    }
+    
+    func getRelatedHandle() -> String? {
+        return relatedHandle
+    }
+    
+    func setHandle(_ handle: String?) {
+        if let handle = handle {
+            self.handle = handle
+        }
+    }
+    
+    func setRelatedHandle(_ relatedHandle: String?) {
+        if let relatedHandle = relatedHandle {
+            self.relatedHandle = relatedHandle
+        }
+    }
+    
+}
+
+extension PostReplyRequest: Cacheable, HandleMixin, RelatedHandleMixin {
+    
+    func getHandle() -> String? {
+        return handle
+    }
+    
+    func getRelatedHandle() -> String? {
+        return relatedHandle
+    }
+    
+    func setHandle(_ handle: String?) {
+        if let handle = handle {
+            self.handle = handle
+        }
+    }
+    
+    func setRelatedHandle(_ relatedHandle: String?) {
+        if let relatedHandle = relatedHandle {
+            self.relatedHandle = relatedHandle
+        }
+    }
+    
+}
+
 extension CommentView: Cacheable {
     func getHandle() -> String? {
         return commentHandle
@@ -69,10 +117,3 @@ extension FeedResponseCommentView: Cacheable {
 
 extension FeedResponseReplyView: Cacheable {}
 
-extension PostCommentRequest: Cacheable {
-    func getHandle() -> String? {
-        return UUID().uuidString
-    }
-}
-
-extension PostReplyRequest: Cacheable {}

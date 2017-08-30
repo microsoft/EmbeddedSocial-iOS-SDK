@@ -53,7 +53,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         
         var viewModel = ReplyViewModel()
         viewModel.userHandle = reply.userHandle!
-        viewModel.replyHandle = reply.replyHandle!
+        viewModel.replyHandle = reply.replyHandle
         viewModel.userName = String(format: "%@ %@", (reply.userFirstName ?? ""), (reply.userLastName ?? ""))
         viewModel.text = reply.text ?? ""
         
@@ -75,7 +75,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     private func handle(action: RepliesCellAction, index: Int) {
         
-        let replyHandle = replies[index].replyHandle!
+        let replyHandle = replies[index].replyHandle
         let userHandle = replies[index].userHandle!
         
         switch action {
@@ -93,7 +93,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             }
             
             view?.refreshReplyCell(index: index)
-            interactor.replyAction(replyHandle: replyHandle, action: action)
+            interactor.replyAction(replyHandle: replyHandle!, action: action)
             
             
         case .profile:
@@ -125,16 +125,16 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func viewIsReady() {
-        if (commentView?.comment?.totalReplies)! > 0 {
+//        if (commentView?.comment?.totalReplies)! > 0 {
             switch scrollType {
             case .bottom:
                 interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: maxLimit)
             default:
                 interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: normalLimit)
             }
-        } else {
-            view?.reloadTable(scrollType: scrollType)
-        }
+//        } else {
+//            view?.reloadTable(scrollType: scrollType)
+//        }
         
     }
     
@@ -194,7 +194,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     func replyPosted(reply: Reply) {
         reply.userHandle = SocialPlus.shared.me?.uid
-        replies.append(reply)
+        appendWithReplacing(original: &replies, appending: [reply])
         view?.replyPosted()
     }
     

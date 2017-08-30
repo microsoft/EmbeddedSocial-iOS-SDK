@@ -46,17 +46,11 @@ class CommentsService: BaseService, CommentServiceProtocol {
         let request = CommentsAPI.commentsGetCommentWithRequestBuilder(commentHandle: commentHandle, authorization: authorization)
         let requesURLString = request.URLString
         
-        let cacheRequestForOutgoing = CacheFetchRequest(resultType: PostTopicRequest.self, predicate: PredicateBuilder().predicate(handle: commentHandle))
+        let cacheRequestForOutgoing = CacheFetchRequest(resultType: PostCommentRequest.self, predicate: PredicateBuilder().predicate(handle: commentHandle))
         let outgoingFetchResult = cache.fetchOutgoing(with: cacheRequestForOutgoing)
+        
         if !outgoingFetchResult.isEmpty {
-            let comment = Comment()
-            comment.text = outgoingFetchResult.first?.text
-            comment.commentHandle = (outgoingFetchResult.first?.handle)!
-            comment.userHandle = SocialPlus.shared.me?.uid
-            comment.firstName = SocialPlus.shared.me?.firstName
-            comment.firstName = SocialPlus.shared.me?.lastName
-            print("COMMENT HANDLE: \(comment.commentHandle)")
-            cachedResult(comment)
+            cachedResult(createCommentFromRequest(request: outgoingFetchResult.first!))
         } else {
             let cacheRequestForIncoming = CacheFetchRequest(resultType: CommentView.self, predicate: PredicateBuilder().predicate(typeID: requesURLString))
             cachedResult(convert(data: cache.fetchIncoming(with: cacheRequestForIncoming)).first!)
@@ -67,10 +61,23 @@ class CommentsService: BaseService, CommentServiceProtocol {
             if error != nil {
                 failure(error!)
             } else {
-//                self.cache.cacheIncoming(result?.body, for: requesURLString)
+                self.cache.cacheIncoming((result?.body)!, for: requesURLString)
                 success(self.convert(data: [(result?.body)!]).first!)
             }
         }
+    }
+    
+    private func createCommentFromRequest(request: PostCommentRequest) -> Comment {
+        let comment = Comment()
+        comment.text = request.text
+        comment.commentHandle = request.handle
+        comment.topicHandle = request.relatedHandle
+        comment.userHandle = SocialPlus.shared.me?.uid
+        comment.photoUrl = SocialPlus.shared.me?.photo?.url
+        comment.firstName = SocialPlus.shared.me?.firstName
+        comment.lastName = SocialPlus.shared.me?.lastName
+        print("COMMENT HANDLE: \(comment.commentHandle)")
+        return comment
     }
     
     func fetchComments(topicHandle: String, cursor: String? = nil, limit: Int32? = nil, cachedResult: @escaping CommentFetchResultHandler , resultHandler: @escaping CommentFetchResultHandler) {
@@ -80,17 +87,10 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
         var cacheResult = CommentFetchResult()
         
-        let cacheRequest = CacheFetchRequest(resultType: PostTopicRequest.self, predicate: PredicateBuilder().predicate(typeID: topicHandle))
+        let cacheRequest = CacheFetchRequest(resultType: PostCommentRequest.self, predicate: PredicateBuilder().predicate(typeID: topicHandle))
         
         cache.fetchOutgoing(with: cacheRequest).forEach { (cachedNewComments) in
-            let comment = Comment()
-            comment.text = cachedNewComments.text
-            comment.commentHandle = cachedNewComments.handle
-            comment.userHandle = SocialPlus.shared.me?.uid
-            comment.firstName = SocialPlus.shared.me?.firstName
-            comment.firstName = SocialPlus.shared.me?.lastName
-            print("COMMENT HANDLE: \(comment.commentHandle)")
-            cacheResult.comments.append(comment)
+            cacheResult.comments.append(createCommentFromRequest(request: cachedNewComments))
         }
         
         if let cachedComments = self.cache.firstIncoming(ofType: FeedResponseCommentView.self, predicate:  PredicateBuilder().predicate(typeID: requestURLString), sortDescriptors: nil)?.data  {
@@ -176,7 +176,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         if !network.isReachable {
             cache.cacheOutgoing(request, for: topicHandle)
             
-            let cacheRequest = CacheFetchRequest(resultType: PostTopicRequest.self, predicate: NSPredicate(format: "typeid = %@", topicHandle))
+            let cacheRequest = CacheFetchRequest(resultType: PostCommentRequest.self, predicate: NSPredicate(format: "typeid = %@", topicHandle))
             
             let commentHandle = self.cache.fetchOutgoing(with: cacheRequest).last?.handle
             
@@ -250,7 +250,7 @@ struct CommentViewModel {
 }
 
 class Comment: Equatable {
-    public var commentHandle =  NSUUID().uuidString
+    public var commentHandle: String!
     public var topicHandle: String!
     public var createdTime: Date?
     

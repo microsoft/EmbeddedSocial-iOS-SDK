@@ -77,7 +77,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
             
             view.refreshCell(index: index)
             repliesPresenter?.refreshCommentCell(commentView: viewModel(with: comments[index]))
-            interactor.commentAction(commentHandle: commentHandle, action: action)
+            interactor.commentAction(commentHandle: commentHandle!, action: action)
             
         case .profile:
             router.openUser(userHandle: userHandle, from: view as! UIViewController)

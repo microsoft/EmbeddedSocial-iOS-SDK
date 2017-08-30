@@ -78,8 +78,10 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         request.text = text
         
         repliesService?.postReply(commentHandle: commentHandle, request: request, success: { (response) in
-            self.repliesService?.reply(replyHandle: response.replyHandle!, success: { (reply) in
-                self.output.replyPosted(reply: reply)
+            self.repliesService?.reply(replyHandle: response.replyHandle!, cachedResult: { (cachedReply) in
+                self.output.replyPosted(reply: cachedReply)
+            }, success: { (webReply) in
+                self.output.replyPosted(reply: webReply)
             }, failure: { (error) in
                 
             })
