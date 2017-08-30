@@ -166,7 +166,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
         router.openReplies(commentView: viewModel(with:  comments[index]), scrollType: .none, from: view as! UIViewController, postDetailPresenter: self)
     }
     
-    func enableFetchFore() -> Bool {
+    func enableFetchMore() -> Bool {
         return cursor != nil
     }
     

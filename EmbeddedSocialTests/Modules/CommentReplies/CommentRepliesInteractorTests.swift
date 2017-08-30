@@ -33,13 +33,14 @@ private class MockLikeSerivce: LikesServiceProtocol {
 }
 
 private class MockRepliesService: RepliesServiceProtcol {
-    func reply(replyHandle: String, success: @escaping ((Reply) -> Void), failure: (Error) -> Void) {
+
+    func reply(replyHandle: String, cachedResult: @escaping ReplyHandler, success: @escaping ReplyHandler, failure: @escaping Failure) {
         let reply = Reply()
         reply.text = "test"
         success(reply)
     }
     
-    func fetchReplies(commentHandle: String, cursor: String?, limit: Int, resultHandler: @escaping RepliesFetchResultHandler) {
+    func fetchReplies(commentHandle: String, cursor: String?, limit: Int, cachedResult: @escaping RepliesFetchResultHandler, resultHandler: @escaping RepliesFetchResultHandler) {
         var result = RepliesFetchResult()
         result.cursor = "cursor"
         result.error = nil

@@ -6,7 +6,7 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class PostDetailsPresenterTests: XCTestCase {
+class PostDetailsPresenterTests: XCTestCase, PostViewModelActionsProtocol {
     
     let presenter = PostDetailPresenter()
     let interactor = MockPostDetailsInteractor()
@@ -21,10 +21,15 @@ class PostDetailsPresenterTests: XCTestCase {
             print("asdsa")})
         presenter.interactor = interactor
         presenter.view = view
+        presenter.postViewModelActionsHandler = self
         presenter.postViewModel = post
         presenter.router = router
         interactor.output = presenter
         view.output = presenter
+    }
+    
+    func handle(action: PostCellAction, path: IndexPath) {
+        //fake handle
     }
     
     override func tearDown() {
@@ -156,8 +161,6 @@ class PostDetailsPresenterTests: XCTestCase {
     }
     
     func testThatPostFetching() {
-        XCTFail("Next line crashes")
-        return;
             
         //when
         presenter.refreshPost()

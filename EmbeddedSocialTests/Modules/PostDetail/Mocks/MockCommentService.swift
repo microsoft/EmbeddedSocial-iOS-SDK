@@ -10,7 +10,7 @@ class MockCommentService: CommentsService {
     
     var commentText = ""
     
-    override func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, resultHandler: @escaping CommentFetchResultHandler) {
+    override func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, cachedResult: @escaping CommentFetchResultHandler, resultHandler: @escaping CommentFetchResultHandler) {
         resultHandler(CommentFetchResult(comments: [Comment()], error: nil, cursor: nil))
     }
     
@@ -25,7 +25,7 @@ class MockCommentService: CommentsService {
         success(response)
     }
     
-    override func comment(commentHandle: String, success: @escaping CommentHandler, failure: @escaping Failure) {
+    override func comment(commentHandle: String, cachedResult: @escaping CommentHandler, success: @escaping CommentHandler, failure: @escaping Failure) {
         let comment = Comment()
         comment.commentHandle = commentHandle
         comment.text = commentText
