@@ -28,6 +28,8 @@ struct PostViewModel {
     
     var tag: Int = 0
     var cellType: String = PostCell.reuseID
+    
+    // sourcery: skipEquality
     var onAction: ActionHandler?
     
     mutating func config(with post: Post, index: Int? = 0, cellType: String? = PostCell.reuseID, actionHandler: PostViewModelActionsProtocol) {

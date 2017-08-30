@@ -16,7 +16,9 @@ protocol FeedModuleInput: class {
     
     // Get Current Module Height
     func moduleHeight() -> CGFloat
+    // Layout
     var layout: FeedModuleLayoutType { get set }
+    // Changing feedType triggers items refetching and view reload
     var feedType: FeedType? { get set }
 }
 

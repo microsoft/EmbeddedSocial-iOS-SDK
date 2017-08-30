@@ -50,15 +50,6 @@ private class FeedModuleMock: FeedModuleInput {
     }
 
     var layout: FeedModuleLayoutType = .list
-    
-    
-    // Unused
-    func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
-                        size: CGSize,
-                        configurator: @escaping (T) -> Void) {}
-    func moduleHeight() -> CGFloat { return 0 }
-    
-    
     var setHeaderHeightCalled = false
     var headerHeight: CGFloat? = nil
     
@@ -66,6 +57,15 @@ private class FeedModuleMock: FeedModuleInput {
         setHeaderHeightCalled = true
         headerHeight = height
     }
+}
+
+extension FeedModuleMock {
+    
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
+                        size: CGSize,
+                        configurator: @escaping (T) -> Void) {}
+    
+    func moduleHeight() -> CGFloat { return 0 }
 }
 
 
@@ -101,6 +101,8 @@ class PopularModulePresenterTests: XCTestCase {
         }
         
     }
+    
+    // MARK: PopularModuleViewOutput
 
     func testThatPresenterLoadsCorrectly() {
     
@@ -134,8 +136,10 @@ class PopularModulePresenterTests: XCTestCase {
         XCTAssertNotNil(feedModule.feedType)
         XCTAssertTrue(feedModule.feedType == .popular(type: FeedType.TimeRange.weekly))
     }
+
+    // MARK: FeedModuleOutput
     
-    func testThatViewGetsLocked() {
+    func testThatViewHandlesStartOfFetching() {
         
         // when 
         sut.didStartRefreshingData()
@@ -144,7 +148,7 @@ class PopularModulePresenterTests: XCTestCase {
         XCTAssertTrue(view.didLockFeed)
     }
     
-    func testThatViewGetsUnlocked() {
+    func testThatViewHandlesEndOfFetching() {
         
         // when
         sut.didFinishRefreshingData(nil)
@@ -152,7 +156,7 @@ class PopularModulePresenterTests: XCTestCase {
         XCTAssertTrue(view.didUnlockFeed)
     }
     
-    func testThatViewHandlesEror() {
+    func testThatViewHandlesError() {
         
         // given
         let error = NSError(domain: "test error", code: 0, userInfo: nil)
@@ -164,6 +168,5 @@ class PopularModulePresenterTests: XCTestCase {
         XCTAssertTrue(view.didUnlockFeed)
         XCTAssertNotNil(view.didHandleError)
     }
-
     
 }

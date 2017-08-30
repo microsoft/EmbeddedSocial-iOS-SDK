@@ -1,4 +1,4 @@
-// Generated using Sourcery 0.7.2 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 0.8.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
 // swiftlint:disable file_length
@@ -39,6 +39,11 @@ internal func == (lhs: CredentialsList, rhs: CredentialsList) -> Bool {
     guard lhs.socialUID == rhs.socialUID else { return false }
     return true
 }
+// MARK: - FeedModuleRoutes AutoEquatable
+extension FeedModuleRoutes: Equatable {}
+ func == (lhs: FeedModuleRoutes, rhs: FeedModuleRoutes) -> Bool {
+    return true
+}
 // MARK: - Photo AutoEquatable
 extension Photo: Equatable {}
 internal func == (lhs: Photo, rhs: Photo) -> Bool {
@@ -66,6 +71,25 @@ internal func == (lhs: Post, rhs: Post) -> Bool {
     guard lhs.totalComments == rhs.totalComments else { return false }
     guard lhs.liked == rhs.liked else { return false }
     guard lhs.pinned == rhs.pinned else { return false }
+    return true
+}
+// MARK: - PostViewModel AutoEquatable
+extension PostViewModel: Equatable {}
+internal func == (lhs: PostViewModel, rhs: PostViewModel) -> Bool {
+    guard lhs.topicHandle == rhs.topicHandle else { return false }
+    guard lhs.userName == rhs.userName else { return false }
+    guard lhs.title == rhs.title else { return false }
+    guard lhs.text == rhs.text else { return false }
+    guard lhs.isLiked == rhs.isLiked else { return false }
+    guard lhs.isPinned == rhs.isPinned else { return false }
+    guard lhs.likedBy == rhs.likedBy else { return false }
+    guard lhs.totalLikes == rhs.totalLikes else { return false }
+    guard lhs.totalComments == rhs.totalComments else { return false }
+    guard lhs.timeCreated == rhs.timeCreated else { return false }
+    guard compareOptionals(lhs: lhs.userImageUrl, rhs: rhs.userImageUrl, compare: ==) else { return false }
+    guard compareOptionals(lhs: lhs.postImageUrl, rhs: rhs.postImageUrl, compare: ==) else { return false }
+    guard lhs.tag == rhs.tag else { return false }
+    guard lhs.cellType == rhs.cellType else { return false }
     return true
 }
 // MARK: - SocialUser AutoEquatable
