@@ -185,9 +185,15 @@ class FeedModulePresenter_Tests: XCTestCase {
         XCTAssertTrue(view.setLayoutReceivedType == layout)
     }
     
-    func testThatItHandlesEvent_Profile() {
+    func testThatProfileEvent_OpensProfileDetails() {
         
-        // give
+        // given
+        let userHandle = UUID().uuidString
+        var post = Post.mock(seed: 1)
+        post.userHandle = userHandle
+        
+        let feed = PostsFeed(feedType: .home, items: [post], cursor: "cursor")
+        sut.didFetch(feed: feed)
         let action = PostCellAction.profile
         let path = IndexPath(row: 0, section: 0)
 
@@ -196,7 +202,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         
         
         // then
-        XCTAssertEqual(router.open_route_presenter_ReceivedArguments?.route, FeedModuleRoutes.profileDetailes(user: "user"))
+        XCTAssertEqual(router.open_route_feedSource_ReceivedArguments?.route, FeedModuleRoutes.profileDetailes(user: userHandle))
     }
 
 }
