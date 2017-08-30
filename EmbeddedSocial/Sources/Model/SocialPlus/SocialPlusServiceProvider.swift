@@ -19,6 +19,8 @@ protocol SocialPlusServicesType {
     func getCoreDataStack() -> CoreDataStack
     
     func getCache(coreDataStack: CoreDataStack) -> CacheType
+    
+    func getNetworkTracker() -> NetworkTrackerType
 }
 
 struct SocialPlusServices: SocialPlusServicesType {
@@ -51,5 +53,9 @@ struct SocialPlusServices: SocialPlusServicesType {
         let database = TransactionsDatabaseFacade(incomingRepo: CoreDataRepository(context: stack.backgroundContext),
                                                   outgoingRepo: CoreDataRepository(context: stack.backgroundContext))
         return Cache(database: database)
+    }
+    
+    func getNetworkTracker() -> NetworkTrackerType {
+        return NetworkTracker()
     }
 }
