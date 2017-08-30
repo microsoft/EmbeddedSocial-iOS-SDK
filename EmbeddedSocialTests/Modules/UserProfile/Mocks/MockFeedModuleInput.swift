@@ -7,7 +7,11 @@
 
 class MockFeedModuleInput: FeedModuleInput {
     private(set) var setFeedCount = 0
-    var feedType: FeedType?
+    var feedType: FeedType? {
+        didSet {
+            setFeedCount += 1
+        }
+    }
     private(set) var refreshDataCount = 0
     private(set) var registerHeaderCount = 0
     private(set) var setLayoutCount = 0
