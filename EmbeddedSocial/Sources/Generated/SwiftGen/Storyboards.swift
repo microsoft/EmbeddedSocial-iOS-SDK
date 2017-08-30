@@ -235,6 +235,27 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum Report: String, StoryboardSceneType {
+    static let storyboardName = "Report"
+
+    case reportSubmittedViewControllerScene = "ReportSubmittedViewController"
+    static func instantiateReportSubmittedViewController() -> EmbeddedSocial.ReportSubmittedViewController {
+      guard let vc = StoryboardScene.Report.reportSubmittedViewControllerScene.viewController() as? EmbeddedSocial.ReportSubmittedViewController
+      else {
+        fatalError("ViewController 'ReportSubmittedViewController' is not of the expected class EmbeddedSocial.ReportSubmittedViewController.")
+      }
+      return vc
+    }
+
+    case reportViewControllerScene = "ReportViewController"
+    static func instantiateReportViewController() -> EmbeddedSocial.ReportViewController {
+      guard let vc = StoryboardScene.Report.reportViewControllerScene.viewController() as? EmbeddedSocial.ReportViewController
+      else {
+        fatalError("ViewController 'ReportViewController' is not of the expected class EmbeddedSocial.ReportViewController.")
+      }
+      return vc
+    }
+  }
   enum Search: String, StoryboardSceneType {
     static let storyboardName = "Search"
 
