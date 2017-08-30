@@ -83,7 +83,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         var reportItem = ActionViewModel()
         reportItem.title = L10n.PostMenu.report
         reportItem.action = { [weak self] in
-            self?.didTapRemovePost(post: post.topicHandle!)
+            self?.didTapReportPost(post: post.topicHandle!)
         }
         
         var items = [followItem, blockItem, reportItem]
@@ -200,8 +200,8 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     }
     
     func didTapReportPost(post: PostHandle) {
-        self.output?.didReport(post: post)
-        self.interactor.report(post: post)
+//        self.output?.didReport(post: post)
+       router.openReport(postHandle: post)
     }
     
     // MARK: Interactor Output
@@ -254,13 +254,6 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     }
     
     func didRemove(post: PostHandle, error: Error?) {
-        Logger.log(post, error)
-        if let error = error {
-            output?.didRequestFail(error: error)
-        }
-    }
-    
-    func didReport(post: PostHandle, error: Error?) {
         Logger.log(post, error)
         if let error = error {
             output?.didRequestFail(error: error)

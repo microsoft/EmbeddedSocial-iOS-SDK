@@ -6,14 +6,26 @@
 @testable import EmbeddedSocial
 
 final class MockReportingService: ReportingServiceType {
-    var reportCount = 0
-    var reportInputParameters: (userID: String, reason: ReportReason)?
-    var reportReturnValue: Result<Void>?
+    var reportUserCount = 0
+    var reportUserInputParameters: (userID: String, reason: ReportReason)?
+    var reportUserReturnValue: Result<Void>?
     
-    func report(userID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
-        reportCount += 1
-        reportInputParameters = (userID, reason)
-        if let result = reportReturnValue {
+    func reportUser(userID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
+        reportUserCount += 1
+        reportUserInputParameters = (userID, reason)
+        if let result = reportUserReturnValue {
+            completion(result)
+        }
+    }
+    
+    var reportPostCount = 0
+    var reportPostInputParameters: (postID: String, reason: ReportReason)?
+    var reportPostReturnValue: Result<Void>?
+    
+    func reportPost(postID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
+        reportPostCount += 1
+        reportPostInputParameters = (postID, reason)
+        if let result = reportPostReturnValue {
             completion(result)
         }
     }

@@ -7,34 +7,32 @@ import XCTest
 @testable import EmbeddedSocial
 
 class ReportInteractorTests: XCTestCase {
-    var reportingService: MockReportingService!
+    var api: MockReportAPI!
     var sut: ReportInteractor!
     
     override func setUp() {
         super.setUp()
-        reportingService = MockReportingService()
-        sut = ReportInteractor(reportingService: reportingService)
+        api = MockReportAPI()
+        sut = ReportInteractor(api: api)
     }
     
     override func tearDown() {
         super.tearDown()
-        reportingService = nil
+        api = nil
         sut = nil
     }
     
     func testThatItSubmitsReport() {
         // given
-        let userID = UUID().uuidString
         let reason = ReportReason.contentInfringement
-        reportingService.reportReturnValue = .success()
+        api.submitReportReturnValue = .success()
         
         // when
-        sut.report(userID: userID, reason: reason) { _ in () }
+        sut.submitReport(with: reason) { _ in () }
         
         // then
-        XCTAssertEqual(reportingService.reportCount, 1)
-        XCTAssertEqual(reportingService.reportInputParameters?.userID, userID)
-        XCTAssertEqual(reportingService.reportInputParameters?.reason, reason)
+        XCTAssertEqual(api.submitReportCount, 1)
+        XCTAssertEqual(api.submitReportReceivedReason, reason)
     }
     
     func testThatItReturnsCorrectReportReasonForIndexPath() {

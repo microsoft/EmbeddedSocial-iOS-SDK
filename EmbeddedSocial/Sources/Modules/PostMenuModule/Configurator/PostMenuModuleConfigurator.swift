@@ -10,12 +10,12 @@ class PostMenuModuleConfigurator {
     var viewController: PostMenuModuleViewController!
     var moduleInput: PostMenuModuleInput!
 
-    func configure(menuType: PostMenuType, moduleOutput: PostMenuModuleOutput? = nil, navigationComtroller: UINavigationController? = nil) {
+    func configure(menuType: PostMenuType, moduleOutput: PostMenuModuleOutput? = nil, navigationController: UINavigationController? = nil) {
         
         viewController = PostMenuModuleViewController()
         
         let router = PostMenuModuleRouter()
-        router.navigationController = navigationComtroller
+        router.navigationController = navigationController
 
         let presenter = PostMenuModulePresenter()
         presenter.view = viewController

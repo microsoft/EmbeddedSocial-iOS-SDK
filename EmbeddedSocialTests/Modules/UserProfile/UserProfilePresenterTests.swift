@@ -167,7 +167,7 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertEqual(feedInput.setFeedCount, 1)
         XCTAssertEqual(feedInput.feedType, .user(user: user.uid, scope: .recent))
         XCTAssertEqual(feedInput.setHeaderHeightCount, userIsCached ? 2 : 1)
-        XCTAssertTrue(abs(feedInput.headerHeight! - view.headerContentHeightReturnValue) < 0.0001)
+        XCTAssertTrue(abs(feedInput.headerHeight! - view.headerContentHeight) < 0.0001)
     }
     
     func testThatItOpensFollowingScreen() {
@@ -379,7 +379,8 @@ extension UserProfilePresenterTests {
         let scrollView = UIScrollView()
         scrollView.contentOffset = CGPoint(x: 0.0, y: 0.0)
         let presenter = makeDefaultPresenter()
-
+        view.headerContentHeight = UserProfilePresenter.headerHeight
+ 
         // when
         presenter.didScrollFeed(scrollView)
         
