@@ -100,7 +100,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
         followersCount = user.followersCount
         followingCount = user.followingCount
         view.setUser(user, isAnonymous: me == nil)
-        feedModuleInput?.setHeaderHeight(view.headerContentHeight(with: user))
+        feedModuleInput?.setHeaderHeight(view.headerContentHeight)
     }
     
     private func setupFeed() {
@@ -237,7 +237,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
 extension UserProfilePresenter: FeedModuleOutput {
     
     func didScrollFeed(_ feedView: UIScrollView) {
-        let isHeaderVisible = feedView.contentOffset.y < UserProfilePresenter.headerHeight - Constants.UserProfile.filterHeight
+        let isHeaderVisible = feedView.contentOffset.y < view.headerContentHeight - Constants.UserProfile.filterHeight
         view.setStickyFilterHidden(isHeaderVisible)
     }
     
