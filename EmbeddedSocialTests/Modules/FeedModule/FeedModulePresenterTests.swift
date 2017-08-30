@@ -17,7 +17,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         super.setUp()
         
         sut = FeedModulePresenter()
-        sut.setFeed(.home)
+        sut.feedType = .home
         
         view = FeedModuleViewInputMock()
         sut.view = view
@@ -151,7 +151,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         
         // given
         let feedType = FeedType.single(post: "handle")
-        sut.setFeed(feedType)
+        sut.feedType = feedType
         
         // when
         sut.refreshData()

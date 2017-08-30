@@ -41,12 +41,10 @@ private class PopularModuleViewMock: PopularModuleViewInput {
 
 private class FeedModuleMock: FeedModuleInput {
 
-    var didSetFeed: FeedType?
-    func setFeed(_ feed: FeedType) {
-        didSetFeed = feed
-    }
-
+    var feedType: FeedType?
+    
     var didRefreshData = false
+    
     func refreshData() {
         didRefreshData = true
     }
@@ -107,6 +105,7 @@ class PopularModulePresenterTests: XCTestCase {
     func testThatPresenterLoadsCorrectly() {
     
         // given
+        let correctFeedType = FeedType.popular(type: Constants.Feed.Popular.initialFeedScope)
       
         // when
         sut.viewIsReady()
@@ -114,9 +113,7 @@ class PopularModulePresenterTests: XCTestCase {
         // then
         XCTAssertTrue(view.didEmbedViewController)
         XCTAssertTrue(view.availableFeeds != nil)
-        XCTAssertNotNil(view.feedType)
-        XCTAssertNotNil(feedModule.didSetFeed)
-        XCTAssertTrue(feedModule.didRefreshData)
+        XCTAssertTrue(feedModule.feedType == correctFeedType)
     }
     
     func testThatFeedChangesFeedModule() {
@@ -134,8 +131,8 @@ class PopularModulePresenterTests: XCTestCase {
         sut.feedTypeDidChange(to: 1)
         
         // then
-        XCTAssertNotNil(feedModule.didSetFeed)
-        XCTAssertTrue(feedModule.didSetFeed == .popular(type: FeedType.TimeRange.weekly))
+        XCTAssertNotNil(feedModule.feedType)
+        XCTAssertTrue(feedModule.feedType == .popular(type: FeedType.TimeRange.weekly))
     }
     
     func testThatViewGetsLocked() {
