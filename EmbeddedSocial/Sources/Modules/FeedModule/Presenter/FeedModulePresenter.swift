@@ -4,11 +4,8 @@
 //
 
 protocol FeedModuleInput: class {
-    
-    // For feed change
-    func setFeed(_ feed: FeedType)
-    // Forcing module to update
-    // Triggers callbacks for start/finish
+
+    // Forces module to fetch all feed
     func refreshData()
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
@@ -19,8 +16,8 @@ protocol FeedModuleInput: class {
     
     // Get Current Module Height
     func moduleHeight() -> CGFloat
-    // Change layout
     var layout: FeedModuleLayoutType { get set }
+    var feedType: FeedType? { get set }
 }
 
 protocol FeedModuleOutput: class {
@@ -123,24 +120,20 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     var layout: FeedModuleLayoutType = .list {
         didSet {
-            view.setLayout(type: self.layout)
+            onLayoutTypeChange()
         }
     }
     
-    fileprivate var feedType: FeedType? {
+    var feedType: FeedType? {
         didSet {
-            Logger.log(feedType)
+            onFeedTypeChange()
         }
     }
     
-    fileprivate var cursor: String? = nil {
-        didSet {
-            Logger.log(cursor)
-        }
-    }
-    
-    private var formatter = DateFormatterTool()
-    private let limit = Int32(Constants.Feed.pageSize) // Default
+    fileprivate var isViewReady = false
+    fileprivate var formatter = DateFormatterTool()
+    fileprivate var cursor: String? = nil
+    fileprivate var limit: Int32 = Int32(Constants.Feed.pageSize)
     fileprivate var items = [Post]()
     fileprivate var header: SupplementaryItemModel?
     
@@ -159,31 +152,52 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         return view.getViewHeight()
     }
     
-    func setFeed(_ feed: FeedType) {
-        feedType = feed
-        cleanFeed()
-    }
-    
     func refreshData() {
-        
-        guard let feedType = self.feedType else {
-            Logger.log("feed type is not set")
-            return
-        }
-        
-        Logger.log()
-        interactor.fetchPosts(limit: limit, cursor: nil, feedType: feedType)
+        fetchAllItems()
     }
     
     // MARK: Private
     
+    private func onLayoutTypeChange() {
+        Logger.log(self.layout)
+        view.setLayout(type: self.layout)
+        fetchAllItems()
+    }
+    
+    private func onFeedTypeChange() {
+        Logger.log(self.feedType)
+        if isViewReady {
+            view.resetFocus()
+            fetchAllItems()
+        }
+    }
+    
     fileprivate func isHome() -> Bool {
         return feedType == .home
     }
+ 
+    private func fetchItems(with cursor: String? = nil) {
+        guard let feedType = self.feedType else {
+            Logger.log("feed type is not set")
+            return
+        }
+
+        interactor.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
+    }
     
-    private func cleanFeed() {
+    fileprivate func fetchAllItems() {
         cursor = nil
-        items.removeAll()
+        fetchItems()
+    }
+    
+    fileprivate func fetchMoreItems(with cursor: String?) {
+        
+        guard let cursor = cursor else {
+            Logger.log("cant fetch, no cursor")
+            return
+        }
+        
+        fetchItems(with: cursor)
     }
     
     // MARK: FeedModuleViewOutput
@@ -232,7 +246,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         case .like:
             
             let status = items[index].liked
-            let action:PostSocialAction = status ? .unlike : .like
+            let action: PostSocialAction = status ? .unlike : .like
             
             items[index].liked = !status
             
@@ -248,7 +262,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             
         case .pin:
             let status = items[index].pinned
-            let action:PostSocialAction = status ? .unpin : .pin
+            let action: PostSocialAction = status ? .unpin : .pin
             
             items[index].pinned = !status
             
@@ -290,41 +304,20 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         if let header = header {
             view.registerHeader(withType: header.type, configurator: header.configurator)
         }
-        
-        didAskFetchAll()
+        isViewReady = true
     }
     
     func viewDidAppear() {
-        
-        //        if isHome() {
+        limit = Int32(view.itemsLimit)
         didAskFetchAll()
-        //        }
     }
     
     func didAskFetchAll() {
-    
-        guard let feedType = self.feedType else {
-            Logger.log("feed type is not set")
-            return
-        }
-        
-        interactor.fetchPosts(limit: limit, cursor: nil, feedType: feedType)
+        fetchAllItems()
     }
     
     func didAskFetchMore() {
-        
-        guard let feedType = self.feedType else {
-            Logger.log("feed type is not set")
-            return
-        }
-        
-        guard let cursor = cursor else {
-            Logger.log("cant fetch more, no cursor")
-            return
-        }
-        
-        Logger.log(cursor)
-        interactor.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
+       fetchMoreItems(with: cursor)
     }
     
     func didTapItem(path: IndexPath) {
@@ -447,7 +440,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
         if isHome() {
             
             // Refetch Data
-            didAskFetchAll()
+            fetchAllItems()
             
         } else {
             
@@ -467,7 +460,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
         if isHome() {
             
             // Refetch Data
-            didAskFetchAll()
+            fetchAllItems()
             
         } else {
             
@@ -501,7 +494,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     func didRequestFail(error: Error) {
         Logger.log("Reloading feed", error, event: .error)
         view.showError(error: error)
-        didAskFetchAll()
+        fetchAllItems()
     }
     
     // MARK: Private

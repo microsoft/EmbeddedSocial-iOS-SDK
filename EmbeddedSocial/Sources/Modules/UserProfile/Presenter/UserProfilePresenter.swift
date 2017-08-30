@@ -220,8 +220,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     
     private func setFeedScope(_ scope: FeedType.UserFeedScope) {
         guard let uid = userID ?? me?.uid else { return }
-        feedModuleInput?.setFeed(.user(user: uid, scope: scope))
-        feedModuleInput?.refreshData()
+        feedModuleInput?.feedType = (.user(user: uid, scope: scope))
         view.setFilterEnabled(false)
     }
     

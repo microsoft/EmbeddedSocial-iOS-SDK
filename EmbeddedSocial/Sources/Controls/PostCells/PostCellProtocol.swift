@@ -6,6 +6,6 @@
 import Foundation
 
 protocol PostCellProtocol: class {
-    func configure(with data: PostViewModel, collectionView: UICollectionView)
+    func configure(with data: PostViewModel, collectionView: UICollectionView?)
     func indexPath() -> IndexPath
 }

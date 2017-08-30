@@ -57,6 +57,9 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     func fetchPosts(limit: Int32? = nil, cursor: String? = nil, feedType: FeedType) {
         
         let isLoadingMore = cursor != nil
+        
+        Logger.log("Fetching: limit:\(String(describing: limit)) cursor:\(String(describing: cursor)) type:\(feedType) more: \(isLoadingMore)")
+        
         output.didStartFetching()
         
         switch feedType {
