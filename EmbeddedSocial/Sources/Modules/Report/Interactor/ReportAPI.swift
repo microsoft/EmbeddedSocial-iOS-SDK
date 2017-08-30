@@ -5,8 +5,6 @@
 
 import Foundation
 
-protocol ReportInteractorInput: class {
-    func reportReason(forIndexPath indexPath: IndexPath) -> ReportReason?
-    
+protocol ReportAPI {
     func submitReport(with reason: ReportReason, completion: @escaping (Result<Void>) -> Void)
 }

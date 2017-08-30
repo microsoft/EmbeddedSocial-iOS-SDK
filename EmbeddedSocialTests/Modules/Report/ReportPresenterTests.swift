@@ -11,16 +11,14 @@ class ReportPresenterTests: XCTestCase {
     var view: MockReportView!
     var interactor: MockReportInteractor!
     var sut: ReportPresenter!
-    var userID: String!
     
     override func setUp() {
         super.setUp()
-        userID = UUID().uuidString
         router = MockReportRouter()
         view = MockReportView()
         interactor = MockReportInteractor()
         
-        sut = ReportPresenter(userID: userID)
+        sut = ReportPresenter()
         sut.router = router
         sut.view = view
         sut.interactor = interactor
@@ -28,7 +26,6 @@ class ReportPresenterTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
-        userID = nil
         router = nil
         view = nil
         interactor = nil
@@ -53,7 +50,7 @@ class ReportPresenterTests: XCTestCase {
         sut.onSubmit()
         
         // then
-        XCTAssertFalse(interactor.report_userID_reason_completion_Called)
+        XCTAssertFalse(interactor.submitReport_with_completion_Called)
         XCTAssertFalse(view.setIsLoading_Called)
     }
     
@@ -61,7 +58,7 @@ class ReportPresenterTests: XCTestCase {
         // given
         let selectedRow = IndexPath(row: 0, section: 0)
         let reportReason = ReportReason.contentInfringement
-        interactor.report_userID_reason_completion_ReturnValue = .success()
+        interactor.submitReport_with_completion_ReturnValue = .success()
         interactor.reportReason_forIndexPath_ReturnValue = reportReason
         
         // when
@@ -69,9 +66,8 @@ class ReportPresenterTests: XCTestCase {
         sut.onSubmit()
         
         // then
-        XCTAssertTrue(interactor.report_userID_reason_completion_Called)
-        XCTAssertEqual(interactor.report_userID_reason_completion_ReceivedArguments?.userID, userID)
-        XCTAssertEqual(interactor.report_userID_reason_completion_ReceivedArguments?.reason, reportReason)
+        XCTAssertTrue(interactor.submitReport_with_completion_Called)
+        XCTAssertEqual(interactor.submitReport_with_completion_ReceivedReason, reportReason)
         
         XCTAssertTrue(view.setIsLoading_Called)
         XCTAssertEqual(view.setIsLoading_ReceivedIsLoading, false)
@@ -83,7 +79,7 @@ class ReportPresenterTests: XCTestCase {
         // given
         let selectedRow = IndexPath(row: 0, section: 0)
         let error = APIError.unknown
-        interactor.report_userID_reason_completion_ReturnValue = .failure(error)
+        interactor.submitReport_with_completion_ReturnValue = .failure(error)
         interactor.reportReason_forIndexPath_ReturnValue = .contentInfringement
         
         // when
@@ -91,7 +87,7 @@ class ReportPresenterTests: XCTestCase {
         sut.onSubmit()
         
         // then
-        XCTAssertTrue(interactor.report_userID_reason_completion_Called)
+        XCTAssertTrue(interactor.submitReport_with_completion_Called)
         
         XCTAssertTrue(view.setIsLoading_Called)
         XCTAssertEqual(view.setIsLoading_ReceivedIsLoading, false)

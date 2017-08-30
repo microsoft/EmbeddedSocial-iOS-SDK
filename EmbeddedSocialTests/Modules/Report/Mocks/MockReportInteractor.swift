@@ -21,14 +21,14 @@ class MockReportInteractor: ReportInteractorInput {
     
     //MARK: - report
     
-    var report_userID_reason_completion_Called = false
-    var report_userID_reason_completion_ReceivedArguments: (userID: String, reason: ReportReason)?
-    var report_userID_reason_completion_ReturnValue: Result<Void>?
+    var submitReport_with_completion_Called = false
+    var submitReport_with_completion_ReceivedReason: ReportReason?
+    var submitReport_with_completion_ReturnValue: Result<Void>?
     
-    func report(userID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
-        report_userID_reason_completion_Called = true
-        report_userID_reason_completion_ReceivedArguments = (userID: userID, reason: reason)
-        if let result = report_userID_reason_completion_ReturnValue {
+    func submitReport(with reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
+        submitReport_with_completion_Called = true
+        submitReport_with_completion_ReceivedReason = reason
+        if let result = submitReport_with_completion_ReturnValue {
             completion(result)
         }
     }

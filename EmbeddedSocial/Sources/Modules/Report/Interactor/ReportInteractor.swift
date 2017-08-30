@@ -6,10 +6,10 @@
 import Foundation
 
 final class ReportInteractor: ReportInteractorInput {
-    private let reportingService: ReportingServiceType
-    
-    init(reportingService: ReportingServiceType) {
-        self.reportingService = reportingService
+    private let api: ReportAPI
+
+    init(api: ReportAPI) {
+        self.api = api
     }
     
     func reportReason(forIndexPath indexPath: IndexPath) -> ReportReason? {
@@ -19,7 +19,7 @@ final class ReportInteractor: ReportInteractorInput {
         return ReportReason.orderedReasons[indexPath.row]
     }
     
-    func report(userID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
-        reportingService.report(userID: userID, reason: reason, completion: completion)
+    func submitReport(with reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
+        api.submitReport(with: reason, completion: completion)
     }
 }

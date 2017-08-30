@@ -13,12 +13,12 @@ struct ReportConfigurator {
         viewController.title = L10n.Report.screenTitle
     }
     
-    func configure(userID: String, navigationController: UINavigationController?) {
+    func configure(api: ReportAPI, navigationController: UINavigationController?) {
         navigationController?.navigationBar.isTranslucent = false
         
-        let presenter = ReportPresenter(userID: userID)
+        let presenter = ReportPresenter()
         presenter.view = viewController
-        presenter.interactor = ReportInteractor(reportingService: ReportingService())
+        presenter.interactor = ReportInteractor(api: api)
         presenter.router = ReportRouter(navigationController: navigationController)
         
         viewController.output = presenter

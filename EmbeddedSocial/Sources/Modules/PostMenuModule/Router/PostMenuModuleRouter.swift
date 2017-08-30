@@ -6,7 +6,7 @@
 protocol PostMenuModuleRouterInput {
     
     func openEdit(post: Post)
-    func openReport(post: Post)
+    func openReport(postHandle: PostHandle)
     
 }
 
@@ -26,8 +26,12 @@ class PostMenuModuleRouter: PostMenuModuleRouterInput {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func openReport(post: Post) {
-        Logger.log(post.topicHandle)
+    func openReport(postHandle: PostHandle) {
+        let config = ReportConfigurator()
+        let navController = UINavigationController(rootViewController: config.viewController)
+        let api = ReportPostAPI(postID: postHandle, reportingService: ReportingService())
+        config.configure(api: api, navigationController: navController)
+        navigationController?.present(navController, animated: true, completion: nil)
     }
 
 }

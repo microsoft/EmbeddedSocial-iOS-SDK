@@ -53,7 +53,8 @@ final class UserProfileRouter: UserProfileRouterInput {
     func openReport(user: User) {
         let config = ReportConfigurator()
         let navController = UINavigationController(rootViewController: config.viewController)
-        config.configure(userID: user.uid, navigationController: navController)
+        let api = ReportUserAPI(userID: user.uid, reportingService: ReportingService())
+        config.configure(api: api, navigationController: navController)
         viewController?.navigationController?.present(navController, animated: true, completion: nil)
     }
     

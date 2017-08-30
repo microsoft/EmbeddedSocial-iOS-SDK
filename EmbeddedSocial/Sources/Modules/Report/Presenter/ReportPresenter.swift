@@ -26,12 +26,6 @@ final class ReportPresenter {
     fileprivate var isSubmitButtonEnabled: Bool {
         return selectedIndexPath != nil
     }
-    
-    fileprivate let userID: String
-    
-    init(userID: String) {
-        self.userID = userID
-    }
 }
 
 extension ReportPresenter: ReportViewOutput {
@@ -53,7 +47,7 @@ extension ReportPresenter: ReportViewOutput {
         
         view.setIsLoading(true)
         
-        interactor.report(userID: userID, reason: reason) { [weak self] result in
+        interactor.submitReport(with: reason) { [weak self] result in
             self?.view.setIsLoading(false)
             
             if result.isSuccess {
