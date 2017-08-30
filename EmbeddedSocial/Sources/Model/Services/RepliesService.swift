@@ -81,9 +81,11 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                 return
             }
             
-            self.cache.cacheIncoming(response!.body!, for: requestURLString)
-            result.replies = self.convert(data: data)
-            result.cursor = response?.body?.cursor
+            if let body = response?.body {
+                self.cache.cacheIncoming(body, for: requestURLString)
+                result.replies = self.convert(data: data)
+                result.cursor = body.cursor
+            }
             
             resultHandler(result)
         }

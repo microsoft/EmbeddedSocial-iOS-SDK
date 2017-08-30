@@ -56,13 +56,12 @@ class CommentsService: BaseService, CommentServiceProtocol {
             cachedResult(convert(data: cache.fetchIncoming(with: cacheRequestForIncoming)).first!)
         }
         
-        
         request.execute { (result, error) in
-            if error != nil {
-                failure(error!)
+            if let body = result?.body {
+                self.cache.cacheIncoming(body, for: requesURLString)
+                success(self.convert(data: [body]).first!)
             } else {
-                self.cache.cacheIncoming((result?.body)!, for: requesURLString)
-                success(self.convert(data: [(result?.body)!]).first!)
+                failure(error ?? APIError.unknown)
             }
         }
     }
@@ -123,9 +122,11 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 return
             }
             
-            self.cache.cacheIncoming(response!.body!, for: requestURLString)
-            result.comments = self.convert(data: data)
-            result.cursor = response?.body?.cursor
+            if let body = response?.body {
+                self.cache.cacheIncoming(body, for: requestURLString)
+                result.comments = self.convert(data: data)
+                result.cursor = body.cursor
+            }
             
             resultHandler(result)
         }

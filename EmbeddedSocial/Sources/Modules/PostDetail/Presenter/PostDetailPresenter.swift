@@ -133,7 +133,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     func didFail(error: CommentsServiceError) {
     }
     
-    func commentDidPosted(comment: Comment) {
+    func commentDidPost(comment: Comment) {
         comments.append(comment)
         view.postCommentSuccess()
     }
