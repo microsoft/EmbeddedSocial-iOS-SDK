@@ -88,9 +88,13 @@ class SocialService: BaseService, SocialServiceType {
     }
     
     func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.myFollowersGetFollowers(authorization: authorization, cursor: cursor, limit: Int32(limit)) {
-            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
-        }
+        let builder = SocialAPI.myFollowersGetFollowersWithRequestBuilder(
+            authorization: authorization,
+            cursor: cursor,
+            limit: Int32(limit)
+        )
+        
+        executeRequest(with: builder, completion: completion)
     }
     
     func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
@@ -126,8 +130,29 @@ class SocialService: BaseService, SocialServiceType {
     }
     
     func getMyBlockedUsers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.myBlockedUsersGetBlockedUsers(authorization: authorization, cursor: cursor, limit: Int32(limit)) {
-            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
+        let builder = SocialAPI.myBlockedUsersGetBlockedUsersWithRequestBuilder(
+            authorization: authorization,
+            cursor: cursor,
+            limit: Int32(limit)
+        )
+        
+        executeRequest(with: builder, completion: completion)
+    }
+    
+    private func executeRequest(with builder: RequestBuilder<FeedResponseUserCompactView>,
+                                completion: @escaping (Result<UsersListResponse>) -> Void) {
+        
+        if let cachedResponse = cache.firstIncoming(ofType: FeedResponseUserCompactView.self, handle: builder.URLString) {
+            processUserFeedResponse(response: cachedResponse, error: nil, completion: completion)
+        }
+        
+        builder.execute { [weak self] result, error in
+            let response = result?.body
+            response?.setHandle(builder.URLString)
+            if let response = response {
+                self?.cache.cacheIncoming(response)
+            }
+            self?.processUserFeedResponse(response: response, error: error, completion: completion)
         }
     }
     

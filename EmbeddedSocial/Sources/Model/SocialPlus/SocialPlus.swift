@@ -53,6 +53,13 @@ public final class SocialPlus {
         } else {
             coordinator.openPopularScreen()
         }
+        
+        let service = SocialService()
+        service.getMyFollowers(cursor: nil, limit: 30) { result in
+            withExtendedLifetime(service) {
+                print(result)
+            }
+        }
     }
     
     private func setupCoreDataStack() {

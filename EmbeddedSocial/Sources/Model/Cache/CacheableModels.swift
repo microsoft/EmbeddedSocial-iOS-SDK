@@ -53,3 +53,15 @@ extension CommentView: Cacheable {
         return topicHandle
     }
 }
+
+extension FeedResponseUserCompactView: Cacheable, HandleMixin {
+    func getHandle() -> String? {
+        return handle
+    }
+    
+    func setHandle(_ handle: String?) {
+        if let handle = handle {
+            self.handle = handle
+        }
+    }
+}
