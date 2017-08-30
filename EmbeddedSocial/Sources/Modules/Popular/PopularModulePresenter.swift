@@ -36,15 +36,13 @@ class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, Popul
         
         view.embedFeedViewController(feedModuleViewController)
         
-        feedModule.setFeed(.popular(type: currentFeed))
-        feedModule.refreshData()
+        feedModule.feedType = (.popular(type: currentFeed))
     }
 
     func feedTypeDidChange(to index: Int) {
         let timeRange = feedMapping[index].feed
         let feedType = FeedType.popular(type: timeRange)
-        feedModule.setFeed(feedType)
-        feedModule.refreshData()
+        feedModule.feedType = (feedType)
     }
     
     deinit {

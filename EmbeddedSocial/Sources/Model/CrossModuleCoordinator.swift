@@ -128,7 +128,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     lazy var configuredHome: UIViewController! = {
         let configurator = FeedModuleConfigurator(cache: self.cache)
         configurator.configure(navigationController: self.navigationStack.navigationController)
-        configurator.moduleInput.setFeed(.home)
+        configurator.moduleInput.feedType = (.home)
         configurator.viewController.title = L10n.Home.screenTitle
         let vc = configurator.viewController!
         return vc

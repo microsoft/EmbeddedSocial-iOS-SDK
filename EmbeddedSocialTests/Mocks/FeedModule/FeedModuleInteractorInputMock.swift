@@ -13,7 +13,7 @@ class FeedModuleInteractorInputMock: FeedModuleInteractorInput {
     var fetchPostsCalled = false
     var fetchPostsReceivedArguments: (limit: Int32?, cursor: String?, feedType: FeedType)?
     
-    func fetchPosts(limit: Int32?, cursor: String?, feedType: FeedType) {
+    func fetchPosts(limit: Int?, cursor: String?, feedType: FeedType) {
         fetchPostsCalled = true
         fetchPostsReceivedArguments = (limit: limit, cursor: cursor, feedType: feedType)
     }

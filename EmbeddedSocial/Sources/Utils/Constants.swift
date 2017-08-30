@@ -46,7 +46,7 @@ extension Constants {
     }
     
     struct Feed {
-        static let pageSize = 2
+        static let pageSize = 10
     }
 }
 
