@@ -1187,15 +1187,15 @@
 		88BC87401F14FA1B00EAEFD7 /* EmbeddedSocial.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = EmbeddedSocial.modulemap; sourceTree = "<group>"; };
 		88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		88D2F8D61F55C2B50004A8BC /* ReportingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportingService.swift; sourceTree = "<group>"; };
-		88D2F8D81F56A4440004A8BC /* ReportSubmittedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportSubmittedViewController.swift; path = Report/ReportSubmittedViewController.swift; sourceTree = "<group>"; };
-		88D2F8DA1F56A61B0004A8BC /* ReportRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportRouter.swift; path = Report/ReportRouter.swift; sourceTree = "<group>"; };
+		88D2F8D81F56A4440004A8BC /* ReportSubmittedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportSubmittedViewController.swift; path = ReportSubmittedViewController.swift; sourceTree = "<group>"; };
+		88D2F8DA1F56A61B0004A8BC /* ReportRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportRouter.swift; path = ReportRouter.swift; sourceTree = "<group>"; };
 		88D2F8DD1F56A6260004A8BC /* ReportRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportRouterInput.swift; sourceTree = "<group>"; };
-		88D2F8E11F56B3350004A8BC /* ReportInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportInteractorTests.swift; path = Report/ReportInteractorTests.swift; sourceTree = "<group>"; };
+		88D2F8E11F56B3350004A8BC /* ReportInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportInteractorTests.swift; path = ReportInteractorTests.swift; sourceTree = "<group>"; };
 		88D2F8E31F56B3880004A8BC /* MockReportingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockReportingService.swift; sourceTree = "<group>"; };
-		88D2F8E51F56B82A0004A8BC /* MockReportInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockReportInteractor.swift; path = Report/MockReportInteractor.swift; sourceTree = "<group>"; };
-		88D2F8E71F56B8450004A8BC /* MockReportView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockReportView.swift; path = Report/MockReportView.swift; sourceTree = "<group>"; };
-		88D2F8E91F56B8860004A8BC /* MockReportRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockReportRouter.swift; path = Report/MockReportRouter.swift; sourceTree = "<group>"; };
-		88D2F8EC1F56B8B80004A8BC /* ReportPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportPresenterTests.swift; path = Report/ReportPresenterTests.swift; sourceTree = "<group>"; };
+		88D2F8E51F56B82A0004A8BC /* MockReportInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockReportInteractor.swift; path = MockReportInteractor.swift; sourceTree = "<group>"; };
+		88D2F8E71F56B8450004A8BC /* MockReportView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockReportView.swift; path = MockReportView.swift; sourceTree = "<group>"; };
+		88D2F8E91F56B8860004A8BC /* MockReportRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockReportRouter.swift; path = MockReportRouter.swift; sourceTree = "<group>"; };
+		88D2F8EC1F56B8B80004A8BC /* ReportPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportPresenterTests.swift; path = ReportPresenterTests.swift; sourceTree = "<group>"; };
 		88D45C191F4491F600DCB475 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		88D8CCAF1F31CA520032FB2B /* UserListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListItem.swift; sourceTree = "<group>"; };
 		88D8CCB11F31CA680032FB2B /* UserListItemsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListItemsBuilder.swift; sourceTree = "<group>"; };
@@ -1218,14 +1218,14 @@
 		88E3AC2B1F558FA90016357F /* MockSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSettingsView.swift; sourceTree = "<group>"; };
 		88E3AC2E1F5590D90016357F /* MockSettingsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSettingsInteractor.swift; sourceTree = "<group>"; };
 		88E3AC341F55A5710016357F /* ReportReason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportReason.swift; sourceTree = "<group>"; };
-		88E3AC391F55B02C0016357F /* Report.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Report.storyboard; path = Report/Report.storyboard; sourceTree = "<group>"; };
-		88E3AC3B1F55B0400016357F /* ReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportViewController.swift; path = Report/ReportViewController.swift; sourceTree = "<group>"; };
-		88E3AC3E1F55B28C0016357F /* ReportConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportConfigurator.swift; path = Report/ReportConfigurator.swift; sourceTree = "<group>"; };
-		88E3AC411F55B7000016357F /* ReportPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportPresenter.swift; path = Report/ReportPresenter.swift; sourceTree = "<group>"; };
+		88E3AC391F55B02C0016357F /* Report.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Report.storyboard; path = Report.storyboard; sourceTree = "<group>"; };
+		88E3AC3B1F55B0400016357F /* ReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportViewController.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
+		88E3AC3E1F55B28C0016357F /* ReportConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportConfigurator.swift; path = ReportConfigurator.swift; sourceTree = "<group>"; };
+		88E3AC411F55B7000016357F /* ReportPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportPresenter.swift; path = ReportPresenter.swift; sourceTree = "<group>"; };
 		88E3AC431F55B70D0016357F /* ReportViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportViewOutput.swift; sourceTree = "<group>"; };
-		88E3AC451F55B7570016357F /* ReportViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportViewInput.swift; path = Report/ReportViewInput.swift; sourceTree = "<group>"; };
-		88E3AC481F55BD1B0016357F /* ReportInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportInteractorInput.swift; path = Report/ReportInteractorInput.swift; sourceTree = "<group>"; };
-		88E3AC4B1F55BD310016357F /* ReportInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportInteractor.swift; path = Report/ReportInteractor.swift; sourceTree = "<group>"; };
+		88E3AC451F55B7570016357F /* ReportViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportViewInput.swift; path = ReportViewInput.swift; sourceTree = "<group>"; };
+		88E3AC481F55BD1B0016357F /* ReportInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportInteractorInput.swift; path = ReportInteractorInput.swift; sourceTree = "<group>"; };
+		88E3AC4B1F55BD310016357F /* ReportInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportInteractor.swift; path = ReportInteractor.swift; sourceTree = "<group>"; };
 		88E3AC4D1F55C0E10016357F /* UIViewController+HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+HUD.swift"; sourceTree = "<group>"; };
 		88F163781F2648D000DAAF68 /* SessionStoreDatabaseFacadeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionStoreDatabaseFacadeTests.swift; sourceTree = "<group>"; };
 		88F1637A1F26494100DAAF68 /* SocialUserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialUserTests.swift; sourceTree = "<group>"; };
@@ -2204,11 +2204,11 @@
 				881060FA1F28F3E4008CA2FB /* FollowStatus.swift */,
 				88580B0B1F2213AB00C1CBAF /* Photo.swift */,
 				9CEA75231F2A0E61009FC89D /* Post.swift */,
+				88E3AC341F55A5710016357F /* ReportReason.swift */,
 				88580B0C1F2213AB00C1CBAF /* SessionStore.swift */,
 				88580B0D1F2213AB00C1CBAF /* SocialUser.swift */,
 				88580B0E1F2213AB00C1CBAF /* User.swift */,
 				881060FC1F28F4B2008CA2FB /* Visibility.swift */,
-				88E3AC341F55A5710016357F /* ReportReason.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -2946,7 +2946,6 @@
 		889AFC071F220BCD003AAF19 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				88D2F8E01F56B31E0004A8BC /* Report */,
 				88E3AC161F5562A10016357F /* BlockedUsers */,
 				63F8488E1F4ADD3B00D434CF /* CommentReplies */,
 				88F7A7991F27976E005FEC5F /* CreateAccount */,
@@ -2961,6 +2960,7 @@
 				9C2D9C0D1F4AFB81001514C3 /* Popular */,
 				93AC65AB1F3E05DA00FE5A3A /* PostDetail */,
 				9C6244F01F457DDC004814BB /* PostMenu */,
+				88D2F8E01F56B31E0004A8BC /* Report */,
 				889119B81F4AF7A0005B3B32 /* Search */,
 				889119A81F4AE05D005B3B32 /* SearchPeople */,
 				88E3AC171F5562AD0016357F /* Settings */,
@@ -3021,6 +3021,7 @@
 				88E3AC201F5565200016357F /* MockLikesService.swift */,
 				8811C8241F3C72CD00F7513D /* MockLogoutController.swift */,
 				88F163881F27569900DAAF68 /* MockQueriableRepository.swift */,
+				88D2F8E31F56B3880004A8BC /* MockReportingService.swift */,
 				889119C01F4AFA8E005B3B32 /* MockSearchResultsUpdating.swift */,
 				889119AD1F4AE10C005B3B32 /* MockSearchService.swift */,
 				88F7A78C1F278AA4005FEC5F /* MockSessionService.swift */,
@@ -3034,7 +3035,6 @@
 				889AFC181F220BCD003AAF19 /* MockURLSchemeService.swift */,
 				88F551C31F39D65200F4AAB9 /* MockUserListModuleInput.swift */,
 				88F7A78A1F2789F0005FEC5F /* MockUserService.swift */,
-				88D2F8E31F56B3880004A8BC /* MockReportingService.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -3142,6 +3142,7 @@
 				88D2F8DD1F56A6260004A8BC /* ReportRouterInput.swift */,
 			);
 			name = Router;
+			path = Router;
 			sourceTree = "<group>";
 		};
 		88D2F8E01F56B31E0004A8BC /* Report */ = {
@@ -3152,16 +3153,18 @@
 				88D2F8EC1F56B8B80004A8BC /* ReportPresenterTests.swift */,
 			);
 			name = Report;
+			path = Report;
 			sourceTree = "<group>";
 		};
 		88D2F8EB1F56B8A70004A8BC /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
 				88D2F8E51F56B82A0004A8BC /* MockReportInteractor.swift */,
-				88D2F8E71F56B8450004A8BC /* MockReportView.swift */,
 				88D2F8E91F56B8860004A8BC /* MockReportRouter.swift */,
+				88D2F8E71F56B8450004A8BC /* MockReportView.swift */,
 			);
 			name = Mocks;
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		88D8CCAE1F31CA3E0032FB2B /* DataDisplayManager */ = {
@@ -3233,24 +3236,26 @@
 			isa = PBXGroup;
 			children = (
 				88E3AC401F55B28F0016357F /* Configurator */,
-				88E3AC471F55B7800016357F /* Presenter */,
-				88E3AC3D1F55B27E0016357F /* View */,
 				88E3AC4A1F55BD1E0016357F /* Interactor */,
+				88E3AC471F55B7800016357F /* Presenter */,
 				88D2F8DC1F56A61D0004A8BC /* Router */,
+				88E3AC3D1F55B27E0016357F /* View */,
 			);
 			name = Report;
+			path = Report;
 			sourceTree = "<group>";
 		};
 		88E3AC3D1F55B27E0016357F /* View */ = {
 			isa = PBXGroup;
 			children = (
 				88E3AC391F55B02C0016357F /* Report.storyboard */,
-				88E3AC3B1F55B0400016357F /* ReportViewController.swift */,
 				88D2F8D81F56A4440004A8BC /* ReportSubmittedViewController.swift */,
-				88E3AC431F55B70D0016357F /* ReportViewOutput.swift */,
+				88E3AC3B1F55B0400016357F /* ReportViewController.swift */,
 				88E3AC451F55B7570016357F /* ReportViewInput.swift */,
+				88E3AC431F55B70D0016357F /* ReportViewOutput.swift */,
 			);
 			name = View;
+			path = View;
 			sourceTree = "<group>";
 		};
 		88E3AC401F55B28F0016357F /* Configurator */ = {
@@ -3259,6 +3264,7 @@
 				88E3AC3E1F55B28C0016357F /* ReportConfigurator.swift */,
 			);
 			name = Configurator;
+			path = Configurator;
 			sourceTree = "<group>";
 		};
 		88E3AC471F55B7800016357F /* Presenter */ = {
@@ -3267,15 +3273,17 @@
 				88E3AC411F55B7000016357F /* ReportPresenter.swift */,
 			);
 			name = Presenter;
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		88E3AC4A1F55BD1E0016357F /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				88E3AC481F55BD1B0016357F /* ReportInteractorInput.swift */,
 				88E3AC4B1F55BD310016357F /* ReportInteractor.swift */,
+				88E3AC481F55BD1B0016357F /* ReportInteractorInput.swift */,
 			);
 			name = Interactor;
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		88F385841F30D0DB0048B04C /* Interactor */ = {
