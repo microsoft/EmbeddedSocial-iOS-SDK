@@ -472,6 +472,9 @@
 		88BC87571F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88D2F8D71F55C2B50004A8BC /* ReportingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2F8D61F55C2B50004A8BC /* ReportingService.swift */; };
+		88D2F8D91F56A4440004A8BC /* ReportSubmittedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2F8D81F56A4440004A8BC /* ReportSubmittedViewController.swift */; };
+		88D2F8DB1F56A61B0004A8BC /* ReportRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2F8DA1F56A61B0004A8BC /* ReportRouter.swift */; };
+		88D2F8DE1F56A6260004A8BC /* ReportRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2F8DD1F56A6260004A8BC /* ReportRouterInput.swift */; };
 		88D45C1A1F4491F600DCB475 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D45C191F4491F600DCB475 /* Strings.swift */; };
 		88D8CCB01F31CA520032FB2B /* UserListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D8CCAF1F31CA520032FB2B /* UserListItem.swift */; };
 		88D8CCB21F31CA680032FB2B /* UserListItemsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D8CCB11F31CA680032FB2B /* UserListItemsBuilder.swift */; };
@@ -1188,6 +1191,9 @@
 		88BC87401F14FA1B00EAEFD7 /* EmbeddedSocial.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = EmbeddedSocial.modulemap; sourceTree = "<group>"; };
 		88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		88D2F8D61F55C2B50004A8BC /* ReportingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportingService.swift; sourceTree = "<group>"; };
+		88D2F8D81F56A4440004A8BC /* ReportSubmittedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportSubmittedViewController.swift; path = Report/ReportSubmittedViewController.swift; sourceTree = "<group>"; };
+		88D2F8DA1F56A61B0004A8BC /* ReportRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportRouter.swift; path = Report/ReportRouter.swift; sourceTree = "<group>"; };
+		88D2F8DD1F56A6260004A8BC /* ReportRouterInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportRouterInput.swift; sourceTree = "<group>"; };
 		88D45C191F4491F600DCB475 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		88D8CCAF1F31CA520032FB2B /* UserListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListItem.swift; sourceTree = "<group>"; };
 		88D8CCB11F31CA680032FB2B /* UserListItemsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListItemsBuilder.swift; sourceTree = "<group>"; };
@@ -3139,6 +3145,15 @@
 			path = Vendor;
 			sourceTree = "<group>";
 		};
+		88D2F8DC1F56A61D0004A8BC /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				88D2F8DA1F56A61B0004A8BC /* ReportRouter.swift */,
+				88D2F8DD1F56A6260004A8BC /* ReportRouterInput.swift */,
+			);
+			name = Router;
+			sourceTree = "<group>";
+		};
 		88D8CCAE1F31CA3E0032FB2B /* DataDisplayManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -3211,6 +3226,7 @@
 				88E3AC471F55B7800016357F /* Presenter */,
 				88E3AC3D1F55B27E0016357F /* View */,
 				88E3AC4A1F55BD1E0016357F /* Interactor */,
+				88D2F8DC1F56A61D0004A8BC /* Router */,
 			);
 			name = Report;
 			sourceTree = "<group>";
@@ -3220,6 +3236,7 @@
 			children = (
 				88E3AC391F55B02C0016357F /* Report.storyboard */,
 				88E3AC3B1F55B0400016357F /* ReportViewController.swift */,
+				88D2F8D81F56A4440004A8BC /* ReportSubmittedViewController.swift */,
 				88E3AC431F55B70D0016357F /* ReportViewOutput.swift */,
 				88E3AC451F55B7570016357F /* ReportViewInput.swift */,
 			);
@@ -4746,6 +4763,7 @@
 				88FFFA721F30B9C90066A1A0 /* FollowersViewController.swift in Sources */,
 				884AA9581F3C563F00B85135 /* RepliesAPI.swift in Sources */,
 				88580BC31F2213AB00C1CBAF /* UITableView+Ext.swift in Sources */,
+				88D2F8D91F56A4440004A8BC /* ReportSubmittedViewController.swift in Sources */,
 				88580C421F2213AB00C1CBAF /* CreatePostInitializer.swift in Sources */,
 				8811C8561F42F88D00F7513D /* EmbeddedEditProfileViewOutput.swift in Sources */,
 				88D8CCB21F31CA680032FB2B /* UserListItemsBuilder.swift in Sources */,
@@ -4816,6 +4834,7 @@
 				88580C3C1F2213AB00C1CBAF /* CreateAccountViewController.swift in Sources */,
 				88580C2F1F2213AB00C1CBAF /* UserService.swift in Sources */,
 				8834A7491F50071300F1D383 /* QueryPage.swift in Sources */,
+				88D2F8DE1F56A6260004A8BC /* ReportRouterInput.swift in Sources */,
 				884AA98D1F3C563F00B85135 /* PutUserVisibilityRequest.swift in Sources */,
 				88FFFA7A1F30BAFE0066A1A0 /* FollowersViewOutput.swift in Sources */,
 				88F551A11F34712700F4AAB9 /* FollowingViewInput.swift in Sources */,
@@ -4855,6 +4874,7 @@
 				88D8CCB01F31CA520032FB2B /* UserListItem.swift in Sources */,
 				88580C211F2213AB00C1CBAF /* AbstractKeyValueRepository.swift in Sources */,
 				88BC5C521F2B65D0001FBDD2 /* UserProfileRouter.swift in Sources */,
+				88D2F8DB1F56A61B0004A8BC /* ReportRouter.swift in Sources */,
 				883E1E4A1F546517004B4861 /* BlockedUsersViewController.swift in Sources */,
 				88580C531F2213AB00C1CBAF /* LoginRouter.swift in Sources */,
 				8834A74F1F5011CB00F1D383 /* CacheSortDescriptors.swift in Sources */,

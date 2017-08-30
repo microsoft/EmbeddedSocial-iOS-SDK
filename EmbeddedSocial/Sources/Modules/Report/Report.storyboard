@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -30,7 +31,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Unsolicited/spam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XM6-Ry-G1M">
                                                     <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -47,7 +48,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Threats, Cyberbullying, Harassment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aeq-RQ-wxE">
                                                     <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -64,7 +65,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Child Endangerment or Exploitation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DUB-ZB-00H">
                                                     <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -81,7 +82,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Offsensive Content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wzu-1B-Xj6">
                                                     <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -98,7 +99,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Content Infringement" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xFA-U9-eVa">
                                                     <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -115,7 +116,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Other" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hBx-dg-PuF">
                                                     <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -140,20 +141,77 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WHAT'S THE PROBLEM WITH THIS ACCOUNT?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMd-8f-ot1">
-                            <rect key="frame" x="16" y="13.5" width="307.5" height="17"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <rect key="frame" x="15" y="13.5" width="326.5" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="wMd-8f-ot1" firstAttribute="leading" secondItem="ugZ-bi-L39" secondAttribute="leading" constant="16" id="fbD-Y5-YXW"/>
+                        <constraint firstItem="wMd-8f-ot1" firstAttribute="leading" secondItem="ugZ-bi-L39" secondAttribute="leading" constant="15" id="fbD-Y5-YXW"/>
                         <constraint firstItem="wMd-8f-ot1" firstAttribute="centerY" secondItem="ugZ-bi-L39" secondAttribute="centerY" id="hxf-Sn-ROj"/>
                     </constraints>
                 </view>
             </objects>
             <point key="canvasLocation" x="926" y="-750"/>
+        </scene>
+        <!--Report Submitted View Controller-->
+        <scene sceneID="lM7-OR-e9P">
+            <objects>
+                <viewController storyboardIdentifier="ReportSubmittedViewController" id="F4V-Wr-mzr" customClass="ReportSubmittedViewController" customModule="EmbeddedSocial" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XsY-K9-kiG"/>
+                        <viewControllerLayoutGuide type="bottom" id="M96-hC-Dzq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5QI-mT-FsS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REPORT SUBMITTED" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b28-rS-gKA">
+                                <rect key="frame" x="15" y="0.0" width="344" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Dhv-so-VOS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pda-MU-R8P">
+                                <rect key="frame" x="15" y="52" width="344" height="107.5"/>
+                                <string key="text">Thank you for reporting your concern to us. We review these submissions very carefully and will take appropriate steps to address this issue. Because of legal and privacy concerns, we may not provide you any additional updates about the submission. Thank you again for contacting us.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Laj-08-Tca">
+                                <rect key="frame" x="15" y="171.5" width="344" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="AHT-4K-SQs"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="b28-rS-gKA" firstAttribute="top" secondItem="5QI-mT-FsS" secondAttribute="topMargin" id="24r-Tf-lnH"/>
+                            <constraint firstItem="Laj-08-Tca" firstAttribute="centerX" secondItem="Pda-MU-R8P" secondAttribute="centerX" id="Fma-TY-R4J"/>
+                            <constraint firstItem="Laj-08-Tca" firstAttribute="top" secondItem="Pda-MU-R8P" secondAttribute="bottom" constant="12" id="GHW-oD-ExC"/>
+                            <constraint firstItem="Laj-08-Tca" firstAttribute="width" secondItem="Pda-MU-R8P" secondAttribute="width" id="SxW-Nt-nwR"/>
+                            <constraint firstItem="Pda-MU-R8P" firstAttribute="top" secondItem="b28-rS-gKA" secondAttribute="bottom" constant="8" id="WRq-4m-rUf"/>
+                            <constraint firstItem="Pda-MU-R8P" firstAttribute="trailing" secondItem="5QI-mT-FsS" secondAttribute="trailingMargin" id="aUy-KQ-lua"/>
+                            <constraint firstItem="Pda-MU-R8P" firstAttribute="leading" secondItem="5QI-mT-FsS" secondAttribute="leading" constant="15" id="cH6-Hu-92F"/>
+                            <constraint firstItem="b28-rS-gKA" firstAttribute="leading" secondItem="5QI-mT-FsS" secondAttribute="leading" constant="15" id="eER-98-yzx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="b28-rS-gKA" secondAttribute="trailing" id="uE1-el-9RG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="separatorView" destination="Laj-08-Tca" id="ntR-Bk-Wbd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gbe-wk-Nb7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1736.8" y="-751.57421289355329"/>
         </scene>
     </scenes>
 </document>

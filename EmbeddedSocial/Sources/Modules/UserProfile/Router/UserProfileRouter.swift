@@ -52,8 +52,9 @@ final class UserProfileRouter: UserProfileRouterInput {
     
     func openReport(user: User) {
         let config = ReportConfigurator()
-        config.configure(userID: user.uid, fullName: user.fullName)
-        viewController?.navigationController?.pushViewController(config.viewController, animated: true)
+        let navController = UINavigationController(rootViewController: config.viewController)
+        config.configure(userID: user.uid, navigationController: navController)
+        viewController?.navigationController?.present(navController, animated: true, completion: nil)
     }
     
     func showMyMenu(_ addPostHandler: @escaping () -> Void) {

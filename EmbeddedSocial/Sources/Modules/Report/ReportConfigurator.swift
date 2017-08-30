@@ -10,14 +10,17 @@ struct ReportConfigurator {
     
     init() {
         viewController = StoryboardScene.Report.instantiateReportViewController()
+        viewController.title = L10n.Report.screenTitle
     }
     
-    func configure(userID: String, fullName: String) {
+    func configure(userID: String, navigationController: UINavigationController?) {
+        navigationController?.navigationBar.isTranslucent = false
+        
         let presenter = ReportPresenter(userID: userID)
         presenter.view = viewController
         presenter.interactor = ReportInteractor(reportingService: ReportingService())
+        presenter.router = ReportRouter(navigationController: navigationController)
         
         viewController.output = presenter
-        viewController.title = L10n.Report.screenTitle(fullName)
     }
 }

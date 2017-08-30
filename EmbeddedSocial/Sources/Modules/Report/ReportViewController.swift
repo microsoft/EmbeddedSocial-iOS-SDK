@@ -12,13 +12,19 @@ class ReportViewController: UITableViewController {
     @IBOutlet fileprivate var headerView: UIView!
     
     fileprivate lazy var submitButton: UIBarButtonItem = { [unowned self] in
-        return UIBarButtonItem(title: "Submit", style: .plain, target: self, action: #selector(self.onSubmit))
+        return UIBarButtonItem(title: L10n.Common.submit, style: .plain, target: self, action: #selector(self.onSubmit))
+    }()
+    
+    fileprivate lazy var cancelButton: UIBarButtonItem = { [unowned self] in
+        return UIBarButtonItem(title: L10n.Common.cancel, style: .plain, target: self, action: #selector(self.onCancel))
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableHeaderView = headerView
+        tableView.tableFooterView = UIView()
         navigationItem.rightBarButtonItem = submitButton
+        navigationItem.leftBarButtonItem = cancelButton
         output.viewIsReady()
     }
     
@@ -28,6 +34,10 @@ class ReportViewController: UITableViewController {
     
     @objc private func onSubmit() {
         output.onSubmit()
+    }
+    
+    @objc private func onCancel() {
+        output.onCancel()
     }
 }
 

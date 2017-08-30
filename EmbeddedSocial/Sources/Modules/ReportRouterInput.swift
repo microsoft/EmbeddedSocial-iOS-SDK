@@ -5,12 +5,8 @@
 
 import Foundation
 
-protocol ReportViewOutput: class {
-    func viewIsReady()
+protocol ReportRouterInput {
+    func openReportSuccess(onDone: (() -> Void)?)
     
-    func onRowSelected(at indexPath: IndexPath)
-    
-    func onSubmit()
-    
-    func onCancel()
+    func close()
 }

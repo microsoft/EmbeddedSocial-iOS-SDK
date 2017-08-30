@@ -9,6 +9,7 @@ final class ReportPresenter {
     
     weak var view: ReportViewInput!
     var interactor: ReportInteractorInput!
+    var router: ReportRouterInput!
     
     fileprivate var selectedIndexPath: IndexPath? {
         didSet {
@@ -56,10 +57,14 @@ extension ReportPresenter: ReportViewOutput {
             self?.view.setIsLoading(false)
             
             if result.isSuccess {
-                
+                self?.router.openReportSuccess(onDone: self?.router.close)
             } else {
                 self?.view.showError(result.error ?? APIError.unknown)
             }
         }
+    }
+    
+    func onCancel() {
+        router.close()
     }
 }
