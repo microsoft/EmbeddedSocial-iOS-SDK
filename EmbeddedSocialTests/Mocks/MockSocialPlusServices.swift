@@ -38,4 +38,8 @@ struct MockSocialPlusServices: SocialPlusServicesType {
                                                   outgoingRepo: CoreDataRepository(context: stack.backgroundContext))
         return Cache(database: database)
     }
+    
+    func getNetworkTracker() -> NetworkTrackerType {
+        return NetworkTracker()
+    }
 }
