@@ -185,28 +185,18 @@ class FeedModulePresenter_Tests: XCTestCase {
         XCTAssertTrue(view.setLayoutReceivedType == layout)
     }
     
-    func testThatProfileIsOpened() {
+    func testThatItHandlesEvent_Profile() {
         
-        // given
-        var post = Post.mock(seed: 0)
-        post.userHandle = "user"
-        
-        let feed = PostsFeed(feedType: .home, items: [post], cursor: "cursor")
-        sut.didFetch(feed: feed)
-        let path = IndexPath(row: 0, section: 0)
+        // give
         let action = PostCellAction.profile
-        let item = sut.item(for: path)
-        
+        let path = IndexPath(row: 0, section: 0)
+
         // when
-        item.onAction!(action, path)
+        sut.handle(action: action, path: path)
+        
         
         // then
-        XCTAssertNotNil(router.open_route_feedSource_ReceivedArguments)
-        if case FeedModuleRoutes.profileDetailes(user: "user") = router.open_route_feedSource_ReceivedArguments!.route {
-            XCTAssert(true)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertEqual(router.open_route_presenter_ReceivedArguments?.route, FeedModuleRoutes.profileDetailes(user: "user"))
     }
 
 }
