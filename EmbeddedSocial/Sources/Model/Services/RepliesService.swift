@@ -46,11 +46,15 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             cacheResult.replies.append(createReplyFromRequest(request: cachedReply))
         }
         
-        if let cachedReplies = self.cache.firstIncoming(ofType: FeedResponseReplyView.self, predicate: PredicateBuilder().predicate(typeID: requestURLString), sortDescriptors: nil)?.data {
-            cacheResult.replies.append(contentsOf: convert(data: cachedReplies))
-            cachedResult(cacheResult)
+        
+        if let fetchResult = self.cache.firstIncoming(ofType: FeedResponseReplyView.self, predicate: PredicateBuilder().predicate(typeID: requestURLString), sortDescriptors: nil) {
+            if let cachedReplies = fetchResult.data {
+                cacheResult.replies.append(contentsOf: convert(data: cachedReplies))
+                cacheResult.cursor = fetchResult.cursor
+                cachedResult(cacheResult)
+            }
         } else {
-            //TODO : Remove this
+            //TODO : Remove this when finish testing
             cachedResult(cacheResult)
         }
     

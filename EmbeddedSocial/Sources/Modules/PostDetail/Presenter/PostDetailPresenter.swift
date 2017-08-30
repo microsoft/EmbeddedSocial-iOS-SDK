@@ -23,7 +23,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     private var formatter = DateFormatterTool()
     private var cursor: String?
-    private let normalLimit: Int32 = 10
+    private let normalLimit: Int32 = 50
     private let maxLimit: Int32 = 10000
     private var shouldFetchRestOfComments = false
     

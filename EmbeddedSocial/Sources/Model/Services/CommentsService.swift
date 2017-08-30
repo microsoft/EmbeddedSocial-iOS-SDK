@@ -76,7 +76,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
         comment.photoUrl = SocialPlus.shared.me?.photo?.url
         comment.firstName = SocialPlus.shared.me?.firstName
         comment.lastName = SocialPlus.shared.me?.lastName
-        print("COMMENT HANDLE: \(comment.commentHandle)")
         return comment
     }
     
@@ -93,9 +92,12 @@ class CommentsService: BaseService, CommentServiceProtocol {
             cacheResult.comments.append(createCommentFromRequest(request: cachedNewComments))
         }
         
-        if let cachedComments = self.cache.firstIncoming(ofType: FeedResponseCommentView.self, predicate:  PredicateBuilder().predicate(typeID: requestURLString), sortDescriptors: nil)?.data  {
-            cacheResult.comments.append(contentsOf: convert(data: cachedComments))
-            cachedResult(cacheResult)
+        if let fetchResult = self.cache.firstIncoming(ofType: FeedResponseCommentView.self, predicate:  PredicateBuilder().predicate(typeID: requestURLString), sortDescriptors: nil)  {
+            if let cachedComments = fetchResult.data {
+                cacheResult.comments.append(contentsOf: convert(data: cachedComments))
+                cacheResult.cursor = fetchResult.cursor
+                cachedResult(cacheResult)
+            }
         }
         
         guard let network = NetworkReachabilityManager() else {
@@ -176,7 +178,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         if !network.isReachable {
             cache.cacheOutgoing(request, for: topicHandle)
             
-            let cacheRequest = CacheFetchRequest(resultType: PostCommentRequest.self, predicate: NSPredicate(format: "typeid = %@", topicHandle))
+            let cacheRequest = CacheFetchRequest(resultType: PostCommentRequest.self, predicate: PredicateBuilder().predicate(typeID: topicHandle))
             
             let commentHandle = self.cache.fetchOutgoing(with: cacheRequest).last?.handle
             
