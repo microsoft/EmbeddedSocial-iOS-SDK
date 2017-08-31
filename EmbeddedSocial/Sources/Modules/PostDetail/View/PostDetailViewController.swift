@@ -40,8 +40,9 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     @IBOutlet weak var mediaButton: UIButton!
     
     fileprivate var photo: Photo?
-    fileprivate var postView: UIView!
     fileprivate let imagePikcer = ImagePicker()
+    
+    fileprivate var feedView: UIView?
     
     fileprivate var prototypeCell: CommentCell?
     
@@ -104,6 +105,10 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
                 }
             default: break
         }
+    }
+    
+    func setFeedViewController(_ feedViewController: UIViewController) {
+        feedView = feedViewController.view
     }
     
     fileprivate func scrollCollectionViewToBottom() {
@@ -177,10 +182,22 @@ extension PostDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case CollectionViewSections.post.rawValue:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.reuseID, for: indexPath) as! PostCell
-            cell.configure(with: output.postViewModel!, collectionView: collectionView)
-            cell.usedInThirdPartModule = true
-            cell.tag = (output.postViewModel?.tag)!
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainPostCell", for: indexPath)
+            
+            guard let feedView = feedView else {
+                return cell
+            }
+
+            if !cell.subviews.contains(feedView) {
+                cell.addSubview(feedView)
+                feedView.snp.makeConstraints { make in
+                    make.left.equalTo(cell)
+                    make.right.equalTo(cell)
+                    make.top.equalTo(cell)
+                    make.bottom.equalTo(cell)
+                }
+                
+            }
             return cell
         case CollectionViewSections.comments.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
@@ -213,6 +230,7 @@ extension PostDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case CollectionViewSections.post.rawValue:
+            return CGSize(width: UIScreen.main.bounds.size.width, height: output.heightForFeed())
             sizingCell.configure(with: output.postViewModel!, collectionView: collectionView)
             
             // TODO: remake via manual calculation

@@ -56,14 +56,17 @@ class CommentsService: BaseService, CommentServiceProtocol {
             cachedResult(convert(data: cache.fetchIncoming(with: cacheRequestForIncoming)).first!)
         }
         
-        request.execute { (result, error) in
-            if let body = result?.body {
-                self.cache.cacheIncoming(body, for: requesURLString)
-                success(self.convert(data: [body]).first!)
-            } else {
-                failure(error ?? APIError.unknown)
+        if isNetworkReachable {
+            request.execute { (result, error) in
+                if let body = result?.body {
+                    self.cache.cacheIncoming(body, for: requesURLString)
+                    success(self.convert(data: [body]).first!)
+                } else {
+                    failure(error ?? APIError.unknown)
+                }
             }
         }
+
     }
     
     private func createCommentFromRequest(request: PostCommentRequest) -> Comment {
@@ -99,48 +102,38 @@ class CommentsService: BaseService, CommentServiceProtocol {
             }
         }
         
-        guard let network = NetworkReachabilityManager() else {
-            return
-        }
-        
-        if !network.isReachable {
-            return
-        }
-        
-        request.execute { (response, error) in
-            var result = CommentFetchResult()
-            
-            guard error == nil else {
-                result.error = CommentsServiceError.failedToFetch(message: error!.localizedDescription)
+        if isNetworkReachable {
+            request.execute { (response, error) in
+                var result = CommentFetchResult()
+                
+                guard error == nil else {
+                    result.error = CommentsServiceError.failedToFetch(message: error!.localizedDescription)
+                    resultHandler(result)
+                    return
+                }
+                
+                guard let data = response?.body?.data else {
+                    result.error = CommentsServiceError.failedToFetch(message: L10n.Error.noItemsReceived)
+                    resultHandler(result)
+                    return
+                }
+                
+                if let body = response?.body {
+                    self.cache.cacheIncoming(body, for: requestURLString)
+                    result.comments = self.convert(data: data)
+                    result.cursor = body.cursor
+                }
+                
                 resultHandler(result)
-                return
             }
-            
-            guard let data = response?.body?.data else {
-                result.error = CommentsServiceError.failedToFetch(message: L10n.Error.noItemsReceived)
-                resultHandler(result)
-                return
-            }
-            
-            if let body = response?.body {
-                self.cache.cacheIncoming(body, for: requestURLString)
-                result.comments = self.convert(data: data)
-                result.cursor = body.cursor
-            }
-            
-            resultHandler(result)
         }
+
         
     }
     
     func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure) {
         
-        guard let network = NetworkReachabilityManager() else {
-            failure(APIError.unknown)
-            return
-        }
-        
-        if !network.isReachable {
+        if !isNetworkReachable {
             if let unwrapptedPhoto = photo {
                 cachePhoto(photo: unwrapptedPhoto, for: topicHandle)
             }
@@ -168,15 +161,11 @@ class CommentsService: BaseService, CommentServiceProtocol {
         cache.cacheOutgoing(photo, for: topicHandle)
     }
     
-    func postComment(topicHandle: String, request: PostCommentRequest, success: @escaping CommentPostResultHandler, failure: @escaping Failure) {
+    private func postComment(topicHandle: String, request: PostCommentRequest, success: @escaping CommentPostResultHandler, failure: @escaping Failure) {
         
         let requestBuilder = CommentsAPI.topicCommentsPostCommentWithRequestBuilder(topicHandle: topicHandle, request: request, authorization: authorization)
         
-        guard let network = NetworkReachabilityManager() else {
-            return
-        }
-        
-        if !network.isReachable {
+        if !isNetworkReachable {
             cache.cacheOutgoing(request, for: topicHandle)
             
             let cacheRequest = CacheFetchRequest(resultType: PostCommentRequest.self, predicate: PredicateBuilder().predicate(typeID: topicHandle))

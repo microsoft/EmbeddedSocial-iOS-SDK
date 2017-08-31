@@ -43,6 +43,12 @@ class PostDetailModuleConfigurator {
         presenter.interactor = interactor
         viewController.output = presenter
         
+        let feedConfigurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache)
+        feedConfigurator.configure(navigationController: viewController.navigationController, moduleOutput: presenter)
+        
+        feedConfigurator.moduleInput.setFeed(FeedType.single(post: postViewModel.topicHandle))
+        presenter.feedViewController = feedConfigurator.viewController
+        presenter.feedModuleInput = feedConfigurator.moduleInput
     }
 
 }

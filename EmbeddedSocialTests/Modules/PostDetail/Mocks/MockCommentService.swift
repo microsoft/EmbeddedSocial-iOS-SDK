@@ -19,7 +19,7 @@ class MockCommentService: CommentsService {
         postComment(topicHandle: topicHandle, request: request, success: resultHandler, failure: failure)
     }
     
-    override func postComment(topicHandle: String, request: PostCommentRequest, success: @escaping CommentPostResultHandler, failure: @escaping Failure) {
+    private func postComment(topicHandle: String, request: PostCommentRequest, success: @escaping CommentPostResultHandler, failure: @escaping Failure) {
         let response = PostCommentResponse()
         response.commentHandle = "commentHandle"
         success(response)

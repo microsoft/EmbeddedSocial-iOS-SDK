@@ -18,6 +18,9 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     var postViewModel: PostViewModel?
     weak var postViewModelActionsHandler: PostViewModelActionsProtocol!
+    
+    var feedViewController: UIViewController?
+    var feedModuleInput: FeedModuleInput?
 
     var comments = [Comment]()
     
@@ -98,6 +101,11 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
         view.refreshPostCell()
     }
     
+    func heightForFeed() -> CGFloat {
+        return (feedModuleInput?.moduleHeight())!
+    }
+    
+    
     // MARK: PostDetailInteractorOutput
     func didFetch(comments: [Comment], cursor: String?) {
         self.cursor = cursor
@@ -156,6 +164,14 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
         view.refreshPostCell()
     }
     
+    private func setupFeed() {
+        guard let vc = feedViewController else {
+            return
+        }
+        
+        view.setFeedViewController(vc)
+    }
+    
     // MAKR: PostDetailViewOutput
     
     func refreshPost() {
@@ -184,6 +200,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     func viewIsReady() {
         view.setupInitialState()
+        setupFeed()
         switch scrollType {
             case .bottom:
                 interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: maxLimit)
@@ -220,6 +237,28 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     func postComment(photo: Photo?, comment: String) {
         interactor.postComment(photo: photo, topicHandle: (postViewModel?.topicHandle)!, comment: comment)
+    }
+}
+
+extension PostDetailPresenter: FeedModuleOutput {
+    func didFinishRefreshingData() {
+        print("refresed")
+    }
+    
+    func didScrollFeed(_ feedView: UIScrollView) {
+        
+    }
+    
+    func didStartRefreshingData() {
+        
+    }
+    
+    func didFinishRefreshingData(_ error: Error?) {
+        
+    }
+    
+    func shouldOpenProfile(for userID: String) -> Bool {
+        return true
     }
 }
 

@@ -17,4 +17,5 @@ protocol PostDetailViewOutput {
     func enableFetchMore() -> Bool
     func refresh()
     func refreshPost()
+    func heightForFeed() -> CGFloat
 }
