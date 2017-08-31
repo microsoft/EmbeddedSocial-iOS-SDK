@@ -106,6 +106,12 @@
 		881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F7E611F263888003EB37A /* MockKeyValueStorage.swift */; };
 		88204FAE1F56E60200E15F5A /* NetworkTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FAD1F56E60200E15F5A /* NetworkTracker.swift */; };
 		88204FB01F56EA4F00E15F5A /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FAF1F56EA4F00E15F5A /* MulticastDelegate.swift */; };
+		88204FB21F580DA800E15F5A /* RequestExecutionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FB11F580DA800E15F5A /* RequestExecutionStrategy.swift */; };
+		88204FB51F58144D00E15F5A /* CacheRequestExecutionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FB41F58144D00E15F5A /* CacheRequestExecutionStrategy.swift */; };
+		88204FB91F581F1400E15F5A /* UsersFeedRequestExecutionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FB81F581F1400E15F5A /* UsersFeedRequestExecutionStrategy.swift */; };
+		88204FBB1F581F2A00E15F5A /* SuggestedUsersRequestExecutionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FBA1F581F2A00E15F5A /* SuggestedUsersRequestExecutionStrategy.swift */; };
+		88204FBD1F5823B600E15F5A /* SearchPeopleModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FBC1F5823B600E15F5A /* SearchPeopleModuleOutput.swift */; };
+		88204FBF1F584BF600E15F5A /* MockUserListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FBE1F584BF600E15F5A /* MockUserListRouter.swift */; };
 		882AD0BB1F221D4400FC20B7 /* CommonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */; };
 		882AD0BC1F221D4400FC20B7 /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */; };
 		882AD0BD1F221D4400FC20B7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */; };
@@ -831,6 +837,12 @@
 		881F7E611F263888003EB37A /* MockKeyValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeyValueStorage.swift; sourceTree = "<group>"; };
 		88204FAD1F56E60200E15F5A /* NetworkTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkTracker.swift; path = ../Model/Services/NetworkTracker.swift; sourceTree = "<group>"; };
 		88204FAF1F56EA4F00E15F5A /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
+		88204FB11F580DA800E15F5A /* RequestExecutionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestExecutionStrategy.swift; sourceTree = "<group>"; };
+		88204FB41F58144D00E15F5A /* CacheRequestExecutionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheRequestExecutionStrategy.swift; sourceTree = "<group>"; };
+		88204FB81F581F1400E15F5A /* UsersFeedRequestExecutionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersFeedRequestExecutionStrategy.swift; sourceTree = "<group>"; };
+		88204FBA1F581F2A00E15F5A /* SuggestedUsersRequestExecutionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestedUsersRequestExecutionStrategy.swift; sourceTree = "<group>"; };
+		88204FBC1F5823B600E15F5A /* SearchPeopleModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPeopleModuleOutput.swift; sourceTree = "<group>"; };
+		88204FBE1F584BF600E15F5A /* MockUserListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListRouter.swift; sourceTree = "<group>"; };
 		882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonFunctions.swift; sourceTree = "<group>"; };
 		882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
 		882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -1751,6 +1763,17 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		88204FB31F58143900E15F5A /* RequestExecutionStrategy */ = {
+			isa = PBXGroup;
+			children = (
+				88204FB11F580DA800E15F5A /* RequestExecutionStrategy.swift */,
+				88204FB41F58144D00E15F5A /* CacheRequestExecutionStrategy.swift */,
+				88204FB81F581F1400E15F5A /* UsersFeedRequestExecutionStrategy.swift */,
+				88204FBA1F581F2A00E15F5A /* SuggestedUsersRequestExecutionStrategy.swift */,
+			);
+			name = RequestExecutionStrategy;
+			sourceTree = "<group>";
+		};
 		882AD0B41F221D4400FC20B7 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -2214,6 +2237,7 @@
 				8811C88A1F4334F800F7513D /* Cache */,
 				88580B041F2213AB00C1CBAF /* Entities */,
 				88580B1A1F2213AB00C1CBAF /* MementoSerialization */,
+				88204FB31F58143900E15F5A /* RequestExecutionStrategy */,
 				88580B101F2213AB00C1CBAF /* Services */,
 				88635D891F25D93A00577140 /* SessionStoreDatabase */,
 				8895108B1F3B5589001A53F5 /* SocialPlus */,
@@ -2739,6 +2763,7 @@
 			children = (
 				8864C83F1F46DC6800ADCE13 /* SearchPeopleModuleInput.swift */,
 				8864C8391F46DBC200ADCE13 /* SearchPeoplePresenter.swift */,
+				88204FBC1F5823B600E15F5A /* SearchPeopleModuleOutput.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -3370,6 +3395,7 @@
 				88F551981F336FB700F4AAB9 /* MockUserListModuleOutput.swift */,
 				88F5519A1F33705100F4AAB9 /* MockUserListView.swift */,
 				88F551901F3366C600F4AAB9 /* MockUsersListAPI.swift */,
+				88204FBE1F584BF600E15F5A /* MockUserListRouter.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -4376,6 +4402,7 @@
 				9CDDB2031F38866000C46785 /* DateFormatter.swift in Sources */,
 				889510881F3B2539001A53F5 /* UnauthorizedErrorHandler.swift in Sources */,
 				8895107F1F3B0FDC001A53F5 /* EmbeddedSocial.xcdatamodeld in Sources */,
+				88204FB91F581F1400E15F5A /* UsersFeedRequestExecutionStrategy.swift in Sources */,
 				88580C721F2213AB00C1CBAF /* TabMenuContainerViewOutput.swift in Sources */,
 				882AD0C01F221D4400FC20B7 /* ModelFileExtension.swift in Sources */,
 				88BC5C511F2B65D0001FBDD2 /* UserProfilePresenter.swift in Sources */,
@@ -4402,6 +4429,7 @@
 				8875CCE91F331CB3001F2474 /* FollowingPresenter.swift in Sources */,
 				88F551AC1F38717A00F4AAB9 /* UICollectionView+Ext.swift in Sources */,
 				8864C8401F46DC6800ADCE13 /* SearchPeopleModuleInput.swift in Sources */,
+				88204FBB1F581F2A00E15F5A /* SuggestedUsersRequestExecutionStrategy.swift in Sources */,
 				88F385861F30D1080048B04C /* UserListInteractorInput.swift in Sources */,
 				88BC5C501F2B65D0001FBDD2 /* UserProfileInteractorInput.swift in Sources */,
 				88F3857F1F30CD890048B04C /* UserListModuleOutput.swift in Sources */,
@@ -4446,6 +4474,7 @@
 				884AA9831F3C563F00B85135 /* PostTopicRequest.swift in Sources */,
 				8811C84A1F42F83000F7513D /* Storyboards.swift in Sources */,
 				8811C8541F42F88D00F7513D /* EmbeddedEditProfilePresenter.swift in Sources */,
+				88204FBD1F5823B600E15F5A /* SearchPeopleModuleOutput.swift in Sources */,
 				884AA95B1F3C563F00B85135 /* SessionsAPI.swift in Sources */,
 				884AA97F1F3C563F00B85135 /* PostReportRequest.swift in Sources */,
 				88FFFA6F1F30B98B0066A1A0 /* FollowersConfigurator.swift in Sources */,
@@ -4563,6 +4592,7 @@
 				884AA97B1F3C563F00B85135 /* PostLinkedAccountRequest.swift in Sources */,
 				9CB3F1FE1F336B780099A22D /* MyFollowersAPI.swift in Sources */,
 				88580C441F2213AB00C1CBAF /* CreatePostInteractorInput.swift in Sources */,
+				88204FB51F58144D00E15F5A /* CacheRequestExecutionStrategy.swift in Sources */,
 				88E3AC4E1F55C0E10016357F /* UIViewController+HUD.swift in Sources */,
 				8811C8481F42F83000F7513D /* AutoEquatable.generated.swift in Sources */,
 				88580C561F2213AB00C1CBAF /* LoginViewController.swift in Sources */,
@@ -4707,6 +4737,7 @@
 				8E7C1EB5B841BD0D4A3D91DC /* CommentRepliesInteractor.swift in Sources */,
 				D8AF057A0B27A37AF1438B4E /* CommentRepliesRouterInput.swift in Sources */,
 				837524BE76C276DF2DA68F21 /* CommentRepliesRouter.swift in Sources */,
+				88204FB21F580DA800E15F5A /* RequestExecutionStrategy.swift in Sources */,
 				EC75A126A73CC5F294926613 /* CommentRepliesConfigurator.swift in Sources */,
 				EB45E0D87E3DCF49B5A22162 /* CommentRepliesInitializer.swift in Sources */,
 				889119A71F470E3E005B3B32 /* SearchInteractorInput.swift in Sources */,
@@ -4809,6 +4840,7 @@
 				88D2F8ED1F56B8B80004A8BC /* ReportPresenterTests.swift in Sources */,
 				88F551991F336FB700F4AAB9 /* MockUserListModuleOutput.swift in Sources */,
 				93AC65B51F3E05DA00FE5A3A /* MockPostDetailPresenter.swift in Sources */,
+				88204FBF1F584BF600E15F5A /* MockUserListRouter.swift in Sources */,
 				9C813A4A1F45A21900462950 /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */,
 				88E3AC1B1F5563F90016357F /* MockBlockedUsersView.swift in Sources */,
 				883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */,

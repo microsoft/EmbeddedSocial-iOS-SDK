@@ -5,9 +5,8 @@
 
 import Foundation
 
-protocol SearchViewInput: class {
+protocol SearchPeopleModuleOutput: class {
+    func didFailToLoadSuggestedUsers(_ error: Error)
     
-    func setupInitialState(_ pageInfo: SearchPageInfo)
-    
-    func showError(_ error: Error)
+    func didFailToLoadSearchQuery(_ error: Error)
 }

@@ -8,6 +8,6 @@ import Foundation
 extension Cache {
     
     static var createdAtSortDescriptor: NSSortDescriptor {
-        return NSSortDescriptor(key: "createdAt", ascending: false)
+        return NSSortDescriptor(key: "createdAt", ascending: true)
     }
 }

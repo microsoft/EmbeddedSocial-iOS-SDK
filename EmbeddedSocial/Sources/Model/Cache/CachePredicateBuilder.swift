@@ -13,12 +13,16 @@ protocol CachePredicateBuilder {
 
 struct PredicateBuilder: CachePredicateBuilder {
     
+    static func predicate(typeID: String) -> NSPredicate {
+        return NSPredicate(format: "typeid = %@", typeID)
+    }
+    
     func predicate(handle: String) -> NSPredicate {
         return NSPredicate(format: "handle = %@", handle)
     }
     
     func predicate(typeID: String) -> NSPredicate {
-        return NSPredicate(format: "typeid = %@", typeID)
+        return PredicateBuilder.predicate(typeID: typeID)
     }
     
     func predicate(typeID: String, handle: String) -> NSPredicate {

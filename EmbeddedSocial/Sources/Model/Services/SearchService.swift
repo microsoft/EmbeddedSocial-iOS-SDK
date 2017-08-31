@@ -11,16 +11,24 @@ protocol SearchServiceType {
 
 final class SearchService: BaseService, SearchServiceType {
     
+    typealias UsersFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
+    
+    let requestExecutor: UsersFeedRequestExecutor
+
+    init(requestExecutor: UsersFeedRequestExecutor = UsersFeedRequestExecutionStrategy()) {
+        self.requestExecutor = requestExecutor
+        
+        super.init()
+        
+        self.requestExecutor.cache = cache
+        self.requestExecutor.errorHandler = errorHandler
+    }
+    
     func queryUsers(query: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SearchAPI.searchGetUsers(
-            query: query, authorization: authorization,
-            cursor: Int32(cursor ?? ""), limit: Int32(limit)) { response, error in
-                if let response = response {
-                    let users = response.data?.map(User.init) ?? []
-                    completion(.success(UsersListResponse(users: users, cursor: response.cursor)))
-                } else {
-                    self.errorHandler.handle(error: error, completion: completion)
-                }
-        }
+        let builder = SearchAPI.searchGetUsersWithRequestBuilder(query: query,
+                                                                 authorization: authorization,
+                                                                 cursor: Int32(cursor ?? ""),
+                                                                 limit: Int32(limit))
+        requestExecutor.execute(with: builder, completion: completion)
     }
 }

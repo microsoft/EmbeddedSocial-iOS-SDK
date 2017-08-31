@@ -20,3 +20,13 @@ extension SearchPresenter: SearchViewOutput {
         view.setupInitialState(pageInfo)
     }
 }
+
+extension SearchPresenter: SearchPeopleModuleOutput {
+    func didFailToLoadSuggestedUsers(_ error: Error) {
+        view.showError(error)
+    }
+    
+    func didFailToLoadSearchQuery(_ error: Error) {
+        view.showError(error)
+    }
+}

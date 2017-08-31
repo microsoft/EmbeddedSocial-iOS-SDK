@@ -23,11 +23,15 @@ struct UserListConfigurator {
         
         let view = UserListView()
         
+        let interactor = UserListInteractor(api: api, socialService: SocialService())
+        
         let presenter = UserListPresenter()
         presenter.view = view
         presenter.moduleOutput = output
-        presenter.interactor = UserListInteractor(api: api, socialService: SocialService())
+        presenter.interactor = interactor
         presenter.router = router
+        
+        interactor.output = presenter
         
         view.output = presenter
         view.dataManager = UserListDataDisplayManager(me: me)

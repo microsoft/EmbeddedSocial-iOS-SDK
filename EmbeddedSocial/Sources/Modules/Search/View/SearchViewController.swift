@@ -55,6 +55,10 @@ extension SearchViewController: SearchViewInput {
             addBackgroundView(backgroundView)
         }
     }
+    
+    func showError(_ error: Error) {
+        showErrorAlert(error)
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
