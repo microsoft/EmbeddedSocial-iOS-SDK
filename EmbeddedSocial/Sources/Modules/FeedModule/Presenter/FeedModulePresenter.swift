@@ -73,8 +73,12 @@ extension FeedType: Equatable {
     }
 }
 
-enum PostCellAction {
+enum FeedPostCellAction: Int {
     case like, pin, comment, extra, profile, photo, likesList
+}
+
+extension FeedPostCellAction {
+    static let allCases: [FeedPostCellAction] = [.like, .pin, .comment, .extra, .profile, .photo, .likesList]
 }
 
 enum FeedModuleLayoutType: Int {
@@ -117,8 +121,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     weak var moduleOutput: FeedModuleOutput?
     weak var userHolder: UserHolder?
-    
-    weak var commentsPresenter: SharedPostDetailPresenterProtocol?
     
     var layout: FeedModuleLayoutType = .list {
         didSet {
@@ -204,14 +206,19 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     // MARK: FeedModuleViewOutput
     func item(for path: IndexPath) -> PostViewModel {
-        var viewModel = PostViewModel()
         
-        guard let index = items.index(of: items[path.row]) else {
-            return viewModel
+        let index = path.row
+        let item = items[index]
+        
+        let onAction: PostViewModel.ActionHandler = { [weak self] action, path in
+            self?.handle(action: action, path: path)
         }
         
-        viewModel.config(with: items[index], index: index, cellType: layout.cellType, actionHandler: self)
-        return viewModel
+        let itemViewModel = PostViewModel(with: item,
+                                          cellType: layout.cellType,
+                                          actionHandler: onAction)
+    
+        return itemViewModel
     }
     
     private func appendWithReplacing(original: inout [Post], appending: [Post]) {
@@ -226,7 +233,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
     }
 
-    func handle(action: PostCellAction, path: IndexPath) {
+    func handle(action: FeedPostCellAction, path: IndexPath) {
         
         let index = path.row
         let postHandle = items[index].topicHandle!
@@ -235,7 +242,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         
         switch action {
         case .comment:
-            router.open(route: .comments(post: item(for: path)), presenter: self)
+            router.open(route: .comments(post: item(for: path)), feedSource: feedType!)
         case .extra:
             
             let isMyPost = (userHolder?.me?.uid == userHandle)
@@ -259,7 +266,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             }
             
             view.reload(with: index)
-            commentsPresenter?.refresh(post: item(for: path))
             interactor.postAction(post: postHandle, action: action)
             
         case .pin:
@@ -269,7 +275,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             items[index].pinned = !status
             
             view.reload(with: index)
-            commentsPresenter?.refresh(post: item(for: path))
             interactor.postAction(post: postHandle, action: action)
             
         case .profile:
@@ -323,8 +328,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didTapItem(path: IndexPath) {
-        Logger.log(path)
-        router.open(route: .postDetails(post: item(for: path)), presenter: self)
+        router.open(route: .postDetails(post: item(for: path)), feedSource: feedType!)
     }
     
     // MARK: FeedModuleInteractorOutput

@@ -74,12 +74,6 @@ extension PostServiceMock {
 
 }
 
-private class UserHolderMock: UserHolder {
-    var me: User? = {
-        return User()
-    }()
-}
-
 class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
     
     var sut: FeedModuleInteractor!

@@ -18,6 +18,10 @@ class FeedModulePresenter_Tests: XCTestCase {
     
     private let timeout: TimeInterval = 5
     
+    lazy var bundle: Bundle = {
+       return Bundle(for: type(of: self))
+    }()
+    
     func setupCache() {
         super.setUp()
         coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
@@ -25,6 +29,13 @@ class FeedModulePresenter_Tests: XCTestCase {
                                                   outgoingRepo: CoreDataRepository(context: coreDataStack.mainContext))
         cache = Cache(database: database)
     }
+    
+//    var feedResponse: FeedResponseTopicView = {
+//        
+//        
+//        
+//    }
+    
 
     override func setUp() {
         super.setUp()
@@ -200,33 +211,101 @@ class FeedModulePresenter_Tests: XCTestCase {
         XCTAssertTrue(view.setLayoutReceivedType == layout)
     }
     
-    func testThatProfileEvent_OpensProfileDetails() {
+    func testThatItProducesCorrectRoutesForCellActionsWithRegularUser() {
         
-        // given
-        let userHandle = UUID().uuidString
+        // setup
+        let postUserHandle = UUID().uuidString
+        let postImageURL = UUID().uuidString
+        let postHandle = UUID().uuidString
+    
         var post = Post.mock(seed: 1)
-        post.userHandle = userHandle
+        
+        post.userHandle = postUserHandle
+        post.imageUrl = postImageURL
         
         let feed = PostsFeed(feedType: .home, items: [post], cursor: "cursor")
         sut.didFetch(feed: feed)
-        let action = PostCellAction.profile
         let path = IndexPath(row: 0, section: 0)
+        
+        let postViewModel = PostViewModel(with: post, cellType: "")
+        
+        var testsForOtherUser = [FeedModuleRoutes: FeedPostCellAction]()
+        testsForOtherUser[FeedModuleRoutes.comments(post: postViewModel)] = FeedPostCellAction.comment
+        testsForOtherUser[FeedModuleRoutes.othersPost(post: post)] = FeedPostCellAction.extra
+        testsForOtherUser[FeedModuleRoutes.likesList(postHandle: postHandle)] = FeedPostCellAction.likesList
+        testsForOtherUser[FeedModuleRoutes.openImage(image: postImageURL)] = FeedPostCellAction.photo
+        testsForOtherUser[FeedModuleRoutes.profileDetailes(user: postUserHandle)] = FeedPostCellAction.profile
+        
+        for (expectedResult, action) in testsForOtherUser {
+            
+            // given
+            router.open_route_feedSource_ReceivedArguments = nil
+            
+            // when
+            sut.handle(action: action, path: path)
+            
+            // then
+            XCTAssertEqual(router.open_route_feedSource_ReceivedArguments?.route, expectedResult)
+        }
+        
+        var testsForMyUser = [FeedModuleRoutes: FeedPostCellAction]()
+        testsForMyUser[FeedModuleRoutes.myPost(post: post)] = FeedPostCellAction.extra
+        testsForMyUser[FeedModuleRoutes.myProfile] = FeedPostCellAction.profile
+        
+        for (expectedResult, action) in testsForMyUser {
+            
+            // given
+            router.open_route_feedSource_ReceivedArguments = nil
+            
+            // when
+            sut.handle(action: action, path: path)
+            
+            // then
+            XCTAssertEqual(router.open_route_feedSource_ReceivedArguments?.route, expectedResult)
+        }
 
-        // when
-        sut.handle(action: action, path: path)
-        
-        
-        // then
-        XCTAssertEqual(router.open_route_feedSource_ReceivedArguments?.route, FeedModuleRoutes.profileDetailes(user: userHandle))
     }
     
-    func testThatCachedFeedIsDisplayed() {
+    func testThatItProducesCorrectRoutesForCellActionsWithMyUser() {
+        // setup
         
-        // given
+        let myUserHandle = UUID().uuidString
+        let userHolder = UserHolderMock()
+        userHolder.me!.uid = myUserHandle
+        
+        sut.userHolder = userHolder
+    
+        let postImageURL = UUID().uuidString
+        let postHandle = UUID().uuidString
+        
+        var post = Post.mock(seed: 1)
+        
+        post.userHandle = myUserHandle
+        post.imageUrl = postImageURL
         
         
         
+        let feed = PostsFeed(feedType: .home, items: [post], cursor: "cursor")
+        sut.didFetch(feed: feed)
+        let path = IndexPath(row: 0, section: 0)
         
+        var expectedResults = [FeedPostCellAction: FeedModuleRoutes]()
+        expectedResults[FeedPostCellAction.extra] = FeedModuleRoutes.myPost(post: post)
+        expectedResults[FeedPostCellAction.profile] = FeedModuleRoutes.myProfile
+        
+        for (action, expectedResult) in expectedResults {
+            
+            // given
+            router.open_route_feedSource_ReceivedArguments = nil
+            
+            // when
+            sut.handle(action: action, path: path)
+            
+            // then
+            XCTAssertEqual(router.open_route_feedSource_ReceivedArguments?.route, expectedResult)
+        }
+       
+    
     }
-
 }
+

@@ -22,12 +22,11 @@ class FeedReponseCachingTests: XCTestCase {
         
         // Load server response from json file
         let bundle = Bundle(for: type(of: self))
-        let path = bundle.path(forResource: "topics&limit20", ofType: "json")
-        let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
-        let json = try? JSONSerialization.jsonObject(with: data!)
+    
+        let path = "topics&limit20"
         
-        topicViewResponseA = loadFeedResponseFrom(json)
-        topicViewResponseB = loadFeedResponseFrom(json)
+        topicViewResponseA = FeedResponseTopicView.loadFrom(bundle: bundle, withName: path)
+        topicViewResponseB = FeedResponseTopicView.loadFrom(bundle: bundle, withName: path)
         
         // Set services for cache
         services = SocialPlusServices()
