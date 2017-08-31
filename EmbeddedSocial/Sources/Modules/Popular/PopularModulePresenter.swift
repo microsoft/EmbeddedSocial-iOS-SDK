@@ -16,6 +16,7 @@ class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, Popul
     var router: PopularModuleRouterInput!
     
     // MARK: Private
+    private var layoutType: FeedModuleLayoutType = .list
     private var feedModule: FeedModuleInput!
     private var feedModuleViewController: UIViewController!
     private var currentFeed = Constants.Feed.Popular.initialFeedScope
@@ -37,12 +38,18 @@ class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, Popul
         view.embedFeedViewController(feedModuleViewController)
         
         feedModule.feedType = .popular(type: currentFeed)
+        view.setFeedLayoutImage(layoutType.nextLayoutAsset.image)
     }
 
     func feedTypeDidChange(to index: Int) {
         let timeRange = feedMapping[index].feed
         let feedType = FeedType.popular(type: timeRange)
         feedModule.feedType = (feedType)
+    }
+    
+    func feedLayoutTypeChangeDidTap() {
+        layoutType.flip()
+        view.setFeedLayoutImage(layoutType.nextLayoutAsset.image)
     }
     
     deinit {
