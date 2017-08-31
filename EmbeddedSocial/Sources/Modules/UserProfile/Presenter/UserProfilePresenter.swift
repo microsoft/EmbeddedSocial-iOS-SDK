@@ -220,8 +220,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     
     private func setFeedScope(_ scope: FeedType.UserFeedScope) {
         guard let uid = userID ?? me?.uid else { return }
-        feedModuleInput?.setFeed(.user(user: uid, scope: scope))
-        feedModuleInput?.refreshData()
+        feedModuleInput?.feedType = (.user(user: uid, scope: scope))
         view.setFilterEnabled(false)
     }
     
@@ -248,6 +247,13 @@ extension UserProfilePresenter: FeedModuleOutput {
     func shouldOpenProfile(for userID: String) -> Bool {
         return userID != self.userID && userID != me?.uid
     }
+    
+}
+
+extension UserProfilePresenter {
+    
+    func didStartRefreshingData() { }
+    
 }
 
 extension UserProfilePresenter: FollowersModuleOutput {

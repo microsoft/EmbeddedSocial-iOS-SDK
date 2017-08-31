@@ -43,7 +43,7 @@ class PostTests: XCTestCase {
         XCTAssertTrue(a != b)
     }
 
-    func testPost() {
+    func testPostIsCreatedProperly() {
         
         // given
         let postData = topicViewResponse.data!.first!

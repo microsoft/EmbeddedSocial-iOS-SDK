@@ -160,7 +160,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     }
     
     func postFetched(post: Post) {
-        postViewModel?.config(with: post, index: self.postViewModel?.tag, cellType: self.postViewModel?.cellType, actionHandler: postViewModelActionsHandler)
+//        postViewModel?.config(with: post, index: self.postViewModel?.tag, cellType: self.postViewModel?.cellType, actionHandler: postViewModelActionsHandler)
         view.refreshPostCell()
     }
     

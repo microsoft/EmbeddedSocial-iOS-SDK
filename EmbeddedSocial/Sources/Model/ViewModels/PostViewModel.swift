@@ -6,37 +6,44 @@
 import Foundation
 
 protocol PostViewModelActionsProtocol: class {
-    func handle(action: PostCellAction, path: IndexPath)
+    func handle(action: FeedPostCellAction, path: IndexPath)
 }
 
 struct PostViewModel {
     
-    typealias ActionHandler = (PostCellAction, IndexPath) -> Void
+    typealias ActionHandler = (FeedPostCellAction, IndexPath) -> Void
     
-    var topicHandle: String = ""
-    var userName: String = ""
-    var title: String = ""
-    var text: String = ""
-    var isLiked: Bool = false
-    var isPinned: Bool = false
-    var likedBy: String = ""
-    var totalLikes: String = ""
-    var totalComments: String = ""
-    var timeCreated: String = ""
-    var userImageUrl: String? = nil
-    var postImageUrl: String? = nil
+    let topicHandle: String
+    let userName: String
+    let title: String
+    let text: String
+    let isLiked: Bool
+    let isPinned: Bool
+    let likedBy: String
+    let totalLikes: String
+    let totalComments: String
+    let timeCreated: String
+    let userImageUrl: String?
+    let postImageUrl: String?
     
-    var tag: Int = 0
-    var cellType: String = PostCell.reuseID
-    var onAction: ActionHandler?
+    let cellType: String
     
-    mutating func config(with post: Post, index: Int? = 0, cellType: String? = PostCell.reuseID, actionHandler: PostViewModelActionsProtocol) {
+    // sourcery: skipEquality
+    let onAction: ActionHandler?
+    
+
+
+//
+    init(with post: Post,
+         cellType: String,
+         actionHandler: ActionHandler? = nil) {
+        
         let formatter = DateFormatterTool()
         topicHandle = post.topicHandle
         userName = User.fullName(firstName: post.firstName, lastName: post.lastName)
         title = post.title ?? ""
         text = post.text ?? ""
-        likedBy = "" // TODO: uncomfirmed
+        likedBy = ""
         
         totalLikes = L10n.Post.likesCount(post.totalLikes)
         totalComments = L10n.Post.commentsCount(post.totalComments)
@@ -48,12 +55,8 @@ struct PostViewModel {
         isLiked = post.liked
         isPinned = post.pinned
         
-        tag = index ?? 0
-        self.cellType = cellType ?? PostCell.reuseID
-        onAction = { action, path in
-            actionHandler.handle(action: action, path: path)
-        }
-        
+        self.cellType = cellType
+        onAction = actionHandler
     }
     
 }

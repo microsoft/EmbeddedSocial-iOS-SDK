@@ -27,6 +27,10 @@ struct User {
         return User.fullName(firstName: firstName, lastName: lastName)
     }
     
+    func isMyHandle(_ handle: String) -> Bool {
+        return uid == handle
+    }
+    
     static func fullName(firstName: String?, lastName: String?) -> String {
         if firstName == nil {
             return lastName ?? L10n.Common.Placeholder.unknown

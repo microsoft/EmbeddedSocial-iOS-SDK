@@ -16,9 +16,10 @@ class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, Popul
     var router: PopularModuleRouterInput!
     
     // MARK: Private
+    private var layoutType: FeedModuleLayoutType = .list
     private var feedModule: FeedModuleInput!
     private var feedModuleViewController: UIViewController!
-    private var currentFeed: FeedType.TimeRange = .alltime
+    private var currentFeed = Constants.Feed.Popular.initialFeedScope
     var feedMapping = [
         (feed: FeedType.TimeRange.today, title: L10n.PopularModule.FeedOption.today),
         (feed: FeedType.TimeRange.weekly, title: L10n.PopularModule.FeedOption.thisWeek),
@@ -36,15 +37,20 @@ class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, Popul
         
         view.embedFeedViewController(feedModuleViewController)
         
-        feedModule.setFeed(.popular(type: currentFeed))
-        feedModule.refreshData()
+        feedModule.feedType = .popular(type: currentFeed)
+        view.setFeedLayoutImage(layoutType.nextLayoutAsset.image)
     }
 
     func feedTypeDidChange(to index: Int) {
         let timeRange = feedMapping[index].feed
         let feedType = FeedType.popular(type: timeRange)
-        feedModule.setFeed(feedType)
-        feedModule.refreshData()
+        feedModule.feedType = (feedType)
+    }
+    
+    func feedLayoutTypeChangeDidTap() {
+        layoutType.flip()
+        view.setFeedLayoutImage(layoutType.nextLayoutAsset.image)
+        feedModule.layout = layoutType
     }
     
     deinit {
@@ -64,5 +70,11 @@ extension PopularModulePresenter: FeedModuleOutput {
         if let error = error {
             view.handleError(error: error)
         }
+    }
+    
+    func didScrollFeed(_ feedView: UIScrollView) { }
+    
+    func shouldOpenProfile(for userID: String) -> Bool {
+        return true
     }
 }

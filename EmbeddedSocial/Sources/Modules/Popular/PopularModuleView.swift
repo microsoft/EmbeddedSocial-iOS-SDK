@@ -13,11 +13,14 @@ protocol PopularModuleViewInput: class {
     func unlockFeedControl()
     func handleError(error: Error)
     func embedFeedViewController(_ viewController: UIViewController)
+    
+    func setFeedLayoutImage(_ image: UIImage)
 }
 
 protocol PopularModuleViewOutput {
     func viewIsReady()
     func feedTypeDidChange(to index: Int)
+    func feedLayoutTypeChangeDidTap()
 }
 
 class PopularModuleView: UIViewController {
@@ -27,12 +30,21 @@ class PopularModuleView: UIViewController {
     @IBOutlet var feedControl: UISegmentedControl!
     
     // MARK: Private
+    fileprivate lazy var layoutChangeButton: UIBarButtonItem = { [unowned self] in
+        let button = UIBarButtonItem(
+            image: nil,
+            style: .plain,
+            target: self,
+            action: #selector(self.didTapChangeLayout))
+        return button
+        }()
     
     fileprivate var isLockedUI = 0 {
         didSet {
             
             guard isLockedUI >= 0 else {
-                fatalError()
+                isLockedUI = 0
+                return
             }
             
             feedControl.isEnabled = isLockedUI == 0
@@ -49,6 +61,10 @@ class PopularModuleView: UIViewController {
         }
     }
     
+    @objc private func didTapChangeLayout() {
+        output.feedLayoutTypeChangeDidTap()
+    }
+    
     @objc private func onOptionChange(_ sender: UISegmentedControl) {
         output.feedTypeDidChange(to: sender.selectedSegmentIndex)
     }
@@ -61,6 +77,7 @@ class PopularModuleView: UIViewController {
                               action: #selector(onOptionChange(_:)),
                               for: .valueChanged)
         
+        navigationItem.rightBarButtonItem = layoutChangeButton
         output.viewIsReady()
     }
     
@@ -77,6 +94,10 @@ class PopularModuleView: UIViewController {
 }
 
 extension PopularModuleView: PopularModuleViewInput {
+    
+    func setFeedLayoutImage(_ image: UIImage) {
+        layoutChangeButton.image = image
+    }
     
     func embedFeedViewController(_ viewController: UIViewController) {
         viewController.willMove(toParentViewController: self)

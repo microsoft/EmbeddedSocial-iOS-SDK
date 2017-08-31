@@ -206,7 +206,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
             comment.mediaUrl = commentView.blobUrl
             comment.topicHandle = commentView.topicHandle
             comment.totalLikes = commentView.totalLikes!
-            comment.totalReplies = commentView.totalReplies!
+            comment.totalReplies = commentView.totalReplies ?? 0
             comments.append(comment)
         }
         return comments
