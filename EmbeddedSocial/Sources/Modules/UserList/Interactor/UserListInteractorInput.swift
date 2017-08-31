@@ -6,9 +6,19 @@
 import Foundation
 
 protocol UserListInteractorInput {
+    var isLoadingList: Bool { get }
+    
+    var listHasMoreItems: Bool { get }
+    
     func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
+    
+    func getNextListPage(completion: @escaping (Result<[User]>) -> Void)
     
     func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void)
     
     func setAPI(_ api: UsersListAPI)
+}
+
+protocol UserListInteractorOutput: class {
+    func didUpdateListLoadingState(_ isLoading: Bool)
 }

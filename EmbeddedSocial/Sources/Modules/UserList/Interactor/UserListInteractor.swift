@@ -6,8 +6,31 @@
 import Foundation
 
 class UserListInteractor: UserListInteractorInput {
+    typealias ListState = PaginatedResponse<User, String>
+    
+    weak var output: UserListInteractorOutput?
+
     private var api: UsersListAPI
     private let socialService: SocialServiceType
+    private var pages: [Page] = []
+    
+    var isLoadingList = false {
+        didSet {
+            output?.didUpdateListLoadingState(isLoadingList)
+        }
+    }
+    
+    private let queue = DispatchQueue(label: "UserListInteractor-queue")
+    
+    private var listState: ListState {
+        let lastCursor = pages.last?.response.cursor
+        let users = pages.flatMap { $0.response.users }
+        return ListState(items: users, hasMore: lastCursor != nil, error: nil, cursor: lastCursor)
+    }
+    
+    var listHasMoreItems: Bool {
+        return listState.hasMore
+    }
 
     init(api: UsersListAPI, socialService: SocialServiceType) {
         self.api = api
@@ -37,5 +60,55 @@ class UserListInteractor: UserListInteractorInput {
     
     func setAPI(_ api: UsersListAPI) {
         self.api = api
+        pages = []
+        isLoadingList = false
+    }
+    
+    func getNextListPage(completion: @escaping (Result<[User]>) -> Void) {
+        isLoadingList = true
+        
+        let pageID = UUID().uuidString
+        
+        api.getUsersList(cursor: listState.cursor, limit: Constants.UserList.pageSize) { [weak self] result in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            if let response = result.value {
+                let page = Page(uid: pageID, response: response)
+                strongSelf.addUniquePage(page)
+                completion(.success(strongSelf.listState.items))
+            } else {
+                completion(.failure(result.error ?? APIError.unknown))
+            }
+            
+            strongSelf.isLoadingList = false
+        }
+    }
+    
+    private func addUniquePage(_ page: Page) {
+        queue.sync {
+            if let index = pages.index(of: page) {
+                pages[index] = page
+            } else {
+                pages.append(page)
+            }
+        }
+    }
+}
+
+extension UserListInteractor {
+    
+    struct Page: Hashable {
+        let uid: String
+        let response: UsersListResponse
+        
+        var hashValue: Int {
+            return uid.hashValue
+        }
+        
+        static func ==(lhs: Page, rhs: Page) -> Bool {
+            return lhs.uid == rhs.uid
+        }
     }
 }
