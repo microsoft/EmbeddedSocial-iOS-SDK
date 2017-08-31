@@ -36,7 +36,3 @@ enum Visibility: String {
         }
     }
 }
-
-extension UserProfileView.Visibility {
-    
-}

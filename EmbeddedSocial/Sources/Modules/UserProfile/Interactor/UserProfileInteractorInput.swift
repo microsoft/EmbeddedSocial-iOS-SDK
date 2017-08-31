@@ -9,14 +9,6 @@ protocol UserProfileInteractorInput {
     func getUser(userID: String, completion: @escaping (Result<User>) -> Void)
     
     func getMe(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void)
-        
-    func getRecentPosts(userID: String, completion: @escaping (Result<[Any]>) -> Void)
-    
-    func getPopularPosts(userID: String, completion: @escaping (Result<[Any]>) -> Void)
-    
-    func getMyRecentPosts(completion: @escaping (Result<[Any]>) -> Void)
-
-    func getMyPopularPosts(completion: @escaping (Result<[Any]>) -> Void)
     
     func block(userID: String, completion: @escaping (Result<Void>) -> Void)
 

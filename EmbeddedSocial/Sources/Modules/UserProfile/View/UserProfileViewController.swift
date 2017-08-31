@@ -69,6 +69,11 @@ class UserProfileViewController: UIViewController {
 
 extension UserProfileViewController: UserProfileViewInput {
     
+    var headerContentHeight: CGFloat {
+        let size = CGSize(width: headerView.bounds.width, height: .greatestFiniteMagnitude)
+        return headerView.systemLayoutSizeFitting(size).height
+    }
+    
     func setupInitialState() {
         view.backgroundColor = Palette.extraLightGrey
         navigationItem.rightBarButtonItems = [createPostButton, UIBarButtonItem(customView: self.feedLayoutButton)]
@@ -143,10 +148,5 @@ extension UserProfileViewController: UserProfileViewInput {
     func setLayoutAsset(_ asset: Asset) {
         feedLayoutButton.setImage(UIImage(asset: asset), for: .normal)
         feedLayoutButton.sizeToFit()
-    }
-    
-    func headerContentHeight(with user: User) -> CGFloat {
-        let size = CGSize(width: headerView.bounds.width, height: .greatestFiniteMagnitude)
-        return headerView.systemLayoutSizeFitting(size).height
     }
 }

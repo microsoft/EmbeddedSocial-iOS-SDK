@@ -51,10 +51,11 @@ final class UserProfileRouter: UserProfileRouterInput {
     }
     
     func openReport(user: User) {
-        let vc = UIViewController()
-        vc.title = L10n.Report.screenTitle(user.fullName)
-        vc.view.backgroundColor = .white
-        viewController?.navigationController?.pushViewController(vc, animated: true)
+        let config = ReportConfigurator()
+        let navController = UINavigationController(rootViewController: config.viewController)
+        let api = ReportUserAPI(userID: user.uid, reportingService: ReportingService())
+        config.configure(api: api, navigationController: navController)
+        viewController?.navigationController?.present(navController, animated: true, completion: nil)
     }
     
     func showMyMenu(_ addPostHandler: @escaping () -> Void) {

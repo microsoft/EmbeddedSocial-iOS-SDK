@@ -28,22 +28,6 @@ final class UserProfileInteractor: UserProfileInteractorInput {
     func getMe(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
         userService.getMyProfile(authorization: authorization, credentials: credentials, completion: completion)
     }
-
-    func getRecentPosts(userID: String, completion: @escaping (Result<[Any]>) -> Void) {
-        completion(.success([]))
-    }
-    
-    func getPopularPosts(userID: String, completion: @escaping (Result<[Any]>) -> Void) {
-        completion(.success([]))
-    }
-    
-    func getMyRecentPosts(completion: @escaping (Result<[Any]>) -> Void) {
-        completion(.success([]))
-    }
-    
-    func getMyPopularPosts(completion: @escaping (Result<[Any]>) -> Void) {
-        completion(.success([]))
-    }
     
     func processSocialRequest(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void) {
         socialService.request(currentFollowStatus: currentFollowStatus, userID: userID, completion: completion)
