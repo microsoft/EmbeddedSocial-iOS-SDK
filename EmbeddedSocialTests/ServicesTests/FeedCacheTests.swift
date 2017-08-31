@@ -8,7 +8,7 @@ import Foundation
 import XCTest
 @testable import EmbeddedSocial
 
-class FeedCacheTests: XCTestCase {
+class FeedReponseCachingTests: XCTestCase {
     
     var topicViewResponseA: FeedResponseTopicView!
     var topicViewResponseB: FeedResponseTopicView!
@@ -74,7 +74,7 @@ class FeedCacheTests: XCTestCase {
         topicViewResponseB.cursor = "new cursor"
         XCTAssert(topicViewResponseB.cursor != topicViewResponseA.cursor)
         
-        let cacheKey = "http:/server/v0.7/users/me/topics/popular"
+        let cacheKey = UUID().uuidString
 //        let item = CacheableResponse(response: topicViewResponse )
 //        cache.cacheIncoming(item, for: requestURLString)
         cache.cacheIncoming(topicViewResponseA, for: cacheKey)
@@ -90,8 +90,6 @@ class FeedCacheTests: XCTestCase {
         
         let cachedItem = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: cacheKey)
         
-        let a = 1
-
         XCTAssertEqual(cachedItem!.cursor, "new cursor")
     }
     
