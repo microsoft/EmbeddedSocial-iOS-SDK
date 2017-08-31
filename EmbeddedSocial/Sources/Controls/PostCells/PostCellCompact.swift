@@ -8,7 +8,7 @@ class PostCellCompact: UICollectionViewCell, PostCellProtocol {
     weak var collectionView: UICollectionView!
     @IBOutlet weak var postImage: UIImageView!
     
-    func configure(with data: PostViewModel, collectionView: UICollectionView) {
+    func configure(with data: PostViewModel, collectionView: UICollectionView?) {
         
         self.collectionView = collectionView
         

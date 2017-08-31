@@ -180,7 +180,7 @@ extension PostDetailViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.reuseID, for: indexPath) as! PostCell
             cell.configure(with: output.postViewModel!, collectionView: collectionView)
             cell.usedInThirdPartModule = true
-            cell.tag = (output.postViewModel?.tag)!
+            //cell.tag = (output.postViewModel?.tag)!
             return cell
         case CollectionViewSections.comments.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell

@@ -6,102 +6,53 @@
 import XCTest
 @testable import EmbeddedSocial
 
-private class FeedModuleViewMock: FeedModuleViewInput {
-    
-    var didSetRefreshingState = false
-    var didSetIndex: Int?
-    var didSetLayout: FeedModuleLayoutType?
-    var didReloadTimes = 0
-    var didReload = false
-    
-    func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void) { }
-    
-    func setupInitialState( ) {
-    
-    }
-
-    func setLayout(type: FeedModuleLayoutType) {
-        didSetLayout = type
-    }
-    
-    func reload() {
-        didReload = true
-        didReloadTimes += 1
-    }
-
-    func reload(with index: Int) {
-        didSetIndex = index
-    }
-    
-    func setRefreshing(state: Bool) {
-        didSetRefreshingState = state
-    }
-    
-    func getViewHeight() -> CGFloat {
-        return 0
-    }
-    
-    func reloadVisible() {
-        
-    }
-    
-    func removeItem(index: Int) {
-        
-    }
-    
-    func showError(error: Error) {
-        
-    }
-}
-
-private class FeedModuleRouterMock: FeedModuleRouterInput {
-    
-    var openedRoute: FeedModuleRoutes!
-    
-    func open(route: FeedModuleRoutes, feedSource:FeedType) {
-        openedRoute = route
-    }
-    
-}
-
-private class FeedModuleInteractorMock: FeedModuleInteractorInput {
-
-    var fetchedPosts = false
-    var fetchedCursor: String?
-    var fetchedLimit: Int32?
-    var fetchedFeedType: FeedType!
-    
-    func fetchPosts(limit: Int32?, cursor: String?, feedType: FeedType) {
-        fetchedPosts = true
-        fetchedLimit = limit
-        fetchedCursor = cursor
-        fetchedFeedType = feedType
-    }
-    
-    func postAction(post: PostHandle, action: PostSocialAction) { }
-}
-
 class FeedModulePresenter_Tests: XCTestCase {
     
     var sut: FeedModulePresenter!
-    private var view: FeedModuleViewMock!
-    private var interactor: FeedModuleInteractorMock!
-    private var router: FeedModuleRouterMock!
+    private var view: FeedModuleViewInputMock!
+    private var interactor: FeedModuleInteractorInputMock!
+    private var router: FeedModuleRouterInputMock!
+    private var coreDataStack: CoreDataStack!
+    private var database: MockTransactionsDatabaseFacade!
+    private var cache: Cache!
     
+    private let timeout: TimeInterval = 5
+    
+    lazy var bundle: Bundle = {
+       return Bundle(for: type(of: self))
+    }()
+    
+    func setupCache() {
+        super.setUp()
+        coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
+        database = MockTransactionsDatabaseFacade(incomingRepo: CoreDataRepository(context: coreDataStack.mainContext),
+                                                  outgoingRepo: CoreDataRepository(context: coreDataStack.mainContext))
+        cache = Cache(database: database)
+    }
+    
+//    var feedResponse: FeedResponseTopicView = {
+//        
+//        
+//        
+//    }
+    
+
     override func setUp() {
         super.setUp()
         
         sut = FeedModulePresenter()
-        sut.setFeed(.home)
+        sut.feedType = .home
         
-        view = FeedModuleViewMock()
+        view = FeedModuleViewInputMock()
         sut.view = view
         
-        interactor = FeedModuleInteractorMock()
+        interactor = FeedModuleInteractorInputMock()
         sut.interactor = interactor
         
-        router = FeedModuleRouterMock()
+        router = FeedModuleRouterInputMock()
         sut.router = router
+        
+        setupCache()
     }
     
     func testThatViewModelIsCorrect() {
@@ -115,6 +66,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         
         var post = Post()
         
+        post.topicHandle = "handle"
         post.firstName = "vasiliy"
         post.lastName = "bodia"
         post.pinned = false
@@ -125,7 +77,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         post.createdTime = creationDate
         
         let posts = [post]
-        let feed = PostsFeed(items: posts, cursor: nil)
+        let feed = PostsFeed(feedType: .home, items: posts, cursor: nil)
         sut.didFetch(feed: feed)
         let path = IndexPath(row: 0, section: 0)
         
@@ -144,32 +96,32 @@ class FeedModulePresenter_Tests: XCTestCase {
     func testThatViewHandlesEndOfFetching() {
         
         // given
-        view.didSetRefreshingState = true
+        view.setRefreshing_state_ReceivedState = true
         
         // when
         sut.didFinishFetching()
         
         // then
-        XCTAssertTrue(view.didSetRefreshingState == false)
+        XCTAssertTrue(view.setRefreshing_state_ReceivedState == false)
     }
     
     func testThatViewHandlesStartOfFetching() {
         
         // given
-        view.didSetRefreshingState = false
+        view.setRefreshing_state_ReceivedState = false
         
         // when
         sut.didStartFetching()
         
         // then
-        XCTAssertTrue(view.didSetRefreshingState == true)
+        XCTAssertTrue(view.setRefreshing_state_ReceivedState == true)
     }
     
     func testThatFetchFeedProducesCorrectItems() {
         
         // given
         let initialPost = Post.mock(seed: 10)
-        let initialFeed = PostsFeed(items: [initialPost], cursor: nil)
+        let initialFeed = PostsFeed(feedType: .home, items: [initialPost], cursor: nil)
         
         // when
         sut.didFetch(feed: initialFeed)
@@ -185,11 +137,11 @@ class FeedModulePresenter_Tests: XCTestCase {
         let path = IndexPath(row: 0, section: 0)
         
         let postsA = [Post.mock(seed: 1), Post.mock(seed: 2)]
-        let feedA = PostsFeed(items: postsA, cursor: nil)
+        let feedA = PostsFeed(feedType: .home, items: postsA, cursor: nil)
         sut.didFetch(feed: feedA)
         
         let postsB = [Post.mock(seed: 3), Post.mock(seed: 4), Post.mock(seed: 5)]
-        let feedB = PostsFeed(items: postsB, cursor: nil)
+        let feedB = PostsFeed(feedType: .home, items: postsB, cursor: nil)
         
         // when
         sut.didFetch(feed: feedB)
@@ -204,11 +156,11 @@ class FeedModulePresenter_Tests: XCTestCase {
         
         // given
         let initialPost = Post.mock(seed: 1)
-        let initialFeed = PostsFeed(items: [initialPost], cursor: nil)
+        let initialFeed = PostsFeed(feedType: .home, items: [initialPost], cursor: nil)
         sut.didFetch(feed: initialFeed)
         
         let morePosts = [Post.mock(seed: 2), Post.mock(seed: 3)]
-        let moreFeed = PostsFeed(items: morePosts, cursor: "cursor")
+        let moreFeed = PostsFeed(feedType: .home, items: morePosts, cursor: "cursor")
         
         // when
         sut.didFetchMore(feed: moreFeed)
@@ -217,70 +169,143 @@ class FeedModulePresenter_Tests: XCTestCase {
         XCTAssertTrue(sut.item(for: IndexPath(row: 0, section: 0)).title == "Title 1")
         XCTAssertTrue(sut.item(for: IndexPath(row: 1, section: 0)).title == "Title 2")
         XCTAssertTrue(sut.numberOfItems() == 3)
-        XCTAssertTrue(view.didReload == true)
-        XCTAssertTrue(view.didReloadTimes == 2)
+        XCTAssertTrue(view.reload_Called == true)
+        XCTAssertTrue(view.reload_Called_Times == 2)
     }
-    
+
     func testThatOnFeedTypeChangeFetchIsDone() {
         
         // given
         let feedType = FeedType.single(post: "handle")
-        sut.setFeed(feedType)
+        sut.feedType = feedType
         
         // when
         sut.refreshData()
         
         // then
-        XCTAssertTrue(interactor.fetchedFeedType == FeedType.single(post: "handle"))
-        XCTAssertTrue(interactor.fetchedPosts)
+        XCTAssertTrue(interactor.fetchPostsReceivedArguments?.feedType == FeedType.single(post: "handle"))
     }
     
     func testThatFetchDataTriggersViewReload() {
         
         // given
-        let feed = PostsFeed(items: [Post.mock(seed: 0)], cursor: "cursor")
+        let feed = PostsFeed(feedType: .home, items: [Post.mock(seed: 0)], cursor: "cursor")
         
         // when
         sut.didFetch(feed: feed)
         
         // then
-        XCTAssertTrue(view.didReload == true)
+        XCTAssertTrue(view.reload_Called == true)
     }
     
     func testThatLayoutChanges() {
         
         // given
         let layout = FeedModuleLayoutType.grid
-        XCTAssertTrue(view.didSetLayout != layout)
+        XCTAssertTrue(view.setLayoutReceivedType != layout)
         
         // when
         sut.layout = layout
         
         // then
-        XCTAssertTrue(view.didSetLayout == layout)
+        XCTAssertTrue(view.setLayoutReceivedType == layout)
     }
     
-    func testThatProfileOpens() {
+    func testThatItProducesCorrectRoutesForCellActionsWithRegularUser() {
         
-        // given
-        var post = Post.mock(seed: 0)
-        post.userHandle = "user"
+        // setup
+        let postUserHandle = UUID().uuidString
+        let postImageURL = UUID().uuidString
+        let postHandle = UUID().uuidString
+    
+        var post = Post.mock(seed: 1)
         
-        let feed = PostsFeed(items: [post], cursor: "cursor")
+        post.userHandle = postUserHandle
+        post.imageUrl = postImageURL
+        
+        let feed = PostsFeed(feedType: .home, items: [post], cursor: "cursor")
         sut.didFetch(feed: feed)
         let path = IndexPath(row: 0, section: 0)
-        let action = PostCellAction.profile
-        let item = sut.item(for: path)
         
-        // when
-        item.onAction!(action, path)
+        let postViewModel = PostViewModel(with: post, cellType: "")
         
-        // then
-        if case FeedModuleRoutes.profileDetailes(user: "user" ) = router.openedRoute! {
-            XCTAssert(true)
-        } else {
-            XCTAssert(false)
+        var testsForOtherUser = [FeedModuleRoutes: FeedPostCellAction]()
+        testsForOtherUser[FeedModuleRoutes.comments(post: postViewModel)] = FeedPostCellAction.comment
+        testsForOtherUser[FeedModuleRoutes.othersPost(post: post)] = FeedPostCellAction.extra
+        testsForOtherUser[FeedModuleRoutes.likesList(postHandle: postHandle)] = FeedPostCellAction.likesList
+        testsForOtherUser[FeedModuleRoutes.openImage(image: postImageURL)] = FeedPostCellAction.photo
+        testsForOtherUser[FeedModuleRoutes.profileDetailes(user: postUserHandle)] = FeedPostCellAction.profile
+        
+        for (expectedResult, action) in testsForOtherUser {
+            
+            // given
+            router.open_route_feedSource_ReceivedArguments = nil
+            
+            // when
+            sut.handle(action: action, path: path)
+            
+            // then
+            XCTAssertEqual(router.open_route_feedSource_ReceivedArguments?.route, expectedResult)
         }
-    }
+        
+        var testsForMyUser = [FeedModuleRoutes: FeedPostCellAction]()
+        testsForMyUser[FeedModuleRoutes.myPost(post: post)] = FeedPostCellAction.extra
+        testsForMyUser[FeedModuleRoutes.myProfile] = FeedPostCellAction.profile
+        
+        for (expectedResult, action) in testsForMyUser {
+            
+            // given
+            router.open_route_feedSource_ReceivedArguments = nil
+            
+            // when
+            sut.handle(action: action, path: path)
+            
+            // then
+            XCTAssertEqual(router.open_route_feedSource_ReceivedArguments?.route, expectedResult)
+        }
 
+    }
+    
+    func testThatItProducesCorrectRoutesForCellActionsWithMyUser() {
+        // setup
+        
+        let myUserHandle = UUID().uuidString
+        let userHolder = UserHolderMock()
+        userHolder.me!.uid = myUserHandle
+        
+        sut.userHolder = userHolder
+    
+        let postImageURL = UUID().uuidString
+        let postHandle = UUID().uuidString
+        
+        var post = Post.mock(seed: 1)
+        
+        post.userHandle = myUserHandle
+        post.imageUrl = postImageURL
+        
+        
+        
+        let feed = PostsFeed(feedType: .home, items: [post], cursor: "cursor")
+        sut.didFetch(feed: feed)
+        let path = IndexPath(row: 0, section: 0)
+        
+        var expectedResults = [FeedPostCellAction: FeedModuleRoutes]()
+        expectedResults[FeedPostCellAction.extra] = FeedModuleRoutes.myPost(post: post)
+        expectedResults[FeedPostCellAction.profile] = FeedModuleRoutes.myProfile
+        
+        for (action, expectedResult) in expectedResults {
+            
+            // given
+            router.open_route_feedSource_ReceivedArguments = nil
+            
+            // when
+            sut.handle(action: action, path: path)
+            
+            // then
+            XCTAssertEqual(router.open_route_feedSource_ReceivedArguments?.route, expectedResult)
+        }
+       
+    
+    }
 }
+

@@ -80,7 +80,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         setup()
     }
     
-    private func handleAction(action: PostCellAction) {
+    private func handleAction(action: FeedPostCellAction) {
         usedInThirdPartModule ? viewModel.onAction?(action, IndexPath(item: tag, section: 0)) : viewModel.onAction?(action, indexPath())
     }
     
@@ -88,7 +88,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         clipsToBounds = true
     }
     
-    func configure(with data: PostViewModel, collectionView: UICollectionView) {
+    func configure(with data: PostViewModel, collectionView: UICollectionView?) {
         
         self.viewModel = data
         self.collectionView = collectionView
@@ -116,7 +116,6 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         likeButton.isSelected = data.isLiked
         pinButton.isSelected = data.isPinned
         commentButton.isEnabled = !usedInThirdPartModule
-    
     }
     
     private lazy var postImagePlaceholder: UIImage = {

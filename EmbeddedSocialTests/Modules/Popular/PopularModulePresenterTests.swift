@@ -37,30 +37,24 @@ private class PopularModuleViewMock: PopularModuleViewInput {
     func embedFeedViewController(_ viewController: UIViewController) {
         didEmbedViewController = true
     }
+    
+    var didSetImage: UIImage?
+    func setFeedLayoutImage(_ image: UIImage) {
+        didSetImage = image
+    }
 }
 
 private class FeedModuleMock: FeedModuleInput {
 
-    var didSetFeed: FeedType?
-    func setFeed(_ feed: FeedType) {
-        didSetFeed = feed
-    }
-
+    var feedType: FeedType?
+    
     var didRefreshData = false
+    
     func refreshData() {
         didRefreshData = true
     }
 
     var layout: FeedModuleLayoutType = .list
-    
-    
-    // Unused
-    func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
-                        size: CGSize,
-                        configurator: @escaping (T) -> Void) {}
-    func moduleHeight() -> CGFloat { return 0 }
-    
-    
     var setHeaderHeightCalled = false
     var headerHeight: CGFloat? = nil
     
@@ -68,6 +62,15 @@ private class FeedModuleMock: FeedModuleInput {
         setHeaderHeightCalled = true
         headerHeight = height
     }
+}
+
+extension FeedModuleMock {
+    
+    func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
+                        size: CGSize,
+                        configurator: @escaping (T) -> Void) {}
+    
+    func moduleHeight() -> CGFloat { return 0 }
 }
 
 
@@ -103,10 +106,13 @@ class PopularModulePresenterTests: XCTestCase {
         }
         
     }
+    
+    // MARK: PopularModuleViewOutput
 
     func testThatPresenterLoadsCorrectly() {
     
         // given
+        let correctFeedType = FeedType.popular(type: Constants.Feed.Popular.initialFeedScope)
       
         // when
         sut.viewIsReady()
@@ -114,9 +120,7 @@ class PopularModulePresenterTests: XCTestCase {
         // then
         XCTAssertTrue(view.didEmbedViewController)
         XCTAssertTrue(view.availableFeeds != nil)
-        XCTAssertNotNil(view.feedType)
-        XCTAssertNotNil(feedModule.didSetFeed)
-        XCTAssertTrue(feedModule.didRefreshData)
+        XCTAssertTrue(feedModule.feedType == correctFeedType)
     }
     
     func testThatFeedChangesFeedModule() {
@@ -134,11 +138,13 @@ class PopularModulePresenterTests: XCTestCase {
         sut.feedTypeDidChange(to: 1)
         
         // then
-        XCTAssertNotNil(feedModule.didSetFeed)
-        XCTAssertTrue(feedModule.didSetFeed == .popular(type: FeedType.TimeRange.weekly))
+        XCTAssertNotNil(feedModule.feedType)
+        XCTAssertTrue(feedModule.feedType == .popular(type: FeedType.TimeRange.weekly))
     }
+
+    // MARK: FeedModuleOutput
     
-    func testThatViewGetsLocked() {
+    func testThatViewHandlesStartOfFetching() {
         
         // when 
         sut.didStartRefreshingData()
@@ -147,7 +153,7 @@ class PopularModulePresenterTests: XCTestCase {
         XCTAssertTrue(view.didLockFeed)
     }
     
-    func testThatViewGetsUnlocked() {
+    func testThatViewHandlesEndOfFetching() {
         
         // when
         sut.didFinishRefreshingData(nil)
@@ -155,7 +161,7 @@ class PopularModulePresenterTests: XCTestCase {
         XCTAssertTrue(view.didUnlockFeed)
     }
     
-    func testThatViewHandlesEror() {
+    func testThatViewHandlesError() {
         
         // given
         let error = NSError(domain: "test error", code: 0, userInfo: nil)
@@ -167,6 +173,18 @@ class PopularModulePresenterTests: XCTestCase {
         XCTAssertTrue(view.didUnlockFeed)
         XCTAssertNotNil(view.didHandleError)
     }
+    
+    func testsThatItHandlesLayoutTypeChangeEvent() {
+        
+        // given
+        sut.viewIsReady()
+        view.didSetImage = nil
 
+        // when
+        sut.feedLayoutTypeChangeDidTap()
+        
+        // then
+        XCTAssertTrue(view.didSetImage != nil)
+    }
     
 }

@@ -10,7 +10,8 @@ class Logger {
     enum LogEvent: String {
         case error = "⚠️"
         case verbose = "💬"
-        case important = "🚦"
+        case important = "🔥"
+        case veryImortant = "🔥🔥🔥"
     }
     
     class func log(_ something: Any?...,

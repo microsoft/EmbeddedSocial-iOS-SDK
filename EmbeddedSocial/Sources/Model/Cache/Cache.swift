@@ -6,7 +6,7 @@
 import Foundation
 
 class Cache: CacheType {
-
+    
     private let database: TransactionsDatabaseFacadeType
     private let decoder: JSONDecoder.Type
     
@@ -50,10 +50,7 @@ class Cache: CacheType {
     }
     
     private func transaction<T: Transaction>(handle: String?, typeID: String, queries: Queries<T>) -> T {
-        guard let handle = handle else {
-            return queries.make()
-        }
-        let p = predicateBuilder.predicate(handle: handle)
+        let p = handle == nil ? predicateBuilder.predicate(typeID: typeID) : predicateBuilder.predicate(typeID: typeID, handle: handle!)
         return queries.fetch(p, nil, nil).first ?? queries.make()
     }
     
@@ -63,6 +60,11 @@ class Cache: CacheType {
     
     func firstIncoming<Item: Cacheable>(ofType type: Item.Type, handle: String) -> Item? {
         let p = predicateBuilder.predicate(typeID: type.typeIdentifier, handle: handle)
+        return firstIncoming(ofType: type, predicate: p, sortDescriptors: nil)
+    }
+    
+    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, typeID: String) -> Item? {
+        let p = predicateBuilder.predicate(typeID: typeID)
         return firstIncoming(ofType: type, predicate: p, sortDescriptors: nil)
     }
     
@@ -86,7 +88,7 @@ class Cache: CacheType {
     func fetchIncoming<Item: Cacheable>(with request: CacheFetchRequest<Item>, result: @escaping FetchResult<Item>) {
         fetchAsync(request: request, queries: incomingQueries, result: result)
     }
-    
+
     func fetchOutgoing<Item: Cacheable>(with request: CacheFetchRequest<Item>) -> [Item] {
         return fetch(request: request, queries: outgoingQueries)
     }

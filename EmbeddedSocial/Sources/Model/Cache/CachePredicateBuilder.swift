@@ -7,8 +7,8 @@ import Foundation
 
 protocol CachePredicateBuilder {
     func predicate(handle: String) -> NSPredicate
-    
     func predicate(typeID: String, handle: String) -> NSPredicate
+    func predicate(typeID: String) -> NSPredicate
 }
 
 struct PredicateBuilder: CachePredicateBuilder {
