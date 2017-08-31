@@ -65,3 +65,13 @@ extension FeedResponseUserCompactView: Cacheable, HandleMixin {
         }
     }
 }
+
+extension UserCompactView: Cacheable {
+    func getHandle() -> String? {
+        return userHandle
+    }
+    
+    func setHandle(_ handle: String?) {
+        userHandle = handle
+    }
+}

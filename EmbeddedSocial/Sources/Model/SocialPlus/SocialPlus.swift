@@ -55,11 +55,19 @@ public final class SocialPlus {
         }
         
         let service = SocialService()
+        
         service.getMyFollowers(cursor: nil, limit: 30) { result in
             withExtendedLifetime(service) {
                 print(result)
             }
         }
+        
+//        let service = LikesService()
+//        service.getPostLikes(postHandle: "3usUWglABdh", cursor: nil, limit: 30) { result in
+//            withExtendedLifetime(service) {
+//                print(result)
+//            }
+//        }
     }
     
     private func setupCoreDataStack() {

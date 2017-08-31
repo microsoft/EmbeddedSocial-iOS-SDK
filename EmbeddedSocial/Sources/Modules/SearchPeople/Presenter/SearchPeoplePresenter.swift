@@ -10,6 +10,7 @@ final class SearchPeoplePresenter: NSObject {
     var usersListModule: UserListModuleInput!
     var backgroundUsersListModule: UserListModuleInput?
     var interactor: SearchPeopleInteractorInput!
+    weak var moduleOutput: SearchPeopleModuleOutput?
 }
 
 extension SearchPeoplePresenter: SearchPeopleViewOutput {
@@ -53,7 +54,11 @@ extension SearchPeoplePresenter: UISearchResultsUpdating {
 
 extension SearchPeoplePresenter: UserListModuleOutput {
     
-    func didSelectListItem(listView: UIView, at indexPath: IndexPath) {
-        
+    func didFailToLoadList(listView: UIView, error: Error) {
+        if listView == backgroundUsersListModule?.listView {
+            moduleOutput?.didFailToLoadSearchQuery(error)
+        } else if listView == usersListModule.listView {
+            moduleOutput?.didFailToLoadSearchQuery(error)
+        }
     }
 }

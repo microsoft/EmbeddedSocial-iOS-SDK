@@ -41,6 +41,27 @@ protocol SocialServiceType {
 
 class SocialService: BaseService, SocialServiceType {
     
+    typealias UsersFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
+    typealias SuggestedUsersRequestExecutor = CacheRequestExecutionStrategy<[UserCompactView], UsersListResponse>
+    
+    private let requestExecutor: UsersFeedRequestExecutor
+    private let suggestedUsersRequestExecutor: SuggestedUsersRequestExecutor
+    
+    init(requestExecutor: UsersFeedRequestExecutor = UsersFeedRequestExecutionStrategy(),
+         suggestedUsersRequestExecutor: SuggestedUsersRequestExecutor = SuggestedUsersRequestExecutionStrategy()) {
+        
+        self.requestExecutor = requestExecutor
+        self.suggestedUsersRequestExecutor = suggestedUsersRequestExecutor
+        
+        super.init()
+        
+        self.requestExecutor.cache = cache
+        self.requestExecutor.errorHandler = errorHandler
+        
+        self.suggestedUsersRequestExecutor.cache = cache
+        self.suggestedUsersRequestExecutor.errorHandler = errorHandler
+    }
+    
     func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
         let request = PostFollowingUserRequest()
         request.userHandle = userID
@@ -82,9 +103,12 @@ class SocialService: BaseService, SocialServiceType {
     }
     
     func getMyFollowing(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.myFollowingGetFollowingUsers(authorization: authorization, cursor: cursor, limit: Int32(limit)) {
-            self.processUserFeedResponse(response: $0, error: $1, completion: completion)
-        }
+        let builder = SocialAPI.myFollowingGetFollowingUsersWithRequestBuilder(
+            authorization: authorization,
+            cursor: cursor,
+            limit: Int32(limit)
+        )
+        requestExecutor.execute(with: builder, completion: completion)
     }
     
     func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
@@ -93,28 +117,27 @@ class SocialService: BaseService, SocialServiceType {
             cursor: cursor,
             limit: Int32(limit)
         )
-        
-        executeRequest(with: builder, completion: completion)
+        requestExecutor.execute(with: builder, completion: completion)
     }
     
     func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.userFollowersGetFollowers(
+        let builder = SocialAPI.userFollowersGetFollowersWithRequestBuilder(
             userHandle: userID,
             authorization: authorization,
             cursor: cursor,
-            limit: Int32(limit)) {
-                self.processUserFeedResponse(response: $0, error: $1, completion: completion)
-        }
+            limit: Int32(limit)
+        )
+        requestExecutor.execute(with: builder, completion: completion)
     }
     
     func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.userFollowingGetFollowing(
+        let builder = SocialAPI.userFollowingGetFollowingWithRequestBuilder(
             userHandle: userID,
             authorization: authorization,
             cursor: cursor,
-            limit: Int32(limit)) {
-                self.processUserFeedResponse(response: $0, error: $1, completion: completion)
-        }
+            limit: Int32(limit)
+        )
+        requestExecutor.execute(with: builder, completion: completion)
     }
     
     func deletePostFromMyFollowing(postID: String, completion: @escaping (Result<Void>) -> Void) {
@@ -135,36 +158,7 @@ class SocialService: BaseService, SocialServiceType {
             cursor: cursor,
             limit: Int32(limit)
         )
-        
-        executeRequest(with: builder, completion: completion)
-    }
-    
-    private func executeRequest(with builder: RequestBuilder<FeedResponseUserCompactView>,
-                                completion: @escaping (Result<UsersListResponse>) -> Void) {
-        
-        if let cachedResponse = cache.firstIncoming(ofType: FeedResponseUserCompactView.self, handle: builder.URLString) {
-            processUserFeedResponse(response: cachedResponse, error: nil, completion: completion)
-        }
-        
-        builder.execute { [weak self] result, error in
-            let response = result?.body
-            response?.setHandle(builder.URLString)
-            if let response = response {
-                self?.cache.cacheIncoming(response)
-            }
-            self?.processUserFeedResponse(response: response, error: error, completion: completion)
-        }
-    }
-    
-    private func processUserFeedResponse(response: FeedResponseUserCompactView?,
-                                         error: Error?,
-                                         completion: @escaping (Result<UsersListResponse>) -> Void) {
-        if let response = response {
-            let users = response.data?.map(User.init) ?? []
-            completion(.success(UsersListResponse(users: users, cursor: response.cursor)))
-        } else {
-            errorHandler.handle(error: error, completion: completion)
-        }
+        requestExecutor.execute(with: builder, completion: completion)
     }
     
     func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void) {
@@ -181,13 +175,7 @@ class SocialService: BaseService, SocialServiceType {
     }
     
     func getSuggestedUsers(completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SocialAPI.myFollowingGetSuggestionsUsers(authorization: authorization) { responseUsers, error in
-            if let responseUsers = responseUsers {
-                let users = responseUsers.map(User.init)
-                completion(.success(UsersListResponse(users: users, cursor: nil)))
-            } else {
-                self.errorHandler.handle(error: error, completion: completion)
-            }
-        }
+        let builder = SocialAPI.myFollowingGetSuggestionsUsersWithRequestBuilder(authorization: authorization)
+        suggestedUsersRequestExecutor.execute(with: builder, completion: completion)
     }
 }
