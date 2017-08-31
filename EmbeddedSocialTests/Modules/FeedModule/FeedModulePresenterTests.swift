@@ -12,7 +12,20 @@ class FeedModulePresenter_Tests: XCTestCase {
     private var view: FeedModuleViewInputMock!
     private var interactor: FeedModuleInteractorInputMock!
     private var router: FeedModuleRouterInputMock!
+    private var coreDataStack: CoreDataStack!
+    private var database: MockTransactionsDatabaseFacade!
+    private var cache: Cache!
     
+    private let timeout: TimeInterval = 5
+    
+    func setupCache() {
+        super.setUp()
+        coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
+        database = MockTransactionsDatabaseFacade(incomingRepo: CoreDataRepository(context: coreDataStack.mainContext),
+                                                  outgoingRepo: CoreDataRepository(context: coreDataStack.mainContext))
+        cache = Cache(database: database)
+    }
+
     override func setUp() {
         super.setUp()
         
@@ -27,6 +40,8 @@ class FeedModulePresenter_Tests: XCTestCase {
         
         router = FeedModuleRouterInputMock()
         sut.router = router
+        
+        setupCache()
     }
     
     func testThatViewModelIsCorrect() {
@@ -146,7 +161,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         XCTAssertTrue(view.reload_Called == true)
         XCTAssertTrue(view.reload_Called_Times == 2)
     }
-    
+
     func testThatOnFeedTypeChangeFetchIsDone() {
         
         // given
@@ -203,6 +218,15 @@ class FeedModulePresenter_Tests: XCTestCase {
         
         // then
         XCTAssertEqual(router.open_route_feedSource_ReceivedArguments?.route, FeedModuleRoutes.profileDetailes(user: userHandle))
+    }
+    
+    func testThatCachedFeedIsDisplayed() {
+        
+        // given
+        
+        
+        
+        
     }
 
 }

@@ -37,6 +37,11 @@ private class PopularModuleViewMock: PopularModuleViewInput {
     func embedFeedViewController(_ viewController: UIViewController) {
         didEmbedViewController = true
     }
+    
+    var didSetImage: UIImage?
+    func setFeedLayoutImage(_ image: UIImage) {
+        didSetImage = image
+    }
 }
 
 private class FeedModuleMock: FeedModuleInput {
@@ -167,6 +172,19 @@ class PopularModulePresenterTests: XCTestCase {
         // then
         XCTAssertTrue(view.didUnlockFeed)
         XCTAssertNotNil(view.didHandleError)
+    }
+    
+    func testsThatItHandlesLayoutTypeChangeEvent() {
+        
+        // given
+        sut.viewIsReady()
+        view.didSetImage = nil
+
+        // when
+        sut.feedLayoutTypeChangeDidTap()
+        
+        // then
+        XCTAssertTrue(view.didSetImage != nil)
     }
     
 }

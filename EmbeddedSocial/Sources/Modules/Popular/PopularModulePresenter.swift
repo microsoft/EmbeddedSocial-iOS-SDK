@@ -50,6 +50,7 @@ class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, Popul
     func feedLayoutTypeChangeDidTap() {
         layoutType.flip()
         view.setFeedLayoutImage(layoutType.nextLayoutAsset.image)
+        feedModule.layout = layoutType
     }
     
     deinit {
