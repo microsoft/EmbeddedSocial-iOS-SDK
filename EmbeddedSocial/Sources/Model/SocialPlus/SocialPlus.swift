@@ -16,6 +16,7 @@ public final class SocialPlus {
     private(set) var coordinator: CrossModuleCoordinator!
     private(set) var coreDataStack: CoreDataStack!
     private(set) var cache: CacheType!
+    private(set) var networkTracker: NetworkTrackerType!
     
     var authorization: Authorization {
         return sessionStore.authorization
@@ -23,9 +24,9 @@ public final class SocialPlus {
     
     private init() {
         setupServices(with: SocialPlusServices())
-        
         coreDataStack = serviceProvider.getCoreDataStack()
         cache = serviceProvider.getCache(coreDataStack: coreDataStack)
+        networkTracker = serviceProvider.getNetworkTracker()
     }
     
     func setupServices(with serviceProvider: SocialPlusServicesType) {
@@ -42,6 +43,7 @@ public final class SocialPlus {
     public func start(launchArguments args: LaunchArguments) {
         serviceProvider.getThirdPartyConfigurator().setup(application: args.app, launchOptions: args.launchOptions)
         _ = APISettings.shared
+        networkTracker.startTracking()
         
         coordinator = CrossModuleCoordinator(cache: cache)
         coordinator.setup(launchArguments: args, loginHandler: self)

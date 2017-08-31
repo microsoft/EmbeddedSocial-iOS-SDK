@@ -29,9 +29,8 @@ class MockUserProfileView: UserProfileViewInput {
     private(set) var isFilterEnabled: Bool?
     private(set) var setLayoutAssetCount = 0
     private(set) var layoutAsset: Asset?
-    private(set) var headerContentHeightCount = 0
-    private(set) var headerContentHeightUser: User?
-    private(set) var headerContentHeightReturnValue: CGFloat = 0.0
+    
+    var headerContentHeight: CGFloat = 0.0
 
     func setupInitialState() {
         setupInitialStateCount += 1
@@ -92,11 +91,5 @@ class MockUserProfileView: UserProfileViewInput {
     func setLayoutAsset(_ asset: Asset) {
         layoutAsset = asset
         setLayoutAssetCount += 1
-    }
-    
-    func headerContentHeight(with user: User) -> CGFloat {
-        headerContentHeightCount += 1
-        headerContentHeightUser = user
-        return headerContentHeightReturnValue
     }
 }

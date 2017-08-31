@@ -60,7 +60,7 @@ extension UserListCell {
         profileImageView.layoutIfNeeded()
         profileImageView.makeCircular()
 
-        nameLabel.text = User.fullName(firstName: user.firstName, lastName: user.lastName)
+        nameLabel.text = user.fullName
         
         actionButton.isHidden = item.isActionButtonHidden
 

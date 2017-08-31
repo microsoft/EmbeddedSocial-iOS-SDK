@@ -106,7 +106,9 @@ class FeedModuleRouter: FeedModuleRouterInput {
             let isHome = feedSource == .home
             let configurator = PostMenuModuleConfigurator()
             
-            configurator.configure(menuType: .otherPost(post: post, isHome: isHome), moduleOutput: moduleInput)
+            configurator.configure(menuType: .otherPost(post: post, isHome: isHome),
+                                   moduleOutput: moduleInput,
+                                   navigationController: navigationController)
             postMenuViewController = configurator.viewController
             
             if let parent = viewController {
@@ -118,7 +120,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
             
             let configurator = PostMenuModuleConfigurator()
             
-            configurator.configure(menuType: .myPost(post: post), moduleOutput: moduleInput, navigationComtroller: navigationController)
+            configurator.configure(menuType: .myPost(post: post), moduleOutput: moduleInput, navigationController: navigationController)
             postMenuViewController = configurator.viewController
             
             if let parent = viewController {

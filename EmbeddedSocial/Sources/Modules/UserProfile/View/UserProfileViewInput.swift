@@ -19,11 +19,11 @@ protocol UserProfileViewInput: class {
     func setFollowStatus(_ followStatus: FollowStatus)
     
     func setIsProcessingFollowRequest(_ isLoading: Bool)
-        
+    
     func setFollowersCount(_ followersCount: Int)
     
     func setFollowingCount(_ followingCount: Int)
-
+    
     func setupHeaderView(_ reusableView: UICollectionReusableView)
     
     func setStickyFilterHidden(_ isHidden: Bool)
@@ -32,5 +32,5 @@ protocol UserProfileViewInput: class {
     
     func setLayoutAsset(_ asset: Asset)
     
-    func headerContentHeight(with user: User) -> CGFloat
+    var headerContentHeight: CGFloat { get }
 }

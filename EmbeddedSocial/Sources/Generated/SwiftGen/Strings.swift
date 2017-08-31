@@ -12,6 +12,11 @@ enum L10n {
     static let screenTitle = L10n.tr("Localizable", "activity_feed.screen_title")
   }
 
+  enum BlockedUsers {
+    /// Blocked users
+    static let screenTitle = L10n.tr("Localizable", "blocked_users.screen_title")
+  }
+
   enum Common {
     /// Blocked
     static let blocked = L10n.tr("Localizable", "common.blocked")
@@ -19,6 +24,8 @@ enum L10n {
     static let cancel = L10n.tr("Localizable", "common.cancel")
     /// Close
     static let close = L10n.tr("Localizable", "common.close")
+    /// Done
+    static let done = L10n.tr("Localizable", "common.done")
     /// Follow
     static let follow = L10n.tr("Localizable", "common.follow")
     /// Following
@@ -27,6 +34,8 @@ enum L10n {
     static let ok = L10n.tr("Localizable", "common.ok")
     /// Pending
     static let pending = L10n.tr("Localizable", "common.pending")
+    /// Submit
+    static let submit = L10n.tr("Localizable", "common.submit")
 
     enum Placeholder {
       /// Not specified
@@ -226,10 +235,8 @@ enum L10n {
   }
 
   enum Report {
-    /// Report %@
-    static func screenTitle(_ p1: String) -> String {
-      return L10n.tr("Localizable", "report.screen_title", p1)
-    }
+    /// Report an issue
+    static let screenTitle = L10n.tr("Localizable", "report.screen_title")
   }
 
   enum Search {

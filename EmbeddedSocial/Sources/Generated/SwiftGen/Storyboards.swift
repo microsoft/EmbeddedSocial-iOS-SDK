@@ -42,6 +42,18 @@ extension UIViewController {
 }
 
 enum StoryboardScene {
+  enum BlockedUsers: String, StoryboardSceneType {
+    static let storyboardName = "BlockedUsers"
+
+    case blockedUsersViewControllerScene = "BlockedUsersViewController"
+    static func instantiateBlockedUsersViewController() -> EmbeddedSocial.BlockedUsersViewController {
+      guard let vc = StoryboardScene.BlockedUsers.blockedUsersViewControllerScene.viewController() as? EmbeddedSocial.BlockedUsersViewController
+      else {
+        fatalError("ViewController 'BlockedUsersViewController' is not of the expected class EmbeddedSocial.BlockedUsersViewController.")
+      }
+      return vc
+    }
+  }
   enum CommentReplies: String, StoryboardSceneType {
     static let storyboardName = "CommentReplies"
 
@@ -223,6 +235,27 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum Report: String, StoryboardSceneType {
+    static let storyboardName = "Report"
+
+    case reportSubmittedViewControllerScene = "ReportSubmittedViewController"
+    static func instantiateReportSubmittedViewController() -> EmbeddedSocial.ReportSubmittedViewController {
+      guard let vc = StoryboardScene.Report.reportSubmittedViewControllerScene.viewController() as? EmbeddedSocial.ReportSubmittedViewController
+      else {
+        fatalError("ViewController 'ReportSubmittedViewController' is not of the expected class EmbeddedSocial.ReportSubmittedViewController.")
+      }
+      return vc
+    }
+
+    case reportViewControllerScene = "ReportViewController"
+    static func instantiateReportViewController() -> EmbeddedSocial.ReportViewController {
+      guard let vc = StoryboardScene.Report.reportViewControllerScene.viewController() as? EmbeddedSocial.ReportViewController
+      else {
+        fatalError("ViewController 'ReportViewController' is not of the expected class EmbeddedSocial.ReportViewController.")
+      }
+      return vc
+    }
+  }
   enum Search: String, StoryboardSceneType {
     static let storyboardName = "Search"
 
@@ -243,6 +276,18 @@ enum StoryboardScene {
       guard let vc = StoryboardScene.SearchPeople.searchPeopleViewControllerScene.viewController() as? EmbeddedSocial.SearchPeopleViewController
       else {
         fatalError("ViewController 'SearchPeopleViewController' is not of the expected class EmbeddedSocial.SearchPeopleViewController.")
+      }
+      return vc
+    }
+  }
+  enum Settings: String, StoryboardSceneType {
+    static let storyboardName = "Settings"
+
+    case settingsViewControllerScene = "SettingsViewController"
+    static func instantiateSettingsViewController() -> EmbeddedSocial.SettingsViewController {
+      guard let vc = StoryboardScene.Settings.settingsViewControllerScene.viewController() as? EmbeddedSocial.SettingsViewController
+      else {
+        fatalError("ViewController 'SettingsViewController' is not of the expected class EmbeddedSocial.SettingsViewController.")
       }
       return vc
     }

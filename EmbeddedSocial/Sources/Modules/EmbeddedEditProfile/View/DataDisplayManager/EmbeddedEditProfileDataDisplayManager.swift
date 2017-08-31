@@ -52,7 +52,7 @@ final class EmbeddedEditProfileDataDisplayManager: NSObject, TableDataDisplayMan
     private func setupTableWithSections(_ tableView: UITableView, sections: [Section]) {
         registerCells(for: tableView)
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 44
+        tableView.estimatedRowHeight = Constants.standardCellHeight
     }
     
     func registerCells(for tableView: UITableView) {
