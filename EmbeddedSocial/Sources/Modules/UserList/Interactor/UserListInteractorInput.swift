@@ -10,8 +10,6 @@ protocol UserListInteractorInput {
     
     var listHasMoreItems: Bool { get }
     
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
-    
     func getNextListPage(completion: @escaping (Result<[User]>) -> Void)
     
     func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void)

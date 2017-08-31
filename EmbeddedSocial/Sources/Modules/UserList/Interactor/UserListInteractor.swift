@@ -37,10 +37,6 @@ class UserListInteractor: UserListInteractorInput {
         self.socialService = socialService
     }
     
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        api.getUsersList(cursor: cursor, limit: limit, completion: completion)
-    }
-    
     func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void) {
         guard let followStatus = user.followerStatus else {
             completion(.failure(APIError.missingUserData))

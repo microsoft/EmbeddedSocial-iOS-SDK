@@ -13,4 +13,12 @@ final class MockSearchView: SearchViewInput {
         self.pageInfo = pageInfo
         setupInitialStateCount += 1
     }
+    
+    private(set) var showErrorCount = 0
+    private(set) var showReportInputError: Error?
+    
+    func showError(_ error: Error) {
+        showErrorCount += 1
+        showReportInputError = error
+    }
 }

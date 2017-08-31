@@ -10,6 +10,7 @@ class UserListPresenterTests: XCTestCase {
     var interactor: MockUserListInteractor!
     var moduleOutput: MockUserListModuleOutput!
     var view: MockUserListView!
+    var router: MockUserListRouter!
     var sut: UserListPresenter!
     
     private let timeout: TimeInterval = 5.0
@@ -19,11 +20,13 @@ class UserListPresenterTests: XCTestCase {
         interactor = MockUserListInteractor()
         view = MockUserListView()
         moduleOutput = MockUserListModuleOutput()
+        router = MockUserListRouter()
         
         sut = UserListPresenter()
         sut.interactor = interactor
         sut.view = view
         sut.moduleOutput = moduleOutput
+        sut.router = router
     }
     
     override func tearDown() {
@@ -31,50 +34,59 @@ class UserListPresenterTests: XCTestCase {
         interactor = nil
         moduleOutput = nil
         view = nil
+        router = nil
         sut = nil
     }
     
     func testThatItSetsInitialState() {
         // given
-        
+        let users = [User(), User(), User()]
+        interactor.getNextListPageReturnValue = .success(users)
+
         // when
         sut.setupInitialState()
         
         // then
         XCTAssertEqual(view.setupInitialStateCount, 1)
-        XCTAssertEqual(interactor.getUsersListCount, 1)
+        validatePageLoaded(page: 1, with: users)
     }
     
     func testThatItLoadsNextPage() {
         // given
-        interactor.getUsersListResult = .success(UsersListResponse(users: [], cursor: nil))
+        let users = [User(), User(), User()]
+        interactor.getNextListPageReturnValue = .success(users)
         
         // when
         sut.loadNextPage()
         
         // then
-        validateNextPageLoaded()
+        validateNextPageLoaded(with: users)
     }
     
-    private func validateNextPageLoaded() {
-        validatePageLoaded(page: 1)
-    }
-    
-    private func validatePageLoaded(page: Int) {
-        XCTAssertEqual(interactor.getUsersListCount, page)
-        XCTAssertEqual(view.setUsersCount, page)
-        XCTAssertEqual(moduleOutput.didUpdateListCount, page)
+    func testThatItHandlesLoadNextPageError() {
+        // given
+        interactor.getNextListPageReturnValue = .failure(APIError.unknown)
+        
+        // when
+        sut.loadNextPage()
+        
+        // then
+        XCTAssertEqual(interactor.getNextListPageCount, 1)
+        XCTAssertEqual(view.setUsersCount, 0)
+        XCTAssertNil(view.users)
+        XCTAssertEqual(moduleOutput.didUpdateListCount, 0)
+        XCTAssertEqual(moduleOutput.didFailToLoadListCount, 1)
     }
     
     func testThatItNotifiesModuleOutputWhenFailsToLoadNextPage() {
         // given
-        interactor.getUsersListResult = .failure(APIError.unknown)
+        interactor.getNextListPageReturnValue = .failure(APIError.unknown)
 
         // when
         sut.loadNextPage()
         
         // then
-        XCTAssertEqual(interactor.getUsersListCount, 1)
+        XCTAssertEqual(interactor.getNextListPageCount, 1)
         XCTAssertEqual(view.setUsersCount, 0)
         XCTAssertEqual(moduleOutput.didUpdateListCount, 0)
         XCTAssertEqual(moduleOutput.didFailToLoadListCount, 1)
@@ -139,49 +151,56 @@ class UserListPresenterTests: XCTestCase {
     
     func testThatItLoadsNextPageWhenReachingEndOfContent() {
         // given
-        interactor.getUsersListResult = .success(UsersListResponse(users: [], cursor: nil))
+        interactor.getNextListPageReturnValue = .success([])
+        interactor.listHasMoreItems = true
+        interactor.isLoadingList = false
 
         // when
         sut.onReachingEndOfPage()
         
         // then
-        validateNextPageLoaded()
+        validateNextPageLoaded(with: [])
     }
     
     func testThatItDoesNotLoadsMultiplePagesWithCorrectOrder() {
         // given
         let firstPage = [User(), User()]
-        let secondPage = [User(), User()]
+        let firstAndSecondPage = firstPage + [User(), User()]
+        interactor.listHasMoreItems = true
+        interactor.isLoadingList = false
         
         // when
-        interactor.getUsersListResult = .success(UsersListResponse(users: firstPage, cursor: UUID().uuidString))
+        interactor.getNextListPageReturnValue = .success(firstPage)
         sut.onReachingEndOfPage()
-        validatePageLoaded(page: 1)
+        validatePageLoaded(page: 1, with: firstPage)
         
-        interactor.getUsersListResult = .success(UsersListResponse(users: secondPage, cursor: UUID().uuidString))
+        interactor.getNextListPageReturnValue = .success(firstAndSecondPage)
         sut.onReachingEndOfPage()
         
         // then
-        validatePageLoaded(page: 2)
-        XCTAssertEqual(view.users ?? [], firstPage + secondPage)
+        validatePageLoaded(page: 2, with: firstAndSecondPage)
+        XCTAssertEqual(view.users ?? [], firstAndSecondPage)
     }
     
-    func testThatItDoesNotLoadNextPageIfCursorIsNil() {
+    func testThatItDoesNotLoadNextPageIfInteractorHasNoMoreItems() {
         // given
         let firstPage = [User(), User()]
-        let secondPage = [User(), User()]
+        let firstAndSecondPage = firstPage + [User(), User()]
+        interactor.listHasMoreItems = true
+        interactor.isLoadingList = false
         
         // when
-        interactor.getUsersListResult = .success(UsersListResponse(users: firstPage, cursor: nil))
+        interactor.getNextListPageReturnValue = .success(firstPage)
         sut.onReachingEndOfPage()
-        validatePageLoaded(page: 1)
+        validatePageLoaded(page: 1, with: firstPage)
         
-        interactor.getUsersListResult = .success(UsersListResponse(users: secondPage, cursor: UUID().uuidString))
+        interactor.getNextListPageReturnValue = .success(firstAndSecondPage)
+        interactor.listHasMoreItems = false
         sut.onReachingEndOfPage()
         
         // then
         // second page not loaded
-        validatePageLoaded(page: 1)
+        validatePageLoaded(page: 1, with: firstPage)
     }
     
     func testThatItSetsListHeaderView() {
@@ -199,8 +218,7 @@ class UserListPresenterTests: XCTestCase {
     func testThatItReloadsWithNewAPI() {
         // given
         let api = MockUsersListAPI()
-        let pageResponse = UsersListResponse(users: [], cursor: nil)
-        interactor.getUsersListResult = .success(pageResponse)
+        interactor.getNextListPageReturnValue = .success([])
 
         // when
         sut.reload(with: api)
@@ -210,6 +228,63 @@ class UserListPresenterTests: XCTestCase {
         let interactorAPI = interactor.api as? MockUsersListAPI
         XCTAssertTrue(interactorAPI === api)
         
-        validatePageLoaded(page: 1)
+        validatePageLoaded(page: 1, with: [])
+    }
+    
+    func testThatItUpdatesViewLoadingState() {
+        sut.didUpdateListLoadingState(true)
+        XCTAssertEqual(view.isLoading, true)
+        
+        sut.didUpdateListLoadingState(false)
+        XCTAssertEqual(view.isLoading, false)
+    }
+    
+    func testThatItOpensMyProfileWhenItemIsSelected() {
+        let creds = CredentialsList(provider: .facebook, accessToken: "", socialUID: "")
+        let user = User(credentials: creds)
+        let indexPath = IndexPath(row: Int(arc4random() % 100), section: Int(arc4random() % 100))
+        let listItem = UserListItem(user: user, isActionButtonHidden: true, indexPath: indexPath) { _ in
+            ()
+        }
+        testThatItOpensProfileWhenItemIsSelected(listItem)
+    }
+    
+    func testThatItOpensUserProfileWhenItemIsSelected() {
+        let user = User()
+        let indexPath = IndexPath(row: Int(arc4random() % 100), section: Int(arc4random() % 100))
+        let listItem = UserListItem(user: user, isActionButtonHidden: true, indexPath: indexPath) { _ in
+            ()
+        }
+        testThatItOpensProfileWhenItemIsSelected(listItem)
+    }
+    
+    func testThatItOpensProfileWhenItemIsSelected(_ item: UserListItem) {
+        // given 
+        
+        // when
+        sut.onItemSelected(item)
+        
+        // then
+        XCTAssertEqual(moduleOutput.didSelectListItemCount, 1)
+        XCTAssertEqual(moduleOutput.didSelectListItemInputValues?.listView, sut.listView)
+        XCTAssertEqual(moduleOutput.didSelectListItemInputValues?.indexPath, item.indexPath)
+        
+        if item.user.isMe {
+            XCTAssertEqual(router.openMyProfileCount, 1)
+        } else {
+            XCTAssertEqual(router.openUserProfileCount, 1)
+            XCTAssertEqual(router.openUserProfileUserID, item.user.uid)
+        }
+    }
+    
+    private func validateNextPageLoaded(with users: [User]) {
+        validatePageLoaded(page: 1, with: users)
+    }
+    
+    private func validatePageLoaded(page: Int, with users: [User]) {
+        XCTAssertEqual(interactor.getNextListPageCount, page)
+        XCTAssertEqual(view.setUsersCount, page)
+        XCTAssertEqual(view.users ?? [], users)
+        XCTAssertEqual(moduleOutput.didUpdateListCount, page)
     }
 }
