@@ -4,11 +4,8 @@
 //
 
 protocol FeedModuleInput: class {
-    
-    // For feed change
-    func setFeed(_ feed: FeedType)
-    // Forcing module to update
-    // Triggers callbacks for start/finish
+
+    // Forces module to fetch all feed
     func refreshData()
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
@@ -19,8 +16,10 @@ protocol FeedModuleInput: class {
     
     // Get Current Module Height
     func moduleHeight() -> CGFloat
-    // Change layout
+    // Layout
     var layout: FeedModuleLayoutType { get set }
+    // Changing feedType triggers items refetching and view reload
+    var feedType: FeedType? { get set }
 }
 
 protocol FeedModuleOutput: class {
@@ -30,16 +29,6 @@ protocol FeedModuleOutput: class {
     func didFinishRefreshingData(_ error: Error?)
     
     func shouldOpenProfile(for userID: String) -> Bool
-}
-
-//MARK: Optional methods
-extension FeedModuleOutput {
-    func didScrollFeed(_ feedView: UIScrollView) { }
-    
-    func didStartRefreshingData() { }
-    func didFinishRefreshingData() { }
-    
-    func shouldOpenProfile(for userID: String) -> Bool { return true }
 }
 
 enum FeedType {
@@ -84,8 +73,12 @@ extension FeedType: Equatable {
     }
 }
 
-enum PostCellAction {
+enum FeedPostCellAction: Int {
     case like, pin, comment, extra, profile, photo, likesList
+}
+
+extension FeedPostCellAction {
+    static let allCases: [FeedPostCellAction] = [.like, .pin, .comment, .extra, .profile, .photo, .likesList]
 }
 
 enum FeedModuleLayoutType: Int {
@@ -129,28 +122,22 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     weak var moduleOutput: FeedModuleOutput?
     weak var userHolder: UserHolder?
     
-    weak var commentsPresenter: SharedPostDetailPresenterProtocol?
-    
     var layout: FeedModuleLayoutType = .list {
         didSet {
-            view.setLayout(type: self.layout)
+            onLayoutTypeChange()
         }
     }
     
-    fileprivate var feedType: FeedType? {
+    var feedType: FeedType? {
         didSet {
-            Logger.log(feedType)
+            onFeedTypeChange()
         }
     }
     
-    fileprivate var cursor: String? = nil {
-        didSet {
-            Logger.log(cursor)
-        }
-    }
-    
-    private var formatter = DateFormatterTool()
-    private let limit = Int32(Constants.Feed.pageSize) // Default
+    fileprivate var isViewReady = false
+    fileprivate var formatter = DateFormatterTool()
+    fileprivate var cursor: String? = nil
+    fileprivate var limit: Int32 = Int32(Constants.Feed.pageSize)
     fileprivate var items = [Post]()
     fileprivate var header: SupplementaryItemModel?
     
@@ -169,50 +156,84 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         return view.getViewHeight()
     }
     
-    func setFeed(_ feed: FeedType) {
-        feedType = feed
-        cleanFeed()
-    }
-    
     func refreshData() {
-        
-        guard let feedType = self.feedType else {
-            Logger.log("feed type is not set")
-            return
-        }
-        
-        Logger.log()
-        interactor.fetchPosts(limit: limit, cursor: nil, feedType: feedType)
+        fetchAllItems()
     }
     
     // MARK: Private
     
+    private func onLayoutTypeChange() {
+        Logger.log(self.layout)
+        view.setLayout(type: self.layout)
+        fetchAllItems()
+    }
+    
+    private func onFeedTypeChange() {
+        Logger.log(self.feedType)
+        if isViewReady {
+            view.resetFocus()
+            fetchAllItems()
+        }
+    }
+    
     fileprivate func isHome() -> Bool {
         return feedType == .home
     }
+ 
+    private func fetchItems(with cursor: String? = nil) {
+        guard let feedType = self.feedType else {
+            Logger.log("feed type is not set")
+            return
+        }
+
+        interactor.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
+    }
     
-    private func cleanFeed() {
+    fileprivate func fetchAllItems() {
         cursor = nil
-        items.removeAll()
+        fetchItems()
+    }
+    
+    fileprivate func fetchMoreItems(with cursor: String?) {
+        
+        guard let cursor = cursor else {
+            Logger.log("cant fetch, no cursor")
+            return
+        }
+        
+        fetchItems(with: cursor)
     }
     
     // MARK: FeedModuleViewOutput
     func item(for path: IndexPath) -> PostViewModel {
-        var viewModel = PostViewModel()
         
-        guard let index = items.index(of: items[path.row]) else {
-            return viewModel
+        let index = path.row
+        let item = items[index]
+        
+        let onAction: PostViewModel.ActionHandler = { [weak self] action, path in
+            self?.handle(action: action, path: path)
         }
         
-        viewModel.config(with: items[index], index: index, cellType: layout.cellType, actionHandler: self)
-        return viewModel
+        let itemViewModel = PostViewModel(with: item,
+                                          cellType: layout.cellType,
+                                          actionHandler: onAction)
+    
+        return itemViewModel
     }
     
-    private func itemIndex(with postHandle:PostHandle) -> Int? {
-        return items.index(where: { $0.topicHandle == postHandle } )
+    private func appendWithReplacing(original: inout [Post], appending: [Post]) {
+        
+        for appendingItem in appending {
+            
+            if let index = original.index(where: { $0.topicHandle == appendingItem.topicHandle }) {
+                original[index] = appendingItem
+            } else {
+                original.append(appendingItem)
+            }
+        }
     }
-    
-    func handle(action: PostCellAction, path: IndexPath) {
+
+    func handle(action: FeedPostCellAction, path: IndexPath) {
         
         let index = path.row
         let postHandle = items[index].topicHandle!
@@ -221,7 +242,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         
         switch action {
         case .comment:
-            router.open(route: .comments(post: item(for: path)), presenter: self)
+            router.open(route: .comments(post: item(for: path)), feedSource: feedType!)
         case .extra:
             
             let isMyPost = (userHolder?.me?.uid == userHandle)
@@ -234,7 +255,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         case .like:
             
             let status = items[index].liked
-            let action:PostSocialAction = status ? .unlike : .like
+            let action: PostSocialAction = status ? .unlike : .like
             
             items[index].liked = !status
             
@@ -245,17 +266,15 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             }
             
             view.reload(with: index)
-            commentsPresenter?.refresh(post: item(for: path))
             interactor.postAction(post: postHandle, action: action)
             
         case .pin:
             let status = items[index].pinned
-            let action:PostSocialAction = status ? .unpin : .pin
+            let action: PostSocialAction = status ? .unpin : .pin
             
             items[index].pinned = !status
             
             view.reload(with: index)
-            commentsPresenter?.refresh(post: item(for: path))
             interactor.postAction(post: postHandle, action: action)
             
         case .profile:
@@ -292,50 +311,33 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         if let header = header {
             view.registerHeader(withType: header.type, configurator: header.configurator)
         }
-        
-        didAskFetchAll()
+        isViewReady = true
     }
     
     func viewDidAppear() {
-        
-        //        if isHome() {
+        limit = Int32(view.itemsLimit)
         didAskFetchAll()
-        //        }
     }
     
     func didAskFetchAll() {
-    
-        guard let feedType = self.feedType else {
-            Logger.log("feed type is not set")
-            return
-        }
-        
-        interactor.fetchPosts(limit: limit, cursor: nil, feedType: feedType)
+        fetchAllItems()
     }
     
     func didAskFetchMore() {
-        
-        guard let feedType = self.feedType else {
-            Logger.log("feed type is not set")
-            return
-        }
-        
-        guard let cursor = cursor else {
-            Logger.log("cant fetch more, no cursor")
-            return
-        }
-        
-        Logger.log(cursor)
-        interactor.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
+       fetchMoreItems(with: cursor)
     }
     
     func didTapItem(path: IndexPath) {
-        Logger.log(path)
-        router.open(route: .postDetails(post: item(for: path)), presenter: self)
+        router.open(route: .postDetails(post: item(for: path)), feedSource: feedType!)
     }
     
     // MARK: FeedModuleInteractorOutput
     func didFetch(feed: PostsFeed) {
+        
+        guard feedType == feed.feedType else {
+            return
+        }
+        
         cursor = feed.cursor
         items = feed.items
         
@@ -343,8 +345,13 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didFetchMore(feed: PostsFeed) {
+        
+        guard feedType == feed.feedType else {
+            return
+        }
+        
         cursor = feed.cursor
-        items.append(contentsOf: feed.items)
+        appendWithReplacing(original: &items, appending: feed.items)
         
         view.reload()
     }
@@ -439,7 +446,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
         if isHome() {
             
             // Refetch Data
-            didAskFetchAll()
+            fetchAllItems()
             
         } else {
             
@@ -459,7 +466,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
         if isHome() {
             
             // Refetch Data
-            didAskFetchAll()
+            fetchAllItems()
             
         } else {
             
@@ -493,9 +500,11 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     func didRequestFail(error: Error) {
         Logger.log("Reloading feed", error, event: .error)
         view.showError(error: error)
-        didAskFetchAll()
+        fetchAllItems()
     }
-
+    
+    // MARK: Private
+    
     private func didChangeItem(user: UserHandle) {
         if let index = items.index(where: { $0.userHandle == user }) {
             view.reload(with: index)

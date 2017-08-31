@@ -8,6 +8,7 @@ protocol CacheType: class {
 
     func cacheIncoming(_ item: Cacheable, for typeID: String)
     func firstIncoming<Item: Cacheable>(ofType type: Item.Type, handle: String) -> Item?
+    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, typeID: String) -> Item?
     func firstIncoming<Item: Cacheable>(ofType type: Item.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> Item?
     func fetchIncoming<Item: Cacheable>(with request: CacheFetchRequest<Item>) -> [Item]
     func fetchIncoming<Item: Cacheable>(with request: CacheFetchRequest<Item>, result: @escaping FetchResult<Item>)

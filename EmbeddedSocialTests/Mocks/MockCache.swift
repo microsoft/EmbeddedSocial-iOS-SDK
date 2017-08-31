@@ -31,6 +31,18 @@ class MockCache: CacheType {
     
     //MARK: - firstIncoming<Item: Cacheable>
     
+    var firstIncoming_ofType_typeID_Called = false
+    var firstIncoming_ofType_typeID_ReceivedArguments: (type: Cacheable.Type, typeID: String)?
+    var firstIncoming_ofType_typeID_ReturnValue: Cacheable?
+    
+    func firstIncoming<Item: Cacheable>(ofType type: Item.Type, typeID: String) -> Item? {
+        firstIncoming_ofType_typeID_Called = true
+        firstIncoming_ofType_typeID_ReceivedArguments = (type: type, typeID: typeID)
+        return firstIncoming_ofType_typeID_ReturnValue as? Item
+    }
+    
+    //MARK: - firstIncoming<Item: Cacheable>
+    
     var firstIncoming_ofType_predicate_sortDescriptors_Called = false
     var firstIncoming_ofType_predicate_sortDescriptors_ReceivedArguments: (type: Cacheable.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?)?
     var firstIncoming_ofType_predicate_sortDescriptors_ReturnValue: Cacheable?

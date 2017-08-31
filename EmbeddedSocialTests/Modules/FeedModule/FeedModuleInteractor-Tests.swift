@@ -89,7 +89,7 @@ private class FeedModulePresenterMock: FeedModuleInteractorOutput {
     }
 }
 
-class FeedModuleInteractor_Pagination_Tests: XCTestCase {
+class FeedModuleInteractor_Tests: XCTestCase {
     
     var sut: FeedModuleInteractor!
     private var service: PostServiceMock!
@@ -215,7 +215,7 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         sut.fetchPosts(feedType: feed)
         
         // then
-        XCTAssertTrue(presenter.fetchedFeed!.cursor == "user popular cursor")
+        XCTAssertTrue(presenter.fetchedFeed?.cursor == "user popular cursor")
     }
     
     func testThatUserRecentFeedIsCorrect() {
@@ -246,4 +246,5 @@ class FeedModuleInteractor_Pagination_Tests: XCTestCase {
         XCTAssertTrue(presenter.fetchedFeed!.items.count == 1)
         XCTAssertTrue(presenter.fetchedFeed!.items.last == Post.mock(seed: 100))
     }
+    
 }

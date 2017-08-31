@@ -32,7 +32,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
         
         var viewModel = CommentViewModel()
         viewModel.comment = comment
-        viewModel.commentHandle = comment.commentHandle!
+        viewModel.commentHandle = comment.commentHandle ?? ""
         viewModel.userName = String(format: "%@ %@", (comment.firstName ?? ""), (comment.lastName ?? ""))
         viewModel.text = comment.text ?? ""
         
@@ -142,7 +142,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     }
     
     func postFetched(post: Post) {
-        postViewModel?.config(with: post, index: self.postViewModel?.tag, cellType: self.postViewModel?.cellType, actionHandler: postViewModelActionsHandler)
+//        postViewModel?.config(with: post, index: self.postViewModel?.tag, cellType: self.postViewModel?.cellType, actionHandler: postViewModelActionsHandler)
         view.refreshPostCell()
     }
     

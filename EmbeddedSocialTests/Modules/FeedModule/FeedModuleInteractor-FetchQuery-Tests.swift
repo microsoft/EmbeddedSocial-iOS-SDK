@@ -6,7 +6,7 @@
 import XCTest
 @testable import EmbeddedSocial
 
-private class MockPostService: PostServiceProtocol {
+private class PostServiceMock: PostServiceProtocol {
     
     var fetchPopularIsCalled = false
     var fetchPopularQuery: PopularFeedQuery?
@@ -25,6 +25,9 @@ private class MockPostService: PostServiceProtocol {
     
     var fetchPostIsCalled = false
     var fetchPostHandle: PostHandle?
+    
+    var fetchedMyPostsQuery: MyFeedQuery?
+    var fetchedMyPopularQuery: MyFeedQuery?
     
     func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
         fetchHomeIsCalled = true
@@ -55,22 +58,41 @@ private class MockPostService: PostServiceProtocol {
         fetchPostIsCalled = true
         fetchPostHandle = post
     }
+    
+    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+        fetchedMyPostsQuery = query
+    }
+    
+    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+        fetchedMyPopularQuery = query
+    }
+}
+
+extension PostServiceMock {
+    
+    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) { }
 
 }
 
 class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
     
     var sut: FeedModuleInteractor!
-    private var postService: MockPostService!
+    private var postService: PostServiceMock!
     var presenter: FeedModulePresenter!
     var view: FeedModuleViewController!
     var collectionView: UICollectionView!
+    private var userHolder: UserHolderMock!
     
     override func setUp() {
         super.setUp()
         
         sut = FeedModuleInteractor()
-        postService = MockPostService()
+            
+        userHolder = UserHolderMock()
+            
+        sut.userHolder = userHolder
+            
+        postService = PostServiceMock()
         sut.postService = postService
         presenter = FeedModulePresenter()
         sut.output = presenter
@@ -80,8 +102,6 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
                                           collectionViewLayout: UICollectionViewFlowLayout.init())
         view.collectionView = collectionView
         presenter.view = view
-        
-        sut.userHolder = nil
     }
     
     func testThatRecentFeedFetchRequestIsValid() {
@@ -170,5 +190,42 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         XCTAssertTrue(postService.fetchPopularForUserQuery?.cursor == "cursor")
     }
     
+    func testThatMyPopularRequestIsCalled() {
+        
+        // given
+        let limit = Int32(5)
+        let cursor = UUID().uuidString
+        let myUserHandle = UUID().uuidString
+        let scope = FeedType.UserFeedScope.popular
+        let feed = FeedType.user(user: myUserHandle, scope: scope)
+        sut.userHolder!.me!.uid = myUserHandle
+        
+        // when
+        sut.fetchPosts(limit: limit, cursor: cursor, feedType: feed)
+        
+        // then
+        XCTAssertNotNil(postService.fetchedMyPopularQuery)
+        XCTAssert(postService.fetchedMyPopularQuery?.cursor == cursor)
+        XCTAssert(postService.fetchedMyPopularQuery?.limit == limit)
+    }
     
+    func testThatMyPostsRequestIsCalled() {
+        
+        // given
+        let limit = Int32(5)
+        let cursor = UUID().uuidString
+        let myUserHandle = UUID().uuidString
+        let scope = FeedType.UserFeedScope.recent
+        let feed = FeedType.user(user: myUserHandle, scope: scope)
+        sut.userHolder!.me!.uid = myUserHandle
+        
+        // when
+        sut.fetchPosts(limit: limit, cursor: cursor, feedType: feed)
+        
+        // then
+        XCTAssertNotNil(postService.fetchedMyPostsQuery)
+        XCTAssert(postService.fetchedMyPostsQuery?.cursor == cursor)
+        XCTAssert(postService.fetchedMyPostsQuery?.limit == limit)
+    }
+
 }

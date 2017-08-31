@@ -74,23 +74,14 @@ protocol PostServiceProtocol {
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler)
     func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler)
     func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler)
-    
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
+
 }
 
-extension PostServiceProtocol {
+protocol PostServiceDelegate: class {
     
-    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) { Logger.log("No Implementation") }
-    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) { Logger.log("No Implementation") }
+    func didFetchHome(query: HomeFeedQuery, result: PostFetchResult)
 }
-
 
 class TopicService: BaseService, PostServiceProtocol {
     
@@ -168,51 +159,55 @@ class TopicService: BaseService, PostServiceProtocol {
     
     func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
         
-        SocialAPI.myFollowingGetTopics(
-            authorization: authorization,
-            cursor: query.cursor) { response, error in // TODO: add limit, currently its broken
-                self.parseResponse(response: response, error: error, completion: completion)
-        }
+        let request = SocialAPI.myFollowingGetTopicsWithRequestBuilder(authorization: authorization,
+                                                                       cursor: query.cursor,
+                                                                       limit: query.limit)
+        
+        processCache(with: request, completion: completion)
+        processRequest(request, completion: completion)
     }
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
-        TopicsAPI.topicsGetPopularTopics(
-            timeRange: query.timeRange,
-            authorization: authorization,
-            cursor: query.cursor,
-            limit: query.limit) { response, error in
-                self.parseResponse(response: response, error: error, completion: completion)
-        }
+        
+        let request = TopicsAPI.topicsGetPopularTopicsWithRequestBuilder(timeRange: query.timeRange,
+                                                                         authorization: authorization,
+                                                                         cursor: query.cursor,
+                                                                         limit: query.limit)
+        
+        processCache(with: request, completion: completion)
+        processRequest(request, completion: completion)
     }
     
     func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {
-        TopicsAPI.topicsGetTopics(
-            authorization: authorization,
-            cursor: query.cursor,
-            limit: query.limit) { response, error in
-                self.parseResponse(response: response, error: error, completion: completion)
-        }
+        
+        let request = TopicsAPI.topicsGetTopicsWithRequestBuilder(authorization: authorization,
+                                                                  cursor: query.cursor,
+                                                                  limit: query.limit)
+        
+        processCache(with: request, completion: completion)
+        processRequest(request, completion: completion)
     }
     
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.userTopicsGetTopics(
-            userHandle: query.user,
-            authorization: authorization,
-            cursor: query.cursor,
-            limit: query.limit) { response, error in
-                self.parseResponse(response: response, error: error, completion: completion)
-        }
+        
+        let request = UsersAPI.userTopicsGetTopicsWithRequestBuilder(userHandle: query.user,
+                                                                     authorization: authorization,
+                                                                     cursor: query.cursor,
+                                                                     limit: query.limit)
+        
+        processCache(with: request, completion: completion)
+        processRequest(request, completion: completion)
     }
     
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.userTopicsGetPopularTopics(
-            userHandle: query.user,
-            authorization: authorization,
-            cursor: query.cursorInt(),
-            limit: query.limit
-        ) { response, error in
-            self.parseResponse(response: response, error: error, completion: completion)
-        }
+        
+        let request = UsersAPI.userTopicsGetPopularTopicsWithRequestBuilder(userHandle: query.user,
+                                                                            authorization: authorization,
+                                                                            cursor: query.cursorInt(),
+                                                                            limit: query.limit)
+        
+        processCache(with: request, completion: completion)
+        processRequest(request, completion: completion)
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
@@ -237,21 +232,23 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.myTopicsGetTopics(
-            authorization: authorization,
-            cursor: query.cursor,
-            limit: query.limit) { (response, error) in
-                self.parseResponse(response: response, error: error, completion: completion)
-        }
+        
+        let request = UsersAPI.myTopicsGetTopicsWithRequestBuilder(authorization: authorization,
+                                                                   cursor: query.cursor,
+                                                                   limit: query.limit)
+        
+        processCache(with: request, completion: completion)
+        processRequest(request, completion: completion)
     }
     
     func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
-        UsersAPI.myTopicsGetPopularTopics(
-            authorization: authorization,
-            cursor: query.cursorInt(),
-            limit: query.limit) { (response, error) in
-                self.parseResponse(response: response, error: error, completion: completion)
-        }
+        let request = UsersAPI.myTopicsGetPopularTopicsWithRequestBuilder(authorization: authorization,
+                                                                          cursor: query.cursorInt(),
+                                                                          limit: query.limit)
+        
+        processCache(with: request, completion: completion)
+        processRequest(request, completion: completion)
+        
     }
     
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
@@ -266,10 +263,37 @@ class TopicService: BaseService, PostServiceProtocol {
     
     // MARK: Private
     
-    private func parseResponse(response: FeedResponseTopicView?, error: Error?, completion: FetchResultHandler) {
+    private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
+                                completion: @escaping FetchResultHandler) {
+        
+        let requestURL = requestBuilder.URLString
+        
+        requestBuilder.execute { (response, error) in
+            self.parseResponse(requestURL: requestURL,
+                               response: response?.body,
+                               error: error,
+                               completion: completion)
+        }
+    }
+    
+    private func processCache(with requestBuilder:RequestBuilder<FeedResponseTopicView>,
+                              completion: @escaping FetchResultHandler) {
+        
+        let requestURL = requestBuilder.URLString
+        
+        if let cachedResponse = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: requestURL) {
+            self.parseResponse(response: cachedResponse, error: nil, completion: completion)
+        }
+    }
+    
+    private func parseResponse(requestURL: String? = nil,
+                               response: FeedResponseTopicView?,
+                               error: Error?,
+                               completion: FetchResultHandler) {
+        
         var result = PostFetchResult()
         
-        guard let data = response?.data else {
+        guard let response = response else {
             if errorHandler.canHandle(error) {
                 errorHandler.handle(error)
             } else {
@@ -280,9 +304,15 @@ class TopicService: BaseService, PostServiceProtocol {
             return
         }
         
-        result.posts = data.map(Post.init)
-        result.cursor = response?.cursor
+        if let data = response.data {
+            result.posts = data.map(Post.init)
+        }
+        result.cursor = response.cursor
         
         completion(result)
+        
+        if let requestURL = requestURL {
+            cache.cacheIncoming(response, for: requestURL)
+        }
     }
 }

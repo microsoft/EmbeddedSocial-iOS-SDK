@@ -68,6 +68,17 @@ private class TopicsServiceMock: PostServiceProtocol {
     }
 }
 
+extension TopicsServiceMock {
+    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {}
+    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {}
+}
+
 private class PostMenuModulePresenterMock: PostMenuModuleInteractorOutput {
     
     var blockedUser: UserHandle?

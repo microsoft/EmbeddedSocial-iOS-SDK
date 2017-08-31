@@ -10,6 +10,7 @@ protocol FeedModuleViewInput: class {
     
     func setupInitialState()
     func setLayout(type: FeedModuleLayoutType)
+    func resetFocus()
     func reload()
     func reload(with index: Int)
     func reloadVisible()
@@ -22,6 +23,9 @@ protocol FeedModuleViewInput: class {
     func refreshLayout()
     
     func getViewHeight() -> CGFloat
+    //func getItemSize() -> CGSize
+    
+    var itemsLimit: Int { get }
     
 }
 
@@ -33,6 +37,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
             static var itemsPerRow = CGFloat(2)
             static var gridCellsPadding = CGFloat(5)
             static var footerHeight = CGFloat(60)
+            static var containerPadding = CGFloat(10)
         }
     }
     
@@ -40,6 +45,11 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     var numberOfItems: Int {
         return collectionView?.numberOfItems(inSection: 0) ?? 0
+    }
+    
+    fileprivate var cachedLimit: Int?
+    var itemsLimit: Int {
+        return cachedLimit ?? 0
     }
     
     fileprivate var listLayout = UICollectionViewFlowLayout()
@@ -144,15 +154,26 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     private func onUpdateBounds() {
         if let collectionView = self.collectionView {
-            updateLayoutFlowForList(layout: listLayout, containerWidth: collectionView.frame.size.width)
-            updateLayoutFlowForGrid(layout: gridLayout, containerWidth: collectionView.frame.size.width)
+            updateFlowLayoutForList(layout: listLayout, containerWidth: collectionView.frame.size.width)
+            updateFlowLayoutForGrid(layout: gridLayout, containerWidth: collectionView.frame.size.width)
+            
+            let limits = [
+                numberOfItemsInList(listLayout, in: collectionView.frame),
+                numberOfItemsInGrid(gridLayout, in: collectionView.frame)
+            ]
+            
+            cachedLimit = limits.max()
         }
     }
     
-    private func updateLayoutFlowForGrid(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
+    private func updateFlowLayoutForGrid(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
         
         let padding = Style.Collection.gridCellsPadding
-        layout.sectionInset = UIEdgeInsets(top: padding , left: padding , bottom: padding , right: padding )
+        layout.sectionInset = UIEdgeInsets(top: padding,
+                                           left: Style.Collection.containerPadding,
+                                           bottom: padding,
+                                           right: Style.Collection.containerPadding)
+        
         layout.minimumLineSpacing = padding
         layout.minimumInteritemSpacing = padding
         let itemsPerRow = Style.Collection.itemsPerRow
@@ -162,8 +183,51 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
     }
     
-    private func updateLayoutFlowForList(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
+    private func updateFlowLayoutForList(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
+        let padding = Style.Collection.gridCellsPadding
         layout.minimumLineSpacing = Style.Collection.rowsMargin
+        layout.sectionInset = UIEdgeInsets(top: padding , left: padding , bottom: padding , right: padding )
+        layout.itemSize = CGSize(width: containerWidth, height: CGFloat(0))
+    }
+    
+    private func numberOfItemsInList(_ layout: UICollectionViewFlowLayout, in rect: CGRect) -> Int {
+        
+        let item = PostViewModel(with: Post.mock(seed: 0),
+                                 cellType: FeedModuleLayoutType.list.cellType,
+                                 actionHandler: nil)
+        var size = calculateCellSizeWith(viewModel: item)
+        
+        size.height += layout.minimumLineSpacing
+        
+        var result = rect.height / size.height
+        result.round(.up)
+        
+        return Int(result)
+    }
+    
+    private func numberOfItemsInGrid(_ layout: UICollectionViewFlowLayout, in rect: CGRect) -> Int {
+        
+        let itemHeight = layout.itemSize.height + layout.minimumLineSpacing
+        let rows = (rect.size.height / itemHeight).rounded(.up)
+        let result = rows * Style.Collection.itemsPerRow
+        
+        return Int(result)
+    }
+    
+    fileprivate func calculateCellSizeWith(viewModel: PostViewModel) -> CGSize {
+        
+        sizingCell.configure(with: viewModel, collectionView: nil)
+        
+        // TODO: remake via manual calculation
+        sizingCell.needsUpdateConstraints()
+        sizingCell.updateConstraints()
+        sizingCell.setNeedsLayout()
+        sizingCell.layoutIfNeeded()
+        
+        var size = sizingCell.container.bounds.size
+        size.width -= Style.Collection.containerPadding * 2
+        
+        return size
     }
     
     @objc private func didTapChangeLayout() {
@@ -176,13 +240,18 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: Input
-  
+    
     func setupInitialState() {
         collectionView.alwaysBounceVertical = true
+        collectionView.addSubview(refreshControl)
     }
     
     func showError(error: Error) {
         self.showErrorAlert(error)
+    }
+    
+    func resetFocus() {
+        self.collectionView.setContentOffset(CGPoint.zero, animated: false)
     }
     
     func getViewHeight() -> CGFloat {
@@ -190,7 +259,9 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     func setLayout(type: FeedModuleLayoutType) {
+        // Aquire new cells
         self.collectionView.reloadData()
+        // Apply new layout
         onUpdateLayout(type: type)
     }
     
@@ -201,10 +272,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func setRefreshing(state: Bool) {
         Logger.log(state)
         if state {
-            if refreshControl.superview != collectionView {
-                collectionView!.addSubview(refreshControl)
-            }
-            
             if refreshControl.isHidden == false {
                 refreshControl.beginRefreshing()
             }
@@ -214,7 +281,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         } else {
             refreshControl.endRefreshing()
             bottomRefreshControl.stopAnimating()
-//            isPullingBottom = false
         }
     }
     
@@ -285,21 +351,15 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         return cell as! UICollectionViewCell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if collectionViewLayout === listLayout {
             
             let item = output.item(for: indexPath)
-            
-            sizingCell.configure(with: item, collectionView: collectionView)
-            
-            // TODO: remake via manual calculation
-            sizingCell.needsUpdateConstraints()
-            sizingCell.updateConstraints()
-            sizingCell.setNeedsLayout()
-            sizingCell.layoutIfNeeded()
-            
-            return sizingCell.container.bounds.size
+
+            return calculateCellSizeWith(viewModel: item)
             
         } else if collectionViewLayout === gridLayout {
             return gridLayout.itemSize
