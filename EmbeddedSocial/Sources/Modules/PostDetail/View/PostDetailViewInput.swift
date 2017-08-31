@@ -10,4 +10,5 @@ protocol PostDetailViewInput: class {
     func postCommentFailed(error: Error)
     func refreshCell(index: Int)
     func refreshPostCell()
+    func setFeedViewController(_ feedViewController: UIViewController)
 }

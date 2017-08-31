@@ -34,14 +34,20 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
 
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int) {
         isLoading = true
-        repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit) { (result) in
-            guard result.error == nil else {
-                return
-            }
-            
-            self.isLoading = false
-            self.output.fetched(replies: result.replies,  cursor: result.cursor)
+        repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
+            self.handleRepliesResult(result: cachedResult)
+        }, resultHandler: { (webResult) in
+            self.handleRepliesResult(result: webResult)
+        })
+    }
+    
+    private func handleRepliesResult(result: RepliesFetchResult) {
+        guard result.error == nil else {
+            return
         }
+        
+        self.isLoading = false
+        self.output.fetched(replies: result.replies,  cursor: result.cursor)
     }
     
     func fetchMoreReplies(commentHandle: String, cursor: String?, limit: Int) {
@@ -50,15 +56,21 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         }
         
         isLoading = true
-        repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, resultHandler: { (result) in
-            guard result.error == nil else {
-                return
-            }
-            
-            self.isLoading = false
-            self.output.fetchedMore(replies: result.replies, cursor: result.cursor)
+        repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
+            self.handleMoreRepliesResult(result: cachedResult)
+        }, resultHandler: { (webResult) in
+            self.handleMoreRepliesResult(result: webResult)
         })
         
+    }
+    
+    private func handleMoreRepliesResult(result: RepliesFetchResult) {
+        guard result.error == nil else {
+            return
+        }
+        
+        self.isLoading = false
+        self.output.fetchedMore(replies: result.replies, cursor: result.cursor)
     }
     
     func postReply(commentHandle: String, text: String) {
@@ -66,8 +78,10 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         request.text = text
         
         repliesService?.postReply(commentHandle: commentHandle, request: request, success: { (response) in
-            self.repliesService?.reply(replyHandle: response.replyHandle!, success: { (reply) in
-                self.output.replyPosted(reply: reply)
+            self.repliesService?.reply(replyHandle: response.replyHandle!, cachedResult: { (cachedReply) in
+                self.output.replyPosted(reply: cachedReply)
+            }, success: { (webReply) in
+                self.output.replyPosted(reply: webReply)
             }, failure: { (error) in
                 
             })

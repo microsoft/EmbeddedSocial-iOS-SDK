@@ -14,6 +14,8 @@ protocol PostDetailViewOutput {
     func openUser(index: Int)
     func openReplies(index: Int)
     func loadRestComments()
+    func enableFetchMore() -> Bool
     func refresh()
     func refreshPost()
+    func heightForFeed() -> CGFloat
 }

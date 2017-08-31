@@ -19,7 +19,7 @@ class MockPostDetailPresenter: PostDetailPresenter {
     }
 
     var postedComment: Comment?
-    override func commentDidPosted(comment: Comment) {
+    override func commentDidPost(comment: Comment) {
         postedComment = comment
     }
     

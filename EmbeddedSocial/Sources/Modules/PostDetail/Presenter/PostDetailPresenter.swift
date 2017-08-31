@@ -17,7 +17,10 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     var repliesPresenter: SharedCommentsPresenterProtocol?
     
     var postViewModel: PostViewModel?
-    weak var postViewModelActionsHandler: PostViewModelActionsProtocol!
+//    weak var postViewModelActionsHandler: PostViewModelActionsProtocol!
+    
+    var feedViewController: UIViewController?
+    var feedModuleInput: FeedModuleInput?
 
     var comments = [Comment]()
     
@@ -56,7 +59,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     func handle(action: CommentCellAction, index: Int) {
         
-        let commentHandle = comments[index].commentHandle!
+        let commentHandle = comments[index].commentHandle
         let userHandle = comments[index].userHandle!
         
         switch action {
@@ -77,7 +80,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
             
             view.refreshCell(index: index)
             repliesPresenter?.refreshCommentCell(commentView: viewModel(with: comments[index]))
-            interactor.commentAction(commentHandle: commentHandle, action: action)
+            interactor.commentAction(commentHandle: commentHandle!, action: action)
             
         case .profile:
             router.openUser(userHandle: userHandle, from: view as! UIViewController)
@@ -98,6 +101,11 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
         view.refreshPostCell()
     }
     
+    func heightForFeed() -> CGFloat {
+        return (feedModuleInput?.moduleHeight())!
+    }
+    
+    
     // MARK: PostDetailInteractorOutput
     func didFetch(comments: [Comment], cursor: String?) {
         self.cursor = cursor
@@ -108,7 +116,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     func didFetchMore(comments: [Comment], cursor: String?) {
         self.cursor = cursor
-        self.comments.append(contentsOf: comments)
+        appendWithReplacing(original: &self.comments, appending: comments)
         if cursor != nil && shouldFetchRestOfComments == true {
             self.fetchMore()
         } else if shouldFetchRestOfComments == true {
@@ -120,10 +128,20 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
         
     }
     
+    private func appendWithReplacing(original: inout [Comment], appending: [Comment]) {
+        for appendingItem in appending {
+            if let index = original.index(where: { $0.commentHandle == appendingItem.commentHandle }) {
+                original[index] = appendingItem
+            } else {
+                original.append(appendingItem)
+            }
+        }
+    }
+    
     func didFail(error: CommentsServiceError) {
     }
     
-    func commentDidPosted(comment: Comment) {
+    func commentDidPost(comment: Comment) {
         comments.append(comment)
         view.postCommentSuccess()
     }
@@ -146,6 +164,14 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
         view.refreshPostCell()
     }
     
+    private func setupFeed() {
+        guard let vc = feedViewController else {
+            return
+        }
+        
+        view.setFeedViewController(vc)
+    }
+    
     // MAKR: PostDetailViewOutput
     
     func refreshPost() {
@@ -154,6 +180,10 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     func openReplies(index: Int) {
         router.openReplies(commentView: viewModel(with:  comments[index]), scrollType: .none, from: view as! UIViewController, postDetailPresenter: self)
+    }
+    
+    func enableFetchMore() -> Bool {
+        return cursor != nil
     }
     
     func openUser(index: Int) {
@@ -170,6 +200,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     func viewIsReady() {
         view.setupInitialState()
+        setupFeed()
         switch scrollType {
             case .bottom:
                 interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: maxLimit)
@@ -206,6 +237,28 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     
     func postComment(photo: Photo?, comment: String) {
         interactor.postComment(photo: photo, topicHandle: (postViewModel?.topicHandle)!, comment: comment)
+    }
+}
+
+extension PostDetailPresenter: FeedModuleOutput {
+    func didFinishRefreshingData() {
+        print("refresed")
+    }
+    
+    func didScrollFeed(_ feedView: UIScrollView) {
+        print("did scroll")
+    }
+    
+    func didStartRefreshingData() {
+        print("sdsad")
+    }
+    
+    func didFinishRefreshingData(_ error: Error?) {
+        view.refreshPostCell()
+    }
+    
+    func shouldOpenProfile(for userID: String) -> Bool {
+        return true
     }
 }
 
