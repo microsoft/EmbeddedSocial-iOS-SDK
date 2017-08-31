@@ -80,7 +80,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         setup()
     }
     
-    private func handleAction(action: PostCellAction) {
+    private func handleAction(action: FeedPostCellAction) {
         usedInThirdPartModule ? viewModel.onAction?(action, IndexPath(item: tag, section: 0)) : viewModel.onAction?(action, indexPath())
     }
     

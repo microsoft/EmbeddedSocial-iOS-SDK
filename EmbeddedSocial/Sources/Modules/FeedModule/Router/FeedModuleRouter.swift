@@ -17,43 +17,75 @@ enum FeedModuleRoutes {
     case likesList(postHandle: String)
 }
 
+extension FeedModuleRoutes: CustomStringConvertible {
+    
+    public var description: String {
+        
+        switch self {
+        case .postDetails:
+            return "Post Details"
+        case .myPost:
+            return "My Post"
+        case .othersPost:
+            return "Others Post"
+        case .openImage:
+            return "Open Image"
+        case .comments:
+            return "Comments"
+        case .profileDetailes:
+            return "Profile Detailes"
+        case .myProfile:
+            return "My Profile"
+        case .likesList:
+            return "Likes List"
+        }
+    }
+}
+
+extension FeedModuleRoutes: Hashable {
+    
+    public var hashValue: Int {
+        return self.description.hash
+    }
+    
+}
+
+
 protocol FeedModuleRouterInput {
     
     func open(route: FeedModuleRoutes, feedSource:FeedType)
-    func open(route: FeedModuleRoutes, presenter: FeedModulePresenter)
+    
 }
+
+/*
+ For all router contributors:
+ please keep router simple,
+ move out all operatios related to configuration/initialization of modules/instances to external classes.
+ 
+ Example 1: see "MyProfileOpener"
+ Example 2:
+ 
+ func open(route: FeedModuleRoutes) {
+ let useCase = MyUseCase(route.arguments)
+ useCase.execute()
+ }
+ 
+ */
 
 class FeedModuleRouter: FeedModuleRouterInput {
     
     weak var viewController: UIViewController?
-    weak var navigationController: UINavigationController? // Replace this with protocol
+    weak var navigationController: UINavigationController?
     weak var postMenuModuleOutput: PostMenuModuleOutput!
     weak var moduleInput: FeedModulePresenter!
     weak var myProfileOpener: MyProfileOpener?
     
     // Keeping ref to menu
-    var postMenuViewController: UIViewController?
-    
-    func open(route: FeedModuleRoutes, presenter: FeedModulePresenter) {
-        switch route {
-        case .postDetails(let post):
-        
-            let configurator = PostDetailModuleConfigurator()
-            configurator.configure(postViewModel: post, scrollType: .none, postPresenter: presenter)
-            
-            navigationController?.pushViewController(configurator.viewController, animated: true)
-        case .comments(let post):
-            
-            let configurator = PostDetailModuleConfigurator()
-            configurator.configure(postViewModel: post, scrollType: .bottom, postPresenter: presenter)
-            
-            navigationController?.pushViewController(configurator.viewController, animated: true)
-        default: break     
-        }
-       
-    }
+    private var postMenuViewController: UIViewController?
     
     func open(route: FeedModuleRoutes, feedSource: FeedType) {
+        
+        Logger.log(route, event: .important)
         
         switch route {
         case .profileDetailes(let userHandle):
@@ -62,7 +94,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
             configurator.configure(userID: userHandle, navigationController: navigationController)
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
-
+            
         case .openImage(let imageUrl):
             let photo = SKPhoto.photoWithImageURL(imageUrl)
             let browser = SKPhotoBrowser(photos: [photo])
@@ -102,8 +134,18 @@ class FeedModuleRouter: FeedModuleRouterInput {
             configurator.configure(postHandle: handle, navigationController: navigationController)
             navigationController?.pushViewController(configurator.viewController, animated: true)
             
-        default:
-            fatalError("Unexpected case")
+        case .postDetails(let post):
+            
+            let configurator = PostDetailModuleConfigurator()
+            configurator.configure(postViewModel: post, scrollType: .none, postPresenter: moduleInput)
+            
+            navigationController?.pushViewController(configurator.viewController, animated: true)
+        case .comments(let post):
+            
+            let configurator = PostDetailModuleConfigurator()
+            configurator.configure(postViewModel: post, scrollType: .bottom, postPresenter: moduleInput)
+            
+            navigationController?.pushViewController(configurator.viewController, animated: true)
         }
     }
 }

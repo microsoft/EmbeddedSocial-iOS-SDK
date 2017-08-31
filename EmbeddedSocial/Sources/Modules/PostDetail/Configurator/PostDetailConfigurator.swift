@@ -38,7 +38,6 @@ class PostDetailModuleConfigurator {
         let topicService = TopicService()
         interactor.topicService = topicService
         presenter.scrollType = scrollType
-        postPresenter.commentsPresenter = presenter
         
         presenter.interactor = interactor
         viewController.output = presenter

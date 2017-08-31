@@ -623,10 +623,12 @@
 		9C813A4A1F45A21900462950 /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531341F31CCD1004CE94F /* FeedModuleInteractor-FetchQuery-Tests.swift */; };
 		9C8F68961F3485CA00AF4A7F /* topics&limit20.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CD760FE1F33158200ABBB2A /* topics&limit20.json */; };
 		9C985E531F505BDF00514F85 /* FeedCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C985E521F505BDF00514F85 /* FeedCacheTests.swift */; };
+		9C9D0A0A1F57ED250000174B /* FeedResponseTopicView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9D0A091F57ED250000174B /* FeedResponseTopicView+Ext.swift */; };
 		9CB3F1FB1F3367F00099A22D /* TopicServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */; };
 		9CB3F1FE1F336B780099A22D /* MyFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */; };
 		9CBA39ED1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA39EC1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift */; };
 		9CBD16701F3D91FE0035EAE8 /* PostMenuModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169781F3C68350052FB90 /* PostMenuModuleViewController.swift */; };
+		9CC81E341F5826E9003DD078 /* MockUserHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC81E331F5826E9003DD078 /* MockUserHolder.swift */; };
 		9CD760FC1F33149E00ABBB2A /* PostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD760FB1F33149E00ABBB2A /* PostTests.swift */; };
 		9CD805331F0D012F00B9B0AC /* EmbeddedSocial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD805291F0D012F00B9B0AC /* EmbeddedSocial.framework */; };
 		9CDDB2031F38866000C46785 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDB2021F38866000C46785 /* DateFormatter.swift */; };
@@ -1315,6 +1317,7 @@
 		9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		9C985E521F505BDF00514F85 /* FeedCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCacheTests.swift; sourceTree = "<group>"; };
 		9C9D0A071F55B8DD0000174B /* MockTopicServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockTopicServices.swift; sourceTree = "<group>"; };
+		9C9D0A091F57ED250000174B /* FeedResponseTopicView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeedResponseTopicView+Ext.swift"; sourceTree = "<group>"; };
 		9CA8646E1F46C98C00199E29 /* SocialMenuItemsProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialMenuItemsProviderTests.swift; sourceTree = "<group>"; };
 		9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicServiceTests.swift; sourceTree = "<group>"; };
 		9CBA39EC1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EmbeddedSocial-Example-MenuHandler.swift"; sourceTree = "<group>"; };
@@ -1327,6 +1330,7 @@
 		9CC531421F31CCF2004CE94F /* FeedModule.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedModule.storyboard; sourceTree = "<group>"; };
 		9CC531431F31CCF2004CE94F /* FeedModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModuleViewController.swift; sourceTree = "<group>"; };
 		9CC531451F31CCF2004CE94F /* FeedModuleViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModuleViewOutput.swift; sourceTree = "<group>"; };
+		9CC81E331F5826E9003DD078 /* MockUserHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserHolder.swift; sourceTree = "<group>"; };
 		9CD760FB1F33149E00ABBB2A /* PostTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTests.swift; sourceTree = "<group>"; };
 		9CD760FE1F33158200ABBB2A /* topics&limit20.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "topics&limit20.json"; sourceTree = "<group>"; };
 		9CD761001F33218A00ABBB2A /* FeedModuleInteractor-SocialActions-Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedModuleInteractor-SocialActions-Tests.swift"; sourceTree = "<group>"; };
@@ -2794,6 +2798,7 @@
 				884C9C451F4D9D860004907F /* PredicateTestableItem.swift */,
 				889AFC061F220BCD003AAF19 /* UIImage+Ext.swift */,
 				88F191711F26071A00B93ADF /* XCTestCase+Ext.swift */,
+				9C9D0A091F57ED250000174B /* FeedResponseTopicView+Ext.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2888,6 +2893,7 @@
 				88F551C31F39D65200F4AAB9 /* MockUserListModuleInput.swift */,
 				88F7A78A1F2789F0005FEC5F /* MockUserService.swift */,
 				9C9D0A071F55B8DD0000174B /* MockTopicServices.swift */,
+				9CC81E331F5826E9003DD078 /* MockUserHolder.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -4761,6 +4767,7 @@
 				88F163891F27569900DAAF68 /* MockQueriableRepository.swift in Sources */,
 				63F8488B1F4ACEDC00D434CF /* PostDetailInteractorTests.swift in Sources */,
 				8811C8251F3C72CD00F7513D /* MockLogoutController.swift in Sources */,
+				9C9D0A0A1F57ED250000174B /* FeedResponseTopicView+Ext.swift in Sources */,
 				8834A76D1F53FE3900F1D383 /* LikesListPresenterTests.swift in Sources */,
 				93AC65B31F3E05DA00FE5A3A /* MockCommentService.swift in Sources */,
 				63F848971F4ADF3500D434CF /* MockCommentRepliesPresenter.swift in Sources */,
@@ -4770,6 +4777,7 @@
 				88F551911F3366C600F4AAB9 /* MockUsersListAPI.swift in Sources */,
 				889119BF1F4AFA50005B3B32 /* MockSearchInteractor.swift in Sources */,
 				88F1638B1F27658B00DAAF68 /* IncomingTransactionTests.swift in Sources */,
+				9CC81E341F5826E9003DD078 /* MockUserHolder.swift in Sources */,
 				889119B71F4AE873005B3B32 /* SearchPeoplePresenterTests.swift in Sources */,
 				889AFC2E1F220BCD003AAF19 /* SocialPlusTests.swift in Sources */,
 				9C3024361F55A42700675FE9 /* FeedModuleInteractor-SocialActions-Tests.swift in Sources */,

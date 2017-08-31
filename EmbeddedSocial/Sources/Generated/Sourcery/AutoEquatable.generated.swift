@@ -88,7 +88,6 @@ internal func == (lhs: PostViewModel, rhs: PostViewModel) -> Bool {
     guard lhs.timeCreated == rhs.timeCreated else { return false }
     guard compareOptionals(lhs: lhs.userImageUrl, rhs: rhs.userImageUrl, compare: ==) else { return false }
     guard compareOptionals(lhs: lhs.postImageUrl, rhs: rhs.postImageUrl, compare: ==) else { return false }
-    guard lhs.tag == rhs.tag else { return false }
     guard lhs.cellType == rhs.cellType else { return false }
     return true
 }

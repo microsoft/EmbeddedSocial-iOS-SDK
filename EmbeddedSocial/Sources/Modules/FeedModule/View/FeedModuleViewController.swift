@@ -192,7 +192,9 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     private func numberOfItemsInList(_ layout: UICollectionViewFlowLayout, in rect: CGRect) -> Int {
         
-        let item = PostViewModel()
+        let item = PostViewModel(with: Post.mock(seed: 0),
+                                 cellType: FeedModuleLayoutType.list.cellType,
+                                 actionHandler: nil)
         var size = calculateCellSizeWith(viewModel: item)
         
         size.height += layout.minimumLineSpacing
@@ -257,8 +259,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     func setLayout(type: FeedModuleLayoutType) {
-        onUpdateLayout(type: type)
+        // Aquire new cells
         self.collectionView.reloadData()
+        // Apply new layout
+        onUpdateLayout(type: type)
     }
     
     func refreshLayout() {

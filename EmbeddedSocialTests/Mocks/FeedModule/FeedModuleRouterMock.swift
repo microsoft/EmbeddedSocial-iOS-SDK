@@ -18,15 +18,5 @@ class FeedModuleRouterInputMock: FeedModuleRouterInput {
         open_route_feedSource_ReceivedArguments = (route: route, feedSource: feedSource)
     }
     
-    //MARK: - open
-    
-    var open_route_presenter_Called = false
-    var open_route_presenter_ReceivedArguments: (route: FeedModuleRoutes, presenter: FeedModulePresenter)?
-    
-    func open(route: FeedModuleRoutes, presenter: FeedModulePresenter) {
-        open_route_presenter_Called = true
-        open_route_presenter_ReceivedArguments = (route: route, presenter: presenter)
-    }
-    
 }
 
