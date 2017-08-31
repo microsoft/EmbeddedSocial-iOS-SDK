@@ -21,7 +21,7 @@ class MockPostDetailsInteractor: PostDetailInteractorInput {
     func postComment(photo: Photo?, topicHandle: String, comment: String) {
         let comment = Comment()
         comment.photoUrl = photo?.url
-        output.commentDidPosted(comment: comment)
+        output.commentDidPost(comment: comment)
     }
     
     func commentAction(commentHandle: String, action: CommentSocialAction) {

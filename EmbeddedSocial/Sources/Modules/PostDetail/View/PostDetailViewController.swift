@@ -18,14 +18,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     @IBOutlet weak var collectionView: UICollectionView!
     var output: PostDetailViewOutput!
     
-    fileprivate lazy var sizingCell: PostCell = { [unowned self] in
-        let cell = PostCell.nib.instantiate(withOwner: nil, options: nil).last as! PostCell
-        let width = self.collectionView.bounds.width
-        let height = cell.frame.height
-        cell.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        return cell
-        }()
-    
     fileprivate var prototypeCommentCell: CommentCell?
     
     //constants
@@ -40,8 +32,9 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     @IBOutlet weak var mediaButton: UIButton!
     
     fileprivate var photo: Photo?
-    fileprivate var postView: UIView!
     fileprivate let imagePikcer = ImagePicker()
+    
+    fileprivate var feedView: UIView?
     
     fileprivate var prototypeCell: CommentCell?
     
@@ -104,6 +97,10 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
                 }
             default: break
         }
+    }
+    
+    func setFeedViewController(_ feedViewController: UIViewController) {
+        feedView = feedViewController.view
     }
     
     fileprivate func scrollCollectionViewToBottom() {
@@ -177,16 +174,28 @@ extension PostDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case CollectionViewSections.post.rawValue:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.reuseID, for: indexPath) as! PostCell
-            cell.configure(with: output.postViewModel!, collectionView: collectionView)
-            cell.usedInThirdPartModule = true
-            //cell.tag = (output.postViewModel?.tag)!
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainPostCell", for: indexPath)
+            
+            guard let feedView = feedView else {
+                return cell
+            }
+
+            if !cell.subviews.contains(feedView) {
+                cell.addSubview(feedView)
+                feedView.snp.makeConstraints { make in
+                    make.left.equalTo(cell)
+                    make.right.equalTo(cell)
+                    make.top.equalTo(cell)
+                    make.bottom.equalTo(cell)
+                }
+                
+            }
             return cell
         case CollectionViewSections.comments.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
             cell.config(commentView: output.commentViewModel(index: indexPath.row), blockAction: false)
             cell.tag = indexPath.row
-            if  output.numberOfItems() > indexPath.row + 1 && isNewDataLoading == false {
+            if  output.numberOfItems() - 1 < indexPath.row + 1 && output.enableFetchMore() {
                 isNewDataLoading = true
                 output.fetchMore()
             }
@@ -213,15 +222,7 @@ extension PostDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case CollectionViewSections.post.rawValue:
-            sizingCell.configure(with: output.postViewModel!, collectionView: collectionView)
-            
-            // TODO: remake via manual calculation
-            sizingCell.needsUpdateConstraints()
-            sizingCell.updateConstraints()
-            sizingCell.setNeedsLayout()
-            sizingCell.layoutIfNeeded()
-            
-            return sizingCell.container.bounds.size
+            return CGSize(width: UIScreen.main.bounds.size.width, height: output.heightForFeed())
         case CollectionViewSections.comments.rawValue:
             prototypeCommentCell?.config(commentView: output.commentViewModel(index: indexPath.row), blockAction: false)
             return CGSize(width: UIScreen.main.bounds.size.width, height: (prototypeCommentCell?.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)!)

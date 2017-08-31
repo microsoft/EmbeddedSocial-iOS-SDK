@@ -45,4 +45,8 @@ class MockPostDetailViewController: UIViewController, PostDetailViewInput {
     func refreshPostCell() {
         postCellRefreshCount = 1
     }
+    
+    func setFeedViewController(_ feedViewController: UIViewController) {
+        
+    }
 }

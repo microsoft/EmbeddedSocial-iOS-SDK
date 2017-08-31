@@ -18,7 +18,7 @@ class PostDetailModuleConfigurator {
         viewController = StoryboardScene.PostDetail.instantiatePostDetailViewController()
     }
 
-    func configure(postViewModel: PostViewModel, scrollType: CommentsScrollType, postPresenter: FeedModulePresenter) {
+    func configure(postViewModel: PostViewModel, scrollType: CommentsScrollType) {
         
         let router = PostDetailRouter()
 
@@ -26,8 +26,7 @@ class PostDetailModuleConfigurator {
         presenter.view = viewController
         presenter.router = router
         presenter.postViewModel = postViewModel
-        presenter.postViewModelActionsHandler = postPresenter
-
+        
         let interactor = PostDetailInteractor()
         interactor.output = presenter
         
@@ -42,6 +41,12 @@ class PostDetailModuleConfigurator {
         presenter.interactor = interactor
         viewController.output = presenter
         
+        let feedConfigurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache)
+        feedConfigurator.configure(navigationController: viewController.navigationController, moduleOutput: presenter)
+        
+        feedConfigurator.moduleInput.feedType = .single(post: postViewModel.topicHandle)
+        presenter.feedViewController = feedConfigurator.viewController
+        presenter.feedModuleInput = feedConfigurator.moduleInput
     }
 
 }
