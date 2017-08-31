@@ -102,6 +102,10 @@ extension CommentView: Cacheable {
     }
 }
 
+extension FeedResponseTopicView: Cacheable {
+    
+}
+
 extension ReplyView: Cacheable {
     func getHandle() -> String? {
         return replyHandle

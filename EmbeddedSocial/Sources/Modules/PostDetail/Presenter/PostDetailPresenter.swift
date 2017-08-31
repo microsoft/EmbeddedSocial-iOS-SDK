@@ -17,7 +17,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     var repliesPresenter: SharedCommentsPresenterProtocol?
     
     var postViewModel: PostViewModel?
-    weak var postViewModelActionsHandler: PostViewModelActionsProtocol!
+//    weak var postViewModelActionsHandler: PostViewModelActionsProtocol!
     
     var feedViewController: UIViewController?
     var feedModuleInput: FeedModuleInput?
@@ -35,7 +35,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
         
         var viewModel = CommentViewModel()
         viewModel.comment = comment
-        viewModel.commentHandle = comment.commentHandle
+        viewModel.commentHandle = comment.commentHandle ?? ""
         viewModel.userName = String(format: "%@ %@", (comment.firstName ?? ""), (comment.lastName ?? ""))
         viewModel.text = comment.text ?? ""
         
@@ -246,15 +246,15 @@ extension PostDetailPresenter: FeedModuleOutput {
     }
     
     func didScrollFeed(_ feedView: UIScrollView) {
-        
+        print("did scroll")
     }
     
     func didStartRefreshingData() {
-        
+        print("sdsad")
     }
     
     func didFinishRefreshingData(_ error: Error?) {
-        
+        view.refreshPostCell()
     }
     
     func shouldOpenProfile(for userID: String) -> Bool {

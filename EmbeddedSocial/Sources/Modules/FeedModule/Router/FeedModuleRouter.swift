@@ -139,13 +139,13 @@ class FeedModuleRouter: FeedModuleRouterInput {
         case .postDetails(let post):
             
             let configurator = PostDetailModuleConfigurator()
-            configurator.configure(postViewModel: post, scrollType: .none, postPresenter: moduleInput)
+            configurator.configure(postViewModel: post, scrollType: .none)
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
         case .comments(let post):
             
             let configurator = PostDetailModuleConfigurator()
-            configurator.configure(postViewModel: post, scrollType: .bottom, postPresenter: moduleInput)
+            configurator.configure(postViewModel: post, scrollType: .bottom)
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
         }

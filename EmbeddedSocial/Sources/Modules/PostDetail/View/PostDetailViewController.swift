@@ -18,14 +18,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     @IBOutlet weak var collectionView: UICollectionView!
     var output: PostDetailViewOutput!
     
-    fileprivate lazy var sizingCell: PostCell = { [unowned self] in
-        let cell = PostCell.nib.instantiate(withOwner: nil, options: nil).last as! PostCell
-        let width = self.collectionView.bounds.width
-        let height = cell.frame.height
-        cell.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        return cell
-        }()
-    
     fileprivate var prototypeCommentCell: CommentCell?
     
     //constants
@@ -231,15 +223,6 @@ extension PostDetailViewController: UICollectionViewDelegateFlowLayout {
         switch indexPath.section {
         case CollectionViewSections.post.rawValue:
             return CGSize(width: UIScreen.main.bounds.size.width, height: output.heightForFeed())
-            sizingCell.configure(with: output.postViewModel!, collectionView: collectionView)
-            
-            // TODO: remake via manual calculation
-            sizingCell.needsUpdateConstraints()
-            sizingCell.updateConstraints()
-            sizingCell.setNeedsLayout()
-            sizingCell.layoutIfNeeded()
-            
-            return sizingCell.container.bounds.size
         case CollectionViewSections.comments.rawValue:
             prototypeCommentCell?.config(commentView: output.commentViewModel(index: indexPath.row), blockAction: false)
             return CGSize(width: UIScreen.main.bounds.size.width, height: (prototypeCommentCell?.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)!)
