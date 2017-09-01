@@ -136,6 +136,10 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         collectionView.reloadItems(at: [IndexPath(item: 0, section: RepliesSections.comment.rawValue)])
     }
     
+    deinit {
+        print("CommentRepliesViewController deinit")
+    }
+    
 }
 
 extension CommentRepliesViewController: UICollectionViewDataSource {
@@ -157,10 +161,11 @@ extension CommentRepliesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
             case RepliesSections.comment.rawValue:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
-                cell.config(commentView: output.mainComment(), blockAction: true)
-                cell.tag = output.mainComment().tag
-                return cell
+//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
+//                cell.config(commentView: output.mainComment(), blockAction: true)
+//                cell.tag = output.mainComment().tag
+//                return cell
+            return output.mainCommentCell()
             case RepliesSections.replies.rawValue:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
                 cell.config(replyView: output.replyView(index: indexPath.row))
@@ -180,8 +185,9 @@ extension CommentRepliesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case RepliesSections.comment.rawValue:
-            prototypeCommentCell.config(commentView: output.mainComment(), blockAction: true)
-            return prototypeCommentCell.cellSize()
+//            prototypeCommentCell.config(commentView: output.mainComment(), blockAction: true)
+//            return prototypeCommentCell.cellSize()
+            return output.mainCommentCell().frame.size
         case RepliesSections.replies.rawValue:
             prototypeReplyCell.config(replyView: output.replyView(index: indexPath.row))
             return prototypeReplyCell.cellSize()

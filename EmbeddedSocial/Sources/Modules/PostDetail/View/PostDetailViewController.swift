@@ -57,13 +57,23 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        output.refreshPost()
+        if output.numberOfItems() > 0 {
+            collectionView.performBatchUpdates({
+                var pathes = [IndexPath]()
+                self.collectionView.numberOfItems(inSection: CollectionViewSections.comments.rawValue)
+                for index in 0...self.output.numberOfItems() - 1 {
+                    pathes.append(IndexPath(item: index, section: CollectionViewSections.comments.rawValue))
+                }
+                self.collectionView.reloadItems(at: pathes)
+            }, completion: nil)
+        }
+
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
         output.refresh()
     }
-
+    
     // MARK: PostDetailViewInput
     func setupInitialState() {
         imagePikcer.delegate = self
@@ -85,18 +95,21 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     func reloadTable(scrollType: CommentsScrollType) {
-        collectionView.reloadData()
-        refreshControl.endRefreshing()
+        
+        self.collectionView.reloadData()
         self.isNewDataLoading = false
-        commentTextView.isEditable = true
-        mediaButton.isEnabled = true
+        self.commentTextView.isEditable = true
+        self.mediaButton.isEnabled = true
         switch scrollType {
-            case .bottom:
-                DispatchQueue.main.asyncAfter(deadline: .now() + reloadDelay) {
-                    self.scrollCollectionViewToBottom()
-                }
-            default: break
+        case .bottom:
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.reloadDelay) {
+                self.scrollCollectionViewToBottom()
+            }
+        default: break
         }
+        
+        refreshControl.endRefreshing()
+
     }
     
     func setFeedViewController(_ feedViewController: UIViewController) {
@@ -122,7 +135,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         view.layoutIfNeeded()
         collectionView.reloadData()
         scrollCollectionViewToBottom()
-
     }
     
     func postCommentFailed(error: Error) {
@@ -193,7 +205,8 @@ extension PostDetailViewController: UICollectionViewDataSource {
             return cell
         case CollectionViewSections.comments.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
-            cell.config(commentView: output.commentViewModel(index: indexPath.row), blockAction: false)
+            let config = CommentCellModuleConfigurator()
+            config.configure(cell: cell, comment: output.comment(at: indexPath.row), navigationController: self.navigationController)
             cell.tag = indexPath.row
             if  output.numberOfItems() - 1 < indexPath.row + 1 && output.enableFetchMore() {
                 isNewDataLoading = true
@@ -210,21 +223,14 @@ extension PostDetailViewController: UICollectionViewDataSource {
     }
 }
 
-extension PostDetailViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == CollectionViewSections.comments.rawValue {
-            output.openReplies(index: indexPath.row)
-        }
-    }
-}
-
 extension PostDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case CollectionViewSections.post.rawValue:
-            return CGSize(width: UIScreen.main.bounds.size.width, height: output.heightForFeed())
+//            return CGSize(width: UIScreen.main.bounds.size.width, height: output.heightForFeed())
+            return CGSize(width: UIScreen.main.bounds.size.width, height: 50)
         case CollectionViewSections.comments.rawValue:
-            prototypeCommentCell?.config(commentView: output.commentViewModel(index: indexPath.row), blockAction: false)
+            prototypeCommentCell?.configure(comment: output.comment(at: indexPath.row))
             return CGSize(width: UIScreen.main.bounds.size.width, height: (prototypeCommentCell?.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)!)
         default:
             return CGSize(width: 0, height: 0)
@@ -256,3 +262,4 @@ extension PostDetailViewController: ImagePickerDelegate {
         clearImage()
     }
 }
+

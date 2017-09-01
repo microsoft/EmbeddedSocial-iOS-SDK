@@ -10,7 +10,7 @@ enum CommentCellAction {
     case like, replies, profile, photo
 }
 
-class CommentCell: UICollectionViewCell {
+class CommentCell: UICollectionViewCell, CommentCellViewInput {
 
     @IBOutlet weak var likesCountButton: UIButton!
     @IBOutlet weak var repliesCountButton: UIButton!
@@ -26,29 +26,49 @@ class CommentCell: UICollectionViewCell {
     
     var commentView: CommentViewModel!
     
+    var output: CommentCellViewOutput!
+    
     private var formatter = DateFormatterTool()
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         avatarButton.imageView?.contentMode = .scaleAspectFill
         avatarButton.layer.shouldRasterize = true
         avatarButton.layer.drawsAsynchronously = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        contentView.addGestureRecognizer(tap)
     }
     
     static let identifier = "CommentCell"
     static let defaultHeight: CGFloat = 190
-
-    func config(commentView: CommentViewModel, blockAction: Bool) {
-        self.commentView = commentView
-        avatarButton.setPhotoWithCaching(Photo(uid: UUID().uuidString,
-                                               url: commentView.userImageUrl,
-                                               image: nil),
-                                         placeholder: UIImage(asset: .userPhotoPlaceholder))
-        repliesCountButton.setTitle(commentView.totalReplies, for: .normal)
-        likesCountButton.setTitle(commentView.totalLikes, for: .normal)
-        commentTextLabel.text = commentView.text
-        usernameLabel.text = commentView.userName
-        if let url = commentView.commentImageUrl {
+    
+    func setupInitialState() {
+        
+    }
+    
+    func handleTap(tap: UITapGestureRecognizer) {
+        output.toReplies(scrollType: .none)
+    }
+    
+    override func select(_ sender: Any?) {
+        super.select(sender)
+        print("sdsadsad")
+    }
+    
+    func configure(comment: Comment) {
+        usernameLabel.text = User.fullName(firstName: comment.firstName, lastName: comment.lastName)
+        commentTextLabel.text = comment.text ?? ""
+        likesCountButton.setTitle(L10n.Post.likesCount(Int(comment.totalLikes)), for: .normal)
+        repliesCountButton.setTitle(L10n.Post.repliesCount(Int(comment.totalReplies)), for: .normal)
+        
+        postedTimeLabel.text = comment.createdTime == nil ? "" : formatter.shortStyle.string(from: comment.createdTime!, to: Date())!
+        
+        avatarButton.setPhotoWithCaching(Photo(url: comment.photoUrl), placeholder: UIImage(asset: .userPhotoPlaceholder))
+        
+        likeButton.isSelected = comment.liked
+        
+        if let url = comment.mediaUrl {
             mediaButton.imageView?.contentMode = .scaleAspectFill
             mediaButton.setPhotoWithCaching(Photo(uid: UUID().uuidString,
                                                   url: url,
@@ -59,14 +79,6 @@ class CommentCell: UICollectionViewCell {
         } else {
             mediaButtonHeightConstraint.constant = 0
         }
-        
-        postedTimeLabel.text = commentView.timeCreated
-        likeButton.isSelected = commentView.isLiked
-
-        repliesButton.isEnabled = !blockAction
-
-        
-        contentView.layoutIfNeeded()
     }
 
     func cellSize() -> CGSize {
@@ -77,17 +89,17 @@ class CommentCell: UICollectionViewCell {
     }
     
     @IBAction func likePressed(_ sender: UIButton) {
-        commentView.onAction?(.like, tag)
+        output.like()
     }
 
     @IBAction func commentPressed(_ sender: Any) {
-        commentView.onAction?(.replies, tag)
+        output.toReplies(scrollType: .bottom)
     }
     @IBAction func avatarPressed(_ sender: Any) {
-        commentView.onAction?(.profile, tag)
+        output.avatarPressed()
     }
     
     @IBAction func mediaPressed(_ sender: Any) {
-        commentView.onAction?(.photo, tag)
+        output.mediaPressed()
     }
 }

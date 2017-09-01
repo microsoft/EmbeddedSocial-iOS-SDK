@@ -16,9 +16,10 @@ class PostDetailRouter: PostDetailRouterInput {
         view.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
-    func openReplies(commentView: CommentViewModel, scrollType: RepliesScrollType, from view: UIViewController, postDetailPresenter: PostDetailPresenter?) {
+    func openReplies(scrollType: RepliesScrollType, from view: UIViewController, commentModulePresenter: CommentCellModuleProtocol) {
         let configurator = CommentRepliesModuleConfigurator()
-        configurator.configure(commentView: commentView, scrollType: scrollType, postDetailsPresenter: postDetailPresenter)
+        configurator.configure(commentModule: commentModulePresenter , scrollType: scrollType)
+//        configurator.configure(commentView: commentView, scrollType: scrollType, postDetailsPresenter: postDetailPresenter)
         
         view.navigationController?.pushViewController(configurator.viewController, animated: true)
     }

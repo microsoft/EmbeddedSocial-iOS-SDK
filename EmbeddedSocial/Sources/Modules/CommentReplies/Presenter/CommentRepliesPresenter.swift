@@ -25,17 +25,17 @@ struct ReplyViewModel {
     var onAction: ActionHandler?
 }
 
-protocol SharedCommentsPresenterProtocol {
-    func refreshCommentCell(commentView: CommentViewModel)
-}
+class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutput, CommentRepliesInteractorOutput {
 
-class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutput, CommentRepliesInteractorOutput, SharedCommentsPresenterProtocol {
 
     weak var view: CommentRepliesViewInput?
     var interactor: CommentRepliesInteractorInput!
     var router: CommentRepliesRouterInput!
     
     var commentView: CommentViewModel?
+    
+    var commentCell: CommentCell!
+    var comment: Comment!
     
     var scrollType: RepliesScrollType = .none
     
@@ -103,6 +103,11 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     // MARK: CommentRepliesViewOutput
+    
+    func mainCommentCell() -> CommentCell {
+        return commentCell
+    }
+    
     func refresh() {
         interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: nil, limit: normalLimit)
     }
@@ -124,13 +129,21 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         return true
     }
     
+    deinit {
+        print("CommentRepliesPresenter deinit")
+    }
+    
     func viewIsReady() {
+        guard let commentHandle = comment.commentHandle else {
+            return
+        }
+        
 //        if (commentView?.comment?.totalReplies)! > 0 {
             switch scrollType {
             case .bottom:
-                interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: maxLimit)
+                interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: maxLimit)
             default:
-                interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: normalLimit)
+                interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: normalLimit)
             }
 //        } else {
 //            view?.reloadTable(scrollType: scrollType)
@@ -166,7 +179,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     func postReply(text: String) {
         interactor.postReply(commentHandle: (commentView?.commentHandle)!, text: text)
     }
-    
     
     // MARK: CommentRepliesInteractorOutput
     func fetched(replies: [Reply], cursor: String?) {

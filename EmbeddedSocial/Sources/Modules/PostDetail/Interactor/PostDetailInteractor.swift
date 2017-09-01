@@ -13,25 +13,7 @@ class PostDetailInteractor: PostDetailInteractorInput {
     
     var commentsService: CommentServiceProtocol?
     var topicService: PostServiceProtocol?
-    var likeService: LikesServiceProtocol?
     var isLoading = false
-    
-    // MARK: Social Actions
-    
-    func commentAction(commentHandle: String, action: CommentSocialAction) {
-        
-        let completion: LikesServiceProtocol.CommentCompletionHandler = { [weak self] (handle, error) in
-                self?.output?.didPostAction(commentHandle: commentHandle, action: action, error: error)
-        }
-        
-        switch action {
-        case .like:
-            likeService?.likeComment(commentHandle: commentHandle, completion: completion)
-        case .unlike:
-            likeService?.unlikeComment(commentHandle: commentHandle, completion: completion)
-        }
-        
-    }
     
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32) {
         isLoading = true
@@ -90,15 +72,5 @@ class PostDetailInteractor: PostDetailInteractorInput {
             print("error posting comment")
         })
         
-    }
-    
-    func loadPost(topicHandle: String) {
-        topicService?.fetchPost(post: topicHandle, completion: { (result) in
-            guard let post = result.posts.first else {
-                return
-            }
-            
-            self.output?.postFetched(post: post)
-        })
     }
 }
