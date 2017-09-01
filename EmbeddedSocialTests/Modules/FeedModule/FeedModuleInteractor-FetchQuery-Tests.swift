@@ -12,10 +12,10 @@ private class PostServiceMock: PostServiceProtocol {
     var fetchPopularQuery: PopularFeedQuery?
     
     var fetchHomeIsCalled = false
-    var fetchHomeQuery: HomeFeedQuery?
+    var fetchHomeQuery: FeedQuery?
     
     var fetchRecentIsCalled = false
-    var fetchRecentQuery: RecentFeedQuery?
+    var fetchRecentQuery: FeedQuery?
     
     var fetchRecentForUserIsCalled = false
     var fetchRecentForUserQuery: UserFeedQuery?
@@ -26,10 +26,10 @@ private class PostServiceMock: PostServiceProtocol {
     var fetchPostIsCalled = false
     var fetchPostHandle: PostHandle?
     
-    var fetchedMyPostsQuery: MyFeedQuery?
-    var fetchedMyPopularQuery: MyFeedQuery?
+    var fetchedMyPostsQuery: FeedQuery?
+    var fetchedMyPopularQuery: FeedQuery?
     
-    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {
         fetchHomeIsCalled = true
         fetchHomeQuery = query
     }
@@ -39,7 +39,7 @@ private class PostServiceMock: PostServiceProtocol {
         fetchPopularQuery = query
     }
     
-    func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {
         fetchRecentIsCalled = true
         fetchRecentQuery = query
     }
@@ -59,11 +59,11 @@ private class PostServiceMock: PostServiceProtocol {
         fetchPostHandle = post
     }
     
-    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {
         fetchedMyPostsQuery = query
     }
     
-    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {
         fetchedMyPopularQuery = query
     }
 }
@@ -144,7 +144,7 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         // then
         XCTAssertTrue(postService.fetchPopularIsCalled)
         XCTAssertTrue(postService.fetchPopularQuery?.timeRange == .today )
-        XCTAssertTrue(postService.fetchPopularQuery?.cursor == 10)
+        XCTAssertTrue(postService.fetchPopularQuery?.cursor == "10")
         XCTAssertTrue(postService.fetchPopularQuery?.limit == 5)
     }
     

@@ -65,7 +65,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         switch feedType {
             
         case .home:
-            var query = HomeFeedQuery()
+            var query = FeedQuery()
             query.limit = limit
             query.cursor = cursor
             postService.fetchHome(query: query) { [weak self] result in
@@ -73,7 +73,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             }
             
         case .recent:
-            var query = RecentFeedQuery()
+            var query = FeedQuery()
             query.limit = limit
             query.cursor = cursor
             postService.fetchRecent(query: query) { [weak self] result in
@@ -83,7 +83,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         case let .popular(type: range):
             var query = PopularFeedQuery()
             query.limit = limit
-            query.cursor = (cursor == nil) ? nil : Int32(cursor!)
+            query.cursor = cursor
             
             switch range {
             case .alltime:
@@ -103,7 +103,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             let isMyFeed = userHolder?.me?.isMyHandle(user) == true
             
             if isMyFeed {
-                var query = MyFeedQuery()
+                var query = FeedQuery()
                 query.cursor = cursor
                 query.limit = limit
                 
@@ -141,6 +141,10 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             postService.fetchPost(post: post) { [weak self] result in
                 self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
             }
+            
+        case let .search(query):
+            break;
+            
         }
     }
     

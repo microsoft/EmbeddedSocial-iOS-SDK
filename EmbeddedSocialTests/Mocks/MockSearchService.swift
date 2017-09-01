@@ -17,4 +17,8 @@ class MockSearchService: SearchServiceType {
             completion(result)
         }
     }
+    
+    func queryTopics(query: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        
+    }
 }

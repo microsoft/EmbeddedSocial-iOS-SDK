@@ -15,7 +15,7 @@ private class PostServiceMock: PostServiceProtocol {
     var recentResult: PostFetchResult!
     var homeResult: PostFetchResult!
     
-    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {
         completion(homeResult)
     }
     
@@ -23,7 +23,7 @@ private class PostServiceMock: PostServiceProtocol {
         completion(popularResult)
     }
     
-    func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {
         completion(recentResult)
     }
     
@@ -39,11 +39,11 @@ private class PostServiceMock: PostServiceProtocol {
         completion(singlePostResult)
     }
     
-    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {
         
     }
     
-    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {
         
     }
     
