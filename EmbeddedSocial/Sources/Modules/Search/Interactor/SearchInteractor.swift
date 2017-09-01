@@ -10,7 +10,8 @@ final class SearchInteractor: SearchInteractorInput {
     func makeTabInfo(from searchPeopleModule: SearchPeopleModuleInput) -> SearchTabInfo {
         return SearchTabInfo(searchResultsController: searchPeopleModule.searchResultsController(),
                               searchResultsHandler: searchPeopleModule.searchResultsHandler(),
-                              backgroundView: searchPeopleModule.backgroundView())
+                              backgroundView: searchPeopleModule.backgroundView(),
+                              searchBarPlaceholder: L10n.Search.Placeholder.searchPeople)
     }
     
     func runSearchQuery(for searchController: UISearchController, feedModule: FeedModuleInput) {

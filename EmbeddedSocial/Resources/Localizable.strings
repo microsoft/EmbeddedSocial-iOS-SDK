@@ -92,6 +92,9 @@
 "search.screen_title" = "Search";
 "search.placeholder.search_people" = "Search people";
 "search.label.based_on_who_you_follow" = "Based on who you follow";
+"search.placeholder.search_topics" = "Search topics";
+"search.filter.topics" = "Topics";
+"search.filter.people" = "People";
 
 "my_pins.screen_title" = "My pins";
 

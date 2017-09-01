@@ -8,9 +8,16 @@ import SnapKit
 
 class SearchViewController: UIViewController {
     
+    var output: SearchViewOutput!
+
     fileprivate var searchController: UISearchController?
     
-    var output: SearchViewOutput!
+    fileprivate lazy var filterView: SegmentedControlView = { [unowned self] in
+        return SegmentedControlView.searchModuleControl(
+            superview: self.view,
+            onTopics: self.output.onTopics,
+            onPeople: self.output.onPeople)
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,37 +29,58 @@ class SearchViewController: UIViewController {
         searchController?.isActive = false
     }
     
-    fileprivate func setupSearchController(_ pageInfo: SearchTabInfo) {
-        searchController = UISearchController(searchResultsController: pageInfo.searchResultsController)
-        searchController?.searchResultsUpdater = pageInfo.searchResultsHandler
+    fileprivate func setupSearchController(_ tabInfo: SearchTabInfo) {
+        searchController = UISearchController(searchResultsController: tabInfo.searchResultsController)
+        searchController?.searchResultsUpdater = tabInfo.searchResultsHandler
         searchController?.dimsBackgroundDuringPresentation = false
         searchController?.searchBar.delegate = self
         searchController?.hidesNavigationBarDuringPresentation = false
+        searchController?.searchBar.searchBarStyle = .minimal
+        searchController?.searchBar.placeholder = tabInfo.searchBarPlaceholder
+        searchController?.delegate = self
+        
+        navigationItem.titleView = searchController?.searchBar
+        navigationItem.rightBarButtonItem = nil
     }
     
     fileprivate func addBackgroundView(_ backgroundView: UIView) {
         view.addSubview(backgroundView)
         backgroundView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(filterView.snp.bottom)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
-    }
-    
-    fileprivate func setupSearchBar() {
-        navigationItem.titleView = searchController?.searchBar
-        navigationItem.rightBarButtonItem = nil
-        searchController?.searchBar.placeholder = L10n.Search.Placeholder.searchPeople
-        searchController?.searchBar.searchBarStyle = .minimal
     }
 }
 
 extension SearchViewController: SearchViewInput {
     
-    func setupInitialState(_ pageInfo: SearchTabInfo) {
+    func setupInitialState(_ tab: SearchTabInfo) {
         definesPresentationContext = true
-        setupSearchController(pageInfo)
-        setupSearchBar()
-        if let backgroundView = pageInfo.backgroundView {
+        _ = filterView
+        makeTabActive(tab)
+    }
+    
+    func switchTabs(to tab: SearchTabInfo, from previousTab: SearchTabInfo) {
+        removeTab(previousTab)
+        makeTabActive(tab)
+    }
+    
+    private func makeTabActive(_ tab: SearchTabInfo) {
+        setupSearchController(tab)
+        if let backgroundView = tab.backgroundView {
             addBackgroundView(backgroundView)
+        }
+    }
+    
+    private func removeTab(_ tab: SearchTabInfo) {
+        if let searchController = searchController {
+            searchController.isActive = false
+            searchController.removeFromParentViewController()
+        }
+        if let backgroundView = tab.backgroundView {
+            backgroundView.removeFromSuperview()
         }
     }
     
@@ -65,5 +93,15 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+    }
+}
+
+extension SearchViewController: UISearchControllerDelegate {
+
+    func didPresentSearchController(_ searchController: UISearchController) {
+        var frame = searchController.view.frame
+        frame.origin.y += Constants.Search.filterHeight
+        frame.size.height -= Constants.Search.filterHeight
+        searchController.view.frame = frame
     }
 }

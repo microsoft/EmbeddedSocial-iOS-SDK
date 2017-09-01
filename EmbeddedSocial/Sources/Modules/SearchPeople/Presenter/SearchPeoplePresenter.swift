@@ -56,7 +56,7 @@ extension SearchPeoplePresenter: UserListModuleOutput {
     
     func didFailToLoadList(listView: UIView, error: Error) {
         if listView == backgroundUsersListModule?.listView {
-            moduleOutput?.didFailToLoadSearchQuery(error)
+            moduleOutput?.didFailToLoadSuggestedUsers(error)
         } else if listView == usersListModule.listView {
             moduleOutput?.didFailToLoadSearchQuery(error)
         }

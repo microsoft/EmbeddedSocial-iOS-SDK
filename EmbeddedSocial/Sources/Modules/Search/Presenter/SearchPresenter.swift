@@ -15,6 +15,15 @@ final class SearchPresenter: NSObject {
     
     var topicsTab: SearchTabInfo!
     var usersTab: SearchTabInfo!
+    
+    var selectedTab: SearchTabInfo? {
+        didSet {
+            guard let oldValue = oldValue, let selectedTab = selectedTab, oldValue != selectedTab else {
+                return
+            }
+            view.switchTabs(to: selectedTab, from: oldValue)
+        }
+    }
 }
 
 extension SearchPresenter: SearchViewOutput {
@@ -22,18 +31,24 @@ extension SearchPresenter: SearchViewOutput {
     func viewIsReady() {
         peopleSearchModule.setupInitialState()
         
-//        usersTab = interactor.makeTabInfo(from: peopleSearchModule)
-//        view.setupInitialState(usersTab)
+        usersTab = interactor.makeTabInfo(from: peopleSearchModule)
         
-        setupFeed()
+        topicsTab = SearchTabInfo(searchResultsController: feedViewController ?? UIViewController(),
+                                  searchResultsHandler: self,
+                                  backgroundView: nil,
+                                  searchBarPlaceholder: L10n.Search.Placeholder.searchTopics)
+        
+        selectedTab = topicsTab
+        
+        view.setupInitialState(topicsTab)
     }
     
-    private func setupFeed() {
-        guard let feedViewController = feedViewController, let feedModuleInput = feedModuleInput else {
-            return
-        }
-        topicsTab = SearchTabInfo(searchResultsController: feedViewController, searchResultsHandler: self, backgroundView: nil)
-        view.setupInitialState(topicsTab)
+    func onTopics() {
+        selectedTab = topicsTab
+    }
+    
+    func onPeople() {
+        selectedTab = usersTab
     }
 }
 
@@ -58,9 +73,7 @@ extension SearchPresenter: FeedModuleOutput {
 
 extension SearchPresenter: SearchPeopleModuleOutput {
     
-    func didFailToLoadSuggestedUsers(_ error: Error) {
-        view.showError(error)
-    }
+    func didFailToLoadSuggestedUsers(_ error: Error) { }
     
     func didFailToLoadSearchQuery(_ error: Error) {
         view.showError(error)
