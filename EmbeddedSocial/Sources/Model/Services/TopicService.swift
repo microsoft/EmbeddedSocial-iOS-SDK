@@ -266,6 +266,11 @@ class TopicService: BaseService, PostServiceProtocol {
     private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
                                 completion: @escaping FetchResultHandler) {
         
+        guard isNetworkReachable == true else {
+            Logger.log("No internet, using only cache", event: .veryImortant)
+            return
+        }
+        
         let requestURL = requestBuilder.URLString
         
         requestBuilder.execute { (response, error) in
