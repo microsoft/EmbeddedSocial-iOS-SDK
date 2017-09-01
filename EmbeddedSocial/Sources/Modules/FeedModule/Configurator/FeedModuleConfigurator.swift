@@ -46,6 +46,7 @@ class FeedModuleConfigurator {
         
         let interactor = FeedModuleInteractor()
         interactor.postService = TopicService(imagesService: ImagesService())
+        interactor.searchService = SearchService()
         interactor.output = presenter
         
         presenter.interactor = interactor

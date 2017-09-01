@@ -34,6 +34,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     var postService: PostServiceProtocol!
     var likesService: LikesServiceProtocol = LikesService()
     var pinsService: PinsServiceProtocol! = PinsService()
+    var searchService: SearchServiceType!
     weak var userHolder: UserHolder? = SocialPlus.shared
     
     func handleFetch(result: PostFetchResult, feedType: FeedType, isLoadingMore: Bool = false) {

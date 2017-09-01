@@ -8,22 +8,19 @@ import Foundation
 protocol SearchServiceType {
     func queryUsers(query: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
     
-    func queryTopics(query: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
+    func queryTopics(query: String, cursor: String?, limit: Int, completion: @escaping (Result<PostFetchResult>) -> Void)
 }
 
 final class SearchService: BaseService, SearchServiceType {
     
-    typealias UsersFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
-    
-    let requestExecutor: UsersFeedRequestExecutor
+    private var usersRequestExecutor: UsersFeedRequestExecutor!
+    private var topicsRequestExecutor: TopicsFeedRequestExecutor!
 
-    init(requestExecutor: UsersFeedRequestExecutor = UsersFeedRequestExecutionStrategy()) {
-        self.requestExecutor = requestExecutor
-        
+    init(requestExecutorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
         super.init()
         
-        self.requestExecutor.cache = cache
-        self.requestExecutor.errorHandler = errorHandler
+        usersRequestExecutor = provider.makeUsersFeedExecutor(for: self)
+        topicsRequestExecutor = provider.makeTopicsFeedExecutor(for: self)
     }
     
     func queryUsers(query: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
@@ -31,20 +28,15 @@ final class SearchService: BaseService, SearchServiceType {
                                                                  authorization: authorization,
                                                                  cursor: Int32(cursor ?? ""),
                                                                  limit: Int32(limit))
-        requestExecutor.execute(with: builder, completion: completion)
+        usersRequestExecutor.execute(with: builder, completion: completion)
     }
     
-    func queryTopics(query: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        SearchAPI.searchGetTopics(
+    func queryTopics(query: String, cursor: String?, limit: Int, completion: @escaping (Result<PostFetchResult>) -> Void) {
+        let builder = SearchAPI.searchGetTopicsWithRequestBuilder(
             query: query,
             authorization: authorization,
             cursor: Int32(cursor ?? ""),
-            limit: Int32(limit)) { response, error in
-                if let response = response {
-                    
-                } else {
-                    self.errorHandler.handle(error: error, completion: completion)
-                }
-        }
+            limit: Int32(limit))
+        topicsRequestExecutor.execute(with: builder, completion: completion)
     }
 }
