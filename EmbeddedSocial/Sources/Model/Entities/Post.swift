@@ -109,6 +109,12 @@ extension PostFetchResult {
         error = nil
         cursor = response?.cursor
     }
+    
+    init(error: Error) {
+        self.error = FeedServiceError.failedToFetch(message: error.localizedDescription)
+        posts = []
+        cursor = nil
+    }
 }
 
 extension PostFetchResult {

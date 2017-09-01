@@ -31,6 +31,17 @@ protocol FeedModuleOutput: class {
     func shouldOpenProfile(for userID: String) -> Bool
 }
 
+extension FeedModuleOutput {
+    func didScrollFeed(_ feedView: UIScrollView) { }
+    
+    func didStartRefreshingData() { }
+    func didFinishRefreshingData(_ error: Error?) { }
+    
+    func shouldOpenProfile(for userID: String) -> Bool {
+        return false
+    }
+}
+
 enum FeedType {
     
     enum TimeRange: Int {

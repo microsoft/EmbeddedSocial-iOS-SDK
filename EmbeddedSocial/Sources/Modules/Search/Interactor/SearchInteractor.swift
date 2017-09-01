@@ -7,9 +7,17 @@ import Foundation
 
 final class SearchInteractor: SearchInteractorInput {
     
-    func makePageInfo(from searchPeopleModule: SearchPeopleModuleInput) -> SearchPageInfo {
-        return SearchPageInfo(searchResultsController: searchPeopleModule.searchResultsController(),
+    func makeTabInfo(from searchPeopleModule: SearchPeopleModuleInput) -> SearchTabInfo {
+        return SearchTabInfo(searchResultsController: searchPeopleModule.searchResultsController(),
                               searchResultsHandler: searchPeopleModule.searchResultsHandler(),
                               backgroundView: searchPeopleModule.backgroundView())
+    }
+    
+    func runSearchQuery(for searchController: UISearchController, feedModule: FeedModuleInput) {
+        guard let searchText = searchController.searchBar.text?.trimmingCharacters(in: .whitespaces),
+            !searchText.isEmpty else {
+                return
+        }
+        feedModule.feedType = .search(query: searchText)
     }
 }

@@ -22,7 +22,7 @@ class SearchViewController: UIViewController {
         searchController?.isActive = false
     }
     
-    fileprivate func setupSearchController(_ pageInfo: SearchPageInfo) {
+    fileprivate func setupSearchController(_ pageInfo: SearchTabInfo) {
         searchController = UISearchController(searchResultsController: pageInfo.searchResultsController)
         searchController?.searchResultsUpdater = pageInfo.searchResultsHandler
         searchController?.dimsBackgroundDuringPresentation = false
@@ -47,7 +47,7 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController: SearchViewInput {
     
-    func setupInitialState(_ pageInfo: SearchPageInfo) {
+    func setupInitialState(_ pageInfo: SearchTabInfo) {
         definesPresentationContext = true
         setupSearchController(pageInfo)
         setupSearchBar()
