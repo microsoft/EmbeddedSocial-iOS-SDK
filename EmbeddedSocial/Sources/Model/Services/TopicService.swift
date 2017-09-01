@@ -29,6 +29,15 @@ enum FeedServiceError: Error {
 
 typealias FetchResultHandler = ((PostFetchResult) -> Void)
 
+struct FeedQuery {
+    var cursor: String?
+    var limit: Int32?
+    
+    func cursorInt() -> Int32? {
+        return (cursor == nil) ? nil : Int32(cursor!)
+    }
+}
+
 struct PopularFeedQuery {
     var cursor: Int32?
     var limit: Int32?

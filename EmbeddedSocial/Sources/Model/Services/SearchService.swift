@@ -7,6 +7,8 @@ import Foundation
 
 protocol SearchServiceType {
     func queryUsers(query: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
+    
+    func queryTopics(query: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
 }
 
 final class SearchService: BaseService, SearchServiceType {
@@ -30,5 +32,19 @@ final class SearchService: BaseService, SearchServiceType {
                                                                  cursor: Int32(cursor ?? ""),
                                                                  limit: Int32(limit))
         requestExecutor.execute(with: builder, completion: completion)
+    }
+    
+    func queryTopics(query: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        SearchAPI.searchGetTopics(
+            query: query,
+            authorization: authorization,
+            cursor: Int32(cursor ?? ""),
+            limit: Int32(limit)) { response, error in
+                if let response = response {
+                    
+                } else {
+                    self.errorHandler.handle(error: error, completion: completion)
+                }
+        }
     }
 }
