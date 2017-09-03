@@ -106,6 +106,11 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
         if isNetworkReachable {
             request.execute { (response, error) in
+                
+                if cursor == nil {
+                    //TODO: remove cached comments for topicHandle
+                }
+                
                 var result = CommentFetchResult()
                 
                 guard error == nil else {

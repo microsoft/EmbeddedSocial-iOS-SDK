@@ -61,12 +61,12 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
         router?.openImage(imageUrl: mediaURL)
     }
     
-    deinit {
-//        view = nil
-        interactor = nil
-        router = nil
-        print("CommentCellPresenter deinit")
-    }
+//    deinit {
+////        view = nil
+//        interactor = nil
+//        router = nil
+////        print("CommentCellPresenter deinit")
+//    }
     
     
     // MARK: CommentCellInteractorOutput

@@ -36,6 +36,9 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         avatarButton.imageView?.contentMode = .scaleAspectFill
         avatarButton.layer.shouldRasterize = true
         avatarButton.layer.drawsAsynchronously = true
+        layer.shouldRasterize = true
+        layer.drawsAsynchronously = true
+        layer.rasterizationScale = UIScreen.main.scale
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         contentView.addGestureRecognizer(tap)
     }

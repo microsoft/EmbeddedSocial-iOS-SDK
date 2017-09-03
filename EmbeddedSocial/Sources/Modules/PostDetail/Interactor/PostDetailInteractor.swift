@@ -16,12 +16,19 @@ class PostDetailInteractor: PostDetailInteractorInput {
     var isLoading = false
     
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32) {
-        isLoading = true
-        commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-            self.fetchedItems(result: cachedResult)
-        }, resultHandler: { (webResult) in
-            self.fetchedItems(result: webResult)
-        })
+        DispatchQueue.global(qos: .background).async {
+            self.isLoading = true
+            self.commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
+                DispatchQueue.main.async {
+                    self.fetchedItems(result: cachedResult)
+                }
+            }, resultHandler: { (webResult) in
+                DispatchQueue.main.async {
+                    self.fetchedItems(result: webResult)
+                }
+            })
+        }
+
     }
     
     private func fetchedItems(result: CommentFetchResult) {
@@ -34,16 +41,33 @@ class PostDetailInteractor: PostDetailInteractorInput {
     }
     
     func fetchMoreComments(topicHandle: String, cursor: String?, limit: Int32) {
-        if cursor == "" || cursor == nil || isLoading == true {
-            return
-        }
         
-        isLoading = true
-        commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-            self.fetchedMoreItems(result: cachedResult)
-        }, resultHandler: { (webResult) in
-            self.fetchedMoreItems(result: webResult)
-        })
+        DispatchQueue.global(qos: .background).async {
+            print("This is run on the background queue")
+            
+            if cursor == "" || cursor == nil || self.isLoading == true {
+                return
+            }
+            
+            
+            self.isLoading = true
+            self.commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
+                DispatchQueue.main.async {
+                    self.fetchedMoreItems(result: cachedResult)
+                }
+                
+            }, resultHandler: { (webResult) in
+                DispatchQueue.main.async {
+                    self.fetchedMoreItems(result: webResult)
+                }
+            })
+            
+            
+
+        }
+    
+        
+
     }
     
     private func fetchedMoreItems(result: CommentFetchResult) {

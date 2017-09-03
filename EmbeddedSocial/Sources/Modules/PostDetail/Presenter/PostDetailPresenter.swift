@@ -4,6 +4,7 @@
 //
 
 class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
+
     
     weak var view: PostDetailViewInput!
     var interactor: PostDetailInteractorInput!
@@ -25,6 +26,8 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     private var shouldFetchRestOfComments = false
     
     fileprivate var lastFetchedItemsCount = 0
+    fileprivate var dataIsFetching = false
+    
     
     func heightForFeed() -> CGFloat {
         return (feedModuleInput?.moduleHeight())!
@@ -40,13 +43,20 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
         self.cursor = cursor
         self.comments = comments
         view.reloadTable(scrollType: scrollType)
+        
         scrollType = .none
     }
     
     func didFetchMore(comments: [Comment], cursor: String?) {
+        dataIsFetching = false
         self.lastFetchedItemsCount = comments.count
-        self.cursor = cursor
         appendWithReplacing(original: &self.comments, appending: comments)
+        self.cursor = cursor
+        view.updateReplies()
+        return
+        
+        self.cursor = cursor
+        
         if cursor != nil && shouldFetchRestOfComments == true {
             self.fetchMore()
         } else if shouldFetchRestOfComments == true {
@@ -92,7 +102,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     
     
     func enableFetchMore() -> Bool {
-        return cursor != nil
+        return cursor != nil && !dataIsFetching
     }
     
     func refresh() {
@@ -124,6 +134,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     }
     
     func fetchMore() {
+        dataIsFetching = true
         if shouldFetchRestOfComments {
             interactor.fetchMoreComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: maxLimit)
         } else {
@@ -151,7 +162,7 @@ extension PostDetailPresenter: FeedModuleOutput {
     }
     
     func didStartRefreshingData() {
-        print("sdsad")
+        print("didStartRefreshingData")
     }
     
     func didFinishRefreshingData(_ error: Error?) {

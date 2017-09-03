@@ -14,6 +14,51 @@ fileprivate enum CollectionViewSections: Int {
 }
 
 class PostDetailViewController: BaseViewController, PostDetailViewInput {
+    
+    private var isUpdateing = false
+
+    func updateReplies() {
+
+        
+        print("update 1")
+        
+        
+        DispatchQueue.main.async {
+            print("update 2")
+           self.collectionView.reloadData()
+//              self.collectionView.reloadSections(IndexSet(integer: CollectionViewSections.comments.rawValue))
+            print("update 3")
+        }
+//
+//        return
+//        if isUpdateing == false {
+//            
+//            DispatchQueue.main.async {
+//                self.isUpdateing = true
+//                let oldIndex = self.output.numberOfItems() - self.output.newItemsCount()
+//                self.collectionView.numberOfItems(inSection: CollectionViewSections.comments.rawValue)
+//                self.collectionView.performBatchUpdates({
+//                    var pathes = [IndexPath]()
+//                    for index in 0...self.output.newItemsCount() - 1 {
+//                        pathes.append(IndexPath(item: index + oldIndex, section: CollectionViewSections.comments.rawValue))
+//                    }
+//                    if  self.collectionView.numberOfItems(inSection: CollectionViewSections.comments.rawValue) != self.output.numberOfItems() {
+//                        self.collectionView.insertItems(at: pathes)
+//                    } else {
+//                        self.collectionView.reloadItems(at: pathes)
+//                    }
+//                    
+//                }, completion: { (updated) in
+//                    self.isUpdateing = false
+//                })
+//            }
+//            
+//            
+//
+//        }
+    
+    }
+
 
     @IBOutlet weak var collectionView: UICollectionView!
     var output: PostDetailViewOutput!
@@ -96,6 +141,18 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     func reloadTable(scrollType: CommentsScrollType) {
         
+//        let oldIndex = output.numberOfItems() - output.newItemsCount()
+//        if output.numberOfItems() > 10 {
+//            collectionView.performBatchUpdates({
+//                var pathes = [IndexPath]()
+//                self.collectionView.numberOfItems(inSection: CollectionViewSections.comments.rawValue)
+//                for index in 0...self.output.newItemsCount() - 1 {
+//                    pathes.append(IndexPath(item: index + oldIndex, section: CollectionViewSections.comments.rawValue))
+//                }
+//                self.collectionView.insertItems(at: pathes)
+//            }, completion: nil)
+//        }
+
         self.collectionView.reloadData()
         self.isNewDataLoading = false
         self.commentTextView.isEditable = true
@@ -208,8 +265,7 @@ extension PostDetailViewController: UICollectionViewDataSource {
             let config = CommentCellModuleConfigurator()
             config.configure(cell: cell, comment: output.comment(at: indexPath.row), navigationController: self.navigationController)
             cell.tag = indexPath.row
-            if  output.numberOfItems() - 1 < indexPath.row + 1 && output.enableFetchMore() {
-                isNewDataLoading = true
+            if  output.numberOfItems() - 1 == indexPath.row && output.enableFetchMore() {
                 output.fetchMore()
             }
             return cell
