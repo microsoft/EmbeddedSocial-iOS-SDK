@@ -17,6 +17,8 @@ class FeedReponseCachingTests: XCTestCase {
     var cache: CacheType!
     var services: SocialPlusServicesType!
     
+    var likesService: LikesService!
+    
     override func setUp() {
         super.setUp()
         
@@ -30,8 +32,10 @@ class FeedReponseCachingTests: XCTestCase {
         
         // Set services for cache
         services = SocialPlusServices()
-        coreDataStack = services.getCoreDataStack()
+        coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
         cache = services.getCache(coreDataStack: coreDataStack)
+        
+        likesService = LikesService()
     }
     
     override func tearDown() {
@@ -97,10 +101,88 @@ class FeedReponseCachingTests: XCTestCase {
         // given 
         
         //let originalFeed = FeedResponseTopicView()
+    }
+    
+    func testSocialActionExecuter() {
         
+        // given
         
+        let actionsCache = SocialActionsCache(cache: cache)
+        let executer = CachedActionsExecuter(cache: actionsCache)
+        let actions = actionsCache.getAllCachedActions()
         
+        // when
         
+        //executer.execute(actions.)
+
+    }
+    
+    func testThatUndoActionOverridesOriginalAction() {
+        
+        // given
+        let authorization = UUID().uuidString
+        let postHandle = UUID().uuidString
+        let likeRequestBuilder: RequestBuilder<Object> = LikesAPI.topicLikesPostLikeWithRequestBuilder(topicHandle: postHandle,
+                                                                                            authorization: authorization)
+        
+        let dislikeRequestBuilder: RequestBuilder<Object> = LikesAPI.topicLikesDeleteLikeWithRequestBuilder(topicHandle: postHandle,
+                                                                                                      authorization: authorization)
+        
+        let actionsCache = SocialActionsCache(cache: cache)
+        let likePostAction = SocialActionRequestBuilder.build(method: likeRequestBuilder.method,
+                                                       handle: postHandle,
+                                                       action: .like)
+        
+        let dislikePostAction = SocialActionRequestBuilder.build(method: dislikeRequestBuilder.method,
+                                                       handle: postHandle,
+                                                       action: .like)
+        
+        // when
+        actionsCache.cache(likePostAction)
+        actionsCache.cache(dislikePostAction)
+        
+        // then
+        let results = actionsCache.getAllCachedActions()
+        XCTAssertTrue(results.count == 1)
+        XCTAssertTrue(results.first!.actionType == .like)
+        XCTAssertTrue(results.first!.actionMethod == .delete)
+    }
+    
+    
+    func testThatActionsAreCachedProperly() {
+        
+        // given
+        let authorization = UUID().uuidString
+        let postHandle = UUID().uuidString
+        let likeRequestBuilder: RequestBuilder<Object> = LikesAPI.topicLikesPostLikeWithRequestBuilder(
+            topicHandle: postHandle,
+            authorization: authorization)
+        let pinRequestBuilder: RequestBuilder<Object> = PinsAPI.myPinsDeletePinWithRequestBuilder(
+            topicHandle: postHandle,
+            authorization: authorization)
+        
+        let actionsCache = SocialActionsCache(cache: cache)
+        
+        // when
+        let likePostAction = SocialActionRequestBuilder.build(method: likeRequestBuilder.method,
+                                                       handle: postHandle,
+                                                       action: .like)
+        
+        let deletePinAction = SocialActionRequestBuilder.build(method: pinRequestBuilder.method,
+                                                       handle: postHandle,
+                                                       action: .pin)
+        
+        actionsCache.cache(likePostAction)
+        actionsCache.cache(deletePinAction)
+        
+        // then
+        let results = actionsCache.getAllCachedActions().flatMap { $0.actionType }
+        
+        XCTAssertTrue(results.count == 2)
+        XCTAssertTrue(results.contains(.like))
+        XCTAssertTrue(results.contains(.pin))
+        XCTAssertTrue(likePostAction.actionMethod == .post)
+        XCTAssertTrue(deletePinAction.actionMethod == .delete)
     }
 
 }
