@@ -7,58 +7,13 @@ import UIKit
 import SVProgressHUD
 import SKPhotoBrowser
 
-fileprivate enum CollectionViewSections: Int {
+fileprivate enum CommentsSections: Int {
     case post = 0
     case comments
     case sectionsCount
 }
 
 class PostDetailViewController: BaseViewController, PostDetailViewInput {
-    
-    private var isUpdateing = false
-
-    func updateReplies() {
-
-        
-        print("update 1")
-        
-        
-        DispatchQueue.main.async {
-            print("update 2")
-           self.collectionView.reloadData()
-//              self.collectionView.reloadSections(IndexSet(integer: CollectionViewSections.comments.rawValue))
-            print("update 3")
-        }
-//
-//        return
-//        if isUpdateing == false {
-//            
-//            DispatchQueue.main.async {
-//                self.isUpdateing = true
-//                let oldIndex = self.output.numberOfItems() - self.output.newItemsCount()
-//                self.collectionView.numberOfItems(inSection: CollectionViewSections.comments.rawValue)
-//                self.collectionView.performBatchUpdates({
-//                    var pathes = [IndexPath]()
-//                    for index in 0...self.output.newItemsCount() - 1 {
-//                        pathes.append(IndexPath(item: index + oldIndex, section: CollectionViewSections.comments.rawValue))
-//                    }
-//                    if  self.collectionView.numberOfItems(inSection: CollectionViewSections.comments.rawValue) != self.output.numberOfItems() {
-//                        self.collectionView.insertItems(at: pathes)
-//                    } else {
-//                        self.collectionView.reloadItems(at: pathes)
-//                    }
-//                    
-//                }, completion: { (updated) in
-//                    self.isUpdateing = false
-//                })
-//            }
-//            
-//            
-//
-//        }
-    
-    }
-
 
     @IBOutlet weak var collectionView: UICollectionView!
     var output: PostDetailViewOutput!
@@ -98,6 +53,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         collectionView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
         refreshControl.beginRefreshing()
         output.viewIsReady()
+        SVProgressHUD.show()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,9 +61,9 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         if output.numberOfItems() > 0 {
             collectionView.performBatchUpdates({
                 var pathes = [IndexPath]()
-                self.collectionView.numberOfItems(inSection: CollectionViewSections.comments.rawValue)
+                self.collectionView.numberOfItems(inSection: CommentsSections.comments.rawValue)
                 for index in 0...self.output.numberOfItems() - 1 {
-                    pathes.append(IndexPath(item: index, section: CollectionViewSections.comments.rawValue))
+                    pathes.append(IndexPath(item: index, section: CommentsSections.comments.rawValue))
                 }
                 self.collectionView.reloadItems(at: pathes)
             }, completion: nil)
@@ -128,9 +84,21 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     func refreshPostCell() {
-        collectionView.reloadItems(at: [IndexPath(item: 0, section: CollectionViewSections.post.rawValue)])
+//        collectionView.reloadItems(at: [IndexPath(item: 0, section: CommentsSections.post.rawValue)])
+//        collectionView.performBatchUpdates({
+//            self.collectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
+//        }, completion: nil)
+        collectionView.reloadData()
+        SVProgressHUD.dismiss()
     }
 
+    func updateComments() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            SVProgressHUD.dismiss()
+        }
+    }
+    
     private func configCollectionView() {
         prototypeCommentCell = CommentCell.nib.instantiate(withOwner: nil, options: nil).first as? CommentCell
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
@@ -140,19 +108,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     func reloadTable(scrollType: CommentsScrollType) {
-        
-//        let oldIndex = output.numberOfItems() - output.newItemsCount()
-//        if output.numberOfItems() > 10 {
-//            collectionView.performBatchUpdates({
-//                var pathes = [IndexPath]()
-//                self.collectionView.numberOfItems(inSection: CollectionViewSections.comments.rawValue)
-//                for index in 0...self.output.newItemsCount() - 1 {
-//                    pathes.append(IndexPath(item: index + oldIndex, section: CollectionViewSections.comments.rawValue))
-//                }
-//                self.collectionView.insertItems(at: pathes)
-//            }, completion: nil)
-//        }
-
         self.collectionView.reloadData()
         self.isNewDataLoading = false
         self.commentTextView.isEditable = true
@@ -175,12 +130,12 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     fileprivate func scrollCollectionViewToBottom() {
         if  output.numberOfItems() > 1 {
-            collectionView.scrollToItem(at: IndexPath(row: output.numberOfItems() - 1, section: CollectionViewSections.comments.rawValue), at: .bottom, animated: true)
+            collectionView.scrollToItem(at: IndexPath(row: output.numberOfItems() - 1, section: CommentsSections.comments.rawValue), at: .bottom, animated: true)
         }
     }
     
     func refreshCell(index: Int) {
-        collectionView.reloadItems(at: [IndexPath.init(row: index, section: CollectionViewSections.comments.rawValue)])
+        collectionView.reloadItems(at: [IndexPath.init(row: index, section: CommentsSections.comments.rawValue)])
     }
     
     func postCommentSuccess() {
@@ -227,13 +182,22 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
 }
 
+extension PostDetailViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == CommentsSections.comments.rawValue {
+            let cell = collectionView.cellForItem(at: indexPath) as? CommentCell
+            cell?.openReplies()
+        }
+    }
+}
+
 
 extension PostDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case CollectionViewSections.post.rawValue:
+        case CommentsSections.post.rawValue:
             return 1
-        case CollectionViewSections.comments.rawValue:
+        case CommentsSections.comments.rawValue:
             return output.numberOfItems()
         default:
             return 0
@@ -242,7 +206,7 @@ extension PostDetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
-        case CollectionViewSections.post.rawValue:
+        case CommentsSections.post.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainPostCell", for: indexPath)
             
             guard let feedView = feedView else {
@@ -260,13 +224,14 @@ extension PostDetailViewController: UICollectionViewDataSource {
                 
             }
             return cell
-        case CollectionViewSections.comments.rawValue:
+        case CommentsSections.comments.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
             let config = CommentCellModuleConfigurator()
             config.configure(cell: cell, comment: output.comment(at: indexPath.row), navigationController: self.navigationController)
             cell.tag = indexPath.row
             if  output.numberOfItems() - 1 == indexPath.row && output.enableFetchMore() {
                 output.fetchMore()
+                SVProgressHUD.show()
             }
             return cell
         default:
@@ -275,17 +240,17 @@ extension PostDetailViewController: UICollectionViewDataSource {
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return CollectionViewSections.sectionsCount.rawValue
+        return CommentsSections.sectionsCount.rawValue
     }
 }
 
 extension PostDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
-        case CollectionViewSections.post.rawValue:
-//            return CGSize(width: UIScreen.main.bounds.size.width, height: output.heightForFeed())
-            return CGSize(width: UIScreen.main.bounds.size.width, height: 50)
-        case CollectionViewSections.comments.rawValue:
+        case CommentsSections.post.rawValue:
+            return CGSize(width: UIScreen.main.bounds.size.width, height: output.heightForFeed())
+//            return CGSize(width: UIScreen.main.bounds.size.width, height: 250)
+        case CommentsSections.comments.rawValue:
             prototypeCommentCell?.configure(comment: output.comment(at: indexPath.row))
             return CGSize(width: UIScreen.main.bounds.size.width, height: (prototypeCommentCell?.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)!)
         default:

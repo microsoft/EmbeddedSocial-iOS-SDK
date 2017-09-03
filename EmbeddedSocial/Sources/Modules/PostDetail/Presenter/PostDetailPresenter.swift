@@ -21,7 +21,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     
     private var formatter = DateFormatterTool()
     private var cursor: String?
-    private let normalLimit: Int32 = 10
+    private let normalLimit: Int32 = 50
     private let maxLimit: Int32 = 10000
     private var shouldFetchRestOfComments = false
     
@@ -49,12 +49,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     
     func didFetchMore(comments: [Comment], cursor: String?) {
         dataIsFetching = false
-        self.lastFetchedItemsCount = comments.count
         appendWithReplacing(original: &self.comments, appending: comments)
-        self.cursor = cursor
-        view.updateReplies()
-        return
-        
         self.cursor = cursor
         
         if cursor != nil && shouldFetchRestOfComments == true {
@@ -63,7 +58,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
             view.reloadTable(scrollType: .bottom)
             shouldFetchRestOfComments = false
         } else {
-            view.reloadTable(scrollType: .none)
+            view.updateComments()
         }
         
     }
@@ -84,6 +79,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     func commentDidPost(comment: Comment) {
         comments.append(comment)
         view.postCommentSuccess()
+        feedModuleInput?.refreshData()
     }
     
     func commentPostFailed(error: Error) {
@@ -91,6 +87,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     }
     
     private func setupFeed() {
+        feedModuleInput?.refreshData()
         guard let vc = feedViewController else {
             return
         }
@@ -106,6 +103,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     }
     
     func refresh() {
+        cursor = nil
         interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: normalLimit)
     }
     
@@ -155,6 +153,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
 extension PostDetailPresenter: FeedModuleOutput {
     func didFinishRefreshingData() {
         print("refresed")
+        view.refreshPostCell()
     }
     
     func didScrollFeed(_ feedView: UIScrollView) {

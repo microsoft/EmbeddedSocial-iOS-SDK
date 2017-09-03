@@ -32,8 +32,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     var interactor: CommentRepliesInteractorInput!
     var router: CommentRepliesRouterInput!
     
-    var commentView: CommentViewModel?
-    
     var commentCell: CommentCell!
     var comment: Comment!
     
@@ -109,12 +107,8 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func refresh() {
-        interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: nil, limit: normalLimit)
-    }
-    
-    func refreshCommentCell(commentView: CommentViewModel) {
-        self.commentView = commentView
-        view?.refreshCommentCell()
+        cursor = nil
+        interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: normalLimit)
     }
     
     func replyView(index: Int) -> ReplyViewModel {
@@ -127,10 +121,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         }
         
         return true
-    }
-    
-    deinit {
-        print("CommentRepliesPresenter deinit")
     }
     
     func viewIsReady() {
@@ -153,9 +143,9 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     func fetchMore() {
         if shouldFetchRestOfReplies {
-            interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: maxLimit)
+            interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: maxLimit)
         } else {
-            interactor.fetchMoreReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: normalLimit)
+            interactor.fetchMoreReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: normalLimit)
         }
     }
     
@@ -168,16 +158,12 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         }
     }
     
-    func mainComment() -> CommentViewModel {
-        return commentView!
-    }
-    
     func numberOfItems() -> Int {
         return replies.count
     }
     
     func postReply(text: String) {
-        interactor.postReply(commentHandle: (commentView?.commentHandle)!, text: text)
+        interactor.postReply(commentHandle: comment.commentHandle, text: text)
     }
     
     // MARK: CommentRepliesInteractorOutput
@@ -205,8 +191,14 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func replyPosted(reply: Reply) {
+        if replies.contains(where: { $0.replyHandle == reply.replyHandle } ) {
+            return
+        }
+        
         reply.userHandle = SocialPlus.shared.me?.uid
         appendWithReplacing(original: &replies, appending: [reply])
+        comment.totalReplies += 1
+        commentCell.configure(comment: comment)
         view?.replyPosted()
     }
     
@@ -220,17 +212,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             
             guard let index = replies.enumerated().first(where: { $0.element.replyHandle == replyHandle })?.offset else {
                 return
-            }
-            
-            let status = replies[index].liked
-            
-            replies[index].liked = !status
-            
-            switch action {
-            case .like:
-                replies[index].totalLikes -= 1
-            default:
-                replies[index].totalLikes += 1
             }
             
             view?.refreshReplyCell(index: index)

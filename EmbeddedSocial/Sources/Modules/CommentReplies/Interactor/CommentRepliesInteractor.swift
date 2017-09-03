@@ -32,17 +32,20 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         
     }
     
-    deinit {
-        print("CommentRepliesInteractor deinit")
-    }
-
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int) {
-        isLoading = true
-        repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-            self.handleRepliesResult(result: cachedResult)
-        }, resultHandler: { (webResult) in
-            self.handleRepliesResult(result: webResult)
-        })
+        DispatchQueue.global(qos: .background).async {
+            self.isLoading = true
+            self.repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
+                DispatchQueue.main.async {
+                    self.handleRepliesResult(result: cachedResult)
+                }
+            }, resultHandler: { (webResult) in
+                DispatchQueue.main.async {
+                    self.handleRepliesResult(result: webResult)
+                }
+            })
+        }
+
     }
     
     private func handleRepliesResult(result: RepliesFetchResult) {
@@ -55,16 +58,22 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     }
     
     func fetchMoreReplies(commentHandle: String, cursor: String?, limit: Int) {
-        if cursor == "" || cursor == nil || isLoading == true {
-            return
+        DispatchQueue.global(qos: .background).async {
+            if cursor == "" || cursor == nil || self.isLoading == true {
+                return
+            }
+            
+            self.isLoading = true
+            self.repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
+                DispatchQueue.main.async {
+                    self.handleMoreRepliesResult(result: cachedResult)
+                }
+            }, resultHandler: { (webResult) in
+                DispatchQueue.main.async {
+                    self.handleMoreRepliesResult(result: webResult)
+                }
+            })
         }
-        
-        isLoading = true
-        repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-            self.handleMoreRepliesResult(result: cachedResult)
-        }, resultHandler: { (webResult) in
-            self.handleMoreRepliesResult(result: webResult)
-        })
         
     }
     

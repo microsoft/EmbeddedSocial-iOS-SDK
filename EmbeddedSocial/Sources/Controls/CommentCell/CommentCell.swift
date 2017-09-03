@@ -39,8 +39,8 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         layer.shouldRasterize = true
         layer.drawsAsynchronously = true
         layer.rasterizationScale = UIScreen.main.scale
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        contentView.addGestureRecognizer(tap)
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+//        contentView.addGestureRecognizer(tap)
     }
     
     static let identifier = "CommentCell"
@@ -50,14 +50,9 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         
     }
     
-    func handleTap(tap: UITapGestureRecognizer) {
-        output.toReplies(scrollType: .none)
-    }
-    
-    override func select(_ sender: Any?) {
-        super.select(sender)
-        print("sdsadsad")
-    }
+//    func handleTap(tap: UITapGestureRecognizer) {
+//        output.toReplies(scrollType: .none)
+//    }
     
     func configure(comment: Comment) {
         usernameLabel.text = User.fullName(firstName: comment.firstName, lastName: comment.lastName)
@@ -88,21 +83,25 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         return CGSize(width: UIScreen.main.bounds.size.width, height: self.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)
     }
     
-    @IBAction func commentOptionsPressed(_ sender: Any) {
+    @IBAction private func commentOptionsPressed(_ sender: Any) {
     }
     
-    @IBAction func likePressed(_ sender: UIButton) {
+    @IBAction private func likePressed(_ sender: UIButton) {
         output.like()
     }
 
-    @IBAction func commentPressed(_ sender: Any) {
+    @IBAction private func commentPressed(_ sender: Any) {
         output.toReplies(scrollType: .bottom)
     }
-    @IBAction func avatarPressed(_ sender: Any) {
+    @IBAction private func avatarPressed(_ sender: Any) {
         output.avatarPressed()
     }
     
-    @IBAction func mediaPressed(_ sender: Any) {
+    @IBAction private func mediaPressed(_ sender: Any) {
         output.mediaPressed()
+    }
+    
+    func openReplies() {
+        output.toReplies(scrollType: .none)
     }
 }

@@ -138,6 +138,28 @@ extension ReplyView: Cacheable {
     }
 }
 
+class LikeCommentRequest: Cacheable, HandleMixin{
+    var commentHandle: String
+    
+    init(commentHandle: String) {
+        self.commentHandle = commentHandle
+    }
+    
+    func setHandle(_ handle: String?) {
+        if let handle = handle {
+            self.handle = handle
+        }
+    }
+    
+    func getHandle() -> String? {
+        return commentHandle
+    }
+    
+    func encodeToJSON() -> Any {
+        return ["commentHandle" : commentHandle]
+    }
+}
+
 extension FeedResponseCommentView: Cacheable {
 }
 

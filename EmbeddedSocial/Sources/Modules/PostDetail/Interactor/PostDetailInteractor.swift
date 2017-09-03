@@ -43,12 +43,10 @@ class PostDetailInteractor: PostDetailInteractorInput {
     func fetchMoreComments(topicHandle: String, cursor: String?, limit: Int32) {
         
         DispatchQueue.global(qos: .background).async {
-            print("This is run on the background queue")
             
             if cursor == "" || cursor == nil || self.isLoading == true {
-                return
+                    return
             }
-            
             
             self.isLoading = true
             self.commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
@@ -61,12 +59,7 @@ class PostDetailInteractor: PostDetailInteractorInput {
                     self.fetchedMoreItems(result: webResult)
                 }
             })
-            
-            
-
         }
-    
-        
 
     }
     

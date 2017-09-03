@@ -80,6 +80,14 @@ class LikesService: BaseService, LikesServiceProtocol {
     }
     
     func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
+        let request = LikeCommentRequest(commentHandle: commentHandle)
+        request.setHandle(commentHandle)
+        
+        if !isNetworkReachable {
+            cache.cacheOutgoing(request, for: commentHandle)
+            completion(commentHandle, nil)
+        }
+        
         LikesAPI.commentLikesPostLike(commentHandle: commentHandle, authorization: authorization) { (object, error) in
             completion(commentHandle, error)
         }
