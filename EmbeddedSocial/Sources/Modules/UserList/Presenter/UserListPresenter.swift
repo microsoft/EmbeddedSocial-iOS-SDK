@@ -6,39 +6,29 @@
 import Foundation
 
 class UserListPresenter {
-    typealias ListState = PaginatedResponse<User, String>
-    
     var view: UserListViewInput!
     var interactor: UserListInteractorInput!
     weak var moduleOutput: UserListModuleOutput?
     var router: UserListRouterInput!
     
-    fileprivate var listState = ListState()
-    
-    fileprivate var isLoadingList = false {
-        didSet {
-            view.setIsLoading(isLoadingList)
-        }
-    }
-    
     func loadNextPage() {
-        isLoadingList = true
-        
-        interactor.getUsersList(cursor: listState.cursor, limit: Constants.UserList.pageSize) { [weak self] result in
-            guard let strongSelf = self else {
-                return
-            }
+        interactor.getNextListPage { [weak self] result in
+            guard let strongSelf = self else { return }
             
-            if result.isSuccess {
-                strongSelf.listState = strongSelf.listState.reduce(result: result)
-                strongSelf.view.setUsers(strongSelf.listState.items)
+            if let users = result.value {
+                strongSelf.view.setUsers(users)
                 strongSelf.moduleOutput?.didUpdateList(listView: strongSelf.listView)
             } else {
                 strongSelf.moduleOutput?.didFailToLoadList(listView: strongSelf.listView, error: result.error ?? APIError.unknown)
             }
-            
-            strongSelf.isLoadingList = false
         }
+    }
+}
+
+extension UserListPresenter: UserListInteractorOutput {
+    
+    func didUpdateListLoadingState(_ isLoading: Bool) {
+        view.setIsLoading(isLoading)
     }
 }
 
@@ -69,7 +59,7 @@ extension UserListPresenter: UserListViewOutput {
     }
     
     func onReachingEndOfPage() {
-        guard !isLoadingList, listState.hasMore else {
+        guard !interactor.isLoadingList, interactor.listHasMoreItems else {
             return
         }
         loadNextPage()
@@ -100,8 +90,6 @@ extension UserListPresenter: UserListModuleInput {
     
     func reload(with api: UsersListAPI) {
         interactor.setAPI(api)
-        listState = ListState()
-        isLoadingList = false
         loadNextPage()
     }
     

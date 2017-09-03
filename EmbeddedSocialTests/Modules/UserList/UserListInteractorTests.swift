@@ -29,20 +29,43 @@ class UserListInteractorTests: XCTestCase {
     
     func testThatItGetsUsersList() {
         // given
-        let result: Result<UsersListResponse> = .success(UsersListResponse(users: [], cursor: nil))
+        let users = [User(), User(), User()]
+        let result: Result<UsersListResponse> = .success(UsersListResponse(users: users, cursor: nil))
         usersAPI.resultToReturn = result
         
         // when
         let expectation = self.expectation(description: #function)
         
-        sut.getUsersList(cursor: nil, limit: 1) { response in
+        sut.getNextListPage { receivedUsers in
             expectation.fulfill()
             
             // then
-            XCTAssertEqual(response.value, result.value)
+            XCTAssertEqual(receivedUsers.value ?? [], users)
         }
         
         wait(for: [expectation], timeout: timeout)
+    }
+    
+    func testThatItSetsCorrectLoadingState() {
+        testThatItSetsCorrectLoadingState(cursor: nil, shouldHaveMoreItems: false)
+        testThatItSetsCorrectLoadingState(cursor: UUID().uuidString, shouldHaveMoreItems: true)
+    }
+    
+    func testThatItSetsCorrectLoadingState(cursor: String?, shouldHaveMoreItems: Bool) {
+        // given
+        usersAPI.resultToReturn = .success(UsersListResponse(users: [], cursor: cursor))
+        
+        // when
+        let expectation = self.expectation(description: #function)
+        
+        sut.getNextListPage { receivedUsers in
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: timeout)
+        
+        XCTAssertEqual(sut.isLoadingList, false)
+        XCTAssertEqual(sut.listHasMoreItems, shouldHaveMoreItems)
     }
     
     func testThatItDoesNotProcessRequestForUserWithoutFollowStatus() {

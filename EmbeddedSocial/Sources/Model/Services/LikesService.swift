@@ -44,6 +44,19 @@ extension LikesServiceProtocol {
 
 class LikesService: BaseService, LikesServiceProtocol {
     
+    typealias UsersFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
+
+    private let requestExecutor: UsersFeedRequestExecutor
+    
+    init(requestExecutor: UsersFeedRequestExecutor = UsersFeedRequestExecutionStrategy()) {
+        self.requestExecutor = requestExecutor
+        
+        super.init()
+        
+        self.requestExecutor.cache = cache
+        self.requestExecutor.errorHandler = errorHandler
+    }
+
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         LikesAPI.topicLikesPostLike(topicHandle: postHandle, authorization: authorization) { (object, error) in
             Logger.log(object, error)
@@ -92,18 +105,14 @@ class LikesService: BaseService, LikesServiceProtocol {
     
     func getPostLikes(postHandle: String, cursor: String?, limit: Int,
                       completion: @escaping (Result<UsersListResponse>) -> Void) {
-        LikesAPI.topicLikesGetLikes(
+        
+        let builder = LikesAPI.topicLikesGetLikesWithRequestBuilder(
             topicHandle: postHandle,
             authorization: authorization,
             cursor: cursor,
-            limit: Int32(limit)) { response, error in
-                if let response = response {
-                    let users = response.data?.map(User.init) ?? []
-                    completion(.success(UsersListResponse(users: users, cursor: response.cursor)))
-                } else {
-                    self.errorHandler.handle(error: error, completion: completion)
-                }
-        }
+            limit: Int32(limit))
+        
+        requestExecutor.execute(with: builder, completion: completion)
     }
 }
 

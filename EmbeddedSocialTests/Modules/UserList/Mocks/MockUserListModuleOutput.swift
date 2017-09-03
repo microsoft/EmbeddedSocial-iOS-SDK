@@ -10,9 +10,11 @@ final class MockUserListModuleOutput: UserListModuleOutput {
     private(set) var didUpdateListCount = 0
     private(set) var didFailToLoadListCount = 0
     private(set) var didFailToPerformSocialRequestCount = 0
+    private(set) var didSelectListItemInputValues: (listView: UIView, indexPath: IndexPath)?
 
     func didSelectListItem(listView: UIView, at indexPath: IndexPath) {
         didSelectListItemCount += 1
+        didSelectListItemInputValues = (listView, indexPath)
     }
     
     func didUpdateList(listView: UIView) {
@@ -26,4 +28,6 @@ final class MockUserListModuleOutput: UserListModuleOutput {
     func didFailToPerformSocialRequest(listView: UIView, error: Error) {
         didFailToPerformSocialRequestCount += 1
     }
+    
+    
 }
