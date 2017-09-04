@@ -16,7 +16,7 @@ class SearchInteractorTests: XCTestCase {
         super.tearDown()
     }
     
-    func testThatItCorrectlyMakesPageInfo() {
+    func testThatItCorrectlyMakesPeopleTab() {
         // given
         let sut = SearchInteractor()
         let searchPeopleModule = MockSearchPeopleModule()
@@ -24,7 +24,7 @@ class SearchInteractorTests: XCTestCase {
         searchPeopleModule.backgroundViewToReturn = view
         
         // when
-        let pageInfo = sut.makePageInfo(from: searchPeopleModule)
+        let pageInfo = sut.makePeopleTab(with: searchPeopleModule)
         
         // then
         XCTAssertEqual(pageInfo.backgroundView, searchPeopleModule.backgroundView())

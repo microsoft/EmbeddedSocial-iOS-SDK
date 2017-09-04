@@ -25,7 +25,7 @@ class QueryPeopleAPITests: XCTestCase {
         sut.getUsersList(cursor: nil, limit: 0) { _ in }
         
         // then
-        XCTAssertEqual(searchService.lastQuery, query)
+        XCTAssertEqual(searchService.queryUsersInputValues?.query, query)
         XCTAssertEqual(searchService.queryUsersCount, 1)
     }
 }

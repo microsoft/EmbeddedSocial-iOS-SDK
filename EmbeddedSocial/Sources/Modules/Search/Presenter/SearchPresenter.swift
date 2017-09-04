@@ -13,10 +13,10 @@ final class SearchPresenter: NSObject {
     var feedViewController: UIViewController?
     var feedModuleInput: FeedModuleInput?
     
-    var topicsTab: SearchTabInfo!
-    var peopleTab: SearchTabInfo!
+    fileprivate var topicsTab: SearchTabInfo!
+    fileprivate var peopleTab: SearchTabInfo!
     
-    var selectedTab: SearchTabInfo? {
+    fileprivate var selectedTab: SearchTabInfo? {
         didSet {
             guard let oldValue = oldValue, let selectedTab = selectedTab, oldValue != selectedTab else {
                 return
@@ -50,7 +50,7 @@ extension SearchPresenter: SearchViewOutput {
         selectedTab = peopleTab
     }
     
-    func onFlipFeedLayout() {
+    func onFlipTopicsLayout() {
         guard let feedModuleInput = feedModuleInput else {
             return
         }

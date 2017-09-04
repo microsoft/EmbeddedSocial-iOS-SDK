@@ -20,7 +20,7 @@ class SearchViewController: UIViewController {
     }()
     
     fileprivate lazy var feedLayoutButton: UIButton = { [unowned self] in
-        return UIButton.makeButton(asset: nil, color: Palette.defaultTint, action: self.output.onFlipFeedLayout)
+        return UIButton.makeButton(asset: nil, color: Palette.defaultTint, action: self.output.onFlipTopicsLayout)
     }()
     
     override func viewDidLoad() {
