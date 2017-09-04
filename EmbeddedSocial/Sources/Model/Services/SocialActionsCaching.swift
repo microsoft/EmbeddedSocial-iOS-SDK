@@ -82,36 +82,58 @@ class CachedActionsExecuter {
     }
     
     func executeAll() {
-        for action in cache.getAllCachedActions() {
+        actionsGroup = DispatchGroup()
+        
+        let actions = cache.getAllCachedActions()
+        
+        guard actions.count > 0 else { return }
+        
+        Logger.log("Outgoing operations are being executed, \(actions.count) to go", event: .veryImortant)
+        
+        for action in actions {
             execute(action)
         }
     }
     
+    private var actionsGroup: DispatchGroup?
+    
     func execute(_ action: SocialActionRequest) {
         
         let handle = action.handle
-        
+    
         switch action.actionType {
         case .like:
             if action.actionMethod == .post {
+                actionsGroup?.enter()
                 likesService.postLike(postHandle: handle) { [weak self] handle, error in
                     self?.onCompletion(action, error)
+                    self?.actionsGroup?.leave()
                 }
             } else {
+                actionsGroup?.enter()
                 likesService.deleteLike(postHandle: handle) { [weak self] handle, error in
                     self?.onCompletion(action, error)
+                    self?.actionsGroup?.leave()
                 }
             }
         case .pin:
             if action.actionMethod == .post {
+                actionsGroup?.enter()
                 likesService.postPin(postHandle: handle) { [weak self] handle, error in
                     self?.onCompletion(action, error)
+                    self?.actionsGroup?.leave()
                 }
             } else {
+                actionsGroup?.enter()
                 likesService.deletePin(postHandle: handle) { [weak self] handle, error in
                     self?.onCompletion(action, error)
+                    self?.actionsGroup?.leave()
                 }
             }
+        }
+        
+        actionsGroup?.notify(queue: DispatchQueue.main) {
+            Logger.log("Outgoing operations are executed", event: .veryImortant)
         }
     }
 }

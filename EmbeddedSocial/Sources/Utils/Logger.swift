@@ -21,7 +21,9 @@ class Logger {
                    column: Int = #column,
                    funcName: String = #function) {
         #if DEBUG
-            print("\(now()) \(event.rawValue)[\(sourceFileName(filePath: fileName))]:\(funcName) -> \(String(describing: something))")
+            if event == logLevel || logLevel == nil {
+                print("\(now()) \(event.rawValue)[\(sourceFileName(filePath: fileName))]:\(funcName) -> \(String(describing: something))")
+            }
         #endif
     }
     
@@ -30,6 +32,7 @@ class Logger {
         return components.isEmpty ? "" : components.last!
     }
     
+    static var logLevel: LogEvent? = .veryImortant
     static var dateFormat = "HH:mm:ss"
     static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()

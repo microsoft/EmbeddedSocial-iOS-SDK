@@ -104,6 +104,11 @@ class FeedCachingTests: XCTestCase {
         //let originalFeed = FeedResponseTopicView()
     }
     
+    func testThatIsExecutesOutgoingTransactionsWhenConnectionAppears() {
+        
+      
+    }
+    
     func testThatItExecutesOutgoingTransaction() {
         
         // given
@@ -133,12 +138,16 @@ class FeedCachingTests: XCTestCase {
             handle: postHandleB,
             action: .pin)
         
-        // when
-        actionsCache.cache(likePostAction)
-        actionsCache.cache(pinPostAction)
-        actionsCache.cache(unLikePostAction)
-        actionsCache.cache(unPinPostAction)
+        let actions = [
+            likePostAction,
+            pinPostAction,
+            unLikePostAction,
+            unPinPostAction]
         
+        actions.forEach { actionsCache.cache($0) }
+        XCTAssertTrue(actionsCache.getAllCachedActions().count == actions.count)
+        
+        // when
         executer.executeAll()
         
         // then
@@ -150,6 +159,8 @@ class FeedCachingTests: XCTestCase {
         XCTAssertTrue(likesService.deleteLikePostHandleCompletionReceivedArguments?.postHandle == postHandleB)
         XCTAssertTrue(likesService.deletePinPostHandleCompletionCalled == true)
         XCTAssertTrue(likesService.deletePinPostHandleCompletionReceivedArguments?.postHandle == postHandleB)
+        
+        XCTAssertTrue(actionsCache.getAllCachedActions().count == 0, "all executed actions must be erased")
     }
     
     func testThatActionGetsCachedAndRemoved() {
