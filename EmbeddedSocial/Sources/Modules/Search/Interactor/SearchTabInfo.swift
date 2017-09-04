@@ -6,17 +6,38 @@
 import Foundation
 
 struct SearchTabInfo {
+    
+    enum Tab: Int {
+        case topics
+        case people
+        
+        var searchBarPlaceholder: String {
+            switch self {
+            case .topics: return L10n.Search.Placeholder.searchTopics
+            case .people: return L10n.Search.Placeholder.searchPeople
+            }
+        }
+        
+        var showsRightNavigationButton: Bool {
+            switch self {
+            case .topics: return true
+            case .people: return false
+            }
+        }
+    }
+    
     let searchResultsController: UIViewController
     let searchResultsHandler: UISearchResultsUpdating
     let backgroundView: UIView?
-    let searchBarPlaceholder: String?
+    let tab: Tab
 }
 
 extension SearchTabInfo: Equatable {
+    
     static func ==(lhs: SearchTabInfo, rhs: SearchTabInfo) -> Bool {
         return lhs.searchResultsController == rhs.searchResultsController &&
             lhs.searchResultsHandler === rhs.searchResultsHandler &&
             lhs.backgroundView == rhs.backgroundView &&
-            lhs.searchBarPlaceholder == rhs.searchBarPlaceholder
+            lhs.tab == rhs.tab
     }
 }

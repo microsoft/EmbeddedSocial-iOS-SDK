@@ -14,7 +14,7 @@ final class SearchPresenter: NSObject {
     var feedModuleInput: FeedModuleInput?
     
     var topicsTab: SearchTabInfo!
-    var usersTab: SearchTabInfo!
+    var peopleTab: SearchTabInfo!
     
     var selectedTab: SearchTabInfo? {
         didSet {
@@ -31,16 +31,15 @@ extension SearchPresenter: SearchViewOutput {
     func viewIsReady() {
         peopleSearchModule.setupInitialState()
         
-        usersTab = interactor.makeTabInfo(from: peopleSearchModule)
-        
-        topicsTab = SearchTabInfo(searchResultsController: feedViewController ?? UIViewController(),
-                                  searchResultsHandler: self,
-                                  backgroundView: nil,
-                                  searchBarPlaceholder: L10n.Search.Placeholder.searchTopics)
-        
+        peopleTab = interactor.makePeopleTab(with: peopleSearchModule)
+        topicsTab = interactor.makeTopicsTab(feedViewController: feedViewController, searchResultsHandler: self)
         selectedTab = topicsTab
         
         view.setupInitialState(topicsTab)
+        
+        if let feedModuleInput = feedModuleInput {
+            view.setLayoutAsset(feedModuleInput.layout.nextLayoutAsset)
+        }
     }
     
     func onTopics() {
@@ -48,11 +47,15 @@ extension SearchPresenter: SearchViewOutput {
     }
     
     func onPeople() {
-        selectedTab = usersTab
+        selectedTab = peopleTab
     }
     
     func onFlipFeedLayout() {
-        
+        guard let feedModuleInput = feedModuleInput else {
+            return
+        }
+        feedModuleInput.layout = feedModuleInput.layout.flipped
+        view.setLayoutAsset(feedModuleInput.layout.nextLayoutAsset)
     }
 }
 
@@ -60,7 +63,8 @@ extension SearchPresenter: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         // Throttle search events https://stackoverflow.com/a/29760716/6870041
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.runSearchQuery(for:)), object: searchController)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.runSearchQuery(for:)),
+                                               object: searchController)
         perform(#selector(self.runSearchQuery(for:)), with: searchController, afterDelay: 0.5)
     }
     
@@ -73,6 +77,9 @@ extension SearchPresenter: UISearchResultsUpdating {
 
 extension SearchPresenter: FeedModuleOutput {
     
+    func shouldOpenProfile(for userID: String) -> Bool {
+        return true
+    }
 }
 
 extension SearchPresenter: SearchPeopleModuleOutput {

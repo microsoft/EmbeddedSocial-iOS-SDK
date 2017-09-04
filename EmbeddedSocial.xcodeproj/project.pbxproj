@@ -1614,6 +1614,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8807ADFB1F5D4CEE00DA3FB0 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8864C84F1F4709D300ADCE13 /* SearchTabInfo.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		8811C83B1F42E00000F7513D /* EmbeddedEditProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -2773,7 +2781,7 @@
 		8864C8201F45BA6000ADCE13 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				8864C84F1F4709D300ADCE13 /* SearchTabInfo.swift */,
+				8807ADFB1F5D4CEE00DA3FB0 /* Helpers */,
 				8864C8531F470AA300ADCE13 /* Configurator */,
 				889119A51F470E21005B3B32 /* Interactor */,
 				8864C84A1F4707BF00ADCE13 /* Presenter */,

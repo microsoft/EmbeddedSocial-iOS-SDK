@@ -12,4 +12,6 @@ protocol SearchViewInput: class {
     func switchTabs(to tab: SearchTabInfo, from previousTab: SearchTabInfo)
     
     func showError(_ error: Error)
+    
+    func setLayoutAsset(_ asset: Asset)
 }

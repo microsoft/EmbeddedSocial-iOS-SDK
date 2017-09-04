@@ -7,11 +7,18 @@ import Foundation
 
 final class SearchInteractor: SearchInteractorInput {
     
-    func makeTabInfo(from searchPeopleModule: SearchPeopleModuleInput) -> SearchTabInfo {
+    func makeTopicsTab(feedViewController: UIViewController?, searchResultsHandler: UISearchResultsUpdating) -> SearchTabInfo {
+        return SearchTabInfo(searchResultsController: feedViewController ?? UIViewController(),
+                             searchResultsHandler: searchResultsHandler,
+                             backgroundView: nil,
+                             tab: .topics)
+    }
+    
+    func makePeopleTab(with searchPeopleModule: SearchPeopleModuleInput) -> SearchTabInfo {
         return SearchTabInfo(searchResultsController: searchPeopleModule.searchResultsController(),
-                              searchResultsHandler: searchPeopleModule.searchResultsHandler(),
-                              backgroundView: searchPeopleModule.backgroundView(),
-                              searchBarPlaceholder: L10n.Search.Placeholder.searchPeople)
+                             searchResultsHandler: searchPeopleModule.searchResultsHandler(),
+                             backgroundView: searchPeopleModule.backgroundView(),
+                             tab: .people)
     }
     
     func runSearchQuery(for searchController: UISearchController, feedModule: FeedModuleInput) {

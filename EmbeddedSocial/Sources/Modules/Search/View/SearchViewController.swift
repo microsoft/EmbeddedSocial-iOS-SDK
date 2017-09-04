@@ -40,11 +40,12 @@ class SearchViewController: UIViewController {
         searchController?.searchBar.delegate = self
         searchController?.hidesNavigationBarDuringPresentation = false
         searchController?.searchBar.searchBarStyle = .minimal
-        searchController?.searchBar.placeholder = tabInfo.searchBarPlaceholder
+        searchController?.searchBar.placeholder = tabInfo.tab.searchBarPlaceholder
         searchController?.delegate = self
         
         navigationItem.titleView = searchController?.searchBar
-        navigationItem.rightBarButtonItem = nil
+        navigationItem.rightBarButtonItem =
+            tabInfo.tab.showsRightNavigationButton ? UIBarButtonItem(customView: feedLayoutButton) : nil
     }
     
     fileprivate func addBackgroundView(_ backgroundView: UIView) {
@@ -90,6 +91,11 @@ extension SearchViewController: SearchViewInput {
     
     func showError(_ error: Error) {
         showErrorAlert(error)
+    }
+    
+    func setLayoutAsset(_ asset: Asset) {
+        feedLayoutButton.setImage(UIImage(asset: asset), for: .normal)
+        feedLayoutButton.sizeToFit()
     }
 }
 
