@@ -184,6 +184,24 @@ class CacheTests: XCTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
     }
     
+    func testThatItDeletesIncomingAndOutgoingItems() {
+        // given
+        let items = makeItems()
+        let predicate = NSPredicate(format: "typeid = %@", CacheableItem.typeIdentifier)
+        let request = CacheFetchRequest(resultType: CacheableItem.self, predicate: predicate)
+        
+        // when
+        items.forEach(sut.cacheOutgoing)
+        items.forEach(sut.cacheIncoming)
+        
+        sut.deleteIncoming(with: predicate)
+        sut.deleteOutgoing(with: predicate)
+
+        // then
+        XCTAssertEqual(sut.fetchIncoming(with: request).count, 0)
+        XCTAssertEqual(sut.fetchOutgoing(with: request).count, 0)
+    }
+    
     private func makeItemsWithSameName(_ name: String, sort: (CacheableItem, CacheableItem) -> Bool) -> [CacheableItem] {
         return [
             CacheableItem(handle: UUID().uuidString, name: name, relatedHandle: UUID().uuidString),

@@ -32,9 +32,9 @@ protocol TransactionsDatabaseFacadeType {
                                    page: QueryPage?,
                                    sortDescriptors: [NSSortDescriptor]?) -> [OutgoingTransaction]
 
-    func deleteIncomingTransactions(_ entities: [IncomingTransaction], completion: ((Result<Void>) -> Void)?)
+    func deleteIncomingTransactions(_ entities: [IncomingTransaction])
     
-    func deleteOutgoingTransactions(_ entities: [OutgoingTransaction], completion: ((Result<Void>) -> Void)?)
+    func deleteOutgoingTransactions(_ entities: [OutgoingTransaction])
 }
 
 extension TransactionsDatabaseFacadeType {
@@ -46,27 +46,5 @@ extension TransactionsDatabaseFacadeType {
         } else {
             fatalError("Cannot save transaction \(transaction)")
         }
-    }
-    
-    func queryIncomingTransactions(with predicate: NSPredicate?,
-                                   sortDescriptors: [NSSortDescriptor]?,
-                                   completion: @escaping ([IncomingTransaction]) -> Void) {
-        queryIncomingTransactions(with: predicate, page: nil, sortDescriptors: sortDescriptors, completion: completion)
-    }
-    
-    func queryIncomingTransactions(with predicate: NSPredicate?,
-                                   sortDescriptors: [NSSortDescriptor]?) -> [IncomingTransaction]{
-        return queryIncomingTransactions(with: predicate, sortDescriptors: sortDescriptors)
-    }
-    
-    func queryOutgoingTransactions(with predicate: NSPredicate?,
-                                   sortDescriptors: [NSSortDescriptor]?,
-                                   completion: @escaping ([OutgoingTransaction]) -> Void){
-        queryOutgoingTransactions(with: predicate, sortDescriptors: sortDescriptors, completion: completion)
-    }
-    
-    func queryOutgoingTransactions(with predicate: NSPredicate?,
-                                   sortDescriptors: [NSSortDescriptor]?) -> [OutgoingTransaction] {
-        return queryOutgoingTransactions(with: predicate, sortDescriptors: sortDescriptors)
     }
 }

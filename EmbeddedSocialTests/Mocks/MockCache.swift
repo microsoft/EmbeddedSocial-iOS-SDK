@@ -122,4 +122,40 @@ class MockCache: CacheType {
         fetchOutgoing_with_ReceivedRequest = request
         result(fetchOutgoing_with_result_ReturnValue as? [Item] ?? [])
     }
+    
+    //MARK: - deleteIncoming<Item: Cacheable>
+    
+    var deleteIncoming_with_Called = false
+    var deleteIncoming_with_ReceivedPredicate: NSPredicate?
+    
+    func deleteIncoming(with predicate: NSPredicate) {
+        deleteIncoming_with_Called = true
+        deleteIncoming_with_ReceivedPredicate = predicate
+    }
+    
+    //MARK: - deleteOutgoing<Item: Cacheable>
+    
+    var deleteOutgoing_with_Called = false
+    var deleteOutgoing_with_ReceivedPredicate: NSPredicate?
+
+    func deleteOutgoing(with predicate: NSPredicate) {
+        deleteOutgoing_with_Called = true
+        deleteIncoming_with_ReceivedPredicate = predicate
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

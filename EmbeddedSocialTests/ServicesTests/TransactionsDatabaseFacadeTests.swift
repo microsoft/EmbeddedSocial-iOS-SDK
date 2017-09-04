@@ -80,7 +80,7 @@ class TransactionsDatabaseFacadeTests: XCTestCase {
         // given
 
         // when
-        sut.deleteIncomingTransactions([], completion: nil)
+        sut.deleteIncomingTransactions([])
         
         // then
         XCTAssertEqual(outgoingRepo.deleteCount, 0)
@@ -150,7 +150,7 @@ class TransactionsDatabaseFacadeTests: XCTestCase {
         // given
         
         // when
-        sut.deleteOutgoingTransactions([], completion: nil)
+        sut.deleteOutgoingTransactions([])
         
         // then
         XCTAssertEqual(outgoingRepo.deleteCount, 1)
