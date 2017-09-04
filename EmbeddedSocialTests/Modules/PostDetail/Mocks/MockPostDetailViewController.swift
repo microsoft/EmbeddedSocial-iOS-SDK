@@ -37,13 +37,17 @@ class MockPostDetailViewController: UIViewController, PostDetailViewInput {
     
     var commentsLike = ""
     func refreshCell(index: Int) {
-        let comment = output.commentViewModel(index: index)
-        commentsLike = comment.totalLikes
+//        let comment = output.commentViewModel(index: index)
+//        commentsLike = comment.totalLikes
     }
     
     var postCellRefreshCount = 0
     func refreshPostCell() {
         postCellRefreshCount = 1
+    }
+    
+    func updateComments() {
+        
     }
     
     func setFeedViewController(_ feedViewController: UIViewController) {

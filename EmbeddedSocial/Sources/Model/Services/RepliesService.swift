@@ -58,37 +58,34 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             cachedResult(cacheResult)
         }
     
-        guard let network = NetworkReachabilityManager() else {
-            return
+        
+        if isNetworkReachable {
+            request.execute { (response, error) in
+                var result = RepliesFetchResult()
+                
+                guard error == nil else {
+                    result.error = RepliesServiceError.failedToFetch(message: error!.localizedDescription)
+                    resultHandler(result)
+                    return
+                }
+                
+                guard let data = response?.body?.data else {
+                    result.error = RepliesServiceError.failedToFetch(message: L10n.Error.noItemsReceived)
+                    resultHandler(result)
+                    return
+                }
+                
+                if let body = response?.body {
+                    self.cache.cacheIncoming(body, for: requestURLString)
+                    result.replies = self.convert(data: data)
+                    result.cursor = body.cursor
+                }
+                
+                resultHandler(result)
+            }
         }
         
-        if !network.isReachable {
-            return
-        }
-        
-        request.execute { (response, error) in
-            var result = RepliesFetchResult()
-            
-            guard error == nil else {
-                result.error = RepliesServiceError.failedToFetch(message: error!.localizedDescription)
-                resultHandler(result)
-                return
-            }
-            
-            guard let data = response?.body?.data else {
-                result.error = RepliesServiceError.failedToFetch(message: L10n.Error.noItemsReceived)
-                resultHandler(result)
-                return
-            }
-            
-            if let body = response?.body {
-                self.cache.cacheIncoming(body, for: requestURLString)
-                result.replies = self.convert(data: data)
-                result.cursor = body.cursor
-            }
-            
-            resultHandler(result)
-        }
+
     }
     
     func reply(replyHandle: String, cachedResult: @escaping ReplyHandler , success: @escaping ReplyHandler, failure: @escaping Failure) {

@@ -9,7 +9,7 @@ enum RepliesSocialAction: Int {
 
 class CommentRepliesInteractor: CommentRepliesInteractorInput {
 
-    weak var output: CommentRepliesInteractorOutput!
+    weak var output: CommentRepliesInteractorOutput?
     private var isLoading = false
     
     var repliesService: RepliesServiceProtcol?
@@ -20,7 +20,7 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     func replyAction(replyHandle: String, action: RepliesSocialAction) {
         
         let completion: LikesServiceProtocol.CommentCompletionHandler = { [weak self] (handle, error) in
-            self?.output.didPostAction(replyHandle: replyHandle, action: action, error: error)
+            self?.output?.didPostAction(replyHandle: replyHandle, action: action, error: error)
         }
         
         switch action {
@@ -31,14 +31,21 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         }
         
     }
-
+    
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int) {
-        isLoading = true
-        repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-            self.handleRepliesResult(result: cachedResult)
-        }, resultHandler: { (webResult) in
-            self.handleRepliesResult(result: webResult)
-        })
+//        DispatchQueue.global(qos: .background).async {
+            self.isLoading = true
+            self.repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
+//                DispatchQueue.main.async {
+                    self.handleRepliesResult(result: cachedResult)
+//                }
+            }, resultHandler: { (webResult) in
+//                DispatchQueue.main.async {
+                    self.handleRepliesResult(result: webResult)
+//                }
+            })
+//        }
+
     }
     
     private func handleRepliesResult(result: RepliesFetchResult) {
@@ -47,20 +54,26 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         }
         
         self.isLoading = false
-        self.output.fetched(replies: result.replies,  cursor: result.cursor)
+        self.output?.fetched(replies: result.replies,  cursor: result.cursor)
     }
     
     func fetchMoreReplies(commentHandle: String, cursor: String?, limit: Int) {
-        if cursor == "" || cursor == nil || isLoading == true {
-            return
-        }
-        
-        isLoading = true
-        repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-            self.handleMoreRepliesResult(result: cachedResult)
-        }, resultHandler: { (webResult) in
-            self.handleMoreRepliesResult(result: webResult)
-        })
+//        DispatchQueue.global(qos: .background).async {
+            if cursor == "" || cursor == nil || self.isLoading == true {
+                return
+            }
+            
+            self.isLoading = true
+            self.repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
+//                DispatchQueue.main.async {
+                    self.handleMoreRepliesResult(result: cachedResult)
+//                }
+            }, resultHandler: { (webResult) in
+//                DispatchQueue.main.async {
+                    self.handleMoreRepliesResult(result: webResult)
+//                }
+            })
+//        }
         
     }
     
@@ -70,7 +83,7 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         }
         
         self.isLoading = false
-        self.output.fetchedMore(replies: result.replies, cursor: result.cursor)
+        self.output?.fetchedMore(replies: result.replies, cursor: result.cursor)
     }
     
     func postReply(commentHandle: String, text: String) {
@@ -79,14 +92,14 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         
         repliesService?.postReply(commentHandle: commentHandle, request: request, success: { (response) in
             self.repliesService?.reply(replyHandle: response.replyHandle!, cachedResult: { (cachedReply) in
-                self.output.replyPosted(reply: cachedReply)
+                self.output?.replyPosted(reply: cachedReply)
             }, success: { (webReply) in
-                self.output.replyPosted(reply: webReply)
+                self.output?.replyPosted(reply: webReply)
             }, failure: { (error) in
                 
             })
         }, failure: { (error) in
-            self.output.replyFailPost(error: error)
+            self.output?.replyFailPost(error: error)
         })
     }
 

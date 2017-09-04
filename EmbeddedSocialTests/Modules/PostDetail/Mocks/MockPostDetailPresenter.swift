@@ -22,24 +22,4 @@ class MockPostDetailPresenter: PostDetailPresenter {
     override func commentDidPost(comment: Comment) {
         postedComment = comment
     }
-    
-    var postFetchedCount = 0
-    override func postFetched(post: Post) {
-        postFetchedCount += 1
-    }
-    
-    override func didPostAction(commentHandle: String, action: CommentSocialAction, error: Error?) {
-        guard let index = comments.enumerated().first(where: { $0.element.commentHandle == commentHandle })?.offset else {
-            return
-        }
-        
-        switch action {
-        case .like:
-            comments[index].totalLikes += 1
-            comments[index].liked = true
-        case .unlike:
-            comments[index].totalLikes -= 1
-            comments[index].liked = false
-        }
-    }
 }

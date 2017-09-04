@@ -53,7 +53,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
             cachedResult(createCommentFromRequest(request: outgoingFetchResult.first!))
         } else {
             let cacheRequestForIncoming = CacheFetchRequest(resultType: CommentView.self, predicate: PredicateBuilder().predicate(typeID: requesURLString))
-            cachedResult(convert(data: cache.fetchIncoming(with: cacheRequestForIncoming)).first!)
+            if let convertedComment = convert(data: cache.fetchIncoming(with: cacheRequestForIncoming)).first {
+                cachedResult(convertedComment)
+            }
         }
         
         if isNetworkReachable {
@@ -104,6 +106,11 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
         if isNetworkReachable {
             request.execute { (response, error) in
+                
+                if cursor == nil {
+                    //TODO: remove cached comments for topicHandle
+                }
+                
                 var result = CommentFetchResult()
                 
                 guard error == nil else {
@@ -202,11 +209,17 @@ class CommentsService: BaseService, CommentServiceProtocol {
             comment.userHandle = commentView.user?.userHandle
             comment.createdTime = commentView.createdTime
             comment.text = commentView.text
-            comment.liked = commentView.liked!
             comment.mediaUrl = commentView.blobUrl
             comment.topicHandle = commentView.topicHandle
-            comment.totalLikes = commentView.totalLikes!
-            comment.totalReplies = commentView.totalReplies ?? 0
+            
+            let cacheRequestForLikes = CacheFetchRequest(resultType: LikeCommentRequest.self, predicate: PredicateBuilder().predicate(handle: commentView.commentHandle!))
+            let cacheResultForLikes = cache.fetchOutgoing(with: cacheRequestForLikes)
+            comment.totalLikes = commentView.totalLikes ?? 0 + Int64(cacheResultForLikes.count)
+            comment.liked = cacheResultForLikes.count > 0 ? true : commentView.liked!
+            
+            let cacheRequestForComment = CacheFetchRequest(resultType: PostReplyRequest.self, predicate: PredicateBuilder().predicate(typeID: commentView.commentHandle!))
+            comment.totalReplies = (commentView.totalReplies ?? 0) + Int64(cache.fetchOutgoing(with: cacheRequestForComment).count)
+            
             comments.append(comment)
         }
         return comments

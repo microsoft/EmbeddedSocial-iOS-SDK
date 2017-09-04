@@ -3,8 +3,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-
 import Foundation
+@testable import EmbeddedSocial
 
-protocol PostDetailRouterInput {
+class MockCommentCell: CommentCell {
+    
 }

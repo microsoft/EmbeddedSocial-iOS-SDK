@@ -18,20 +18,20 @@ class CommentRepliesModuleConfigurator {
         viewController = StoryboardScene.CommentReplies.instantiateCommentRepliesViewController()
     }
     
-    func configure(commentView: CommentViewModel, scrollType: RepliesScrollType, postDetailsPresenter: PostDetailPresenter?) {
-
+    func configure(commentModule: CommentCellModuleProtocol, scrollType: RepliesScrollType) {
         let router = CommentRepliesRouter()
         
         let repliesService = RepliesService()
-
+        
         let presenter = CommentRepliesPresenter()
+        presenter.comment = commentModule.mainComment()
+        presenter.commentCell = commentModule.cell()
         presenter.view = viewController
         presenter.router = router
-        presenter.commentView = commentView
         presenter.scrollType = scrollType
         let interactor = CommentRepliesInteractor()
         interactor.output = presenter
-
+        
         let likeService = LikesService()
         interactor.likeService = likeService
         
@@ -39,7 +39,6 @@ class CommentRepliesModuleConfigurator {
         interactor.repliesService = repliesService
         viewController.output = presenter
         
-        postDetailsPresenter?.repliesPresenter = presenter
     }
 
 }

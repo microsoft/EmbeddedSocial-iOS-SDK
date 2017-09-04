@@ -25,17 +25,15 @@ struct ReplyViewModel {
     var onAction: ActionHandler?
 }
 
-protocol SharedCommentsPresenterProtocol {
-    func refreshCommentCell(commentView: CommentViewModel)
-}
+class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutput, CommentRepliesInteractorOutput {
 
-class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutput, CommentRepliesInteractorOutput, SharedCommentsPresenterProtocol {
 
     weak var view: CommentRepliesViewInput?
     var interactor: CommentRepliesInteractorInput!
     var router: CommentRepliesRouterInput!
     
-    var commentView: CommentViewModel?
+    var commentCell: CommentCell!
+    var comment: Comment!
     
     var scrollType: RepliesScrollType = .none
     
@@ -103,13 +101,14 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     // MARK: CommentRepliesViewOutput
-    func refresh() {
-        interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: nil, limit: normalLimit)
+    
+    func mainCommentCell() -> CommentCell {
+        return commentCell
     }
     
-    func refreshCommentCell(commentView: CommentViewModel) {
-        self.commentView = commentView
-        view?.refreshCommentCell()
+    func refresh() {
+        cursor = nil
+        interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: normalLimit)
     }
     
     func replyView(index: Int) -> ReplyViewModel {
@@ -125,12 +124,16 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func viewIsReady() {
+        guard let commentHandle = comment.commentHandle else {
+            return
+        }
+        
 //        if (commentView?.comment?.totalReplies)! > 0 {
             switch scrollType {
             case .bottom:
-                interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: maxLimit)
+                interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: maxLimit)
             default:
-                interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: normalLimit)
+                interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: normalLimit)
             }
 //        } else {
 //            view?.reloadTable(scrollType: scrollType)
@@ -140,9 +143,9 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     func fetchMore() {
         if shouldFetchRestOfReplies {
-            interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: maxLimit)
+            interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: maxLimit)
         } else {
-            interactor.fetchMoreReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: normalLimit)
+            interactor.fetchMoreReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: normalLimit)
         }
     }
     
@@ -155,18 +158,13 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         }
     }
     
-    func mainComment() -> CommentViewModel {
-        return commentView!
-    }
-    
     func numberOfItems() -> Int {
         return replies.count
     }
     
     func postReply(text: String) {
-        interactor.postReply(commentHandle: (commentView?.commentHandle)!, text: text)
+        interactor.postReply(commentHandle: comment.commentHandle, text: text)
     }
-    
     
     // MARK: CommentRepliesInteractorOutput
     func fetched(replies: [Reply], cursor: String?) {
@@ -193,8 +191,14 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func replyPosted(reply: Reply) {
+        if replies.contains(where: { $0.replyHandle == reply.replyHandle } ) {
+            return
+        }
+        
         reply.userHandle = SocialPlus.shared.me?.uid
         appendWithReplacing(original: &replies, appending: [reply])
+        comment.totalReplies += 1
+        commentCell.configure(comment: comment)
         view?.replyPosted()
     }
     
@@ -208,17 +212,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             
             guard let index = replies.enumerated().first(where: { $0.element.replyHandle == replyHandle })?.offset else {
                 return
-            }
-            
-            let status = replies[index].liked
-            
-            replies[index].liked = !status
-            
-            switch action {
-            case .like:
-                replies[index].totalLikes -= 1
-            default:
-                replies[index].totalLikes += 1
             }
             
             view?.refreshReplyCell(index: index)

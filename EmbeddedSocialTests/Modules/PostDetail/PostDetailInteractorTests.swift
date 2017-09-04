@@ -62,6 +62,8 @@ extension MockTopicService {
 
 class PostDetailsInteractorTests: XCTestCase {
     
+     private let timeout: TimeInterval = 5
+    
     var output = MockPostDetailPresenter()
     var interactor = PostDetailInteractor()
     
@@ -83,10 +85,8 @@ class PostDetailsInteractorTests: XCTestCase {
         cache = Cache(database: transactionsDatabase)
         imageService = ImagesService()
         commentsService = MockCommentService(imagesService: imageService!)
-        likeService = MockLikeSerivce()
         topicServer = MockTopicService()
         interactor.commentsService = commentsService
-        interactor.likeService = likeService
         interactor.topicService = topicServer
 
     }
@@ -139,51 +139,7 @@ class PostDetailsInteractorTests: XCTestCase {
         //then
         XCTAssertEqual(output.postedComment?.text, comment)
     }
-    
-    func testThatCommentLiked() {
-        
-        //given
-        let comment = Comment()
-        comment.commentHandle = "handle"
-        comment.text = "text"
-        comment.totalLikes = 0
-        comment.liked = false
-        output.comments = [comment]
-        
-        //when
-        interactor.commentAction(commentHandle: comment.commentHandle!, action: .like)
-        
-        //then
-        XCTAssertEqual(output.comments.first?.totalLikes , 1)
-        XCTAssertEqual(output.comments.first?.liked , true)
-    }
-    
-    func testThatCommentUnliked() {
-        
-        //given
-        let comment = Comment()
-        comment.commentHandle = "handle"
-        comment.text = "text"
-        comment.totalLikes = 1
-        comment.liked = true
-        output.comments = [comment]
-        
-        //when
-        interactor.commentAction(commentHandle: comment.commentHandle!, action: .unlike)
-        
-        //then
-        XCTAssertEqual(output.comments.first?.totalLikes , 0)
-        XCTAssertEqual(output.comments.first?.liked , false)
-    }
-    
-    func testThatPostUpdates() {
-        
-        //when
-        interactor.loadPost(topicHandle: "handle")
-        
-        //then
-        XCTAssertEqual(output.postFetchedCount, 1)
-        
-    }
+
+
     
 }
