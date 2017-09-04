@@ -19,6 +19,10 @@ class SearchViewController: UIViewController {
             onPeople: self.output.onPeople)
     }()
     
+    fileprivate lazy var feedLayoutButton: UIButton = { [unowned self] in
+        return UIButton.makeButton(asset: nil, color: Palette.defaultTint, action: self.output.onFlipFeedLayout)
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()

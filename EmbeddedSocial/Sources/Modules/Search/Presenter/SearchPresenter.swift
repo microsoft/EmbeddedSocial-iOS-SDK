@@ -50,6 +50,10 @@ extension SearchPresenter: SearchViewOutput {
     func onPeople() {
         selectedTab = usersTab
     }
+    
+    func onFlipFeedLayout() {
+        
+    }
 }
 
 extension SearchPresenter: UISearchResultsUpdating {

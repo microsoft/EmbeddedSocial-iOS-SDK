@@ -12,4 +12,6 @@ protocol SearchViewOutput: class {
     func onTopics()
     
     func onPeople()
+    
+    func onFlipFeedLayout()
 }
