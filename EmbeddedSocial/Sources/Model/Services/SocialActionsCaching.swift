@@ -41,7 +41,7 @@ struct SocialActionRequest: Cacheable, CustomStringConvertible {
     }
     
     var description: String {
-        return actionType.rawValue + actionMethod.rawValue + handle
+        return "\(actionType) \(actionMethod) \(handle)"
     }
     
     var hashKey: String {
@@ -84,14 +84,14 @@ class CachedActionsExecuter: NetworkStatusListener {
         
         guard isReachable == true else { return }
         
-        Logger.log("Connection from now is \(isReachable) \(String(describing: self))", event: .veryImortant)
+        Logger.log("Connection from now is \(isReachable) \(String(describing: self))", event: .veryImportant)
         
         executeAll()
     }
     
     private func onCompletion(_ request: SocialActionRequest, _ error: Error?) {
         guard error == nil else { return }
-        Logger.log("Outgoing cached action is sent successfully, \(request.actionType) \(request.actionMethod)", event: .veryImortant)
+        Logger.log("Outgoing cached action is sent successfully, \(request)", event: .veryImportant)
         cacheAdapter.remove(request)
     }
     
@@ -110,7 +110,7 @@ class CachedActionsExecuter: NetworkStatusListener {
         
         let handle = action.handle
         
-        Logger.log("Executing outgoing cached action, \(action.actionType) \(action.actionMethod)", event: .veryImortant)
+        Logger.log("Executing outgoing cached action, \(action.actionType) \(action.actionMethod)", event: .veryImportant)
         
         switch action.actionType {
         case .like:
@@ -184,10 +184,10 @@ class SocialActionsCacheAdapter {
             predicate: oppositeActionPredicate,
             sortDescriptors: nil) {
             
-            Logger.log("Removing opposite action \(cached) to \(request)", event: .veryImortant)
+            Logger.log("Removing opposite action \(cached) to \(request)", event: .veryImportant)
             cache.deleteOutgoing(with: oppositeActionPredicate)
         } else {
-            Logger.log("Caching action \(request)", event: .veryImortant)
+            Logger.log("Caching action \(request)", event: .veryImportant)
             cache.cacheOutgoing(request, for: request.hashKey)
         }
     }
