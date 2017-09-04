@@ -108,14 +108,14 @@ class FeedCachingTests: XCTestCase {
       
     }
     
-    func testThatItExecutesOutgoingTransaction() {
+    func testThatItExecutesOutgoingTransactions() {
         
         // given
         let postHandleA = uniqueString()
         let postHandleB = uniqueString()
         
-        let actionsCache = SocialActionsCache(cache: cache)
-        let executer = CachedActionsExecuter(cache: actionsCache, likesService: likesService)
+        let actionsCache = SocialActionsCacheAdapter(cache: cache)
+        let executer = CachedActionsExecuter(cacheAdapter: actionsCache, likesService: likesService)
         
         let likePostAction = SocialActionRequestBuilder.build(
             method: "POST",
@@ -166,7 +166,7 @@ class FeedCachingTests: XCTestCase {
         
         // given
         let postHandle = uniqueString()
-        let actionsCache = SocialActionsCache(cache: cache)
+        let actionsCache = SocialActionsCacheAdapter(cache: cache)
         
         let likePostAction = SocialActionRequestBuilder.build(
             method: "POST",
@@ -196,7 +196,7 @@ class FeedCachingTests: XCTestCase {
         // given
         let postHandle = UUID().uuidString
         
-        let actionsCache = SocialActionsCache(cache: cache)
+        let actionsCache = SocialActionsCacheAdapter(cache: cache)
         
         let likePostAction = SocialActionRequestBuilder.build(
             method: "POST",
@@ -214,17 +214,14 @@ class FeedCachingTests: XCTestCase {
         
         // then
         let results = actionsCache.getAllCachedActions()
-        XCTAssertTrue(results.count == 1)
-        XCTAssertTrue(results.first?.actionType == .like)
-        XCTAssertTrue(results.first?.actionMethod == .delete)
+        XCTAssertTrue(results.count == 0)
     }
-    
     
     func testThatActionsAreCachedProperly() {
         
         // given
         let postHandle = UUID().uuidString
-        let actionsCache = SocialActionsCache(cache: cache)
+        let actionsCache = SocialActionsCacheAdapter(cache: cache)
         
         let likePostAction = SocialActionRequestBuilder.build(
             method: "POST",
