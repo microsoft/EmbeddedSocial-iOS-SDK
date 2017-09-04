@@ -66,6 +66,10 @@ private class TopicsServiceMock: PostServiceProtocol {
             completion(result)
         }
     }
+    
+    func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler) {
+        
+    }
 }
 
 extension TopicsServiceMock {

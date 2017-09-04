@@ -66,6 +66,10 @@ private class PostServiceMock: PostServiceProtocol {
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {
         fetchedMyPopularQuery = query
     }
+    
+    func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler) {
+        
+    }
 }
 
 extension PostServiceMock {

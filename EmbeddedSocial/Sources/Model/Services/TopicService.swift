@@ -71,6 +71,7 @@ protocol PostServiceProtocol {
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler)
     func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler)
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler)
+    func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler)
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
 
 }
@@ -154,8 +155,16 @@ class TopicService: BaseService, PostServiceProtocol {
     
     // MARK: GET
     
-    func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler) {
+        let request = PinsAPI.myPinsGetPinsWithRequestBuilder(authorization: authorization,
+                                                              cursor: query.cursor,
+                                                              limit: query.limit)
         
+        processCache(with: request, completion: completion)
+        processRequest(request, completion: completion)
+    }
+    
+    func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {
         let request = SocialAPI.myFollowingGetTopicsWithRequestBuilder(authorization: authorization,
                                                                        cursor: query.cursor,
                                                                        limit: query.limit)
@@ -262,6 +271,11 @@ class TopicService: BaseService, PostServiceProtocol {
     
     private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
                                 completion: @escaping FetchResultHandler) {
+        
+        guard isNetworkReachable == true else {
+            Logger.log("No internet, using only cache", event: .veryImortant)
+            return
+        }
         
         let requestURL = requestBuilder.URLString
         

@@ -50,6 +50,10 @@ private class PostServiceMock: PostServiceProtocol {
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
         
     }
+    
+    func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler) {
+        
+    }
 }
 
 private class FeedModulePresenterMock: FeedModuleInteractorOutput {

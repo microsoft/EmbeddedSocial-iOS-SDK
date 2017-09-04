@@ -71,6 +71,7 @@ class FeedReponseCachingTests: XCTestCase {
         // given
         topicViewResponseA.cursor = "original cursor"
         topicViewResponseB.cursor = "new cursor"
+        
         XCTAssert(topicViewResponseB.cursor != topicViewResponseA.cursor)
         
         let cacheKey = UUID().uuidString

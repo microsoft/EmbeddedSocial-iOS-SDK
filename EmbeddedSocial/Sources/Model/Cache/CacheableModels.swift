@@ -102,17 +102,7 @@ extension CommentView: Cacheable {
     }
 }
 
-extension FeedResponseTopicView: Cacheable, HandleMixin {
-    func getHandle() -> String? {
-        return handle
-    }
-    
-    func setHandle(_ handle: String?) {
-        if let handle = handle {
-            self.handle = handle
-        }
-    }
-}
+extension FeedResponseTopicView: Cacheable { }
 
 extension FeedResponseUserCompactView: Cacheable, HandleMixin {
     func getHandle() -> String? {

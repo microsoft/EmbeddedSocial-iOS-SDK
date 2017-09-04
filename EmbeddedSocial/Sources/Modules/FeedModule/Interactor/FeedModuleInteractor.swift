@@ -143,6 +143,12 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
                 let result = result.value ?? PostFetchResult(error: result.error ?? APIError.unknown)
                 self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
             }
+            
+        case .myPins:
+            let query = FeedQuery(cursor: cursor, limit: limit)
+            postService.fetchMyPins(query: query, completion: { [weak self] result in
+                self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+            })
         }
     }
     
