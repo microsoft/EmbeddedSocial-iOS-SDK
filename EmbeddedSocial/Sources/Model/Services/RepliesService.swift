@@ -39,13 +39,11 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         
         var cacheResult = RepliesFetchResult()
         
-        let cacheRequest = CacheFetchRequest(resultType: PostReplyRequest.self, predicate: PredicateBuilder().predicate(typeID: commentHandle)
-        )
+        let cacheRequest = CacheFetchRequest(resultType: PostReplyRequest.self, predicate: PredicateBuilder().predicate(typeID: commentHandle))
         
         cache.fetchOutgoing(with: cacheRequest).forEach { (cachedReply) in
             cacheResult.replies.append(createReplyFromRequest(request: cachedReply))
         }
-        
         
         if let fetchResult = self.cache.firstIncoming(ofType: FeedResponseReplyView.self, predicate: PredicateBuilder().predicate(typeID: requestURLString), sortDescriptors: nil) {
             if let cachedReplies = fetchResult.data {
@@ -57,7 +55,6 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             //TODO : Remove this when finish testing
             cachedResult(cacheResult)
         }
-    
         
         if isNetworkReachable {
             request.execute { (response, error) in
@@ -84,8 +81,6 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                 resultHandler(result)
             }
         }
-        
-
     }
     
     func reply(replyHandle: String, cachedResult: @escaping ReplyHandler , success: @escaping ReplyHandler, failure: @escaping Failure) {
@@ -105,33 +100,20 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             }
         }
         
-        guard let network = NetworkReachabilityManager() else {
-            return
-        }
-        
-        if !network.isReachable {
-            return
-        }
-        
-        request.execute { (respose, error) in
-            if error != nil {
-                failure(error!)
-            } else {
-                self.cache.cacheIncoming((respose?.body)!, for: requestURLString)
-                if let convertedReply = self.convert(data: [(respose?.body)!]).first {
-                    success(convertedReply)
+        if isNetworkReachable {
+            request.execute { (respose, error) in
+                if error != nil {
+                    failure(error!)
+                } else {
+                    self.cache.cacheIncoming((respose?.body)!, for: requestURLString)
+                    if let convertedReply = self.convert(data: [(respose?.body)!]).first {
+                        success(convertedReply)
+                    }
+                    
                 }
-                
             }
         }
-        
-        RepliesAPI.repliesGetReply(replyHandle: replyHandle, authorization: authorization) { (replyView, error) in
-            if error != nil {
-                self.errorHandler.handle(error)
-            } else {
-                success(self.convert(data: [replyView!]).first!)
-            }
-        }
+
     }
     
     func postReply(commentHandle: String, request: PostReplyRequest, success: @escaping PostReplyResultHandler, failure: @escaping Failure) {

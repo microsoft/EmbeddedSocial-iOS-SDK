@@ -27,7 +27,6 @@ struct ReplyViewModel {
 
 class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutput, CommentRepliesInteractorOutput {
 
-
     weak var view: CommentRepliesViewInput?
     var interactor: CommentRepliesInteractorInput!
     var router: CommentRepliesRouterInput!
@@ -92,7 +91,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             
             view?.refreshReplyCell(index: index)
             interactor.replyAction(replyHandle: replyHandle!, action: action)
-            
             
         case .profile:
             router.openUser(userHandle: userHandle, from: view as! UIViewController)

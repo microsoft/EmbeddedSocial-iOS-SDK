@@ -85,7 +85,9 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     func refreshPostCell() {
         collectionView.reloadData()
-        SVProgressHUD.dismiss()
+        if output.heightForFeed() > 0 {
+            SVProgressHUD.dismiss()
+        }
     }
 
     func updateComments() {
@@ -223,6 +225,7 @@ extension PostDetailViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
             let config = CommentCellModuleConfigurator()
             config.configure(cell: cell, comment: output.comment(at: indexPath.row), navigationController: self.navigationController)
+            cell.repliesButton.isHidden = false
             cell.tag = indexPath.row
             if  output.numberOfItems() - 1 == indexPath.row && output.enableFetchMore() {
                 output.fetchMore()

@@ -212,9 +212,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
             comment.mediaUrl = commentView.blobUrl
             comment.topicHandle = commentView.topicHandle
             
-            let cacheRequestForLikes = CacheFetchRequest(resultType: LikeCommentRequest.self, predicate: PredicateBuilder().predicate(handle: commentView.commentHandle!))
+            let cacheRequestForLikes = CacheFetchRequest(resultType: SocialActionRequest.self, predicate: PredicateBuilder().predicate(handle: commentView.commentHandle!))
             let cacheResultForLikes = cache.fetchOutgoing(with: cacheRequestForLikes)
-            comment.totalLikes = commentView.totalLikes ?? 0 + Int64(cacheResultForLikes.count)
+            comment.totalLikes = (commentView.totalLikes ?? 0) + Int64(cacheResultForLikes.count)
             comment.liked = cacheResultForLikes.count > 0 ? true : commentView.liked!
             
             let cacheRequestForComment = CacheFetchRequest(resultType: PostReplyRequest.self, predicate: PredicateBuilder().predicate(typeID: commentView.commentHandle!))

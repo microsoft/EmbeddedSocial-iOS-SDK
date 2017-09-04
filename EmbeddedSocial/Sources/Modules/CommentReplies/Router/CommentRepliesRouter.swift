@@ -10,8 +10,4 @@ class CommentRepliesRouter: CommentRepliesRouterInput {
         
         view.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
-    
-    deinit {
-        print("CommentRepliesRouter deinit")
-    }
 }

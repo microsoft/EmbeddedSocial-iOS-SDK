@@ -7,7 +7,6 @@ class CommentCellInteractor: CommentCellInteractorInput {
 
     weak var output: CommentCellInteractorOutput!
 
-    
     var likeService: LikesServiceProtocol?
     
     // MARK: Social Actions

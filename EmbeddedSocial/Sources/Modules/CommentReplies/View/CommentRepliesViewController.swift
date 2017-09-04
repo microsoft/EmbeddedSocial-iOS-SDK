@@ -103,6 +103,8 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     // MARK: CommentRepliesViewInput
     func reloadReplies() {
         collectionView.reloadSections(IndexSet(integer: RepliesSections.replies.rawValue))
+        unlockUI()
+        refreshControl.endRefreshing()
     }
 
     func refreshReplyCell(index: Int) {
@@ -110,10 +112,10 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     }
     
     func reloadTable(scrollType: RepliesScrollType) {
-        self.isNewDataLoading = false
-        unlockUI()
         postButton.isHidden = replyTextView.text.isEmpty
         collectionView.reloadData()
+        refreshControl.endRefreshing()
+        unlockUI()
         switch scrollType {
         case .bottom:
             DispatchQueue.main.asyncAfter(deadline: .now() + reloadDelay) {
@@ -121,7 +123,6 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
             }
         default: break
         }
-        refreshControl.endRefreshing()
     }
 
     func setupInitialState() {
@@ -158,13 +159,14 @@ extension CommentRepliesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
             case RepliesSections.comment.rawValue:
-                return output.mainCommentCell()
+                let cell = output.mainCommentCell()
+                cell.repliesButton.isHidden = true
+                return cell
             case RepliesSections.replies.rawValue:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
                 cell.config(replyView: output.replyView(index: indexPath.row))
                 cell.tag = indexPath.row
-                if  output.numberOfItems() - 1 < indexPath.row + 1 && isNewDataLoading == false && output.canFetchMore() {
-                    isNewDataLoading = true
+                if  output.numberOfItems() - 1 < indexPath.row + 1 && output.canFetchMore() {
                     output.fetchMore()
                 }
                 return cell
@@ -174,12 +176,18 @@ extension CommentRepliesViewController: UICollectionViewDataSource {
     }
 }
 
+extension CommentRepliesViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == RepliesSections.replies.rawValue {
+            replyTextView.resignFirstResponder()
+        }
+    }
+}
+
 extension CommentRepliesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case RepliesSections.comment.rawValue:
-//            prototypeCommentCell.config(commentView: output.mainComment(), blockAction: true)
-//            return prototypeCommentCell.cellSize()
             return output.mainCommentCell().frame.size
         case RepliesSections.replies.rawValue:
             prototypeReplyCell.config(replyView: output.replyView(index: indexPath.row))

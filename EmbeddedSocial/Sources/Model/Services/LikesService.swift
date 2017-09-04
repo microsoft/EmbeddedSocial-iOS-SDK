@@ -83,35 +83,34 @@ class LikesService: BaseService, LikesServiceProtocol {
     
     func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
         
-        let request:RequestBuilder<Object> = LikesAPI.commentLikesPostLikeWithRequestBuilder(
+        let request: RequestBuilder<Object> = LikesAPI.commentLikesPostLikeWithRequestBuilder(
             commentHandle: commentHandle, authorization: authorization)
 
-        request.execute { (response, error) in
-            completion(commentHandle, error)
-        }
+        execute(request, handle: commentHandle, actionType: .like, completion: completion)
     }
     
     func unlikeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
         
-        let request:RequestBuilder<Object> = LikesAPI.commentLikesDeleteLikeWithRequestBuilder(
+        let request: RequestBuilder<Object> = LikesAPI.commentLikesDeleteLikeWithRequestBuilder(
             commentHandle: commentHandle,
             authorization: authorization)
         
-        request.execute { (response, error) in
-            completion(commentHandle, error)
-        }
+        execute(request, handle: commentHandle, actionType: .like, completion: completion)
     }
     
     func likeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler) {
-        LikesAPI.replyLikesPostLike(replyHandle: replyHandle, authorization: authorization) { (object, error) in
-            completion(replyHandle, error)
-        }
+        
+        let request: RequestBuilder<Object> = LikesAPI.replyLikesPostLikeWithRequestBuilder(replyHandle: replyHandle,
+                                                                                            authorization: authorization)
+
+        execute(request, handle: replyHandle, actionType: .like, completion: completion)
     }
     
     func unlikeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler) {
-        LikesAPI.replyLikesDeleteLike(replyHandle: replyHandle, authorization: authorization) { (object, error) in
-            completion(replyHandle, error)
-        }
+        let request: RequestBuilder<Object> = LikesAPI.replyLikesDeleteLikeWithRequestBuilder(replyHandle: replyHandle,
+                                                                                              authorization: authorization)
+        
+        execute(request, handle: replyHandle, actionType: .like, completion: completion)
     }
     
     func getPostLikes(postHandle: String, cursor: String?, limit: Int,

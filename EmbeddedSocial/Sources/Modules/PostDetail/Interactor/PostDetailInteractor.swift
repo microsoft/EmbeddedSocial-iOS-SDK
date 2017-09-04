@@ -16,18 +16,14 @@ class PostDetailInteractor: PostDetailInteractorInput {
     var isLoading = false
     
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32) {
-//        DispatchQueue.global(qos: .background).async {
             self.isLoading = true
             self.commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-//                DispatchQueue.main.async {
+                if !cachedResult.comments.isEmpty {
                     self.fetchedItems(result: cachedResult)
-//                }
+                }
             }, resultHandler: { (webResult) in
-//                DispatchQueue.main.async {
                     self.fetchedItems(result: webResult)
-//                }
             })
-//        }
     }
 
     private func fetchedItems(result: CommentFetchResult) {
@@ -41,24 +37,18 @@ class PostDetailInteractor: PostDetailInteractorInput {
     
     func fetchMoreComments(topicHandle: String, cursor: String?, limit: Int32) {
         
-//        DispatchQueue.global(qos: .background).async {
+        if cursor == "" || cursor == nil || self.isLoading == true {
+                return
+        }
         
-            if cursor == "" || cursor == nil || self.isLoading == true {
-                    return
+        self.isLoading = true
+        self.commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
+            if !cachedResult.comments.isEmpty {
+                self.fetchedMoreItems(result: cachedResult)
             }
-            
-            self.isLoading = true
-            self.commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-//                DispatchQueue.main.async {
-                    self.fetchedMoreItems(result: cachedResult)
-//                }
-                
-            }, resultHandler: { (webResult) in
-//                DispatchQueue.main.async {
-                    self.fetchedMoreItems(result: webResult)
-//                }
-            })
-//        }
+        }, resultHandler: { (webResult) in
+            self.fetchedMoreItems(result: webResult)
+        })
 
     }
     
