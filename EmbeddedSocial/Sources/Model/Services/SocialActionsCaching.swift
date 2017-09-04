@@ -76,42 +76,34 @@ class CachedActionsExecuter {
         self.likesService = likesService
     }
     
-    var onExecuted: (String) -> () = { handle in
-        
+    private func onCompletion(_ request: SocialActionRequest, _ error: Error?) {
+        guard error == nil else { return }
+        cache.remove(request)
     }
     
     func execute(_ action: SocialActionRequest) {
         
         let handle = action.handle
-        let completion = onExecuted
         
         switch action.actionType {
         case .like:
             if action.actionMethod == .post {
-                likesService.postLike(postHandle: handle) { handle, error in
-                    if error != nil {
-                        completion(handle)
-                    }
+                likesService.postLike(postHandle: handle) { [weak self] handle, error in
+                    self?.onCompletion(action, error)
                 }
             } else {
-                likesService.deleteLike(postHandle: handle) { handle, error in
-                    if error != nil {
-                        completion(handle)
-                    }
+                likesService.deleteLike(postHandle: handle) { [weak self] handle, error in
+                    self?.onCompletion(action, error)
                 }
             }
         case .pin:
             if action.actionMethod == .delete {
-                likesService.postPin(postHandle: handle) { handle, error in
-                    if error != nil {
-                        completion(handle)
-                    }
+                likesService.postPin(postHandle: handle) { [weak self] handle, error in
+                    self?.onCompletion(action, error)
                 }
             } else {
-                likesService.deletePin(postHandle: handle)  { handle, error in
-                    if error != nil {
-                        completion(handle)
-                    }
+                likesService.deletePin(postHandle: handle) { [weak self] handle, error in
+                    self?.onCompletion(action, error)
                 }
             }
         }
@@ -119,7 +111,6 @@ class CachedActionsExecuter {
 }
 
 class SocialActionRequestBuilder {
-    
     
     static private func transformMethod(_ method: String) -> SocialActionRequest.ActionMethod {
         switch method {
@@ -159,5 +150,10 @@ class SocialActionsCache {
         let results = cache.fetchOutgoing(with: request)
         
         return results
+    }
+    
+    func remove(_ request: SocialActionRequest) {
+        let predicate = predicateBuilder.predicate(typeID: request.hashKey)
+        cache.deleteOutgoing(with: predicate)
     }
 }

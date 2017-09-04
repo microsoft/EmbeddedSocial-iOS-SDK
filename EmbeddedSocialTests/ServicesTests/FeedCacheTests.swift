@@ -8,7 +8,7 @@ import Foundation
 import XCTest
 @testable import EmbeddedSocial
 
-class FeedReponseCachingTests: XCTestCase {
+class FeedCachingTests: XCTestCase {
     
     var topicViewResponseA: FeedResponseTopicView!
     var topicViewResponseB: FeedResponseTopicView!
@@ -117,62 +117,71 @@ class FeedReponseCachingTests: XCTestCase {
 
     }
     
+    func testThatActionGetsCachedAndRemoved() {
+        
+        // given
+        let postHandle = UUID().uuidString
+        let actionsCache = SocialActionsCache(cache: cache)
+        
+        let likePostAction = SocialActionRequestBuilder.build(method: "POST",
+                                                              handle: postHandle,
+                                                              action: .like)
+        
+        let unPinAction = SocialActionRequestBuilder.build(method: "POST",
+                                                                 handle: postHandle,
+                                                                 action: .pin)
+        // when
+        actionsCache.cache(likePostAction)
+        XCTAssertTrue(actionsCache.getAllCachedActions().count == 1)
+        actionsCache.cache(unPinAction)
+        XCTAssertTrue(actionsCache.getAllCachedActions().count == 2)
+        actionsCache.remove(likePostAction)
+        
+        // then
+        XCTAssertTrue(actionsCache.getAllCachedActions().count == 1)
+    }
+    
     func testThatUndoActionOverridesOriginalAction() {
         
         // given
-        let authorization = UUID().uuidString
         let postHandle = UUID().uuidString
-        let likeRequestBuilder: RequestBuilder<Object> = LikesAPI.topicLikesPostLikeWithRequestBuilder(topicHandle: postHandle,
-                                                                                            authorization: authorization)
-        
-        let dislikeRequestBuilder: RequestBuilder<Object> = LikesAPI.topicLikesDeleteLikeWithRequestBuilder(topicHandle: postHandle,
-                                                                                                      authorization: authorization)
-        
+    
         let actionsCache = SocialActionsCache(cache: cache)
-        let likePostAction = SocialActionRequestBuilder.build(method: likeRequestBuilder.method,
-                                                       handle: postHandle,
-                                                       action: .like)
         
-        let dislikePostAction = SocialActionRequestBuilder.build(method: dislikeRequestBuilder.method,
+        let likePostAction = SocialActionRequestBuilder.build(method: "POST",
+                                                              handle: postHandle,
+                                                              action: .like)
+        
+        let unLikePostAction = SocialActionRequestBuilder.build(method: "DELETE",
                                                        handle: postHandle,
                                                        action: .like)
         
         // when
         actionsCache.cache(likePostAction)
-        actionsCache.cache(dislikePostAction)
+        actionsCache.cache(unLikePostAction)
         
         // then
         let results = actionsCache.getAllCachedActions()
         XCTAssertTrue(results.count == 1)
-        XCTAssertTrue(results.first!.actionType == .like)
-        XCTAssertTrue(results.first!.actionMethod == .delete)
+        XCTAssertTrue(results.first?.actionType == .like)
+        XCTAssertTrue(results.first?.actionMethod == .delete)
     }
     
     
     func testThatActionsAreCachedProperly() {
         
         // given
-        let authorization = UUID().uuidString
         let postHandle = UUID().uuidString
-        let likeRequestBuilder: RequestBuilder<Object> = LikesAPI.topicLikesPostLikeWithRequestBuilder(
-            topicHandle: postHandle,
-            authorization: authorization)
-        let pinRequestBuilder: RequestBuilder<Object> = PinsAPI.myPinsDeletePinWithRequestBuilder(
-            topicHandle: postHandle,
-            authorization: authorization)
-        
-        
         let actionsCache = SocialActionsCache(cache: cache)
         
-        // when
-        let likePostAction = SocialActionRequestBuilder.build(method: likeRequestBuilder.method,
+        let likePostAction = SocialActionRequestBuilder.build(method: "POST",
                                                        handle: postHandle,
                                                        action: .like)
         
-        let deletePinAction = SocialActionRequestBuilder.build(method: pinRequestBuilder.method,
+        let deletePinAction = SocialActionRequestBuilder.build(method: "DELETE",
                                                        handle: postHandle,
                                                        action: .pin)
-        
+        // when
         actionsCache.cache(likePostAction)
         actionsCache.cache(deletePinAction)
         
