@@ -141,6 +141,13 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             postService.fetchPost(post: post) { [weak self] result in
                 self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
             }
+        case .myPins:
+            var query = MyPinsFeedQuery()
+            query.cursor = cursor
+            query.limit = limit
+            postService.fetchMyPins(query: query, completion: { [weak self] result in
+                self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+            })
         }
     }
     
