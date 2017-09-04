@@ -188,6 +188,7 @@ extension CrossModuleCoordinator: LoginPopupOpener {
             navController.dismiss(animated: true, completion: nil)
         }
         navController.navigationBar.topItem?.leftBarButtonItem = button
+        navController.modalPresentationStyle = .overCurrentContext
         return navController
     }
 }

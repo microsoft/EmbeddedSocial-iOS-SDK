@@ -26,6 +26,12 @@ final class ReportPresenter {
     fileprivate var isSubmitButtonEnabled: Bool {
         return selectedIndexPath != nil
     }
+    
+    fileprivate let isAnonymous: Bool
+    
+    init(isAnonymous: Bool) {
+        self.isAnonymous = isAnonymous
+    }
 }
 
 extension ReportPresenter: ReportViewOutput {
@@ -42,6 +48,11 @@ extension ReportPresenter: ReportViewOutput {
     func onSubmit() {
         guard let selectedIndexPath = selectedIndexPath,
             let reason = interactor.reportReason(forIndexPath: selectedIndexPath) else {
+            return
+        }
+        
+        guard !isAnonymous else {
+            router.openLoginPopup()
             return
         }
         

@@ -9,4 +9,6 @@ protocol ReportRouterInput {
     func openReportSuccess(onDone: (() -> Void)?)
     
     func close()
+    
+    func openLoginPopup()
 }
