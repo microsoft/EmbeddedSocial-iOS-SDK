@@ -5,7 +5,7 @@
 
 import Foundation
 
-class BaseService {
+class BaseService: NetworkStatusListener {
     let errorHandler: APIErrorHandler
     let authorization: Authorization
     let cache: CacheType
@@ -26,14 +26,12 @@ class BaseService {
         networkStatusMulticast.addListener(self)
     }
     
+    func networkStatusDidChange(_ isReachable: Bool) {
+        isNetworkReachable = isReachable
+    }
+    
     deinit {
         networkStatusMulticast.removeListener(self)
     }
 }
 
-extension BaseService: NetworkStatusListener {
-    
-    func networkStatusDidChange(_ isReachable: Bool) {
-        isNetworkReachable = isReachable
-    }
-}
