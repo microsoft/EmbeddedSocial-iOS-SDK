@@ -102,9 +102,7 @@ extension CommentView: Cacheable {
     }
 }
 
-extension FeedResponseTopicView: Cacheable {
-    
-}
+extension FeedResponseTopicView: Cacheable { }
 
 extension FeedResponseUserCompactView: Cacheable, HandleMixin {
     func getHandle() -> String? {

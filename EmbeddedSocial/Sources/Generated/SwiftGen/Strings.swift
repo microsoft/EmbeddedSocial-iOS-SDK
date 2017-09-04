@@ -243,6 +243,13 @@ enum L10n {
     /// Search
     static let screenTitle = L10n.tr("Localizable", "search.screen_title")
 
+    enum Filter {
+      /// People
+      static let people = L10n.tr("Localizable", "search.filter.people")
+      /// Topics
+      static let topics = L10n.tr("Localizable", "search.filter.topics")
+    }
+
     enum Label {
       /// Based on who you follow
       static let basedOnWhoYouFollow = L10n.tr("Localizable", "search.label.based_on_who_you_follow")
@@ -251,6 +258,8 @@ enum L10n {
     enum Placeholder {
       /// Search people
       static let searchPeople = L10n.tr("Localizable", "search.placeholder.search_people")
+      /// Search topics
+      static let searchTopics = L10n.tr("Localizable", "search.placeholder.search_topics")
     }
   }
 

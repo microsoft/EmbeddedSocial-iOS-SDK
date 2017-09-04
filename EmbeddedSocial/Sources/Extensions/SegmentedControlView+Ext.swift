@@ -24,4 +24,28 @@ extension SegmentedControlView {
             make.height.equalTo(Constants.UserProfile.filterHeight)
         }
     }
+    
+    static func searchModuleControl(superview: UIView,
+                                    onTopics: @escaping () -> Void,
+                                    onPeople: @escaping () -> Void) -> SegmentedControlView {
+        let control = SegmentedControlView.fromNib()
+        
+        control.setSegments([
+            SegmentedControlView.Segment(title: L10n.Search.Filter.topics, action: { onTopics() }),
+            SegmentedControlView.Segment(title: L10n.Search.Filter.people, action: { onPeople() })
+            ])
+        control.selectSegment(0)
+        control.isSeparatorHidden = false
+        control.separatorColor = Palette.extraLightGrey
+        
+        superview.addSubview(control)
+        control.snp.makeConstraints { make in
+            make.left.equalTo(superview)
+            make.top.equalTo(superview)
+            make.width.equalTo(superview)
+            make.height.equalTo(Constants.Search.filterHeight)
+        }
+        
+        return control
+    }
 }

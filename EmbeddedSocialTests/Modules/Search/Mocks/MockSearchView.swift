@@ -5,20 +5,46 @@
 
 @testable import EmbeddedSocial
 
-final class MockSearchView: SearchViewInput {
-    private(set) var pageInfo: SearchPageInfo?
-    private(set) var setupInitialStateCount = 0
+class MockSearchView: SearchViewInput {
     
-    func setupInitialState(_ pageInfo: SearchPageInfo) {
-        self.pageInfo = pageInfo
-        setupInitialStateCount += 1
+    //MARK: - setupInitialState
+    
+    var setupInitialStateCalled = false
+    var setupInitialStateReceivedTab: SearchTabInfo?
+    
+    func setupInitialState(_ tab: SearchTabInfo) {
+        setupInitialStateCalled = true
+        setupInitialStateReceivedTab = tab
     }
     
-    private(set) var showErrorCount = 0
-    private(set) var showReportInputError: Error?
+    //MARK: - switchTabs
+    
+    var switchTabsToFromCalled = false
+    var switchTabsToFromReceivedArguments: (tab: SearchTabInfo, previousTab: SearchTabInfo)?
+    
+    func switchTabs(to tab: SearchTabInfo, from previousTab: SearchTabInfo) {
+        switchTabsToFromCalled = true
+        switchTabsToFromReceivedArguments = (tab: tab, previousTab: previousTab)
+    }
+    
+    //MARK: - showError
+    
+    var showErrorCalled = false
+    var showErrorReceivedError: Error?
     
     func showError(_ error: Error) {
-        showErrorCount += 1
-        showReportInputError = error
+        showErrorCalled = true
+        showErrorReceivedError = error
     }
+    
+    //MARK: - setLayoutAsset
+    
+    var setLayoutAssetCalled = false
+    var setLayoutAssetReceivedAsset: Asset?
+    
+    func setLayoutAsset(_ asset: Asset) {
+        setLayoutAssetCalled = true
+        setLayoutAssetReceivedAsset = asset
+    }
+    
 }

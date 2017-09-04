@@ -5,7 +5,10 @@
 
 import Foundation
 
-class UsersFeedRequestExecutionStrategy: CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse> {
+class CommonCacheRequestExecutionStrategy<ResponseType, ResultType>:
+CacheRequestExecutionStrategy<ResponseType, ResultType> where ResponseType: Cacheable {
+    
+    var mapper: ((ResponseType?) -> ResultType)?
     
     override func execute(with builder: RequestBuilder<ResponseType>, completion: @escaping (Result<ResultType>) -> Void) {
         if let cachedResponse = cache?.firstIncoming(ofType: ResponseType.self, handle: builder.URLString) {
@@ -25,11 +28,17 @@ class UsersFeedRequestExecutionStrategy: CacheRequestExecutionStrategy<FeedRespo
     private func processResponse(_ response: ResponseType?,
                                  error: Error?,
                                  completion: @escaping (Result<ResultType>) -> Void) {
-        if let response = response {
-            let users = response.data?.map(User.init) ?? []
-            completion(.success(UsersListResponse(users: users, cursor: response.cursor)))
-        } else {
+        
+        guard let mapper = mapper else {
+            completion(.failure(APIError.custom("CommonCacheRequestExecutionStrategy: mapper is missing")))
+            return
+        }
+        
+        if error != nil {
             errorHandler?.handle(error: error, completion: completion)
+        } else {
+            let result = mapper(response)
+            completion(.success(result))
         }
     }
 }

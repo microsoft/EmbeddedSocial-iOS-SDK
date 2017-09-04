@@ -33,6 +33,10 @@ extension SearchPeoplePresenter: SearchPeopleModuleInput {
     func backgroundView() -> UIView? {
         return backgroundUsersListModule?.listView
     }
+    
+    func searchResultsController() -> UIViewController {
+        return (view as? UIViewController) ?? UIViewController()
+    }
 }
 
 extension SearchPeoplePresenter: UISearchResultsUpdating {
@@ -46,17 +50,13 @@ extension SearchPeoplePresenter: UISearchResultsUpdating {
     @objc private func runSearchQuery(for searchController: UISearchController) {
         interactor.runSearchQuery(for: searchController, usersListModule: usersListModule)
     }
-    
-    func searchResultsController() -> UIViewController {
-        return (view as? UIViewController) ?? UIViewController()
-    }
 }
 
 extension SearchPeoplePresenter: UserListModuleOutput {
     
     func didFailToLoadList(listView: UIView, error: Error) {
         if listView == backgroundUsersListModule?.listView {
-            moduleOutput?.didFailToLoadSearchQuery(error)
+            moduleOutput?.didFailToLoadSuggestedUsers(error)
         } else if listView == usersListModule.listView {
             moduleOutput?.didFailToLoadSearchQuery(error)
         }

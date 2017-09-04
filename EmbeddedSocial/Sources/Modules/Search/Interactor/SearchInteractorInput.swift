@@ -6,5 +6,9 @@
 import Foundation
 
 protocol SearchInteractorInput: class {
-    func makePageInfo(from searchPeopleModule: SearchPeopleModuleInput) -> SearchPageInfo
+    func makePeopleTab(with searchPeopleModule: SearchPeopleModuleInput) -> SearchTabInfo
+    
+    func makeTopicsTab(feedViewController: UIViewController?, searchResultsHandler: UISearchResultsUpdating) -> SearchTabInfo
+
+    func runSearchQuery(for searchController: UISearchController, feedModule: FeedModuleInput)
 }

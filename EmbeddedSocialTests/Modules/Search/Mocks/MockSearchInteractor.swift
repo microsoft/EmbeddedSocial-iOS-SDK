@@ -3,17 +3,46 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+import XCTest
 @testable import EmbeddedSocial
 
-final class MockSearchInteractor: SearchInteractorInput {
-    private(set) var makePageInfoCount = 0
-    var pageInfoToReturn: SearchPageInfo?
+class MockSearchInteractor: SearchInteractorInput {
     
-    func makePageInfo(from searchPeopleModule: SearchPeopleModuleInput) -> SearchPageInfo {
-        makePageInfoCount += 1
-        guard let pageInfo = pageInfoToReturn else {
-            fatalError("Please provide page info to return")
-        }
-        return pageInfo
+    //MARK: - makePeopleTab
+    
+    var makePeopleTabWithCalled = false
+    var makePeopleTabWithReceivedSearchPeopleModule: SearchPeopleModuleInput?
+    var makePeopleTabWithReturnValue: SearchTabInfo!
+    
+    func makePeopleTab(with searchPeopleModule: SearchPeopleModuleInput) -> SearchTabInfo {
+        makePeopleTabWithCalled = true
+        makePeopleTabWithReceivedSearchPeopleModule = searchPeopleModule
+        return makePeopleTabWithReturnValue
     }
+    
+    //MARK: - makeTopicsTab
+    
+    var makeTopicsTabFeedViewControllerSearchResultsHandlerCalled = false
+    var makeTopicsTabFeedViewControllerSearchResultsHandlerReceivedArguments: (feedViewController: UIViewController?, searchResultsHandler: UISearchResultsUpdating)?
+    var makeTopicsTabFeedViewControllerSearchResultsHandlerReturnValue: SearchTabInfo!
+    
+    func makeTopicsTab(feedViewController: UIViewController?, searchResultsHandler: UISearchResultsUpdating) -> SearchTabInfo {
+        makeTopicsTabFeedViewControllerSearchResultsHandlerCalled = true
+        makeTopicsTabFeedViewControllerSearchResultsHandlerReceivedArguments = (feedViewController: feedViewController, searchResultsHandler: searchResultsHandler)
+        return makeTopicsTabFeedViewControllerSearchResultsHandlerReturnValue
+    }
+    
+    //MARK: - runSearchQuery
+    
+    var runSearchQueryForFeedModuleCalled = false
+    var runSearchQueryForFeedModuleReceivedArguments: (searchController: UISearchController, feedModule: FeedModuleInput)?
+    var runSearchQueryExpectation = XCTestExpectation(description: "runSearchQueryExpectation")
+    
+    func runSearchQuery(for searchController: UISearchController, feedModule: FeedModuleInput) {
+        runSearchQueryForFeedModuleCalled = true
+        runSearchQueryForFeedModuleReceivedArguments = (searchController: searchController, feedModule: feedModule)
+        runSearchQueryExpectation.fulfill()
+    }
+    
 }
+
