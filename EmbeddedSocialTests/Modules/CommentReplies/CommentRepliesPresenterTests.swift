@@ -16,12 +16,14 @@ class CommentRepliesPresenterTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        commentView  = CommentViewModel()
         let comment = Comment()
-        commentView.comment = comment
+        comment.commentHandle = "test"
+        comment.firstName = "first name"
+        comment.lastName = "last name"
+        presenter.comment = comment
+        presenter.commentCell = CommentCell.nib.instantiate(withOwner: nil, options: nil).first as! CommentCell
         presenter.interactor = interactor
         presenter.view = view
-        presenter.commentView = commentView
         interactor.output = presenter
         view.output = presenter
     }
@@ -29,7 +31,7 @@ class CommentRepliesPresenterTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         commentView = nil
-        presenter.commentView = nil
+        presenter.comment = nil
         presenter.interactor = nil
         interactor.output = nil
         presenter.view = nil

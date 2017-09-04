@@ -84,10 +84,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     func refreshPostCell() {
-//        collectionView.reloadItems(at: [IndexPath(item: 0, section: CommentsSections.post.rawValue)])
-//        collectionView.performBatchUpdates({
-//            self.collectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
-//        }, completion: nil)
         collectionView.reloadData()
         SVProgressHUD.dismiss()
     }
@@ -191,7 +187,6 @@ extension PostDetailViewController: UICollectionViewDelegate {
     }
 }
 
-
 extension PostDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
@@ -248,8 +243,8 @@ extension PostDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case CommentsSections.post.rawValue:
-            return CGSize(width: UIScreen.main.bounds.size.width, height: output.heightForFeed())
-//            return CGSize(width: UIScreen.main.bounds.size.width, height: 250)
+            // TODO: Feed module should be fix itself size in offline mode
+            return CGSize(width: UIScreen.main.bounds.size.width, height: output.heightForFeed() < 1 ? 1 : output.heightForFeed() )
         case CommentsSections.comments.rawValue:
             prototypeCommentCell?.configure(comment: output.comment(at: indexPath.row))
             return CGSize(width: UIScreen.main.bounds.size.width, height: (prototypeCommentCell?.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)!)

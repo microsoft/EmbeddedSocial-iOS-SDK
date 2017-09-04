@@ -33,18 +33,18 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     }
     
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int) {
-        DispatchQueue.global(qos: .background).async {
+//        DispatchQueue.global(qos: .background).async {
             self.isLoading = true
             self.repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-                DispatchQueue.main.async {
+//                DispatchQueue.main.async {
                     self.handleRepliesResult(result: cachedResult)
-                }
+//                }
             }, resultHandler: { (webResult) in
-                DispatchQueue.main.async {
+//                DispatchQueue.main.async {
                     self.handleRepliesResult(result: webResult)
-                }
+//                }
             })
-        }
+//        }
 
     }
     
@@ -58,22 +58,22 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     }
     
     func fetchMoreReplies(commentHandle: String, cursor: String?, limit: Int) {
-        DispatchQueue.global(qos: .background).async {
+//        DispatchQueue.global(qos: .background).async {
             if cursor == "" || cursor == nil || self.isLoading == true {
                 return
             }
             
             self.isLoading = true
             self.repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-                DispatchQueue.main.async {
+//                DispatchQueue.main.async {
                     self.handleMoreRepliesResult(result: cachedResult)
-                }
+//                }
             }, resultHandler: { (webResult) in
-                DispatchQueue.main.async {
+//                DispatchQueue.main.async {
                     self.handleMoreRepliesResult(result: webResult)
-                }
+//                }
             })
-        }
+//        }
         
     }
     

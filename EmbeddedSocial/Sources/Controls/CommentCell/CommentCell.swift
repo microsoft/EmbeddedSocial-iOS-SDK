@@ -39,8 +39,6 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         layer.shouldRasterize = true
         layer.drawsAsynchronously = true
         layer.rasterizationScale = UIScreen.main.scale
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-//        contentView.addGestureRecognizer(tap)
     }
     
     static let identifier = "CommentCell"
@@ -49,10 +47,6 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     func setupInitialState() {
         
     }
-    
-//    func handleTap(tap: UITapGestureRecognizer) {
-//        output.toReplies(scrollType: .none)
-//    }
     
     func configure(comment: Comment) {
         usernameLabel.text = User.fullName(firstName: comment.firstName, lastName: comment.lastName)

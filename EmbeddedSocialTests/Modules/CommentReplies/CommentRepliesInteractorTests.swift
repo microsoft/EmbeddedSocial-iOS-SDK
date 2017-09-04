@@ -87,10 +87,13 @@ class CommentRepliesInteractorTests: XCTestCase {
     
     func testThatFetchedReplies() {
         //given
+        let comment = Comment()
+        comment.commentHandle = "handle"
+        output.comment = comment
         //default in MockRepliesService fetching 1 item
         
         //when
-        interactor.fetchReplies(commentHandle: "test", cursor: "test", limit: 10)
+        interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: "test", limit: 10)
         
         //then
         XCTAssertEqual(output.fetchedRepliesCount , 1)

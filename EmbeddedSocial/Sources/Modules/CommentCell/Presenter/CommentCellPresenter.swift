@@ -1,9 +1,6 @@
 //
-//  CommentCellCommentCellPresenter.swift
-//  EmbeddedSocial-Framework
-//
-//  Created by generamba setup on 01/09/2017.
-//  Copyright © 2017 akvelon. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
 protocol CommentCellModuleProtocol {
@@ -60,14 +57,6 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
         
         router?.openImage(imageUrl: mediaURL)
     }
-    
-//    deinit {
-////        view = nil
-//        interactor = nil
-//        router = nil
-////        print("CommentCellPresenter deinit")
-//    }
-    
     
     // MARK: CommentCellInteractorOutput
     func didPostAction(action: CommentSocialAction, error: Error?) {

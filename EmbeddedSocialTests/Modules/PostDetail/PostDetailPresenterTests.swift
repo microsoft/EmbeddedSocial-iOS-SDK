@@ -6,7 +6,7 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class PostDetailsPresenterTests: XCTestCase, PostViewModelActionsProtocol {
+class PostDetailsPresenterTests: XCTestCase {
     
     let presenter = PostDetailPresenter()
     let interactor = MockPostDetailsInteractor()
@@ -17,19 +17,17 @@ class PostDetailsPresenterTests: XCTestCase, PostViewModelActionsProtocol {
     
     override func setUp() {
         super.setUp()
-        post = PostViewModel(topicHandle: "topicHandle", userName: "username", title: "title", text: "text", isLiked: false, isPinned: false, likedBy: "", totalLikes: "0 likes", totalComments: "0 comments", timeCreated: "date", userImageUrl: "", postImageUrl: "", tag: 0, cellType: "PostCell", onAction: { action, path in
-            print("asdsa")})
+        let tempPost = Post(topicHandle: "topicHandle", createdTime: Date(), userHandle: "User", userStatus: .none, firstName: "first name", lastName: "last name", photoHandle: "photoHandle", photoUrl: nil, title: "ttile", text: nil, imageUrl: nil, deepLink: nil, totalLikes: 0, totalComments: 0, liked: false, pinned: false)
+        
+        post = PostViewModel(with: tempPost, cellType: "", actionHandler: { (action, path) in
+            
+        })
         presenter.interactor = interactor
         presenter.view = view
-        presenter.postViewModelActionsHandler = self
         presenter.postViewModel = post
         presenter.router = router
         interactor.output = presenter
         view.output = presenter
-    }
-    
-    func handle(action: PostCellAction, path: IndexPath) {
-        //fake handle
     }
     
     override func tearDown() {
@@ -77,77 +75,6 @@ class PostDetailsPresenterTests: XCTestCase, PostViewModelActionsProtocol {
         XCTAssertEqual(presenter.numberOfItems(), 1)
     }
     
-    func testThatCommentLikedAndUnliked() {
-        
-        //given
-        let commentHandle = "Handle"
-        let comment = Comment()
-        comment.commentHandle = commentHandle
-        comment.userHandle = "user"
-        presenter.comments = [comment]
-        
-        //when like
-        presenter.handle(action: .like, index: 0)
-        
-        //then
-        XCTAssertEqual(view.commentsLike, "1 like")
-        
-        //when unlike
-        presenter.handle(action: .like, index: 0)
-        
-        //then
-        XCTAssertEqual(view.commentsLike, "0 likes")
-    }
-    
-    func testThatRepliesOpen() {
-        
-        //given
-        let commentHandle = "Handle"
-        let comment = Comment()
-        comment.commentHandle = commentHandle
-        comment.userHandle = "user"
-        presenter.comments = [comment]
-        
-        //when
-        presenter.handle(action: .replies, index: 0)
-        
-        //then
-        XCTAssertEqual(router.openRepliesCount, 1)
-    }
-
-    func testThatUserOpen() {
-        
-        //given
-        let commentHandle = "Handle"
-        let comment = Comment()
-        comment.commentHandle = commentHandle
-        comment.userHandle = "user"
-        presenter.comments = [comment]
-        
-        //when
-        presenter.handle(action: .profile, index: 0)
-        
-        //then
-        XCTAssertEqual(router.openUserCount, 1)
-    }
-    
-    func testThatPhotoOpen() {
-        
-        //given
-        let commentHandle = "Handle"
-        let comment = Comment()
-        comment.commentHandle = commentHandle
-        comment.userHandle = "user"
-        comment.mediaUrl = "url"
-        presenter.comments = [comment]
-        
-        //when
-        presenter.handle(action: .photo, index: 0)
-        
-        //then
-        XCTAssertEqual(router.openImageCount, 1)
-    }
-    
     func testThatFetchMore() {
         
         //given
@@ -158,17 +85,6 @@ class PostDetailsPresenterTests: XCTestCase, PostViewModelActionsProtocol {
         
         //then
         XCTAssertEqual(presenter.comments.count, 1)
-    }
-    
-    func testThatPostFetching() {
-            
-        //when
-        presenter.refreshPost()
-        
-        //then
-        XCTAssertEqual(interactor.loadPostCount, 1)
-        XCTAssertEqual(view.postCellRefreshCount, 1)
-        
     }
     
     

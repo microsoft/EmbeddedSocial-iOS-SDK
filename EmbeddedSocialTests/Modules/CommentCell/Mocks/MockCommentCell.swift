@@ -4,7 +4,8 @@
 //
 
 import Foundation
+@testable import EmbeddedSocial
 
-protocol CommentCellInteractorOutput: class {
-    func didPostAction(action: CommentSocialAction, error: Error?)
+class MockCommentCell: CommentCell {
+    
 }
