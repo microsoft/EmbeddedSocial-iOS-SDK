@@ -162,20 +162,22 @@ class FeedCachingTests: XCTestCase {
             handle: postHandle,
             action: .like)
         
-        let unPinAction = SocialActionRequestBuilder.build(
-            method: "POST",
+        let unPinPostAction = SocialActionRequestBuilder.build(
+            method: "DELETE",
             handle: postHandle,
             action: .pin)
         
         // when
         actionsCache.cache(likePostAction)
         XCTAssertTrue(actionsCache.getAllCachedActions().count == 1)
-        actionsCache.cache(unPinAction)
+        actionsCache.cache(unPinPostAction)
         XCTAssertTrue(actionsCache.getAllCachedActions().count == 2)
         actionsCache.remove(likePostAction)
         
         // then
         XCTAssertTrue(actionsCache.getAllCachedActions().count == 1)
+        XCTAssertTrue(actionsCache.getAllCachedActions().first?.actionType == .pin)
+        XCTAssertTrue(actionsCache.getAllCachedActions().first?.actionMethod == .delete)
     }
     
     func testThatUndoActionOverridesOriginalAction() {

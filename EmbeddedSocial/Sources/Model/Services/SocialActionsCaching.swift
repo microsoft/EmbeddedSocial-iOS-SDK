@@ -16,7 +16,7 @@ struct SocialActionRequest: Cacheable {
     }
     
     init(handle: String, actionType: ActionType, actionMethod: ActionMethod) {
-        _ = SocialActionRequest.initDecoder
+        _ = SocialActionRequest.__once_initDecoder
         self.handle = handle
         self.actionType = actionType
         self.actionMethod = actionMethod
@@ -45,7 +45,7 @@ struct SocialActionRequest: Cacheable {
     }
     
     // TODO: move to a new place, needs discussion
-    static let initDecoder: () = {
+    static let __once_initDecoder: () = {
         
         Decoders.addDecoder(clazz: SocialActionRequest.self) { source, instance in
             
