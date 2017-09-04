@@ -110,7 +110,6 @@
 		88204FB01F56EA4F00E15F5A /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FAF1F56EA4F00E15F5A /* MulticastDelegate.swift */; };
 		88204FB21F580DA800E15F5A /* RequestExecutionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FB11F580DA800E15F5A /* RequestExecutionStrategy.swift */; };
 		88204FB51F58144D00E15F5A /* CacheRequestExecutionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FB41F58144D00E15F5A /* CacheRequestExecutionStrategy.swift */; };
-		88204FB91F581F1400E15F5A /* UsersFeedRequestExecutionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FB81F581F1400E15F5A /* UsersFeedRequestExecutionStrategy.swift */; };
 		88204FBB1F581F2A00E15F5A /* SuggestedUsersRequestExecutionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FBA1F581F2A00E15F5A /* SuggestedUsersRequestExecutionStrategy.swift */; };
 		88204FBD1F5823B600E15F5A /* SearchPeopleModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FBC1F5823B600E15F5A /* SearchPeopleModuleOutput.swift */; };
 		88204FBF1F584BF600E15F5A /* MockUserListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FBE1F584BF600E15F5A /* MockUserListRouter.swift */; };
@@ -839,11 +838,10 @@
 		881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueRepositoryTests.swift; sourceTree = "<group>"; };
 		881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MementoSerializableItem.swift; sourceTree = "<group>"; };
 		881F7E611F263888003EB37A /* MockKeyValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeyValueStorage.swift; sourceTree = "<group>"; };
-		88204FAD1F56E60200E15F5A /* NetworkTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkTracker.swift; path = ../Model/Services/NetworkTracker.swift; sourceTree = "<group>"; };
+		88204FAD1F56E60200E15F5A /* NetworkTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkTracker.swift; path = NetworkTracker.swift; sourceTree = "<group>"; };
 		88204FAF1F56EA4F00E15F5A /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		88204FB11F580DA800E15F5A /* RequestExecutionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestExecutionStrategy.swift; sourceTree = "<group>"; };
 		88204FB41F58144D00E15F5A /* CacheRequestExecutionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheRequestExecutionStrategy.swift; sourceTree = "<group>"; };
-		88204FB81F581F1400E15F5A /* UsersFeedRequestExecutionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersFeedRequestExecutionStrategy.swift; sourceTree = "<group>"; };
 		88204FBA1F581F2A00E15F5A /* SuggestedUsersRequestExecutionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestedUsersRequestExecutionStrategy.swift; sourceTree = "<group>"; };
 		88204FBC1F5823B600E15F5A /* SearchPeopleModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPeopleModuleOutput.swift; sourceTree = "<group>"; };
 		88204FBE1F584BF600E15F5A /* MockUserListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListRouter.swift; sourceTree = "<group>"; };
@@ -1133,7 +1131,7 @@
 		8864C8481F4707BB00ADCE13 /* SearchPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
 		8864C84B1F4707D600ADCE13 /* SearchViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewInput.swift; sourceTree = "<group>"; };
 		8864C84D1F4707DE00ADCE13 /* SearchViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewOutput.swift; sourceTree = "<group>"; };
-		8864C84F1F4709D300ADCE13 /* SearchTabInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTabInfo.swift; path = Interactor/SearchTabInfo.swift; sourceTree = "<group>"; };
+		8864C84F1F4709D300ADCE13 /* SearchTabInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTabInfo.swift; path = SearchTabInfo.swift; sourceTree = "<group>"; };
 		8864C8511F470AA100ADCE13 /* SearchConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchConfigurator.swift; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* EmbeddedSocial-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EmbeddedSocial-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1231,7 +1229,7 @@
 		88D2F8E71F56B8450004A8BC /* MockReportView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockReportView.swift; sourceTree = "<group>"; };
 		88D2F8E91F56B8860004A8BC /* MockReportRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockReportRouter.swift; sourceTree = "<group>"; };
 		88D2F8EC1F56B8B80004A8BC /* ReportPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportPresenterTests.swift; sourceTree = "<group>"; };
-		88D2F8EE1F56C60A0004A8BC /* ReportAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportAPI.swift; path = Interactor/ReportAPI.swift; sourceTree = "<group>"; };
+		88D2F8EE1F56C60A0004A8BC /* ReportAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportAPI.swift; path = ReportAPI.swift; sourceTree = "<group>"; };
 		88D2F8F11F56C69E0004A8BC /* ReportUserAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportUserAPI.swift; sourceTree = "<group>"; };
 		88D2F8F31F56C82D0004A8BC /* ReportPostAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportPostAPI.swift; sourceTree = "<group>"; };
 		88D2F8F51F56D2250004A8BC /* MockReportAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockReportAPI.swift; sourceTree = "<group>"; };
@@ -1581,6 +1579,7 @@
 				8864C84F1F4709D300ADCE13 /* SearchTabInfo.swift */,
 			);
 			name = Helpers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		8811C83B1F42E00000F7513D /* EmbeddedEditProfile */ = {
@@ -1778,13 +1777,13 @@
 		88204FB31F58143900E15F5A /* RequestExecutionStrategy */ = {
 			isa = PBXGroup;
 			children = (
-				88204FB11F580DA800E15F5A /* RequestExecutionStrategy.swift */,
 				88204FB41F58144D00E15F5A /* CacheRequestExecutionStrategy.swift */,
 				8802F2171F5968C800FD0A15 /* CommonCacheRequestExecutionStrategy.swift */,
-				88204FB81F581F1400E15F5A /* UsersFeedRequestExecutionStrategy.swift */,
+				88204FB11F580DA800E15F5A /* RequestExecutionStrategy.swift */,
 				88204FBA1F581F2A00E15F5A /* SuggestedUsersRequestExecutionStrategy.swift */,
 			);
 			name = RequestExecutionStrategy;
+			path = RequestExecutionStrategy;
 			sourceTree = "<group>";
 		};
 		882AD0B41F221D4400FC20B7 /* CoreData */ = {
@@ -2669,25 +2668,25 @@
 				8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */,
 				88580B931F2213AB00C1CBAF /* Constants.swift */,
 				88580B951F2213AB00C1CBAF /* EquatableWithinEpsilon.swift */,
+				88E3AC301F559D0B0016357F /* HandleMixin.swift */,
 				88580B0F1F2213AB00C1CBAF /* ImageCache.swift */,
 				88580B961F2213AB00C1CBAF /* ImagePicker.swift */,
-				88204FAD1F56E60200E15F5A /* NetworkTracker.swift */,
 				3209330C1F2A50D300890218 /* Logger.swift */,
+				88204FAF1F56EA4F00E15F5A /* MulticastDelegate.swift */,
 				88580B971F2213AB00C1CBAF /* NameComponentsSplitter.swift */,
+				88204FAD1F56E60200E15F5A /* NetworkTracker.swift */,
 				88580B981F2213AB00C1CBAF /* NibLoadable.swift */,
 				88D8CCB31F31FED40032FB2B /* PaginatedResponse.swift */,
 				8834A7481F50071300F1D383 /* QueryPage.swift */,
+				88E3AC321F55A01D0016357F /* RelatedHandleMixin.swift */,
+				8802F2191F596BBA00FD0A15 /* RequestExecutorProvider.swift */,
 				88580A931F2213AB00C1CBAF /* Result.swift */,
 				88580B991F2213AB00C1CBAF /* Reusable.swift */,
 				88580B2C1F2213AB00C1CBAF /* ThirdPartyConfigurator.swift */,
 				881060F81F28E502008CA2FB /* UIButtonStyles.swift */,
 				8811C8201F3C6D2400F7513D /* UITestsHelper.swift */,
-				8802F2191F596BBA00FD0A15 /* RequestExecutorProvider.swift */,
 				889510871F3B2539001A53F5 /* UnauthorizedErrorHandler.swift */,
 				8875CCF01F331FC9001F2474 /* UsersListResponse.swift */,
-				88E3AC301F559D0B0016357F /* HandleMixin.swift */,
-				88E3AC321F55A01D0016357F /* RelatedHandleMixin.swift */,
-				88204FAF1F56EA4F00E15F5A /* MulticastDelegate.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2742,8 +2741,8 @@
 		8864C8201F45BA6000ADCE13 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				8807ADFB1F5D4CEE00DA3FB0 /* Helpers */,
 				8864C8531F470AA300ADCE13 /* Configurator */,
+				8807ADFB1F5D4CEE00DA3FB0 /* Helpers */,
 				889119A51F470E21005B3B32 /* Interactor */,
 				8864C84A1F4707BF00ADCE13 /* Presenter */,
 				8864C8471F46E3B700ADCE13 /* View */,
@@ -2777,8 +2776,8 @@
 			isa = PBXGroup;
 			children = (
 				8864C83F1F46DC6800ADCE13 /* SearchPeopleModuleInput.swift */,
-				8864C8391F46DBC200ADCE13 /* SearchPeoplePresenter.swift */,
 				88204FBC1F5823B600E15F5A /* SearchPeopleModuleOutput.swift */,
+				8864C8391F46DBC200ADCE13 /* SearchPeoplePresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -3011,12 +3010,12 @@
 				884C9C411F4D91BD0004907F /* CacheableItem.swift */,
 				884C9C431F4D91CF0004907F /* CacheableItemDecoder.swift */,
 				88F1916D1F25FFD000B93ADF /* Dump.swift */,
+				9C9D0A091F57ED250000174B /* FeedResponseTopicView+Ext.swift */,
 				881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */,
 				88FFFA661F30AB170066A1A0 /* MyProfileHolder.swift */,
 				884C9C451F4D9D860004907F /* PredicateTestableItem.swift */,
 				889AFC061F220BCD003AAF19 /* UIImage+Ext.swift */,
 				88F191711F26071A00B93ADF /* XCTestCase+Ext.swift */,
-				9C9D0A091F57ED250000174B /* FeedResponseTopicView+Ext.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -3110,13 +3109,13 @@
 				889AFC161F220BCD003AAF19 /* MockSocialPlusServices.swift */,
 				88FFFA5C1F2F80E00066A1A0 /* MockSocialService.swift */,
 				88087B491F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift */,
+				9C9D0A071F55B8DD0000174B /* MockTopicServices.swift */,
 				63A1D71C1F29FC120090C67A /* MockTransactionsDatabaseFacade.swift */,
 				889AFC171F220BCD003AAF19 /* MockURLScheme.swift */,
 				889AFC181F220BCD003AAF19 /* MockURLSchemeService.swift */,
+				9CC81E331F5826E9003DD078 /* MockUserHolder.swift */,
 				88F551C31F39D65200F4AAB9 /* MockUserListModuleInput.swift */,
 				88F7A78A1F2789F0005FEC5F /* MockUserService.swift */,
-				9C9D0A071F55B8DD0000174B /* MockTopicServices.swift */,
-				9CC81E331F5826E9003DD078 /* MockUserHolder.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -3231,9 +3230,9 @@
 			children = (
 				88D2F8EB1F56B8A70004A8BC /* Mocks */,
 				88D2F8E11F56B3350004A8BC /* ReportInteractorTests.swift */,
+				88D2F8F91F56D42F0004A8BC /* ReportPostAPITests.swift */,
 				88D2F8EC1F56B8B80004A8BC /* ReportPresenterTests.swift */,
 				88D2F8F71F56D3700004A8BC /* ReportUserAPITests.swift */,
-				88D2F8F91F56D42F0004A8BC /* ReportPostAPITests.swift */,
 			);
 			path = Report;
 			sourceTree = "<group>";
@@ -3241,10 +3240,10 @@
 		88D2F8EB1F56B8A70004A8BC /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				88D2F8F51F56D2250004A8BC /* MockReportAPI.swift */,
 				88D2F8E51F56B82A0004A8BC /* MockReportInteractor.swift */,
 				88D2F8E91F56B8860004A8BC /* MockReportRouter.swift */,
 				88D2F8E71F56B8450004A8BC /* MockReportView.swift */,
-				88D2F8F51F56D2250004A8BC /* MockReportAPI.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -3253,10 +3252,11 @@
 			isa = PBXGroup;
 			children = (
 				88D2F8EE1F56C60A0004A8BC /* ReportAPI.swift */,
-				88D2F8F11F56C69E0004A8BC /* ReportUserAPI.swift */,
 				88D2F8F31F56C82D0004A8BC /* ReportPostAPI.swift */,
+				88D2F8F11F56C69E0004A8BC /* ReportUserAPI.swift */,
 			);
 			name = APIs;
+			path = APIs;
 			sourceTree = "<group>";
 		};
 		88D8CCAE1F31CA3E0032FB2B /* DataDisplayManager */ = {
@@ -3407,9 +3407,9 @@
 			children = (
 				88F551941F336DCB00F4AAB9 /* MockUserListInteractor.swift */,
 				88F551981F336FB700F4AAB9 /* MockUserListModuleOutput.swift */,
+				88204FBE1F584BF600E15F5A /* MockUserListRouter.swift */,
 				88F5519A1F33705100F4AAB9 /* MockUserListView.swift */,
 				88F551901F3366C600F4AAB9 /* MockUsersListAPI.swift */,
-				88204FBE1F584BF600E15F5A /* MockUserListRouter.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -3844,8 +3844,8 @@
 			isa = PBXGroup;
 			children = (
 				9CC531341F31CCD1004CE94F /* FeedModuleInteractor-FetchQuery-Tests.swift */,
-				9C316E101F31E3CB00B90089 /* FeedModuleInteractor-Tests.swift */,
 				9CD761001F33218A00ABBB2A /* FeedModuleInteractor-SocialActions-Tests.swift */,
+				9C316E101F31E3CB00B90089 /* FeedModuleInteractor-Tests.swift */,
 				9CC531351F31CCD1004CE94F /* FeedModulePresenterTests.swift */,
 			);
 			path = FeedModule;
@@ -4416,7 +4416,6 @@
 				9CDDB2031F38866000C46785 /* DateFormatter.swift in Sources */,
 				889510881F3B2539001A53F5 /* UnauthorizedErrorHandler.swift in Sources */,
 				8895107F1F3B0FDC001A53F5 /* EmbeddedSocial.xcdatamodeld in Sources */,
-				88204FB91F581F1400E15F5A /* UsersFeedRequestExecutionStrategy.swift in Sources */,
 				88580C721F2213AB00C1CBAF /* TabMenuContainerViewOutput.swift in Sources */,
 				882AD0C01F221D4400FC20B7 /* ModelFileExtension.swift in Sources */,
 				88BC5C511F2B65D0001FBDD2 /* UserProfilePresenter.swift in Sources */,
