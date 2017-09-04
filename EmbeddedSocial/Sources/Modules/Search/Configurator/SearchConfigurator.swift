@@ -26,5 +26,11 @@ struct SearchConfigurator {
         presenter.interactor = SearchInteractor()
         
         viewController.output = presenter
+        
+        let feedConfigurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache)
+        feedConfigurator.configure(navigationController: navigationController, moduleOutput: presenter)
+        
+        presenter.feedViewController = feedConfigurator.viewController
+        presenter.feedModuleInput = feedConfigurator.moduleInput
     }
 }

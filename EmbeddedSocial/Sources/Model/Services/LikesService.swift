@@ -46,11 +46,12 @@ extension LikesServiceProtocol {
 
 class LikesService: BaseService, LikesServiceProtocol {
     
-    typealias UsersFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
+    typealias RequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
+    private typealias RequestExecutorImpl = CommonCacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
 
-    private let requestExecutor: UsersFeedRequestExecutor
+    private let requestExecutor: RequestExecutor
     
-    init(requestExecutor: UsersFeedRequestExecutor = UsersFeedRequestExecutionStrategy()) {
+    init(requestExecutor: RequestExecutor = RequestExecutorImpl()) {
         self.requestExecutor = requestExecutor
         
         super.init()

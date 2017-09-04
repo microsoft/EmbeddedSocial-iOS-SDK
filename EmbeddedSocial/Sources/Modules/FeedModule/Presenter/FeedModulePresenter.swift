@@ -31,6 +31,17 @@ protocol FeedModuleOutput: class {
     func shouldOpenProfile(for userID: String) -> Bool
 }
 
+extension FeedModuleOutput {
+    func didScrollFeed(_ feedView: UIScrollView) { }
+    
+    func didStartRefreshingData() { }
+    func didFinishRefreshingData(_ error: Error?) { }
+    
+    func shouldOpenProfile(for userID: String) -> Bool {
+        return false
+    }
+}
+
 enum FeedType {
     
     enum TimeRange: Int {
@@ -53,6 +64,8 @@ enum FeedType {
     case popular(type: TimeRange)
     // Shows single post
     case single(post: PostHandle)
+    // Shows search feed
+    case search(query: String?)
 }
 
 extension FeedType: Equatable {
@@ -68,6 +81,8 @@ extension FeedType: Equatable {
         case let (.popular(left), .popular(right)):
             return left == right
         case let (.single(left), .single(right)):
+            return left == right
+        case let (.search(left), .search(right)):
             return left == right
         case (.myPins, .myPins):
             return true

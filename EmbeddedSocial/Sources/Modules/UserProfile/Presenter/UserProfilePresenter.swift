@@ -138,9 +138,9 @@ final class UserProfilePresenter: UserProfileViewOutput {
         
         view.setIsProcessingFollowRequest(true)
         
-        let callback = { [unowned self] (result: Result<Void>) in
-            let status = FollowStatus.reduce(status: followStatus, visibility: self.user?.visibility ?? ._public)
-            self.processSocialResponse(self.transform(result: result)(status))
+        let callback = { [weak self] (result: Result<Void>) in
+            let status = FollowStatus.reduce(status: followStatus, visibility: self?.user?.visibility ?? ._public)
+            self?.processSocialResponse(result.map { status })
         }
         
         interactor.processSocialRequest(currentFollowStatus: followStatus, userID: userID, completion: callback)
@@ -165,16 +165,6 @@ final class UserProfilePresenter: UserProfileViewOutput {
             count = max(0, count - 1)
         }
         return count
-    }
-    
-    private func transform(result: Result<Void>) -> (FollowStatus) -> Result<FollowStatus> {
-        return { status in
-            if result.isSuccess {
-                return .success(status)
-            } else {
-                return .failure(result.error ?? APIError.unknown)
-            }
-        }
     }
     
     func onFollowers() {

@@ -6,17 +6,16 @@
 @testable import EmbeddedSocial
 
 class MockFeedModuleInput: FeedModuleInput {
+    
     private(set) var setFeedCount = 0
+    
     var feedType: FeedType? {
         didSet {
             setFeedCount += 1
         }
     }
-    private(set) var refreshDataCount = 0
-    private(set) var registerHeaderCount = 0
+    
     private(set) var setLayoutCount = 0
-    private(set) var setHeaderHeightCount = 0
-    private(set) var headerHeight: CGFloat?
 
     var layout = FeedModuleLayoutType.grid {
         didSet {
@@ -24,14 +23,13 @@ class MockFeedModuleInput: FeedModuleInput {
         }
     }
     
-    func setFeed(_ feed: FeedType) {
-        feedType = feed
-        setFeedCount += 1
-    }
-    
+    private(set) var refreshDataCount = 0
+
     func refreshData() {
         refreshDataCount += 1
     }
+    
+    private(set) var registerHeaderCount = 0
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
                         size: CGSize,
@@ -43,6 +41,9 @@ class MockFeedModuleInput: FeedModuleInput {
         return 0.0
     }
     
+    private(set) var setHeaderHeightCount = 0
+    private(set) var headerHeight: CGFloat?
+
     func setHeaderHeight(_ height: CGFloat) {
         headerHeight = height
         setHeaderHeightCount += 1

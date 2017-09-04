@@ -41,25 +41,13 @@ protocol SocialServiceType {
 
 class SocialService: BaseService, SocialServiceType {
     
-    typealias UsersFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
-    typealias SuggestedUsersRequestExecutor = CacheRequestExecutionStrategy<[UserCompactView], UsersListResponse>
+    private var usersFeedExecutor: UsersFeedRequestExecutor!
+    private var suggestedUsersExecutor: SuggestedUsersRequestExecutor!
     
-    private let requestExecutor: UsersFeedRequestExecutor
-    private let suggestedUsersRequestExecutor: SuggestedUsersRequestExecutor
-    
-    init(requestExecutor: UsersFeedRequestExecutor = UsersFeedRequestExecutionStrategy(),
-         suggestedUsersRequestExecutor: SuggestedUsersRequestExecutor = SuggestedUsersRequestExecutionStrategy()) {
-        
-        self.requestExecutor = requestExecutor
-        self.suggestedUsersRequestExecutor = suggestedUsersRequestExecutor
-        
+    init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
         super.init()
-        
-        self.requestExecutor.cache = cache
-        self.requestExecutor.errorHandler = errorHandler
-        
-        self.suggestedUsersRequestExecutor.cache = cache
-        self.suggestedUsersRequestExecutor.errorHandler = errorHandler
+        usersFeedExecutor = provider.makeUsersFeedExecutor(for: self)
+        suggestedUsersExecutor = provider.makeSuggestedUsersExecutor(for: self)
     }
     
     func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
@@ -108,7 +96,7 @@ class SocialService: BaseService, SocialServiceType {
             cursor: cursor,
             limit: Int32(limit)
         )
-        requestExecutor.execute(with: builder, completion: completion)
+        usersFeedExecutor.execute(with: builder, completion: completion)
     }
     
     func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
@@ -117,7 +105,7 @@ class SocialService: BaseService, SocialServiceType {
             cursor: cursor,
             limit: Int32(limit)
         )
-        requestExecutor.execute(with: builder, completion: completion)
+        usersFeedExecutor.execute(with: builder, completion: completion)
     }
     
     func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
@@ -127,7 +115,7 @@ class SocialService: BaseService, SocialServiceType {
             cursor: cursor,
             limit: Int32(limit)
         )
-        requestExecutor.execute(with: builder, completion: completion)
+        usersFeedExecutor.execute(with: builder, completion: completion)
     }
     
     func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
@@ -137,7 +125,7 @@ class SocialService: BaseService, SocialServiceType {
             cursor: cursor,
             limit: Int32(limit)
         )
-        requestExecutor.execute(with: builder, completion: completion)
+        usersFeedExecutor.execute(with: builder, completion: completion)
     }
     
     func deletePostFromMyFollowing(postID: String, completion: @escaping (Result<Void>) -> Void) {
@@ -158,7 +146,7 @@ class SocialService: BaseService, SocialServiceType {
             cursor: cursor,
             limit: Int32(limit)
         )
-        requestExecutor.execute(with: builder, completion: completion)
+        usersFeedExecutor.execute(with: builder, completion: completion)
     }
     
     func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void) {
@@ -176,6 +164,6 @@ class SocialService: BaseService, SocialServiceType {
     
     func getSuggestedUsers(completion: @escaping (Result<UsersListResponse>) -> Void) {
         let builder = SocialAPI.myFollowingGetSuggestionsUsersWithRequestBuilder(authorization: authorization)
-        suggestedUsersRequestExecutor.execute(with: builder, completion: completion)
+        suggestedUsersExecutor.execute(with: builder, completion: completion)
     }
 }
