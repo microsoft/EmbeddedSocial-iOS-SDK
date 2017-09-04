@@ -23,6 +23,7 @@ protocol CrossModuleCoordinatorProtocol: class {
     var configuredLogin: UIViewController { get }
     var configuredSearch: UIViewController { get }
     var configuredSettings: UIViewController { get }
+    var configuredMyPins: UIViewController { get }
 }
 
 class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput {
@@ -139,6 +140,15 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         let configurator = PopularModuleConfigurator()
         configurator.configure(navigationController: self.navigationStack.navigationController)
         configurator.viewController.title = L10n.Popular.screenTitle
+        let vc = configurator.viewController!
+        return vc
+    }()
+    
+    lazy var configuredMyPins: UIViewController = {
+        let configurator = FeedModuleConfigurator(cache: self.cache)
+        configurator.configure(navigationController: self.navigationStack.navigationController)
+        configurator.moduleInput.feedType = (.myPins)
+        configurator.viewController.title = L10n.MyPins.screenTitle
         let vc = configurator.viewController!
         return vc
     }()

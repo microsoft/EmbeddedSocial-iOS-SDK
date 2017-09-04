@@ -82,6 +82,8 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     
     var builderForSettings: ModuleBuilder = { $0.configuredSettings }
     
+    var builderForMyPins: ModuleBuilder = { $0.configuredMyPins }
+    
     typealias MenuItem = (
         key: SocialItem,
         title: String,
@@ -117,7 +119,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
                  title: L10n.MyPins.screenTitle,
                  image: UIImage(asset: Asset.iconPins),
                  highlighted: UIImage(asset: Asset.iconPinsActive),
-                 builder: self.builderForDummy),
+                 builder: self.builderForMyPins),
                 (key: .activity,
                  title: L10n.ActivityFeed.screenTitle,
                  image: UIImage(asset: Asset.iconActivity),
