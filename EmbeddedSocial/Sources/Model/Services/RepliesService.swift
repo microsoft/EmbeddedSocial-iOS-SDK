@@ -167,6 +167,21 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             reply.userPhotoUrl = replyView.user?.photoUrl
             reply.userHandle = replyView.user?.userHandle
             reply.totalLikes = Int(replyView.totalLikes!)
+            
+            let cacheRequestForReplies = CacheFetchRequest(resultType: SocialActionRequest.self, predicate: PredicateBuilder().predicate(handle: replyView.replyHandle!))
+            let cacheResultForReplies = cache.fetchOutgoing(with: cacheRequestForReplies)
+            
+            if let firstCachedLikeAction = cacheResultForReplies.first {
+                switch firstCachedLikeAction.actionMethod {
+                case .post:
+                    reply.totalLikes += 1
+                    reply.liked = true
+                case .delete:
+                    reply.totalLikes = reply.totalLikes > 0 ? reply.totalLikes - 1 : 0
+                    reply.liked = false
+                }
+            }
+            
             replies.append(reply)
         }
         return replies

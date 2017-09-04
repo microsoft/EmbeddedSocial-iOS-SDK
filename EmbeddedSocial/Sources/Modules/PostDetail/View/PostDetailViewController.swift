@@ -68,7 +68,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
                 self.collectionView.reloadItems(at: pathes)
             }, completion: nil)
         }
-
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
