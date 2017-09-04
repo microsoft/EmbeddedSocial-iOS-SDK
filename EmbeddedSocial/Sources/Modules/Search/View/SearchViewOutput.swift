@@ -8,4 +8,10 @@ import Foundation
 protocol SearchViewOutput: class {
     
     func viewIsReady()
+    
+    func onTopics()
+    
+    func onPeople()
+    
+    func onFlipTopicsLayout()
 }

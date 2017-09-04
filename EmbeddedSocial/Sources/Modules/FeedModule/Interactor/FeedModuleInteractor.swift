@@ -34,6 +34,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     var postService: PostServiceProtocol!
     var likesService: LikesServiceProtocol = LikesService()
     var pinsService: PinsServiceProtocol! = PinsService()
+    var searchService: SearchServiceType!
     weak var userHolder: UserHolder? = SocialPlus.shared
     
     func handleFetch(result: PostFetchResult, feedType: FeedType, isLoadingMore: Bool = false) {
@@ -65,17 +66,13 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         switch feedType {
             
         case .home:
-            var query = HomeFeedQuery()
-            query.limit = limit
-            query.cursor = cursor
+            let query = FeedQuery(cursor: cursor, limit: limit)
             postService.fetchHome(query: query) { [weak self] result in
                 self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
             }
             
         case .recent:
-            var query = RecentFeedQuery()
-            query.limit = limit
-            query.cursor = cursor
+            let query = FeedQuery(cursor: cursor, limit: limit)
             postService.fetchRecent(query: query) { [weak self] result in
                 self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
             }
@@ -83,15 +80,15 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         case let .popular(type: range):
             var query = PopularFeedQuery()
             query.limit = limit
-            query.cursor = (cursor == nil) ? nil : Int32(cursor!)
+            query.cursor = cursor
             
             switch range {
             case .alltime:
-                query.timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.allTime
+                query.timeRange = .allTime
             case .today:
-                query.timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.today
+                query.timeRange = .today
             case .weekly:
-                query.timeRange = TopicsAPI.TimeRange_topicsGetPopularTopics.thisWeek
+                query.timeRange = .thisWeek
             }
             
             postService.fetchPopular(query: query) { [weak self] result in
@@ -103,9 +100,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             let isMyFeed = userHolder?.me?.isMyHandle(user) == true
             
             if isMyFeed {
-                var query = MyFeedQuery()
-                query.cursor = cursor
-                query.limit = limit
+                let query = FeedQuery(cursor: cursor, limit: limit)
                 
                 switch scope {
                 case .popular:
@@ -141,10 +136,16 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             postService.fetchPost(post: post) { [weak self] result in
                 self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
             }
+            
+        case let .search(query):
+            let intLimit = limit == nil ? Constants.Feed.pageSize : Int(limit!)
+            searchService.queryTopics(query: query ?? "", cursor: cursor, limit: intLimit) { [weak self] result in
+                let result = result.value ?? PostFetchResult(error: result.error ?? APIError.unknown)
+                self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+            }
+            
         case .myPins:
-            var query = MyPinsFeedQuery()
-            query.cursor = cursor
-            query.limit = limit
+            let query = FeedQuery(cursor: cursor, limit: limit)
             postService.fetchMyPins(query: query, completion: { [weak self] result in
                 self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
             })

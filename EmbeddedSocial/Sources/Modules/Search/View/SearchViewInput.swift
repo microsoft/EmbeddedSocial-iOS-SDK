@@ -7,7 +7,11 @@ import Foundation
 
 protocol SearchViewInput: class {
     
-    func setupInitialState(_ pageInfo: SearchPageInfo)
+    func setupInitialState(_ tab: SearchTabInfo)
+    
+    func switchTabs(to tab: SearchTabInfo, from previousTab: SearchTabInfo)
     
     func showError(_ error: Error)
+    
+    func setLayoutAsset(_ asset: Asset)
 }

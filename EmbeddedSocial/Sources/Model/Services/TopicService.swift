@@ -29,65 +29,56 @@ enum FeedServiceError: Error {
 
 typealias FetchResultHandler = ((PostFetchResult) -> Void)
 
-struct PopularFeedQuery {
-    var cursor: Int32?
+protocol FeedQueryType {
+    var cursor: String? { get set }
+    var limit: Int32? { get set }
+}
+
+extension FeedQueryType {
+    mutating func setCursor(_ cursor: Int32?) {
+        self.cursor = cursor == nil ? nil : String(cursor!)
+    }
+    
+    func cursorInt() -> Int32? {
+        return (cursor == nil) ? nil : Int32(cursor!)
+    }
+}
+
+struct FeedQuery: FeedQueryType {
+    var cursor: String?
+    var limit: Int32?
+}
+
+struct PopularFeedQuery: FeedQueryType {
+    var cursor: String?
     var limit: Int32?
     var timeRange: TopicsAPI.TimeRange_topicsGetPopularTopics!
 }
 
-struct RecentFeedQuery {
-    var cursor: String?
-    var limit: Int32?
-}
-
-struct UserFeedQuery {
+struct UserFeedQuery: FeedQueryType {
     var cursor: String?
     var limit: Int32?
     var user: UserHandle!
-    
-    func cursorInt() -> Int32? {
-        return (cursor == nil) ? nil : Int32(cursor!)
-    }
-}
-
-struct HomeFeedQuery {
-    var cursor: String?
-    var limit: Int32?
-}
-
-struct MyPinsFeedQuery {
-    var cursor: String?
-    var limit: Int32?
-    
-}
-
-struct MyFeedQuery {
-    var cursor: String?
-    var limit: Int32?
-    
-    func cursorInt() -> Int32? {
-        return (cursor == nil) ? nil : Int32(cursor!)
-    }
 }
 
 protocol PostServiceProtocol {
     
-    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler)
+    func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler)
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler)
-    func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler)
+    func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler)
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler)
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler)
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler)
-    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler)
-    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler)
-    func fetchMyPins(query: MyPinsFeedQuery, completion: @escaping FetchResultHandler)
+    func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler)
+    func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler)
+    func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler)
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
 
 }
 
 protocol PostServiceDelegate: class {
     
-    func didFetchHome(query: HomeFeedQuery, result: PostFetchResult)
+    func didFetchHome(query: FeedQuery, result: PostFetchResult)
 }
 
 class TopicService: BaseService, PostServiceProtocol {
@@ -164,7 +155,7 @@ class TopicService: BaseService, PostServiceProtocol {
     
     // MARK: GET
     
-    func fetchMyPins(query: MyPinsFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler) {
         let request = PinsAPI.myPinsGetPinsWithRequestBuilder(authorization: authorization,
                                                               cursor: query.cursor,
                                                               limit: query.limit)
@@ -173,8 +164,7 @@ class TopicService: BaseService, PostServiceProtocol {
         processRequest(request, completion: completion)
     }
     
-    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
-        
+    func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {
         let request = SocialAPI.myFollowingGetTopicsWithRequestBuilder(authorization: authorization,
                                                                        cursor: query.cursor,
                                                                        limit: query.limit)
@@ -187,14 +177,14 @@ class TopicService: BaseService, PostServiceProtocol {
         
         let request = TopicsAPI.topicsGetPopularTopicsWithRequestBuilder(timeRange: query.timeRange,
                                                                          authorization: authorization,
-                                                                         cursor: query.cursor,
+                                                                         cursor: query.cursorInt(),
                                                                          limit: query.limit)
         
         processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
-    func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {
         
         let request = TopicsAPI.topicsGetTopicsWithRequestBuilder(authorization: authorization,
                                                                   cursor: query.cursor,
@@ -247,7 +237,7 @@ class TopicService: BaseService, PostServiceProtocol {
         }
     }
     
-    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {
         
         let request = UsersAPI.myTopicsGetTopicsWithRequestBuilder(authorization: authorization,
                                                                    cursor: query.cursor,
@@ -257,7 +247,7 @@ class TopicService: BaseService, PostServiceProtocol {
         processRequest(request, completion: completion)
     }
     
-    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {
         let request = UsersAPI.myTopicsGetPopularTopicsWithRequestBuilder(authorization: authorization,
                                                                           cursor: query.cursorInt(),
                                                                           limit: query.limit)
