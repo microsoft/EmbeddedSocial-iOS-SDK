@@ -19,58 +19,47 @@ class PinsService: BaseService, PinsServiceProtocol {
     private lazy var socialActionsCache: SocialActionsCache = { [unowned self] in
         return SocialActionsCache(cache: self.cache)
         }()
-    
-    func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
-        let request = PostPinRequest()
+
+    private func process(_ requestBuilder: RequestBuilder<Object>,
+                         handle: PostHandle,
+                         completion: @escaping CompletionHandler) {
         
-        request.topicHandle = postHandle
-        
-        let builder = PinsAPI.myPinsPostPinWithRequestBuilder(request: request, authorization: authorization)
-        
+        // If no connection, cache request
         guard isNetworkReachable == true else {
             
             let action = SocialActionRequestBuilder.build(
-                method: builder.method,
-                handle: postHandle,
+                method: requestBuilder.method,
+                handle: handle,
                 action: .pin)
             
             socialActionsCache.cache(action)
-            completion(postHandle, nil)
+            completion(handle, nil)
             return
         }
-
-        builder.execute { (response, error) in
+        
+        requestBuilder.execute { (response, error) in
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
             } else {
-                completion(postHandle, error)
+                completion(handle, error)
             }
         }
+    }
+    
+    func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
+        
+        let request = PostPinRequest()
+        request.topicHandle = postHandle
+        let builder = PinsAPI.myPinsPostPinWithRequestBuilder(request: request, authorization: authorization)
+        
+        process(builder, handle: postHandle, completion: completion)
     }
     
     func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         
         let builder = PinsAPI.myPinsDeletePinWithRequestBuilder(topicHandle: postHandle, authorization: authorization)
         
-        guard isNetworkReachable == true else {
-            
-            let action = SocialActionRequestBuilder.build(
-                method: builder.method,
-                handle: postHandle,
-                action: .pin)
-            
-            socialActionsCache.cache(action)
-            completion(postHandle, nil)
-            return
-        }
-        
-        builder.execute { (response, error) in
-            if self.errorHandler.canHandle(error) {
-                self.errorHandler.handle(error)
-            } else {
-                completion(postHandle, error)
-            }
-        }
+        process(builder, handle: postHandle, completion: completion)
     }
     
 }
