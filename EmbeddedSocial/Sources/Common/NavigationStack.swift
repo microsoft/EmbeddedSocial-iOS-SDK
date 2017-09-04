@@ -58,6 +58,7 @@ public class NavigationStack: NavigationStackProtocol {
     }
     
     func cleanStack() {
+        navigationController.dismiss(animated: true, completion: nil)
         navigationController.popToRootViewController(animated: true)
     }
     

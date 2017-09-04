@@ -14,18 +14,20 @@ struct UserListConfigurator {
     func configure(api: UsersListAPI,
                    me: User? = SocialPlus.shared.me,
                    myProfileOpener: MyProfileOpener? = SocialPlus.shared.coordinator,
+                   loginPopupOpener: LoginPopupOpener? = SocialPlus.shared.coordinator,
                    navigationController: UINavigationController?,
                    output: UserListModuleOutput?) -> UserListModuleInput {
         
         let router = UserListRouter()
         router.navController = navigationController
         router.myProfileOpener = myProfileOpener
+        router.loginPopupOpener = loginPopupOpener
         
         let view = UserListView()
         
         let interactor = UserListInteractor(api: api, socialService: SocialService())
         
-        let presenter = UserListPresenter()
+        let presenter = UserListPresenter(isAnonymousUser: me == nil)
         presenter.view = view
         presenter.moduleOutput = output
         presenter.interactor = interactor

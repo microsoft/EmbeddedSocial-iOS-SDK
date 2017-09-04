@@ -5,8 +5,6 @@
 
 import Foundation
 
-protocol UserListRouterInput: class {
-    func openUserProfile(_ userID: String)
-    func openMyProfile()
+protocol LoginPopupOpener: class {
     func openLoginPopup()
 }

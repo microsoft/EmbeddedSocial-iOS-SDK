@@ -14,7 +14,7 @@ protocol UserProfileViewInput: class {
     
     func setIsLoadingUser(_ isLoading: Bool)
     
-    func setUser(_ user: User, isAnonymous: Bool)
+    func setUser(_ user: User)
     
     func setFollowStatus(_ followStatus: FollowStatus)
     

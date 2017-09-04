@@ -99,7 +99,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
         setter?(user)
         followersCount = user.followersCount
         followingCount = user.followingCount
-        view.setUser(user, isAnonymous: me == nil)
+        view.setUser(user)
         feedModuleInput?.setHeaderHeight(view.headerContentHeight)
     }
     
@@ -132,7 +132,10 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     func onFollowRequest(currentStatus followStatus: FollowStatus) {
-        guard let userID = userID else {
+        guard let userID = userID else { return }
+        
+        guard me != nil else {
+            router.openLoginPopup()
             return
         }
         

@@ -65,6 +65,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         self.user = user
         menuModule.user = user
         
+        navigationStack.cleanStack()
         openHomeScreen()
         closeMenu()
     }
@@ -174,3 +175,19 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
 }
 
 extension CrossModuleCoordinator: MyProfileOpener { }
+
+extension CrossModuleCoordinator: LoginPopupOpener {
+    
+    func openLoginPopup() {
+        navigationStack.navigationController.present(loginPopupController(), animated: true)
+    }
+    
+    private func loginPopupController() -> UIViewController {
+        let navController = UINavigationController(rootViewController: configuredLogin)
+        let button = UIBarButtonItem(title: L10n.Common.cancel, font: Fonts.systemDefault, color: Palette.defaultTint) {
+            navController.dismiss(animated: true, completion: nil)
+        }
+        navController.navigationBar.topItem?.leftBarButtonItem = button
+        return navController
+    }
+}

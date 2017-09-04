@@ -10,6 +10,11 @@ class UserListPresenter {
     var interactor: UserListInteractorInput!
     weak var moduleOutput: UserListModuleOutput?
     var router: UserListRouterInput!
+    fileprivate let isAnonymousUser: Bool
+    
+    init(isAnonymousUser: Bool) {
+        self.isAnonymousUser = isAnonymousUser
+    }
     
     func loadNextPage() {
         interactor.getNextListPage { [weak self] result in
@@ -35,6 +40,12 @@ extension UserListPresenter: UserListInteractorOutput {
 extension UserListPresenter: UserListViewOutput {
     
     func onItemAction(item: UserListItem) {
+        
+        guard !isAnonymousUser else {
+            router.openLoginPopup()
+            return
+        }
+        
         view.setIsLoading(true, itemAt: item.indexPath)
         
         interactor.processSocialRequest(to: item.user) { [weak self] result in

@@ -52,11 +52,10 @@ final class NetworkTracker: NetworkTrackerType {
     }
     
     private lazy var reachability: NetworkReachabilityManager? = {
-        let reachability = NetworkReachabilityManager()
+        let reachability = NetworkReachabilityManager(host: "www.google.com")
         reachability?.listener = { [weak self] status in
             self?.notify(status: status)
         }
-        reachability?.startListening()
         return reachability
     }()
     
