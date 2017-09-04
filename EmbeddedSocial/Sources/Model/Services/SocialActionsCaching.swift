@@ -81,6 +81,12 @@ class CachedActionsExecuter {
         cache.remove(request)
     }
     
+    func executeAll() {
+        for action in cache.getAllCachedActions() {
+            execute(action)
+        }
+    }
+    
     func execute(_ action: SocialActionRequest) {
         
         let handle = action.handle
@@ -97,7 +103,7 @@ class CachedActionsExecuter {
                 }
             }
         case .pin:
-            if action.actionMethod == .delete {
+            if action.actionMethod == .post {
                 likesService.postPin(postHandle: handle) { [weak self] handle, error in
                     self?.onCompletion(action, error)
                 }
