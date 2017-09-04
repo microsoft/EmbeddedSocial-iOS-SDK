@@ -143,19 +143,3 @@ class MockCache: CacheType {
         deleteIncoming_with_ReceivedPredicate = predicate
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
