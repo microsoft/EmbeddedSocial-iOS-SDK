@@ -96,9 +96,7 @@ class CachedActionsExecuter {
                     // TODO: remove outgoing from storage
                 }
             }
-            
         case .pin:
-            
             if action.actionMethod == .delete {
                 pinsService.postPin(postHandle: handle) { handle, error in
                     // TODO: remove outgoing from storage
@@ -115,7 +113,7 @@ class CachedActionsExecuter {
 class SocialActionRequestBuilder {
     
     
-    static private func transforMethod(_ method: String) -> SocialActionRequest.ActionMethod {
+    static private func transformMethod(_ method: String) -> SocialActionRequest.ActionMethod {
         switch method {
         case "POST":
             return SocialActionRequest.ActionMethod.post
@@ -130,7 +128,7 @@ class SocialActionRequestBuilder {
         
         return SocialActionRequest(handle: handle,
                                    actionType: action,
-                                   actionMethod: transforMethod(method))
+                                   actionMethod: transformMethod(method))
     }
 }
 

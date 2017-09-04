@@ -6,8 +6,7 @@
 import Foundation
 
 protocol LikesServiceProtocol {
-    
-    typealias PostHandle = String
+
     typealias CompletionHandler = (_ postHandle: PostHandle, _ error: Error?) -> Void
     typealias CommentCompletionHandler = (_ commentHandle: String, _ error: Error?) -> Void
     typealias ReplyLikeCompletionHandler = (_ commentHandle: String, _ error: Error?) -> Void
@@ -42,9 +41,6 @@ extension LikesServiceProtocol {
                       completion: @escaping (Result<UsersListResponse>) -> Void) { }
 }
 
-
-
-
 class LikesService: BaseService, LikesServiceProtocol {
     
     typealias UsersFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
@@ -60,8 +56,6 @@ class LikesService: BaseService, LikesServiceProtocol {
         self.requestExecutor.errorHandler = errorHandler
     }
     
-    
-    
     private lazy var socialActionsCache: SocialActionsCache = { [unowned self] in
         return SocialActionsCache(cache: self.cache)
     }()
@@ -73,9 +67,10 @@ class LikesService: BaseService, LikesServiceProtocol {
         
         guard isNetworkReachable == true else {
             
-            let action = SocialActionRequestBuilder.build(method: request.method,
-                                             handle: postHandle,
-                                             action: .like)
+            let action = SocialActionRequestBuilder.build(
+                method: request.method,
+                handle: postHandle,
+                action: .like)
             
             socialActionsCache.cache(action)
             completion(postHandle, nil)
@@ -93,8 +88,21 @@ class LikesService: BaseService, LikesServiceProtocol {
     
     func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         
-        let request:RequestBuilder<Object> = LikesAPI.topicLikesDeleteLikeWithRequestBuilder(topicHandle: postHandle,
-                                                                                             authorization: authorization)
+        let request:RequestBuilder<Object> = LikesAPI.topicLikesDeleteLikeWithRequestBuilder(
+            topicHandle: postHandle,
+            authorization: authorization)
+        
+        guard isNetworkReachable == true else {
+            
+            let action = SocialActionRequestBuilder.build(method: request.method,
+                                                          handle: postHandle,
+                                                          action: .like)
+            
+            socialActionsCache.cache(action)
+            completion(postHandle, nil)
+            return
+        }
+        
         request.execute { (response, error) in
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
@@ -115,8 +123,9 @@ class LikesService: BaseService, LikesServiceProtocol {
     
     func unlikeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
         
-       let request:RequestBuilder<Object> = LikesAPI.commentLikesDeleteLikeWithRequestBuilder(commentHandle: commentHandle,
-                                                                                              authorization: authorization)
+        let request:RequestBuilder<Object> = LikesAPI.commentLikesDeleteLikeWithRequestBuilder(
+            commentHandle: commentHandle,
+            authorization: authorization)
         
         request.execute { (response, error) in
             completion(commentHandle, error)

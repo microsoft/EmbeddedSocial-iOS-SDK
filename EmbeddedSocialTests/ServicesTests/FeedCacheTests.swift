@@ -161,6 +161,7 @@ class FeedReponseCachingTests: XCTestCase {
             topicHandle: postHandle,
             authorization: authorization)
         
+        
         let actionsCache = SocialActionsCache(cache: cache)
         
         // when
