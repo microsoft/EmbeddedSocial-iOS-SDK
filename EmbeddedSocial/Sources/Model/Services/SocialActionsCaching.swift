@@ -76,29 +76,42 @@ class CachedActionsExecuter {
         self.likesService = likesService
     }
     
+    var onExecuted: (String) -> () = { handle in
+        
+    }
+    
     func execute(_ action: SocialActionRequest) {
         
         let handle = action.handle
+        let completion = onExecuted
         
         switch action.actionType {
         case .like:
             if action.actionMethod == .post {
                 likesService.postLike(postHandle: handle) { handle, error in
-                    // TODO: remove outgoing from storage
+                    if error != nil {
+                        completion(handle)
+                    }
                 }
             } else {
                 likesService.deleteLike(postHandle: handle) { handle, error in
-                    // TODO: remove outgoing from storage
+                    if error != nil {
+                        completion(handle)
+                    }
                 }
             }
         case .pin:
             if action.actionMethod == .delete {
                 likesService.postPin(postHandle: handle) { handle, error in
-                    // TODO: remove outgoing from storage
+                    if error != nil {
+                        completion(handle)
+                    }
                 }
             } else {
                 likesService.deletePin(postHandle: handle)  { handle, error in
-                    // TODO: remove outgoing from storage
+                    if error != nil {
+                        completion(handle)
+                    }
                 }
             }
         }
