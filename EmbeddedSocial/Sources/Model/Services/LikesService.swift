@@ -59,9 +59,25 @@ class LikesService: BaseService, LikesServiceProtocol {
         self.requestExecutor.errorHandler = errorHandler
     }
     
-    private lazy var socialActionsCache: SocialActionsCache = { [unowned self] in
+    private lazy var outgoingActionsCache: SocialActionsCache = { [unowned self] in
         return SocialActionsCache(cache: self.cache)
     }()
+    
+    private lazy var outgoingActionsExecuter: CachedActionsExecuter = { [unowned self] in
+        return CachedActionsExecuter(
+            cache: self.outgoingActionsCache,
+            likesService: self)
+    }()
+    
+    override func networkStatusDidChange(_ isReachable: Bool) {
+        super.networkStatusDidChange(isReachable)
+        
+        Logger.log("Connection from now is \(isReachable)", event: .veryImortant)
+        
+        guard isReachable == true else { return }
+        
+        outgoingActionsExecuter.executeAll()
+    }
     
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         
@@ -139,7 +155,7 @@ class LikesService: BaseService, LikesServiceProtocol {
                 handle: handle,
                 action: actionType)
             
-            socialActionsCache.cache(action)
+            outgoingActionsCache.cache(action)
             completion(handle, nil)
             return
         }

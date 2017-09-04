@@ -16,6 +16,7 @@ class MockLikesService: LikesServiceProtocol {
     func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         postPinPostHandleCompletionCalled = true
         postPinPostHandleCompletionReceivedArguments = (postHandle: postHandle, completion: completion)
+        completion(postHandle, nil)
     }
     
     //MARK: - deletePin
@@ -26,6 +27,7 @@ class MockLikesService: LikesServiceProtocol {
     func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         deletePinPostHandleCompletionCalled = true
         deletePinPostHandleCompletionReceivedArguments = (postHandle: postHandle, completion: completion)
+        completion(postHandle, nil)
     }
     
     //MARK: - postLike
@@ -36,6 +38,7 @@ class MockLikesService: LikesServiceProtocol {
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         postLikePostHandleCompletionCalled = true
         postLikePostHandleCompletionReceivedArguments = (postHandle: postHandle, completion: completion)
+        completion(postHandle, nil)
     }
     
     //MARK: - deleteLike
@@ -46,6 +49,7 @@ class MockLikesService: LikesServiceProtocol {
     func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         deleteLikePostHandleCompletionCalled = true
         deleteLikePostHandleCompletionReceivedArguments = (postHandle: postHandle, completion: completion)
+        completion(postHandle, nil)
     }
     
     //MARK: - likeComment
