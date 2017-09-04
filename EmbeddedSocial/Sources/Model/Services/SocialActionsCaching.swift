@@ -66,19 +66,14 @@ struct SocialActionRequest: Cacheable {
     }()
 }
 
-
 class CachedActionsExecuter {
     
     let cache: SocialActionsCache
     var likesService: LikesServiceProtocol
-    var pinsService: PinsServiceProtocol
     
-    init(cache: SocialActionsCache,
-         likesService: LikesServiceProtocol = LikesService(),
-         pinsService: PinsServiceProtocol = PinsService()) {
+    init(cache: SocialActionsCache, likesService: LikesServiceProtocol = LikesService()) {
         self.cache = cache
         self.likesService = likesService
-        self.pinsService = pinsService
     }
     
     func execute(_ action: SocialActionRequest) {
@@ -98,11 +93,11 @@ class CachedActionsExecuter {
             }
         case .pin:
             if action.actionMethod == .delete {
-                pinsService.postPin(postHandle: handle) { handle, error in
+                likesService.postPin(postHandle: handle) { handle, error in
                     // TODO: remove outgoing from storage
                 }
             } else {
-                pinsService.deletePin(postHandle: handle)  { handle, error in
+                likesService.deletePin(postHandle: handle)  { handle, error in
                     // TODO: remove outgoing from storage
                 }
             }

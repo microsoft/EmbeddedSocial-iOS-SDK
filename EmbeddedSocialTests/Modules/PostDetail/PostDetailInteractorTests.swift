@@ -30,6 +30,9 @@ private class MockLikeSerivce: LikesServiceProtocol {
     func unlikeReply(replyHandle: String, completion: @escaping LikesServiceProtocol.ReplyLikeCompletionHandler) {
         
     }
+    
+    func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler) { }
+    func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) { }
 }
 
 private class MockTopicService: PostServiceProtocol {

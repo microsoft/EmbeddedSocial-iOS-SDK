@@ -6,7 +6,7 @@
 import XCTest
 @testable import EmbeddedSocial
 
-private class SocialServicesMock: LikesServiceProtocol, PinsServiceProtocol {
+private class SocialServicesMock: LikesServiceProtocol {
     
     var postLikeIsCalled = false
     var deleteLikeIsCalled = false
@@ -24,24 +24,20 @@ private class SocialServicesMock: LikesServiceProtocol, PinsServiceProtocol {
         completion(postHandle, error)
     }
     
-    func postPin(postHandle: PostHandle, completion: @escaping PinsServiceProtocol.CompletionHandler) {
+    func postPin(postHandle: PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
         postPinIsCalled = true
         completion(postHandle, error)
     }
     
-    func deletePin(postHandle: PostHandle, completion: @escaping PinsServiceProtocol.CompletionHandler) {
+    func deletePin(postHandle: PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
         deletePinIsCalled = true
         completion(postHandle, error)
     }
-    
-    func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
-        
-    }
-    
-    func unlikeComment(commentHandle: String, completion: @escaping CompletionHandler) {
-        
-    }
-    
+}
+
+extension SocialServicesMock {
+    func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) { }
+    func unlikeComment(commentHandle: String, completion: @escaping CompletionHandler) { }
 }
 
 private class FeedModulePresenterMock: FeedModuleInteractorOutput {
@@ -82,7 +78,6 @@ class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
         
         service = SocialServicesMock()
         sut.likesService = service
-        sut.pinsService = service
     }
     
     override func tearDown() {

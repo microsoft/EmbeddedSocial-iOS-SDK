@@ -11,6 +11,9 @@ protocol LikesServiceProtocol {
     typealias CommentCompletionHandler = (_ commentHandle: String, _ error: Error?) -> Void
     typealias ReplyLikeCompletionHandler = (_ commentHandle: String, _ error: Error?) -> Void
     
+    
+    func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler)
+    func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler)
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler)
     func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler)
     func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler)
@@ -155,5 +158,48 @@ class LikesService: BaseService, LikesServiceProtocol {
         
         requestExecutor.execute(with: builder, completion: completion)
     }
+    
+    private func process(_ requestBuilder: RequestBuilder<Object>,
+                         handle: String,
+                         completion: @escaping CompletionHandler) {
+        
+        // If no connection, cache request
+        guard isNetworkReachable == true else {
+            
+            let action = SocialActionRequestBuilder.build(
+                method: requestBuilder.method,
+                handle: handle,
+                action: .pin)
+            
+            socialActionsCache.cache(action)
+            completion(handle, nil)
+            return
+        }
+        
+        requestBuilder.execute { (response, error) in
+            if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else {
+                completion(handle, error)
+            }
+        }
+    }
+    
+    func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
+        
+        let request = PostPinRequest()
+        request.topicHandle = postHandle
+        let builder = PinsAPI.myPinsPostPinWithRequestBuilder(request: request, authorization: authorization)
+        
+        process(builder, handle: postHandle, completion: completion)
+    }
+    
+    func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
+        
+        let builder = PinsAPI.myPinsDeletePinWithRequestBuilder(topicHandle: postHandle, authorization: authorization)
+        
+        process(builder, handle: postHandle, completion: completion)
+    }
+
 }
 
