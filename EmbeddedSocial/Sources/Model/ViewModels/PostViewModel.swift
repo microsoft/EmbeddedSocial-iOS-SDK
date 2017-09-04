@@ -30,10 +30,7 @@ struct PostViewModel {
     
     // sourcery: skipEquality
     let onAction: ActionHandler?
-    
-
-
-//
+  
     init(with post: Post,
          cellType: String,
          actionHandler: ActionHandler? = nil) {

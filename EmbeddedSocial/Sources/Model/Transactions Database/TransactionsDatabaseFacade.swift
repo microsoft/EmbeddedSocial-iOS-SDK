@@ -56,11 +56,11 @@ class TransactionsDatabaseFacade: TransactionsDatabaseFacadeType {
         return outgoingRepo.query(with: predicate, page: page, sortDescriptors: sortDescriptors, completion: completion)
     }
     
-    func deleteIncomingTransactions(_ entities: [IncomingTransaction], completion: ((Result<Void>) -> Void)?) {
+    func deleteIncomingTransactions(_ entities: [IncomingTransaction]) {
         incomingRepo.delete(entities)
     }
     
-    func deleteOutgoingTransactions(_ entities: [OutgoingTransaction], completion: ((Result<Void>) -> Void)?) {
+    func deleteOutgoingTransactions(_ entities: [OutgoingTransaction]) {
         outgoingRepo.delete(entities)
     }
 }

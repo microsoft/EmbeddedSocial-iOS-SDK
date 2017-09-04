@@ -43,6 +43,8 @@ enum FeedType {
     
     // Shows home feed
     case home
+    // Show my pinned posts
+    case myPins
     // Shows recent feed
     case recent
     // Shows users feed
@@ -67,6 +69,8 @@ extension FeedType: Equatable {
             return left == right
         case let (.single(left), .single(right)):
             return left == right
+        case (.myPins, .myPins):
+            return true
         default:
             return false
         }

@@ -38,6 +38,8 @@
 		67F2D3E0B9675C98B810F927 /* Pods_Group_EmbeddedSocial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78B7C93E273A3139E3C805F /* Pods_Group_EmbeddedSocial.framework */; };
 		6B87CE131ABCFF70D9A2D252 /* Pods_EmbeddedSocialTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72500D954FF1C54C75B1DC92 /* Pods_EmbeddedSocialTests.framework */; };
 		837524BE76C276DF2DA68F21 /* CommentRepliesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03953E1FFCBD39CDB219B8 /* CommentRepliesRouter.swift */; };
+		8807ADF91F5D45CF00DA3FB0 /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7191F29FBAE0090C67A /* CacheTests.swift */; };
+		8807ADFA1F5D45F200DA3FB0 /* CacheableItemDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884C9C431F4D91CF0004907F /* CacheableItemDecoder.swift */; };
 		88087B461F2A431E00A33E9A /* ButtonDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88087B451F2A431E00A33E9A /* ButtonDecorator.swift */; };
 		88087B4A1F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88087B491F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift */; };
 		881060F91F28E502008CA2FB /* UIButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881060F81F28E502008CA2FB /* UIButtonStyles.swift */; };
@@ -132,7 +134,6 @@
 		8834A7501F5016BA00F1D383 /* MockCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811C8391F41F30B00F7513D /* MockCache.swift */; };
 		8834A7511F50348300F1D383 /* CachePredicateBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884C9C3F1F4D911C0004907F /* CachePredicateBuilderTests.swift */; };
 		8834A7521F50367600F1D383 /* TransactionsDatabaseFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F163861F27565400DAAF68 /* TransactionsDatabaseFacadeTests.swift */; };
-		8834A7531F5036B700F1D383 /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7191F29FBAE0090C67A /* CacheTests.swift */; };
 		8834A7561F50647400F1D383 /* LikesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A7551F50647400F1D383 /* LikesListViewController.swift */; };
 		8834A7581F5064BC00F1D383 /* LikesList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8834A7571F5064BC00F1D383 /* LikesList.storyboard */; };
 		8834A75B1F50665000F1D383 /* LikesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A75A1F50665000F1D383 /* LikesListPresenter.swift */; };
@@ -243,7 +244,6 @@
 		884C9C3A1F4C7DA50004907F /* MockImagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884C9C391F4C7DA50004907F /* MockImagesService.swift */; };
 		884C9C3E1F4D83020004907F /* CachePredicateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884C9C3D1F4D83020004907F /* CachePredicateBuilder.swift */; };
 		884C9C421F4D91BD0004907F /* CacheableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884C9C411F4D91BD0004907F /* CacheableItem.swift */; };
-		884C9C441F4D91CF0004907F /* CacheableItemDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884C9C431F4D91CF0004907F /* CacheableItemDecoder.swift */; };
 		884C9C461F4D9D860004907F /* PredicateTestableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884C9C451F4D9D860004907F /* PredicateTestableItem.swift */; };
 		88580B9E1F2213AB00C1CBAF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580A881F2213AB00C1CBAF /* BaseViewController.swift */; };
 		88580B9F1F2213AB00C1CBAF /* ButtonWithTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580A891F2213AB00C1CBAF /* ButtonWithTarget.swift */; };
@@ -5128,6 +5128,7 @@
 				889AFC2A1F220BCD003AAF19 /* MockAuthAPIProvider.swift in Sources */,
 				8811C89D1F4431BC00F7513D /* EmbeddedEditProfileInteractorTests.swift in Sources */,
 				88F551D41F3AF6AB00F4AAB9 /* MyFollowersAPITests.swift in Sources */,
+				8807ADF91F5D45CF00DA3FB0 /* CacheTests.swift in Sources */,
 				88F1916E1F25FFD000B93ADF /* Dump.swift in Sources */,
 				881F7E5E1F2637B7003EB37A /* KeyValueRepositoryTests.swift in Sources */,
 				88F1637D1F264B0F00DAAF68 /* SessionStoreTests.swift in Sources */,
@@ -5143,6 +5144,7 @@
 				889AFC201F220BCD003AAF19 /* UIImage+Ext.swift in Sources */,
 				88F7A7971F278E24005FEC5F /* MockLoginModuleOutput.swift in Sources */,
 				88F7A7911F278C9B005FEC5F /* MockLoginViewInput.swift in Sources */,
+				8807ADFA1F5D45F200DA3FB0 /* CacheableItemDecoder.swift in Sources */,
 				889119B31F4AE771005B3B32 /* MockSearchPeopleInteractor.swift in Sources */,
 				8811C8B11F4443AD00F7513D /* MockEmbeddedEditProfileModuleInput.swift in Sources */,
 				88E3AC1F1F5564C70016357F /* LikesListAPITests.swift in Sources */,
@@ -5150,7 +5152,6 @@
 				889119AC1F4AE0C8005B3B32 /* QueryPeopleAPITests.swift in Sources */,
 				88F1637F1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift in Sources */,
 				9C6244F21F457DED004814BB /* PostMenuModuleInteractorTests.swift in Sources */,
-				8834A7531F5036B700F1D383 /* CacheTests.swift in Sources */,
 				889119C11F4AFA8E005B3B32 /* MockSearchResultsUpdating.swift in Sources */,
 				88635D881F224F3200577140 /* CoreDataRepositoryTests.swift in Sources */,
 				889119C51F4AFC00005B3B32 /* SearchPresenterTests.swift in Sources */,
@@ -5230,7 +5231,6 @@
 				88F1638D1F27677100DAAF68 /* OutgoingTransactionTests.swift in Sources */,
 				8811C8BF1F4457EB00F7513D /* EditProfilePresenterTests.swift in Sources */,
 				63F848951F4ADD8700D434CF /* CommentRepliesInteractorTests.swift in Sources */,
-				884C9C441F4D91CF0004907F /* CacheableItemDecoder.swift in Sources */,
 				883B9B681F277E5A00D1E66E /* CoreDataSavingTests.swift in Sources */,
 				88F5519B1F33705100F4AAB9 /* MockUserListView.swift in Sources */,
 				8834A76F1F53FE6600F1D383 /* MockLikesListView.swift in Sources */,

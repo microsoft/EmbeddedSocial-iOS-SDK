@@ -261,6 +261,7 @@ class FeedModulePresenter_Tests: XCTestCase {
             sut.handle(action: action, path: path)
             
             // then
+        
             XCTAssertEqual(router.open_route_feedSource_ReceivedArguments?.route, expectedResult)
         }
 

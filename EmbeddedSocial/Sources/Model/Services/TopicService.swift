@@ -55,6 +55,12 @@ struct HomeFeedQuery {
     var limit: Int32?
 }
 
+struct MyPinsFeedQuery {
+    var cursor: String?
+    var limit: Int32?
+    
+}
+
 struct MyFeedQuery {
     var cursor: String?
     var limit: Int32?
@@ -74,6 +80,7 @@ protocol PostServiceProtocol {
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler)
     func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler)
     func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler)
+    func fetchMyPins(query: MyPinsFeedQuery, completion: @escaping FetchResultHandler)
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
 
 }
@@ -156,6 +163,15 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     // MARK: GET
+    
+    func fetchMyPins(query: MyPinsFeedQuery, completion: @escaping FetchResultHandler) {
+        let request = PinsAPI.myPinsGetPinsWithRequestBuilder(authorization: authorization,
+                                                              cursor: query.cursor,
+                                                              limit: query.limit)
+        
+        processCache(with: request, completion: completion)
+        processRequest(request, completion: completion)
+    }
     
     func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
         
@@ -265,6 +281,11 @@ class TopicService: BaseService, PostServiceProtocol {
     
     private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
                                 completion: @escaping FetchResultHandler) {
+        
+        guard isNetworkReachable == true else {
+            Logger.log("No internet, using only cache", event: .veryImortant)
+            return
+        }
         
         let requestURL = requestBuilder.URLString
         

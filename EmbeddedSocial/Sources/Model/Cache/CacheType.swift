@@ -17,6 +17,9 @@ protocol CacheType: class {
     func firstOutgoing<Item: Cacheable>(ofType type: Item.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) -> Item?
     func fetchOutgoing<Item: Cacheable>(with request: CacheFetchRequest<Item>) -> [Item]
     func fetchOutgoing<Item: Cacheable>(with request: CacheFetchRequest<Item>, result: @escaping FetchResult<Item>)
+    
+    func deleteIncoming(with predicate: NSPredicate)
+    func deleteOutgoing(with predicate: NSPredicate)
 }
 
 extension CacheType {

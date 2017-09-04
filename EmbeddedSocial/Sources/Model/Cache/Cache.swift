@@ -119,4 +119,14 @@ class Cache: CacheType {
         item?.setRelatedHandle(tr.relatedHandle)
         return item
     }
+    
+    func deleteIncoming(with predicate: NSPredicate) {
+        let transactions = database.queryIncomingTransactions(with: predicate, page: nil, sortDescriptors: nil)
+        database.deleteIncomingTransactions(transactions)
+    }
+    
+    func deleteOutgoing(with predicate: NSPredicate) {
+        let transactions = database.queryOutgoingTransactions(with: predicate, page: nil, sortDescriptors: nil)
+        database.deleteOutgoingTransactions(transactions)
+    }
 }

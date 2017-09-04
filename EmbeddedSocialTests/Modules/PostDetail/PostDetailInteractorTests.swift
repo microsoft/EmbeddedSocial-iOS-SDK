@@ -41,6 +41,10 @@ private class MockTopicService: PostServiceProtocol {
         result.posts = [Post()]
         completion(result)
     }
+    
+    func fetchMyPins(query: MyPinsFeedQuery, completion: @escaping FetchResultHandler) {
+        
+    }
 }
 
 extension MockTopicService {
