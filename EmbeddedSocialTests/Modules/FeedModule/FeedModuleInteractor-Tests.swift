@@ -6,56 +6,6 @@
 import XCTest
 @testable import EmbeddedSocial
 
-private class PostServiceMock: PostServiceProtocol {
-    
-    var popularResult: PostFetchResult!
-    var userPopularResult: PostFetchResult!
-    var singlePostResult: PostFetchResult!
-    var userRecentResult: PostFetchResult!
-    var recentResult: PostFetchResult!
-    var homeResult: PostFetchResult!
-    
-    func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        completion(homeResult)
-    }
-    
-    func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
-        completion(popularResult)
-    }
-    
-    func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        completion(recentResult)
-    }
-    
-    func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        completion(userRecentResult)
-    }
-    
-    func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        completion(userPopularResult)
-    }
-    
-    func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        completion(singlePostResult)
-    }
-    
-    func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        
-    }
-    
-    func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        
-    }
-    
-    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
-        
-    }
-    
-    func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        
-    }
-}
-
 private class FeedModulePresenterMock: FeedModuleInteractorOutput {
   
     var startFetchingIsCalled = false
@@ -119,8 +69,7 @@ class FeedModuleInteractor_Tests: XCTestCase {
         
         // given
         let feed = FeedType.home
-        service.homeResult = PostFetchResult()
-        service.homeResult.error = nil
+        service.fetchHomeQueryCompletion = PostFetchResult()
         
         // when
         sut.fetchPosts(feedType: feed)
@@ -134,8 +83,8 @@ class FeedModuleInteractor_Tests: XCTestCase {
         
         // given
         let feed = FeedType.home
-        service.homeResult = PostFetchResult()
-        service.homeResult.error = FeedServiceError.failedToFetch(message: "Ooops")
+        service.fetchHomeQueryCompletion = PostFetchResult()
+        service.fetchHomeQueryCompletion.error = FeedServiceError.failedToFetch(message: "Ooops")
         
         // when
         sut.fetchPosts(feedType: feed)
@@ -147,11 +96,12 @@ class FeedModuleInteractor_Tests: XCTestCase {
     func testThatFetchMoreGetsCalled() {
         
         // given
+        let cursor = uniqueString()
         let feed = FeedType.home
-        service.homeResult = PostFetchResult()
+        service.fetchHomeQueryCompletion = PostFetchResult()
         
         // when
-        sut.fetchPosts(cursor: "cursor", feedType: feed)
+        sut.fetchPosts(cursor: cursor, feedType: feed)
         
         // then
         XCTAssertTrue(presenter.fetchedMoreFeed != nil)
@@ -161,15 +111,16 @@ class FeedModuleInteractor_Tests: XCTestCase {
         
         // given
         let feed = FeedType.home
-        service.homeResult = PostFetchResult()
-        service.homeResult.cursor = "--erwrw--"
-        service.homeResult.posts = [Post.mock(seed: 0)]
+        let cursor = uniqueString()
+        service.fetchHomeQueryCompletion = PostFetchResult()
+        service.fetchHomeQueryCompletion.cursor = cursor
+        service.fetchHomeQueryCompletion.posts = [Post.mock(seed: 0)]
 
         // when
         sut.fetchPosts(feedType: feed)
         
         // then
-        XCTAssertTrue(presenter.fetchedFeed!.cursor == "--erwrw--")
+        XCTAssertTrue(presenter.fetchedFeed!.cursor == cursor)
         XCTAssertTrue(presenter.fetchedFeed!.items.count == 1)
         XCTAssertTrue(presenter.fetchedFeed!.items.last! == Post.mock(seed: 0))
     }
@@ -177,16 +128,17 @@ class FeedModuleInteractor_Tests: XCTestCase {
     func testThatFetchRecentResultIsCorrect() {
         
         // given
+        let cursor = uniqueString()
         let feed = FeedType.recent
-        service.recentResult = PostFetchResult()
-        service.recentResult.cursor = "--erwrw--"
-        service.recentResult.posts = [Post.mock(seed: 0)]
+        service.fetchRecentQueryCompletion = PostFetchResult()
+        service.fetchRecentQueryCompletion.cursor = cursor
+        service.fetchRecentQueryCompletion.posts = [Post.mock(seed: 0)]
         
         // when
         sut.fetchPosts(feedType: feed)
         
         // then
-        XCTAssertTrue(presenter.fetchedFeed!.cursor == "--erwrw--")
+        XCTAssertTrue(presenter.fetchedFeed!.cursor == cursor)
         XCTAssertTrue(presenter.fetchedFeed!.items.count == 1)
         XCTAssertTrue(presenter.fetchedFeed!.items.last! == Post.mock(seed: 0))
     }
@@ -195,53 +147,59 @@ class FeedModuleInteractor_Tests: XCTestCase {
     func testThatFetchPopularResultIsCorrect() {
         
         // given
+        let cursor = uniqueString()
         let feed = FeedType.popular(type: FeedType.TimeRange.alltime)
-        service.popularResult = PostFetchResult()
-        service.popularResult.cursor = "--fwew4ef--"
-        service.popularResult.posts = [Post.mock(seed: 1)]
+        service.fetchPopularQueryCompletion = PostFetchResult()
+        service.fetchPopularQueryCompletion.cursor = cursor
+        service.fetchPopularQueryCompletion.posts = [Post.mock(seed: 1)]
         
         // when
         sut.fetchPosts(feedType: feed)
         
         // then
-        XCTAssertTrue(presenter.fetchedFeed!.cursor == "--fwew4ef--")
+        XCTAssertTrue(presenter.fetchedFeed!.cursor == cursor)
         XCTAssertTrue(presenter.fetchedFeed!.items.count == 1)
     }
     
     func testThatUserPopularFeedIsCorrect() {
         
         // given
-        let feed = FeedType.user(user: "handle", scope: FeedType.UserFeedScope.popular)
-        service.userPopularResult = PostFetchResult()
-        service.userPopularResult.cursor = "user popular cursor"
+        let user = uniqueString()
+        let cursor = uniqueString()
+        let feed = FeedType.user(user: user, scope: FeedType.UserFeedScope.popular)
+        service.fetchUserPopularQueryCompletion = PostFetchResult()
+        service.fetchUserPopularQueryCompletion.cursor = cursor
         
         // when
         sut.fetchPosts(feedType: feed)
         
         // then
-        XCTAssertTrue(presenter.fetchedFeed?.cursor == "user popular cursor")
+        XCTAssertTrue(presenter.fetchedFeed?.cursor == cursor)
     }
     
     func testThatUserRecentFeedIsCorrect() {
         
         // given
-        let feed = FeedType.user(user: "handle", scope: FeedType.UserFeedScope.recent)
-        service.userRecentResult = PostFetchResult()
-        service.userRecentResult.cursor = "user recent cursor"
+        let user = uniqueString()
+        let cursor = uniqueString()
+        let feed = FeedType.user(user: user, scope: FeedType.UserFeedScope.recent)
+        service.fetchUserRecentQueryCompletion = PostFetchResult()
+        service.fetchUserRecentQueryCompletion.cursor = cursor
         
         // when
         sut.fetchPosts(feedType: feed)
         
         // then
-        XCTAssertTrue(presenter.fetchedFeed!.cursor == "user recent cursor")
+        XCTAssertTrue(presenter.fetchedFeed!.cursor == cursor)
     }
     
     func testThatSinglePostFetchResultIsCorrect() {
         
         // given
-        let feed = FeedType.single(post: "handle")
-        service.singlePostResult = PostFetchResult()
-        service.singlePostResult.posts = [Post.mock(seed: 100)]
+        let handle = uniqueString()
+        let feed = FeedType.single(post: handle)
+        service.fetchPostPostCompletion = PostFetchResult()
+        service.fetchPostPostCompletion.posts = [Post.mock(seed: 100)]
     
         // when
         sut.fetchPosts(feedType: feed)
