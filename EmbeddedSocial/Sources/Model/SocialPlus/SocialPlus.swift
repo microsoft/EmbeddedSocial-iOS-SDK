@@ -64,7 +64,8 @@ public final class SocialPlus {
     }
     
     fileprivate func startOutgoingCacheProcessor() {
-        outgoingCacheProcessor = CachedActionsExecuter(cacheAdapter: SocialActionsCacheAdapter(cache: cache),
+        outgoingCacheProcessor = CachedActionsExecuter(isConnectionAvailable: networkTracker.isReachable,
+                                                       cacheAdapter: SocialActionsCacheAdapter(cache: cache),
                                                        likesService: LikesService())
         networkTracker.addListener(outgoingCacheProcessor)
     }

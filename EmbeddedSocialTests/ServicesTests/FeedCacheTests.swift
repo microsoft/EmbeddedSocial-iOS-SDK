@@ -105,9 +105,8 @@ class FeedCachingTests: XCTestCase {
     }
     
     func testSocialActionsForUniqueness() {
+        
         // given
-        
-        
         let sameHandle = uniqueString()
         
         // different methods => must be equal
@@ -123,7 +122,6 @@ class FeedCachingTests: XCTestCase {
         let action7 = SocialActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .pin)
         let action8 = SocialActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .pin)
         
-        
         // when
         
         // then
@@ -133,12 +131,54 @@ class FeedCachingTests: XCTestCase {
         XCTAssertNotEqual(action3, action4)
     }
     
+    func testThatItQueuesActionsForExecutionWhenNoConnection() {
+        
+        // given
+        let isConnectionAvailable = false
+        let likesService = MockLikesService()
+        let cacheAdapter = SocialActionsCacheAdapterProtocolMock()
+        let outgoingActionsProcessor = CachedActionsExecuter(isConnectionAvailable: isConnectionAvailable,
+                                                             cacheAdapter: cacheAdapter,
+                                                             likesService: likesService)
+        
+        let action = SocialActionRequestBuilder.build(method: "POST", handle: uniqueString(), action: .like)
+        cacheAdapter.getAllCachedActionsReturnValue = Set([action])
+        
+        // when
+        outgoingActionsProcessor.executeAll()
+        
+        // then
+        XCTAssertTrue(outgoingActionsProcessor.queuedForExecution.count == 1)
+        XCTAssertTrue(outgoingActionsProcessor.queuedForExecution.first?.actionMethod == .post)
+        XCTAssertTrue(outgoingActionsProcessor.queuedForExecution.first?.actionType == .like)
+        
+        // when 2
+        
+        //        let waitingForExecution = expectation(description: #function)
+        
+        outgoingActionsProcessor.networkStatusDidChange(true)
+        
+        // then 2
+        
+        //        XCTAssertTrue(outgoingActionsProcessor.beingExecuted.count == 1)
+        
+        //        DispatchQueue.main.async {
+        XCTAssertTrue(outgoingActionsProcessor.queuedForExecution.count == 0)
+        //            waitingForExecution.fulfill()
+        //        }
+        
+        //        wait(for: [waitingForExecution], timeout: 1)
+    }
+    
     func testThatIsExecutesOutgoingTransactionsWhenConnectionAppears() {
       
         // given
+        let isConnectionAvailable = false
         let likesService = MockLikesService()
         let cacheAdapter = SocialActionsCacheAdapterProtocolMock()
-        let outgoingActionsProcessor = CachedActionsExecuter(cacheAdapter: cacheAdapter, likesService: likesService)
+        let outgoingActionsProcessor = CachedActionsExecuter(isConnectionAvailable: isConnectionAvailable,
+                                                             cacheAdapter: cacheAdapter,
+                                                             likesService: likesService)
         
         // 4 unique actions
         let actionsParameters = [
@@ -171,7 +211,9 @@ class FeedCachingTests: XCTestCase {
         let postHandleB = uniqueString()
         
         let actionsCache = SocialActionsCacheAdapter(cache: cache)
-        let executer = CachedActionsExecuter(cacheAdapter: actionsCache, likesService: likesService)
+        let outgoingActionsProcessor = CachedActionsExecuter(isConnectionAvailable: true,
+                                             cacheAdapter: actionsCache,
+                                             likesService: likesService)
         
         let likePostAction = SocialActionRequestBuilder.build(
             method: "POST",
@@ -203,7 +245,7 @@ class FeedCachingTests: XCTestCase {
         XCTAssertTrue(actionsCache.getAllCachedActions().count == actions.count)
         
         // when
-        executer.executeAll()
+        outgoingActionsProcessor.executeAll()
         
         // then
         XCTAssertTrue(likesService.postLikePostHandleCompletionCalled == true)
@@ -216,6 +258,7 @@ class FeedCachingTests: XCTestCase {
         XCTAssertTrue(likesService.deletePinPostHandleCompletionReceivedArguments?.postHandle == postHandleB)
         
         XCTAssertTrue(actionsCache.getAllCachedActions().count == 0, "all executed actions must be erased")
+        XCTAssertTrue(outgoingActionsProcessor.queuedForExecution.count == 0, "there should be 0 pending actions ")
     }
     
     func testThatActionGetsCachedAndRemoved() {

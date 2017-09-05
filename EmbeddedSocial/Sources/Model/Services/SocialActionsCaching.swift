@@ -83,77 +83,85 @@ class CachedActionsExecuter: NetworkStatusListener {
     private let cacheAdapter: SocialActionsCacheAdapterProtocol
     private let likesService: LikesServiceProtocol
     
-    init(cacheAdapter: SocialActionsCacheAdapterProtocol, likesService: LikesServiceProtocol = LikesService()) {
+    var isConnectionAvailable: Bool
+    
+    init(isConnectionAvailable: Bool,
+         cacheAdapter: SocialActionsCacheAdapterProtocol,
+         likesService: LikesServiceProtocol = LikesService()) {
+        
+        self.isConnectionAvailable = isConnectionAvailable
         self.cacheAdapter = cacheAdapter
         self.likesService = likesService
     }
     
     func networkStatusDidChange(_ isReachable: Bool) {
         
-        guard isReachable == true else { return }
+        isConnectionAvailable = isReachable
         
-        Logger.log("Connection from now is \(isReachable) \(String(describing: self))", event: .veryImportant)
-        
-        executeAll()
+        if isConnectionAvailable {
+            executeAll()
+        }
     }
     
     private func onCompletion(_ request: SocialActionRequest, _ error: Error?) {
-        guard error == nil else { return }
+        
+        guard error == nil else {
+            Logger.log("Outgoing action is sent with error, \(request)", event: .veryImportant)
+            beingExecuted.remove(request)
+            cacheAdapter.remove(request)
+            return
+        }
+        
         Logger.log("Outgoing cached action is sent successfully, \(request)", event: .veryImportant)
         
         // Clean cached outgoing action
         cacheAdapter.remove(request)
         // Clean action from set for execution
-        actionsInExecution.remove(request)
+        beingExecuted.remove(request)
     }
     
-    private(set) var actionsInExecution = Set<SocialActionRequest>()
+    private(set) var beingExecuted = Set<SocialActionRequest>()
+    private(set) var queuedForExecution = Set<SocialActionRequest>()
     
     func executeAll() {
     
-        let actions = cacheAdapter.getAllCachedActions()
+        let allActions = cacheAdapter.getAllCachedActions()
         
-        let actionToExecute = actions.subtracting(actionsInExecution)
+        // Get not sent yet actions, append them for execution
+        let notExecutedActions = allActions.subtracting(beingExecuted)
+        queuedForExecution.formUnion(notExecutedActions)
         
-        actionToExecute.forEach { execute($0) }
+        // Execute
+        queuedForExecution.forEach { execute($0) }
     }
     
-    func execute(_ action: SocialActionRequest) {
+    private func execute(_ action: SocialActionRequest) {
+    
+        guard isConnectionAvailable == true else { return }
+        
+        queuedForExecution.remove(action)
+        beingExecuted.insert(action)
         
         let handle = action.handle
         
         Logger.log("Executing outgoing cached action, \(action.actionType) \(action.actionMethod)", event: .veryImportant)
         
-        actionsInExecution.insert(action)
-        
-        switch action.actionType {
-        case .like:
-            if action.actionMethod == .post {
-                
-                likesService.postLike(postHandle: handle) { [weak self] handle, error in
-                    self?.onCompletion(action, error)
-                    
-                }
-            } else {
-                
-                likesService.deleteLike(postHandle: handle) { [weak self] handle, error in
-                    self?.onCompletion(action, error)
-                    
-                }
+        switch (action.actionType, action.actionMethod) {
+        case (.like, .post):
+            likesService.postLike(postHandle: handle) { [weak self] handle, error in
+                self?.onCompletion(action, error)
             }
-        case .pin:
-            if action.actionMethod == .post {
-                
-                likesService.postPin(postHandle: handle) { [weak self] handle, error in
-                    self?.onCompletion(action, error)
-                    
-                }
-            } else {
-                
-                likesService.deletePin(postHandle: handle) { [weak self] handle, error in
-                    self?.onCompletion(action, error)
-                    
-                }
+        case (.like, .delete):
+            likesService.deleteLike(postHandle: handle) { [weak self] handle, error in
+                self?.onCompletion(action, error)
+            }
+        case (.pin, .post):
+            likesService.postPin(postHandle: handle) { [weak self] handle, error in
+                self?.onCompletion(action, error)
+            }
+        case (.pin, .delete):
+            likesService.deletePin(postHandle: handle) { [weak self] handle, error in
+                self?.onCompletion(action, error)
             }
         }
     }
