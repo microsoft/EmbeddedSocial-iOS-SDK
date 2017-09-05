@@ -80,10 +80,10 @@ struct SocialActionRequest: Cacheable, Hashable, CustomStringConvertible {
 
 class CachedActionsExecuter: NetworkStatusListener {
     
-    private let cacheAdapter: SocialActionsCacheAdapter
+    private let cacheAdapter: SocialActionsCacheAdapterProtocol
     private let likesService: LikesServiceProtocol
     
-    init(cacheAdapter: SocialActionsCacheAdapter, likesService: LikesServiceProtocol = LikesService()) {
+    init(cacheAdapter: SocialActionsCacheAdapterProtocol, likesService: LikesServiceProtocol = LikesService()) {
         self.cacheAdapter = cacheAdapter
         self.likesService = likesService
     }
@@ -107,7 +107,7 @@ class CachedActionsExecuter: NetworkStatusListener {
         actionsInExecution.remove(request)
     }
     
-    private var actionsInExecution = Set<SocialActionRequest>()
+    private(set) var actionsInExecution = Set<SocialActionRequest>()
     
     func executeAll() {
     
@@ -180,7 +180,13 @@ class SocialActionRequestBuilder {
     }
 }
 
-class SocialActionsCacheAdapter {
+protocol SocialActionsCacheAdapterProtocol: class {
+    func cache(_ request: SocialActionRequest)
+    func getAllCachedActions() -> Set<SocialActionRequest>
+    func remove(_ request: SocialActionRequest)
+}
+
+class SocialActionsCacheAdapter: SocialActionsCacheAdapterProtocol {
     
     weak var cache: CacheType!
     var predicateBuilder = PredicateBuilder()

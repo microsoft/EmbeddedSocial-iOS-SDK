@@ -700,6 +700,7 @@
 		9CDDB2031F38866000C46785 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDB2021F38866000C46785 /* DateFormatter.swift */; };
 		9CDDB2051F38870400C46785 /* DateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDB2041F38870400C46785 /* DateFormatterTests.swift */; };
 		9CE03F0E1F4D899C00139B18 /* PostMenuModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169741F3C68350052FB90 /* PostMenuModulePresenter.swift */; };
+		9CE7D4C01F5ECE0D008DA2BA /* MockSocialActionsCacheAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE7D4BF1F5ECE0D008DA2BA /* MockSocialActionsCacheAdapter.swift */; };
 		9CEA75241F2A0E61009FC89D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75231F2A0E61009FC89D /* Post.swift */; };
 		9CEA75281F2A1FA0009FC89D /* LikesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75271F2A1FA0009FC89D /* LikesService.swift */; };
 		9FCA74B90B4330F6AA55D489 /* CommentRepliesViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C62BB243EDEFCA43C5601F8 /* CommentRepliesViewInput.swift */; };
@@ -850,7 +851,7 @@
 		881F7E5D1F2637B7003EB37A /* KeyValueRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueRepositoryTests.swift; sourceTree = "<group>"; };
 		881F7E5F1F2637F7003EB37A /* MementoSerializableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MementoSerializableItem.swift; sourceTree = "<group>"; };
 		881F7E611F263888003EB37A /* MockKeyValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeyValueStorage.swift; sourceTree = "<group>"; };
-		88204FAD1F56E60200E15F5A /* NetworkTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkTracker.swift; path = NetworkTracker.swift; sourceTree = "<group>"; };
+		88204FAD1F56E60200E15F5A /* NetworkTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTracker.swift; sourceTree = "<group>"; };
 		88204FAF1F56EA4F00E15F5A /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		88204FB11F580DA800E15F5A /* RequestExecutionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestExecutionStrategy.swift; sourceTree = "<group>"; };
 		88204FB41F58144D00E15F5A /* CacheRequestExecutionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheRequestExecutionStrategy.swift; sourceTree = "<group>"; };
@@ -1143,7 +1144,7 @@
 		8864C8481F4707BB00ADCE13 /* SearchPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
 		8864C84B1F4707D600ADCE13 /* SearchViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewInput.swift; sourceTree = "<group>"; };
 		8864C84D1F4707DE00ADCE13 /* SearchViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewOutput.swift; sourceTree = "<group>"; };
-		8864C84F1F4709D300ADCE13 /* SearchTabInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTabInfo.swift; path = SearchTabInfo.swift; sourceTree = "<group>"; };
+		8864C84F1F4709D300ADCE13 /* SearchTabInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTabInfo.swift; sourceTree = "<group>"; };
 		8864C8511F470AA100ADCE13 /* SearchConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchConfigurator.swift; sourceTree = "<group>"; };
 		886B39C51F138F5D00BF1A8E /* EmbeddedSocial-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EmbeddedSocial-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B39C71F138F5D00BF1A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1241,7 +1242,7 @@
 		88D2F8E71F56B8450004A8BC /* MockReportView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockReportView.swift; sourceTree = "<group>"; };
 		88D2F8E91F56B8860004A8BC /* MockReportRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockReportRouter.swift; sourceTree = "<group>"; };
 		88D2F8EC1F56B8B80004A8BC /* ReportPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportPresenterTests.swift; sourceTree = "<group>"; };
-		88D2F8EE1F56C60A0004A8BC /* ReportAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportAPI.swift; path = ReportAPI.swift; sourceTree = "<group>"; };
+		88D2F8EE1F56C60A0004A8BC /* ReportAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportAPI.swift; sourceTree = "<group>"; };
 		88D2F8F11F56C69E0004A8BC /* ReportUserAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportUserAPI.swift; sourceTree = "<group>"; };
 		88D2F8F31F56C82D0004A8BC /* ReportPostAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportPostAPI.swift; sourceTree = "<group>"; };
 		88D2F8F51F56D2250004A8BC /* MockReportAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockReportAPI.swift; sourceTree = "<group>"; };
@@ -1468,6 +1469,7 @@
 		9CD805391F0D012F00B9B0AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CDDB2021F38866000C46785 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		9CDDB2041F38870400C46785 /* DateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterTests.swift; sourceTree = "<group>"; };
+		9CE7D4BF1F5ECE0D008DA2BA /* MockSocialActionsCacheAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSocialActionsCacheAdapter.swift; sourceTree = "<group>"; };
 		9CEA75231F2A0E61009FC89D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		9CEA75271F2A1FA0009FC89D /* LikesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesService.swift; sourceTree = "<group>"; };
 		A8CDDC5B799AAF9E98000C8B /* Pods_Group_EmbeddedSocial_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_EmbeddedSocial_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1602,7 +1604,6 @@
 			children = (
 				8864C84F1F4709D300ADCE13 /* SearchTabInfo.swift */,
 			);
-			name = Helpers;
 			path = Helpers;
 			sourceTree = "<group>";
 		};
@@ -1806,7 +1807,6 @@
 				88204FB11F580DA800E15F5A /* RequestExecutionStrategy.swift */,
 				88204FBA1F581F2A00E15F5A /* SuggestedUsersRequestExecutionStrategy.swift */,
 			);
-			name = RequestExecutionStrategy;
 			path = RequestExecutionStrategy;
 			sourceTree = "<group>";
 		};
@@ -3140,6 +3140,7 @@
 				9CC81E331F5826E9003DD078 /* MockUserHolder.swift */,
 				88F551C31F39D65200F4AAB9 /* MockUserListModuleInput.swift */,
 				88F7A78A1F2789F0005FEC5F /* MockUserService.swift */,
+				9CE7D4BF1F5ECE0D008DA2BA /* MockSocialActionsCacheAdapter.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -3279,7 +3280,6 @@
 				88D2F8F31F56C82D0004A8BC /* ReportPostAPI.swift */,
 				88D2F8F11F56C69E0004A8BC /* ReportUserAPI.swift */,
 			);
-			name = APIs;
 			path = APIs;
 			sourceTree = "<group>";
 		};
@@ -5260,6 +5260,7 @@
 				88F551951F336DCB00F4AAB9 /* MockUserListInteractor.swift in Sources */,
 				88FFFA5F1F2F81A70066A1A0 /* FollowStatusTests.swift in Sources */,
 				88F551CE1F39E9D400F4AAB9 /* FollowersPresenterTests.swift in Sources */,
+				9CE7D4C01F5ECE0D008DA2BA /* MockSocialActionsCacheAdapter.swift in Sources */,
 				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
 				9C985E531F505BDF00514F85 /* FeedCacheTests.swift in Sources */,
 				884C9C341F4C3E940004907F /* UserListPresenterTests.swift in Sources */,

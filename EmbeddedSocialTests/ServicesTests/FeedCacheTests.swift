@@ -105,8 +105,34 @@ class FeedCachingTests: XCTestCase {
     }
     
     func testThatIsExecutesOutgoingTransactionsWhenConnectionAppears() {
-        
       
+        // given
+        let likesService = MockLikesService()
+        let cacheAdapter = SocialActionsCacheAdapterProtocolMock()
+        let outgoingActionsProcessor = CachedActionsExecuter(cacheAdapter: cacheAdapter, likesService: likesService)
+        
+        // 4 unique actions
+        let actionsParameters = [
+            ("POST", uniqueString(), SocialActionRequest.ActionType.like),
+            ("DELETE", uniqueString(), SocialActionRequest.ActionType.like),
+            ("POST", uniqueString(), SocialActionRequest.ActionType.pin),
+            ("DELETE", uniqueString(), SocialActionRequest.ActionType.pin)]
+        
+        let cachedActions = actionsParameters.map {
+            SocialActionRequestBuilder.build(method: $0.0, handle: $0.1, action: $0.2)
+        }
+    
+        cacheAdapter.getAllCachedActionsReturnValue = Set(cachedActions)
+        XCTAssertTrue(cacheAdapter.getAllCachedActions().count == actionsParameters.count)
+
+        // when
+        outgoingActionsProcessor.networkStatusDidChange(true)
+        
+        // then
+        XCTAssertTrue(likesService.deletePinPostHandleCompletionCalled)
+        XCTAssertTrue(likesService.deleteLikePostHandleCompletionCalled)
+        XCTAssertTrue(likesService.postPinPostHandleCompletionCalled)
+        XCTAssertTrue(likesService.postLikePostHandleCompletionCalled)
     }
     
     func testThatItExecutesOutgoingTransactions() {

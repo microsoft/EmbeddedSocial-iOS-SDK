@@ -263,6 +263,8 @@ class TopicService: BaseService, PostServiceProtocol {
     private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
                                 completion: @escaping FetchResultHandler) {
         
+        let requestCacheKey = requestBuilder.URLString
+        
         // Lookup in cache
         if let result = lookupInCache(by: requestCacheKey) {
             completion(result)
@@ -276,7 +278,7 @@ class TopicService: BaseService, PostServiceProtocol {
             var result = PostFetchResult()
             
             self.handleError(error, result: &result)
-            self.cacheResponse(response?.body, forKey: requestBuilder.URLString)
+            self.cacheResponse(response?.body, forKey: requestCacheKey)
             self.parseResponse(response?.body, into: &result)
             
             completion(result)
