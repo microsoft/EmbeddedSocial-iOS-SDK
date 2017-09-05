@@ -8,7 +8,7 @@ import Foundation
 import XCTest
 @testable import EmbeddedSocial
 
-class FeedReponseCachingTests: XCTestCase {
+class FeedCachingTests: XCTestCase {
     
     var topicViewResponseA: FeedResponseTopicView!
     var topicViewResponseB: FeedResponseTopicView!
@@ -17,12 +17,14 @@ class FeedReponseCachingTests: XCTestCase {
     var cache: CacheType!
     var services: SocialPlusServicesType!
     
+    var likesService: MockLikesService!
+    
     override func setUp() {
         super.setUp()
         
         // Load server response from json file
         let bundle = Bundle(for: type(of: self))
-    
+        
         let path = "topics&limit20"
         
         topicViewResponseA = FeedResponseTopicView.loadFrom(bundle: bundle, withName: path)
@@ -30,8 +32,10 @@ class FeedReponseCachingTests: XCTestCase {
         
         // Set services for cache
         services = SocialPlusServices()
-        coreDataStack = services.getCoreDataStack()
+        coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
         cache = services.getCache(coreDataStack: coreDataStack)
+        
+        likesService = MockLikesService()
     }
     
     override func tearDown() {
@@ -75,18 +79,18 @@ class FeedReponseCachingTests: XCTestCase {
         XCTAssert(topicViewResponseB.cursor != topicViewResponseA.cursor)
         
         let cacheKey = UUID().uuidString
-//        let item = CacheableResponse(response: topicViewResponse )
-//        cache.cacheIncoming(item, for: requestURLString)
+        //        let item = CacheableResponse(response: topicViewResponse )
+        //        cache.cacheIncoming(item, for: requestURLString)
         cache.cacheIncoming(topicViewResponseA, for: cacheKey)
         cache.cacheIncoming(topicViewResponseB, for: cacheKey)
         
-//        let request = CacheFetchRequest(resultType: FeedResponseTopicView.self)
-//        let predicate = PredicateBuilder().predicate(typeID: requestURLString)
+        //        let request = CacheFetchRequest(resultType: FeedResponseTopicView.self)
+        //        let predicate = PredicateBuilder().predicate(typeID: requestURLString)
         
         // when
-//        let fetchedItem = cache.firstIncoming(ofType: FeedResponseTopicView.self,
-//                                              predicate: predicate,
-//                                              sortDescriptors: nil)
+        //        let fetchedItem = cache.firstIncoming(ofType: FeedResponseTopicView.self,
+        //                                              predicate: predicate,
+        //                                              sortDescriptors: nil)
         
         let cachedItem = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: cacheKey)
         
@@ -95,13 +99,152 @@ class FeedReponseCachingTests: XCTestCase {
     
     func testFeedGetsCached() {
         
-        // given 
+        // given
         
         //let originalFeed = FeedResponseTopicView()
-        
-        
-        
-        
     }
-
+    
+    func testThatIsExecutesOutgoingTransactionsWhenConnectionAppears() {
+        
+      
+    }
+    
+    func testThatItExecutesOutgoingTransactions() {
+        
+        // given
+        let postHandleA = uniqueString()
+        let postHandleB = uniqueString()
+        
+        let actionsCache = SocialActionsCacheAdapter(cache: cache)
+        let executer = CachedActionsExecuter(cacheAdapter: actionsCache, likesService: likesService)
+        
+        let likePostAction = SocialActionRequestBuilder.build(
+            method: "POST",
+            handle: postHandleA,
+            action: .like)
+        
+        let pinPostAction = SocialActionRequestBuilder.build(
+            method: "POST",
+            handle: postHandleA,
+            action: .pin)
+        
+        let unLikePostAction = SocialActionRequestBuilder.build(
+            method: "DELETE",
+            handle: postHandleB,
+            action: .like)
+        
+        let unPinPostAction = SocialActionRequestBuilder.build(
+            method: "DELETE",
+            handle: postHandleB,
+            action: .pin)
+        
+        let actions = [
+            likePostAction,
+            pinPostAction,
+            unLikePostAction,
+            unPinPostAction]
+        
+        actions.forEach { actionsCache.cache($0) }
+        XCTAssertTrue(actionsCache.getAllCachedActions().count == actions.count)
+        
+        // when
+        executer.executeAll()
+        
+        // then
+        XCTAssertTrue(likesService.postLikePostHandleCompletionCalled == true)
+        XCTAssertTrue(likesService.postLikePostHandleCompletionReceivedArguments?.postHandle == postHandleA)
+        XCTAssertTrue(likesService.postPinPostHandleCompletionCalled == true)
+        XCTAssertTrue(likesService.postPinPostHandleCompletionReceivedArguments?.postHandle == postHandleA)
+        XCTAssertTrue(likesService.deleteLikePostHandleCompletionCalled == true)
+        XCTAssertTrue(likesService.deleteLikePostHandleCompletionReceivedArguments?.postHandle == postHandleB)
+        XCTAssertTrue(likesService.deletePinPostHandleCompletionCalled == true)
+        XCTAssertTrue(likesService.deletePinPostHandleCompletionReceivedArguments?.postHandle == postHandleB)
+        
+        XCTAssertTrue(actionsCache.getAllCachedActions().count == 0, "all executed actions must be erased")
+    }
+    
+    func testThatActionGetsCachedAndRemoved() {
+        
+        // given
+        let postHandle = uniqueString()
+        let actionsCache = SocialActionsCacheAdapter(cache: cache)
+        
+        let likePostAction = SocialActionRequestBuilder.build(
+            method: "POST",
+            handle: postHandle,
+            action: .like)
+        
+        let unPinPostAction = SocialActionRequestBuilder.build(
+            method: "DELETE",
+            handle: postHandle,
+            action: .pin)
+        
+        // when
+        actionsCache.cache(likePostAction)
+        XCTAssertTrue(actionsCache.getAllCachedActions().count == 1)
+        actionsCache.cache(unPinPostAction)
+        XCTAssertTrue(actionsCache.getAllCachedActions().count == 2)
+        actionsCache.remove(likePostAction)
+        
+        // then
+        XCTAssertTrue(actionsCache.getAllCachedActions().count == 1)
+        XCTAssertTrue(actionsCache.getAllCachedActions().first?.actionType == .pin)
+        XCTAssertTrue(actionsCache.getAllCachedActions().first?.actionMethod == .delete)
+    }
+    
+    func testThatUndoActionOverridesOriginalAction() {
+        
+        // given
+        let postHandle = UUID().uuidString
+        
+        let actionsCache = SocialActionsCacheAdapter(cache: cache)
+        
+        let likePostAction = SocialActionRequestBuilder.build(
+            method: "POST",
+            handle: postHandle,
+            action: .like)
+        
+        let unLikePostAction = SocialActionRequestBuilder.build(
+            method: "DELETE",
+            handle: postHandle,
+            action: .like)
+        
+        // when
+        actionsCache.cache(likePostAction)
+        actionsCache.cache(unLikePostAction)
+        
+        // then
+        let results = actionsCache.getAllCachedActions()
+        XCTAssertTrue(results.count == 0)
+    }
+    
+    func testThatActionsAreCachedProperly() {
+        
+        // given
+        let postHandle = UUID().uuidString
+        let actionsCache = SocialActionsCacheAdapter(cache: cache)
+        
+        let likePostAction = SocialActionRequestBuilder.build(
+            method: "POST",
+            handle: postHandle,
+            action: .like)
+        
+        let deletePinAction = SocialActionRequestBuilder.build(
+            method: "DELETE",
+            handle: postHandle,
+            action: .pin)
+        // when
+        actionsCache.cache(likePostAction)
+        actionsCache.cache(deletePinAction)
+        
+        // then
+        let results = actionsCache.getAllCachedActions().flatMap { $0.actionType }
+        
+        XCTAssertTrue(results.count == 2)
+        XCTAssertTrue(results.contains(.like))
+        XCTAssertTrue(results.contains(.pin))
+        XCTAssertTrue(likePostAction.actionMethod == .post)
+        XCTAssertTrue(deletePinAction.actionMethod == .delete)
+    }
+    
 }

@@ -20,3 +20,11 @@ extension XCTestCase {
         }
     }
 }
+
+extension XCTestCase {
+    
+    func uniqueString() -> String {
+        return UUID().uuidString
+    }
+    
+}

@@ -15,11 +15,11 @@ private class MockLikeSerivce: LikesServiceProtocol {
         
     }
     
-    func deleteLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
+    func deleteLike(postHandle: PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
         
     }
     
-    func postLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
+    func postLike(postHandle: PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
         
     }
     
@@ -30,6 +30,9 @@ private class MockLikeSerivce: LikesServiceProtocol {
     func unlikeReply(replyHandle: String, completion: @escaping LikesServiceProtocol.ReplyLikeCompletionHandler) {
         completion("replyHandle", nil)
     }
+    
+    func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler) {}
+    func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) {}
 }
 
 private class MockRepliesService: RepliesServiceProtcol {

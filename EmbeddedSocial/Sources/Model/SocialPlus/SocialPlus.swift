@@ -17,6 +17,7 @@ public final class SocialPlus {
     private(set) var coreDataStack: CoreDataStack!
     private(set) var cache: CacheType!
     private(set) var networkTracker: NetworkTrackerType!
+    private(set) var outgoingCacheProcessor: CachedActionsExecuter!
     
     var authorization: Authorization {
         return sessionStore.authorization
@@ -49,6 +50,7 @@ public final class SocialPlus {
         coordinator.setup(launchArguments: args, loginHandler: self)
         
         if sessionStore.isLoggedIn {
+            startOutgoingCacheProcessor()
             coordinator.onSessionCreated(user: sessionStore.user!, sessionToken: sessionStore.sessionToken!)
         } else {
             coordinator.openPopularScreen()
@@ -60,6 +62,17 @@ public final class SocialPlus {
         let builder = CoreDataStackBuilder(model: model)
         coreDataStack = builder.makeStack().value
     }
+    
+    fileprivate func startOutgoingCacheProcessor() {
+        outgoingCacheProcessor = CachedActionsExecuter(cacheAdapter: SocialActionsCacheAdapter(cache: cache),
+                                                       likesService: LikesService())
+        networkTracker.addListener(outgoingCacheProcessor)
+    }
+    
+    fileprivate func finishOutgoingCacheProcessor() {
+        networkTracker.removeListener(outgoingCacheProcessor)
+        outgoingCacheProcessor = nil
+    }
 }
 
 extension SocialPlus: LoginModuleOutput {
@@ -68,6 +81,8 @@ extension SocialPlus: LoginModuleOutput {
         sessionStore.createSession(withUser: user, sessionToken: sessionToken)
         try? sessionStore.saveCurrentSession()
         coordinator.onSessionCreated(user: user, sessionToken: sessionToken)
+        
+        startOutgoingCacheProcessor()
     }
 }
 
