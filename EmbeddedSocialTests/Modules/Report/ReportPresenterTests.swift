@@ -78,6 +78,25 @@ class ReportPresenterTests: XCTestCase {
         XCTAssertTrue(router.openReportSuccess_onDone_Called)
     }
     
+    func testThatItOpensLoginWhenAnonymousUserAttemptsToSubmit() {
+        // given
+        let selectedRow = IndexPath(row: 0, section: 0)
+        interactor.reportReason_forIndexPath_ReturnValue = .contentInfringement
+        myProfileHolder.me = nil
+        
+        // when
+        sut.onRowSelected(at: selectedRow)
+        sut.onSubmit()
+        
+        // then
+        XCTAssertFalse(interactor.submitReport_with_completion_Called)
+        
+        XCTAssertFalse(view.setIsLoading_Called)
+        
+        XCTAssertTrue(router.openLogin_Called)
+        XCTAssertFalse(router.openReportSuccess_onDone_Called)
+    }
+    
     func testThatItShowsErrorWhenItFailsToSubmitReport() {
         // given
         let selectedRow = IndexPath(row: 0, section: 0)

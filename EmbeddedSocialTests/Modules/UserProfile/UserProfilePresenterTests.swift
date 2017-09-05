@@ -239,6 +239,29 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertEqual(view.lastFollowersCount!, 0)
     }
     
+    func testThatItOpensLoginWhenAnonymousUserAttemptsToFollow() {
+        // given
+        let followStatus = FollowStatus.empty
+        let user = User(uid: UUID().uuidString, visibility: ._public, followingStatus: followStatus)
+        interactor.userToReturn = user
+        
+        myProfileHolder.me = nil
+
+        let presenter = makeDefaultPresenter(userID: user.uid)
+        
+        // when
+        presenter.onFollowRequest(currentStatus: followStatus)
+        
+        // then
+        XCTAssertEqual(interactor.socialRequestCount, 0)
+        
+        XCTAssertEqual(router.openLoginCount, 1)
+        
+        XCTAssertNil(view.lastFollowStatus)
+        XCTAssertNil(view.isProcessingFollowRequest)
+        XCTAssertNil(view.lastFollowersCount)
+    }
+    
     func testThatMyMoreMenuIsShown() {
         // given
         let presenter = makeDefaultPresenter()

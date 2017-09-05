@@ -123,6 +123,28 @@ class UserListPresenterTests: XCTestCase {
         XCTAssertEqual(view.updateListItemParams!.1, indexPath)
     }
     
+    func testThatItOpensLoginWhenAnonymousUserSubmitsFollowRequest() {
+        // given
+        let user = User(uid: UUID().uuidString, followerStatus: .empty)
+        let indexPath = IndexPath(row: 0, section: 0)
+        let listItem = UserListItem(user: user, indexPath: indexPath, action: nil)
+        
+        myProfileHolder.me = nil
+        
+        // when
+        sut.onItemAction(item: listItem)
+        
+        // then
+        XCTAssertEqual(router.openLoginCount, 1)
+        
+        XCTAssertEqual(interactor.processSocialRequestCount, 0)
+        
+        XCTAssertNil(view.isLoading)
+        XCTAssertNil(view.isLoadingItemAtParams)
+        
+        XCTAssertEqual(view.updateListItemCount, 0)
+    }
+    
     func testThatItDoesNotUpdateViewAndNotifiesModuleOutputWhenItemActionIsFailed() {
         // given
         let user = User(uid: UUID().uuidString, followerStatus: .empty)
