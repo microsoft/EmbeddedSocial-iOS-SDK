@@ -4,7 +4,7 @@
 //
 
 enum RepliesCellAction {
-    case like, profile
+    case like, profile, toLikes
 }
 
 struct ReplyViewModel {
@@ -93,6 +93,9 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             
         case .profile:
             router.openUser(userHandle: userHandle, from: view as! UIViewController)
+            
+        case .toLikes:
+            router.openLikes(replyHandle: replyHandle!, from: view as! UIViewController)
         }
         
     }

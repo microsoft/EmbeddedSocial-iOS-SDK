@@ -6,32 +6,6 @@
 import XCTest
 @testable import EmbeddedSocial
 
-private class MockLikeSerivce: LikesServiceProtocol {
-    func likeComment(commentHandle: String, completion: @escaping LikesServiceProtocol.CommentCompletionHandler) {
-        completion("commentHandle", nil)
-    }
-    
-    func unlikeComment(commentHandle: String, completion: @escaping LikesServiceProtocol.CompletionHandler) {
-        completion("commentHandle", nil)
-    }
-    
-    func deleteLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
-        
-    }
-    
-    func postLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
-        
-    }
-    
-    func likeReply(replyHandle: String, completion: @escaping LikesServiceProtocol.ReplyLikeCompletionHandler) {
-        
-    }
-    
-    func unlikeReply(replyHandle: String, completion: @escaping LikesServiceProtocol.ReplyLikeCompletionHandler) {
-        
-    }
-}
-
 class CommentCellInteractorTests: XCTestCase {
     
     var output = MockCommentCellPresenter()
@@ -42,7 +16,7 @@ class CommentCellInteractorTests: XCTestCase {
     override func setUp() {
         super.setUp()
         interactor.output = output
-        likeService = MockLikeSerivce()
+        likeService = MockLikesService()
         interactor.likeService = likeService
     }
     

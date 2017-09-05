@@ -22,6 +22,10 @@ protocol LikesServiceProtocol {
     func unlikeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler)
     func getPostLikes(postHandle: String, cursor: String?, limit: Int,
                       completion: @escaping (Result<UsersListResponse>) -> Void)
+    func getCommentLikes(commentHandle: String, cursor: String?, limit: Int,
+                         completion: @escaping (Result<UsersListResponse>) -> Void)
+    func getReplyLikes(replyHandle: String, cursor: String?, limit: Int,
+                       completion: @escaping (Result<UsersListResponse>) -> Void)
 }
 
 //MARK: - Optional methods
@@ -42,6 +46,12 @@ extension LikesServiceProtocol {
     
     func getPostLikes(postHandle: String, cursor: String?, limit: Int,
                       completion: @escaping (Result<UsersListResponse>) -> Void) { }
+    
+    func getCommentLikes(commentHandle: String, cursor: String?, limit: Int,
+                         completion: @escaping (Result<UsersListResponse>) -> Void) {}
+    
+    func getReplyLikes(replyHandle: String, cursor: String?, limit: Int,
+                       completion: @escaping (Result<UsersListResponse>) -> Void) { }
 }
 
 class LikesService: BaseService, LikesServiceProtocol {
@@ -119,6 +129,26 @@ class LikesService: BaseService, LikesServiceProtocol {
         
         let builder = LikesAPI.topicLikesGetLikesWithRequestBuilder(
             topicHandle: postHandle,
+            authorization: authorization,
+            cursor: cursor,
+            limit: Int32(limit))
+        
+        requestExecutor.execute(with: builder, completion: completion)
+    }
+    
+    func getCommentLikes(commentHandle: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        let builder = LikesAPI.commentLikesGetLikesWithRequestBuilder(
+            commentHandle: commentHandle,
+            authorization: authorization,
+            cursor: cursor,
+            limit: Int32(limit))
+        
+        requestExecutor.execute(with: builder, completion: completion)
+    }
+    
+    func getReplyLikes(replyHandle: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        let builder = LikesAPI.replyLikesGetLikesWithRequestBuilder(
+            replyHandle: replyHandle,
             authorization: authorization,
             cursor: cursor,
             limit: Int32(limit))

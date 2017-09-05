@@ -9,4 +9,5 @@ protocol CommentCellRouterInput {
     func openReplies(scrollType: RepliesScrollType, commentModulePresenter: CommentCellModuleProtocol)
     func openUser(userHandle: String)
     func openImage(imageUrl: String)
+    func openLikes(commentHandle: String)
 }

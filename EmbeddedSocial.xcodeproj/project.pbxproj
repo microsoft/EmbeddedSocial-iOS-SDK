@@ -21,6 +21,7 @@
 		5BF55B5B4F8C4029A9C041BB /* CommentCellViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5499D1A370A0D6E3FF47A0FE /* CommentCellViewOutput.swift */; };
 		5CB177D38658E28CE370EB48 /* CommentCellRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61494E4B897730AE4E0BD7AB /* CommentCellRouter.swift */; };
 		63148EA71F41D3EA00407C4B /* RepliesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63148EA61F41D3EA00407C4B /* RepliesService.swift */; };
+		636474821F5EDD2F000D7B3D /* CommentCellInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A94491F5D348D00EB0253 /* CommentCellInteractorTests.swift */; };
 		6387F54D1F41B1D10066628E /* ReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6387F54C1F41B1D10066628E /* ReplyCell.swift */; };
 		6387F54F1F41B1DA0066628E /* ReplyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6387F54E1F41B1DA0066628E /* ReplyCell.xib */; };
 		6387F5531F41B95A0066628E /* CommentReplies.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6387F5521F41B95A0066628E /* CommentReplies.storyboard */; };
@@ -29,7 +30,6 @@
 		639A94401F5D2FE800EB0253 /* MockCommentCellInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A943F1F5D2FE800EB0253 /* MockCommentCellInteractor.swift */; };
 		639A94421F5D2FF600EB0253 /* MockCommentCellRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A94411F5D2FF600EB0253 /* MockCommentCellRouter.swift */; };
 		639A94441F5D300100EB0253 /* MockCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A94431F5D300100EB0253 /* MockCommentCell.swift */; };
-		639A944B1F5D348D00EB0253 /* CommentCellInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A94491F5D348D00EB0253 /* CommentCellInteractorTests.swift */; };
 		639A944C1F5D348D00EB0253 /* CommentCellPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A944A1F5D348D00EB0253 /* CommentCellPresenterTests.swift */; };
 		639A94561F5D83B300EB0253 /* CommentCellInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A94551F5D83B300EB0253 /* CommentCellInteractorOutput.swift */; };
 		639E62241F5050F40030C1F2 /* MockPostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65B01F3E05DA00FE5A3A /* MockPostDetailViewController.swift */; };
@@ -4942,7 +4942,6 @@
 				88F7A7931F278D33005FEC5F /* MockLoginInteractor.swift in Sources */,
 				88635D7B1F22430300577140 /* CoreDataEntititesTests.swift in Sources */,
 				884C9C3A1F4C7DA50004907F /* MockImagesService.swift in Sources */,
-				639A944B1F5D348D00EB0253 /* CommentCellInteractorTests.swift in Sources */,
 				884C9C461F4D9D860004907F /* PredicateTestableItem.swift in Sources */,
 				8811C8AB1F4441D600F7513D /* MockCreateAccountModuleOutput.swift in Sources */,
 				883B9B641F2776E600D1E66E /* Item.swift in Sources */,
@@ -5047,6 +5046,7 @@
 				883B9B661F277BE800D1E66E /* CoreDataStackTests.swift in Sources */,
 				88635D771F223F1600577140 /* CoreDataStackBuilderTests.swift in Sources */,
 				8811C8A81F4435E800F7513D /* MockEmbeddedEditProfileModuleOutput.swift in Sources */,
+				636474821F5EDD2F000D7B3D /* CommentCellInteractorTests.swift in Sources */,
 				9CDDB2051F38870400C46785 /* DateFormatterTests.swift in Sources */,
 				63F8489B1F4AE81F00D434CF /* MockCommentRepliesInteractor.swift in Sources */,
 				889AFC301F220BCD003AAF19 /* NameComponentsSplitterTests.swift in Sources */,

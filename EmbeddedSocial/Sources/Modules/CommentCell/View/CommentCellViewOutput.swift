@@ -12,4 +12,5 @@ protocol CommentCellViewOutput {
     func toReplies(scrollType: RepliesScrollType)
     func avatarPressed()
     func mediaPressed()
+    func likesPressed()
 }

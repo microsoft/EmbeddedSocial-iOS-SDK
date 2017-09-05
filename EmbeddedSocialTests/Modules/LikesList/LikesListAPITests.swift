@@ -14,7 +14,7 @@ class LikesListAPITests: XCTestCase {
         let cursor = UUID().uuidString
         let limit = Int(arc4random() % 100)
         let likesService = MockLikesService()
-        let sut = LikesListAPI(postHandle: postHandle, likesService: likesService)
+        let sut = LikesListAPI(handle: postHandle, type: .post, likesService: likesService)
         
         // when
         sut.getUsersList(cursor: cursor, limit: limit) { _ in () }
@@ -25,5 +25,51 @@ class LikesListAPITests: XCTestCase {
         let args = likesService.getPostLikesPostHandleCursorLimitCompletionReceivedArguments
         XCTAssertEqual(args?.cursor, cursor)
         XCTAssertEqual(args?.limit, limit)
+    }
+    
+    func testThatCallsCorrectLikersForComment() {
+        
+        //given
+        
+        let handle = UUID().uuidString
+        let cursor = UUID().uuidString
+        let limit = Int(arc4random() % 100)
+        let likesService = MockLikesService()
+        let commentApi = LikesListAPI(handle: handle, type: .comment, likesService: likesService)
+        
+        //when
+        
+        commentApi.getUsersList(cursor: cursor, limit: limit) { _ in () }
+        
+        //then
+        
+        XCTAssertTrue(likesService.getCommentsLikesCommentHandleCursorLimitCompletionCalled)
+        
+        let commentArgs = likesService.getCommentsLikesCommentHandleCursorLimitCompletionReceivedArguments
+        XCTAssertEqual(commentArgs?.cursor, cursor)
+        XCTAssertEqual(commentArgs?.limit, limit)
+    }
+    
+    func testThatCallsCorrectLikersForReply() {
+        
+        //given
+        
+        let handle = UUID().uuidString
+        let cursor = UUID().uuidString
+        let limit = Int(arc4random() % 100)
+        let likesService = MockLikesService()
+        let replyApi = LikesListAPI(handle: handle, type: .reply, likesService: likesService)
+        
+        //when
+        
+        replyApi.getUsersList(cursor: cursor, limit: limit) { _ in () }
+        
+        //then
+        
+        XCTAssertTrue(likesService.getReplyLikesReplyHandleCursorLimitCompletionCalled)
+        
+        let replyArgs = likesService.getReplyLikesReplyHandleCursorLimitCompletionReceivedArguments
+        XCTAssertEqual(replyArgs?.cursor, cursor)
+        XCTAssertEqual(replyArgs?.limit, limit)
     }
 }
