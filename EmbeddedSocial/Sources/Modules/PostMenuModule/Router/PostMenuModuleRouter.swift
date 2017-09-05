@@ -7,12 +7,13 @@ protocol PostMenuModuleRouterInput {
     
     func openEdit(post: Post)
     func openReport(postHandle: PostHandle)
-    
+    func openLogin()
 }
 
 class PostMenuModuleRouter: PostMenuModuleRouterInput {
     
     weak var navigationController: UINavigationController?
+    weak var loginOpener: LoginModalOpener?
     
     func openEdit(post: Post) {
         Logger.log(post.topicHandle)
@@ -32,6 +33,10 @@ class PostMenuModuleRouter: PostMenuModuleRouterInput {
         let api = ReportPostAPI(postID: postHandle, reportingService: ReportingService())
         config.configure(api: api, navigationController: navController)
         navigationController?.present(navController, animated: true, completion: nil)
+    }
+    
+    func openLogin() {
+        loginOpener?.openLogin(parentViewController: navigationController)
     }
 
 }

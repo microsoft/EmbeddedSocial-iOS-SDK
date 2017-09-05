@@ -12,20 +12,22 @@ protocol UsersListAPI {
 struct UserListConfigurator {
     
     func configure(api: UsersListAPI,
-                   me: User? = SocialPlus.shared.me,
+                   myProfileHolder: UserHolder = SocialPlus.shared,
                    myProfileOpener: MyProfileOpener? = SocialPlus.shared.coordinator,
+                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator,
                    navigationController: UINavigationController?,
                    output: UserListModuleOutput?) -> UserListModuleInput {
         
         let router = UserListRouter()
         router.navController = navigationController
         router.myProfileOpener = myProfileOpener
+        router.loginOpener = loginOpener
         
         let view = UserListView()
         
         let interactor = UserListInteractor(api: api, socialService: SocialService())
         
-        let presenter = UserListPresenter()
+        let presenter = UserListPresenter(myProfileHolder: myProfileHolder)
         presenter.view = view
         presenter.moduleOutput = output
         presenter.interactor = interactor
@@ -34,7 +36,7 @@ struct UserListConfigurator {
         interactor.output = presenter
         
         view.output = presenter
-        view.dataManager = UserListDataDisplayManager(me: me)
+        view.dataManager = UserListDataDisplayManager(myProfileHolder: myProfileHolder)
         
         return presenter
     }

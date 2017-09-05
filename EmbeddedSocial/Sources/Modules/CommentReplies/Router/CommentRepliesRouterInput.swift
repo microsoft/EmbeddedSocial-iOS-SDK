@@ -7,4 +7,6 @@ import Foundation
 
 protocol CommentRepliesRouterInput {
     func openUser(userHandle: UserHandle, from view: UIViewController)
+    
+    func openLogin(from viewController: UIViewController)
 }

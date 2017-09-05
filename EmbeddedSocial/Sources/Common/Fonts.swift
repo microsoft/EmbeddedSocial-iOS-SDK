@@ -9,6 +9,10 @@ struct Fonts {
     static let small = UIFont.systemFont(ofSize: 12.0)
     static let medium = UIFont.systemFont(ofSize: 14.0)
     static let regular = UIFont.systemFont(ofSize: 16.0)
+    
+    static var systemDefault: UIFont {
+        return UIFont.systemFont(ofSize: UIFont.systemFontSize)
+    }
 }
 
 // swiftlint:disable type_name

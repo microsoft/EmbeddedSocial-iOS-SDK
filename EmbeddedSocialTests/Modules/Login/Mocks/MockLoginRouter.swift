@@ -7,8 +7,13 @@
 
 final class MockLoginRouter: LoginRouterInput {
     private(set) var openCreateAccountCount = 0
-    
+    private(set) var dismissCount = 0
+
     func openCreateAccount(user: User) {
         openCreateAccountCount += 1
+    }
+    
+    func dismiss() {
+        dismissCount += 1
     }
 }

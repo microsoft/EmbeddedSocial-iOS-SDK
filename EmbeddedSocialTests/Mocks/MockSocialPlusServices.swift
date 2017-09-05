@@ -42,4 +42,8 @@ struct MockSocialPlusServices: SocialPlusServicesType {
     func getNetworkTracker() -> NetworkTrackerType {
         return NetworkTracker()
     }
+    
+    func getAuthorizationMulticast() -> AuthorizationMulticastType {
+        return AuthorizationMulticast(authorization: Constants.API.anonymousAuthorization)
+    }
 }

@@ -5,10 +5,15 @@
 
 import Foundation
 
-protocol ReportRouterInput {
-    func openReportSuccess(onDone: (() -> Void)?)
-    
-    func close()
-    
-    func openLogin()
+struct SessionInfo {
+    let user: User
+    let token: String
+    let source: Source
+}
+
+extension SessionInfo {
+    enum Source {
+        case modal
+        case menu
+    }
 }

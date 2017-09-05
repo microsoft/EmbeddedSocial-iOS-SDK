@@ -14,7 +14,7 @@ protocol LogoutController {
 
 struct UnauthorizedErrorHandler: APIErrorHandler {
     private let logoutController: LogoutController
-    
+
     init(logoutController: LogoutController = SocialPlus.shared) {
         self.logoutController = logoutController
     }

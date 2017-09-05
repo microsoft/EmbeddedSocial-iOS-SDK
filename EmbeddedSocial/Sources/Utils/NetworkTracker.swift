@@ -35,7 +35,7 @@ protocol NetworkTrackerType: NetworkStatusMulticast {
  */
 final class NetworkTracker: NetworkTrackerType {
     
-    static let isReachableKey = "ReachabilityService.isReachable"
+    static let isReachableKey = "NetworkTracker.isReachable"
     
     private let listeners = MulticastDelegate<NetworkStatusListener>()
     

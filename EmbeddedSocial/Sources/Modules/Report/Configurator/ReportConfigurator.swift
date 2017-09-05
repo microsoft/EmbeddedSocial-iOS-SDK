@@ -13,13 +13,17 @@ struct ReportConfigurator {
         viewController.title = L10n.Report.screenTitle
     }
     
-    func configure(api: ReportAPI, navigationController: UINavigationController?) {
+    func configure(api: ReportAPI,
+                   navigationController: UINavigationController?,
+                   myProfileHolder: UserHolder = SocialPlus.shared,
+                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
+        
         navigationController?.navigationBar.isTranslucent = false
         
-        let presenter = ReportPresenter()
+        let presenter = ReportPresenter(myProfileHolder: myProfileHolder)
         presenter.view = viewController
         presenter.interactor = ReportInteractor(api: api)
-        presenter.router = ReportRouter(navigationController: navigationController)
+        presenter.router = ReportRouter(navigationController: navigationController, loginOpener: loginOpener)
         
         viewController.output = presenter
     }

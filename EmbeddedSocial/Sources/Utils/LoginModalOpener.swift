@@ -5,10 +5,6 @@
 
 import Foundation
 
-protocol ReportRouterInput {
-    func openReportSuccess(onDone: (() -> Void)?)
-    
-    func close()
-    
-    func openLogin()
+protocol LoginModalOpener: class {
+    func openLogin(parentViewController: UIViewController?)
 }
