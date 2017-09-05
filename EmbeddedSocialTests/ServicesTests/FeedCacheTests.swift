@@ -350,26 +350,42 @@ class FeedCachingTests: XCTestCase {
     func testCachedLikeIncreasesCachedFeedResult() {
         
         // given
-        let feedService = PostServiceMock()
+        let totalLikes = 5
         var post = Post()
         post.liked = false
+        post.totalLikes = totalLikes
+        post.topicHandle = uniqueString()
         
-        feedService.fetchHomeQueryCompletion.posts = [post]
+        var post2 = Post()
+        post2.liked = true
+        post2.totalLikes = totalLikes
+        post2.topicHandle = uniqueString()
         
+        let cacheAdapter = FeedCacheActionsAdapter(cache: cache)
+        let processor = FeedCachePostProcessor(cacheAdapter: cacheAdapter)
         
-        let responseParser: FeedResponseParserProtocol = FeedResponseParser()
+        var feedResult = PostFetchResult()
+        feedResult.posts = [post, post2]
         
-        responseParser.p
+        let feedAction = FeedActionRequestBuilder.build(method: "POST",
+                                                        handle: post.topicHandle,
+                                                        action: .like)
         
-//        let feedCacheAdapter = TopicsService./
-        
+        let feedAction2 = FeedActionRequestBuilder.build(method: "DELETE",
+                                                        handle: post2.topicHandle,
+                                                        action: .like)
         
         // when
-        
-        
+        cacheAdapter.cache(feedAction)
+        cacheAdapter.cache(feedAction2)
+        processor.process(&feedResult)
         
         // then
-
+        XCTAssertTrue(feedResult.posts[0].liked == true)
+        XCTAssertTrue(feedResult.posts[0].totalLikes == totalLikes + 1)
+        
+        XCTAssertTrue(feedResult.posts[1].liked == false)
+        XCTAssertTrue(feedResult.posts[1].totalLikes == totalLikes - 1)
     }
     
     
