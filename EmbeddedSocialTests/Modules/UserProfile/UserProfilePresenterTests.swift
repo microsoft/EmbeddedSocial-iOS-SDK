@@ -89,8 +89,7 @@ class UserProfilePresenterTests: XCTestCase {
         presenter.viewIsReady()
         
         // then
-        validateViewInitialState(with: user, isAnonymous: true)
-        validateFeedInitialState(with: user)
+        validateInitialState(with: user)
         
         XCTAssertEqual(view.layoutAsset, feedInput.layout.nextLayoutAsset)
         
@@ -143,11 +142,10 @@ class UserProfilePresenterTests: XCTestCase {
         validateFeedInitialState(with: user)
     }
     
-    private func validateViewInitialState(with user: User, userIsCached: Bool = false, isAnonymous: Bool = false) {
+    private func validateViewInitialState(with user: User, userIsCached: Bool = false) {
         XCTAssertEqual(view.setupInitialStateCount, 1)
         XCTAssertEqual(view.setUserCount, userIsCached ? 2 : 1)
         XCTAssertEqual(view.lastSetUser, user)
-        XCTAssertEqual(view.setUserIsAnonymous, isAnonymous)
         
         XCTAssertEqual(view.setFollowingCount, userIsCached ? 2 : 1)
         XCTAssertEqual(view.lastFollowingCount, user.followingCount)

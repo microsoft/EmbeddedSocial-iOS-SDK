@@ -10,5 +10,5 @@ protocol ReportRouterInput {
     
     func close()
     
-    func openLoginPopup()
+    func openLogin()
 }

@@ -53,7 +53,7 @@ class LoginViewController: UIViewController, LoginViewInput {
     }
     
     @objc private func onCancel() {
-        
+        output.onCancel()
     }
     
     @IBAction fileprivate func onFacebookSignIn(_ sender: UIButton) {

@@ -11,6 +11,7 @@ class UserListPresenterTests: XCTestCase {
     var moduleOutput: MockUserListModuleOutput!
     var view: MockUserListView!
     var router: MockUserListRouter!
+    var myProfileHolder: MyProfileHolder!
     var sut: UserListPresenter!
     
     private let timeout: TimeInterval = 5.0
@@ -21,8 +22,9 @@ class UserListPresenterTests: XCTestCase {
         view = MockUserListView()
         moduleOutput = MockUserListModuleOutput()
         router = MockUserListRouter()
+        myProfileHolder = MyProfileHolder()
         
-        sut = UserListPresenter()
+        sut = UserListPresenter(myProfileHolder: myProfileHolder)
         sut.interactor = interactor
         sut.view = view
         sut.moduleOutput = moduleOutput
@@ -36,6 +38,7 @@ class UserListPresenterTests: XCTestCase {
         view = nil
         router = nil
         sut = nil
+        myProfileHolder = nil
     }
     
     func testThatItSetsInitialState() {
@@ -96,7 +99,7 @@ class UserListPresenterTests: XCTestCase {
         // given
         let user = User(uid: UUID().uuidString, followerStatus: .empty)
         let indexPath = IndexPath(row: 0, section: 0)
-        let listItem = UserListItem(user: user, isActionButtonHidden: true, indexPath: indexPath, action: nil)
+        let listItem = UserListItem(user: user, indexPath: indexPath, action: nil)
         interactor.socialRequestResult = .success(.empty)
 
         // when
@@ -124,7 +127,7 @@ class UserListPresenterTests: XCTestCase {
         // given
         let user = User(uid: UUID().uuidString, followerStatus: .empty)
         let indexPath = IndexPath(row: 0, section: 0)
-        let listItem = UserListItem(user: user, isActionButtonHidden: true, indexPath: indexPath, action: nil)
+        let listItem = UserListItem(user: user, indexPath: indexPath, action: nil)
         interactor.socialRequestResult = .failure(APIError.unknown)
         
         // when
@@ -243,7 +246,7 @@ class UserListPresenterTests: XCTestCase {
         let creds = CredentialsList(provider: .facebook, accessToken: "", socialUID: "")
         let user = User(credentials: creds)
         let indexPath = IndexPath(row: Int(arc4random() % 100), section: Int(arc4random() % 100))
-        let listItem = UserListItem(user: user, isActionButtonHidden: true, indexPath: indexPath) { _ in
+        let listItem = UserListItem(user: user, indexPath: indexPath) { _ in
             ()
         }
         testThatItOpensProfileWhenItemIsSelected(listItem)
@@ -252,7 +255,7 @@ class UserListPresenterTests: XCTestCase {
     func testThatItOpensUserProfileWhenItemIsSelected() {
         let user = User()
         let indexPath = IndexPath(row: Int(arc4random() % 100), section: Int(arc4random() % 100))
-        let listItem = UserListItem(user: user, isActionButtonHidden: true, indexPath: indexPath) { _ in
+        let listItem = UserListItem(user: user, indexPath: indexPath) { _ in
             ()
         }
         testThatItOpensProfileWhenItemIsSelected(listItem)

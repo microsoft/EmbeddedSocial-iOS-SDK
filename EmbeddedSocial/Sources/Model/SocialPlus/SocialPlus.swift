@@ -28,11 +28,12 @@ public final class SocialPlus {
     }
     
     private init() {
-        serviceProvider = SocialPlusServices()
-        setupServices(with: serviceProvider)
+        setupServices(with: SocialPlusServices())
     }
     
     func setupServices(with serviceProvider: SocialPlusServicesType) {
+        self.serviceProvider = serviceProvider
+        
         let database = SessionStoreDatabaseFacade(services: serviceProvider.getSessionStoreRepositoriesProvider())
         sessionStore = SessionStore(database: database)
         try? sessionStore.loadLastSession()
@@ -40,6 +41,7 @@ public final class SocialPlus {
         coreDataStack = serviceProvider.getCoreDataStack()
         cache = serviceProvider.getCache(coreDataStack: coreDataStack)
         authorizationMulticast = serviceProvider.getAuthorizationMulticast()
+        authorizationMulticast.authorization = sessionStore.authorization
     }
     
     public func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {

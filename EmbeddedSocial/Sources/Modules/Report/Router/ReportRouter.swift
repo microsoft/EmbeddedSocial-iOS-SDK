@@ -25,7 +25,7 @@ final class ReportRouter: ReportRouterInput {
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
-    func openLoginPopup() {
+    func openLogin() {
         loginOpener?.openLogin(parentViewController: navigationController)
     }
 }

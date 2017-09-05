@@ -20,7 +20,7 @@ final class UserListRouter: UserListRouterInput {
         myProfileOpener?.openMyProfile()
     }
     
-    func openLoginPopup() {
+    func openLogin() {
         loginOpener?.openLogin(parentViewController: navController)
     }
 }

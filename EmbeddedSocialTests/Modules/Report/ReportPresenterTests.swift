@@ -10,6 +10,7 @@ class ReportPresenterTests: XCTestCase {
     var router: MockReportRouter!
     var view: MockReportView!
     var interactor: MockReportInteractor!
+    var myProfileHolder: MyProfileHolder!
     var sut: ReportPresenter!
     
     override func setUp() {
@@ -17,8 +18,9 @@ class ReportPresenterTests: XCTestCase {
         router = MockReportRouter()
         view = MockReportView()
         interactor = MockReportInteractor()
+        myProfileHolder = MyProfileHolder()
         
-        sut = ReportPresenter()
+        sut = ReportPresenter(myProfileHolder: myProfileHolder)
         sut.router = router
         sut.view = view
         sut.interactor = interactor
@@ -29,6 +31,7 @@ class ReportPresenterTests: XCTestCase {
         router = nil
         view = nil
         interactor = nil
+        myProfileHolder = nil
         sut = nil
     }
     

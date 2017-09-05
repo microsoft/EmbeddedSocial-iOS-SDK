@@ -52,7 +52,7 @@ extension ReportPresenter: ReportViewOutput {
         }
         
         guard myProfileHolder.me != nil else {
-            router.openLoginPopup()
+            router.openLogin()
             return
         }
         

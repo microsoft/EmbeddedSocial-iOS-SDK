@@ -8,14 +8,17 @@ import XCTest
 
 class CommentRepliesPresenterTests: XCTestCase {
     
-    let presenter = CommentRepliesPresenter()
+    var presenter: CommentRepliesPresenter!
     let interactor = MockCommentRepliesIneractor()
     let view = MockCommentRepliesViewController()
+    var myProfileHolder: MyProfileHolder!
     
     var commentView: CommentViewModel!
     
     override func setUp() {
         super.setUp()
+        myProfileHolder = MyProfileHolder()
+        presenter = CommentRepliesPresenter(myProfileHolder: myProfileHolder)
         commentView  = CommentViewModel()
         let comment = Comment()
         commentView.comment = comment
@@ -34,6 +37,7 @@ class CommentRepliesPresenterTests: XCTestCase {
         interactor.output = nil
         presenter.view = nil
         view.output = nil
+        presenter = nil
     }
     
     func testTharReplyPosted() {

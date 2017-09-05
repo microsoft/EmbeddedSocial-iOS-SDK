@@ -42,7 +42,7 @@ extension UserListPresenter: UserListViewOutput {
     func onItemAction(item: UserListItem) {
         
         guard myProfileHolder.me != nil else {
-            router.openLoginPopup()
+            router.openLogin()
             return
         }
         
