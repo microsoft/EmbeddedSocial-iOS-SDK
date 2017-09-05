@@ -191,16 +191,7 @@ extension CrossModuleCoordinator: LoginModalOpener {
     func openLogin(parentViewController: UIViewController?) {
         let configurator = LoginConfigurator()
         configurator.configure(moduleOutput: loginHandler, source: .modal)
-        let wrappedLoginViewController = loginPopupController(with: configurator.viewController)
-        navigationStack.presentModal(wrappedLoginViewController, parentViewController: parentViewController)
-    }
-    
-    private func loginPopupController(with loginViewController: UIViewController) -> UIViewController {
-        let navController = UINavigationController(rootViewController: loginViewController)
-        let button = UIBarButtonItem(title: L10n.Common.cancel, font: Fonts.systemDefault, color: Palette.defaultTint) {
-            navController.dismiss(animated: true, completion: nil)
-        }
-        navController.navigationBar.topItem?.leftBarButtonItem = button
-        return navController
+        let navController = UINavigationController(rootViewController: configurator.viewController)
+        navigationStack.presentModal(navController, parentViewController: parentViewController)
     }
 }

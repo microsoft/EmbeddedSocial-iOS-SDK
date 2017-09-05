@@ -18,6 +18,13 @@ final class LoginPresenter: LoginViewOutput {
     
     func viewIsReady() {
         view.setupInitialState()
+        if source == .modal {
+            view.addLeftNavigationCancelButton()
+        }
+    }
+    
+    func onCancel() {
+        router.dismiss()
     }
     
     func onFacebookSignInTapped() {

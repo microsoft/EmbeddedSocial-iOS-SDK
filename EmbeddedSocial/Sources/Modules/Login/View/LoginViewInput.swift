@@ -9,4 +9,6 @@ protocol LoginViewInput: class {
     func showError(_ error: Error)
     
     func setIsLoading(_ isLoading: Bool)
+    
+    func addLeftNavigationCancelButton()
 }

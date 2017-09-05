@@ -15,4 +15,6 @@ protocol LoginViewOutput {
     func onTwitterSignInTapped()
     
     func onMicrosoftSignInTapped()
+    
+    func onCancel()
 }
