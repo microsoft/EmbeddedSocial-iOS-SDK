@@ -273,7 +273,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                 completion: @escaping FetchResultHandler) {
         
         guard isNetworkReachable == true else {
-            Logger.log("No internet, using only cache", event: .veryImortant)
+            Logger.log("No internet, using only cache", event: .veryImportant)
             return
         }
         

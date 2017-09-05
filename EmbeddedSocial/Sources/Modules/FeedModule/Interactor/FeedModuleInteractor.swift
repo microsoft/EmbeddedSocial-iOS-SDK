@@ -33,6 +33,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     weak var output: FeedModuleInteractorOutput!
     var postService: PostServiceProtocol!
     var likesService: LikesServiceProtocol = LikesService()
+    var searchService: SearchServiceType!
     weak var userHolder: UserHolder? = SocialPlus.shared
     
     func handleFetch(result: PostFetchResult, feedType: FeedType, isLoadingMore: Bool = false) {

@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct SocialActionRequest: Cacheable {
+struct SocialActionRequest: Cacheable, CustomStringConvertible {
     
     enum ActionType: String {
         case like, pin
@@ -40,6 +40,10 @@ struct SocialActionRequest: Cacheable {
         return dictionary
     }
     
+    var description: String {
+        return "\(actionType) \(actionMethod) \(handle)"
+    }
+    
     var hashKey: String {
         return actionType.rawValue + handle
     }
@@ -66,74 +70,77 @@ struct SocialActionRequest: Cacheable {
     }()
 }
 
-class CachedActionsExecuter {
+class CachedActionsExecuter: NetworkStatusListener {
     
-    let cache: SocialActionsCache
-    var likesService: LikesServiceProtocol
+    private let cacheAdapter: SocialActionsCacheAdapter
+    private let likesService: LikesServiceProtocol
     
-    init(cache: SocialActionsCache, likesService: LikesServiceProtocol = LikesService()) {
-        self.cache = cache
+    init(cacheAdapter: SocialActionsCacheAdapter, likesService: LikesServiceProtocol = LikesService()) {
+        self.cacheAdapter = cacheAdapter
         self.likesService = likesService
+    }
+    
+    func networkStatusDidChange(_ isReachable: Bool) {
+        
+        guard isReachable == true else { return }
+        
+        Logger.log("Connection from now is \(isReachable) \(String(describing: self))", event: .veryImportant)
+        
+        executeAll()
     }
     
     private func onCompletion(_ request: SocialActionRequest, _ error: Error?) {
         guard error == nil else { return }
-        cache.remove(request)
+        Logger.log("Outgoing cached action is sent successfully, \(request)", event: .veryImportant)
+        cacheAdapter.remove(request)
     }
     
     func executeAll() {
-        actionsGroup = DispatchGroup()
-        
-        let actions = cache.getAllCachedActions()
+    
+        let actions = cacheAdapter.getAllCachedActions()
         
         guard actions.count > 0 else { return }
-        
-        Logger.log("Outgoing operations are being executed, \(actions.count) to go", event: .veryImortant)
         
         for action in actions {
             execute(action)
         }
     }
     
-    private var actionsGroup: DispatchGroup?
-    
     func execute(_ action: SocialActionRequest) {
         
         let handle = action.handle
-    
+        
+        Logger.log("Executing outgoing cached action, \(action.actionType) \(action.actionMethod)", event: .veryImportant)
+        
         switch action.actionType {
         case .like:
             if action.actionMethod == .post {
-                actionsGroup?.enter()
+                
                 likesService.postLike(postHandle: handle) { [weak self] handle, error in
                     self?.onCompletion(action, error)
-                    self?.actionsGroup?.leave()
+                    
                 }
             } else {
-                actionsGroup?.enter()
+                
                 likesService.deleteLike(postHandle: handle) { [weak self] handle, error in
                     self?.onCompletion(action, error)
-                    self?.actionsGroup?.leave()
+                    
                 }
             }
         case .pin:
             if action.actionMethod == .post {
-                actionsGroup?.enter()
+                
                 likesService.postPin(postHandle: handle) { [weak self] handle, error in
                     self?.onCompletion(action, error)
-                    self?.actionsGroup?.leave()
+                    
                 }
             } else {
-                actionsGroup?.enter()
+                
                 likesService.deletePin(postHandle: handle) { [weak self] handle, error in
                     self?.onCompletion(action, error)
-                    self?.actionsGroup?.leave()
+                    
                 }
             }
-        }
-        
-        actionsGroup?.notify(queue: DispatchQueue.main) {
-            Logger.log("Outgoing operations are executed", event: .veryImortant)
         }
     }
 }
@@ -159,7 +166,7 @@ class SocialActionRequestBuilder {
     }
 }
 
-class SocialActionsCache {
+class SocialActionsCacheAdapter {
     
     weak var cache: CacheType!
     var predicateBuilder = PredicateBuilder()
@@ -169,7 +176,20 @@ class SocialActionsCache {
     }
     
     func cache(_ request: SocialActionRequest) {
-        cache.cacheOutgoing(request, for: request.hashKey)
+        
+        let oppositeActionPredicate = predicateBuilder.predicate(typeID: request.hashKey)
+        
+        if let cached = cache.firstOutgoing(
+            ofType: SocialActionRequest.self,
+            predicate: oppositeActionPredicate,
+            sortDescriptors: nil) {
+            
+            Logger.log("Removing opposite action \(cached) to \(request)", event: .veryImportant)
+            cache.deleteOutgoing(with: oppositeActionPredicate)
+        } else {
+            Logger.log("Caching action \(request)", event: .veryImportant)
+            cache.cacheOutgoing(request, for: request.hashKey)
+        }
     }
     
     func getAllCachedActions() -> [SocialActionRequest] {
