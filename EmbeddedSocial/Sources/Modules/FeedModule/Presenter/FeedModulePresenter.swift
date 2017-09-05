@@ -94,6 +94,15 @@ extension FeedType: Equatable {
 
 enum FeedPostCellAction: Int {
     case like, pin, comment, extra, profile, photo, likesList
+    
+    var requiresAuthorization: Bool {
+        switch self {
+        case .like, .pin:
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 extension FeedPostCellAction {
@@ -254,6 +263,11 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
 
     func handle(action: FeedPostCellAction, path: IndexPath) {
         
+        guard isUserAuthorizedToPerformAction(action) else {
+            router.open(route: .login, feedSource: feedType!)
+            return
+        }
+        
         let index = path.row
         let postHandle = items[index].topicHandle!
         let userHandle = items[index].userHandle!
@@ -318,6 +332,11 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             router.open(route: .likesList(postHandle: post.topicHandle), feedSource: feedType!)
         }
         
+    }
+    
+    func isUserAuthorizedToPerformAction(_ action: FeedPostCellAction) -> Bool {
+        guard userHolder?.me == nil else { return true }
+        return !action.requiresAuthorization
     }
     
     func numberOfItems() -> Int {

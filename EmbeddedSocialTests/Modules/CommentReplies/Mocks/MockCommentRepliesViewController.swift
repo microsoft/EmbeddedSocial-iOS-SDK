@@ -40,5 +40,8 @@ class MockCommentRepliesViewController: CommentRepliesViewInput {
         reloadTableCount += 1
     }
     
-    
+    var lockUICount = 0
+    func lockUI() {
+        lockUICount += 1
+    }
 }

@@ -9,7 +9,8 @@ final class MockLoginViewInput: LoginViewInput {
     var setupInitialStateCount = 0
     var showErrorCount = 0
     var isLoading: Bool?
-    
+    var addLeftNavigationCancelButtonCount = 0
+
     func setupInitialState() {
         setupInitialStateCount += 1
     }
@@ -20,5 +21,9 @@ final class MockLoginViewInput: LoginViewInput {
     
     func setIsLoading(_ isLoading: Bool) {
         self.isLoading = isLoading
+    }
+    
+    func addLeftNavigationCancelButton() {
+        addLeftNavigationCancelButtonCount += 1
     }
 }

@@ -116,8 +116,8 @@ extension UserProfileViewController: UserProfileViewInput {
     
     func setIsLoadingUser(_ isLoading: Bool) { }
     
-    func setUser(_ user: User, isAnonymous: Bool) {
-        summaryView.configure(user: user, isAnonymous: isAnonymous)
+    func setUser(_ user: User) {
+        summaryView.configure(user: user)
     }
     
     func setFollowStatus(_ followStatus: FollowStatus) {

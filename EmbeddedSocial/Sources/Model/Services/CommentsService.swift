@@ -53,7 +53,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
             cachedResult(createCommentFromRequest(request: outgoingFetchResult.first!))
         } else {
             let cacheRequestForIncoming = CacheFetchRequest(resultType: CommentView.self, predicate: PredicateBuilder().predicate(typeID: requesURLString))
-            cachedResult(convert(data: cache.fetchIncoming(with: cacheRequestForIncoming)).first!)
+            if let comment = convert(data: cache.fetchIncoming(with: cacheRequestForIncoming)).first {
+                cachedResult(comment)
+            }
         }
         
         if isNetworkReachable {

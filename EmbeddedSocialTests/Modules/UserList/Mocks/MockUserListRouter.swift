@@ -20,5 +20,11 @@ final class MockUserListRouter: UserListRouterInput {
     func openMyProfile() {
         openMyProfileCount += 1
     }
+    
+    private(set) var openLoginCount = 0
+
+    func openLogin() {
+        openLoginCount += 1
+    }
 }
 

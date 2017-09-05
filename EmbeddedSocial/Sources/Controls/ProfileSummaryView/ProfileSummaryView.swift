@@ -39,6 +39,7 @@ class ProfileSummaryView: UIView {
             editButton.setTitle(L10n.ProfileSummary.Button.edit, for: .normal)
             editButton.setTitleColor(Palette.green, for: .normal)
             editButton.titleLabel?.font = Fonts.small
+            editButton.isHidden = true
         }
     }
     
@@ -54,6 +55,7 @@ class ProfileSummaryView: UIView {
     @IBOutlet fileprivate weak var followButton: UIButton! {
         didSet {
             followButton.setTitle(nil, for: .normal)
+            followButton.isHidden = true
         }
     }
     
@@ -96,7 +98,7 @@ class ProfileSummaryView: UIView {
         imageView.makeCircular()
     }
     
-    func configure(user: User, isAnonymous: Bool) {
+    func configure(user: User) {
         nameLabel.text = user.fullName
         detailsLabel.text = user.bio ?? L10n.Common.Placeholder.notSpecified
         imageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: .userPhotoPlaceholder))
@@ -104,13 +106,8 @@ class ProfileSummaryView: UIView {
         followersCount = user.followersCount
         followingCount = user.followingCount
         
-        if isAnonymous {
-            editButton.isHidden = true
-            followButton.isHidden = true
-        } else {
-            editButton.isHidden = !user.isMe
-            followButton.isHidden = user.isMe
-        }
+        editButton.isHidden = !user.isMe
+        followButton.isHidden = user.isMe
 
         configure(followStatus: user.followerStatus)
     }

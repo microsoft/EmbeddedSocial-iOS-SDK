@@ -10,6 +10,11 @@ class UserListPresenter {
     var interactor: UserListInteractorInput!
     weak var moduleOutput: UserListModuleOutput?
     var router: UserListRouterInput!
+    fileprivate let myProfileHolder: UserHolder
+    
+    init(myProfileHolder: UserHolder) {
+        self.myProfileHolder = myProfileHolder
+    }
     
     func loadNextPage() {
         interactor.getNextListPage { [weak self] result in
@@ -35,6 +40,12 @@ extension UserListPresenter: UserListInteractorOutput {
 extension UserListPresenter: UserListViewOutput {
     
     func onItemAction(item: UserListItem) {
+        
+        guard myProfileHolder.me != nil else {
+            router.openLogin()
+            return
+        }
+        
         view.setIsLoading(true, itemAt: item.indexPath)
         
         interactor.processSocialRequest(to: item.user) { [weak self] result in

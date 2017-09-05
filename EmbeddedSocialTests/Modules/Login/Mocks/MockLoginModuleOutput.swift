@@ -7,8 +7,10 @@
 
 final class MockLoginModuleOutput: LoginModuleOutput {
     private(set) var onSessionCreatedCount = 0
-    
-    func onSessionCreated(user: User, sessionToken: String) {
+    private(set) var onSessionCreatedInputSessionInfo: SessionInfo?
+
+    func onSessionCreated(with info: SessionInfo) {
         onSessionCreatedCount += 1
+        onSessionCreatedInputSessionInfo = info
     }
 }

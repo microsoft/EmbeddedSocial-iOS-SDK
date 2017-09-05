@@ -21,9 +21,19 @@ protocol SocialPlusServicesType {
     func getCache(coreDataStack: CoreDataStack) -> CacheType
     
     func getNetworkTracker() -> NetworkTrackerType
+    
+    func getAuthorizationMulticast() -> AuthorizationMulticastType
 }
 
-struct SocialPlusServices: SocialPlusServicesType {
+final class SocialPlusServices: SocialPlusServicesType {
+    lazy var networkTracker: NetworkTrackerType = {
+        return NetworkTracker()
+    }()
+    
+    lazy var authorizationMulticast: AuthorizationMulticastType = {
+        return AuthorizationMulticast(authorization: Constants.API.anonymousAuthorization)
+    }()
+    
     func getURLSchemeService() -> URLSchemeServiceType {
         return URLSchemeService()
     }
@@ -56,6 +66,10 @@ struct SocialPlusServices: SocialPlusServicesType {
     }
     
     func getNetworkTracker() -> NetworkTrackerType {
-        return NetworkTracker()
+        return networkTracker
+    }
+
+    func getAuthorizationMulticast() -> AuthorizationMulticastType {
+        return authorizationMulticast
     }
 }

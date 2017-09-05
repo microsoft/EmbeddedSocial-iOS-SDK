@@ -84,7 +84,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         }
     }
     
-    private func lockUI() {
+    func lockUI() {
         view.isUserInteractionEnabled = false
         SVProgressHUD.show()
     }
@@ -95,7 +95,6 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     }
  
     @IBAction func postReply(_ sender: Any) {
-        lockUI()
         output.postReply(text: replyTextView.text)
     }
     

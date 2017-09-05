@@ -7,9 +7,11 @@ import Foundation
 
 final class ReportRouter: ReportRouterInput {
     weak var navigationController: UINavigationController?
+    weak var loginOpener: LoginModalOpener?
     
-    init(navigationController: UINavigationController?) {
+    init(navigationController: UINavigationController?, loginOpener: LoginModalOpener?) {
         self.navigationController = navigationController
+        self.loginOpener = loginOpener
     }
     
     func openReportSuccess(onDone: (() -> Void)?) {
@@ -21,5 +23,9 @@ final class ReportRouter: ReportRouterInput {
     
     func close() {
         navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func openLogin() {
+        loginOpener?.openLogin(parentViewController: navigationController)
     }
 }
