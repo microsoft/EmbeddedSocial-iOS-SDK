@@ -8,7 +8,7 @@ import Foundation
 final class UserListRouter: UserListRouterInput {
     weak var navController: UINavigationController?
     weak var myProfileOpener: MyProfileOpener?
-    weak var loginPopupOpener: LoginPopupOpener?
+    weak var loginOpener: LoginModalOpener?
 
     func openUserProfile(_ userID: String) {
         let configurator = UserProfileConfigurator()
@@ -21,6 +21,6 @@ final class UserListRouter: UserListRouterInput {
     }
     
     func openLoginPopup() {
-        loginPopupOpener?.openLoginPopup()
+        loginOpener?.openLogin(parentViewController: navController)
     }
 }

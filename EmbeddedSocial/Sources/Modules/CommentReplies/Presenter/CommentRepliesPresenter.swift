@@ -47,6 +47,11 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     private var cursor: String?
     private let maxLimit: Int = 10000
     private let normalLimit: Int = 50
+    private let isAnonymous: Bool
+    
+    init(isAnonymous: Bool) {
+        self.isAnonymous = isAnonymous
+    }
     
     //MARK Internal
     private func viewModel(with reply: Reply) -> ReplyViewModel {
@@ -164,6 +169,11 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func postReply(text: String) {
+        guard !isAnonymous else {
+            router.openLogin(from: view as! UIViewController)
+            return
+        }
+        view?.lockUI()
         interactor.postReply(commentHandle: (commentView?.commentHandle)!, text: text)
     }
     

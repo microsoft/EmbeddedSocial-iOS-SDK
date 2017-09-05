@@ -5,6 +5,6 @@
 
 import Foundation
 
-protocol LoginPopupOpener: class {
-    func openLoginPopup()
+protocol LoginModalOpener: class {
+    func openLogin(parentViewController: UIViewController?)
 }

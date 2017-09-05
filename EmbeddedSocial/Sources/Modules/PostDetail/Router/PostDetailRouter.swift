@@ -6,8 +6,8 @@
 import SKPhotoBrowser
 
 class PostDetailRouter: PostDetailRouterInput {
-
-    weak var navigationController: UINavigationController?
+    
+    weak var loginOpener: LoginModalOpener?
     
     func openUser(userHandle: UserHandle, from view: UIViewController) {
         let configurator = UserProfileConfigurator()
@@ -26,7 +26,11 @@ class PostDetailRouter: PostDetailRouterInput {
     func openImage(imageUrl: String, from view: UIViewController) {
         let browser = SKPhotoBrowser(photos: [SKPhoto.photoWithImageURL(imageUrl)])
         browser.initializePageIndex(0)
-        view.present(browser, animated: true, completion: {})
+        view.present(browser, animated: true)
+    }
+    
+    func openLogin(from view: UIViewController) {
+        loginOpener?.openLogin(parentViewController: view.navigationController)
     }
 
 }

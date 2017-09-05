@@ -15,7 +15,7 @@ enum FeedModuleRoutes {
     case profileDetailes(user: UserHandle)
     case myProfile
     case likesList(postHandle: String)
-    case loginPopup
+    case login
 }
 
 extension FeedModuleRoutes: CustomStringConvertible {
@@ -39,7 +39,7 @@ extension FeedModuleRoutes: CustomStringConvertible {
             return "My Profile"
         case .likesList:
             return "Likes List"
-        case .loginPopup:
+        case .login:
             return "Sign in"
         }
     }
@@ -82,7 +82,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
     weak var postMenuModuleOutput: PostMenuModuleOutput!
     weak var moduleInput: FeedModulePresenter!
     weak var myProfileOpener: MyProfileOpener?
-    weak var loginPopupOpener: LoginPopupOpener?
+    weak var loginOpener: LoginModalOpener?
     
     // Keeping ref to menu
     private var postMenuViewController: UIViewController?
@@ -153,8 +153,8 @@ class FeedModuleRouter: FeedModuleRouterInput {
             
             navigationController?.pushViewController(configurator.viewController, animated: true)
             
-        case .loginPopup:
-            loginPopupOpener?.openLoginPopup()
+        case .login:
+            loginOpener?.openLogin(parentViewController: navigationController)
             
         }
     }

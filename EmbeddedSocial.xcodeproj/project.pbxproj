@@ -38,7 +38,7 @@
 		837524BE76C276DF2DA68F21 /* CommentRepliesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03953E1FFCBD39CDB219B8 /* CommentRepliesRouter.swift */; };
 		8807ADF91F5D45CF00DA3FB0 /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7191F29FBAE0090C67A /* CacheTests.swift */; };
 		8807ADFA1F5D45F200DA3FB0 /* CacheableItemDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884C9C431F4D91CF0004907F /* CacheableItemDecoder.swift */; };
-		8807ADFD1F5D905400DA3FB0 /* LoginPopupOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8807ADFC1F5D905400DA3FB0 /* LoginPopupOpener.swift */; };
+		8807ADFD1F5D905400DA3FB0 /* LoginModalOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8807ADFC1F5D905400DA3FB0 /* LoginModalOpener.swift */; };
 		88087B461F2A431E00A33E9A /* ButtonDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88087B451F2A431E00A33E9A /* ButtonDecorator.swift */; };
 		88087B4A1F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88087B491F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift */; };
 		881060F91F28E502008CA2FB /* UIButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881060F81F28E502008CA2FB /* UIButtonStyles.swift */; };
@@ -786,7 +786,7 @@
 		74C6D69159F11B9D4D3F7000 /* CommentRepliesConfigurator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesConfigurator.swift; sourceTree = "<group>"; };
 		7C62BB243EDEFCA43C5601F8 /* CommentRepliesViewInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesViewInput.swift; sourceTree = "<group>"; };
 		82A9B29D2A9521C9BD71D2DB /* Pods-EmbeddedSocialTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmbeddedSocialTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmbeddedSocialTests/Pods-EmbeddedSocialTests.debug.xcconfig"; sourceTree = "<group>"; };
-		8807ADFC1F5D905400DA3FB0 /* LoginPopupOpener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPopupOpener.swift; sourceTree = "<group>"; };
+		8807ADFC1F5D905400DA3FB0 /* LoginModalOpener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModalOpener.swift; sourceTree = "<group>"; };
 		88087B451F2A431E00A33E9A /* ButtonDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonDecorator.swift; sourceTree = "<group>"; };
 		88087B491F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockThirdPartyConfigurator.swift; sourceTree = "<group>"; };
 		881060F81F28E502008CA2FB /* UIButtonStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonStyles.swift; sourceTree = "<group>"; };
@@ -2685,7 +2685,7 @@
 				88580B0F1F2213AB00C1CBAF /* ImageCache.swift */,
 				88580B961F2213AB00C1CBAF /* ImagePicker.swift */,
 				88204FAD1F56E60200E15F5A /* NetworkTracker.swift */,
-				8807ADFC1F5D905400DA3FB0 /* LoginPopupOpener.swift */,
+				8807ADFC1F5D905400DA3FB0 /* LoginModalOpener.swift */,
 				3209330C1F2A50D300890218 /* Logger.swift */,
 				88580B971F2213AB00C1CBAF /* NameComponentsSplitter.swift */,
 				88580B981F2213AB00C1CBAF /* NibLoadable.swift */,
@@ -4914,7 +4914,7 @@
 				9CEA752A1F2A1FAA009FC89D /* PinsService.swift in Sources */,
 				882AD0BE1F221D4400FC20B7 /* CoreDataStackBuilder.swift in Sources */,
 				884AA9541F3C563F00B85135 /* LikesAPI.swift in Sources */,
-				8807ADFD1F5D905400DA3FB0 /* LoginPopupOpener.swift in Sources */,
+				8807ADFD1F5D905400DA3FB0 /* LoginModalOpener.swift in Sources */,
 				884AA9841F3C563F00B85135 /* PostTopicResponse.swift in Sources */,
 				8811C8641F42FDEF00F7513D /* EmbeddedEditProfileDataDisplayManager.swift in Sources */,
 				88580C181F2213AB00C1CBAF /* ImageCache.swift in Sources */,

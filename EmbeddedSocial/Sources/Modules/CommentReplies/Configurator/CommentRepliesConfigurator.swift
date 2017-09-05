@@ -18,13 +18,18 @@ class CommentRepliesModuleConfigurator {
         viewController = StoryboardScene.CommentReplies.instantiateCommentRepliesViewController()
     }
     
-    func configure(commentView: CommentViewModel, scrollType: RepliesScrollType, postDetailsPresenter: PostDetailPresenter?) {
+    func configure(commentView: CommentViewModel,
+                   scrollType: RepliesScrollType,
+                   postDetailsPresenter: PostDetailPresenter?,
+                   isAnonymous: Bool = SocialPlus.shared.me == nil,
+                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
 
         let router = CommentRepliesRouter()
+        router.loginOpener = loginOpener
         
         let repliesService = RepliesService()
 
-        let presenter = CommentRepliesPresenter()
+        let presenter = CommentRepliesPresenter(isAnonymous: isAnonymous)
         presenter.view = viewController
         presenter.router = router
         presenter.commentView = commentView

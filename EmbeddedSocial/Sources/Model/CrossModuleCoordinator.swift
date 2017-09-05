@@ -176,10 +176,10 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
 
 extension CrossModuleCoordinator: MyProfileOpener { }
 
-extension CrossModuleCoordinator: LoginPopupOpener {
+extension CrossModuleCoordinator: LoginModalOpener {
     
-    func openLoginPopup() {
-        navigationStack.navigationController.present(loginPopupController(), animated: true)
+    func openLogin(parentViewController: UIViewController?) {
+        parentViewController?.present(loginPopupController(), animated: true)
     }
     
     private func loginPopupController() -> UIViewController {
@@ -188,7 +188,6 @@ extension CrossModuleCoordinator: LoginPopupOpener {
             navController.dismiss(animated: true, completion: nil)
         }
         navController.navigationBar.topItem?.leftBarButtonItem = button
-        navController.modalPresentationStyle = .overCurrentContext
         return navController
     }
 }

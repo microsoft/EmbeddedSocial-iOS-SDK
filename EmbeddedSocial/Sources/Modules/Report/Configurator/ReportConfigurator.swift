@@ -16,14 +16,14 @@ struct ReportConfigurator {
     func configure(api: ReportAPI,
                    navigationController: UINavigationController?,
                    isAnonymous: Bool = SocialPlus.shared.me == nil,
-                   loginPopupOpener: LoginPopupOpener? = SocialPlus.shared.coordinator) {
+                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
         
         navigationController?.navigationBar.isTranslucent = false
         
         let presenter = ReportPresenter(isAnonymous: isAnonymous)
         presenter.view = viewController
         presenter.interactor = ReportInteractor(api: api)
-        presenter.router = ReportRouter(navigationController: navigationController, loginPopupOpener: loginPopupOpener)
+        presenter.router = ReportRouter(navigationController: navigationController, loginOpener: loginOpener)
         
         viewController.output = presenter
     }

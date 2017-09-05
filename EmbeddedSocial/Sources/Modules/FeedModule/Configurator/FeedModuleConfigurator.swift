@@ -24,13 +24,13 @@ class FeedModuleConfigurator {
     func configure(navigationController: UINavigationController? = nil,
                    moduleOutput: FeedModuleOutput? = nil,
                    myProfileOpener: MyProfileOpener? = SocialPlus.shared.coordinator,
-                   loginPopupOpener: LoginPopupOpener? = SocialPlus.shared.coordinator) {
+                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
         
         let viewController = StoryboardScene.FeedModule.instantiateFeedModuleViewController()
         let router = FeedModuleRouter()
         router.navigationController = navigationController
         router.myProfileOpener = myProfileOpener
-        router.loginPopupOpener = loginPopupOpener
+        router.loginOpener = loginOpener
         
         /*
          let feed = .single(post: "3vErWk4EMrF"))

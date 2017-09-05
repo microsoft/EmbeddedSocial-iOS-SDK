@@ -249,7 +249,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func handle(action: FeedPostCellAction, path: IndexPath) {
         
         guard isUserAuthorizedToPerformAction(action) else {
-            router.open(route: .loginPopup, feedSource: feedType!)
+            router.open(route: .login, feedSource: feedType!)
             return
         }
         

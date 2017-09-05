@@ -12,7 +12,7 @@ final class UserProfileRouter: UserProfileRouterInput {
     weak var followingModuleOutput: FollowingModuleOutput?
     weak var createPostModuleOutput: CreatePostModuleOutput?
     weak var editProfileModuleOutput: EditProfileModuleOutput?
-    weak var loginPopupOpener: LoginPopupOpener?
+    weak var loginOpener: LoginModalOpener?
 
     func openFollowers(user: User) {        
         let api: UsersListAPI = user.isMe ?
@@ -84,7 +84,7 @@ final class UserProfileRouter: UserProfileRouterInput {
         viewController?.navigationController?.popViewController(animated: true)
     }
     
-    func openLoginPopup() {
-        loginPopupOpener?.openLoginPopup()
+    func openLogin() {
+        loginOpener?.openLogin(parentViewController: viewController?.navigationController)
     }
 }

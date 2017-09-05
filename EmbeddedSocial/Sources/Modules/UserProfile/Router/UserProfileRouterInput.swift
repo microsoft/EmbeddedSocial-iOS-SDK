@@ -22,5 +22,5 @@ protocol UserProfileRouterInput {
     
     func popTopScreen()
     
-    func openLoginPopup()
+    func openLogin()
 }
