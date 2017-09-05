@@ -20,9 +20,9 @@ class LikesListAPITests: XCTestCase {
         sut.getUsersList(cursor: cursor, limit: limit) { _ in () }
         
         // then
-        XCTAssertTrue(likesService.getPostLikes_postHandle_cursor_limit_completion_Called)
+        XCTAssertTrue(likesService.getPostLikesPostHandleCursorLimitCompletionCalled)
         
-        let args = likesService.getPostLikes_postHandle_cursor_limit_completion_ReceivedArguments
+        let args = likesService.getPostLikesPostHandleCursorLimitCompletionReceivedArguments
         XCTAssertEqual(args?.cursor, cursor)
         XCTAssertEqual(args?.limit, limit)
     }

@@ -33,7 +33,6 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     weak var output: FeedModuleInteractorOutput!
     var postService: PostServiceProtocol!
     var likesService: LikesServiceProtocol = LikesService()
-    var pinsService: PinsServiceProtocol! = PinsService()
     var searchService: SearchServiceType!
     weak var userHolder: UserHolder? = SocialPlus.shared
     
@@ -166,9 +165,9 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         case .unlike:
             likesService.deleteLike(postHandle: post, completion: completion)
         case .pin:
-            pinsService.postPin(postHandle: post, completion: completion)
+            likesService.postPin(postHandle: post, completion: completion)
         case .unpin:
-            pinsService.deletePin(postHandle: post, completion: completion)
+            likesService.deletePin(postHandle: post, completion: completion)
         }
         
     }
