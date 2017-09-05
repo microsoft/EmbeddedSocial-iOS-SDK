@@ -247,4 +247,7 @@ class FeedCachingTests: XCTestCase {
         XCTAssertTrue(deletePinAction.actionMethod == .delete)
     }
     
+    
+//    func testThat
+    
 }

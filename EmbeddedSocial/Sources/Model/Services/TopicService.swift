@@ -73,7 +73,7 @@ protocol PostServiceProtocol {
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler)
     func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler)
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
-
+    
 }
 
 protocol PostServiceDelegate: class {
@@ -89,7 +89,7 @@ class TopicService: BaseService, PostServiceProtocol {
         super.init()
         self.imagesService = imagesService
     }
-
+    
     init() {
         super.init()
     }
@@ -160,7 +160,6 @@ class TopicService: BaseService, PostServiceProtocol {
                                                               cursor: query.cursor,
                                                               limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
@@ -169,7 +168,6 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                        cursor: query.cursor,
                                                                        limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
@@ -180,7 +178,6 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                          cursor: query.cursorInt(),
                                                                          limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
@@ -190,7 +187,6 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                   cursor: query.cursor,
                                                                   limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
@@ -201,7 +197,6 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                      cursor: query.cursor,
                                                                      limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
@@ -212,7 +207,6 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                             cursor: query.cursorInt(),
                                                                             limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
@@ -243,7 +237,6 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                    cursor: query.cursor,
                                                                    limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
@@ -252,9 +245,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                           cursor: query.cursorInt(),
                                                                           limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
-        
     }
     
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
@@ -272,58 +263,89 @@ class TopicService: BaseService, PostServiceProtocol {
     private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
                                 completion: @escaping FetchResultHandler) {
         
-        guard isNetworkReachable == true else {
-            Logger.log("No internet, using only cache", event: .veryImportant)
-            return
+        let requestCacheKey = requestBuilder.URLString
+        
+        // Lookup in cache
+        if let result = lookupInCache(by: requestCacheKey) {
+            completion(result)
         }
         
-        let requestURL = requestBuilder.URLString
+        guard isNetworkReachable == true else { return }
         
+        // Request execution
         requestBuilder.execute { (response, error) in
-            self.parseResponse(requestURL: requestURL,
-                               response: response?.body,
-                               error: error,
-                               completion: completion)
+            
+            var result = PostFetchResult()
+            
+            self.handleError(error, result: &result)
+            self.cacheResponse(response?.body, cacheKey: requestCacheKey)
+            self.parseResponse(response?.body, into: &result)
+            
+            completion(result)
         }
     }
     
-    private func processCache(with requestBuilder:RequestBuilder<FeedResponseTopicView>,
-                              completion: @escaping FetchResultHandler) {
+    private func cacheResponse(_ response: FeedResponseTopicView?, cacheKey: String) {
         
-        let requestURL = requestBuilder.URLString
+        guard response = response else { return }
         
-        if let cachedResponse = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: requestURL) {
-            self.parseResponse(response: cachedResponse, error: nil, completion: completion)
+        cache.cacheIncoming(response!, for: cacheKey)
+    }
+    
+    private func handleError(_ error: ErrorResponse?, result: inout PostFetchResult) {
+        
+        guard let error = error else { return }
+        
+        if errorHandler.canHandle(error) {
+            errorHandler.handle(error)
+        } else {
+            let message = error.localizedDescription ?? L10n.Error.noItemsReceived
+            result.error = FeedServiceError.failedToFetch(message: message)
         }
     }
     
-    private func parseResponse(requestURL: String? = nil,
-                               response: FeedResponseTopicView?,
-                               error: Error?,
-                               completion: FetchResultHandler) {
+    private func lookupInCache(by cacheKey: String) -> PostFetchResult? {
+        
+        guard let cachedResponse = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: cacheKey) else {
+            return nil
+        }
         
         var result = PostFetchResult()
         
-        guard let response = response else {
-            if errorHandler.canHandle(error) {
-                errorHandler.handle(error)
-            } else {
-                let message = error?.localizedDescription ?? L10n.Error.noItemsReceived
-                result.error = FeedServiceError.failedToFetch(message: message)
-                completion(result)
-            }
-            return
-        }
+        self.parseResponse(cachedResponse, into: &result)
         
-        if let data = response.data {
-            result.posts = data.map(Post.init)
-        }
-        result.cursor = response.cursor
+        return result
+    }
+    
+    let responseParser = ResponseParser()
+    
+    private func parseResponse(_ response: FeedResponseTopicView?, into result: inout PostFetchResult) {
+        responseParser.parse(response, into: &result)
+    }
+    
+    class CachedFeedPostProcessor {
         
-        completion(result)
-        
-        if let requestURL = requestURL {
-            cache.cacheIncoming(response, for: requestURL)
+        func process(_ feed: inout PostFetchResult) {
+            
         }
     }
+    
+    class ResponseParser {
+        
+        let postProcessor = CachedFeedPostProcessor()
+        
+        func parse(_ response: FeedResponseTopicView?, into result: inout PostFetchResult) {
+            
+            guard let response = response else { return }
+            
+            if let data = response.data {
+                result.posts = data.map(Post.init)
+            }
+            result.cursor = response.cursor
+            
+            postProcessor.process(&result)
+        }
+    }
+    
 }
+

@@ -11,7 +11,6 @@ class Loop: UITestBase {
     
     override func setUp() {
         super.setUp()
-        
     }
     
     override func tearDown() {
