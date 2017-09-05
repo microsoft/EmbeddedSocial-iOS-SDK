@@ -6,78 +6,6 @@
 import XCTest
 @testable import EmbeddedSocial
 
-private class PostServiceMock: PostServiceProtocol {
-    
-    var fetchPopularIsCalled = false
-    var fetchPopularQuery: PopularFeedQuery?
-    
-    var fetchHomeIsCalled = false
-    var fetchHomeQuery: FeedQuery?
-    
-    var fetchRecentIsCalled = false
-    var fetchRecentQuery: FeedQuery?
-    
-    var fetchRecentForUserIsCalled = false
-    var fetchRecentForUserQuery: UserFeedQuery?
-    
-    var fetchPopularForUserIsCalled = false
-    var fetchPopularForUserQuery: UserFeedQuery?
-    
-    var fetchPostIsCalled = false
-    var fetchPostHandle: PostHandle?
-    
-    var fetchedMyPostsQuery: FeedQuery?
-    var fetchedMyPopularQuery: FeedQuery?
-    
-    func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        fetchHomeIsCalled = true
-        fetchHomeQuery = query
-    }
-    
-    func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
-        fetchPopularIsCalled = true
-        fetchPopularQuery = query
-    }
-    
-    func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        fetchRecentIsCalled = true
-        fetchRecentQuery = query
-    }
-    
-    func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        fetchRecentForUserIsCalled = true
-        fetchRecentForUserQuery = query
-    }
-    
-    func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        fetchPopularForUserIsCalled = true
-        fetchPopularForUserQuery = query
-    }
-    
-    func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        fetchPostIsCalled = true
-        fetchPostHandle = post
-    }
-    
-    func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        fetchedMyPostsQuery = query
-    }
-    
-    func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        fetchedMyPopularQuery = query
-    }
-    
-    func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        
-    }
-}
-
-extension PostServiceMock {
-    
-    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) { }
-
-}
-
 class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
     
     var sut: FeedModuleInteractor!
@@ -112,28 +40,32 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         
         // given
         let feedType = FeedType.recent
+        let limit = Int32(5)
+        let cursor = uniqueString()
         
         // when
-        sut.fetchPosts(limit: 5, cursor: "cursor", feedType: feedType)
+        sut.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
         
         // then
-        XCTAssertTrue(postService.fetchRecentIsCalled)
-        XCTAssertTrue(postService.fetchRecentQuery?.limit == 5)
-        XCTAssertTrue(postService.fetchRecentQuery?.cursor == "cursor")
+        XCTAssertTrue(postService.fetchRecentQueryCompletionCalled)
+        XCTAssertTrue(postService.fetchRecentQueryCompletionReceivedArguments?.query.limit == limit)
+        XCTAssertTrue(postService.fetchRecentQueryCompletionReceivedArguments?.query.cursor == cursor)
     }
     
     func testThatHomeFeedFetchRequestIsValid() {
         
         // given
         let feedType = FeedType.home
+        let cursor = uniqueString()
+        let limit = Int32(5)
         
         // when
-        sut.fetchPosts(limit: 5, cursor: "cursor", feedType: feedType)
+        sut.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
         
         // then
-        XCTAssertTrue(postService.fetchHomeIsCalled)
-        XCTAssertTrue(postService.fetchHomeQuery?.limit == 5)
-        XCTAssertTrue(postService.fetchHomeQuery?.cursor == "cursor")
+        XCTAssertTrue(postService.fetchHomeQueryCompletionCalled)
+        XCTAssertTrue(postService.fetchHomeQueryCompletionReceivedArguments?.query.limit == limit)
+        XCTAssertTrue(postService.fetchHomeQueryCompletionReceivedArguments?.query.cursor == cursor)
     }
     
     
@@ -141,57 +73,65 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         
         // given
         let feedType = FeedType.popular(type: .today)
+        let cursor = uniqueString()
         
         // when
-        sut.fetchPosts(limit: 5, cursor: "10", feedType: feedType)
+        sut.fetchPosts(limit: 5, cursor: cursor, feedType: feedType)
         
         // then
-        XCTAssertTrue(postService.fetchPopularIsCalled)
-        XCTAssertTrue(postService.fetchPopularQuery?.timeRange == .today )
-        XCTAssertTrue(postService.fetchPopularQuery?.cursor == "10")
-        XCTAssertTrue(postService.fetchPopularQuery?.limit == 5)
+        XCTAssertTrue(postService.fetchPopularQueryCompletionCalled)
+        XCTAssertTrue(postService.fetchPopularQueryCompletionReceivedArguments?.query.timeRange == .today )
+        XCTAssertTrue(postService.fetchPopularQueryCompletionReceivedArguments?.query.cursor == cursor)
+        XCTAssertTrue(postService.fetchPopularQueryCompletionReceivedArguments?.query.limit == 5)
     }
     
     func testThatSinglePostFetchFeedRequestIsValid() {
         
         // given
-        let feedType = FeedType.single(post: "handle")
+        let handle = uniqueString()
+        let feedType = FeedType.single(post: handle)
         
         // when
         sut.fetchPosts(feedType: feedType)
         
         // then
-        XCTAssertTrue(postService.fetchPostHandle == "handle")
+        XCTAssertTrue(postService.fetchPostPostCompletionReceivedArguments?.post == handle)
     }
     
     func testThatUserRecentFeedFetchRequestIsValid() {
         
         // given
-        let feedType = FeedType.user(user: "user", scope: .recent)
+        let user = uniqueString()
+        let feedType = FeedType.user(user: user, scope: .recent)
+        let cursor = uniqueString()
         
         // when
-        sut.fetchPosts(limit: 20, cursor: "cursor", feedType: feedType)
+        sut.fetchPosts(limit: 20, cursor: cursor, feedType: feedType)
         
         // then
-        XCTAssertTrue(postService.fetchRecentForUserIsCalled)
-        XCTAssertTrue(postService.fetchRecentForUserQuery?.limit == 20)
-        XCTAssertTrue(postService.fetchRecentForUserQuery?.user == "user")
-        XCTAssertTrue(postService.fetchRecentForUserQuery?.cursor == "cursor")
+        XCTAssertTrue(postService.fetchUserRecentQueryCompletionCalled)
+        XCTAssertTrue(postService.fetchUserRecentQueryCompletionReceivedArguments?.query.limit == 20)
+        XCTAssertTrue(postService.fetchUserRecentQueryCompletionReceivedArguments?.query.user == user)
+        XCTAssertTrue(postService.fetchUserRecentQueryCompletionReceivedArguments?.query.cursor == cursor)
     }
     
     func testThatUserPopularFeedFetchRequestIsValid() {
         
         // given
-        let feedType = FeedType.user(user: "user", scope: .popular)
+        
+        let cursor = uniqueString()
+        let user = uniqueString()
+        let limit = Int32(20)
+        let feedType = FeedType.user(user: user, scope: .popular)
         
         // when
-        sut.fetchPosts(limit: 20, cursor: "cursor", feedType: feedType)
+        sut.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
         
         // then
-        XCTAssertTrue(postService.fetchPopularForUserIsCalled)
-        XCTAssertTrue(postService.fetchPopularForUserQuery?.limit == 20)
-        XCTAssertTrue(postService.fetchPopularForUserQuery?.user == "user")
-        XCTAssertTrue(postService.fetchPopularForUserQuery?.cursor == "cursor")
+        XCTAssertTrue(postService.fetchUserPopularQueryCompletionCalled)
+        XCTAssertTrue(postService.fetchUserPopularQueryCompletionReceivedArguments?.query.limit == limit)
+        XCTAssertTrue(postService.fetchUserPopularQueryCompletionReceivedArguments?.query.user == user)
+        XCTAssertTrue(postService.fetchUserPopularQueryCompletionReceivedArguments?.query.cursor == cursor)
     }
     
     func testThatMyPopularRequestIsCalled() {
@@ -208,9 +148,9 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         sut.fetchPosts(limit: limit, cursor: cursor, feedType: feed)
         
         // then
-        XCTAssertNotNil(postService.fetchedMyPopularQuery)
-        XCTAssert(postService.fetchedMyPopularQuery?.cursor == cursor)
-        XCTAssert(postService.fetchedMyPopularQuery?.limit == limit)
+        XCTAssert(postService.fetchMyPopularQueryCompletionCalled)
+        XCTAssert(postService.fetchMyPopularQueryCompletionReceivedArguments?.query.cursor == cursor)
+        XCTAssert(postService.fetchMyPopularQueryCompletionReceivedArguments?.query.limit == limit)
     }
     
     func testThatMyPostsRequestIsCalled() {
@@ -227,9 +167,9 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         sut.fetchPosts(limit: limit, cursor: cursor, feedType: feed)
         
         // then
-        XCTAssertNotNil(postService.fetchedMyPostsQuery)
-        XCTAssert(postService.fetchedMyPostsQuery?.cursor == cursor)
-        XCTAssert(postService.fetchedMyPostsQuery?.limit == limit)
+        XCTAssertTrue(postService.fetchMyPostsQueryCompletionCalled)
+        XCTAssert(postService.fetchMyPostsQueryCompletionReceivedArguments?.query.cursor == cursor)
+        XCTAssert(postService.fetchMyPostsQueryCompletionReceivedArguments?.query.limit == limit)
     }
 
 }
