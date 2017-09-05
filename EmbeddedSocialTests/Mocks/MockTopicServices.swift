@@ -5,96 +5,106 @@
 
 @testable import EmbeddedSocial
 
-class PostServiceProtocolMock: PostServiceProtocol {
+class PostServiceMock: PostServiceProtocol {
     
     //MARK: - fetchHome
     
-    var fetchHome_query_completion_Called = false
-    var fetchHome_query_completion_ReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
+    var fetchHomeQueryCompletionCalled = false
+    var fetchHomeQueryCompletionReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
     
     func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        fetchHome_query_completion_Called = true
-        fetchHome_query_completion_ReceivedArguments = (query: query, completion: completion)
+        fetchHomeQueryCompletionCalled = true
+        fetchHomeQueryCompletionReceivedArguments = (query: query, completion: completion)
     }
     
     //MARK: - fetchPopular
     
-    var fetchPopular_query_completion_Called = false
-    var fetchPopular_query_completion_ReceivedArguments: (query: PopularFeedQuery, completion: FetchResultHandler)?
+    var fetchPopularQueryCompletionCalled = false
+    var fetchPopularQueryCompletionReceivedArguments: (query: PopularFeedQuery, completion: FetchResultHandler)?
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
-        fetchPopular_query_completion_Called = true
-        fetchPopular_query_completion_ReceivedArguments = (query: query, completion: completion)
+        fetchPopularQueryCompletionCalled = true
+        fetchPopularQueryCompletionReceivedArguments = (query: query, completion: completion)
     }
     
     //MARK: - fetchRecent
     
-    var fetchRecent_query_completion_Called = false
-    var fetchRecent_query_completion_ReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
+    var fetchRecentQueryCompletionCalled = false
+    var fetchRecentQueryCompletionReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
     
     func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        fetchRecent_query_completion_Called = true
-        fetchRecent_query_completion_ReceivedArguments = (query: query, completion: completion)
+        fetchRecentQueryCompletionCalled = true
+        fetchRecentQueryCompletionReceivedArguments = (query: query, completion: completion)
     }
     
-    //MARK: - fetchRecent
+    //MARK: - fetchUserRecent
     
-    var fetchRecent_query_completion_Called = false
-    var fetchRecent_query_completion_ReceivedArguments: (query: UserFeedQuery, completion: FetchResultHandler)?
+    var fetchUserRecentQueryCompletionCalled = false
+    var fetchUserRecentQueryCompletionReceivedArguments: (query: UserFeedQuery, completion: FetchResultHandler)?
     
-    func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        fetchRecent_query_completion_Called = true
-        fetchRecent_query_completion_ReceivedArguments = (query: query, completion: completion)
+    func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
+        fetchUserRecentQueryCompletionCalled = true
+        fetchUserRecentQueryCompletionReceivedArguments = (query: query, completion: completion)
     }
     
-    //MARK: - fetchPopular
+    //MARK: - fetchUserPopular
     
-    var fetchPopular_query_completion_Called = false
-    var fetchPopular_query_completion_ReceivedArguments: (query: UserFeedQuery, completion: FetchResultHandler)?
+    var fetchUserPopularQueryCompletionCalled = false
+    var fetchUserPopularQueryCompletionReceivedArguments: (query: UserFeedQuery, completion: FetchResultHandler)?
     
-    func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        fetchPopular_query_completion_Called = true
-        fetchPopular_query_completion_ReceivedArguments = (query: query, completion: completion)
+    func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
+        fetchUserPopularQueryCompletionCalled = true
+        fetchUserPopularQueryCompletionReceivedArguments = (query: query, completion: completion)
     }
     
     //MARK: - fetchPost
     
-    var fetchPost_post_completion_Called = false
-    var fetchPost_post_completion_ReceivedArguments: (post: PostHandle, completion: FetchResultHandler)?
+    var fetchPostPostCompletionCalled = false
+    var fetchPostPostCompletionReceivedArguments: (post: PostHandle, completion: FetchResultHandler)?
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        fetchPost_post_completion_Called = true
-        fetchPost_post_completion_ReceivedArguments = (post: post, completion: completion)
+        fetchPostPostCompletionCalled = true
+        fetchPostPostCompletionReceivedArguments = (post: post, completion: completion)
     }
     
     //MARK: - fetchMyPosts
     
-    var fetchMyPosts_query_completion_Called = false
-    var fetchMyPosts_query_completion_ReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
+    var fetchMyPostsQueryCompletionCalled = false
+    var fetchMyPostsQueryCompletionReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
     
     func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        fetchMyPosts_query_completion_Called = true
-        fetchMyPosts_query_completion_ReceivedArguments = (query: query, completion: completion)
+        fetchMyPostsQueryCompletionCalled = true
+        fetchMyPostsQueryCompletionReceivedArguments = (query: query, completion: completion)
     }
     
     //MARK: - fetchMyPopular
     
-    var fetchMyPopular_query_completion_Called = false
-    var fetchMyPopular_query_completion_ReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
+    var fetchMyPopularQueryCompletionCalled = false
+    var fetchMyPopularQueryCompletionReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
     
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        fetchMyPopular_query_completion_Called = true
-        fetchMyPopular_query_completion_ReceivedArguments = (query: query, completion: completion)
+        fetchMyPopularQueryCompletionCalled = true
+        fetchMyPopularQueryCompletionReceivedArguments = (query: query, completion: completion)
+    }
+    
+    //MARK: - fetchMyPins
+    
+    var fetchMyPinsQueryCompletionCalled = false
+    var fetchMyPinsQueryCompletionReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
+    
+    func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler) {
+        fetchMyPinsQueryCompletionCalled = true
+        fetchMyPinsQueryCompletionReceivedArguments = (query: query, completion: completion)
     }
     
     //MARK: - deletePost
     
-    var deletePost_post_completion_Called = false
-    var deletePost_post_completion_ReceivedArguments: (post: PostHandle, completion: (Result<Void>) -> Void)?
+    var deletePostPostCompletionCalled = false
+    var deletePostPostCompletionReceivedArguments: (post: PostHandle, completion: (Result<Void>) -> Void)?
     
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
-        deletePost_post_completion_Called = true
-        deletePost_post_completion_ReceivedArguments = (post: post, completion: completion)
+        deletePostPostCompletionCalled = true
+        deletePostPostCompletionReceivedArguments = (post: post, completion: completion)
     }
     
 }

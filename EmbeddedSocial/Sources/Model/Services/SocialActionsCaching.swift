@@ -11,7 +11,7 @@ struct SocialActionRequest: Cacheable, Hashable, CustomStringConvertible {
         case like, pin
     }
     
-    enum ActionMethod: String, Equatable {
+    enum ActionMethod: String {
         case post, delete
         
         func isIncreasing() -> Bool {

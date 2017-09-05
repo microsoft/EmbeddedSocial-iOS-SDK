@@ -44,12 +44,12 @@ private class PostServiceMock: PostServiceProtocol {
         fetchRecentQuery = query
     }
     
-    func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
         fetchRecentForUserIsCalled = true
         fetchRecentForUserQuery = query
     }
     
-    func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
         fetchPopularForUserIsCalled = true
         fetchPopularForUserQuery = query
     }

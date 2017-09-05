@@ -345,6 +345,13 @@ class FeedCachingTests: XCTestCase {
         XCTAssertTrue(deletePinAction.actionMethod == .delete)
     }
     
+    func testCachedLikeIncreasesCachedFeedResult() {
+        
+        let feedService = PostServiceMock()
+        
+        
+    }
+    
     
 //    func testThat
     

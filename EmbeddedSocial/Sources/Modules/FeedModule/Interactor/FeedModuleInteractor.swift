@@ -121,11 +121,11 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
                 
                 switch scope {
                 case .popular:
-                    postService.fetchPopular(query: query) { [weak self] result in
+                    postService.fetchUserPopular(query: query) { [weak self] result in
                         self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
                     }
                 case .recent:
-                    postService.fetchRecent(query: query) { [weak self] result in
+                    postService.fetchUserRecent(query: query) { [weak self] result in
                         self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
                     }
                 }
