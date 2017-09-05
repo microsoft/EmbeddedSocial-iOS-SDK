@@ -5,16 +5,32 @@
 
 import Foundation
 
+enum LikesObject {
+    case post
+    case comment
+    case reply
+}
+
 struct LikesListAPI: UsersListAPI {
     private let likesService: LikesServiceProtocol
-    private let postHandle: String
+    private let handle: String
+    private let type: LikesObject
 
-    init(postHandle: String, likesService: LikesServiceProtocol) {
+    init(handle: String, type: LikesObject , likesService: LikesServiceProtocol) {
         self.likesService = likesService
-        self.postHandle = postHandle
+        self.handle = handle
+        self.type = type
     }
     
     func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        likesService.getPostLikes(postHandle: postHandle, cursor: cursor, limit: limit, completion: completion)
+        switch type {
+        case .post:
+            likesService.getPostLikes(postHandle: handle, cursor: cursor, limit: limit, completion: completion)
+        case .comment:
+            likesService.getCommentLikes(commentHandle: handle, cursor: cursor, limit: limit, completion: completion)
+        case .reply:
+            likesService.getReplyLikes(replyHandle: handle, cursor: cursor, limit: limit, completion: completion)
+        }
+        
     }
 }

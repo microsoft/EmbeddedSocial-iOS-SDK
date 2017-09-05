@@ -29,4 +29,10 @@ class CommentCellRouter: CommentCellRouterInput {
         
         navigationController?.present(browser, animated: true, completion: {})
     }
+    
+    func openLikes(commentHandle: String) {
+        let configurator = LikesListConfigurator()
+        configurator.configure(handle: commentHandle, type: .comment, navigationController: navigationController)
+        navigationController?.pushViewController(configurator.viewController, animated: true)
+    }
 }

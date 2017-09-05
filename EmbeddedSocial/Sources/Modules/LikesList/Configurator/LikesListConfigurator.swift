@@ -14,12 +14,12 @@ struct LikesListConfigurator {
         viewController.title = L10n.LikesList.screenTitle
     }
     
-    func configure(postHandle: String, navigationController: UINavigationController?) {
+    func configure(handle: String, type: LikesObject, navigationController: UINavigationController?) {
         let presenter = LikesListPresenter()
         presenter.view = viewController
         presenter.interactor = LikesListInteractor()
         
-        let api = LikesListAPI(postHandle: postHandle, likesService: LikesService())
+        let api = LikesListAPI(handle: handle, type: type, likesService: LikesService())
         presenter.usersListModule = UserListConfigurator().configure(api: api,
                                                                      navigationController: navigationController,
                                                                      output: presenter)

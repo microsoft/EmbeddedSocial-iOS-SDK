@@ -50,6 +50,10 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
         router?.openUser(userHandle: handle)
     }
     
+    func likesPressed() {
+        router?.openLikes(commentHandle: comment.commentHandle)
+    }
+    
     func mediaPressed() {
         guard let mediaURL = comment.mediaUrl else {
             return

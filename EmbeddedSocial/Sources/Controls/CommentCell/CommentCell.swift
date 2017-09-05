@@ -77,6 +77,11 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         return CGSize(width: UIScreen.main.bounds.size.width, height: self.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)
     }
     
+
+    @IBAction func likesButtonPressed(_ sender: Any) {
+        output.likesPressed()
+    }
+    
     @IBAction private func commentOptionsPressed(_ sender: Any) {
     }
     
