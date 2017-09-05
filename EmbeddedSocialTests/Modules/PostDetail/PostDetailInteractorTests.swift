@@ -15,11 +15,11 @@ private class MockLikeSerivce: LikesServiceProtocol {
         completion("commentHandle", nil)
     }
     
-    func deleteLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
+    func deleteLike(postHandle: PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
         
     }
     
-    func postLike(postHandle: LikesServiceProtocol.PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
+    func postLike(postHandle: PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
         
     }
     
@@ -30,6 +30,9 @@ private class MockLikeSerivce: LikesServiceProtocol {
     func unlikeReply(replyHandle: String, completion: @escaping LikesServiceProtocol.ReplyLikeCompletionHandler) {
         
     }
+    
+    func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler) { }
+    func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) { }
 }
 
 private class MockTopicService: PostServiceProtocol {
@@ -39,20 +42,20 @@ private class MockTopicService: PostServiceProtocol {
         completion(result)
     }
     
-    func fetchMyPins(query: MyPinsFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler) {
         
     }
 }
 
 extension MockTopicService {
     
-    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {}
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {}
-    func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {}
     func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {}
     func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {}
-    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {}
-    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {}
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {}
 
 }

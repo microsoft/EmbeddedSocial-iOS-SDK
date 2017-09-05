@@ -98,9 +98,23 @@ struct PostsFeed {
 
 // MARK: PostsFetchResult
 struct PostFetchResult {
-    var posts: [Post] = [Post]()
+    var posts: [Post] = []
     var error: FeedServiceError?
-    var cursor: String? = nil
+    var cursor: String?
+}
+
+extension PostFetchResult {
+    init(response: FeedResponseTopicView?) {
+        posts = response?.data?.map(Post.init) ?? []
+        error = nil
+        cursor = response?.cursor
+    }
+    
+    init(error: Error) {
+        self.error = FeedServiceError.failedToFetch(message: error.localizedDescription)
+        posts = []
+        cursor = nil
+    }
 }
 
 extension PostFetchResult {

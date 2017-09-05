@@ -6,14 +6,26 @@
 @testable import EmbeddedSocial
 
 class MockSearchService: SearchServiceType {
-    var queryResult: Result<UsersListResponse>?
+    var queryUsersResult: Result<UsersListResponse>?
     private(set) var queryUsersCount = 0
-    private(set) var lastQuery: String?
+    private(set) var queryUsersInputValues: (query: String, cursor: String?, limit: Int)?
     
     func queryUsers(query: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         queryUsersCount += 1
-        lastQuery = query
-        if let result = queryResult {
+        queryUsersInputValues = (query, cursor, limit)
+        if let result = queryUsersResult {
+            completion(result)
+        }
+    }
+    
+    var queryTopicsResult: Result<PostFetchResult>?
+    private(set) var queryTopicsCount = 0
+    private(set) var queryTopicsInputValues: (query: String, cursor: String?, limit: Int)?
+    
+    func queryTopics(query: String, cursor: String?, limit: Int, completion: @escaping (Result<PostFetchResult>) -> Void) {
+        queryTopicsCount += 1
+        queryTopicsInputValues = (query, cursor, limit)
+        if let result = queryTopicsResult {
             completion(result)
         }
     }

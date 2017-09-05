@@ -23,8 +23,8 @@ class PostCellCompact: UICollectionViewCell, PostCellProtocol {
         return UIImage(asset: Asset.placeholderPostNoimage)
     }()
     
-    func indexPath() -> IndexPath {
-        return collectionView.indexPath(for: self)!
+    func indexPath() -> IndexPath? {
+        return collectionView.indexPath(for: self)
     }
     
     override func awakeFromNib() {

@@ -143,7 +143,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
         
         let callback = { [weak self] (result: Result<Void>) in
             let status = FollowStatus.reduce(status: followStatus, visibility: self?.user?.visibility ?? ._public)
-            self?.processSocialResponse(result.map { _ in status })
+            self?.processSocialResponse(result.map { status })
         }
         
         interactor.processSocialRequest(currentFollowStatus: followStatus, userID: userID, completion: callback)

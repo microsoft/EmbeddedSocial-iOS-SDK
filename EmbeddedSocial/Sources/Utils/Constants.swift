@@ -52,6 +52,10 @@ extension Constants {
             static let initialFeedScope = FeedType.TimeRange.alltime
         }
     }
+    
+    struct Search {
+        static let filterHeight: CGFloat = 44.0
+    }
 }
 
 extension Constants {

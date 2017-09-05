@@ -10,9 +10,9 @@ class PostServiceProtocolMock: PostServiceProtocol {
     //MARK: - fetchHome
     
     var fetchHome_query_completion_Called = false
-    var fetchHome_query_completion_ReceivedArguments: (query: HomeFeedQuery, completion: FetchResultHandler)?
+    var fetchHome_query_completion_ReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
     
-    func fetchHome(query: HomeFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {
         fetchHome_query_completion_Called = true
         fetchHome_query_completion_ReceivedArguments = (query: query, completion: completion)
     }
@@ -30,9 +30,9 @@ class PostServiceProtocolMock: PostServiceProtocol {
     //MARK: - fetchRecent
     
     var fetchRecent_query_completion_Called = false
-    var fetchRecent_query_completion_ReceivedArguments: (query: RecentFeedQuery, completion: FetchResultHandler)?
+    var fetchRecent_query_completion_ReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
     
-    func fetchRecent(query: RecentFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {
         fetchRecent_query_completion_Called = true
         fetchRecent_query_completion_ReceivedArguments = (query: query, completion: completion)
     }
@@ -70,9 +70,9 @@ class PostServiceProtocolMock: PostServiceProtocol {
     //MARK: - fetchMyPosts
     
     var fetchMyPosts_query_completion_Called = false
-    var fetchMyPosts_query_completion_ReceivedArguments: (query: MyFeedQuery, completion: FetchResultHandler)?
+    var fetchMyPosts_query_completion_ReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
     
-    func fetchMyPosts(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {
         fetchMyPosts_query_completion_Called = true
         fetchMyPosts_query_completion_ReceivedArguments = (query: query, completion: completion)
     }
@@ -80,9 +80,9 @@ class PostServiceProtocolMock: PostServiceProtocol {
     //MARK: - fetchMyPopular
     
     var fetchMyPopular_query_completion_Called = false
-    var fetchMyPopular_query_completion_ReceivedArguments: (query: MyFeedQuery, completion: FetchResultHandler)?
+    var fetchMyPopular_query_completion_ReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
     
-    func fetchMyPopular(query: MyFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {
         fetchMyPopular_query_completion_Called = true
         fetchMyPopular_query_completion_ReceivedArguments = (query: query, completion: completion)
     }

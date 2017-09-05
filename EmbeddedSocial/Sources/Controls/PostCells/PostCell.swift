@@ -35,8 +35,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     var usedInThirdPartModule = false
     
-    func indexPath() -> IndexPath {
-        return collectionView.indexPath(for: self)!
+    func indexPath() -> IndexPath? {
+        return collectionView.indexPath(for: self)
     }
     
     @IBAction private func onTapPhoto(_ sender: Any) {
@@ -81,7 +81,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     }
     
     private func handleAction(action: FeedPostCellAction) {
-        usedInThirdPartModule ? viewModel.onAction?(action, IndexPath(item: tag, section: 0)) : viewModel.onAction?(action, indexPath())
+        guard let path = indexPath() else { return }
+        viewModel.onAction?(action, path)
     }
     
     func setup() {

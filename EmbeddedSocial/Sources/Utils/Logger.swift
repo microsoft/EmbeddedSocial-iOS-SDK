@@ -11,7 +11,7 @@ class Logger {
         case error = "⚠️"
         case verbose = "💬"
         case important = "🔥"
-        case veryImortant = "🔥🔥🔥"
+        case veryImportant = "🔥🔥🔥"
     }
     
     class func log(_ something: Any?...,
@@ -21,7 +21,9 @@ class Logger {
                    column: Int = #column,
                    funcName: String = #function) {
         #if DEBUG
-            print("\(now()) \(event.rawValue)[\(sourceFileName(filePath: fileName))]:\(funcName) -> \(String(describing: something))")
+            if event == logLevel || logLevel == nil {
+                print("\(now()) \(event.rawValue)[\(sourceFileName(filePath: fileName))]:\(funcName) -> \(String(describing: something))")
+            }
         #endif
     }
     
@@ -30,6 +32,7 @@ class Logger {
         return components.isEmpty ? "" : components.last!
     }
     
+    static var logLevel: LogEvent? = .veryImportant
     static var dateFormat = "HH:mm:ss"
     static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()

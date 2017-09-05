@@ -35,7 +35,7 @@ protocol NetworkTrackerType: NetworkStatusMulticast {
  */
 final class NetworkTracker: NetworkTrackerType {
     
-    static let isReachableKey = "ReachabilityService.isReachable"
+    static let isReachableKey = "NetworkTracker.isReachable"
     
     private let listeners = MulticastDelegate<NetworkStatusListener>()
     
@@ -52,7 +52,7 @@ final class NetworkTracker: NetworkTrackerType {
     }
     
     private lazy var reachability: NetworkReachabilityManager? = {
-        let reachability = NetworkReachabilityManager(host: "www.google.com")
+        let reachability = NetworkReachabilityManager(host: "www.apple.com")
         reachability?.listener = { [weak self] status in
             self?.notify(status: status)
         }
