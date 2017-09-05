@@ -22,4 +22,9 @@ class MockCommentCellRouter: CommentCellRouterInput {
     func openReplies(scrollType: RepliesScrollType, commentModulePresenter: CommentCellModuleProtocol) {
         openRepliesCount += 1
     }
+    
+    var openLikesCount = 0
+    func openLikes(commentHandle: String) {
+        openLikesCount = 1
+    }
 }

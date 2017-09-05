@@ -47,6 +47,9 @@ extension LikesServiceProtocol {
     func getPostLikes(postHandle: String, cursor: String?, limit: Int,
                       completion: @escaping (Result<UsersListResponse>) -> Void) { }
     
+    func getCommentLikes(commentHandle: String, cursor: String?, limit: Int,
+                         completion: @escaping (Result<UsersListResponse>) -> Void) {}
+    
     func getReplyLikes(replyHandle: String, cursor: String?, limit: Int,
                        completion: @escaping (Result<UsersListResponse>) -> Void) { }
 }

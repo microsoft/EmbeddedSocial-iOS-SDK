@@ -92,6 +92,17 @@ class CommentCellPresenterTests: XCTestCase, CommentCellModuleProtocol {
         XCTAssertEqual(router.openImageCount, 1)
     }
     
+    func testThatLikesOpen() {
+        //given
+        let commentHandle = "Handle"
+        
+        //when
+        router.openLikes(commentHandle: commentHandle)
+        
+        //then
+        XCTAssertEqual(router.openLikesCount, 1)
+    }
+    
     //CommentCellModuleProtocol
     func mainComment() -> Comment {
         return presenter.comment
