@@ -7,7 +7,6 @@ import Foundation
 
 protocol SearchServiceType {
     func queryUsers(query: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
-    
     func queryTopics(query: String, cursor: String?, limit: Int, completion: @escaping (Result<PostFetchResult>) -> Void)
 }
 

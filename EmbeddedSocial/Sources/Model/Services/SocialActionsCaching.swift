@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct SocialActionRequest: Cacheable, CustomStringConvertible {
+struct SocialActionRequest: Cacheable, Hashable, CustomStringConvertible {
     
     enum ActionType: String {
         case like, pin
@@ -46,6 +46,14 @@ struct SocialActionRequest: Cacheable, CustomStringConvertible {
     
     var hashKey: String {
         return actionType.rawValue + handle
+    }
+    
+    var hashValue: Int {
+        return hashKey.hashValue
+    }
+    
+    public static func ==(lhs: SocialActionRequest, rhs: SocialActionRequest) -> Bool {
+        return lhs.hashValue == rhs.hashValue
     }
     
     // TODO: move to a new place, needs discussion
@@ -92,18 +100,22 @@ class CachedActionsExecuter: NetworkStatusListener {
     private func onCompletion(_ request: SocialActionRequest, _ error: Error?) {
         guard error == nil else { return }
         Logger.log("Outgoing cached action is sent successfully, \(request)", event: .veryImportant)
+        
+        // Clean cached outgoing action
         cacheAdapter.remove(request)
+        // Clean action from set for execution
+        actionsInExecution.remove(request)
     }
+    
+    private var actionsInExecution = Set<SocialActionRequest>()
     
     func executeAll() {
     
         let actions = cacheAdapter.getAllCachedActions()
         
-        guard actions.count > 0 else { return }
+        let actionToExecute = actions.subtracting(actionsInExecution)
         
-        for action in actions {
-            execute(action)
-        }
+        actionToExecute.forEach { execute($0) }
     }
     
     func execute(_ action: SocialActionRequest) {
@@ -111,6 +123,8 @@ class CachedActionsExecuter: NetworkStatusListener {
         let handle = action.handle
         
         Logger.log("Executing outgoing cached action, \(action.actionType) \(action.actionMethod)", event: .veryImportant)
+        
+        actionsInExecution.insert(action)
         
         switch action.actionType {
         case .like:
@@ -192,12 +206,12 @@ class SocialActionsCacheAdapter {
         }
     }
     
-    func getAllCachedActions() -> [SocialActionRequest] {
+    func getAllCachedActions() -> Set<SocialActionRequest> {
         
         let request = CacheFetchRequest(resultType: SocialActionRequest.self)
         let results = cache.fetchOutgoing(with: request)
         
-        return results
+        return Set(results)
     }
     
     func remove(_ request: SocialActionRequest) {
