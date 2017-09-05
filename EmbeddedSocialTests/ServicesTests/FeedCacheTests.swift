@@ -15,7 +15,6 @@ class FeedCachingTests: XCTestCase {
     
     var coreDataStack: CoreDataStack!
     var cache: CacheType!
-    var services: SocialPlusServicesType!
     
     var likesService: MockLikesService!
     
@@ -31,7 +30,7 @@ class FeedCachingTests: XCTestCase {
         topicViewResponseB = FeedResponseTopicView.loadFrom(bundle: bundle, withName: path)
         
         // Set services for cache
-        services = SocialPlusServices()
+        let services = SocialPlusServices()
         coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
         cache = services.getCache(coreDataStack: coreDataStack)
         
@@ -39,11 +38,14 @@ class FeedCachingTests: XCTestCase {
     }
     
     override func tearDown() {
-        super.tearDown()
         
         coreDataStack = nil
         cache = nil
-        services = nil
+        likesService = nil
+        topicViewResponseA = nil
+        topicViewResponseB = nil
+        
+        super.tearDown()
     }
     
     private func loadFeedResponseFrom(_ source: Any) -> FeedResponseTopicView? {
@@ -110,17 +112,17 @@ class FeedCachingTests: XCTestCase {
         let sameHandle = uniqueString()
         
         // different methods => must be equal
-        let action1 = SocialActionRequestBuilder.build(method: "DELETE", handle: sameHandle, action: .like)
-        let action2 = SocialActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .like)
+        let action1 = FeedActionRequestBuilder.build(method: "DELETE", handle: sameHandle, action: .like)
+        let action2 = FeedActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .like)
         // different actions => must be different
-        let action3 = SocialActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .like)
-        let action4 = SocialActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .pin)
+        let action3 = FeedActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .like)
+        let action4 = FeedActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .pin)
         // different handles => must be different
-        let action5 = SocialActionRequestBuilder.build(method: "POST", handle: uniqueString(), action: .pin)
-        let action6 = SocialActionRequestBuilder.build(method: "POST", handle: uniqueString(), action: .pin)
+        let action5 = FeedActionRequestBuilder.build(method: "POST", handle: uniqueString(), action: .pin)
+        let action6 = FeedActionRequestBuilder.build(method: "POST", handle: uniqueString(), action: .pin)
         // same parameters => must be equal
-        let action7 = SocialActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .pin)
-        let action8 = SocialActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .pin)
+        let action7 = FeedActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .pin)
+        let action8 = FeedActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .pin)
         
         // when
         
@@ -141,7 +143,7 @@ class FeedCachingTests: XCTestCase {
                                                              cacheAdapter: cacheAdapter,
                                                              likesService: likesService)
         
-        let action = SocialActionRequestBuilder.build(method: "POST", handle: uniqueString(), action: .like)
+        let action = FeedActionRequestBuilder.build(method: "POST", handle: uniqueString(), action: .like)
         cacheAdapter.getAllCachedActionsReturnValue = Set([action])
         
         // when
@@ -182,13 +184,13 @@ class FeedCachingTests: XCTestCase {
         
         // 4 unique actions
         let actionsParameters = [
-            ("POST", uniqueString(), SocialActionRequest.ActionType.like),
-            ("DELETE", uniqueString(), SocialActionRequest.ActionType.like),
-            ("POST", uniqueString(), SocialActionRequest.ActionType.pin),
-            ("DELETE", uniqueString(), SocialActionRequest.ActionType.pin)]
+            ("POST", uniqueString(), FeedActionRequest.ActionType.like),
+            ("DELETE", uniqueString(), FeedActionRequest.ActionType.like),
+            ("POST", uniqueString(), FeedActionRequest.ActionType.pin),
+            ("DELETE", uniqueString(), FeedActionRequest.ActionType.pin)]
         
         let cachedActions = actionsParameters.map {
-            SocialActionRequestBuilder.build(method: $0.0, handle: $0.1, action: $0.2)
+            FeedActionRequestBuilder.build(method: $0.0, handle: $0.1, action: $0.2)
         }
     
         cacheAdapter.getAllCachedActionsReturnValue = Set(cachedActions)
@@ -210,27 +212,27 @@ class FeedCachingTests: XCTestCase {
         let postHandleA = uniqueString()
         let postHandleB = uniqueString()
         
-        let actionsCache = SocialActionsCacheAdapter(cache: cache)
+        let actionsCache = FeedCacheActionsAdapter(cache: cache)
         let outgoingActionsProcessor = CachedActionsExecuter(isConnectionAvailable: true,
                                              cacheAdapter: actionsCache,
                                              likesService: likesService)
         
-        let likePostAction = SocialActionRequestBuilder.build(
+        let likePostAction = FeedActionRequestBuilder.build(
             method: "POST",
             handle: postHandleA,
             action: .like)
         
-        let pinPostAction = SocialActionRequestBuilder.build(
+        let pinPostAction = FeedActionRequestBuilder.build(
             method: "POST",
             handle: postHandleA,
             action: .pin)
         
-        let unLikePostAction = SocialActionRequestBuilder.build(
+        let unLikePostAction = FeedActionRequestBuilder.build(
             method: "DELETE",
             handle: postHandleB,
             action: .like)
         
-        let unPinPostAction = SocialActionRequestBuilder.build(
+        let unPinPostAction = FeedActionRequestBuilder.build(
             method: "DELETE",
             handle: postHandleB,
             action: .pin)
@@ -265,14 +267,14 @@ class FeedCachingTests: XCTestCase {
         
         // given
         let postHandle = uniqueString()
-        let actionsCache = SocialActionsCacheAdapter(cache: cache)
+        let actionsCache = FeedCacheActionsAdapter(cache: cache)
         
-        let likePostAction = SocialActionRequestBuilder.build(
+        let likePostAction = FeedActionRequestBuilder.build(
             method: "POST",
             handle: postHandle,
             action: .like)
         
-        let unPinPostAction = SocialActionRequestBuilder.build(
+        let unPinPostAction = FeedActionRequestBuilder.build(
             method: "DELETE",
             handle: postHandle,
             action: .pin)
@@ -295,14 +297,14 @@ class FeedCachingTests: XCTestCase {
         // given
         let postHandle = UUID().uuidString
         
-        let actionsCache = SocialActionsCacheAdapter(cache: cache)
+        let actionsCache = FeedCacheActionsAdapter(cache: cache)
         
-        let likePostAction = SocialActionRequestBuilder.build(
+        let likePostAction = FeedActionRequestBuilder.build(
             method: "POST",
             handle: postHandle,
             action: .like)
         
-        let unLikePostAction = SocialActionRequestBuilder.build(
+        let unLikePostAction = FeedActionRequestBuilder.build(
             method: "DELETE",
             handle: postHandle,
             action: .like)
@@ -320,14 +322,14 @@ class FeedCachingTests: XCTestCase {
         
         // given
         let postHandle = UUID().uuidString
-        let actionsCache = SocialActionsCacheAdapter(cache: cache)
+        let actionsCache = FeedCacheActionsAdapter(cache: cache)
         
-        let likePostAction = SocialActionRequestBuilder.build(
+        let likePostAction = FeedActionRequestBuilder.build(
             method: "POST",
             handle: postHandle,
             action: .like)
         
-        let deletePinAction = SocialActionRequestBuilder.build(
+        let deletePinAction = FeedActionRequestBuilder.build(
             method: "DELETE",
             handle: postHandle,
             action: .pin)
@@ -347,11 +349,27 @@ class FeedCachingTests: XCTestCase {
     
     func testCachedLikeIncreasesCachedFeedResult() {
         
+        // given
         let feedService = PostServiceMock()
+        var post = Post()
+        post.liked = false
+        
+        feedService.fetchHomeQueryCompletion.posts = [post]
+        
+        
+        let responseParser: FeedResponseParserProtocol = FeedResponseParser()
+        
+        responseParser.p
+        
+//        let feedCacheAdapter = TopicsService./
+        
+        
+        // when
         
         
         
-        
+        // then
+
     }
     
     

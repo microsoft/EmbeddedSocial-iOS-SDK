@@ -299,14 +299,14 @@ class TopicService: BaseService, PostServiceProtocol {
         if errorHandler.canHandle(error) {
             errorHandler.handle(error)
         } else {
-            let message = error.localizedDescription 
+            let message = error.localizedDescription
             result.error = FeedServiceError.failedToFetch(message: message)
         }
     }
     
     private func fetchResultFromCache(by cacheKey: String) -> PostFetchResult? {
         
-        guard let cachedResponse = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: cacheKey) else {
+        guard let cachedResponse = feedCacheAdapter.cached(by: cacheKey) else {
             return nil
         }
         
@@ -317,80 +317,17 @@ class TopicService: BaseService, PostServiceProtocol {
         return result
     }
     
-    lazy var responseParser: ResponseParser = { [unowned self] in
-        return ResponseParser(processor: TopicService.CachedFeedPostProcessor(cacheAdapter: SocialActionsCacheAdapter(cache: self.cache)))
+    private lazy var responseParser: FeedResponseParser = { [unowned self] in
+        return FeedResponseParser(processor: FeedCachePostProcessor(cacheAdapter: FeedCacheActionsAdapter(cache: self.cache)))
         }()
     
     private func parseResponse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout PostFetchResult) {
         responseParser.parse(response, isCached: isCached, into: &result)
     }
     
-    class CachedFeedPostProcessor {
-        
-        let cacheAdapter: SocialActionsCacheAdapter!
-        
-        init(cacheAdapter: SocialActionsCacheAdapter) {
-            self.cacheAdapter = cacheAdapter
-        }
-        
-        private func apply(actions: [SocialActionRequest], to post: inout Post) {
-        
-            actions.forEach { action in
-                
-                switch action.actionType {
-                case .like:
-                    post.liked = action.actionMethod.isIncreasing()
-                    post.totalLikes += action.actionMethod.isIncreasing() ? 1 : -1
-                case .pin:
-                    post.pinned = (action.actionMethod == .delete) ? false : true
-                }
-            }
-        }
-        
-        func process(_ feed: inout PostFetchResult) {
-            
-            let cachedActions = cacheAdapter.getAllCachedActions()
-            
-            for index in 0..<feed.posts.count {
-                
-                var post = feed.posts[index]
-                
-                let matching = cachedActions.filter({ (action) -> Bool in
-                    return action.handle == post.topicHandle
-                })
-                
-                guard matching.count > 0 else { continue }
-        
-                apply(actions: matching, to: &post)
-                
-                feed.posts[index] = post
-            }
-
-        }
-    }
-    
-    class ResponseParser {
-        
-        var postProcessor: CachedFeedPostProcessor!
-        
-        init(processor: CachedFeedPostProcessor) {
-            self.postProcessor = processor
-        }
-        
-        func parse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout PostFetchResult) {
-            
-            guard let response = response else { return }
-            
-            if let data = response.data {
-                result.posts = data.map(Post.init)
-            }
-            result.cursor = response.cursor
-            
-            if isCached {
-                postProcessor.process(&result)
-            }
-        }
-    }
+    private lazy var feedCacheAdapter: FeedCacheAdapter = { [unowned self] in
+        return FeedCacheAdapter(cache: self.cache)
+        }()
     
 }
 

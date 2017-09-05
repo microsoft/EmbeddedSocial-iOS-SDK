@@ -60,8 +60,8 @@ class LikesService: BaseService, LikesServiceProtocol {
         self.requestExecutor.errorHandler = errorHandler
     }
     
-    private lazy var outgoingActionsCache: SocialActionsCacheAdapter = { [unowned self] in
-        return SocialActionsCacheAdapter(cache: self.cache)
+    private lazy var outgoingActionsCache: FeedCacheActionsAdapter = { [unowned self] in
+        return FeedCacheActionsAdapter(cache: self.cache)
     }()
     
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
@@ -129,13 +129,13 @@ class LikesService: BaseService, LikesServiceProtocol {
     
     private func execute(_ requestBuilder: RequestBuilder<Object>,
                          handle: String,
-                         actionType: SocialActionRequest.ActionType,
+                         actionType: FeedActionRequest.ActionType,
                          completion: @escaping CompletionHandler) {
         
         // If no connection, cache request
         guard isNetworkReachable == true else {
             
-            let action = SocialActionRequestBuilder.build(
+            let action = FeedActionRequestBuilder.build(
                 method: requestBuilder.method,
                 handle: handle,
                 action: actionType)

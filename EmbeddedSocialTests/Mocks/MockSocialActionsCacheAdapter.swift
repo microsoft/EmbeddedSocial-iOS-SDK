@@ -5,14 +5,14 @@
 
 @testable import EmbeddedSocial
 
-class SocialActionsCacheAdapterProtocolMock: SocialActionsCacheAdapterProtocol {
+class SocialActionsCacheAdapterProtocolMock: FeedCacheActionsAdapterProtocol {
     
     //MARK: - cache
     
     var cacheCalled = false
-    var cacheReceivedRequest: SocialActionRequest?
+    var cacheReceivedRequest: FeedActionRequest?
     
-    func cache(_ request: SocialActionRequest) {
+    func cache(_ request: FeedActionRequest) {
         cacheCalled = true
         cacheReceivedRequest = request
     }
@@ -20,9 +20,9 @@ class SocialActionsCacheAdapterProtocolMock: SocialActionsCacheAdapterProtocol {
     //MARK: - getAllCachedActions
     
     var getAllCachedActionsCalled = false
-    var getAllCachedActionsReturnValue: Set<SocialActionRequest>!
+    var getAllCachedActionsReturnValue: Set<FeedActionRequest>!
     
-    func getAllCachedActions() -> Set<SocialActionRequest> {
+    func getAllCachedActions() -> Set<FeedActionRequest> {
         getAllCachedActionsCalled = true
         return getAllCachedActionsReturnValue
     }
@@ -30,9 +30,9 @@ class SocialActionsCacheAdapterProtocolMock: SocialActionsCacheAdapterProtocol {
     //MARK: - remove
     
     var removeCalled = false
-    var removeReceivedRequest: SocialActionRequest?
+    var removeReceivedRequest: FeedActionRequest?
     
-    func remove(_ request: SocialActionRequest) {
+    func remove(_ request: FeedActionRequest) {
         removeCalled = true
         removeReceivedRequest = request
     }

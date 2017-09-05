@@ -677,6 +677,7 @@
 		9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */; };
 		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
 		9C6244F21F457DED004814BB /* PostMenuModuleInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6244F11F457DED004814BB /* PostMenuModuleInteractorTests.swift */; };
+		9C683AC41F5F09E70087925E /* FeedServiceAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */; };
 		9C6D359B1F31D1C1005893DB /* FeedModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531381F31CCF2004CE94F /* FeedModuleConfigurator.swift */; };
 		9C6D359C1F31D1C1005893DB /* FeedModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313A1F31CCF2004CE94F /* FeedModuleInteractor.swift */; };
 		9C6D359E1F31D1C1005893DB /* FeedModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313D1F31CCF2004CE94F /* FeedModulePresenter.swift */; };
@@ -1444,6 +1445,7 @@
 		9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuButton.swift; sourceTree = "<group>"; };
 		9C6244F11F457DED004814BB /* PostMenuModuleInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleInteractorTests.swift; sourceTree = "<group>"; };
 		9C6244F31F4580FC004814BB /* PostMenuModulePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenterTests.swift; sourceTree = "<group>"; };
+		9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedServiceAdapters.swift; path = EmbeddedSocial/Sources/Model/Feed/FeedServiceAdapters.swift; sourceTree = SOURCE_ROOT; };
 		9C7D9B331F2F430B005928F4 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		9C985E521F505BDF00514F85 /* FeedCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCacheTests.swift; sourceTree = "<group>"; };
@@ -2304,6 +2306,7 @@
 				88580B0D1F2213AB00C1CBAF /* SocialUser.swift */,
 				88580B0E1F2213AB00C1CBAF /* User.swift */,
 				881060FC1F28F4B2008CA2FB /* Visibility.swift */,
+				9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -4866,6 +4869,7 @@
 				88E3AC3C1F55B0400016357F /* ReportViewController.swift in Sources */,
 				8864C8381F46DBA700ADCE13 /* SearchPeopleViewOutput.swift in Sources */,
 				88580C5B1F2213AB00C1CBAF /* SideMenuInteractor.swift in Sources */,
+				9C683AC41F5F09E70087925E /* FeedServiceAdapters.swift in Sources */,
 				884AA98B1F3C563F00B85135 /* PutUserInfoRequest.swift in Sources */,
 				8834A7621F5066ED00F1D383 /* LikesListConfigurator.swift in Sources */,
 				8811C8551F42F88D00F7513D /* EmbeddedEditProfileViewInput.swift in Sources */,
