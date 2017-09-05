@@ -347,7 +347,7 @@ class FeedCachingTests: XCTestCase {
         XCTAssertTrue(deletePinAction.actionMethod == .delete)
     }
     
-    func testCachedLikeIncreasesCachedFeedResult() {
+    func testThatFeedCachePostProcessingWorksCorrectly() {
         
         // given
         let totalLikes = 5
@@ -361,11 +361,15 @@ class FeedCachingTests: XCTestCase {
         post2.totalLikes = totalLikes
         post2.topicHandle = uniqueString()
         
+        var post3 = Post()
+        post3.pinned = false
+        post3.topicHandle = uniqueString()
+        
         let cacheAdapter = FeedCacheActionsAdapter(cache: cache)
         let processor = FeedCachePostProcessor(cacheAdapter: cacheAdapter)
         
         var feedResult = PostFetchResult()
-        feedResult.posts = [post, post2]
+        feedResult.posts = [post, post2, post3]
         
         let feedAction = FeedActionRequestBuilder.build(method: "POST",
                                                         handle: post.topicHandle,
@@ -375,9 +379,23 @@ class FeedCachingTests: XCTestCase {
                                                         handle: post2.topicHandle,
                                                         action: .like)
         
+        let feedAction3 = FeedActionRequestBuilder.build(method: "POST",
+                                                         handle: post3.topicHandle,
+                                                         action: .pin)
+        
+        XCTAssertTrue(feedResult.posts[0].liked == false)
+        XCTAssertTrue(feedResult.posts[0].totalLikes == totalLikes)
+        
+        XCTAssertTrue(feedResult.posts[1].liked == true)
+        XCTAssertTrue(feedResult.posts[1].totalLikes == totalLikes)
+        
+        XCTAssertTrue(feedResult.posts[2].pinned == false)
+        
         // when
         cacheAdapter.cache(feedAction)
         cacheAdapter.cache(feedAction2)
+        cacheAdapter.cache(feedAction3)
+        
         processor.process(&feedResult)
         
         // then
@@ -386,6 +404,8 @@ class FeedCachingTests: XCTestCase {
         
         XCTAssertTrue(feedResult.posts[1].liked == false)
         XCTAssertTrue(feedResult.posts[1].totalLikes == totalLikes - 1)
+        
+        XCTAssertTrue(feedResult.posts[2].pinned == true)
     }
     
     
