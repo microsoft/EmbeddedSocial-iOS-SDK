@@ -259,14 +259,14 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     // MARK: Private
-    
     private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
                                 completion: @escaping FetchResultHandler) {
         
         let requestCacheKey = requestBuilder.URLString
         
-        // Lookup in cache
-        if let result = lookupInCache(by: requestCacheKey) {
+        // Lookup in cache and return if hit
+        if let result = fetchResultFromCache(by: requestCacheKey) {
+            
             completion(result)
         }
         
@@ -279,7 +279,7 @@ class TopicService: BaseService, PostServiceProtocol {
             
             self.handleError(error, result: &result)
             self.cacheResponse(response?.body, forKey: requestCacheKey)
-            self.parseResponse(response?.body, into: &result)
+            self.parseResponse(response?.body, isCached: false, into: &result)
             
             completion(result)
         }
@@ -304,7 +304,7 @@ class TopicService: BaseService, PostServiceProtocol {
         }
     }
     
-    private func lookupInCache(by cacheKey: String) -> PostFetchResult? {
+    private func fetchResultFromCache(by cacheKey: String) -> PostFetchResult? {
         
         guard let cachedResponse = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: cacheKey) else {
             return nil
@@ -312,29 +312,72 @@ class TopicService: BaseService, PostServiceProtocol {
         
         var result = PostFetchResult()
         
-        self.parseResponse(cachedResponse, into: &result)
+        self.parseResponse(cachedResponse, isCached: true, into: &result)
         
         return result
     }
     
-    let responseParser = ResponseParser()
+    lazy var responseParser: ResponseParser = { [unowned self] in
+        return ResponseParser(processor: TopicService.CachedFeedPostProcessor(cacheAdapter: SocialActionsCacheAdapter(cache: self.cache)))
+        }()
     
-    private func parseResponse(_ response: FeedResponseTopicView?, into result: inout PostFetchResult) {
-        responseParser.parse(response, into: &result)
+    private func parseResponse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout PostFetchResult) {
+        responseParser.parse(response, isCached: isCached, into: &result)
     }
     
     class CachedFeedPostProcessor {
         
+        let cacheAdapter: SocialActionsCacheAdapter!
+        
+        init(cacheAdapter: SocialActionsCacheAdapter) {
+            self.cacheAdapter = cacheAdapter
+        }
+        
+        private func apply(actions: [SocialActionRequest], to post: inout Post) {
+        
+            actions.forEach { action in
+                
+                switch action.actionType {
+                case .like:
+                    post.liked = action.actionMethod.isIncreasing()
+                    post.totalLikes += action.actionMethod.isIncreasing() ? 1 : -1
+                case .pin:
+                    post.pinned = (action.actionMethod == .delete) ? false : true
+                }
+            }
+        }
+        
         func process(_ feed: inout PostFetchResult) {
             
+            let cachedActions = cacheAdapter.getAllCachedActions()
+            
+            for index in 0..<feed.posts.count {
+                
+                var post = feed.posts[index]
+                
+                let matching = cachedActions.filter({ (action) -> Bool in
+                    return action.handle == post.topicHandle
+                })
+                
+                guard matching.count > 0 else { continue }
+        
+                apply(actions: matching, to: &post)
+                
+                feed.posts[index] = post
+            }
+
         }
     }
     
     class ResponseParser {
         
-        let postProcessor = CachedFeedPostProcessor()
+        var postProcessor: CachedFeedPostProcessor!
         
-        func parse(_ response: FeedResponseTopicView?, into result: inout PostFetchResult) {
+        init(processor: CachedFeedPostProcessor) {
+            self.postProcessor = processor
+        }
+        
+        func parse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout PostFetchResult) {
             
             guard let response = response else { return }
             
@@ -343,7 +386,9 @@ class TopicService: BaseService, PostServiceProtocol {
             }
             result.cursor = response.cursor
             
-            postProcessor.process(&result)
+            if isCached {
+                postProcessor.process(&result)
+            }
         }
     }
     
