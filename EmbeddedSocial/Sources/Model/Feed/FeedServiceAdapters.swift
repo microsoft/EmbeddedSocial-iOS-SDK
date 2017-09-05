@@ -24,7 +24,7 @@ class FeedCacheAdapter: FeedCacheAdapterProtocol {
 
 
 protocol FeedResponseParserProtocol: class {
-    func parse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout PostFetchResult)
+    func parse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout FeedFetchResult)
 }
 
 class FeedResponseParser: FeedResponseParserProtocol {
@@ -35,7 +35,7 @@ class FeedResponseParser: FeedResponseParserProtocol {
         self.postProcessor = processor
     }
     
-    func parse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout PostFetchResult) {
+    func parse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout FeedFetchResult) {
         
         guard let response = response else { return }
         
@@ -72,7 +72,7 @@ class FeedCachePostProcessor {
         }
     }
     
-    func process(_ feed: inout PostFetchResult) {
+    func process(_ feed: inout FeedFetchResult) {
         
         let cachedActions = cacheAdapter.getAllCachedActions()
         

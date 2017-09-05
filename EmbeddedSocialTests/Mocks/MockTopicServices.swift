@@ -9,7 +9,7 @@ class PostServiceMock: PostServiceProtocol {
     
     //MARK: - fetchHome
     
-    var fetchHomeQueryCompletion: PostFetchResult!
+    var fetchHomeQueryCompletion: FeedFetchResult!
     var fetchHomeQueryCompletionCalled = false
     var fetchHomeQueryCompletionReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
     
@@ -24,7 +24,7 @@ class PostServiceMock: PostServiceProtocol {
     
     //MARK: - fetchPopular
     
-    var fetchPopularQueryCompletion: PostFetchResult!
+    var fetchPopularQueryCompletion: FeedFetchResult!
     var fetchPopularQueryCompletionCalled = false
     var fetchPopularQueryCompletionReceivedArguments: (query: PopularFeedQuery, completion: FetchResultHandler)?
     
@@ -39,7 +39,7 @@ class PostServiceMock: PostServiceProtocol {
     
     //MARK: - fetchRecent
     
-    var fetchRecentQueryCompletion: PostFetchResult!
+    var fetchRecentQueryCompletion: FeedFetchResult!
     var fetchRecentQueryCompletionCalled = false
     var fetchRecentQueryCompletionReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
     
@@ -54,7 +54,7 @@ class PostServiceMock: PostServiceProtocol {
     
     //MARK: - fetchUserRecent
     
-    var fetchUserRecentQueryCompletion: PostFetchResult!
+    var fetchUserRecentQueryCompletion: FeedFetchResult!
     var fetchUserRecentQueryCompletionCalled = false
     var fetchUserRecentQueryCompletionReceivedArguments: (query: UserFeedQuery, completion: FetchResultHandler)?
     
@@ -69,7 +69,7 @@ class PostServiceMock: PostServiceProtocol {
     
     //MARK: - fetchUserPopular
     
-    var fetchUserPopularQueryCompletion: PostFetchResult!
+    var fetchUserPopularQueryCompletion: FeedFetchResult!
     var fetchUserPopularQueryCompletionCalled = false
     var fetchUserPopularQueryCompletionReceivedArguments: (query: UserFeedQuery, completion: FetchResultHandler)?
     
@@ -84,7 +84,7 @@ class PostServiceMock: PostServiceProtocol {
     
     //MARK: - fetchPost
     
-    var fetchPostPostCompletion: PostFetchResult!
+    var fetchPostPostCompletion: FeedFetchResult!
     var fetchPostPostCompletionCalled = false
     var fetchPostPostCompletionReceivedArguments: (post: PostHandle, completion: FetchResultHandler)?
     
@@ -99,7 +99,7 @@ class PostServiceMock: PostServiceProtocol {
     
     //MARK: - fetchMyPosts
     
-    var fetchMyPostsQueryCompletion: PostFetchResult!
+    var fetchMyPostsQueryCompletion: FeedFetchResult!
     var fetchMyPostsQueryCompletionCalled = false
     var fetchMyPostsQueryCompletionReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
     
@@ -114,7 +114,7 @@ class PostServiceMock: PostServiceProtocol {
     
     //MARK: - fetchMyPopular
     
-    var fetchMyPopularQueryCompletion: PostFetchResult!
+    var fetchMyPopularQueryCompletion: FeedFetchResult!
     var fetchMyPopularQueryCompletionCalled = false
     var fetchMyPopularQueryCompletionReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
     
@@ -129,7 +129,7 @@ class PostServiceMock: PostServiceProtocol {
     
     //MARK: - fetchMyPins
     
-    var fetchMyPinsQueryCompletion: PostFetchResult!
+    var fetchMyPinsQueryCompletion: FeedFetchResult!
     var fetchMyPinsQueryCompletionCalled = false
     var fetchMyPinsQueryCompletionReceivedArguments: (query: FeedQuery, completion: FetchResultHandler)?
     

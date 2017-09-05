@@ -368,7 +368,7 @@ class FeedCachingTests: XCTestCase {
         let cacheAdapter = FeedCacheActionsAdapter(cache: cache)
         let processor = FeedCachePostProcessor(cacheAdapter: cacheAdapter)
         
-        var feedResult = PostFetchResult()
+        var feedResult = FeedFetchResult()
         feedResult.posts = [post, post2, post3]
         
         let feedAction = FeedActionRequestBuilder.build(method: "POST",

@@ -13,8 +13,8 @@ private class FeedModulePresenterMock: FeedModuleInteractorOutput {
 
     var failedError: FeedServiceError?
     var postedAction: (post: PostHandle, action: PostSocialAction, error: Error?)?
-    var fetchedFeed: PostsFeed?
-    var fetchedMoreFeed: PostsFeed?
+    var fetchedFeed: Feed?
+    var fetchedMoreFeed: Feed?
     var startedFetching = false
     var finishedFetching = false
     
@@ -34,11 +34,11 @@ private class FeedModulePresenterMock: FeedModuleInteractorOutput {
         postedAction = (post, action, error)
     }
     
-    func didFetch(feed: PostsFeed) {
+    func didFetch(feed: Feed) {
         fetchedFeed = feed
     }
     
-    func didFetchMore(feed: PostsFeed) {
+    func didFetchMore(feed: Feed) {
         fetchedMoreFeed = feed
     }
 }
@@ -69,7 +69,7 @@ class FeedModuleInteractor_Tests: XCTestCase {
         
         // given
         let feed = FeedType.home
-        service.fetchHomeQueryCompletion = PostFetchResult()
+        service.fetchHomeQueryCompletion = FeedFetchResult()
         
         // when
         sut.fetchPosts(feedType: feed)
@@ -83,7 +83,7 @@ class FeedModuleInteractor_Tests: XCTestCase {
         
         // given
         let feed = FeedType.home
-        service.fetchHomeQueryCompletion = PostFetchResult()
+        service.fetchHomeQueryCompletion = FeedFetchResult()
         service.fetchHomeQueryCompletion.error = FeedServiceError.failedToFetch(message: "Ooops")
         
         // when
@@ -98,7 +98,7 @@ class FeedModuleInteractor_Tests: XCTestCase {
         // given
         let cursor = uniqueString()
         let feed = FeedType.home
-        service.fetchHomeQueryCompletion = PostFetchResult()
+        service.fetchHomeQueryCompletion = FeedFetchResult()
         
         // when
         sut.fetchPosts(cursor: cursor, feedType: feed)
@@ -112,7 +112,7 @@ class FeedModuleInteractor_Tests: XCTestCase {
         // given
         let feed = FeedType.home
         let cursor = uniqueString()
-        service.fetchHomeQueryCompletion = PostFetchResult()
+        service.fetchHomeQueryCompletion = FeedFetchResult()
         service.fetchHomeQueryCompletion.cursor = cursor
         service.fetchHomeQueryCompletion.posts = [Post.mock(seed: 0)]
 
@@ -130,7 +130,7 @@ class FeedModuleInteractor_Tests: XCTestCase {
         // given
         let cursor = uniqueString()
         let feed = FeedType.recent
-        service.fetchRecentQueryCompletion = PostFetchResult()
+        service.fetchRecentQueryCompletion = FeedFetchResult()
         service.fetchRecentQueryCompletion.cursor = cursor
         service.fetchRecentQueryCompletion.posts = [Post.mock(seed: 0)]
         
@@ -149,7 +149,7 @@ class FeedModuleInteractor_Tests: XCTestCase {
         // given
         let cursor = uniqueString()
         let feed = FeedType.popular(type: FeedType.TimeRange.alltime)
-        service.fetchPopularQueryCompletion = PostFetchResult()
+        service.fetchPopularQueryCompletion = FeedFetchResult()
         service.fetchPopularQueryCompletion.cursor = cursor
         service.fetchPopularQueryCompletion.posts = [Post.mock(seed: 1)]
         
@@ -167,7 +167,7 @@ class FeedModuleInteractor_Tests: XCTestCase {
         let user = uniqueString()
         let cursor = uniqueString()
         let feed = FeedType.user(user: user, scope: FeedType.UserFeedScope.popular)
-        service.fetchUserPopularQueryCompletion = PostFetchResult()
+        service.fetchUserPopularQueryCompletion = FeedFetchResult()
         service.fetchUserPopularQueryCompletion.cursor = cursor
         
         // when
@@ -183,7 +183,7 @@ class FeedModuleInteractor_Tests: XCTestCase {
         let user = uniqueString()
         let cursor = uniqueString()
         let feed = FeedType.user(user: user, scope: FeedType.UserFeedScope.recent)
-        service.fetchUserRecentQueryCompletion = PostFetchResult()
+        service.fetchUserRecentQueryCompletion = FeedFetchResult()
         service.fetchUserRecentQueryCompletion.cursor = cursor
         
         // when
@@ -198,7 +198,7 @@ class FeedModuleInteractor_Tests: XCTestCase {
         // given
         let handle = uniqueString()
         let feed = FeedType.single(post: handle)
-        service.fetchPostPostCompletion = PostFetchResult()
+        service.fetchPostPostCompletion = FeedFetchResult()
         service.fetchPostPostCompletion.posts = [Post.mock(seed: 100)]
     
         // when

@@ -27,7 +27,7 @@ enum FeedServiceError: Error {
     }
 }
 
-typealias FetchResultHandler = ((PostFetchResult) -> Void)
+typealias FetchResultHandler = ((FeedFetchResult) -> Void)
 
 protocol FeedQueryType {
     var cursor: String? { get set }
@@ -78,7 +78,7 @@ protocol PostServiceProtocol {
 
 protocol PostServiceDelegate: class {
     
-    func didFetchHome(query: FeedQuery, result: PostFetchResult)
+    func didFetchHome(query: FeedQuery, result: FeedFetchResult)
 }
 
 class TopicService: BaseService, PostServiceProtocol {
@@ -213,7 +213,7 @@ class TopicService: BaseService, PostServiceProtocol {
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
         TopicsAPI.topicsGetTopic(topicHandle: post, authorization: authorization) { (topic, error) in
             
-            var result = PostFetchResult()
+            var result = FeedFetchResult()
             
             guard let data = topic else {
                 if self.errorHandler.canHandle(error) {
@@ -275,7 +275,7 @@ class TopicService: BaseService, PostServiceProtocol {
         // Request execution
         requestBuilder.execute { (response, error) in
             
-            var result = PostFetchResult()
+            var result = FeedFetchResult()
             
             self.handleError(error, result: &result)
             self.cacheResponse(response?.body, forKey: requestCacheKey)
@@ -292,7 +292,7 @@ class TopicService: BaseService, PostServiceProtocol {
         cache.cacheIncoming(response, for: key)
     }
     
-    private func handleError(_ error: ErrorResponse?, result: inout PostFetchResult) {
+    private func handleError(_ error: ErrorResponse?, result: inout FeedFetchResult) {
         
         guard let error = error else { return }
         
@@ -304,13 +304,13 @@ class TopicService: BaseService, PostServiceProtocol {
         }
     }
     
-    private func fetchResultFromCache(by cacheKey: String) -> PostFetchResult? {
+    private func fetchResultFromCache(by cacheKey: String) -> FeedFetchResult? {
         
         guard let cachedResponse = feedCacheAdapter.cached(by: cacheKey) else {
             return nil
         }
         
-        var result = PostFetchResult()
+        var result = FeedFetchResult()
         
         self.parseResponse(cachedResponse, isCached: true, into: &result)
         
@@ -321,7 +321,7 @@ class TopicService: BaseService, PostServiceProtocol {
         return FeedResponseParser(processor: FeedCachePostProcessor(cacheAdapter: FeedCacheActionsAdapter(cache: self.cache)))
         }()
     
-    private func parseResponse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout PostFetchResult) {
+    private func parseResponse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout FeedFetchResult) {
         responseParser.parse(response, isCached: isCached, into: &result)
     }
     

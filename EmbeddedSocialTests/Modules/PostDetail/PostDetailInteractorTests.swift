@@ -37,7 +37,7 @@ private class MockLikeSerivce: LikesServiceProtocol {
 
 private class MockTopicService: PostServiceProtocol {
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        var result = PostFetchResult()
+        var result = FeedFetchResult()
         result.posts = [Post()]
         completion(result)
     }

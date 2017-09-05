@@ -351,7 +351,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     // MARK: FeedModuleInteractorOutput
-    func didFetch(feed: PostsFeed) {
+    func didFetch(feed: Feed) {
         
         guard feedType == feed.feedType else {
             return
@@ -363,7 +363,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         view.reload()
     }
     
-    func didFetchMore(feed: PostsFeed) {
+    func didFetchMore(feed: Feed) {
         
         guard feedType == feed.feedType else {
             return
