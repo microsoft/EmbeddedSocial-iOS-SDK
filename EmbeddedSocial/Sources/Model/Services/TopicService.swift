@@ -263,8 +263,6 @@ class TopicService: BaseService, PostServiceProtocol {
     private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
                                 completion: @escaping FetchResultHandler) {
         
-        let requestCacheKey = requestBuilder.URLString
-        
         // Lookup in cache
         if let result = lookupInCache(by: requestCacheKey) {
             completion(result)
@@ -278,18 +276,18 @@ class TopicService: BaseService, PostServiceProtocol {
             var result = PostFetchResult()
             
             self.handleError(error, result: &result)
-            self.cacheResponse(response?.body, cacheKey: requestCacheKey)
+            self.cacheResponse(response?.body, forKey: requestBuilder.URLString)
             self.parseResponse(response?.body, into: &result)
             
             completion(result)
         }
     }
     
-    private func cacheResponse(_ response: FeedResponseTopicView?, cacheKey: String) {
+    private func cacheResponse(_ response: FeedResponseTopicView?, forKey key: String) {
         
-        guard response = response else { return }
+        guard let response = response else { return }
         
-        cache.cacheIncoming(response!, for: cacheKey)
+        cache.cacheIncoming(response, for: key)
     }
     
     private func handleError(_ error: ErrorResponse?, result: inout PostFetchResult) {
@@ -299,7 +297,7 @@ class TopicService: BaseService, PostServiceProtocol {
         if errorHandler.canHandle(error) {
             errorHandler.handle(error)
         } else {
-            let message = error.localizedDescription ?? L10n.Error.noItemsReceived
+            let message = error.localizedDescription 
             result.error = FeedServiceError.failedToFetch(message: message)
         }
     }
