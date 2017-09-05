@@ -7,23 +7,26 @@ import Foundation
 
 class BaseService: NetworkStatusListener {
     let errorHandler: APIErrorHandler
-    let authorization: Authorization
     let cache: CacheType
     fileprivate(set) var isNetworkReachable: Bool
+    fileprivate(set) var authorization: Authorization
     private let networkStatusMulticast: NetworkStatusMulticast
+    private let authorizationMulticast: AuthorizationMulticastType
 
-    init(authorization: Authorization = SocialPlus.shared.authorization,
+    init(authorizationMulticast: AuthorizationMulticastType = SocialPlus.shared.authorizationMulticast,
          cache: CacheType = SocialPlus.shared.cache,
          errorHandler: APIErrorHandler = UnauthorizedErrorHandler(),
          networkStatusMulticast: NetworkStatusMulticast = SocialPlus.shared.networkTracker) {
         
-        self.authorization = authorization
         self.errorHandler = errorHandler
         self.cache = cache
         self.networkStatusMulticast = networkStatusMulticast
+        self.authorizationMulticast = authorizationMulticast
         isNetworkReachable = networkStatusMulticast.isReachable
+        authorization = authorizationMulticast.authorization
         
         networkStatusMulticast.addListener(self)
+        authorizationMulticast.addListener(self)
     }
     
     func networkStatusDidChange(_ isReachable: Bool) {
@@ -32,6 +35,13 @@ class BaseService: NetworkStatusListener {
     
     deinit {
         networkStatusMulticast.removeListener(self)
+        authorizationMulticast.removeListener(self)
     }
 }
 
+extension BaseService: AuthorizationListener {
+    
+    func authorizationDidChange(_ authorization: Authorization) {
+        self.authorization = authorization
+    }
+}

@@ -16,25 +16,30 @@ public final class SocialPlus {
     private(set) var coordinator: CrossModuleCoordinator!
     private(set) var coreDataStack: CoreDataStack!
     private(set) var cache: CacheType!
-    private(set) var networkTracker: NetworkTrackerType!
     private(set) var outgoingCacheProcessor: CachedActionsExecuter!
+    fileprivate(set) var authorizationMulticast: AuthorizationMulticastType!
+    
+    var networkTracker: NetworkTrackerType {
+        return serviceProvider.getNetworkTracker()
+    }
     
     var authorization: Authorization {
         return sessionStore.authorization
     }
     
     private init() {
-        setupServices(with: SocialPlusServices())
-        coreDataStack = serviceProvider.getCoreDataStack()
-        cache = serviceProvider.getCache(coreDataStack: coreDataStack)
-        networkTracker = serviceProvider.getNetworkTracker()
+        serviceProvider = SocialPlusServices()
+        setupServices(with: serviceProvider)
     }
     
     func setupServices(with serviceProvider: SocialPlusServicesType) {
-        self.serviceProvider = serviceProvider
         let database = SessionStoreDatabaseFacade(services: serviceProvider.getSessionStoreRepositoriesProvider())
         sessionStore = SessionStore(database: database)
         try? sessionStore.loadLastSession()
+        
+        coreDataStack = serviceProvider.getCoreDataStack()
+        cache = serviceProvider.getCache(coreDataStack: coreDataStack)
+        authorizationMulticast = serviceProvider.getAuthorizationMulticast()
     }
     
     public func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
@@ -57,21 +62,10 @@ public final class SocialPlus {
         }
     }
     
-    private func setupCoreDataStack() {
-        let model = CoreDataModel(name: "EmbeddedSocial", bundle: Bundle(for: type(of: self)))
-        let builder = CoreDataStackBuilder(model: model)
-        coreDataStack = builder.makeStack().value
-    }
-    
     fileprivate func startOutgoingCacheProcessor() {
         outgoingCacheProcessor = CachedActionsExecuter(cacheAdapter: SocialActionsCacheAdapter(cache: cache),
                                                        likesService: LikesService())
         networkTracker.addListener(outgoingCacheProcessor)
-    }
-    
-    fileprivate func finishOutgoingCacheProcessor() {
-        networkTracker.removeListener(outgoingCacheProcessor)
-        outgoingCacheProcessor = nil
     }
 }
 
@@ -81,6 +75,7 @@ extension SocialPlus: LoginModuleOutput {
         sessionStore.createSession(withUser: info.user, sessionToken: info.token)
         try? sessionStore.saveCurrentSession()
         coordinator.onSessionCreated(with: info)
+        authorizationMulticast.authorization = sessionStore.authorization
         startOutgoingCacheProcessor()
     }
 }
