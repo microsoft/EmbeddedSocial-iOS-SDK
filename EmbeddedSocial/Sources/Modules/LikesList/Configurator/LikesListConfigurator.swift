@@ -14,7 +14,7 @@ struct LikesListConfigurator {
         viewController.title = L10n.LikesList.screenTitle
     }
     
-    func configure(handle: String, type: LikesObject, navigationController: UINavigationController?) {
+    func configure(handle: String, type: LikedObject, navigationController: UINavigationController?) {
         let presenter = LikesListPresenter()
         presenter.view = viewController
         presenter.interactor = LikesListInteractor()

@@ -116,7 +116,7 @@ class CommentRepliesInteractorTests: XCTestCase {
     }
     
     
-    func testThatCommentLiked() {
+    func testThatReplyLiked() {
         
         //given
         let reply = Reply()
@@ -134,7 +134,7 @@ class CommentRepliesInteractorTests: XCTestCase {
         XCTAssertEqual(output.replies.first?.liked , true)
     }
     
-    func testThatCommentUnliked() {
+    func testThatReplyUnliked() {
         
         //given
         let reply = Reply()

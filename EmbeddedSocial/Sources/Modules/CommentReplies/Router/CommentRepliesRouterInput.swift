@@ -7,4 +7,5 @@ import Foundation
 
 protocol CommentRepliesRouterInput {
     func openUser(userHandle: UserHandle, from view: UIViewController)
+    func openLikes(replyHandle: String, from view: UIViewController)
 }

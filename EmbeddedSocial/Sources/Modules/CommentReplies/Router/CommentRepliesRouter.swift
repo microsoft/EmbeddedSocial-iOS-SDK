@@ -10,4 +10,10 @@ class CommentRepliesRouter: CommentRepliesRouterInput {
         
         view.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
+    
+    func openLikes(replyHandle: String, from view: UIViewController) {
+        let configurator = LikesListConfigurator()
+        configurator.configure(handle: replyHandle, type: .reply, navigationController: view.navigationController)
+        view.navigationController?.pushViewController(configurator.viewController, animated: true)
+    }
 }

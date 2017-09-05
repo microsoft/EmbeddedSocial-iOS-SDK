@@ -5,7 +5,7 @@
 
 import Foundation
 
-enum LikesObject {
+enum LikedObject {
     case post
     case comment
     case reply
@@ -14,9 +14,9 @@ enum LikesObject {
 struct LikesListAPI: UsersListAPI {
     private let likesService: LikesServiceProtocol
     private let handle: String
-    private let type: LikesObject
+    private let type: LikedObject
 
-    init(handle: String, type: LikesObject , likesService: LikesServiceProtocol) {
+    init(handle: String, type: LikedObject , likesService: LikesServiceProtocol) {
         self.likesService = likesService
         self.handle = handle
         self.type = type
