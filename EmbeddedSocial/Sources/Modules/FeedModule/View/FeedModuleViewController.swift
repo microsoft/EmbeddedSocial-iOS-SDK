@@ -225,7 +225,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         sizingCell.layoutIfNeeded()
         
         var size = sizingCell.container.bounds.size
-        size.width -= Style.Collection.containerPadding * 2
+        size.width = containerWidth()
         
         return size
     }
@@ -237,6 +237,12 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     fileprivate func didReachBottom() {
         Logger.log()
         self.output.didAskFetchMore()
+    }
+    
+    // MARK: Private
+    
+    fileprivate func containerWidth() -> CGFloat {
+        return view.frame.width - (Style.Collection.containerPadding * 2)
     }
     
     // MARK: Input
@@ -373,7 +379,9 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
     }
  
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return output.headerSize
+        
+        let minWidth = min(output.headerSize.width, containerWidth())
+        return CGSize(width: minWidth, height: output.headerSize.height)
     }
     
     func collectionView(_ collectionView: UICollectionView,
