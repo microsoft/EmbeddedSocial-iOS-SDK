@@ -85,12 +85,12 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         }
     }
     
-    private func lockUI() {
+    fileprivate func lockUI() {
         view.isUserInteractionEnabled = false
         SVProgressHUD.show()
     }
     
-    private func unlockUI() {
+    fileprivate func unlockUI() {
         view.isUserInteractionEnabled = true
         SVProgressHUD.dismiss()
     }
@@ -113,7 +113,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     
     func reloadTable(scrollType: RepliesScrollType) {
         postButton.isHidden = replyTextView.text.isEmpty
-        collectionView.reloadData()
+        collectionView.reloadSections([RepliesSections.replies.rawValue])
         refreshControl.endRefreshing()
         unlockUI()
         switch scrollType {
@@ -168,6 +168,7 @@ extension CommentRepliesViewController: UICollectionViewDataSource {
                 cell.tag = indexPath.row
                 if  output.numberOfItems() - 1 < indexPath.row + 1 && output.canFetchMore() {
                     output.fetchMore()
+                    lockUI()
                 }
                 return cell
             default:
@@ -191,6 +192,7 @@ extension CommentRepliesViewController: UICollectionViewDelegateFlowLayout {
             return output.mainCommentCell().frame.size
         case RepliesSections.replies.rawValue:
             prototypeReplyCell.config(replyView: output.replyView(index: indexPath.row))
+            print(prototypeReplyCell.cellSize())
             return prototypeReplyCell.cellSize()
         default:
             return CGSize()

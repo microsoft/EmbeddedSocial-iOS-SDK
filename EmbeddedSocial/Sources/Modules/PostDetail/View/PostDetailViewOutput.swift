@@ -4,7 +4,6 @@
 //
 
 protocol PostDetailViewOutput {
-
     func viewIsReady()
     func numberOfItems() -> Int
     func comment(at index: Int) -> Comment
@@ -14,5 +13,4 @@ protocol PostDetailViewOutput {
     func enableFetchMore() -> Bool
     func refresh()
     func heightForFeed() -> CGFloat
-    func newItemsCount() -> Int
 }

@@ -90,10 +90,8 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
 
     func updateComments() {
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-            SVProgressHUD.dismiss()
-        }
+        collectionView.reloadSections([CommentsSections.comments.rawValue])
+        SVProgressHUD.dismiss()
     }
     
     private func configCollectionView() {

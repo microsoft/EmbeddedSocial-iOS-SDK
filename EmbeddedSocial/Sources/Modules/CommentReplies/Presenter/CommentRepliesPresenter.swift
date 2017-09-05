@@ -42,8 +42,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     fileprivate var shouldFetchRestOfReplies = false
     
     private var cursor: String?
-    private let maxLimit: Int = 10000
-    private let normalLimit: Int = 50
+    private let maxLimit: Int = 30000
     
     //MARK Internal
     private func viewModel(with reply: Reply) -> ReplyViewModel {
@@ -51,7 +50,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         var viewModel = ReplyViewModel()
         viewModel.userHandle = reply.userHandle!
         viewModel.replyHandle = reply.replyHandle
-        viewModel.userName = String(format: "%@ %@", (reply.userFirstName ?? ""), (reply.userLastName ?? ""))
+        viewModel.userName = User.fullName(firstName: reply.userFirstName, lastName: reply.userLastName)
         viewModel.text = reply.text ?? ""
         
         viewModel.totalLikes = L10n.Post.likesCount(Int(reply.totalLikes))
@@ -106,7 +105,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     func refresh() {
         cursor = nil
-        interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: normalLimit)
+        interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
     }
     
     func replyView(index: Int) -> ReplyViewModel {
@@ -126,16 +125,12 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             return
         }
         
-//        if (commentView?.comment?.totalReplies)! > 0 {
-            switch scrollType {
-            case .bottom:
-                interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: maxLimit)
-            default:
-                interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: normalLimit)
-            }
-//        } else {
-//            view?.reloadTable(scrollType: scrollType)
-//        }
+        switch scrollType {
+        case .bottom:
+            interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: maxLimit)
+        default:
+            interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
+        }
         
     }
     
@@ -143,13 +138,15 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         if shouldFetchRestOfReplies {
             interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: maxLimit)
         } else {
-            interactor.fetchMoreReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: normalLimit)
+            interactor.fetchMoreReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
         }
     }
     
     func loadRestReplies() {
+        shouldFetchRestOfReplies = true
+        scrollType = .bottom
         if cursor == nil {
-            view?.reloadTable(scrollType: .bottom)
+            view?.reloadTable(scrollType: scrollType)
         } else {
             shouldFetchRestOfReplies = true
             fetchMore()
@@ -169,13 +166,22 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         self.cursor = cursor
         appendWithReplacing(original: &self.replies, appending: replies)
         view?.reloadTable(scrollType: scrollType)
+        
         scrollType = .none
     }
     
     func fetchedMore(replies: [Reply], cursor: String?) {
         self.cursor = cursor
         appendWithReplacing(original: &self.replies, appending: replies)
-        view?.reloadTable(scrollType: .none)
+        
+        if cursor != nil && shouldFetchRestOfReplies == true {
+            self.fetchMore()
+        } else if shouldFetchRestOfReplies == true {
+            view?.reloadTable(scrollType: .bottom)
+            shouldFetchRestOfReplies = false
+        } else {
+            view?.reloadReplies()
+        }
     }
     
     private func appendWithReplacing(original: inout [Reply], appending: [Reply]) {

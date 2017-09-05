@@ -5,12 +5,10 @@
 
 class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
 
-    
     weak var view: PostDetailViewInput!
     var interactor: PostDetailInteractorInput!
     var router: PostDetailRouterInput!
     var scrollType: CommentsScrollType = .none
-    
     
     var postViewModel: PostViewModel?
     
@@ -21,25 +19,17 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     
     private var formatter = DateFormatterTool()
     private var cursor: String?
-    private let normalLimit: Int32 = 50
-    private let maxLimit: Int32 = 10000
+    private let maxLimit: Int32 = 30000
     private var shouldFetchRestOfComments = false
     
-    fileprivate var lastFetchedItemsCount = 0
     fileprivate var dataIsFetching = false
-    
     
     func heightForFeed() -> CGFloat {
         return (feedModuleInput?.moduleHeight())!
     }
     
-    func newItemsCount() -> Int {
-        return lastFetchedItemsCount
-    }
-    
     // MARK: PostDetailInteractorOutput
     func didFetch(comments: [Comment], cursor: String?) {
-        self.lastFetchedItemsCount = comments.count
         self.cursor = cursor
         self.comments = comments
         view.reloadTable(scrollType: scrollType)
@@ -97,14 +87,13 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     
     // MAKR: PostDetailViewOutput
     
-    
     func enableFetchMore() -> Bool {
         return cursor != nil && !dataIsFetching
     }
     
     func refresh() {
         cursor = nil
-        interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: normalLimit)
+        interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
     }
     
     func viewIsReady() {
@@ -114,7 +103,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
             case .bottom:
                 interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: maxLimit)
             default:
-                interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: normalLimit)
+                interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
         }
     }
     
@@ -136,7 +125,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
         if shouldFetchRestOfComments {
             interactor.fetchMoreComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: maxLimit)
         } else {
-            interactor.fetchMoreComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: normalLimit)
+            interactor.fetchMoreComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
         }
         
     }
@@ -152,16 +141,15 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
 
 extension PostDetailPresenter: FeedModuleOutput {
     func didFinishRefreshingData() {
-        print("refresed")
         view.refreshPostCell()
     }
     
     func didScrollFeed(_ feedView: UIScrollView) {
-        print("did scroll")
+        print("feed did scroll in PostDetailPresenter")
     }
     
     func didStartRefreshingData() {
-        print("didStartRefreshingData")
+        print("didStartRefreshingData in PostDetailPresenter")
     }
     
     func didFinishRefreshingData(_ error: Error?) {

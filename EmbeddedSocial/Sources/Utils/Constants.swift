@@ -53,6 +53,14 @@ extension Constants {
         }
     }
     
+    struct PostDetails {
+        static let pageSize = 10
+    }
+    
+    struct CommentReplies {
+        static let pageSize = 10
+    }
+    
     struct Search {
         static let filterHeight: CGFloat = 44.0
     }
