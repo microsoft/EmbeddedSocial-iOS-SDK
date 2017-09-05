@@ -4,5 +4,5 @@
 //
 
 protocol LoginModuleOutput: class {
-    func onSessionCreated(user: User, sessionToken: String)
+    func onSessionCreated(with info: SessionInfo)
 }

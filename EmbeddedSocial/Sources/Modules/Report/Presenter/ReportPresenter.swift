@@ -27,10 +27,10 @@ final class ReportPresenter {
         return selectedIndexPath != nil
     }
     
-    fileprivate let isAnonymous: Bool
+    fileprivate let myProfileHolder: UserHolder
     
-    init(isAnonymous: Bool) {
-        self.isAnonymous = isAnonymous
+    init(myProfileHolder: UserHolder) {
+        self.myProfileHolder = myProfileHolder
     }
 }
 
@@ -51,7 +51,7 @@ extension ReportPresenter: ReportViewOutput {
             return
         }
         
-        guard !isAnonymous else {
+        guard myProfileHolder.me != nil else {
             router.openLoginPopup()
             return
         }

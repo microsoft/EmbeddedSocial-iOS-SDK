@@ -21,7 +21,7 @@ class CommentRepliesModuleConfigurator {
     func configure(commentView: CommentViewModel,
                    scrollType: RepliesScrollType,
                    postDetailsPresenter: PostDetailPresenter?,
-                   isAnonymous: Bool = SocialPlus.shared.me == nil,
+                   myProfileHolder: UserHolder = SocialPlus.shared,
                    loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
 
         let router = CommentRepliesRouter()
@@ -29,7 +29,7 @@ class CommentRepliesModuleConfigurator {
         
         let repliesService = RepliesService()
 
-        let presenter = CommentRepliesPresenter(isAnonymous: isAnonymous)
+        let presenter = CommentRepliesPresenter(myProfileHolder: myProfileHolder)
         presenter.view = viewController
         presenter.router = router
         presenter.commentView = commentView

@@ -10,10 +10,10 @@ class UserListPresenter {
     var interactor: UserListInteractorInput!
     weak var moduleOutput: UserListModuleOutput?
     var router: UserListRouterInput!
-    fileprivate let isAnonymousUser: Bool
+    fileprivate let myProfileHolder: UserHolder
     
-    init(isAnonymousUser: Bool) {
-        self.isAnonymousUser = isAnonymousUser
+    init(myProfileHolder: UserHolder) {
+        self.myProfileHolder = myProfileHolder
     }
     
     func loadNextPage() {
@@ -41,7 +41,7 @@ extension UserListPresenter: UserListViewOutput {
     
     func onItemAction(item: UserListItem) {
         
-        guard !isAnonymousUser else {
+        guard myProfileHolder.me != nil else {
             router.openLoginPopup()
             return
         }

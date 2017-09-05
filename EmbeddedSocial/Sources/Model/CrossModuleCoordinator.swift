@@ -58,16 +58,25 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         configurator.router.output = navigationStack
     }
 
+    func onSessionCreated(with info: SessionInfo) {
+        
+        Logger.log(info.user.credentials?.authorization, event: .important)
+        
+        self.user = info.user
+        menuModule.user = info.user
+        
+        if info.source == .menu {
+            navigationStack.cleanStack()
+            openHomeScreen()
+            closeMenu()
+        } else if info.source == .modal {
+            navigationStack.dismissModal()
+        }
+    }
+    
     func onSessionCreated(user: User, sessionToken: String) {
-        
-        Logger.log(user.credentials?.authorization, event: .important)
-        
-        self.user = user
-        menuModule.user = user
-        
-        navigationStack.cleanStack()
-        openHomeScreen()
-        closeMenu()
+        let info = SessionInfo(user: user, token: sessionToken, source: .menu)
+        onSessionCreated(with: info)
     }
     
     func updateUser(_ user: User) {
@@ -108,6 +117,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         menuModule.user = nil
         configuredHome = nil
         configuredPopular = nil
+        navigationStack.cleanStack()
         openLoginScreen()
     }
     
@@ -179,11 +189,14 @@ extension CrossModuleCoordinator: MyProfileOpener { }
 extension CrossModuleCoordinator: LoginModalOpener {
     
     func openLogin(parentViewController: UIViewController?) {
-        parentViewController?.present(loginPopupController(), animated: true)
+        let configurator = LoginConfigurator()
+        configurator.configure(moduleOutput: loginHandler, source: .modal)
+        let wrappedLoginViewController = loginPopupController(with: configurator.viewController)
+        navigationStack.presentModal(wrappedLoginViewController, parentViewController: parentViewController)
     }
     
-    private func loginPopupController() -> UIViewController {
-        let navController = UINavigationController(rootViewController: configuredLogin)
+    private func loginPopupController(with loginViewController: UIViewController) -> UIViewController {
+        let navController = UINavigationController(rootViewController: loginViewController)
         let button = UIBarButtonItem(title: L10n.Common.cancel, font: Fonts.systemDefault, color: Palette.defaultTint) {
             navController.dismiss(animated: true, completion: nil)
         }

@@ -64,10 +64,10 @@ public final class SocialPlus {
 
 extension SocialPlus: LoginModuleOutput {
     
-    func onSessionCreated(user: User, sessionToken: String) {
-        sessionStore.createSession(withUser: user, sessionToken: sessionToken)
+    func onSessionCreated(with info: SessionInfo) {
+        sessionStore.createSession(withUser: info.user, sessionToken: info.token)
         try? sessionStore.saveCurrentSession()
-        coordinator.onSessionCreated(user: user, sessionToken: sessionToken)
+        coordinator.onSessionCreated(with: info)
     }
 }
 

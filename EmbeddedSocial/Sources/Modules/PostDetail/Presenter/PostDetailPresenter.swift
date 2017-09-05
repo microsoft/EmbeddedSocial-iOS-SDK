@@ -30,10 +30,10 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     private let maxLimit: Int32 = 10000
     private var shouldFetchRestOfComments = false
     
-    private let isAnonymous: Bool
+    private let myProfileHolder: UserHolder
     
-    init(isAnonymous: Bool) {
-        self.isAnonymous = isAnonymous
+    init(myProfileHolder: UserHolder) {
+        self.myProfileHolder = myProfileHolder
     }
     
     private func viewModel(with comment: Comment) -> CommentViewModel {
@@ -241,7 +241,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Sha
     }
     
     func postComment(photo: Photo?, comment: String) {
-        guard !isAnonymous else {
+        guard myProfileHolder.me != nil else {
             router.openLogin(from: view as! UIViewController)
             return
         }

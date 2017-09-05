@@ -23,6 +23,8 @@ protocol NavigationStackProtocol {
     func openMenu()
     func cleanStack()
     func showError(_ error: Error)
+    func dismissModal()
+    func presentModal(_ viewControllerToPresent: UIViewController, parentViewController: UIViewController?)
     
     var navigationController: UINavigationController { get }
 }
@@ -33,6 +35,7 @@ public class NavigationStack: NavigationStackProtocol {
     private var container: NavigationStackContainer
     private var window: UIWindow
     private var menuStackController: MenuStackController!
+    private var presentedModal: UIViewController?
     
     func closeMenu() {
         menuStackController.closeSideMenu()
@@ -60,6 +63,16 @@ public class NavigationStack: NavigationStackProtocol {
     func cleanStack() {
         navigationController.dismiss(animated: true, completion: nil)
         navigationController.popToRootViewController(animated: true)
+    }
+    
+    func dismissModal() {
+        presentedModal?.dismiss(animated: true)
+    }
+    
+    func presentModal(_ viewControllerToPresent: UIViewController, parentViewController: UIViewController?) {
+        let parent = parentViewController ?? navigationController
+        parent.present(viewControllerToPresent, animated: true)
+        presentedModal = viewControllerToPresent
     }
     
     func showError(_ error: Error) {

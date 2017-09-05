@@ -19,7 +19,9 @@ final class UserProfilePresenter: UserProfileViewOutput {
     
     fileprivate let userID: String?
     fileprivate var user: User?
-    fileprivate var me: User?
+    fileprivate var me: User? {
+        return myProfileHolder?.me
+    }
     fileprivate var myProfileHolder: UserHolder?
     
     fileprivate var followersCount = 0 {
@@ -38,7 +40,6 @@ final class UserProfilePresenter: UserProfileViewOutput {
         guard myProfileHolder.me != nil || userID != nil else { fatalError("Either userID or myProfileHolder must be supplied") }
         
         self.userID = userID
-        self.me = myProfileHolder.me
         followersCount = 0
         followingCount = 0
         self.myProfileHolder = myProfileHolder
@@ -52,7 +53,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     
     private func loadUser() {
         view.setIsLoadingUser(true)
-
+        
         if let userID = userID {
             loadOtherUser(userID)
         } else if let credentials = me?.credentials {
@@ -69,7 +70,6 @@ final class UserProfilePresenter: UserProfileViewOutput {
         
         interactor.getMe(credentials: credentials) { [weak self] result in
             self?.processUserResult(result, setter: {
-                self?.me = $0
                 self?.myProfileHolder?.me = $0
             })
         }
@@ -282,7 +282,6 @@ extension UserProfilePresenter: EditProfileModuleOutput {
     func onProfileEdited(me: User) {
         router.popTopScreen()
         setUser(me) { [weak self] in
-            self?.me = $0
             self?.myProfileHolder?.me = $0
         }
     }

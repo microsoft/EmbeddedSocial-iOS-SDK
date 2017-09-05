@@ -47,10 +47,10 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     private var cursor: String?
     private let maxLimit: Int = 10000
     private let normalLimit: Int = 50
-    private let isAnonymous: Bool
+    private let myProfileHolder: UserHolder
     
-    init(isAnonymous: Bool) {
-        self.isAnonymous = isAnonymous
+    init(myProfileHolder: UserHolder) {
+        self.myProfileHolder = myProfileHolder
     }
     
     //MARK Internal
@@ -169,7 +169,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func postReply(text: String) {
-        guard !isAnonymous else {
+        guard myProfileHolder.me != nil else {
             router.openLogin(from: view as! UIViewController)
             return
         }

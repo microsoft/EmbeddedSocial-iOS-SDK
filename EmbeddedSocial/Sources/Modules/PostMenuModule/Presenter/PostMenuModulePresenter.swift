@@ -59,10 +59,10 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     var router: PostMenuModuleRouterInput!
     var menuType: PostMenuType!
     
-    private let isAnonymous: Bool
+    private let myProfileHolder: UserHolder
     
-    init(isAnonymous: Bool) {
-        self.isAnonymous = isAnonymous
+    init(myProfileHolder: UserHolder) {
+        self.myProfileHolder = myProfileHolder
     }
     
     func viewIsReady() {
@@ -171,7 +171,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     
     // MARK: Module Input
     func didTapBlock(user: UserHandle) {
-        guard !isAnonymous else {
+        guard myProfileHolder.me != nil else {
             router.openLogin()
             return
         }
