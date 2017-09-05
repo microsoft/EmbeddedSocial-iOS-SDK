@@ -104,6 +104,35 @@ class FeedCachingTests: XCTestCase {
         //let originalFeed = FeedResponseTopicView()
     }
     
+    func testSocialActionsForUniqueness() {
+        // given
+        
+        
+        let sameHandle = uniqueString()
+        
+        // different methods => must be equal
+        let action1 = SocialActionRequestBuilder.build(method: "DELETE", handle: sameHandle, action: .like)
+        let action2 = SocialActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .like)
+        // different actions => must be different
+        let action3 = SocialActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .like)
+        let action4 = SocialActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .pin)
+        // different handles => must be different
+        let action5 = SocialActionRequestBuilder.build(method: "POST", handle: uniqueString(), action: .pin)
+        let action6 = SocialActionRequestBuilder.build(method: "POST", handle: uniqueString(), action: .pin)
+        // same parameters => must be equal
+        let action7 = SocialActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .pin)
+        let action8 = SocialActionRequestBuilder.build(method: "POST", handle: sameHandle, action: .pin)
+        
+        
+        // when
+        
+        // then
+        XCTAssertEqual(action7, action8)
+        XCTAssertEqual(action1, action2)
+        XCTAssertNotEqual(action5, action6)
+        XCTAssertNotEqual(action3, action4)
+    }
+    
     func testThatIsExecutesOutgoingTransactionsWhenConnectionAppears() {
       
         // given
