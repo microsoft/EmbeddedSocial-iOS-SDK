@@ -22,4 +22,9 @@ class MockPostDetailRouter: PostDetailRouterInput {
     func openReplies(commentView: CommentViewModel, scrollType: RepliesScrollType, from view: UIViewController, postDetailPresenter: PostDetailPresenter?) {
         openRepliesCount += 1
     }
+    
+    var openLoginCount = 0
+    func openLogin(from view: UIViewController) {
+        openLoginCount += 1
+    }
 }

@@ -62,7 +62,7 @@ extension MockTopicService {
 
 class PostDetailsInteractorTests: XCTestCase {
     
-    var output = MockPostDetailPresenter()
+    var output: MockPostDetailPresenter!
     var interactor = PostDetailInteractor()
     
     var coreDataStack: CoreDataStack!
@@ -73,9 +73,12 @@ class PostDetailsInteractorTests: XCTestCase {
     var likeService: LikesServiceProtocol?
     var topicServer: PostServiceProtocol?
     var imageService: ImagesServiceType?
+    var myProfileHolder: MyProfileHolder!
     
     override func setUp() {
         super.setUp()
+        myProfileHolder = MyProfileHolder()
+        output = MockPostDetailPresenter(myProfileHolder: myProfileHolder)
         output.interactor = interactor
         interactor.output = output
         coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
@@ -101,6 +104,7 @@ class PostDetailsInteractorTests: XCTestCase {
         commentsService = nil
         likeService = nil
         topicServer = nil
+        myProfileHolder = nil
     }
     
     func testThatFetchedComments() {

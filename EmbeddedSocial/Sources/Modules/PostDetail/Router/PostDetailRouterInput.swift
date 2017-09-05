@@ -10,4 +10,5 @@ protocol PostDetailRouterInput {
     func openUser(userHandle: UserHandle, from view: UIViewController)
     func openReplies(commentView: CommentViewModel, scrollType: RepliesScrollType, from view: UIViewController, postDetailPresenter: PostDetailPresenter?)
     func openImage(imageUrl: String, from view: UIViewController)
+    func openLogin(from view: UIViewController)
 }

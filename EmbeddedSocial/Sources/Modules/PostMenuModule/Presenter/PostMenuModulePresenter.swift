@@ -53,12 +53,17 @@ struct ActionViewModel {
 
 class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, PostMenuModuleInteractorOutput {
 
-
     weak var view: PostMenuModuleViewInput!
     weak var output: PostMenuModuleOutput?
     var interactor: PostMenuModuleInteractorInput!
     var router: PostMenuModuleRouterInput!
     var menuType: PostMenuType!
+    
+    private let myProfileHolder: UserHolder
+    
+    init(myProfileHolder: UserHolder) {
+        self.myProfileHolder = myProfileHolder
+    }
     
     func viewIsReady() {
         let items = itemsForMenu(type: menuType)
@@ -166,6 +171,10 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     
     // MARK: Module Input
     func didTapBlock(user: UserHandle) {
+        guard myProfileHolder.me != nil else {
+            router.openLogin()
+            return
+        }
         self.output?.didBlock(user: user)
         self.interactor.block(user: user)
     }

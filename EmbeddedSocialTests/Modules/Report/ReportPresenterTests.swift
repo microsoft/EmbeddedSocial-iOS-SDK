@@ -10,6 +10,7 @@ class ReportPresenterTests: XCTestCase {
     var router: MockReportRouter!
     var view: MockReportView!
     var interactor: MockReportInteractor!
+    var myProfileHolder: MyProfileHolder!
     var sut: ReportPresenter!
     
     override func setUp() {
@@ -17,8 +18,9 @@ class ReportPresenterTests: XCTestCase {
         router = MockReportRouter()
         view = MockReportView()
         interactor = MockReportInteractor()
+        myProfileHolder = MyProfileHolder()
         
-        sut = ReportPresenter()
+        sut = ReportPresenter(myProfileHolder: myProfileHolder)
         sut.router = router
         sut.view = view
         sut.interactor = interactor
@@ -29,6 +31,7 @@ class ReportPresenterTests: XCTestCase {
         router = nil
         view = nil
         interactor = nil
+        myProfileHolder = nil
         sut = nil
     }
     
@@ -73,6 +76,25 @@ class ReportPresenterTests: XCTestCase {
         XCTAssertEqual(view.setIsLoading_ReceivedIsLoading, false)
         
         XCTAssertTrue(router.openReportSuccess_onDone_Called)
+    }
+    
+    func testThatItOpensLoginWhenAnonymousUserAttemptsToSubmit() {
+        // given
+        let selectedRow = IndexPath(row: 0, section: 0)
+        interactor.reportReason_forIndexPath_ReturnValue = .contentInfringement
+        myProfileHolder.me = nil
+        
+        // when
+        sut.onRowSelected(at: selectedRow)
+        sut.onSubmit()
+        
+        // then
+        XCTAssertFalse(interactor.submitReport_with_completion_Called)
+        
+        XCTAssertFalse(view.setIsLoading_Called)
+        
+        XCTAssertTrue(router.openLogin_Called)
+        XCTAssertFalse(router.openReportSuccess_onDone_Called)
     }
     
     func testThatItShowsErrorWhenItFailsToSubmitReport() {

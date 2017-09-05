@@ -15,4 +15,8 @@ class LoginRouter: LoginRouterInput {
         createAccount.configure(user: user, moduleOutput: createAccountOutput)
         viewController?.navigationController?.pushViewController(createAccount.viewController, animated: true)
     }
+    
+    func dismiss() {
+        viewController?.navigationController?.dismiss(animated: true)
+    }
 }

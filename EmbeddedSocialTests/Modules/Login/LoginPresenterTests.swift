@@ -21,7 +21,7 @@ class LoginPresenterTests: XCTestCase {
         router = MockLoginRouter()
         moduleOutput = MockLoginModuleOutput()
         
-        sut = LoginPresenter()
+        sut = LoginPresenter(source: .menu)
         sut.view = view
         sut.interactor = interactor
         sut.router = router

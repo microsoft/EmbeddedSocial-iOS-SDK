@@ -89,8 +89,7 @@ class UserProfilePresenterTests: XCTestCase {
         presenter.viewIsReady()
         
         // then
-        validateViewInitialState(with: user, isAnonymous: true)
-        validateFeedInitialState(with: user)
+        validateInitialState(with: user)
         
         XCTAssertEqual(view.layoutAsset, feedInput.layout.nextLayoutAsset)
         
@@ -143,11 +142,10 @@ class UserProfilePresenterTests: XCTestCase {
         validateFeedInitialState(with: user)
     }
     
-    private func validateViewInitialState(with user: User, userIsCached: Bool = false, isAnonymous: Bool = false) {
+    private func validateViewInitialState(with user: User, userIsCached: Bool = false) {
         XCTAssertEqual(view.setupInitialStateCount, 1)
         XCTAssertEqual(view.setUserCount, userIsCached ? 2 : 1)
         XCTAssertEqual(view.lastSetUser, user)
-        XCTAssertEqual(view.setUserIsAnonymous, isAnonymous)
         
         XCTAssertEqual(view.setFollowingCount, userIsCached ? 2 : 1)
         XCTAssertEqual(view.lastFollowingCount, user.followingCount)
@@ -239,6 +237,29 @@ class UserProfilePresenterTests: XCTestCase {
         // then
         validateFollowStatusChanged(to: expectedStatus)
         XCTAssertEqual(view.lastFollowersCount!, 0)
+    }
+    
+    func testThatItOpensLoginWhenAnonymousUserAttemptsToFollow() {
+        // given
+        let followStatus = FollowStatus.empty
+        let user = User(uid: UUID().uuidString, visibility: ._public, followingStatus: followStatus)
+        interactor.userToReturn = user
+        
+        myProfileHolder.me = nil
+
+        let presenter = makeDefaultPresenter(userID: user.uid)
+        
+        // when
+        presenter.onFollowRequest(currentStatus: followStatus)
+        
+        // then
+        XCTAssertEqual(interactor.socialRequestCount, 0)
+        
+        XCTAssertEqual(router.openLoginCount, 1)
+        
+        XCTAssertNil(view.lastFollowStatus)
+        XCTAssertNil(view.isProcessingFollowRequest)
+        XCTAssertNil(view.lastFollowersCount)
     }
     
     func testThatMyMoreMenuIsShown() {

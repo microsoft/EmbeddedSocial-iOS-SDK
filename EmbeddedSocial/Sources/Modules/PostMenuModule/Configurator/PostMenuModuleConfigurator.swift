@@ -10,14 +10,19 @@ class PostMenuModuleConfigurator {
     var viewController: PostMenuModuleViewController!
     var moduleInput: PostMenuModuleInput!
 
-    func configure(menuType: PostMenuType, moduleOutput: PostMenuModuleOutput? = nil, navigationController: UINavigationController? = nil) {
+    func configure(menuType: PostMenuType,
+                   moduleOutput: PostMenuModuleOutput? = nil,
+                   navigationController: UINavigationController? = nil,
+                   myProfileHolder: UserHolder = SocialPlus.shared,
+                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
         
         viewController = PostMenuModuleViewController()
         
         let router = PostMenuModuleRouter()
         router.navigationController = navigationController
+        router.loginOpener = loginOpener
 
-        let presenter = PostMenuModulePresenter()
+        let presenter = PostMenuModulePresenter(myProfileHolder: myProfileHolder)
         presenter.view = viewController
         presenter.router = router
         presenter.menuType = menuType
@@ -32,6 +37,6 @@ class PostMenuModuleConfigurator {
         
         viewController.output = presenter
         
-        viewController.view.backgroundColor = UIColor.clear
+        viewController.view.backgroundColor = .clear
     }
 }

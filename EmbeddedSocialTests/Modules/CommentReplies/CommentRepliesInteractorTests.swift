@@ -60,14 +60,17 @@ private class MockRepliesService: RepliesServiceProtcol {
 
 class CommentRepliesInteractorTests: XCTestCase {
     
-    var output = MockCommentRepliesPresenter()
+    var output: MockCommentRepliesPresenter!
     var interactor = CommentRepliesInteractor()
+    var myProfileHolder: MyProfileHolder!
     
     var likeService: LikesServiceProtocol?
     var repliesService: RepliesServiceProtcol?
     
     override func setUp() {
         super.setUp()
+        myProfileHolder = MyProfileHolder()
+        output = MockCommentRepliesPresenter(myProfileHolder: myProfileHolder)
         output.interactor = interactor
         interactor.output = output
         
@@ -86,6 +89,8 @@ class CommentRepliesInteractorTests: XCTestCase {
         interactor.output = nil
         likeService = nil
         repliesService = nil
+        myProfileHolder = nil
+        output = nil
     }
     
     func testThatFetchedReplies() {

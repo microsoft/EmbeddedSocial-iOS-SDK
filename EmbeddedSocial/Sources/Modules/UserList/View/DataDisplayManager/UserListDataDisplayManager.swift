@@ -24,14 +24,14 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
         return self
     }
     
-    private let me: User?
+    private let myProfileHolder: UserHolder
     
-    init(me: User?) {
-        self.me = me
+    init(myProfileHolder: UserHolder) {
+        self.myProfileHolder = myProfileHolder
     }
     
     func setup(with users: [User]) {
-        let builder = UserListItemsBuilder(me: me)
+        let builder = UserListItemsBuilder(me: myProfileHolder.me)
         sections = builder.makeSections(users: users, actionHandler: onItemAction)
         registerCells(for: tableView)
         tableView.reloadData()
@@ -65,7 +65,7 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
     }
     
     func updateListItem(with user: User, at indexPath: IndexPath) {
-        let builder = UserListItemsBuilder(me: me)
+        let builder = UserListItemsBuilder(me: myProfileHolder.me)
         sections = builder.updatedSections(with: user, at: indexPath, sections: sections)
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
