@@ -87,8 +87,8 @@ extension UserProfileViewController: UserProfileViewInput {
         view.addSubview(feedViewController.view)
         
         feedViewController.view.snp.makeConstraints { make in
-            make.left.equalTo(self.view).offset(Constants.UserProfile.containerInset)
-            make.right.equalTo(self.view).offset(-Constants.UserProfile.containerInset)
+            make.left.equalTo(self.view).offset(Constants.FeedModule.Collection.containerPadding)
+            make.right.equalTo(self.view).offset(-Constants.FeedModule.Collection.containerPadding)
             make.top.equalTo(self.view)
             make.bottom.equalTo(self.view)
         }

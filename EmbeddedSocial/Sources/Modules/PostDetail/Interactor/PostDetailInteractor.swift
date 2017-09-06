@@ -13,35 +13,19 @@ class PostDetailInteractor: PostDetailInteractorInput {
     
     var commentsService: CommentServiceProtocol?
     var topicService: PostServiceProtocol?
-    var likeService: LikesServiceProtocol?
     var isLoading = false
     
-    // MARK: Social Actions
-    
-    func commentAction(commentHandle: String, action: CommentSocialAction) {
-        
-        let completion: LikesServiceProtocol.CommentCompletionHandler = { [weak self] (handle, error) in
-                self?.output?.didPostAction(commentHandle: commentHandle, action: action, error: error)
-        }
-        
-        switch action {
-        case .like:
-            likeService?.likeComment(commentHandle: commentHandle, completion: completion)
-        case .unlike:
-            likeService?.unlikeComment(commentHandle: commentHandle, completion: completion)
-        }
-        
-    }
-    
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32) {
-        isLoading = true
-        commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-            self.fetchedItems(result: cachedResult)
-        }, resultHandler: { (webResult) in
-            self.fetchedItems(result: webResult)
-        })
+            self.isLoading = true
+            self.commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
+                if !cachedResult.comments.isEmpty {
+                    self.fetchedItems(result: cachedResult)
+                }
+            }, resultHandler: { (webResult) in
+                    self.fetchedItems(result: webResult)
+            })
     }
-    
+
     private func fetchedItems(result: CommentFetchResult) {
         guard result.error == nil else {
             return
@@ -52,16 +36,20 @@ class PostDetailInteractor: PostDetailInteractorInput {
     }
     
     func fetchMoreComments(topicHandle: String, cursor: String?, limit: Int32) {
-        if cursor == "" || cursor == nil || isLoading == true {
-            return
+        
+        if cursor == "" || cursor == nil || self.isLoading == true {
+                return
         }
         
-        isLoading = true
-        commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-            self.fetchedMoreItems(result: cachedResult)
+        self.isLoading = true
+        self.commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
+            if !cachedResult.comments.isEmpty {
+                self.fetchedMoreItems(result: cachedResult)
+            }
         }, resultHandler: { (webResult) in
             self.fetchedMoreItems(result: webResult)
         })
+
     }
     
     private func fetchedMoreItems(result: CommentFetchResult) {
@@ -90,15 +78,5 @@ class PostDetailInteractor: PostDetailInteractorInput {
             print("error posting comment")
         })
         
-    }
-    
-    func loadPost(topicHandle: String) {
-        topicService?.fetchPost(post: topicHandle, completion: { (result) in
-            guard let post = result.posts.first else {
-                return
-            }
-            
-            self.output?.postFetched(post: post)
-        })
     }
 }

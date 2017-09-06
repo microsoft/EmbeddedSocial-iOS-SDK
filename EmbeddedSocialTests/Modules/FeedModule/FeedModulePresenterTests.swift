@@ -77,7 +77,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         post.createdTime = creationDate
         
         let posts = [post]
-        let feed = PostsFeed(feedType: .home, items: posts, cursor: nil)
+        let feed = Feed(feedType: .home, items: posts, cursor: nil)
         sut.didFetch(feed: feed)
         let path = IndexPath(row: 0, section: 0)
         
@@ -121,7 +121,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         
         // given
         let initialPost = Post.mock(seed: 10)
-        let initialFeed = PostsFeed(feedType: .home, items: [initialPost], cursor: nil)
+        let initialFeed = Feed(feedType: .home, items: [initialPost], cursor: nil)
         
         // when
         sut.didFetch(feed: initialFeed)
@@ -137,11 +137,11 @@ class FeedModulePresenter_Tests: XCTestCase {
         let path = IndexPath(row: 0, section: 0)
         
         let postsA = [Post.mock(seed: 1), Post.mock(seed: 2)]
-        let feedA = PostsFeed(feedType: .home, items: postsA, cursor: nil)
+        let feedA = Feed(feedType: .home, items: postsA, cursor: nil)
         sut.didFetch(feed: feedA)
         
         let postsB = [Post.mock(seed: 3), Post.mock(seed: 4), Post.mock(seed: 5)]
-        let feedB = PostsFeed(feedType: .home, items: postsB, cursor: nil)
+        let feedB = Feed(feedType: .home, items: postsB, cursor: nil)
         
         // when
         sut.didFetch(feed: feedB)
@@ -156,11 +156,11 @@ class FeedModulePresenter_Tests: XCTestCase {
         
         // given
         let initialPost = Post.mock(seed: 1)
-        let initialFeed = PostsFeed(feedType: .home, items: [initialPost], cursor: nil)
+        let initialFeed = Feed(feedType: .home, items: [initialPost], cursor: nil)
         sut.didFetch(feed: initialFeed)
         
         let morePosts = [Post.mock(seed: 2), Post.mock(seed: 3)]
-        let moreFeed = PostsFeed(feedType: .home, items: morePosts, cursor: "cursor")
+        let moreFeed = Feed(feedType: .home, items: morePosts, cursor: "cursor")
         
         // when
         sut.didFetchMore(feed: moreFeed)
@@ -189,7 +189,7 @@ class FeedModulePresenter_Tests: XCTestCase {
     func testThatFetchDataTriggersViewReload() {
         
         // given
-        let feed = PostsFeed(feedType: .home, items: [Post.mock(seed: 0)], cursor: "cursor")
+        let feed = Feed(feedType: .home, items: [Post.mock(seed: 0)], cursor: "cursor")
         
         // when
         sut.didFetch(feed: feed)
@@ -223,7 +223,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         post.userHandle = postUserHandle
         post.imageUrl = postImageURL
         
-        let feed = PostsFeed(feedType: .home, items: [post], cursor: "cursor")
+        let feed = Feed(feedType: .home, items: [post], cursor: "cursor")
         sut.didFetch(feed: feed)
         let path = IndexPath(row: 0, section: 0)
         
@@ -286,7 +286,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         
         
         
-        let feed = PostsFeed(feedType: .home, items: [post], cursor: "cursor")
+        let feed = Feed(feedType: .home, items: [post], cursor: "cursor")
         sut.didFetch(feed: feed)
         let path = IndexPath(row: 0, section: 0)
         

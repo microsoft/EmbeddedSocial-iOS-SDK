@@ -36,8 +36,6 @@ class PostDetailModuleConfigurator {
         
         let commentsService = CommentsService(imagesService: ImagesService())
         interactor.commentsService = commentsService
-        let likeService = LikesService()
-        interactor.likeService = likeService
         let topicService = TopicService()
         interactor.topicService = topicService
         presenter.scrollType = scrollType

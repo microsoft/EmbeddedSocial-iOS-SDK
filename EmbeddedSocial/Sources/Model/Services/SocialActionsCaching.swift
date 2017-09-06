@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct SocialActionRequest: Cacheable, CustomStringConvertible {
+struct FeedActionRequest: Cacheable, Hashable, CustomStringConvertible {
     
     enum ActionType: String {
         case like, pin
@@ -13,10 +13,14 @@ struct SocialActionRequest: Cacheable, CustomStringConvertible {
     
     enum ActionMethod: String {
         case post, delete
+        
+        func isIncreasing() -> Bool {
+            return self == .post
+        }
     }
     
     init(handle: String, actionType: ActionType, actionMethod: ActionMethod) {
-        _ = SocialActionRequest.__once_initDecoder
+        _ = FeedActionRequest.__once_initDecoder
         self.handle = handle
         self.actionType = actionType
         self.actionMethod = actionMethod
@@ -48,22 +52,30 @@ struct SocialActionRequest: Cacheable, CustomStringConvertible {
         return actionType.rawValue + handle
     }
     
+    var hashValue: Int {
+        return hashKey.hashValue
+    }
+    
+    public static func ==(lhs: FeedActionRequest, rhs: FeedActionRequest) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
     // TODO: move to a new place, needs discussion
     static let __once_initDecoder: () = {
         
-        Decoders.addDecoder(clazz: SocialActionRequest.self) { source, instance in
+        Decoders.addDecoder(clazz: FeedActionRequest.self) { source, instance in
             
             guard let payload = source as? [String: Any],
                 let handle = payload["handle"] as? String,
                 let actionTypeRaw = payload["actionType"] as? String,
                 let actionMethodRaw = payload["actionMethod"] as? String,
-                let actionType = SocialActionRequest.ActionType(rawValue: actionTypeRaw),
-                let actionMethod = SocialActionRequest.ActionMethod(rawValue: actionMethodRaw)
+                let actionType = FeedActionRequest.ActionType(rawValue: actionTypeRaw),
+                let actionMethod = FeedActionRequest.ActionMethod(rawValue: actionMethodRaw)
                 else {
-                    return .failure(.typeMismatch(expected: "SocialActionRequest", actual: "\(source)"))
+                    return .failure(.typeMismatch(expected: "FeedActionRequest", actual: "\(source)"))
             }
             
-            let item = SocialActionRequest(handle: handle, actionType: actionType, actionMethod: actionMethod)
+            let item = FeedActionRequest(handle: handle, actionType: actionType, actionMethod: actionMethod)
             return .success(item)
         }
         
@@ -72,101 +84,121 @@ struct SocialActionRequest: Cacheable, CustomStringConvertible {
 
 class CachedActionsExecuter: NetworkStatusListener {
     
-    private let cacheAdapter: SocialActionsCacheAdapter
+    private let cacheAdapter: FeedCacheActionsAdapterProtocol
     private let likesService: LikesServiceProtocol
     
-    init(cacheAdapter: SocialActionsCacheAdapter, likesService: LikesServiceProtocol = LikesService()) {
+    var isConnectionAvailable: Bool
+    
+    init(isConnectionAvailable: Bool,
+         cacheAdapter: FeedCacheActionsAdapterProtocol,
+         likesService: LikesServiceProtocol = LikesService()) {
+        
+        self.isConnectionAvailable = isConnectionAvailable
         self.cacheAdapter = cacheAdapter
         self.likesService = likesService
     }
     
     func networkStatusDidChange(_ isReachable: Bool) {
         
-        guard isReachable == true else { return }
+        isConnectionAvailable = isReachable
         
-        Logger.log("Connection from now is \(isReachable) \(String(describing: self))", event: .veryImportant)
-        
-        executeAll()
-    }
-    
-    private func onCompletion(_ request: SocialActionRequest, _ error: Error?) {
-        guard error == nil else { return }
-        Logger.log("Outgoing cached action is sent successfully, \(request)", event: .veryImportant)
-        cacheAdapter.remove(request)
-    }
-    
-    func executeAll() {
-    
-        let actions = cacheAdapter.getAllCachedActions()
-        
-        guard actions.count > 0 else { return }
-        
-        for action in actions {
-            execute(action)
+        if isConnectionAvailable {
+            executeAll()
         }
     }
     
-    func execute(_ action: SocialActionRequest) {
+    private func onCompletion(_ request: FeedActionRequest, _ error: Error?) {
+        
+        guard error == nil else {
+            Logger.log("Outgoing action is sent with error, \(request)", event: .veryImportant)
+            beingExecuted.remove(request)
+            cacheAdapter.remove(request)
+            return
+        }
+        
+        Logger.log("Outgoing cached action is sent successfully, \(request)", event: .veryImportant)
+        
+        // Clean cached outgoing action
+        cacheAdapter.remove(request)
+        // Clean action from set for execution
+        beingExecuted.remove(request)
+    }
+    
+    private(set) var beingExecuted = Set<FeedActionRequest>()
+    private(set) var queuedForExecution = Set<FeedActionRequest>()
+    
+    func executeAll() {
+    
+        let allActions = cacheAdapter.getAllCachedActions()
+        
+        // Get not sent yet actions, append them for execution
+        let notExecutedActions = allActions.subtracting(beingExecuted)
+        queuedForExecution.formUnion(notExecutedActions)
+        
+        // Execute
+        queuedForExecution.forEach { execute($0) }
+    }
+    
+    private func execute(_ action: FeedActionRequest) {
+    
+        guard isConnectionAvailable == true else { return }
+        
+        queuedForExecution.remove(action)
+        beingExecuted.insert(action)
         
         let handle = action.handle
         
         Logger.log("Executing outgoing cached action, \(action.actionType) \(action.actionMethod)", event: .veryImportant)
         
-        switch action.actionType {
-        case .like:
-            if action.actionMethod == .post {
-                
-                likesService.postLike(postHandle: handle) { [weak self] handle, error in
-                    self?.onCompletion(action, error)
-                    
-                }
-            } else {
-                
-                likesService.deleteLike(postHandle: handle) { [weak self] handle, error in
-                    self?.onCompletion(action, error)
-                    
-                }
+        switch (action.actionType, action.actionMethod) {
+        case (.like, .post):
+            likesService.postLike(postHandle: handle) { [weak self] handle, error in
+                self?.onCompletion(action, error)
             }
-        case .pin:
-            if action.actionMethod == .post {
-                
-                likesService.postPin(postHandle: handle) { [weak self] handle, error in
-                    self?.onCompletion(action, error)
-                    
-                }
-            } else {
-                
-                likesService.deletePin(postHandle: handle) { [weak self] handle, error in
-                    self?.onCompletion(action, error)
-                    
-                }
+        case (.like, .delete):
+            likesService.deleteLike(postHandle: handle) { [weak self] handle, error in
+                self?.onCompletion(action, error)
+            }
+        case (.pin, .post):
+            likesService.postPin(postHandle: handle) { [weak self] handle, error in
+                self?.onCompletion(action, error)
+            }
+        case (.pin, .delete):
+            likesService.deletePin(postHandle: handle) { [weak self] handle, error in
+                self?.onCompletion(action, error)
             }
         }
     }
 }
 
-class SocialActionRequestBuilder {
+class FeedActionRequestBuilder {
     
-    static private func transformMethod(_ method: String) -> SocialActionRequest.ActionMethod {
+    static private func transformMethod(_ method: String) -> FeedActionRequest.ActionMethod {
         switch method {
         case "POST":
-            return SocialActionRequest.ActionMethod.post
+            return FeedActionRequest.ActionMethod.post
         case "DELETE":
-            return SocialActionRequest.ActionMethod.delete
+            return FeedActionRequest.ActionMethod.delete
         default:
             fatalError("Unexpected")
         }
     }
     
-    static func build(method: String, handle: String, action: SocialActionRequest.ActionType) -> SocialActionRequest {
+    static func build(method: String, handle: String, action: FeedActionRequest.ActionType) -> FeedActionRequest {
         
-        return SocialActionRequest(handle: handle,
+        return FeedActionRequest(handle: handle,
                                    actionType: action,
                                    actionMethod: transformMethod(method))
     }
 }
 
-class SocialActionsCacheAdapter {
+protocol FeedCacheActionsAdapterProtocol: class {
+    func cache(_ request: FeedActionRequest)
+    func getAllCachedActions() -> Set<FeedActionRequest>
+    func remove(_ request: FeedActionRequest)
+}
+
+class FeedCacheActionsAdapter: FeedCacheActionsAdapterProtocol {
     
     weak var cache: CacheType!
     var predicateBuilder = PredicateBuilder()
@@ -175,16 +207,16 @@ class SocialActionsCacheAdapter {
         self.cache = cache
     }
     
-    func cache(_ request: SocialActionRequest) {
+    func cache(_ request: FeedActionRequest) {
         
         let oppositeActionPredicate = predicateBuilder.predicate(typeID: request.hashKey)
         
         if let cached = cache.firstOutgoing(
-            ofType: SocialActionRequest.self,
+            ofType: FeedActionRequest.self,
             predicate: oppositeActionPredicate,
             sortDescriptors: nil) {
             
-            Logger.log("Removing opposite action \(cached) to \(request)", event: .veryImportant)
+            Logger.log("Removing \(cached) opposite to \(request)", event: .veryImportant)
             cache.deleteOutgoing(with: oppositeActionPredicate)
         } else {
             Logger.log("Caching action \(request)", event: .veryImportant)
@@ -192,15 +224,15 @@ class SocialActionsCacheAdapter {
         }
     }
     
-    func getAllCachedActions() -> [SocialActionRequest] {
+    func getAllCachedActions() -> Set<FeedActionRequest> {
         
-        let request = CacheFetchRequest(resultType: SocialActionRequest.self)
+        let request = CacheFetchRequest(resultType: FeedActionRequest.self)
         let results = cache.fetchOutgoing(with: request)
         
-        return results
+        return Set(results)
     }
     
-    func remove(_ request: SocialActionRequest) {
+    func remove(_ request: FeedActionRequest) {
         let predicate = predicateBuilder.predicate(typeID: request.hashKey)
         cache.deleteOutgoing(with: predicate)
     }

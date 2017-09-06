@@ -190,9 +190,13 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     // MARK: Private
     
+    private func collectionPaddingNeeded() -> Bool {
+        return isHomeFeedType()
+    }
+    
     private func onLayoutTypeChange() {
-        Logger.log(self.layout)
         view.setLayout(type: self.layout)
+        view.paddingEnabled = collectionPaddingNeeded()
         fetchAllItems()
     }
     
@@ -204,7 +208,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
     }
     
-    fileprivate func isHome() -> Bool {
+    fileprivate func isHomeFeedType() -> Bool {
         return feedType == .home
     }
  
@@ -345,6 +349,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func viewIsReady() {
         view.setupInitialState()
+        view.paddingEnabled = collectionPaddingNeeded()
         view.setLayout(type: layout)
         if let header = header {
             view.registerHeader(withType: header.type, configurator: header.configurator)
@@ -370,7 +375,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     // MARK: FeedModuleInteractorOutput
-    func didFetch(feed: PostsFeed) {
+    func didFetch(feed: Feed) {
         
         guard feedType == feed.feedType else {
             return
@@ -382,7 +387,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         view.reload()
     }
     
-    func didFetchMore(feed: PostsFeed) {
+    func didFetchMore(feed: Feed) {
         
         guard feedType == feed.feedType else {
             return
@@ -481,7 +486,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     
     func didFollow(user: UserHandle) {
         
-        if isHome() {
+        if isHomeFeedType() {
             
             // Refetch Data
             fetchAllItems()
@@ -501,7 +506,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     
     func didUnfollow(user: UserHandle) {
        
-        if isHome() {
+        if isHomeFeedType() {
             
             // Refetch Data
             fetchAllItems()

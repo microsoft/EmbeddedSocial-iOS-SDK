@@ -4,7 +4,7 @@
 //
 
 enum RepliesCellAction {
-    case like, profile
+    case like, profile, toLikes
 }
 
 struct ReplyViewModel {
@@ -25,17 +25,14 @@ struct ReplyViewModel {
     var onAction: ActionHandler?
 }
 
-protocol SharedCommentsPresenterProtocol {
-    func refreshCommentCell(commentView: CommentViewModel)
-}
-
-class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutput, CommentRepliesInteractorOutput, SharedCommentsPresenterProtocol {
+class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutput, CommentRepliesInteractorOutput {
 
     weak var view: CommentRepliesViewInput?
     var interactor: CommentRepliesInteractorInput!
     var router: CommentRepliesRouterInput!
     
-    var commentView: CommentViewModel?
+    var commentCell: CommentCell!
+    var comment: Comment!
     
     var scrollType: RepliesScrollType = .none
     
@@ -45,8 +42,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     fileprivate var shouldFetchRestOfReplies = false
     
     private var cursor: String?
-    private let maxLimit: Int = 10000
-    private let normalLimit: Int = 50
+    private let maxLimit: Int = 30000
     private let myProfileHolder: UserHolder
     
     init(myProfileHolder: UserHolder) {
@@ -59,7 +55,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         var viewModel = ReplyViewModel()
         viewModel.userHandle = reply.userHandle!
         viewModel.replyHandle = reply.replyHandle
-        viewModel.userName = String(format: "%@ %@", (reply.userFirstName ?? ""), (reply.userLastName ?? ""))
+        viewModel.userName = User.fullName(firstName: reply.userFirstName, lastName: reply.userLastName)
         viewModel.text = reply.text ?? ""
         
         viewModel.totalLikes = L10n.Post.likesCount(Int(reply.totalLikes))
@@ -100,21 +96,24 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             view?.refreshReplyCell(index: index)
             interactor.replyAction(replyHandle: replyHandle!, action: action)
             
-            
         case .profile:
             router.openUser(userHandle: userHandle, from: view as! UIViewController)
+            
+        case .toLikes:
+            router.openLikes(replyHandle: replyHandle!, from: view as! UIViewController)
         }
         
     }
     
     // MARK: CommentRepliesViewOutput
-    func refresh() {
-        interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: nil, limit: normalLimit)
+    
+    func mainCommentCell() -> CommentCell {
+        return commentCell
     }
     
-    func refreshCommentCell(commentView: CommentViewModel) {
-        self.commentView = commentView
-        view?.refreshCommentCell()
+    func refresh() {
+        cursor = nil
+        interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
     }
     
     func replyView(index: Int) -> ReplyViewModel {
@@ -130,38 +129,36 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func viewIsReady() {
-//        if (commentView?.comment?.totalReplies)! > 0 {
-            switch scrollType {
-            case .bottom:
-                interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: maxLimit)
-            default:
-                interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: normalLimit)
-            }
-//        } else {
-//            view?.reloadTable(scrollType: scrollType)
-//        }
+        guard let commentHandle = comment.commentHandle else {
+            return
+        }
+        
+        switch scrollType {
+        case .bottom:
+            interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: maxLimit)
+        default:
+            interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
+        }
         
     }
     
     func fetchMore() {
         if shouldFetchRestOfReplies {
-            interactor.fetchReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: maxLimit)
+            interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: maxLimit)
         } else {
-            interactor.fetchMoreReplies(commentHandle: (commentView?.commentHandle)!, cursor: cursor, limit: normalLimit)
+            interactor.fetchMoreReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
         }
     }
     
     func loadRestReplies() {
+        shouldFetchRestOfReplies = true
+        scrollType = .bottom
         if cursor == nil {
-            view?.reloadTable(scrollType: .bottom)
+            view?.reloadTable(scrollType: scrollType)
         } else {
             shouldFetchRestOfReplies = true
             fetchMore()
         }
-    }
-    
-    func mainComment() -> CommentViewModel {
-        return commentView!
     }
     
     func numberOfItems() -> Int {
@@ -174,22 +171,30 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             return
         }
         view?.lockUI()
-        interactor.postReply(commentHandle: (commentView?.commentHandle)!, text: text)
+        interactor.postReply(commentHandle: comment.commentHandle, text: text)
     }
-    
     
     // MARK: CommentRepliesInteractorOutput
     func fetched(replies: [Reply], cursor: String?) {
         self.cursor = cursor
         appendWithReplacing(original: &self.replies, appending: replies)
         view?.reloadTable(scrollType: scrollType)
+        
         scrollType = .none
     }
     
     func fetchedMore(replies: [Reply], cursor: String?) {
         self.cursor = cursor
         appendWithReplacing(original: &self.replies, appending: replies)
-        view?.reloadTable(scrollType: .none)
+        
+        if cursor != nil && shouldFetchRestOfReplies == true {
+            self.fetchMore()
+        } else if shouldFetchRestOfReplies == true {
+            view?.reloadTable(scrollType: .bottom)
+            shouldFetchRestOfReplies = false
+        } else {
+            view?.reloadReplies()
+        }
     }
     
     private func appendWithReplacing(original: inout [Reply], appending: [Reply]) {
@@ -203,8 +208,14 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func replyPosted(reply: Reply) {
+        if replies.contains(where: { $0.replyHandle == reply.replyHandle } ) {
+            return
+        }
+        
         reply.userHandle = SocialPlus.shared.me?.uid
         appendWithReplacing(original: &replies, appending: [reply])
+        comment.totalReplies += 1
+        commentCell.configure(comment: comment)
         view?.replyPosted()
     }
     
@@ -218,17 +229,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             
             guard let index = replies.enumerated().first(where: { $0.element.replyHandle == replyHandle })?.offset else {
                 return
-            }
-            
-            let status = replies[index].liked
-            
-            replies[index].liked = !status
-            
-            switch action {
-            case .like:
-                replies[index].totalLikes -= 1
-            default:
-                replies[index].totalLikes += 1
             }
             
             view?.refreshReplyCell(index: index)

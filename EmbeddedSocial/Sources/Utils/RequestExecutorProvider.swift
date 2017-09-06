@@ -7,7 +7,7 @@ import Foundation
 
 typealias UsersFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
 
-typealias TopicsFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseTopicView, PostFetchResult>
+typealias TopicsFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseTopicView, FeedFetchResult>
 
 typealias SuggestedUsersRequestExecutor = CacheRequestExecutionStrategy<[UserCompactView], UsersListResponse>
 
@@ -31,9 +31,9 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
     
     static func makeTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor {
         let executor = makeCommonExecutor(requestType: FeedResponseTopicView.self,
-                                          responseType: PostFetchResult.self,
+                                          responseType: FeedFetchResult.self,
                                           service: service)
-        executor.mapper = PostFetchResult.init
+        executor.mapper = FeedFetchResult.init
         return executor
     }
     

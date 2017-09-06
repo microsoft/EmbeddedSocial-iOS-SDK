@@ -8,14 +8,14 @@ import XCTest
 
 class TestHome: UITestBase {
     var sideMenu: SideMenu!
-    var feed: PostsFeed!
+    var feed: Feed!
     var pageSize: Int!
     var feedName: String!
     
     override func setUp() {
         super.setUp()
         sideMenu = SideMenu(app)
-        feed = PostsFeed(app)
+        feed = Feed(app)
         pageSize = EmbeddedSocial.Constants.Feed.pageSize
         feedName = "topics"
     }
