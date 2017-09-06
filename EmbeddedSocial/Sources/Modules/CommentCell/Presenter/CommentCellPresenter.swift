@@ -9,17 +9,35 @@ protocol CommentCellModuleProtocol {
 }
 
 class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, CommentCellInteractorOutput {
-
-    var view: CommentCellViewInput?
+    
+    func setNewView(view: CommentCell, for comment: Comment) {
+        self.view = view
+        self.view?.setup(dataSource: self)
+        self.view?.configure(comment: comment)
+    }
+    
+    var view: CommentCellViewInput? {
+        didSet {
+//            print("set view \(String(describing: view)) for \(debugPrint(self))")
+        }
+    }
     var interactor: CommentCellInteractorInput?
     var router: CommentCellRouterInput?
     
-    var comment: Comment!
-
+    var comment: Comment! {
+        didSet {
+            view?.configure(comment: comment)
+            view?.setup(dataSource: self)
+        }
+    }
     
     // MARK: CommentCellViewOutput
     func viewIsReady() {
         
+    }
+    
+    deinit {
+        print("CommentCellPresenter deinit")
     }
     
     func like() {

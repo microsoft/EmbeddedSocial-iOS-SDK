@@ -3,6 +3,22 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+class LoadMoreCellViewModel {
+    var cellHeight: CGFloat = 40
+    var shouldHideActivityIndicator = true
+    var shouldHideLoadingLabel = false
+    
+    func startLoading() {
+        shouldHideActivityIndicator = false
+        shouldHideLoadingLabel = true
+    }
+    
+    func stopLoading() {
+        shouldHideActivityIndicator = true
+        shouldHideLoadingLabel = false
+    }
+}
+
 class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
 
     weak var view: PostDetailViewInput!
@@ -17,36 +33,61 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
 
     var comments = [Comment]()
     
+    var commentModules = [CommentCellModuleInput]()
+    
     private var formatter = DateFormatterTool()
     private var cursor: String?
     private let maxLimit: Int32 = 30000
     private var shouldFetchRestOfComments = false
     
     fileprivate var dataIsFetching = false
-    private let myProfileHolder: UserHolder
+    fileprivate var loadMoreCellViewModel = LoadMoreCellViewModel()
+    
+    var myProfileHolder: UserHolder!
+
     
     func heightForFeed() -> CGFloat {
         return (feedModuleInput?.moduleHeight())!
     }
     
+
     init(myProfileHolder: UserHolder) {
         self.myProfileHolder = myProfileHolder
+    }
+    
+    func cell(index: Int) -> CommentCell? {
+        if commentModules.count > index {
+            return commentModules[index].view as? CommentCell
+        }
+        
+        return nil
+    }
+    
+    func configNewCell(cell: CommentCell, index: Int) -> CommentCell {
+        if !commentModules.isEmpty {
+            commentModules[index].setNewView(view: cell, for: comments[index])
+            return commentModules[index].view as! CommentCell
+        }
+        
+        return cell
     }
     
     // MARK: PostDetailInteractorOutput
     func didFetch(comments: [Comment], cursor: String?) {
         self.cursor = cursor
-        self.comments = comments
+        appendWithReplacing(original: &self.comments, appending: comments)
+        stopLoading()
         view.reloadTable(scrollType: scrollType)
-        
         scrollType = .none
     }
     
     func didFetchMore(comments: [Comment], cursor: String?) {
+        
         dataIsFetching = false
         appendWithReplacing(original: &self.comments, appending: comments)
+        self.comments.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
         self.cursor = cursor
-        
+        stopLoading()
         if cursor != nil && shouldFetchRestOfComments == true {
             self.fetchMore()
         } else if shouldFetchRestOfComments == true {
@@ -54,16 +95,29 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
             shouldFetchRestOfComments = false
         } else {
             view.updateComments()
+            view.updateLoadingCell()
         }
         
+    }
+    
+    private func stopLoading() {
+        if cursor == nil {
+            loadMoreCellViewModel.cellHeight = 0
+        }
+        
+        loadMoreCellViewModel.stopLoading()
     }
     
     private func appendWithReplacing(original: inout [Comment], appending: [Comment]) {
         for appendingItem in appending {
             if let index = original.index(where: { $0.commentHandle == appendingItem.commentHandle }) {
                 original[index] = appendingItem
+                commentModules[index].comment = appendingItem
             } else {
                 original.append(appendingItem)
+                let config = CommentCellModuleConfigurator()
+                let moduleInput = config.configure(cell: nil, comment: appendingItem, navigationController: (view as! UIViewController).navigationController)
+                commentModules.append(moduleInput)
             }
         }
     }
@@ -91,6 +145,10 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     }
     
     // MAKR: PostDetailViewOutput
+    
+    func loadCellModel() -> LoadMoreCellViewModel {
+        return loadMoreCellViewModel
+    }
     
     func enableFetchMore() -> Bool {
         return cursor != nil && !dataIsFetching
@@ -127,6 +185,8 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     
     func fetchMore() {
         dataIsFetching = true
+        loadMoreCellViewModel.startLoading()
+        view.updateLoadingCell()
         if shouldFetchRestOfComments {
             interactor.fetchMoreComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: maxLimit)
         } else {

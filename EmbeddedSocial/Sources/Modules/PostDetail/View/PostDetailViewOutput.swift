@@ -13,4 +13,7 @@ protocol PostDetailViewOutput {
     func enableFetchMore() -> Bool
     func refresh()
     func heightForFeed() -> CGFloat
+    func loadCellModel() -> LoadMoreCellViewModel
+    func cell(index: Int) -> CommentCell?
+    func configNewCell(cell: CommentCell, index: Int) -> CommentCell
 }

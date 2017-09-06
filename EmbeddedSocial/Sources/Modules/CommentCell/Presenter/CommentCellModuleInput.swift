@@ -4,5 +4,7 @@
 //
 
 protocol CommentCellModuleInput: class {
-
+    var comment: Comment! {get set}
+    func setNewView(view: CommentCell, for comment: Comment)
+    var view: CommentCellViewInput? {get set}
 }

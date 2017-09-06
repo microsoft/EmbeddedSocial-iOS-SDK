@@ -54,7 +54,7 @@ extension Constants {
     }
     
     struct PostDetails {
-        static let pageSize = 50
+        static let pageSize = 10
     }
     
     struct CommentReplies {
