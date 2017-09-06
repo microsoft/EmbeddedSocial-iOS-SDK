@@ -96,7 +96,7 @@ class CachedActionsExecuter: NetworkStatusListener {
     }
     
     func executeAll() {
-    
+        
         let actions = cacheAdapter.getAllCachedActions()
         
         guard actions.count > 0 else { return }
@@ -112,34 +112,22 @@ class CachedActionsExecuter: NetworkStatusListener {
         
         Logger.log("Executing outgoing cached action, \(action.actionType) \(action.actionMethod)", event: .veryImportant)
         
-        switch action.actionType {
-        case .like:
-            if action.actionMethod == .post {
-                
-                likesService.postLike(postHandle: handle) { [weak self] handle, error in
-                    self?.onCompletion(action, error)
-                    
-                }
-            } else {
-                
-                likesService.deleteLike(postHandle: handle) { [weak self] handle, error in
-                    self?.onCompletion(action, error)
-                    
-                }
+        switch (action.actionType, action.actionMethod) {
+        case (.like, .post):
+            likesService.postLike(postHandle: handle) { [weak self] handle, error in
+                self?.onCompletion(action, error)
             }
-        case .pin:
-            if action.actionMethod == .post {
-                
-                likesService.postPin(postHandle: handle) { [weak self] handle, error in
-                    self?.onCompletion(action, error)
-                    
-                }
-            } else {
-                
-                likesService.deletePin(postHandle: handle) { [weak self] handle, error in
-                    self?.onCompletion(action, error)
-                    
-                }
+        case (.like, .delete):
+            likesService.deleteLike(postHandle: handle) { [weak self] handle, error in
+                self?.onCompletion(action, error)
+            }
+        case (.pin, .post):
+            likesService.postPin(postHandle: handle) { [weak self] handle, error in
+                self?.onCompletion(action, error)
+            }
+        case (.pin, .delete):
+            likesService.deletePin(postHandle: handle) { [weak self] handle, error in
+                self?.onCompletion(action, error)
             }
         }
     }
@@ -184,7 +172,7 @@ class SocialActionsCacheAdapter {
             predicate: oppositeActionPredicate,
             sortDescriptors: nil) {
             
-            Logger.log("Removing opposite action \(cached) to \(request)", event: .veryImportant)
+            Logger.log("Removing \(cached) opposite to \(request)", event: .veryImportant)
             cache.deleteOutgoing(with: oppositeActionPredicate)
         } else {
             Logger.log("Caching action \(request)", event: .veryImportant)
