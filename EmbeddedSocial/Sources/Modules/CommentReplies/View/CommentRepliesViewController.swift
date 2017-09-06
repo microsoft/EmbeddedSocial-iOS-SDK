@@ -8,6 +8,7 @@ import SVProgressHUD
 
 enum RepliesSections: Int {
     case comment = 0
+    case loadMore
     case replies
     case sectionsCount
 }
@@ -67,6 +68,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         prototypeReplyCell = ReplyCell.nib.instantiate(withOwner: nil, options: nil).first as? ReplyCell
         prototypeCommentCell = CommentCell.nib.instantiate(withOwner: nil, options: nil).first as? CommentCell
         collectionView.register(ReplyCell.nib, forCellWithReuseIdentifier: ReplyCell.reuseID)
+        collectionView.register(LoadMoreCell.nib, forCellWithReuseIdentifier: LoadMoreCell.reuseID)
         collectionView.register(CommentCell.nib, forCellWithReuseIdentifier: CommentCell.reuseID)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -104,6 +106,10 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         collectionView.reloadSections(IndexSet(integer: RepliesSections.replies.rawValue))
         unlockUI()
         refreshControl.endRefreshing()
+    }
+    
+    func updateLoadingCell() {
+        collectionView.reloadSections([RepliesSections.loadMore.rawValue])
     }
 
     func refreshReplyCell(index: Int) {
@@ -146,7 +152,7 @@ extension CommentRepliesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case RepliesSections.comment.rawValue:
+        case RepliesSections.comment.rawValue, RepliesSections.loadMore.rawValue:
             return 1
         case RepliesSections.replies.rawValue:
             return output.numberOfItems()
@@ -161,14 +167,15 @@ extension CommentRepliesViewController: UICollectionViewDataSource {
                 let cell = output.mainCommentCell()
                 cell.repliesButton.isHidden = true
                 return cell
+        case RepliesSections.loadMore.rawValue:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadMoreCell.reuseID, for: indexPath) as! LoadMoreCell
+            cell.configure(viewModel: output.loadCellModel())
+            cell.delegate = self
+            return cell
             case RepliesSections.replies.rawValue:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
                 cell.config(replyView: output.replyView(index: indexPath.row))
                 cell.tag = indexPath.row
-                if  output.numberOfItems() - 1 < indexPath.row + 1 && output.canFetchMore() {
-                    output.fetchMore()
-                    lockUI()
-                }
                 return cell
             default:
                 return UICollectionViewCell()
@@ -184,11 +191,21 @@ extension CommentRepliesViewController: UICollectionViewDelegate {
     }
 }
 
+extension CommentRepliesViewController: LoadMoreCellDelegate {
+    func loadPressed() {
+        if output.canFetchMore() {
+            output.fetchMore()
+        }
+    }
+}
+
 extension CommentRepliesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case RepliesSections.comment.rawValue:
             return output.mainCommentCell().frame.size
+        case RepliesSections.loadMore.rawValue:
+            return CGSize(width: UIScreen.main.bounds.width, height: output.loadCellModel().cellHeight)
         case RepliesSections.replies.rawValue:
             prototypeReplyCell.config(replyView: output.replyView(index: indexPath.row))
             print(prototypeReplyCell.cellSize())

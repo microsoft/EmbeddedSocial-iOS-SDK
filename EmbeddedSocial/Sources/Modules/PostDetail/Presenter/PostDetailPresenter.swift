@@ -3,22 +3,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-class LoadMoreCellViewModel {
-    var cellHeight: CGFloat = 40
-    var shouldHideActivityIndicator = true
-    var shouldHideLoadingLabel = false
-    
-    func startLoading() {
-        shouldHideActivityIndicator = false
-        shouldHideLoadingLabel = true
-    }
-    
-    func stopLoading() {
-        shouldHideActivityIndicator = true
-        shouldHideLoadingLabel = false
-    }
-}
-
 class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
 
     weak var view: PostDetailViewInput!

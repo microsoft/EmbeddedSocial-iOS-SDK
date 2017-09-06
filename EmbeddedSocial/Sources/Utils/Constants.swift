@@ -58,7 +58,7 @@ extension Constants {
     }
     
     struct CommentReplies {
-        static let pageSize = 50
+        static let pageSize = 10
     }
     
     struct Search {

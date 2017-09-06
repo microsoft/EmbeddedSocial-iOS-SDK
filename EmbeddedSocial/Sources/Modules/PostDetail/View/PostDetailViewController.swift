@@ -86,21 +86,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
 
     func updateComments() {
-//        collectionView.performBatchUpdates({
-//            var pathes = [IndexPath]()
-//            let numberOfItemsInCommentsSection = self.collectionView.numberOfItems(inSection: CommentsSections.comments.rawValue)
-//            let numberOfItemsInDataSource = self.output.numberOfItems()
-//            if numberOfItemsInCommentsSection < numberOfItemsInDataSource  {
-//                for index in numberOfItemsInCommentsSection...numberOfItemsInDataSource - 1 {
-//                    pathes.append(IndexPath(item: index, section: CommentsSections.comments.rawValue))
-//                }
-//                self.collectionView.insertItems(at: pathes)
-//            }
-//            self.collectionView.reloadItems(at: [IndexPath(item: 0, section: CommentsSections.loadMore.rawValue)])
-//
-//        }) { (updated) in
-//            SVProgressHUD.dismiss()
-//        }
         collectionView.reloadSections(IndexSet(integer: CommentsSections.comments.rawValue))
     }
     

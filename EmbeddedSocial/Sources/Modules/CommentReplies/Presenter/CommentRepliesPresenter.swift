@@ -40,6 +40,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     private var formatter = DateFormatterTool()
     fileprivate var shouldFetchRestOfReplies = false
+    fileprivate var loadMoreCellViewModel = LoadMoreCellViewModel()
     
     private var cursor: String?
     private let maxLimit: Int = 30000
@@ -107,6 +108,10 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     // MARK: CommentRepliesViewOutput
     
+    func loadCellModel() -> LoadMoreCellViewModel {
+        return loadMoreCellViewModel
+    }
+    
     func mainCommentCell() -> CommentCell {
         return commentCell
     }
@@ -143,6 +148,8 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func fetchMore() {
+        loadMoreCellViewModel.startLoading()
+        view?.updateLoadingCell()
         if shouldFetchRestOfReplies {
             interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: maxLimit)
         } else {
@@ -174,10 +181,19 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         interactor.postReply(commentHandle: comment.commentHandle, text: text)
     }
     
+    private func stopLoading() {
+        if cursor == nil {
+            loadMoreCellViewModel.cellHeight = 0
+        }
+        
+        loadMoreCellViewModel.stopLoading()
+    }
+    
     // MARK: CommentRepliesInteractorOutput
     func fetched(replies: [Reply], cursor: String?) {
         self.cursor = cursor
         appendWithReplacing(original: &self.replies, appending: replies)
+        stopLoading()
         view?.reloadTable(scrollType: scrollType)
         
         scrollType = .none
@@ -186,7 +202,8 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     func fetchedMore(replies: [Reply], cursor: String?) {
         self.cursor = cursor
         appendWithReplacing(original: &self.replies, appending: replies)
-        
+        self.replies.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
+        stopLoading()
         if cursor != nil && shouldFetchRestOfReplies == true {
             self.fetchMore()
         } else if shouldFetchRestOfReplies == true {
@@ -194,6 +211,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             shouldFetchRestOfReplies = false
         } else {
             view?.reloadReplies()
+            view?.updateLoadingCell()
         }
     }
     

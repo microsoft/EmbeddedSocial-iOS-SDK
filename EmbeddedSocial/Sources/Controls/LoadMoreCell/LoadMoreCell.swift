@@ -12,6 +12,23 @@ protocol LoadMoreCellDelegate: class {
     func loadPressed()
 }
 
+
+class LoadMoreCellViewModel {
+    var cellHeight: CGFloat = 40
+    var shouldHideActivityIndicator = true
+    var shouldHideLoadingLabel = false
+    
+    func startLoading() {
+        shouldHideActivityIndicator = false
+        shouldHideLoadingLabel = true
+    }
+    
+    func stopLoading() {
+        shouldHideActivityIndicator = true
+        shouldHideLoadingLabel = false
+    }
+}
+
 class LoadMoreCell: UICollectionViewCell {
 
     @IBOutlet weak var loadButton: UIButton!
