@@ -60,6 +60,7 @@ class MockLikesService: LikesServiceProtocol {
     func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
         likeCommentCommentHandleCompletionCalled = true
         likeCommentCommentHandleCompletionReceivedArguments = (commentHandle: commentHandle, completion: completion)
+        completion("completion", nil)
     }
     
     //MARK: - unlikeComment
@@ -70,6 +71,7 @@ class MockLikesService: LikesServiceProtocol {
     func unlikeComment(commentHandle: String, completion: @escaping CompletionHandler) {
         unlikeCommentCommentHandleCompletionCalled = true
         unlikeCommentCommentHandleCompletionReceivedArguments = (commentHandle: commentHandle, completion: completion)
+        completion("completion", nil)
     }
     
     //MARK: - likeReply
@@ -100,6 +102,26 @@ class MockLikesService: LikesServiceProtocol {
     func getPostLikes(postHandle: String, cursor: String?, limit: Int,                      completion: @escaping (Result<UsersListResponse>) -> Void) {
         getPostLikesPostHandleCursorLimitCompletionCalled = true
         getPostLikesPostHandleCursorLimitCompletionReceivedArguments = (postHandle: postHandle, cursor: cursor, limit: limit, completion: completion)
+    }
+    
+    //MARK: - getCommentsLikes
+    
+    var getCommentsLikesCommentHandleCursorLimitCompletionCalled = false
+    var getCommentsLikesCommentHandleCursorLimitCompletionReceivedArguments: (commentHandle: String, cursor: String?, limit: Int, completion: (Result<UsersListResponse>) -> Void)?
+
+    func getCommentLikes(commentHandle: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        getCommentsLikesCommentHandleCursorLimitCompletionCalled = true
+        getCommentsLikesCommentHandleCursorLimitCompletionReceivedArguments = (commentHandle: commentHandle, cursor: cursor, limit: limit, completion: completion)
+    }
+    
+    //MARK: - getRepliesLikes
+    
+    var getReplyLikesReplyHandleCursorLimitCompletionCalled = false
+    var getReplyLikesReplyHandleCursorLimitCompletionReceivedArguments: (replyHandle: String, cursor: String?, limit: Int, completion: (Result<UsersListResponse>) -> Void)?
+    
+    func getReplyLikes(replyHandle: String, cursor: String?, limit: Int,                      completion: @escaping (Result<UsersListResponse>) -> Void) {
+        getReplyLikesReplyHandleCursorLimitCompletionCalled = true
+        getReplyLikesReplyHandleCursorLimitCompletionReceivedArguments = (replyHandle: replyHandle, cursor: cursor, limit: limit, completion: completion)
     }
     
 }

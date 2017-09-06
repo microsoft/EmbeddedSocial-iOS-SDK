@@ -216,7 +216,7 @@ class FeedCacheActionsAdapter: FeedCacheActionsAdapterProtocol {
             predicate: oppositeActionPredicate,
             sortDescriptors: nil) {
             
-            Logger.log("Removing opposite action \(cached) to \(request)", event: .veryImportant)
+            Logger.log("Removing \(cached) opposite to \(request)", event: .veryImportant)
             cache.deleteOutgoing(with: oppositeActionPredicate)
         } else {
             Logger.log("Caching action \(request)", event: .veryImportant)

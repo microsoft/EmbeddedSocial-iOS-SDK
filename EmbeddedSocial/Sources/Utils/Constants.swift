@@ -35,6 +35,17 @@ extension Constants {
         static let pageSize = 30
     }
     
+    struct FeedModule {
+        struct Collection  {
+            static var rowsMargin = CGFloat(10.0)
+            static var itemsPerRow = CGFloat(2)
+            static var gridCellsPadding = CGFloat(5)
+            static var footerHeight = CGFloat(60)
+            static var containerPadding = CGFloat(10)
+            static var containerColor = UIColor.white
+        }
+    }
+    
     struct UserProfile {
         static let summaryAspectRatio: CGFloat = 2.25
         static let containerInset: CGFloat = 10.0
@@ -51,6 +62,14 @@ extension Constants {
         struct Popular {
             static let initialFeedScope = FeedType.TimeRange.alltime
         }
+    }
+    
+    struct PostDetails {
+        static let pageSize = 50
+    }
+    
+    struct CommentReplies {
+        static let pageSize = 50
     }
     
     struct Search {
