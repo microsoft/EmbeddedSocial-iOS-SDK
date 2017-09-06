@@ -190,9 +190,13 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     // MARK: Private
     
+    private func collectionPaddingNeeded() -> Bool {
+        return isHomeFeedType()
+    }
+    
     private func onLayoutTypeChange() {
-        Logger.log(self.layout)
         view.setLayout(type: self.layout)
+        view.paddingEnabled = collectionPaddingNeeded()
         fetchAllItems()
     }
     
@@ -204,7 +208,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
     }
     
-    fileprivate func isHome() -> Bool {
+    fileprivate func isHomeFeedType() -> Bool {
         return feedType == .home
     }
  
@@ -481,7 +485,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     
     func didFollow(user: UserHandle) {
         
-        if isHome() {
+        if isHomeFeedType() {
             
             // Refetch Data
             fetchAllItems()
@@ -501,7 +505,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     
     func didUnfollow(user: UserHandle) {
        
-        if isHome() {
+        if isHomeFeedType() {
             
             // Refetch Data
             fetchAllItems()

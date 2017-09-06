@@ -103,7 +103,13 @@ extension PopularModuleView: PopularModuleViewInput {
         viewController.willMove(toParentViewController: self)
         addChildViewController(viewController)
         container.addSubview(viewController.view)
-        viewController.view.snp.makeConstraints { $0.edges.equalToSuperview() }
+        viewController.view.snp.makeConstraints {
+            $0.edges.equalTo(container).inset(
+                UIEdgeInsetsMake(0,
+                                 Constants.FeedModule.Collection.containerPadding,
+                                 0,
+                                 Constants.FeedModule.Collection.containerPadding))
+        }
         viewController.didMove(toParentViewController: self)
     }
     

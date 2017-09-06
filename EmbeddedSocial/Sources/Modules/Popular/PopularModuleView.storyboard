@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yO7-Kr-Lg6">
-                                <rect key="frame" x="0.0" y="61" width="375" height="606"/>
+                                <rect key="frame" x="0.0" y="53" width="375" height="614"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3lr-ZT-k10">
@@ -37,7 +37,7 @@
                         <constraints>
                             <constraint firstItem="yO7-Kr-Lg6" firstAttribute="leading" secondItem="h0b-qg-6nJ" secondAttribute="leading" id="A1S-Ea-tem"/>
                             <constraint firstItem="ceD-Fb-GLu" firstAttribute="top" secondItem="yO7-Kr-Lg6" secondAttribute="bottom" id="FdA-f9-Im5"/>
-                            <constraint firstItem="yO7-Kr-Lg6" firstAttribute="top" secondItem="3lr-ZT-k10" secondAttribute="bottom" constant="8" id="Iix-ll-58L"/>
+                            <constraint firstItem="yO7-Kr-Lg6" firstAttribute="top" secondItem="3lr-ZT-k10" secondAttribute="bottom" id="Iix-ll-58L"/>
                             <constraint firstAttribute="trailing" secondItem="yO7-Kr-Lg6" secondAttribute="trailing" id="c9R-nb-pYW"/>
                             <constraint firstItem="3lr-ZT-k10" firstAttribute="top" secondItem="YrU-rz-zye" secondAttribute="bottom" constant="5" id="cIr-1x-hTh"/>
                             <constraint firstItem="3lr-ZT-k10" firstAttribute="centerX" secondItem="h0b-qg-6nJ" secondAttribute="centerX" id="z22-Xc-eCf"/>
