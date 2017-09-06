@@ -12,11 +12,13 @@ class CommentRepliesPresenterTests: XCTestCase {
     let interactor = MockCommentRepliesIneractor()
     let view = MockCommentRepliesViewController()
     var myProfileHolder: MyProfileHolder!
+    var router: MockCommentRepliesRouter!
     
     var commentView: CommentViewModel!
     
     override func setUp() {
         super.setUp()
+        router = MockCommentRepliesRouter()
         myProfileHolder = MyProfileHolder()
         presenter = CommentRepliesPresenter(myProfileHolder: myProfileHolder)
         commentView  = CommentViewModel()
@@ -27,6 +29,7 @@ class CommentRepliesPresenterTests: XCTestCase {
         presenter.commentView = commentView
         interactor.output = presenter
         view.output = presenter
+        presenter.router = router
     }
     
     override func tearDown() {
@@ -37,10 +40,11 @@ class CommentRepliesPresenterTests: XCTestCase {
         interactor.output = nil
         presenter.view = nil
         view.output = nil
+        router = nil
         presenter = nil
     }
     
-    func testTharReplyPosted() {
+    func testThatReplyIsPosted() {
         
         //given
         let reply = Reply()
@@ -54,7 +58,22 @@ class CommentRepliesPresenterTests: XCTestCase {
         XCTAssertEqual(view.replyPostedCount, 1)
     }
     
-    func testThatNumberOfItesmCorrect() {
+    func testThatLoginIsOpenedWhenAnonymousUserAttemptsToReply() {
+        
+        //given
+        let reply = Reply()
+        reply.text = "Text"
+        
+        myProfileHolder.me = nil
+        
+        //when
+        presenter.postReply(text: reply.text!)
+        
+        //then
+        XCTAssertTrue(router.openLoginFromCalled)
+    }
+    
+    func testThatNumberOfItemsIsCorrect() {
         
         //given
         presenter.replies = [Reply()]

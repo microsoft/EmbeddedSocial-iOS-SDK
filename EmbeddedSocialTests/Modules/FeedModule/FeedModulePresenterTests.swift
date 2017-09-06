@@ -291,8 +291,8 @@ class FeedModulePresenter_Tests: XCTestCase {
         let path = IndexPath(row: 0, section: 0)
         
         var expectedResults = [FeedPostCellAction: FeedModuleRoutes]()
-        expectedResults[FeedPostCellAction.extra] = FeedModuleRoutes.myPost(post: post)
-        expectedResults[FeedPostCellAction.profile] = FeedModuleRoutes.myProfile
+        expectedResults[.extra] = .myPost(post: post)
+        expectedResults[.profile] = .myProfile
         
         for (action, expectedResult) in expectedResults {
             
@@ -307,6 +307,26 @@ class FeedModulePresenter_Tests: XCTestCase {
         }
        
     
+    }
+    
+    func testThatItOpensLoginWhenAnonymousUserAttemptsToPerformLikeOrPin() {
+        performActionAndValidateLoginOpened(.pin)
+        performActionAndValidateLoginOpened(.like)
+    }
+    
+    func performActionAndValidateLoginOpened(_ action: FeedPostCellAction) {
+        // given
+        let userHolder = UserHolderMock()
+        userHolder.me = nil
+        
+        sut.userHolder = userHolder
+        
+        // when
+        sut.handle(action: action, path: IndexPath())
+        
+        // then
+        XCTAssertTrue(router.open_route_feedSource_Called)
+        XCTAssertEqual(router.open_route_feedSource_ReceivedArguments?.route, .login)
     }
 }
 

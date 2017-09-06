@@ -6,7 +6,7 @@
 import Foundation
 @testable import EmbeddedSocial
 
-class MockCommentRepliesViewController: CommentRepliesViewInput {
+class MockCommentRepliesViewController: UIViewController, CommentRepliesViewInput {
     
     var output: CommentRepliesViewOutput!
     

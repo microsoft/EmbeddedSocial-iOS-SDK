@@ -25,7 +25,7 @@ private class PostMenuModuleOutputMock: PostMenuModuleOutput {
     func didUnblock(user: UserHandle) {
         unblockedUser = user
     }
-
+    
     func didFollow(user: UserHandle) {
         followedUser = user
     }
