@@ -9,6 +9,7 @@ import Foundation
 class FeedModuleViewInputMock: FeedModuleViewInput {
     
     //MARK: - setupInitialState
+    var paddingEnabled: Bool = false
     
     var setupInitialState_Called = false
     
