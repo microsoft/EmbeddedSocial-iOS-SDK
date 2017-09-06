@@ -170,7 +170,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     func postReply(text: String) {
         guard myProfileHolder.me != nil else {
-            router.openLogin(from: view as! UIViewController)
+            router.openLogin(from: view as? UIViewController ?? UIViewController())
             return
         }
         view?.lockUI()
