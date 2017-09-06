@@ -3,9 +3,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-
 import Foundation
 
-protocol PostDetailRouterInput {
-    func openLogin(from view: UIViewController)
+protocol CommentCellInteractorInput {
+    func commentAction(commentHandle: String, action: CommentSocialAction)
 }

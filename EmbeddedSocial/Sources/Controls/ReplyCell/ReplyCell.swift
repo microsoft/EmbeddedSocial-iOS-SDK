@@ -49,6 +49,7 @@ class ReplyCell: UICollectionViewCell {
     }
 
     @IBAction func toLikes(_ sender: Any) {
+        replyView.onAction?(.toLikes, tag)
     }
     
     @IBAction func actionsPressed(_ sender: Any) {

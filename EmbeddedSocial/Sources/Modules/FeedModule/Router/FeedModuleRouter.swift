@@ -137,7 +137,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
             
         case .likesList(let handle):
             let configurator = LikesListConfigurator()
-            configurator.configure(postHandle: handle, navigationController: navigationController)
+            configurator.configure(handle: handle, type: .post, navigationController: navigationController)
             navigationController?.pushViewController(configurator.viewController, animated: true)
             
         case .postDetails(let post):
