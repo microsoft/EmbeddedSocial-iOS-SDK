@@ -273,13 +273,15 @@ class TopicService: BaseService, PostServiceProtocol {
         guard isNetworkReachable == true else { return }
         
         // Request execution
-        requestBuilder.execute { (response, error) in
+        requestBuilder.execute { [weak self] (response, error) in
+            
+            guard let strongSelf = self else { return }
             
             var result = FeedFetchResult()
             
-            self.handleError(error, result: &result)
-            self.cacheResponse(response?.body, forKey: requestCacheKey)
-            self.parseResponse(response?.body, isCached: false, into: &result)
+            strongSelf.handleError(error, result: &result)
+            strongSelf.cacheResponse(response?.body, forKey: requestCacheKey)
+            strongSelf.parseResponse(response?.body, isCached: false, into: &result)
             
             completion(result)
         }
