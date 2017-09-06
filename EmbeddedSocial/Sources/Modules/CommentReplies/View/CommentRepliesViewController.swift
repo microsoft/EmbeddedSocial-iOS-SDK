@@ -96,7 +96,6 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     }
  
     @IBAction func postReply(_ sender: Any) {
-        lockUI()
         output.postReply(text: replyTextView.text)
     }
     

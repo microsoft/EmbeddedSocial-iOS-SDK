@@ -135,6 +135,11 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     }
     
     func postComment(photo: Photo?, comment: String) {
+        guard myProfileHolder.me != nil else {
+            router.openLogin(from: view as! UIViewController)
+            return
+        }
+        view.showHUD()
         interactor.postComment(photo: photo, topicHandle: (postViewModel?.topicHandle)!, comment: comment)
     }
 }

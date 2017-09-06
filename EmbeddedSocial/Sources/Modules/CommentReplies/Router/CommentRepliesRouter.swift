@@ -4,6 +4,8 @@
 //
 
 class CommentRepliesRouter: CommentRepliesRouterInput {
+    weak var loginOpener: LoginModalOpener?
+        
     func openUser(userHandle: UserHandle, from view: UIViewController) {
         let configurator = UserProfileConfigurator()
         configurator.configure(userID: userHandle, navigationController: view.navigationController)

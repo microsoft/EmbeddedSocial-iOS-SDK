@@ -6,7 +6,7 @@
 import Foundation
 @testable import EmbeddedSocial
 
-class MockCommentRepliesViewController: CommentRepliesViewInput {
+class MockCommentRepliesViewController: UIViewController, CommentRepliesViewInput {
     
     var output: CommentRepliesViewOutput!
     
@@ -40,5 +40,8 @@ class MockCommentRepliesViewController: CommentRepliesViewInput {
         reloadTableCount += 1
     }
     
-    
+    var lockUICount = 0
+    func lockUI() {
+        lockUICount += 1
+    }
 }

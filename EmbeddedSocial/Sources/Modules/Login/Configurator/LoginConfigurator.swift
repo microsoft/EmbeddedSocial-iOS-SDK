@@ -13,10 +13,10 @@ final class LoginConfigurator {
         viewController = StoryboardScene.Login.instantiateLoginViewController()
     }
 
-    func configure(moduleOutput: LoginModuleOutput) {
+    func configure(moduleOutput: LoginModuleOutput, source: SessionInfo.Source = .menu) {
         let router = LoginRouter()
         
-        let presenter = LoginPresenter()
+        let presenter = LoginPresenter(source: source)
         presenter.view = viewController
         presenter.router = router
         presenter.moduleOutput = moduleOutput
@@ -27,7 +27,6 @@ final class LoginConfigurator {
         router.createAccountOutput = presenter
         
         viewController.output = presenter
-        
         viewController.title = L10n.Login.screenTitle
     }
 }

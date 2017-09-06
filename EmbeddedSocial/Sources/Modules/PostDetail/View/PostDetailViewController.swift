@@ -171,7 +171,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     @IBAction func postComment(_ sender: Any) {
         commentTextView.resignFirstResponder()
-        SVProgressHUD.show()
         postButton.isHidden = true
         output.postComment(photo: photo, comment: commentTextView.text)
     }

@@ -44,6 +44,16 @@ class LoginViewController: UIViewController, LoginViewInput {
         loadingIndicatorView.isHidden = !isLoading
         buttonsContainerView.isHidden = isLoading
         loadingIndicatorView.isLoading = isLoading
+        navigationItem.leftBarButtonItem?.isEnabled = !isLoading
+    }
+    
+    func addLeftNavigationCancelButton() {
+        navigationItem.leftBarButtonItem =
+            UIBarButtonItem(title: L10n.Common.cancel, style: .plain, target: self, action: #selector(self.onCancel))
+    }
+    
+    @objc private func onCancel() {
+        output.onCancel()
     }
     
     @IBAction fileprivate func onFacebookSignIn(_ sender: UIButton) {

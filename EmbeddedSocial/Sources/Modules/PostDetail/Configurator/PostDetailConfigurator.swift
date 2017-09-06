@@ -17,12 +17,16 @@ class PostDetailModuleConfigurator {
     init() {
         viewController = StoryboardScene.PostDetail.instantiatePostDetailViewController()
     }
-
-    func configure(postViewModel: PostViewModel, scrollType: CommentsScrollType) {
+    
+    func configure(postViewModel: PostViewModel,
+                   scrollType: CommentsScrollType,
+                   myProfileHolder: UserHolder = SocialPlus.shared,
+                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
         
         let router = PostDetailRouter()
+        router.loginOpener = loginOpener
 
-        let presenter = PostDetailPresenter()
+        let presenter = PostDetailPresenter(myProfileHolder: myProfileHolder)
         presenter.view = viewController
         presenter.router = router
         presenter.postViewModel = postViewModel

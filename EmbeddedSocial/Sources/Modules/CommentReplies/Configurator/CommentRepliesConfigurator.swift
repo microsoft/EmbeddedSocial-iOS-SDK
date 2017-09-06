@@ -20,6 +20,7 @@ class CommentRepliesModuleConfigurator {
     
     func configure(commentModule: CommentCellModuleProtocol, scrollType: RepliesScrollType) {
         let router = CommentRepliesRouter()
+        router.loginOpener = loginOpener
         
         let repliesService = RepliesService()
         

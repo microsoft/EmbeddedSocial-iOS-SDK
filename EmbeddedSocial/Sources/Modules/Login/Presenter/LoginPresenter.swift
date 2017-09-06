@@ -10,8 +10,21 @@ final class LoginPresenter: LoginViewOutput {
     var router: LoginRouterInput!
     weak var moduleOutput: LoginModuleOutput?
     
+    fileprivate let source: SessionInfo.Source
+    
+    init(source: SessionInfo.Source) {
+        self.source = source
+    }
+    
     func viewIsReady() {
         view.setupInitialState()
+        if source == .modal {
+            view.addLeftNavigationCancelButton()
+        }
+    }
+    
+    func onCancel() {
+        router.dismiss()
     }
     
     func onFacebookSignInTapped() {
@@ -48,7 +61,8 @@ final class LoginPresenter: LoginViewOutput {
             self?.view.setIsLoading(false)
             
             if let (user, sessionToken) = result.value {
-                self?.moduleOutput?.onSessionCreated(user: user, sessionToken: sessionToken)
+                let sessionInfo = SessionInfo(user: user, token: sessionToken, source: self?.source ?? .menu)
+                self?.moduleOutput?.onSessionCreated(with: sessionInfo)
             } else if user.credentials.provider == .twitter {
                 self?.logIntoTwitter()
             } else {
@@ -75,6 +89,7 @@ final class LoginPresenter: LoginViewOutput {
 
 extension LoginPresenter: CreateAccountModuleOutput {
     func onAccountCreated(user: User, sessionToken: String) {
-        moduleOutput?.onSessionCreated(user: user, sessionToken: sessionToken)
+        let sessionInfo = SessionInfo(user: user, token: sessionToken, source: source)
+        moduleOutput?.onSessionCreated(with: sessionInfo)
     }
 }

@@ -26,6 +26,12 @@ final class ReportPresenter {
     fileprivate var isSubmitButtonEnabled: Bool {
         return selectedIndexPath != nil
     }
+    
+    fileprivate let myProfileHolder: UserHolder
+    
+    init(myProfileHolder: UserHolder) {
+        self.myProfileHolder = myProfileHolder
+    }
 }
 
 extension ReportPresenter: ReportViewOutput {
@@ -42,6 +48,11 @@ extension ReportPresenter: ReportViewOutput {
     func onSubmit() {
         guard let selectedIndexPath = selectedIndexPath,
             let reason = interactor.reportReason(forIndexPath: selectedIndexPath) else {
+            return
+        }
+        
+        guard myProfileHolder.me != nil else {
+            router.openLogin()
             return
         }
         
