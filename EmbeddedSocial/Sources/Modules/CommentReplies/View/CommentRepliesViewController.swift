@@ -85,7 +85,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         }
     }
     
-    fileprivate func lockUI() {
+    func lockUI() {
         view.isUserInteractionEnabled = false
         SVProgressHUD.show()
     }

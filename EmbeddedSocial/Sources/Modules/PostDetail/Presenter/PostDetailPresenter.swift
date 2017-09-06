@@ -23,9 +23,14 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     private var shouldFetchRestOfComments = false
     
     fileprivate var dataIsFetching = false
+    private let myProfileHolder: UserHolder
     
     func heightForFeed() -> CGFloat {
         return (feedModuleInput?.moduleHeight())!
+    }
+    
+    init(myProfileHolder: UserHolder) {
+        self.myProfileHolder = myProfileHolder
     }
     
     // MARK: PostDetailInteractorOutput

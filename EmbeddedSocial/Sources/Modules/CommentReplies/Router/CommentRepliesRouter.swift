@@ -18,4 +18,8 @@ class CommentRepliesRouter: CommentRepliesRouterInput {
         configurator.configure(handle: replyHandle, type: .reply, navigationController: view.navigationController)
         view.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
+    
+    func openLogin(from viewController: UIViewController) {
+        loginOpener?.openLogin(parentViewController: viewController.navigationController)
+    }
 }

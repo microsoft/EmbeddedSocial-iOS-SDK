@@ -12,4 +12,5 @@ protocol PostDetailViewInput: class {
     func refreshPostCell()
     func setFeedViewController(_ feedViewController: UIViewController)
     func updateComments()
+    func showHUD()
 }

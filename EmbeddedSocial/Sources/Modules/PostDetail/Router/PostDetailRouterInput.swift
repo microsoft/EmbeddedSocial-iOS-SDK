@@ -7,4 +7,5 @@
 import Foundation
 
 protocol PostDetailRouterInput {
+    func openLogin(from view: UIViewController)
 }

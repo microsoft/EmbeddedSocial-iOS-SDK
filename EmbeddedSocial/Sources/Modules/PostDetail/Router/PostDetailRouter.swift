@@ -6,5 +6,10 @@
 import SKPhotoBrowser
 
 class PostDetailRouter: PostDetailRouterInput {
+    weak var loginOpener: LoginModalOpener?
     weak var navigationController: UINavigationController?
+    
+    func openLogin(from view: UIViewController) {
+        loginOpener?.openLogin(parentViewController: view.navigationController)
+    }
 }

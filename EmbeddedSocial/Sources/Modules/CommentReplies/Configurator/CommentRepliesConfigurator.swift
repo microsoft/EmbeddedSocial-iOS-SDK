@@ -18,13 +18,14 @@ class CommentRepliesModuleConfigurator {
         viewController = StoryboardScene.CommentReplies.instantiateCommentRepliesViewController()
     }
     
-    func configure(commentModule: CommentCellModuleProtocol, scrollType: RepliesScrollType) {
+    func configure(commentModule: CommentCellModuleProtocol, scrollType: RepliesScrollType, myProfileHolder: UserHolder = SocialPlus.shared,
+                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
         let router = CommentRepliesRouter()
         router.loginOpener = loginOpener
         
         let repliesService = RepliesService()
         
-        let presenter = CommentRepliesPresenter()
+        let presenter = CommentRepliesPresenter(myProfileHolder: myProfileHolder)
         presenter.comment = commentModule.mainComment()
         presenter.commentCell = commentModule.cell()
         presenter.view = viewController

@@ -62,9 +62,8 @@ extension MockTopicService {
 
 class PostDetailsInteractorTests: XCTestCase {
     
-     private let timeout: TimeInterval = 5
-    
-    var output = MockPostDetailPresenter()
+    private let timeout: TimeInterval = 5
+    var output: MockPostDetailPresenter!
     var interactor = PostDetailInteractor()
     
     var coreDataStack: CoreDataStack!
