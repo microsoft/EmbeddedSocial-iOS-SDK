@@ -71,6 +71,7 @@ class PopularModuleView: UIViewController {
     
     // MARK: Life Cycle
     override func viewDidLoad() {
+        container.backgroundColor = Palette.extraLightGrey
         
         feedControl.tintColor = Palette.green
         feedControl.addTarget(self,

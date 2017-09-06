@@ -102,7 +102,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
-        self.collectionView.backgroundColor = Palette.extraLightGrey
         self.collectionView.delegate = self
           collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
         
@@ -252,7 +251,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     // MARK: Input
     
     func setupInitialState() {
-        collectionView.backgroundView = nil
+        collectionView.backgroundColor = Palette.extraLightGrey
         collectionView.alwaysBounceVertical = true
         collectionView.addSubview(refreshControl)
     }

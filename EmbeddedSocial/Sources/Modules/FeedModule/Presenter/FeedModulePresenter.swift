@@ -349,6 +349,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func viewIsReady() {
         view.setupInitialState()
+        view.paddingEnabled = collectionPaddingNeeded()
         view.setLayout(type: layout)
         if let header = header {
             view.registerHeader(withType: header.type, configurator: header.configurator)
