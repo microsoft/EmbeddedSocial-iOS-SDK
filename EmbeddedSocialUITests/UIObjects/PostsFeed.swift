@@ -46,7 +46,7 @@ class Post {
 
 }
 
-class PostsFeed {
+class Feed {
     var app: XCUIApplication
     var feedContainer: XCUIElementQuery
     

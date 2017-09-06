@@ -9,7 +9,7 @@ import XCTest
 class TestUserProfile: UITestBase {
     var sideMenu: SideMenu!
     var profile: UserProfile!
-    var feed: PostsFeed!
+    var feed: Feed!
     var userName: String!
     var userHandle: String!
     
@@ -17,7 +17,7 @@ class TestUserProfile: UITestBase {
         super.setUp()
         sideMenu = SideMenu(app)
         profile = UserProfile(app)
-        feed = PostsFeed(app)
+        feed = Feed(app)
         userName = "John Doe"
         userHandle = "JohnDoe"
     }
