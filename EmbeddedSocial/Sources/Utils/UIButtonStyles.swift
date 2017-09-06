@@ -66,8 +66,8 @@ extension UIButton.Style {
                               cornerRadius: 8.0)
     }
     
-    static var blocked: UIButton.Style {
-        return UIButton.Style(title: L10n.Common.blocked.uppercased(),
+    static var unblock: UIButton.Style {
+        return UIButton.Style(title: L10n.Common.unblock.uppercased(),
                               backgroundColor: .clear,
                               tintColor: Palette.lightGrey,
                               titleColor: Palette.lightGrey,
