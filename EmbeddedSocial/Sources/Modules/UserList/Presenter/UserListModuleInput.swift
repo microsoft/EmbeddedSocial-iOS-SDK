@@ -13,4 +13,6 @@ protocol UserListModuleInput: class {
     func reload(with api: UsersListAPI)
     
     func setListHeaderView(_ view: UIView?)
+    
+    func removeListItem(at indexPath: IndexPath)
 }

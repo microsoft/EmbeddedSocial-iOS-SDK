@@ -127,6 +127,7 @@
 		882CAF0A1F5EC4B1001D5F37 /* LoginModalOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CAF091F5EC4B1001D5F37 /* LoginModalOpener.swift */; };
 		882CAF0C1F5ECF7C001D5F37 /* AuthorizationMulticast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */; };
 		882CAF121F5EF94C001D5F37 /* MockCommentRepliesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CAF111F5EF94C001D5F37 /* MockCommentRepliesRouter.swift */; };
+		882CAF141F60001D001D5F37 /* BlockedUsersListItemsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CAF131F60001D001D5F37 /* BlockedUsersListItemsBuilder.swift */; };
 		8834A7491F50071300F1D383 /* QueryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A7481F50071300F1D383 /* QueryPage.swift */; };
 		8834A74B1F50095B00F1D383 /* CacheFetchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */; };
 		8834A74D1F5011B600F1D383 /* CacheQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A74C1F5011B600F1D383 /* CacheQueries.swift */; };
@@ -864,6 +865,7 @@
 		882CAF091F5EC4B1001D5F37 /* LoginModalOpener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModalOpener.swift; sourceTree = "<group>"; };
 		882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationMulticast.swift; sourceTree = "<group>"; };
 		882CAF111F5EF94C001D5F37 /* MockCommentRepliesRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentRepliesRouter.swift; sourceTree = "<group>"; };
+		882CAF131F60001D001D5F37 /* BlockedUsersListItemsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockedUsersListItemsBuilder.swift; path = ../BlockedUsersListItemsBuilder.swift; sourceTree = "<group>"; };
 		882F103E1F30C8A20068B6F2 /* UserListConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListConfigurator.swift; sourceTree = "<group>"; };
 		882F103F1F30C8A20068B6F2 /* UserListDataDisplayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListDataDisplayManager.swift; sourceTree = "<group>"; };
 		882F10401F30C8A20068B6F2 /* UserListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListPresenter.swift; sourceTree = "<group>"; };
@@ -1919,7 +1921,7 @@
 		883E1E361F546507004B4861 /* BlockedUsers */ = {
 			isa = PBXGroup;
 			children = (
-				883E1E391F546517004B4861 /* API */,
+				883E1E391F546517004B4861 /* Helpers */,
 				883E1E371F546517004B4861 /* Configurator */,
 				883E1E3D1F546517004B4861 /* Presenter */,
 				883E1E3F1F546517004B4861 /* View */,
@@ -1935,11 +1937,13 @@
 			path = Configurator;
 			sourceTree = "<group>";
 		};
-		883E1E391F546517004B4861 /* API */ = {
+		883E1E391F546517004B4861 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				883E1E3A1F546517004B4861 /* BlockedUsersAPI.swift */,
+				882CAF131F60001D001D5F37 /* BlockedUsersListItemsBuilder.swift */,
 			);
+			name = Helpers;
 			path = API;
 			sourceTree = "<group>";
 		};
@@ -4537,6 +4541,7 @@
 				88580C2A1F2213AB00C1CBAF /* SessionStoreRepositoryProvider.swift in Sources */,
 				88580C1C1F2213AB00C1CBAF /* FacebookAPI.swift in Sources */,
 				8846CB4E1F30CA1100F11EC8 /* UserListViewInput.swift in Sources */,
+				882CAF141F60001D001D5F37 /* BlockedUsersListItemsBuilder.swift in Sources */,
 				88E3AC3C1F55B0400016357F /* ReportViewController.swift in Sources */,
 				8864C8381F46DBA700ADCE13 /* SearchPeopleViewOutput.swift in Sources */,
 				88580C5B1F2213AB00C1CBAF /* SideMenuInteractor.swift in Sources */,

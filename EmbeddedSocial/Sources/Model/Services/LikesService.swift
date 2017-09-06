@@ -46,18 +46,11 @@ extension LikesServiceProtocol {
 
 class LikesService: BaseService, LikesServiceProtocol {
     
-    typealias RequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
-    private typealias RequestExecutorImpl = CommonCacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
+    private var requestExecutor: UsersFeedRequestExecutor!
 
-    private let requestExecutor: RequestExecutor
-    
-    init(requestExecutor: RequestExecutor = RequestExecutorImpl()) {
-        self.requestExecutor = requestExecutor
-        
+    init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
         super.init()
-        
-        self.requestExecutor.cache = cache
-        self.requestExecutor.errorHandler = errorHandler
+        requestExecutor = provider.makeUsersFeedExecutor(for: self)
     }
     
     private lazy var outgoingActionsCache: SocialActionsCacheAdapter = { [unowned self] in
