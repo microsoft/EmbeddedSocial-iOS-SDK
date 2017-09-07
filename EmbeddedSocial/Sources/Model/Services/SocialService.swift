@@ -70,7 +70,9 @@ class SocialService: BaseService, SocialServiceType {
     }
 
     func unblock(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        completion(.success())
+        SocialAPI.myBlockedUsersDeleteBlockedUser(userHandle: userID, authorization: authorization) { data, error in
+            self.processResponse(data, error, completion)
+        }
     }
     
     func block(userID: String, completion: @escaping (Result<Void>) -> Void) {

@@ -76,8 +76,8 @@ extension TopicsServiceMock {
     func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {}
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {}
     func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {}
-    func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {}
-    func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {}
+    func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {}
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {}
     func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {}
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {}

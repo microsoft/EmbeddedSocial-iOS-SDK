@@ -8,7 +8,7 @@ import XCTest
 
 class UserProfile {
     var app: XCUIApplication!
-    var feed: PostsFeed!
+    var feed: Feed!
     var details: XCUIElement!
     var followersButton: XCUIElement!
     var followingButton: XCUIElement!
@@ -23,7 +23,7 @@ class UserProfile {
         self.app = application
         self.menuButton = app.navigationBars.children(matching: .button).element(boundBy: 2)
         self.menu = app.sheets
-        self.feed = PostsFeed(app)
+        self.feed = Feed(app)
         self.details = app.collectionViews.children(matching: .other).element
         self.followersButton = details.buttons.element(boundBy: 0)
         self.followingButton = details.buttons.element(boundBy: 1)

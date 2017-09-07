@@ -14,7 +14,7 @@ fileprivate class MockTopicService: TopicService {
         fetchPostCount += 1
         var post = Post()
         post.topicHandle = "fsdf"
-        var result = PostFetchResult()
+        var result = FeedFetchResult()
         result.posts = [post]
         completion(result)
     }

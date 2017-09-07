@@ -27,7 +27,7 @@ enum FeedServiceError: Error {
     }
 }
 
-typealias FetchResultHandler = ((PostFetchResult) -> Void)
+typealias FetchResultHandler = ((FeedFetchResult) -> Void)
 
 protocol FeedQueryType {
     var cursor: String? { get set }
@@ -66,19 +66,19 @@ protocol PostServiceProtocol {
     func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler)
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler)
     func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler)
-    func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler)
-    func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler)
+    func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler)
+    func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler)
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler)
     func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler)
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler)
     func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler)
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
-
+    
 }
 
 protocol PostServiceDelegate: class {
     
-    func didFetchHome(query: FeedQuery, result: PostFetchResult)
+    func didFetchHome(query: FeedQuery, result: FeedFetchResult)
 }
 
 class TopicService: BaseService, PostServiceProtocol {
@@ -89,7 +89,7 @@ class TopicService: BaseService, PostServiceProtocol {
         super.init()
         self.imagesService = imagesService
     }
-
+    
     init() {
         super.init()
     }
@@ -160,7 +160,6 @@ class TopicService: BaseService, PostServiceProtocol {
                                                               cursor: query.cursor,
                                                               limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
@@ -169,7 +168,6 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                        cursor: query.cursor,
                                                                        limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
@@ -180,7 +178,6 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                          cursor: query.cursorInt(),
                                                                          limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
@@ -190,36 +187,33 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                   cursor: query.cursor,
                                                                   limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
-    func fetchRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
         
         let request = UsersAPI.userTopicsGetTopicsWithRequestBuilder(userHandle: query.user,
                                                                      authorization: authorization,
                                                                      cursor: query.cursor,
                                                                      limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
-    func fetchPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
+    func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
         
         let request = UsersAPI.userTopicsGetPopularTopicsWithRequestBuilder(userHandle: query.user,
                                                                             authorization: authorization,
                                                                             cursor: query.cursorInt(),
                                                                             limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
         TopicsAPI.topicsGetTopic(topicHandle: post, authorization: authorization) { (topic, error) in
             
-            var result = PostFetchResult()
+            var result = FeedFetchResult()
             
             guard let data = topic else {
                 if self.errorHandler.canHandle(error) {
@@ -243,7 +237,6 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                    cursor: query.cursor,
                                                                    limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
     }
     
@@ -252,9 +245,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                           cursor: query.cursorInt(),
                                                                           limit: query.limit)
         
-        processCache(with: request, completion: completion)
         processRequest(request, completion: completion)
-        
     }
     
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
@@ -268,62 +259,75 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     // MARK: Private
-    
     private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
                                 completion: @escaping FetchResultHandler) {
         
-        guard isNetworkReachable == true else {
-            Logger.log("No internet, using only cache", event: .veryImportant)
-            return
+        let requestCacheKey = requestBuilder.URLString
+        
+        // Lookup in cache and return if hit
+        if let result = fetchResultFromCache(by: requestCacheKey) {
+            
+            completion(result)
         }
         
-        let requestURL = requestBuilder.URLString
+        guard isNetworkReachable == true else { return }
         
+        // Request execution
         requestBuilder.execute { (response, error) in
-            self.parseResponse(requestURL: requestURL,
-                               response: response?.body,
-                               error: error,
-                               completion: completion)
+            
+            var result = FeedFetchResult()
+            
+            self.handleError(error, result: &result)
+            self.cacheResponse(response?.body, forKey: requestCacheKey)
+            self.parseResponse(response?.body, isCached: false, into: &result)
+            
+            completion(result)
         }
     }
     
-    private func processCache(with requestBuilder:RequestBuilder<FeedResponseTopicView>,
-                              completion: @escaping FetchResultHandler) {
+    private func cacheResponse(_ response: FeedResponseTopicView?, forKey key: String) {
         
-        let requestURL = requestBuilder.URLString
+        guard let response = response else { return }
         
-        if let cachedResponse = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: requestURL) {
-            self.parseResponse(response: cachedResponse, error: nil, completion: completion)
+        cache.cacheIncoming(response, for: key)
+    }
+    
+    private func handleError(_ error: ErrorResponse?, result: inout FeedFetchResult) {
+        
+        guard let error = error else { return }
+        
+        if errorHandler.canHandle(error) {
+            errorHandler.handle(error)
+        } else {
+            let message = error.localizedDescription
+            result.error = FeedServiceError.failedToFetch(message: message)
         }
     }
     
-    private func parseResponse(requestURL: String? = nil,
-                               response: FeedResponseTopicView?,
-                               error: Error?,
-                               completion: FetchResultHandler) {
+    private func fetchResultFromCache(by cacheKey: String) -> FeedFetchResult? {
         
-        var result = PostFetchResult()
-        
-        guard let response = response else {
-            if errorHandler.canHandle(error) {
-                errorHandler.handle(error)
-            } else {
-                let message = error?.localizedDescription ?? L10n.Error.noItemsReceived
-                result.error = FeedServiceError.failedToFetch(message: message)
-                completion(result)
-            }
-            return
+        guard let cachedResponse = feedCacheAdapter.cached(by: cacheKey) else {
+            return nil
         }
         
-        if let data = response.data {
-            result.posts = data.map(Post.init)
-        }
-        result.cursor = response.cursor
+        var result = FeedFetchResult()
         
-        completion(result)
+        self.parseResponse(cachedResponse, isCached: true, into: &result)
         
-        if let requestURL = requestURL {
-            cache.cacheIncoming(response, for: requestURL)
-        }
+        return result
     }
+    
+    private lazy var responseParser: FeedResponseParser = { [unowned self] in
+        return FeedResponseParser(processor: FeedCachePostProcessor(cacheAdapter: FeedCacheActionsAdapter(cache: self.cache)))
+        }()
+    
+    private func parseResponse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout FeedFetchResult) {
+        responseParser.parse(response, isCached: isCached, into: &result)
+    }
+    
+    private lazy var feedCacheAdapter: FeedCacheAdapter = { [unowned self] in
+        return FeedCacheAdapter(cache: self.cache)
+        }()
+    
 }
+

@@ -78,4 +78,8 @@ extension UserListView: UserListViewInput {
     func setListHeaderView(_ view: UIView?) {
         tableView.tableHeaderView = view
     }
+    
+    func removeListItem(at indexPath: IndexPath) {
+        dataManager.removeItem(at: indexPath)
+    }
 }

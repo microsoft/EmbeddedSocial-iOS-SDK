@@ -13,6 +13,9 @@ class MockUserListModuleInput: UserListModuleInput {
     private(set) var api: UsersListAPI?
     private(set) var headerView: UIView?
     
+    private(set) var removeListItemCount = 0
+    private(set) var removeListItemInputIndexPath: IndexPath?
+    
     var listView = UIView()
 
     func setupInitialState() {
@@ -27,5 +30,10 @@ class MockUserListModuleInput: UserListModuleInput {
     func setListHeaderView(_ view: UIView?) {
         setListHeaderViewCount += 1
         self.headerView = view
+    }
+    
+    func removeListItem(at indexPath: IndexPath) {
+        removeListItemCount += 1
+        removeListItemInputIndexPath = indexPath
     }
 }

@@ -89,21 +89,21 @@ extension Post {
     
 }
 
-// MARK: PostsFeed
-struct PostsFeed {
+// MARK: Feed
+struct Feed {
     var feedType: FeedType
     var items: [Post]
     var cursor: String? = nil
 }
 
 // MARK: PostsFetchResult
-struct PostFetchResult {
+struct FeedFetchResult {
     var posts: [Post] = []
     var error: FeedServiceError?
     var cursor: String?
 }
 
-extension PostFetchResult {
+extension FeedFetchResult {
     init(response: FeedResponseTopicView?) {
         posts = response?.data?.map(Post.init) ?? []
         error = nil
@@ -117,10 +117,10 @@ extension PostFetchResult {
     }
 }
 
-extension PostFetchResult {
+extension FeedFetchResult {
     
-    static func mock() -> PostFetchResult {
-        var result = PostFetchResult()
+    static func mock() -> FeedFetchResult {
+        var result = FeedFetchResult()
         
         let number = arc4random() % 5 + 1
         

@@ -18,8 +18,7 @@ struct SearchPeopleConfigurator {
         let interactor = SearchPeopleInteractor()
         
         let api = QueryPeopleAPI(query: "", searchService: SearchService())
-        let conf = UserListConfigurator()
-        let usersListModule = conf.configure(api: api, navigationController: navigationController, output: nil)
+        let usersListModule = makeUserListModule(api: api, navigationController: navigationController, output: nil)
         
         let presenter = SearchPeoplePresenter()
         presenter.view = viewController
@@ -37,10 +36,20 @@ struct SearchPeopleConfigurator {
         return presenter
     }
     
+    private func makeUserListModule(api: UsersListAPI,
+                                    navigationController: UINavigationController?,
+                                    output: UserListModuleOutput?) -> UserListModuleInput {
+        
+        let settings = UserListConfigurator.Settings(api: api,
+                                                     navigationController: navigationController,
+                                                     output: output)
+        
+        return UserListConfigurator().configure(with: settings)
+    }
+    
     private func makeBackgroundUsersListModule(navigationController: UINavigationController?,
                                                output: UserListModuleOutput?) -> UserListModuleInput {
         let api = SuggestedUsersAPI(socialService: SocialService())
-        let conf = UserListConfigurator()
-        return conf.configure(api: api, navigationController: navigationController, output: output)
+        return makeUserListModule(api: api, navigationController: navigationController, output: output)
     }
 }

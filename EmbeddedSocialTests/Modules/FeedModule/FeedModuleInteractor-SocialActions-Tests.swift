@@ -44,9 +44,9 @@ private class FeedModulePresenterMock: FeedModuleInteractorOutput {
     
     var didPostAction: (post: PostHandle, action: PostSocialAction, error: Error?)?
     
-    func didFetch(feed: PostsFeed) { }
+    func didFetch(feed: Feed) { }
     
-    func didFetchMore(feed: PostsFeed) { }
+    func didFetchMore(feed: Feed) { }
     
     func didFail(error: FeedServiceError) { }
     

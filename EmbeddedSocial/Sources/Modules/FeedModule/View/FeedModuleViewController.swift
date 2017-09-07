@@ -26,25 +26,21 @@ protocol FeedModuleViewInput: class {
     //func getItemSize() -> CGSize
     
     var itemsLimit: Int { get }
-    
+    var paddingEnabled: Bool { get set }
 }
 
 class FeedModuleViewController: UIViewController, FeedModuleViewInput {
-    
-    fileprivate struct Style {
-        struct Collection  {
-            static var rowsMargin = CGFloat(10.0)
-            static var itemsPerRow = CGFloat(2)
-            static var gridCellsPadding = CGFloat(5)
-            static var footerHeight = CGFloat(60)
-            static var containerPadding = CGFloat(10)
-        }
-    }
     
     var output: FeedModuleViewOutput!
     
     var numberOfItems: Int {
         return collectionView?.numberOfItems(inSection: 0) ?? 0
+    }
+    
+    var paddingEnabled: Bool = false {
+        didSet {
+            refreshLayout()
+        }
     }
     
     fileprivate var cachedLimit: Int?
@@ -106,7 +102,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
-        self.collectionView.backgroundColor = Palette.extraLightGrey
         self.collectionView.delegate = self
           collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
         
@@ -168,15 +163,17 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     private func updateFlowLayoutForGrid(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
         
-        let padding = Style.Collection.gridCellsPadding
-        layout.sectionInset = UIEdgeInsets(top: padding,
-                                           left: Style.Collection.containerPadding,
-                                           bottom: padding,
-                                           right: Style.Collection.containerPadding)
+        let spacBetweenItems = Constants.FeedModule.Collection.gridCellsPadding
+        let topPadding = paddingEnabled ? Constants.FeedModule.Collection.containerPadding : 0
+        let horizontalPadding = paddingEnabled ? Constants.FeedModule.Collection.containerPadding : 0
+        layout.sectionInset = UIEdgeInsets(top: topPadding,
+                                           left: horizontalPadding,
+                                           bottom: topPadding,
+                                           right: horizontalPadding)
         
-        layout.minimumLineSpacing = padding
-        layout.minimumInteritemSpacing = padding
-        let itemsPerRow = Style.Collection.itemsPerRow
+        layout.minimumLineSpacing = spacBetweenItems
+        layout.minimumInteritemSpacing = spacBetweenItems
+        let itemsPerRow = Constants.FeedModule.Collection.itemsPerRow
         var paddings = layout.minimumInteritemSpacing * CGFloat((itemsPerRow - 1))
         paddings += layout.sectionInset.left + layout.sectionInset.right
         let itemWidth = (containerWidth - paddings) / itemsPerRow
@@ -184,8 +181,8 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     private func updateFlowLayoutForList(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
-        let padding = Style.Collection.gridCellsPadding
-        layout.minimumLineSpacing = Style.Collection.rowsMargin
+        let padding = Constants.FeedModule.Collection.gridCellsPadding
+        layout.minimumLineSpacing = Constants.FeedModule.Collection.rowsMargin
         layout.sectionInset = UIEdgeInsets(top: padding , left: padding , bottom: padding , right: padding )
         layout.itemSize = CGSize(width: containerWidth, height: CGFloat(0))
     }
@@ -209,7 +206,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         
         let itemHeight = layout.itemSize.height + layout.minimumLineSpacing
         let rows = (rect.size.height / itemHeight).rounded(.up)
-        let result = rows * Style.Collection.itemsPerRow
+        let result = rows * Constants.FeedModule.Collection.itemsPerRow
         
         return Int(result)
     }
@@ -225,7 +222,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         sizingCell.layoutIfNeeded()
         
         var size = sizingCell.container.bounds.size
-        size.width -= Style.Collection.containerPadding * 2
+        size.width = containerWidth()
         
         return size
     }
@@ -239,9 +236,22 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.output.didAskFetchMore()
     }
     
+    // MARK: Private
+    
+    fileprivate func containerWidth() -> CGFloat {
+        
+        var result = view.frame.width
+        
+        if paddingEnabled {
+            result -= (Constants.FeedModule.Collection.containerPadding * 2)
+        }
+        return result
+    }
+    
     // MARK: Input
     
     func setupInitialState() {
+        collectionView.backgroundColor = Palette.extraLightGrey
         collectionView.alwaysBounceVertical = true
         collectionView.addSubview(refreshControl)
     }
@@ -373,14 +383,15 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
     }
  
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return output.headerSize
+        
+        return CGSize(width: containerWidth(), height: output.headerSize.height)
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForFooterInSection section: Int) -> CGSize {
         if collectionView.numberOfItems(inSection: 0) > 1 {
-            return CGSize(width: collectionView.frame.size.width, height: Style.Collection.footerHeight)
+            return CGSize(width: collectionView.frame.size.width, height: Constants.FeedModule.Collection.footerHeight)
         } else {
             return CGSize.zero
         }

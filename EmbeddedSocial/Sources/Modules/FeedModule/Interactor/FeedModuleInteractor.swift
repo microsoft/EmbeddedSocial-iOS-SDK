@@ -19,8 +19,8 @@ protocol FeedModuleInteractorInput {
 
 protocol FeedModuleInteractorOutput: class {
     
-    func didFetch(feed: PostsFeed)
-    func didFetchMore(feed: PostsFeed)
+    func didFetch(feed: Feed)
+    func didFetchMore(feed: Feed)
     func didFail(error: FeedServiceError)
     func didStartFetching()
     func didFinishFetching()
@@ -36,7 +36,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     var searchService: SearchServiceType!
     weak var userHolder: UserHolder? = SocialPlus.shared
     
-    func handleFetch(result: PostFetchResult, feedType: FeedType, isLoadingMore: Bool = false) {
+    func handleFetch(result: FeedFetchResult, feedType: FeedType, isLoadingMore: Bool = false) {
         
         output.didFinishFetching()
         
@@ -45,7 +45,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             return
         }
         
-        let feed = PostsFeed(feedType: feedType, items: result.posts, cursor: result.cursor)
+        let feed = Feed(feedType: feedType, items: result.posts, cursor: result.cursor)
         
         if isLoadingMore {
            output.didFetchMore(feed: feed)
@@ -121,11 +121,11 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
                 
                 switch scope {
                 case .popular:
-                    postService.fetchPopular(query: query) { [weak self] result in
+                    postService.fetchUserPopular(query: query) { [weak self] result in
                         self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
                     }
                 case .recent:
-                    postService.fetchRecent(query: query) { [weak self] result in
+                    postService.fetchUserRecent(query: query) { [weak self] result in
                         self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
                     }
                 }
@@ -139,7 +139,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         case let .search(query):
             let intLimit = limit == nil ? Constants.Feed.pageSize : Int(limit!)
             searchService.queryTopics(query: query ?? "", cursor: cursor, limit: intLimit) { [weak self] result in
-                let result = result.value ?? PostFetchResult(error: result.error ?? APIError.unknown)
+                let result = result.value ?? FeedFetchResult(error: result.error ?? APIError.unknown)
                 self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
             }
             
