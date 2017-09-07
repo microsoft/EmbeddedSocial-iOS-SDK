@@ -143,6 +143,7 @@
 		882CAF0A1F5EC4B1001D5F37 /* LoginModalOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CAF091F5EC4B1001D5F37 /* LoginModalOpener.swift */; };
 		882CAF0C1F5ECF7C001D5F37 /* AuthorizationMulticast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */; };
 		882CAF151F604DC4001D5F37 /* BlockedUsersListItemsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CAF131F60001D001D5F37 /* BlockedUsersListItemsBuilder.swift */; };
+		882CAF1B1F617F5E001D5F37 /* UserProfileModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CAF1A1F617F5E001D5F37 /* UserProfileModuleOutput.swift */; };
 		8834A7491F50071300F1D383 /* QueryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A7481F50071300F1D383 /* QueryPage.swift */; };
 		8834A74B1F50095B00F1D383 /* CacheFetchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */; };
 		8834A74D1F5011B600F1D383 /* CacheQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A74C1F5011B600F1D383 /* CacheQueries.swift */; };
@@ -907,6 +908,7 @@
 		882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationMulticast.swift; sourceTree = "<group>"; };
 		882CAF111F5EF94C001D5F37 /* MockCommentRepliesRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentRepliesRouter.swift; sourceTree = "<group>"; };
 		882CAF131F60001D001D5F37 /* BlockedUsersListItemsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockedUsersListItemsBuilder.swift; path = ../BlockedUsersListItemsBuilder.swift; sourceTree = "<group>"; };
+		882CAF1A1F617F5E001D5F37 /* UserProfileModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileModuleOutput.swift; sourceTree = "<group>"; };
 		882F103E1F30C8A20068B6F2 /* UserListConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListConfigurator.swift; sourceTree = "<group>"; };
 		882F103F1F30C8A20068B6F2 /* UserListDataDisplayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListDataDisplayManager.swift; sourceTree = "<group>"; };
 		882F10401F30C8A20068B6F2 /* UserListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListPresenter.swift; sourceTree = "<group>"; };
@@ -3276,6 +3278,7 @@
 			isa = PBXGroup;
 			children = (
 				88BC5C451F2B65D0001FBDD2 /* UserProfilePresenter.swift */,
+				882CAF1A1F617F5E001D5F37 /* UserProfileModuleOutput.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -5218,6 +5221,7 @@
 				8834A74B1F50095B00F1D383 /* CacheFetchRequest.swift in Sources */,
 				8811C89A1F442FD100F7513D /* PostDetailRouterInput.swift in Sources */,
 				884AA95E1F3C563F00B85135 /* UsersAPI.swift in Sources */,
+				882CAF1B1F617F5E001D5F37 /* UserProfileModuleOutput.swift in Sources */,
 				8811C8291F3C83E300F7513D /* UIImage+Compress.swift in Sources */,
 				88580C351F2213AB00C1CBAF /* CreateAccountModuleOutput.swift in Sources */,
 				8811C83D1F42E03A00F7513D /* EmbeddedEditProfileView.swift in Sources */,

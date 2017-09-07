@@ -17,15 +17,17 @@ class FollowersPresenter: FollowersViewOutput {
 }
 
 extension FollowersPresenter: UserListModuleOutput {
+    
+    func didUpdateFollowStatus(for user: User) {
+        guard let followStatus = user.followerStatus else { return }
+        moduleOutput?.didUpdateFollowersStatus(newStatus: followStatus)
+    }
+
     func didFailToPerformSocialRequest(listView: UIView, error: Error) {
         view.showError(error)
     }
     
     func didFailToLoadList(listView: UIView, error: Error) {
         view.showError(error)
-    }
-    
-    func didUpdateFollowStatus(listView: UIView, followStatus: FollowStatus, forUserAt indexPath: IndexPath) {
-        moduleOutput?.didUpdateFollowersStatus(newStatus: followStatus)
     }
 }

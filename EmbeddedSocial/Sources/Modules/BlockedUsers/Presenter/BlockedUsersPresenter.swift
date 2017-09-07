@@ -19,9 +19,9 @@ extension BlockedUsersPresenter: BlockedUsersViewOutput {
 }
 
 extension BlockedUsersPresenter: UserListModuleOutput {
-    
-    func didUpdateFollowStatus(listView: UIView, followStatus: FollowStatus, forUserAt indexPath: IndexPath) {
-        usersListModule.removeListItem(at: indexPath)
+
+    func didUpdateFollowStatus(for user: User) {
+        usersListModule.removeUser(user)
     }
     
     func didFailToPerformSocialRequest(listView: UIView, error: Error) {
