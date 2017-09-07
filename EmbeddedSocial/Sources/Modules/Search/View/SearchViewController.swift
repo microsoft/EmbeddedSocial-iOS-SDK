@@ -9,19 +9,29 @@ import SnapKit
 class SearchViewController: UIViewController {
     
     var output: SearchViewOutput!
-
-    fileprivate var peopleSearchContainer: UISearchContainerViewController?
-    fileprivate var topicsSearchContainer: UISearchContainerViewController?
+    
+    fileprivate var activeTab: SearchTabInfo?
+    
+    @IBOutlet fileprivate weak var filterContainer: UIView!
+    
+    @IBOutlet fileprivate weak var searchResultsContainer: UIView!
     
     fileprivate lazy var filterView: SegmentedControlView = { [unowned self] in
         return SegmentedControlView.searchModuleControl(
-            superview: self.view,
+            superview: self.filterContainer,
             onTopics: self.output.onTopics,
             onPeople: self.output.onPeople)
     }()
     
     fileprivate lazy var feedLayoutButton: UIButton = { [unowned self] in
         return UIButton.makeButton(asset: nil, color: Palette.defaultTint, action: self.output.onFlipTopicsLayout)
+    }()
+    
+    fileprivate lazy var searchBar: UISearchBar = { [unowned self] in
+        let searchBar = UISearchBar(frame: CGRect(x: 0.0, y: 0.0, width: 320.0, height: 44.0))
+        searchBar.delegate = self
+        searchBar.searchBarStyle = .minimal
+        return searchBar
     }()
     
     override func viewDidLoad() {
@@ -31,130 +41,47 @@ class SearchViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        activeSearchController?.isActive = false
+        searchBar.resignFirstResponder()
     }
     
     fileprivate func makeTabActive(_ tab: SearchTabInfo) {
-        if tab.tab == .topics {
-            setupTopicsSearchController(with: tab)
-        } else if tab.tab == .people {
-            setupPeopleSearchController(with: tab)
-        }
-    }
-    
-    private func setupPeopleSearchController(with tab: SearchTabInfo) {
-        if peopleSearchContainer == nil {
-            peopleSearchContainer = makeSearchContainer(with: tab)
-//            addChildController(peopleSearchContainer!)
-            setupSearchResultsControllerFrame(peopleSearchContainer!.searchController.searchResultsController!)
-        }
-        
-        displaySearchController(peopleSearchContainer!)
+        activeTab = tab
+        searchBar.text = activeTab?.searchText
+        searchBar.placeholder = activeTab?.tab.searchBarPlaceholder
 
-        navigationItem.titleView = peopleSearchContainer?.searchController.searchBar
-        navigationItem.rightBarButtonItem = nil
-    }
-    
-    private func setupTopicsSearchController(with tab: SearchTabInfo) {
-        if topicsSearchContainer == nil {
-            topicsSearchContainer = makeSearchContainer(with: tab)
-//            addChildController(topicsSearchContainer!)
-            setupSearchResultsControllerFrame(topicsSearchContainer!.searchController.searchResultsController!)
+        addChildController(tab.searchResultsController, containerView: searchResultsContainer)
+        
+        tab.searchResultsController.view.isHidden = !(tab.searchText?.isEmpty == false)
+
+        if let backgroundView = tab.backgroundView {
+            addBackgroundView(backgroundView)
         }
         
-        displaySearchController(topicsSearchContainer!)
-        
-        navigationItem.titleView = topicsSearchContainer?.searchController.searchBar
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: feedLayoutButton)
+        navigationItem.rightBarButtonItem =
+            tab.tab.showsRightNavigationButton ? UIBarButtonItem(customView: feedLayoutButton) : nil
     }
     
-    fileprivate func makeSearchContainer(with tabInfo: SearchTabInfo) -> UISearchContainerViewController {
-        let searchController = UISearchController(searchResultsController: tabInfo.searchResultsController)
-        searchController.searchResultsUpdater = tabInfo.searchResultsHandler
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.delegate = self
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.searchBarStyle = .minimal
-        searchController.searchBar.placeholder = tabInfo.tab.searchBarPlaceholder
-        searchController.delegate = self
-        
-        let container = UISearchContainerViewController(searchController: searchController)
-        
-        _ = container.view
-        _ = container.searchController.view
-        _ = container.searchController.searchResultsController?.view
-        
-        if let backgroundView = tabInfo.backgroundView {
-            addBackgroundView(backgroundView, to: container.view)
-        }
-        
-        return container
-    }
-    
-    private func setupSearchResultsControllerFrame(_ controller: UIViewController) {
-        controller.edgesForExtendedLayout = []
-        
-        let navBarAndTabBarHeight: CGFloat = 64.0
-        var frame = controller.view.frame
-        frame.origin.y -= navBarAndTabBarHeight
-        frame.size.height += navBarAndTabBarHeight
-        controller.view.frame = frame
-    }
-    
-    fileprivate func addBackgroundView(_ backgroundView: UIView, to superview: UIView) {
-        superview.addSubview(backgroundView)
+    fileprivate func addBackgroundView(_ backgroundView: UIView) {
+        searchResultsContainer.addSubview(backgroundView)
         backgroundView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-    }
-    
-    func addChildController(_ content: UIViewController) {
-        addChildViewController(content)
-        
-        view.addSubview(content.view)
-        content.view.snp.makeConstraints { make in
-            make.top.equalTo(self.filterView.snp.bottom)
-            make.bottom.equalToSuperview()
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-        }
-        
-        content.didMove(toParentViewController: self)
-    }
-    
-    func displaySearchController(_ controller: UISearchContainerViewController) {
-        controller.view.isHidden = false
-        controller.searchController.view.isHidden = false
-        controller.searchController.searchResultsController?.view.isHidden = false
-        controller.searchController.searchBar.becomeFirstResponder()
+        searchResultsContainer.sendSubview(toBack: backgroundView)
     }
     
     fileprivate func hideTab(_ tab: SearchTabInfo) {
-        if tab.tab == .topics {
-            hideSearchController(topicsSearchContainer!)
-        } else if tab.tab == .people {
-            hideSearchController(peopleSearchContainer!)
+        removeChildController(tab.searchResultsController)
+        if let backgroundView = tab.backgroundView {
+            backgroundView.removeFromSuperview()
         }
-    }
-    
-    func hideSearchController(_ controller: UISearchContainerViewController) {
-        controller.view.isHidden = true
-        controller.searchController.view.isHidden = true
-        controller.searchController.searchResultsController?.view.isHidden = true
-    }
-    
-    func removeChildController(_ controller: UIViewController) {
-        controller.willMove(toParentViewController: nil)
-        controller.view.removeFromSuperview()
-        controller.removeFromParentViewController()
     }
 }
 
 extension SearchViewController: SearchViewInput {
     
     func setupInitialState(_ tab: SearchTabInfo) {
-        definesPresentationContext = true
         _ = filterView
+        navigationItem.titleView = searchBar
         makeTabActive(tab)
     }
     
@@ -178,21 +105,22 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-}
-
-extension SearchViewController: UISearchControllerDelegate {
-    func willPresentSearchController(_ searchController: UISearchController) {
-        updateSearchControllerFrame(searchController)
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        activeTab?.searchResultsController.view.isHidden = searchText.isEmpty
+        activeTab?.searchText = searchText
+        activeTab?.searchResultsHandler.updateSearchResults(for: searchBar)
     }
     
-    func didPresentSearchController(_ searchController: UISearchController) {
-        updateSearchControllerFrame(searchController)
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
     
-    private func updateSearchControllerFrame(_ searchController: UISearchController) {
-        var frame = searchController.view.frame
-        frame.origin.y += Constants.Search.filterHeight
-        frame.size.height -= Constants.Search.filterHeight
-        searchController.view.frame = frame
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: false)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: false)
     }
 }

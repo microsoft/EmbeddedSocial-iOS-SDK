@@ -4,12 +4,14 @@
 //
 
 import UIKit
+@testable import EmbeddedSocial
 
-final class MockSearchResultsUpdating: NSObject, UISearchResultsUpdating {
-    var searchController: UISearchController?
+final class MockSearchResultsUpdating: SearchResultsUpdating {
+    var searchBar: UISearchBar?
     private(set) var updateSearchResultsCount = 0
     
-    func updateSearchResults(for searchController: UISearchController) {
+    func updateSearchResults(for searchBar: UISearchBar) {
         updateSearchResultsCount += 1
+        self.searchBar = searchBar
     }
 }

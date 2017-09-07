@@ -17,6 +17,16 @@ class MockCommentRepliesRouter: CommentRepliesRouterInput {
         openUserUserHandleFromReceivedArguments = (userHandle: userHandle, view: view)
     }
     
+    //MARK: - openLikes
+    
+    var openLikesReplyHandleFromCalled = false
+    var openLikesReplyHandleFromReceivedArguments: (replyHandle: String, view: UIViewController)?
+    
+    func openLikes(replyHandle: String, from view: UIViewController) {
+        openLikesReplyHandleFromCalled = true
+        openLikesReplyHandleFromReceivedArguments = (replyHandle: replyHandle, view: view)
+    }
+    
     //MARK: - openLogin
     
     var openLoginFromCalled = false

@@ -59,18 +59,18 @@ extension SearchPresenter: SearchViewOutput {
     }
 }
 
-extension SearchPresenter: UISearchResultsUpdating {
+extension SearchPresenter: SearchResultsUpdating {
     
-    func updateSearchResults(for searchController: UISearchController) {
+    func updateSearchResults(for searchBar: UISearchBar) {
         // Throttle search events https://stackoverflow.com/a/29760716/6870041
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.runSearchQuery(for:)),
-                                               object: searchController)
-        perform(#selector(self.runSearchQuery(for:)), with: searchController, afterDelay: 0.5)
+                                               object: searchBar)
+        perform(#selector(self.runSearchQuery(for:)), with: searchBar, afterDelay: 0.5)
     }
     
-    @objc private func runSearchQuery(for searchController: UISearchController) {
+    @objc private func runSearchQuery(for searchBar: UISearchBar) {
         if let feedModule = feedModuleInput {
-            interactor.runSearchQuery(for: searchController, feedModule: feedModule)
+            interactor.runSearchQuery(for: searchBar, feedModule: feedModule)
         }
     }
 }

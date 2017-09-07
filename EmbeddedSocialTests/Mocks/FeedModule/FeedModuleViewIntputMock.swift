@@ -129,4 +129,5 @@ class FeedModuleViewInputMock: FeedModuleViewInput {
         return getViewHeight_ReturnValue
     }
     
+    var paddingEnabled = true
 }

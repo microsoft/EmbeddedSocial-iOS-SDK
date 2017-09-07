@@ -71,10 +71,6 @@ extension Constants {
     struct CommentReplies {
         static let pageSize = 50
     }
-    
-    struct Search {
-        static let filterHeight: CGFloat = 44.0
-    }
 }
 
 extension Constants {

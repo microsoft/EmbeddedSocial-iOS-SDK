@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct SearchTabInfo {
+final class SearchTabInfo {
     
     enum Tab: Int {
         case topics
@@ -27,9 +27,23 @@ struct SearchTabInfo {
     }
     
     let searchResultsController: UIViewController
-    let searchResultsHandler: UISearchResultsUpdating
+    let searchResultsHandler: SearchResultsUpdating
     let backgroundView: UIView?
     let tab: Tab
+    var searchText: String?
+    
+    init(searchResultsController: UIViewController,
+         searchResultsHandler: SearchResultsUpdating,
+         backgroundView: UIView?,
+         tab: Tab,
+         searchText: String? = nil) {
+        
+        self.searchResultsController = searchResultsController
+        self.searchResultsHandler = searchResultsHandler
+        self.backgroundView = backgroundView
+        self.tab = tab
+        self.searchText = searchText
+    }
 }
 
 extension SearchTabInfo: Equatable {
@@ -38,6 +52,7 @@ extension SearchTabInfo: Equatable {
         return lhs.searchResultsController == rhs.searchResultsController &&
             lhs.searchResultsHandler === rhs.searchResultsHandler &&
             lhs.backgroundView == rhs.backgroundView &&
-            lhs.tab == rhs.tab
+            lhs.tab == rhs.tab &&
+            lhs.searchText == rhs.searchText
     }
 }
