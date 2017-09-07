@@ -34,11 +34,11 @@ class SearchPeopleInteractorTests: XCTestCase {
         sut.runSearchQuery(for: searchController, usersListModule: usersListModule)
         
         // then
-        guard let api = usersListModule.api as? QueryPeopleAPI else {
+        guard let api = usersListModule.reloadWithReceivedApi as? QueryPeopleAPI else {
             XCTFail("Query users API must be set")
             return
         }
         XCTAssertEqual(api.query, query)
-        XCTAssertEqual(usersListModule.reloadCount, 1)
+        XCTAssertTrue(usersListModule.reloadWithCalled)
     }
 }

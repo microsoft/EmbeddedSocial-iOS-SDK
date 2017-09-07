@@ -54,9 +54,9 @@ extension SearchPeoplePresenterTests {
 
         XCTAssertEqual(interactor.makeBackgroundListHeaderViewCount, 1)
         
-        XCTAssertEqual(backgroundUsersListModule.setupInitialStateCount, 1)
-        XCTAssertEqual(backgroundUsersListModule.setListHeaderViewCount, 1)
-        XCTAssertEqual(backgroundUsersListModule.headerView, interactor.backgroundListHeaderView)
+        XCTAssertTrue(backgroundUsersListModule.setupInitialStateCalled)
+        XCTAssertTrue(backgroundUsersListModule.setListHeaderViewCalled)
+        XCTAssertEqual(backgroundUsersListModule.setListHeaderViewReceivedView, interactor.backgroundListHeaderView)
     }
     
     func testThatItSetsInitialStateWhenUserIsNotLoggedIn() {
@@ -72,11 +72,11 @@ extension SearchPeoplePresenterTests {
         
         XCTAssertEqual(interactor.makeBackgroundListHeaderViewCount, 0)
         
-        XCTAssertEqual(backgroundUsersListModule.setupInitialStateCount, 0)
+        XCTAssertFalse(backgroundUsersListModule.setupInitialStateCalled)
     }
     
     func validateViewAndUsersListInitialState() {
-        XCTAssertEqual(usersListModule.setupInitialStateCount, 1)
+        XCTAssertTrue(usersListModule.setupInitialStateCalled)
         
         XCTAssertEqual(view.setupInitialStateCount, 1)
         XCTAssertEqual(view.listView, usersListModule.listView)
