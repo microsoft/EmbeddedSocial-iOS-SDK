@@ -25,17 +25,19 @@ struct PostViewModel {
     let timeCreated: String
     let userImageUrl: String?
     let postImageUrl: String?
-    
+    let isTrimmed: Bool
     let cellType: String
     
     // sourcery: skipEquality
     let onAction: ActionHandler?
   
     init(with post: Post,
+         isTrimmed: Bool = false,
          cellType: String,
          actionHandler: ActionHandler? = nil) {
         
         let formatter = DateFormatterTool()
+        self.isTrimmed = isTrimmed
         topicHandle = post.topicHandle
         userName = User.fullName(firstName: post.firstName, lastName: post.lastName)
         title = post.title ?? ""
@@ -45,7 +47,11 @@ struct PostViewModel {
         totalLikes = L10n.Post.likesCount(post.totalLikes)
         totalComments = L10n.Post.commentsCount(post.totalComments)
         
-        timeCreated =  post.createdTime == nil ? "" : formatter.shortStyle.string(from: post.createdTime!, to: Date())!
+        if let createdTime = post.createdTime {
+            timeCreated =  formatter.shortStyle.string(from: createdTime, to: Date()) ?? ""
+        } else {
+            timeCreated = ""
+        }
         userImageUrl = post.photoUrl
         postImageUrl = post.imageUrl
         

@@ -23,10 +23,10 @@ class MockSearchInteractor: SearchInteractorInput {
     //MARK: - makeTopicsTab
     
     var makeTopicsTabFeedViewControllerSearchResultsHandlerCalled = false
-    var makeTopicsTabFeedViewControllerSearchResultsHandlerReceivedArguments: (feedViewController: UIViewController?, searchResultsHandler: UISearchResultsUpdating)?
+    var makeTopicsTabFeedViewControllerSearchResultsHandlerReceivedArguments: (feedViewController: UIViewController?, searchResultsHandler: SearchResultsUpdating)?
     var makeTopicsTabFeedViewControllerSearchResultsHandlerReturnValue: SearchTabInfo!
     
-    func makeTopicsTab(feedViewController: UIViewController?, searchResultsHandler: UISearchResultsUpdating) -> SearchTabInfo {
+    func makeTopicsTab(feedViewController: UIViewController?, searchResultsHandler: SearchResultsUpdating) -> SearchTabInfo {
         makeTopicsTabFeedViewControllerSearchResultsHandlerCalled = true
         makeTopicsTabFeedViewControllerSearchResultsHandlerReceivedArguments = (feedViewController: feedViewController, searchResultsHandler: searchResultsHandler)
         return makeTopicsTabFeedViewControllerSearchResultsHandlerReturnValue
@@ -35,12 +35,12 @@ class MockSearchInteractor: SearchInteractorInput {
     //MARK: - runSearchQuery
     
     var runSearchQueryForFeedModuleCalled = false
-    var runSearchQueryForFeedModuleReceivedArguments: (searchController: UISearchController, feedModule: FeedModuleInput)?
+    var runSearchQueryForFeedModuleReceivedArguments: (searchBar: UISearchBar, feedModule: FeedModuleInput)?
     var runSearchQueryExpectation = XCTestExpectation(description: "runSearchQueryExpectation")
     
-    func runSearchQuery(for searchController: UISearchController, feedModule: FeedModuleInput) {
+    func runSearchQuery(for searchBar: UISearchBar, feedModule: FeedModuleInput) {
         runSearchQueryForFeedModuleCalled = true
-        runSearchQueryForFeedModuleReceivedArguments = (searchController: searchController, feedModule: feedModule)
+        runSearchQueryForFeedModuleReceivedArguments = (searchBar: searchBar, feedModule: feedModule)
         runSearchQueryExpectation.fulfill()
     }
     

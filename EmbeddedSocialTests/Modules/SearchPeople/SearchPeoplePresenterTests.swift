@@ -111,21 +111,21 @@ extension SearchPeoplePresenterTests {
         // given
         let runQueryTimeout: TimeInterval = 1
         let query = UUID().uuidString
-        let searchController = UISearchController(searchResultsController: UIViewController())
-        searchController.searchBar.text = query
+        let searchBar = UISearchBar()
+        searchBar.text = query
         
         // when
-        sut.updateSearchResults(for: searchController)
+        sut.updateSearchResults(for: searchBar)
         wait(for: [interactor.runSearchQueryExpectation], timeout: runQueryTimeout)
         
         // then
-        validateSearchQueryHasRun(query, searchController: searchController)
+        validateSearchQueryHasRun(query, searchBar: searchBar)
     }
     
     func testThatItThrottlesSearchUpdates() {
         // given
         let runQueryTimeout: TimeInterval = 1
-        let searchController = UISearchController(searchResultsController: UIViewController())
+        let searchBar = UISearchBar()
         let updatesCount = 5
         
         var queries: [String] = []
@@ -135,23 +135,23 @@ extension SearchPeoplePresenterTests {
         
         // when
         for i in 0..<updatesCount {
-            searchController.searchBar.text = queries[i]
-            sut.updateSearchResults(for: searchController)
+            searchBar.text = queries[i]
+            sut.updateSearchResults(for: searchBar)
         }
         wait(for: [interactor.runSearchQueryExpectation], timeout: runQueryTimeout)
 
         // then
         // only the last query has been run
-        validateSearchQueryHasRun(queries.last!, searchController: searchController)
+        validateSearchQueryHasRun(queries.last!, searchBar: searchBar)
     }
     
-    private func validateSearchQueryHasRun(_ query: String, searchController: UISearchController) {
+    private func validateSearchQueryHasRun(_ query: String, searchBar: UISearchBar) {
         XCTAssertEqual(interactor.runSearchQueryCount, 1)
-        guard let (interactorSearchController, interactorUsersListModule) = interactor.runSearchQueryParams else {
+        guard let (interactorSearchBar, interactorUsersListModule) = interactor.runSearchQueryParams else {
             XCTFail("Interactor must handle the query")
             return
         }
-        XCTAssertEqual(interactorSearchController, searchController)
+        XCTAssertEqual(interactorSearchBar, searchBar)
         XCTAssertTrue(interactorUsersListModule === sut.usersListModule)
     }
 }

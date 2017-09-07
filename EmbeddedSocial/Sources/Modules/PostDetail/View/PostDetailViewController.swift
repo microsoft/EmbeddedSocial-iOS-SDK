@@ -9,8 +9,9 @@ import SKPhotoBrowser
 
 fileprivate enum CommentsSections: Int {
     case post = 0
-    case comments
-    case sectionsCount
+    case loadMore = 1
+    case comments = 2
+    case sectionsCount = 3
 }
 
 class PostDetailViewController: BaseViewController, PostDetailViewInput {
@@ -58,16 +59,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if output.numberOfItems() > 0 {
-            collectionView.performBatchUpdates({
-                var pathes = [IndexPath]()
-                self.collectionView.numberOfItems(inSection: CommentsSections.comments.rawValue)
-                for index in 0...self.output.numberOfItems() - 1 {
-                    pathes.append(IndexPath(item: index, section: CommentsSections.comments.rawValue))
-                }
-                self.collectionView.reloadItems(at: pathes)
-            }, completion: nil)
-        }
+        collectionView.reloadSections([CommentsSections.comments.rawValue])
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
@@ -88,16 +80,36 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
             SVProgressHUD.dismiss()
         }
     }
+    
+    func updateLoadingCell() {
+        collectionView.reloadItems(at: [IndexPath(item: 0, section: CommentsSections.loadMore.rawValue)])
+    }
 
     func updateComments() {
-        collectionView.reloadSections([CommentsSections.comments.rawValue])
-        SVProgressHUD.dismiss()
+        let numberOfItems = self.output.numberOfItems()
+        let itemsInSection = self.collectionView.numberOfItems(inSection: CommentsSections.comments.rawValue)
+        let newItemsCount = numberOfItems - itemsInSection
+        collectionView.performBatchUpdates({
+            var pathes = [IndexPath]()
+            if itemsInSection < numberOfItems {
+                for index in 0...newItemsCount - 1 {
+                    pathes.append(IndexPath(item: index, section: RepliesSections.replies.rawValue))
+                }
+                self.collectionView.insertItems(at: pathes)
+            }
+        }) { (updated) in
+            if newItemsCount > 0 {
+                self.updateLoadingCell()
+            }
+            self.refreshControl.endRefreshing()
+        }
     }
     
     private func configCollectionView() {
         prototypeCommentCell = CommentCell.nib.instantiate(withOwner: nil, options: nil).first as? CommentCell
-        self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
-        self.collectionView.register(CommentCell.nib, forCellWithReuseIdentifier: CommentCell.reuseID)
+        collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
+        collectionView.register(CommentCell.nib, forCellWithReuseIdentifier: CommentCell.reuseID)
+        collectionView.register(LoadMoreCell.nib, forCellWithReuseIdentifier: LoadMoreCell.reuseID)
         collectionView.delegate = self
         collectionView.dataSource = self
     }
@@ -179,9 +191,20 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
 
 extension PostDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == CommentsSections.comments.rawValue {
+        switch indexPath.section {
+        case CommentsSections.comments.rawValue:
             let cell = collectionView.cellForItem(at: indexPath) as? CommentCell
             cell?.openReplies()
+        default: break
+            
+        }
+    }
+}
+
+extension PostDetailViewController: LoadMoreCellDelegate {
+    func loadPressed() {
+        if output.enableFetchMore() {
+            output.fetchMore()
         }
     }
 }
@@ -189,7 +212,7 @@ extension PostDetailViewController: UICollectionViewDelegate {
 extension PostDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case CommentsSections.post.rawValue:
+        case CommentsSections.post.rawValue, CommentsSections.loadMore.rawValue:
             return 1
         case CommentsSections.comments.rawValue:
             return output.numberOfItems()
@@ -218,16 +241,17 @@ extension PostDetailViewController: UICollectionViewDataSource {
                 
             }
             return cell
+        case CommentsSections.loadMore.rawValue:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadMoreCell.reuseID, for: indexPath) as! LoadMoreCell
+            cell.configure(viewModel: output.loadCellModel())
+            cell.delegate = self
+            return cell
         case CommentsSections.comments.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
             let config = CommentCellModuleConfigurator()
             config.configure(cell: cell, comment: output.comment(at: indexPath.row), navigationController: self.navigationController)
             cell.repliesButton.isHidden = false
             cell.tag = indexPath.row
-            if  output.numberOfItems() - 1 == indexPath.row && output.enableFetchMore() {
-                output.fetchMore()
-                SVProgressHUD.show()
-            }
             return cell
         default:
             return UICollectionViewCell()
@@ -241,13 +265,16 @@ extension PostDetailViewController: UICollectionViewDataSource {
 
 extension PostDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let screenWidth = UIScreen.main.bounds.size.width
         switch indexPath.section {
         case CommentsSections.post.rawValue:
             // TODO: Feed module should be fix itself size in offline mode
-            return CGSize(width: UIScreen.main.bounds.size.width, height: output.heightForFeed() < 1 ? 1 : output.heightForFeed() )
+            return CGSize(width: screenWidth, height: output.heightForFeed() < 1 ? 1 : output.heightForFeed() )
+        case CommentsSections.loadMore.rawValue:
+            return CGSize(width: screenWidth, height: output.loadCellModel().cellHeight)
         case CommentsSections.comments.rawValue:
             prototypeCommentCell?.configure(comment: output.comment(at: indexPath.row))
-            return CGSize(width: UIScreen.main.bounds.size.width, height: (prototypeCommentCell?.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)!)
+            return CGSize(width: screenWidth, height: (prototypeCommentCell?.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)!)
         default:
             return CGSize(width: 0, height: 0)
         }

@@ -3,7 +3,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-protocol CommentCellModuleInput: class {
-    var comment: Comment! {get set}
-    var view: CommentCellViewInput? {get set}
+import UIKit
+
+protocol SearchResultsUpdating: class {
+    func updateSearchResults(for searchBar: UISearchBar)
 }

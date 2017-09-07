@@ -269,8 +269,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     func setLayout(type: FeedModuleLayoutType) {
-        // Aquire new cells
-        self.collectionView.reloadData()
         // Apply new layout
         onUpdateLayout(type: type)
     }

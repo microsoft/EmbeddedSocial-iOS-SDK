@@ -43,6 +43,10 @@ extension Constants {
             static var footerHeight = CGFloat(60)
             static var containerPadding = CGFloat(10)
             static var containerColor = UIColor.white
+            
+            struct Cell {
+                static var maxLines = 10
+            }
         }
     }
     
@@ -65,15 +69,11 @@ extension Constants {
     }
     
     struct PostDetails {
-        static let pageSize = 50
+        static let pageSize = 10
     }
     
     struct CommentReplies {
-        static let pageSize = 50
-    }
-    
-    struct Search {
-        static let filterHeight: CGFloat = 44.0
+        static let pageSize = 10
     }
 }
 

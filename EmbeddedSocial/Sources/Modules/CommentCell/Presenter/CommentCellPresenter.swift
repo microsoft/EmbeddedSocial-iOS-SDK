@@ -9,13 +9,12 @@ protocol CommentCellModuleProtocol {
 }
 
 class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, CommentCellInteractorOutput {
-
+    
     var view: CommentCellViewInput?
     var interactor: CommentCellInteractorInput?
     var router: CommentCellRouterInput?
     
     var comment: Comment!
-
     
     // MARK: CommentCellViewOutput
     func viewIsReady() {

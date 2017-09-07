@@ -44,4 +44,9 @@ class MockCommentRepliesViewController: UIViewController, CommentRepliesViewInpu
     func lockUI() {
         lockUICount += 1
     }
+    
+    var updateLoadingCellCount = 0
+    func updateLoadingCell() {
+        
+    }
 }

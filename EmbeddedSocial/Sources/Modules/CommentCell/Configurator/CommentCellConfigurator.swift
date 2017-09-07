@@ -7,8 +7,7 @@ import UIKit
 
 class CommentCellModuleConfigurator {
 
-
-    func configure(cell: CommentCell, comment: Comment, navigationController: UINavigationController?) {
+    @discardableResult func configure(cell: CommentCell?, comment: Comment, navigationController: UINavigationController?) -> CommentCellModuleInput {
 
         let router = CommentCellRouter()
         router.navigationController = navigationController
@@ -23,9 +22,11 @@ class CommentCellModuleConfigurator {
         interactor.likeService = LikesService()
 
         presenter.interactor = interactor
-        cell.output = presenter
+        cell?.output = presenter
         
-        cell.configure(comment: comment)
+        cell?.configure(comment: comment)
+        
+        return presenter
     }
 
 }
