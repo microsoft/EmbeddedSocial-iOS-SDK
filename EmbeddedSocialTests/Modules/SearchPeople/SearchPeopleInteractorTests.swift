@@ -27,11 +27,11 @@ class SearchPeopleInteractorTests: XCTestCase {
         // given
         let query = UUID().uuidString
         let usersListModule = MockUserListModuleInput()
-        let searchController = UISearchController(searchResultsController: UIViewController())
-        searchController.searchBar.text = query
+        let searchBar = UISearchBar()
+        searchBar.text = query
         
         // when
-        sut.runSearchQuery(for: searchController, usersListModule: usersListModule)
+        sut.runSearchQuery(for: searchBar, usersListModule: usersListModule)
         
         // then
         guard let api = usersListModule.api as? QueryPeopleAPI else {
