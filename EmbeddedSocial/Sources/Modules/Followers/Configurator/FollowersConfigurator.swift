@@ -16,14 +16,23 @@ final class FollowersConfigurator {
     func configure(api: UsersListAPI,
                    navigationController: UINavigationController?,
                    moduleOutput: FollowersModuleOutput? = nil) {
-        let presenter = FollowersPresenter()
-
-        let listInput = UserListConfigurator().configure(api: api, navigationController: navigationController, output: presenter)
         
+        let presenter = FollowersPresenter()
         presenter.view = viewController
-        presenter.usersList = listInput
+        presenter.usersList = makeUserListModule(api: api, navigationController: navigationController, output: presenter)
         presenter.moduleOutput = moduleOutput
         
         viewController.output = presenter
+    }
+    
+    private func makeUserListModule(api: UsersListAPI,
+                                    navigationController: UINavigationController?,
+                                    output: UserListModuleOutput?) -> UserListModuleInput {
+        
+        let settings = UserListConfigurator.Settings(api: api,
+                                                     navigationController: navigationController,
+                                                     output: output)
+        
+        return UserListConfigurator().configure(with: settings)
     }
 }

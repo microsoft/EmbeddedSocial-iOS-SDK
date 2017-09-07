@@ -214,7 +214,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
             comment.totalLikes = commentView.totalLikes ?? 0
             comment.liked = commentView.liked ?? false
             
-            let cacheRequestForLikes = CacheFetchRequest(resultType: SocialActionRequest.self, predicate: PredicateBuilder().predicate(handle: commentView.commentHandle!))
+            let cacheRequestForLikes = CacheFetchRequest(resultType: FeedActionRequest.self, predicate: PredicateBuilder().predicate(handle: commentView.commentHandle!))
             let cacheResultForLikes = cache.fetchOutgoing(with: cacheRequestForLikes)
 
             if let firstCachedLikeAction = cacheResultForLikes.first {

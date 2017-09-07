@@ -25,13 +25,17 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
     }
     
     private let myProfileHolder: UserHolder
+    private var users: [User] = []
+    private let builder: UserListItemsBuilder
     
-    init(myProfileHolder: UserHolder) {
+    init(myProfileHolder: UserHolder, builder: UserListItemsBuilder) {
         self.myProfileHolder = myProfileHolder
+        self.builder = builder
     }
     
     func setup(with users: [User]) {
-        let builder = UserListItemsBuilder(me: myProfileHolder.me)
+        self.users = users
+        builder.me = myProfileHolder.me
         sections = builder.makeSections(users: users, actionHandler: onItemAction)
         registerCells(for: tableView)
         tableView.reloadData()
@@ -65,7 +69,7 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
     }
     
     func updateListItem(with user: User, at indexPath: IndexPath) {
-        let builder = UserListItemsBuilder(me: myProfileHolder.me)
+        builder.me = myProfileHolder.me
         sections = builder.updatedSections(with: user, at: indexPath, sections: sections)
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
@@ -80,6 +84,14 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
         let contentLeft = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height
         let cellsLeft = contentLeft / cellHeight
         return cellsLeft < CGFloat(Constants.UserList.pageSize) / 2.0
+    }
+    
+    func removeItem(at indexPath: IndexPath) {
+        guard indexPath.row >= 0 && indexPath.row < users.count else {
+            return
+        }
+        users.remove(at: indexPath.row)
+        setup(with: users)
     }
 }
 

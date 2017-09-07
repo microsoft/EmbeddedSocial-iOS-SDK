@@ -18,11 +18,11 @@ class MockSearchService: SearchServiceType {
         }
     }
     
-    var queryTopicsResult: Result<PostFetchResult>?
+    var queryTopicsResult: Result<FeedFetchResult>?
     private(set) var queryTopicsCount = 0
     private(set) var queryTopicsInputValues: (query: String, cursor: String?, limit: Int)?
     
-    func queryTopics(query: String, cursor: String?, limit: Int, completion: @escaping (Result<PostFetchResult>) -> Void) {
+    func queryTopics(query: String, cursor: String?, limit: Int, completion: @escaping (Result<FeedFetchResult>) -> Void) {
         queryTopicsCount += 1
         queryTopicsInputValues = (query, cursor, limit)
         if let result = queryTopicsResult {

@@ -16,7 +16,7 @@ enum FollowStatus: Int {
         case .empty: return .follow
         case .accepted: return .following
         case .pending: return .pending
-        case .blocked: return .blocked
+        case .blocked: return .unblock
         }
     }
     

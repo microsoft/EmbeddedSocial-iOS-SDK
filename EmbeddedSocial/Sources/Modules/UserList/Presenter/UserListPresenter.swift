@@ -107,4 +107,8 @@ extension UserListPresenter: UserListModuleInput {
     func setListHeaderView(_ headerView: UIView?) {
         view.setListHeaderView(headerView)
     }
+    
+    func removeListItem(at indexPath: IndexPath) {
+        view.removeListItem(at: indexPath)
+    }
 }

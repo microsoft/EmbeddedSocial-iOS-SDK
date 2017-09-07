@@ -56,22 +56,15 @@ extension LikesServiceProtocol {
 
 class LikesService: BaseService, LikesServiceProtocol {
     
-    typealias RequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
-    private typealias RequestExecutorImpl = CommonCacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
+    private var requestExecutor: UsersFeedRequestExecutor!
 
-    private let requestExecutor: RequestExecutor
-    
-    init(requestExecutor: RequestExecutor = RequestExecutorImpl()) {
-        self.requestExecutor = requestExecutor
-        
+    init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
         super.init()
-        
-        self.requestExecutor.cache = cache
-        self.requestExecutor.errorHandler = errorHandler
+        requestExecutor = provider.makeUsersFeedExecutor(for: self)
     }
     
-    private lazy var outgoingActionsCache: SocialActionsCacheAdapter = { [unowned self] in
-        return SocialActionsCacheAdapter(cache: self.cache)
+    private lazy var outgoingActionsCache: FeedCacheActionsAdapter = { [unowned self] in
+        return FeedCacheActionsAdapter(cache: self.cache)
     }()
     
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
@@ -158,13 +151,13 @@ class LikesService: BaseService, LikesServiceProtocol {
     
     private func execute(_ requestBuilder: RequestBuilder<Object>,
                          handle: String,
-                         actionType: SocialActionRequest.ActionType,
+                         actionType: FeedActionRequest.ActionType,
                          completion: @escaping CompletionHandler) {
         
         // If no connection, cache request
         guard isNetworkReachable == true else {
             
-            let action = SocialActionRequestBuilder.build(
+            let action = FeedActionRequestBuilder.build(
                 method: requestBuilder.method,
                 handle: handle,
                 action: actionType)

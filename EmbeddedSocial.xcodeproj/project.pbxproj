@@ -25,7 +25,6 @@
 		6387F54D1F41B1D10066628E /* ReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6387F54C1F41B1D10066628E /* ReplyCell.swift */; };
 		6387F54F1F41B1DA0066628E /* ReplyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6387F54E1F41B1DA0066628E /* ReplyCell.xib */; };
 		6387F5531F41B95A0066628E /* CommentReplies.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6387F5521F41B95A0066628E /* CommentReplies.storyboard */; };
-		639A94361F5D29B700EB0253 /* PostDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65B21F3E05DA00FE5A3A /* PostDetailPresenterTests.swift */; };
 		639A943E1F5D2FD700EB0253 /* MockCommentCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A943D1F5D2FD700EB0253 /* MockCommentCellPresenter.swift */; };
 		639A94401F5D2FE800EB0253 /* MockCommentCellInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A943F1F5D2FE800EB0253 /* MockCommentCellInteractor.swift */; };
 		639A94421F5D2FF600EB0253 /* MockCommentCellRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A94411F5D2FF600EB0253 /* MockCommentCellRouter.swift */; };
@@ -41,7 +40,6 @@
 		63A1D7261F2A23F30090C67A /* CreatePostInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC091F220BCD003AAF19 /* CreatePostInteractorTests.swift */; };
 		63A1D7281F2A24900090C67A /* MockCreatePostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7271F2A24900090C67A /* MockCreatePostPresenter.swift */; };
 		63F8488B1F4ACEDC00D434CF /* PostDetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65B11F3E05DA00FE5A3A /* PostDetailInteractorTests.swift */; };
-		63F848931F4ADD6F00D434CF /* CommentRepliesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F848921F4ADD6F00D434CF /* CommentRepliesPresenterTests.swift */; };
 		63F848951F4ADD8700D434CF /* CommentRepliesInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F848941F4ADD8700D434CF /* CommentRepliesInteractorTests.swift */; };
 		63F848971F4ADF3500D434CF /* MockCommentRepliesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F848961F4ADF3500D434CF /* MockCommentRepliesPresenter.swift */; };
 		63F8489B1F4AE81F00D434CF /* MockCommentRepliesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F8489A1F4AE81F00D434CF /* MockCommentRepliesInteractor.swift */; };
@@ -141,7 +139,7 @@
 		882AD0D11F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0D01F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift */; };
 		882CAF0A1F5EC4B1001D5F37 /* LoginModalOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CAF091F5EC4B1001D5F37 /* LoginModalOpener.swift */; };
 		882CAF0C1F5ECF7C001D5F37 /* AuthorizationMulticast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */; };
-		882CAF121F5EF94C001D5F37 /* MockCommentRepliesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CAF111F5EF94C001D5F37 /* MockCommentRepliesRouter.swift */; };
+		882CAF151F604DC4001D5F37 /* BlockedUsersListItemsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CAF131F60001D001D5F37 /* BlockedUsersListItemsBuilder.swift */; };
 		882CAF171F615DF3001D5F37 /* SearchResultsUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CAF161F615DF3001D5F37 /* SearchResultsUpdating.swift */; };
 		882CAF191F616CCB001D5F37 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CAF181F616CCB001D5F37 /* UIViewController+Ext.swift */; };
 		8834A7491F50071300F1D383 /* QueryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A7481F50071300F1D383 /* QueryPage.swift */; };
@@ -697,6 +695,7 @@
 		9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8B1F25D60A00D0B59D /* PostCell.xib */; };
 		9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */; };
 		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
+		9C683AC41F5F09E70087925E /* FeedServiceAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */; };
 		9C6D359B1F31D1C1005893DB /* FeedModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531381F31CCF2004CE94F /* FeedModuleConfigurator.swift */; };
 		9C6D359C1F31D1C1005893DB /* FeedModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313A1F31CCF2004CE94F /* FeedModuleInteractor.swift */; };
 		9C6D359E1F31D1C1005893DB /* FeedModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313D1F31CCF2004CE94F /* FeedModulePresenter.swift */; };
@@ -720,6 +719,8 @@
 		9CDDB2031F38866000C46785 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDB2021F38866000C46785 /* DateFormatter.swift */; };
 		9CDDB2051F38870400C46785 /* DateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDB2041F38870400C46785 /* DateFormatterTests.swift */; };
 		9CE03F0E1F4D899C00139B18 /* PostMenuModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169741F3C68350052FB90 /* PostMenuModulePresenter.swift */; };
+		9CE7D4C01F5ECE0D008DA2BA /* MockSocialActionsCacheAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE7D4BF1F5ECE0D008DA2BA /* MockSocialActionsCacheAdapter.swift */; };
+		9CE7D4C21F5EFED8008DA2BA /* MockTopicServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9D0A071F55B8DD0000174B /* MockTopicServices.swift */; };
 		9CEA75241F2A0E61009FC89D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75231F2A0E61009FC89D /* Post.swift */; };
 		9CEA75281F2A1FA0009FC89D /* LikesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75271F2A1FA0009FC89D /* LikesService.swift */; };
 		9FCA74B90B4330F6AA55D489 /* CommentRepliesViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C62BB243EDEFCA43C5601F8 /* CommentRepliesViewInput.swift */; };
@@ -896,6 +897,7 @@
 		882CAF091F5EC4B1001D5F37 /* LoginModalOpener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModalOpener.swift; sourceTree = "<group>"; };
 		882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationMulticast.swift; sourceTree = "<group>"; };
 		882CAF111F5EF94C001D5F37 /* MockCommentRepliesRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentRepliesRouter.swift; sourceTree = "<group>"; };
+		882CAF131F60001D001D5F37 /* BlockedUsersListItemsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockedUsersListItemsBuilder.swift; path = ../BlockedUsersListItemsBuilder.swift; sourceTree = "<group>"; };
 		882CAF161F615DF3001D5F37 /* SearchResultsUpdating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsUpdating.swift; sourceTree = "<group>"; };
 		882CAF181F616CCB001D5F37 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		882F103E1F30C8A20068B6F2 /* UserListConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListConfigurator.swift; sourceTree = "<group>"; };
@@ -1477,6 +1479,7 @@
 		9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuButton.swift; sourceTree = "<group>"; };
 		9C6244F11F457DED004814BB /* PostMenuModuleInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleInteractorTests.swift; sourceTree = "<group>"; };
 		9C6244F31F4580FC004814BB /* PostMenuModulePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenterTests.swift; sourceTree = "<group>"; };
+		9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedServiceAdapters.swift; path = EmbeddedSocial/Sources/Model/Feed/FeedServiceAdapters.swift; sourceTree = SOURCE_ROOT; };
 		9C7D9B331F2F430B005928F4 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		9C985E521F505BDF00514F85 /* FeedCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCacheTests.swift; sourceTree = "<group>"; };
@@ -1503,6 +1506,7 @@
 		9CD805391F0D012F00B9B0AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CDDB2021F38866000C46785 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		9CDDB2041F38870400C46785 /* DateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterTests.swift; sourceTree = "<group>"; };
+		9CE7D4BF1F5ECE0D008DA2BA /* MockSocialActionsCacheAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSocialActionsCacheAdapter.swift; sourceTree = "<group>"; };
 		9CEA75231F2A0E61009FC89D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		9CEA75271F2A1FA0009FC89D /* LikesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesService.swift; sourceTree = "<group>"; };
 		CE03953E1FFCBD39CDB219B8 /* CommentRepliesRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesRouter.swift; sourceTree = "<group>"; };
@@ -1980,7 +1984,7 @@
 		883E1E361F546507004B4861 /* BlockedUsers */ = {
 			isa = PBXGroup;
 			children = (
-				883E1E391F546517004B4861 /* API */,
+				883E1E391F546517004B4861 /* Helpers */,
 				883E1E371F546517004B4861 /* Configurator */,
 				883E1E3D1F546517004B4861 /* Presenter */,
 				883E1E3F1F546517004B4861 /* View */,
@@ -1996,11 +2000,13 @@
 			path = Configurator;
 			sourceTree = "<group>";
 		};
-		883E1E391F546517004B4861 /* API */ = {
+		883E1E391F546517004B4861 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				883E1E3A1F546517004B4861 /* BlockedUsersAPI.swift */,
+				882CAF131F60001D001D5F37 /* BlockedUsersListItemsBuilder.swift */,
 			);
+			name = Helpers;
 			path = API;
 			sourceTree = "<group>";
 		};
@@ -2359,6 +2365,7 @@
 				88580B0D1F2213AB00C1CBAF /* SocialUser.swift */,
 				88580B0E1F2213AB00C1CBAF /* User.swift */,
 				881060FC1F28F4B2008CA2FB /* Visibility.swift */,
+				9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -3202,6 +3209,7 @@
 				9CC81E331F5826E9003DD078 /* MockUserHolder.swift */,
 				88F551C31F39D65200F4AAB9 /* MockUserListModuleInput.swift */,
 				88F7A78A1F2789F0005FEC5F /* MockUserService.swift */,
+				9CE7D4BF1F5ECE0D008DA2BA /* MockSocialActionsCacheAdapter.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -4655,6 +4663,7 @@
 				88E3AC3C1F55B0400016357F /* ReportViewController.swift in Sources */,
 				8864C8381F46DBA700ADCE13 /* SearchPeopleViewOutput.swift in Sources */,
 				88580C5B1F2213AB00C1CBAF /* SideMenuInteractor.swift in Sources */,
+				9C683AC41F5F09E70087925E /* FeedServiceAdapters.swift in Sources */,
 				884AA98B1F3C563F00B85135 /* PutUserInfoRequest.swift in Sources */,
 				8834A7621F5066ED00F1D383 /* LikesListConfigurator.swift in Sources */,
 				8811C8551F42F88D00F7513D /* EmbeddedEditProfileViewInput.swift in Sources */,
@@ -4723,6 +4732,7 @@
 				8864C8431F46DDBE00ADCE13 /* SearchPeopleInteractorInput.swift in Sources */,
 				884AA97C1F3C563F00B85135 /* PostPinRequest.swift in Sources */,
 				88FFFA771F30BAE60066A1A0 /* FollowersPresenter.swift in Sources */,
+				882CAF151F604DC4001D5F37 /* BlockedUsersListItemsBuilder.swift in Sources */,
 				88580C521F2213AB00C1CBAF /* LoginPresenter.swift in Sources */,
 				88F551CB1F39E7F700F4AAB9 /* AutoEquatable.swift in Sources */,
 				93AC65A11F3E056F00FE5A3A /* PostDetailViewController.swift in Sources */,
@@ -4984,7 +4994,6 @@
 				883B9B641F2776E600D1E66E /* Item.swift in Sources */,
 				88E3AC2C1F558FA90016357F /* MockSettingsView.swift in Sources */,
 				889AFC1E1F220BCD003AAF19 /* PhotoTests.swift in Sources */,
-				63F848931F4ADD6F00D434CF /* CommentRepliesPresenterTests.swift in Sources */,
 				881F7E601F2637F7003EB37A /* MementoSerializableItem.swift in Sources */,
 				8811C8AA1F4441C700F7513D /* MockCreateAccountInteractor.swift in Sources */,
 				8811C8B61F4455F700F7513D /* EditProfileInteractorTests.swift in Sources */,
@@ -5012,7 +5021,6 @@
 				93AC65B51F3E05DA00FE5A3A /* MockPostDetailPresenter.swift in Sources */,
 				639A944C1F5D348D00EB0253 /* CommentCellPresenterTests.swift in Sources */,
 				88204FBF1F584BF600E15F5A /* MockUserListRouter.swift in Sources */,
-				639A94361F5D29B700EB0253 /* PostDetailPresenterTests.swift in Sources */,
 				639A943E1F5D2FD700EB0253 /* MockCommentCellPresenter.swift in Sources */,
 				9C813A4A1F45A21900462950 /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */,
 				88E3AC1B1F5563F90016357F /* MockBlockedUsersView.swift in Sources */,
@@ -5046,6 +5054,7 @@
 				9C3024361F55A42700675FE9 /* FeedModuleInteractor-SocialActions-Tests.swift in Sources */,
 				88FFFA581F2F7F780066A1A0 /* MockUserProfileRouter.swift in Sources */,
 				63A1D7251F2A04EB0090C67A /* MockCreatePostViewController.swift in Sources */,
+				9CE7D4C21F5EFED8008DA2BA /* MockTopicServices.swift in Sources */,
 				883B9B601F276BCF00D1E66E /* TestModel.xcdatamodeld in Sources */,
 				88D2F8E81F56B8450004A8BC /* MockReportView.swift in Sources */,
 				88F7A78D1F278AA4005FEC5F /* MockSessionService.swift in Sources */,
@@ -5067,11 +5076,11 @@
 				88F551951F336DCB00F4AAB9 /* MockUserListInteractor.swift in Sources */,
 				88FFFA5F1F2F81A70066A1A0 /* FollowStatusTests.swift in Sources */,
 				88F551CE1F39E9D400F4AAB9 /* FollowersPresenterTests.swift in Sources */,
+				9CE7D4C01F5ECE0D008DA2BA /* MockSocialActionsCacheAdapter.swift in Sources */,
 				881F7E621F263888003EB37A /* MockKeyValueStorage.swift in Sources */,
 				9C985E531F505BDF00514F85 /* FeedCacheTests.swift in Sources */,
 				884C9C341F4C3E940004907F /* UserListPresenterTests.swift in Sources */,
 				9C30243C1F55AB2100675FE9 /* FeedModuleRouterMock.swift in Sources */,
-				882CAF121F5EF94C001D5F37 /* MockCommentRepliesRouter.swift in Sources */,
 				88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */,
 				639A94401F5D2FE800EB0253 /* MockCommentCellInteractor.swift in Sources */,
 				889119C31F4AFBB1005B3B32 /* MockSearchView.swift in Sources */,
@@ -5346,7 +5355,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/EmbeddedSocial/SupportingFiles/Info.plist";
 				INSTALL_PATH = Library/Frameworks;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$(PROJECT_DIR)/EmbeddedSocial/SupportingFiles/EmbeddedSocial.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.microsoft.embeddedsocial;
@@ -5375,7 +5384,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/EmbeddedSocial/SupportingFiles/Info.plist";
 				INSTALL_PATH = Library/Frameworks;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$(PROJECT_DIR)/EmbeddedSocial/SupportingFiles/EmbeddedSocial.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.microsoft.embeddedsocial;
