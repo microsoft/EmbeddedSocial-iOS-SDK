@@ -11,10 +11,7 @@ class SearchViewController: UIViewController {
     var output: SearchViewOutput!
 
     fileprivate var peopleSearchContainer: UISearchContainerViewController?
-    fileprivate var peopleSearchText: String?
-    
     fileprivate var topicsSearchContainer: UISearchContainerViewController?
-    fileprivate var topicsSearchText: String?
     
     fileprivate lazy var filterView: SegmentedControlView = { [unowned self] in
         return SegmentedControlView.searchModuleControl(
@@ -48,25 +45,27 @@ class SearchViewController: UIViewController {
     private func setupPeopleSearchController(with tab: SearchTabInfo) {
         if peopleSearchContainer == nil {
             peopleSearchContainer = makeSearchContainer(with: tab)
+//            addChildController(peopleSearchContainer!)
+            setupSearchResultsControllerFrame(peopleSearchContainer!.searchController.searchResultsController!)
         }
         
-        displayContentController(peopleSearchContainer!)
+        displaySearchController(peopleSearchContainer!)
 
         navigationItem.titleView = peopleSearchContainer?.searchController.searchBar
         navigationItem.rightBarButtonItem = nil
-//        peopleSearchContainer?.searchBar.text = peopleSearchText
     }
     
     private func setupTopicsSearchController(with tab: SearchTabInfo) {
         if topicsSearchContainer == nil {
             topicsSearchContainer = makeSearchContainer(with: tab)
+//            addChildController(topicsSearchContainer!)
+            setupSearchResultsControllerFrame(topicsSearchContainer!.searchController.searchResultsController!)
         }
         
-        displayContentController(topicsSearchContainer!)
+        displaySearchController(topicsSearchContainer!)
         
         navigationItem.titleView = topicsSearchContainer?.searchController.searchBar
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: feedLayoutButton)
-//        topicsSearchContainer?.searchBar.text = topicsSearchText
     }
     
     fileprivate func makeSearchContainer(with tabInfo: SearchTabInfo) -> UISearchContainerViewController {
@@ -77,9 +76,13 @@ class SearchViewController: UIViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.searchBarStyle = .minimal
         searchController.searchBar.placeholder = tabInfo.tab.searchBarPlaceholder
-//        searchController.delegate = self
+        searchController.delegate = self
         
         let container = UISearchContainerViewController(searchController: searchController)
+        
+        _ = container.view
+        _ = container.searchController.view
+        _ = container.searchController.searchResultsController?.view
         
         if let backgroundView = tabInfo.backgroundView {
             addBackgroundView(backgroundView, to: container.view)
@@ -88,43 +91,62 @@ class SearchViewController: UIViewController {
         return container
     }
     
-    func displayContentController(_ content: UIViewController) {
-        addChildViewController(content)
+    private func setupSearchResultsControllerFrame(_ controller: UIViewController) {
+        controller.edgesForExtendedLayout = []
         
-        var frame = view.bounds
-        frame.origin.y += Constants.Search.filterHeight
-        frame.size.height -= Constants.Search.filterHeight
-        content.view.frame = frame
-        
-        view.addSubview(content.view)
-        content.didMove(toParentViewController: self)
-        
-        view.bringSubview(toFront: content.view)
-    }
-    
-    func hideContentController(_ content: UIViewController) {
-        content.willMove(toParentViewController: nil)
-        content.view.removeFromSuperview()
-        content.removeFromParentViewController()
-    }
-    
-    fileprivate func hideTab(_ tab: SearchTabInfo) {
-        if tab.tab == .topics {
-            hideContentController(topicsSearchContainer!)
-        } else if tab.tab == .people {
-            hideContentController(peopleSearchContainer!)
-        }
+        let navBarAndTabBarHeight: CGFloat = 64.0
+        var frame = controller.view.frame
+        frame.origin.y -= navBarAndTabBarHeight
+        frame.size.height += navBarAndTabBarHeight
+        controller.view.frame = frame
     }
     
     fileprivate func addBackgroundView(_ backgroundView: UIView, to superview: UIView) {
         superview.addSubview(backgroundView)
         backgroundView.snp.makeConstraints { make in
-//            make.top.equalTo(filterView.snp.bottom)
-//            make.left.equalToSuperview()
-//            make.right.equalToSuperview()
-//            make.bottom.equalToSuperview()
             make.edges.equalToSuperview()
         }
+    }
+    
+    func addChildController(_ content: UIViewController) {
+        addChildViewController(content)
+        
+        view.addSubview(content.view)
+        content.view.snp.makeConstraints { make in
+            make.top.equalTo(self.filterView.snp.bottom)
+            make.bottom.equalToSuperview()
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+        }
+        
+        content.didMove(toParentViewController: self)
+    }
+    
+    func displaySearchController(_ controller: UISearchContainerViewController) {
+        controller.view.isHidden = false
+        controller.searchController.view.isHidden = false
+        controller.searchController.searchResultsController?.view.isHidden = false
+        controller.searchController.searchBar.becomeFirstResponder()
+    }
+    
+    fileprivate func hideTab(_ tab: SearchTabInfo) {
+        if tab.tab == .topics {
+            hideSearchController(topicsSearchContainer!)
+        } else if tab.tab == .people {
+            hideSearchController(peopleSearchContainer!)
+        }
+    }
+    
+    func hideSearchController(_ controller: UISearchContainerViewController) {
+        controller.view.isHidden = true
+        controller.searchController.view.isHidden = true
+        controller.searchController.searchResultsController?.view.isHidden = true
+    }
+    
+    func removeChildController(_ controller: UIViewController) {
+        controller.willMove(toParentViewController: nil)
+        controller.view.removeFromSuperview()
+        controller.removeFromParentViewController()
     }
 }
 
@@ -156,30 +178,21 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if peopleSearchContainer?.searchController.isActive == true {
-            peopleSearchText = searchText
-        } else if topicsSearchContainer?.searchController.isActive == true {
-            topicsSearchText = searchText
-        }
-    }
 }
 
-//extension SearchViewController: UISearchControllerDelegate {
-//    
-////    func willPresentSearchController(_ searchController: UISearchController) {
-////        updateSearchControllerFrame(searchController)
-////    }
-//
-//    func didPresentSearchController(_ searchController: UISearchController) {
-//        updateSearchControllerFrame(searchController)
-//    }
-//    
-//    private func updateSearchControllerFrame(_ searchController: UISearchController) {
-//        var frame = searchController.view.frame
-//        frame.origin.y += Constants.Search.filterHeight
-//        frame.size.height -= Constants.Search.filterHeight
-//        searchController.view.frame = frame
-//    }
-//}
+extension SearchViewController: UISearchControllerDelegate {
+    func willPresentSearchController(_ searchController: UISearchController) {
+        updateSearchControllerFrame(searchController)
+    }
+    
+    func didPresentSearchController(_ searchController: UISearchController) {
+        updateSearchControllerFrame(searchController)
+    }
+    
+    private func updateSearchControllerFrame(_ searchController: UISearchController) {
+        var frame = searchController.view.frame
+        frame.origin.y += Constants.Search.filterHeight
+        frame.size.height -= Constants.Search.filterHeight
+        searchController.view.frame = frame
+    }
+}
