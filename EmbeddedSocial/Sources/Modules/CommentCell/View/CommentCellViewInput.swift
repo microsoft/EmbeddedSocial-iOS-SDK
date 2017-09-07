@@ -6,5 +6,4 @@
 protocol CommentCellViewInput: class {
     func configure(comment: Comment)
     func setupInitialState()
-    func setup(dataSource: CommentCellViewOutput)
 }

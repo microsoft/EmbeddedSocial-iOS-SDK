@@ -48,10 +48,6 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         
     }
     
-    func setup(dataSource: CommentCellViewOutput) {
-        output = dataSource
-    }
-    
     func configure(comment: Comment) {
         usernameLabel.text = User.fullName(firstName: comment.firstName, lastName: comment.lastName)
         commentTextLabel.text = comment.text ?? ""

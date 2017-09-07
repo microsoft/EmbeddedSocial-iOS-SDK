@@ -10,22 +10,11 @@ protocol CommentCellModuleProtocol {
 
 class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, CommentCellInteractorOutput {
     
-    func setNewView(view: CommentCell, for comment: Comment) {
-        self.view = view
-        self.view?.setup(dataSource: self)
-        self.view?.configure(comment: comment)
-    }
-    
     var view: CommentCellViewInput?
     var interactor: CommentCellInteractorInput?
     var router: CommentCellRouterInput?
     
-    var comment: Comment! {
-        didSet {
-            view?.configure(comment: comment)
-            view?.setup(dataSource: self)
-        }
-    }
+    var comment: Comment!
     
     // MARK: CommentCellViewOutput
     func viewIsReady() {
