@@ -45,7 +45,11 @@ struct PostViewModel {
         totalLikes = L10n.Post.likesCount(post.totalLikes)
         totalComments = L10n.Post.commentsCount(post.totalComments)
         
-        timeCreated =  post.createdTime == nil ? "" : formatter.shortStyle.string(from: post.createdTime!, to: Date())!
+        if let createdTime = post.createdTime {
+            timeCreated =  formatter.shortStyle.string(from: createdTime, to: Date()) ?? ""
+        } else {
+            timeCreated = ""
+        }
         userImageUrl = post.photoUrl
         postImageUrl = post.imageUrl
         
