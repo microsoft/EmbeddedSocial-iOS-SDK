@@ -236,6 +236,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         fetchItems(with: cursor)
     }
     
+    
     // MARK: FeedModuleViewOutput
     func item(for path: IndexPath) -> PostViewModel {
         
@@ -245,9 +246,17 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         let onAction: PostViewModel.ActionHandler = { [weak self] action, path in
             self?.handle(action: action, path: path)
         }
+    
+        var isTrimmed = true
+        switch feedType! {
+        case .single(post: _):
+            isTrimmed = false
+        default:
+            isTrimmed = true
+        }
         
         let itemViewModel = PostViewModel(with: item,
-                                          isTrimmed: true,
+                                          isTrimmed: isTrimmed,
                                           cellType: layout.cellType,
                                           actionHandler: onAction)
     
