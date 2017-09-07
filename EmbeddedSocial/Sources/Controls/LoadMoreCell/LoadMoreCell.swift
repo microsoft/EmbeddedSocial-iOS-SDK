@@ -14,7 +14,7 @@ protocol LoadMoreCellDelegate: class {
 
 
 class LoadMoreCellViewModel {
-    var cellHeight: CGFloat = 40
+    var cellHeight: CGFloat = LoadMoreCell.cellHeight
     var shouldHideActivityIndicator = true
     var shouldHideLoadingLabel = false
     
@@ -36,6 +36,8 @@ class LoadMoreCell: UICollectionViewCell {
     
     weak var delegate: LoadMoreCellDelegate?
     
+    static let cellHeight: CGFloat = 40
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -49,4 +51,5 @@ class LoadMoreCell: UICollectionViewCell {
     @IBAction func loadPressed(_ sender: Any) {
         delegate?.loadPressed()
     }
+    
 }

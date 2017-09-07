@@ -17,8 +17,6 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
 
     var comments = [Comment]()
     
-    var commentModules = [CommentCellModuleInput]()
-    
     private var formatter = DateFormatterTool()
     private var cursor: String?
     private let maxLimit: Int32 = 30000
@@ -39,27 +37,10 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
         self.myProfileHolder = myProfileHolder
     }
     
-    func cell(index: Int) -> CommentCell? {
-        if commentModules.count > index {
-            return commentModules[index].view as? CommentCell
-        }
-        
-        return nil
-    }
-    
-    func configNewCell(cell: CommentCell, index: Int) -> CommentCell {
-        if !commentModules.isEmpty {
-            commentModules[index].setNewView(view: cell, for: comments[index])
-            return commentModules[index].view as! CommentCell
-        }
-        
-        return cell
-    }
-    
     // MARK: PostDetailInteractorOutput
     func didFetch(comments: [Comment], cursor: String?) {
         self.cursor = cursor
-        appendWithReplacing(original: &self.comments, appending: comments)
+        self.comments = comments
         stopLoading()
         view.reloadTable(scrollType: scrollType)
         scrollType = .none
@@ -86,7 +67,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     
     private func stopLoading() {
         if cursor == nil {
-            loadMoreCellViewModel.cellHeight = 0
+            loadMoreCellViewModel.cellHeight = 0.1
         }
         
         loadMoreCellViewModel.stopLoading()
@@ -96,12 +77,8 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
         for appendingItem in appending {
             if let index = original.index(where: { $0.commentHandle == appendingItem.commentHandle }) {
                 original[index] = appendingItem
-                commentModules[index].comment = appendingItem
             } else {
                 original.append(appendingItem)
-                let config = CommentCellModuleConfigurator()
-                let moduleInput = config.configure(cell: nil, comment: appendingItem, navigationController: (view as! UIViewController).navigationController)
-                commentModules.append(moduleInput)
             }
         }
     }
@@ -140,6 +117,9 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     
     func refresh() {
         cursor = nil
+        loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
+        loadMoreCellViewModel.startLoading()
+        view.updateLoadingCell()
         interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
     }
     

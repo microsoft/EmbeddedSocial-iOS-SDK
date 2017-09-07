@@ -27,7 +27,7 @@ struct ReplyViewModel {
 
 class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutput, CommentRepliesInteractorOutput {
 
-    weak var view: CommentRepliesViewInput?
+    var view: CommentRepliesViewInput?
     var interactor: CommentRepliesInteractorInput!
     var router: CommentRepliesRouterInput!
     
@@ -118,6 +118,8 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     func refresh() {
         cursor = nil
+        loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
+        loadMoreCellViewModel.startLoading()
         interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
     }
     
@@ -183,7 +185,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     private func stopLoading() {
         if cursor == nil {
-            loadMoreCellViewModel.cellHeight = 0
+            loadMoreCellViewModel.cellHeight = 0.1
         }
         
         loadMoreCellViewModel.stopLoading()
@@ -192,7 +194,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     // MARK: CommentRepliesInteractorOutput
     func fetched(replies: [Reply], cursor: String?) {
         self.cursor = cursor
-        appendWithReplacing(original: &self.replies, appending: replies)
+        self.replies = replies
         stopLoading()
         view?.reloadTable(scrollType: scrollType)
         
@@ -211,7 +213,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             shouldFetchRestOfReplies = false
         } else {
             view?.reloadReplies()
-            view?.updateLoadingCell()
         }
     }
     

@@ -82,11 +82,27 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     func updateLoadingCell() {
-        collectionView.reloadSections([CommentsSections.loadMore.rawValue])
+        collectionView.reloadItems(at: [IndexPath(item: 0, section: CommentsSections.loadMore.rawValue)])
     }
 
     func updateComments() {
-        collectionView.reloadSections(IndexSet(integer: CommentsSections.comments.rawValue))
+        let numberOfItems = self.output.numberOfItems()
+        let itemsInSection = self.collectionView.numberOfItems(inSection: CommentsSections.comments.rawValue)
+        let newItemsCount = numberOfItems - itemsInSection
+        collectionView.performBatchUpdates({
+            var pathes = [IndexPath]()
+            if itemsInSection < numberOfItems {
+                for index in 0...newItemsCount - 1 {
+                    pathes.append(IndexPath(item: index, section: RepliesSections.replies.rawValue))
+                }
+                self.collectionView.insertItems(at: pathes)
+            }
+        }) { (updated) in
+            if newItemsCount > 0 {
+                self.updateLoadingCell()
+            }
+            self.refreshControl.endRefreshing()
+        }
     }
     
     private func configCollectionView() {
@@ -177,14 +193,8 @@ extension PostDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
         case CommentsSections.comments.rawValue:
-//            let cell = output.cell(index: indexPath.row)
             let cell = collectionView.cellForItem(at: indexPath) as? CommentCell
             cell?.openReplies()
-//        case CommentsSections.loadMore.rawValue:
-//            if output.enableFetchMore() {
-//                output.fetchMore()
-//                SVProgressHUD.show()
-//            }
         default: break
             
         }
@@ -240,16 +250,6 @@ extension PostDetailViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
             let config = CommentCellModuleConfigurator()
             config.configure(cell: cell, comment: output.comment(at: indexPath.row), navigationController: self.navigationController)
-//            if let cell = output.cell(index: indexPath.row) {
-//                cell.bounds = CGRect(x: 0, y: 0, width: 320, height: 100)
-//                print(" output.cell = \(cell)")
-//                return cell
-//            } else {
-//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
-//                let configuredCell = output.configNewCell(cell: cell, index: indexPath.row)
-////                print("configuredCell = \(configuredCell)")
-//                return configuredCell
-//            }
             cell.repliesButton.isHidden = false
             cell.tag = indexPath.row
             return cell

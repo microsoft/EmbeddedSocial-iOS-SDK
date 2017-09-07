@@ -103,13 +103,26 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     
     // MARK: CommentRepliesViewInput
     func reloadReplies() {
-        collectionView.reloadSections(IndexSet(integer: RepliesSections.replies.rawValue))
-        unlockUI()
-        refreshControl.endRefreshing()
+        collectionView.performBatchUpdates({ 
+            let numberOfItems = self.output.numberOfItems()
+            let itemsInSection = self.collectionView.numberOfItems(inSection: RepliesSections.replies.rawValue)
+            let newItemsCount = numberOfItems - itemsInSection
+            var pathes = [IndexPath]()
+            if itemsInSection < numberOfItems {
+                for index in 0...newItemsCount - 1 {
+                    pathes.append(IndexPath(item: index, section: RepliesSections.replies.rawValue))
+                }
+                self.collectionView.insertItems(at: pathes)
+            }
+        }) { (updated) in
+            self.updateLoadingCell()
+            self.refreshControl.endRefreshing()
+            self.unlockUI()
+        }
     }
     
     func updateLoadingCell() {
-        collectionView.reloadSections([RepliesSections.loadMore.rawValue])
+        collectionView.reloadItems(at: [IndexPath(item: 0, section: RepliesSections.loadMore.rawValue)])
     }
 
     func refreshReplyCell(index: Int) {

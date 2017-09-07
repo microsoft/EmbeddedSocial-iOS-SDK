@@ -16,11 +16,7 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
         self.view?.configure(comment: comment)
     }
     
-    var view: CommentCellViewInput? {
-        didSet {
-//            print("set view \(String(describing: view)) for \(debugPrint(self))")
-        }
-    }
+    var view: CommentCellViewInput?
     var interactor: CommentCellInteractorInput?
     var router: CommentCellRouterInput?
     
@@ -34,10 +30,6 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     // MARK: CommentCellViewOutput
     func viewIsReady() {
         
-    }
-    
-    deinit {
-        print("CommentCellPresenter deinit")
     }
     
     func like() {

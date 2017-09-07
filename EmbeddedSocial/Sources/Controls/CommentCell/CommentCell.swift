@@ -48,13 +48,8 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         
     }
     
-    
     func setup(dataSource: CommentCellViewOutput) {
         output = dataSource
-    }
-    
-    deinit {
-        print("CommentCell deinit")
     }
     
     func configure(comment: Comment) {
