@@ -8,7 +8,6 @@ import XCTest
 
 class PostDetailsPresenterTests: XCTestCase {
     
-    var myProfileHolder: MyProfileHolder!
     var presenter: PostDetailPresenter!
     let interactor = MockPostDetailsInteractor()
     let view = MockPostDetailViewController()
@@ -16,17 +15,18 @@ class PostDetailsPresenterTests: XCTestCase {
     
     var post: PostViewModel!
     
+    var myProfileHolder: MyProfileHolder!
+    
     override func setUp() {
         super.setUp()
         
         let tempPost = Post(topicHandle: "topicHandle", createdTime: Date(), userHandle: "User", userStatus: .none, firstName: "first name", lastName: "last name", photoHandle: "photoHandle", photoUrl: nil, title: "ttile", text: nil, imageUrl: nil, deepLink: nil, totalLikes: 0, totalComments: 0, liked: false, pinned: false)
         
-        myProfileHolder = MyProfileHolder()
-        presenter = PostDetailPresenter(myProfileHolder: myProfileHolder)
-        
         post = PostViewModel(with: tempPost, cellType: "", actionHandler: { (action, path) in
             
         })
+        myProfileHolder = MyProfileHolder()
+        presenter = PostDetailPresenter(myProfileHolder: myProfileHolder)
         presenter.interactor = interactor
         presenter.view = view
         presenter.postViewModel = post

@@ -46,8 +46,14 @@ class MockPostDetailViewController: UIViewController, PostDetailViewInput {
         postCellRefreshCount = 1
     }
     
+    var updateCommentsCount = 0
     func updateComments() {
-        
+        updateCommentsCount += 1
+    }
+    
+    var updateLoadingCellCount = 0
+    func updateLoadingCell() {
+        updateLoadingCellCount += 1
     }
     
     func setFeedViewController(_ feedViewController: UIViewController) {
