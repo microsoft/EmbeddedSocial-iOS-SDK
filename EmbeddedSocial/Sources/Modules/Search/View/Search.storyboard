@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,12 +21,38 @@
                     <view key="view" contentMode="scaleToFill" id="088-Cd-z8N">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wob-OO-Lhy">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Z8f-jv-IWP"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UyF-3b-dfa">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="UyF-3b-dfa" firstAttribute="leading" secondItem="088-Cd-z8N" secondAttribute="leading" id="2kD-ua-9JT"/>
+                            <constraint firstAttribute="trailing" secondItem="UyF-3b-dfa" secondAttribute="trailing" id="4CG-TT-6dV"/>
+                            <constraint firstItem="UyF-3b-dfa" firstAttribute="top" secondItem="Wob-OO-Lhy" secondAttribute="bottom" id="Oat-va-8NS"/>
+                            <constraint firstItem="Wob-OO-Lhy" firstAttribute="leading" secondItem="088-Cd-z8N" secondAttribute="leading" id="WDr-LE-SBl"/>
+                            <constraint firstItem="ASr-D5-9C8" firstAttribute="top" secondItem="UyF-3b-dfa" secondAttribute="bottom" id="Ykt-t1-yzG"/>
+                            <constraint firstAttribute="trailing" secondItem="Wob-OO-Lhy" secondAttribute="trailing" id="erS-Cr-3to"/>
+                            <constraint firstItem="Wob-OO-Lhy" firstAttribute="top" secondItem="088-Cd-z8N" secondAttribute="topMargin" id="tqd-79-hc3"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="filterContainer" destination="Wob-OO-Lhy" id="sxv-kH-FG0"/>
+                        <outlet property="searchResultsContainer" destination="UyF-3b-dfa" id="ppX-fI-CS0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="luB-xn-8px" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="146" y="-128"/>
+            <point key="canvasLocation" x="144.80000000000001" y="-128.18590704647679"/>
         </scene>
     </scenes>
 </document>

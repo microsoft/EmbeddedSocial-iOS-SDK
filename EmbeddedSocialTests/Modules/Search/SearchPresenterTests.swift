@@ -130,37 +130,37 @@ class SearchPresenterTests: XCTestCase {
     func testThatItHandlesSearchResults() {
         // given
         let query = UUID().uuidString
-        let searchController = UISearchController(searchResultsController: UIViewController())
-        searchController.searchBar.text = query
+        let searchBar = UISearchBar()
+        searchBar.text = query
         
         // when
-        sut.updateSearchResults(for: searchController)
+        sut.updateSearchResults(for: searchBar)
         wait(for: [interactor.runSearchQueryExpectation], timeout: 5.0)
 
         // then
         XCTAssertTrue(interactor.runSearchQueryForFeedModuleCalled)
-        XCTAssertEqual(interactor.runSearchQueryForFeedModuleReceivedArguments?.searchController, searchController)
+        XCTAssertEqual(interactor.runSearchQueryForFeedModuleReceivedArguments?.searchBar, searchBar)
         XCTAssertTrue(interactor.runSearchQueryForFeedModuleReceivedArguments?.feedModule === feedModule)
     }
     
     func testThatItThrottlesSearchQueries() {
         // given
         let query = UUID().uuidString
-        let searchController = UISearchController(searchResultsController: UIViewController())
-        searchController.searchBar.text = query
+        let searchBar = UISearchBar()
+        searchBar.text = query
         
         // when
-        sut.updateSearchResults(for: searchController)
+        sut.updateSearchResults(for: searchBar)
         
         // then
         XCTAssertFalse(interactor.runSearchQueryForFeedModuleCalled)
-        XCTAssertNotEqual(interactor.runSearchQueryForFeedModuleReceivedArguments?.searchController, searchController)
+        XCTAssertNotEqual(interactor.runSearchQueryForFeedModuleReceivedArguments?.searchBar, searchBar)
         XCTAssertFalse(interactor.runSearchQueryForFeedModuleReceivedArguments?.feedModule === feedModule)
         
         wait(for: [interactor.runSearchQueryExpectation], timeout: 5.0)
         
         XCTAssertTrue(interactor.runSearchQueryForFeedModuleCalled)
-        XCTAssertEqual(interactor.runSearchQueryForFeedModuleReceivedArguments?.searchController, searchController)
+        XCTAssertEqual(interactor.runSearchQueryForFeedModuleReceivedArguments?.searchBar, searchBar)
         XCTAssertTrue(interactor.runSearchQueryForFeedModuleReceivedArguments?.feedModule === feedModule)
     }
     

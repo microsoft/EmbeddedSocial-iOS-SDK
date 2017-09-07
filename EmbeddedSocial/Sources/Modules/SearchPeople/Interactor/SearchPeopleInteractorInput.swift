@@ -8,5 +8,5 @@ import UIKit
 protocol SearchPeopleInteractorInput: class {    
     func makeBackgroundListHeaderView() -> UIView
     
-    func runSearchQuery(for searchController: UISearchController, usersListModule: UserListModuleInput)
+    func runSearchQuery(for searchBar: UISearchBar, usersListModule: UserListModuleInput)
 }

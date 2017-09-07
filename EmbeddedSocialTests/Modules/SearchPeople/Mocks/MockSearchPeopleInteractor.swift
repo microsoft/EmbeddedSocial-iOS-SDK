@@ -11,11 +11,11 @@ final class MockSearchPeopleInteractor: SearchPeopleInteractorInput {
     var backgroundListHeaderView = UIView()
     
     private(set) var runSearchQueryCount = 0
-    private(set) var runSearchQueryParams: (UISearchController, UserListModuleInput)?
+    private(set) var runSearchQueryParams: (UISearchBar, UserListModuleInput)?
     let runSearchQueryExpectation = XCTestExpectation()
     
-    func runSearchQuery(for searchController: UISearchController, usersListModule: UserListModuleInput) {
-        runSearchQueryParams = (searchController, usersListModule)
+    func runSearchQuery(for searchBar: UISearchBar, usersListModule: UserListModuleInput) {
+        runSearchQueryParams = (searchBar, usersListModule)
         runSearchQueryCount += 1
         runSearchQueryExpectation.fulfill()
     }

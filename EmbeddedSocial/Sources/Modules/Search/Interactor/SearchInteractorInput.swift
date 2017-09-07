@@ -8,7 +8,7 @@ import Foundation
 protocol SearchInteractorInput: class {
     func makePeopleTab(with searchPeopleModule: SearchPeopleModuleInput) -> SearchTabInfo
     
-    func makeTopicsTab(feedViewController: UIViewController?, searchResultsHandler: UISearchResultsUpdating) -> SearchTabInfo
-
-    func runSearchQuery(for searchController: UISearchController, feedModule: FeedModuleInput)
+    func makeTopicsTab(feedViewController: UIViewController?, searchResultsHandler: SearchResultsUpdating) -> SearchTabInfo
+    
+    func runSearchQuery(for searchBar: UISearchBar, feedModule: FeedModuleInput)
 }
