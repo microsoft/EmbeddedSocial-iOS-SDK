@@ -7,71 +7,63 @@ import Foundation
 
 class ReadMoreTextView: UITextView {
     
-    public override init(frame: CGRect, textContainer: NSTextContainer?) {
-        readMoreTextPadding = .zero
+    override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         setupDefaults()
     }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        readMoreTextPadding = .zero
+
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupDefaults()
     }
     
+    var readMoreTapHandle: ((Void) -> Void)?
+    
     func setupDefaults() {
-        let defaultReadMoreText = "Read More"
-        let attributedReadMoreText = NSMutableAttributedString(string: " ... ")
-        
-        readMoreTextPadding = .zero
+        let readMoreText = "... Read More"
+    
         isScrollEnabled = false
         isEditable = false
         isSelectable = false
-        
-        let attributedDefaultReadMoreText = NSAttributedString(string: defaultReadMoreText, attributes: [
-            NSForegroundColorAttributeName: textColor ?? UIColor.black,
-            NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)
-            ])
-        
-        attributedReadMoreText.append(attributedDefaultReadMoreText)
-        self.attributedReadMoreText = attributedReadMoreText
+    
+        self.attributedReadMoreText = attributedStringForMoreText(readMoreText)
     }
 
-    public var maximumNumberOfLines: Int = 0 {
+    var maximumNumberOfLines: Int = 0 {
         didSet {
             _originalMaximumNumberOfLines = maximumNumberOfLines
             setNeedsLayout()
         }
     }
 
-    public var readMoreText: String? {
+    var readMoreText: String? {
         get {
             return attributedReadMoreText?.string
         }
         set {
             if let text = newValue {
-                attributedReadMoreText = attributedStringWithDefaultAttributes(from: text)
+                attributedReadMoreText = attributedStringForMoreText(text)
             } else {
                 attributedReadMoreText = nil
             }
         }
     }
     
-    public var attributedReadMoreText: NSAttributedString? {
+    var attributedReadMoreText: NSAttributedString? {
         didSet {
             setNeedsLayout()
         }
     }
     
-    public var isTrimmed: Bool = false {
+    var isTrimmed: Bool = false {
         didSet {
             setNeedsLayout()
         }
     }
     
-    public var readMoreTextPadding: UIEdgeInsets
+    var readMoreTextPadding: UIEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     
-    public override var text: String! {
+    override var text: String! {
         didSet {
             if let text = text {
                 _originalAttributedText = attributedStringWithDefaultAttributes(from: text)
@@ -81,13 +73,13 @@ class ReadMoreTextView: UITextView {
         }
     }
     
-    public override var attributedText: NSAttributedString! {
+    override var attributedText: NSAttributedString! {
         didSet {
             _originalAttributedText = attributedText
         }
     }
     
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         attributedText = _originalAttributedText
         if isTrimmed {
@@ -95,7 +87,7 @@ class ReadMoreTextView: UITextView {
         }
     }
     
-    public override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize : CGSize {
         textContainer.size = CGSize(width: bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
         var intrinsicContentSize = layoutManager.boundingRect(forGlyphRange: layoutManager.glyphRange(for: textContainer), in: textContainer).size
         intrinsicContentSize.width = UIViewNoIntrinsicMetric
@@ -108,7 +100,7 @@ class ReadMoreTextView: UITextView {
         return intrinsicContentSize.height
     }
     
-    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         return hitTest(pointInGliphRange: point, event: event) { _ in
             guard pointsToReadMore(point: point) == true else { return nil }
             return self
@@ -119,10 +111,10 @@ class ReadMoreTextView: UITextView {
         return pointIsInTextRange(point: point, range: readMoreTextRange(), padding: readMoreTextPadding)
     }
     
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let point = touches.first?.location(in: self) {
             if pointsToReadMore(point: point) {
-                print("LAGAGA")
+                readMoreTapHandle?()
             }
         }
         super.touchesEnded(touches, with: event)
@@ -142,6 +134,13 @@ class ReadMoreTextView: UITextView {
         return NSAttributedString(string: text, attributes: [
             NSFontAttributeName: font ?? UIFont.systemFont(ofSize: 14),
             NSForegroundColorAttributeName: textColor ?? UIColor.black
+            ])
+    }
+    
+    private func attributedStringForMoreText(_ text: String) -> NSAttributedString {
+        return NSAttributedString(string: text, attributes: [
+            NSFontAttributeName: font ?? UIFont.systemFont(ofSize: 14),
+            NSForegroundColorAttributeName: textColor ?? UIColor.darkGray
             ])
     }
     
@@ -214,7 +213,7 @@ class ReadMoreTextView: UITextView {
 
 extension UITextView {
     
-    public func hitTest(pointInGliphRange aPoint: CGPoint, event: UIEvent?, test: (Int) -> UIView?) -> UIView? {
+    func hitTest(pointInGliphRange aPoint: CGPoint, event: UIEvent?, test: (Int) -> UIView?) -> UIView? {
         guard let charIndex = charIndexForPointInGlyphRect(point: aPoint) else {
             return super.hitTest(aPoint, with: event)
         }
@@ -224,14 +223,14 @@ extension UITextView {
         return test(charIndex)
     }
     
-    public func pointIsInTextRange(point aPoint: CGPoint, range: NSRange, padding: UIEdgeInsets) -> Bool {
+    func pointIsInTextRange(point aPoint: CGPoint, range: NSRange, padding: UIEdgeInsets) -> Bool {
         var boundingRect = layoutManager.boundingRectForCharacterRange(range: range, inTextContainer: textContainer)
         boundingRect = boundingRect.offsetBy(dx: textContainerInset.left, dy: textContainerInset.top)
         boundingRect = boundingRect.insetBy(dx: -(padding.left + padding.right), dy: -(padding.top + padding.bottom))
         return boundingRect.contains(aPoint)
     }
     
-    public func charIndexForPointInGlyphRect(point aPoint: CGPoint) -> Int? {
+    func charIndexForPointInGlyphRect(point aPoint: CGPoint) -> Int? {
         let point = CGPoint(x: aPoint.x, y: aPoint.y - textContainerInset.top)
         let glyphIndex = layoutManager.glyphIndex(for: point, in: textContainer)
         let glyphRect = layoutManager.boundingRect(forGlyphRange: NSMakeRange(glyphIndex, 1), in: textContainer)
@@ -251,13 +250,13 @@ extension String {
 
 extension NSLayoutManager {
     
-    public func characterRangeThatFits(textContainer container: NSTextContainer) -> NSRange {
+    func characterRangeThatFits(textContainer container: NSTextContainer) -> NSRange {
         var rangeThatFits = self.glyphRange(for: container)
         rangeThatFits = self.characterRange(forGlyphRange: rangeThatFits, actualGlyphRange: nil)
         return rangeThatFits
     }
 
-    public func boundingRectForCharacterRange(range aRange: NSRange, inTextContainer container: NSTextContainer) -> CGRect {
+    func boundingRectForCharacterRange(range aRange: NSRange, inTextContainer container: NSTextContainer) -> CGRect {
         let glyphRange = self.glyphRange(forCharacterRange: aRange, actualCharacterRange: nil)
         let boundingRect = self.boundingRect(forGlyphRange: glyphRange, in: container)
         return boundingRect

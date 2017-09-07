@@ -97,7 +97,6 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
   
     func configure(with data: PostViewModel, collectionView: UICollectionView?) {
         
-        self.postText.isTrimmed = data.isTrimmed
         self.viewModel = data
         self.collectionView = collectionView
         
@@ -124,6 +123,13 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         likeButton.isSelected = data.isLiked
         pinButton.isSelected = data.isPinned
         commentButton.isEnabled = !usedInThirdPartModule
+        
+        // Text View
+        self.postText.readMoreTapHandle = { [weak self] in
+            self?.handleAction(action: .postDetailed)
+        }
+        
+        self.postText.isTrimmed = data.isTrimmed
     }
     
     // MARK: Private

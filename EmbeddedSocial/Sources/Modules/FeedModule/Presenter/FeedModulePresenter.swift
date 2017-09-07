@@ -93,7 +93,7 @@ extension FeedType: Equatable {
 }
 
 enum FeedPostCellAction: Int {
-    case like, pin, comment, extra, profile, photo, likesList
+    case like, pin, comment, extra, profile, photo, likesList, postDetailed
     
     var requiresAuthorization: Bool {
         switch self {
@@ -288,6 +288,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         let post = items[index]
         
         switch action {
+            
+        case .postDetailed:
+            router.open(route: .postDetails(post: item(for: path)), feedSource: feedType!)
         case .comment:
             router.open(route: .comments(post: item(for: path)), feedSource: feedType!)
         case .extra:
@@ -381,7 +384,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didTapItem(path: IndexPath) {
-        router.open(route: .postDetails(post: item(for: path)), feedSource: feedType!)
+        handle(action: .postDetailed, path: path)
     }
     
     // MARK: FeedModuleInteractorOutput
