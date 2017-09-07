@@ -56,9 +56,11 @@ extension UserListCell {
         let user = item.user
         
         profileImageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: Asset.userPhotoPlaceholder))
-        profileImageView.setNeedsLayout()
-        profileImageView.layoutIfNeeded()
+        profileImageView.setNeedsUpdateConstraints()
+        profileImageView.updateConstraints()
         profileImageView.makeCircular()
+        
+        print(profileImageView, self.contentView)
 
         nameLabel.text = user.fullName
         

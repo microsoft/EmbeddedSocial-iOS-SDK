@@ -30,6 +30,8 @@ struct UserListConfigurator {
         
         interactor.output = presenter
         
+        router.userProfileModuleOutput = presenter
+
         view.output = presenter
         view.dataManager = UserListDataDisplayManager(myProfileHolder: settings.myProfileHolder,
                                                       builder: settings.listItemsBuilder)

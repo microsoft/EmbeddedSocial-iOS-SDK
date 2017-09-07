@@ -37,7 +37,7 @@ class LikesListPresenterTests: XCTestCase {
         // then
         XCTAssertTrue(view.setupInitialState_userListView_Called)
         XCTAssertEqual(view.setupInitialState_userListView_ReceivedUserListView, usersListModule.listView)
-        XCTAssertEqual(usersListModule.setupInitialStateCount, 1)
+        XCTAssertTrue(usersListModule.setupInitialStateCalled)
     }
 }
 

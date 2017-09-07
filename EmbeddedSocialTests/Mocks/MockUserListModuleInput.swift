@@ -6,34 +6,43 @@
 @testable import EmbeddedSocial
 
 class MockUserListModuleInput: UserListModuleInput {
-    private(set) var setupInitialStateCount = 0
-    private(set) var reloadCount = 0
-    private(set) var setListHeaderViewCount = 0
-    
-    private(set) var api: UsersListAPI?
-    private(set) var headerView: UIView?
-    
-    private(set) var removeListItemCount = 0
-    private(set) var removeListItemInputIndexPath: IndexPath?
-    
     var listView = UIView()
-
+    
+    //MARK: - setupInitialState
+    
+    var setupInitialStateCalled = false
+    
     func setupInitialState() {
-        setupInitialStateCount += 1
+        setupInitialStateCalled = true
     }
+    
+    //MARK: - reload
+    
+    var reloadWithCalled = false
+    var reloadWithReceivedApi: UsersListAPI?
     
     func reload(with api: UsersListAPI) {
-        reloadCount += 1
-        self.api = api
+        reloadWithCalled = true
+        reloadWithReceivedApi = api
     }
+    
+    //MARK: - setListHeaderView
+    
+    var setListHeaderViewCalled = false
+    var setListHeaderViewReceivedView: UIView?
     
     func setListHeaderView(_ view: UIView?) {
-        setListHeaderViewCount += 1
-        self.headerView = view
+        setListHeaderViewCalled = true
+        setListHeaderViewReceivedView = view
     }
     
-    func removeListItem(at indexPath: IndexPath) {
-        removeListItemCount += 1
-        removeListItemInputIndexPath = indexPath
+    //MARK: - removeUser
+    
+    var removeUserCalled = false
+    var removeUserReceivedUser: User?
+    
+    func removeUser(_ user: User) {
+        removeUserCalled = true
+        removeUserReceivedUser = user
     }
 }

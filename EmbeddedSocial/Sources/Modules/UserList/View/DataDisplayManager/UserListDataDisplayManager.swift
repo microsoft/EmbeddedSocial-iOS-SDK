@@ -68,14 +68,24 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
         (cell as? UserListCell)?.configure(item)
     }
     
-    func updateListItem(with user: User, at indexPath: IndexPath) {
+    func updateListItem(with user: User) {
+        guard let indexPath = indexPath(for: user) else {
+            return
+        }
         builder.me = myProfileHolder.me
         sections = builder.updatedSections(with: user, at: indexPath, sections: sections)
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
-    func setIsLoading(_ isLoading: Bool, itemAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? UserListCell {
+    func indexPath(for user: User) -> IndexPath? {
+        guard let index = users.index(where: { $0.uid == user.uid }) else {
+            return nil
+        }
+        return IndexPath(row: index, section: 0)
+    }
+    
+    func setIsLoading(_ isLoading: Bool, user: User) {
+        if let indexPath = indexPath(for: user), let cell = tableView.cellForRow(at: indexPath) as? UserListCell {
             cell.isLoading = isLoading
         }
     }
@@ -86,8 +96,8 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
         return cellsLeft < CGFloat(Constants.UserList.pageSize) / 2.0
     }
     
-    func removeItem(at indexPath: IndexPath) {
-        guard indexPath.row >= 0 && indexPath.row < users.count else {
+    func removeUser(_ user: User) {
+        guard let indexPath = indexPath(for: user) else {
             return
         }
         users.remove(at: indexPath.row)
