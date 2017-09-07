@@ -199,6 +199,8 @@ enum L10n {
     static func likesCount(_ p1: Int) -> String {
       return L10n.tr("Localizable", "post.likes_count", p1)
     }
+    ///  ... Read More
+    static let readMore = L10n.tr("Localizable", "post.read_more")
     /// %d replies
     static func repliesCount(_ p1: Int) -> String {
       return L10n.tr("Localizable", "post.replies_count", p1)

@@ -22,7 +22,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     @IBOutlet weak var postCreation: UILabel!
     @IBOutlet weak var postImageButton: UIButton!
     @IBOutlet weak var postTitle: UILabel!
-    @IBOutlet weak var postText: UITextView! {
+    @IBOutlet weak var postText: ReadMoreTextView! {
         didSet {
             postText.textContainerInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 5)
             postText.textContainer.lineFragmentPadding = 0
@@ -80,15 +80,21 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         setup()
     }
     
-    private func handleAction(action: FeedPostCellAction) {
-        guard let path = indexPath() else { return }
-        viewModel.onAction?(action, path)
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
+    }
+    
+    override func awakeFromNib() {
+        self.contentView.addSubview(container)
+        self.postImageButton.imageView?.contentMode = .scaleAspectFill
+        postText.maximumNumberOfLines = Constants.FeedModule.Collection.Cell.maxLines
     }
     
     func setup() {
         clipsToBounds = true
     }
-    
+  
     func configure(with data: PostViewModel, collectionView: UICollectionView?) {
         
         self.viewModel = data
@@ -117,8 +123,22 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         likeButton.isSelected = data.isLiked
         pinButton.isSelected = data.isPinned
         commentButton.isEnabled = !usedInThirdPartModule
+        
+        // Text View
+        self.postText.readMoreTapHandle = { [weak self] in
+            self?.handleAction(action: .postDetailed)
+        }
+        
+        self.postText.isTrimmed = data.isTrimmed
     }
     
+    // MARK: Private
+    
+    private func handleAction(action: FeedPostCellAction) {
+        guard let path = indexPath() else { return }
+        viewModel.onAction?(action, path)
+    }
+
     private lazy var postImagePlaceholder: UIImage = {
         return UIImage(asset: Asset.placeholderPostNoimage)
     }()
@@ -126,15 +146,4 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     private lazy var userImagePlaceholder: UIImage = {
         return UIImage(asset: Asset.userPhotoPlaceholder)
     }()
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
-    }
-    
-    override func awakeFromNib() {
-        self.contentView.addSubview(container)
-        self.postImageButton.imageView?.contentMode = .scaleAspectFill
-    }
-    
 }
