@@ -43,6 +43,10 @@ extension Constants {
             static var footerHeight = CGFloat(60)
             static var containerPadding = CGFloat(10)
             static var containerColor = UIColor.white
+            
+            struct Cell {
+                static var maxLines = 10
+            }
         }
     }
     

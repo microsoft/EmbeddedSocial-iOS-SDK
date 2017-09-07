@@ -88,7 +88,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     override func awakeFromNib() {
         self.contentView.addSubview(container)
         self.postImageButton.imageView?.contentMode = .scaleAspectFill
-        postText.maximumNumberOfLines = 10
+        postText.maximumNumberOfLines = Constants.FeedModule.Collection.Cell.maxLines
     }
     
     func setup() {

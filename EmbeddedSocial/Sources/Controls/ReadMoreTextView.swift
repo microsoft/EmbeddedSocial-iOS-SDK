@@ -20,7 +20,7 @@ class ReadMoreTextView: UITextView {
     var readMoreTapHandle: ((Void) -> Void)?
     
     func setupDefaults() {
-        let readMoreText = "... Read More"
+        let readMoreText = L10n.Post.readMore
     
         isScrollEnabled = false
         isEditable = false

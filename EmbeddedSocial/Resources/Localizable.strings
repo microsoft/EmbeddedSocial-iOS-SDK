@@ -108,6 +108,7 @@
 "post.likes_count" = "%d likes";
 "post.comments_count" = "%d comments";
 "post.replies_count" = "%d replies";
+"post.read_more" = " ... Read More";
 
 "popular_module.feed_option.today" = "Today";
 "popular_module.feed_option.this_week" = "This week";
