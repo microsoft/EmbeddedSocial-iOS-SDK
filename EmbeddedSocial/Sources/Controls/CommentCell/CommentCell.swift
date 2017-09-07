@@ -12,16 +12,16 @@ enum CommentCellAction {
 
 class CommentCell: UICollectionViewCell, CommentCellViewInput {
 
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var likesCountButton: UIButton!
     @IBOutlet weak var repliesCountButton: UIButton!
     @IBOutlet weak var commentTextLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var mediaButton: UIButton!
     @IBOutlet weak var mediaButtonHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var repliesButton: UIButton!
 
-    @IBOutlet weak var avatarButton: UIButton!
     @IBOutlet weak var postedTimeLabel: UILabel!
     
     var commentView: CommentViewModel!
@@ -33,9 +33,7 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        avatarButton.imageView?.contentMode = .scaleAspectFill
-        avatarButton.layer.shouldRasterize = true
-        avatarButton.layer.drawsAsynchronously = true
+        userPhoto.contentMode = .scaleAspectFill
         layer.shouldRasterize = true
         layer.drawsAsynchronously = true
         layer.rasterizationScale = UIScreen.main.scale
@@ -49,14 +47,19 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     }
     
     func configure(comment: Comment) {
-        usernameLabel.text = User.fullName(firstName: comment.firstName, lastName: comment.lastName)
+        userName.text = User.fullName(firstName: comment.firstName, lastName: comment.lastName)
         commentTextLabel.text = comment.text ?? ""
         likesCountButton.setTitle(L10n.Post.likesCount(Int(comment.totalLikes)), for: .normal)
         repliesCountButton.setTitle(L10n.Post.repliesCount(Int(comment.totalReplies)), for: .normal)
         
         postedTimeLabel.text = comment.createdTime == nil ? "" : formatter.shortStyle.string(from: comment.createdTime!, to: Date())!
         
-        avatarButton.setPhotoWithCaching(Photo(url: comment.photoUrl), placeholder: UIImage(asset: .userPhotoPlaceholder))
+        
+        if comment.photoUrl == nil {
+            userPhoto.image = UIImage(asset: Asset.userPhotoPlaceholder)
+        } else {
+            userPhoto.setPhotoWithCaching(Photo(url: comment.photoUrl), placeholder: UIImage(asset: Asset.userPhotoPlaceholder))
+        }
         
         likeButton.isSelected = comment.liked
         
