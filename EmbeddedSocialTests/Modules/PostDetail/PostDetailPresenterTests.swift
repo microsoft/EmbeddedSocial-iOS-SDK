@@ -8,7 +8,7 @@ import XCTest
 
 class PostDetailsPresenterTests: XCTestCase {
     
-    let presenter = PostDetailPresenter()
+    var presenter: PostDetailPresenter!
     let interactor = MockPostDetailsInteractor()
     let view = MockPostDetailViewController()
     let router = MockPostDetailRouter()
@@ -22,6 +22,8 @@ class PostDetailsPresenterTests: XCTestCase {
         post = PostViewModel(with: tempPost, cellType: "", actionHandler: { (action, path) in
             
         })
+        let myProfileHolder = MyProfileHolder()
+        presenter = PostDetailPresenter(myProfileHolder: myProfileHolder)
         presenter.interactor = interactor
         presenter.view = view
         presenter.postViewModel = post
