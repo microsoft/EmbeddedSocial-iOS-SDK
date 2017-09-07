@@ -247,6 +247,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
         
         let itemViewModel = PostViewModel(with: item,
+                                          isTrimmed: true,
                                           cellType: layout.cellType,
                                           actionHandler: onAction)
     

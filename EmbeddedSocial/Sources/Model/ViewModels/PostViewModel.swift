@@ -25,17 +25,19 @@ struct PostViewModel {
     let timeCreated: String
     let userImageUrl: String?
     let postImageUrl: String?
-    
+    let isTrimmed: Bool
     let cellType: String
     
     // sourcery: skipEquality
     let onAction: ActionHandler?
   
     init(with post: Post,
+         isTrimmed: Bool = false,
          cellType: String,
          actionHandler: ActionHandler? = nil) {
         
         let formatter = DateFormatterTool()
+        self.isTrimmed = isTrimmed
         topicHandle = post.topicHandle
         userName = User.fullName(firstName: post.firstName, lastName: post.lastName)
         title = post.title ?? ""
