@@ -112,10 +112,10 @@
                             <rect key="frame" x="0.0" y="442" width="364" height="60"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2C6-WJ-LvS" userLabel="like">
-                                    <rect key="frame" x="15" y="10" width="40" height="40"/>
+                                    <rect key="frame" x="15" y="8" width="44" height="44"/>
                                     <accessibility key="accessibilityConfiguration" identifier="Like" label="Like"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="40" id="0Ik-Pf-Erf"/>
+                                        <constraint firstAttribute="width" constant="44" id="0Ik-Pf-Erf"/>
                                         <constraint firstAttribute="width" secondItem="2C6-WJ-LvS" secondAttribute="height" multiplier="1:1" id="UWY-IC-GIQ"/>
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
@@ -126,11 +126,11 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6te-RD-RH1" userLabel="comment">
-                                    <rect key="frame" x="60" y="10" width="40" height="40"/>
+                                    <rect key="frame" x="64" y="8" width="44" height="44"/>
                                     <accessibility key="accessibilityConfiguration" identifier="Comment" label="Comment"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="6te-RD-RH1" secondAttribute="height" multiplier="1:1" id="Hmb-9k-gGT"/>
-                                        <constraint firstAttribute="width" constant="40" id="sBl-2I-8wq"/>
+                                        <constraint firstAttribute="width" constant="44" id="sBl-2I-8wq"/>
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                     <state key="normal" title="Button" image="icon_comment"/>
@@ -139,10 +139,10 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTY-SJ-7jo" userLabel="pin">
-                                    <rect key="frame" x="105" y="10" width="40" height="40"/>
+                                    <rect key="frame" x="113" y="8" width="44" height="44"/>
                                     <accessibility key="accessibilityConfiguration" identifier="Pin" label="Pin"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="40" id="fE7-L5-biC"/>
+                                        <constraint firstAttribute="width" constant="44" id="fE7-L5-biC"/>
                                         <constraint firstAttribute="width" secondItem="LTY-SJ-7jo" secondAttribute="height" multiplier="1:1" id="tNw-rJ-dRs"/>
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
