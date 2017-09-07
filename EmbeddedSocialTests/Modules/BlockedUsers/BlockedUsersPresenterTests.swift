@@ -68,4 +68,20 @@ extension BlockedUsersPresenterTests {
             return
         }
     }
+    
+    func testThatItRemovesUnblockedItem() {
+        // given
+        let indexPath = IndexPath(row: Int(arc4random() % 100), section: Int(arc4random() % 100))
+        
+        // when
+        sut.didUpdateFollowStatus(listView: UIView(), followStatus: .blocked, forUserAt: indexPath)
+        
+        // then
+        XCTAssertEqual(usersListModule.removeListItemCount, 1)
+        XCTAssertEqual(usersListModule.removeListItemInputIndexPath, indexPath)
+    }
 }
+
+
+
+

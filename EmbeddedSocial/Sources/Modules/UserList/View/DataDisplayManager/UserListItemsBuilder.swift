@@ -5,24 +5,23 @@
 
 import Foundation
 
-final class UserListItemsBuilder {
+class UserListItemsBuilder {
     typealias Section = UserListDataDisplayManager.Section
-    
-    private let me: User?
-    
-    init(me: User?) {
-        self.me = me
-    }
+
+    var me: User?
     
     func makeSections(users: [User], actionHandler: @escaping (UserListItem) -> Void) -> [Section] {
         let items = users.enumerated().map { pair -> UserListItem in
             let isMe = pair.element.uid == self.me?.uid
-            let user = isMe ? me! : pair.element
-            let indexPath = IndexPath(row: pair.offset, section: 0)
-            return UserListItem(user: user, indexPath: indexPath, action: actionHandler)
+            let user = configuredUser(isMe ? me! : pair.element)
+            return UserListItem(user: user, indexPath: IndexPath(row: pair.offset, section: 0), action: actionHandler)
         }
         
         return [Section(model: (), items: items)]
+    }
+    
+    func configuredUser(_ user: User) -> User {
+        return user
     }
     
     func updatedSections(with user: User, at indexPath: IndexPath, sections: [Section]) -> [Section] {

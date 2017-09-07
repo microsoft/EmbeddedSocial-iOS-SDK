@@ -9,18 +9,29 @@ import SnapKit
 class SearchViewController: UIViewController {
     
     var output: SearchViewOutput!
-
-    fileprivate var searchController: UISearchController?
+    
+    fileprivate var activeTab: SearchTabInfo?
+    
+    @IBOutlet fileprivate weak var filterContainer: UIView!
+    
+    @IBOutlet fileprivate weak var searchResultsContainer: UIView!
     
     fileprivate lazy var filterView: SegmentedControlView = { [unowned self] in
         return SegmentedControlView.searchModuleControl(
-            superview: self.view,
+            superview: self.filterContainer,
             onTopics: self.output.onTopics,
             onPeople: self.output.onPeople)
     }()
     
     fileprivate lazy var feedLayoutButton: UIButton = { [unowned self] in
         return UIButton.makeButton(asset: nil, color: Palette.defaultTint, action: self.output.onFlipTopicsLayout)
+    }()
+    
+    fileprivate lazy var searchBar: UISearchBar = { [unowned self] in
+        let searchBar = UISearchBar(frame: CGRect(x: 0.0, y: 0.0, width: 320.0, height: 44.0))
+        searchBar.delegate = self
+        searchBar.searchBarStyle = .minimal
+        return searchBar
     }()
     
     override func viewDidLoad() {
@@ -30,31 +41,38 @@ class SearchViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        searchController?.isActive = false
+        searchBar.resignFirstResponder()
     }
     
-    fileprivate func setupSearchController(_ tabInfo: SearchTabInfo) {
-        searchController = UISearchController(searchResultsController: tabInfo.searchResultsController)
-        searchController?.searchResultsUpdater = tabInfo.searchResultsHandler
-        searchController?.dimsBackgroundDuringPresentation = false
-        searchController?.searchBar.delegate = self
-        searchController?.hidesNavigationBarDuringPresentation = false
-        searchController?.searchBar.searchBarStyle = .minimal
-        searchController?.searchBar.placeholder = tabInfo.tab.searchBarPlaceholder
-        searchController?.delegate = self
+    fileprivate func makeTabActive(_ tab: SearchTabInfo) {
+        activeTab = tab
+        searchBar.text = activeTab?.searchText
+        searchBar.placeholder = activeTab?.tab.searchBarPlaceholder
+
+        addChildController(tab.searchResultsController, containerView: searchResultsContainer)
         
-        navigationItem.titleView = searchController?.searchBar
+        tab.searchResultsController.view.isHidden = !(tab.searchText?.isEmpty == false)
+
+        if let backgroundView = tab.backgroundView {
+            addBackgroundView(backgroundView)
+        }
+        
         navigationItem.rightBarButtonItem =
-            tabInfo.tab.showsRightNavigationButton ? UIBarButtonItem(customView: feedLayoutButton) : nil
+            tab.tab.showsRightNavigationButton ? UIBarButtonItem(customView: feedLayoutButton) : nil
     }
     
     fileprivate func addBackgroundView(_ backgroundView: UIView) {
-        view.addSubview(backgroundView)
+        searchResultsContainer.addSubview(backgroundView)
         backgroundView.snp.makeConstraints { make in
-            make.top.equalTo(filterView.snp.bottom)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
+        }
+        searchResultsContainer.sendSubview(toBack: backgroundView)
+    }
+    
+    fileprivate func hideTab(_ tab: SearchTabInfo) {
+        removeChildController(tab.searchResultsController)
+        if let backgroundView = tab.backgroundView {
+            backgroundView.removeFromSuperview()
         }
     }
 }
@@ -62,31 +80,14 @@ class SearchViewController: UIViewController {
 extension SearchViewController: SearchViewInput {
     
     func setupInitialState(_ tab: SearchTabInfo) {
-        definesPresentationContext = true
         _ = filterView
+        navigationItem.titleView = searchBar
         makeTabActive(tab)
     }
     
     func switchTabs(to tab: SearchTabInfo, from previousTab: SearchTabInfo) {
-        removeTab(previousTab)
+        hideTab(previousTab)
         makeTabActive(tab)
-    }
-    
-    private func makeTabActive(_ tab: SearchTabInfo) {
-        setupSearchController(tab)
-        if let backgroundView = tab.backgroundView {
-            addBackgroundView(backgroundView)
-        }
-    }
-    
-    private func removeTab(_ tab: SearchTabInfo) {
-        if let searchController = searchController {
-            searchController.isActive = false
-            searchController.removeFromParentViewController()
-        }
-        if let backgroundView = tab.backgroundView {
-            backgroundView.removeFromSuperview()
-        }
     }
     
     func showError(_ error: Error) {
@@ -104,14 +105,22 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-}
-
-extension SearchViewController: UISearchControllerDelegate {
-
-    func didPresentSearchController(_ searchController: UISearchController) {
-        var frame = searchController.view.frame
-        frame.origin.y += Constants.Search.filterHeight
-        frame.size.height -= Constants.Search.filterHeight
-        searchController.view.frame = frame
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        activeTab?.searchResultsController.view.isHidden = searchText.isEmpty
+        activeTab?.searchText = searchText
+        activeTab?.searchResultsHandler.updateSearchResults(for: searchBar)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: false)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: false)
     }
 }

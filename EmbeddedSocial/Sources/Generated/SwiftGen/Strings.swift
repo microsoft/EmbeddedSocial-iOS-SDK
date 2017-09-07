@@ -36,6 +36,8 @@ enum L10n {
     static let pending = L10n.tr("Localizable", "common.pending")
     /// Submit
     static let submit = L10n.tr("Localizable", "common.submit")
+    /// Unblock
+    static let unblock = L10n.tr("Localizable", "common.unblock")
 
     enum Placeholder {
       /// Not specified

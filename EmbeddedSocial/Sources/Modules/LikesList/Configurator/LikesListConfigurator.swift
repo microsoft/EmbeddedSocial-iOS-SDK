@@ -20,10 +20,22 @@ struct LikesListConfigurator {
         presenter.interactor = LikesListInteractor()
         
         let api = LikesListAPI(handle: handle, type: type, likesService: LikesService())
-        presenter.usersListModule = UserListConfigurator().configure(api: api,
-                                                                     navigationController: navigationController,
-                                                                     output: presenter)
+
+        presenter.usersListModule = makeUserListModule(api: api,
+                                                       navigationController: navigationController,
+                                                       output: presenter)
         
         viewController.output = presenter
+    }
+    
+    private func makeUserListModule(api: UsersListAPI,
+                                    navigationController: UINavigationController?,
+                                    output: UserListModuleOutput?) -> UserListModuleInput {
+
+        let settings = UserListConfigurator.Settings(api: api,
+                                                     navigationController: navigationController,
+                                                     output: output)
+        
+        return UserListConfigurator().configure(with: settings)
     }
 }

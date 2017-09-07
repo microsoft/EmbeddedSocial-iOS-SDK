@@ -17,4 +17,6 @@ protocol UserListViewInput: class {
     func setIsLoading(_ isLoading: Bool)
     
     func setListHeaderView(_ view: UIView?)
+    
+    func removeListItem(at indexPath: IndexPath)
 }

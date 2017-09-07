@@ -40,10 +40,7 @@ extension SegmentedControlView {
         
         superview.addSubview(control)
         control.snp.makeConstraints { make in
-            make.left.equalTo(superview)
-            make.top.equalTo(superview)
-            make.width.equalTo(superview)
-            make.height.equalTo(Constants.Search.filterHeight)
+            make.edges.equalToSuperview()
         }
         
         return control

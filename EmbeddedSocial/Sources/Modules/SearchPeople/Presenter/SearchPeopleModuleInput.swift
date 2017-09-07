@@ -8,7 +8,7 @@ import Foundation
 protocol SearchPeopleModuleInput: class {
     func setupInitialState()
     
-    func searchResultsHandler() -> UISearchResultsUpdating
+    func searchResultsHandler() -> SearchResultsUpdating
     
     func backgroundView() -> UIView?
     

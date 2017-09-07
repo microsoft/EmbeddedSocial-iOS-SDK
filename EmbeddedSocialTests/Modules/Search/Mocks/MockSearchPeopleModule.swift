@@ -16,7 +16,7 @@ final class MockSearchPeopleModule: SearchPeopleModuleInput {
         setupInitialStateCount += 1
     }
     
-    func searchResultsHandler() -> UISearchResultsUpdating {
+    func searchResultsHandler() -> SearchResultsUpdating {
         return searchResultsHandlerToReturn
     }
     
