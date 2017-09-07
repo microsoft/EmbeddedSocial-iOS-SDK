@@ -17,6 +17,12 @@ class SideMenuAccountInfoView: UIControl {
         isSelected = model.isSelected
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        accountImage?.makeCircular()
+    }
+    
     override var isSelected: Bool {
         didSet {
             accountName?.textColor = isSelected ? Constants.Menu.selectedItemColor : Constants.Menu.defaultItemColor
