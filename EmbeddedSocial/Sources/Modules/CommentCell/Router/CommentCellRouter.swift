@@ -10,6 +10,7 @@ class CommentCellRouter: CommentCellRouterInput {
     var navigationController: UINavigationController?
     weak var postMenuModuleOutput: PostMenuModuleOutput!
     weak var moduleInput: CommentCellPresenter!
+    var loginOpener: LoginModalOpener?
     
     // Keeping ref to menu
     private var postMenuViewController: UIViewController?
@@ -43,6 +44,10 @@ class CommentCellRouter: CommentCellRouterInput {
     
     func openMyCommentOptions(comment: Comment) {
         configureOptions(type: .myComment(comment: comment))
+    }
+    
+    func openLogin() {
+        loginOpener?.openLogin(parentViewController: navigationController)
     }
     
     func openOtherCommentOptions(comment: Comment) {

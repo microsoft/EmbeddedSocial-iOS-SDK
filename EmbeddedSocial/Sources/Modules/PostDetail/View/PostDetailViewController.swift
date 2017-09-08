@@ -89,10 +89,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     func removeComment(index: Int) {
         collectionView.deleteItems(at: [IndexPath(item: index, section: CommentsSections.comments.rawValue)])
     }
-    
-    func updateLoadingCell() {
-        collectionView.reloadItems(at: [IndexPath(item: 0, section: CommentsSections.loadMore.rawValue)])
-    }
 
     func updateComments() {
         let numberOfItems = self.output.numberOfItems()
