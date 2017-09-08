@@ -805,7 +805,7 @@
 		639A94431F5D300100EB0253 /* MockCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentCell.swift; sourceTree = "<group>"; };
 		639A94491F5D348D00EB0253 /* CommentCellInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCellInteractorTests.swift; sourceTree = "<group>"; };
 		639A944A1F5D348D00EB0253 /* CommentCellPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCellPresenterTests.swift; sourceTree = "<group>"; };
-		639A94531F5D82AE00EB0253 /* CommentCellInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentCellInteractorOutput.swift; path = EmbeddedSocial/Sources/Modules/CommentCell/Interactor/CommentCellInteractorOutput.swift; sourceTree = SOURCE_ROOT; };
+		639A94531F5D82AE00EB0253 /* CommentCellInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentCellInteractorOutput.swift; path = CommentCellInteractorOutput.swift; sourceTree = "<group>"; };
 		639A94551F5D83B300EB0253 /* CommentCellInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCellInteractorOutput.swift; sourceTree = "<group>"; };
 		639E62291F5433680030C1F2 /* PostViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		63A1D6FA1F25E78D0090C67A /* TopicService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicService.swift; sourceTree = "<group>"; };
@@ -905,7 +905,7 @@
 		882CAF091F5EC4B1001D5F37 /* LoginModalOpener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModalOpener.swift; sourceTree = "<group>"; };
 		882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationMulticast.swift; sourceTree = "<group>"; };
 		882CAF111F5EF94C001D5F37 /* MockCommentRepliesRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentRepliesRouter.swift; sourceTree = "<group>"; };
-		882CAF131F60001D001D5F37 /* BlockedUsersListItemsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockedUsersListItemsBuilder.swift; path = ../BlockedUsersListItemsBuilder.swift; sourceTree = "<group>"; };
+		882CAF131F60001D001D5F37 /* BlockedUsersListItemsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockedUsersListItemsBuilder.swift; path = BlockedUsersListItemsBuilder.swift; sourceTree = "<group>"; };
 		882CAF161F615DF3001D5F37 /* SearchResultsUpdating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsUpdating.swift; sourceTree = "<group>"; };
 		882CAF181F616CCB001D5F37 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		882CAF1A1F617F5E001D5F37 /* UserProfileModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileModuleOutput.swift; sourceTree = "<group>"; };
@@ -1458,8 +1458,8 @@
 		93AC65941F3E056F00FE5A3A /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		93AC65951F3E056F00FE5A3A /* PostDetailViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewInput.swift; sourceTree = "<group>"; };
 		93AC65961F3E056F00FE5A3A /* PostDetailViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewOutput.swift; sourceTree = "<group>"; };
-		93AC65A51F3E057C00FE5A3A /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentCell.swift; path = ../../../Controls/CommentCell/CommentCell.swift; sourceTree = "<group>"; };
-		93AC65A61F3E057C00FE5A3A /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CommentCell.xib; path = ../../../Controls/CommentCell/CommentCell.xib; sourceTree = "<group>"; };
+		93AC65A51F3E057C00FE5A3A /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentCell.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		93AC65A61F3E057C00FE5A3A /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CommentCell.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		93AC65A91F3E05C000FE5A3A /* CommentsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsService.swift; sourceTree = "<group>"; };
 		93AC65AD1F3E05DA00FE5A3A /* MockCommentService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentService.swift; sourceTree = "<group>"; };
 		93AC65AE1F3E05DA00FE5A3A /* MockPostDetaillnteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPostDetaillnteractor.swift; sourceTree = "<group>"; };
@@ -1489,7 +1489,7 @@
 		9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuButton.swift; sourceTree = "<group>"; };
 		9C6244F11F457DED004814BB /* PostMenuModuleInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleInteractorTests.swift; sourceTree = "<group>"; };
 		9C6244F31F4580FC004814BB /* PostMenuModulePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenterTests.swift; sourceTree = "<group>"; };
-		9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedServiceAdapters.swift; path = EmbeddedSocial/Sources/Model/Feed/FeedServiceAdapters.swift; sourceTree = SOURCE_ROOT; };
+		9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedServiceAdapters.swift; path = FeedServiceAdapters.swift; sourceTree = "<group>"; };
 		9C7D9B331F2F430B005928F4 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		9C985E521F505BDF00514F85 /* FeedCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCacheTests.swift; sourceTree = "<group>"; };
@@ -1613,9 +1613,9 @@
 		639A94371F5D2F8200EB0253 /* CommentCell */ = {
 			isa = PBXGroup;
 			children = (
+				639A943C1F5D2FC600EB0253 /* Mocks */,
 				639A94491F5D348D00EB0253 /* CommentCellInteractorTests.swift */,
 				639A944A1F5D348D00EB0253 /* CommentCellPresenterTests.swift */,
-				639A943C1F5D2FC600EB0253 /* Mocks */,
 			);
 			path = CommentCell;
 			sourceTree = "<group>";
@@ -1623,10 +1623,10 @@
 		639A943C1F5D2FC600EB0253 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				639A943D1F5D2FD700EB0253 /* MockCommentCellPresenter.swift */,
-				639A943F1F5D2FE800EB0253 /* MockCommentCellInteractor.swift */,
-				639A94411F5D2FF600EB0253 /* MockCommentCellRouter.swift */,
 				639A94431F5D300100EB0253 /* MockCommentCell.swift */,
+				639A943F1F5D2FE800EB0253 /* MockCommentCellInteractor.swift */,
+				639A943D1F5D2FD700EB0253 /* MockCommentCellPresenter.swift */,
+				639A94411F5D2FF600EB0253 /* MockCommentCellRouter.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1664,8 +1664,8 @@
 			children = (
 				63F8489A1F4AE81F00D434CF /* MockCommentRepliesInteractor.swift */,
 				63F848961F4ADF3500D434CF /* MockCommentRepliesPresenter.swift */,
-				63F8489C1F4AE85E00D434CF /* MockCommentRepliesViewController.swift */,
 				882CAF111F5EF94C001D5F37 /* MockCommentRepliesRouter.swift */,
+				63F8489C1F4AE85E00D434CF /* MockCommentRepliesViewController.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1684,6 +1684,7 @@
 				8807ADFE1F5EB22100DA3FB0 /* SessionInfo.swift */,
 			);
 			name = Helpers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		8811C83B1F42E00000F7513D /* EmbeddedEditProfile */ = {
@@ -2004,8 +2005,8 @@
 		883E1E361F546507004B4861 /* BlockedUsers */ = {
 			isa = PBXGroup;
 			children = (
-				883E1E391F546517004B4861 /* Helpers */,
 				883E1E371F546517004B4861 /* Configurator */,
+				883E1E391F546517004B4861 /* Helpers */,
 				883E1E3D1F546517004B4861 /* Presenter */,
 				883E1E3F1F546517004B4861 /* View */,
 			);
@@ -2027,7 +2028,7 @@
 				882CAF131F60001D001D5F37 /* BlockedUsersListItemsBuilder.swift */,
 			);
 			name = Helpers;
-			path = API;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		883E1E3D1F546517004B4861 /* Presenter */ = {
@@ -2266,9 +2267,9 @@
 		88580A9C1F2213AB00C1CBAF /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				636474881F5FFD31000D7B3D /* LoadMoreCell */,
 				93AC65A41F3E057C00FE5A3A /* CommentCell */,
 				88580A9D1F2213AB00C1CBAF /* GroupHeaderTableCell */,
+				636474881F5FFD31000D7B3D /* LoadMoreCell */,
 				9C43EC8A1F25D60A00D0B59D /* PostCells */,
 				88BC5C581F2B6628001FBDD2 /* ProfileSummaryView */,
 				6387F54B1F41B1B80066628E /* ReplyCell */,
@@ -2278,11 +2279,11 @@
 				88FFFA601F306EC80066A1A0 /* BarButtonItemWithTarget.swift */,
 				88580A891F2213AB00C1CBAF /* ButtonWithTarget.swift */,
 				88580AA01F2213AB00C1CBAF /* LoadingIndicatorView.swift */,
+				9CEF6E031F616B23001FA000 /* ReadMoreTextView.swift */,
 				9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */,
 				88580AA41F2213AB00C1CBAF /* TextFieldCell.swift */,
 				88580B3D1F2213AB00C1CBAF /* UploadPhotoCell.swift */,
 				88580AA81F2213AB00C1CBAF /* WebViewController.swift */,
-				9CEF6E031F616B23001FA000 /* ReadMoreTextView.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -2334,8 +2335,8 @@
 				88580AB31F2213AB00C1CBAF /* UITableView+Ext.swift */,
 				88580AB41F2213AB00C1CBAF /* UIView+Ext.swift */,
 				88580AB51F2213AB00C1CBAF /* UIViewController+Alerts.swift */,
-				88E3AC4D1F55C0E10016357F /* UIViewController+HUD.swift */,
 				882CAF181F616CCB001D5F37 /* UIViewController+Ext.swift */,
+				88E3AC4D1F55C0E10016357F /* UIViewController+HUD.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2379,6 +2380,7 @@
 				88580B071F2213AB00C1CBAF /* MementoMapping */,
 				88580B051F2213AB00C1CBAF /* AuthProvider.swift */,
 				88580B061F2213AB00C1CBAF /* CredentialsList.swift */,
+				9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */,
 				881060FA1F28F3E4008CA2FB /* FollowStatus.swift */,
 				88580B0B1F2213AB00C1CBAF /* Photo.swift */,
 				9CEA75231F2A0E61009FC89D /* Post.swift */,
@@ -2387,7 +2389,6 @@
 				88580B0D1F2213AB00C1CBAF /* SocialUser.swift */,
 				88580B0E1F2213AB00C1CBAF /* User.swift */,
 				881060FC1F28F4B2008CA2FB /* Visibility.swift */,
-				9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -2413,10 +2414,10 @@
 				88D2F8D61F55C2B50004A8BC /* ReportingService.swift */,
 				8864C82B1F45EC2A00ADCE13 /* SearchService.swift */,
 				88580B211F2213AB00C1CBAF /* SessionService.swift */,
+				321271DC1F5CBF6D003B53F4 /* SocialActionsCaching.swift */,
 				886F4B3A1F2A06E500D836C3 /* SocialService.swift */,
 				63A1D6FA1F25E78D0090C67A /* TopicService.swift */,
 				88580B2A1F2213AB00C1CBAF /* UserService.swift */,
-				321271DC1F5CBF6D003B53F4 /* SocialActionsCaching.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -2462,6 +2463,7 @@
 			isa = PBXGroup;
 			children = (
 				883E1E361F546507004B4861 /* BlockedUsers */,
+				A79504C3F9B495F629E1F3B5 /* CommentCell */,
 				D2963907A98CF650595729E4 /* CommentReplies */,
 				88580B2E1F2213AB00C1CBAF /* CreateAccount */,
 				88580B451F2213AB00C1CBAF /* CreatePost */,
@@ -2483,7 +2485,6 @@
 				88580B801F2213AB00C1CBAF /* TabMenuContainer */,
 				882F103D1F30C8A20068B6F2 /* UserList */,
 				88BC5C3E1F2B65D0001FBDD2 /* UserProfile */,
-				A79504C3F9B495F629E1F3B5 /* CommentCell */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -2601,11 +2602,11 @@
 			isa = PBXGroup;
 			children = (
 				88580B591F2213AB00C1CBAF /* Configurator */,
+				8807AE001F5EB22400DA3FB0 /* Helpers */,
 				88580B5B1F2213AB00C1CBAF /* Interactor */,
 				88580B5E1F2213AB00C1CBAF /* Presenter */,
 				88580B611F2213AB00C1CBAF /* Router */,
 				88580B641F2213AB00C1CBAF /* View */,
-				8807AE001F5EB22400DA3FB0 /* Helpers */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -2775,6 +2776,7 @@
 				88580B9A1F2213AB00C1CBAF /* Validators */,
 				889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */,
 				8811C8331F3DE8A500F7513D /* AssociatedValue.swift */,
+				882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */,
 				88087B451F2A431E00A33E9A /* ButtonDecorator.swift */,
 				8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */,
 				88580B931F2213AB00C1CBAF /* Constants.swift */,
@@ -2791,16 +2793,15 @@
 				88D8CCB31F31FED40032FB2B /* PaginatedResponse.swift */,
 				8834A7481F50071300F1D383 /* QueryPage.swift */,
 				88E3AC321F55A01D0016357F /* RelatedHandleMixin.swift */,
-				882CAF161F615DF3001D5F37 /* SearchResultsUpdating.swift */,
 				8802F2191F596BBA00FD0A15 /* RequestExecutorProvider.swift */,
 				88580A931F2213AB00C1CBAF /* Result.swift */,
 				88580B991F2213AB00C1CBAF /* Reusable.swift */,
+				882CAF161F615DF3001D5F37 /* SearchResultsUpdating.swift */,
 				88580B2C1F2213AB00C1CBAF /* ThirdPartyConfigurator.swift */,
 				881060F81F28E502008CA2FB /* UIButtonStyles.swift */,
 				8811C8201F3C6D2400F7513D /* UITestsHelper.swift */,
 				889510871F3B2539001A53F5 /* UnauthorizedErrorHandler.swift */,
 				8875CCF01F331FC9001F2474 /* UsersListResponse.swift */,
-				882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3137,8 +3138,8 @@
 		889AFC071F220BCD003AAF19 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				639A94371F5D2F8200EB0253 /* CommentCell */,
 				88E3AC161F5562A10016357F /* BlockedUsers */,
+				639A94371F5D2F8200EB0253 /* CommentCell */,
 				63F8488E1F4ADD3B00D434CF /* CommentReplies */,
 				88F7A7991F27976E005FEC5F /* CreateAccount */,
 				889AFC081F220BCD003AAF19 /* CreatePost */,
@@ -3221,6 +3222,7 @@
 				88F7A78C1F278AA4005FEC5F /* MockSessionService.swift */,
 				88F1637E1F264B3F00DAAF68 /* MockSessionStoreDatabase.swift */,
 				88F163801F273A1E00DAAF68 /* MockSessionStoreRepositoryProvider.swift */,
+				9CE7D4BF1F5ECE0D008DA2BA /* MockSocialActionsCacheAdapter.swift */,
 				889AFC161F220BCD003AAF19 /* MockSocialPlusServices.swift */,
 				88FFFA5C1F2F80E00066A1A0 /* MockSocialService.swift */,
 				88087B491F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift */,
@@ -3230,9 +3232,8 @@
 				889AFC181F220BCD003AAF19 /* MockURLSchemeService.swift */,
 				9CC81E331F5826E9003DD078 /* MockUserHolder.swift */,
 				88F551C31F39D65200F4AAB9 /* MockUserListModuleInput.swift */,
-				88F7A78A1F2789F0005FEC5F /* MockUserService.swift */,
-				9CE7D4BF1F5ECE0D008DA2BA /* MockSocialActionsCacheAdapter.swift */,
 				88B94EAD1F6199BB002392F9 /* MockUserProfileModuleOutput.swift */,
+				88F7A78A1F2789F0005FEC5F /* MockUserService.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -3280,8 +3281,8 @@
 		88BC5C441F2B65D0001FBDD2 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				88BC5C451F2B65D0001FBDD2 /* UserProfilePresenter.swift */,
 				882CAF1A1F617F5E001D5F37 /* UserProfileModuleOutput.swift */,
+				88BC5C451F2B65D0001FBDD2 /* UserProfilePresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -3734,8 +3735,8 @@
 				8E6070731F41DD2000110F4F /* TestFollowing.swift */,
 				8E60704E1F34CE5500110F4F /* TestHome.swift */,
 				8E6070671F3CB63F00110F4F /* TestMyProfile.swift */,
-				8EE2C6C71F4594ED00CFFE21 /* TestUserProfile.swift */,
 				8EAF45811F5ECDE70046F704 /* TestPopular.swift */,
+				8EE2C6C71F4594ED00CFFE21 /* TestUserProfile.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -3939,9 +3940,9 @@
 		9C4261DDE8BB0DA7886EC084 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				939C2630379425056B054B84 /* CommentCellInteractor.swift */,
 				E63643937A3B405C1B4E0B49 /* CommentCellInteractorInput.swift */,
 				639A94551F5D83B300EB0253 /* CommentCellInteractorOutput.swift */,
-				939C2630379425056B054B84 /* CommentCellInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -4092,11 +4093,11 @@
 		A79504C3F9B495F629E1F3B5 /* CommentCell */ = {
 			isa = PBXGroup;
 			children = (
-				F8EA613C5391120FE86A6ADC /* View */,
-				DCF6FB5E553E6F182163A21B /* Presenter */,
-				9C4261DDE8BB0DA7886EC084 /* Interactor */,
-				D22E3BA700CEA679F5B2A564 /* Router */,
 				1890D808F26FA7785ACBB522 /* Configurator */,
+				9C4261DDE8BB0DA7886EC084 /* Interactor */,
+				DCF6FB5E553E6F182163A21B /* Presenter */,
+				D22E3BA700CEA679F5B2A564 /* Router */,
+				F8EA613C5391120FE86A6ADC /* View */,
 			);
 			path = CommentCell;
 			sourceTree = "<group>";
@@ -4123,8 +4124,8 @@
 		D22E3BA700CEA679F5B2A564 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				EC1ECDB428A92745248FE72C /* CommentCellRouterInput.swift */,
 				61494E4B897730AE4E0BD7AB /* CommentCellRouter.swift */,
+				EC1ECDB428A92745248FE72C /* CommentCellRouterInput.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";

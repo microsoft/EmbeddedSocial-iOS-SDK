@@ -31,7 +31,9 @@ class PostMenuModuleRouter: PostMenuModuleRouterInput {
         let config = ReportConfigurator()
         let navController = UINavigationController(rootViewController: config.viewController)
         let api = ReportPostAPI(postID: postHandle, reportingService: ReportingService())
-        config.configure(api: api, navigationController: navController)
+        config.configure(api: api,
+                         navigationController: navController,
+                         reportListTitle: L10n.Report.Post.headerTitle.uppercased())
         navigationController?.present(navController, animated: true, completion: nil)
     }
     
