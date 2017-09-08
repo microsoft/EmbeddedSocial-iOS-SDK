@@ -6,28 +6,33 @@
 @testable import EmbeddedSocial
 
 final class MockUserListModuleOutput: UserListModuleOutput {
-    private(set) var didSelectListItemCount = 0
-    private(set) var didUpdateListCount = 0
-    private(set) var didFailToLoadListCount = 0
-    private(set) var didFailToPerformSocialRequestCount = 0
-    private(set) var didSelectListItemInputValues: (listView: UIView, indexPath: IndexPath)?
-
-    func didSelectListItem(listView: UIView, at indexPath: IndexPath) {
-        didSelectListItemCount += 1
-        didSelectListItemInputValues = (listView, indexPath)
-    }
+    //MARK: - didFailToLoadList
     
-    func didUpdateList(listView: UIView) {
-        didUpdateListCount += 1
-    }
+    var didFailToLoadListListViewErrorCalled = false
+    var didFailToLoadListListViewErrorReceivedArguments: (listView: UIView, error: Error)?
     
     func didFailToLoadList(listView: UIView, error: Error) {
-        didFailToLoadListCount += 1
+        didFailToLoadListListViewErrorCalled = true
+        didFailToLoadListListViewErrorReceivedArguments = (listView: listView, error: error)
     }
+    
+    //MARK: - didFailToPerformSocialRequest
+    
+    var didFailToPerformSocialRequestListViewErrorCalled = false
+    var didFailToPerformSocialRequestListViewErrorReceivedArguments: (listView: UIView, error: Error)?
     
     func didFailToPerformSocialRequest(listView: UIView, error: Error) {
-        didFailToPerformSocialRequestCount += 1
+        didFailToPerformSocialRequestListViewErrorCalled = true
+        didFailToPerformSocialRequestListViewErrorReceivedArguments = (listView: listView, error: error)
     }
     
+    //MARK: - didUpdateFollowStatus
     
+    var didUpdateFollowStatusForCalled = false
+    var didUpdateFollowStatusForReceivedUser: User?
+    
+    func didUpdateFollowStatus(for user: User) {
+        didUpdateFollowStatusForCalled = true
+        didUpdateFollowStatusForReceivedUser = user
+    }
 }

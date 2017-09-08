@@ -14,5 +14,5 @@ protocol UserListModuleInput: class {
     
     func setListHeaderView(_ view: UIView?)
     
-    func removeListItem(at indexPath: IndexPath)
+    func removeUser(_ user: User)
 }

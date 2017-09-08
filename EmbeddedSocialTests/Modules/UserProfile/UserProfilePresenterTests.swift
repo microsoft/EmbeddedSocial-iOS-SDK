@@ -12,6 +12,7 @@ class UserProfilePresenterTests: XCTestCase {
     var interactor: MockUserProfileInteractor!
     var myProfileHolder: MyProfileHolder!
     var feedInput: MockFeedModuleInput!
+    var moduleOutput: MockUserProfileModuleOutput!
     
     var randomValue: Int {
         return Int(arc4random() % 100)
@@ -24,6 +25,7 @@ class UserProfilePresenterTests: XCTestCase {
         router = MockUserProfileRouter()
         interactor = MockUserProfileInteractor()
         feedInput = MockFeedModuleInput()
+        moduleOutput = MockUserProfileModuleOutput()
     }
     
     override func tearDown() {
@@ -33,6 +35,7 @@ class UserProfilePresenterTests: XCTestCase {
         router = nil
         interactor = nil
         feedInput = nil
+        moduleOutput = nil
     }
     
     func testThatItSetsInitialStateWhenUserIsMe() {
@@ -202,41 +205,32 @@ class UserProfilePresenterTests: XCTestCase {
     }
     
     func testThatItFollowsUser() {
-        // given
-        let followingStatus = FollowStatus.empty
-        let visibility = Visibility._public
-        let expectedStatus = FollowStatus.reduce(status: followingStatus, visibility: visibility)
-
-        let user = User(uid: UUID().uuidString, visibility: visibility, followingStatus: followingStatus)
-        interactor.userToReturn = user
-        
-        let presenter = makeDefaultPresenter(userID: user.uid)
-        
-        // when
-        presenter.onFollowRequest(currentStatus: followingStatus)
-        
-        // then
-        validateFollowStatusChanged(to: expectedStatus)
+        testThatItChangesFollowingStatus(to: .accepted, from: .empty, visibility: ._public)
         XCTAssertEqual(view.lastFollowersCount!, 1)
     }
     
     func testThatItUnfollowsUser() {
+        testThatItChangesFollowingStatus(to: .empty, from: .accepted, visibility: ._public)
+        XCTAssertEqual(view.lastFollowersCount!, 0)
+    }
+    
+    func testThatItUnblocksUser() {
+        testThatItChangesFollowingStatus(to: .empty, from: .blocked, visibility: ._public)
+    }
+    
+    func testThatItChangesFollowingStatus(to newStatus: FollowStatus, from oldStatus: FollowStatus, visibility: Visibility) {
         // given
-        let followingStatus = FollowStatus.accepted
-        let visibility = Visibility._public
-        let expectedStatus = FollowStatus.reduce(status: followingStatus, visibility: visibility)
-        
-        let user = User(uid: UUID().uuidString, visibility: visibility, followingStatus: followingStatus)
+        let user = User(uid: UUID().uuidString, visibility: visibility, followingStatus: oldStatus)
         interactor.userToReturn = user
         
         let presenter = makeDefaultPresenter(userID: user.uid)
         
         // when
-        presenter.onFollowRequest(currentStatus: followingStatus)
+        presenter.viewIsReady()
+        presenter.onFollowRequest(currentStatus: oldStatus)
         
         // then
-        validateFollowStatusChanged(to: expectedStatus)
-        XCTAssertEqual(view.lastFollowersCount!, 0)
+        validateFollowStatusChanged(to: newStatus)
     }
     
     func testThatItOpensLoginWhenAnonymousUserAttemptsToFollow() {
@@ -359,8 +353,9 @@ class UserProfilePresenterTests: XCTestCase {
         XCTAssertNotNil(view.isProcessingFollowRequest)
         XCTAssertFalse(view.isProcessingFollowRequest!)
         
-        XCTAssertEqual(view.setFollowersCount, 1)
         XCTAssertNotNil(view.lastFollowersCount)
+        
+        XCTAssertTrue(moduleOutput.didChangeUserFollowStatusCalled)
     }
     
     func testThatItFlipsFeedLayout() {
@@ -387,6 +382,7 @@ class UserProfilePresenterTests: XCTestCase {
         presenter.interactor = interactor
         presenter.feedModuleInput = feedInput
         presenter.feedViewController = UIViewController()
+        presenter.moduleOutput = moduleOutput
         return presenter
     }
 }

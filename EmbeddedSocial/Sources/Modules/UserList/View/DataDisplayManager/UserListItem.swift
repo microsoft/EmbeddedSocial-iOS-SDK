@@ -7,7 +7,6 @@ import Foundation
 
 struct UserListItem {
     let user: User
-    let indexPath: IndexPath
     let action: ((UserListItem) -> Void)?
 }
 

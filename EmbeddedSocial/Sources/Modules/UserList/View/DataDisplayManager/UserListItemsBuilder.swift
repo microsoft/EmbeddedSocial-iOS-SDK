@@ -11,10 +11,9 @@ class UserListItemsBuilder {
     var me: User?
     
     func makeSections(users: [User], actionHandler: @escaping (UserListItem) -> Void) -> [Section] {
-        let items = users.enumerated().map { pair -> UserListItem in
-            let isMe = pair.element.uid == self.me?.uid
-            let user = configuredUser(isMe ? me! : pair.element)
-            return UserListItem(user: user, indexPath: IndexPath(row: pair.offset, section: 0), action: actionHandler)
+        let items = users.map { user -> UserListItem in
+            let isMe = user.uid == self.me?.uid
+            return UserListItem(user: configuredUser(isMe ? me! : user), action: actionHandler)
         }
         
         return [Section(model: (), items: items)]
@@ -31,7 +30,7 @@ class UserListItemsBuilder {
         
         var items = section.items
         let itemToReplace = items[indexPath.row]
-        items[indexPath.row] = UserListItem(user: user, indexPath: indexPath, action: itemToReplace.action)
+        items[indexPath.row] = UserListItem(user: user, action: itemToReplace.action)
         
         sections[indexPath.section] = Section(model: section.model, items: items)
         

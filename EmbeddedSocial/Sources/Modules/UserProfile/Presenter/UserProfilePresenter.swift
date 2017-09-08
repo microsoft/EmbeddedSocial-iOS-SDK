@@ -16,6 +16,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     var interactor: UserProfileInteractorInput!
     var feedViewController: UIViewController?
     var feedModuleInput: FeedModuleInput?
+    weak var moduleOutput: UserProfileModuleOutput?
     
     fileprivate let userID: String?
     fileprivate var user: User?
@@ -153,11 +154,18 @@ final class UserProfilePresenter: UserProfileViewOutput {
         view.setIsProcessingFollowRequest(false)
 
         if let status = response.value {
-            view.setFollowStatus(status)
-            followersCount = updatedFollowCount(followersCount, with: status)
+            updateFollowerStatus(status)
         } else {
             view.showError(response.error ?? APIError.unknown)
         }
+    }
+    
+    private func updateFollowerStatus(_ status: FollowStatus) {
+        view.setFollowStatus(status)
+        followersCount = updatedFollowCount(followersCount, with: status)
+        var user = self.user
+        user?.followerStatus = status
+        moduleOutput?.didChangeUserFollowStatus(user!)
     }
     
     fileprivate func updatedFollowCount(_ count: Int, with status: FollowStatus) -> Int {

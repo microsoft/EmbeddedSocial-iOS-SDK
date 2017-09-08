@@ -25,7 +25,8 @@ extension FollowingPresenter: UserListModuleOutput {
         view.showError(error)
     }
     
-    func didUpdateFollowStatus(listView: UIView, followStatus: FollowStatus, forUserAt indexPath: IndexPath) {
+    func didUpdateFollowStatus(for user: User) {
+        guard let followStatus = user.followerStatus else { return }
         moduleOutput?.didUpdateFollowingStatus(newStatus: followStatus)
     }
 }
