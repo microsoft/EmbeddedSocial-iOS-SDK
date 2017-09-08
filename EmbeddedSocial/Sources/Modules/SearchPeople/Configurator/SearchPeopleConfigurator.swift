@@ -5,22 +5,22 @@
 
 import Foundation
 
-struct SearchPeopleConfigurator {
+final class SearchPeopleConfigurator {
     let viewController: SearchPeopleViewController
+    private(set) var moduleInput: SearchPeopleModuleInput!
     
     init() {
         viewController = StoryboardScene.SearchPeople.instantiateSearchPeopleViewController()
     }
     
-    func configure(isLoggedInUser: Bool,
-                   navigationController: UINavigationController?,
-                   output: SearchPeopleModuleOutput?) -> SearchPeopleModuleInput {
+    func configure(isLoggedInUser: Bool, navigationController: UINavigationController?, output: SearchPeopleModuleOutput?) {
         let interactor = SearchPeopleInteractor()
         
-        let api = QueryPeopleAPI(query: "", searchService: SearchService())
-        let usersListModule = makeUserListModule(api: api, navigationController: navigationController, output: nil)
-        
         let presenter = SearchPeoplePresenter()
+
+        let api = EmptyUsersListAPI()
+        let usersListModule = makeUserListModule(api: api, navigationController: navigationController, output: presenter)
+        
         presenter.view = viewController
         presenter.usersListModule = usersListModule
         presenter.interactor = interactor
@@ -33,7 +33,7 @@ struct SearchPeopleConfigurator {
         
         viewController.output = presenter
         
-        return presenter
+        moduleInput = presenter
     }
     
     private func makeUserListModule(api: UsersListAPI,

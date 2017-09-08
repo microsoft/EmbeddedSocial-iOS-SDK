@@ -49,6 +49,7 @@ extension SearchPeoplePresenter: SearchResultsUpdating {
     
     @objc private func runSearchQuery(for searchBar: UISearchBar) {
         interactor.runSearchQuery(for: searchBar, usersListModule: usersListModule)
+        view.setIsEmpty(false)
     }
 }
 
@@ -59,6 +60,12 @@ extension SearchPeoplePresenter: UserListModuleOutput {
             moduleOutput?.didFailToLoadSuggestedUsers(error)
         } else if listView == usersListModule.listView {
             moduleOutput?.didFailToLoadSearchQuery(error)
+        }
+    }
+    
+    func didUpdateList(_ listView: UIView, with users: [User]) {
+        if listView == usersListModule.listView {
+            view.setIsEmpty(users.isEmpty)
         }
     }
 }

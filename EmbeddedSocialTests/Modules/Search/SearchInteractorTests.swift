@@ -30,6 +30,25 @@ class SearchInteractorTests: XCTestCase {
         XCTAssertEqual(pageInfo.backgroundView, searchPeopleModule.backgroundView())
         XCTAssertEqual(pageInfo.searchResultsController, searchPeopleModule.searchResultsController())
         XCTAssertTrue(pageInfo.searchResultsHandler === searchPeopleModule.searchResultsHandler())
+        XCTAssertEqual(pageInfo.tab, .people)
+    }
+    
+    func testThatItCorrectlyMakesTopicsTab() {
+        // given
+        let sut = SearchInteractor()
+        let searchTopicsModule = MockSearchTopicsModule()
+        searchTopicsModule.backgroundViewReturnValue = UIView()
+        searchTopicsModule.searchResultsControllerReturnValue = UIViewController()
+        searchTopicsModule.searchResultsHandlerReturnValue = MockSearchResultsUpdating()
+        
+        // when
+        let pageInfo = sut.makeTopicsTab(with: searchTopicsModule)
+        
+        // then
+        XCTAssertEqual(pageInfo.backgroundView, searchTopicsModule.backgroundView())
+        XCTAssertEqual(pageInfo.searchResultsController, searchTopicsModule.searchResultsController())
+        XCTAssertTrue(pageInfo.searchResultsHandler === searchTopicsModule.searchResultsHandler())
+        XCTAssertEqual(pageInfo.tab, .topics)
     }
 }
 

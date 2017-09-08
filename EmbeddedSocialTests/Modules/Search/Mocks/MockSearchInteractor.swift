@@ -22,26 +22,14 @@ class MockSearchInteractor: SearchInteractorInput {
     
     //MARK: - makeTopicsTab
     
-    var makeTopicsTabFeedViewControllerSearchResultsHandlerCalled = false
-    var makeTopicsTabFeedViewControllerSearchResultsHandlerReceivedArguments: (feedViewController: UIViewController?, searchResultsHandler: SearchResultsUpdating)?
-    var makeTopicsTabFeedViewControllerSearchResultsHandlerReturnValue: SearchTabInfo!
+    var makeTopicsTabWithCalled = false
+    var makeTopicsTabWithReceivedSearchTopicsModule: SearchTopicsModuleInput?
+    var makeTopicsTabWithReturnValue: SearchTabInfo!
     
-    func makeTopicsTab(feedViewController: UIViewController?, searchResultsHandler: SearchResultsUpdating) -> SearchTabInfo {
-        makeTopicsTabFeedViewControllerSearchResultsHandlerCalled = true
-        makeTopicsTabFeedViewControllerSearchResultsHandlerReceivedArguments = (feedViewController: feedViewController, searchResultsHandler: searchResultsHandler)
-        return makeTopicsTabFeedViewControllerSearchResultsHandlerReturnValue
-    }
-    
-    //MARK: - runSearchQuery
-    
-    var runSearchQueryForFeedModuleCalled = false
-    var runSearchQueryForFeedModuleReceivedArguments: (searchBar: UISearchBar, feedModule: FeedModuleInput)?
-    var runSearchQueryExpectation = XCTestExpectation(description: "runSearchQueryExpectation")
-    
-    func runSearchQuery(for searchBar: UISearchBar, feedModule: FeedModuleInput) {
-        runSearchQueryForFeedModuleCalled = true
-        runSearchQueryForFeedModuleReceivedArguments = (searchBar: searchBar, feedModule: feedModule)
-        runSearchQueryExpectation.fulfill()
+    func makeTopicsTab(with searchTopicsModule: SearchTopicsModuleInput) -> SearchTabInfo {
+        makeTopicsTabWithCalled = true
+        makeTopicsTabWithReceivedSearchTopicsModule = searchTopicsModule
+        return makeTopicsTabWithReturnValue
     }
     
 }

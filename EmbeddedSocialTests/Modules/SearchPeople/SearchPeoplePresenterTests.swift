@@ -101,6 +101,19 @@ extension SearchPeoplePresenterTests {
     func testThatItReturnsViewAsSearchResultsController() {
         XCTAssertEqual(sut.searchResultsController(), view)
     }
+    
+    func testThatItSetsViewIsEmptyWhenListDidUpdate() {
+        testThatItSetsViewIsEmptyWhenListDidUpdate(users: [], isViewExpectedToBeEmpty: true)
+        
+        testThatItSetsViewIsEmptyWhenListDidUpdate(users: [User()], isViewExpectedToBeEmpty: false)
+    }
+    
+    func testThatItSetsViewIsEmptyWhenListDidUpdate(users: [User], isViewExpectedToBeEmpty: Bool) {
+        sut.didUpdateList(usersListModule.listView, with: users)
+        
+        XCTAssertTrue(view.setIsEmptyCalled)
+        XCTAssertEqual(view.setIsEmptyInputIsEmpty, isViewExpectedToBeEmpty)
+    }
 }
 
 //MARK: - UISearchResultsUpdating
@@ -108,41 +121,23 @@ extension SearchPeoplePresenterTests {
 extension SearchPeoplePresenterTests {
     
     func testThatItUpdatesSearchResults() {
-        // given
-        let runQueryTimeout: TimeInterval = 1
-        let query = UUID().uuidString
-        let searchBar = UISearchBar()
-        searchBar.text = query
+        let helper = SearchUpdatingTestsHelper(sut: sut,
+                                               executeQueryExpectation: interactor.runSearchQueryExpectation,
+                                               testCase: self)
         
-        // when
-        sut.updateSearchResults(for: searchBar)
-        wait(for: [interactor.runSearchQueryExpectation], timeout: runQueryTimeout)
+        helper.searchQueryHasRunValidator = validateSearchQueryHasRun
         
-        // then
-        validateSearchQueryHasRun(query, searchBar: searchBar)
+        helper.validateThatItUpdatesSearchResults()
     }
     
     func testThatItThrottlesSearchUpdates() {
-        // given
-        let runQueryTimeout: TimeInterval = 1
-        let searchBar = UISearchBar()
-        let updatesCount = 5
+        let helper = SearchUpdatingTestsHelper(sut: sut,
+                                               executeQueryExpectation: interactor.runSearchQueryExpectation,
+                                               testCase: self)
         
-        var queries: [String] = []
-        for _ in 0..<updatesCount {
-            queries.append(UUID().uuidString)
-        }
+        helper.searchQueryHasRunValidator = validateSearchQueryHasRun
         
-        // when
-        for i in 0..<updatesCount {
-            searchBar.text = queries[i]
-            sut.updateSearchResults(for: searchBar)
-        }
-        wait(for: [interactor.runSearchQueryExpectation], timeout: runQueryTimeout)
-
-        // then
-        // only the last query has been run
-        validateSearchQueryHasRun(queries.last!, searchBar: searchBar)
+        helper.validateThatItThrottlesSearchUpdates()
     }
     
     private func validateSearchQueryHasRun(_ query: String, searchBar: UISearchBar) {

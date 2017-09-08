@@ -14,14 +14,23 @@ extension UIViewController {
         controller.removeFromParentViewController()
     }
     
-    func addChildController(_ content: UIViewController, containerView: UIView) {
-        addChildViewController(content)
+    func addChildController(_ controller: UIViewController, containerView: UIView) {
+        controller.willMove(toParentViewController: nil)
+
+        addChildViewController(controller)
         
-        containerView.addSubview(content.view)
-        content.view.snp.makeConstraints { make in
+        containerView.addSubview(controller.view)
+        controller.view.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
-        content.didMove(toParentViewController: self)
+        controller.didMove(toParentViewController: self)
+    }
+    
+    func addChildController(_ controller: UIViewController) {
+        controller.willMove(toParentViewController: nil)
+        addChildViewController(controller)
+        view.addSubview(controller.view)
+        controller.didMove(toParentViewController: self)
     }
 }

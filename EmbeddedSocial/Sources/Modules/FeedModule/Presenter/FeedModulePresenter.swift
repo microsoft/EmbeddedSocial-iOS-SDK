@@ -20,6 +20,8 @@ protocol FeedModuleInput: class {
     var layout: FeedModuleLayoutType { get set }
     // Changing feedType triggers items refetching and view reload
     var feedType: FeedType? { get set }
+    
+    var isEmpty: Bool { get }
 }
 
 protocol FeedModuleOutput: class {
@@ -27,6 +29,7 @@ protocol FeedModuleOutput: class {
     
     func didStartRefreshingData()
     func didFinishRefreshingData(_ error: Error?)
+    func didUpdateFeed()
     
     func shouldOpenProfile(for userID: String) -> Bool
 }
@@ -36,6 +39,7 @@ extension FeedModuleOutput {
     
     func didStartRefreshingData() { }
     func didFinishRefreshingData(_ error: Error?) { }
+    func didUpdateFeed() { }
     
     func shouldOpenProfile(for userID: String) -> Bool {
         return false
@@ -160,6 +164,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         didSet {
             onFeedTypeChange()
         }
+    }
+    
+    var isEmpty: Bool {
+        return items.isEmpty
     }
     
     fileprivate var isViewReady = false
@@ -398,6 +406,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         items = feed.items
         
         view.reload()
+        
+        moduleOutput?.didUpdateFeed()
     }
     
     func didFetchMore(feed: Feed) {
@@ -410,6 +420,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         appendWithReplacing(original: &items, appending: feed.items)
         
         view.reload()
+        
+        moduleOutput?.didUpdateFeed()
     }
     
     func didFail(error: FeedServiceError) {

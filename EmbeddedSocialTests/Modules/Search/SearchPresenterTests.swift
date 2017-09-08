@@ -10,8 +10,7 @@ class SearchPresenterTests: XCTestCase {
     var interactor: MockSearchInteractor!
     var view: MockSearchView!
     var peopleSearchModule: MockSearchPeopleModule!
-    var feedViewController: UIViewController!
-    var feedModule: MockFeedModuleInput!
+    var topicsSearchModule: MockSearchTopicsModule!
     var sut: SearchPresenter!
     
     override func setUp() {
@@ -19,15 +18,13 @@ class SearchPresenterTests: XCTestCase {
         interactor = MockSearchInteractor()
         view = MockSearchView()
         peopleSearchModule = MockSearchPeopleModule()
-        feedViewController = UIViewController()
-        feedModule = MockFeedModuleInput()
+        topicsSearchModule = MockSearchTopicsModule()
         
         sut = SearchPresenter()
         sut.interactor = interactor
         sut.view = view
         sut.peopleSearchModule = peopleSearchModule
-        sut.feedViewController = feedViewController
-        sut.feedModuleInput = feedModule
+        sut.topicsSearchModule = topicsSearchModule
     }
     
     override func tearDown() {
@@ -35,16 +32,15 @@ class SearchPresenterTests: XCTestCase {
         interactor = nil
         view = nil
         peopleSearchModule = nil
-        feedViewController = nil
-        feedModule = nil
+        topicsSearchModule = nil
         sut = nil
     }
     
     func testThatItSetsInitialState() {
         // given
-        let topicsTab = makeTopicsTab()
-        interactor.makeTopicsTabFeedViewControllerSearchResultsHandlerReturnValue = topicsTab
+        interactor.makeTopicsTabWithReturnValue = makeTopicsTab()
         interactor.makePeopleTabWithReturnValue = makePeopleTab()
+        topicsSearchModule.layoutAsset = .iconAccept
         
         // when
         sut.viewIsReady()
@@ -55,27 +51,24 @@ class SearchPresenterTests: XCTestCase {
         XCTAssertEqual(peopleSearchModule.setupInitialStateCount, 1)
         
         // search tabs are correctly set
-        XCTAssertTrue(interactor.makeTopicsTabFeedViewControllerSearchResultsHandlerCalled)
+        XCTAssertTrue(interactor.makeTopicsTabWithCalled)
         XCTAssertTrue(interactor.makePeopleTabWithCalled)
         
-        let makeTopicsTabArgs = interactor.makeTopicsTabFeedViewControllerSearchResultsHandlerReceivedArguments
-        XCTAssertTrue(makeTopicsTabArgs?.feedViewController === feedViewController)
-        XCTAssertTrue(makeTopicsTabArgs?.searchResultsHandler === sut)
-        
+        XCTAssertTrue(interactor.makeTopicsTabWithReceivedSearchTopicsModule === topicsSearchModule)
         XCTAssertTrue(interactor.makePeopleTabWithReceivedSearchPeopleModule === peopleSearchModule)
         
         // view is correctly initialized
         XCTAssertTrue(view.setupInitialStateCalled)
         XCTAssertTrue(view.setLayoutAssetCalled)
-        XCTAssertEqual(view.setLayoutAssetReceivedAsset, feedModule.layout.nextLayoutAsset)
-        XCTAssertEqual(topicsTab, view.setupInitialStateReceivedTab)
+        XCTAssertEqual(view.setLayoutAssetReceivedAsset, topicsSearchModule.layoutAsset)
+        XCTAssertEqual(interactor.makeTopicsTabWithReturnValue, view.setupInitialStateReceivedTab)
     }
     
     func testThatItSwitchesToPeopleTab() {
         // given
         let peopleTab = makePeopleTab()
         let topicsTab = makeTopicsTab()
-        interactor.makeTopicsTabFeedViewControllerSearchResultsHandlerReturnValue = topicsTab
+        interactor.makeTopicsTabWithReturnValue = topicsTab
         interactor.makePeopleTabWithReturnValue = peopleTab
         
         // when
@@ -92,7 +85,7 @@ class SearchPresenterTests: XCTestCase {
         // given
         let peopleTab = makePeopleTab()
         let topicsTab = makeTopicsTab()
-        interactor.makeTopicsTabFeedViewControllerSearchResultsHandlerReturnValue = topicsTab
+        interactor.makeTopicsTabWithReturnValue = topicsTab
         interactor.makePeopleTabWithReturnValue = peopleTab
         
         // when
@@ -110,62 +103,20 @@ class SearchPresenterTests: XCTestCase {
         // given
         let peopleTab = makePeopleTab()
         let topicsTab = makeTopicsTab()
-        interactor.makeTopicsTabFeedViewControllerSearchResultsHandlerReturnValue = topicsTab
+        let asset = Asset.iconAccept
+        interactor.makeTopicsTabWithReturnValue = topicsTab
         interactor.makePeopleTabWithReturnValue = peopleTab
-        
-        let layout = feedModule.layout
+        topicsSearchModule.layoutAsset = asset
         
         // when
         sut.viewIsReady()
         sut.onFlipTopicsLayout()
         
         // then
-        XCTAssertEqual(feedModule.layout, layout.flipped)
-        XCTAssertEqual(feedModule.setLayoutCount, 1)
+        XCTAssertTrue(topicsSearchModule.flipLayoutCalled)
         
         XCTAssertTrue(view.setLayoutAssetCalled)
-        XCTAssertEqual(view.setLayoutAssetReceivedAsset, feedModule.layout.nextLayoutAsset)
-    }
-    
-    func testThatItHandlesSearchResults() {
-        // given
-        let query = UUID().uuidString
-        let searchBar = UISearchBar()
-        searchBar.text = query
-        
-        // when
-        sut.updateSearchResults(for: searchBar)
-        wait(for: [interactor.runSearchQueryExpectation], timeout: 5.0)
-
-        // then
-        XCTAssertTrue(interactor.runSearchQueryForFeedModuleCalled)
-        XCTAssertEqual(interactor.runSearchQueryForFeedModuleReceivedArguments?.searchBar, searchBar)
-        XCTAssertTrue(interactor.runSearchQueryForFeedModuleReceivedArguments?.feedModule === feedModule)
-    }
-    
-    func testThatItThrottlesSearchQueries() {
-        // given
-        let query = UUID().uuidString
-        let searchBar = UISearchBar()
-        searchBar.text = query
-        
-        // when
-        sut.updateSearchResults(for: searchBar)
-        
-        // then
-        XCTAssertFalse(interactor.runSearchQueryForFeedModuleCalled)
-        XCTAssertNotEqual(interactor.runSearchQueryForFeedModuleReceivedArguments?.searchBar, searchBar)
-        XCTAssertFalse(interactor.runSearchQueryForFeedModuleReceivedArguments?.feedModule === feedModule)
-        
-        wait(for: [interactor.runSearchQueryExpectation], timeout: 5.0)
-        
-        XCTAssertTrue(interactor.runSearchQueryForFeedModuleCalled)
-        XCTAssertEqual(interactor.runSearchQueryForFeedModuleReceivedArguments?.searchBar, searchBar)
-        XCTAssertTrue(interactor.runSearchQueryForFeedModuleReceivedArguments?.feedModule === feedModule)
-    }
-    
-    func testThatItOpensUserProfile() {
-        XCTAssertTrue(sut.shouldOpenProfile(for: UUID().uuidString))
+        XCTAssertEqual(view.setLayoutAssetReceivedAsset, asset)
     }
     
     func testThatItShowsErrorWhenUserListFailsToLoad() {

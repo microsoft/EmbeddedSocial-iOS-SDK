@@ -57,6 +57,7 @@ private class FeedModuleMock: FeedModuleInput {
     var layout: FeedModuleLayoutType = .list
     var setHeaderHeightCalled = false
     var headerHeight: CGFloat? = nil
+    var isEmpty = false
     
     func setHeaderHeight(_ height: CGFloat) {
         setHeaderHeightCalled = true
