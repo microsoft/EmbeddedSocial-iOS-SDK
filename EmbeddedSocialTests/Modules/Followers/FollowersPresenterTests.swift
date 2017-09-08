@@ -36,7 +36,7 @@ class FollowersPresenterTests: XCTestCase {
         
         // then
         XCTAssertEqual(view.setupInitialStateCount, 1)
-        XCTAssertEqual(userListModule.setupInitialStateCount, 1)
+        XCTAssertTrue(userListModule.setupInitialStateCalled)
         XCTAssertEqual(userListModule.listView, view.userListView)
     }
 }

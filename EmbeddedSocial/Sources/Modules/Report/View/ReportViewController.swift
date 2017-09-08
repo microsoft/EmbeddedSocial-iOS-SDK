@@ -11,6 +11,8 @@ class ReportViewController: UITableViewController {
     
     @IBOutlet fileprivate var headerView: UIView!
     
+    @IBOutlet weak var headerTitleLabel: UILabel!
+    
     fileprivate lazy var submitButton: UIBarButtonItem = { [unowned self] in
         return UIBarButtonItem(title: L10n.Common.submit, style: .plain, target: self, action: #selector(self.onSubmit))
     }()

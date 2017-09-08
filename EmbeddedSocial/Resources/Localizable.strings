@@ -93,6 +93,8 @@
 "side_menu.debug" = "Debug";
 
 "report.screen_title" = "Report an issue";
+"report.post.header_title" = "What's the problem with this post?";
+"report.user.header_title" = "What's the problem with this account?";
 
 "search.screen_title" = "Search";
 "search.placeholder.search_people" = "Search people";
@@ -112,6 +114,7 @@
 "post.likes_count" = "%d likes";
 "post.comments_count" = "%d comments";
 "post.replies_count" = "%d replies";
+"post.read_more" = " ... Read More";
 
 "popular_module.feed_option.today" = "Today";
 "popular_module.feed_option.this_week" = "This week";

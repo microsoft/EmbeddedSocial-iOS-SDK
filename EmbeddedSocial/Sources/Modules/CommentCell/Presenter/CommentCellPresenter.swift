@@ -9,15 +9,15 @@ protocol CommentCellModuleProtocol {
 }
 
 class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, CommentCellInteractorOutput {
-
+    
     var view: CommentCellViewInput?
     var interactor: CommentCellInteractorInput?
     var router: CommentCellRouterInput?
+    var myProfileHolder: UserHolder?
     
     weak var postDetailsInput: PostDetailModuleInput!
     
     var comment: Comment!
-
     
     // MARK: CommentCellViewOutput
     func viewIsReady() {
@@ -26,6 +26,10 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     }
     
     func like() {
+        guard myProfileHolder?.me != nil else {
+            router?.openLogin()
+            return
+        }
         let status = comment.liked
         let action: CommentSocialAction = status ? .unlike : .like
 

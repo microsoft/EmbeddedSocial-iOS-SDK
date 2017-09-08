@@ -6,27 +6,23 @@
 import Foundation
 
 protocol UserListModuleOutput: class {
-    func didSelectListItem(listView: UIView, at indexPath: IndexPath)
-    
-    func didUpdateList(listView: UIView)
-    
     func didFailToLoadList(listView: UIView, error: Error)
     
     func didFailToPerformSocialRequest(listView: UIView, error: Error)
     
-    func didUpdateFollowStatus(listView: UIView, followStatus: FollowStatus, forUserAt indexPath: IndexPath)
+    func didUpdateFollowStatus(for user: User)
+    
+    func didUpdateList(_ listView: UIView, with users: [User])
 }
 
 //MARK: - Optional methods
 
 extension UserListModuleOutput {
     func didFailToPerformSocialRequest(listView: UIView, error: Error) { }
-        
-    func didSelectListItem(listView: UIView, at indexPath: IndexPath) { }
-    
-    func didUpdateList(listView: UIView) { }
     
     func didFailToLoadList(listView: UIView, error: Error) { }
     
-    func didUpdateFollowStatus(listView: UIView, followStatus: FollowStatus, forUserAt indexPath: IndexPath) { }
+    func didUpdateFollowStatus(for user: User) { }
+    
+    func didUpdateList(_ listView: UIView, with users: [User]) { }
 }

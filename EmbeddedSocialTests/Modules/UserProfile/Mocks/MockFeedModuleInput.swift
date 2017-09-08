@@ -23,6 +23,8 @@ class MockFeedModuleInput: FeedModuleInput {
         }
     }
     
+    var isEmpty = false
+    
     private(set) var refreshDataCount = 0
 
     func refreshData() {

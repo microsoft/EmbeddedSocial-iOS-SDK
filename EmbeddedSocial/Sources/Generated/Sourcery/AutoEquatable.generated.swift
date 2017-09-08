@@ -1,4 +1,4 @@
-// Generated using Sourcery 0.8.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 0.7.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
 // swiftlint:disable file_length
@@ -88,6 +88,7 @@ internal func == (lhs: PostViewModel, rhs: PostViewModel) -> Bool {
     guard lhs.timeCreated == rhs.timeCreated else { return false }
     guard compareOptionals(lhs: lhs.userImageUrl, rhs: rhs.userImageUrl, compare: ==) else { return false }
     guard compareOptionals(lhs: lhs.postImageUrl, rhs: rhs.postImageUrl, compare: ==) else { return false }
+    guard lhs.isTrimmed == rhs.isTrimmed else { return false }
     guard lhs.cellType == rhs.cellType else { return false }
     return true
 }

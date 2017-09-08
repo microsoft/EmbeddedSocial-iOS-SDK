@@ -48,12 +48,13 @@ class UserListView: UIView {
 }
 
 extension UserListView: UserListViewInput {
-    func updateListItem(with user: User, at indexPath: IndexPath) {
-        dataManager.updateListItem(with: user, at: indexPath)
+    
+    func updateListItem(with user: User) {
+        dataManager.updateListItem(with: user)
     }
     
-    func setIsLoading(_ isLoading: Bool, itemAt indexPath: IndexPath) {
-        dataManager.setIsLoading(isLoading, itemAt: indexPath)
+    func setIsLoading(_ isLoading: Bool, item: UserListItem) {
+        dataManager.setIsLoading(isLoading, user: item.user)
     }
     
     func setupInitialState() {
@@ -79,7 +80,7 @@ extension UserListView: UserListViewInput {
         tableView.tableHeaderView = view
     }
     
-    func removeListItem(at indexPath: IndexPath) {
-        dataManager.removeItem(at: indexPath)
+    func removeUser(_ user: User) {
+        dataManager.removeUser(user)
     }
 }

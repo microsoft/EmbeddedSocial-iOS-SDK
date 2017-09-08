@@ -7,13 +7,6 @@ import Foundation
 
 final class SearchInteractor: SearchInteractorInput {
     
-    func makeTopicsTab(feedViewController: UIViewController?, searchResultsHandler: SearchResultsUpdating) -> SearchTabInfo {
-        return SearchTabInfo(searchResultsController: feedViewController ?? UIViewController(),
-                             searchResultsHandler: searchResultsHandler,
-                             backgroundView: nil,
-                             tab: .topics)
-    }
-    
     func makePeopleTab(with searchPeopleModule: SearchPeopleModuleInput) -> SearchTabInfo {
         return SearchTabInfo(searchResultsController: searchPeopleModule.searchResultsController(),
                              searchResultsHandler: searchPeopleModule.searchResultsHandler(),
@@ -21,11 +14,10 @@ final class SearchInteractor: SearchInteractorInput {
                              tab: .people)
     }
     
-    func runSearchQuery(for searchBar: UISearchBar, feedModule: FeedModuleInput) {
-        guard let searchText = searchBar.text?.trimmingCharacters(in: .whitespaces),
-            !searchText.isEmpty else {
-                return
-        }
-        feedModule.feedType = .search(query: searchText)
+    func makeTopicsTab(with searchTopicsModule: SearchTopicsModuleInput) -> SearchTabInfo {
+        return SearchTabInfo(searchResultsController: searchTopicsModule.searchResultsController(),
+                             searchResultsHandler: searchTopicsModule.searchResultsHandler(),
+                             backgroundView: searchTopicsModule.backgroundView(),
+                             tab: .topics)
     }
 }

@@ -37,7 +37,7 @@ class BlockedUsersPresenterTests: XCTestCase {
         // then
         XCTAssertTrue(view.setupInitialState_userListView_Called)
         XCTAssertEqual(view.setupInitialState_userListView_ReceivedUserListView, usersListModule.listView)
-        XCTAssertEqual(usersListModule.setupInitialStateCount, 1)
+        XCTAssertTrue(usersListModule.setupInitialStateCalled)
     }
 }
 
@@ -71,14 +71,14 @@ extension BlockedUsersPresenterTests {
     
     func testThatItRemovesUnblockedItem() {
         // given
-        let indexPath = IndexPath(row: Int(arc4random() % 100), section: Int(arc4random() % 100))
+        let user = User()
         
         // when
-        sut.didUpdateFollowStatus(listView: UIView(), followStatus: .blocked, forUserAt: indexPath)
+        sut.didUpdateFollowStatus(for: user)
         
         // then
-        XCTAssertEqual(usersListModule.removeListItemCount, 1)
-        XCTAssertEqual(usersListModule.removeListItemInputIndexPath, indexPath)
+        XCTAssertTrue(usersListModule.removeUserCalled)
+        XCTAssertEqual(usersListModule.removeUserReceivedUser, user)
     }
 }
 

@@ -50,7 +50,7 @@ class UserListPresenterTests: XCTestCase {
         sut.setupInitialState()
         
         // then
-        XCTAssertEqual(view.setupInitialStateCount, 1)
+        XCTAssertTrue(view.setupInitialStateCalled)
         validatePageLoaded(page: 1, with: users)
     }
     
@@ -75,10 +75,8 @@ class UserListPresenterTests: XCTestCase {
         
         // then
         XCTAssertEqual(interactor.getNextListPageCount, 1)
-        XCTAssertEqual(view.setUsersCount, 0)
-        XCTAssertNil(view.users)
-        XCTAssertEqual(moduleOutput.didUpdateListCount, 0)
-        XCTAssertEqual(moduleOutput.didFailToLoadListCount, 1)
+        XCTAssertFalse(view.setUsersCalled)
+        XCTAssertTrue(moduleOutput.didFailToLoadListListViewErrorCalled)
     }
     
     func testThatItNotifiesModuleOutputWhenFailsToLoadNextPage() {
@@ -90,16 +88,14 @@ class UserListPresenterTests: XCTestCase {
         
         // then
         XCTAssertEqual(interactor.getNextListPageCount, 1)
-        XCTAssertEqual(view.setUsersCount, 0)
-        XCTAssertEqual(moduleOutput.didUpdateListCount, 0)
-        XCTAssertEqual(moduleOutput.didFailToLoadListCount, 1)
+        XCTAssertFalse(view.setUsersCalled)
+        XCTAssertTrue(moduleOutput.didFailToLoadListListViewErrorCalled)
     }
     
     func testThatItPerformsItemActionWhenResponseIsSuccess() {
         // given
         let user = User(uid: UUID().uuidString, followerStatus: .empty)
-        let indexPath = IndexPath(row: 0, section: 0)
-        let listItem = UserListItem(user: user, indexPath: indexPath, action: nil)
+        let listItem = UserListItem(user: user, action: nil)
         interactor.socialRequestResult = .success(.empty)
 
         // when
@@ -108,26 +104,23 @@ class UserListPresenterTests: XCTestCase {
         // then
         
         // not loading the whole view
-        XCTAssertNil(view.isLoading)
+        XCTAssertFalse(view.setIsLoadingCalled)
         
         // loading animation for item
-        XCTAssertEqual(view.setIsLoadingItemAtCount, 2)
-        XCTAssertNotNil(view.isLoadingItemAtParams)
-        XCTAssertEqual(view.isLoadingItemAtParams!.0, false)
-        XCTAssertEqual(view.isLoadingItemAtParams!.1, indexPath)
+        XCTAssertTrue(view.setIsLoadingItemCalled)
+        
+        XCTAssertEqual(view.setIsLoadingItemReceivedArguments?.isLoading, false)
+        XCTAssertEqual(view.setIsLoadingItemReceivedArguments?.item.user, user)
         
         // item updated
-        XCTAssertEqual(view.updateListItemCount, 1)
-        XCTAssertNotNil(view.updateListItemParams)
-        XCTAssertEqual(view.updateListItemParams!.0, user)
-        XCTAssertEqual(view.updateListItemParams!.1, indexPath)
+        XCTAssertTrue(view.updateListItemWithCalled)
+        XCTAssertEqual(view.updateListItemWithReceivedUser, user)
     }
     
     func testThatItOpensLoginWhenAnonymousUserSubmitsFollowRequest() {
         // given
         let user = User(uid: UUID().uuidString, followerStatus: .empty)
-        let indexPath = IndexPath(row: 0, section: 0)
-        let listItem = UserListItem(user: user, indexPath: indexPath, action: nil)
+        let listItem = UserListItem(user: user, action: nil)
         
         myProfileHolder.me = nil
         
@@ -139,17 +132,15 @@ class UserListPresenterTests: XCTestCase {
         
         XCTAssertEqual(interactor.processSocialRequestCount, 0)
         
-        XCTAssertNil(view.isLoading)
-        XCTAssertNil(view.isLoadingItemAtParams)
-        
-        XCTAssertEqual(view.updateListItemCount, 0)
+        XCTAssertFalse(view.setIsLoadingCalled)
+        XCTAssertFalse(view.setIsLoadingItemCalled)
+        XCTAssertFalse(view.updateListItemWithCalled)
     }
     
     func testThatItDoesNotUpdateViewAndNotifiesModuleOutputWhenItemActionIsFailed() {
         // given
         let user = User(uid: UUID().uuidString, followerStatus: .empty)
-        let indexPath = IndexPath(row: 0, section: 0)
-        let listItem = UserListItem(user: user, indexPath: indexPath, action: nil)
+        let listItem = UserListItem(user: user, action: nil)
         interactor.socialRequestResult = .failure(APIError.unknown)
         
         // when
@@ -158,20 +149,18 @@ class UserListPresenterTests: XCTestCase {
         // then
         
         // not loading the whole view
-        XCTAssertNil(view.isLoading)
+        XCTAssertFalse(view.setIsLoadingCalled)
         
         // loading animation for item
-        XCTAssertEqual(view.setIsLoadingItemAtCount, 2)
-        XCTAssertNotNil(view.isLoadingItemAtParams)
-        XCTAssertEqual(view.isLoadingItemAtParams!.0, false)
-        XCTAssertEqual(view.isLoadingItemAtParams!.1, indexPath)
+        XCTAssertTrue(view.setIsLoadingItemCalled)
+        XCTAssertEqual(view.setIsLoadingItemReceivedArguments?.isLoading, false)
+        XCTAssertEqual(view.setIsLoadingItemReceivedArguments?.item.user, user)
         
         // item not updated
-        XCTAssertEqual(view.updateListItemCount, 0)
-        XCTAssertNil(view.updateListItemParams)
+        XCTAssertFalse(view.updateListItemWithCalled)
         
         // error propagated to module output
-        XCTAssertEqual(moduleOutput.didFailToPerformSocialRequestCount, 1)
+        XCTAssertTrue(moduleOutput.didFailToPerformSocialRequestListViewErrorCalled)
     }
     
     func testThatItLoadsNextPageWhenReachingEndOfContent() {
@@ -204,7 +193,7 @@ class UserListPresenterTests: XCTestCase {
         
         // then
         validatePageLoaded(page: 2, with: firstAndSecondPage)
-        XCTAssertEqual(view.users ?? [], firstAndSecondPage)
+        XCTAssertEqual(view.setUsersReceivedUsers ?? [], firstAndSecondPage)
     }
     
     func testThatItDoesNotLoadNextPageIfInteractorHasNoMoreItems() {
@@ -236,8 +225,8 @@ class UserListPresenterTests: XCTestCase {
         sut.setListHeaderView(headerView)
         
         // then
-        XCTAssertEqual(view.setListHeaderViewCount, 1)
-        XCTAssertEqual(view.headerView, headerView)
+        XCTAssertTrue(view.setListHeaderViewCalled)
+        XCTAssertEqual(view.setListHeaderViewReceivedView, headerView)
     }
     
     func testThatItReloadsWithNewAPI() {
@@ -258,28 +247,22 @@ class UserListPresenterTests: XCTestCase {
     
     func testThatItUpdatesViewLoadingState() {
         sut.didUpdateListLoadingState(true)
-        XCTAssertEqual(view.isLoading, true)
+        XCTAssertEqual(view.setIsLoadingReceivedIsLoading, true)
         
         sut.didUpdateListLoadingState(false)
-        XCTAssertEqual(view.isLoading, false)
+        XCTAssertEqual(view.setIsLoadingReceivedIsLoading, false)
     }
     
     func testThatItOpensMyProfileWhenItemIsSelected() {
         let creds = CredentialsList(provider: .facebook, accessToken: "", socialUID: "")
         let user = User(credentials: creds)
-        let indexPath = IndexPath(row: Int(arc4random() % 100), section: Int(arc4random() % 100))
-        let listItem = UserListItem(user: user, indexPath: indexPath) { _ in
-            ()
-        }
+        let listItem = UserListItem(user: user, action: nil)
         testThatItOpensProfileWhenItemIsSelected(listItem)
     }
     
     func testThatItOpensUserProfileWhenItemIsSelected() {
         let user = User()
-        let indexPath = IndexPath(row: Int(arc4random() % 100), section: Int(arc4random() % 100))
-        let listItem = UserListItem(user: user, indexPath: indexPath) { _ in
-            ()
-        }
+        let listItem = UserListItem(user: user, action: nil)
         testThatItOpensProfileWhenItemIsSelected(listItem)
     }
     
@@ -290,10 +273,6 @@ class UserListPresenterTests: XCTestCase {
         sut.onItemSelected(item)
         
         // then
-        XCTAssertEqual(moduleOutput.didSelectListItemCount, 1)
-        XCTAssertEqual(moduleOutput.didSelectListItemInputValues?.listView, sut.listView)
-        XCTAssertEqual(moduleOutput.didSelectListItemInputValues?.indexPath, item.indexPath)
-        
         if item.user.isMe {
             XCTAssertEqual(router.openMyProfileCount, 1)
         } else {
@@ -308,8 +287,7 @@ class UserListPresenterTests: XCTestCase {
     
     private func validatePageLoaded(page: Int, with users: [User]) {
         XCTAssertEqual(interactor.getNextListPageCount, page)
-        XCTAssertEqual(view.setUsersCount, page)
-        XCTAssertEqual(view.users ?? [], users)
-        XCTAssertEqual(moduleOutput.didUpdateListCount, page)
+        XCTAssertTrue(view.setUsersCalled)
+        XCTAssertEqual(view.setUsersReceivedUsers ?? [], users)
     }
 }

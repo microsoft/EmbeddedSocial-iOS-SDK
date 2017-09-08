@@ -11,6 +11,7 @@ class CommentCellModuleConfigurator {
 
         let router = CommentCellRouter()
         router.navigationController = navigationController
+        router.loginOpener = loginOpener
 
         let presenter = CommentCellPresenter()
         presenter.view = cell

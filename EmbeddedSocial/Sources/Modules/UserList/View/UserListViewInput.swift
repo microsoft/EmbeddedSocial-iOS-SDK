@@ -10,13 +10,13 @@ protocol UserListViewInput: class {
     
     func setUsers(_ users: [User])
     
-    func updateListItem(with user: User, at indexPath: IndexPath)
+    func updateListItem(with user: User)
     
-    func setIsLoading(_ isLoading: Bool, itemAt indexPath: IndexPath)
+    func setIsLoading(_ isLoading: Bool, item: UserListItem)
     
     func setIsLoading(_ isLoading: Bool)
     
     func setListHeaderView(_ view: UIView?)
     
-    func removeListItem(at indexPath: IndexPath)
+    func removeUser(_ user: User)
 }

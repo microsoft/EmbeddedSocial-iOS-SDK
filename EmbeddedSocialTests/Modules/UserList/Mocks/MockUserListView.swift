@@ -6,54 +6,71 @@
 @testable import EmbeddedSocial
 
 final class MockUserListView: UIView, UserListViewInput {
-    private(set) var setupInitialStateCount = 0
-    private(set) var setUsersCount = 0
-    private(set) var setIsLoadingItemAtCount = 0
-    private(set) var isLoadingItemAtParams: (Bool, IndexPath)?
-    private(set) var setIsLoadingCount = 0
-    private(set) var isLoading: Bool?
-    private(set) var users: [User]?
+    //MARK: - setupInitialState
     
-    private(set) var updateListItemCount = 0
-    private(set) var updateListItemParams: (User, IndexPath)?
+    var setupInitialStateCalled = false
     
-    private(set) var setListHeaderViewCount = 0
-    private(set) var headerView: UIView?
-    
-    private(set) var removeListItemCount = 0
-    private(set) var removeListItemInputIndexPath: IndexPath?
-
     func setupInitialState() {
-        setupInitialStateCount += 1
+        setupInitialStateCalled = true
     }
+    
+    //MARK: - setUsers
+    
+    var setUsersCalled = false
+    var setUsersReceivedUsers: [User]?
     
     func setUsers(_ users: [User]) {
-        setUsersCount += 1
-        self.users = users
+        setUsersCalled = true
+        setUsersReceivedUsers = users
     }
     
-    func updateListItem(with user: User, at indexPath: IndexPath) {
-        updateListItemCount += 1
-        updateListItemParams = (user, indexPath)
+    //MARK: - updateListItem
+    
+    var updateListItemWithCalled = false
+    var updateListItemWithReceivedUser: User?
+    
+    func updateListItem(with user: User) {
+        updateListItemWithCalled = true
+        updateListItemWithReceivedUser = user
     }
     
-    func setIsLoading(_ isLoading: Bool, itemAt indexPath: IndexPath) {
-        setIsLoadingItemAtCount += 1
-        isLoadingItemAtParams = (isLoading, indexPath)
+    //MARK: - setIsLoading
+    
+    var setIsLoadingItemCalled = false
+    var setIsLoadingItemReceivedArguments: (isLoading: Bool, item: UserListItem)?
+    
+    func setIsLoading(_ isLoading: Bool, item: UserListItem) {
+        setIsLoadingItemCalled = true
+        setIsLoadingItemReceivedArguments = (isLoading: isLoading, item: item)
     }
+    
+    //MARK: - setIsLoading
+    
+    var setIsLoadingCalled = false
+    var setIsLoadingReceivedIsLoading: Bool?
     
     func setIsLoading(_ isLoading: Bool) {
-        setIsLoadingCount += 1
-        self.isLoading = isLoading
+        setIsLoadingCalled = true
+        setIsLoadingReceivedIsLoading = isLoading
     }
+    
+    //MARK: - setListHeaderView
+    
+    var setListHeaderViewCalled = false
+    var setListHeaderViewReceivedView: UIView?
     
     func setListHeaderView(_ view: UIView?) {
-        setListHeaderViewCount += 1
-        headerView = view
+        setListHeaderViewCalled = true
+        setListHeaderViewReceivedView = view
     }
     
-    func removeListItem(at indexPath: IndexPath) {
-        removeListItemCount += 1
-        removeListItemInputIndexPath = indexPath
+    //MARK: - removeUser
+    
+    var removeUserCalled = false
+    var removeUserReceivedUser: User?
+    
+    func removeUser(_ user: User) {
+        removeUserCalled = true
+        removeUserReceivedUser = user
     }
 }

@@ -22,7 +22,7 @@ class UserListPresenter {
             
             if let users = result.value {
                 strongSelf.view.setUsers(users)
-                strongSelf.moduleOutput?.didUpdateList(listView: strongSelf.listView)
+                strongSelf.moduleOutput?.didUpdateList(strongSelf.listView, with: users)
             } else {
                 strongSelf.moduleOutput?.didFailToLoadList(listView: strongSelf.listView, error: result.error ?? APIError.unknown)
             }
@@ -46,22 +46,20 @@ extension UserListPresenter: UserListViewOutput {
             return
         }
         
-        view.setIsLoading(true, itemAt: item.indexPath)
+        view.setIsLoading(true, item: item)
         
         interactor.processSocialRequest(to: item.user) { [weak self] result in
             guard let strongSelf = self else {
                 return
             }
             
-            strongSelf.view.setIsLoading(false, itemAt: item.indexPath)
+            strongSelf.view.setIsLoading(false, item: item)
             
             if let newStatus = result.value {
                 var user = item.user
                 user.followerStatus = newStatus
-                strongSelf.view.updateListItem(with: user, at: item.indexPath)
-                strongSelf.moduleOutput?.didUpdateFollowStatus(listView: strongSelf.listView,
-                                                               followStatus: newStatus,
-                                                               forUserAt: item.indexPath)
+                strongSelf.view.updateListItem(with: user)
+                strongSelf.moduleOutput?.didUpdateFollowStatus(for: user)
             } else {
                 strongSelf.moduleOutput?.didFailToPerformSocialRequest(listView: strongSelf.listView,
                                                                        error: result.error ?? APIError.unknown)
@@ -77,7 +75,6 @@ extension UserListPresenter: UserListViewOutput {
     }
     
     func onItemSelected(_ item: UserListItem) {
-        moduleOutput?.didSelectListItem(listView: listView, at: item.indexPath)
         if item.user.isMe {
             router.openMyProfile()
         } else {
@@ -108,7 +105,14 @@ extension UserListPresenter: UserListModuleInput {
         view.setListHeaderView(headerView)
     }
     
-    func removeListItem(at indexPath: IndexPath) {
-        view.removeListItem(at: indexPath)
+    func removeUser(_ user: User) {
+        view.removeUser(user)
+    }
+}
+
+extension UserListPresenter: UserProfileModuleOutput {
+    
+    func didChangeUserFollowStatus(_ user: User) {
+        view.updateListItem(with: user)
     }
 }

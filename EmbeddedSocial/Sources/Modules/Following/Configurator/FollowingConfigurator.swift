@@ -10,7 +10,7 @@ final class FollowingConfigurator {
     
     init() {
         viewController = StoryboardScene.Following.instantiateFollowingViewController()
-        viewController.title = L10n.Followers.screenTitle
+        viewController.title = L10n.Following.screenTitle
     }
     
     func configure(api: UsersListAPI,

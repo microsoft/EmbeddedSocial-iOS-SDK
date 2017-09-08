@@ -9,10 +9,11 @@ final class UserListRouter: UserListRouterInput {
     weak var navController: UINavigationController?
     weak var myProfileOpener: MyProfileOpener?
     weak var loginOpener: LoginModalOpener?
+    weak var userProfileModuleOutput: UserProfileModuleOutput?
 
     func openUserProfile(_ userID: String) {
         let configurator = UserProfileConfigurator()
-        configurator.configure(userID: userID, navigationController: navController)
+        configurator.configure(userID: userID, navigationController: navController, output: userProfileModuleOutput)
         navController?.pushViewController(configurator.viewController, animated: true)
     }
     

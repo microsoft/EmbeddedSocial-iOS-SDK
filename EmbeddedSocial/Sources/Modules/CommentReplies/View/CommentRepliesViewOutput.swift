@@ -13,4 +13,5 @@ protocol CommentRepliesViewOutput {
     func canFetchMore() -> Bool
     func refresh()
     func mainCommentCell() -> CommentCell
+    func loadCellModel() -> LoadMoreCellViewModel
 }

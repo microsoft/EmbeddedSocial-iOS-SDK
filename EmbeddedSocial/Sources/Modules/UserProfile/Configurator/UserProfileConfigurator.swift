@@ -16,7 +16,8 @@ struct UserProfileConfigurator {
     func configure(userID: String? = nil,
                    myProfileHolder: UserHolder = SocialPlus.shared,
                    loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator,
-                   navigationController: UINavigationController?) {
+                   navigationController: UINavigationController?,
+                   output: UserProfileModuleOutput? = nil) {
         
         let router = UserProfileRouter()
         router.viewController = viewController
@@ -26,6 +27,7 @@ struct UserProfileConfigurator {
         presenter.router = router
         presenter.interactor = UserProfileInteractor(userService: userService, socialService: SocialService())
         presenter.view = viewController
+        presenter.moduleOutput = output
         
         router.followersModuleOutput = presenter
         router.followingModuleOutput = presenter
