@@ -13,4 +13,12 @@ final class MockSearchPeopleView: UIViewController, SearchPeopleViewInput {
         self.listView = listView
         setupInitialStateCount += 1
     }
+    
+    var setIsEmptyCalled = false
+    var setIsEmptyInputIsEmpty: Bool?
+    
+    func setIsEmpty(_ isEmpty: Bool) {
+        setIsEmptyCalled = true
+        setIsEmptyInputIsEmpty = isEmpty
+    }
 }

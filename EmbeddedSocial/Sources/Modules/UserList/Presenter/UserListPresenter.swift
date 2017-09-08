@@ -22,6 +22,7 @@ class UserListPresenter {
             
             if let users = result.value {
                 strongSelf.view.setUsers(users)
+                strongSelf.moduleOutput?.didUpdateList(strongSelf.listView, with: users)
             } else {
                 strongSelf.moduleOutput?.didFailToLoadList(listView: strongSelf.listView, error: result.error ?? APIError.unknown)
             }

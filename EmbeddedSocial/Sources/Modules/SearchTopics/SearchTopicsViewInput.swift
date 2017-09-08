@@ -3,8 +3,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-protocol SearchPeopleViewInput: class {
-    func setupInitialState(listView: UIView)
+import Foundation
+
+protocol SearchTopicsViewInput: class {
+    func setupInitialState(with feedViewController: UIViewController)
     
     func setIsEmpty(_ isEmpty: Bool)
 }

@@ -3,8 +3,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-protocol SearchPeopleViewInput: class {
-    func setupInitialState(listView: UIView)
-    
-    func setIsEmpty(_ isEmpty: Bool)
+import Foundation
+
+protocol SearchTopicsModuleOutput: class {    
+    func didFailToLoadSearchQuery(_ error: Error)
 }

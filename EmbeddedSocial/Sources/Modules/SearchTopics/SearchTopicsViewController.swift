@@ -6,9 +6,11 @@
 import UIKit
 import SnapKit
 
-final class SearchPeopleViewController: UIViewController {
+class SearchTopicsViewController: UIViewController {
     
-    weak var output: SearchPeopleViewOutput!
+    var output: SearchTopicsViewOutput!
+    
+    fileprivate var feedView: UIView?
     
     @IBOutlet weak var noContentLabel: UILabel! {
         didSet {
@@ -21,18 +23,20 @@ final class SearchPeopleViewController: UIViewController {
     }
 }
 
-extension SearchPeopleViewController: SearchPeopleViewInput {
+extension SearchTopicsViewController: SearchTopicsViewInput {
     
-    func setupInitialState(listView: UIView) {
-        view.addSubview(listView)
-        listView.snp.makeConstraints { make in
+    func setupInitialState(with feedViewController: UIViewController) {
+        addChildController(feedViewController)
+        feedViewController.view.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        feedView = feedViewController.view
         view.bringSubview(toFront: noContentLabel)
     }
     
     func setIsEmpty(_ isEmpty: Bool) {
         guard noContentLabel != nil else { return }
         noContentLabel.isHidden = !isEmpty
+        feedView?.isHidden = isEmpty
     }
 }
