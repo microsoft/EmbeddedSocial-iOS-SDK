@@ -278,17 +278,8 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     func setRefreshing(state: Bool) {
-        Logger.log(state)
-        if state {
-            if refreshControl.isHidden == false {
-                refreshControl.beginRefreshing()
-            }
-            
-            bottomRefreshControl.startAnimating()
-
-        } else {
+        if state == false {
             refreshControl.endRefreshing()
-            bottomRefreshControl.stopAnimating()
         }
     }
     
