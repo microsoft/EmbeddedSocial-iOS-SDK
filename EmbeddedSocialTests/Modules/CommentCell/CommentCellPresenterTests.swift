@@ -6,19 +6,35 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class CommentCellPresenterTests: XCTestCase, CommentCellModuleProtocol {
+class CommentCellPresenterTests: XCTestCase {
     
-    let presenter = CommentCellPresenter()
-    let interactor = MockCommentCellInteractor()
-    let view = MockCommentCell()
-    let router = MockCommentCellRouter()
+    var presenter: CommentCellPresenter!
+    var interactor: MockCommentCellInteractor!
+    var view: MockCommentCellViewInput!
+    var router: MockCommentCellRouter!
+    var myProfileHolder: MyProfileHolder!
     
     override func setUp() {
         super.setUp()
+        myProfileHolder = MyProfileHolder()
+        interactor = MockCommentCellInteractor()
+        view = MockCommentCellViewInput()
+        router = MockCommentCellRouter()
+        
+        presenter = CommentCellPresenter()
+        presenter.myProfileHolder = myProfileHolder
+        presenter.router = router
+        presenter.view = view
+        presenter.interactor = interactor
     }
     
     override func tearDown() {
         super.tearDown()
+        presenter = nil
+        interactor = nil
+        view = nil
+        router = nil
+        myProfileHolder = nil
     }
     
     func testThatCommentLikedAndUnliked() {
@@ -53,7 +69,7 @@ class CommentCellPresenterTests: XCTestCase, CommentCellModuleProtocol {
         presenter.comment = comment
 
         //when
-        router.openReplies(scrollType: .none, commentModulePresenter: self)
+        router.openReplies(scrollType: .none, commentModulePresenter: presenter)
 
         //then
         XCTAssertEqual(router.openRepliesCount, 1)
@@ -103,12 +119,14 @@ class CommentCellPresenterTests: XCTestCase, CommentCellModuleProtocol {
         XCTAssertEqual(router.openLikesCount, 1)
     }
     
-    //CommentCellModuleProtocol
-    func mainComment() -> Comment {
-        return presenter.comment
-    }
-    
-    func cell() -> CommentCell {
-        return view
+    func testThatLoginIsOpenedWhenAnonymousUserAttemptsToLike() {
+        // given
+        myProfileHolder.me = nil
+        
+        // when
+        presenter.like()
+        
+        // then
+        XCTAssertEqual(router.openLoginCount, 1)
     }
 }

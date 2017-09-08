@@ -82,6 +82,10 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         
         switch action {
         case .like:
+            guard myProfileHolder.me != nil else {
+                router.openLogin(from: view as? UIViewController ?? UIViewController())
+                return
+            }
             
             let status = replies[index].liked
             let action: RepliesSocialAction = status ? .unlike : .like
