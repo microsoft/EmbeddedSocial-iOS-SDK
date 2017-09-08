@@ -89,6 +89,8 @@
 "side_menu.debug" = "Debug";
 
 "report.screen_title" = "Report an issue";
+"report.post.header_title" = "What's the problem with this post?";
+"report.user.header_title" = "What's the problem with this account?";
 
 "search.screen_title" = "Search";
 "search.placeholder.search_people" = "Search people";

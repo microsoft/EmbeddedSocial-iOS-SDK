@@ -8,6 +8,7 @@ import SKPhotoBrowser
 class CommentCellRouter: CommentCellRouterInput {
     
     var navigationController: UINavigationController?
+    var loginOpener: LoginModalOpener?
     
     func openReplies(scrollType: RepliesScrollType, commentModulePresenter: CommentCellModuleProtocol) {
         let configurator = CommentRepliesModuleConfigurator()
@@ -34,5 +35,9 @@ class CommentCellRouter: CommentCellRouterInput {
         let configurator = LikesListConfigurator()
         configurator.configure(handle: commentHandle, type: .comment, navigationController: navigationController)
         navigationController?.pushViewController(configurator.viewController, animated: true)
+    }
+    
+    func openLogin() {
+        loginOpener?.openLogin(parentViewController: navigationController)
     }
 }

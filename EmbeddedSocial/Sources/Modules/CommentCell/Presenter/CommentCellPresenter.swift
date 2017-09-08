@@ -13,6 +13,7 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     var view: CommentCellViewInput?
     var interactor: CommentCellInteractorInput?
     var router: CommentCellRouterInput?
+    var myProfileHolder: UserHolder?
     
     var comment: Comment!
     
@@ -22,6 +23,10 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     }
     
     func like() {
+        guard myProfileHolder?.me != nil else {
+            router?.openLogin()
+            return
+        }
         let status = comment.liked
         let action: CommentSocialAction = status ? .unlike : .like
 

@@ -6,6 +6,24 @@
 import Foundation
 @testable import EmbeddedSocial
 
-class MockCommentCell: CommentCell {
+class MockCommentCellViewInput: CommentCellViewInput {
+    
+    //MARK: - configure
+    
+    var configureCommentCalled = false
+    var configureCommentReceivedComment: Comment?
+    
+    func configure(comment: Comment) {
+        configureCommentCalled = true
+        configureCommentReceivedComment = comment
+    }
+    
+    //MARK: - setupInitialState
+    
+    var setupInitialStateCalled = false
+    
+    func setupInitialState() {
+        setupInitialStateCalled = true
+    }
     
 }
