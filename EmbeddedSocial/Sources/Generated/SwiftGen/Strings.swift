@@ -216,8 +216,16 @@ enum L10n {
     static let hide = L10n.tr("Localizable", "post_menu.hide")
     /// Remove post
     static let remove = L10n.tr("Localizable", "post_menu.remove")
+    /// Remove comment
+    static let removeComment = L10n.tr("Localizable", "post_menu.remove_comment")
+    /// Remove reply
+    static let removeReply = L10n.tr("Localizable", "post_menu.remove_reply")
     /// Report post
     static let report = L10n.tr("Localizable", "post_menu.report")
+    /// Report comment
+    static let reportComment = L10n.tr("Localizable", "post_menu.report_comment")
+    /// Report reply
+    static let reportReply = L10n.tr("Localizable", "post_menu.report_reply")
     /// Unblock
     static let unblock = L10n.tr("Localizable", "post_menu.unblock")
     /// Unfollow

@@ -12,10 +12,25 @@ protocol PostMenuModuleOutput: class {
     func didHide(post: PostHandle)
     func didEdit(post: PostHandle)
     func didRemove(post: PostHandle)
+    func didRemove(comment: Comment)
+    func didRemove(reply: Reply)
     func didReport(post: PostHandle)
+    func didReport(comment: Comment)
+    func didReport(reply: Reply)
     func didRequestFail(error: Error)
     func postMenuProcessDidStart()
     func postMenuProcessDidFinish()
+}
+
+extension PostMenuModuleOutput {
+    func didHide(post: PostHandle) {}
+    func didEdit(post: PostHandle) {}
+    func didRemove(post: PostHandle) {}
+    func didRemove(comment: Comment) {}
+    func didRemove(reply: Reply) {}
+    func didReport(post: PostHandle) {}
+    func didReport(comment: Comment) {}
+    func didReport(reply: Reply) {}
 }
 
 protocol PostMenuModuleInput: class {
@@ -27,17 +42,29 @@ protocol PostMenuModuleInput: class {
     func didTapUnfollow(user: UserHandle)
     func didTapEditPost(post: Post)
     func didTapRemovePost(post: PostHandle)
+    func didTapReport(comment: Comment)
+    func didTapReport(reply: Reply)
+    func didTapRemove(comment: Comment)
+    func didTapRemove(reply: Reply)
 }
 
 enum PostMenuType: CustomStringConvertible {
     case myPost(post: Post)
     case otherPost(post: Post, isHome: Bool)
+    case myComment(comment: Comment)
+    case otherComment(comment: Comment)
+    case myReply(reply: Reply)
+    case otherReply(reply: Reply)
     
     var description: String  {
         get {
             switch self {
             case .myPost(let post ), .otherPost(let post, _):
                 return post.topicHandle!
+            case .myComment(let comment), .otherComment(let comment):
+                return comment.commentHandle
+            case .myReply(let reply), .otherReply(let reply):
+                return reply.replyHandle
             }
         }
     }
@@ -77,6 +104,14 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
             return buildActionListForMyPost(post: post)
         case .otherPost(let post, let isHomeFeed):
             return buildActionListForOtherPost(post: post, isHomeFeed: isHomeFeed)
+        case .myComment(let comment):
+            return MenuViewModelBuilder().buildActionListForMyComment(comment: comment, delegate: self)
+        case .otherComment(let comment):
+            return MenuViewModelBuilder().buildActionListForOtherComment(comment: comment, delegate: self)
+        case .myReply(let reply):
+            return MenuViewModelBuilder().buildActionListForMyReply(reply: reply, delegate: self)
+        case .otherReply(let reply):
+            return MenuViewModelBuilder().buildActionListForOtherReply(reply: reply, delegate: self)
         }
     }
     
@@ -119,6 +154,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         
         return [editItem, removeitem]
     }
+    
     
     // MARK: View Models builder
     
@@ -208,12 +244,48 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         self.interactor.remove(post: post)
     }
     
+    func didTapRemove(comment: Comment) {
+        self.output?.didRemove(comment: comment)
+        self.interactor.remove(comment: comment)
+    }
+    
+    func didTapRemove(reply: Reply) {
+        self.output?.didRemove(reply: reply)
+    }
+    
     func didTapReportPost(post: PostHandle) {
 //        self.output?.didReport(post: post)
-       router.openReport(postHandle: post)
+//       router.openReport(postHandle: post)
+    }
+    
+    func didTapReport(comment: Comment) {
+        
+    }
+    
+    func didTapReport(reply: Reply) {
+        
     }
     
     // MARK: Interactor Output
+    
+    func didRemove(reply: Reply, error: Error?) {
+        output?.postMenuProcessDidFinish()
+        if let error = error {
+            output?.didRequestFail(error: error)
+        } else {
+            output?.didRemove(reply: reply)
+        }
+    }
+    
+    func didRemove(comment: Comment, error: Error?) {
+        output?.postMenuProcessDidFinish()
+        if let error = error {
+            output?.didRequestFail(error: error)
+        } else {
+            output?.didRemove(comment: comment)
+        }
+    }
+    
     func didBlock(user: UserHandle, error: Error?) {
         Logger.log(user, error)
         if let error = error {

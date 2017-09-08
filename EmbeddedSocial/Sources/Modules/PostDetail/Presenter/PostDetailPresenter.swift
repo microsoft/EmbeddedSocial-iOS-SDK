@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
+class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, PostDetailModuleInput {
 
     weak var view: PostDetailViewInput!
     var interactor: PostDetailInteractorInput!
@@ -31,6 +31,16 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
     
     init(myProfileHolder: UserHolder) {
         self.myProfileHolder = myProfileHolder
+    }
+    
+    func commentRemoved(comment: Comment) {
+        guard let index = comments.index(where: { $0.commentHandle == comment.commentHandle }) else {
+            return
+        }
+        
+        comments.remove(at: index)
+        view.removeComment(index: index)
+        feedModuleInput?.refreshData()
     }
     
     // MARK: PostDetailInteractorOutput

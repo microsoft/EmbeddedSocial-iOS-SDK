@@ -86,6 +86,7 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     }
     
     @IBAction private func commentOptionsPressed(_ sender: Any) {
+        output.optionsPressed()
     }
     
     @IBAction private func likePressed(_ sender: UIButton) {

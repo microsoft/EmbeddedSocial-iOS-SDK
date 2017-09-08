@@ -4,7 +4,7 @@
 //
 
 enum RepliesCellAction {
-    case like, profile, toLikes
+    case like, profile, toLikes, extra
 }
 
 struct ReplyViewModel {
@@ -77,6 +77,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     private func handle(action: RepliesCellAction, index: Int) {
         
         let replyHandle = replies[index].replyHandle
+        let reply = replies[index]
         let userHandle = replies[index].userHandle!
         
         switch action {
@@ -101,6 +102,13 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             
         case .toLikes:
             router.openLikes(replyHandle: replyHandle!, from: view as! UIViewController)
+            
+        case .extra:
+            if reply.userHandle == SocialPlus.shared.me?.uid {
+                router.openMyReplyOptions(reply: reply, from: view as! UIViewController)
+            } else {
+                router.openOtherReplyOptions(reply: reply, from: view as! UIViewController)
+            }
         }
         
     }
@@ -234,5 +242,48 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             view?.refreshReplyCell(index: index)
         }
         
+    }
+}
+
+extension CommentRepliesPresenter: PostMenuModuleOutput {
+    
+    func postMenuProcessDidStart() {
+        //        view.setRefreshingWithBlocking(state: true)
+    }
+    
+    func postMenuProcessDidFinish() {
+        //        view.setRefreshingWithBlocking(state: false)
+    }
+    
+    func didBlock(user: UserHandle) {
+        Logger.log("Success")
+    }
+    
+    func didUnblock(user: UserHandle) {
+        Logger.log("Success")
+    }
+    
+    func didFollow(user: UserHandle) {
+        for (index, item) in replies.enumerated() {
+            if item.userHandle == user {
+                replies[index].userStatus = .follow
+                view?.refreshReplyCell(index: index)
+                return
+            }
+        }
+    }
+    
+    func didUnfollow(user: UserHandle) {
+        for (index, item) in replies.enumerated() {
+            if item.userHandle == user && item.userStatus == .follow {
+                replies[index].userStatus = .none
+                view?.refreshReplyCell(index: index)
+                return
+            }
+        }
+    }
+    
+    func didRequestFail(error: Error) {
+        Logger.log("Reloading feed", error, event: .error)
     }
 }

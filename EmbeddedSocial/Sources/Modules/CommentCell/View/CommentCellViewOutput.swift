@@ -10,4 +10,5 @@ protocol CommentCellViewOutput {
     func avatarPressed()
     func mediaPressed()
     func likesPressed()
+    func optionsPressed()
 }

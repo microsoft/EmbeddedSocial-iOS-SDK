@@ -65,8 +65,12 @@
 "login.screen_title" = "Sign in";
 
 "post_menu.report" = "Report post";
+"post_menu.report_comment" = "Report comment";
+"post_menu.report_reply" = "Report reply";
 "post_menu.edit" = "Edit post";
 "post_menu.remove" = "Remove post";
+"post_menu.remove_comment" = "Remove comment";
+"post_menu.remove_reply" = "Remove reply";
 "post_menu.follow" = "Follow";
 "post_menu.unfollow" = "Unfollow";
 "post_menu.block" = "Block";

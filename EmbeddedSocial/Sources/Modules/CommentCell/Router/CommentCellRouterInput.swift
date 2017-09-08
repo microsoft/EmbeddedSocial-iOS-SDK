@@ -10,4 +10,6 @@ protocol CommentCellRouterInput {
     func openUser(userHandle: String)
     func openImage(imageUrl: String)
     func openLikes(commentHandle: String)
+    func openMyCommentOptions(comment: Comment)
+    func openOtherCommentOptions(comment: Comment)
 }

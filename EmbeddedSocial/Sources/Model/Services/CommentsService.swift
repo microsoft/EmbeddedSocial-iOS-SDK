@@ -29,6 +29,7 @@ protocol CommentServiceProtocol {
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, cachedResult: @escaping CommentFetchResultHandler, resultHandler: @escaping CommentFetchResultHandler)
     func comment(commentHandle: String, cachedResult: @escaping CommentHandler, success: @escaping CommentHandler, failure: @escaping Failure)
     func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure)
+    func deleteComment(commentHandle: String, completion: @escaping ((Result<Void>) -> Void))
 }
 
 class CommentsService: BaseService, CommentServiceProtocol {
@@ -39,6 +40,17 @@ class CommentsService: BaseService, CommentServiceProtocol {
     init(imagesService: ImagesServiceType) {
         super.init()
         self.imagesService = imagesService
+    }
+    
+    func deleteComment(commentHandle: String, completion: @escaping ((Result<Void>) -> Void)) {
+        let request = CommentsAPI.commentsDeleteCommentWithRequestBuilder(commentHandle: commentHandle, authorization: authorization)
+        request.execute { (response, error) in
+            if let error = error {
+                self.errorHandler.handle(error: error, completion: completion)
+            } else {
+                completion(.success())
+            }
+        }
     }
     
     func comment(commentHandle: String, cachedResult: @escaping CommentHandler, success: @escaping CommentHandler, failure: @escaping Failure) {
@@ -214,6 +226,20 @@ class CommentsService: BaseService, CommentServiceProtocol {
             comment.totalLikes = commentView.totalLikes ?? 0
             comment.liked = commentView.liked ?? false
             
+            if let shortUser = commentView.user {
+                switch shortUser.followerStatus! {
+                case ._none:
+                    comment.userStatus = .none
+                case .blocked:
+                    comment.userStatus = .blocked
+                case .follow:
+                    comment.userStatus = .follow
+                case .pending:
+                    comment.userStatus = .pending
+                }
+            }
+
+            
             let cacheRequestForLikes = CacheFetchRequest(resultType: FeedActionRequest.self, predicate: PredicateBuilder().predicate(handle: commentView.commentHandle!))
             let cacheResultForLikes = cache.fetchOutgoing(with: cacheRequestForLikes)
 
@@ -266,6 +292,14 @@ struct CommentViewModel {
 }
 
 class Comment: Equatable {
+    
+    enum UserStatus: Int {
+        case none
+        case follow
+        case pending
+        case blocked
+    }
+    
     public var commentHandle: String!
     public var topicHandle: String!
     public var createdTime: Date?
@@ -282,6 +316,7 @@ class Comment: Equatable {
     public var totalReplies: Int64 = 0
     public var liked = false
     public var pinned = false
+    public var userStatus: UserStatus = .none
     
     static func ==(left: Comment, right: Comment) -> Bool{
         return left.commentHandle == right.commentHandle
