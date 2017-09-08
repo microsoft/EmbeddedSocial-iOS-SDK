@@ -55,7 +55,9 @@ final class UserProfileRouter: UserProfileRouterInput {
         let config = ReportConfigurator()
         let navController = UINavigationController(rootViewController: config.viewController)
         let api = ReportUserAPI(userID: user.uid, reportingService: ReportingService())
-        config.configure(api: api, navigationController: navController)
+        config.configure(api: api,
+                         navigationController: navController,
+                         reportListTitle: L10n.Report.User.headerTitle.uppercased())
         viewController?.navigationController?.present(navController, animated: true, completion: nil)
     }
     

@@ -241,6 +241,16 @@ enum L10n {
   enum Report {
     /// Report an issue
     static let screenTitle = L10n.tr("Localizable", "report.screen_title")
+
+    enum Post {
+      /// What's the problem with this post?
+      static let headerTitle = L10n.tr("Localizable", "report.post.header_title")
+    }
+
+    enum User {
+      /// What's the problem with this account?
+      static let headerTitle = L10n.tr("Localizable", "report.user.header_title")
+    }
   }
 
   enum Search {
