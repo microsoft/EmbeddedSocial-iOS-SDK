@@ -15,7 +15,9 @@ protocol FeedModuleViewInput: class {
     func reload(with index: Int)
     func reloadVisible()
     func removeItem(index: Int)
+    // Turns off "pull to refresh"
     func setRefreshing(state: Bool)
+    // Turns on/off loading indicator
     func setRefreshingWithBlocking(state: Bool)
     func showError(error: Error)
     
