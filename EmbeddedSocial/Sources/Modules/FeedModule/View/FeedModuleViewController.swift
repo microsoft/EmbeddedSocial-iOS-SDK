@@ -15,7 +15,9 @@ protocol FeedModuleViewInput: class {
     func reload(with index: Int)
     func reloadVisible()
     func removeItem(index: Int)
+    // Turns off "pull to refresh"
     func setRefreshing(state: Bool)
+    // Turns on/off loading indicator
     func setRefreshingWithBlocking(state: Bool)
     func showError(error: Error)
     
@@ -278,17 +280,8 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     func setRefreshing(state: Bool) {
-        Logger.log(state)
-        if state {
-            if refreshControl.isHidden == false {
-                refreshControl.beginRefreshing()
-            }
-            
-            bottomRefreshControl.startAnimating()
-
-        } else {
+        if state == false {
             refreshControl.endRefreshing()
-            bottomRefreshControl.stopAnimating()
         }
     }
     
