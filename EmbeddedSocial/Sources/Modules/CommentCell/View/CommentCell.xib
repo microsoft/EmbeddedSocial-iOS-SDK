@@ -37,17 +37,17 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="500" text="1h" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vdj-ym-b7e">
-                                <rect key="frame" x="249.5" y="16.5" width="15.5" height="18"/>
+                                <rect key="frame" x="235.5" y="16.5" width="15.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="500" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rzh-Mj-yCQ">
-                                <rect key="frame" x="280" y="15" width="20" height="20"/>
+                                <rect key="frame" x="266" y="3" width="44" height="44"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Post Menu" label="Post Menu"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="dNh-V6-QP1"/>
-                                    <constraint firstAttribute="width" constant="20" id="hqW-8f-pfJ"/>
+                                    <constraint firstAttribute="height" constant="44" id="dNh-V6-QP1"/>
+                                    <constraint firstAttribute="width" constant="44" id="hqW-8f-pfJ"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="icon_dots"/>
                                 <connections>
@@ -55,7 +55,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E7x-Gh-haX">
-                                <rect key="frame" x="0.0" y="0.0" width="229" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="215" height="50"/>
                                 <connections>
                                     <action selector="avatarPressed:" destination="eDS-mq-vOG" eventType="touchUpInside" id="Jhj-mn-oVx"/>
                                 </connections>
@@ -67,7 +67,7 @@
                             <constraint firstItem="E7x-Gh-haX" firstAttribute="top" secondItem="xbj-W3-BRS" secondAttribute="top" id="87j-UZ-xYw"/>
                             <constraint firstAttribute="height" constant="50" id="GYe-mb-iJS"/>
                             <constraint firstItem="Rzh-Mj-yCQ" firstAttribute="leading" secondItem="vdj-ym-b7e" secondAttribute="trailing" constant="15" id="Jbr-vp-TgB"/>
-                            <constraint firstAttribute="trailing" secondItem="Rzh-Mj-yCQ" secondAttribute="trailing" constant="20" id="Myw-DO-Q0x"/>
+                            <constraint firstAttribute="trailing" secondItem="Rzh-Mj-yCQ" secondAttribute="trailing" constant="10" id="Myw-DO-Q0x"/>
                             <constraint firstItem="OUZ-GN-Jg2" firstAttribute="centerY" secondItem="sda-gf-jxV" secondAttribute="centerY" id="RZl-mU-i0c"/>
                             <constraint firstItem="sda-gf-jxV" firstAttribute="centerY" secondItem="xbj-W3-BRS" secondAttribute="centerY" id="TRJ-21-tJV"/>
                             <constraint firstItem="E7x-Gh-haX" firstAttribute="leading" secondItem="xbj-W3-BRS" secondAttribute="leading" id="Tok-hy-G6m"/>
@@ -86,7 +86,7 @@
                                 <rect key="frame" x="55" y="15" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="CFU-Yo-LHe"/>
-                                    <constraint firstAttribute="width" secondItem="DpI-cb-fNv" secondAttribute="height" multiplier="1:1" id="F4E-CJ-ssI"/>
+                                    <constraint firstAttribute="height" constant="20" id="Ing-Zz-qtE"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="icon_liked"/>
                                 <state key="selected" image="icon_liked_active"/>
@@ -98,7 +98,7 @@
                                 <rect key="frame" x="95" y="15" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="6j8-pm-uOv"/>
-                                    <constraint firstAttribute="width" secondItem="ffo-F5-hAE" secondAttribute="height" multiplier="1:1" id="V3f-PK-Qxa"/>
+                                    <constraint firstAttribute="height" constant="20" id="FD8-py-z7g"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="icon_comment"/>
                                 <connections>

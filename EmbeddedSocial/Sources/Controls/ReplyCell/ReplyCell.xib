@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -35,16 +34,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="500" text="1h" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9H-mV-9DJ">
-                                <rect key="frame" x="304.5" y="16.5" width="15.5" height="18"/>
+                                <rect key="frame" x="290.5" y="16.5" width="15.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="500" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUw-zC-px8">
-                                <rect key="frame" x="335" y="15" width="20" height="20"/>
+                                <rect key="frame" x="321" y="3" width="44" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="1Tu-yT-scS"/>
-                                    <constraint firstAttribute="width" constant="20" id="zpG-wC-UYc"/>
+                                    <constraint firstAttribute="height" constant="44" id="1Tu-yT-scS"/>
+                                    <constraint firstAttribute="width" constant="44" id="zpG-wC-UYc"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="icon_dots"/>
                                 <connections>
@@ -70,7 +69,7 @@
                             <constraint firstItem="yqX-Q3-Qi2" firstAttribute="leading" secondItem="Zc2-0G-WP7" secondAttribute="leading" constant="55" id="GZG-VQ-n9G"/>
                             <constraint firstAttribute="height" constant="50" id="HTY-YV-E2k"/>
                             <constraint firstItem="hPK-3q-Mxk" firstAttribute="centerY" secondItem="Zc2-0G-WP7" secondAttribute="centerY" id="TKa-W1-pIa"/>
-                            <constraint firstAttribute="trailing" secondItem="aUw-zC-px8" secondAttribute="trailing" constant="20" id="Td0-lw-Bi5"/>
+                            <constraint firstAttribute="trailing" secondItem="aUw-zC-px8" secondAttribute="trailing" constant="10" id="Td0-lw-Bi5"/>
                             <constraint firstItem="yqX-Q3-Qi2" firstAttribute="top" secondItem="Zc2-0G-WP7" secondAttribute="top" constant="10" id="dNB-La-P2H"/>
                             <constraint firstItem="aUw-zC-px8" firstAttribute="leading" secondItem="L9H-mV-9DJ" secondAttribute="trailing" constant="15" id="o16-v5-8eK"/>
                             <constraint firstItem="hPK-3q-Mxk" firstAttribute="leading" secondItem="yqX-Q3-Qi2" secondAttribute="trailing" constant="10" id="sc3-Kb-VaU"/>
