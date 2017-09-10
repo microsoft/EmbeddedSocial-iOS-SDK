@@ -251,19 +251,22 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     
     func didTapRemove(reply: Reply) {
         self.output?.didRemove(reply: reply)
+        self.interactor.remove(reply: reply)
     }
     
     func didTapReportPost(post: PostHandle) {
-//        self.output?.didReport(post: post)
-//       router.openReport(postHandle: post)
+        self.output?.didReport(post: post)
+       router.openReport(postHandle: post)
     }
     
     func didTapReport(comment: Comment) {
-        
+        self.output?.didReport(comment: comment)
+        router.openReport(comment: comment)
     }
     
     func didTapReport(reply: Reply) {
-        
+        self.output?.didReport(reply: reply)
+        router.openReport(reply: reply)
     }
     
     // MARK: Interactor Output

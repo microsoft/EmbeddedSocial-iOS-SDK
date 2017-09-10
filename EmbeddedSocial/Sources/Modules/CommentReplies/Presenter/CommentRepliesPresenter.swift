@@ -286,6 +286,17 @@ extension CommentRepliesPresenter: PostMenuModuleOutput {
         Logger.log("Success")
     }
     
+    func didRemove(reply: Reply) {
+        guard let index = replies.index(where: { $0.replyHandle == reply.replyHandle }) else {
+            return
+        }
+        
+        replies.remove(at: index)
+        comment.totalReplies -= 1
+        commentCell.configure(comment: comment)
+        view?.removeReply(index: index)
+    }
+    
     func didFollow(user: UserHandle) {
         for (index, item) in replies.enumerated() {
             if item.userHandle == user {

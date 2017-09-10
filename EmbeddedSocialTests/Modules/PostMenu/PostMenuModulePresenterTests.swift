@@ -16,6 +16,10 @@ private class PostMenuModuleOutputMock: PostMenuModuleOutput {
     var editedPost: PostHandle?
     var removedPost: PostHandle?
     var reportedPost: PostHandle?
+    var removedComment: Comment?
+    var reportedComment: Comment?
+    var removedReply: Reply?
+    var reportedReply: Reply?
     var requestFailed: Error?
     
     func didBlock(user: UserHandle) {
@@ -49,6 +53,22 @@ private class PostMenuModuleOutputMock: PostMenuModuleOutput {
     func didReport(post: PostHandle) {
         reportedPost = post
     }
+    
+    func didRemove(reply: Reply) {
+        removedReply = reply
+    }
+    
+    func didRemove(comment: Comment) {
+        removedComment = comment
+    }
+    
+    func didReport(reply: Reply) {
+        reportedReply = reply
+    }
+    
+    func didReport(comment: Comment) {
+        reportedComment = comment
+    }
 
     func didRequestFail(error: Error) {
         requestFailed = error
@@ -76,6 +96,10 @@ private class PostMenuModuleInteractorMock: PostMenuModuleInteractorInput {
     var editPost: PostHandle?
     var removePost: PostHandle?
     var reportPost: PostHandle?
+    var removeComment: Comment?
+    var reportComment: Comment?
+    var removeReply: Reply?
+    var reportReply: Reply?
     
     func block(user: UserHandle) {
         blockUser = user
@@ -107,6 +131,14 @@ private class PostMenuModuleInteractorMock: PostMenuModuleInteractorInput {
     
     func report(post: PostHandle) {
         reportPost = post
+    }
+    
+    func remove(reply: Reply) {
+        removeReply = reply
+    }
+    
+    func remove(comment: Comment) {
+        removeComment = comment
     }
 }
 
@@ -220,6 +252,37 @@ class PostMenuModulePresenterTests: XCTestCase {
         XCTAssertTrue(moduleOutput.removedPost == handle)
     }
     
+    func testThatRemoveReplyWorksProperl() {
+        
+        // given
+        let handle = randomHandle
+        let reply = Reply()
+        reply.replyHandle = handle
+        
+        // when
+        sut.didTapRemove(reply: reply)
+        
+        // then
+        XCTAssertTrue(interactor.removeReply?.replyHandle == handle)
+        XCTAssertTrue(moduleOutput.removedReply?.replyHandle == handle)
+        
+    }
+    
+    func testThatRemoveCommentWorksProperl() {
+        
+        // given
+        let handle = randomHandle
+        let comment = Comment()
+        comment.commentHandle = handle
+        
+        // when
+        sut.didTapRemove(comment: comment)
+        
+        // then
+        XCTAssertTrue(interactor.removeComment?.commentHandle == handle)
+        XCTAssertTrue(moduleOutput.removedComment?.commentHandle == handle)
+        
+    }
     
     private var randomHandle: String {
         return UUID().uuidString

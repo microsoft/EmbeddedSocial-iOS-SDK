@@ -259,6 +259,16 @@ enum L10n {
       /// What's the problem with this account?
       static let headerTitle = L10n.tr("Localizable", "report.user.header_title")
     }
+    
+    enum Comment {
+        /// What's the problem with this comment?
+        static let headerTitle = L10n.tr("Localizable", "report.comment.header_title")
+    }
+    
+    enum Reply {
+        /// What's the problem with this reply?
+        static let headerTitle = L10n.tr("Localizable", "report.reply.header_title")
+    }
   }
 
   enum Search {

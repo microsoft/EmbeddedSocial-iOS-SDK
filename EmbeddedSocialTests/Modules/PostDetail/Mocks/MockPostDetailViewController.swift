@@ -59,4 +59,9 @@ class MockPostDetailViewController: UIViewController, PostDetailViewInput {
     func setFeedViewController(_ feedViewController: UIViewController) {
         
     }
+    
+    var removeCommentCount = 0
+    func removeComment(index: Int) {
+        removeCommentCount += 1
+    }
 }

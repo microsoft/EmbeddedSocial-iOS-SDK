@@ -49,7 +49,7 @@ class MenuViewModelBuilder {
         let blockItem = buildBlockReply(reply: reply, delegate: delegate)
         
         var reportItem = ActionViewModel()
-        reportItem.title = L10n.PostMenu.reportComment
+        reportItem.title = L10n.PostMenu.reportReply
         reportItem.action = { _ in
             delegate?.didTapReport(reply: reply)
         }

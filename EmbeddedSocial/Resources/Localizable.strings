@@ -95,6 +95,8 @@
 "report.screen_title" = "Report an issue";
 "report.post.header_title" = "What's the problem with this post?";
 "report.user.header_title" = "What's the problem with this account?";
+"report.comment.header_title" = "What's the problem with this comment?";
+"report.reply.header_title" = "What's the problem with this reply?";
 
 "search.screen_title" = "Search";
 "search.placeholder.search_people" = "Search people";

@@ -43,6 +43,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         }
         
         comments.remove(at: index)
+        router.backIfNeeded(from: view as! UIViewController)
         view.removeComment(index: index)
         feedModuleInput?.refreshData()
     }
