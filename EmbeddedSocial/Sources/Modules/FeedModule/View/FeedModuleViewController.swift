@@ -91,7 +91,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     fileprivate lazy var sizingCell: PostCell = { [unowned self] in
         let cell = PostCell.nib.instantiate(withOwner: nil, options: nil).last as! PostCell
-        let width = self.collectionView.bounds.width
+        let width = self.containerWidth()
         let height = cell.frame.height
         cell.frame = CGRect(x: 0, y: 0, width: width, height: height)
         return cell
@@ -105,7 +105,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         self.collectionView.delegate = self
-          collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
         
         navigationItem.rightBarButtonItem = layoutChangeButton
     }
@@ -151,8 +150,8 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     private func onUpdateBounds() {
         if let collectionView = self.collectionView {
-            updateFlowLayoutForList(layout: listLayout, containerWidth: collectionView.frame.size.width)
-            updateFlowLayoutForGrid(layout: gridLayout, containerWidth: collectionView.frame.size.width)
+            updateFlowLayoutForList(layout: listLayout, containerWidth: containerWidth())
+            updateFlowLayoutForGrid(layout: gridLayout, containerWidth: containerWidth())
             
             let limits = [
                 numberOfItemsInList(listLayout, in: collectionView.frame),
@@ -186,7 +185,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         let padding = Constants.FeedModule.Collection.gridCellsPadding
         layout.minimumLineSpacing = Constants.FeedModule.Collection.rowsMargin
         layout.sectionInset = UIEdgeInsets(top: padding , left: padding , bottom: padding , right: padding )
-        layout.itemSize = CGSize(width: containerWidth, height: CGFloat(0))
+        layout.estimatedItemSize = CGSize(width: containerWidth, height: CGFloat(0))
     }
     
     private func numberOfItemsInList(_ layout: UICollectionViewFlowLayout, in rect: CGRect) -> Int {
@@ -216,8 +215,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     fileprivate func calculateCellSizeWith(viewModel: PostViewModel) -> CGSize {
         
         sizingCell.configure(with: viewModel, collectionView: nil)
-        
-        // TODO: remake via manual calculation
+    
         sizingCell.needsUpdateConstraints()
         sizingCell.updateConstraints()
         sizingCell.setNeedsLayout()
@@ -225,7 +223,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         
         var size = sizingCell.container.bounds.size
         size.width = containerWidth()
-        
+
         return size
     }
     
@@ -239,7 +237,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: Private
-    
     fileprivate func containerWidth() -> CGFloat {
         
         var result = view.frame.width
@@ -352,22 +349,22 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         return cell as! UICollectionViewCell
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        if collectionViewLayout === listLayout {
-            
-            let item = output.item(for: indexPath)
-
-            return calculateCellSizeWith(viewModel: item)
-            
-        } else if collectionViewLayout === gridLayout {
-            return gridLayout.itemSize
-        } else {
-            fatalError("Unexpected")
-        }
-    }
+//    func collectionView(_ collectionView: UICollectionView,
+//                        layout collectionViewLayout: UICollectionViewLayout,
+//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        
+//        if collectionViewLayout === listLayout {
+//            
+//            let item = output.item(for: indexPath)
+//
+//            return calculateCellSizeWith(viewModel: item)
+//            
+//        } else if collectionViewLayout === gridLayout {
+//            return gridLayout.itemSize
+//        } else {
+//            fatalError("Unexpected")
+//        }
+//    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         output.didTapItem(path: indexPath)
@@ -378,30 +375,9 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         return CGSize(width: containerWidth(), height: output.headerSize.height)
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        referenceSizeForFooterInSection section: Int) -> CGSize {
-        if collectionView.numberOfItems(inSection: 0) > 1 {
-            return CGSize(width: collectionView.frame.size.width, height: Constants.FeedModule.Collection.footerHeight)
-        } else {
-            return CGSize.zero
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        if kind == UICollectionElementKindSectionFooter {
-            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                       withReuseIdentifier: "footer",
-                                                                       for: indexPath)
-            
-            view.addSubview(bottomRefreshControl)
-            bottomRefreshControl.snp.makeConstraints({ (make) in
-                make.center.equalToSuperview()
-            })
-            
-            return view
-        } else if kind == UICollectionElementKindSectionHeader {
+        if kind == UICollectionElementKindSectionHeader {
             
             guard let headerReuseID = headerReuseID else {
                 fatalError("Header wasn't registered")
