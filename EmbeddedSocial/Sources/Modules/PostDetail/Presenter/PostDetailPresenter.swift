@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
+class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, PostDetailModuleInput {
 
     weak var view: PostDetailViewInput!
     var interactor: PostDetailInteractorInput!
@@ -37,10 +37,22 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput {
         self.myProfileHolder = myProfileHolder
     }
     
+    func commentRemoved(comment: Comment) {
+        guard let index = comments.index(where: { $0.commentHandle == comment.commentHandle }) else {
+            return
+        }
+        
+        comments.remove(at: index)
+        router.backIfNeeded(from: view as! UIViewController)
+        view.removeComment(index: index)
+        feedModuleInput?.refreshData()
+    }
+    
     // MARK: PostDetailInteractorOutput
     func didFetch(comments: [Comment], cursor: String?) {
         self.cursor = cursor
         self.comments = comments
+        self.comments.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
         stopLoading()
         view.reloadTable(scrollType: scrollType)
         scrollType = .none

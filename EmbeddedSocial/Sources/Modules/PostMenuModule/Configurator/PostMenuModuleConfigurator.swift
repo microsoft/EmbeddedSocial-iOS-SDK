@@ -32,6 +32,8 @@ class PostMenuModuleConfigurator {
         interactor.output = presenter
         interactor.socialService = SocialService()
         interactor.topicsService = TopicService(imagesService: ImagesService())
+        interactor.commentService = CommentsService(imagesService: ImagesService())
+        interactor.repliesService = RepliesService()
 
         presenter.interactor = interactor
         

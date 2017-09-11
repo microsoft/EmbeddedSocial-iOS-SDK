@@ -41,6 +41,10 @@ class CommentRepliesModuleConfigurator {
         interactor.likeService = likeService
         
         presenter.interactor = interactor
+        
+        router.postMenuModuleOutput = presenter
+        router.moduleInput = presenter
+        
         interactor.repliesService = repliesService
         viewController.output = presenter
         

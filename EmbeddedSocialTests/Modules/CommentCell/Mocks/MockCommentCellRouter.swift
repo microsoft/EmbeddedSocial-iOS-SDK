@@ -32,4 +32,14 @@ class MockCommentCellRouter: CommentCellRouterInput {
     func openLogin() {
         openLoginCount += 1
     }
+    
+    var openMyCommentOptionsCount = 0
+    func openMyCommentOptions(comment: Comment) {
+        openMyCommentOptionsCount += 1
+    }
+    
+    var openOtherCommentOptionsCount = 0
+    func openOtherCommentOptions(comment: Comment) {
+        openOtherCommentOptionsCount += 1
+    }
 }

@@ -29,4 +29,28 @@ final class MockReportingService: ReportingServiceType {
             completion(result)
         }
     }
+    
+    var reportCommentCount = 0
+    var reportCommentInputParameters: (commentID: String, reason: ReportReason)?
+    var reportCommentReturnValue: Result<Void>?
+    
+    func reportComment(commentID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
+        reportCommentCount += 1
+        reportCommentInputParameters = (commentID, reason)
+        if let result = reportCommentReturnValue {
+            completion(result)
+        }
+    }
+    
+    var reportReplyCount = 0
+    var reportReplyInputParameters: (replyID: String, reason: ReportReason)?
+    var reportReplyReturnValue: Result<Void>?
+    
+    func reportReply(replyID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
+        reportReplyCount += 1
+        reportReplyInputParameters = (replyID, reason)
+        if let result = reportReplyReturnValue {
+            completion(result)
+        }
+    }
 }

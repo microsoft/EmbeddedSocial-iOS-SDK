@@ -12,6 +12,8 @@ protocol PostMenuModuleInteractorInput {
     func hide(post: PostHandle)
     func edit(post: PostHandle)
     func remove(post: PostHandle)
+    func remove(comment: Comment)
+    func remove(reply: Reply)
     
 }
 
@@ -24,6 +26,8 @@ protocol PostMenuModuleInteractorOutput: class {
     func didHide(post: PostHandle, error: Error?)
     func didEdit(post: PostHandle, error: Error?)
     func didRemove(post: PostHandle, error: Error?)
+    func didRemove(comment: Comment, error: Error?)
+    func didRemove(reply: Reply, error: Error?)
     
 }
 
@@ -32,6 +36,8 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     weak var output: PostMenuModuleInteractorOutput!
     var socialService: SocialServiceType!
     var topicsService: PostServiceProtocol!
+    var commentService: CommentServiceProtocol!
+    var repliesService: RepliesServiceProtcol!
     
     // MARK: Input
     
@@ -50,6 +56,18 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     func remove(post: PostHandle) {
         topicsService.deletePost(post: post) { [weak self] (result) in
             self?.output.didRemove(post: post, error: result.error)
+        }
+    }
+    
+    func remove(comment: Comment) {
+        commentService.deleteComment(commentHandle: comment.commentHandle) { [weak self] (result) in
+            self?.output.didRemove(comment: comment, error: result.error)
+        }
+    }
+    
+    func remove(reply: Reply) {
+        repliesService.delete(replyHandle: reply.replyHandle) { [weak self] (result) in
+            self?.output.didRemove(reply: reply, error: result.error)
         }
     }
     
