@@ -207,6 +207,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     func fetched(replies: [Reply], cursor: String?) {
         self.cursor = cursor
         self.replies = replies
+        self.replies.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
         stopLoading()
         view?.reloadTable(scrollType: scrollType)
         

@@ -52,6 +52,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     func didFetch(comments: [Comment], cursor: String?) {
         self.cursor = cursor
         self.comments = comments
+        self.comments.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
         stopLoading()
         view.reloadTable(scrollType: scrollType)
         scrollType = .none
