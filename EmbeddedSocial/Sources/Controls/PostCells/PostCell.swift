@@ -8,6 +8,9 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     weak var collectionView: UICollectionView!
     var viewModel: PostViewModel!
     
+    @IBOutlet var staticHeigthElements: [UIView]!
+    @IBOutlet var dynamicElement: UIView!
+    
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var pinButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
@@ -86,15 +89,19 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     }
     
     override func awakeFromNib() {
-        self.contentView.addSubview(container)
-        self.postImageButton.imageView?.contentMode = .scaleAspectFill
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        container.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(container)
+        postImageButton.imageView?.contentMode = .scaleAspectFill
         postText.maximumNumberOfLines = Constants.FeedModule.Collection.Cell.maxLines
     }
     
     func setup() {
         clipsToBounds = true
     }
-  
+    
     func configure(with data: PostViewModel, collectionView: UICollectionView?) {
         
         self.viewModel = data
@@ -130,6 +137,21 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         }
         
         self.postText.isTrimmed = data.isTrimmed
+    }
+    
+    static func sizingCell() -> PostCell {
+        let cell = PostCell.nib.instantiate(withOwner: nil, options: nil).last as! PostCell
+        return cell
+    }
+    
+    func getHeight(with width: CGFloat) -> CGFloat {
+        
+        
+        let staticElementsHeight = staticHeigthElements.reduce(0) { result, view in
+            return result + view.frame.size.height
+        }
+        
+        return staticElementsHeight
     }
     
     // MARK: Private
