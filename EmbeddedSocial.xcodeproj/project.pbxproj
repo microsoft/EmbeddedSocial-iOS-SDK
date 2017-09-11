@@ -505,6 +505,10 @@
 		88B94EDA1F62C7CD002392F9 /* SearchUpdatingTestsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94ED91F62C7CD002392F9 /* SearchUpdatingTestsHelper.swift */; };
 		88B94EDC1F62D882002392F9 /* EmptyUsersListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EDB1F62D882002392F9 /* EmptyUsersListAPI.swift */; };
 		88B94EDD1F62D89B002392F9 /* CommentCellInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A94531F5D82AE00EB0253 /* CommentCellInteractorOutput.swift */; };
+		88B94EE81F66A4A7002392F9 /* OutgoingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EE71F66A4A7002392F9 /* OutgoingAction.swift */; };
+		88B94EEE1F66A85F002392F9 /* OutgoingActionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EED1F66A85F002392F9 /* OutgoingActionCommand.swift */; };
+		88B94EF01F66A9CF002392F9 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EEF1F66A9CF002392F9 /* AsyncOperation.swift */; };
+		88B94EF21F66A9F3002392F9 /* NSLock+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EF11F66A9F3002392F9 /* NSLock+Ext.swift */; };
 		88BC5C4E1F2B65D0001FBDD2 /* UserProfileConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC5C401F2B65D0001FBDD2 /* UserProfileConfigurator.swift */; };
 		88BC5C4F1F2B65D0001FBDD2 /* UserProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC5C421F2B65D0001FBDD2 /* UserProfileInteractor.swift */; };
 		88BC5C501F2B65D0001FBDD2 /* UserProfileInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC5C431F2B65D0001FBDD2 /* UserProfileInteractorInput.swift */; };
@@ -1303,6 +1307,10 @@
 		88B94ED71F62C4C3002392F9 /* SearchTopicsPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTopicsPresenterTests.swift; sourceTree = "<group>"; };
 		88B94ED91F62C7CD002392F9 /* SearchUpdatingTestsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUpdatingTestsHelper.swift; sourceTree = "<group>"; };
 		88B94EDB1F62D882002392F9 /* EmptyUsersListAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyUsersListAPI.swift; sourceTree = "<group>"; };
+		88B94EE71F66A4A7002392F9 /* OutgoingAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingAction.swift; sourceTree = "<group>"; };
+		88B94EED1F66A85F002392F9 /* OutgoingActionCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingActionCommand.swift; sourceTree = "<group>"; };
+		88B94EEF1F66A9CF002392F9 /* AsyncOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		88B94EF11F66A9F3002392F9 /* NSLock+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLock+Ext.swift"; sourceTree = "<group>"; };
 		88BC5C401F2B65D0001FBDD2 /* UserProfileConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileConfigurator.swift; sourceTree = "<group>"; };
 		88BC5C421F2B65D0001FBDD2 /* UserProfileInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileInteractor.swift; sourceTree = "<group>"; };
 		88BC5C431F2B65D0001FBDD2 /* UserProfileInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileInteractorInput.swift; sourceTree = "<group>"; };
@@ -1891,6 +1899,8 @@
 				8811C88C1F4334F800F7513D /* Cacheable.swift */,
 				8811C88D1F4334F800F7513D /* CacheableModels.swift */,
 				8811C8901F4334F800F7513D /* JSONDecoder.swift */,
+				88B94EE71F66A4A7002392F9 /* OutgoingAction.swift */,
+				88B94EED1F66A85F002392F9 /* OutgoingActionCommand.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -2378,6 +2388,7 @@
 				88580AAA1F2213AB00C1CBAF /* Collection+Ext.swift */,
 				88580AAB1F2213AB00C1CBAF /* Dictionary+Ext.swift */,
 				889510821F3B1FCA001A53F5 /* ErrorResponse+Ext.swift */,
+				88B94EF11F66A9F3002392F9 /* NSLock+Ext.swift */,
 				88F551B31F38A03200F4AAB9 /* SegmentedControlView+Ext.swift */,
 				88E3AC141F555A810016357F /* SocialServiceType+OptionalMethods.swift */,
 				88580AAC1F2213AB00C1CBAF /* String+Encoding.swift */,
@@ -2833,6 +2844,7 @@
 			children = (
 				88580B9A1F2213AB00C1CBAF /* Validators */,
 				889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */,
+				88B94EEF1F66A9CF002392F9 /* AsyncOperation.swift */,
 				8811C8331F3DE8A500F7513D /* AssociatedValue.swift */,
 				882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */,
 				88087B451F2A431E00A33E9A /* ButtonDecorator.swift */,
@@ -4993,6 +5005,7 @@
 				88580C791F2213AB00C1CBAF /* Reusable.swift in Sources */,
 				883E1E4B1F546517004B4861 /* BlockedUsersViewInput.swift in Sources */,
 				88E3AC271F5583DB0016357F /* SettingsInteractorInput.swift in Sources */,
+				88B94EF21F66A9F3002392F9 /* NSLock+Ext.swift in Sources */,
 				88580C6B1F2213AB00C1CBAF /* TabMenuContainerInteractorOutput.swift in Sources */,
 				884AA9861F3C563F00B85135 /* PostUserResponse.swift in Sources */,
 				884AA9561F3C563F00B85135 /* PinsAPI.swift in Sources */,
@@ -5029,6 +5042,7 @@
 				8864C8491F4707BB00ADCE13 /* SearchPresenter.swift in Sources */,
 				88580C271F2213AB00C1CBAF /* SessionService.swift in Sources */,
 				8834A7681F5067C700F1D383 /* LikesListInteractorInput.swift in Sources */,
+				88B94EEE1F66A85F002392F9 /* OutgoingActionCommand.swift in Sources */,
 				884AA94E1F3C563F00B85135 /* APIHelper.swift in Sources */,
 				88580BAA1F2213AB00C1CBAF /* SectionModel.swift in Sources */,
 				8811C8931F4334F800F7513D /* CacheableModels.swift in Sources */,
@@ -5138,6 +5152,7 @@
 				884AA9791F3C563F00B85135 /* PostFollowingUserRequest.swift in Sources */,
 				88580C231F2213AB00C1CBAF /* KeyValueStorage.swift in Sources */,
 				88D45C1A1F4491F600DCB475 /* Strings.swift in Sources */,
+				88B94EF01F66A9CF002392F9 /* AsyncOperation.swift in Sources */,
 				9C21697A1F3C68350052FB90 /* PostMenuModuleInteractor.swift in Sources */,
 				8864C8361F46DB7D00ADCE13 /* SearchPeopleViewInput.swift in Sources */,
 				88635D751F223B6600577140 /* StoreType.swift in Sources */,
@@ -5196,6 +5211,7 @@
 				8875CCF31F333835001F2474 /* SegmentedControlView.swift in Sources */,
 				8811C8981F442FCB00F7513D /* PostDetailViewOutput.swift in Sources */,
 				9C6D35A21F31D1C1005893DB /* FeedModuleViewController.swift in Sources */,
+				88B94EE81F66A4A7002392F9 /* OutgoingAction.swift in Sources */,
 				9CBD16701F3D91FE0035EAE8 /* PostMenuModuleViewController.swift in Sources */,
 				88FFFA721F30B9C90066A1A0 /* FollowersViewController.swift in Sources */,
 				884AA9581F3C563F00B85135 /* RepliesAPI.swift in Sources */,

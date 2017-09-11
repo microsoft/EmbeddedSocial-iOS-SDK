@@ -82,7 +82,7 @@ struct FeedActionRequest: Cacheable, Hashable, CustomStringConvertible {
     }()
 }
 
-class CachedActionsExecuter: NetworkStatusListener {
+class CachedActionsExecutor: NetworkStatusListener {
     
     private let cacheAdapter: FeedCacheActionsAdapterProtocol
     private let likesService: LikesServiceProtocol
@@ -176,9 +176,9 @@ class FeedActionRequestBuilder {
     static private func transformMethod(_ method: String) -> FeedActionRequest.ActionMethod {
         switch method {
         case "POST":
-            return FeedActionRequest.ActionMethod.post
+            return .post
         case "DELETE":
-            return FeedActionRequest.ActionMethod.delete
+            return .delete
         default:
             fatalError("Unexpected")
         }

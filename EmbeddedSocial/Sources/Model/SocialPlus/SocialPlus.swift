@@ -16,7 +16,7 @@ public final class SocialPlus {
     private(set) var coordinator: CrossModuleCoordinator!
     private(set) var coreDataStack: CoreDataStack!
     private(set) var cache: CacheType!
-    private(set) var outgoingCacheProcessor: CachedActionsExecuter!
+    private(set) var outgoingCacheProcessor: CachedActionsExecutor!
     fileprivate(set) var authorizationMulticast: AuthorizationMulticastType!
     
     var networkTracker: NetworkTrackerType {
@@ -65,7 +65,7 @@ public final class SocialPlus {
     }
     
     fileprivate func startOutgoingCacheProcessor() {
-        outgoingCacheProcessor = CachedActionsExecuter(isConnectionAvailable: networkTracker.isReachable,
+        outgoingCacheProcessor = CachedActionsExecutor(isConnectionAvailable: networkTracker.isReachable,
                                                        cacheAdapter: FeedCacheActionsAdapter(cache: cache),
                                                        likesService: LikesService())
         networkTracker.addListener(outgoingCacheProcessor)
