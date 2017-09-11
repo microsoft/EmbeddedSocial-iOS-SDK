@@ -43,26 +43,26 @@ class SocialService: BaseService, SocialServiceType {
     
     private var usersFeedExecutor: UsersFeedRequestExecutor!
     private var suggestedUsersExecutor: SuggestedUsersRequestExecutor!
+    private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
     
     init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
         super.init()
         usersFeedExecutor = provider.makeUsersFeedExecutor(for: self)
         suggestedUsersExecutor = provider.makeSuggestedUsersExecutor(for: self)
+        outgoingActionsExecutor = provider.makeOutgoingActionRequestExecutor(for: self)
     }
     
     func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
         let request = PostFollowingUserRequest()
         request.userHandle = userID
         
-        SocialAPI.myFollowingPostFollowingUser(request: request, authorization: authorization) { data, error in
-            self.processResponse(data, error, completion)
-        }
+        let builder = SocialAPI.myFollowingPostFollowingUserWithRequestBuilder(request: request, authorization: authorization)
+        outgoingActionsExecutor.execute(with: builder, actionType: .follow, handle: userID, completion: completion)
     }
     
     func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        SocialAPI.myFollowingDeleteFollowingUser(userHandle: userID, authorization: authorization) { data, error in
-            self.processResponse(data, error, completion)
-        }
+        let builder = SocialAPI.myFollowingDeleteFollowingUserWithRequestBuilder(userHandle: userID, authorization: authorization)
+        outgoingActionsExecutor.execute(with: builder, actionType: .unfollow, handle: userID, completion: completion)
     }
     
     func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void) {
@@ -70,18 +70,17 @@ class SocialService: BaseService, SocialServiceType {
     }
 
     func unblock(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        SocialAPI.myBlockedUsersDeleteBlockedUser(userHandle: userID, authorization: authorization) { data, error in
-            self.processResponse(data, error, completion)
-        }
+        let builder =
+            SocialAPI.myBlockedUsersDeleteBlockedUserWithRequestBuilder(userHandle: userID, authorization: authorization)
+        outgoingActionsExecutor.execute(with: builder, actionType: .unblock, handle: userID, completion: completion)
     }
     
     func block(userID: String, completion: @escaping (Result<Void>) -> Void) {
         let request = PostBlockedUserRequest()
         request.userHandle = userID
         
-        SocialAPI.myBlockedUsersPostBlockedUser(request: request, authorization: authorization) { data, error in
-            self.processResponse(data, error, completion)
-        }
+        let builder = SocialAPI.myBlockedUsersPostBlockedUserWithRequestBuilder(request: request, authorization: authorization)
+        outgoingActionsExecutor.execute(with: builder, actionType: .block, handle: userID, completion: completion)
     }
     
     private func processResponse(_ data: Object?, _ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {

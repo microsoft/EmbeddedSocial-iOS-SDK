@@ -37,8 +37,11 @@ CacheRequestExecutionStrategy<ResponseType, ResultType> where ResponseType: Cach
         if error != nil {
             errorHandler?.handle(error: error, completion: completion)
         } else {
-            let result = mapper(response)
-            completion(.success(result))
+            postProcessResult(mapper(response), completion: completion)
         }
+    }
+    
+    func postProcessResult(_ result: ResultType, completion: @escaping (Result<ResultType>) -> Void) {
+        completion(.success(result))
     }
 }

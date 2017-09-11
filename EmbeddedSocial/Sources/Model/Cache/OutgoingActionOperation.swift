@@ -6,7 +6,7 @@
 import Foundation
 
 class OutgoingActionOperation: AsyncOperation {
-    private let action: OutgoingAction
+    let action: OutgoingAction
     
     init(action: OutgoingAction) {
         self.action = action
@@ -20,13 +20,5 @@ class SocialActionOperation: OutgoingActionOperation {
     init(socialService: SocialServiceType, action: OutgoingAction) {
         self.socialService = socialService
         super.init(action: action)
-    }
-}
-
-final class FollowOperation: SocialActionOperation {
-//    init(userID: String, )
-    
-    override func main() {
-        socialService.follow(userID: <#T##String#>, completion: <#T##(Result<Void>) -> Void#>)
     }
 }

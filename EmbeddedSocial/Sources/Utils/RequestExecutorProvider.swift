@@ -5,11 +5,13 @@
 
 import Foundation
 
-typealias UsersFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
+typealias UsersFeedRequestExecutor = UsersListRequestExecutionStrategy
 
 typealias TopicsFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseTopicView, FeedFetchResult>
 
 typealias SuggestedUsersRequestExecutor = CacheRequestExecutionStrategy<[UserCompactView], UsersListResponse>
+
+typealias OutgoingActionRequestExecutor = OutgoingActionRequestExecutionStrategy<Object>
 
 protocol CacheRequestExecutorProviderType {
     static func makeUsersFeedExecutor(for service: BaseService) -> UsersFeedRequestExecutor
@@ -17,15 +19,17 @@ protocol CacheRequestExecutorProviderType {
     static func makeTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor
     
     static func makeSuggestedUsersExecutor(for service: BaseService) -> SuggestedUsersRequestExecutor
+    
+    static func makeOutgoingActionRequestExecutor(for service: BaseService) -> OutgoingActionRequestExecutor
 }
 
 struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
 
     static func makeUsersFeedExecutor(for service: BaseService) -> UsersFeedRequestExecutor {
-        let executor = makeCommonExecutor(requestType: FeedResponseUserCompactView.self,
-                                          responseType: UsersListResponse.self,
-                                          service: service)
+        let executor = UsersListRequestExecutionStrategy()
+        bind(service: service, to: executor)
         executor.mapper = UsersListResponse.init
+        executor.actionsProcessor = OutgoingActionsProcessor(cache: service.cache)
         return executor
     }
     
@@ -40,6 +44,13 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
     static func makeSuggestedUsersExecutor(for service: BaseService) -> SuggestedUsersRequestExecutor {
         let executor = SuggestedUsersRequestExecutionStrategy()
         bind(service: service, to: executor)
+        return executor
+    }
+    
+    static func makeOutgoingActionRequestExecutor(for service: BaseService) -> OutgoingActionRequestExecutor {
+        let executor = OutgoingActionRequestExecutor()
+        executor.cache = service.cache
+        executor.errorHandler = service.errorHandler
         return executor
     }
     

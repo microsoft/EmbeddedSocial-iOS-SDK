@@ -13,62 +13,58 @@ class OutgoingAction {
         case delete  = "DELETE"
     }
     
-    let url: String
-    let method: HTTPMethod
-    fileprivate(set) var handle: String
+    enum ActionType: String {
+        case follow
+        case unfollow
+        case block
+        case unblock
+    }
     
-    init(url: String, method: HTTPMethod, handle: String) {
-        _ = OutgoingAction.__once_initDecoder
-        
-        self.url = url
+    let type: ActionType
+    let method: HTTPMethod
+    fileprivate(set) var entityHandle: String
+    
+    var combinedHandle: String {
+        return "\(type)-\(method)-\(entityHandle)"
+    }
+    
+    required init(type: ActionType, method: HTTPMethod, entityHandle: String) {        
+        self.type = type
         self.method = method
-        self.handle = handle
+        self.entityHandle = entityHandle
     }
     
     init?(json: [String: Any]) {
-        _ = OutgoingAction.__once_initDecoder
-        
-        guard let handle = json["handle"] as? String,
+        guard let entityHandle = json["entityHandle"] as? String,
             let rawMethod = json["method"] as? String,
             let method = HTTPMethod(rawValue: rawMethod),
-            let url = json["url"] as? String else {
+            let rawType = json["type"] as? String,
+            let type = ActionType(rawValue: rawType)
+            else {
                 return nil
         }
-        self.url = url
-        self.handle = handle
+        self.type = type
+        self.entityHandle = entityHandle
         self.method = method
     }
-    
-    static let __once_initDecoder: () = {
-        Decoders.addDecoder(clazz: OutgoingAction.self) { source, instance in
-            guard let payload = source as? [String: Any],
-                let item = OutgoingAction(json: payload)
-                else {
-                    return .failure(.typeMismatch(expected: "OutgoingAction", actual: "\(source)"))
-            }
-            return .success(item)
-        }
-    }()
 }
 
 extension OutgoingAction: Cacheable {
     
     func setHandle(_ handle: String?) {
-        guard let handle = handle else { return }
-        self.handle = handle
+        // nothing
     }
     
     func getHandle() -> String? {
-        return handle
+        return combinedHandle
     }
     
     func encodeToJSON() -> Any {
-        let encoded: [String: Any?] = [
-            "handle": handle,
+        return [
+            "entityHandle": entityHandle,
             "method": method.rawValue,
-            "url": url
+            "type": type.rawValue
         ]
-        return encoded.flatMap { $0 }
     }
 }
 
@@ -79,13 +75,13 @@ extension OutgoingAction: Hashable {
     }
     
     var hashValue: Int {
-        return url.hashValue ^ handle.hashValue ^ method.hashValue
+        return type.hashValue ^ entityHandle.hashValue ^ method.hashValue
     }
 }
 
 extension OutgoingAction: CustomStringConvertible {
     
     var description: String {
-        return "\(url) \(method) \(handle)"
+        return combinedHandle
     }
 }

@@ -10,7 +10,7 @@ public final class SocialPlus {
     public static let shared = SocialPlus()
     
     fileprivate let queue = DispatchQueue(label: "Social Plus read-write queue")
-
+    
     private(set) var sessionStore: SessionStore!
     private(set) var serviceProvider: SocialPlusServicesType!
     private(set) var coordinator: CrossModuleCoordinator!
@@ -18,6 +18,8 @@ public final class SocialPlus {
     private(set) var cache: CacheType!
     private(set) var outgoingCacheProcessor: CachedActionsExecutor!
     fileprivate(set) var authorizationMulticast: AuthorizationMulticastType!
+    
+    private(set) var daemons: [Daemon] = []
     
     var networkTracker: NetworkTrackerType {
         return serviceProvider.getNetworkTracker()
@@ -62,6 +64,14 @@ public final class SocialPlus {
         } else {
             coordinator.openPopularScreen()
         }
+        
+        startDaemons()
+    }
+    
+    private func startDaemons() {
+        let outgoingCacheDaemon = OutgoingCacheDaemon(networkTracker: networkTracker, cache: cache)
+        daemons.append(outgoingCacheDaemon)
+        outgoingCacheDaemon.start()
     }
     
     fileprivate func startOutgoingCacheProcessor() {
