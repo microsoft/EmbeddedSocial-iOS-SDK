@@ -53,6 +53,7 @@ class ReplyCell: UICollectionViewCell {
     }
     
     @IBAction func actionsPressed(_ sender: Any) {
+        replyView.onAction?(.extra, tag)
     }
     
     @IBAction func toProfile(_ sender: Any) {

@@ -68,6 +68,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     }
     
     func show(post: Post) {
+        mediaButton.imageView?.contentMode = .scaleAspectFill
         postBodyTextView.text = post.text
         titleTextField.text = post.title
         postBodyTextViewHeightConstraint.constant = postBodyTextView.contentSize.height
@@ -129,6 +130,7 @@ extension CreatePostViewController: ImagePickerDelegate {
     }
 
     func selected(photo: Photo) {
+        mediaButton.setTitle(nil, for: .normal)
         mediaButtonHeightConstraint.priority = 250
         self.photo = photo
         let image = photo.image

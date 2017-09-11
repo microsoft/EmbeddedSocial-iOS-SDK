@@ -36,6 +36,10 @@ private class MockLikeSerivce: LikesServiceProtocol {
 }
 
 private class MockRepliesService: RepliesServiceProtcol {
+    
+    func delete(replyHandle: String, completion: @escaping ((Result<Void>) -> Void)) {
+        completion(.success())
+    }
 
     func reply(replyHandle: String, cachedResult: @escaping ReplyHandler, success: @escaping ReplyHandler, failure: @escaping Failure) {
         let reply = Reply()

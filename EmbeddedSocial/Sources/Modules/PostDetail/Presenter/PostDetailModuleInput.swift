@@ -4,5 +4,5 @@
 //
 
 protocol PostDetailModuleInput: class {
-
+    func commentRemoved(comment: Comment)
 }

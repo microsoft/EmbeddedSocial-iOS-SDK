@@ -8,7 +8,12 @@ import SKPhotoBrowser
 class CommentCellRouter: CommentCellRouterInput {
     
     var navigationController: UINavigationController?
+    weak var postMenuModuleOutput: PostMenuModuleOutput!
+    weak var moduleInput: CommentCellPresenter!
     var loginOpener: LoginModalOpener?
+    
+    // Keeping ref to menu
+    private var postMenuViewController: UIViewController?
     
     func openReplies(scrollType: RepliesScrollType, commentModulePresenter: CommentCellModuleProtocol) {
         let configurator = CommentRepliesModuleConfigurator()
@@ -37,7 +42,29 @@ class CommentCellRouter: CommentCellRouterInput {
         navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
+    func openMyCommentOptions(comment: Comment) {
+        configureOptions(type: .myComment(comment: comment))
+    }
+    
     func openLogin() {
         loginOpener?.openLogin(parentViewController: navigationController)
+    }
+    
+    func openOtherCommentOptions(comment: Comment) {
+        configureOptions(type: .otherComment(comment: comment))
+    }
+    
+    private func configureOptions(type: PostMenuType) {
+        let configurator = PostMenuModuleConfigurator()
+        
+        configurator.configure(menuType: type,
+                               moduleOutput: moduleInput,
+                               navigationController: navigationController)
+        postMenuViewController = configurator.viewController
+        
+        if let parent = navigationController?.viewControllers.last {
+            postMenuViewController!.modalPresentationStyle = .overCurrentContext
+            parent.present(postMenuViewController!, animated: false, completion: nil)
+        }
     }
 }

@@ -9,9 +9,9 @@ import SKPhotoBrowser
 
 fileprivate enum CommentsSections: Int {
     case post = 0
-    case loadMore = 1
-    case comments = 2
-    case sectionsCount = 3
+    case loadMore
+    case comments
+    case sectionsCount
 }
 
 class PostDetailViewController: BaseViewController, PostDetailViewInput {
@@ -83,6 +83,11 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     func updateLoadingCell() {
         collectionView.reloadItems(at: [IndexPath(item: 0, section: CommentsSections.loadMore.rawValue)])
+    }
+
+    
+    func removeComment(index: Int) {
+        collectionView.deleteItems(at: [IndexPath(item: index, section: CommentsSections.comments.rawValue)])
     }
 
     func updateComments() {
@@ -249,7 +254,7 @@ extension PostDetailViewController: UICollectionViewDataSource {
         case CommentsSections.comments.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
             let config = CommentCellModuleConfigurator()
-            config.configure(cell: cell, comment: output.comment(at: indexPath.row), navigationController: self.navigationController)
+            config.configure(cell: cell, comment: output.comment(at: indexPath.row), navigationController: self.navigationController, moduleOutput: self.output as! PostDetailModuleInput)
             cell.repliesButton.isHidden = false
             cell.tag = indexPath.row
             return cell

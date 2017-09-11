@@ -8,6 +8,7 @@ protocol CommentRepliesViewInput: class {
     func reloadTable(scrollType: RepliesScrollType)
     func reloadReplies()
     func refreshReplyCell(index: Int)
+    func removeReply(index: Int)
     func refreshCommentCell()
     func replyPosted()
     func lockUI()

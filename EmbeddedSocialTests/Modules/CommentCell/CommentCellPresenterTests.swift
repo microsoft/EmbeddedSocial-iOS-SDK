@@ -26,10 +26,17 @@ class CommentCellPresenterTests: XCTestCase {
         presenter.router = router
         presenter.view = view
         presenter.interactor = interactor
+        
+        let commentHandle = "Handle"
+        let comment = Comment()
+        comment.commentHandle = commentHandle
+        comment.userHandle = "user"
+        presenter.comment = comment
     }
     
     override func tearDown() {
         super.tearDown()
+        presenter.comment = nil
         presenter = nil
         interactor = nil
         view = nil
@@ -40,11 +47,7 @@ class CommentCellPresenterTests: XCTestCase {
     func testThatCommentLikedAndUnliked() {
 
         //given
-        let commentHandle = "Handle"
-        let comment = Comment()
-        comment.commentHandle = commentHandle
-        comment.userHandle = "user"
-        presenter.comment = comment
+
 
         //when like
         presenter.like()
@@ -62,14 +65,10 @@ class CommentCellPresenterTests: XCTestCase {
     func testThatRepliesOpen() {
     
         //given
-        let commentHandle = "Handle"
-        let comment = Comment()
-        comment.commentHandle = commentHandle
-        comment.userHandle = "user"
-        presenter.comment = comment
+
 
         //when
-        router.openReplies(scrollType: .none, commentModulePresenter: presenter)
+        presenter.toReplies(scrollType: .none)
 
         //then
         XCTAssertEqual(router.openRepliesCount, 1)
@@ -78,14 +77,9 @@ class CommentCellPresenterTests: XCTestCase {
     func testThatUserOpen() {
 
         //given
-        let commentHandle = "Handle"
-        let comment = Comment()
-        comment.commentHandle = commentHandle
-        comment.userHandle = "user"
-        presenter.comment = comment
 
         //when
-        router.openUser(userHandle: comment.userHandle!)
+        presenter.avatarPressed()
 
         //then
         XCTAssertEqual(router.openUserCount, 1)
@@ -94,15 +88,10 @@ class CommentCellPresenterTests: XCTestCase {
     func testThatPhotoOpen() {
 
         //given
-        let commentHandle = "Handle"
-        let comment = Comment()
-        comment.commentHandle = commentHandle
-        comment.userHandle = "user"
-        comment.mediaUrl = "url"
-        presenter.comment = comment
+        presenter.comment.mediaUrl = "url"
 
         //when
-        router.openImage(imageUrl: comment.mediaUrl!)
+        presenter.mediaPressed()
         
         //then
         XCTAssertEqual(router.openImageCount, 1)
@@ -110,10 +99,9 @@ class CommentCellPresenterTests: XCTestCase {
     
     func testThatLikesOpen() {
         //given
-        let commentHandle = "Handle"
         
         //when
-        router.openLikes(commentHandle: commentHandle)
+        presenter.likesPressed()
         
         //then
         XCTAssertEqual(router.openLikesCount, 1)
@@ -129,4 +117,5 @@ class CommentCellPresenterTests: XCTestCase {
         // then
         XCTAssertEqual(router.openLoginCount, 1)
     }
+    
 }
