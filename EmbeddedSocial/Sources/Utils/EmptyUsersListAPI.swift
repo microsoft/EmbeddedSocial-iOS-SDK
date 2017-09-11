@@ -8,7 +8,7 @@ import Foundation
 struct EmptyUsersListAPI: UsersListAPI {
     
     func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        let response = UsersListResponse(users: [], cursor: nil)
+        let response = UsersListResponse(users: [], cursor: nil, isFromCache: false)
         completion(.success(response))
     }
 }

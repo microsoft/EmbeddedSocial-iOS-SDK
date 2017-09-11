@@ -30,7 +30,7 @@ class UserListInteractorTests: XCTestCase {
     func testThatItGetsUsersList() {
         // given
         let users = [User(), User(), User()]
-        let result: Result<UsersListResponse> = .success(UsersListResponse(users: users, cursor: nil))
+        let result: Result<UsersListResponse> = .success(UsersListResponse(users: users, cursor: nil, isFromCache: false))
         usersAPI.resultToReturn = result
         
         // when
@@ -53,7 +53,7 @@ class UserListInteractorTests: XCTestCase {
     
     func testThatItSetsCorrectLoadingState(cursor: String?, shouldHaveMoreItems: Bool) {
         // given
-        usersAPI.resultToReturn = .success(UsersListResponse(users: [], cursor: cursor))
+        usersAPI.resultToReturn = .success(UsersListResponse(users: [], cursor: cursor, isFromCache: false))
         
         // when
         let expectation = self.expectation(description: #function)
@@ -95,6 +95,40 @@ class UserListInteractorTests: XCTestCase {
             XCTAssertTrue(result.isSuccess)
         }
         
+        wait(for: [expectation], timeout: timeout)
+    }
+    
+    func testThatItSkipsCacheWhenReloadsList() {
+        // given
+        let shortTimeout: TimeInterval = 0.1
+        let users = [User(), User(), User()]
+        usersAPI.resultToReturn = .success(UsersListResponse(users: users, cursor: nil, isFromCache: true))
+        
+        // when
+        let expectation = self.expectation(description: #function)
+        expectation.isInverted = true
+        sut.reloadList { receivedUsers in
+            expectation.fulfill()
+            
+            // then
+            XCTAssertEqual(receivedUsers.value ?? [], users)
+        }
+        wait(for: [expectation], timeout: shortTimeout)
+    }
+    
+    func testThatItReloadsList() {
+        // given
+        let users = [User(), User(), User()]
+        usersAPI.resultToReturn = .success(UsersListResponse(users: users, cursor: nil, isFromCache: false))
+        
+        // when
+        let expectation = self.expectation(description: #function)
+        sut.reloadList { receivedUsers in
+            expectation.fulfill()
+            
+            // then
+            XCTAssertEqual(receivedUsers.value ?? [], users)
+        }
         wait(for: [expectation], timeout: timeout)
     }
 }

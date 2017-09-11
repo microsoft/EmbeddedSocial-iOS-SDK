@@ -19,4 +19,6 @@ protocol UserListViewInput: class {
     func setListHeaderView(_ view: UIView?)
     
     func removeUser(_ user: User)
+    
+    func endPullToRefreshAnimation()
 }

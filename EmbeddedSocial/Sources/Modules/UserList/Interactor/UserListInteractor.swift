@@ -13,6 +13,7 @@ class UserListInteractor: UserListInteractorInput {
     private var api: UsersListAPI
     private let socialService: SocialServiceType
     private var pages: [Page] = []
+    private var pendingPages: Set<String> = Set()
     
     var isLoadingList = false {
         didSet {
@@ -56,29 +57,46 @@ class UserListInteractor: UserListInteractorInput {
     
     func setAPI(_ api: UsersListAPI) {
         self.api = api
+        resetLoadingState()
+    }
+    
+    private func resetLoadingState() {
         pages = []
         isLoadingList = false
+        pendingPages = Set()
+    }
+    
+    func reloadList(completion: @escaping (Result<[User]>) -> Void) {
+        resetLoadingState()
+        getNextListPage(skipCache: true, completion: completion)
     }
     
     func getNextListPage(completion: @escaping (Result<[User]>) -> Void) {
+        getNextListPage(skipCache: false, completion: completion)
+    }
+    
+    private func getNextListPage(skipCache: Bool, completion: @escaping (Result<[User]>) -> Void) {
         isLoadingList = true
         
         let pageID = UUID().uuidString
+        pendingPages.insert(pageID)
         
-        api.getUsersList(cursor: listState.cursor, limit: Constants.UserList.pageSize) { [weak self] result in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            if let response = result.value {
-                let page = Page(uid: pageID, response: response)
-                strongSelf.addUniquePage(page)
-                completion(.success(strongSelf.listState.items))
-            } else {
-                completion(.failure(result.error ?? APIError.unknown))
-            }
-            
-            strongSelf.isLoadingList = false
+        api.getUsersList(
+            cursor: listState.cursor,
+            limit: Constants.UserList.pageSize,
+            skipCache: skipCache) { [weak self] result in
+                
+                guard let strongSelf = self, strongSelf.pendingPages.contains(pageID) else { return }
+                
+                if let response = result.value {
+                    let page = Page(uid: pageID, response: response)
+                    strongSelf.addUniquePage(page)
+                    completion(.success(strongSelf.listState.items))
+                } else {
+                    completion(.failure(result.error ?? APIError.unknown))
+                }
+                
+                strongSelf.isLoadingList = false
         }
     }
     

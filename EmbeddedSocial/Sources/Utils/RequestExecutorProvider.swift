@@ -25,7 +25,8 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
         let executor = makeCommonExecutor(requestType: FeedResponseUserCompactView.self,
                                           responseType: UsersListResponse.self,
                                           service: service)
-        executor.mapper = UsersListResponse.init
+        executor.mapper = { UsersListResponse(response: $0, isFromCache: false) }
+        executor.cacheMapper = { UsersListResponse(response: $0, isFromCache: true) }
         return executor
     }
     
@@ -34,6 +35,7 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
                                           responseType: FeedFetchResult.self,
                                           service: service)
         executor.mapper = FeedFetchResult.init
+        executor.cacheMapper = FeedFetchResult.init
         return executor
     }
     

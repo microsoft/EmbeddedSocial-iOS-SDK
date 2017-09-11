@@ -73,4 +73,12 @@ final class MockUserListView: UIView, UserListViewInput {
         removeUserCalled = true
         removeUserReceivedUser = user
     }
+    
+    //MARK: - endPullToRefreshAnimation
+
+    var endPullToRefreshAnimationCalled = false
+
+    func endPullToRefreshAnimation() {
+        endPullToRefreshAnimationCalled = true
+    }
 }
