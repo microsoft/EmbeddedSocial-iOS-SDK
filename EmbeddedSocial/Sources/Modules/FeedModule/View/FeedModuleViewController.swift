@@ -14,7 +14,8 @@ protocol FeedModuleViewInput: class {
     func reload()
     func reload(with index: Int)
     func reloadVisible()
-    func removeItem(index: Int)
+    func insertNewItems(with paths: [IndexPath])
+    func removeItems(with paths: [IndexPath])
     // Turns off "pull to refresh"
     func setRefreshing(state: Bool)
     // Turns on/off loading indicator
@@ -182,10 +183,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     private func updateFlowLayoutForList(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
-        let padding = Constants.FeedModule.Collection.gridCellsPadding
+        let padding = paddingEnabled ? Constants.FeedModule.Collection.gridCellsPadding : 0
         layout.minimumLineSpacing = Constants.FeedModule.Collection.rowsMargin
         layout.sectionInset = UIEdgeInsets(top: padding , left: padding , bottom: padding , right: padding )
-        layout.estimatedItemSize = CGSize(width: containerWidth, height: CGFloat(0))
+        layout.itemSize = CGSize(width: containerWidth, height: CGFloat(0))
     }
     
     private func numberOfItemsInList(_ layout: UICollectionViewFlowLayout, in rect: CGRect) -> Int {
@@ -215,13 +216,9 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     fileprivate func calculateCellSizeWith(viewModel: PostViewModel) -> CGSize {
         
         sizingCell.configure(with: viewModel, collectionView: nil)
-    
-        sizingCell.needsUpdateConstraints()
-        sizingCell.updateConstraints()
-        sizingCell.setNeedsLayout()
-        sizingCell.layoutIfNeeded()
-        
-        var size = sizingCell.container.bounds.size
+ 
+        var size = CGSize.zero
+        size.height = sizingCell.getHeight(with: 0)
         size.width = containerWidth()
 
         return size
@@ -285,11 +282,11 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func setRefreshingWithBlocking(state: Bool) {
         Logger.log(state)
         if state {
-            collectionView.isUserInteractionEnabled = false
+//            collectionView.isUserInteractionEnabled = false
             SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.none)
             SVProgressHUD.show()
         } else {
-            collectionView.isUserInteractionEnabled = true
+//            collectionView.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
         }
     }
@@ -297,15 +294,27 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func reloadVisible() {
         Logger.log()
         if let paths = collectionView?.indexPathsForVisibleItems {
-            collectionView?.reloadItems(at: paths)
+            collectionView.performBatchUpdates({ 
+                self.collectionView?.reloadItems(at: paths)
+            }, completion: nil)
         }
     }
     
-    func removeItem(index: Int) {
+    func insertNewItems(with paths:[IndexPath]) {
+        Logger.log()
+        weak var collection = collectionView
+        collectionView?.performBatchUpdates({ 
+            collection?.insertItems(at: paths)
+        }, completion:nil)
+    }
+    
+    func removeItems(with paths: [IndexPath]) {
         Logger.log(index)
-        collectionView?.performBatchUpdates({ [weak self] in
-            self?.collectionView?.deleteItems(at: [IndexPath(item: index, section: 0)])
-        }, completion: nil)
+        collectionView?.performBatchUpdates({
+            self.collectionView?.deleteItems(at: paths)
+        }, completion:  { _ in
+            self.reloadVisible()
+        })
     }
     
     func reload() {
@@ -349,22 +358,22 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         return cell as! UICollectionViewCell
     }
     
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        
-//        if collectionViewLayout === listLayout {
-//            
-//            let item = output.item(for: indexPath)
-//
-//            return calculateCellSizeWith(viewModel: item)
-//            
-//        } else if collectionViewLayout === gridLayout {
-//            return gridLayout.itemSize
-//        } else {
-//            fatalError("Unexpected")
-//        }
-//    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if collectionViewLayout === listLayout {
+            
+            let item = output.item(for: indexPath)
+
+            return calculateCellSizeWith(viewModel: item)
+            
+        } else if collectionViewLayout === gridLayout {
+            return gridLayout.itemSize
+        } else {
+            fatalError("Unexpected")
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         output.didTapItem(path: indexPath)

@@ -247,6 +247,7 @@
                 <outlet property="commentButton" destination="6te-RD-RH1" id="xkP-Ou-RAJ"/>
                 <outlet property="commentedCount" destination="G0a-2Y-w6G" id="esK-Sf-Tqv"/>
                 <outlet property="container" destination="OEZ-HU-KUq" id="x2e-LX-oXB"/>
+                <outlet property="dynamicElement" destination="iJH-I2-d58" id="No9-pb-vRV"/>
                 <outlet property="likeButton" destination="2C6-WJ-LvS" id="wCV-ro-zLw"/>
                 <outlet property="likedCount" destination="YLh-Pw-0g4" id="gWy-99-c0x"/>
                 <outlet property="pinButton" destination="LTY-SJ-7jo" id="uwC-Md-bG8"/>
@@ -256,6 +257,9 @@
                 <outlet property="postTitle" destination="WYk-wD-2lQ" id="OJU-HT-vgq"/>
                 <outlet property="userName" destination="xH5-qG-Dco" id="hja-Z9-zzS"/>
                 <outlet property="userPhoto" destination="bYI-rM-xRs" id="QLN-qh-MaP"/>
+                <outletCollection property="staticHeigthElements" destination="tng-AR-z1W" collectionClass="NSMutableArray" id="T9L-U5-wfi"/>
+                <outletCollection property="staticHeigthElements" destination="3kI-kt-ADv" collectionClass="NSMutableArray" id="8NC-73-82r"/>
+                <outletCollection property="staticHeigthElements" destination="Ugb-5x-70X" collectionClass="NSMutableArray" id="4NW-ak-g0T"/>
             </connections>
             <point key="canvasLocation" x="100" y="-110"/>
         </view>

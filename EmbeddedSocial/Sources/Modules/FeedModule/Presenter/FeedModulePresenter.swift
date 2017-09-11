@@ -394,22 +394,46 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
+        let cachedNumberOfItems = items.count
+        
         cursor = feed.cursor
         items = feed.items
         
-        view.reload()
+        let shouldAddItems = items.count > cachedNumberOfItems
+        let shouldRemoveItems = items.count < cachedNumberOfItems
+        
+        if shouldAddItems {
+            let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
+            view.insertNewItems(with: paths)
+        }
+        else if shouldRemoveItems {
+            let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
+            view.removeItems(with: paths)
+        }
+        else {
+            Logger.log(items.count, cachedNumberOfItems)
+            view.reloadVisible()
+        }
     }
     
     func didFetchMore(feed: Feed) {
         
-        guard feedType == feed.feedType else {
-            return
-        }
+        guard feedType == feed.feedType else { return }
         
+        let cachedNumberOfItems = items.count
+    
         cursor = feed.cursor
         appendWithReplacing(original: &items, appending: feed.items)
         
-        view.reload()
+        let newItemsArrived = items.count > cachedNumberOfItems
+        
+        if newItemsArrived {
+            let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
+            view.insertNewItems(with: paths)
+        }
+        else {
+            view.reloadVisible()
+        }
     }
     
     func didFail(error: FeedServiceError) {
@@ -576,7 +600,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     private func didRemoveItem(post: PostHandle) {
         if let index = items.index(where: { $0.topicHandle == post }) {
             items.remove(at: index)
-            view.removeItem(index: index)
+            view.removeItems(with: [IndexPath(row: index, section: 0)])
         }
     }
     

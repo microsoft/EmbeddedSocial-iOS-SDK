@@ -146,12 +146,15 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     func getHeight(with width: CGFloat) -> CGFloat {
         
-        
         let staticElementsHeight = staticHeigthElements.reduce(0) { result, view in
             return result + view.frame.size.height
         }
         
-        return staticElementsHeight
+        let dynamicHeight = dynamicElement.systemLayoutSizeFitting(self.bounds.size).height
+    
+        let result = [staticElementsHeight, dynamicHeight].reduce(0.0, +)
+    
+        return result
     }
     
     // MARK: Private
@@ -168,4 +171,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     private lazy var userImagePlaceholder: UIImage = {
         return UIImage(asset: Asset.userPhotoPlaceholder)
     }()
+    
+    deinit {
+        Logger.log()
+    }
 }

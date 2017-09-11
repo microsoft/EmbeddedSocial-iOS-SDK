@@ -38,7 +38,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     
     func handleFetch(result: FeedFetchResult, feedType: FeedType, isLoadingMore: Bool = false) {
         
-        output.didFinishFetching()
+        defer { output.didFinishFetching() }
         
         guard result.error == nil else {
             output.didFail(error: result.error!)

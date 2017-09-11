@@ -9,7 +9,7 @@ import UIKit
 
 class PostCellTests: XCTestCase {
     
-
+    
     func testSka() {
         
         let aaaa = 1 + 1
@@ -19,14 +19,22 @@ class PostCellTests: XCTestCase {
     func testThatItCalculatesProperHeight() {
         
         // given
-    
-        let cell = PostCell.sizingCell()
-       
-
-        let a = 1
         
-        XCTAssert(a == 1)
-    
+        let cell = PostCell.sizingCell()
+        
+        
+        let post = Post.mock(seed: 10)
+        let model = PostViewModel(with: post, cellType: "some")
+        cell.configure(with: model, collectionView: nil)
+        
+        
+        let resultA = cell.getHeight(with: 200)
+        
+        
+        
+        let resultB = cell.getHeight(with: 200)
+        
+        XCTAssertTrue(resultA < resultB)
     }
     
     

@@ -42,7 +42,13 @@ extension Post {
     static func mock(seed: Int) -> Post {
         var post = Post()
         post.title = "Title \(seed)"
-        post.text = "\n\(seed)\nL\n\no\nn\ng\nt\ne\nx\nt"
+        
+        var text = "Post text"
+        for i in 0...seed {
+            text += "\n \(i)"
+        }
+        post.text = text
+        
         post.liked = seed % 2 == 0
         post.pinned = false
         post.totalLikes = seed
