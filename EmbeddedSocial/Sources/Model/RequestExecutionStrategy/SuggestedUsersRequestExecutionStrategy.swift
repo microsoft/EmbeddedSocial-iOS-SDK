@@ -13,7 +13,8 @@ class SuggestedUsersRequestExecutionStrategy: CacheRequestExecutionStrategy<[Use
         
         cache?.fetchIncoming(with: cacheRequest) { responseUsers in
             let users = responseUsers.map(User.init)
-            completion(.success(UsersListResponse(users: users, cursor: nil)))
+            let response = UsersListResponse(users: users, cursor: nil, isFromCache: true)
+            completion(.success(response))
         }
         
         builder.execute { [weak self] result, error in
@@ -23,7 +24,8 @@ class SuggestedUsersRequestExecutionStrategy: CacheRequestExecutionStrategy<[Use
             }
             result?.body?.forEach { self?.cache?.cacheIncoming($0, for: builder.URLString) }
             let users = result?.body?.map(User.init) ?? []
-            completion(.success(UsersListResponse(users: users, cursor: nil)))
+            let response = UsersListResponse(users: users, cursor: nil, isFromCache: false)
+            completion(.success(response))
         }
     }
 }

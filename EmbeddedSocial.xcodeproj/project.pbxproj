@@ -505,6 +505,10 @@
 		88B94EDA1F62C7CD002392F9 /* SearchUpdatingTestsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94ED91F62C7CD002392F9 /* SearchUpdatingTestsHelper.swift */; };
 		88B94EDC1F62D882002392F9 /* EmptyUsersListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EDB1F62D882002392F9 /* EmptyUsersListAPI.swift */; };
 		88B94EDD1F62D89B002392F9 /* CommentCellInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A94531F5D82AE00EB0253 /* CommentCellInteractorOutput.swift */; };
+		88B94EDF1F62DD43002392F9 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EDE1F62DD43002392F9 /* AsyncOperation.swift */; };
+		88B94EE11F62DD7E002392F9 /* NSLock+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EE01F62DD7E002392F9 /* NSLock+Ext.swift */; };
+		88B94EE31F62DDAE002392F9 /* GetUsersListOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EE21F62DDAE002392F9 /* GetUsersListOperation.swift */; };
+		88B94EE51F668B99002392F9 /* UsersListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EE41F668B99002392F9 /* UsersListAPI.swift */; };
 		88BC5C4E1F2B65D0001FBDD2 /* UserProfileConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC5C401F2B65D0001FBDD2 /* UserProfileConfigurator.swift */; };
 		88BC5C4F1F2B65D0001FBDD2 /* UserProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC5C421F2B65D0001FBDD2 /* UserProfileInteractor.swift */; };
 		88BC5C501F2B65D0001FBDD2 /* UserProfileInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC5C431F2B65D0001FBDD2 /* UserProfileInteractorInput.swift */; };
@@ -1299,6 +1303,10 @@
 		88B94ED71F62C4C3002392F9 /* SearchTopicsPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTopicsPresenterTests.swift; sourceTree = "<group>"; };
 		88B94ED91F62C7CD002392F9 /* SearchUpdatingTestsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUpdatingTestsHelper.swift; sourceTree = "<group>"; };
 		88B94EDB1F62D882002392F9 /* EmptyUsersListAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyUsersListAPI.swift; sourceTree = "<group>"; };
+		88B94EDE1F62DD43002392F9 /* AsyncOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		88B94EE01F62DD7E002392F9 /* NSLock+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLock+Ext.swift"; sourceTree = "<group>"; };
+		88B94EE21F62DDAE002392F9 /* GetUsersListOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUsersListOperation.swift; sourceTree = "<group>"; };
+		88B94EE41F668B99002392F9 /* UsersListAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListAPI.swift; sourceTree = "<group>"; };
 		88BC5C401F2B65D0001FBDD2 /* UserProfileConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileConfigurator.swift; sourceTree = "<group>"; };
 		88BC5C421F2B65D0001FBDD2 /* UserProfileInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileInteractor.swift; sourceTree = "<group>"; };
 		88BC5C431F2B65D0001FBDD2 /* UserProfileInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileInteractorInput.swift; sourceTree = "<group>"; };
@@ -1968,6 +1976,7 @@
 				8846CB471F30C91D00F11EC8 /* Presenter */,
 				8874C9301F54069C002B8337 /* Router */,
 				8846CB461F30C91700F11EC8 /* View */,
+				88B94EE61F668C3D002392F9 /* Helpers */,
 			);
 			path = UserList;
 			sourceTree = "<group>";
@@ -2381,6 +2390,7 @@
 				88580AB51F2213AB00C1CBAF /* UIViewController+Alerts.swift */,
 				882CAF181F616CCB001D5F37 /* UIViewController+Ext.swift */,
 				88E3AC4D1F55C0E10016357F /* UIViewController+HUD.swift */,
+				88B94EE01F62DD7E002392F9 /* NSLock+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2820,6 +2830,7 @@
 			children = (
 				88580B9A1F2213AB00C1CBAF /* Validators */,
 				889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */,
+				88B94EE21F62DDAE002392F9 /* GetUsersListOperation.swift */,
 				8811C8331F3DE8A500F7513D /* AssociatedValue.swift */,
 				882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */,
 				88087B451F2A431E00A33E9A /* ButtonDecorator.swift */,
@@ -2847,6 +2858,7 @@
 				881060F81F28E502008CA2FB /* UIButtonStyles.swift */,
 				8811C8201F3C6D2400F7513D /* UITestsHelper.swift */,
 				889510871F3B2539001A53F5 /* UnauthorizedErrorHandler.swift */,
+				88B94EDE1F62DD43002392F9 /* AsyncOperation.swift */,
 				8875CCF01F331FC9001F2474 /* UsersListResponse.swift */,
 			);
 			path = Utils;
@@ -3365,6 +3377,14 @@
 				88B94ED31F62C446002392F9 /* MockSearchTopicsView.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		88B94EE61F668C3D002392F9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				88B94EE41F668B99002392F9 /* UsersListAPI.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		88BC5C3E1F2B65D0001FBDD2 /* UserProfile */ = {
@@ -4632,6 +4652,7 @@
 				88E3AC331F55A01D0016357F /* RelatedHandleMixin.swift in Sources */,
 				884AA9821F3C563F00B85135 /* PostTopicNameRequest.swift in Sources */,
 				88580BBF1F2213AB00C1CBAF /* UIButton+Ext.swift in Sources */,
+				88B94EE51F668B99002392F9 /* UsersListAPI.swift in Sources */,
 				88580C701F2213AB00C1CBAF /* TabMenuContainerViewController.swift in Sources */,
 				881429201F4B19F400FC9F1E /* MyProfileOpener.swift in Sources */,
 				88580C161F2213AB00C1CBAF /* SocialUser.swift in Sources */,
@@ -4657,6 +4678,7 @@
 				88E3AC311F559D0B0016357F /* HandleMixin.swift in Sources */,
 				88580C791F2213AB00C1CBAF /* Reusable.swift in Sources */,
 				883E1E4B1F546517004B4861 /* BlockedUsersViewInput.swift in Sources */,
+				88B94EE31F62DDAE002392F9 /* GetUsersListOperation.swift in Sources */,
 				88E3AC271F5583DB0016357F /* SettingsInteractorInput.swift in Sources */,
 				88580C6B1F2213AB00C1CBAF /* TabMenuContainerInteractorOutput.swift in Sources */,
 				884AA9861F3C563F00B85135 /* PostUserResponse.swift in Sources */,
@@ -4857,6 +4879,7 @@
 				88580C671F2213AB00C1CBAF /* TabMenuContainerConfigurator.swift in Sources */,
 				884AA95D1F3C563F00B85135 /* TopicsAPI.swift in Sources */,
 				88580C201F2213AB00C1CBAF /* TwitterWebBasedAPI.swift in Sources */,
+				88B94EE11F62DD7E002392F9 /* NSLock+Ext.swift in Sources */,
 				882AD0C51F22266B00FC20B7 /* CoreDataRepository.swift in Sources */,
 				8875CCF31F333835001F2474 /* SegmentedControlView.swift in Sources */,
 				8811C8981F442FCB00F7513D /* PostDetailViewOutput.swift in Sources */,
@@ -4980,6 +5003,7 @@
 				884AA96F1F3C563F00B85135 /* GetRequestTokenResponse.swift in Sources */,
 				9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */,
 				88580C451F2213AB00C1CBAF /* CreatePostInteractorOutput.swift in Sources */,
+				88B94EDF1F62DD43002392F9 /* AsyncOperation.swift in Sources */,
 				88D8CCB01F31CA520032FB2B /* UserListItem.swift in Sources */,
 				88580C211F2213AB00C1CBAF /* AbstractKeyValueRepository.swift in Sources */,
 				88D2F8EF1F56C60A0004A8BC /* ReportAPI.swift in Sources */,

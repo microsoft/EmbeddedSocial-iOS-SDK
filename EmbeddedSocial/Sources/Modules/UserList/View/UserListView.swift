@@ -28,6 +28,7 @@ class UserListView: UIView {
         tableView.tableFooterView = UIView()
         tableView.accessibilityIdentifier = "UserList"
         self.addSubview(tableView)
+        tableView.addSubview(self.refreshControl)
         return tableView
     }()
     
@@ -38,12 +39,23 @@ class UserListView: UIView {
         return view
     }()
     
+    fileprivate lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(onPullToRefresh), for: .valueChanged)
+        refreshControl.tintColor = Palette.lightGrey
+        return refreshControl
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    @objc private func onPullToRefresh() {
+        output.onPullToRefresh()
     }
 }
 
@@ -82,5 +94,9 @@ extension UserListView: UserListViewInput {
     
     func removeUser(_ user: User) {
         dataManager.removeUser(user)
+    }
+    
+    func endPullToRefreshAnimation() {
+        refreshControl.endRefreshing()
     }
 }

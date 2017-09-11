@@ -8,11 +8,13 @@ import Foundation
 struct UsersListResponse {
     let users: [User]
     let cursor: String?
+    let isFromCache: Bool
 }
 
 extension UsersListResponse {
-    init(response: FeedResponseUserCompactView?) {
+    init(response: FeedResponseUserCompactView?, isFromCache: Bool) {
         users = response?.data?.map(User.init) ?? []
         cursor = response?.cursor
+        self.isFromCache = isFromCache
     }
 }
