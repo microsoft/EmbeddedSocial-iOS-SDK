@@ -241,7 +241,7 @@ extension CommentRepliesViewController: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        output.loadRestReplies()
+        scrollTableToBottom()
     }
     
 }

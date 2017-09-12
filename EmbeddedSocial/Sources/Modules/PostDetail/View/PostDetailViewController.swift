@@ -294,7 +294,7 @@ extension PostDetailViewController: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        output.loadRestComments()
+        scrollCollectionViewToBottom()
     }
     
 }
