@@ -15,4 +15,5 @@ protocol PostDetailViewInput: class {
     func showHUD()
     func updateLoadingCell()
     func removeComment(index: Int)
+    func scrollCollectionViewToBottom()
 }

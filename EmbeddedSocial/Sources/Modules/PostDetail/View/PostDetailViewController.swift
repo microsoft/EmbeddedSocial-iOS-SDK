@@ -140,7 +140,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         feedView = feedViewController.view
     }
     
-    fileprivate func scrollCollectionViewToBottom() {
+    func scrollCollectionViewToBottom() {
         if  output.numberOfItems() > 1 {
             collectionView.scrollToItem(at: IndexPath(row: output.numberOfItems() - 1, section: CommentsSections.comments.rawValue), at: .bottom, animated: true)
         }
