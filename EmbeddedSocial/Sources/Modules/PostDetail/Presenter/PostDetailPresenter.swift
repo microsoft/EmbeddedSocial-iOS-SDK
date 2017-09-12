@@ -205,5 +205,9 @@ extension PostDetailPresenter: FeedModuleOutput {
     func shouldOpenProfile(for userID: String) -> Bool {
         return true
     }
+    
+    func commentsPressed() {
+        view.scrollCollectionViewToBottom()
+    }
 }
 

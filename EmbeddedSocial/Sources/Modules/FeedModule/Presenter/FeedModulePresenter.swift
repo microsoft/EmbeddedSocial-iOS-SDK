@@ -30,7 +30,7 @@ protocol FeedModuleOutput: class {
     func didStartRefreshingData()
     func didFinishRefreshingData(_ error: Error?)
     func didUpdateFeed()
-    
+    func commentsPressed()
     func shouldOpenProfile(for userID: String) -> Bool
 }
 
@@ -40,7 +40,7 @@ extension FeedModuleOutput {
     func didStartRefreshingData() { }
     func didFinishRefreshingData(_ error: Error?) { }
     func didUpdateFeed() { }
-    
+    func commentsPressed() { } 
     func shouldOpenProfile(for userID: String) -> Bool {
         return false
     }
@@ -301,6 +301,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             router.open(route: .postDetails(post: item(for: path)), feedSource: feedType!)
         case .comment:
             router.open(route: .comments(post: item(for: path)), feedSource: feedType!)
+            moduleOutput?.commentsPressed()
         case .extra:
             
             let isMyPost = (userHolder?.me?.uid == userHandle)
