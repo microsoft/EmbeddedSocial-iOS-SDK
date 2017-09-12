@@ -26,23 +26,45 @@ class OutgoingActionRequestExecutionStrategy<ResponseType> {
             }
         } else {
             cache(builder: builder, actionType: actionType, handle: handle)
-            completion(.success())
+            DispatchQueue.main.async {
+                completion(.success())
+            }
         }
     }
     
     private func cache(builder: RequestBuilder<ResponseType>, actionType: OutgoingAction.ActionType, handle: String) {
-        guard let cache = self.cache, let method = builder.httpMethod else {
+        guard let cache = self.cache else {
             return
         }
-        let action = OutgoingAction(type: actionType, method: method, entityHandle: handle)
-        cache.cacheOutgoing(action)
+        
+        let action = OutgoingAction(type: actionType, entityHandle: handle)
+        
+        if let oppositeAction = cachedOppositeAction(for: action) {
+            deleteActionFromCache(oppositeAction)
+        } else {
+            cache.cacheOutgoing(action)
+        }
+    }
+    
+    private func cachedOppositeAction(for action: OutgoingAction) -> OutgoingAction? {
+        guard let oppositeAction = action.oppositeAction else {
+            return nil
+        }
+        let predicate = PredicateBuilder.predicate(action: oppositeAction)
+        return cache?.firstOutgoing(ofType: OutgoingAction.self, predicate: predicate, sortDescriptors: nil)
+    }
+    
+    private func deleteActionFromCache(_ action: OutgoingAction) {
+        cache?.deleteOutgoing(with: PredicateBuilder.predicate(action: action))
     }
     
     private func processResponse(_ data: Object?, _ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
-        if error == nil {
-            completion(.success())
-        } else {
-            errorHandler?.handle(error: error, completion: completion)
+        DispatchQueue.main.async {
+            if error == nil {
+                completion(.success())
+            } else {
+                self.errorHandler?.handle(error: error, completion: completion)
+            }
         }
     }
 }

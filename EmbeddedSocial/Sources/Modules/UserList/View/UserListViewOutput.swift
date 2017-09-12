@@ -11,4 +11,6 @@ protocol UserListViewOutput: class {
     func onReachingEndOfPage()
     
     func onItemSelected(_ item: UserListItem)
+    
+    func onPullToRefresh()
 }

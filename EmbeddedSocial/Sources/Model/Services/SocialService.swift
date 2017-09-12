@@ -84,10 +84,12 @@ class SocialService: BaseService, SocialServiceType {
     }
     
     private func processResponse(_ data: Object?, _ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
-        if error == nil {
-            completion(.success())
-        } else {
-            errorHandler.handle(error: error, completion: completion)
+        DispatchQueue.main.async {
+            if error == nil {
+                completion(.success())
+            } else {
+                self.errorHandler.handle(error: error, completion: completion)
+            }
         }
     }
     

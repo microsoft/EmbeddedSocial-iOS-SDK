@@ -59,7 +59,7 @@ final class OutgoingCacheDaemon: Daemon, NetworkStatusListener {
             let op = OutgoingActionOperationsBuilder.operation(for: action)
             op?.completionBlock = {
                 guard op?.isCancelled != true else { return }
-                let predicate = predicateBuilder.predicate(typeID: action.typeIdentifier, handle: action.combinedHandle)
+                let predicate = predicateBuilder.predicate(action: action)
                 self?.cache.deleteOutgoing(with: predicate)
             }
             return op

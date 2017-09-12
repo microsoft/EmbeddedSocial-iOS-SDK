@@ -5,9 +5,11 @@
 
 import Foundation
 
-class AsyncOperation : Operation {
+class AsyncOperation: Operation {
     
-    override var isAsynchronous: Bool { return true }
+    override var isAsynchronous: Bool {
+        return true
+    }
     
     private let stateLock = NSLock()
     

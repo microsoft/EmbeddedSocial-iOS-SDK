@@ -28,10 +28,25 @@ enum RepliesServiceError: Error {
 protocol RepliesServiceProtcol {
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int,cachedResult:  @escaping RepliesFetchResultHandler,resultHandler: @escaping RepliesFetchResultHandler)
     func postReply(commentHandle: String, request: PostReplyRequest, success: @escaping PostReplyResultHandler, failure: @escaping Failure)
-    func reply(replyHandle: String, cachedResult: @escaping ReplyHandler , success: @escaping ReplyHandler, failure: @escaping Failure) 
+    func reply(replyHandle: String, cachedResult: @escaping ReplyHandler , success: @escaping ReplyHandler, failure: @escaping Failure)
+    func delete(replyHandle: String, completion: @escaping ((Result<Void>) -> Void))
 }
 
 class RepliesService: BaseService, RepliesServiceProtcol {
+    
+    func delete(replyHandle: String, completion: @escaping ((Result<Void>) -> Void)) {
+        let request = RepliesAPI.repliesDeleteReplyWithRequestBuilder(replyHandle: replyHandle, authorization: authorization)
+        request.execute { (response, error) in
+            request.execute { (response, error) in
+                if let error = error {
+                    self.errorHandler.handle(error: error, completion: completion)
+                } else {
+                    completion(.success())
+                }
+            }
+        }
+    }
+    
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int,cachedResult:  @escaping RepliesFetchResultHandler,resultHandler: @escaping RepliesFetchResultHandler) {
         
         let request = RepliesAPI.commentRepliesGetRepliesWithRequestBuilder(commentHandle: commentHandle, authorization: authorization, cursor: cursor, limit: Int32(limit))
@@ -168,6 +183,19 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             reply.userHandle = replyView.user?.userHandle
             reply.totalLikes = Int(replyView.totalLikes!)
             
+            if let shortUser = replyView.user {
+                switch shortUser.followerStatus! {
+                case ._none:
+                    reply.userStatus = .none
+                case .blocked:
+                    reply.userStatus = .blocked
+                case .follow:
+                    reply.userStatus = .follow
+                case .pending:
+                    reply.userStatus = .pending
+                }
+            }
+            
             let cacheRequestForReplies = CacheFetchRequest(resultType: FeedActionRequest.self, predicate: PredicateBuilder().predicate(handle: replyView.replyHandle!))
             let cacheResultForReplies = cache.fetchOutgoing(with: cacheRequestForReplies)
             
@@ -201,6 +229,13 @@ class RepliesService: BaseService, RepliesServiceProtcol {
 }
 
 class Reply {
+    enum UserStatus: Int {
+        case none
+        case follow
+        case pending
+        case blocked
+    }
+    
     var userHandle: String?
     var userFirstName: String?
     var userLastName: String?
@@ -215,6 +250,7 @@ class Reply {
     var topicHandle: String?
     var createdTime: Date?
     var lastUpdatedTime: Date?
+    var userStatus: UserStatus = .none
 }
 
 struct RepliesFetchResult {

@@ -15,10 +15,13 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     var router: CommentCellRouterInput?
     var myProfileHolder: UserHolder?
     
+    weak var postDetailsInput: PostDetailModuleInput!
+    
     var comment: Comment!
     
     // MARK: CommentCellViewOutput
     func viewIsReady() {
+     
         
     }
     
@@ -66,6 +69,16 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
         router?.openImage(imageUrl: mediaURL)
     }
     
+    func optionsPressed() {
+        let isMyComment = (SocialPlus.shared.me?.uid == comment.userHandle)
+        
+        if isMyComment {
+            router?.openMyCommentOptions(comment: comment)
+        } else {
+            router?.openOtherCommentOptions(comment: comment)
+        }
+    }
+    
     // MARK: CommentCellInteractorOutput
     func didPostAction(action: CommentSocialAction, error: Error?) {
         if error != nil {
@@ -83,4 +96,48 @@ extension CommentCellPresenter: CommentCellModuleProtocol {
     func mainComment() -> Comment {
         return comment
     }
+}
+
+extension CommentCellPresenter: PostMenuModuleOutput {
+    
+    func postMenuProcessDidStart() {
+//        view.setRefreshingWithBlocking(state: true)
+    }
+    
+    func postMenuProcessDidFinish() {
+//        view.setRefreshingWithBlocking(state: false)
+    }
+    
+    func didBlock(user: UserHandle) {
+        Logger.log("Success")
+    }
+    
+    func didUnblock(user: UserHandle) {
+        Logger.log("Success")
+    }
+    
+    func didFollow(user: UserHandle) {
+        comment.userStatus = .follow
+        view?.configure(comment: comment)
+    }
+    
+    func didUnfollow(user: UserHandle) {
+        comment.userStatus = .none
+        view?.configure(comment: comment)
+    }
+    
+    func didRemove(comment: Comment) {
+         postDetailsInput.commentRemoved(comment: comment)
+    }
+    
+    func didReport(post: PostHandle) {
+        Logger.log("Not implemented")
+    }
+    
+    func didRequestFail(error: Error) {
+        Logger.log("Reloading feed", error, event: .error)
+//        view.showError(error: error)
+//        fetchAllItems()
+    }
+
 }

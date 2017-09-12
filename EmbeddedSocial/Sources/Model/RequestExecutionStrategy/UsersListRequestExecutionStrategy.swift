@@ -12,7 +12,9 @@ CommonCacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListRespon
     
     override func postProcessResult(_ usersList: ResultType, completion: @escaping (Result<ResultType>) -> Void) {
         actionsProcessor?.applyOutgoingActions(to: usersList) { usersList in
-            completion(.success(usersList))
+            DispatchQueue.main.async {
+                completion(.success(usersList))
+            }
         }
     }
 }

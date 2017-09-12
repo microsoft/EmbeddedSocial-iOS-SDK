@@ -218,8 +218,16 @@ enum L10n {
     static let hide = L10n.tr("Localizable", "post_menu.hide")
     /// Remove post
     static let remove = L10n.tr("Localizable", "post_menu.remove")
+    /// Remove comment
+    static let removeComment = L10n.tr("Localizable", "post_menu.remove_comment")
+    /// Remove reply
+    static let removeReply = L10n.tr("Localizable", "post_menu.remove_reply")
     /// Report post
     static let report = L10n.tr("Localizable", "post_menu.report")
+    /// Report comment
+    static let reportComment = L10n.tr("Localizable", "post_menu.report_comment")
+    /// Report reply
+    static let reportReply = L10n.tr("Localizable", "post_menu.report_reply")
     /// Unblock
     static let unblock = L10n.tr("Localizable", "post_menu.unblock")
     /// Unfollow
@@ -250,6 +258,16 @@ enum L10n {
     enum User {
       /// What's the problem with this account?
       static let headerTitle = L10n.tr("Localizable", "report.user.header_title")
+    }
+    
+    enum Comment {
+        /// What's the problem with this comment?
+        static let headerTitle = L10n.tr("Localizable", "report.comment.header_title")
+    }
+    
+    enum Reply {
+        /// What's the problem with this reply?
+        static let headerTitle = L10n.tr("Localizable", "report.reply.header_title")
     }
   }
 

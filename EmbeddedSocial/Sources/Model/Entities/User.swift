@@ -17,7 +17,7 @@ struct User {
     var followingCount: Int
     var visibility: Visibility?
     var followerStatus: FollowStatus?
-    let followingStatus: FollowStatus?
+    var followingStatus: FollowStatus?
     
     var isMe: Bool {
         return credentials != nil
@@ -68,6 +68,25 @@ struct User {
         self.visibility = visibility
         self.followerStatus = followerStatus
         self.followingStatus = followingStatus
+    }
+    
+    mutating func apply(actions: [OutgoingAction]) {
+        for action in actions {
+            guard action.entityHandle == uid else { continue }
+            
+            switch action.type {
+            case .follow:
+                followerStatus = visibility == ._public ? .accepted : .pending
+            case .unfollow:
+                followerStatus = .empty
+            case .block:
+                followingStatus = .blocked
+            case .unblock:
+                followingStatus = .empty
+            default:
+                break
+            }
+        }
     }
 }
 

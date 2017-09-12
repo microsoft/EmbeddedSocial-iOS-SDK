@@ -33,14 +33,31 @@ final class OutgoingActionsProcessor: UsersListOutgoingActionsProcessor {
                 return
             }
             
-            let list = strongSelf.apply(actions: fetchActions.actions, to: usersList)
-            completion(list)
+            strongSelf.queue.addOperation {
+                let list = strongSelf.apply(actions: fetchActions.actions, to: usersList)
+                completion(list)
+            }
         }
         
         queue.addOperation(fetchActions)
     }
     
     private func apply(actions: [OutgoingAction], to usersList: UsersListResponse) -> UsersListResponse {
+        var updatedUsers: [User] = []
+        var usersList = usersList
+        
+        for var user in usersList.users {
+            let actionsToApply = actions.filter { $0.entityHandle == user.uid }
+            user.apply(actions: actionsToApply)
+            updatedUsers.append(user)
+        }
+        
+        usersList.users = updatedUsers
+        
         return usersList
     }
 }
+
+
+
+

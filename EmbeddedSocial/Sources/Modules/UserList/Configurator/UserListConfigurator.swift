@@ -5,10 +5,6 @@
 
 import Foundation
 
-protocol UsersListAPI {
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
-}
-
 struct UserListConfigurator {
     
     func configure(with settings: Settings) -> UserListModuleInput {

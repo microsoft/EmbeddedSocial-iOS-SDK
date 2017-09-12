@@ -281,6 +281,23 @@ class UserListPresenterTests: XCTestCase {
         }
     }
     
+    func testThatItCorrectlyProcessesPullToRefresh() {
+        // given
+        let users = [User(), User()]
+        interactor.reloadListReturnValue = .success(users)
+        
+        // when
+        sut.onPullToRefresh()
+        
+        // then
+        XCTAssertEqual(interactor.reloadListCount, 1)
+        
+        XCTAssertTrue(view.setUsersCalled)
+        XCTAssertEqual(view.setUsersReceivedUsers ?? [], users)
+        XCTAssertTrue(view.endPullToRefreshAnimationCalled)
+        XCTAssertFalse(view.setIsLoadingCalled)
+    }
+    
     private func validateNextPageLoaded(with users: [User]) {
         validatePageLoaded(page: 1, with: users)
     }

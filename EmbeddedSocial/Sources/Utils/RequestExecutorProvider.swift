@@ -28,7 +28,8 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
     static func makeUsersFeedExecutor(for service: BaseService) -> UsersFeedRequestExecutor {
         let executor = UsersListRequestExecutionStrategy()
         bind(service: service, to: executor)
-        executor.mapper = UsersListResponse.init
+        executor.mapper = { UsersListResponse(response: $0, isFromCache: false) }
+        executor.cacheMapper = { UsersListResponse(response: $0, isFromCache: true) }
         executor.actionsProcessor = OutgoingActionsProcessor(cache: service.cache)
         return executor
     }
@@ -38,6 +39,7 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
                                           responseType: FeedFetchResult.self,
                                           service: service)
         executor.mapper = FeedFetchResult.init
+        executor.cacheMapper = FeedFetchResult.init
         return executor
     }
     

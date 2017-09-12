@@ -7,37 +7,40 @@ import Foundation
 
 class OutgoingAction {
     
-    enum HTTPMethod: String {
-        case get = "GET"
-        case post = "POST"
-        case delete  = "DELETE"
-    }
-    
     enum ActionType: String {
         case follow
         case unfollow
         case block
         case unblock
+        
+        static func opposite(to actionType: ActionType) -> ActionType {
+            switch actionType {
+            case .follow:
+                return .unfollow
+            case .unfollow:
+                return .follow
+            case .block:
+                return .unblock
+            case .unblock:
+                return .block
+            }
+        }
     }
     
-    let type: ActionType
-    let method: HTTPMethod
+    var type: ActionType
     fileprivate(set) var entityHandle: String
     
     var combinedHandle: String {
-        return "\(type)-\(method)-\(entityHandle)"
+        return "\(type)-\(entityHandle)"
     }
     
-    required init(type: ActionType, method: HTTPMethod, entityHandle: String) {        
+    required init(type: ActionType, entityHandle: String) {
         self.type = type
-        self.method = method
         self.entityHandle = entityHandle
     }
     
     init?(json: [String: Any]) {
         guard let entityHandle = json["entityHandle"] as? String,
-            let rawMethod = json["method"] as? String,
-            let method = HTTPMethod(rawValue: rawMethod),
             let rawType = json["type"] as? String,
             let type = ActionType(rawValue: rawType)
             else {
@@ -45,7 +48,11 @@ class OutgoingAction {
         }
         self.type = type
         self.entityHandle = entityHandle
-        self.method = method
+    }
+    
+    var oppositeAction: OutgoingAction? {
+        let type = ActionType.opposite(to: self.type)
+        return OutgoingAction(type: type, entityHandle: entityHandle)
     }
 }
 
@@ -62,7 +69,6 @@ extension OutgoingAction: Cacheable {
     func encodeToJSON() -> Any {
         return [
             "entityHandle": entityHandle,
-            "method": method.rawValue,
             "type": type.rawValue
         ]
     }
@@ -75,7 +81,7 @@ extension OutgoingAction: Hashable {
     }
     
     var hashValue: Int {
-        return type.hashValue ^ entityHandle.hashValue ^ method.hashValue
+        return type.hashValue ^ entityHandle.hashValue
     }
 }
 

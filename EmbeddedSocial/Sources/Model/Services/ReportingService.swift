@@ -9,6 +9,10 @@ protocol ReportingServiceType {
     func reportUser(userID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void)
     
     func reportPost(postID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void)
+    
+    func reportComment(commentID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void)
+    
+    func reportReply(replyID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void)
 }
 
 final class ReportingService: BaseService, ReportingServiceType {
@@ -34,6 +38,24 @@ final class ReportingService: BaseService, ReportingServiceType {
             postReportRequest: request,
             authorization: authorization) { response, error in
                 self.processResponse(response: response, error: error, completion: completion)
+        }
+    }
+    
+    func reportComment(commentID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
+        let request = PostReportRequest()
+        request.reason = PostReportRequest.Reason(rawValue: reason.rawValue)
+        
+        ReportingAPI.commentReportsPostReport(commentHandle: commentID, postReportRequest: request, authorization: authorization) { (response, error) in
+            self.processResponse(response: response, error: error, completion: completion)
+        }
+    }
+    
+    func reportReply(replyID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
+        let request = PostReportRequest()
+        request.reason = PostReportRequest.Reason(rawValue: reason.rawValue)
+        
+        ReportingAPI.replyReportsPostReport(replyHandle: replyID, postReportRequest: request, authorization: authorization) { (response, error) in
+            self.processResponse(response: response, error: error, completion: completion)
         }
     }
     

@@ -129,6 +129,10 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         collectionView.reloadItems(at: [IndexPath(item: index, section: RepliesSections.replies.rawValue)])
     }
     
+    func removeReply(index: Int) {
+        collectionView.deleteItems(at: [IndexPath(item: index, section: RepliesSections.replies.rawValue)])
+    }
+    
     func reloadTable(scrollType: RepliesScrollType) {
         postButton.isHidden = replyTextView.text.isEmpty
         collectionView.reloadSections([RepliesSections.replies.rawValue])
