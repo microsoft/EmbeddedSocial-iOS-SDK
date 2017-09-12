@@ -6,13 +6,11 @@
 import UIKit
 
 protocol {{ module_info.name }}ViewInput: class {
-
-        func setupInitialState()
+    func setupInitialState()
 }
 
 protocol {{ module_info.name }}ViewOutput {
-    
-        func viewIsReady()
+    func viewIsReady()
 }
 
 class {{ module_info.name }}ViewController: UIViewController, {{module_info.name}}ViewInput {
@@ -27,5 +25,6 @@ class {{ module_info.name }}ViewController: UIViewController, {{module_info.name
 
     // MARK: {{module_info.name}}ViewInput
     func setupInitialState() {
+        
     }
 }

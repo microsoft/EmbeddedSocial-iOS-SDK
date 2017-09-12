@@ -6,13 +6,11 @@
 import UIKit
 
 protocol ActivityViewInput: class {
-
-        func setupInitialState()
+    func setupInitialState()
 }
 
 protocol ActivityViewOutput {
-    
-        func viewIsReady()
+    func viewIsReady()
 }
 
 class ActivityViewController: UIViewController, ActivityViewInput {

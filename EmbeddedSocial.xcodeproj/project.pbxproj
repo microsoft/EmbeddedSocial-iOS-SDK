@@ -710,6 +710,11 @@
 		93AC65B41F3E05DA00FE5A3A /* MockPostDetaillnteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65AE1F3E05DA00FE5A3A /* MockPostDetaillnteractor.swift */; };
 		93AC65B51F3E05DA00FE5A3A /* MockPostDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65AF1F3E05DA00FE5A3A /* MockPostDetailPresenter.swift */; };
 		9922EA70665DD200A5746F03 /* CommentCellViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506163A2149B59C12FA2F531 /* CommentCellViewInput.swift */; };
+		9C0963701F67C85F00E70C30 /* Activity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C09636F1F67C85F00E70C30 /* Activity.storyboard */; };
+		9C0963721F67CA6100E70C30 /* ActivityRequestsSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0963711F67CA6100E70C30 /* ActivityRequestsSection.xib */; };
+		9C0963741F67CA6C00E70C30 /* ActivityRecentSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0963731F67CA6C00E70C30 /* ActivityRecentSection.xib */; };
+		9C0963761F67CA8900E70C30 /* ActivityUserRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0963751F67CA8900E70C30 /* ActivityUserRequestCell.xib */; };
+		9C0963781F67CAA600E70C30 /* ActivityUserActionsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0963771F67CAA600E70C30 /* ActivityUserActionsCell.xib */; };
 		9C2169791F3C68350052FB90 /* PostMenuModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169701F3C68350052FB90 /* PostMenuModuleConfigurator.swift */; };
 		9C21697A1F3C68350052FB90 /* PostMenuModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169721F3C68350052FB90 /* PostMenuModuleInteractor.swift */; };
 		9C21697C1F3C68350052FB90 /* PostMenuModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169761F3C68350052FB90 /* PostMenuModuleRouter.swift */; };
@@ -729,6 +734,7 @@
 		9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8B1F25D60A00D0B59D /* PostCell.xib */; };
 		9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */; };
 		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
+		9C5BE9031F67D04C00F0E20E /* ActivityUserRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5BE9021F67D04C00F0E20E /* ActivityUserRequestCell.swift */; };
 		9C683AC41F5F09E70087925E /* FeedServiceAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */; };
 		9C6D359B1F31D1C1005893DB /* FeedModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531381F31CCF2004CE94F /* FeedModuleConfigurator.swift */; };
 		9C6D359C1F31D1C1005893DB /* FeedModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313A1F31CCF2004CE94F /* FeedModuleInteractor.swift */; };
@@ -1538,6 +1544,11 @@
 		93AC65B11F3E05DA00FE5A3A /* PostDetailInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailInteractorTests.swift; sourceTree = "<group>"; };
 		93AC65B21F3E05DA00FE5A3A /* PostDetailPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailPresenterTests.swift; sourceTree = "<group>"; };
 		949315E0DBBB1E08A70B6370 /* CommentRepliesInteractorOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesInteractorOutput.swift; sourceTree = "<group>"; };
+		9C09636F1F67C85F00E70C30 /* Activity.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Activity.storyboard; sourceTree = "<group>"; };
+		9C0963711F67CA6100E70C30 /* ActivityRequestsSection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityRequestsSection.xib; sourceTree = "<group>"; };
+		9C0963731F67CA6C00E70C30 /* ActivityRecentSection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityRecentSection.xib; sourceTree = "<group>"; };
+		9C0963751F67CA8900E70C30 /* ActivityUserRequestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityUserRequestCell.xib; sourceTree = "<group>"; };
+		9C0963771F67CAA600E70C30 /* ActivityUserActionsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityUserActionsCell.xib; sourceTree = "<group>"; };
 		9C2169701F3C68350052FB90 /* PostMenuModuleConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleConfigurator.swift; sourceTree = "<group>"; };
 		9C2169721F3C68350052FB90 /* PostMenuModuleInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleInteractor.swift; sourceTree = "<group>"; };
 		9C2169741F3C68350052FB90 /* PostMenuModulePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenter.swift; sourceTree = "<group>"; };
@@ -1557,6 +1568,7 @@
 		9C43EC8B1F25D60A00D0B59D /* PostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuButton.swift; sourceTree = "<group>"; };
+		9C5BE9021F67D04C00F0E20E /* ActivityUserRequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityUserRequestCell.swift; sourceTree = "<group>"; };
 		9C6244F11F457DED004814BB /* PostMenuModuleInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleInteractorTests.swift; sourceTree = "<group>"; };
 		9C6244F31F4580FC004814BB /* PostMenuModulePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenterTests.swift; sourceTree = "<group>"; };
 		9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedServiceAdapters.swift; sourceTree = "<group>"; };
@@ -1652,7 +1664,6 @@
 				C8FAD73808BFCE6DCF0DA820 /* Router */,
 				E7B726B15A159BD28ADF57BC /* Configurator */,
 			);
-			name = Activity;
 			path = Activity;
 			sourceTree = "<group>";
 		};
@@ -4037,8 +4048,13 @@
 			isa = PBXGroup;
 			children = (
 				DA2F033D2DF721ABAB8463CC /* ActivityViewController.swift */,
+				9C0963751F67CA8900E70C30 /* ActivityUserRequestCell.xib */,
+				9C0963771F67CAA600E70C30 /* ActivityUserActionsCell.xib */,
+				9C0963731F67CA6C00E70C30 /* ActivityRecentSection.xib */,
+				9C09636F1F67C85F00E70C30 /* Activity.storyboard */,
+				9C0963711F67CA6100E70C30 /* ActivityRequestsSection.xib */,
+				9C5BE9021F67D04C00F0E20E /* ActivityUserRequestCell.swift */,
 			);
-			name = View;
 			path = View;
 			sourceTree = "<group>";
 		};
@@ -4339,7 +4355,6 @@
 			children = (
 				BE7D29B032CB7147FB81C41A /* ActivityInteractor.swift */,
 			);
-			name = Interactor;
 			path = Interactor;
 			sourceTree = "<group>";
 		};
@@ -4348,7 +4363,6 @@
 			children = (
 				F35AC4A39014F4C18D39AA62 /* ActivityRouter.swift */,
 			);
-			name = Router;
 			path = Router;
 			sourceTree = "<group>";
 		};
@@ -4399,7 +4413,6 @@
 			children = (
 				524E91B1805A386EC77F7691 /* ActivityConfigurator.swift */,
 			);
-			name = Configurator;
 			path = Configurator;
 			sourceTree = "<group>";
 		};
@@ -4428,7 +4441,6 @@
 			children = (
 				0D2BA3344089F0C12144A229 /* ActivityPresenter.swift */,
 			);
-			name = Presenter;
 			path = Presenter;
 			sourceTree = "<group>";
 		};
@@ -4625,6 +4637,7 @@
 			files = (
 				8875CCEB1F331CB3001F2474 /* Following.storyboard in Resources */,
 				88580C551F2213AB00C1CBAF /* Login.storyboard in Resources */,
+				9C0963781F67CAA600E70C30 /* ActivityUserActionsCell.xib in Resources */,
 				9C7D9B341F2F430B005928F4 /* Localizable.strings in Resources */,
 				88580BB21F2213AB00C1CBAF /* GroupHeaderTableCell.xib in Resources */,
 				88E3AC3A1F55B02C0016357F /* Report.storyboard in Resources */,
@@ -4641,13 +4654,16 @@
 				6387F54F1F41B1DA0066628E /* ReplyCell.xib in Resources */,
 				9C6D35A11F31D1C1005893DB /* FeedModule.storyboard in Resources */,
 				93AC65A01F3E056F00FE5A3A /* PostDetail.storyboard in Resources */,
+				9C0963721F67CA6100E70C30 /* ActivityRequestsSection.xib in Resources */,
 				88580C4A1F2213AB00C1CBAF /* CreatePost.storyboard in Resources */,
 				9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */,
 				88F3858B1F31BF140048B04C /* UserListCell.xib in Resources */,
 				6387F5531F41B95A0066628E /* CommentReplies.storyboard in Resources */,
 				88F551A41F3472E100F4AAB9 /* SegmentedControlView.xib in Resources */,
 				8864C8331F46DA7800ADCE13 /* SearchPeople.storyboard in Resources */,
+				9C0963761F67CA8900E70C30 /* ActivityUserRequestCell.xib in Resources */,
 				88580C631F2213AB00C1CBAF /* MenuStack.storyboard in Resources */,
+				9C0963741F67CA6C00E70C30 /* ActivityRecentSection.xib in Resources */,
 				88BC5C541F2B65D0001FBDD2 /* UserProfile.storyboard in Resources */,
 				3234AD1B1F2E70C3009C3327 /* PostCellCompact.xib in Resources */,
 				9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */,
@@ -4655,6 +4671,7 @@
 				88FFFA751F30B9D90066A1A0 /* Followers.storyboard in Resources */,
 				883E1E531F5465FF004B4861 /* Settings.storyboard in Resources */,
 				8864C8241F45BA7000ADCE13 /* Search.storyboard in Resources */,
+				9C0963701F67C85F00E70C30 /* Activity.storyboard in Resources */,
 				886B39DB1F13910B00BF1A8E /* Images.xcassets in Resources */,
 				9C2D9C091F4ADEE6001514C3 /* PopularModuleView.storyboard in Resources */,
 			);
@@ -5095,6 +5112,7 @@
 				884AA9651F3C563F00B85135 /* CommentView.swift in Sources */,
 				88580BAE1F2213AB00C1CBAF /* SideMenuSectionHeader.swift in Sources */,
 				88E3AC311F559D0B0016357F /* HandleMixin.swift in Sources */,
+				9C5BE9031F67D04C00F0E20E /* ActivityUserRequestCell.swift in Sources */,
 				88580C791F2213AB00C1CBAF /* Reusable.swift in Sources */,
 				883E1E4B1F546517004B4861 /* BlockedUsersViewInput.swift in Sources */,
 				88B94EE31F62DDAE002392F9 /* GetUsersListOperation.swift in Sources */,
