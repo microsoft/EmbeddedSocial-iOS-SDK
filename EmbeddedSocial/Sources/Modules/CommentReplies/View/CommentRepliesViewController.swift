@@ -151,8 +151,10 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     }
     
     func replyPosted() {
-        reloadReplies()
+        collectionView.insertItems(at: [IndexPath(item: output.numberOfItems() - 1, section: RepliesSections.replies.rawValue)])
+        scrollTableToBottom()
         replyTextView.text = ""
+        postButton.isHidden = true
         unlockUI()
     }
     
