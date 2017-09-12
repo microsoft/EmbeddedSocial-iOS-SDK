@@ -5,26 +5,34 @@
 
 import Foundation
 
-protocol UsersListOutgoingActionsProcessor {
-    func applyOutgoingActions(to usersList: UsersListResponse, completion: @escaping (UsersListResponse) -> Void)
-}
-
-final class OutgoingActionsProcessor: UsersListOutgoingActionsProcessor {
-    
-    private let cache: CacheType
+class UsersListResponseProcessor: ResponseProcessor<FeedResponseUserCompactView, UsersListResponse> {
     
     private let queue: OperationQueue = {
         let q = OperationQueue()
-        q.name = "OutgoingActionsProcessor-queue"
+        q.name = "UsersListResponseProcessor-queue"
         q.qualityOfService = .userInitiated
         return q
     }()
+    
+    let cache: CacheType
     
     init(cache: CacheType) {
         self.cache = cache
     }
     
-    func applyOutgoingActions(to usersList: UsersListResponse, completion: @escaping (UsersListResponse) -> Void) {
+    override func process(_ response: FeedResponseUserCompactView?,
+                          isFromCache: Bool,
+                          completion: @escaping (Result<UsersListResponse>) -> Void) {
+        
+        let usersList = UsersListResponse(response: response, isFromCache: isFromCache)
+        applyOutgoingActions(to: usersList) { usersList in
+            DispatchQueue.main.async {
+                completion(.success(usersList))
+            }
+        }
+    }
+    
+    private func applyOutgoingActions(to usersList: UsersListResponse, completion: @escaping (UsersListResponse) -> Void) {
         let fetchActions = FetchOutgoingActionsOperation(cache: cache)
         
         fetchActions.completionBlock = { [weak self] in
@@ -42,7 +50,7 @@ final class OutgoingActionsProcessor: UsersListOutgoingActionsProcessor {
         queue.addOperation(fetchActions)
     }
     
-    private func apply(actions: [OutgoingAction], to usersList: UsersListResponse) -> UsersListResponse {
+    func apply(actions: [OutgoingAction], to usersList: UsersListResponse) -> UsersListResponse {
         var updatedUsers: [User] = []
         var usersList = usersList
         
@@ -56,8 +64,5 @@ final class OutgoingActionsProcessor: UsersListOutgoingActionsProcessor {
         
         return usersList
     }
+    
 }
-
-
-
-

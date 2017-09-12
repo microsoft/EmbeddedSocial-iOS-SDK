@@ -12,7 +12,7 @@ protocol UserProfileInteractorInput {
     
     func block(userID: String, completion: @escaping (Result<Void>) -> Void)
 
-    func processSocialRequest(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void)
+    func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void)
     
     func cachedUser(with handle: String) -> User?
 }

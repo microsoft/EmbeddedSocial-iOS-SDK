@@ -133,7 +133,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     func onFollowRequest(currentStatus followStatus: FollowStatus) {
-        guard let userID = userID else { return }
+        guard let user = user else { return }
         
         guard me != nil else {
             router.openLogin()
@@ -142,12 +142,9 @@ final class UserProfilePresenter: UserProfileViewOutput {
         
         view.setIsProcessingFollowRequest(true)
         
-        let callback = { [weak self] (result: Result<Void>) in
-            let status = FollowStatus.reduce(status: followStatus, visibility: self?.user?.visibility ?? ._public)
-            self?.processSocialResponse(result.map { status })
+        interactor.processSocialRequest(to: user) { [weak self] response in
+           self?.processSocialResponse(response)
         }
-        
-        interactor.processSocialRequest(currentFollowStatus: followStatus, userID: userID, completion: callback)
     }
     
     private func processSocialResponse(_ response: Result<FollowStatus>) {

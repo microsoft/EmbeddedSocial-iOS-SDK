@@ -140,3 +140,9 @@ extension User {
         credentials = nil
     }
 }
+
+extension User: JSONEncodable {
+    func encodeToJSON() -> Any {
+        return memento
+    }
+}

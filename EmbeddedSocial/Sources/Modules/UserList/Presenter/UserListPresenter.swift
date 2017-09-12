@@ -90,8 +90,8 @@ extension UserListPresenter: UserListViewOutput {
         isAnimatingPullToRefresh = true
         interactor.reloadList { [weak self] result in
             self?.isAnimatingPullToRefresh = false
-            self?.processUsersResult(result)
             self?.view.endPullToRefreshAnimation()
+            self?.processUsersResult(result)
         }
     }
 }

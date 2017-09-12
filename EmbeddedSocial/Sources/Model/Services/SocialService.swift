@@ -45,7 +45,10 @@ class SocialService: BaseService, SocialServiceType {
     private var suggestedUsersExecutor: SuggestedUsersRequestExecutor!
     private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
     
+    private let executorProvider: CacheRequestExecutorProviderType.Type
+    
     init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
+        self.executorProvider = provider
         super.init()
         usersFeedExecutor = provider.makeUsersFeedExecutor(for: self)
         suggestedUsersExecutor = provider.makeSuggestedUsersExecutor(for: self)
@@ -66,7 +69,8 @@ class SocialService: BaseService, SocialServiceType {
     }
     
     func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        completion(.success())
+        let builder = SocialAPI.myPendingUsersDeletePendingUserWithRequestBuilder(userHandle: userID, authorization: authorization)
+        outgoingActionsExecutor.execute(with: builder, actionType: .cancelPending, handle: userID, completion: completion)
     }
 
     func unblock(userID: String, completion: @escaping (Result<Void>) -> Void) {
@@ -99,7 +103,14 @@ class SocialService: BaseService, SocialServiceType {
             cursor: cursor,
             limit: Int32(limit)
         )
-        usersFeedExecutor.execute(with: builder, completion: completion)
+        
+        let executor = executorProvider.makeMyFollowingExecutor(for: self)
+        
+        executor.execute(with: builder) { result in
+            withExtendedLifetime(executor) {
+                completion(result)
+            }
+        }
     }
     
     func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {

@@ -5,13 +5,13 @@
 
 import Foundation
 
-typealias UsersFeedRequestExecutor = UsersListRequestExecutionStrategy
+typealias UsersFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
 
 typealias TopicsFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseTopicView, FeedFetchResult>
 
 typealias SuggestedUsersRequestExecutor = CacheRequestExecutionStrategy<[UserCompactView], UsersListResponse>
 
-typealias OutgoingActionRequestExecutor = OutgoingActionRequestExecutionStrategy<Object>
+typealias OutgoingActionRequestExecutor = OutgoingActionsExecutor<Object>
 
 protocol CacheRequestExecutorProviderType {
     static func makeUsersFeedExecutor(for service: BaseService) -> UsersFeedRequestExecutor
@@ -21,26 +21,31 @@ protocol CacheRequestExecutorProviderType {
     static func makeSuggestedUsersExecutor(for service: BaseService) -> SuggestedUsersRequestExecutor
     
     static func makeOutgoingActionRequestExecutor(for service: BaseService) -> OutgoingActionRequestExecutor
+    
+    static func makeMyFollowingExecutor(for service: BaseService) -> UsersFeedRequestExecutor
 }
 
 struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
 
     static func makeUsersFeedExecutor(for service: BaseService) -> UsersFeedRequestExecutor {
-        let executor = UsersListRequestExecutionStrategy()
-        bind(service: service, to: executor)
-        executor.mapper = { UsersListResponse(response: $0, isFromCache: false) }
-        executor.cacheMapper = { UsersListResponse(response: $0, isFromCache: true) }
-        executor.actionsProcessor = OutgoingActionsProcessor(cache: service.cache)
-        return executor
+        return makeCommonExecutor(requestType: FeedResponseUserCompactView.self,
+                                  responseType: UsersListResponse.self,
+                                  service: service,
+                                  responseProcessor: UsersListResponseProcessor(cache: service.cache))
+    }
+    
+    static func makeMyFollowingExecutor(for service: BaseService) -> UsersFeedRequestExecutor {
+        return makeCommonExecutor(requestType: FeedResponseUserCompactView.self,
+                                  responseType: UsersListResponse.self,
+                                  service: service,
+                                  responseProcessor: MyFollowingResponseProcessor(cache: service.cache))
     }
     
     static func makeTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor {
-        let executor = makeCommonExecutor(requestType: FeedResponseTopicView.self,
-                                          responseType: FeedFetchResult.self,
-                                          service: service)
-        executor.mapper = FeedFetchResult.init
-        executor.cacheMapper = FeedFetchResult.init
-        return executor
+        return makeCommonExecutor(requestType: FeedResponseTopicView.self,
+                                  responseType: FeedFetchResult.self,
+                                  service: service,
+                                  responseProcessor: TopicsFeedResponseProcessor())
     }
     
     static func makeSuggestedUsersExecutor(for service: BaseService) -> SuggestedUsersRequestExecutor {
@@ -56,12 +61,15 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
         return executor
     }
     
-    private static func makeCommonExecutor<T: Cacheable, U>(requestType: T.Type,
-                                           responseType: U.Type,
-                                           service: BaseService) -> CommonCacheRequestExecutionStrategy<T, U> {
+    private static func makeCommonExecutor<T: Cacheable, U>(
+        requestType: T.Type,
+        responseType: U.Type,
+        service: BaseService,
+        responseProcessor: ResponseProcessor<T, U>) -> CommonCacheRequestExecutionStrategy<T, U> {
         
         let executor = CommonCacheRequestExecutionStrategy<T, U>()
         bind(service: service, to: executor)
+        executor.responseProcessor = responseProcessor
         return executor
     }
     

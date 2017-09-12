@@ -12,8 +12,9 @@ class OutgoingAction {
         case unfollow
         case block
         case unblock
+        case cancelPending
         
-        static func opposite(to actionType: ActionType) -> ActionType {
+        static func inverseType(to actionType: ActionType) -> ActionType? {
             switch actionType {
             case .follow:
                 return .unfollow
@@ -23,6 +24,8 @@ class OutgoingAction {
                 return .unblock
             case .unblock:
                 return .block
+            case .cancelPending:
+                return .follow
             }
         }
     }
@@ -50,8 +53,10 @@ class OutgoingAction {
         self.entityHandle = entityHandle
     }
     
-    var oppositeAction: OutgoingAction? {
-        let type = ActionType.opposite(to: self.type)
+    var inverseAction: OutgoingAction? {
+        guard let type = ActionType.inverseType(to: self.type) else {
+            return nil
+        }
         return OutgoingAction(type: type, entityHandle: entityHandle)
     }
 }

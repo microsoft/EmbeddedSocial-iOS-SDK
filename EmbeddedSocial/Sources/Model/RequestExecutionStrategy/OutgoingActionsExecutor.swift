@@ -5,7 +5,7 @@
 
 import Foundation
 
-class OutgoingActionRequestExecutionStrategy<ResponseType> {
+class OutgoingActionsExecutor<ResponseType> {
     
     private let networkTracker: NetworkStatusMulticast
     var cache: CacheType?
@@ -32,6 +32,19 @@ class OutgoingActionRequestExecutionStrategy<ResponseType> {
         }
     }
     
+    func execute(command: UserCommand, builder: RequestBuilder<ResponseType>, completion: @escaping (Result<Void>) -> Void) {
+        if networkTracker.isReachable {
+            builder.execute { [weak self] response, error in
+                self?.processResponse(response, error, completion)
+            }
+        } else {
+            cache(builder: builder, actionType: actionType, handle: handle)
+            DispatchQueue.main.async {
+                completion(.success())
+            }
+        }
+    }
+    
     private func cache(builder: RequestBuilder<ResponseType>, actionType: OutgoingAction.ActionType, handle: String) {
         guard let cache = self.cache else {
             return
@@ -39,19 +52,20 @@ class OutgoingActionRequestExecutionStrategy<ResponseType> {
         
         let action = OutgoingAction(type: actionType, entityHandle: handle)
         
-        if let oppositeAction = cachedOppositeAction(for: action) {
-            deleteActionFromCache(oppositeAction)
+        if let cachedInverseAction = self.cachedInverseAction(for: action) {
+            deleteActionFromCache(cachedInverseAction)
         } else {
             cache.cacheOutgoing(action)
         }
     }
     
-    private func cachedOppositeAction(for action: OutgoingAction) -> OutgoingAction? {
-        guard let oppositeAction = action.oppositeAction else {
+    private func cachedInverseAction(for action: OutgoingAction) -> OutgoingAction? {
+        guard let inverseAction = action.inverseAction else {
             return nil
         }
-        let predicate = PredicateBuilder.predicate(action: oppositeAction)
-        return cache?.firstOutgoing(ofType: OutgoingAction.self, predicate: predicate, sortDescriptors: nil)
+        return cache?.firstOutgoing(ofType: OutgoingAction.self,
+                                    predicate: PredicateBuilder.predicate(action: inverseAction),
+                                    sortDescriptors: nil)
     }
     
     private func deleteActionFromCache(_ action: OutgoingAction) {
