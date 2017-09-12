@@ -6,24 +6,14 @@
 import UIKit
 
 protocol {{ module_info.name }}ViewInput: class {
-    
-        /**
-            @author {{ developer.name }}
-            Setup initial state of the view
-        */
-    
+
         func setupInitialState()
-    }
+}
 
 protocol {{ module_info.name }}ViewOutput {
     
-        /**
-            @author {{ developer.name }}
-            Notify presenter that view is ready
-        */
-    
         func viewIsReady()
-    }
+}
 
 class {{ module_info.name }}ViewController: UIViewController, {{module_info.name}}ViewInput {
 
@@ -34,7 +24,6 @@ class {{ module_info.name }}ViewController: UIViewController, {{module_info.name
         super.viewDidLoad()
         output.viewIsReady()
     }
-
 
     // MARK: {{module_info.name}}ViewInput
     func setupInitialState() {
