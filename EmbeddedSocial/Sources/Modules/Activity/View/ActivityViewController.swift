@@ -10,6 +10,11 @@ protocol ActivityViewInput: class {
 }
 
 protocol ActivityViewOutput {
+    
+    func numberOfSections() -> Int
+    func numberOfItems(in section: Int) -> Int
+    func viewModel(for indexPath: IndexPath) -> ActivityItemViewModel
+    
     func viewIsReady()
 }
 
@@ -30,10 +35,35 @@ class ActivityViewController: UIViewController, ActivityViewInput {
     
     private func setup() {
         tableView.register(ActivityCell.self, forCellReuseIdentifier: ActivityCell.reuseID)
-        tableView.register(ActivityCell.self, forCellReuseIdentifier: ActivityCell.reuseID)
+        tableView.register(FollowRequestCell.self, forCellReuseIdentifier: FollowRequestCell.reuseID)
     }
 
     // MARK: ActivityViewInput
     func setupInitialState() {
     }
+}
+
+protocol ActivityItemViewModel {
+    var identifier: String { get }
+}
+
+extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return output.numberOfSections()
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return output.numberOfItems(in: section)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let viewModel = output.viewModel(for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: viewModel.identifier, for: indexPath)
+        
+        return cell
+        
+    }
+    
 }

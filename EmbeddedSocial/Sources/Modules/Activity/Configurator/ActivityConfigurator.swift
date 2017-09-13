@@ -14,11 +14,13 @@ class ActivityModuleConfigurator {
 
         let router = ActivityRouter()
         
-//        viewController = StoryboardScene.Activity
+        viewController = StoryboardScene.Activity.instantiateActivityViewController()
 
         let presenter = ActivityPresenter()
         presenter.view = viewController
         presenter.router = router
+        
+        module = presenter
 
         let interactor = ActivityInteractor()
         interactor.output = presenter

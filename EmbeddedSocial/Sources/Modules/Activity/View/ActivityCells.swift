@@ -40,11 +40,11 @@ class ActivityBaseCell: UITableViewCell {
         }
         
         struct Images {
-            static let accept = #imageLiteral(resourceName: "es_accept.png")
-            static let reject = #imageLiteral(resourceName: "es_reject.png")
-            static let follow = #imageLiteral(resourceName: "es_decor_follow.png")
-            static let comment = #imageLiteral(resourceName: "es_decor_comment.png")
-            static let like = #imageLiteral(resourceName: "es_decor_like.png")
+            static let accept = Asset.esAccept.image
+            static let reject = Asset.esReject.image
+            static let follow = Asset.esDecorFollow.image
+            static let comment = Asset.esDecorComment.image
+            static let like = Asset.esDecorLike.image
         }
     }
     

@@ -13,6 +13,11 @@
 
 // swiftlint:disable type_body_length
 enum Asset: String {
+  case esAccept = "es_accept"
+  case esDecorComment = "es_decor_comment"
+  case esDecorFollow = "es_decor_follow"
+  case esDecorLike = "es_decor_like"
+  case esReject = "es_reject"
   case iconDesignObserver = "icon_designObserver"
   case iconFb = "icon_fb"
   case iconFreshPaint = "icon_freshPaint"
@@ -59,6 +64,7 @@ enum Asset: String {
   case logoWhite = "logo-white"
   case logo = "logo"
   case placeholderPostImage = "placeholder_post_image"
+  case placeholderPostImage2 = "placeholder_post_image2"
   case placeholderPostNoimage = "placeholder_post_noimage"
   case placeholderPostUser1 = "placeholder_post_user_1"
   case userPhotoPlaceholder = "user_photo_placeholder"
