@@ -59,11 +59,11 @@ class CommentsFeed {
     }
     
     func getCommentsCount() -> UInt {
-        return UInt(self.feedContainer.cells.count - 2)
+        return UInt(self.feedContainer.cells.count)
     }
     
     func getComment(_ index: UInt) -> Comment {
-        return Comment(self.feedContainer.children(matching: .cell).element(boundBy: index + 2), self.app)
+        return Comment(self.feedContainer.children(matching: .cell).element(boundBy: index), self.app)
     }
     
     func getRandomComment() -> (UInt, Comment) {

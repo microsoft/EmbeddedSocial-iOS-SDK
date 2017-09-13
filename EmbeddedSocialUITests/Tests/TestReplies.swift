@@ -27,6 +27,14 @@ class TestReplies: UITestBase {
         sideMenu.navigateTo("Home")
         let (_, post) = feed.getRandomPost()
         post.teaser.tap()
+        
+        var retryCount = 15
+        
+        while comments.loadMoreButton.exists && retryCount != 0 {
+            retryCount -= 1
+            app.swipeUp()
+        }
+
         let comment = comments.getComment(0)
         comment.replyButton.tap()
         sleep(1)

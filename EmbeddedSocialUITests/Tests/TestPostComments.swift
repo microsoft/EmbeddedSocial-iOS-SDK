@@ -26,7 +26,33 @@ class TestPostComments: UITestBase {
         let (_, post) = feed.getRandomPost()
         post.teaser.tap()
         sleep(1)
+        
+        var retryCount = 15
+        
+        while comments.loadMoreButton.exists && retryCount != 0 {
+            retryCount -= 1
+            app.swipeUp()
+        }
     }
+    
+    func tapLoadMore() {
+        var retryCount = 15
+        
+        while !comments.loadMoreButton.exists && retryCount != 0 {
+            retryCount -= 1
+            app.swipeDown()
+        }
+        
+        comments.loadMoreButton.tap()
+        
+        retryCount = 15
+        
+        while comments.loadMoreButton.exists && retryCount != 0 {
+            retryCount -= 1
+            app.swipeUp()
+        }
+    }
+
 
     func testCommentAttributes() {
         APIConfig.values = ["user->firstName": "Alan",
@@ -70,7 +96,7 @@ class TestPostComments: UITestBase {
         
         openScreen()
         
-        comments.loadMoreButton.tap()
+        tapLoadMore()
         
         var seenComments = Set<String>()
         var retryCount = 15
@@ -90,7 +116,11 @@ class TestPostComments: UITestBase {
     func testPullToRefresh() {
         openScreen()
         
-        comments.loadMoreButton.tap()
+        tapLoadMore()
+        
+        for _ in 0...2 {
+            app.swipeDown()
+        }
         
         let start = comments.feedContainer.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 0)))
         let finish = comments.feedContainer.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
@@ -112,17 +142,19 @@ class TestPostComments: UITestBase {
         
         let request = APIState.getLatestData(forService: "comments")
         
-        XCTAssertEqual(request?["text"] as! String, "Post Text")
+        XCTAssertEqual(request?["text"] as! String, "Comment Text")
     }
     
     func testOpenReplies() {
         openScreen()
         
+        APIConfig.values = ["text": "Replies screen"]
+        
         let (_, comment) = comments.getRandomComment()
         
         comment.repliesButton.tap()
         
-        XCTAssert(app.staticTexts["Reply text"].exists, "Replies scree is not opened")
+        XCTAssert(app.staticTexts["Replies screen"].exists, "Replies screen is not opened")
     }
 }
 
