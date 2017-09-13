@@ -7,19 +7,52 @@ import Foundation
 
 class MyFollowingResponseProcessor: UsersListResponseProcessor {
     
-    override func apply(actions: [OutgoingAction], to usersList: UsersListResponse) -> UsersListResponse {
-        var usersList = super.apply(actions: actions, to: usersList)
-        var updatedUsers: [User] = []
+    override func apply(commands: [UserCommand], to usersList: UsersListResponse) -> UsersListResponse {
+        var usersList = usersList
+        let usersToExclude = self.usersToExclude(commands: commands, from: usersList)
+        let usersToAdd = self.usersToAdd(commands: commands, to: usersList)
         
-        for user in usersList.users {
-            guard actions.first(where: { $0.type == .unfollow && $0.entityHandle == user.uid }) == nil else {
+        usersList.users = usersList.users.filter { user in !usersToExclude.contains(where: { $0.uid == user.uid }) }
+        usersList.users += usersToAdd
+                
+        return super.apply(commands: commands, to: usersList)
+    }
+    
+    private func usersToExclude(commands: [UserCommand], from usersList: UsersListResponse) -> [User] {
+        var usersToExclude: [User] = []
+        
+        for command in commands {
+            guard command is UnfollowCommand else {
                 continue
             }
-            updatedUsers.append(user)
+            
+            guard command.user.visibility == ._private else {
+                usersToExclude.append(command.user)
+                continue
+            }
+            
+            let isPending = commands.contains(where: { $0 is FollowCommand && $0.user.uid == command.user.uid })
+            
+            if !isPending {
+                usersToExclude.append(command.user)
+            }
         }
         
-        usersList.users = updatedUsers
+        return usersToExclude
+    }
+    
+    private func usersToAdd(commands: [UserCommand], to usersList: UsersListResponse) -> [User] {
+        var usersToAdd: [User] = []
         
-        return usersList
+        for command in commands {
+            let isFollowCommand = command is FollowCommand
+            let isNew = !usersList.users.contains(where: { command.user.uid == $0.uid })
+            
+            if isFollowCommand && isNew {
+                usersToAdd.append(command.user)
+            }
+        }
+        
+        return usersToAdd
     }
 }

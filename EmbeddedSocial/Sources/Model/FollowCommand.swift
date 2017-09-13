@@ -9,4 +9,8 @@ class FollowCommand: UserCommand {
     override var inverseCommand: UserCommand? {
         return user.visibility == ._public ? UnfollowCommand(user: user) : CancelPendingCommand(user: user)
     }
+    
+    override func apply(to user: inout User) {
+        user.followerStatus = user.visibility == ._public ? .accepted : .pending
+    }
 }

@@ -21,10 +21,6 @@ struct PredicateBuilder: CachePredicateBuilder {
         return NSPredicate(format: "typeid = %@ AND handle = %@", typeID, handle)
     }
     
-    static func predicate(action: OutgoingAction) -> NSPredicate {
-        return predicate(typeID: action.typeIdentifier, handle: action.combinedHandle)
-    }
-    
     static func predicate(for command: UserCommand) -> NSPredicate {
         return predicate(typeID: UserCommand.typeIdentifier, handle: command.combinedHandle)
     }
@@ -47,9 +43,5 @@ struct PredicateBuilder: CachePredicateBuilder {
     
     func predicate(typeID: String, relatedHandle: String) -> NSPredicate {
         return NSPredicate(format: "typeid = %@ AND relatedHandle = %@", typeID, relatedHandle)
-    }
-    
-    func predicate(action: OutgoingAction) -> NSPredicate {
-        return PredicateBuilder.predicate(action: action)
     }
 }

@@ -11,10 +11,19 @@ CacheRequestExecutionStrategy<ResponseType, ResultType> where ResponseType: Cach
     var responseProcessor: ResponseProcessor<ResponseType, ResultType>!
     
     override func execute(with builder: RequestBuilder<ResponseType>, completion: @escaping (Result<ResultType>) -> Void) {
-        if let cachedResponse = cache?.firstIncoming(ofType: ResponseType.self, handle: builder.URLString) {
+        let cachedResponse = cache?.firstIncoming(ofType: ResponseType.self, handle: builder.URLString)
+        
+        if cachedResponse != nil {
             DispatchQueue.main.async {
-                self.processResponse(cachedResponse, isFromCache: true, error: nil, completion: completion)
+                self.processResponse(cachedResponse!, isFromCache: true, error: nil, completion: completion)
             }
+        }
+        
+        if let networkTracker = networkTracker, !networkTracker.isReachable {
+            if cachedResponse == nil {
+                processResponse(nil, isFromCache: false, error: nil, completion: completion)
+            }
+            return
         }
         
         builder.execute { [weak self] result, error in

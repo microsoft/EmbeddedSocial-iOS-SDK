@@ -5,18 +5,17 @@
 
 import Foundation
 
-final class UnblockOperation: SocialActionOperation {
+final class UnblockOperation: UserCommandOperation {
     
     override func main() {
         guard !isCancelled else {
             return
         }
-        fatalError()
-        /*socialService.unblock(userID: action.entityHandle) { [weak self] result in
+        socialService.unblock(user: command.user) { [weak self] result in
             guard let strongSelf = self, !strongSelf.isCancelled else {
                 return
             }
             strongSelf.completeOperation()
-        }*/
+        }
     }
 }

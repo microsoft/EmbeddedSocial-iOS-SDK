@@ -7,19 +7,13 @@ import Foundation
 
 class MyBlockedUsersResponseProcessor: UsersListResponseProcessor {
     
-    override func apply(actions: [OutgoingAction], to usersList: UsersListResponse) -> UsersListResponse {
-        var usersList = usersList
-        var updatedUsers: [User] = []
-        
-        for user in usersList.users {
-            guard actions.first(where: { $0.type == .unfollow && $0.entityHandle == user.uid }) == nil else {
-                continue
-            }
-            updatedUsers.append(user)
+    override func apply(commands: [UserCommand], to usersList: UsersListResponse) -> UsersListResponse {
+        let uniqueBlockCommands = commands.filter { command -> Bool in
+            command is BlockCommand && !usersList.users.contains(where: { $0.uid == command.user.uid })
         }
         
-        usersList.users = updatedUsers
-        
+        var usersList = usersList
+        usersList.users += uniqueBlockCommands.flatMap { $0.user }
         return usersList
     }
 }

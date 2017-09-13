@@ -5,18 +5,17 @@
 
 import Foundation
 
-final class UnfollowOperation: SocialActionOperation {
+final class UnfollowOperation: UserCommandOperation {
     
     override func main() {
         guard !isCancelled else {
             return
         }
-        fatalError()
-        /*socialService.unfollow(userID: action.entityHandle) { [weak self] result in
+        socialService.unfollow(user: command.user) { [weak self] result in
             guard let strongSelf = self, !strongSelf.isCancelled else {
                 return
             }
             strongSelf.completeOperation()
-        }*/
+        }
     }
 }

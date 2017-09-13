@@ -5,10 +5,10 @@
 
 import Foundation
 
-class FetchOutgoingActionsOperation: Operation {
+class FetchUserCommandsOperation: Operation {
     private let cache: CacheType
     
-    var actions: [OutgoingAction] = []
+    var commands: [UserCommand] = []
     
     init(cache: CacheType) {
         self.cache = cache
@@ -17,12 +17,12 @@ class FetchOutgoingActionsOperation: Operation {
     override func main() {
         guard !isCancelled else { return }
         
-        let p = PredicateBuilder.predicate(typeID: OutgoingAction.typeIdentifier)
+        let p = PredicateBuilder.predicate(typeID: UserCommand.typeIdentifier)
         
-        let request = CacheFetchRequest(resultType: OutgoingAction.self,
+        let request = CacheFetchRequest(resultType: UserCommand.self,
                                         predicate: p,
                                         sortDescriptors: [Cache.createdAtSortDescriptor])
         
-        actions = cache.fetchOutgoing(with: request)
+        commands = cache.fetchOutgoing(with: request)
     }
 }

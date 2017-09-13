@@ -28,10 +28,43 @@ class UserCommand {
         self.user = user
     }
     
+    static func command(from json: [String: Any]) -> UserCommand? {
+        guard let userJSON = json["user"] as? [String: Any],
+            let user = User(memento: userJSON),
+            let typeName = json["type"] as? String else {
+                return nil
+        }
+        
+        let types: [UserCommand.Type] = [
+            FollowCommand.self,
+            UnfollowCommand.self,
+            CancelPendingCommand.self,
+            BlockCommand.self,
+            UnblockCommand.self
+        ]
+        
+        var typeNames: [String: UserCommand.Type] = [:]
+        
+        for type in types {
+            typeNames[type.typeIdentifier] = type
+        }
+        
+        guard let matchingType = typeNames[typeName] else {
+            return nil
+        }
+        
+        return matchingType.init(user: user)
+    }
+    
     func encodeToJSON() -> Any {
         return [
             "user": user.encodeToJSON(),
+            "type": String(describing: type(of: self))
         ]
+    }
+    
+    func apply(to user: inout User) {
+        // nothing
     }
 }
 
@@ -41,6 +74,6 @@ extension UserCommand: Cacheable {
     }
     
     func getHandle() -> String? {
-        return user.uid
+        return combinedHandle
     }
 }

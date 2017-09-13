@@ -5,18 +5,18 @@
 
 import Foundation
 
-final class OutgoingCacheDaemon: Daemon, NetworkStatusListener {
+final class UserCommandsCacheDaemon: Daemon, NetworkStatusListener {
     
     private let networkTracker: NetworkStatusMulticast
     private let cache: CacheType
     private let executionQueue: OperationQueue = {
        let q = OperationQueue()
-        q.name = "OutgoingActionsDaemon-executionQueue"
+        q.name = "UserCommandsCacheDaemon-executionQueue"
         q.qualityOfService = .background
         return q
     }()
     
-    init(networkTracker: NetworkStatusMulticast, cache: CacheType, jsonDecoderType: JSONDecoder.Type = Decoders.self) {
+    init(networkTracker: NetworkStatusMulticast, cache: CacheType, jsonDecoderType: JSONDecoder.Type) {
         self.networkTracker = networkTracker
         self.cache = cache
         jsonDecoderType.setupDecoders()
@@ -33,33 +33,32 @@ final class OutgoingCacheDaemon: Daemon, NetworkStatusListener {
     func networkStatusDidChange(_ isReachable: Bool) {
         guard isReachable else { return }
         executionQueue.cancelAllOperations()
-        executePendingActions()
+        executePendingCommands()
     }
     
-    private func executePendingActions() {
-        let fetchOperation = FetchOutgoingActionsOperation(cache: cache)
+    private func executePendingCommands() {
+        let fetchOperation = FetchUserCommandsOperation(cache: cache)
         
         fetchOperation.completionBlock = { [weak self] in
             guard !fetchOperation.isCancelled else { return }
-            self?.executeActionsOperations(fetchOperation.actions)
+            self?.executeCommandsOperations(fetchOperation.commands)
         }
         
         executionQueue.addOperation(fetchOperation)
     }
     
-    private func executeActionsOperations(_ actions: [OutgoingAction]) {
-        let operations = makeActionOperations(from: actions)
+    private func executeCommandsOperations(_ commands: [UserCommand]) {
+        let operations = makeActionOperations(from: commands)
         executionQueue.addOperations(operations, waitUntilFinished: false)
     }
     
-    private func makeActionOperations(from actions: [OutgoingAction]) -> [OutgoingActionOperation] {
-        let predicateBuilder = PredicateBuilder()
+    private func makeActionOperations(from commands: [UserCommand]) -> [Operation] {
         
-        let operations = actions.flatMap { [weak self] action -> OutgoingActionOperation? in
-            let op = OutgoingActionOperationsBuilder.operation(for: action)
+        let operations = commands.flatMap { [weak self] command -> Operation? in
+            let op = UserCommandOperationsBuilder.operation(for: command)
             op?.completionBlock = {
                 guard op?.isCancelled != true else { return }
-                let predicate = predicateBuilder.predicate(action: action)
+                let predicate = PredicateBuilder.predicate(for: command)
                 self?.cache.deleteOutgoing(with: predicate)
             }
             return op

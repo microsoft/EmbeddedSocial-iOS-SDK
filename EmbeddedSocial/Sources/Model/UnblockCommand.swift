@@ -9,4 +9,8 @@ class UnblockCommand: UserCommand {
     override var inverseCommand: UserCommand? {
         return BlockCommand(user: user)
     }
+    
+    override func apply(to user: inout User) {
+        user.followingStatus = .empty
+    }
 }

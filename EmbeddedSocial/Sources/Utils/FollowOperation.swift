@@ -5,18 +5,17 @@
 
 import Foundation
 
-final class FollowOperation: SocialActionOperation {
+final class FollowOperation: UserCommandOperation {
     
     override func main() {
         guard !isCancelled else {
             return
         }
-        fatalError()
-        /*socialService.follow(userID: action.entityHandle) { [weak self] result in
+        socialService.follow(user: command.user) { [weak self] result in
             guard let strongSelf = self, !strongSelf.isCancelled else {
                 return
             }
             strongSelf.completeOperation()
-        }*/
+        }
     }
 }

@@ -23,6 +23,8 @@ protocol CacheRequestExecutorProviderType {
     static func makeOutgoingActionRequestExecutor(for service: BaseService) -> OutgoingActionRequestExecutor
     
     static func makeMyFollowingExecutor(for service: BaseService) -> UsersFeedRequestExecutor
+    
+    static func makeMyBlockedUsersExecutor(for service: BaseService) -> UsersFeedRequestExecutor
 }
 
 struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
@@ -39,6 +41,13 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
                                   responseType: UsersListResponse.self,
                                   service: service,
                                   responseProcessor: MyFollowingResponseProcessor(cache: service.cache))
+    }
+    
+    static func makeMyBlockedUsersExecutor(for service: BaseService) -> UsersFeedRequestExecutor {
+        return makeCommonExecutor(requestType: FeedResponseUserCompactView.self,
+                                  responseType: UsersListResponse.self,
+                                  service: service,
+                                  responseProcessor: MyBlockedUsersResponseProcessor(cache: service.cache))
     }
     
     static func makeTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor {
@@ -76,5 +85,6 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
     private static func bind<T, U>(service: BaseService, to executor: CacheRequestExecutionStrategy<T, U>) {
         executor.cache = service.cache
         executor.errorHandler = service.errorHandler
+        executor.networkTracker = service.networkStatusMulticast
     }
 }

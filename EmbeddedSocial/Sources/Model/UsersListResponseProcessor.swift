@@ -25,38 +25,40 @@ class UsersListResponseProcessor: ResponseProcessor<FeedResponseUserCompactView,
                           completion: @escaping (Result<UsersListResponse>) -> Void) {
         
         let usersList = UsersListResponse(response: response, isFromCache: isFromCache)
-        applyOutgoingActions(to: usersList) { usersList in
+        applyUserCommands(to: usersList) { usersList in
             DispatchQueue.main.async {
                 completion(.success(usersList))
             }
         }
     }
     
-    private func applyOutgoingActions(to usersList: UsersListResponse, completion: @escaping (UsersListResponse) -> Void) {
-        let fetchActions = FetchOutgoingActionsOperation(cache: cache)
+    private func applyUserCommands(to usersList: UsersListResponse, completion: @escaping (UsersListResponse) -> Void) {
+        let fetchCommands = FetchUserCommandsOperation(cache: cache)
         
-        fetchActions.completionBlock = { [weak self] in
-            guard let strongSelf = self, !fetchActions.isCancelled else {
+        fetchCommands.completionBlock = { [weak self] in
+            guard let strongSelf = self, !fetchCommands.isCancelled else {
                 completion(usersList)
                 return
             }
             
             strongSelf.queue.addOperation {
-                let list = strongSelf.apply(actions: fetchActions.actions, to: usersList)
+                let list = strongSelf.apply(commands: fetchCommands.commands, to: usersList)
                 completion(list)
             }
         }
         
-        queue.addOperation(fetchActions)
+        queue.addOperation(fetchCommands)
     }
     
-    func apply(actions: [OutgoingAction], to usersList: UsersListResponse) -> UsersListResponse {
+    func apply(commands: [UserCommand], to usersList: UsersListResponse) -> UsersListResponse {
         var updatedUsers: [User] = []
         var usersList = usersList
         
         for var user in usersList.users {
-            let actionsToApply = actions.filter { $0.entityHandle == user.uid }
-            user.apply(actions: actionsToApply)
+            let commandsToApply = commands.filter { $0.user.uid == user.uid }
+            for command in commandsToApply {
+                command.apply(to: &user)
+            }
             updatedUsers.append(user)
         }
         

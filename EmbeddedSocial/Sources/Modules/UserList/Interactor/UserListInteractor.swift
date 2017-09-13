@@ -32,10 +32,15 @@ class UserListInteractor: UserListInteractorInput {
     var listHasMoreItems: Bool {
         return listState.hasMore
     }
+    
+    private let networkTracker: NetworkStatusMulticast
 
-    init(api: UsersListAPI, socialService: SocialServiceType) {
+    init(api: UsersListAPI,
+         socialService: SocialServiceType,
+         networkTracker: NetworkStatusMulticast = SocialPlus.shared.networkTracker) {
         self.api = api
         self.socialService = socialService
+        self.networkTracker = networkTracker
     }
     
     func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void) {
@@ -68,7 +73,7 @@ class UserListInteractor: UserListInteractorInput {
     
     func reloadList(completion: @escaping (Result<[User]>) -> Void) {
         resetLoadingState()
-        getNextListPage(skipCache: true, completion: completion)
+        getNextListPage(skipCache: networkTracker.isReachable, completion: completion)
     }
     
     func getNextListPage(completion: @escaping (Result<[User]>) -> Void) {

@@ -20,15 +20,14 @@ extension Decoders: JSONDecoder {
 extension JSONDecoder {
     
     static func setupDecoders() {
-        addOutgoingActionsDecoder()
+        addUserCommandDecoder()
     }
     
-    private static func addOutgoingActionsDecoder() {
-        Decoders.addDecoder(clazz: OutgoingAction.self) { source, instance in
+    private static func addUserCommandDecoder() {
+        Decoders.addDecoder(clazz: UserCommand.self) { source, instance in
             guard let payload = source as? [String: Any],
-                let item = OutgoingAction(json: payload)
-                else {
-                    return .failure(.typeMismatch(expected: "OutgoingAction", actual: "\(source)"))
+                let item = UserCommand.command(from: payload) else {
+                    return .failure(.typeMismatch(expected: "UserCommand", actual: "\(source)"))
             }
             return .success(item)
         }

@@ -165,7 +165,14 @@ class SocialService: BaseService, SocialServiceType {
             cursor: cursor,
             limit: Int32(limit)
         )
-        usersFeedExecutor.execute(with: builder, completion: completion)
+        
+        let executor = executorProvider.makeMyBlockedUsersExecutor(for: self)
+        
+        executor.execute(with: builder) { result in
+            withExtendedLifetime(executor) {
+                completion(result)
+            }
+        }
     }
     
     func changeFollowStatus(user: User, completion: @escaping (Result<Void>) -> Void) {

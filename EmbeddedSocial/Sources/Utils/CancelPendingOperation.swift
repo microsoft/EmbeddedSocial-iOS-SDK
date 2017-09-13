@@ -5,13 +5,13 @@
 
 import Foundation
 
-final class BlockOperation: UserCommandOperation {
+final class CancelPendingOperation: UserCommandOperation {
     
     override func main() {
         guard !isCancelled else {
             return
         }
-        socialService.block(user: command.user) { [weak self] result in
+        socialService.cancelPending(user: command.user) { [weak self] result in
             guard let strongSelf = self, !strongSelf.isCancelled else {
                 return
             }
