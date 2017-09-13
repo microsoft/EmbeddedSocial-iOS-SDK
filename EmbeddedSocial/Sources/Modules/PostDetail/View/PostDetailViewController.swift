@@ -177,6 +177,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         commentTextView.layer.borderWidth = 1
         commentTextView.layer.borderColor = UIColor.lightGray.cgColor
         commentTextView.layer.cornerRadius = 1
+        postButton.isHidden = commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
     @IBAction func mediaButtonPressed(_ sender: Any) {
