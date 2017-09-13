@@ -12,8 +12,10 @@ class ReplyCell: UICollectionViewCell {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var totalLikesButton: UIButton!
     @IBOutlet weak var postTimeLabel: UILabel!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var avatarButton: UIButton!
+    
+    @IBOutlet weak var userName: UILabel!
+
+    @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var replyLabel: UILabel!
     
     var replyView: ReplyViewModel!
@@ -26,14 +28,17 @@ class ReplyCell: UICollectionViewCell {
     
     func config(replyView: ReplyViewModel) {
         self.replyView = replyView
-        avatarButton.setPhotoWithCaching(Photo(uid: UUID().uuidString,
-                                               url: replyView.userImageUrl,
-                                               image: nil),
-                                         placeholder: UIImage(asset: .userPhotoPlaceholder))
+        
+        
+        if replyView.userImageUrl == nil {
+            userPhoto.image = UIImage(asset: Asset.userPhotoPlaceholder)
+        } else {
+            userPhoto.setPhotoWithCaching(Photo(url: replyView.userImageUrl), placeholder: UIImage(asset: Asset.userPhotoPlaceholder))
+        }
 
         totalLikesButton.setTitle(replyView.totalLikes, for: .normal)
         replyLabel.text = replyView.text
-        usernameLabel.text = replyView.userName
+        userName.text = replyView.userName
         
         postTimeLabel.text = replyView.timeCreated
         likeButton.isSelected = replyView.isLiked

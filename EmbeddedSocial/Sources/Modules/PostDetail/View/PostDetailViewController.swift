@@ -60,6 +60,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionView.reloadSections([CommentsSections.comments.rawValue])
+        postButton.isHidden = commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
