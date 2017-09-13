@@ -78,14 +78,14 @@ open class APIRouter: WebApp {
             }
         }
         
-        self["/v0.7/comments/(.*)/replies"] = APIResponse(serviceName: "comments") {environ, sendJSON -> Void in
+        self["/v0.7/comments/(.*)/replies"] = APIResponse(serviceName: "replies") {environ, sendJSON -> Void in
             let input = environ["swsgi.input"] as! SWSGIInput
             let method = environ["REQUEST_METHOD"] as! String
             switch method {
             case "POST":
                 JSONReader.read(input) { json in
                     APIState.setLatestData(forService: "replies", data: json)
-                    sendJSON(Templates.load(name: "replies_post", values: ["replyHandle": UUID().uuidString]))
+                    sendJSON(Templates.load(name: "reply_post", values: ["replyHandle": UUID().uuidString]))
                 }
             default:
                 let query = URLParametersReader.parseURLParameters(environ: environ)

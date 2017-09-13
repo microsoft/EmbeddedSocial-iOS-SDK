@@ -43,7 +43,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     fileprivate var loadMoreCellViewModel = LoadMoreCellViewModel()
     
     private var cursor: String?
-    private let maxLimit: Int = 30000
+    private let maxLimit: Int = 10
     private let myProfileHolder: UserHolder
     
     init(myProfileHolder: UserHolder) {
