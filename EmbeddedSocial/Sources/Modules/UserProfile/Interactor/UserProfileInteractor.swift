@@ -34,20 +34,20 @@ final class UserProfileInteractor: UserProfileInteractorInput {
     }
     
     func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void) {
-        guard let currentStatus = user.followerStatus else {
+        guard let currentStatus = user.followerStatus, let visibility = user.visibility else {
             completion(.failure(APIError.missingUserData))
             return
         }
         
-        let newStatus = FollowStatus.reduce(status: currentStatus, visibility: user.visibility ?? ._private)
-
-        socialService.request(currentFollowStatus: currentStatus, userID: user.uid) { result in
+        let newStatus = FollowStatus.reduce(status: currentStatus, visibility: visibility)
+        
+        socialService.changeFollowStatus(user: user) { result in
             completion(result.map { _ in newStatus })
         }
     }
     
-    func block(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        socialService.block(userID: userID, completion: completion)
+    func block(user: User, completion: @escaping (Result<Void>) -> Void) {
+        socialService.block(user: user, completion: completion)
     }
     
     func cachedUser(with handle: String) -> User? {

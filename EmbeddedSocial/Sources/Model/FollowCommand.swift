@@ -6,7 +6,7 @@
 import Foundation
 
 class FollowCommand: UserCommand {
-    override var oppositeCommand: UserCommand? {
+    override var inverseCommand: UserCommand? {
         return user.visibility == ._public ? UnfollowCommand(user: user) : CancelPendingCommand(user: user)
     }
 }

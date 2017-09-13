@@ -39,14 +39,14 @@ class UserListInteractor: UserListInteractorInput {
     }
     
     func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void) {
-        guard let followStatus = user.followerStatus else {
+        guard let followStatus = user.followerStatus, let visibility = user.visibility else {
             completion(.failure(APIError.missingUserData))
             return
         }
         
-        let nextStatus = FollowStatus.reduce(status: followStatus, visibility: user.visibility ?? ._private)
+        let nextStatus = FollowStatus.reduce(status: followStatus, visibility: visibility)
         
-        socialService.request(currentFollowStatus: user.followerStatus ?? .empty, userID: user.uid) { result in
+        socialService.changeFollowStatus(user: user) { result in
             if result.isSuccess {
                 completion(.success(nextStatus))
             } else {

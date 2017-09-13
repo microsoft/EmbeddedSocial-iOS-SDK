@@ -25,6 +25,10 @@ struct PredicateBuilder: CachePredicateBuilder {
         return predicate(typeID: action.typeIdentifier, handle: action.combinedHandle)
     }
     
+    static func predicate(for command: UserCommand) -> NSPredicate {
+        return predicate(typeID: UserCommand.typeIdentifier, handle: command.combinedHandle)
+    }
+    
     func predicate(handle: String) -> NSPredicate {
         return NSPredicate(format: "handle = %@", handle)
     }

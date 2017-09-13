@@ -6,27 +6,27 @@
 import Foundation
 
 extension SocialServiceType {
-    func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func follow(user: User, completion: @escaping (Result<Void>) -> Void) {
         Logger.log("No Implementation")
     }
     
-    func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func unfollow(user: User, completion: @escaping (Result<Void>) -> Void) {
         Logger.log("No Implementation")
     }
     
-    func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func cancelPending(user: User, completion: @escaping (Result<Void>) -> Void) {
         Logger.log("No Implementation")
     }
     
-    func unblock(userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func unblock(user: User, completion: @escaping (Result<Void>) -> Void) {
         Logger.log("No Implementation")
     }
     
-    func block(userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func block(user: User, completion: @escaping (Result<Void>) -> Void) {
         Logger.log("No Implementation")
     }
     
-    func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func changeFollowStatus(user: User, completion: @escaping (Result<Void>) -> Void) {
         Logger.log("No Implementation")
     }
     

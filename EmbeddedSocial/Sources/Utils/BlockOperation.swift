@@ -11,12 +11,12 @@ final class BlockOperation: SocialActionOperation {
         guard !isCancelled else {
             return
         }
-        
-        socialService.block(userID: action.entityHandle) { [weak self] result in
+        fatalError()
+        /*socialService.block(userID: action.entityHandle) { [weak self] result in
             guard let strongSelf = self, !strongSelf.isCancelled else {
                 return
             }
             strongSelf.completeOperation()
-        }
+        }*/
     }
 }

@@ -6,7 +6,7 @@
 import Foundation
 
 class CancelPendingCommand: UserCommand {
-    override var oppositeCommand: UserCommand? {
+    override var inverseCommand: UserCommand? {
         return FollowCommand(user: user)
     }
 }

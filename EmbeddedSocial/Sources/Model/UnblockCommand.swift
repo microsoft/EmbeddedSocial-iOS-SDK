@@ -6,7 +6,7 @@
 import Foundation
 
 class UnblockCommand: UserCommand {
-    override var oppositeCommand: UserCommand? {
+    override var inverseCommand: UserCommand? {
         return BlockCommand(user: user)
     }
 }

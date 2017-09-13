@@ -10,7 +10,7 @@ protocol UserProfileInteractorInput {
     
     func getMe(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void)
     
-    func block(userID: String, completion: @escaping (Result<Void>) -> Void)
+    func block(user: User, completion: @escaping (Result<Void>) -> Void)
 
     func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void)
     

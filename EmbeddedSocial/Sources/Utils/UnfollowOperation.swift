@@ -11,12 +11,12 @@ final class UnfollowOperation: SocialActionOperation {
         guard !isCancelled else {
             return
         }
-        
-        socialService.unfollow(userID: action.entityHandle) { [weak self] result in
+        fatalError()
+        /*socialService.unfollow(userID: action.entityHandle) { [weak self] result in
             guard let strongSelf = self, !strongSelf.isCancelled else {
                 return
             }
             strongSelf.completeOperation()
-        }
+        }*/
     }
 }

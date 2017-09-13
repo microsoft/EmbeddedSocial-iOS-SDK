@@ -196,7 +196,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     private func block(user: User) {
         view.setIsLoadingUser(true)
 
-        interactor.block(userID: user.uid) { [weak self] result in
+        interactor.block(user: user) { [weak self] result in
             self?.view.setIsLoadingUser(false)
             
             if result.isSuccess {

@@ -108,21 +108,21 @@ extension CommentCellPresenter: PostMenuModuleOutput {
 //        view.setRefreshingWithBlocking(state: false)
     }
     
-    func didBlock(user: UserHandle) {
+    func didBlock(user: User) {
         Logger.log("Success")
     }
     
-    func didUnblock(user: UserHandle) {
+    func didUnblock(user: User) {
         Logger.log("Success")
     }
     
-    func didFollow(user: UserHandle) {
-        comment.userStatus = .follow
+    func didFollow(user: User) {
+        comment.userStatus = .accepted
         view?.configure(comment: comment)
     }
     
-    func didUnfollow(user: UserHandle) {
-        comment.userStatus = .none
+    func didUnfollow(user: User) {
+        comment.userStatus = .empty
         view?.configure(comment: comment)
     }
     

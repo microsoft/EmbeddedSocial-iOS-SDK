@@ -12,7 +12,7 @@ class UserCommand {
         return "\(String(describing: type(of: self)))-\(user.uid)"
     }
     
-    var oppositeCommand: UserCommand? {
+    var inverseCommand: UserCommand? {
         return nil
     }
     

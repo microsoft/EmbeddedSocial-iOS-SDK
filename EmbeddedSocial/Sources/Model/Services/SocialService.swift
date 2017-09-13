@@ -6,17 +6,17 @@
 import Foundation
 
 protocol SocialServiceType {
-    func follow(userID: String, completion: @escaping (Result<Void>) -> Void)
+    func follow(user: User, completion: @escaping (Result<Void>) -> Void)
     
-    func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void)
+    func unfollow(user: User, completion: @escaping (Result<Void>) -> Void)
     
-    func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void)
+    func cancelPending(user: User, completion: @escaping (Result<Void>) -> Void)
     
-    func unblock(userID: String, completion: @escaping (Result<Void>) -> Void)
+    func unblock(user: User, completion: @escaping (Result<Void>) -> Void)
     
-    func block(userID: String, completion: @escaping (Result<Void>) -> Void)
+    func block(user: User, completion: @escaping (Result<Void>) -> Void)
     
-    func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void)
+    func changeFollowStatus(user: User, completion: @escaping (Result<Void>) -> Void)
     
     func getSuggestedUsers(completion: @escaping (Result<UsersListResponse>) -> Void)
     
@@ -55,36 +55,41 @@ class SocialService: BaseService, SocialServiceType {
         outgoingActionsExecutor = provider.makeOutgoingActionRequestExecutor(for: self)
     }
     
-    func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func follow(user: User, completion: @escaping (Result<Void>) -> Void) {
         let request = PostFollowingUserRequest()
-        request.userHandle = userID
+        request.userHandle = user.uid
         
         let builder = SocialAPI.myFollowingPostFollowingUserWithRequestBuilder(request: request, authorization: authorization)
-        outgoingActionsExecutor.execute(with: builder, actionType: .follow, handle: userID, completion: completion)
+        let command = FollowCommand(user: user)
+        outgoingActionsExecutor.execute(command: command, builder: builder, completion: completion)
     }
     
-    func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        let builder = SocialAPI.myFollowingDeleteFollowingUserWithRequestBuilder(userHandle: userID, authorization: authorization)
-        outgoingActionsExecutor.execute(with: builder, actionType: .unfollow, handle: userID, completion: completion)
+    func unfollow(user: User, completion: @escaping (Result<Void>) -> Void) {
+        let builder = SocialAPI.myFollowingDeleteFollowingUserWithRequestBuilder(userHandle: user.uid, authorization: authorization)
+        let command = UnfollowCommand(user: user)
+        outgoingActionsExecutor.execute(command: command, builder: builder, completion: completion)
     }
     
-    func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void) {
-        let builder = SocialAPI.myPendingUsersDeletePendingUserWithRequestBuilder(userHandle: userID, authorization: authorization)
-        outgoingActionsExecutor.execute(with: builder, actionType: .cancelPending, handle: userID, completion: completion)
+    func cancelPending(user: User, completion: @escaping (Result<Void>) -> Void) {
+        let builder = SocialAPI.myPendingUsersDeletePendingUserWithRequestBuilder(userHandle: user.uid, authorization: authorization)
+        let command = CancelPendingCommand(user: user)
+        outgoingActionsExecutor.execute(command: command, builder: builder, completion: completion)
     }
 
-    func unblock(userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func unblock(user: User, completion: @escaping (Result<Void>) -> Void) {
         let builder =
-            SocialAPI.myBlockedUsersDeleteBlockedUserWithRequestBuilder(userHandle: userID, authorization: authorization)
-        outgoingActionsExecutor.execute(with: builder, actionType: .unblock, handle: userID, completion: completion)
-    }
+            SocialAPI.myBlockedUsersDeleteBlockedUserWithRequestBuilder(userHandle: user.uid, authorization: authorization)
+        let command = UnblockCommand(user: user)
+        outgoingActionsExecutor.execute(command: command, builder: builder, completion: completion)
+     }
     
-    func block(userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func block(user: User, completion: @escaping (Result<Void>) -> Void) {
         let request = PostBlockedUserRequest()
-        request.userHandle = userID
+        request.userHandle = user.uid
         
         let builder = SocialAPI.myBlockedUsersPostBlockedUserWithRequestBuilder(request: request, authorization: authorization)
-        outgoingActionsExecutor.execute(with: builder, actionType: .block, handle: userID, completion: completion)
+        let command = BlockCommand(user: user)
+        outgoingActionsExecutor.execute(command: command, builder: builder, completion: completion)
     }
     
     private func processResponse(_ data: Object?, _ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
@@ -163,16 +168,21 @@ class SocialService: BaseService, SocialServiceType {
         usersFeedExecutor.execute(with: builder, completion: completion)
     }
     
-    func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void) {
-        switch currentFollowStatus {
+    func changeFollowStatus(user: User, completion: @escaping (Result<Void>) -> Void) {
+        guard let followStatus = user.followerStatus else {
+            completion(.failure(APIError.missingUserData))
+            return
+        }
+        
+        switch followStatus {
         case .empty:
-            follow(userID: userID, completion: completion)
+            follow(user: user, completion: completion)
         case .accepted:
-            unfollow(userID: userID, completion: completion)
+            unfollow(user: user, completion: completion)
         case .blocked:
-            unblock(userID: userID, completion: completion)
+            unblock(user: user, completion: completion)
         case .pending:
-            cancelPending(userID: userID, completion: completion)
+            cancelPending(user: user, completion: completion)
         }
     }
     

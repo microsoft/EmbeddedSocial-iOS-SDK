@@ -6,7 +6,7 @@
 import Foundation
 
 class UnfollowCommand: UserCommand {
-    override var oppositeCommand: UserCommand? {
+    override var inverseCommand: UserCommand? {
         return FollowCommand(user: user)
     }
 }

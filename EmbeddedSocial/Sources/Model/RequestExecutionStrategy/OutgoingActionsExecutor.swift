@@ -38,11 +38,28 @@ class OutgoingActionsExecutor<ResponseType> {
                 self?.processResponse(response, error, completion)
             }
         } else {
-            cache(builder: builder, actionType: actionType, handle: handle)
+            cacheCommand(command)
             DispatchQueue.main.async {
                 completion(.success())
             }
         }
+    }
+    
+    private func cacheCommand(_ command: UserCommand) {
+        if let cachedInverseCommand = self.cachedInverseCommand(for: command) {
+            cache?.deleteOutgoing(with: PredicateBuilder.predicate(for: cachedInverseCommand))
+        } else {
+            cache?.cacheOutgoing(command, for: UserCommand.typeIdentifier)
+        }
+    }
+    
+    private func cachedInverseCommand(for command: UserCommand) -> UserCommand? {
+        guard let inverseCommand = command.inverseCommand else {
+            return nil
+        }
+        return cache?.firstOutgoing(ofType: type(of: inverseCommand),
+                                    predicate: PredicateBuilder.predicate(for: inverseCommand),
+                                    sortDescriptors: nil)
     }
     
     private func cache(builder: RequestBuilder<ResponseType>, actionType: OutgoingAction.ActionType, handle: String) {
