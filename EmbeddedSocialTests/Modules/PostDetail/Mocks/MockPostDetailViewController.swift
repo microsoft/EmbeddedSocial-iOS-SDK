@@ -64,4 +64,9 @@ class MockPostDetailViewController: UIViewController, PostDetailViewInput {
     func removeComment(index: Int) {
         removeCommentCount += 1
     }
+    
+    var scrollCollectionViewToBottomCount = 0
+    func scrollCollectionViewToBottom() {
+        scrollCollectionViewToBottomCount += 1
+    }
 }
