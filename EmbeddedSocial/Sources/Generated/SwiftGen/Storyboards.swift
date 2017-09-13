@@ -42,6 +42,18 @@ extension UIViewController {
 }
 
 enum StoryboardScene {
+  enum Activity: String, StoryboardSceneType {
+    static let storyboardName = "Activity"
+
+    case activityViewControllerScene = "ActivityViewController"
+    static func instantiateActivityViewController() -> EmbeddedSocial.ActivityViewController {
+      guard let vc = StoryboardScene.Activity.activityViewControllerScene.viewController() as? EmbeddedSocial.ActivityViewController
+      else {
+        fatalError("ViewController 'ActivityViewController' is not of the expected class EmbeddedSocial.ActivityViewController.")
+      }
+      return vc
+    }
+  }
   enum BlockedUsers: String, StoryboardSceneType {
     static let storyboardName = "BlockedUsers"
 
