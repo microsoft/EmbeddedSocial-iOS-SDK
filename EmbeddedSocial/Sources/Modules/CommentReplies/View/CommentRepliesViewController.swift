@@ -57,6 +57,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
+        postButton.isHidden = replyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
     // MARK: Internal
@@ -79,7 +80,6 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         replyTextView.layer.borderWidth = 1
         replyTextView.layer.borderColor = UIColor.lightGray.cgColor
         replyTextView.layer.cornerRadius = 1
-        postButton.isHidden = replyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
     fileprivate func scrollTableToBottom() {
