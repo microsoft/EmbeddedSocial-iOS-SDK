@@ -40,7 +40,10 @@ class ActivityViewController: UIViewController, ActivityViewInput {
 
     // MARK: ActivityViewInput
     func setupInitialState() {
+        
+        tableView.reloadData()
     }
+
 }
 
 protocol ActivityItemViewModel {
@@ -60,10 +63,13 @@ extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let viewModel = output.viewModel(for: indexPath)
-        let cell = tableView.dequeueReusableCell(withIdentifier: viewModel.identifier, for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: viewModel.identifier, for: indexPath) as? ActivityViewModelConfigurable else {
+            fatalError("Cell mismatch")
+        }
         
-        return cell
+        cell.configure(with: viewModel)
         
+        return cell as! UITableViewCell
     }
     
 }

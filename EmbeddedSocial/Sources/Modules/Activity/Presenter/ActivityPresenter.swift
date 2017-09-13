@@ -38,6 +38,6 @@ class ActivityPresenter: ActivityModuleInput, ActivityViewOutput, ActivityIntera
     var router: ActivityRouterInput!
 
     func viewIsReady() {
-        
+        view.setupInitialState()
     }
 }
