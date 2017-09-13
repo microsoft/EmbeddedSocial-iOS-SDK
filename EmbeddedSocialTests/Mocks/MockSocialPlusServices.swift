@@ -6,7 +6,7 @@
 import Foundation
 @testable import EmbeddedSocial
 
-struct MockSocialPlusServices: SocialPlusServicesType {
+final class MockSocialPlusServices: SocialPlusServicesType {
     private let urlSchemeService: URLSchemeServiceType
     private let sessionStoreRepositoriesProvider: SessionStoreRepositoryProviderType
     
@@ -45,5 +45,15 @@ struct MockSocialPlusServices: SocialPlusServicesType {
     
     func getAuthorizationMulticast() -> AuthorizationMulticastType {
         return AuthorizationMulticast(authorization: Constants.API.anonymousAuthorization)
+    }
+    
+    var getDaemonsControllerCalled = false
+    var getDaemonsControllerInputCache: CacheType?
+    var getDaemonsControllerReturnValue: Daemon = MockDaemon()
+    
+    func getDaemonsController(cache: CacheType) -> Daemon {
+        getDaemonsControllerCalled = true
+        getDaemonsControllerInputCache = cache
+        return getDaemonsControllerReturnValue
     }
 }

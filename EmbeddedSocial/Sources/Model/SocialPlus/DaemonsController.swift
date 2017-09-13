@@ -35,8 +35,4 @@ final class DaemonsController: Daemon {
     func stop() {
         daemons.forEach { $0.stop() }
     }
-    
-    deinit {
-        stop()
-    }
 }

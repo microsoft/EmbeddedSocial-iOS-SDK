@@ -109,7 +109,9 @@ extension User {
         uid = compactView.userHandle!
         firstName = compactView.firstName
         lastName = compactView.lastName
-        photo = Photo(uid: compactView.photoHandle ?? UUID().uuidString, url: compactView.photoUrl)
+        if let photoHandle = compactView.photoHandle {
+            photo = Photo(uid: photoHandle, url: compactView.photoUrl)
+        }
         visibility = compactView.visibility != nil ? Visibility(visibility: compactView.visibility!) : ._private
         followerStatus = FollowStatus(status: compactView.followerStatus)
         

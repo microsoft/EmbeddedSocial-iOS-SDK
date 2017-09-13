@@ -222,6 +222,7 @@ class UserProfilePresenterTests: XCTestCase {
         // given
         let user = User(uid: UUID().uuidString, visibility: visibility, followingStatus: oldStatus)
         interactor.userToReturn = user
+        interactor.processSocialRequestResult = .success(newStatus)
         
         let presenter = makeDefaultPresenter(userID: user.uid)
         

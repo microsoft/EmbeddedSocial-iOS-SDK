@@ -28,23 +28,43 @@ class UserProfileInteractorTests: XCTestCase {
         sut = nil
     }
     
-    func testThatSocialRequestIsCalledForEmptyStatus() {
-        sut.processSocialRequest(currentFollowStatus: .empty, userID: UUID().uuidString) { _ in () }
+    func testThatGetUserIsCalled() {
+        // given
+        let userID = UUID().uuidString
+        
+        // when
+        sut.getUser(userID: userID) { _ in () }
+        
+        // then
+        XCTAssertEqual(userService.getUserProfileCount, 1)
+    }
+    
+    func testThatItProcessesSocialRequest() {
+        // given
+        let user = User(visibility: ._public, followerStatus: .empty)
+        
+        // when
+        sut.processSocialRequest(to: user) { _ in () }
+        
+        // then
         XCTAssertEqual(socialService.requestCount, 1)
     }
     
     func testThatSocialRequestIsCalledForAcceptedStatus() {
-        sut.processSocialRequest(currentFollowStatus: .accepted, userID: UUID().uuidString) { _ in () }
+        let user = User()
+        sut.processSocialRequest(to: user) { _ in () }
         XCTAssertEqual(socialService.requestCount, 1)
     }
     
     func testThatSocialRequestIsCalledForPendingStatus() {
-        sut.processSocialRequest(currentFollowStatus: .pending, userID: UUID().uuidString) { _ in () }
+        let user = User()
+        sut.processSocialRequest(to: user) { _ in () }
         XCTAssertEqual(socialService.requestCount, 1)
     }
     
     func testThatSocialRequestIsCalledForBlockedStatus() {
-        sut.processSocialRequest(currentFollowStatus: .blocked, userID: UUID().uuidString) { _ in () }
+        let user = User()
+        sut.processSocialRequest(to: user) { _ in () }
         XCTAssertEqual(socialService.requestCount, 1)
     }
     

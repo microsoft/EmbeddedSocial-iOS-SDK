@@ -58,17 +58,22 @@ class FeedModulePresenter_Tests: XCTestCase {
     func testThatViewModelIsCorrect() {
         
         // given
+        let firstName = UUID().uuidString
+        let lastName = UUID().uuidString
+        
         let calendar = Calendar.current
         var comps = DateComponents()
         comps.day = -2
         
         let creationDate = calendar.date(byAdding: comps, to: Date())
         
+        let user = User(firstName: firstName,
+                        lastName: lastName)
+        
         var post = Post()
         
         post.topicHandle = "handle"
-        post.firstName = "vasiliy"
-        post.lastName = "bodia"
+        post.user = user
         post.pinned = false
         post.liked = true
         post.title = "post 1 mocked"
@@ -87,7 +92,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         // then
         XCTAssertTrue(viewModel.isLiked == true)
         XCTAssertTrue(viewModel.isPinned == false)
-        XCTAssertTrue(viewModel.userName == "vasiliy bodia")
+        XCTAssertTrue(viewModel.userName == User.fullName(firstName: firstName, lastName: lastName))
         XCTAssertTrue(viewModel.totalLikes == "1 like")
         XCTAssertTrue(viewModel.totalComments == "2 comments")
         XCTAssertTrue(viewModel.timeCreated == "2d")
@@ -217,10 +222,11 @@ class FeedModulePresenter_Tests: XCTestCase {
         let postUserHandle = UUID().uuidString
         let postImageURL = UUID().uuidString
         let postHandle = UUID().uuidString
-    
+        let user = User(uid: postUserHandle)
+        
         var post = Post.mock(seed: 1)
         
-        post.userHandle = postUserHandle
+        post.user = user
         post.imageUrl = postImageURL
         
         let feed = Feed(feedType: .home, items: [post], cursor: "cursor")
@@ -277,11 +283,11 @@ class FeedModulePresenter_Tests: XCTestCase {
         sut.userHolder = userHolder
     
         let postImageURL = UUID().uuidString
-        let postHandle = UUID().uuidString
         
         var post = Post.mock(seed: 1)
+        let user = User(uid: myUserHandle)
         
-        post.userHandle = myUserHandle
+        post.user = user
         post.imageUrl = postImageURL
         
         
