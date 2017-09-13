@@ -6,11 +6,15 @@
 import UIKit
 
 class ActivityModuleConfigurator {
+    
+    private(set) var viewController: ActivityViewController!
+    private(set) var module: ActivityModuleInput!
 
-
-    private func configure(viewController: ActivityViewController) {
+    func configure() {
 
         let router = ActivityRouter()
+        
+//        viewController = StoryboardScene.Activity
 
         let presenter = ActivityPresenter()
         presenter.view = viewController

@@ -76,6 +76,8 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     
     var builderForHome: ModuleBuilder = { $0.configuredHome }
     
+    var builderForHome: ModuleBuilder = { $0.configuredHome }
+    
     var builderForPopular: ModuleBuilder = { $0.configuredPopular }
     
     var builderForSearch: ModuleBuilder = { $0.configuredSearch }

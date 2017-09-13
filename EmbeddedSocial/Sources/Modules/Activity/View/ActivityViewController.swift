@@ -16,11 +16,21 @@ protocol ActivityViewOutput {
 class ActivityViewController: UIViewController, ActivityViewInput {
 
     var output: ActivityViewOutput!
+    
+    @IBOutlet weak var tableView: UITableView!
 
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setup()
+        
         output.viewIsReady()
+    }
+    
+    private func setup() {
+        tableView.register(ActivityCell.self, forCellReuseIdentifier: ActivityCell.reuseID)
+        tableView.register(ActivityCell.self, forCellReuseIdentifier: ActivityCell.reuseID)
     }
 
     // MARK: ActivityViewInput
