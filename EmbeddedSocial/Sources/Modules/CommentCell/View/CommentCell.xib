@@ -85,6 +85,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DpI-cb-fNv" userLabel="like">
                                 <rect key="frame" x="50" y="10" width="30" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="Like"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="CFU-Yo-LHe"/>
                                     <constraint firstAttribute="height" constant="30" id="Ing-Zz-qtE"/>
@@ -98,6 +99,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffo-F5-hAE" userLabel="comment">
                                 <rect key="frame" x="95" y="10" width="30" height="30"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Reply" label="Reply"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="6j8-pm-uOv"/>
                                     <constraint firstAttribute="height" constant="30" id="FD8-py-z7g"/>

@@ -21,7 +21,11 @@ open class APIRouter: WebApp {
             return ["message": "It works!"]
         })
         
-        self["/v0.7/topics/?(.*(?<!likes)$)"] = APIResponse(serviceName: "topics") { environ, sendJSON -> Void in
+        self["/v0.7/topics/(.*(?<!popular|comments)$)"] = APIResponse(serviceName: "topics") {environ, sendJSON -> Void in
+            sendJSON(Templates.load(name: "topic"))
+        }
+        
+        self["/v0.7/topics/(popular.*$)"] = APIResponse(serviceName: "topics") { environ, sendJSON -> Void in
             let input = environ["swsgi.input"] as! SWSGIInput
             let method = environ["REQUEST_METHOD"] as! String
             switch method {
@@ -50,8 +54,50 @@ open class APIRouter: WebApp {
             }
         }
         
-        self["/v0.7/users/(.*)/topics/?(.*)"] = self["/v0.7/topics/?(.*(?<!likes)$)"]
-        self["/v0.7/users/me/following/combined"] = self["/v0.7/topics/?(.*(?<!likes)$)"]
+        self["/v0.7/users/(.*)/topics/?(.*)"] = self["/v0.7/topics/(popular.*$)"]
+        self["/v0.7/users/me/following/combined"] = self["/v0.7/topics/(popular.*$)"]
+        
+        self["/v0.7/topics/(.*)/comments"] = APIResponse(serviceName: "comments") {environ, sendJSON -> Void in
+            let input = environ["swsgi.input"] as! SWSGIInput
+            let method = environ["REQUEST_METHOD"] as! String
+            switch method {
+                case "POST":
+                    JSONReader.read(input) { json in
+                        APIState.setLatestData(forService: "comments", data: json)
+                        sendJSON(Templates.load(name: "comment_post", values: ["commentHandle": UUID().uuidString]))
+                    }
+                default:
+                    let query = URLParametersReader.parseURLParameters(environ: environ)
+                    print(query)
+                    let cursor = query["cursor"] ?? "0"
+                    if let limit = query["limit"] {
+                        sendJSON(Templates.loadComments(cursor: Int(cursor)!, limit: Int(limit)!))
+                    } else {
+                        sendJSON(Templates.loadComments())
+                    }
+            }
+        }
+        
+        self["/v0.7/comments/(.*)/replies"] = APIResponse(serviceName: "replies") {environ, sendJSON -> Void in
+            let input = environ["swsgi.input"] as! SWSGIInput
+            let method = environ["REQUEST_METHOD"] as! String
+            switch method {
+            case "POST":
+                JSONReader.read(input) { json in
+                    APIState.setLatestData(forService: "replies", data: json)
+                    sendJSON(Templates.load(name: "reply_post", values: ["replyHandle": UUID().uuidString]))
+                }
+            default:
+                let query = URLParametersReader.parseURLParameters(environ: environ)
+                print(query)
+                let cursor = query["cursor"] ?? "0"
+                if let limit = query["limit"] {
+                    sendJSON(Templates.loadReplies(cursor: Int(cursor)!, limit: Int(limit)!))
+                } else {
+                    sendJSON(Templates.loadReplies())
+                }
+            }
+        }
         
         self["/v0.7/topics/(.*)/likes"] = APIResponse(serviceName: "likes") { environ, sendJSON -> Void in
             let method = environ["REQUEST_METHOD"] as! String

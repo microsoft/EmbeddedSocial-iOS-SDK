@@ -105,6 +105,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9g-p9-9jH" userLabel="comment">
                                 <rect key="frame" x="50" y="10" width="30" height="30"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Like" label="Like"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="26s-6M-Ukq"/>
                                     <constraint firstAttribute="width" constant="30" id="IIV-oo-V9u"/>

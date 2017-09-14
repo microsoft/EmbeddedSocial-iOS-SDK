@@ -86,4 +86,41 @@ class Templates {
         return ["data": followers, "cursor": String(cursor + limit)]
     }
     
+    class func loadComments(cursor: Int = 0, limit: Int = 10) -> Any {
+        var comments: Array<[String: Any]> = []
+        
+        for i in cursor...cursor + limit - 1 {
+            var values: [String: Any]
+            values = ["commentHandle": "commentHandle" + String(i)]
+            
+            if APIConfig.numberedCommentLikes {
+                values["totalLikes"] = i
+            }
+            
+            let comment = Templates.load(name: "comment", values: values)
+            
+            comments.append(comment)
+        }
+        
+        return ["data": comments, "cursor": String(cursor + limit)]
+    }
+    
+    class func loadReplies(cursor: Int = 0, limit: Int = 10) -> Any {
+        var comments: Array<[String: Any]> = []
+        
+        for i in cursor...cursor + limit - 1 {
+            var values: [String: Any]
+            values = ["replyHandle": "replyHandle" + String(i)]
+            
+            if APIConfig.numberedCommentLikes {
+                values["totalLikes"] = i
+            }
+            
+            let comment = Templates.load(name: "reply", values: values)
+            
+            comments.append(comment)
+        }
+        print(comments.count)
+        return ["data": comments, "cursor": String(cursor + limit)]
+    }
 }
