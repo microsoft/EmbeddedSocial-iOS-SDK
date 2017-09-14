@@ -15,6 +15,7 @@ class SearchTopicsViewController: UIViewController {
     @IBOutlet weak var noContentLabel: UILabel! {
         didSet {
             noContentLabel.isHidden = true
+            noContentLabel.textColor = Palette.darkGrey
         }
     }
     

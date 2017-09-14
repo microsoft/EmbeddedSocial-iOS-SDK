@@ -75,10 +75,20 @@ final class MockUserListView: UIView, UserListViewInput {
     }
     
     //MARK: - endPullToRefreshAnimation
-
+    
     var endPullToRefreshAnimationCalled = false
-
+    
     func endPullToRefreshAnimation() {
         endPullToRefreshAnimationCalled = true
+    }
+    
+    //MARK: - setNoDataText
+    
+    var setNoDataTextCalled = false
+    var setNoDataTextReceivedText: NSAttributedString?
+    
+    func setNoDataText(_ text: NSAttributedString?) {
+        setNoDataTextCalled = true
+        setNoDataTextReceivedText = text
     }
 }

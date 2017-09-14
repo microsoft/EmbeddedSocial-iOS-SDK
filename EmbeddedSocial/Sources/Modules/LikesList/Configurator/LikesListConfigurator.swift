@@ -22,6 +22,7 @@ struct LikesListConfigurator {
         let api = LikesListAPI(handle: handle, type: type, likesService: LikesService())
 
         presenter.usersListModule = makeUserListModule(api: api,
+                                                       noDataText: type.noDataText,
                                                        navigationController: navigationController,
                                                        output: presenter)
         
@@ -29,12 +30,18 @@ struct LikesListConfigurator {
     }
     
     private func makeUserListModule(api: UsersListAPI,
+                                    noDataText: String,
                                     navigationController: UINavigationController?,
                                     output: UserListModuleOutput?) -> UserListModuleInput {
 
+        let noDataText = NSAttributedString(string: noDataText,
+                                            attributes: [NSFontAttributeName: Fonts.medium,
+                                                         NSForegroundColorAttributeName: Palette.darkGrey])
+        
         let settings = UserListConfigurator.Settings(api: api,
                                                      navigationController: navigationController,
-                                                     output: output)
+                                                     output: output,
+                                                     noDataText: noDataText)
         
         return UserListConfigurator().configure(with: settings)
     }

@@ -59,8 +59,10 @@
 "edit_profile.label.account_information" = "Account Information";
 
 "followers.screen_title" = "Followers";
+"followers.no_data_text" = "Currently nobody is following you.";
 
 "following.screen_title" = "Following";
+"following.no_data_text" = "Currently you are not following anyone.";
 
 "login.screen_title" = "Sign in";
 
@@ -123,6 +125,10 @@
 "popular_module.feed_option.all_time" = "All time";
 
 "likes_list.screen_title" = "Like this post";
+"likes_list.post.no_data_text" = "No one has liked this post yet.";
+"likes_list.comment.no_data_text" = "No one has liked this comment yet.";
+"likes_list.reply.no_data_text" = "No one has liked this reply yet.";
 
 "blocked_users.screen_title" = "Blocked users";
+"blocked_users.no_data_text" = "You haven't blocked anyone.";
 

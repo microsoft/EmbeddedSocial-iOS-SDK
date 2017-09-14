@@ -46,6 +46,12 @@ class UserListView: UIView {
         return refreshControl
     }()
     
+    fileprivate lazy var noDataLabel: UILabel = { [unowned self] in
+        let label = UILabel()
+        self.addSubview(label)
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -73,6 +79,12 @@ extension UserListView: UserListViewInput {
         tableView.snp.makeConstraints { make in
             make.edges.equalTo(self)
         }
+        
+        let navBarAndStatusBarHeight: CGFloat = 64
+        noDataLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(self)
+            make.centerY.equalTo(self).offset(-navBarAndStatusBarHeight)
+        }
     }
     
     func setUsers(_ users: [User]) {
@@ -98,5 +110,9 @@ extension UserListView: UserListViewInput {
     
     func endPullToRefreshAnimation() {
         refreshControl.endRefreshing()
+    }
+    
+    func setNoDataText(_ text: NSAttributedString?) {
+        noDataLabel.attributedText = text
     }
 }
