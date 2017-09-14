@@ -5,7 +5,11 @@
 
 import Foundation
 
-struct UserCommandOperationsBuilder {
+protocol UserCommandOperationsBuilderType {
+    static func operation(for command: UserCommand) -> Operation?
+}
+
+struct UserCommandOperationsBuilder: UserCommandOperationsBuilderType {
     
     static func operation(for command: UserCommand) -> Operation? {
         if command is FollowCommand {

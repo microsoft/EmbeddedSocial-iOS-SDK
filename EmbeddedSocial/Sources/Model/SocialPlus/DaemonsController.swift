@@ -10,7 +10,10 @@ final class DaemonsController: Daemon {
     private let cache: CacheType
     
     private lazy var outgoingCacheDaemon: UserCommandsCacheDaemon = { [unowned self] in
-        return UserCommandsCacheDaemon(networkTracker: self.networkTracker, cache: self.cache, jsonDecoderType: Decoders.self)
+        return UserCommandsCacheDaemon(networkTracker: self.networkTracker,
+                                       cache: self.cache,
+                                       jsonDecoderType: Decoders.self,
+                                       operationsBuilderType: UserCommandOperationsBuilder.self)
     }()
     
     private lazy var feedUserCommandsCacheDaemon: FeedCachedActionsExecutor = { [unowned self] in
