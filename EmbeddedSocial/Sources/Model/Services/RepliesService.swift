@@ -182,19 +182,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             reply.userPhotoUrl = replyView.user?.photoUrl
             reply.userHandle = replyView.user?.userHandle
             reply.totalLikes = Int(replyView.totalLikes!)
-            
-            if let shortUser = replyView.user {
-                switch shortUser.followerStatus! {
-                case ._none:
-                    reply.userStatus = .none
-                case .blocked:
-                    reply.userStatus = .blocked
-                case .follow:
-                    reply.userStatus = .follow
-                case .pending:
-                    reply.userStatus = .pending
-                }
-            }
+            reply.userStatus = FollowStatus(status: replyView.user?.followerStatus)
             
             let cacheRequestForReplies = CacheFetchRequest(resultType: FeedActionRequest.self, predicate: PredicateBuilder().predicate(handle: replyView.replyHandle!))
             let cacheResultForReplies = cache.fetchOutgoing(with: cacheRequestForReplies)
@@ -229,13 +217,6 @@ class RepliesService: BaseService, RepliesServiceProtcol {
 }
 
 class Reply {
-    enum UserStatus: Int {
-        case none
-        case follow
-        case pending
-        case blocked
-    }
-    
     var userHandle: String?
     var userFirstName: String?
     var userLastName: String?
@@ -250,7 +231,12 @@ class Reply {
     var topicHandle: String?
     var createdTime: Date?
     var lastUpdatedTime: Date?
-    var userStatus: UserStatus = .none
+    var userStatus: FollowStatus = .empty
+    
+    var user: User? {
+        guard let userHandle = userHandle else { return nil }
+        return User(uid: userHandle, firstName: userFirstName, lastName: userLastName, photo: Photo(url: userPhotoUrl))
+    }
 }
 
 struct RepliesFetchResult {

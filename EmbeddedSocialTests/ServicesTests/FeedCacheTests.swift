@@ -139,14 +139,18 @@ class FeedCachingTests: XCTestCase {
         let isConnectionAvailable = false
         let likesService = MockLikesService()
         let cacheAdapter = SocialActionsCacheAdapterProtocolMock()
-        let outgoingActionsProcessor = CachedActionsExecuter(isConnectionAvailable: isConnectionAvailable,
-                                                             cacheAdapter: cacheAdapter,
-                                                             likesService: likesService)
+        let networkTracker = MockNetworkTracker()
+        networkTracker.isReachable = isConnectionAvailable
+        
+        let outgoingActionsProcessor = FeedCachedActionsExecutor(networkTracker: networkTracker,
+                                                                 cacheAdapter: cacheAdapter,
+                                                                 likesService: likesService)
         
         let action = FeedActionRequestBuilder.build(method: "POST", handle: uniqueString(), action: .like)
         cacheAdapter.getAllCachedActionsReturnValue = Set([action])
         
         // when
+        outgoingActionsProcessor.start()
         outgoingActionsProcessor.executeAll()
         
         // then
@@ -158,6 +162,7 @@ class FeedCachingTests: XCTestCase {
         
         //        let waitingForExecution = expectation(description: #function)
         
+        networkTracker.isReachable = true
         outgoingActionsProcessor.networkStatusDidChange(true)
         
         // then 2
@@ -178,9 +183,12 @@ class FeedCachingTests: XCTestCase {
         let isConnectionAvailable = false
         let likesService = MockLikesService()
         let cacheAdapter = SocialActionsCacheAdapterProtocolMock()
-        let outgoingActionsProcessor = CachedActionsExecuter(isConnectionAvailable: isConnectionAvailable,
-                                                             cacheAdapter: cacheAdapter,
-                                                             likesService: likesService)
+        let networkTracker = MockNetworkTracker()
+        networkTracker.isReachable = isConnectionAvailable
+        
+        let outgoingActionsProcessor = FeedCachedActionsExecutor(networkTracker: networkTracker,
+                                                                 cacheAdapter: cacheAdapter,
+                                                                 likesService: likesService)
         
         // 4 unique actions
         let actionsParameters = [
@@ -197,6 +205,7 @@ class FeedCachingTests: XCTestCase {
         XCTAssertTrue(cacheAdapter.getAllCachedActions().count == actionsParameters.count)
 
         // when
+        networkTracker.isReachable = true
         outgoingActionsProcessor.networkStatusDidChange(true)
         
         // then
@@ -211,11 +220,12 @@ class FeedCachingTests: XCTestCase {
         // given
         let postHandleA = uniqueString()
         let postHandleB = uniqueString()
+        let networkTracker = MockNetworkTracker()
         
         let actionsCache = FeedCacheActionsAdapter(cache: cache)
-        let outgoingActionsProcessor = CachedActionsExecuter(isConnectionAvailable: true,
-                                             cacheAdapter: actionsCache,
-                                             likesService: likesService)
+        let outgoingActionsProcessor = FeedCachedActionsExecutor(networkTracker: networkTracker,
+                                                                 cacheAdapter: actionsCache,
+                                                                 likesService: likesService)
         
         let likePostAction = FeedActionRequestBuilder.build(
             method: "POST",

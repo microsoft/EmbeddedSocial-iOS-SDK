@@ -10,7 +10,7 @@ class BaseService: NetworkStatusListener {
     let cache: CacheType
     fileprivate(set) var isNetworkReachable: Bool
     fileprivate(set) var authorization: Authorization
-    private let networkStatusMulticast: NetworkStatusMulticast
+    let networkStatusMulticast: NetworkStatusMulticast
     private let authorizationMulticast: AuthorizationMulticastType
 
     init(authorizationMulticast: AuthorizationMulticastType = SocialPlus.shared.authorizationMulticast,

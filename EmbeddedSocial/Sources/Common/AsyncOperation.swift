@@ -5,7 +5,7 @@
 
 import Foundation
 
-class AsynсOperation: Operation {
+class AsyncOperation: Operation {
     
     override var isAsynchronous: Bool {
         return true

@@ -225,21 +225,8 @@ class CommentsService: BaseService, CommentServiceProtocol {
             comment.topicHandle = commentView.topicHandle
             comment.totalLikes = commentView.totalLikes ?? 0
             comment.liked = commentView.liked ?? false
-            
-            if let shortUser = commentView.user {
-                switch shortUser.followerStatus! {
-                case ._none:
-                    comment.userStatus = .none
-                case .blocked:
-                    comment.userStatus = .blocked
-                case .follow:
-                    comment.userStatus = .follow
-                case .pending:
-                    comment.userStatus = .pending
-                }
-            }
+            comment.userStatus = FollowStatus(status: commentView.user?.followerStatus)
 
-            
             let cacheRequestForLikes = CacheFetchRequest(resultType: FeedActionRequest.self, predicate: PredicateBuilder().predicate(handle: commentView.commentHandle!))
             let cacheResultForLikes = cache.fetchOutgoing(with: cacheRequestForLikes)
 
@@ -293,13 +280,6 @@ struct CommentViewModel {
 
 class Comment: Equatable {
     
-    enum UserStatus: Int {
-        case none
-        case follow
-        case pending
-        case blocked
-    }
-    
     public var commentHandle: String!
     public var topicHandle: String!
     public var createdTime: Date?
@@ -316,7 +296,12 @@ class Comment: Equatable {
     public var totalReplies: Int64 = 0
     public var liked = false
     public var pinned = false
-    public var userStatus: UserStatus = .none
+    public var userStatus: FollowStatus = .empty
+    
+    var user: User? {
+        guard let userHandle = userHandle else { return nil }
+        return User(uid: userHandle, firstName: firstName, lastName: lastName, photo: Photo(url: photoUrl))
+    }
     
     static func ==(left: Comment, right: Comment) -> Bool{
         return left.commentHandle == right.commentHandle

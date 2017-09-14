@@ -502,15 +502,15 @@ extension FeedModulePresenter: PostMenuModuleOutput {
         view.setRefreshingWithBlocking(state: false)
     }
     
-    func didBlock(user: UserHandle) {
+    func didBlock(user: User) {
         Logger.log("Success")
     }
     
-    func didUnblock(user: UserHandle) {
+    func didUnblock(user: User) {
         Logger.log("Success")
     }
     
-    func didFollow(user: UserHandle) {
+    func didFollow(user: User) {
         
         if isHomeFeedType() {
             
@@ -521,8 +521,8 @@ extension FeedModulePresenter: PostMenuModuleOutput {
             
             // Update following status for current posts
             for (index, item) in items.enumerated() {
-                if item.userHandle == user {
-                    items[index].userStatus = .follow
+                if item.userHandle == user.uid {
+                    items[index].userStatus = .accepted
                 }
             }
             
@@ -530,7 +530,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
         }
     }
     
-    func didUnfollow(user: UserHandle) {
+    func didUnfollow(user: User) {
        
         if isHomeFeedType() {
             
@@ -541,8 +541,8 @@ extension FeedModulePresenter: PostMenuModuleOutput {
             
             // Update following status for current posts
             for (index, item) in items.enumerated() {
-                if item.userHandle == user && item.userStatus == .follow {
-                    items[index].userStatus = .none
+                if item.userHandle == user.uid && item.userStatus == .accepted {
+                    items[index].userStatus = .empty
                 }
             }
             

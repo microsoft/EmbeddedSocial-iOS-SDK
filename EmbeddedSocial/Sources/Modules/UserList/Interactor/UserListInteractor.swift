@@ -32,21 +32,26 @@ class UserListInteractor: UserListInteractorInput {
     var listHasMoreItems: Bool {
         return listState.hasMore
     }
+    
+    private let networkTracker: NetworkStatusMulticast
 
-    init(api: UsersListAPI, socialService: SocialServiceType) {
+    init(api: UsersListAPI,
+         socialService: SocialServiceType,
+         networkTracker: NetworkStatusMulticast = SocialPlus.shared.networkTracker) {
         self.api = api
         self.socialService = socialService
+        self.networkTracker = networkTracker
     }
     
     func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void) {
-        guard let followStatus = user.followerStatus else {
+        guard let followStatus = user.followerStatus, let visibility = user.visibility else {
             completion(.failure(APIError.missingUserData))
             return
         }
         
-        let nextStatus = FollowStatus.reduce(status: followStatus, visibility: user.visibility ?? ._private)
+        let nextStatus = FollowStatus.reduce(status: followStatus, visibility: visibility)
         
-        socialService.request(currentFollowStatus: user.followerStatus ?? .empty, userID: user.uid) { result in
+        socialService.changeFollowStatus(user: user) { result in
             if result.isSuccess {
                 completion(.success(nextStatus))
             } else {
@@ -68,7 +73,7 @@ class UserListInteractor: UserListInteractorInput {
     
     func reloadList(completion: @escaping (Result<[User]>) -> Void) {
         resetLoadingState()
-        getNextListPage(skipCache: true, completion: completion)
+        getNextListPage(skipCache: networkTracker.isReachable, completion: completion)
     }
     
     func getNextListPage(completion: @escaping (Result<[User]>) -> Void) {

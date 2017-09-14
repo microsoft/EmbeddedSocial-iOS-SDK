@@ -7,14 +7,11 @@ import Foundation
 
 extension User: MementoSerializable {
     init?(memento: Memento) {
-        guard let uid = memento["uid"] as? String,
-            let credentialsMemento = memento["credentials"] as? Memento,
-            let credentials = CredentialsList(memento: credentialsMemento) else {
-                return nil
+        guard let uid = memento["uid"] as? String else {
+            return nil
         }
         
         self.uid = uid
-        self.credentials = credentials
         
         firstName = memento["firstName"] as? String
         lastName = memento["lastName"] as? String
@@ -25,6 +22,9 @@ extension User: MementoSerializable {
         
         let photoMemento = memento["photo"] as? Memento
         photo = photoMemento != nil ? Photo(memento: photoMemento!) : nil
+        
+        let credentialsMemento = memento["credentials"] as? Memento
+        credentials = credentialsMemento != nil ? CredentialsList(memento: credentialsMemento!) : nil
         
         if let rawVisibility = memento["visibility"] as? String,
             let visibility = Visibility(rawValue: rawVisibility) {

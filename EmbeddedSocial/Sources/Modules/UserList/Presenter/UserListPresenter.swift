@@ -44,7 +44,6 @@ extension UserListPresenter: UserListInteractorOutput {
 extension UserListPresenter: UserListViewOutput {
     
     func onItemAction(item: UserListItem) {
-        
         guard myProfileHolder.me != nil else {
             router.openLogin()
             return
@@ -53,6 +52,7 @@ extension UserListPresenter: UserListViewOutput {
         view.setIsLoading(true, item: item)
         
         interactor.processSocialRequest(to: item.user) { [weak self] result in
+            
             guard let strongSelf = self else {
                 return
             }
@@ -90,8 +90,8 @@ extension UserListPresenter: UserListViewOutput {
         isAnimatingPullToRefresh = true
         interactor.reloadList { [weak self] result in
             self?.isAnimatingPullToRefresh = false
-            self?.processUsersResult(result)
             self?.view.endPullToRefreshAnimation()
+            self?.processUsersResult(result)
         }
     }
 }

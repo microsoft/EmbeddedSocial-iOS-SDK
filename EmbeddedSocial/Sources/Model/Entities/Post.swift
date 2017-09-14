@@ -6,23 +6,10 @@
 import Foundation
 
 struct Post {
-    
-    enum UserStatus: Int {
-        case none
-        case follow
-        case pending
-        case blocked
-    }
-
     public var topicHandle: String!
     public var createdTime: Date?
     
-    public var userHandle: String?
-    public var userStatus: UserStatus = .none
-    public var firstName: String?
-    public var lastName: String?
-    public var photoHandle: String?
-    public var photoUrl: String?
+    public var user: User?
     
     public var title: String?
     public var text: String?
@@ -35,6 +22,35 @@ struct Post {
 
     public var liked: Bool = false
     public var pinned: Bool = false
+    
+    public var userHandle: String? {
+        return user?.uid
+    }
+    
+    public var userStatus: FollowStatus {
+        get {
+            return user?.followerStatus ?? .empty
+        }
+        set {
+            user?.followerStatus = newValue
+        }
+    }
+    
+    public var firstName: String? {
+        return user?.firstName
+    }
+    
+    public var lastName: String? {
+        return user?.lastName
+    }
+    
+    public var photoHandle: String? {
+        return user?.photo?.uid
+    }
+    
+    public var photoUrl: String? {
+        return user?.photo?.url
+    }
 }
 
 extension Post {
@@ -48,8 +64,7 @@ extension Post {
         post.totalLikes = seed
         post.totalComments = seed + 10
         post.topicHandle = "topic handle \(seed)"
-        post.userHandle = "user handle"
-        post.userStatus = Post.UserStatus.none
+        post.user = User(uid: "user handle", followerStatus: .empty)
         return post
     }
 }
@@ -58,22 +73,8 @@ extension Post {
     
     init(data: TopicView) {
         
-        if let user = data.user {
-            firstName = user.firstName
-            lastName = user.lastName
-            photoUrl = user.photoUrl
-            userHandle = user.userHandle
-            
-            switch user.followerStatus! {
-            case ._none:
-                userStatus = .none
-            case .blocked:
-                userStatus = .blocked
-            case .follow:
-                userStatus = .follow
-            case .pending:
-                userStatus = .pending
-            }
+        if let userCompactView = data.user {
+            user = User(compactView: userCompactView)
         }
         
         createdTime = data.createdTime

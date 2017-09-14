@@ -279,11 +279,11 @@ extension CommentRepliesPresenter: PostMenuModuleOutput {
         //        view.setRefreshingWithBlocking(state: false)
     }
     
-    func didBlock(user: UserHandle) {
+    func didBlock(user: User) {
         Logger.log("Success")
     }
     
-    func didUnblock(user: UserHandle) {
+    func didUnblock(user: User) {
         Logger.log("Success")
     }
     
@@ -298,20 +298,20 @@ extension CommentRepliesPresenter: PostMenuModuleOutput {
         view?.removeReply(index: index)
     }
     
-    func didFollow(user: UserHandle) {
+    func didFollow(user: User) {
         for (index, item) in replies.enumerated() {
-            if item.userHandle == user {
-                replies[index].userStatus = .follow
+            if item.userHandle == user.uid {
+                replies[index].userStatus = .accepted
                 view?.refreshReplyCell(index: index)
                 return
             }
         }
     }
     
-    func didUnfollow(user: UserHandle) {
+    func didUnfollow(user: User) {
         for (index, item) in replies.enumerated() {
-            if item.userHandle == user && item.userStatus == .follow {
-                replies[index].userStatus = .none
+            if item.userHandle == user.uid && item.userStatus == .accepted {
+                replies[index].userStatus = .empty
                 view?.refreshReplyCell(index: index)
                 return
             }

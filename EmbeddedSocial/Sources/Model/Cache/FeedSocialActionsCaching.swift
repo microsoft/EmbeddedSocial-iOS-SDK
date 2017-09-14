@@ -82,27 +82,35 @@ struct FeedActionRequest: Cacheable, Hashable, CustomStringConvertible {
     }()
 }
 
-class CachedActionsExecuter: NetworkStatusListener {
+class FeedCachedActionsExecutor: NetworkStatusListener, Daemon {
     
     private let cacheAdapter: FeedCacheActionsAdapterProtocol
     private let likesService: LikesServiceProtocol
+    private let networkTracker: NetworkStatusMulticast
     
-    var isConnectionAvailable: Bool
-    
-    init(isConnectionAvailable: Bool,
+    init(networkTracker: NetworkStatusMulticast,
          cacheAdapter: FeedCacheActionsAdapterProtocol,
          likesService: LikesServiceProtocol = LikesService()) {
         
-        self.isConnectionAvailable = isConnectionAvailable
+        self.networkTracker = networkTracker
         self.cacheAdapter = cacheAdapter
         self.likesService = likesService
     }
     
+    deinit {
+        networkTracker.removeListener(self)
+    }
+    
+    func start() {
+        networkTracker.addListener(self)
+    }
+    
+    func stop() {
+        networkTracker.removeListener(self)
+    }
+    
     func networkStatusDidChange(_ isReachable: Bool) {
-        
-        isConnectionAvailable = isReachable
-        
-        if isConnectionAvailable {
+        if isReachable {
             executeAll()
         }
     }
@@ -141,7 +149,7 @@ class CachedActionsExecuter: NetworkStatusListener {
     
     private func execute(_ action: FeedActionRequest) {
     
-        guard isConnectionAvailable == true else { return }
+        guard networkTracker.isReachable else { return }
         
         queuedForExecution.remove(action)
         beingExecuted.insert(action)
@@ -176,9 +184,9 @@ class FeedActionRequestBuilder {
     static private func transformMethod(_ method: String) -> FeedActionRequest.ActionMethod {
         switch method {
         case "POST":
-            return FeedActionRequest.ActionMethod.post
+            return .post
         case "DELETE":
-            return FeedActionRequest.ActionMethod.delete
+            return .delete
         default:
             fatalError("Unexpected")
         }

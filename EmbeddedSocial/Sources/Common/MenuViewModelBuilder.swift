@@ -71,9 +71,9 @@ class MenuViewModelBuilder {
         item.title = shouldUnblock ? L10n.PostMenu.unblock : L10n.PostMenu.block
         item.action = { _ in
             if shouldUnblock {
-                delegate?.didTapUnblock(user: userHandle)
+                delegate?.didTapUnblock(user: User(uid: userHandle))
             } else {
-                delegate?.didTapBlock(user: userHandle)
+                delegate?.didTapBlock(user: User(uid: userHandle))
             }
         }
         
@@ -83,15 +83,16 @@ class MenuViewModelBuilder {
     private func buildFollowersReply(reply: Reply, delegate: PostMenuModuleInput?) -> ActionViewModel {
         var item = ActionViewModel()
         
-        let shouldFollow = (reply.userStatus == .follow) ? false : true
-        let userHandle = reply.userHandle!
+        let shouldFollow = (reply.userStatus == .accepted) ? false : true
         
         item.title = shouldFollow ? L10n.PostMenu.follow : L10n.PostMenu.unfollow
         item.action = { _ in
+            guard let user = reply.user else { return }
+
             if shouldFollow {
-                delegate?.didTapFollow(user: userHandle)
+                delegate?.didTapFollow(user: user)
             } else {
-                delegate?.didTapUnfollow(user: userHandle)
+                delegate?.didTapUnfollow(user: user)
             }
         }
         return item
@@ -99,16 +100,16 @@ class MenuViewModelBuilder {
 
     private func buildBlockComment(comment: Comment, delegate: PostMenuModuleInput?) -> ActionViewModel {
         var item = ActionViewModel()
-        let userHandle = comment.userHandle!
-        
         let shouldUnblock = comment.userStatus == .blocked
         
         item.title = shouldUnblock ? L10n.PostMenu.unblock : L10n.PostMenu.block
         item.action = { _ in
+            guard let user = comment.user else { return }
+
             if shouldUnblock {
-                delegate?.didTapUnblock(user: userHandle)
+                delegate?.didTapUnblock(user: user)
             } else {
-                delegate?.didTapBlock(user: userHandle)
+                delegate?.didTapBlock(user: user)
             }
         }
         
@@ -118,15 +119,16 @@ class MenuViewModelBuilder {
     private func buildFollowersComment(comment: Comment, delegate: PostMenuModuleInput?) -> ActionViewModel {
         var item = ActionViewModel()
         
-        let shouldFollow = (comment.userStatus == .follow) ? false : true
-        let userHandle = comment.userHandle!
+        let shouldFollow = (comment.userStatus == .accepted) ? false : true
         
         item.title = shouldFollow ? L10n.PostMenu.follow : L10n.PostMenu.unfollow
         item.action = { _ in
+            guard let user = comment.user else { return }
+            
             if shouldFollow {
-                delegate?.didTapFollow(user: userHandle)
+                delegate?.didTapFollow(user: user)
             } else {
-                delegate?.didTapUnfollow(user: userHandle)
+                delegate?.didTapUnfollow(user: user)
             }
         }
         return item
