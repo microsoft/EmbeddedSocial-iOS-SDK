@@ -15,31 +15,31 @@ final class MockSocialService: SocialServiceType {
     private(set) var getMyFollowingCount = 0
     private(set) var getUserFollowersCount = 0
     private(set) var getUserFollowingCount = 0
-    private(set) var requestCount = 0
+    private(set) var changeFollowStatusCount = 0
     private(set) var getSuggestedUsersCount = 0
     private(set) var getMyBlockedUsersCount = 0
 
-    func follow(userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func follow(user: User, completion: @escaping (Result<Void>) -> Void) {
         followCount += 1
         completion(.success())
     }
     
-    func unfollow(userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func unfollow(user: User, completion: @escaping (Result<Void>) -> Void) {
         unfollowCount += 1
         completion(.success())
     }
     
-    func cancelPending(userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func cancelPending(user: User, completion: @escaping (Result<Void>) -> Void) {
         cancelPendingCount += 1
         completion(.success())
     }
     
-    func unblock(userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func unblock(user: User, completion: @escaping (Result<Void>) -> Void) {
         unblockCount += 1
         completion(.success())
     }
     
-    func block(userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func block(user: User, completion: @escaping (Result<Void>) -> Void) {
         blockCount += 1
         completion(.success())
     }
@@ -64,8 +64,8 @@ final class MockSocialService: SocialServiceType {
         completion(.success(UsersListResponse(users: [], cursor: nil, isFromCache: false)))
     }
     
-    func request(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void) {
-        requestCount += 1
+    func changeFollowStatus(user: User, completion: @escaping (Result<Void>) -> Void) {
+        changeFollowStatusCount += 1
         completion(.success())
     }
     
@@ -76,7 +76,6 @@ final class MockSocialService: SocialServiceType {
     func getSuggestedUsers(completion: @escaping (Result<UsersListResponse>) -> Void) {
         getSuggestedUsersCount += 1
         completion(.success(UsersListResponse(users: [], cursor: nil, isFromCache: false)))
-
     }
     
     func getMyBlockedUsers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {

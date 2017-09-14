@@ -47,25 +47,25 @@ class UserProfileInteractorTests: XCTestCase {
         sut.processSocialRequest(to: user) { _ in () }
         
         // then
-        XCTAssertEqual(socialService.requestCount, 1)
+        XCTAssertEqual(socialService.changeFollowStatusCount, 1)
     }
     
     func testThatSocialRequestIsCalledForAcceptedStatus() {
-        let user = User()
+        let user = User(visibility: ._public, followerStatus: .empty)
         sut.processSocialRequest(to: user) { _ in () }
-        XCTAssertEqual(socialService.requestCount, 1)
+        XCTAssertEqual(socialService.changeFollowStatusCount, 1)
     }
     
     func testThatSocialRequestIsCalledForPendingStatus() {
-        let user = User()
+        let user = User(visibility: ._public, followerStatus: .empty)
         sut.processSocialRequest(to: user) { _ in () }
-        XCTAssertEqual(socialService.requestCount, 1)
+        XCTAssertEqual(socialService.changeFollowStatusCount, 1)
     }
     
     func testThatSocialRequestIsCalledForBlockedStatus() {
-        let user = User()
+        let user = User(visibility: ._public, followerStatus: .empty)
         sut.processSocialRequest(to: user) { _ in () }
-        XCTAssertEqual(socialService.requestCount, 1)
+        XCTAssertEqual(socialService.changeFollowStatusCount, 1)
     }
     
     func testThatUserIsLoadedFromCache() {

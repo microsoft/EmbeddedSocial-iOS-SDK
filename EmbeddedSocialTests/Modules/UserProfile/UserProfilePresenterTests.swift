@@ -245,6 +245,7 @@ class UserProfilePresenterTests: XCTestCase {
         let presenter = makeDefaultPresenter(userID: user.uid)
         
         // when
+        presenter.viewIsReady()
         presenter.onFollowRequest(currentStatus: followStatus)
         
         // then
@@ -254,7 +255,7 @@ class UserProfilePresenterTests: XCTestCase {
         
         XCTAssertNil(view.lastFollowStatus)
         XCTAssertNil(view.isProcessingFollowRequest)
-        XCTAssertNil(view.lastFollowersCount)
+        XCTAssertEqual(view.lastFollowersCount, user.followersCount)
     }
     
     func testThatMyMoreMenuIsShown() {
