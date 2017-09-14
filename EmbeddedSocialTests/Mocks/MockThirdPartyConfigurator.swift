@@ -5,10 +5,16 @@
 
 @testable import EmbeddedSocial
 
-final class MockThirdPartyConfigurator: ThirdPartyConfiguratorType {
-    private(set) var setupCount = 0
+class MockThirdPartyConfigurator: ThirdPartyConfiguratorType {
     
-    func setup(application: UIApplication, launchOptions: [AnyHashable : Any]) {
-        setupCount += 1
+    //MARK: - setup
+    
+    var setupApplicationLaunchOptionsCalled = false
+    var setupApplicationLaunchOptionsReceivedArguments: (application: UIApplication, launchOptions: [AnyHashable: Any])?
+    
+    func setup(application: UIApplication, launchOptions: [AnyHashable: Any]) {
+        setupApplicationLaunchOptionsCalled = true
+        setupApplicationLaunchOptionsReceivedArguments = (application: application, launchOptions: launchOptions)
     }
+    
 }
