@@ -41,7 +41,6 @@ public final class SocialPlus {
         coreDataStack = serviceProvider.getCoreDataStack()
         cache = serviceProvider.getCache(coreDataStack: coreDataStack)
         authorizationMulticast = serviceProvider.getAuthorizationMulticast()
-        authorizationMulticast.authorization = sessionStore.authorization
         daemonsController = serviceProvider.getDaemonsController(cache: cache)
     }
     
@@ -58,10 +57,16 @@ public final class SocialPlus {
         coordinator.setup(launchArguments: args, loginHandler: self)
         
         if sessionStore.isLoggedIn {
-            coordinator.onSessionCreated(user: sessionStore.user!, sessionToken: sessionStore.sessionToken!)
+            startSession(with: sessionStore.info!)
         } else {
             coordinator.openPopularScreen()
         }
+    }
+    
+    fileprivate func startSession(with info: SessionInfo) {
+        coordinator.onSessionCreated(with: info)
+        authorizationMulticast.authorization = sessionStore.authorization
+        daemonsController.start()
     }
 }
 
@@ -70,9 +75,7 @@ extension SocialPlus: LoginModuleOutput {
     func onSessionCreated(with info: SessionInfo) {
         sessionStore.createSession(withUser: info.user, sessionToken: info.token)
         try? sessionStore.saveCurrentSession()
-        coordinator.onSessionCreated(with: info)
-        authorizationMulticast.authorization = sessionStore.authorization
-        daemonsController.start()
+        startSession(with: info)
     }
 }
 

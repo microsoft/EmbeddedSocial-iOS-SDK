@@ -15,10 +15,16 @@ final class UserCommandsCacheDaemon: Daemon, NetworkStatusListener {
         q.qualityOfService = .background
         return q
     }()
+    private let operationsBuilderType: UserCommandOperationsBuilderType.Type
     
-    init(networkTracker: NetworkStatusMulticast, cache: CacheType, jsonDecoderType: JSONDecoder.Type) {
+    init(networkTracker: NetworkStatusMulticast,
+         cache: CacheType,
+         jsonDecoderType: JSONDecoder.Type,
+         operationsBuilderType: UserCommandOperationsBuilderType.Type) {
+        
         self.networkTracker = networkTracker
         self.cache = cache
+        self.operationsBuilderType = operationsBuilderType
         jsonDecoderType.setupDecoders()
     }
     
@@ -55,7 +61,7 @@ final class UserCommandsCacheDaemon: Daemon, NetworkStatusListener {
     private func makeActionOperations(from commands: [UserCommand]) -> [Operation] {
         
         let operations = commands.flatMap { [weak self] command -> Operation? in
-            let op = UserCommandOperationsBuilder.operation(for: command)
+            let op = self?.operationsBuilderType.operation(for: command)
             op?.completionBlock = {
                 guard op?.isCancelled != true else { return }
                 let predicate = PredicateBuilder.predicate(for: command)

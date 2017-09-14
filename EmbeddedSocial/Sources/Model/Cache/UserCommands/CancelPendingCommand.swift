@@ -9,4 +9,8 @@ class CancelPendingCommand: UserCommand {
     override var inverseCommand: UserCommand? {
         return FollowCommand(user: user)
     }
+    
+    override func apply(to user: inout User) {
+        user.followerStatus = .empty
+    }
 }

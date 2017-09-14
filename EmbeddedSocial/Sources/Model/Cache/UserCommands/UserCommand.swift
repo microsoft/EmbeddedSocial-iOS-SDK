@@ -35,17 +35,9 @@ class UserCommand {
                 return nil
         }
         
-        let types: [UserCommand.Type] = [
-            FollowCommand.self,
-            UnfollowCommand.self,
-            CancelPendingCommand.self,
-            BlockCommand.self,
-            UnblockCommand.self
-        ]
-        
         var typeNames: [String: UserCommand.Type] = [:]
         
-        for type in types {
+        for type in allCommandTypes {
             typeNames[type.typeIdentifier] = type
         }
         
@@ -55,6 +47,14 @@ class UserCommand {
         
         return matchingType.init(user: user)
     }
+    
+    static var allCommandTypes: [UserCommand.Type] = [
+        FollowCommand.self,
+        UnfollowCommand.self,
+        CancelPendingCommand.self,
+        BlockCommand.self,
+        UnblockCommand.self
+    ]
     
     func encodeToJSON() -> Any {
         return [

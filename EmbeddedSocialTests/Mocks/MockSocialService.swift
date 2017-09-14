@@ -19,8 +19,11 @@ final class MockSocialService: SocialServiceType {
     private(set) var getSuggestedUsersCount = 0
     private(set) var getMyBlockedUsersCount = 0
 
+    var followInputUser: User?
+    
     func follow(user: User, completion: @escaping (Result<Void>) -> Void) {
         followCount += 1
+        followInputUser = user
         completion(.success())
     }
     

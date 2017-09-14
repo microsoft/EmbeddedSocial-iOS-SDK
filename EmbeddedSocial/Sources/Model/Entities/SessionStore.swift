@@ -22,6 +22,13 @@ final class SessionStore {
         return Constants.API.authorization(sessionToken!)
     }
     
+    var info: SessionInfo? {
+        guard isLoggedIn else {
+            return nil
+        }
+        return SessionInfo(user: user!, token: sessionToken!, source: .menu)
+    }
+    
     init(database: SessionStoreDatabase) {
         self.database = database
     }

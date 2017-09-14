@@ -8,14 +8,10 @@ import Foundation
 
 final class MockURLSchemeService: URLSchemeServiceType {
     private(set) var openURLIsCalled = false
-    private let openURLResult: Bool
-    
-    init(openURLResult: Bool) {
-        self.openURLResult = openURLResult
-    }
+    var openURLReturnValue: Bool!
     
     func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
         openURLIsCalled = true
-        return openURLResult
+        return openURLReturnValue
     }
 }
