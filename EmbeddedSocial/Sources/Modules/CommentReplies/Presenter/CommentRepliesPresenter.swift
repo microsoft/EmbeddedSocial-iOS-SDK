@@ -43,7 +43,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     fileprivate var loadMoreCellViewModel = LoadMoreCellViewModel()
     
     private var cursor: String?
-    private let maxLimit: Int = 30000
     private let myProfileHolder: UserHolder
     
     init(myProfileHolder: UserHolder) {
@@ -152,23 +151,13 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             return
         }
         
-        switch scrollType {
-        case .bottom:
-            interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: maxLimit)
-        default:
-            interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
-        }
-        
+        interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
     }
     
     func fetchMore() {
         loadMoreCellViewModel.startLoading()
         view?.updateLoadingCell()
-        if shouldFetchRestOfReplies {
-            interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: maxLimit)
-        } else {
-            interactor.fetchMoreReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
-        }
+        interactor.fetchMoreReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
     }
     
     func loadRestReplies() {
