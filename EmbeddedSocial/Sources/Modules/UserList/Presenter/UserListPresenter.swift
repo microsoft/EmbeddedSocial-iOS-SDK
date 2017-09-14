@@ -12,12 +12,16 @@ class UserListPresenter {
     var router: UserListRouterInput!
     fileprivate let myProfileHolder: UserHolder
     fileprivate var isAnimatingPullToRefresh: Bool = false
+    fileprivate let noDataText: NSAttributedString?
     
-    init(myProfileHolder: UserHolder) {
+    init(myProfileHolder: UserHolder, noDataText: NSAttributedString?) {
         self.myProfileHolder = myProfileHolder
+        self.noDataText = noDataText
     }
     
     func loadNextPage() {
+        view.setNoDataText(nil)
+        
         interactor.getNextListPage { [weak self] result in
             self?.processUsersResult(result)
         }
@@ -30,6 +34,9 @@ class UserListPresenter {
         } else {
             moduleOutput?.didFailToLoadList(listView: listView, error: result.error ?? APIError.unknown)
         }
+        
+        let hasContent = result.value?.isEmpty == false
+        view.setNoDataText(hasContent ? noDataText : nil)
     }
 }
 
@@ -88,6 +95,8 @@ extension UserListPresenter: UserListViewOutput {
     
     func onPullToRefresh() {
         isAnimatingPullToRefresh = true
+        view.setNoDataText(nil)
+
         interactor.reloadList { [weak self] result in
             self?.isAnimatingPullToRefresh = false
             self?.view.endPullToRefreshAnimation()

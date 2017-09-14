@@ -13,6 +13,8 @@ enum L10n {
   }
 
   enum BlockedUsers {
+    /// You haven't blocked anyone.
+    static let noDataText = L10n.tr("Localizable", "blocked_users.no_data_text")
     /// Blocked users
     static let screenTitle = L10n.tr("Localizable", "blocked_users.screen_title")
   }
@@ -133,11 +135,15 @@ enum L10n {
   }
 
   enum Followers {
+    /// Currently nobody is following you.
+    static let noDataText = L10n.tr("Localizable", "followers.no_data_text")
     /// Followers
     static let screenTitle = L10n.tr("Localizable", "followers.screen_title")
   }
 
   enum Following {
+    /// Currently you are not following anyone.
+    static let noDataText = L10n.tr("Localizable", "following.no_data_text")
     /// Following
     static let screenTitle = L10n.tr("Localizable", "following.screen_title")
   }
@@ -161,6 +167,21 @@ enum L10n {
   enum LikesList {
     /// Like this post
     static let screenTitle = L10n.tr("Localizable", "likes_list.screen_title")
+
+    enum Comment {
+      /// No one has liked this comment yet.
+      static let noDataText = L10n.tr("Localizable", "likes_list.comment.no_data_text")
+    }
+
+    enum Post {
+      /// No one has liked this post yet.
+      static let noDataText = L10n.tr("Localizable", "likes_list.post.no_data_text")
+    }
+
+    enum Reply {
+      /// No one has liked this reply yet.
+      static let noDataText = L10n.tr("Localizable", "likes_list.reply.no_data_text")
+    }
   }
 
   enum Login {
@@ -250,24 +271,24 @@ enum L10n {
     /// Report an issue
     static let screenTitle = L10n.tr("Localizable", "report.screen_title")
 
+    enum Comment {
+      /// What's the problem with this comment?
+      static let headerTitle = L10n.tr("Localizable", "report.comment.header_title")
+    }
+
     enum Post {
       /// What's the problem with this post?
       static let headerTitle = L10n.tr("Localizable", "report.post.header_title")
     }
 
+    enum Reply {
+      /// What's the problem with this reply?
+      static let headerTitle = L10n.tr("Localizable", "report.reply.header_title")
+    }
+
     enum User {
       /// What's the problem with this account?
       static let headerTitle = L10n.tr("Localizable", "report.user.header_title")
-    }
-    
-    enum Comment {
-        /// What's the problem with this comment?
-        static let headerTitle = L10n.tr("Localizable", "report.comment.header_title")
-    }
-    
-    enum Reply {
-        /// What's the problem with this reply?
-        static let headerTitle = L10n.tr("Localizable", "report.reply.header_title")
     }
   }
 

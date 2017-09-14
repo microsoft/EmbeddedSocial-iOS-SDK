@@ -13,6 +13,7 @@ final class SearchPeopleViewController: UIViewController {
     @IBOutlet weak var noContentLabel: UILabel! {
         didSet {
             noContentLabel.isHidden = true
+            noContentLabel.textColor = Palette.darkGrey
         }
     }
     

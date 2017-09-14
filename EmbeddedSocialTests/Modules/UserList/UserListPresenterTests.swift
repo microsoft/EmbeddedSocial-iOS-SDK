@@ -13,6 +13,7 @@ class UserListPresenterTests: XCTestCase {
     var router: MockUserListRouter!
     var myProfileHolder: MyProfileHolder!
     var sut: UserListPresenter!
+    var noDataText: NSAttributedString!
     
     private let timeout: TimeInterval = 5.0
     
@@ -23,8 +24,9 @@ class UserListPresenterTests: XCTestCase {
         moduleOutput = MockUserListModuleOutput()
         router = MockUserListRouter()
         myProfileHolder = MyProfileHolder()
+        noDataText = NSAttributedString(string: "No data text")
         
-        sut = UserListPresenter(myProfileHolder: myProfileHolder)
+        sut = UserListPresenter(myProfileHolder: myProfileHolder, noDataText: noDataText)
         sut.interactor = interactor
         sut.view = view
         sut.moduleOutput = moduleOutput
@@ -39,6 +41,7 @@ class UserListPresenterTests: XCTestCase {
         router = nil
         sut = nil
         myProfileHolder = nil
+        noDataText = nil
     }
     
     func testThatItSetsInitialState() {
@@ -306,5 +309,11 @@ class UserListPresenterTests: XCTestCase {
         XCTAssertEqual(interactor.getNextListPageCount, page)
         XCTAssertTrue(view.setUsersCalled)
         XCTAssertEqual(view.setUsersReceivedUsers ?? [], users)
+        XCTAssertTrue(view.setNoDataTextCalled)
+        if users.isEmpty {
+            XCTAssertNil(view.setNoDataTextReceivedText)
+        } else {
+            XCTAssertEqual(noDataText, view.setNoDataTextReceivedText)
+        }
     }
 }

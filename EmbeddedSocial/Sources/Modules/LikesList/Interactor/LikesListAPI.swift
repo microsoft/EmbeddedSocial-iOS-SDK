@@ -9,6 +9,17 @@ enum LikedObject {
     case post
     case comment
     case reply
+    
+    var noDataText: String {
+        switch self {
+        case .post:
+            return L10n.LikesList.Post.noDataText
+        case .comment:
+            return L10n.LikesList.Comment.noDataText
+        case .reply:
+            return L10n.LikesList.Reply.noDataText
+        }
+    }
 }
 
 struct LikesListAPI: UsersListAPI {
