@@ -129,6 +129,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     func refresh() {
         cursor = nil
+        scrollType = .none
         loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
         loadMoreCellViewModel.startLoading()
         interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
@@ -199,8 +200,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         self.replies.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
         stopLoading()
         view?.reloadTable(scrollType: scrollType)
-        
-        scrollType = .none
     }
     
     func fetchedMore(replies: [Reply], cursor: String?) {
