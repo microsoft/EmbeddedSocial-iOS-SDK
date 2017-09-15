@@ -311,9 +311,9 @@ class UserListPresenterTests: XCTestCase {
         XCTAssertEqual(view.setUsersReceivedUsers ?? [], users)
         XCTAssertTrue(view.setNoDataTextCalled)
         if users.isEmpty {
-            XCTAssertNil(view.setNoDataTextReceivedText)
-        } else {
             XCTAssertEqual(noDataText, view.setNoDataTextReceivedText)
+        } else {
+            XCTAssertNil(view.setNoDataTextReceivedText)
         }
     }
 }

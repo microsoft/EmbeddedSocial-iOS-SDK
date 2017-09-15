@@ -63,6 +63,8 @@
 
 "following.screen_title" = "Following";
 "following.no_data_text" = "Currently you are not following anyone.";
+"following.suggested_users" = "Suggested users";
+"following.search_people" = "Search people";
 
 "login.screen_title" = "Sign in";
 

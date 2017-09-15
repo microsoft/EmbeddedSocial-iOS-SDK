@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="FollowingNoDataView" customModule="EmbeddedSocial" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeF-ID-GvI">
+                    <rect key="frame" x="162" y="287" width="51" height="93"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idl-No-tcZ">
+                            <rect key="frame" x="0.0" y="0.0" width="51" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="emU-qB-10c">
+                            <rect key="frame" x="2.5" y="25" width="46" height="30"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="onSearchPeople:" destination="iN0-l3-epB" eventType="touchUpInside" id="SqW-cT-FBt"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s8g-pj-jJb">
+                            <rect key="frame" x="2.5" y="63" width="46" height="30"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="onSuggestedUsers:" destination="iN0-l3-epB" eventType="touchUpInside" id="7af-Pb-ejv"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="s8g-pj-jJb" firstAttribute="width" relation="lessThanOrEqual" secondItem="GeF-ID-GvI" secondAttribute="width" id="0Gx-97-YRh"/>
+                        <constraint firstItem="emU-qB-10c" firstAttribute="top" secondItem="Idl-No-tcZ" secondAttribute="bottom" constant="8" id="DKx-6M-IoV"/>
+                        <constraint firstItem="Idl-No-tcZ" firstAttribute="top" secondItem="GeF-ID-GvI" secondAttribute="top" id="FqO-US-3WJ"/>
+                        <constraint firstItem="s8g-pj-jJb" firstAttribute="centerX" secondItem="GeF-ID-GvI" secondAttribute="centerX" id="GKA-IQ-zY7"/>
+                        <constraint firstItem="s8g-pj-jJb" firstAttribute="top" secondItem="emU-qB-10c" secondAttribute="bottom" constant="8" id="M5a-k6-2AZ"/>
+                        <constraint firstItem="Idl-No-tcZ" firstAttribute="leading" secondItem="GeF-ID-GvI" secondAttribute="leading" id="Nrw-yf-t6V"/>
+                        <constraint firstItem="emU-qB-10c" firstAttribute="centerX" secondItem="GeF-ID-GvI" secondAttribute="centerX" id="a9E-Fi-WSM"/>
+                        <constraint firstAttribute="bottom" secondItem="s8g-pj-jJb" secondAttribute="bottom" id="inG-S0-Kw9"/>
+                        <constraint firstAttribute="trailing" secondItem="Idl-No-tcZ" secondAttribute="trailing" id="ivq-Ba-V1H"/>
+                        <constraint firstItem="emU-qB-10c" firstAttribute="width" relation="lessThanOrEqual" secondItem="GeF-ID-GvI" secondAttribute="width" id="shg-Wg-B7h"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="GeF-ID-GvI" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="oFa-RD-0Ba"/>
+                <constraint firstItem="GeF-ID-GvI" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="qam-dC-ifs"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="containerView" destination="GeF-ID-GvI" id="nOn-x1-gO2"/>
+                <outlet property="noDataLabel" destination="Idl-No-tcZ" id="Tv2-qk-0Qi"/>
+                <outlet property="searchPeopleButton" destination="emU-qB-10c" id="uex-Jq-7tx"/>
+                <outlet property="suggestedUsersButton" destination="s8g-pj-jJb" id="Lsx-OF-pUt"/>
+            </connections>
+        </view>
+    </objects>
+</document>

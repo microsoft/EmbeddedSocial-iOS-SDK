@@ -10,6 +10,8 @@ class FollowingViewController: UIViewController {
     
     var output: FollowingViewOutput!
     
+    fileprivate var listView: UIView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
@@ -22,6 +24,7 @@ extension FollowingViewController: FollowingViewInput {
         userListView.snp.makeConstraints { make in
             make.edges.equalTo(self.view)
         }
+        listView = userListView
     }
     
     func showError(_ error: Error) {

@@ -10,17 +10,19 @@ class UserListPresenter {
     var interactor: UserListInteractorInput!
     weak var moduleOutput: UserListModuleOutput?
     var router: UserListRouterInput!
+    
+    var noDataText: NSAttributedString?
+    var noDataView: UIView?
+    
     fileprivate let myProfileHolder: UserHolder
     fileprivate var isAnimatingPullToRefresh: Bool = false
-    fileprivate let noDataText: NSAttributedString?
     
-    init(myProfileHolder: UserHolder, noDataText: NSAttributedString?) {
+    init(myProfileHolder: UserHolder) {
         self.myProfileHolder = myProfileHolder
-        self.noDataText = noDataText
     }
     
     func loadNextPage() {
-        view.setNoDataText(nil)
+        view.setIsEmpty(false)
         
         interactor.getNextListPage { [weak self] result in
             self?.processUsersResult(result)
@@ -35,8 +37,7 @@ class UserListPresenter {
             moduleOutput?.didFailToLoadList(listView: listView, error: result.error ?? APIError.unknown)
         }
         
-        let hasContent = result.value?.isEmpty == false
-        view.setNoDataText(hasContent ? noDataText : nil)
+        view.setIsEmpty(result.value?.isEmpty ?? true)
     }
 }
 
@@ -95,7 +96,7 @@ extension UserListPresenter: UserListViewOutput {
     
     func onPullToRefresh() {
         isAnimatingPullToRefresh = true
-        view.setNoDataText(nil)
+        view.setIsEmpty(false)
 
         interactor.reloadList { [weak self] result in
             self?.isAnimatingPullToRefresh = false
@@ -116,6 +117,8 @@ extension UserListPresenter: UserListModuleInput {
     
     func setupInitialState() {
         view.setupInitialState()
+        view.setNoDataText(noDataText)
+        view.setNoDataView(noDataView)
         loadNextPage()
     }
     
