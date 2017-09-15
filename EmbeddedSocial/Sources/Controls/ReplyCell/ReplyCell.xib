@@ -165,6 +165,7 @@
                 <outlet property="likeButton" destination="E9g-p9-9jH" id="Vbu-c2-fng"/>
                 <outlet property="postTimeLabel" destination="yAo-sC-tk1" id="SDM-xQ-DqX"/>
                 <outlet property="replyLabel" destination="r7h-2k-mEx" id="rcB-Rj-h9Z"/>
+                <outlet property="separator" destination="2j7-gK-cLi" id="aV1-jw-A8l"/>
                 <outlet property="totalLikesButton" destination="uur-6E-HBf" id="kAY-sx-f5N"/>
                 <outlet property="userName" destination="afS-pj-dnb" id="2w1-Al-Qzd"/>
                 <outlet property="userPhoto" destination="QdF-by-bk9" id="wtp-1q-wu7"/>

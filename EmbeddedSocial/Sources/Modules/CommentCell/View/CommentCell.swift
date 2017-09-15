@@ -23,6 +23,7 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     @IBOutlet weak var repliesButton: UIButton!
 
     @IBOutlet weak var postedTimeLabel: UILabel!
+    @IBOutlet weak var separator: UIView!
     
     var commentView: CommentViewModel!
     

@@ -205,6 +205,14 @@ extension PostDetailViewController: UICollectionViewDelegate {
             
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? CommentCell else {
+            return
+        }
+        
+        cell.separator.isHidden = indexPath.row == output.numberOfItems() - 1 && indexPath.section == CommentsSections.comments.rawValue
+    }
 }
 
 extension PostDetailViewController: LoadMoreCellDelegate {

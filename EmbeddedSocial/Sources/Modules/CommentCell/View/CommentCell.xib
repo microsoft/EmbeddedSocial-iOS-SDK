@@ -221,6 +221,7 @@
                 <outlet property="postedTimeLabel" destination="vdj-ym-b7e" id="OjH-Ad-eLA"/>
                 <outlet property="repliesButton" destination="ffo-F5-hAE" id="HeS-z4-IrM"/>
                 <outlet property="repliesCountButton" destination="wPY-c7-XbV" id="alM-Kl-Okc"/>
+                <outlet property="separator" destination="63r-Wp-bDR" id="wIc-p2-Kyr"/>
                 <outlet property="userName" destination="OUZ-GN-Jg2" id="j1Z-7b-bBR"/>
                 <outlet property="userPhoto" destination="sda-gf-jxV" id="fNH-K1-6Cr"/>
             </connections>
