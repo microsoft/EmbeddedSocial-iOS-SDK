@@ -26,6 +26,11 @@ class ReplyCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
+    }
+    
     func config(replyView: ReplyViewModel) {
         self.replyView = replyView
         

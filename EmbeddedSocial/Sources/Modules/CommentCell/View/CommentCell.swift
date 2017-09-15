@@ -46,6 +46,11 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
+    }
+    
     func configure(comment: Comment) {
         userName.text = User.fullName(firstName: comment.firstName, lastName: comment.lastName)
         commentTextLabel.text = comment.text ?? ""
