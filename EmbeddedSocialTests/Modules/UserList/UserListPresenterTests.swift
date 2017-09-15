@@ -14,7 +14,8 @@ class UserListPresenterTests: XCTestCase {
     var myProfileHolder: MyProfileHolder!
     var sut: UserListPresenter!
     var noDataText: NSAttributedString!
-    
+    var noDataView: UIView!
+
     private let timeout: TimeInterval = 5.0
     
     override func setUp() {
@@ -25,12 +26,15 @@ class UserListPresenterTests: XCTestCase {
         router = MockUserListRouter()
         myProfileHolder = MyProfileHolder()
         noDataText = NSAttributedString(string: "No data text")
+        noDataView = UIView()
         
-        sut = UserListPresenter(myProfileHolder: myProfileHolder, noDataText: noDataText)
+        sut = UserListPresenter(myProfileHolder: myProfileHolder)
         sut.interactor = interactor
         sut.view = view
         sut.moduleOutput = moduleOutput
         sut.router = router
+        sut.noDataText = noDataText
+        sut.noDataView = noDataView
     }
     
     override func tearDown() {
@@ -42,6 +46,7 @@ class UserListPresenterTests: XCTestCase {
         sut = nil
         myProfileHolder = nil
         noDataText = nil
+        noDataView = nil
     }
     
     func testThatItSetsInitialState() {
@@ -54,6 +59,13 @@ class UserListPresenterTests: XCTestCase {
         
         // then
         XCTAssertTrue(view.setupInitialStateCalled)
+        
+        XCTAssertTrue(view.setNoDataTextCalled)
+        XCTAssertTrue(view.setNoDataViewCalled)
+        
+        XCTAssertEqual(view.setNoDataTextReceivedText, noDataText)
+        XCTAssertEqual(view.setNoDataViewReceivedView, noDataView)
+        
         validatePageLoaded(page: 1, with: users)
     }
     
@@ -309,11 +321,7 @@ class UserListPresenterTests: XCTestCase {
         XCTAssertEqual(interactor.getNextListPageCount, page)
         XCTAssertTrue(view.setUsersCalled)
         XCTAssertEqual(view.setUsersReceivedUsers ?? [], users)
-        XCTAssertTrue(view.setNoDataTextCalled)
-        if users.isEmpty {
-            XCTAssertEqual(noDataText, view.setNoDataTextReceivedText)
-        } else {
-            XCTAssertNil(view.setNoDataTextReceivedText)
-        }
+        XCTAssertTrue(view.setIsEmptyCalled)
+        XCTAssertEqual(view.setIsEmptyReceivedIsEmpty, users.isEmpty)
     }
 }

@@ -134,3 +134,5 @@
 "blocked_users.screen_title" = "Blocked users";
 "blocked_users.no_data_text" = "You haven't blocked anyone.";
 
+"suggested_users.screen_title" = "Suggested users";
+"suggested_users.no_data_text" = "No suggested users to show.";

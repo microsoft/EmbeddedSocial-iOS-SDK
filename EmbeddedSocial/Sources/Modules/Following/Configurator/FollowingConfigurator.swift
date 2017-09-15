@@ -22,7 +22,7 @@ final class FollowingConfigurator {
         presenter.view = viewController
         presenter.usersList = makeUserListModule(api: api, navigationController: navigationController, output: presenter)
         presenter.moduleOutput = moduleOutput
-        presenter.router = FollowingRouter(searchPeopleOpener: searchPeopleOpener)
+        presenter.router = FollowingRouter(searchPeopleOpener: searchPeopleOpener, navigationController: navigationController)
 
         viewController.output = presenter
     }

@@ -7,14 +7,18 @@ import Foundation
 
 final class FollowingRouter: FollowingRouterInput {
     
-    weak var searchPeopleOpener: SearchPeopleOpener?
+    private weak var searchPeopleOpener: SearchPeopleOpener?
+    private let navigationController: UINavigationController?
     
-    init(searchPeopleOpener: SearchPeopleOpener?) {
+    init(searchPeopleOpener: SearchPeopleOpener?, navigationController: UINavigationController?) {
         self.searchPeopleOpener = searchPeopleOpener
+        self.navigationController = navigationController
     }
     
     func openSuggestedUsers() {
-        
+        let configurator = SuggestedUsersConfigurator()
+        configurator.configure(navigationController: navigationController)
+        navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     
     func openSearchPeople() {

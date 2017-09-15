@@ -334,6 +334,13 @@ enum L10n {
     static let social = L10n.tr("Localizable", "side_menu.social")
   }
 
+  enum SuggestedUsers {
+    /// No suggested users to show.
+    static let noDataText = L10n.tr("Localizable", "suggested_users.no_data_text")
+    /// Suggested users
+    static let screenTitle = L10n.tr("Localizable", "suggested_users.screen_title")
+  }
+
   enum UploadPhotoCell {
     /// Upload photo
     static let uploadPhoto = L10n.tr("Localizable", "upload_photo_cell.upload_photo")

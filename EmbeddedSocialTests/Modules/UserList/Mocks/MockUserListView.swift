@@ -91,4 +91,24 @@ final class MockUserListView: UIView, UserListViewInput {
         setNoDataTextCalled = true
         setNoDataTextReceivedText = text
     }
+    
+    //MARK: - setNoDataView
+    
+    var setNoDataViewCalled = false
+    var setNoDataViewReceivedView: UIView?
+    
+    func setNoDataView(_ view: UIView?) {
+        setNoDataViewCalled = true
+        setNoDataViewReceivedView = view
+    }
+    
+    //MARK: - setIsEmpty
+    
+    var setIsEmptyCalled = false
+    var setIsEmptyReceivedIsEmpty: Bool?
+    
+    func setIsEmpty(_ isEmpty: Bool) {
+        setIsEmptyCalled = true
+        setIsEmptyReceivedIsEmpty = isEmpty
+    }
 }
