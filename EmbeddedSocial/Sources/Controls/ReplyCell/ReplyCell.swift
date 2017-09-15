@@ -12,11 +12,10 @@ class ReplyCell: UICollectionViewCell {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var totalLikesButton: UIButton!
     @IBOutlet weak var postTimeLabel: UILabel!
-    
     @IBOutlet weak var userName: UILabel!
-
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var replyLabel: UILabel!
+    @IBOutlet weak var separator: UIView!
     
     var replyView: ReplyViewModel!
     

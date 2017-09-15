@@ -209,6 +209,14 @@ extension CommentRepliesViewController: UICollectionViewDelegate {
             replyTextView.resignFirstResponder()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? ReplyCell else {
+            return
+        }
+        
+        cell.separator.isHidden = indexPath.row == output.numberOfItems() - 1 && indexPath.section == RepliesSections.replies.rawValue
+    }
 }
 
 extension CommentRepliesViewController: LoadMoreCellDelegate {
