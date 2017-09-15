@@ -48,6 +48,7 @@ class SearchViewController: UIViewController {
         activeTab = tab
         searchBar.text = activeTab?.searchText
         searchBar.placeholder = activeTab?.tab.searchBarPlaceholder
+        filterView.selectSegment(tab.tab.rawValue)
 
         addChildController(tab.searchResultsController, containerView: searchResultsContainer)
         

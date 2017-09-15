@@ -60,8 +60,6 @@ extension UserListCell {
         profileImageView.updateConstraints()
         profileImageView.makeCircular()
         
-        print(profileImageView, self.contentView)
-
         nameLabel.text = user.fullName
         
         actionButton.isHidden = user.isMe

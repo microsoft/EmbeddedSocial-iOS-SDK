@@ -12,6 +12,9 @@ final class SearchPresenter: NSObject {
     var topicsSearchModule: SearchTopicsModuleInput!
     var interactor: SearchInteractorInput!
     
+    fileprivate var isViewReady = false
+    fileprivate var initialTab = SearchTabInfo.Tab.topics
+    
     fileprivate var topicsTab: SearchTabInfo!
     fileprivate var peopleTab: SearchTabInfo!
     
@@ -33,10 +36,12 @@ extension SearchPresenter: SearchViewOutput {
         
         peopleTab = interactor.makePeopleTab(with: peopleSearchModule)
         topicsTab = interactor.makeTopicsTab(with: topicsSearchModule)
-        selectedTab = topicsTab
+        selectedTab = initialTab == .people ? peopleTab : topicsTab
         
-        view.setupInitialState(topicsTab)
+        view.setupInitialState(selectedTab!)
         view.setLayoutAsset(topicsSearchModule.layoutAsset)
+        
+        isViewReady = true
     }
     
     func onTopics() {
@@ -59,5 +64,12 @@ extension SearchPresenter: SearchPeopleModuleOutput, SearchTopicsModuleOutput {
     
     func didFailToLoadSearchQuery(_ error: Error) {
         view.showError(error)
+    }
+}
+
+extension SearchPresenter: SearchModuleInput {
+    
+    func selectPeopleTab() {
+        isViewReady ? (selectedTab = peopleTab) : (initialTab = .people)
     }
 }
