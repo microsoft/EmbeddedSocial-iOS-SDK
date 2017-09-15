@@ -5,15 +5,14 @@
 
 import Foundation
 
-class UnblockCommand: UserCommand {
+final class LikeTopicCommand: TopicCommand {
+    
     override var inverseCommand: OutgoingCommand? {
-        return BlockCommand(user: user)
+        return UnlikeTopicCommand(topicHandle: topicHandle)
     }
     
-    override func apply(to user: inout Any) {
-        guard var user = user as? User else {
-            return
-        }
-        user.followingStatus = .empty
+    override func apply(to topic: inout Post) {
+        topic.liked = true
+        topic.totalLikes = max(0, topic.totalLikes + 1)
     }
 }

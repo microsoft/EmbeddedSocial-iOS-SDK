@@ -227,7 +227,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
             comment.liked = commentView.liked ?? false
             comment.userStatus = FollowStatus(status: commentView.user?.followerStatus)
 
-            let cacheRequestForLikes = CacheFetchRequest(resultType: FeedActionRequest.self, predicate: PredicateBuilder().predicate(handle: commentView.commentHandle!))
+            /*let cacheRequestForLikes = CacheFetchRequest(resultType: FeedActionRequest.self, predicate: PredicateBuilder().predicate(handle: commentView.commentHandle!))
             let cacheResultForLikes = cache.fetchOutgoing(with: cacheRequestForLikes)
 
             if let firstCachedLikeAction = cacheResultForLikes.first {
@@ -243,7 +243,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
             
             let cacheRequestForComment = CacheFetchRequest(resultType: PostReplyRequest.self, predicate: PredicateBuilder().predicate(typeID: commentView.commentHandle!))
             comment.totalReplies = (commentView.totalReplies ?? 0) + Int64(cache.fetchOutgoing(with: cacheRequestForComment).count)
-            
+            */
             comments.append(comment)
         }
         return comments

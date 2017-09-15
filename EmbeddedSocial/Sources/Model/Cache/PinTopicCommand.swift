@@ -5,15 +5,13 @@
 
 import Foundation
 
-class UnblockCommand: UserCommand {
+final class PinTopicCommand: TopicCommand {
+    
     override var inverseCommand: OutgoingCommand? {
-        return BlockCommand(user: user)
+        return UnpinTopicCommand(topicHandle: topicHandle)
     }
     
-    override func apply(to user: inout Any) {
-        guard var user = user as? User else {
-            return
-        }
-        user.followingStatus = .empty
+    override func apply(to topic: inout Post) {
+        topic.pinned = true
     }
 }

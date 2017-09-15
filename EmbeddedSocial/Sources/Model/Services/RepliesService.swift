@@ -184,7 +184,12 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             reply.totalLikes = Int(replyView.totalLikes!)
             reply.userStatus = FollowStatus(status: replyView.user?.followerStatus)
             
-            let cacheRequestForReplies = CacheFetchRequest(resultType: FeedActionRequest.self, predicate: PredicateBuilder().predicate(handle: replyView.replyHandle!))
+            let request = CacheFetchRequest(resultType: OutgoingCommand.self,
+                                            predicate: PredicateBuilder.allReplyCommandsPredicate(for: replyView.replyHandle!),
+                                            sortDescriptors: [Cache.createdAtSortDescriptor])
+            let commands = cache.fetchOutgoing(with: request) as? [ReplyCommand] ?? []
+            
+            /*let cacheRequestForReplies = CacheFetchRequest(resultType: FeedActionRequest.self, predicate: PredicateBuilder().predicate(handle: replyView.replyHandle!))
             let cacheResultForReplies = cache.fetchOutgoing(with: cacheRequestForReplies)
             
             if let firstCachedLikeAction = cacheResultForReplies.first {
@@ -196,7 +201,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                     reply.totalLikes = reply.totalLikes > 0 ? reply.totalLikes - 1 : 0
                     reply.liked = false
                 }
-            }
+            }*/
             
             replies.append(reply)
         }

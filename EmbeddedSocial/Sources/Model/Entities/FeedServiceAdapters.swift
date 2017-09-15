@@ -29,19 +29,21 @@ protocol FeedResponseParserProtocol: class {
 
 class FeedResponseParser: FeedResponseParserProtocol {
     
-    var postProcessor: FeedCachePostProcessor!
+    private let postProcessor: FeedCachePostProcessor
     
     init(processor: FeedCachePostProcessor) {
         self.postProcessor = processor
     }
     
     func parse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout FeedFetchResult) {
-        
-        guard let response = response else { return }
+        guard let response = response else {
+            return
+        }
         
         if let data = response.data {
             result.posts = data.map(Post.init)
         }
+        
         result.cursor = response.cursor
         
         if isCached {
@@ -51,44 +53,30 @@ class FeedResponseParser: FeedResponseParserProtocol {
 }
 
 class FeedCachePostProcessor {
+    private let cache: CacheType!
     
-    let cacheAdapter: FeedCacheActionsAdapter!
-    
-    init(cacheAdapter: FeedCacheActionsAdapter) {
-        self.cacheAdapter = cacheAdapter
-    }
-    
-    private func apply(actions: [FeedActionRequest], to post: inout Post) {
-        
-        actions.forEach { action in
-            
-            switch action.actionType {
-            case .like:
-                post.liked = action.actionMethod.isIncreasing()
-                post.totalLikes += action.actionMethod.isIncreasing() ? 1 : -1
-            case .pin:
-                post.pinned = (action.actionMethod == .delete) ? false : true
-            }
-        }
+    init(cache: CacheType) {
+        self.cache = cache
     }
     
     func process(_ feed: inout FeedFetchResult) {
+        let commands = fetchTopicCommands()
         
-        let cachedActions = cacheAdapter.getAllCachedActions()
-        
-        for index in 0..<feed.posts.count {
-            
-            var post = feed.posts[index]
-            
-            let matching = cachedActions.filter({ (action) -> Bool in
-                return action.handle == post.topicHandle
-            })
-            
-            guard matching.count > 0 else { continue }
-            
-            apply(actions: matching, to: &post)
-            
-            feed.posts[index] = post
+        feed.posts = feed.posts.map { topic -> Post in
+            var topic = topic
+            let commandsToApply = commands.filter { $0.topicHandle == topic.topicHandle }
+            for command in commandsToApply {
+                command.apply(to: &topic)
+            }
+            return topic
         }
+    }
+    
+    private func fetchTopicCommands() -> [TopicCommand] {
+        let request = CacheFetchRequest(resultType: OutgoingCommand.self,
+                                        predicate: PredicateBuilder.allTopicCommandsPredicate(),
+                                        sortDescriptors: [Cache.createdAtSortDescriptor])
+        
+        return cache.fetchOutgoing(with: request) as? [TopicCommand] ?? []
     }
 }

@@ -5,22 +5,22 @@
 
 import Foundation
 
-final class UserCommandsCacheDaemon: Daemon, NetworkStatusListener {
+final class OutgoingCommandsUploader: Daemon, NetworkStatusListener {
     
     private let networkTracker: NetworkStatusMulticast
     private let cache: CacheType
     private let executionQueue: OperationQueue = {
        let q = OperationQueue()
-        q.name = "UserCommandsCacheDaemon-executionQueue"
+        q.name = "OutgoingCommandsUploader-executionQueue"
         q.qualityOfService = .background
         return q
     }()
-    private let operationsBuilderType: UserCommandOperationsBuilderType.Type
+    private let operationsBuilderType: OutgoingCommandOperationsBuilderType.Type
     
     init(networkTracker: NetworkStatusMulticast,
          cache: CacheType,
          jsonDecoderType: JSONDecoder.Type,
-         operationsBuilderType: UserCommandOperationsBuilderType.Type) {
+         operationsBuilderType: OutgoingCommandOperationsBuilderType.Type) {
         
         self.networkTracker = networkTracker
         self.cache = cache
@@ -43,7 +43,7 @@ final class UserCommandsCacheDaemon: Daemon, NetworkStatusListener {
     }
     
     private func executePendingCommands() {
-        let fetchOperation = FetchUserCommandsOperation(cache: cache)
+        let fetchOperation = FetchAllOutgoingCommandsOperation(cache: cache)
         
         fetchOperation.completionBlock = { [weak self] in
             guard !fetchOperation.isCancelled else { return }
@@ -53,12 +53,12 @@ final class UserCommandsCacheDaemon: Daemon, NetworkStatusListener {
         executionQueue.addOperation(fetchOperation)
     }
     
-    private func executeCommandsOperations(_ commands: [UserCommand]) {
+    private func executeCommandsOperations(_ commands: [OutgoingCommand]) {
         let operations = makeActionOperations(from: commands)
         executionQueue.addOperations(operations, waitUntilFinished: false)
     }
     
-    private func makeActionOperations(from commands: [UserCommand]) -> [Operation] {
+    private func makeActionOperations(from commands: [OutgoingCommand]) -> [Operation] {
         
         let operations = commands.flatMap { [weak self] command -> Operation? in
             let op = self?.operationsBuilderType.operation(for: command)

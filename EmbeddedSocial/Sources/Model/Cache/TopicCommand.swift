@@ -5,44 +5,43 @@
 
 import Foundation
 
-class UserCommand: OutgoingCommand {
-    let user: User
+class TopicCommand: OutgoingCommand {
+    let topicHandle: String
     
     override var combinedHandle: String {
-        return "\(super.combinedHandle)-\(user.uid)"
+        return "\(super.combinedHandle)-\(topicHandle)"
     }
     
     required init?(json: [String: Any]) {
-        guard let userJSON = json["user"] as? [String: Any],
-            let user = User(memento: userJSON) else {
-                return nil
+        guard let topicHandle = json["topicHandle"] as? String else {
+            return nil
         }
         
-        self.user = user
+        self.topicHandle = topicHandle
         
         super.init(json: json)
     }
     
-    required init(user: User) {
-        self.user = user
+    required init(topicHandle: String) {
+        self.topicHandle = topicHandle
         super.init(json: [:])!
     }
     
     override func apply(to item: inout Any) {
-        guard var user = item as? User else {
+        guard var topic = item as? Post else {
             return
         }
-        apply(to: &user)
-        item = user
+        apply(to: &topic)
+        item = topic
     }
     
-    func apply(to user: inout User) {
+    func apply(to topic: inout Post) {
         
     }
     
     override func encodeToJSON() -> Any {
         return [
-            "user": user.encodeToJSON(),
+            "topicHandle": topicHandle,
             "type": String(describing: type(of: self))
         ]
     }

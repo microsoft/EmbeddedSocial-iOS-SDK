@@ -9,21 +9,15 @@ final class DaemonsController: Daemon {
     private let networkTracker: NetworkStatusMulticast
     private let cache: CacheType
     
-    private lazy var outgoingCacheDaemon: UserCommandsCacheDaemon = { [unowned self] in
-        return UserCommandsCacheDaemon(networkTracker: self.networkTracker,
+    private lazy var outgoingCacheDaemon: OutgoingCommandsUploader = { [unowned self] in
+        return OutgoingCommandsUploader(networkTracker: self.networkTracker,
                                        cache: self.cache,
                                        jsonDecoderType: Decoders.self,
-                                       operationsBuilderType: UserCommandOperationsBuilder.self)
-    }()
-    
-    private lazy var feedUserCommandsCacheDaemon: FeedCachedActionsExecutor = { [unowned self] in
-        return FeedCachedActionsExecutor(networkTracker: self.networkTracker,
-                                         cacheAdapter: FeedCacheActionsAdapter(cache: self.cache),
-                                         likesService: LikesService())
+                                       operationsBuilderType: OutgoingCommandOperationsBuilder.self)
     }()
     
     private lazy var daemons: [Daemon] = { [unowned self] in
-        return [self.outgoingCacheDaemon, self.feedUserCommandsCacheDaemon]
+        return [self.outgoingCacheDaemon]
     }()
     
     init(networkTracker: NetworkStatusMulticast, cache: CacheType) {

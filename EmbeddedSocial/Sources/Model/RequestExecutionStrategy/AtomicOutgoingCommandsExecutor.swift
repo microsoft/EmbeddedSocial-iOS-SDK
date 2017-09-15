@@ -5,7 +5,7 @@
 
 import Foundation
 
-class OutgoingActionsExecutor<ResponseType> {
+class AtomicOutgoingCommandsExecutor<ResponseType> {
     
     private let networkTracker: NetworkStatusMulticast
     var cache: CacheType?
@@ -15,10 +15,13 @@ class OutgoingActionsExecutor<ResponseType> {
         self.networkTracker = networkTracker
     }
     
-    func execute(command: UserCommand, builder: RequestBuilder<ResponseType>, completion: @escaping (Result<Void>) -> Void) {
+    func execute(command: OutgoingCommand,
+                 builder: RequestBuilder<ResponseType>,
+                 completion: @escaping (Result<Void>) -> Void) {
+        
         if networkTracker.isReachable {
             builder.execute { [weak self] response, error in
-                self?.processResponse(response, error, completion)
+                self?.processResponse(response?.body, error, completion)
             }
         } else {
             cacheCommand(command)
@@ -28,15 +31,15 @@ class OutgoingActionsExecutor<ResponseType> {
         }
     }
     
-    private func cacheCommand(_ command: UserCommand) {
+    private func cacheCommand(_ command: OutgoingCommand) {
         if let cachedInverseCommand = self.cachedInverseCommand(for: command) {
             cache?.deleteOutgoing(with: PredicateBuilder.predicate(for: cachedInverseCommand))
         } else {
-            cache?.cacheOutgoing(command, for: UserCommand.typeIdentifier)
+            cache?.cacheOutgoing(command)
         }
     }
     
-    private func cachedInverseCommand(for command: UserCommand) -> UserCommand? {
+    private func cachedInverseCommand(for command: OutgoingCommand) -> OutgoingCommand? {
         guard let inverseCommand = command.inverseCommand else {
             return nil
         }
@@ -45,7 +48,7 @@ class OutgoingActionsExecutor<ResponseType> {
                                     sortDescriptors: nil)
     }
     
-    private func processResponse(_ data: Object?, _ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
+    private func processResponse(_ data: ResponseType?, _ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
         DispatchQueue.main.async {
             if error == nil {
                 completion(.success())

@@ -85,6 +85,14 @@ class TopicService: BaseService, PostServiceProtocol {
     
     private var imagesService: ImagesServiceType!
     
+    private lazy var responseParser: FeedResponseParser = { [unowned self] in
+        return FeedResponseParser(processor: FeedCachePostProcessor(cache: self.cache))
+    }()
+    
+    private lazy var feedCacheAdapter: FeedCacheAdapter = { [unowned self] in
+        return FeedCacheAdapter(cache: self.cache)
+    }()
+    
     init(imagesService: ImagesServiceType) {
         super.init()
         self.imagesService = imagesService
@@ -319,17 +327,8 @@ class TopicService: BaseService, PostServiceProtocol {
         return result
     }
     
-    private lazy var responseParser: FeedResponseParser = { [unowned self] in
-        return FeedResponseParser(processor: FeedCachePostProcessor(cacheAdapter: FeedCacheActionsAdapter(cache: self.cache)))
-        }()
-    
     private func parseResponse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout FeedFetchResult) {
         responseParser.parse(response, isCached: isCached, into: &result)
     }
-    
-    private lazy var feedCacheAdapter: FeedCacheAdapter = { [unowned self] in
-        return FeedCacheAdapter(cache: self.cache)
-        }()
-    
 }
 
