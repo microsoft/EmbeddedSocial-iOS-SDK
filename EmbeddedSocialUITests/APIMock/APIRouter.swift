@@ -216,6 +216,28 @@ open class APIRouter: WebApp {
                 break
             }
         }
+        
+        self["/v0.7/search/topics"] = APIResponse(serviceName: "search") { environ, sendJSON -> Void in
+            let query = URLParametersReader.parseURLParameters(environ: environ)
+            print (query)
+            let cursor = query["cursor"] ?? "0"
+            if let limit = query["limit"] {
+                sendJSON(Templates.loadTopics(interval: query["query"]!, cursor: Int(cursor)!, limit: Int(limit)!))
+            } else {
+                sendJSON(Templates.loadTopics(interval: query["query"]!))
+            }
+        }
+        
+        self["/v0.7/search/users"] = APIResponse(serviceName: "search") { environ, sendJSON -> Void in
+            let query = URLParametersReader.parseURLParameters(environ: environ)
+            print(query)
+            let cursor = query["cursor"] ?? "0"
+            if let limit = query["limit"] {
+                sendJSON(Templates.loadFollowers(firstName: query["query"]!, lastName: "", cursor: Int(cursor)!, limit: Int(limit)!))
+            } else {
+                sendJSON(Templates.loadFollowers(firstName: query["query"]!, lastName: ""))
+            }
+        }
 
     }
     
