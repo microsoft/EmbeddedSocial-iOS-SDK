@@ -36,6 +36,11 @@ class ActivityViewController: UIViewController, ActivityViewInput {
     private func setup() {
         tableView.register(ActivityCell.self, forCellReuseIdentifier: ActivityCell.reuseID)
         tableView.register(FollowRequestCell.self, forCellReuseIdentifier: FollowRequestCell.reuseID)
+        
+        // Appearance
+        tableView.tableFooterView = UIView()
+        tableView.allowsSelection = false
+        tableView.separatorStyle = .none
     }
 
     // MARK: ActivityViewInput
@@ -48,6 +53,10 @@ class ActivityViewController: UIViewController, ActivityViewInput {
 
 protocol ActivityItemViewModel {
     var identifier: String { get }
+}
+
+protocol ActivitySection {
+    var name: String { get }
 }
 
 extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
@@ -63,9 +72,11 @@ extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let viewModel = output.viewModel(for: indexPath)
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: viewModel.identifier, for: indexPath) as? ActivityViewModelConfigurable else {
             fatalError("Cell mismatch")
         }
+        
         
         cell.configure(with: viewModel)
         

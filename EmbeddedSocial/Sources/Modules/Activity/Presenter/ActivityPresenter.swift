@@ -9,28 +9,15 @@ protocol ActivityModuleInput: class {
 
 class ActivityPresenter: ActivityModuleInput, ActivityViewOutput, ActivityInteractorOutput {
     
-    func numberOfSections() -> Int {
-        return data.count
-    }
-    
-    func numberOfItems(in section: Int) -> Int {
-        return data[section].count
-    }
-    
-    var data: [[ActivityItemViewModel]] = [
-        [FollowRequestViewModel(profileImage: Asset.placeholderPostUser1.image,
-                                profileName: "Sirian Commando",
-                                identifier: FollowRequestCell.reuseID)],
-        
-        [ActivityViewModel(profileImage: Asset.userPhotoPlaceholder.image,
-                               postText: "Likes theses colors.",
-                               postTime: "3s",
-                               postImage: Asset.placeholderPostImage2.image,
-                               identifier: ActivityCell.reuseID
-            )]]
-    
+
     func viewModel(for indexPath: IndexPath) -> ActivityItemViewModel {
-        return data[indexPath.section][indexPath.row]
+        
+        return ActivityViewModel(profileImage: Asset.placeholderPostUser1.image,
+                                 postText: "asa",
+                                 postTime: "sdadsa",
+                                 postImage: Asset.placeholderPostImage2.image,
+                                 identifier: ActivityCell.reuseID)
+
     }
 
     weak var view: ActivityViewInput!
@@ -40,4 +27,68 @@ class ActivityPresenter: ActivityModuleInput, ActivityViewOutput, ActivityIntera
     func viewIsReady() {
         view.setupInitialState()
     }
+    
+    // MARK: Private
+
+    func numberOfSections() -> Int {
+        return 2
+    }
+    
+    func numberOfItems(in section: Int) -> Int {
+        return 1 //data[section].count
+    }
+    
+    struct Item {
+        var name: String = "some"
+    }
+    
+    struct Feed {
+        let name: String
+        var items: [Item]
+    }
+    
+    struct DataSources {
+        
+        var my: Feed = Feed(name: "my", items: [])
+        var others: Feed = Feed(name: "my", items: [])
+        var pending: Feed = Feed(name: "my", items: [])
+    }
+    
+    let dataSources = DataSources()
+    
+    enum State {
+        case my
+        case others
+    }
+    
+    func sections(for state: State) -> [Feed] {
+        
+        switch state {
+        case .my:
+            return [dataSources.pending, dataSources.my]
+        case .others:
+            return [dataSources.others]
+        }
+    }
+    
+    func item(for indexPath: IndexPath) -> ActivityItemViewModel {
+        return viewModel(for: indexPath)
+    }
+    
+    var followingRequests = [ActivityItem]()
+    var myActivities = [ActivityItem]()
+    var othersActivities = [ActivityItem]()
+    
+    var cursor: String? = nil
+    
+    // MARK: Interactor Output
+    
+    func didFetchAll(result: ActivityFeedResult) {
+        
+    }
+    
+    func didFetchMore(resukt: ActivityFeedResult) {
+        
+    }
+    
 }
