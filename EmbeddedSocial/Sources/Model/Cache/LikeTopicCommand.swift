@@ -13,6 +13,6 @@ final class LikeTopicCommand: TopicCommand {
     
     override func apply(to topic: inout Post) {
         topic.liked = true
-        topic.totalLikes = max(0, topic.totalLikes + 1)
+        topic.totalLikes += 1
     }
 }

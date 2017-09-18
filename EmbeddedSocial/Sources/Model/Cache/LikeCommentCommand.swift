@@ -5,14 +5,14 @@
 
 import Foundation
 
-final class LikeReplyCommand: ReplyCommand {
+final class LikeCommentCommand: CommentCommand {
     
     override var inverseCommand: OutgoingCommand? {
-        return UnlikeReplyCommand(replyHandle: replyHandle)
+        return UnlikeCommentCommand(commentHandle: commentHandle)
     }
     
-    override func apply(to reply: inout Reply) {
-        reply.liked = true
-        reply.totalLikes += 1
+    override func apply(to comment: inout Comment) {
+        comment.liked = true
+        comment.totalLikes += 1
     }
 }

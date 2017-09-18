@@ -10,10 +10,7 @@ class UnblockCommand: UserCommand {
         return BlockCommand(user: user)
     }
     
-    override func apply(to user: inout Any) {
-        guard var user = user as? User else {
-            return
-        }
+    override func apply(to user: inout User) {
         user.followingStatus = .empty
     }
 }

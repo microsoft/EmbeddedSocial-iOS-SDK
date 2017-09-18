@@ -28,14 +28,6 @@ class UserCommand: OutgoingCommand {
         super.init(json: [:])!
     }
     
-    override func apply(to item: inout Any) {
-        guard var user = item as? User else {
-            return
-        }
-        apply(to: &user)
-        item = user
-    }
-    
     func apply(to user: inout User) {
         
     }

@@ -27,14 +27,6 @@ class TopicCommand: OutgoingCommand {
         super.init(json: [:])!
     }
     
-    override func apply(to item: inout Any) {
-        guard var topic = item as? Post else {
-            return
-        }
-        apply(to: &topic)
-        item = topic
-    }
-    
     func apply(to topic: inout Post) {
         
     }

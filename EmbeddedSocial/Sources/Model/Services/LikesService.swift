@@ -82,14 +82,20 @@ class LikesService: BaseService, LikesServiceProtocol {
     }
     
     func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
-        LikesAPI.commentLikesPostLike(commentHandle: commentHandle, authorization: authorization) {
-            completion(commentHandle, $1)
+        let command = LikeCommentCommand(commentHandle: commentHandle)
+        let builder = LikesAPI.commentLikesPostLikeWithRequestBuilder(commentHandle: commentHandle,
+                                                                      authorization: authorization)
+        outgoingActionsExecutor.execute(command: command, builder: builder) { result in
+            completion(commentHandle, result.error)
         }
     }
     
     func unlikeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
-        LikesAPI.commentLikesDeleteLike(commentHandle: commentHandle, authorization: authorization) {
-            completion(commentHandle, $1)
+        let command = UnlikeCommentCommand(commentHandle: commentHandle)
+        let builder = LikesAPI.commentLikesDeleteLikeWithRequestBuilder(commentHandle: commentHandle,
+                                                                        authorization: authorization)
+        outgoingActionsExecutor.execute(command: command, builder: builder) { result in
+            completion(commentHandle, result.error)
         }
     }
     

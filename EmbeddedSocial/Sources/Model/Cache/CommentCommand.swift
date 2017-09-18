@@ -5,35 +5,35 @@
 
 import Foundation
 
-class ReplyCommand: OutgoingCommand {
-    let replyHandle: String
+class CommentCommand: OutgoingCommand {
+    let commentHandle: String
     
     override var combinedHandle: String {
-        return "\(super.combinedHandle)-\(replyHandle)"
+        return "\(super.combinedHandle)-\(commentHandle)"
     }
     
     required init?(json: [String: Any]) {
-        guard let replyHandle = json["replyHandle"] as? String else {
+        guard let commentHandle = json["commentHandle"] as? String else {
             return nil
         }
         
-        self.replyHandle = replyHandle
+        self.commentHandle = commentHandle
         
         super.init(json: json)
     }
     
-    required init(replyHandle: String) {
-        self.replyHandle = replyHandle
+    required init(commentHandle: String) {
+        self.commentHandle = commentHandle
         super.init(json: [:])!
     }
     
-    func apply(to reply: inout Reply) {
+    func apply(to comment: inout Comment) {
         
     }
     
     override func encodeToJSON() -> Any {
         return [
-            "replyHandle": replyHandle,
+            "commentHandle": commentHandle,
             "type": String(describing: type(of: self))
         ]
     }

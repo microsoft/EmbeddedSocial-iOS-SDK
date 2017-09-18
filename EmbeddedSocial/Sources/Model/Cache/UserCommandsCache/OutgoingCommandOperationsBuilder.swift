@@ -42,7 +42,14 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         } else if let command = command as? UnlikeReplyCommand {
             return UnlikeReplyOperation(command: command, likesService: LikesService())
         }
-
+        
+        // comment commands
+        else if let command = command as? LikeCommentCommand {
+            return LikeCommentOperation(command: command, likesService: LikesService())
+        } else if let command = command as? UnlikeCommentCommand {
+            return UnlikeCommentOperation(command: command, likesService: LikesService())
+        }
+        
         return nil
     }
 }

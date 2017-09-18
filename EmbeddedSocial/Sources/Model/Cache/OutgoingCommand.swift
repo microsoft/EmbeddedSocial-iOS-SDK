@@ -38,21 +38,32 @@ class OutgoingCommand {
     }
     
     static var allCommandTypes: [OutgoingCommand.Type] = [
+        // User Commands
         FollowCommand.self,
         UnfollowCommand.self,
         CancelPendingCommand.self,
         BlockCommand.self,
-        UnblockCommand.self
+        UnblockCommand.self,
+        
+        // Topic Commands
+        UnlikeTopicCommand.self,
+        LikeTopicCommand.self,
+        PinTopicCommand.self,
+        UnpinTopicCommand.self,
+        
+        // Reply Commands
+        LikeReplyCommand.self,
+        UnlikeReplyCommand.self,
+        
+        // Comment Commands
+        LikeCommentCommand.self,
+        UnlikeCommentCommand.self,
     ]
     
     func encodeToJSON() -> Any {
         return [
             "type": String(describing: type(of: self))
         ]
-    }
-    
-    func apply(to item: inout Any) {
-        // nothing
     }
 }
 

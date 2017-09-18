@@ -84,18 +84,14 @@ protocol PostServiceDelegate: class {
 class TopicService: BaseService, PostServiceProtocol {
     
     private var imagesService: ImagesServiceType!
-    
-    private lazy var responseParser: FeedResponseParser = { [unowned self] in
-        return FeedResponseParser(processor: FeedCachePostProcessor(cache: self.cache))
-    }()
-    
-    private lazy var feedCacheAdapter: FeedCacheAdapter = { [unowned self] in
-        return FeedCacheAdapter(cache: self.cache)
-    }()
+    private var responseParser: FeedResponseParser!
+    private var feedCacheAdapter: FeedCacheAdapter!
     
     init(imagesService: ImagesServiceType) {
         super.init()
         self.imagesService = imagesService
+        responseParser = FeedResponseParser(processor: FeedCachePostProcessor(cache: cache))
+        feedCacheAdapter = FeedCacheAdapter(cache: cache)
     }
     
     init() {

@@ -17,6 +17,12 @@ struct PredicateBuilder: CachePredicateBuilder {
         return NSPredicate(format: "typeid = %@", typeID)
     }
     
+    
+    static func allOutgoingCommandsPredicate() -> NSPredicate {
+        let typeIDs = OutgoingCommand.allCommandTypes.map { $0.typeIdentifier }
+        return NSPredicate(format: "typeid IN %@", typeIDs)
+    }
+    
     static func allUserCommandsPredicate() -> NSPredicate {
         let userCommands: [UserCommand.Type] = [
             FollowCommand.self,
@@ -26,11 +32,6 @@ struct PredicateBuilder: CachePredicateBuilder {
             CancelPendingCommand.self
         ]
         let typeIDs = userCommands.map { $0.typeIdentifier }
-        return NSPredicate(format: "typeid IN %@", typeIDs)
-    }
-    
-    static func allOutgoingCommandsPredicate() -> NSPredicate {
-        let typeIDs = OutgoingCommand.allCommandTypes.map { $0.typeIdentifier }
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
@@ -50,8 +51,17 @@ struct PredicateBuilder: CachePredicateBuilder {
             UnlikeReplyCommand.self,
             LikeReplyCommand.self
         ]
-        let typeIDs = replyCommands.map { $0.typeIdentifier }
-        return NSPredicate(format: "handle BEGINSWITH %@ AND handle ENDSWITH %@", typeIDs, replyHandle)
+        let handles = replyCommands.map { "\($0.typeIdentifier)-\(replyHandle)" }
+        return NSPredicate(format: "handle IN %@", handles)
+    }
+    
+    static func allCommentCommandsPredicate(for commentHandle: String) -> NSPredicate {
+        let replyCommands: [CommentCommand.Type] = [
+            UnlikeCommentCommand.self,
+            LikeCommentCommand.self
+        ]
+        let handles = replyCommands.map { "\($0.typeIdentifier)-\(commentHandle)" }
+        return NSPredicate(format: "handle IN %@", handles)
     }
     
     static func userCommandsPredicate() -> NSPredicate {
