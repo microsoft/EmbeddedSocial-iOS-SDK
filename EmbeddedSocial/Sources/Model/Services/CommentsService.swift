@@ -227,6 +227,13 @@ class CommentsService: BaseService, CommentServiceProtocol {
             comment.liked = commentView.liked ?? false
             comment.userStatus = FollowStatus(status: commentView.user?.followerStatus)
             
+            let cacheRequestForComment = CacheFetchRequest(
+                resultType: PostReplyRequest.self,
+                predicate: PredicateBuilder().predicate(typeID: commentView.commentHandle!))
+            
+            let cachedRepliesCount = cache.fetchOutgoing(with: cacheRequestForComment).count
+            comment.totalReplies = (commentView.totalReplies ?? 0) + Int64(cachedRepliesCount)
+            
             let request = CacheFetchRequest(
                 resultType: OutgoingCommand.self,
                 predicate: PredicateBuilder.allCommentCommandsPredicate(for: commentView.commentHandle!),
