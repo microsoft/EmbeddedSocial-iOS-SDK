@@ -23,6 +23,7 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     @IBOutlet weak var repliesButton: UIButton!
 
     @IBOutlet weak var postedTimeLabel: UILabel!
+    @IBOutlet weak var separator: UIView!
     
     var commentView: CommentViewModel!
     
@@ -44,6 +45,11 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     
     func setupInitialState() {
         
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
     }
     
     func configure(comment: Comment) {

@@ -12,11 +12,10 @@ class ReplyCell: UICollectionViewCell {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var totalLikesButton: UIButton!
     @IBOutlet weak var postTimeLabel: UILabel!
-    
     @IBOutlet weak var userName: UILabel!
-
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var replyLabel: UILabel!
+    @IBOutlet weak var separator: UIView!
     
     var replyView: ReplyViewModel!
     
@@ -24,6 +23,11 @@ class ReplyCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
     }
     
     func config(replyView: ReplyViewModel) {

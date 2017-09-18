@@ -134,6 +134,21 @@ class SearchPresenterTests: XCTestCase {
         }
     }
     
+    func testThatItUsesPeopleTabIfItWasSelectedBeforeViewHasBeenLoaded() {
+        // given
+        let peopleTab = makePeopleTab()
+        let topicsTab = makeTopicsTab()
+        interactor.makeTopicsTabWithReturnValue = topicsTab
+        interactor.makePeopleTabWithReturnValue = peopleTab
+        
+        // when
+        sut.selectPeopleTab()
+        sut.viewIsReady()
+
+        // then
+        XCTAssertEqual(view.setupInitialStateReceivedTab, peopleTab)
+    }
+    
     private func makePeopleTab() -> SearchTabInfo {
         return SearchTabInfo(searchResultsController: UIViewController(),
                              searchResultsHandler: MockSearchResultsUpdating(),

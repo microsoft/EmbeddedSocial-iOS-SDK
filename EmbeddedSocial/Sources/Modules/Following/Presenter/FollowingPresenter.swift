@@ -9,6 +9,7 @@ class FollowingPresenter: FollowingViewOutput {
     weak var view: FollowingViewInput!
     var usersList: UserListModuleInput!
     weak var moduleOutput: FollowingModuleOutput?
+    var router: FollowingRouterInput!
 
     func viewIsReady() {
         view.setupInitialState(userListView: usersList.listView)
@@ -28,5 +29,16 @@ extension FollowingPresenter: UserListModuleOutput {
     func didUpdateFollowStatus(for user: User) {
         guard let followStatus = user.followerStatus else { return }
         moduleOutput?.didUpdateFollowingStatus(newStatus: followStatus)
+    }
+}
+
+extension FollowingPresenter: FollowingNoDataViewDelegate {
+    
+    func didSelectSearchPeople() {
+        router.openSearchPeople()
+    }
+    
+    func didSelectSuggestedUsers() {
+        router.openSuggestedUsers()
     }
 }

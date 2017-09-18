@@ -6,11 +6,9 @@
 import UIKit
 import SnapKit
 
-class FollowingViewController: UIViewController {
+class SuggestedUsersViewController: UIViewController {
     
-    var output: FollowingViewOutput!
-    
-    fileprivate var listView: UIView?
+    var output: SuggestedUsersViewOutput!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,13 +16,12 @@ class FollowingViewController: UIViewController {
     }
 }
 
-extension FollowingViewController: FollowingViewInput {
+extension SuggestedUsersViewController: SuggestedUsersViewInput {
     func setupInitialState(userListView: UIView) {
         view.addSubview(userListView)
         userListView.snp.makeConstraints { make in
             make.edges.equalTo(self.view)
         }
-        listView = userListView
     }
     
     func showError(_ error: Error) {

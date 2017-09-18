@@ -63,6 +63,8 @@
 
 "following.screen_title" = "Following";
 "following.no_data_text" = "Currently you are not following anyone.";
+"following.suggested_users" = "Suggested users";
+"following.search_people" = "Search people";
 
 "login.screen_title" = "Sign in";
 
@@ -132,3 +134,5 @@
 "blocked_users.screen_title" = "Blocked users";
 "blocked_users.no_data_text" = "You haven't blocked anyone.";
 
+"suggested_users.screen_title" = "Suggested users";
+"suggested_users.no_data_text" = "No suggested users to show.";

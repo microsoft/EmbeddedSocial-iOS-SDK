@@ -146,6 +146,10 @@ enum L10n {
     static let noDataText = L10n.tr("Localizable", "following.no_data_text")
     /// Following
     static let screenTitle = L10n.tr("Localizable", "following.screen_title")
+    /// Search people
+    static let searchPeople = L10n.tr("Localizable", "following.search_people")
+    /// Suggested users
+    static let suggestedUsers = L10n.tr("Localizable", "following.suggested_users")
   }
 
   enum Home {
@@ -328,6 +332,13 @@ enum L10n {
     static let signIn = L10n.tr("Localizable", "side_menu.sign_in")
     /// Social
     static let social = L10n.tr("Localizable", "side_menu.social")
+  }
+
+  enum SuggestedUsers {
+    /// No suggested users to show.
+    static let noDataText = L10n.tr("Localizable", "suggested_users.no_data_text")
+    /// Suggested users
+    static let screenTitle = L10n.tr("Localizable", "suggested_users.screen_title")
   }
 
   enum UploadPhotoCell {
