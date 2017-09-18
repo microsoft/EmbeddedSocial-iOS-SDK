@@ -27,13 +27,19 @@ final class MockSocialService: SocialServiceType {
         completion(.success())
     }
     
+    var unfollowInputUser: User?
+    
     func unfollow(user: User, completion: @escaping (Result<Void>) -> Void) {
         unfollowCount += 1
+        unfollowInputUser = user
         completion(.success())
     }
     
+    var cancelPendingInputUser: User?
+    
     func cancelPending(user: User, completion: @escaping (Result<Void>) -> Void) {
         cancelPendingCount += 1
+        cancelPendingInputUser = user
         completion(.success())
     }
     
@@ -42,8 +48,11 @@ final class MockSocialService: SocialServiceType {
         completion(.success())
     }
     
+    var blockInputUser: User?
+    
     func block(user: User, completion: @escaping (Result<Void>) -> Void) {
         blockCount += 1
+        blockInputUser = user
         completion(.success())
     }
     
