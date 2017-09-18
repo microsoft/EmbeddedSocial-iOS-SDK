@@ -6,14 +6,14 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class UserCommandsCacheDaemonTests: XCTestCase {
+class OutgoingCommandsUploaderTests: XCTestCase {
     var networkTracker: MockNetworkTracker!
     var cache: MockCache!
     var jsonDecoder: MockJSONDecoder.Type!
-    var operationsBuilder: MockUserCommandOperationsBuilder.Type!
+    var operationsBuilder: MockOutgoingCommandOperationsBuilder.Type!
     var socialService: MockSocialService!
     
-    var sut: UserCommandsCacheDaemon!
+    var sut: OutgoingCommandsUploader!
     
     override func setUp() {
         super.setUp()
@@ -21,10 +21,10 @@ class UserCommandsCacheDaemonTests: XCTestCase {
         networkTracker = MockNetworkTracker()
         cache = MockCache()
         jsonDecoder = MockJSONDecoder.self
-        operationsBuilder = MockUserCommandOperationsBuilder.self
+        operationsBuilder = MockOutgoingCommandOperationsBuilder.self
         socialService = MockSocialService()
         
-        sut = UserCommandsCacheDaemon(networkTracker: networkTracker,
+        sut = OutgoingCommandsUploader(networkTracker: networkTracker,
                                       cache: cache,
                                       jsonDecoderType: jsonDecoder,
                                       operationsBuilderType: operationsBuilder)
@@ -49,6 +49,26 @@ class UserCommandsCacheDaemonTests: XCTestCase {
         // then
         XCTAssertTrue(jsonDecoder.setupDecodersCalled)
         XCTAssertTrue(networkTracker.addListenerCalled)
+        guard let listener = networkTracker.addListenerReceivedListener as? OutgoingCommandsUploader else {
+            XCTFail("Must register listener")
+            return
+        }
+        XCTAssertTrue(listener === sut)
+    }
+    
+    func testThatItCorrectlyStops() {
+        // given
+        
+        // when
+        sut.stop()
+        
+        // then
+        XCTAssertTrue(networkTracker.removeListenerCalled)
+        guard let listener = networkTracker.removeListenerReceivedListener as? OutgoingCommandsUploader else {
+            XCTFail("Must register listener")
+            return
+        }
+        XCTAssertTrue(listener === sut)
     }
     
     func testThatItSubmitsPendingCommandsWhenNetworkBecomesAvailable() {
@@ -67,7 +87,12 @@ class UserCommandsCacheDaemonTests: XCTestCase {
         XCTAssertEqual(socialService.followInputUser, user)
         
         XCTAssertTrue(operationsBuilder.operationForCommandCalled)
-        XCTAssertEqual(operationsBuilder.operationForCommandInputCommand?.user, user)
+        
+        guard let inputCommand = operationsBuilder.operationForCommandInputCommand as? FollowCommand else {
+            XCTFail("Operations builder must receive the correct input command")
+            return
+        }
+        XCTAssertEqual(inputCommand.user, user)
     }
     
     func testThatItDoesNothingWhenNetworkBecomesUnavailable() {
@@ -83,17 +108,3 @@ class UserCommandsCacheDaemonTests: XCTestCase {
         XCTAssertFalse(operationsBuilder.operationForCommandCalled)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

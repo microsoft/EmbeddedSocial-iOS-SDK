@@ -56,11 +56,11 @@ struct PredicateBuilder: CachePredicateBuilder {
     }
     
     static func allCommentCommandsPredicate(for commentHandle: String) -> NSPredicate {
-        let replyCommands: [CommentCommand.Type] = [
+        let commentCommands: [CommentCommand.Type] = [
             UnlikeCommentCommand.self,
             LikeCommentCommand.self
         ]
-        let handles = replyCommands.map { "\($0.typeIdentifier)-\(commentHandle)" }
+        let handles = commentCommands.map { "\($0.typeIdentifier)-\(commentHandle)" }
         return NSPredicate(format: "handle IN %@", handles)
     }
     

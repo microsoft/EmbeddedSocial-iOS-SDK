@@ -35,7 +35,7 @@ class UserCommand: OutgoingCommand {
     override func encodeToJSON() -> Any {
         return [
             "user": user.encodeToJSON(),
-            "type": String(describing: type(of: self))
+            "type": typeIdentifier
         ]
     }
 }

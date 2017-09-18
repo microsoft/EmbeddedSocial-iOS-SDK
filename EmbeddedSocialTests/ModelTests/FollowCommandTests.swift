@@ -43,7 +43,7 @@ class FollowCommandTests: XCTestCase {
         // when
         
         // then
-        guard let inverseCommand = sut.inverseCommand else {
+        guard let inverseCommand = sut.inverseCommand as? UserCommand else {
             XCTFail("Must return inverse command")
             return
         }

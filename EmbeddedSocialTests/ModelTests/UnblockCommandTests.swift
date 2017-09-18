@@ -6,45 +6,44 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class UnfollowCommandTests: XCTestCase {
+class UnblockCommandTests: XCTestCase {
     
     func testThatItCorrectlyAppliesChanges() {
         // given
         var user = User()
-        let sut = UnfollowCommand(user: user)
+        let sut = UnblockCommand(user: user)
         
         // when
         sut.apply(to: &user)
         
         // then
-        XCTAssertEqual(user.followerStatus, .empty)
+        XCTAssertEqual(user.followingStatus, .empty)
     }
     
     func testThatItReturnsCorrectInverseCommand() {
         // given
         let user = User()
-        let sut = UnfollowCommand(user: user)
+        let sut = UnblockCommand(user: user)
         
         // when
         
         // then
-        guard let inverseCommand = sut.inverseCommand else {
+        guard let inverseCommand = sut.inverseCommand as?  BlockCommand else {
             XCTFail("Must return inverse command")
             return
         }
-        XCTAssertTrue(inverseCommand is FollowCommand)
         XCTAssertEqual(sut.user, inverseCommand.user)
     }
     
     func testThatItReturnsCorrectCombinedHandle() {
         // given
         let user = User()
-        let sut = UnfollowCommand(user: user)
+        let sut = UnblockCommand(user: user)
         
         // when
         let handle = sut.combinedHandle
         
         // then
-        XCTAssertEqual(handle, "UnfollowCommand-\(user.uid)")
+        XCTAssertEqual(handle, "UnblockCommand-\(user.uid)")
     }
 }

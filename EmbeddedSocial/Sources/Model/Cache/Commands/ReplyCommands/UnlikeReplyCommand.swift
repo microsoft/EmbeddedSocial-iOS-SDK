@@ -12,7 +12,7 @@ final class UnlikeReplyCommand: ReplyCommand {
     }
     
     override func apply(to reply: inout Reply) {
-        reply.liked = true
+        reply.liked = false
         reply.totalLikes = max(0, reply.totalLikes - 1)
     }
 }

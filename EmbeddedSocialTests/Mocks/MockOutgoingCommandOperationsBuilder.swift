@@ -6,13 +6,13 @@
 @testable import EmbeddedSocial
 import Foundation
 
-class MockUserCommandOperationsBuilder: UserCommandOperationsBuilderType {
+class MockOutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
     
     static var operationForCommandCalled = false
     static var operationForCommandReturnValue: Operation?
-    static var operationForCommandInputCommand: UserCommand?
+    static var operationForCommandInputCommand: OutgoingCommand?
 
-    static func operation(for command: UserCommand) -> Operation? {
+    static func operation(for command: OutgoingCommand) -> Operation? {
         operationForCommandCalled = true
         operationForCommandInputCommand = command
         return operationForCommandReturnValue

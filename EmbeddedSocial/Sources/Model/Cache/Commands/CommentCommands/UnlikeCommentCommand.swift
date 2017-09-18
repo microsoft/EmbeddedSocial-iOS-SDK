@@ -12,7 +12,7 @@ final class UnlikeCommentCommand: CommentCommand {
     }
     
     override func apply(to comment: inout Comment) {
-        comment.liked = true
+        comment.liked = false
         comment.totalLikes = max(0, comment.totalLikes - 1)
     }
 }

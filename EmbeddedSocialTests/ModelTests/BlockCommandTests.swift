@@ -28,11 +28,10 @@ class BlockCommandTests: XCTestCase {
         // when
         
         // then
-        guard let inverseCommand = sut.inverseCommand else {
+        guard let inverseCommand = sut.inverseCommand as? UnblockCommand else {
             XCTFail("Must return inverse command")
             return
         }
-        XCTAssertTrue(inverseCommand is UnblockCommand)
         XCTAssertEqual(sut.user, inverseCommand.user)
     }
     

@@ -28,11 +28,10 @@ class CancelPendingCommandTests: XCTestCase {
         // when
         
         // then
-        guard let inverseCommand = sut.inverseCommand else {
+        guard let inverseCommand = sut.inverseCommand as? FollowCommand else {
             XCTFail("Must return inverse command")
             return
         }
-        XCTAssertTrue(inverseCommand is FollowCommand)
         XCTAssertEqual(sut.user, inverseCommand.user)
     }
     
