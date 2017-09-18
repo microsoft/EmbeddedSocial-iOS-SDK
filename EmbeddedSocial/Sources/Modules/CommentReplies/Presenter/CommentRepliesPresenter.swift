@@ -185,6 +185,11 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         interactor.postReply(commentHandle: comment.commentHandle, text: text)
     }
     
+    private func enableFetchMore() {
+        loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
+        view?.updateLoadingCell()
+    }
+    
     private func stopLoading() {
         if cursor == nil {
             loadMoreCellViewModel.cellHeight = 0.1
@@ -195,6 +200,10 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     // MARK: CommentRepliesInteractorOutput
     func fetched(replies: [Reply], cursor: String?) {
+        if self.cursor != cursor {
+            enableFetchMore()
+        }
+        
         self.cursor = cursor
         self.replies = replies
         self.replies.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
@@ -203,6 +212,10 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func fetchedMore(replies: [Reply], cursor: String?) {
+        if self.cursor != cursor {
+            enableFetchMore()
+        }
+        
         self.cursor = cursor
         appendWithReplacing(original: &self.replies, appending: replies)
         self.replies.sort(by: { $0.0.createdTime! < $0.1.createdTime! })

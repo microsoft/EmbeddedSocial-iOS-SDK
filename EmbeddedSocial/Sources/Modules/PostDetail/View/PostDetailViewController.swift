@@ -217,7 +217,7 @@ extension PostDetailViewController: UICollectionViewDelegate {
 
 extension PostDetailViewController: LoadMoreCellDelegate {
     func loadPressed() {
-        if output.enableFetchMore() {
+        if output.canFetchMore() {
             output.fetchMore()
         }
     }
