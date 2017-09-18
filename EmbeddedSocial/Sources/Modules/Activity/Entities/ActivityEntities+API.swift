@@ -5,7 +5,7 @@
 
 import Foundation
 
-extension Activity.ActionItem {
+extension ActionItem {
     
     init?(with model: ActivityView) {
     

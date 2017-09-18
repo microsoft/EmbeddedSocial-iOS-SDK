@@ -12,14 +12,14 @@ protocol ActivityInteractorInput {
 }
 
 protocol ActivityServiceProtocol: class {
-    func loadPendings(cursor: String?, limit: Int, completion: (String) -> Void)
+//    func loadPendingsRequests(cursor: String?, limit: Int, completion: (String) -> Void)
     func loadActions(cursor: String?, limit: Int, completion: (Result<ActivityView>) -> Void)
 }
 
 class ActivityService: ActivityServiceProtocol {
-    func loadPendings(cursor: String?, limit: Int, completion: (String) -> Void) {
-        completion("lol")
-    }
+//    func loadPendingsRequests(cursor: String?, limit: Int, completion: (Result<FeedResponseUserCompactView>) -> Void) {
+//        completion("lol")
+//    }
     
     func loadActions(cursor: String?, limit: Int, completion: (Result<ActivityView>) -> Void) {
         let result = ActivityView()
@@ -36,6 +36,7 @@ class ActivityService: ActivityServiceProtocol {
         
         completion(.success(result))
     }
+    
 }
 
 class ActivityInteractor: ActivityInteractorInput {
@@ -49,7 +50,7 @@ class ActivityInteractor: ActivityInteractorInput {
         
         // get loader
         guard let loader = loaders[key] else {
-            handler(.failure(Activity.ModuleError.loaderNotFound))
+            handler(.failure(ModuleError.loaderNotFound))
             return
         }
         
@@ -60,7 +61,7 @@ class ActivityInteractor: ActivityInteractorInput {
         loader(args) { (result: Result<Any>)  in
             
             guard let data = result.value else {
-                handler(.failure(Activity.ModuleError.noData))
+                handler(.failure(ModuleError.noData))
                 return
             }
             
@@ -68,7 +69,7 @@ class ActivityInteractor: ActivityInteractorInput {
             if let mapped: T = self.map(source: data) {
                 handler(.success(mapped))
             } else {
-                handler(.failure(Activity.ModuleError.mapperNotFound))
+                handler(.failure(ModuleError.mapperNotFound))
             }
         }
     }
@@ -81,14 +82,14 @@ class ActivityInteractor: ActivityInteractorInput {
         
         var items = [String: LoaderBlockType]()
         
-        items["\(Activity.PendingRequestItem.self)"] = { (args, completion: MappingBlockType) in
+        items["\(PendingRequestItem.self)"] = { (args, completion: MappingBlockType) in
             
-            self.service.loadPendings(cursor: args.cursor, limit: args.limit) { response in
-                completion(.success(response))
-            }
+//            self.service.loadPendings(cursor: args.cursor, limit: args.limit) { response in
+//                completion(.success(response))
+//            }
         }
         
-        items["\(Activity.ActionItem.self)"] = { (args, completion: MappingBlockType) in
+        items["\(ActionItem.self)"] = { (args, completion: MappingBlockType) in
             
             self.service.loadActions(
                 cursor: args.cursor,
@@ -106,18 +107,18 @@ class ActivityInteractor: ActivityInteractorInput {
     private lazy var mappers: [String : ((Any) -> Any?)] = {
         
         return [
-            "\(Activity.PendingRequestItem.self)": {
+            "\(PendingRequestItem.self)": {
                 
                 guard let name = $0 as? String else { return nil }
                 
-                return Activity.PendingRequestItem(userName: name, userHandle: name)
+                return PendingRequestItem(userName: name, userHandle: name)
             },
             
-            "\(Activity.ActionItem.self)": {
+            "\(ActionItem.self)": {
                 
                 guard let argument = $0 as? ActivityView else { return nil }
                 
-                return Activity.ActionItem(with: argument)
+                return ActionItem(with: argument)
             }
         ]
         

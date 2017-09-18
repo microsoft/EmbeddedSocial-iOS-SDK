@@ -5,45 +5,42 @@
 
 import Foundation
 
-struct Activity {
+struct ActionItem {
     
-    struct ActionItem {
-        
-        var unread: Bool
-        
-        enum ActivityType: String {
-            case like = "Like"
-            case comment = "Comment"
-            case reply = "Reply"
-            case commentPeer = "CommentPeer"
-            case replyPeer = "ReplyPeer"
-            case following = "Following"
-            case followRequest = "FollowRequest"
-            case followAccept = "FollowAccept"
-        }
-        
-        var type: ActivityType
-        
-        var actorNameList: [(firstName: String, lastName: String)] = []
-        var actedOnName: String
+    var unread: Bool
+    
+    enum ActivityType: String {
+        case like = "Like"
+        case comment = "Comment"
+        case reply = "Reply"
+        case commentPeer = "CommentPeer"
+        case replyPeer = "ReplyPeer"
+        case following = "Following"
+        case followRequest = "FollowRequest"
+        case followAccept = "FollowAccept"
     }
     
-    struct PendingRequestItem {
-        var userName: String
-        var userHandle: String
-    }
-
-    enum ItemType {
-        case myActivity
-        case othersActivity
-        case myPendings
-    }
+    var type: ActivityType
     
-    enum ModuleError: Int, Error {
-        case notParsable
-        case noData
-        case mapperNotFound
-        case loaderNotFound
-    }
-    
+    var actorNameList: [(firstName: String, lastName: String)] = []
+    var actedOnName: String
 }
+
+struct PendingRequestItem {
+    var userName: String
+    var userHandle: String
+}
+
+enum ItemType {
+    case myActivity
+    case othersActivity
+    case myPendings
+}
+
+enum ModuleError: Int, Error {
+    case notParsable
+    case noData
+    case mapperNotFound
+    case loaderNotFound
+}
+

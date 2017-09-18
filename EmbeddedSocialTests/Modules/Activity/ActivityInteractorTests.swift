@@ -35,7 +35,7 @@ class ActivityInteractorTests: XCTestCase {
         
     }
     
-    func testIt() {
+    func testItMapsActionItem_WithBasicResponse() {
         
         // given
         let response = ActivityView()
@@ -54,12 +54,11 @@ class ActivityInteractorTests: XCTestCase {
         response.actorUsers = actors
         response.actedOnUser = actedOnUser
         
-        
         service.mockedResult = Result(value: response, error: nil)
         
         // when
         let e = expectation(description: #file)
-        sut.load { (result: Result<Activity.ActionItem>) in
+        sut.load { (result: Result<ActionItem>) in
             
             // then
             guard let actionItem = result.value else { return }
@@ -77,20 +76,19 @@ class ActivityInteractorTests: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testWithBadResponse() {
+    func testItMapsActionItem_WithBadResponse() {
         
         // given
-        
         let response = ActivityView()
         service.mockedResult = Result(value: response, error: nil)
         let e = expectation(description: #file)
         
         // when
-        sut.load { (result: Result<Activity.ActionItem>) in
+        sut.load { (result: Result<ActionItem>) in
             
             XCTAssertTrue(result.isFailure)
-            guard let error = result.error as? Activity.ModuleError else { return }
-            XCTAssertTrue(error == Activity.ModuleError.mapperNotFound)
+            guard let error = result.error as? ModuleError else { return }
+            XCTAssertTrue(error == ModuleError.mapperNotFound)
             e.fulfill()
         }
         
