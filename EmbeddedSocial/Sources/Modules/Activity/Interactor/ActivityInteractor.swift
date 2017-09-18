@@ -11,8 +11,9 @@ protocol ActivityInteractorInput {
     func load<T>(cursor: String?, limit: Int, handler: ((Result<T>) -> Void))
 }
 
-protocol ActivityServiceProtocol {
+protocol ActivityServiceProtocol: class {
     func loadPendings(cursor: String?, limit: Int, completion: (String) -> Void)
+    func loadActions(cursor: String?, limit: Int, completion: (Result<ActivityView>) -> Void)
 }
 
 class ActivityService: ActivityServiceProtocol {
@@ -40,8 +41,7 @@ class ActivityService: ActivityServiceProtocol {
 class ActivityInteractor: ActivityInteractorInput {
     
     weak var output: ActivityInteractorOutput!
-    
-    var service: ActivityService! = ActivityService()
+    var service: ActivityServiceProtocol!
     
     func load<T>(cursor: String? = nil, limit: Int = 10, handler: ((Result<T>) -> Void) ) {
         
@@ -49,7 +49,7 @@ class ActivityInteractor: ActivityInteractorInput {
         
         // get loader
         guard let loader = loaders[key] else {
-            handler(.failure(Activity.Errors.loaderNotFound))
+            handler(.failure(Activity.ModuleError.loaderNotFound))
             return
         }
         
@@ -60,7 +60,7 @@ class ActivityInteractor: ActivityInteractorInput {
         loader(args) { (result: Result<Any>)  in
             
             guard let data = result.value else {
-                handler(.failure(Activity.Errors.noData))
+                handler(.failure(Activity.ModuleError.noData))
                 return
             }
             
@@ -68,7 +68,7 @@ class ActivityInteractor: ActivityInteractorInput {
             if let mapped: T = self.map(source: data) {
                 handler(.success(mapped))
             } else {
-                handler(.failure(Activity.Errors.mapperNotFound))
+                handler(.failure(Activity.ModuleError.mapperNotFound))
             }
         }
     }
@@ -106,13 +106,14 @@ class ActivityInteractor: ActivityInteractorInput {
     private lazy var mappers: [String : ((Any) -> Any?)] = {
         
         return [
-            String(describing: Activity.PendingRequestItem.self): {
+            "\(Activity.PendingRequestItem.self)": {
                 
                 guard let name = $0 as? String else { return nil }
                 
                 return Activity.PendingRequestItem(userName: name, userHandle: name)
             },
-            String(describing: Activity.ActionItem.self): {
+            
+            "\(Activity.ActionItem.self)": {
                 
                 guard let argument = $0 as? ActivityView else { return nil }
                 

@@ -39,10 +39,11 @@ struct Activity {
         case myPendings
     }
     
-    enum Errors: Error {
+    enum ModuleError: Int, Error {
         case notParsable
         case noData
         case mapperNotFound
         case loaderNotFound
     }
+    
 }
