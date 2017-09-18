@@ -30,6 +30,7 @@ class TestHome: UITestBase {
     
     
     func openScreen() {
+        sideMenu.navigateTo("Popular")
         sideMenu.navigateTo("Home")
     }
     
