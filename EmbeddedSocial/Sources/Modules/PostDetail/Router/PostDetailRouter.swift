@@ -14,8 +14,12 @@ class PostDetailRouter: PostDetailRouterInput {
     }
     
     func backIfNeeded(from view: UIViewController) {
-        if view.navigationController?.viewControllers.last is CommentRepliesViewController {
+        if view.navigationController?.viewControllers.last is CommentRepliesViewController  {
             view.navigationController?.popViewController(animated: true)
         }
+    }
+    
+    func backToFeed(from view: UIViewController) {
+        view.navigationController?.popViewController(animated: true)
     }
 }

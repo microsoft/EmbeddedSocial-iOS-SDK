@@ -30,6 +30,7 @@ protocol FeedModuleOutput: class {
     func didStartRefreshingData()
     func didFinishRefreshingData(_ error: Error?)
     func didUpdateFeed()
+    func postRemoved()
     func commentsPressed()
     func shouldOpenProfile(for userID: String) -> Bool
 }
@@ -40,7 +41,8 @@ extension FeedModuleOutput {
     func didStartRefreshingData() { }
     func didFinishRefreshingData(_ error: Error?) { }
     func didUpdateFeed() { }
-    func commentsPressed() { } 
+    func commentsPressed() { }
+    func postRemoved() { }
     func shouldOpenProfile(for userID: String) -> Bool {
         return false
     }
@@ -560,6 +562,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     
     func didRemove(post: PostHandle) {
         didRemoveItem(post: post)
+        moduleOutput?.postRemoved()
     }
     
     func didReport(post: PostHandle) {
