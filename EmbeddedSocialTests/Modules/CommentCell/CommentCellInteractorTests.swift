@@ -11,7 +11,7 @@ class CommentCellInteractorTests: XCTestCase {
     var output = MockCommentCellPresenter()
     var interactor = CommentCellInteractor()
     
-    var likeService: LikesServiceProtocol?
+    var likeService: MockLikesService!
     
     override func setUp() {
         super.setUp()
@@ -35,6 +35,8 @@ class CommentCellInteractorTests: XCTestCase {
         comment.totalLikes = 0
         comment.liked = false
         output.comment = comment
+        
+        likeService.likeCommentCommentHandleCompletionReturnValue = (comment.commentHandle!, nil)
 
         //when
         interactor.commentAction(commentHandle: comment.commentHandle!, action: .like)
@@ -53,6 +55,8 @@ class CommentCellInteractorTests: XCTestCase {
         comment.totalLikes = 1
         comment.liked = true
         output.comment = comment
+        
+        likeService.unlikeCommentCommentHandleCompletionReturnValue = (comment.commentHandle!, nil)
 
         //when
         interactor.commentAction(commentHandle: comment.commentHandle!, action: .unlike)

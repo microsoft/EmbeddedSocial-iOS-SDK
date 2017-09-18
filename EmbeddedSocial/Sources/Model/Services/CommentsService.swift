@@ -213,7 +213,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
     private func convert(data: [CommentView]) -> [Comment] {
         var comments = [Comment]()
         for commentView in data {
-            let comment = Comment()
+            var comment = Comment()
             comment.commentHandle = commentView.commentHandle!
             comment.firstName = commentView.user?.firstName
             comment.lastName = commentView.user?.lastName
@@ -226,28 +226,22 @@ class CommentsService: BaseService, CommentServiceProtocol {
             comment.totalLikes = commentView.totalLikes ?? 0
             comment.liked = commentView.liked ?? false
             comment.userStatus = FollowStatus(status: commentView.user?.followerStatus)
-
-            let cacheRequestForLikes = CacheFetchRequest(resultType: FeedActionRequest.self, predicate: PredicateBuilder().predicate(handle: commentView.commentHandle!))
-            let cacheResultForLikes = cache.fetchOutgoing(with: cacheRequestForLikes)
-
-            if let firstCachedLikeAction = cacheResultForLikes.first {
-                switch firstCachedLikeAction.actionMethod {
-                case .post:
-                    comment.totalLikes += 1
-                    comment.liked = true
-                case .delete:
-                    comment.totalLikes = comment.totalLikes > 0 ? comment.totalLikes - 1 : 0
-                    comment.liked = false
-                }
+            
+            let request = CacheFetchRequest(
+                resultType: OutgoingCommand.self,
+                predicate: PredicateBuilder.allCommentCommandsPredicate(for: commentView.commentHandle!),
+                sortDescriptors: [Cache.createdAtSortDescriptor]
+            )
+            
+            let commands = cache.fetchOutgoing(with: request) as? [CommentCommand] ?? []
+            
+            for command in commands {
+                command.apply(to: &comment)
             }
-            
-            let cacheRequestForComment = CacheFetchRequest(resultType: PostReplyRequest.self, predicate: PredicateBuilder().predicate(typeID: commentView.commentHandle!))
-            comment.totalReplies = (commentView.totalReplies ?? 0) + Int64(cache.fetchOutgoing(with: cacheRequestForComment).count)
-            
+
             comments.append(comment)
         }
         return comments
-        
     }
 }
 

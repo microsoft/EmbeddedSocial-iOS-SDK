@@ -11,7 +11,7 @@ typealias TopicsFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponse
 
 typealias SuggestedUsersRequestExecutor = CacheRequestExecutionStrategy<[UserCompactView], UsersListResponse>
 
-typealias OutgoingActionRequestExecutor = OutgoingActionsExecutor<Object>
+typealias OutgoingActionRequestExecutor = AtomicOutgoingCommandsExecutor<Object>
 
 protocol CacheRequestExecutorProviderType {
     static func makeUsersFeedExecutor(for service: BaseService) -> UsersFeedRequestExecutor

@@ -20,14 +20,14 @@ extension Decoders: JSONDecoder {
 extension JSONDecoder {
     
     static func setupDecoders() {
-        addUserCommandDecoder()
+        addOutgoingCommandDecoder()
     }
     
-    private static func addUserCommandDecoder() {
-        Decoders.addDecoder(clazz: UserCommand.self) { source, instance in
+    private static func addOutgoingCommandDecoder() {
+        Decoders.addDecoder(clazz: OutgoingCommand.self) { source, instance in
             guard let payload = source as? [String: Any],
-                let item = UserCommand.command(from: payload) else {
-                    return .failure(.typeMismatch(expected: "UserCommand", actual: "\(source)"))
+                let item = OutgoingCommand.command(from: payload) else {
+                    return .failure(.typeMismatch(expected: "OutgoingCommand", actual: "\(source)"))
             }
             return .success(item)
         }

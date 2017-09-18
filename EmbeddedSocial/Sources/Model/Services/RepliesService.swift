@@ -169,7 +169,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
     private func convert(data: [ReplyView]) -> [Reply] {
         var replies = [Reply]()
         for replyView in data {
-            let reply = Reply()
+            var reply = Reply()
             reply.commentHandle = replyView.commentHandle
             reply.text = replyView.text
             reply.liked = replyView.liked ?? false
@@ -184,18 +184,14 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             reply.totalLikes = Int(replyView.totalLikes!)
             reply.userStatus = FollowStatus(status: replyView.user?.followerStatus)
             
-            let cacheRequestForReplies = CacheFetchRequest(resultType: FeedActionRequest.self, predicate: PredicateBuilder().predicate(handle: replyView.replyHandle!))
-            let cacheResultForReplies = cache.fetchOutgoing(with: cacheRequestForReplies)
+            let request = CacheFetchRequest(resultType: OutgoingCommand.self,
+                                            predicate: PredicateBuilder.allReplyCommandsPredicate(for: replyView.replyHandle!),
+                                            sortDescriptors: [Cache.createdAtSortDescriptor])
             
-            if let firstCachedLikeAction = cacheResultForReplies.first {
-                switch firstCachedLikeAction.actionMethod {
-                case .post:
-                    reply.totalLikes += 1
-                    reply.liked = true
-                case .delete:
-                    reply.totalLikes = reply.totalLikes > 0 ? reply.totalLikes - 1 : 0
-                    reply.liked = false
-                }
+            let commands = cache.fetchOutgoing(with: request) as? [ReplyCommand] ?? []
+            
+            for command in commands {
+                command.apply(to: &reply)
             }
             
             replies.append(reply)
