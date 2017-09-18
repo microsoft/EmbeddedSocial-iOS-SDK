@@ -108,7 +108,7 @@ class TestHome: UITestBase {
         openScreen()
         
         var seenPosts = Set<String>()
-        var retryCount = 15
+        var retryCount = 25
         
         
         while seenPosts.count <= pageSize && retryCount != 0 {
@@ -174,7 +174,7 @@ class TestHome: UITestBase {
         
         feed.switchViewMode()
         
-        var retryCount = 10
+        var retryCount = 25
         var response = APIState.getLatestResponse(forService: "topics")
         
         while Int(response?["cursor"] as! String)! <= pageSize && retryCount != 0 {
