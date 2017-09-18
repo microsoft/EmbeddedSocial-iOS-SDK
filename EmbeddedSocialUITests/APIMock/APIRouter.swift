@@ -21,7 +21,7 @@ open class APIRouter: WebApp {
             return ["message": "It works!"]
         })
         
-        self["/v0.7/topics/(.*(?<!popular|comments)$)"] = APIResponse(serviceName: "topics") {environ, sendJSON -> Void in
+        self["/v0.7/topics(.*(?<!popular|comments)$)"] = APIResponse(serviceName: "topics") {environ, sendJSON -> Void in
             sendJSON(Templates.load(name: "topic"))
         }
         
@@ -54,6 +54,7 @@ open class APIRouter: WebApp {
             }
         }
         
+        self["/v0.7/topics"] = self["/v0.7/topics/(popular.*$)"]
         self["/v0.7/users/(.*)/topics/?(.*)"] = self["/v0.7/topics/(popular.*$)"]
         self["/v0.7/users/me/following/combined"] = self["/v0.7/topics/(popular.*$)"]
         
