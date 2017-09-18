@@ -713,6 +713,8 @@
 		93AC65B51F3E05DA00FE5A3A /* MockPostDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65AF1F3E05DA00FE5A3A /* MockPostDetailPresenter.swift */; };
 		9593BF2CC4CB3196BCFA7DFD /* Pods_EmbeddedSocialTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53BFC8B65AB7322DF8D219D5 /* Pods_EmbeddedSocialTests.framework */; };
 		9922EA70665DD200A5746F03 /* CommentCellViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506163A2149B59C12FA2F531 /* CommentCellViewInput.swift */; };
+		9C08804E1F6FB37F0012F73A /* ActivityEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C08804D1F6FB37F0012F73A /* ActivityEntities.swift */; };
+		9C0880501F6FB53E0012F73A /* ActivityEntities+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C08804F1F6FB53E0012F73A /* ActivityEntities+API.swift */; };
 		9C0963701F67C85F00E70C30 /* Activity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C09636F1F67C85F00E70C30 /* Activity.storyboard */; };
 		9C0963721F67CA6100E70C30 /* ActivityRequestsSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0963711F67CA6100E70C30 /* ActivityRequestsSection.xib */; };
 		9C0963741F67CA6C00E70C30 /* ActivityRecentSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0963731F67CA6C00E70C30 /* ActivityRecentSection.xib */; };
@@ -1547,6 +1549,8 @@
 		93AC65B11F3E05DA00FE5A3A /* PostDetailInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailInteractorTests.swift; sourceTree = "<group>"; };
 		93AC65B21F3E05DA00FE5A3A /* PostDetailPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailPresenterTests.swift; sourceTree = "<group>"; };
 		949315E0DBBB1E08A70B6370 /* CommentRepliesInteractorOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesInteractorOutput.swift; sourceTree = "<group>"; };
+		9C08804D1F6FB37F0012F73A /* ActivityEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityEntities.swift; sourceTree = "<group>"; };
+		9C08804F1F6FB53E0012F73A /* ActivityEntities+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityEntities+API.swift"; sourceTree = "<group>"; };
 		9C09636F1F67C85F00E70C30 /* Activity.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Activity.storyboard; sourceTree = "<group>"; };
 		9C0963711F67CA6100E70C30 /* ActivityRequestsSection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityRequestsSection.xib; sourceTree = "<group>"; };
 		9C0963731F67CA6C00E70C30 /* ActivityRecentSection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityRecentSection.xib; sourceTree = "<group>"; };
@@ -1660,6 +1664,7 @@
 		0040C130E7A65D00DDE73FAB /* Activity */ = {
 			isa = PBXGroup;
 			children = (
+				9C08804C1F6FB3570012F73A /* Entities */,
 				960673A4DC98020F9B865748 /* View */,
 				F99BAD2915941317AFD7F45E /* Presenter */,
 				C3221666E3804D3F04282A33 /* Interactor */,
@@ -4060,6 +4065,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		9C08804C1F6FB3570012F73A /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				9C08804D1F6FB37F0012F73A /* ActivityEntities.swift */,
+				9C08804F1F6FB53E0012F73A /* ActivityEntities+API.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		9C21696E1F3C68350052FB90 /* PostMenuModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -5165,6 +5179,7 @@
 				88580C4B1F2213AB00C1CBAF /* CreatePostViewController.swift in Sources */,
 				88580BBE1F2213AB00C1CBAF /* UIBarButtonItem+Ext.swift in Sources */,
 				884AA97D1F3C563F00B85135 /* PostReplyRequest.swift in Sources */,
+				9C08804E1F6FB37F0012F73A /* ActivityEntities.swift in Sources */,
 				882CAF0A1F5EC4B1001D5F37 /* LoginModalOpener.swift in Sources */,
 				8864C82A1F45EAC600ADCE13 /* SuggestedUsersAPI.swift in Sources */,
 				889119A41F470E1E005B3B32 /* SearchInteractor.swift in Sources */,
@@ -5466,6 +5481,7 @@
 				884AA9761F3C563F00B85135 /* PostCommentResponse.swift in Sources */,
 				8875CCEC1F331CB3001F2474 /* FollowingViewController.swift in Sources */,
 				88580C1D1F2213AB00C1CBAF /* GoogleAPI.swift in Sources */,
+				9C0880501F6FB53E0012F73A /* ActivityEntities+API.swift in Sources */,
 				9C6D359C1F31D1C1005893DB /* FeedModuleInteractor.swift in Sources */,
 				884AA9751F3C563F00B85135 /* PostCommentRequest.swift in Sources */,
 				8811C8341F3DE8A500F7513D /* AssociatedValue.swift in Sources */,

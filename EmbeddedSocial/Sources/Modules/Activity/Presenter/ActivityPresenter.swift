@@ -75,20 +75,8 @@ class ActivityPresenter: ActivityModuleInput, ActivityViewOutput, ActivityIntera
         return viewModel(for: indexPath)
     }
     
-    var followingRequests = [ActivityItem]()
-    var myActivities = [ActivityItem]()
-    var othersActivities = [ActivityItem]()
-    
     var cursor: String? = nil
     
     // MARK: Interactor Output
-    
-    func didFetchAll(result: ActivityFeedResult) {
-        
-    }
-    
-    func didFetchMore(resukt: ActivityFeedResult) {
-        
-    }
     
 }
