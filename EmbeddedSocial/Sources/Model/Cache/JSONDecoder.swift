@@ -5,11 +5,11 @@
 
 import Foundation
 
-protocol JSONDecoder {
+protocol JSONDecoderProtocol {
     static func decode<T>(type: T.Type, payload: Any?) -> T?
 }
 
-extension Decoders: JSONDecoder {
+extension Decoders: JSONDecoderProtocol {
     static func decode<T>(type: T.Type, payload: Any?) -> T? {
         return decodeOptional(clazz: type, source: payload as AnyObject).value as? T
     }
