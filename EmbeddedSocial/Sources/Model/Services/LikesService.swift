@@ -104,7 +104,8 @@ class LikesService: BaseService, LikesServiceProtocol {
     }
     
     func likeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler) {
-        let command = LikeReplyCommand(replyHandle: replyHandle)
+        let reply = Reply(replyHandle: replyHandle)
+        let command = LikeReplyCommand(reply: reply)
         let builder = LikesAPI.replyLikesPostLikeWithRequestBuilder(replyHandle: replyHandle, authorization: authorization)
         outgoingActionsExecutor.execute(command: command, builder: builder) { result in
             completion(replyHandle, result.error)
@@ -112,7 +113,8 @@ class LikesService: BaseService, LikesServiceProtocol {
     }
     
     func unlikeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler) {
-        let command = UnlikeReplyCommand(replyHandle: replyHandle)
+        let reply = Reply(replyHandle: replyHandle)
+        let command = UnlikeReplyCommand(reply: reply)
         let builder = LikesAPI.replyLikesDeleteLikeWithRequestBuilder(replyHandle: replyHandle, authorization: authorization)
         outgoingActionsExecutor.execute(command: command, builder: builder) { result in
             completion(replyHandle, result.error)

@@ -35,9 +35,9 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int) {
         self.isLoading = true
         self.repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-            if !cachedResult.replies.isEmpty {
+//            if !cachedResult.replies.isEmpty {
                 self.handleRepliesResult(result: cachedResult)
-            }
+//            }
         }, resultHandler: { (webResult) in
             self.handleRepliesResult(result: webResult)
         })

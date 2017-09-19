@@ -12,7 +12,7 @@ final class LikeReplyOperation: ReplyCommandOperation {
             return
         }
         
-        likesService.likeReply(replyHandle: command.replyHandle) { [weak self] _, _ in
+        likesService.likeReply(replyHandle: command.reply.replyHandle) { [weak self] _, _ in
             guard let strongSelf = self, !strongSelf.isCancelled else {
                 return
             }

@@ -6,20 +6,21 @@
 import Foundation
 
 class ReplyCommand: OutgoingCommand {
-    let replyHandle: String
+    let reply: Reply
     
     required init?(json: [String: Any]) {
-        guard let replyHandle = json["replyHandle"] as? String else {
-            return nil
+        guard let replyJSON = json["reply"] as? [String: Any],
+            let reply = Reply(json: replyJSON) else {
+                return nil
         }
         
-        self.replyHandle = replyHandle
+        self.reply = reply
         
         super.init(json: json)
     }
     
-    required init(replyHandle: String) {
-        self.replyHandle = replyHandle
+    required init(reply: Reply) {
+        self.reply = reply
         super.init(json: [:])!
     }
     
@@ -29,12 +30,16 @@ class ReplyCommand: OutgoingCommand {
     
     override func encodeToJSON() -> Any {
         return [
-            "replyHandle": replyHandle,
+            "reply": reply.encodeToJSON(),
             "type": typeIdentifier
         ]
     }
     
     override func getHandle() -> String? {
-        return replyHandle
+        return reply.replyHandle
+    }
+    
+    override func getRelatedHandle() -> String? {
+        return reply.commentHandle
     }
 }

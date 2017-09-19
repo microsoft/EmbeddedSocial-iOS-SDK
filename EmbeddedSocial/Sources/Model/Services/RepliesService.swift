@@ -98,105 +98,121 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         }
     }
     
-    func reply(replyHandle: String, cachedResult: @escaping ReplyHandler , success: @escaping ReplyHandler, failure: @escaping Failure) {
+    func reply(replyHandle: String,
+               cachedResult: @escaping ReplyHandler,
+               success: @escaping ReplyHandler,
+               failure: @escaping Failure) {
         
-        let request = RepliesAPI.repliesGetReplyWithRequestBuilder(replyHandle: replyHandle, authorization: authorization)
-        let requestURLString = request.URLString
+        let builder = RepliesAPI.repliesGetReplyWithRequestBuilder(replyHandle: replyHandle, authorization: authorization)
         
-        let cacheRequestForOutgoing = CacheFetchRequest(resultType: PostReplyRequest.self, predicate: PredicateBuilder().predicate(handle: replyHandle))
-        let outgoingFetchResult = cache.fetchOutgoing(with: cacheRequestForOutgoing)
-        
-        if !outgoingFetchResult.isEmpty {
-            cachedResult(createReplyFromRequest(request: outgoingFetchResult.first!))
-        } else {
-            let cacheRequestForIncoming = CacheFetchRequest(resultType: ReplyView.self, predicate: PredicateBuilder().predicate(typeID: requestURLString))
-            if let convertedReply = convert(data: cache.fetchIncoming(with: cacheRequestForIncoming)).first {
-                cachedResult(convertedReply)
-            }
+        if let cachedReply = self.cachedReply(with: replyHandle, requestURL: builder.URLString) {
+            cachedResult(cachedReply)
+            return
         }
         
-        if isNetworkReachable {
-            request.execute { (respose, error) in
-                if error != nil {
-                    failure(error!)
-                } else {
-                    self.cache.cacheIncoming((respose?.body)!, for: requestURLString)
-                    if let convertedReply = self.convert(data: [(respose?.body)!]).first {
-                        success(convertedReply)
-                    }
-                    
-                }
+        guard isNetworkReachable else {
+            failure(APIError.unknown)
+            return
+        }
+        
+        builder.execute { [weak self] respose, error in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            if let replyView = respose?.body {
+                strongSelf.cache.cacheIncoming(replyView, for: builder.URLString)
+                success(strongSelf.convert(replyView: replyView))
+            } else if strongSelf.errorHandler.canHandle(error) {
+                strongSelf.errorHandler.handle(error)
+            } else {
+                failure(APIError(error: error))
             }
         }
-
     }
     
-    func postReply(commentHandle: String, request: PostReplyRequest, success: @escaping PostReplyResultHandler, failure: @escaping Failure) {
-        
-        let requestBuilder = RepliesAPI.commentRepliesPostReplyWithRequestBuilder(commentHandle: commentHandle, request: request, authorization: authorization)
-        
-        guard let network = NetworkReachabilityManager() else {
-            return
-        }
-        
-        if !network.isReachable {
-            cache.cacheOutgoing(request, for: commentHandle)
-            
-            let cacheRequest = CacheFetchRequest(resultType: PostReplyRequest.self, predicate: PredicateBuilder().predicate(typeID: commentHandle))
-            
-            let replyHandle = cache.fetchOutgoing(with: cacheRequest).last?.handle
-            
-            let result = PostReplyResponse()
-            result.replyHandle = replyHandle
-            
-            success(result)
-            
-            return
-        }
-        
-        requestBuilder.execute { (response, error) in
-            if response != nil {
-                success((response?.body)!)
-            } else if self.errorHandler.canHandle(error) {
-                self.errorHandler.handle(error)
-            } else {
-                failure(error ?? APIError.unknown)
-            }
-        }
+    private func cachedReply(with replyHandle: String, requestURL: String) -> Reply? {
+        return cachedOutgoingReply(with: replyHandle) ?? cachedIncomingReply(key: requestURL)
+    }
     
+    private func cachedOutgoingReply(with replyHandle: String) -> Reply? {
+        let p = PredicateBuilder.createReplyCommand(replyHandle: replyHandle)
+        
+        let cachedCommand = cache.firstOutgoing(ofType: OutgoingCommand.self,
+                                                predicate: p,
+                                                sortDescriptors: [Cache.createdAtSortDescriptor])
+        
+        return (cachedCommand as? CreateReplyCommand)?.reply
+    }
+    
+    private func cachedIncomingReply(key: String) -> Reply? {
+        let p = PredicateBuilder.predicate(typeID: key)
+        let cachedReplyView = cache.firstIncoming(ofType: ReplyView.self, predicate: p, sortDescriptors: nil)
+        return cachedReplyView != nil ? convert(replyView: cachedReplyView!) : nil
+    }
+    
+    func postReply(commentHandle: String,
+                   request: PostReplyRequest,
+                   success: @escaping PostReplyResultHandler,
+                   failure: @escaping Failure) {
+        
+        let reply = Reply(request: request)
+        let replyCommand = CreateReplyCommand(reply: reply)
+        
+        guard isNetworkReachable else {
+            cache.cacheOutgoing(replyCommand)
+            success(PostReplyResponse(reply: reply))
+            return
+        }
+        
+        RepliesAPI.commentRepliesPostReply(
+            commentHandle: commentHandle,
+            request: request,
+            authorization: authorization) { [weak self] response, error in
+                guard let strongSelf = self else {
+                    return
+                }
+                if let response = response {
+                    success(response)
+                } else if strongSelf.errorHandler.canHandle(error) {
+                    strongSelf.errorHandler.handle(error)
+                } else {
+                    failure(APIError(error: error))
+                }
+        }
     }
     
     private func convert(data: [ReplyView]) -> [Reply] {
-        var replies = [Reply]()
-        for replyView in data {
-            var reply = Reply()
-            reply.commentHandle = replyView.commentHandle
-            reply.text = replyView.text
-            reply.liked = replyView.liked ?? false
-            reply.replyHandle = replyView.replyHandle!
-            reply.topicHandle = replyView.topicHandle
-            reply.createdTime = replyView.createdTime
-            reply.lastUpdatedTime = replyView.lastUpdatedTime
-            reply.userFirstName = replyView.user?.firstName
-            reply.userLastName = replyView.user?.lastName
-            reply.userPhotoUrl = replyView.user?.photoUrl
-            reply.userHandle = replyView.user?.userHandle
-            reply.totalLikes = Int(replyView.totalLikes!)
-            reply.userStatus = FollowStatus(status: replyView.user?.followerStatus)
-            
-            let request = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                            predicate: PredicateBuilder.allReplyCommandsPredicate(for: replyView.replyHandle!),
-                                            sortDescriptors: [Cache.createdAtSortDescriptor])
-            
-            let commands = cache.fetchOutgoing(with: request) as? [ReplyCommand] ?? []
-            
-            for command in commands {
-                command.apply(to: &reply)
-            }
-            
-            replies.append(reply)
+        return data.map(convert(replyView:))
+    }
+    
+    private func convert(replyView: ReplyView) -> Reply {
+        var reply = Reply()
+        reply.commentHandle = replyView.commentHandle
+        reply.text = replyView.text
+        reply.liked = replyView.liked ?? false
+        reply.replyHandle = replyView.replyHandle!
+        reply.topicHandle = replyView.topicHandle
+        reply.createdTime = replyView.createdTime
+        reply.lastUpdatedTime = replyView.lastUpdatedTime
+        reply.userFirstName = replyView.user?.firstName
+        reply.userLastName = replyView.user?.lastName
+        reply.userPhotoUrl = replyView.user?.photoUrl
+        reply.userHandle = replyView.user?.userHandle
+        reply.totalLikes = Int(replyView.totalLikes!)
+        reply.userStatus = FollowStatus(status: replyView.user?.followerStatus)
+        
+        let request = CacheFetchRequest(resultType: OutgoingCommand.self,
+                                        predicate: PredicateBuilder.allReplyCommandsPredicate(for: replyView.replyHandle!),
+                                        sortDescriptors: [Cache.createdAtSortDescriptor])
+        
+        let commands = cache.fetchOutgoing(with: request) as? [ReplyCommand] ?? []
+        
+        for command in commands {
+            command.apply(to: &reply)
         }
-        return replies
+        
+        return reply
     }
     
     private func createReplyFromRequest(request: PostReplyRequest) -> Reply {
@@ -232,6 +248,69 @@ class Reply {
     var user: User? {
         guard let userHandle = userHandle else { return nil }
         return User(uid: userHandle, firstName: userFirstName, lastName: userLastName, photo: Photo(url: userPhotoUrl))
+    }
+    
+    convenience init(replyHandle: String) {
+        self.init()
+        
+        self.replyHandle = replyHandle
+    }
+    
+    convenience init(request: PostReplyRequest) {
+        self.init()
+        
+        replyHandle = UUID().uuidString
+        text = request.text
+        createdTime = Date()
+    }
+}
+
+extension Reply: JSONEncodable {
+    
+    convenience init?(json: [String: Any]) {
+        guard let replyHandle = json["replyHandle"] as? String else {
+            return nil
+        }
+        
+        self.init()
+        
+        self.replyHandle = replyHandle
+        userHandle = json["userHandle"] as? String
+        userFirstName = json["userFirstName"] as? String
+        userLastName = json["userLastName"] as? String
+        userPhotoUrl = json["userPhotoUrl"] as? String
+        text = json["text"] as? String
+        totalLikes = json["totalLikes"] as? Int ?? 0
+        liked = json["liked"] as? Bool ?? false
+        commentHandle = json["commentHandle"] as? String
+        topicHandle = json["topicHandle"] as? String
+        createdTime = json["createdTime"] as? Date
+        lastUpdatedTime = json["lastUpdatedTime"] as? Date
+        
+        if let rawStatus = json["userStatus"] as? Int, let status = FollowStatus(rawValue: rawStatus) {
+            userStatus = status
+        } else {
+            userStatus = .empty
+        }
+    }
+    
+    func encodeToJSON() -> Any {
+        let json: [String: Any?] = [
+            "userHandle": userHandle,
+            "userFirstName": userFirstName,
+            "userLastName": userLastName,
+            "userPhotoUrl": userPhotoUrl,
+            "text": text,
+            "totalLikes": totalLikes,
+            "liked": liked,
+            "replyHandle": replyHandle,
+            "commentHandle": commentHandle,
+            "topicHandle": topicHandle,
+            "createdTime": createdTime,
+            "lastUpdatedTime": lastUpdatedTime,
+            "userStatus": userStatus.rawValue
+        ]
+        return json.flatMap { $0 }
     }
 }
 

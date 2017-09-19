@@ -77,6 +77,8 @@ class CommentsService: BaseService, CommentServiceProtocol {
             if let commentView = result?.body {
                 strongSelf.cache.cacheIncoming(commentView, for: builder.URLString)
                 success(strongSelf.convert(commentView: commentView))
+            } else if strongSelf.errorHandler.canHandle(error) {
+                strongSelf.errorHandler.handle(error)
             } else {
                 failure(APIError(error: error))
             }

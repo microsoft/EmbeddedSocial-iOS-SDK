@@ -51,6 +51,7 @@ class OutgoingCommand: Cacheable {
         // Reply Commands
         LikeReplyCommand.self,
         UnlikeReplyCommand.self,
+        CreateReplyCommand.self,
         
         // Comment Commands
         LikeCommentCommand.self,
