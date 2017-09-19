@@ -243,10 +243,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
         }
     }
     
-    private func cachePhoto(photo: Photo, for topicHandle: String) {
-        cache.cacheOutgoing(photo, for: topicHandle)
-    }
-    
     private func convert(data: [CommentView]) -> [Comment] {
         return data.map(convert(commentView:))
     }

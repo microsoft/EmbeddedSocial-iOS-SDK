@@ -21,6 +21,13 @@ protocol ImagesServiceType {
 
 class ImagesService: BaseService, ImagesServiceType {
     
+    private let imageCache: ImageCache
+    
+    init(imageCache: ImageCache = ImageCacheAdapter.shared) {
+        self.imageCache = imageCache
+        super.init()
+    }
+    
     func uploadTopicImage(_ image: UIImage, topicHandle: String, completion: @escaping (Result<String>) -> Void) {
         let photo = Photo(image: image)
         let command = CreateTopicImageCommand(photo: photo, relatedHandle: topicHandle)
@@ -45,6 +52,7 @@ class ImagesService: BaseService, ImagesServiceType {
                          completion: @escaping (Result<String>) -> Void) {
         
         guard isNetworkReachable else {
+            imageCache.store(photo: command.photo)
             cache.cacheOutgoing(command)
             completion(.success(command.photo.uid))
             return

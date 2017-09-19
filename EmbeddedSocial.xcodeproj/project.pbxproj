@@ -207,6 +207,7 @@
 		883BFFDA1F71289200E1C4E3 /* CreateCommentCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883BFFD91F71289200E1C4E3 /* CreateCommentCommand.swift */; };
 		883BFFDC1F713AC600E1C4E3 /* CreateTopicCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883BFFDB1F713AC600E1C4E3 /* CreateTopicCommand.swift */; };
 		883BFFDE1F713EB100E1C4E3 /* PostCommentResponse+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883BFFDD1F713EB100E1C4E3 /* PostCommentResponse+Ext.swift */; };
+		883BFFE01F715D4C00E1C4E3 /* PostTopicRequest+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883BFFDF1F715D4C00E1C4E3 /* PostTopicRequest+Ext.swift */; };
 		883E1E441F546517004B4861 /* BlockedUsersConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883E1E381F546517004B4861 /* BlockedUsersConfigurator.swift */; };
 		883E1E451F546517004B4861 /* BlockedUsersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883E1E3A1F546517004B4861 /* BlockedUsersAPI.swift */; };
 		883E1E481F546517004B4861 /* BlockedUsersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883E1E3E1F546517004B4861 /* BlockedUsersPresenter.swift */; };
@@ -1117,6 +1118,7 @@
 		883BFFD91F71289200E1C4E3 /* CreateCommentCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateCommentCommand.swift; sourceTree = "<group>"; };
 		883BFFDB1F713AC600E1C4E3 /* CreateTopicCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTopicCommand.swift; sourceTree = "<group>"; };
 		883BFFDD1F713EB100E1C4E3 /* PostCommentResponse+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PostCommentResponse+Ext.swift"; sourceTree = "<group>"; };
+		883BFFDF1F715D4C00E1C4E3 /* PostTopicRequest+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PostTopicRequest+Ext.swift"; sourceTree = "<group>"; };
 		883E1E381F546517004B4861 /* BlockedUsersConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersConfigurator.swift; sourceTree = "<group>"; };
 		883E1E3A1F546517004B4861 /* BlockedUsersAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersAPI.swift; sourceTree = "<group>"; };
 		883E1E3E1F546517004B4861 /* BlockedUsersPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersPresenter.swift; sourceTree = "<group>"; };
@@ -2775,6 +2777,7 @@
 				88580AAE1F2213AB00C1CBAF /* UIBarButtonItem+Ext.swift */,
 				88580AAF1F2213AB00C1CBAF /* UIButton+Ext.swift */,
 				883BFFDD1F713EB100E1C4E3 /* PostCommentResponse+Ext.swift */,
+				883BFFDF1F715D4C00E1C4E3 /* PostTopicRequest+Ext.swift */,
 				88F551AB1F38717A00F4AAB9 /* UICollectionView+Ext.swift */,
 				88580AB01F2213AB00C1CBAF /* UIColor+Hex.swift */,
 				8811C8281F3C83E300F7513D /* UIImage+Compress.swift */,
@@ -6061,6 +6064,7 @@
 				88580C6C1F2213AB00C1CBAF /* TabMenuContainerModuleInput.swift in Sources */,
 				88580BB61F2213AB00C1CBAF /* TextFieldCell.swift in Sources */,
 				9FCA74B90B4330F6AA55D489 /* CommentRepliesViewInput.swift in Sources */,
+				883BFFE01F715D4C00E1C4E3 /* PostTopicRequest+Ext.swift in Sources */,
 				88B94EB71F62A8A4002392F9 /* SearchTopicsPresenter.swift in Sources */,
 				3FED379D7A0000A8961BD478 /* CommentRepliesViewOutput.swift in Sources */,
 				2BDC5FD924EF52E9C9DBB2F8 /* CommentRepliesViewController.swift in Sources */,

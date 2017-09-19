@@ -125,7 +125,7 @@ extension Post: JSONEncodable {
             "liked": liked,
             "pinned": pinned,
         ]
-        return json.map { $0 }
+        return json.flatMap { $0 }
     }
 }
 

@@ -5,7 +5,7 @@
 import Foundation
 import Alamofire
 
-typealias TopicPosted = (PostTopicRequest) -> Void
+typealias TopicPosted = (Post) -> Void
 typealias Failure = (Error) -> Void
 
 enum FeedServiceError: Error {
@@ -127,6 +127,7 @@ class TopicService: BaseService, PostServiceProtocol {
         
         guard isNetworkReachable else {
             cache.cacheOutgoing(command)
+            success(command.topic)
             return
         }
         
@@ -140,8 +141,10 @@ class TopicService: BaseService, PostServiceProtocol {
         }
         
         TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { response, error in
-            if response != nil {
-                success(request)
+            if let handle = response?.topicHandle {
+                var topic = command.topic
+                topic.topicHandle = handle
+                success(topic)
             } else if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
             } else {
@@ -170,8 +173,10 @@ class TopicService: BaseService, PostServiceProtocol {
     
     private func postTopic(request: PostTopicRequest, success: @escaping TopicPosted, failure: @escaping Failure) {
         TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { response, error in
-            if response != nil {
-                success(request)
+            if let handle = response?.topicHandle {
+                var topic = Post(request: request, photo: nil)
+                topic.topicHandle = handle
+                success(topic)
             } else if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
             } else {
