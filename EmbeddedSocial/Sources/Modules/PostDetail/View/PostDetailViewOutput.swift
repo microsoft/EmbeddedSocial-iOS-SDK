@@ -10,7 +10,7 @@ protocol PostDetailViewOutput {
     func postComment(photo: Photo?, comment: String)
     func fetchMore()
     func loadRestComments()
-    func enableFetchMore() -> Bool
+    func canFetchMore() -> Bool
     func refresh()
     func heightForFeed() -> CGFloat
     func loadCellModel() -> LoadMoreCellViewModel
