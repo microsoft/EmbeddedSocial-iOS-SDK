@@ -12,7 +12,7 @@ final class LikeTopicOperation: TopicCommandOperation {
             return
         }
         
-        likesService.postLike(postHandle: command.topicHandle) { [weak self] _, _ in
+        likesService.postLike(postHandle: command.topic.topicHandle) { [weak self] _, _ in
             guard let strongSelf = self, !strongSelf.isCancelled else {
                 return
             }

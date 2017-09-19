@@ -8,7 +8,7 @@ import Foundation
 final class UnpinTopicCommand: TopicCommand {
     
     override var inverseCommand: OutgoingCommand? {
-        return PinTopicCommand(topicHandle: topicHandle)
+        return PinTopicCommand(topic: topic)
     }
     
     override func apply(to topic: inout Post) {

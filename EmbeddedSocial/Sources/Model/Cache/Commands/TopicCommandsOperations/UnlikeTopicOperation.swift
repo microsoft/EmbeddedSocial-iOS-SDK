@@ -12,7 +12,7 @@ final class UnlikeTopicOperation: TopicCommandOperation {
             return
         }
         
-        likesService.deleteLike(postHandle: command.topicHandle) { [weak self] _, _ in
+        likesService.deleteLike(postHandle: command.topic.topicHandle) { [weak self] _, _ in
             guard let strongSelf = self, !strongSelf.isCancelled else {
                 return
             }

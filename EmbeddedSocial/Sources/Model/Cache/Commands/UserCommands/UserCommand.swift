@@ -8,10 +8,6 @@ import Foundation
 class UserCommand: OutgoingCommand {
     let user: User
     
-    override var combinedHandle: String {
-        return "\(super.combinedHandle)-\(user.uid)"
-    }
-    
     required init?(json: [String: Any]) {
         guard let userJSON = json["user"] as? [String: Any],
             let user = User(memento: userJSON) else {
@@ -37,5 +33,9 @@ class UserCommand: OutgoingCommand {
             "user": user.encodeToJSON(),
             "type": typeIdentifier
         ]
+    }
+    
+    override func getHandle() -> String? {
+        return user.uid
     }
 }

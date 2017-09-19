@@ -95,7 +95,11 @@ class CommentsService: BaseService, CommentServiceProtocol {
         return comment
     }
     
-    func fetchComments(topicHandle: String, cursor: String? = nil, limit: Int32? = nil, cachedResult: @escaping CommentFetchResultHandler , resultHandler: @escaping CommentFetchResultHandler) {
+    func fetchComments(topicHandle: String,
+                       cursor: String? = nil,
+                       limit: Int32? = nil,
+                       cachedResult: @escaping CommentFetchResultHandler,
+                       resultHandler: @escaping CommentFetchResultHandler) {
         
         let request = CommentsAPI.topicCommentsGetTopicCommentsWithRequestBuilder(topicHandle: topicHandle, authorization: authorization, cursor: cursor, limit: limit)
         let requestURLString = request.URLString
@@ -150,29 +154,60 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
     }
     
-    func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure) {
+    func postComment(topicHandle: String,
+                     request: PostCommentRequest,
+                     photo: Photo?,
+                     resultHandler: @escaping CommentPostResultHandler,
+                     failure: @escaping Failure) {
         
-        if !isNetworkReachable {
-            if let unwrapptedPhoto = photo {
-                cachePhoto(photo: unwrapptedPhoto, for: topicHandle)
-            }
-        }
+        let comment = Comment(request: request, photo: photo, topicHandle: topicHandle)
+        let commentCommand = CreateCommentCommand(comment: comment)
         
         guard let image = photo?.image else {
-            postComment(topicHandle: topicHandle, request: request, success: resultHandler, failure: failure)
+            execute(command: commentCommand, resultHandler: resultHandler, failure: failure)
             return
         }
         
-        imagesService.uploadContentImage(image) { [unowned self] result in
+        imagesService.uploadCommentImage(image, commentHandle: comment.commentHandle) { [weak self] result in
             if let handle = result.value {
-                request.blobHandle = handle
-                request.blobType = .image
-                self.postComment(topicHandle: topicHandle, request: request, success: resultHandler, failure: failure)
-            } else if self.errorHandler.canHandle(result.error) {
-                self.errorHandler.handle(result.error)
+                commentCommand.comment.photoHandle = handle
+                self?.execute(command: commentCommand, resultHandler: resultHandler, failure: failure)
+            } else if self?.errorHandler.canHandle(result.error) == true {
+                self?.errorHandler.handle(result.error)
             } else {
                 failure(result.error ?? APIError.unknown)
             }
+        }
+    }
+    
+    private func execute(command: CreateCommentCommand,
+                         resultHandler: @escaping CommentPostResultHandler,
+                         failure: @escaping Failure) {
+        
+        guard isNetworkReachable else {
+            cache.cacheOutgoing(command)
+            return
+        }
+        
+        let request = PostCommentRequest()
+        request.text = command.comment.text
+        
+        if let photoHandle = command.comment.photoHandle {
+            request.blobHandle = photoHandle
+            request.blobType = .image
+        }
+        
+        CommentsAPI.topicCommentsPostComment(
+            topicHandle: command.comment.topicHandle,
+            request: request,
+            authorization: authorization) { (response, error) in
+                if let response = response {
+                    resultHandler(response)
+                } else if self.errorHandler.canHandle(error) {
+                    self.errorHandler.handle(error)
+                } else {
+                    failure(error ?? APIError.unknown)
+                }
         }
     }
     
@@ -180,9 +215,16 @@ class CommentsService: BaseService, CommentServiceProtocol {
         cache.cacheOutgoing(photo, for: topicHandle)
     }
     
-    private func postComment(topicHandle: String, request: PostCommentRequest, success: @escaping CommentPostResultHandler, failure: @escaping Failure) {
+    private func postComment(topicHandle: String,
+                             request: PostCommentRequest,
+                             success: @escaping CommentPostResultHandler,
+                             failure: @escaping Failure) {
         
-        let requestBuilder = CommentsAPI.topicCommentsPostCommentWithRequestBuilder(topicHandle: topicHandle, request: request, authorization: authorization)
+        let requestBuilder = CommentsAPI.topicCommentsPostCommentWithRequestBuilder(
+            topicHandle: topicHandle,
+            request: request,
+            authorization: authorization
+        )
         
         if !isNetworkReachable {
             cache.cacheOutgoing(request, for: topicHandle)
@@ -277,34 +319,4 @@ struct CommentViewModel {
     var tag: Int = 0
     var cellType: String = CommentCell.reuseID
     var onAction: ActionHandler?
-}
-
-class Comment: Equatable {
-    
-    public var commentHandle: String!
-    public var topicHandle: String!
-    public var createdTime: Date?
-    
-    public var userHandle: String?
-    public var firstName: String?
-    public var lastName: String?
-    public var photoHandle: String?
-    public var photoUrl: String?
-    
-    public var text: String?
-    public var mediaUrl: String?
-    public var totalLikes: Int64 = 0
-    public var totalReplies: Int64 = 0
-    public var liked = false
-    public var pinned = false
-    public var userStatus: FollowStatus = .empty
-    
-    var user: User? {
-        guard let userHandle = userHandle else { return nil }
-        return User(uid: userHandle, firstName: firstName, lastName: lastName, photo: Photo(url: photoUrl))
-    }
-    
-    static func ==(left: Comment, right: Comment) -> Bool{
-        return left.commentHandle == right.commentHandle
-    }
 }

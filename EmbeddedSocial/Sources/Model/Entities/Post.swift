@@ -6,28 +6,29 @@
 import Foundation
 
 struct Post {
-    public var topicHandle: String!
-    public var createdTime: Date?
+    var topicHandle: String!
+    var createdTime: Date?
     
-    public var user: User?
+    var user: User?
     
-    public var title: String?
-    public var text: String?
-    public var imageUrl: String?
+    var title: String?
+    var text: String?
+    var imageUrl: String?
+    var imageHandle: String?
 
-    public var deepLink: String?
+    var deepLink: String?
     
-    public var totalLikes: Int = 0
-    public var totalComments: Int = 0
+    var totalLikes: Int = 0
+    var totalComments: Int = 0
 
-    public var liked: Bool = false
-    public var pinned: Bool = false
+    var liked: Bool = false
+    var pinned: Bool = false
     
-    public var userHandle: String? {
+    var userHandle: String? {
         return user?.uid
     }
     
-    public var userStatus: FollowStatus {
+    var userStatus: FollowStatus {
         get {
             return user?.followerStatus ?? .empty
         }
@@ -36,19 +37,19 @@ struct Post {
         }
     }
     
-    public var firstName: String? {
+    var firstName: String? {
         return user?.firstName
     }
     
-    public var lastName: String? {
+    var lastName: String? {
         return user?.lastName
     }
     
-    public var photoHandle: String? {
+    var photoHandle: String? {
         return user?.photo?.uid
     }
     
-    public var photoUrl: String? {
+    var photoUrl: String? {
         return user?.photo?.url
     }
 }
@@ -66,6 +67,65 @@ extension Post {
         post.topicHandle = "topic handle \(seed)"
         post.user = User(uid: "user handle", followerStatus: .empty)
         return post
+    }
+}
+
+extension Post {
+    
+    init(topicHandle: String) {
+        self.init()
+        self.topicHandle = topicHandle
+    }
+    
+    init(request: PostTopicRequest, photo: Photo?) {
+        self.init()
+        topicHandle = UUID().uuidString
+        title = request.title
+        text = request.text
+        imageHandle = photo?.uid
+        imageUrl = photo?.url
+    }
+}
+
+extension Post: JSONEncodable {
+    
+    init?(json: [String: Any]) {
+        guard let topicHandle = json["topicHandle"] as? String else {
+            return nil
+        }
+        
+        self.init()
+        
+        self.topicHandle = topicHandle
+        createdTime = json["createdTime"] as? Date
+        if let userJSON = json["user"] as? [String: Any] {
+            user = User(memento: userJSON)
+        }
+        title = json["title"] as? String
+        text = json["text"] as? String
+        imageUrl = json["imageUrl"] as? String
+        deepLink = json["deepLink"] as? String
+        totalLikes = json["totalLikes"] as? Int ?? 0
+        totalComments = json["totalComments"] as? Int ?? 0
+        liked = json["liked"] as? Bool ?? false
+        pinned = json["pinned"] as? Bool ?? false
+    }
+    
+    func encodeToJSON() -> Any {
+        let json: [String: Any?] = [
+            "topicHandle": topicHandle,
+            "createdTime": createdTime,
+            "user": user?.encodeToJSON(),
+            "title": title,
+            "text": text,
+            "imageUrl": imageUrl,
+            "deepLink": deepLink,
+            "totalLikes": totalLikes,
+            "totalComments": totalComments,
+            "liked": liked,
+            "pinned": pinned,
+        ]
+        return json.map { $0 }
     }
 }
 

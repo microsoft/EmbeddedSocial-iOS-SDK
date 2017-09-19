@@ -51,8 +51,8 @@ struct PredicateBuilder: CachePredicateBuilder {
             UnlikeReplyCommand.self,
             LikeReplyCommand.self
         ]
-        let handles = replyCommands.map { "\($0.typeIdentifier)-\(replyHandle)" }
-        return NSPredicate(format: "handle IN %@", handles)
+        let typeIDs = replyCommands.map { $0.typeIdentifier }
+        return NSPredicate(format: "typeid IN %@ AND handle = %@", typeIDs, replyHandle)
     }
     
     static func allCommentCommandsPredicate(for commentHandle: String) -> NSPredicate {
@@ -60,8 +60,8 @@ struct PredicateBuilder: CachePredicateBuilder {
             UnlikeCommentCommand.self,
             LikeCommentCommand.self
         ]
-        let handles = commentCommands.map { "\($0.typeIdentifier)-\(commentHandle)" }
-        return NSPredicate(format: "handle IN %@", handles)
+        let typeIDs = commentCommands.map { $0.typeIdentifier }
+        return NSPredicate(format: "typeid IN %@ AND handle = %@", typeIDs, commentHandle)
     }
     
     static func userCommandsPredicate() -> NSPredicate {
@@ -73,7 +73,11 @@ struct PredicateBuilder: CachePredicateBuilder {
     }
     
     static func predicate(for command: OutgoingCommand) -> NSPredicate {
-        return predicate(typeID: command.typeIdentifier, handle: command.combinedHandle)
+        if let handle = command.getHandle() {
+            return predicate(typeID: command.typeIdentifier, handle: handle)
+        } else {
+            return predicate(typeID: command.typeIdentifier)
+        }
     }
     
     func predicate(handle: String) -> NSPredicate {

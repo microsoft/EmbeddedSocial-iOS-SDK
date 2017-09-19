@@ -64,7 +64,7 @@ class FeedCachePostProcessor {
         
         feed.posts = feed.posts.map { topic -> Post in
             var topic = topic
-            let commandsToApply = commands.filter { $0.topicHandle == topic.topicHandle }
+            let commandsToApply = commands.filter { $0.topic.topicHandle == topic.topicHandle }
             for command in commandsToApply {
                 command.apply(to: &topic)
             }

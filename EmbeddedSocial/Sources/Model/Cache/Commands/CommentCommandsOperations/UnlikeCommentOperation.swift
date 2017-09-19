@@ -12,7 +12,7 @@ final class UnlikeCommentOperation: CommentCommandOperation {
             return
         }
         
-        likesService.unlikeComment(commentHandle: command.commentHandle) { [weak self] _, _ in
+        likesService.unlikeComment(commentHandle: command.comment.commentHandle) { [weak self] _, _ in
             guard let strongSelf = self, !strongSelf.isCancelled else {
                 return
             }

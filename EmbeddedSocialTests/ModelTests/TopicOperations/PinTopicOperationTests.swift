@@ -21,6 +21,6 @@ class PinTopicOperationTests: XCTestCase {
         
         // then
         XCTAssertTrue(service.postPinPostHandleCompletionCalled)
-        XCTAssertEqual(service.postPinPostHandleCompletionReceivedArguments?.postHandle, command.topicHandle)
+        XCTAssertEqual(service.postPinPostHandleCompletionReceivedArguments?.postHandle, command.topic.topicHandle)
     }
 }

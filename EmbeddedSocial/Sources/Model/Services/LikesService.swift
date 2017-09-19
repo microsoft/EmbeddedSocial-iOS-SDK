@@ -66,23 +66,26 @@ class LikesService: BaseService, LikesServiceProtocol {
     }
     
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
+        let topic = Post(topicHandle: postHandle)
         let builder = LikesAPI.topicLikesDeleteLikeWithRequestBuilder(topicHandle: postHandle, authorization: authorization)
-        let command = LikeTopicCommand(topicHandle: postHandle)
+        let command = LikeTopicCommand(topic: topic)
         outgoingActionsExecutor.execute(command: command, builder: builder) { result in
             completion(postHandle, result.error)
         }
     }
     
     func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
+        let topic = Post(topicHandle: postHandle)
         let builder = LikesAPI.topicLikesDeleteLikeWithRequestBuilder(topicHandle: postHandle, authorization: authorization)
-        let command = UnlikeTopicCommand(topicHandle: postHandle)
+        let command = UnlikeTopicCommand(topic: topic)
         outgoingActionsExecutor.execute(command: command, builder: builder) { result in
             completion(postHandle, result.error)
         }
     }
     
     func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
-        let command = LikeCommentCommand(commentHandle: commentHandle)
+        let comment = Comment(commentHandle: commentHandle)
+        let command = LikeCommentCommand(comment: comment)
         let builder = LikesAPI.commentLikesPostLikeWithRequestBuilder(commentHandle: commentHandle,
                                                                       authorization: authorization)
         outgoingActionsExecutor.execute(command: command, builder: builder) { result in
@@ -91,7 +94,8 @@ class LikesService: BaseService, LikesServiceProtocol {
     }
     
     func unlikeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
-        let command = UnlikeCommentCommand(commentHandle: commentHandle)
+        let comment = Comment(commentHandle: commentHandle)
+        let command = UnlikeCommentCommand(comment: comment)
         let builder = LikesAPI.commentLikesDeleteLikeWithRequestBuilder(commentHandle: commentHandle,
                                                                         authorization: authorization)
         outgoingActionsExecutor.execute(command: command, builder: builder) { result in
@@ -152,7 +156,7 @@ class LikesService: BaseService, LikesServiceProtocol {
         request.topicHandle = postHandle
         
         let builder = PinsAPI.myPinsPostPinWithRequestBuilder(request: request, authorization: authorization)
-        let command = PinTopicCommand(topicHandle: postHandle)
+        let command = PinTopicCommand(topic: Post(topicHandle: postHandle))
         outgoingActionsExecutor.execute(command: command, builder: builder) { result in
             completion(postHandle, result.error)
         }
@@ -160,7 +164,7 @@ class LikesService: BaseService, LikesServiceProtocol {
     
     func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         let builder = PinsAPI.myPinsDeletePinWithRequestBuilder(topicHandle: postHandle, authorization: authorization)
-        let command = UnpinTopicCommand(topicHandle: postHandle)
+        let command = UnpinTopicCommand(topic: Post(topicHandle: postHandle))
         outgoingActionsExecutor.execute(command: command, builder: builder) { result in
             completion(postHandle, result.error)
         }

@@ -8,10 +8,6 @@ import Foundation
 class ReplyCommand: OutgoingCommand {
     let replyHandle: String
     
-    override var combinedHandle: String {
-        return "\(super.combinedHandle)-\(replyHandle)"
-    }
-    
     required init?(json: [String: Any]) {
         guard let replyHandle = json["replyHandle"] as? String else {
             return nil
@@ -34,7 +30,11 @@ class ReplyCommand: OutgoingCommand {
     override func encodeToJSON() -> Any {
         return [
             "replyHandle": replyHandle,
-            "type": String(describing: type(of: self))
+            "type": typeIdentifier
         ]
+    }
+    
+    override func getHandle() -> String? {
+        return replyHandle
     }
 }

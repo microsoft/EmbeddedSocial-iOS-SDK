@@ -5,36 +5,36 @@
 
 import Foundation
 
-class CommentCommand: OutgoingCommand {
-    let comment: Comment
+class ImageCommand: OutgoingCommand {
+    let photo: Photo
     private(set) var relatedHandle: String?
     
     required init?(json: [String: Any]) {
-        guard let commentJSON = json["comment"] as? [String: Any],
-            let comment = Comment(json: commentJSON) else {
+        guard let photoJSON = json["photo"] as? [String: Any],
+            let photo = Photo(memento: photoJSON),
+            let relatedHandle = json["relatedHandle"] as? String else {
                 return nil
         }
         
-        self.comment = comment
+        self.photo = photo
+        self.relatedHandle = relatedHandle
         
         super.init(json: json)
     }
     
-    required init(comment: Comment) {
-        self.comment = comment
-        self.relatedHandle = comment.topicHandle
+    required init(photo: Photo, relatedHandle: String) {
+        self.photo = photo
+        self.relatedHandle = relatedHandle
         super.init(json: [:])!
     }
     
-    func apply(to comment: inout Comment) {
-        
-    }
-    
     override func encodeToJSON() -> Any {
-        return [
-            "comment": comment.encodeToJSON(),
-            "type": typeIdentifier
+        let json: [String: Any?] = [
+            "photo": photo.encodeToJSON(),
+            "type": typeIdentifier,
+            "relatedHandle": relatedHandle
         ]
+        return json.flatMap { $0 }
     }
     
     override func getRelatedHandle() -> String? {
@@ -46,6 +46,6 @@ class CommentCommand: OutgoingCommand {
     }
     
     override func getHandle() -> String? {
-        return comment.commentHandle
+        return photo.uid
     }
 }

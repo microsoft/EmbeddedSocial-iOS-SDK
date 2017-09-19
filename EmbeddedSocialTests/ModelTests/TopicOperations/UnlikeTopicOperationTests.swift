@@ -21,6 +21,6 @@ class UnlikeTopicOperationTests: XCTestCase {
         
         // then
         XCTAssertTrue(service.deleteLikePostHandleCompletionCalled)
-        XCTAssertEqual(service.deleteLikePostHandleCompletionReceivedArguments?.postHandle, command.topicHandle)
+        XCTAssertEqual(service.deleteLikePostHandleCompletionReceivedArguments?.postHandle, command.topic.topicHandle)
     }
 }

@@ -21,6 +21,6 @@ class LikeTopicOperationTests: XCTestCase {
         
         // then
         XCTAssertTrue(service.postLikePostHandleCompletionCalled)
-        XCTAssertEqual(service.postLikePostHandleCompletionReceivedArguments?.postHandle, command.topicHandle)
+        XCTAssertEqual(service.postLikePostHandleCompletionReceivedArguments?.postHandle, command.topic.topicHandle)
     }
 }

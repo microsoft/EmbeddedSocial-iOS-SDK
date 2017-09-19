@@ -6,24 +6,21 @@
 import Foundation
 
 class TopicCommand: OutgoingCommand {
-    let topicHandle: String
-    
-    override var combinedHandle: String {
-        return "\(super.combinedHandle)-\(topicHandle)"
-    }
+    let topic: Post
     
     required init?(json: [String: Any]) {
-        guard let topicHandle = json["topicHandle"] as? String else {
-            return nil
+        guard let topicJSON = json["topic"] as? [String: Any],
+            let topic = Post(json: topicJSON) else {
+                return nil
         }
         
-        self.topicHandle = topicHandle
+        self.topic = topic
         
         super.init(json: json)
     }
     
-    required init(topicHandle: String) {
-        self.topicHandle = topicHandle
+    required init(topic: Post) {
+        self.topic = topic
         super.init(json: [:])!
     }
     
@@ -33,8 +30,12 @@ class TopicCommand: OutgoingCommand {
     
     override func encodeToJSON() -> Any {
         return [
-            "topicHandle": topicHandle,
-            "type": String(describing: type(of: self))
+            "topic": topic.encodeToJSON(),
+            "type": typeIdentifier
         ]
+    }
+    
+    override func getHandle() -> String? {
+        return topic.topicHandle
     }
 }

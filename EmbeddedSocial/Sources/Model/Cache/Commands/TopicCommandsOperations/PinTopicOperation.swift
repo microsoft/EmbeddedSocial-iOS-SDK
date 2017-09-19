@@ -12,7 +12,7 @@ final class PinTopicOperation: TopicCommandOperation {
             return
         }
         
-        likesService.postPin(postHandle: command.topicHandle) { [weak self] _, _ in
+        likesService.postPin(postHandle: command.topic.topicHandle) { [weak self] _, _ in
             guard let strongSelf = self, !strongSelf.isCancelled else {
                 return
             }

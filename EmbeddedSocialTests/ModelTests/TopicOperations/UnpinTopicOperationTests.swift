@@ -21,6 +21,6 @@ class UnpinTopicOperationTests: XCTestCase {
         
         // then
         XCTAssertTrue(service.deletePinPostHandleCompletionCalled)
-        XCTAssertEqual(service.deletePinPostHandleCompletionReceivedArguments?.postHandle, command.topicHandle)
+        XCTAssertEqual(service.deletePinPostHandleCompletionReceivedArguments?.postHandle, command.topic.topicHandle)
     }
 }
