@@ -208,5 +208,13 @@ extension PostDetailPresenter: FeedModuleOutput {
     func commentsPressed() {
         view.scrollCollectionViewToBottom()
     }
+    
+    func postRemoved() {
+        guard let vc = view as? UIViewController else {
+            return
+        }
+        router.backToFeed(from: vc)
+    }
+
 }
 
