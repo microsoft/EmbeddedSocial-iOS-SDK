@@ -46,6 +46,7 @@ class OutgoingCommand: Cacheable {
         LikeTopicCommand.self,
         PinTopicCommand.self,
         UnpinTopicCommand.self,
+        CreateTopicCommand.self,
         
         // Reply Commands
         LikeReplyCommand.self,
@@ -54,6 +55,12 @@ class OutgoingCommand: Cacheable {
         // Comment Commands
         LikeCommentCommand.self,
         UnlikeCommentCommand.self,
+        CreateCommentCommand.self,
+        
+        // Image Commands
+        CreateTopicImageCommand.self,
+        CreateCommentImageCommand.self,
+        CreateUserImageCommand.self,
     ]
     
     

@@ -48,6 +48,7 @@ extension Comment {
         photoHandle = photo?.uid
         photoUrl = photo?.url
         self.topicHandle = topicHandle
+        createdTime = Date()
     }
 }
 

@@ -64,6 +64,14 @@ struct PredicateBuilder: CachePredicateBuilder {
         return NSPredicate(format: "typeid IN %@ AND handle = %@", typeIDs, commentHandle)
     }
     
+    static func allCreateCommentCommands() -> NSPredicate {
+        return predicate(typeID: CreateCommentCommand.typeIdentifier)
+    }
+    
+    static func createCommentCommand(commentHandle: String) -> NSPredicate {
+        return NSPredicate(format: "typeid = %@ AND handle = %@", CreateCommentCommand.typeIdentifier, commentHandle)
+    }
+    
     static func userCommandsPredicate() -> NSPredicate {
         return predicate(typeID: OutgoingCommand.typeIdentifier)
     }
