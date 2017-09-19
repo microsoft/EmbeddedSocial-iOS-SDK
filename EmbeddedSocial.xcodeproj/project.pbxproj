@@ -713,6 +713,7 @@
 		93AC65B51F3E05DA00FE5A3A /* MockPostDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65AF1F3E05DA00FE5A3A /* MockPostDetailPresenter.swift */; };
 		9593BF2CC4CB3196BCFA7DFD /* Pods_EmbeddedSocialTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53BFC8B65AB7322DF8D219D5 /* Pods_EmbeddedSocialTests.framework */; };
 		9922EA70665DD200A5746F03 /* CommentCellViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506163A2149B59C12FA2F531 /* CommentCellViewInput.swift */; };
+		9C0479221F70F48600792B68 /* myActivity.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C0479211F70F48600792B68 /* myActivity.json */; };
 		9C08804E1F6FB37F0012F73A /* ActivityEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C08804D1F6FB37F0012F73A /* ActivityEntities.swift */; };
 		9C0880501F6FB53E0012F73A /* ActivityEntities+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C08804F1F6FB53E0012F73A /* ActivityEntities+API.swift */; };
 		9C0963701F67C85F00E70C30 /* Activity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C09636F1F67C85F00E70C30 /* Activity.storyboard */; };
@@ -1550,6 +1551,7 @@
 		93AC65B11F3E05DA00FE5A3A /* PostDetailInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailInteractorTests.swift; sourceTree = "<group>"; };
 		93AC65B21F3E05DA00FE5A3A /* PostDetailPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailPresenterTests.swift; sourceTree = "<group>"; };
 		949315E0DBBB1E08A70B6370 /* CommentRepliesInteractorOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesInteractorOutput.swift; sourceTree = "<group>"; };
+		9C0479211F70F48600792B68 /* myActivity.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = myActivity.json; sourceTree = "<group>"; };
 		9C08804D1F6FB37F0012F73A /* ActivityEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityEntities.swift; sourceTree = "<group>"; };
 		9C08804F1F6FB53E0012F73A /* ActivityEntities+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityEntities+API.swift"; sourceTree = "<group>"; };
 		9C09636F1F67C85F00E70C30 /* Activity.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Activity.storyboard; sourceTree = "<group>"; };
@@ -4269,6 +4271,7 @@
 			isa = PBXGroup;
 			children = (
 				9CD760FE1F33158200ABBB2A /* topics&limit20.json */,
+				9C0479211F70F48600792B68 /* myActivity.json */,
 			);
 			path = PostTestData;
 			sourceTree = "<group>";
@@ -4655,6 +4658,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C0479221F70F48600792B68 /* myActivity.json in Resources */,
 				9C8F68961F3485CA00AF4A7F /* topics&limit20.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

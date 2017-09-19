@@ -8,12 +8,12 @@ protocol ActivityInteractorOutput: class {
 }
 
 protocol ActivityInteractorInput {
-    func load<T>(cursor: String?, limit: Int, handler: ((Result<T>) -> Void))
+    func load<T>(cursor: String?, limit: Int, handler: ((ItemFetchResult<T>) -> Void))
 }
 
 protocol ActivityServiceProtocol: class {
 //    func loadPendingsRequests(cursor: String?, limit: Int, completion: (String) -> Void)
-    func loadActions(cursor: String?, limit: Int, completion: (Result<ActivityView>) -> Void)
+    func loadActions(cursor: String?, limit: Int, completion: (Result<FeedResponseActivityView>) -> Void)
 }
 
 class ActivityService: ActivityServiceProtocol {
@@ -21,22 +21,22 @@ class ActivityService: ActivityServiceProtocol {
 //        completion("lol")
 //    }
     
-    func loadActions(cursor: String?, limit: Int, completion: (Result<ActivityView>) -> Void) {
-        let result = ActivityView()
-        let userA = UserCompactView()
-        userA.firstName = "Bilya"
-        userA.lastName = "Ates"
-        
-        let userB = UserCompactView()
-        userB.firstName = "Stivi"
-        userB.lastName = "Hopes"
-        result.activityType = .like
-        result.actorUsers = [userA]
-        result.actedOnUser = userB
-        
-        completion(.success(result))
+    func loadActions(cursor: String?, limit: Int, completion: (Result<FeedResponseActivityView>) -> Void) {
+       
     }
     
+}
+
+struct ItemFetchResult<T> {
+    var items: [T]?
+    var cursor: String?
+    var error: ModuleError?
+    
+    init(items: [T]? = nil, cursor: String? = nil, error: ModuleError? = nil) {
+        self.items = items ?? []
+        self.cursor = cursor
+        self.error = error
+    }
 }
 
 class ActivityInteractor: ActivityInteractorInput {
@@ -44,13 +44,15 @@ class ActivityInteractor: ActivityInteractorInput {
     weak var output: ActivityInteractorOutput!
     var service: ActivityServiceProtocol!
     
-    func load<T>(cursor: String? = nil, limit: Int = 10, handler: ((Result<T>) -> Void) ) {
+    typealias Section = PaggedSection<ActivityItem>
+    
+    func load<T>(cursor: String? = nil, limit: Int = 10, handler: ((ItemFetchResult<T>) -> Void)) {
         
         let key = String(describing: T.self)
         
         // get loader
         guard let loader = loaders[key] else {
-            handler(.failure(ModuleError.loaderNotFound))
+            handler(ItemFetchResult(error: ModuleError.loaderNotFound))
             return
         }
         
@@ -61,15 +63,15 @@ class ActivityInteractor: ActivityInteractorInput {
         loader(args) { (result: Result<Any>)  in
             
             guard let data = result.value else {
-                handler(.failure(ModuleError.noData))
+                handler(ItemFetchResult(error: ModuleError.noData))
                 return
             }
             
             // map the loaded data
-            if let mapped: T = self.map(source: data) {
-                handler(.success(mapped))
+            if let result: ItemFetchResult<T> = self.map(source: data) {
+                handler(result)
             } else {
-                handler(.failure(ModuleError.mapperNotFound))
+                handler(ItemFetchResult(error: ModuleError.mapperNotFound))
             }
         }
     }
@@ -78,6 +80,7 @@ class ActivityInteractor: ActivityInteractorInput {
     typealias FetchArguments = (cursor: String?, limit: Int)
     typealias LoaderBlockType = (FetchArguments, MappingBlockType) -> Void
     
+
     private lazy var loaders: [String: LoaderBlockType] = {
         
         var items = [String: LoaderBlockType]()
@@ -94,7 +97,7 @@ class ActivityInteractor: ActivityInteractorInput {
             self.service.loadActions(
                 cursor: args.cursor,
                 limit: args.limit,
-                completion: { (response: Result<ActivityView>) in
+                completion: { (response: Result<FeedResponseActivityView>) in
                     completion(Result(value: response.value, error: response.error))
             })
             
@@ -109,29 +112,32 @@ class ActivityInteractor: ActivityInteractorInput {
         return [
             "\(PendingRequestItem.self)": {
                 
-                guard let name = $0 as? String else { return nil }
+                guard let response = $0 as? String else { return nil }
                 
-                return PendingRequestItem(userName: name, userHandle: name)
+                return PendingRequestItem(userName: response, userHandle: response)
             },
             
             "\(ActionItem.self)": {
                 
-                guard let argument = $0 as? ActivityView else { return nil }
+                guard let response = $0 as? FeedResponseActivityView else { return nil }
                 
-                return ActionItem(with: argument)
+                let items = response.data?.map { ActionItem(with: $0) }
+                let cursor = response.cursor
+                
+                return ItemFetchResult(items: items, cursor: cursor)
             }
         ]
         
     }()
     
-    private func map<T>(source: Any) -> T? {
+    private func map<T>(source: Any) -> ItemFetchResult<T> {
         
         let key = String(describing: T.self)
         
-        if let mapper = mappers[key], let value = mapper(source) as? T {
+        if let mapper = mappers[key], let value = mapper(source)? as ItemFetchResult<T> {
             return value
         } else {
-            return nil
+            return ItemFetchResult(error: ModuleError.mapperNotFound)
         }
     }
 }

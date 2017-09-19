@@ -9,7 +9,6 @@ protocol ActivityModuleInput: class {
 
 class ActivityPresenter: ActivityModuleInput, ActivityViewOutput, ActivityInteractorOutput {
     
-
     func viewModel(for indexPath: IndexPath) -> ActivityItemViewModel {
         
         return ActivityViewModel(profileImage: Asset.placeholderPostUser1.image,
@@ -17,66 +16,74 @@ class ActivityPresenter: ActivityModuleInput, ActivityViewOutput, ActivityIntera
                                  postTime: "sdadsa",
                                  postImage: Asset.placeholderPostImage2.image,
                                  identifier: ActivityCell.reuseID)
-
+        
     }
-
+    
     weak var view: ActivityViewInput!
     var interactor: ActivityInteractorInput!
     var router: ActivityRouterInput!
-
+    
     func viewIsReady() {
         view.setupInitialState()
     }
     
-    // MARK: Private
-
-    func numberOfSections() -> Int {
-        return 2
-    }
-    
-    func numberOfItems(in section: Int) -> Int {
-        return 1 //data[section].count
-    }
-    
-    struct Item {
-        var name: String = "some"
-    }
-    
-    struct Feed {
-        let name: String
-        var items: [Item]
-    }
-    
-    struct DataSources {
+    func shouldPreloadPage<T>(withCurrent item: Int, for section: PaggedSection<T>) -> Bool {
         
-        var my: Feed = Feed(name: "my", items: [])
-        var others: Feed = Feed(name: "my", items: [])
-        var pending: Feed = Feed(name: "my", items: [])
-    }
-    
-    let dataSources = DataSources()
-    
-    enum State {
-        case my
-        case others
-    }
-    
-    func sections(for state: State) -> [Feed] {
+        let preloadingIndex = item + section.limit
+        let shouldPreload = preloadingIndex < section.items.count
         
-        switch state {
-        case .my:
-            return [dataSources.pending, dataSources.my]
-        case .others:
-            return [dataSources.others]
+        return section.nextPageAvailable && shouldPreload
+    }
+    
+    enum State: Int {
+        case myActivity
+        case othersActivity
+    }
+    
+    class DataSource {
+        var sections: [PaggedSection<ActivityItem>]
+        
+        init(sections: [PaggedSection<ActivityItem>]) {
+            self.sections = sections
         }
     }
     
-    func item(for indexPath: IndexPath) -> ActivityItemViewModel {
-        return viewModel(for: indexPath)
+    var currentState: State = .myActivity
+    var currentDataSource: DataSource {
+        return dataSources[currentState]!
     }
     
-    var cursor: String? = nil
+    private lazy var dataSources: [State: DataSource] = { [unowned self] in
+        
+        return [
+            State.myActivity: DataSource(sections: [
+                PaggedSection<ActivityItem>(itemType: .myActivity, name: "activity"),
+                PaggedSection<ActivityItem>(itemType: .othersActivity, name: "name2")
+                ]),
+            State.othersActivity: DataSource(sections: [
+                PaggedSection<ActivityItem>(itemType: .othersActivity, name: "name3")
+                ])
+        ]
+        
+        }()
     
-    // MARK: Interactor Output
+    // MARK: Data Flow
+    
+    func loadData() {
+        
+        currentDataSource.sections.forEach {  (pagedSection) in
+            //            pagedSection.
+        }
+    }
+    
+    // MARK: ActivityViewOutput
+    
+    func numberOfSections() -> Int {
+        return currentDataSource.sections.count
+    }
+    
+    func numberOfItems(in section: Int) -> Int {
+        return  currentDataSource.sections[section].items.count
+    }
     
 }
