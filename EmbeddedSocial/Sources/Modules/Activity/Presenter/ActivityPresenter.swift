@@ -7,83 +7,82 @@ protocol ActivityModuleInput: class {
     
 }
 
-class ActivityPresenter: ActivityModuleInput, ActivityViewOutput, ActivityInteractorOutput {
+class ActivityPresenter {
     
-    func viewModel(for indexPath: IndexPath) -> ActivityItemViewModel {
-        
-        return ActivityViewModel(profileImage: Asset.placeholderPostUser1.image,
-                                 postText: "asa",
-                                 postTime: "sdadsa",
-                                 postImage: Asset.placeholderPostImage2.image,
-                                 identifier: ActivityCell.reuseID)
-        
-    }
+    typealias Section = SectionModel<SectionHeader, ActivityItem>
     
     weak var view: ActivityViewInput!
     var interactor: ActivityInteractorInput!
     var router: ActivityRouterInput!
-    
-    func viewIsReady() {
-        view.setupInitialState()
-    }
-    
-    func shouldPreloadPage<T>(withCurrent item: Int, for section: PaggedSection<T>) -> Bool {
-        
-        let preloadingIndex = item + section.limit
-        let shouldPreload = preloadingIndex < section.items.count
-        
-        return section.nextPageAvailable && shouldPreload
-    }
-    
+
     enum State: Int {
-        case myActivity
-        case othersActivity
+        case my
+        case others
     }
     
-    class DataSource {
-        var sections: [PaggedSection<ActivityItem>]
-        
-        init(sections: [PaggedSection<ActivityItem>]) {
-            self.sections = sections
-        }
+    fileprivate var state: State = .my
+    fileprivate var sections: [State: [Section]] = [:]
+    
+    fileprivate var viewModelBuilder = ActivityViewModelBuilder()
+    fileprivate var cellConfigurator = CellConfigurator()
+    fileprivate var sectionsConfigurator = SectionsConfigurator()
+    
+    // MARK: Private
+    fileprivate func registerCells() {
+        viewModelBuilder.cellTypes.forEach{ view.registerCell(cell: $0.value, id: $0.key) }
     }
     
-    var currentState: State = .myActivity
-    var currentDataSource: DataSource {
-        return dataSources[currentState]!
+    init() {
+        setup()
     }
     
-    private lazy var dataSources: [State: DataSource] = { [unowned self] in
-        
-        return [
-            State.myActivity: DataSource(sections: [
-                PaggedSection<ActivityItem>(itemType: .myActivity, name: "activity"),
-                PaggedSection<ActivityItem>(itemType: .othersActivity, name: "name2")
-                ]),
-            State.othersActivity: DataSource(sections: [
-                PaggedSection<ActivityItem>(itemType: .othersActivity, name: "name3")
-                ])
-        ]
-        
-        }()
-    
-    // MARK: Data Flow
-    
-    func loadData() {
-        
-        currentDataSource.sections.forEach {  (pagedSection) in
-            //            pagedSection.
-        }
+    fileprivate func setup() {
+        makeSections()
     }
     
-    // MARK: ActivityViewOutput
+    fileprivate func makeSections() {
+        sections[.my] = sectionsConfigurator.build(section: .my)
+        sections[.others] = sectionsConfigurator.build(section: .others)
+    }
+}
+
+extension ActivityPresenter: ActivityModuleInput {
+    
+}
+
+
+extension ActivityPresenter: ActivityInteractorOutput {
+    
+}
+
+extension ActivityPresenter: ActivityViewOutput {
+    
+    func cellIdentifier(for indexPath: IndexPath) -> String {
+        let item = sections[state]![indexPath.section].items[indexPath.row]
+        let viewModel = viewModelBuilder.build(from: item)
+        return viewModel.cellID
+    }
+    
+    func configure(_ cell: UITableViewCell, for indexPath: IndexPath) {
+        
+        let itemIndex = indexPath.row
+        let sectionIndex = indexPath.section
+        let item = sections[state]![sectionIndex].items[itemIndex]
+        let viewModel = viewModelBuilder.build(from: item)
+        cellConfigurator.configure(cell: cell, with: viewModel)
+        
+    }
     
     func numberOfSections() -> Int {
-        return currentDataSource.sections.count
+        return sections.count
     }
     
     func numberOfItems(in section: Int) -> Int {
-        return  currentDataSource.sections[section].items.count
+        return sections[state]![section].items.count
+    }
+    
+    func viewIsReady() {
+        registerCells()
     }
     
 }

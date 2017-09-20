@@ -7,23 +7,23 @@ import UIKit
 
 protocol ActivityViewInput: class {
     func setupInitialState()
+    func registerCell(cell: AnyObject.Type, id: String)
 }
 
-protocol ActivityViewOutput {
-    
+protocol ActivityViewOutput: class {
     func numberOfSections() -> Int
     func numberOfItems(in section: Int) -> Int
-    func viewModel(for indexPath: IndexPath) -> ActivityItemViewModel
-    
     func viewIsReady()
+    func cellIdentifier(for indexPath: IndexPath) -> String
+    func configure(_ cell: UITableViewCell, for indexPath: IndexPath)
 }
 
-class ActivityViewController: UIViewController, ActivityViewInput {
-
-    var output: ActivityViewOutput!
+class ActivityViewController: UIViewController {
+    
+    weak var output: ActivityViewOutput!
     
     @IBOutlet weak var tableView: UITableView!
-
+    
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,29 +34,24 @@ class ActivityViewController: UIViewController, ActivityViewInput {
     }
     
     private func setup() {
-        tableView.register(ActivityCell.self, forCellReuseIdentifier: ActivityCell.reuseID)
-        tableView.register(FollowRequestCell.self, forCellReuseIdentifier: FollowRequestCell.reuseID)
         
         // Appearance
         tableView.tableFooterView = UIView()
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
     }
+}
 
-    // MARK: ActivityViewInput
+extension ActivityViewController: ActivityViewInput {
+    
     func setupInitialState() {
         
-        tableView.reloadData()
     }
-
-}
-
-protocol ActivityItemViewModel {
-    var identifier: String { get }
-}
-
-protocol ActivitySection {
-    var name: String { get }
+    
+    func registerCell(cell: AnyObject.Type, id: String) {
+        
+    }
+    
 }
 
 extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
@@ -64,23 +59,19 @@ extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return output.numberOfSections()
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return output.numberOfItems(in: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let viewModel = output.viewModel(for: indexPath)
+        let identifier = output.cellIdentifier(for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
+        output.configure(cell, for: indexPath)
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: viewModel.identifier, for: indexPath) as? ActivityViewModelConfigurable else {
-            fatalError("Cell mismatch")
-        }
-        
-        
-        cell.configure(with: viewModel)
-        
-        return cell as! UITableViewCell
+        return cell
     }
     
 }
+

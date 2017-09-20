@@ -13,7 +13,8 @@ extension ActionItem {
         guard let type = ActivityType(rawValue: rawTypeValue) else { return nil }
         
         guard let actorUsers = model.actorUsers,
-            let actedOnUserName = model.actedOnUser?.firstName
+            let actedOnUserName = model.actedOnUser?.firstName,
+            let postDate = model.createdTime
             else { return nil }
         
         self.type = type
@@ -26,7 +27,15 @@ extension ActionItem {
         
         self.unread = model.unread ?? true
         self.actedOnName = actedOnUserName
+        
+        self.postDate = postDate
+        self.profileImageURL = model.actorUsers?.first?.photoUrl
+        self.contentImageURL = model.actedOnContent?.blobHandle
     }
 }
 
 
+
+extension ActionItemsFetchResult {
+    
+}
