@@ -11,11 +11,8 @@ final class BlockOperation: UserCommandOperation {
         guard !isCancelled else {
             return
         }
-        socialService.block(user: command.user) { [weak self] result in
-            guard let strongSelf = self, !strongSelf.isCancelled else {
-                return
-            }
-            strongSelf.completeOperation()
+        socialService.block(user: command.user) { [weak self] _ in
+            self?.completeIfNotCancelled()
         }
     }
 }

@@ -34,16 +34,4 @@ class BlockCommandTests: XCTestCase {
         }
         XCTAssertEqual(sut.user, inverseCommand.user)
     }
-    
-    func testThatItReturnsCorrectCombinedHandle() {
-        // given
-        let user = User()
-        let sut = BlockCommand(user: user)
-        
-        // when
-        let handle = sut.combinedHandle
-        
-        // then
-        XCTAssertEqual(handle, "BlockCommand-\(user.uid)")
-    }
 }

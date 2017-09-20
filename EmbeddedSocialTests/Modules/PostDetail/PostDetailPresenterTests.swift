@@ -26,17 +26,10 @@ class PostDetailsPresenterTests: XCTestCase {
                         photo: Photo(uid: "photoHandle"),
                         followerStatus: .empty)
         
-        let tempPost = Post(topicHandle: "topicHandle",
-                            createdTime: Date(),
-                            user: user,
-                            title: "ttile",
-                            text: nil,
-                            imageUrl: nil,
-                            deepLink: nil,
-                            totalLikes: 0,
-                            totalComments: 0,
-                            liked: false,
-                            pinned: false)
+        var tempPost = Post(topicHandle: "topicHandle")
+        tempPost.createdTime = Date()
+        tempPost.user = user
+        tempPost.title = "ttile"
         
         post = PostViewModel(with: tempPost, cellType: "", actionHandler: { (action, path) in
             

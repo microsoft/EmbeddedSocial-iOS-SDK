@@ -8,7 +8,7 @@ import Foundation
 final class UnlikeTopicCommand: TopicCommand {
     
     override var inverseCommand: OutgoingCommand? {
-        return LikeTopicCommand(topicHandle: topicHandle)
+        return LikeTopicCommand(topic: topic)
     }
     
     override func apply(to topic: inout Post) {

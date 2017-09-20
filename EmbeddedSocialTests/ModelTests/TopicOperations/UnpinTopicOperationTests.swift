@@ -10,7 +10,8 @@ class UnpinTopicOperationTests: XCTestCase {
     
     func testThatItUsesCorrectServiceMethod() {
         // given
-        let command = TopicCommand(topicHandle: UUID().uuidString)
+        let topic = Post(topicHandle: UUID().uuidString)
+        let command = TopicCommand(topic: topic)
         let service = MockLikesService()
         let sut = UnpinTopicOperation(command: command, likesService: service)
         
@@ -21,6 +22,6 @@ class UnpinTopicOperationTests: XCTestCase {
         
         // then
         XCTAssertTrue(service.deletePinPostHandleCompletionCalled)
-        XCTAssertEqual(service.deletePinPostHandleCompletionReceivedArguments?.postHandle, command.topicHandle)
+        XCTAssertEqual(service.deletePinPostHandleCompletionReceivedArguments?.postHandle, command.topic.topicHandle)
     }
 }

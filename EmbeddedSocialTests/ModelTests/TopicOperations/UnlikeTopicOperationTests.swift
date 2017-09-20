@@ -10,7 +10,8 @@ class UnlikeTopicOperationTests: XCTestCase {
     
     func testThatItUsesCorrectServiceMethod() {
         // given
-        let command = TopicCommand(topicHandle: UUID().uuidString)
+        let topic = Post(topicHandle: UUID().uuidString)
+        let command = TopicCommand(topic: topic)
         let service = MockLikesService()
         let sut = UnlikeTopicOperation(command: command, likesService: service)
         
@@ -21,6 +22,6 @@ class UnlikeTopicOperationTests: XCTestCase {
         
         // then
         XCTAssertTrue(service.deleteLikePostHandleCompletionCalled)
-        XCTAssertEqual(service.deleteLikePostHandleCompletionReceivedArguments?.postHandle, command.topicHandle)
+        XCTAssertEqual(service.deleteLikePostHandleCompletionReceivedArguments?.postHandle, command.topic.topicHandle)
     }
 }

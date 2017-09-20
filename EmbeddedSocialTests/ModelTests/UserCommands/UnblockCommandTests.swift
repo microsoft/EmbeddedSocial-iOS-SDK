@@ -34,16 +34,4 @@ class UnblockCommandTests: XCTestCase {
         }
         XCTAssertEqual(sut.user, inverseCommand.user)
     }
-    
-    func testThatItReturnsCorrectCombinedHandle() {
-        // given
-        let user = User()
-        let sut = UnblockCommand(user: user)
-        
-        // when
-        let handle = sut.combinedHandle
-        
-        // then
-        XCTAssertEqual(handle, "UnblockCommand-\(user.uid)")
-    }
 }

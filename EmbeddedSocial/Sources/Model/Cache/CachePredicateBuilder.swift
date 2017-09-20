@@ -51,8 +51,8 @@ struct PredicateBuilder: CachePredicateBuilder {
             UnlikeReplyCommand.self,
             LikeReplyCommand.self
         ]
-        let handles = replyCommands.map { "\($0.typeIdentifier)-\(replyHandle)" }
-        return NSPredicate(format: "handle IN %@", handles)
+        let typeIDs = replyCommands.map { $0.typeIdentifier }
+        return NSPredicate(format: "typeid IN %@ AND handle = %@", typeIDs, replyHandle)
     }
     
     static func allCommentCommandsPredicate(for commentHandle: String) -> NSPredicate {
@@ -60,8 +60,24 @@ struct PredicateBuilder: CachePredicateBuilder {
             UnlikeCommentCommand.self,
             LikeCommentCommand.self
         ]
-        let handles = commentCommands.map { "\($0.typeIdentifier)-\(commentHandle)" }
-        return NSPredicate(format: "handle IN %@", handles)
+        let typeIDs = commentCommands.map { $0.typeIdentifier }
+        return NSPredicate(format: "typeid IN %@ AND handle = %@", typeIDs, commentHandle)
+    }
+    
+    static func allCreateCommentCommands() -> NSPredicate {
+        return predicate(typeID: CreateCommentCommand.typeIdentifier)
+    }
+    
+    static func allCreateReplyCommands() -> NSPredicate {
+        return predicate(typeID: CreateReplyCommand.typeIdentifier)
+    }
+    
+    static func createCommentCommand(commentHandle: String) -> NSPredicate {
+        return NSPredicate(format: "typeid = %@ AND handle = %@", CreateCommentCommand.typeIdentifier, commentHandle)
+    }
+    
+    static func createReplyCommand(replyHandle: String) -> NSPredicate {
+        return NSPredicate(format: "typeid = %@ AND handle = %@", CreateReplyCommand.typeIdentifier, replyHandle)
     }
     
     static func userCommandsPredicate() -> NSPredicate {
@@ -73,7 +89,11 @@ struct PredicateBuilder: CachePredicateBuilder {
     }
     
     static func predicate(for command: OutgoingCommand) -> NSPredicate {
-        return predicate(typeID: command.typeIdentifier, handle: command.combinedHandle)
+        if let handle = command.getHandle() {
+            return predicate(typeID: command.typeIdentifier, handle: handle)
+        } else {
+            return predicate(typeID: command.typeIdentifier)
+        }
     }
     
     func predicate(handle: String) -> NSPredicate {

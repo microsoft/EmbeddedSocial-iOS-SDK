@@ -43,13 +43,13 @@ class OutgoingCommandTests: XCTestCase {
             UnpinTopicCommand.self,
             ]
         
-        let topicHandle = UUID().uuidString
+        let topic = Post(topicHandle: UUID().uuidString)
         
         testThatItCreatesCommands(
             ofTypes: topicCommands,
-            jsonBuilder: { type in ["topicHandle": topicHandle, "type": type.typeIdentifier] },
+            jsonBuilder: { type in ["topic": topic.encodeToJSON(), "type": type.typeIdentifier] },
             validator: { command, _ in
-                XCTAssertEqual((command as? TopicCommand)?.topicHandle, topicHandle)
+                XCTAssertEqual((command as? TopicCommand)?.topic, topic)
         })
     }
     
@@ -59,13 +59,13 @@ class OutgoingCommandTests: XCTestCase {
             LikeReplyCommand.self
         ]
         
-        let replyHandle = UUID().uuidString
+        let reply = Reply(replyHandle: UUID().uuidString)
         
         testThatItCreatesCommands(
             ofTypes: replyCommands,
-            jsonBuilder: { type in ["replyHandle": replyHandle, "type": type.typeIdentifier] },
+            jsonBuilder: { type in ["reply": reply.encodeToJSON(), "type": type.typeIdentifier] },
             validator: { command, _ in
-                XCTAssertEqual((command as? ReplyCommand)?.replyHandle, replyHandle)
+                XCTAssertEqual((command as? ReplyCommand)?.reply, reply)
         })
     }
     
@@ -75,13 +75,13 @@ class OutgoingCommandTests: XCTestCase {
             LikeCommentCommand.self
         ]
         
-        let commentHandle = UUID().uuidString
+        let comment = Comment(commentHandle: UUID().uuidString)
         
         testThatItCreatesCommands(
             ofTypes: commentCommands,
-            jsonBuilder: { type in ["commentHandle": commentHandle, "type": type.typeIdentifier] },
+            jsonBuilder: { type in ["comment": comment.encodeToJSON(), "type": type.typeIdentifier] },
             validator: { command, _ in
-                XCTAssertEqual((command as? CommentCommand)?.commentHandle, commentHandle)
+                XCTAssertEqual((command as? CommentCommand)?.comment, comment)
         })
     }
     
@@ -102,18 +102,6 @@ class OutgoingCommandTests: XCTestCase {
         }
         
         XCTAssertEqual(commands.count, commandTypes.count)
-    }
-    
-    func testThatItReturnsCorrectCombinedHandle() {
-        // given
-        let user = User()
-        let sut = UserCommand(user: user)
-        
-        // when
-        let handle = sut.combinedHandle
-        
-        // then
-        XCTAssertEqual(handle, "UserCommand-\(user.uid)")
     }
 }
 

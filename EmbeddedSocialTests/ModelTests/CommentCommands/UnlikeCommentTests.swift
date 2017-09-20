@@ -10,9 +10,8 @@ class UnlikeCommentCommandTests: XCTestCase {
     
     func testThatItCorrectlyAppliesChanges() {
         // given
-        var comment = Comment()
-        comment.commentHandle = UUID().uuidString
-        let sut = UnlikeCommentCommand(commentHandle: comment.commentHandle!)
+        var comment = Comment(commentHandle: UUID().uuidString)
+        let sut = UnlikeCommentCommand(comment: comment)
         
         // when
         sut.apply(to: &comment)
@@ -31,9 +30,8 @@ class UnlikeCommentCommandTests: XCTestCase {
     
     func testThatItReturnsCorrectInverseCommand() {
         // given
-        let comment = Comment()
-        comment.commentHandle = UUID().uuidString
-        let sut = UnlikeCommentCommand(commentHandle: comment.commentHandle!)
+        let comment = Comment(commentHandle: UUID().uuidString)
+        let sut = UnlikeCommentCommand(comment: comment)
         
         // when
         
@@ -42,19 +40,6 @@ class UnlikeCommentCommandTests: XCTestCase {
             XCTFail("Must return inverse command")
             return
         }
-        XCTAssertEqual(sut.commentHandle, inverseCommand.commentHandle)
-    }
-    
-    func testThatItReturnsCorrectCombinedHandle() {
-        // given
-        let comment = Comment()
-        comment.commentHandle = UUID().uuidString
-        let sut = UnlikeCommentCommand(commentHandle: comment.commentHandle!)
-        
-        // when
-        let handle = sut.combinedHandle
-        
-        // then
-        XCTAssertEqual(handle, "UnlikeCommentCommand-\(comment.commentHandle!)")
+        XCTAssertEqual(sut.comment, inverseCommand.comment)
     }
 }

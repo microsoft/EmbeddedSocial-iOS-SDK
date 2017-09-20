@@ -10,9 +10,8 @@ class LikeCommentCommandTests: XCTestCase {
     
     func testThatItCorrectlyAppliesChanges() {
         // given
-        var comment = Comment()
-        comment.commentHandle = UUID().uuidString
-        let sut = LikeCommentCommand(commentHandle: comment.commentHandle!)
+        var comment = Comment(commentHandle: UUID().uuidString)
+        let sut = LikeCommentCommand(comment: comment)
         
         // when
         sut.apply(to: &comment)
@@ -24,9 +23,8 @@ class LikeCommentCommandTests: XCTestCase {
     
     func testThatItReturnsCorrectInverseCommand() {
         // given
-        let comment = Comment()
-        comment.commentHandle = UUID().uuidString
-        let sut = LikeCommentCommand(commentHandle: comment.commentHandle!)
+        let comment = Comment(commentHandle: UUID().uuidString)
+        let sut = LikeCommentCommand(comment: comment)
         
         // when
         
@@ -35,19 +33,6 @@ class LikeCommentCommandTests: XCTestCase {
             XCTFail("Must return inverse command")
             return
         }
-        XCTAssertEqual(sut.commentHandle, inverseCommand.commentHandle)
-    }
-    
-    func testThatItReturnsCorrectCombinedHandle() {
-        // given
-        let comment = Comment()
-        comment.commentHandle = UUID().uuidString
-        let sut = LikeCommentCommand(commentHandle: comment.commentHandle!)
-        
-        // when
-        let handle = sut.combinedHandle
-        
-        // then
-        XCTAssertEqual(handle, "LikeCommentCommand-\(comment.commentHandle!)")
+        XCTAssertEqual(sut.comment.commentHandle, inverseCommand.comment.commentHandle)
     }
 }

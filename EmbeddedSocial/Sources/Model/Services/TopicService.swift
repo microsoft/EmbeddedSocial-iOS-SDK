@@ -5,7 +5,7 @@
 import Foundation
 import Alamofire
 
-typealias TopicPosted = (PostTopicRequest) -> Void
+typealias TopicPosted = (Post) -> Void
 typealias Failure = (Error) -> Void
 
 enum FeedServiceError: Error {
@@ -73,6 +73,7 @@ protocol PostServiceProtocol {
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler)
     func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler)
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
+    func postTopic(topic request: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure)
     
 }
 
@@ -98,31 +99,57 @@ class TopicService: BaseService, PostServiceProtocol {
         super.init()
     }
     
-    func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
-        guard let network = NetworkReachabilityManager() else {
-            failure(APIError.unknown)
-            return
-        }
-        
-        guard network.isReachable else {
-            cacheTopic(topic, with: photo)
-            return
-        }
+    func postTopic(topic request: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
+        let topic = Post(request: request, photo: photo)
+        let topicCommand = CreateTopicCommand(topic: topic)
         
         guard let image = photo?.image else {
-            postTopic(request: topic, success: success, failure: failure)
+            execute(command: topicCommand, success: success, failure: failure)
             return
         }
         
-        imagesService.uploadContentImage(image) { [unowned self] result in
+        imagesService.uploadTopicImage(image, topicHandle: topic.topicHandle) { [weak self] result in
             if let handle = result.value {
-                topic.blobHandle = handle
-                topic.blobType = .image
-                self.postTopic(request: topic, success: success, failure: failure)
-            } else if self.errorHandler.canHandle(result.error) {
-                self.errorHandler.handle(result.error)
+                var topic = topic
+                topic.imageHandle = handle
+                let updateTopicCommand = CreateTopicCommand(topic: topic)
+                self?.execute(command: updateTopicCommand, success: success, failure: failure)
+            } else if self?.errorHandler.canHandle(result.error) == true {
+                self?.errorHandler.handle(result.error)
             } else {
                 failure(result.error ?? APIError.unknown)
+            }
+        }
+    }
+    
+    private func execute(command: CreateTopicCommand,
+                         success: @escaping TopicPosted,
+                         failure: @escaping Failure) {
+        
+        guard isNetworkReachable else {
+            cache.cacheOutgoing(command)
+            success(command.topic)
+            return
+        }
+        
+        let request = PostTopicRequest()
+        request.text = command.topic.text
+        request.title = command.topic.title
+        
+        if let imageHandle = command.topic.imageHandle {
+            request.blobHandle = imageHandle
+            request.blobType = .image
+        }
+        
+        TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { response, error in
+            if let handle = response?.topicHandle {
+                var topic = command.topic
+                topic.topicHandle = handle
+                success(topic)
+            } else if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else {
+                failure(error ?? APIError.unknown)
             }
         }
     }
@@ -147,8 +174,10 @@ class TopicService: BaseService, PostServiceProtocol {
     
     private func postTopic(request: PostTopicRequest, success: @escaping TopicPosted, failure: @escaping Failure) {
         TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { response, error in
-            if response != nil {
-                success(request)
+            if let handle = response?.topicHandle {
+                var topic = Post(request: request, photo: nil)
+                topic.topicHandle = handle
+                success(topic)
             } else if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
             } else {

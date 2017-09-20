@@ -11,11 +11,8 @@ final class UnfollowOperation: UserCommandOperation {
         guard !isCancelled else {
             return
         }
-        socialService.unfollow(user: command.user) { [weak self] result in
-            guard let strongSelf = self, !strongSelf.isCancelled else {
-                return
-            }
-            strongSelf.completeOperation()
+        socialService.unfollow(user: command.user) { [weak self] _ in
+            self?.completeIfNotCancelled()
         }
     }
 }

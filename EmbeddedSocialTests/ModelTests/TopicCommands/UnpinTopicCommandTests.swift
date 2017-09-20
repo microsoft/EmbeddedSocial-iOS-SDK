@@ -10,9 +10,8 @@ class UnpinTopicCommandTests: XCTestCase {
     
     func testThatItCorrectlyAppliesChanges() {
         // given
-        var topic = Post()
-        topic.topicHandle = UUID().uuidString
-        let sut = UnpinTopicCommand(topicHandle: topic.topicHandle!)
+        var topic = Post(topicHandle: UUID().uuidString)
+        let sut = UnpinTopicCommand(topic: topic)
         
         // when
         topic.pinned = true
@@ -24,9 +23,8 @@ class UnpinTopicCommandTests: XCTestCase {
     
     func testThatItReturnsCorrectInverseCommand() {
         // given
-        var topic = Post()
-        topic.topicHandle = UUID().uuidString
-        let sut = UnpinTopicCommand(topicHandle: topic.topicHandle!)
+        let topic = Post(topicHandle: UUID().uuidString)
+        let sut = UnpinTopicCommand(topic: topic)
         
         // when
         
@@ -35,19 +33,6 @@ class UnpinTopicCommandTests: XCTestCase {
             XCTFail("Must return inverse command")
             return
         }
-        XCTAssertEqual(sut.topicHandle, inverseCommand.topicHandle)
-    }
-    
-    func testThatItReturnsCorrectCombinedHandle() {
-        // given
-        var topic = Post()
-        topic.topicHandle = UUID().uuidString
-        let sut = UnpinTopicCommand(topicHandle: topic.topicHandle!)
-        
-        // when
-        let handle = sut.combinedHandle
-        
-        // then
-        XCTAssertEqual(handle, "UnpinTopicCommand-\(topic.topicHandle!)")
+        XCTAssertEqual(sut.topic, inverseCommand.topic)
     }
 }

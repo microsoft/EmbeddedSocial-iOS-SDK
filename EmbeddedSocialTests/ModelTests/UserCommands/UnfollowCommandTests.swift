@@ -34,16 +34,4 @@ class UnfollowCommandTests: XCTestCase {
         }
         XCTAssertEqual(sut.user, inverseCommand.user)
     }
-    
-    func testThatItReturnsCorrectCombinedHandle() {
-        // given
-        let user = User()
-        let sut = UnfollowCommand(user: user)
-        
-        // when
-        let handle = sut.combinedHandle
-        
-        // then
-        XCTAssertEqual(handle, "UnfollowCommand-\(user.uid)")
-    }
 }

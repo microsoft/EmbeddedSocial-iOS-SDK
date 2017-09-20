@@ -10,9 +10,8 @@ class UnlikeReplyCommandTests: XCTestCase {
     
     func testThatItCorrectlyAppliesChanges() {
         // given
-        var reply = Reply()
-        reply.replyHandle = UUID().uuidString
-        let sut = UnlikeReplyCommand(replyHandle: reply.replyHandle!)
+        var reply = Reply(replyHandle: UUID().uuidString)
+        let sut = UnlikeReplyCommand(reply: reply)
         
         // when
         sut.apply(to: &reply)
@@ -31,9 +30,8 @@ class UnlikeReplyCommandTests: XCTestCase {
     
     func testThatItReturnsCorrectInverseCommand() {
         // given
-        let reply = Reply()
-        reply.replyHandle = UUID().uuidString
-        let sut = UnlikeReplyCommand(replyHandle: reply.replyHandle!)
+        let reply = Reply(replyHandle: UUID().uuidString)
+        let sut = UnlikeReplyCommand(reply: reply)
         
         // when
         
@@ -42,19 +40,6 @@ class UnlikeReplyCommandTests: XCTestCase {
             XCTFail("Must return inverse command")
             return
         }
-        XCTAssertEqual(sut.replyHandle, inverseCommand.replyHandle)
-    }
-    
-    func testThatItReturnsCorrectCombinedHandle() {
-        // given
-        let reply = Reply()
-        reply.replyHandle = UUID().uuidString
-        let sut = UnlikeReplyCommand(replyHandle: reply.replyHandle!)
-        
-        // when
-        let handle = sut.combinedHandle
-        
-        // then
-        XCTAssertEqual(handle, "UnlikeReplyCommand-\(reply.replyHandle!)")
+        XCTAssertEqual(sut.reply, inverseCommand.reply)
     }
 }

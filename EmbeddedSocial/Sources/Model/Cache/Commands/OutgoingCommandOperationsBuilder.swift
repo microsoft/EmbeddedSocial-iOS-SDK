@@ -34,6 +34,8 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
             return PinTopicOperation(command: command, likesService: LikesService())
         } else if let command = command as? UnpinTopicCommand {
             return UnpinTopicOperation(command: command, likesService: LikesService())
+        } else if let command = command as? CreateTopicCommand {
+            return CreateTopicOperation(command: command, topicsService: TopicService(imagesService: ImagesService()))
         }
         
         // reply commands
@@ -41,6 +43,8 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
             return LikeReplyOperation(command: command, likesService: LikesService())
         } else if let command = command as? UnlikeReplyCommand {
             return UnlikeReplyOperation(command: command, likesService: LikesService())
+        } else if let command = command as? CreateReplyCommand {
+            return CreateReplyOperation(command: command, repliesService: RepliesService())
         }
         
         // comment commands
@@ -48,6 +52,17 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
             return LikeCommentOperation(command: command, likesService: LikesService())
         } else if let command = command as? UnlikeCommentCommand {
             return UnlikeCommentOperation(command: command, likesService: LikesService())
+        } else if let command = command as? CreateCommentCommand {
+            return CreateCommentOperation(command: command, commentsService: CommentsService(imagesService: ImagesService()))
+        }
+        
+        // image commands
+        else if let command = command as? CreateTopicImageCommand {
+            return CreateTopicImageOperation(command: command, imagesService: ImagesService())
+        } else if let command = command as? CreateCommentImageCommand {
+            return CreateCommentImageOperation(command: command, imagesService: ImagesService())
+        } else if let command = command as? UpdateUserImageCommand {
+            return UpdateUserImageOperation(command: command, imagesService: ImagesService())
         }
         
         return nil

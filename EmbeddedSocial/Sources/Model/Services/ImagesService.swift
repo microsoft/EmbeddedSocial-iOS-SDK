@@ -8,7 +8,9 @@ import Foundation
 private let imageFileType = "image/jpeg"
 
 protocol ImagesServiceType {
-    func uploadContentImage(_ image: UIImage, completion: @escaping (Result<String>) -> Void)
+    func uploadTopicImage(_ image: UIImage, topicHandle: String, completion: @escaping (Result<String>) -> Void)
+    
+    func uploadCommentImage(_ image: UIImage, commentHandle: String, completion: @escaping (Result<String>) -> Void)
     
     func uploadUserImage(_ image: UIImage, authorization: Authorization, completion: @escaping (Result<String>) -> Void)
     
@@ -19,20 +21,56 @@ protocol ImagesServiceType {
 
 class ImagesService: BaseService, ImagesServiceType {
     
-    func uploadContentImage(_ image: UIImage, completion: @escaping (Result<String>) -> Void) {
-        uploadImageData(image.compressed(), imageType: .contentBlob, authorization: authorization, completion: completion)
+    private let imageCache: ImageCache
+    
+    init(imageCache: ImageCache = ImageCacheAdapter.shared) {
+        self.imageCache = imageCache
+        super.init()
+    }
+    
+    func uploadTopicImage(_ image: UIImage, topicHandle: String, completion: @escaping (Result<String>) -> Void) {
+        let photo = Photo(image: image)
+        let command = CreateTopicImageCommand(photo: photo, relatedHandle: topicHandle)
+        execute(command: command, imageType: .contentBlob, completion: completion)
+    }
+    
+    func uploadCommentImage(_ image: UIImage, commentHandle: String, completion: @escaping (Result<String>) -> Void) {
+        let photo = Photo(image: image)
+        let command = CreateCommentImageCommand(photo: photo, relatedHandle: commentHandle)
+        execute(command: command, imageType: .contentBlob, completion: completion)
     }
     
     func uploadUserImage(_ image: UIImage, authorization: Authorization, completion: @escaping (Result<String>) -> Void) {
-        uploadImageData(image.compressed(), imageType: .userPhoto, authorization: authorization, completion: completion)
+        guard let data = image.compressed() else {
+            completion(.failure(APIError.invalidImage))
+            return
+        }
+        
+        ImagesAPI.imagesPostImage(
+            imageType: .userPhoto,
+            authorization: authorization,
+            image: data,
+            imageFileType: imageFileType) { [weak self] response, error in
+                if let handle = response?.blobHandle {
+                    completion(.success(handle))
+                } else {
+                    self?.errorHandler.handle(error: error, completion: completion)
+                }
+        }
     }
     
-    private func uploadImageData(_ data: Data?,
-                                 imageType: ImagesAPI.ImageType_imagesPostImage,
-                                 authorization: Authorization,
-                                 completion: @escaping (Result<String>) -> Void) {
+    private func execute(command: ImageCommand,
+                         imageType: ImagesAPI.ImageType_imagesPostImage,
+                         completion: @escaping (Result<String>) -> Void) {
         
-        guard let data = data else {
+        guard isNetworkReachable else {
+            imageCache.store(photo: command.photo)
+            cache.cacheOutgoing(command)
+            completion(.success(command.photo.uid))
+            return
+        }
+        
+        guard let data = command.photo.image?.compressed() else {
             completion(.failure(APIError.invalidImage))
             return
         }
@@ -56,6 +94,14 @@ class ImagesService: BaseService, ImagesServiceType {
             return
         }
         
+        guard isNetworkReachable else {
+            let command = UpdateUserImageCommand(photo: photo, relatedHandle: nil)
+            imageCache.store(photo: command.photo)
+            cache.cacheOutgoing(command)
+            completion(.success(photo))
+            return
+        }
+        
         uploadImageData(image.compressed(), imageType: .userPhoto, authorization: authorization) { result in
             guard let handle = result.value else {
                 completion(.failure(result.error ?? APIError.unknown))
@@ -73,6 +119,29 @@ class ImagesService: BaseService, ImagesServiceType {
                     self.errorHandler.handle(error: error, completion: completion)
                 }
             }
+        }
+    }
+    
+    private func uploadImageData(_ data: Data?,
+                                 imageType: ImagesAPI.ImageType_imagesPostImage,
+                                 authorization: Authorization,
+                                 completion: @escaping (Result<String>) -> Void) {
+        
+        guard let data = data else {
+            completion(.failure(APIError.invalidImage))
+            return
+        }
+        
+        ImagesAPI.imagesPostImage(
+            imageType: imageType,
+            authorization: authorization,
+            image: data,
+            imageFileType: imageFileType) { [weak self] response, error in
+                if let handle = response?.blobHandle {
+                    completion(.success(handle))
+                } else {
+                    self?.errorHandler.handle(error: error, completion: completion)
+                }
         }
     }
     

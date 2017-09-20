@@ -8,7 +8,7 @@ import Foundation
 final class UnlikeReplyCommand: ReplyCommand {
     
     override var inverseCommand: OutgoingCommand? {
-        return LikeReplyCommand(replyHandle: replyHandle)
+        return LikeReplyCommand(reply: reply)
     }
     
     override func apply(to reply: inout Reply) {

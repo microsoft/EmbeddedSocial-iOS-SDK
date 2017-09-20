@@ -5,11 +5,7 @@
 
 import Foundation
 
-class OutgoingCommand {
-    
-    var combinedHandle: String {
-        return String(describing: type(of: self))
-    }
+class OutgoingCommand: Cacheable {
     
     var inverseCommand: OutgoingCommand? {
         return nil
@@ -50,29 +46,45 @@ class OutgoingCommand {
         LikeTopicCommand.self,
         PinTopicCommand.self,
         UnpinTopicCommand.self,
+        CreateTopicCommand.self,
         
         // Reply Commands
         LikeReplyCommand.self,
         UnlikeReplyCommand.self,
+        CreateReplyCommand.self,
         
         // Comment Commands
         LikeCommentCommand.self,
         UnlikeCommentCommand.self,
+        CreateCommentCommand.self,
+        
+        // Image Commands
+        CreateTopicImageCommand.self,
+        CreateCommentImageCommand.self,
+        UpdateUserImageCommand.self,
     ]
+    
+    //MARK: Cacheable
     
     func encodeToJSON() -> Any {
         return [
             "type": String(describing: type(of: self))
         ]
     }
-}
-
-extension OutgoingCommand: Cacheable {
+    
     func setHandle(_ handle: String?) {
         // nothing
     }
     
     func getHandle() -> String? {
-        return combinedHandle
+        return nil
+    }
+    
+    func getRelatedHandle() -> String? {
+        return nil
+    }
+    
+    func setRelatedHandle(_ relatedHandle: String?) {
+        // nothing
     }
 }

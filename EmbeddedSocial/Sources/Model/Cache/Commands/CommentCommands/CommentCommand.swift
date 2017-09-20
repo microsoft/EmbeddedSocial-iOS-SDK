@@ -6,24 +6,23 @@
 import Foundation
 
 class CommentCommand: OutgoingCommand {
-    let commentHandle: String
-    
-    override var combinedHandle: String {
-        return "\(super.combinedHandle)-\(commentHandle)"
-    }
+    let comment: Comment
+    private(set) var relatedHandle: String?
     
     required init?(json: [String: Any]) {
-        guard let commentHandle = json["commentHandle"] as? String else {
-            return nil
+        guard let commentJSON = json["comment"] as? [String: Any],
+            let comment = Comment(json: commentJSON) else {
+                return nil
         }
         
-        self.commentHandle = commentHandle
+        self.comment = comment
         
         super.init(json: json)
     }
     
-    required init(commentHandle: String) {
-        self.commentHandle = commentHandle
+    required init(comment: Comment) {
+        self.comment = comment
+        self.relatedHandle = comment.topicHandle
         super.init(json: [:])!
     }
     
@@ -33,8 +32,20 @@ class CommentCommand: OutgoingCommand {
     
     override func encodeToJSON() -> Any {
         return [
-            "commentHandle": commentHandle,
-            "type": String(describing: type(of: self))
+            "comment": comment.encodeToJSON(),
+            "type": typeIdentifier
         ]
+    }
+    
+    override func getRelatedHandle() -> String? {
+        return relatedHandle
+    }
+    
+    override func setRelatedHandle(_ relatedHandle: String?) {
+        self.relatedHandle = relatedHandle
+    }
+    
+    override func getHandle() -> String? {
+        return comment.commentHandle
     }
 }

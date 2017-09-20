@@ -10,7 +10,8 @@ class LikeTopicOperationTests: XCTestCase {
     
     func testThatItUsesCorrectServiceMethod() {
         // given
-        let command = TopicCommand(topicHandle: UUID().uuidString)
+        let topic = Post(topicHandle: UUID().uuidString)
+        let command = TopicCommand(topic: topic)
         let service = MockLikesService()
         let sut = LikeTopicOperation(command: command, likesService: service)
         
@@ -21,6 +22,6 @@ class LikeTopicOperationTests: XCTestCase {
         
         // then
         XCTAssertTrue(service.postLikePostHandleCompletionCalled)
-        XCTAssertEqual(service.postLikePostHandleCompletionReceivedArguments?.postHandle, command.topicHandle)
+        XCTAssertEqual(service.postLikePostHandleCompletionReceivedArguments?.postHandle, command.topic.topicHandle)
     }
 }

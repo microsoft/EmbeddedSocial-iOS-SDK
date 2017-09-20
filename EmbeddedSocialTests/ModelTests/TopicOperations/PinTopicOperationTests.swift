@@ -10,7 +10,8 @@ class PinTopicOperationTests: XCTestCase {
     
     func testThatItUsesCorrectServiceMethod() {
         // given
-        let command = TopicCommand(topicHandle: UUID().uuidString)
+        let topic = Post(topicHandle: UUID().uuidString)
+        let command = TopicCommand(topic: topic)
         let service = MockLikesService()
         let sut = PinTopicOperation(command: command, likesService: service)
         
@@ -21,6 +22,6 @@ class PinTopicOperationTests: XCTestCase {
         
         // then
         XCTAssertTrue(service.postPinPostHandleCompletionCalled)
-        XCTAssertEqual(service.postPinPostHandleCompletionReceivedArguments?.postHandle, command.topicHandle)
+        XCTAssertEqual(service.postPinPostHandleCompletionReceivedArguments?.postHandle, command.topic.topicHandle)
     }
 }

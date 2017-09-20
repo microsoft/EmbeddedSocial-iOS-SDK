@@ -63,3 +63,11 @@ class AsyncOperation: Operation {
         fatalError("subclasses must override `main`")
     }
 }
+
+extension AsyncOperation {
+    func completeIfNotCancelled() {
+        if !isCancelled {
+            completeOperation()
+        }
+    }
+}

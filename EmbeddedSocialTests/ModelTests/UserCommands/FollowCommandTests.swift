@@ -50,16 +50,4 @@ class FollowCommandTests: XCTestCase {
         XCTAssertTrue(inverseCommand is T)
         XCTAssertEqual(sut.user, inverseCommand.user)
     }
-    
-    func testThatItReturnsCorrectCombinedHandle() {
-        // given
-        let user = User()
-        let sut = FollowCommand(user: user)
-        
-        // when
-        let handle = sut.combinedHandle
-        
-        // then
-        XCTAssertEqual(handle, "FollowCommand-\(user.uid)")
-    }
 }
