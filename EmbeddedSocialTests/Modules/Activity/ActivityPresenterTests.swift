@@ -35,7 +35,8 @@ class ActivityPresenterTests: XCTestCase {
         super.setUp()
         
         sut = ActivityPresenter()
-        sut.interactor = ActivityInteractorMock()
+        interactor = ActivityInteractorMock()
+        sut.interactor = interactor
         
     }
     
@@ -43,27 +44,46 @@ class ActivityPresenterTests: XCTestCase {
         super.tearDown()
     }
     
-    func test() {
+    func testThatPedningDataSourceReturnsCorrectItems() {
         
         // given
-        
-        let mockItems = Array(1..<5).map { PendingRequestItem.mock(seed: $0) }
-        let result: Result<[PendingRequestItem]> = .success(mockItems)
+        let itemsMock = Array(1..<5).map { PendingRequestItem.mock(seed: $0) }
+        let resultMock: Result<[PendingRequestItem]> = .success(itemsMock)
         
         let header = SectionHeader(name: "", identifier: "")
         let section = Section(model: header, items: [])
-        let pendingRequestsDataSource = MyPendingRequests(interactor: interactor,
-                                                          section: section)
         
-        interactor.pendingRequestsItemsResult = result
+        let dataSource = MyPendingRequests(interactor: interactor, section: section)
         
-        pendingRequestsDataSource.loadMore()
+        interactor.pendingRequestsItemsResult = resultMock
         
-        pendingRequestsDataSource.section.items.count
+        // when
+        dataSource.loadMore()
         
-        
-        
+        // then
+        XCTAssertTrue(dataSource.section.items.count == itemsMock.count)
     }
+    
+    func testThatMyFollowingActivityDataSourceReturnsCorrectItems() {
+        
+        // given
+        let itemsMock = Array(1..<5).map { ActionItem.mock(seed: $0) }
+        let resultMock: Result<[ActionItem]> = .success(itemsMock)
+        
+        let header = SectionHeader(name: "", identifier: "")
+        let section = Section(model: header, items: [])
+        let dataSource = MyFollowingsActivity(interactor: interactor, section: section)
+        
+        interactor.followingActivityItemsResult = resultMock
+        
+        // when
+        dataSource.loadMore()
+        
+        // then
+        XCTAssertTrue(dataSource.section.items.count == itemsMock.count)
+    }
+    
+
     
 }
 

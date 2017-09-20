@@ -21,7 +21,7 @@ class ActivityPresenter {
     }
     
     fileprivate var state: State = .my
-    fileprivate var sections: [State: [Section]] = [:]
+    fileprivate var dataSources: [State: [DataSource]] = [:]
     
     fileprivate var viewModelBuilder = ActivityViewModelBuilder()
     fileprivate var cellConfigurator = CellConfigurator()
@@ -37,16 +37,23 @@ class ActivityPresenter {
     }
     
     fileprivate func setup() {
-        makeSections()
+        initDataSources()
     }
     
-    fileprivate func makeSections() {
-        sections[.my] = sectionsConfigurator.build(section: .my)
-        sections[.others] = sectionsConfigurator.build(section: .others)
+    fileprivate func initDataSources() {
+        dataSources[.my] = [buildPendingRequestsDataSource(), buildMyFollowingsActivityDataSource()]
     }
     
-    fileprivate func loadNextPage() {
-        
+    private func buildPendingRequestsDataSource() -> MyPendingRequests {
+        let header = SectionHeader(name: "", identifier: "")
+        let section = Section(model: header, items: [])
+        return MyPendingRequests(interactor: interactor, section: section)
+    }
+    
+    private func buildMyFollowingsActivityDataSource() -> MyFollowingsActivity {
+        let header = SectionHeader(name: "", identifier: "")
+        let section = Section(model: header, items: [])
+        return MyFollowingsActivity(interactor: interactor, section: section)
     }
 }
 
@@ -96,11 +103,11 @@ class MyPendingRequests: DataSource {
             }
         }
     }
- 
+    
 }
 
-class MyFollowersActivity: DataSource {
-
+class MyFollowingsActivity: DataSource {
+    
     override func loadMore() {
         // load activity
         interactor.loadNextPageFollowingActivities {  [weak self] (result) in
@@ -115,7 +122,7 @@ class MyFollowersActivity: DataSource {
     }
 }
 
-class MyFollowingsActivity: DataSource {
+class MyFollowersActivity: DataSource {
     
     override func loadMore() {
         
@@ -130,32 +137,11 @@ extension ActivityPresenter: ActivityViewOutput {
     }
     
     func loadMore() {
-        
-        interactor.loadNextPageFollowingActivities { (result) in
-            
-            switch result {
-            case let .success(items):
-                
-                //                sections[state]
-                break
-                
-            case let .failure(error):
-                
-                break
-                
-            }
-            
-            
-        }
-        
-        interactor.loadNextPageFollowingActivities { (result) in
-            
-        }
-        
+        dataSources[state]?.forEach { $0.loadMore() }
     }
     
     func cellIdentifier(for indexPath: IndexPath) -> String {
-        let item = sections[state]![indexPath.section].items[indexPath.row]
+        let item = dataSources[state]![indexPath.section].section.items[indexPath.row]
         let viewModel = viewModelBuilder.build(from: item)
         return viewModel.cellID
     }
@@ -164,18 +150,18 @@ extension ActivityPresenter: ActivityViewOutput {
         
         let itemIndex = indexPath.row
         let sectionIndex = indexPath.section
-        let item = sections[state]![sectionIndex].items[itemIndex]
+        let item = dataSources[state]![sectionIndex].section.items[itemIndex]
         let viewModel = viewModelBuilder.build(from: item)
         cellConfigurator.configure(cell: cell, with: viewModel)
         
     }
     
     func numberOfSections() -> Int {
-        return sections[state]!.count
+        return dataSources[state]!.count
     }
     
     func numberOfItems(in section: Int) -> Int {
-        return sections[state]![section].items.count
+        return dataSources[state]![section].section.items.count
     }
     
     func viewIsReady() {
