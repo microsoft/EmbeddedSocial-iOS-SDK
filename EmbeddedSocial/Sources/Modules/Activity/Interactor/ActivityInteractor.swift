@@ -9,78 +9,95 @@ protocol ActivityInteractorOutput: class {
     
 }
 
-
-
 protocol ActivityInteractorInput {
-    
-//    var isLoadingList: Bool { get }
-//
-//    func getNextListPage(completion: @escaping (Result<[User]>) -> Void)
-//
-//    func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void)
-//
-//    func setAPI(_ api: UsersListAPI)
-//
-//    func reloadList(completion: @escaping (Result<[User]>) -> Void)
-    
-    
-    
-    
+
 }
 
-
 class Service {
+    
+    let authorization = "String"
+    
+    func builder<T>(cursor: String?, limit: Int) -> RequestBuilder<T>? {
+        
+        switch T.self {
+        case is FeedResponseUserCompactView.Type:
+            let result = SocialAPI.myPendingUsersGetPendingUsersWithRequestBuilder(authorization: authorization,
+                                                                             cursor: cursor,
+                                                                             limit: Int32(limit))
+            
+            return result as? RequestBuilder<T>
+        default:
+            return nil
+        }
+    }
     
     func load(cursor: String?, limit: Int, completion: (Result<FeedResponseActivityView>) -> Void) {
         completion(.success(FeedResponseActivityView().mockResponse()))
     }
     
+    func load(cursor: String?, limit: Int, completion: (Result<FeedResponseUserCompactView>) -> Void) {
+        completion(.success(FeedResponseUserCompactView().mockResponse()))
+    }
+    
+    func test<T: Any>(cursor: String?, limit: Int, completion: (Result<T>) -> Void) {
+    
+        guard let builder: RequestBuilder<T> = self.builder(cursor: cursor, limit: limit) else {
+            fatalError("Builder not found")
+        }
+        
+        builder.execute { (response, error) in
+            
+        }
+        
+    }
+    
 }
 
+struct PageModel<T> {
+    let uid: String
+    let cursor: String?
+    var items: [T] = []
+    
+    func isEmpty() -> Bool {
+        return items.isEmpty
+    }
+}
+
+struct PagesList<T> {
+    var limit: Int = 10
+    var cursor: String?
+    var pages: [PageModel<T>] = []
+    
+    mutating func add(items: [T], cursor: String?) {
+        assert(items.count <= limit)
+        let page = PageModel(uid: UUID().uuidString, cursor: cursor, items: items)
+        pages.append(page)
+    }
+    
+    mutating func add(page: PageModel<T>) {
+        assert(page.items.count <= limit)
+        pages.append(page)
+        cursor = page.cursor
+    }
+    
+    func nextPageAvailable() -> Bool {
+        return cursor != nil
+    }
+}
 
 class ActivityInteractor {
-    
-    struct PageModel<T> {
-        let uid: String
-        let cursor: String?
-        var items: [T] = []
-        
-        func isEmpty() -> Bool {
-            return items.isEmpty
-        }
-    }
-    
-    struct PagesList<T> {
-        var limit: Int = 10
-        var cursor: String?
-        var pages: [PageModel<T>] = []
-        
-        mutating func add(items: [T], cursor: String?) {
-            assert(items.count <= limit)
-            let page = PageModel(uid: UUID().uuidString, cursor: cursor, items: items)
-            pages.append(page)
-        }
-        
-        mutating func add(page: PageModel<T>) {
-            assert(page.items.count <= limit)
-            pages.append(page)
-            cursor = page.cursor
-        }
-        
-        func nextPageAvailable() -> Bool {
-            return cursor != nil
-        }
-    }
     
     typealias FollowingPage = PageModel<ActionItem>
     typealias PendingRequestPage = PageModel<PendingRequestItem>
     typealias PageID = String
     typealias FollowersActivitiesList = PagesList<ActionItem>
+    typealias PendingRequestsList = PagesList<PendingRequestItem>
     
     weak var output: ActivityInteractorOutput!
     
     fileprivate var service: Service = Service()
-    fileprivate var followingPages: FollowersActivitiesList = FollowersActivitiesList()
+    fileprivate var followersList: FollowersActivitiesList = FollowersActivitiesList()
+    fileprivate var pendingRequestsList: PendingRequestsList = PendingRequestsList()
     fileprivate var loadingPages: Set<PageID> = Set()
     
     // MARK: State
@@ -92,8 +109,36 @@ class ActivityInteractor {
 
 }
 
+protocol ResponseProcessor {
+    associatedtype ResponseType
+    associatedtype ResultType
+    
+    func process(response: ResponseType, pageID: String) -> PageModel<ResultType>?
+}
+
+class ActionItemResponseProcessor: ResponseProcessor {
+    typealias ResponseType = FeedResponseActivityView
+    typealias ResultType = ActionItem
+
+    func process(response: ResponseType, pageID: String) -> PageModel<ResultType>? {
+        var items = [ActionItem]()
+        
+        // mapping into domain model
+        if let dataItems = response.data {
+            for source in dataItems {
+                guard let item = ActionItem(with: source) else { return nil }
+                items.append(item)
+            }
+        }
+        
+        return PageModel<ActionItem>(uid: pageID, cursor: response.cursor, items: items)
+    }
+
+}
+
 extension ActivityInteractor: ActivityInteractorInput {
     
+    // TODO: remake using generics
     private func process(response: FeedResponseActivityView, pageID: String) -> FollowingPage? {
         var items = [ActionItem]()
         
@@ -108,46 +153,99 @@ extension ActivityInteractor: ActivityInteractorInput {
         return FollowingPage(uid: pageID, cursor: response.cursor, items: items)
     }
     
-    func loadAll() {
-        followingPages = FollowersActivitiesList()
-        loadingPages = Set()
+    private func process(response: FeedResponseUserCompactView, pageID: String) -> PendingRequestPage? {
+        var items = [PendingRequestItem]()
         
-        loadNextPage()
+        // mapping into domain model
+        if let dataItems = response.data {
+            for source in dataItems {
+                guard let item = PendingRequestItem(with: source) else { return nil }
+                items.append(item)
+            }
+        }
+        
+        return PendingRequestPage(uid: pageID, cursor: response.cursor, items: items)
     }
     
+    
+    func loadAll() {
+        followersList = FollowersActivitiesList()
+        pendingRequestsList = PendingRequestsList()
+        loadingPages = Set()
+        
+//        loadNextPage()
+    }
+    
+    // TODO: remake using generics
     func loadNextPage(completion: ((Result<[ActionItem]>) -> Void)? = nil) {
         
         let pageID = UUID().uuidString
         loadingPages.insert(pageID)
         
-        service.load(cursor: followingPages.cursor, limit: followingPages.limit) { [weak self] (result) in
+        service.load(cursor: followersList.cursor,
+                     limit: followersList.limit) { [weak self] (result: Result<FeedResponseActivityView>) in
             
             defer {
                 loadingPages.remove(pageID)
             }
             
+            // exit on released or canceled
             guard let strongSelf = self, strongSelf.loadingPages.contains(pageID) else {
                 return
             }
             
+            // must have data
             guard let response = result.value else {
                 completion?(.failure(ActivityError.noData))
                 return
             }
             
+            // map data into page
             guard let page = strongSelf.process(response: response, pageID: pageID) else {
                 completion?(.failure(ActivityError.notParsable))
                 return
             }
             
-            strongSelf.followingPages.add(page: page)
+            strongSelf.followersList.add(page: page)
             
             completion?(.success(page.items))
         }
         
     }
     
-    func loadNextPage(completion: (Result<[PendingRequestItem]>) -> Void) {
+    func loadNextPage(completion: ((Result<[PendingRequestItem]>) -> Void)? = nil) {
+        
+        let pageID = UUID().uuidString
+        loadingPages.insert(pageID)
+        
+        service.load(cursor: followersList.cursor,
+                     limit: followersList.limit) { [weak self] (result: Result<FeedResponseUserCompactView>) in
+                        
+                        defer {
+                            loadingPages.remove(pageID)
+                        }
+                        
+                        // exit on released or canceled
+                        guard let strongSelf = self, strongSelf.loadingPages.contains(pageID) else {
+                            return
+                        }
+                        
+                        // must have data
+                        guard let response = result.value else {
+                            completion?(.failure(ActivityError.noData))
+                            return
+                        }
+                        
+                        // map data into page
+                        guard let page = strongSelf.process(response: response, pageID: pageID) else {
+                            completion?(.failure(ActivityError.notParsable))
+                            return
+                        }
+                        
+                        strongSelf.pendingRequestsList.add(page: page)
+                        
+                        completion?(.success(page.items))
+        }
         
     }
 }

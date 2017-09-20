@@ -238,13 +238,13 @@ struct ActivityFetchResult<T> {
     var cursor: String?
 }
 
-extension ActivityInteractor.PageModel: Hashable {
+extension PageModel: Hashable {
     
     var hashValue: Int {
         return uid.hashValue
     }
     
-    static func ==(lhs: ActivityInteractor.PageModel<T>, rhs: ActivityInteractor.PageModel<T>) -> Bool {
+    static func ==(lhs: PageModel<T>, rhs: PageModel<T>) -> Bool {
         return lhs.uid == rhs.uid
     }
     

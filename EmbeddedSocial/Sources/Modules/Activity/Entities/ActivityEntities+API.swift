@@ -35,6 +35,20 @@ extension ActionItem {
 }
 
 
+extension PendingRequestItem {
+    
+    init?(with model: UserCompactView) {
+        
+        guard let firstName = model.firstName, let userHandle = model.userHandle else {
+            return nil
+        }
+        
+        self.userName = firstName
+        self.userHandle = userHandle
+    }
+    
+}
+
 
 extension ActivityFetchResult where T == ActivityItem   {
     
@@ -75,4 +89,27 @@ extension ActivityFetchResult where T == ActivityItem   {
             }
         }
     }
+    
+    extension FeedResponseUserCompactView {
+        
+        func mockResponse() -> FeedResponseUserCompactView {
+            
+            let bundle = Bundle(for: type(of: self))
+            let path = bundle.path(forResource: "myPendingRequests", ofType: "json")
+            let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
+            let json = try? JSONSerialization.jsonObject(with: data!)
+            
+            
+            let result = Decoders.decode(clazz: FeedResponseUserCompactView.self, source: json as AnyObject, instance: nil)
+            switch result {
+            case let .success(value):
+                return value
+            case let .failure(error):
+                fatalError("Failed to decode with error \(error)")
+            }
+        }
+    }
+    
+    
+    
 #endif
