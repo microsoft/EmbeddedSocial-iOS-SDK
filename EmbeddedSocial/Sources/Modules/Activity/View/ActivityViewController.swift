@@ -9,6 +9,7 @@ protocol ActivityViewInput: class {
     func setupInitialState()
     func registerCell(cell: UITableViewCell.Type, id: String)
     func showError(_ error: Error)
+    func addNewItems(indexes: [IndexPath])
 }
 
 protocol ActivityViewOutput: class {
@@ -54,6 +55,10 @@ extension ActivityViewController: ActivityViewInput {
     }
     
     func registerCell(cell: UITableViewCell.Type, id: String) {
+        
+    }
+    
+    func addNewItems(indexes: [IndexPath]) {
         
     }
     
