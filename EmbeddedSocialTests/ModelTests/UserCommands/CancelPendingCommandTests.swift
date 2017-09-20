@@ -34,16 +34,4 @@ class CancelPendingCommandTests: XCTestCase {
         }
         XCTAssertEqual(sut.user, inverseCommand.user)
     }
-    
-    func testThatItReturnsCorrectCombinedHandle() {
-        // given
-        let user = User()
-        let sut = CancelPendingCommand(user: user)
-        
-        // when
-        let handle = sut.combinedHandle
-        
-        // then
-        XCTAssertEqual(handle, "CancelPendingCommand-\(user.uid)")
-    }
 }

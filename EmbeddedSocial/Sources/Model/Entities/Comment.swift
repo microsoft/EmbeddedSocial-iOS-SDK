@@ -30,6 +30,11 @@ class Comment: Equatable {
         return User(uid: userHandle, firstName: firstName, lastName: lastName, photo: Photo(url: photoUrl))
     }
     
+    var photo: Photo? {
+        guard let photoHandle = photoHandle else { return nil }
+        return Photo(uid: photoHandle, url: photoUrl)
+    }
+    
     static func ==(left: Comment, right: Comment) -> Bool{
         return left.commentHandle == right.commentHandle
     }

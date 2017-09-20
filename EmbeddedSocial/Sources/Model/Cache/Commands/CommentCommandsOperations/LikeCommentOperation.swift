@@ -13,10 +13,7 @@ final class LikeCommentOperation: CommentCommandOperation {
         }
         
         likesService.likeComment(commentHandle: command.comment.commentHandle) { [weak self] _, _ in
-            guard let strongSelf = self, !strongSelf.isCancelled else {
-                return
-            }
-            strongSelf.completeOperation()
+            self?.completeIfNotCancelled()
         }
     }
 }

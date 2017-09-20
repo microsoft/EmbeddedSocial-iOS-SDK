@@ -47,54 +47,64 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         }
     }
     
-    func fetchReplies(commentHandle: String, cursor: String?, limit: Int,cachedResult:  @escaping RepliesFetchResultHandler,resultHandler: @escaping RepliesFetchResultHandler) {
+    func fetchReplies(commentHandle: String,
+                      cursor: String?,
+                      limit: Int,
+                      cachedResult: @escaping RepliesFetchResultHandler,
+                      resultHandler: @escaping RepliesFetchResultHandler) {
         
-        let request = RepliesAPI.commentRepliesGetRepliesWithRequestBuilder(commentHandle: commentHandle, authorization: authorization, cursor: cursor, limit: Int32(limit))
-        let requestURLString = request.URLString
+        let builder = RepliesAPI.commentRepliesGetRepliesWithRequestBuilder(
+            commentHandle: commentHandle,
+            authorization: authorization,
+            cursor: cursor,
+            limit: Int32(limit)
+        )
         
-        var cacheResult = RepliesFetchResult()
+        let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
+                                                     predicate: PredicateBuilder.allCreateReplyCommands(),
+                                                     sortDescriptors: [Cache.createdAtSortDescriptor])
         
-        let cacheRequest = CacheFetchRequest(resultType: PostReplyRequest.self, predicate: PredicateBuilder().predicate(typeID: commentHandle))
-        
-        cache.fetchOutgoing(with: cacheRequest).forEach { (cachedReply) in
-            cacheResult.replies.append(createReplyFromRequest(request: cachedReply))
+        cache.fetchOutgoing(with: fetchOutgoingRequest) { [weak self] commands in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            let incomingFeed = strongSelf.cache.firstIncoming(ofType: FeedResponseReplyView.self,
+                                                        predicate: PredicateBuilder().predicate(typeID: builder.URLString),
+                                                        sortDescriptors: nil)
+            
+            let incomingReplies = incomingFeed?.data?.map(strongSelf.convert(replyView:)) ?? []
+            
+            let outgoingReplies = commands.flatMap { ($0 as? CreateReplyCommand)?.reply }
+            
+            let result = RepliesFetchResult(replies: outgoingReplies + incomingReplies, error: nil, cursor: incomingFeed?.cursor)
+            
+            cachedResult(result)
         }
         
-        if let fetchResult = self.cache.firstIncoming(ofType: FeedResponseReplyView.self, predicate: PredicateBuilder().predicate(typeID: requestURLString), sortDescriptors: nil) {
-            if let cachedReplies = fetchResult.data {
-                cacheResult.replies.append(contentsOf: convert(data: cachedReplies))
-                cacheResult.cursor = fetchResult.cursor
-                cachedResult(cacheResult)
-            }
-        } else {
-            //TODO : Remove this when finish testing
-            cachedResult(cacheResult)
+        guard isNetworkReachable else {
+            return
         }
         
-        if isNetworkReachable {
-            request.execute { (response, error) in
-                var result = RepliesFetchResult()
-                
-                guard error == nil else {
-                    result.error = RepliesServiceError.failedToFetch(message: error!.localizedDescription)
-                    resultHandler(result)
-                    return
-                }
-                
-                guard let data = response?.body?.data else {
-                    result.error = RepliesServiceError.failedToFetch(message: L10n.Error.noItemsReceived)
-                    resultHandler(result)
-                    return
-                }
-                
-                if let body = response?.body {
-                    self.cache.cacheIncoming(body, for: requestURLString)
-                    result.replies = self.convert(data: data)
-                    result.cursor = body.cursor
-                }
-                
-                resultHandler(result)
+        builder.execute { [weak self] (response, error) in
+            guard let strongSelf = self else {
+                return
             }
+            
+            var result = RepliesFetchResult()
+
+            if let body = response?.body, let data = body.data {
+                strongSelf.cache.cacheIncoming(body, for: builder.URLString)
+                result.replies = strongSelf.convert(data: data)
+                result.cursor = body.cursor
+            } else if strongSelf.errorHandler.canHandle(error) {
+                strongSelf.errorHandler.handle(error)
+                return
+            } else {
+                result.error = RepliesServiceError.failedToFetch(message: error?.localizedDescription ?? L10n.Error.noItemsReceived)
+            }
+            
+            resultHandler(result)
         }
     }
     
@@ -214,18 +224,6 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         
         return reply
     }
-    
-    private func createReplyFromRequest(request: PostReplyRequest) -> Reply {
-        let reply = Reply()
-        reply.text = request.text
-        reply.replyHandle = request.handle
-        reply.commentHandle = request.relatedHandle
-        reply.userHandle = SocialPlus.shared.me?.uid
-        reply.userPhotoUrl = SocialPlus.shared.me?.photo?.url
-        reply.userFirstName = SocialPlus.shared.me?.firstName
-        reply.userLastName = SocialPlus.shared.me?.lastName
-        return reply
-    }
 }
 
 class Reply {
@@ -311,6 +309,12 @@ extension Reply: JSONEncodable {
             "userStatus": userStatus.rawValue
         ]
         return json.flatMap { $0 }
+    }
+}
+
+extension Reply: Equatable {
+    static func ==(lhs: Reply, rhs: Reply) -> Bool {
+        return lhs.replyHandle == rhs.replyHandle
     }
 }
 

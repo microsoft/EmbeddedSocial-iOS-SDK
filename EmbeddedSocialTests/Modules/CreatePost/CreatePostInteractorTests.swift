@@ -22,7 +22,7 @@ fileprivate class MockTopicService: TopicService {
     var postTopicCount = 0
     override func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
         postTopicCount += 1
-        success(PostTopicRequest())
+        success(Post())
     }
     
     var updateTopicCount = 0

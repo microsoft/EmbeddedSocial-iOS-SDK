@@ -22,7 +22,7 @@ class ImageCommand: OutgoingCommand {
         super.init(json: json)
     }
     
-    required init(photo: Photo, relatedHandle: String) {
+    required init(photo: Photo, relatedHandle: String?) {
         self.photo = photo
         self.relatedHandle = relatedHandle
         super.init(json: [:])!

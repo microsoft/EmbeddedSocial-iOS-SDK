@@ -57,7 +57,7 @@ extension MockTopicService {
     func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {}
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {}
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {}
-
+    func postTopic(topic request: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {}
 }
 
 class PostDetailsInteractorTests: XCTestCase {

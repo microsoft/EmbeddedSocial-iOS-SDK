@@ -31,24 +31,36 @@ class ImagesService: BaseService, ImagesServiceType {
     func uploadTopicImage(_ image: UIImage, topicHandle: String, completion: @escaping (Result<String>) -> Void) {
         let photo = Photo(image: image)
         let command = CreateTopicImageCommand(photo: photo, relatedHandle: topicHandle)
-        execute(command: command, imageType: .contentBlob, authorization: authorization, completion: completion)
+        execute(command: command, imageType: .contentBlob, completion: completion)
     }
     
     func uploadCommentImage(_ image: UIImage, commentHandle: String, completion: @escaping (Result<String>) -> Void) {
         let photo = Photo(image: image)
         let command = CreateCommentImageCommand(photo: photo, relatedHandle: commentHandle)
-        execute(command: command, imageType: .contentBlob, authorization: authorization, completion: completion)
+        execute(command: command, imageType: .contentBlob, completion: completion)
     }
     
     func uploadUserImage(_ image: UIImage, authorization: Authorization, completion: @escaping (Result<String>) -> Void) {
-        let photo = Photo(image: image)
-        let command = CreateUserImageCommand(photo: photo, relatedHandle: "")
-        execute(command: command, imageType: .userPhoto, authorization: authorization, completion: completion)
+        guard let data = image.compressed() else {
+            completion(.failure(APIError.invalidImage))
+            return
+        }
+        
+        ImagesAPI.imagesPostImage(
+            imageType: .userPhoto,
+            authorization: authorization,
+            image: data,
+            imageFileType: imageFileType) { [weak self] response, error in
+                if let handle = response?.blobHandle {
+                    completion(.success(handle))
+                } else {
+                    self?.errorHandler.handle(error: error, completion: completion)
+                }
+        }
     }
     
     private func execute(command: ImageCommand,
                          imageType: ImagesAPI.ImageType_imagesPostImage,
-                         authorization: Authorization,
                          completion: @escaping (Result<String>) -> Void) {
         
         guard isNetworkReachable else {
@@ -79,6 +91,14 @@ class ImagesService: BaseService, ImagesServiceType {
     func updateUserPhoto(_ photo: Photo, completion: @escaping (Result<Photo>) -> Void) {
         guard let image = photo.image else {
             completion(.failure(APIError.invalidImage))
+            return
+        }
+        
+        guard isNetworkReachable else {
+            let command = UpdateUserImageCommand(photo: photo, relatedHandle: nil)
+            imageCache.store(photo: command.photo)
+            cache.cacheOutgoing(command)
+            completion(.success(photo))
             return
         }
         

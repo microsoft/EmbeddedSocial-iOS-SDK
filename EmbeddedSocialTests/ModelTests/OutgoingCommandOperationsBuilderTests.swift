@@ -20,20 +20,20 @@ class OutgoingCommandOperationsBuilderTests: XCTestCase {
         XCTAssertTrue(makeOperation(CancelPendingCommand(user: user)) is CancelPendingOperation)
         
         // topic commands
-        let topicHandle = UUID().uuidString
-        XCTAssertTrue(makeOperation(UnlikeTopicCommand(topicHandle: topicHandle)) is UnlikeTopicOperation)
-        XCTAssertTrue(makeOperation(LikeTopicCommand(topicHandle: topicHandle)) is LikeTopicOperation)
-        XCTAssertTrue(makeOperation(PinTopicCommand(topicHandle: topicHandle)) is PinTopicOperation)
-        XCTAssertTrue(makeOperation(UnpinTopicCommand(topicHandle: topicHandle)) is UnpinTopicOperation)
+        let topic = Post(topicHandle: UUID().uuidString)
+        XCTAssertTrue(makeOperation(UnlikeTopicCommand(topic: topic)) is UnlikeTopicOperation)
+        XCTAssertTrue(makeOperation(LikeTopicCommand(topic: topic)) is LikeTopicOperation)
+        XCTAssertTrue(makeOperation(PinTopicCommand(topic: topic)) is PinTopicOperation)
+        XCTAssertTrue(makeOperation(UnpinTopicCommand(topic: topic)) is UnpinTopicOperation)
         
         // reply commands
-        let replyHandle = UUID().uuidString
-        XCTAssertTrue(makeOperation(LikeReplyCommand(replyHandle: replyHandle)) is LikeReplyOperation)
-        XCTAssertTrue(makeOperation(UnlikeReplyCommand(replyHandle: replyHandle)) is UnlikeReplyOperation)
+        let reply = Reply(replyHandle: UUID().uuidString)
+        XCTAssertTrue(makeOperation(LikeReplyCommand(reply: reply)) is LikeReplyOperation)
+        XCTAssertTrue(makeOperation(UnlikeReplyCommand(reply: reply)) is UnlikeReplyOperation)
         
         // comment commands
-        let commentHandle = UUID().uuidString
-        XCTAssertTrue(makeOperation(LikeCommentCommand(commentHandle: commentHandle)) is LikeCommentOperation)
-        XCTAssertTrue(makeOperation(UnlikeCommentCommand(commentHandle: commentHandle)) is UnlikeCommentOperation)
+        let comment = Comment(commentHandle: UUID().uuidString)
+        XCTAssertTrue(makeOperation(LikeCommentCommand(comment: comment)) is LikeCommentOperation)
+        XCTAssertTrue(makeOperation(UnlikeCommentCommand(comment: comment)) is UnlikeCommentOperation)
     }
 }

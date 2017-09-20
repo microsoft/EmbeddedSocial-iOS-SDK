@@ -13,10 +13,7 @@ final class UnpinTopicOperation: TopicCommandOperation {
         }
         
         likesService.deletePin(postHandle: command.topic.topicHandle) { [weak self] _, _ in
-            guard let strongSelf = self, !strongSelf.isCancelled else {
-                return
-            }
-            strongSelf.completeOperation()
+            self?.completeIfNotCancelled()
         }
     }
 }

@@ -153,4 +153,14 @@ class PostServiceMock: PostServiceProtocol {
         
     }
     
+    //MARK: - postTopic
+    var postTopicCalled = false
+    var postTopicCalledReceivedArguments: (request: PostTopicRequest, photo: Photo?)?
+    var postTopicReturnTopic: Post!
+
+    func postTopic(topic request: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
+        postTopicCalledReceivedArguments = (request: request, photo: photo)
+        success(postTopicReturnTopic)
+    }
+
 }

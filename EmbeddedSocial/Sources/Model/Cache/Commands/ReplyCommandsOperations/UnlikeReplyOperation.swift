@@ -13,10 +13,7 @@ final class UnlikeReplyOperation: ReplyCommandOperation {
         }
         
         likesService.unlikeReply(replyHandle: command.reply.replyHandle) { [weak self] _, _ in
-            guard let strongSelf = self, !strongSelf.isCancelled else {
-                return
-            }
-            strongSelf.completeOperation()
+            self?.completeIfNotCancelled()
         }
     }
 }

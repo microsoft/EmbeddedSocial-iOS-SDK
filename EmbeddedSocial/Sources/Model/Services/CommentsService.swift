@@ -130,21 +130,24 @@ class CommentsService: BaseService, CommentServiceProtocol {
         )
         
         let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                        predicate: PredicateBuilder.allCreateCommentCommands(),
-                                        sortDescriptors: [Cache.createdAtSortDescriptor])
+                                                     predicate: PredicateBuilder.allCreateCommentCommands(),
+                                                     sortDescriptors: [Cache.createdAtSortDescriptor])
         
-        cache.fetchOutgoing(with: fetchOutgoingRequest) { commands in
+        cache.fetchOutgoing(with: fetchOutgoingRequest) { [weak self] commands in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            let incomingFeed = strongSelf.cache.firstIncoming(ofType: FeedResponseCommentView.self,
+                                                        predicate: PredicateBuilder.predicate(typeID: builder.URLString),
+                                                        sortDescriptors: nil)
+            
+            let incomingComments = incomingFeed?.data?.map(strongSelf.convert(commentView:)) ?? []
+            
             let outgoingComments = commands.flatMap { ($0 as? CreateCommentCommand)?.comment }
             
-            let p = PredicateBuilder.predicate(typeID: builder.URLString)
-            let incomingFeed = self.cache.firstIncoming(ofType: FeedResponseCommentView.self,
-                                                        predicate: p,
-                                                        sortDescriptors: nil)
-            let incomingComments = incomingFeed?.data?.map(self.convert(commentView:)) ?? []
+            let result = CommentFetchResult(comments: outgoingComments + incomingComments, error: nil, cursor: incomingFeed?.cursor)
             
-            let result = CommentFetchResult(comments: outgoingComments + incomingComments,
-                                            error: nil,
-                                            cursor: incomingFeed?.cursor)
             cachedResult(result)
         }
         
@@ -153,33 +156,23 @@ class CommentsService: BaseService, CommentServiceProtocol {
         }
         
         builder.execute { [weak self] (response, error) in
-            
             guard let strongSelf = self else {
                 return
             }
             
-            if cursor == nil {
-                //TODO: remove cached comments for topicHandle
-            }
-            
             var result = CommentFetchResult()
             
-            guard error == nil else {
-                result.error = CommentsServiceError.failedToFetch(message: error!.localizedDescription)
-                resultHandler(result)
-                return
-            }
-            
-            guard let data = response?.body?.data else {
-                result.error = CommentsServiceError.failedToFetch(message: L10n.Error.noItemsReceived)
-                resultHandler(result)
-                return
-            }
-            
-            if let body = response?.body {
+            if let body = response?.body, let data = body.data {
+                // typeid = "fetch_comments-<topic_id>"
+                // handle = <request_url>
                 strongSelf.cache.cacheIncoming(body, for: builder.URLString)
                 result.comments = strongSelf.convert(data: data)
                 result.cursor = body.cursor
+            } else if strongSelf.errorHandler.canHandle(error) {
+                strongSelf.errorHandler.handle(error)
+                return
+            } else {
+                result.error = CommentsServiceError.failedToFetch(message: error?.localizedDescription ?? L10n.Error.noItemsReceived)
             }
             
             resultHandler(result)
@@ -223,17 +216,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
             return
         }
         
-        let request = PostCommentRequest()
-        request.text = command.comment.text
-        
-        if let photoHandle = command.comment.photoHandle {
-            request.blobHandle = photoHandle
-            request.blobType = .image
-        }
-        
         CommentsAPI.topicCommentsPostComment(
             topicHandle: command.comment.topicHandle,
-            request: request,
+            request: PostCommentRequest(comment: command.comment),
             authorization: authorization) { (response, error) in
                 if let response = response {
                     resultHandler(response)

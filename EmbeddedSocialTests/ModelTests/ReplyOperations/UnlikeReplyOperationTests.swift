@@ -10,9 +10,10 @@ class UnlikeReplyOperationTests: XCTestCase {
     
     func testThatItUsesCorrectServiceMethod() {
         // given
-        let command = ReplyCommand(replyHandle: UUID().uuidString)
+        let reply = Reply(replyHandle: UUID().uuidString)
+        let command = ReplyCommand(reply: reply)
         let service = MockLikesService()
-        service.unlikeReplyReplyHandleCompletionReturnValue = (command.replyHandle, nil)
+        service.unlikeReplyReplyHandleCompletionReturnValue = (command.reply.replyHandle, nil)
         let sut = UnlikeReplyOperation(command: command, likesService: service)
         
         // when
@@ -22,6 +23,6 @@ class UnlikeReplyOperationTests: XCTestCase {
         
         // then
         XCTAssertTrue(service.unlikeReplyReplyHandleCompletionCalled)
-        XCTAssertEqual(service.unlikeReplyReplyHandleCompletionReceivedArguments?.replyHandle, command.replyHandle)
+        XCTAssertEqual(service.unlikeReplyReplyHandleCompletionReceivedArguments?.replyHandle, command.reply.replyHandle)
     }
 }

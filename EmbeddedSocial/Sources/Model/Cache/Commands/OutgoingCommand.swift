@@ -61,9 +61,8 @@ class OutgoingCommand: Cacheable {
         // Image Commands
         CreateTopicImageCommand.self,
         CreateCommentImageCommand.self,
-        CreateUserImageCommand.self,
+        UpdateUserImageCommand.self,
     ]
-    
     
     //MARK: Cacheable
     

@@ -5,6 +5,6 @@
 
 import Foundation
 
-final class CreateUserImageCommand: ImageCommand {
+final class UpdateUserImageCommand: ImageCommand {
     
 }

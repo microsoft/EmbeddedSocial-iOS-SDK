@@ -10,9 +10,8 @@ class UnlikeTopicCommandTests: XCTestCase {
     
     func testThatItCorrectlyAppliesChanges() {
         // given
-        var topic = Post()
-        topic.topicHandle = UUID().uuidString
-        let sut = UnlikeTopicCommand(topicHandle: topic.topicHandle!)
+        var topic = Post(topicHandle: UUID().uuidString)
+        let sut = UnlikeTopicCommand(topic: topic)
         
         // when
         sut.apply(to: &topic)
@@ -31,9 +30,8 @@ class UnlikeTopicCommandTests: XCTestCase {
     
     func testThatItReturnsCorrectInverseCommand() {
         // given
-        var topic = Post()
-        topic.topicHandle = UUID().uuidString
-        let sut = UnlikeTopicCommand(topicHandle: topic.topicHandle!)
+        let topic = Post(topicHandle: UUID().uuidString)
+        let sut = UnlikeTopicCommand(topic: topic)
         
         // when
         
@@ -42,19 +40,6 @@ class UnlikeTopicCommandTests: XCTestCase {
             XCTFail("Must return inverse command")
             return
         }
-        XCTAssertEqual(sut.topicHandle, inverseCommand.topicHandle)
-    }
-    
-    func testThatItReturnsCorrectCombinedHandle() {
-        // given
-        var topic = Post()
-        topic.topicHandle = UUID().uuidString
-        let sut = UnlikeTopicCommand(topicHandle: topic.topicHandle!)
-        
-        // when
-        let handle = sut.combinedHandle
-        
-        // then
-        XCTAssertEqual(handle, "UnlikeTopicCommand-\(topic.topicHandle!)")
+        XCTAssertEqual(sut.topic, inverseCommand.topic)
     }
 }

@@ -5,14 +5,19 @@
 
 import Foundation
 
-final class LikeReplyOperation: ReplyCommandOperation {
+final class CreateCommentImageOperation: ImageCommandOperation {
     
     override func main() {
         guard !isCancelled else {
             return
         }
         
-        likesService.likeReply(replyHandle: command.reply.replyHandle) { [weak self] _, _ in
+        guard let image = command.photo.image, let commentHandle = command.relatedHandle else {
+            completeIfNotCancelled()
+            return
+        }
+        
+        imagesService.uploadCommentImage(image, commentHandle: commentHandle) { [weak self] _ in
             self?.completeIfNotCancelled()
         }
     }
