@@ -7,14 +7,14 @@ protocol ActivityModuleInput: class {
     
 }
 
+typealias Section = SectionModel<SectionHeader, ActivityItem>
+
 class ActivityPresenter {
-    
-    typealias Section = SectionModel<SectionHeader, ActivityItem>
     
     weak var view: ActivityViewInput!
     var interactor: ActivityInteractorInput!
     var router: ActivityRouterInput!
-
+    
     enum State: Int {
         case my
         case others
@@ -44,9 +44,9 @@ class ActivityPresenter {
         sections[.my] = sectionsConfigurator.build(section: .my)
         sections[.others] = sectionsConfigurator.build(section: .others)
     }
-
+    
     fileprivate func loadNextPage() {
-   
+        
     }
 }
 
@@ -59,13 +59,98 @@ extension ActivityPresenter: ActivityInteractorOutput {
     
 }
 
+
+
+protocol DataSourceProtocol {
+    func loadMore()
+    var section: Section { get }
+}
+
+class DataSource: DataSourceProtocol {
+    var interactor: ActivityInteractorInput
+    var section: Section
+    var errorHandler: ((Error) -> Void)?
+    
+    func loadMore() { }
+    
+    init(interactor: ActivityInteractorInput, section: Section, errorHandler: ((Error) -> Void)? = nil) {
+        self.interactor = interactor
+        self.section = section
+        self.errorHandler = errorHandler
+    }
+}
+
+
+class MyPendingRequests: DataSource {
+    
+    override func loadMore() {
+        
+        // load pendings
+        interactor.loadNextPagePendigRequestItems { [weak self] (result) in
+            switch result {
+            case let .failure(error):
+                self?.errorHandler?(error)
+            case let .success(models):
+                let items = models.map { ActivityItem.pendingRequest($0) }
+                self?.section.items.append(contentsOf: items)
+            }
+        }
+    }
+ 
+}
+
+class MyFollowersActivity: DataSource {
+
+    override func loadMore() {
+        // load activity
+        interactor.loadNextPageFollowingActivities {  [weak self] (result) in
+            switch result {
+            case let .failure(error):
+                self?.errorHandler?(error)
+            case let .success(models):
+                let items = models.map { ActivityItem.follower($0) }
+                self?.section.items.append(contentsOf: items)
+            }
+        }
+    }
+}
+
+class MyFollowingsActivity: DataSource {
+    
+    override func loadMore() {
+        
+    }
+}
+
+
 extension ActivityPresenter: ActivityViewOutput {
     
     func load() {
-        
+        interactor.loadAll()
     }
     
-    func loadMore(for section: Int) {
+    func loadMore() {
+        
+        interactor.loadNextPageFollowingActivities { (result) in
+            
+            switch result {
+            case let .success(items):
+                
+                //                sections[state]
+                break
+                
+            case let .failure(error):
+                
+                break
+                
+            }
+            
+            
+        }
+        
+        interactor.loadNextPageFollowingActivities { (result) in
+            
+        }
         
     }
     
@@ -86,7 +171,7 @@ extension ActivityPresenter: ActivityViewOutput {
     }
     
     func numberOfSections() -> Int {
-        return sections.count
+        return sections[state]!.count
     }
     
     func numberOfItems(in section: Int) -> Int {

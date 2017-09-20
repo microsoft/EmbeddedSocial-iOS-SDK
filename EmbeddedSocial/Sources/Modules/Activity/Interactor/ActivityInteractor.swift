@@ -11,6 +11,10 @@ protocol ActivityInteractorOutput: class {
 
 protocol ActivityInteractorInput {
     
+    func loadAll()
+    func loadNextPageFollowingActivities(completion: ((Result<[ActionItem]>) -> Void)?)
+    func loadNextPagePendigRequestItems(completion: ((Result<[PendingRequestItem]>) -> Void)?)
+    
 }
 
 protocol ActivityService: class {
@@ -190,37 +194,39 @@ extension ActivityInteractor: ActivityInteractorInput {
         let pageID = UUID().uuidString
         loadingPages.insert(pageID)
         
-        service.loadFollowingActivities(cursor: followersList.cursor,
-                                        limit: followersList.limit) { [weak self] (result: Result<FeedResponseActivityView>) in
-                                            
-                                            defer {
-                                                loadingPages.remove(pageID)
-                                            }
-                                            
-                                            // exit on released or canceled
-                                            guard let strongSelf = self, strongSelf.loadingPages.contains(pageID) else {
-                                                return
-                                            }
-                                            
-                                            // must have data
-                                            guard let response = result.value else {
-                                                completion?(.failure(ActivityError.noData))
-                                                return
-                                            }
-                                            
-                                            // map data into page
-                                            guard let page = strongSelf.process(response: response, pageID: pageID) else {
-                                                completion?(.failure(ActivityError.notParsable))
-                                                return
-                                            }
-                                            
-                                            strongSelf.followersList.add(page: page)
-                                            
-                                            completion?(.success(page.items))
+        service.loadFollowingActivities(
+            cursor: followersList.cursor,
+            limit: followersList.limit) { [weak self] (result: Result<FeedResponseActivityView>) in
+                
+                defer {
+                    loadingPages.remove(pageID)
+                }
+                
+                // exit on released or canceled
+                guard let strongSelf = self, strongSelf.loadingPages.contains(pageID) else {
+                    return
+                }
+                
+                // must have data
+                guard let response = result.value else {
+                    completion?(.failure(ActivityError.noData))
+                    return
+                }
+                
+                // map data into page
+                guard let page = strongSelf.process(response: response, pageID: pageID) else {
+                    completion?(.failure(ActivityError.notParsable))
+                    return
+                }
+                
+                strongSelf.followersList.add(page: page)
+                
+                completion?(.success(page.items))
         }
         
     }
     
+    // TODO: remake using generics
     func loadNextPagePendigRequestItems(completion: ((Result<[PendingRequestItem]>) -> Void)? = nil) {
         
         let pageID = UUID().uuidString

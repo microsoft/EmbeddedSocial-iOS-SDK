@@ -91,6 +91,12 @@ struct PendingRequestItem {
     var userHandle: String
 }
 
+extension PendingRequestItem {
+    static func mock(seed: Int) -> PendingRequestItem {
+        return PendingRequestItem(userName: "username \(seed)", userHandle: "handle \(seed)")
+    }
+}
+
 // Helpers
 
 enum Change<T> {
@@ -166,7 +172,7 @@ class ActivityViewModelBuilder {
 
 class SectionsConfigurator {
     
-    func build(section: ActivityPresenter.State) -> [ActivityPresenter.Section] {
+    func build(section: ActivityPresenter.State) -> [Section] {
         
         switch section {
         case .my:
@@ -174,21 +180,22 @@ class SectionsConfigurator {
         case .others:
             return others
         }
+        
     }
     
-    private var my: [ActivityPresenter.Section] {
+    private var my: [Section] {
         let sectionHeader = SectionHeader(name: "Section 1", identifier: "")
         let model = PendingRequestItem(userName: "User", userHandle: "User handle")
         let item = ActivityItem.pendingRequest(model)
-        let section = ActivityPresenter.Section(model: sectionHeader, items: [item])
+        let section = Section(model: sectionHeader, items: [item])
         return [section]
     }
     
-    private var others: [ActivityPresenter.Section] {
+    private var others: [Section] {
         let sectionHeader = SectionHeader(name: "Section 2", identifier: "")
         let model = ActionItem.mock(seed: 0)
         let item = ActivityItem.follower(model)
-        let section = ActivityPresenter.Section(model: sectionHeader, items: [item])
+        let section = Section(model: sectionHeader, items: [item])
         return [section]
     }
     

@@ -87,6 +87,25 @@ class ActivityEntitiesTests: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
+    func testThatPaggingWorksCorrectly() {
+        
+        // given
+        let service = ActivityServiceMock()
+        let followingActivitiesResponse = buildActivitiResponseMock()
+        service.followingActivitiesResponse = .success(followingActivitiesResponse)
+        
+        let interactor = ActivityInteractor()
+        interactor.service = service
+        
+        let pendingRequests = expectation(description: #file)
+        
+        // when
+        
+//        interactor.
+        
+        // then
+    }
+    
     func buildActivitiResponseMock() -> FeedResponseActivityView {
         return FeedResponseActivityView().mockResponse()
     }

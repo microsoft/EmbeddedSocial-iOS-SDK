@@ -7,7 +7,8 @@ import UIKit
 
 protocol ActivityViewInput: class {
     func setupInitialState()
-    func registerCell(cell: AnyObject.Type, id: String)
+    func registerCell(cell: UITableViewCell.Type, id: String)
+    func showError(_ error: Error)
 }
 
 protocol ActivityViewOutput: class {
@@ -44,11 +45,15 @@ class ActivityViewController: UIViewController {
 
 extension ActivityViewController: ActivityViewInput {
     
+    func showError(_ error: Error) {
+        Logger.log(error, event: .veryImportant)
+    }
+    
     func setupInitialState() {
         
     }
     
-    func registerCell(cell: AnyObject.Type, id: String) {
+    func registerCell(cell: UITableViewCell.Type, id: String) {
         
     }
     
