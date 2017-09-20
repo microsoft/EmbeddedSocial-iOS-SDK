@@ -49,6 +49,9 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     
     // MARK: PostDetailInteractorOutput
     func didFetch(comments: [Comment], cursor: String?) {
+        if self.cursor != cursor {
+            enableFetchMore()
+        }
         self.cursor = cursor
         self.comments = comments
         self.comments.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
@@ -57,7 +60,9 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     }
     
     func didFetchMore(comments: [Comment], cursor: String?) {
-        
+        if self.cursor != cursor {
+            enableFetchMore()
+        }
         dataIsFetching = false
         appendWithReplacing(original: &self.comments, appending: comments)
         self.comments.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
@@ -73,6 +78,11 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
             view.updateLoadingCell()
         }
         
+    }
+    
+    private func enableFetchMore() {
+        loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
+        view.updateLoadingCell()
     }
     
     private func stopLoading() {
@@ -121,7 +131,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         return loadMoreCellViewModel
     }
     
-    func enableFetchMore() -> Bool {
+    func canFetchMore() -> Bool {
         return cursor != nil && !dataIsFetching
     }
     
@@ -198,5 +208,13 @@ extension PostDetailPresenter: FeedModuleOutput {
     func commentsPressed() {
         view.scrollCollectionViewToBottom()
     }
+    
+    func postRemoved() {
+        guard let vc = view as? UIViewController else {
+            return
+        }
+        router.backToFeed(from: vc)
+    }
+
 }
 

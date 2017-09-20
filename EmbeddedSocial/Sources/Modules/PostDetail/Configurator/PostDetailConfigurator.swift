@@ -21,7 +21,8 @@ class PostDetailModuleConfigurator {
     func configure(postViewModel: PostViewModel,
                    scrollType: CommentsScrollType,
                    myProfileHolder: UserHolder = SocialPlus.shared,
-                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
+                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator,
+                   navigationController: UINavigationController? = nil) {
         
         let router = PostDetailRouter()
         router.loginOpener = loginOpener
@@ -44,7 +45,7 @@ class PostDetailModuleConfigurator {
         viewController.output = presenter
         
         let feedConfigurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache)
-        feedConfigurator.configure(navigationController: viewController.navigationController, moduleOutput: presenter)
+        feedConfigurator.configure(navigationController: navigationController, moduleOutput: presenter)
         
         feedConfigurator.moduleInput.feedType = .single(post: postViewModel.topicHandle)
         presenter.feedViewController = feedConfigurator.viewController

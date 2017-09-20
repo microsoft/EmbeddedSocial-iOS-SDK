@@ -57,7 +57,7 @@ class Templates {
                           "blobUrl": APIConfig.showTopicImages ? String(format: "http://localhost:8080/images/%@", UUID().uuidString) : NSNull()] as [String: Any]
             
             if APIConfig.numberedTopicTeasers {
-                values = ["text": "topic text" + String(i)]
+                values["text"] = "topic text" + String(i)
             }
             
             let topic = Templates.load(name: "topic",

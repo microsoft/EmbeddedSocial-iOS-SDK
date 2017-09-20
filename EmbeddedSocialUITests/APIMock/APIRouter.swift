@@ -54,6 +54,7 @@ open class APIRouter: WebApp {
             }
         }
         
+        self["/v0.7/topics"] = self["/v0.7/topics/(popular.*$)"]
         self["/v0.7/users/(.*)/topics/?(.*)"] = self["/v0.7/topics/(popular.*$)"]
         self["/v0.7/users/me/following/combined"] = self["/v0.7/topics/(popular.*$)"]
         
@@ -159,7 +160,7 @@ open class APIRouter: WebApp {
         
         self["/images/(.*)"] = self["/v0.7/images/(.*)"]
         
-        self["/v0.7/users/(.*(?<!follow)$)"] = APIResponse(serviceName: "me") { environ, sendJSON -> Void in
+        self["/v0.7/users/(.*(?<!follow))"] = APIResponse(serviceName: "me") { environ, sendJSON -> Void in
             let method = environ["REQUEST_METHOD"] as! String
             switch method {
             case "POST":
