@@ -12,8 +12,8 @@ final class UpdateUserImageOperation: ImageCommandOperation {
             return
         }
         
-        imagesService.updateUserPhoto(command.photo) { [weak self] _ in
-            self?.completeIfNotCancelled()
+        imagesService.updateUserPhoto(command.photo) { [weak self] result in
+            self?.completeOperation(with: result.error)
         }
     }
 }

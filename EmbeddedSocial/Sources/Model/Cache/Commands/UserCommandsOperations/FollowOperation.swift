@@ -11,8 +11,8 @@ final class FollowOperation: UserCommandOperation {
         guard !isCancelled else {
             return
         }
-        socialService.follow(user: command.user) { [weak self] _ in
-            self?.completeIfNotCancelled()
+        socialService.follow(user: command.user) { [weak self] result in
+            self?.completeOperation(with: result.error)
         }
     }
 }

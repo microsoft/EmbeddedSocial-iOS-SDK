@@ -12,8 +12,8 @@ final class LikeTopicOperation: TopicCommandOperation {
             return
         }
         
-        likesService.postLike(postHandle: command.topic.topicHandle) { [weak self] _, _ in
-            self?.completeIfNotCancelled()
+        likesService.postLike(postHandle: command.topic.topicHandle) { [weak self] _, error in
+            self?.completeOperation(with: error)
         }
     }
 }

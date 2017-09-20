@@ -12,8 +12,8 @@ final class PinTopicOperation: TopicCommandOperation {
             return
         }
         
-        likesService.postPin(postHandle: command.topic.topicHandle) { [weak self] _, _ in
-            self?.completeIfNotCancelled()
+        likesService.postPin(postHandle: command.topic.topicHandle) { [weak self] _, error in
+            self?.completeOperation(with: error)
         }
     }
 }

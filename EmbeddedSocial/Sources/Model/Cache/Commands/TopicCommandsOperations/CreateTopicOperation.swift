@@ -5,7 +5,7 @@
 
 import Foundation
 
-final class CreateTopicOperation: AsyncOperation {
+final class CreateTopicOperation: OutgoingCommandOperation {
     
     let command: TopicCommand
     private let topicsService: PostServiceProtocol
@@ -23,7 +23,7 @@ final class CreateTopicOperation: AsyncOperation {
         let request = PostTopicRequest(topic: command.topic)
         topicsService.postTopic(topic: request,
                                 photo: command.topic.user?.photo,
-                                success: { [weak self] _ in self?.completeIfNotCancelled() },
-                                failure: { _ in () })
+                                success: { [weak self] _ in self?.completeOperation() },
+                                failure: { [weak self] error in self?.completeOperation(with: error) })
     }
 }

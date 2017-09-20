@@ -12,8 +12,8 @@ final class UnlikeTopicOperation: TopicCommandOperation {
             return
         }
         
-        likesService.deleteLike(postHandle: command.topic.topicHandle) { [weak self] _, _ in
-            self?.completeIfNotCancelled()
+        likesService.deleteLike(postHandle: command.topic.topicHandle) { [weak self] _, error in
+            self?.completeOperation(with: error)
         }
     }
 }

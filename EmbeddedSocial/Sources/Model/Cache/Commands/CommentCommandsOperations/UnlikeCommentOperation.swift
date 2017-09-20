@@ -12,8 +12,8 @@ final class UnlikeCommentOperation: CommentCommandOperation {
             return
         }
         
-        likesService.unlikeComment(commentHandle: command.comment.commentHandle) { [weak self] _, _ in
-            self?.completeIfNotCancelled()
+        likesService.unlikeComment(commentHandle: command.comment.commentHandle) { [weak self] _, error in
+            self?.completeOperation(with: error)
         }
     }
 }

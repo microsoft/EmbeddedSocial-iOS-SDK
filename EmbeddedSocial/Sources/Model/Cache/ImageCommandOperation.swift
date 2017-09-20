@@ -5,7 +5,7 @@
 
 import Foundation
 
-class ImageCommandOperation: AsyncOperation {
+class ImageCommandOperation: OutgoingCommandOperation {
     let command: ImageCommand
     let imagesService: ImagesServiceType
     

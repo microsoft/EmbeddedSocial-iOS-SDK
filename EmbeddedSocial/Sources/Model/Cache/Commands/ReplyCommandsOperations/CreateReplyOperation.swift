@@ -5,7 +5,7 @@
 
 import Foundation
 
-final class CreateReplyOperation: AsyncOperation {
+final class CreateReplyOperation: OutgoingCommandOperation {
     let command: ReplyCommand
     private let repliesService: RepliesServiceProtcol
     
@@ -23,7 +23,7 @@ final class CreateReplyOperation: AsyncOperation {
         request.text = command.reply.text
         repliesService.postReply(commentHandle: command.reply.commentHandle,
                                  request: request,
-                                 success: { [weak self] _ in self?.completeIfNotCancelled() },
-                                 failure: {_ in () })
+                                 success: { [weak self] _ in self?.completeOperation() },
+                                 failure: { [weak self] error in self?.completeOperation(with: error) })
     }
 }

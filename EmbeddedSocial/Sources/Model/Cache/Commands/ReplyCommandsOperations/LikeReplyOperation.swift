@@ -12,8 +12,8 @@ final class LikeReplyOperation: ReplyCommandOperation {
             return
         }
         
-        likesService.likeReply(replyHandle: command.reply.replyHandle) { [weak self] _, _ in
-            self?.completeIfNotCancelled()
+        likesService.likeReply(replyHandle: command.reply.replyHandle) { [weak self] _, error in
+            self?.completeOperation(with: error)
         }
     }
 }

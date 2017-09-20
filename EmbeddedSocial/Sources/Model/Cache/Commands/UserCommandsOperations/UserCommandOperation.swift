@@ -5,7 +5,7 @@
 
 import Foundation
 
-class UserCommandOperation: AsyncOperation {
+class UserCommandOperation: OutgoingCommandOperation {
     let command: UserCommand
     let socialService: SocialServiceType
     

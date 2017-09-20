@@ -13,12 +13,12 @@ final class CreateCommentImageOperation: ImageCommandOperation {
         }
         
         guard let image = command.photo.image, let commentHandle = command.relatedHandle else {
-            completeIfNotCancelled()
+            completeOperation()
             return
         }
         
-        imagesService.uploadCommentImage(image, commentHandle: commentHandle) { [weak self] _ in
-            self?.completeIfNotCancelled()
+        imagesService.uploadCommentImage(image, commentHandle: commentHandle) { [weak self] result in
+            self?.completeOperation(with: result.error)
         }
     }
 }

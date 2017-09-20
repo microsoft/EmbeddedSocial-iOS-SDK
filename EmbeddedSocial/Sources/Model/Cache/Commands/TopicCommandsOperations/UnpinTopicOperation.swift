@@ -12,8 +12,8 @@ final class UnpinTopicOperation: TopicCommandOperation {
             return
         }
         
-        likesService.deletePin(postHandle: command.topic.topicHandle) { [weak self] _, _ in
-            self?.completeIfNotCancelled()
+        likesService.deletePin(postHandle: command.topic.topicHandle) { [weak self] _, error in
+            self?.completeOperation(with: error)
         }
     }
 }

@@ -5,7 +5,7 @@
 
 import Foundation
 
-class ReplyCommandOperation: AsyncOperation {
+class ReplyCommandOperation: OutgoingCommandOperation {
     let command: ReplyCommand
     let likesService: LikesServiceProtocol
     

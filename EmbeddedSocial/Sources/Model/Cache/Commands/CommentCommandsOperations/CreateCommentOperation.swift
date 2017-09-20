@@ -5,7 +5,7 @@
 
 import Foundation
 
-final class CreateCommentOperation: AsyncOperation {
+final class CreateCommentOperation: OutgoingCommandOperation {
     let command: CommentCommand
     private let commentsService: CommentServiceProtocol
     
@@ -22,7 +22,7 @@ final class CreateCommentOperation: AsyncOperation {
         commentsService.postComment(topicHandle: command.comment.topicHandle,
                                     request: PostCommentRequest(comment: command.comment),
                                     photo: command.comment.mediaPhoto,
-                                    resultHandler: { [weak self] _ in self?.completeIfNotCancelled() },
-                                    failure: {_ in () })
+                                    resultHandler: { [weak self] _ in self?.completeOperation() },
+                                    failure: { [weak self] error in self?.completeOperation(with: error) })
     }
 }

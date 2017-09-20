@@ -13,12 +13,12 @@ final class CreateTopicImageOperation: ImageCommandOperation {
         }
         
         guard let image = command.photo.image, let topicHandle = command.relatedHandle else {
-            completeIfNotCancelled()
+            completeOperation()
             return
         }
         
-        imagesService.uploadTopicImage(image, topicHandle: topicHandle) { [weak self] _ in
-            self?.completeIfNotCancelled()
+        imagesService.uploadTopicImage(image, topicHandle: topicHandle) { [weak self] result in
+            self?.completeOperation(with: result.error)
         }
     }
 }
