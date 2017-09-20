@@ -135,6 +135,7 @@
                         <outlet property="mediaButtonHeightConstraint" destination="4XO-oG-yBA" id="jVp-ZA-QM0"/>
                         <outlet property="postBodyTextView" destination="aPb-Vd-1gr" id="HuW-ou-9mR"/>
                         <outlet property="postBodyTextViewHeightConstraint" destination="aAI-r9-dzh" id="UK7-hB-VIe"/>
+                        <outlet property="scrollView" destination="8AP-7d-JDz" id="z9e-g2-RSE"/>
                         <outlet property="titleTextField" destination="umy-ax-MEg" id="oYa-PO-RpN"/>
                         <outlet property="userImageView" destination="0Lk-bh-ewt" id="SEb-0d-xpg"/>
                         <outlet property="usernameLabel" destination="vR4-Iq-PLG" id="ISI-o5-jbz"/>
