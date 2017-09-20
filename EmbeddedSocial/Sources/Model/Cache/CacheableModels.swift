@@ -158,9 +158,27 @@ class LikeCommentRequest: Cacheable, HandleMixin{
     }
 }
 
-extension FeedResponseCommentView: Cacheable {
+extension FeedResponseCommentView: Cacheable, HandleMixin {
+    func setHandle(_ handle: String?) {
+        if let handle = handle {
+            self.handle = handle
+        }
+    }
+    
+    func getHandle() -> String? {
+        return handle
+    }
 }
 
-extension FeedResponseReplyView: Cacheable {
+extension FeedResponseReplyView: Cacheable, HandleMixin {
+    func setHandle(_ handle: String?) {
+        if let handle = handle {
+            self.handle = handle
+        }
+    }
+    
+    func getHandle() -> String? {
+        return handle
+    }
 }
 
