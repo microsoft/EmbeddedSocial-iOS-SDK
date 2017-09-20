@@ -35,33 +35,6 @@ private class MockLikeSerivce: LikesServiceProtocol {
     func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) {}
 }
 
-private class MockRepliesService: RepliesServiceProtcol {
-    
-    func delete(replyHandle: String, completion: @escaping ((Result<Void>) -> Void)) {
-        completion(.success())
-    }
-
-    func reply(replyHandle: String, cachedResult: @escaping ReplyHandler, success: @escaping ReplyHandler, failure: @escaping Failure) {
-        let reply = Reply()
-        reply.text = "test"
-        success(reply)
-    }
-    
-    func fetchReplies(commentHandle: String, cursor: String?, limit: Int, cachedResult: @escaping RepliesFetchResultHandler, resultHandler: @escaping RepliesFetchResultHandler) {
-        var result = RepliesFetchResult()
-        result.cursor = "cursor"
-        result.error = nil
-        result.replies = [Reply()]
-        resultHandler(result)
-    }
-    
-    func postReply(commentHandle: String, request: PostReplyRequest, success: @escaping PostReplyResultHandler, failure: @escaping Failure) {
-        let result = PostReplyResponse()
-        result.replyHandle = "handle"
-        success(result)
-    }
-}
-
 class CommentRepliesInteractorTests: XCTestCase {
     
     var output: MockCommentRepliesPresenter!
@@ -69,7 +42,7 @@ class CommentRepliesInteractorTests: XCTestCase {
     var myProfileHolder: MyProfileHolder!
     
     var likeService: LikesServiceProtocol?
-    var repliesService: RepliesServiceProtcol?
+    var repliesService: MockRepliesService!
     
     override func setUp() {
         super.setUp()
@@ -102,6 +75,10 @@ class CommentRepliesInteractorTests: XCTestCase {
         let comment = Comment()
         comment.commentHandle = "handle"
         output.comment = comment
+        
+        var result = RepliesFetchResult()
+        result.replies = [Reply()]
+        repliesService.fetchRepliesReturnResult = result
         //default in MockRepliesService fetching 1 item
         
         //when
@@ -115,6 +92,9 @@ class CommentRepliesInteractorTests: XCTestCase {
     func testThatFetchedMoreReplies() {
         //given
         //default in MockRepliesService fetching 1 item
+        var result = RepliesFetchResult()
+        result.replies = [Reply()]
+        repliesService.fetchRepliesReturnResult = result
         
         //when
         interactor.fetchReplies(commentHandle: "test", cursor: "test", limit: 10)
@@ -164,13 +144,21 @@ class CommentRepliesInteractorTests: XCTestCase {
     func testThatReplyPosted() {
         
         //given
-        let reply = "test"
+        let reply = Reply(replyHandle: UUID().uuidString)
+        reply.text = UUID().uuidString
+        reply.commentHandle = UUID().uuidString
+        
+        let response = PostReplyResponse()
+        response.replyHandle = reply.replyHandle
+        
+        repliesService.postReplyReturnResponse = response
+        repliesService.getReplyReturnReply = reply
         
         //when
-        interactor.postReply(commentHandle: "handle", text: "test")
+        interactor.postReply(commentHandle: reply.commentHandle, text: reply.text!)
         
         //then
-        XCTAssertEqual(output.postedReply?.text, reply)
+        XCTAssertEqual(output.postedReply?.text, reply.text)
         
     }
     

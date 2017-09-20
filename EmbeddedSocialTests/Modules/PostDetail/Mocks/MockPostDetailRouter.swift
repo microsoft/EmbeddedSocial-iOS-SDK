@@ -17,4 +17,8 @@ class MockPostDetailRouter: PostDetailRouterInput {
     func openLogin(from view: UIViewController) {
         openLoginCount += 1
     }
+    
+    func backToFeed(from view: UIViewController) {
+        
+    }
 }
