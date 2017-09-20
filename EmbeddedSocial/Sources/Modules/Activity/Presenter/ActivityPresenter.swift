@@ -44,6 +44,10 @@ class ActivityPresenter {
         sections[.my] = sectionsConfigurator.build(section: .my)
         sections[.others] = sectionsConfigurator.build(section: .others)
     }
+
+    fileprivate func loadNextPage() {
+   
+    }
 }
 
 extension ActivityPresenter: ActivityModuleInput {
@@ -56,6 +60,14 @@ extension ActivityPresenter: ActivityInteractorOutput {
 }
 
 extension ActivityPresenter: ActivityViewOutput {
+    
+    func load() {
+        
+    }
+    
+    func loadMore(for section: Int) {
+        
+    }
     
     func cellIdentifier(for indexPath: IndexPath) -> String {
         let item = sections[state]![indexPath.section].items[indexPath.row]

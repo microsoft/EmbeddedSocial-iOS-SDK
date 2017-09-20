@@ -206,7 +206,7 @@ class CellConfigurator {
         else if let cell = cell as? FollowRequestCell, let viewModel = viewModel as? PendingRequestViewModel  {
             configure(cell: cell, with: viewModel)
         }
-    
+        
     }
     
     private func configure(cell: ActivityCell, with viewModel: ActivityViewModel) {
@@ -230,13 +230,31 @@ class CellConfigurator {
         cell.profileImage.image = viewModel.profileImage
         cell.profileName.text = viewModel.profileName
     }
-
+    
 }
 
-struct ActionItemsFetchResult {
-    var items: [ActivityItem] = []
+struct ActivityFetchResult<T> {
+    var items: [T] = []
     var cursor: String?
 }
 
+extension ActivityInteractor.PageModel: Hashable {
+    
+    var hashValue: Int {
+        return uid.hashValue
+    }
+    
+    static func ==(lhs: ActivityInteractor.PageModel<T>, rhs: ActivityInteractor.PageModel<T>) -> Bool {
+        return lhs.uid == rhs.uid
+    }
+    
+}
+
+enum ActivityError: Int, Error {
+    case notParsable
+    case noData
+    case mapperNotFound
+    case loaderNotFound
+}
 
 
