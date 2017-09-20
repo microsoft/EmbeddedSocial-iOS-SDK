@@ -31,7 +31,7 @@
                                             <constraint firstAttribute="height" constant="33" id="SDv-1s-D72"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Type here to comment on this post"/>
                                         </userDefinedRuntimeAttributes>
