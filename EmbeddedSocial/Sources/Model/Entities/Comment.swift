@@ -18,6 +18,7 @@ class Comment: Equatable {
     var photoUrl: String?
     
     var text: String?
+    var mediaHandle: String?
     var mediaUrl: String?
     var totalLikes: Int64 = 0
     var totalReplies: Int64 = 0
@@ -30,9 +31,9 @@ class Comment: Equatable {
         return User(uid: userHandle, firstName: firstName, lastName: lastName, photo: Photo(url: photoUrl))
     }
     
-    var photo: Photo? {
-        guard let photoHandle = photoHandle else { return nil }
-        return Photo(uid: photoHandle, url: photoUrl)
+    var mediaPhoto: Photo? {
+        guard let mediaHandle = mediaHandle else { return nil }
+        return Photo(uid: mediaHandle, url: mediaUrl)
     }
     
     static func ==(left: Comment, right: Comment) -> Bool{
@@ -50,8 +51,8 @@ extension Comment {
         self.init()
         commentHandle = UUID().uuidString
         text = request.text
-        photoHandle = photo?.uid
-        photoUrl = photo?.url
+        mediaHandle = photo?.uid
+        mediaUrl = photo?.url
         self.topicHandle = topicHandle
         createdTime = Date()
     }
@@ -76,6 +77,7 @@ extension Comment: JSONEncodable {
         photoUrl = json["photoUrl"] as? String
         text = json["text"] as? String
         mediaUrl = json["mediaUrl"] as? String
+        mediaHandle = json["mediaHandle"] as? String
         totalLikes = json["totalLikes"] as? Int64 ?? 0
         totalReplies = json["totalReplies"] as? Int64 ?? 0
         liked = json["liked"] as? Bool ?? false
@@ -101,6 +103,7 @@ extension Comment: JSONEncodable {
             "photoUrl": photoUrl,
             "text": text,
             "mediaUrl": mediaUrl,
+            "mediaHandle": mediaHandle,
             "totalLikes": totalLikes,
             "totalReplies": totalReplies,
             "liked": liked,
@@ -110,7 +113,3 @@ extension Comment: JSONEncodable {
         return json.flatMap { $0 }
     }
 }
-
-
-
-

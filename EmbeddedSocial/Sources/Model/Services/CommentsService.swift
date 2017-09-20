@@ -195,7 +195,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
         imagesService.uploadCommentImage(image, commentHandle: comment.commentHandle) { [weak self] result in
             if let handle = result.value {
-                commentCommand.comment.photoHandle = handle
+                commentCommand.comment.mediaHandle = handle
                 self?.execute(command: commentCommand, resultHandler: resultHandler, failure: failure)
             } else if self?.errorHandler.canHandle(result.error) == true {
                 self?.errorHandler.handle(result.error)

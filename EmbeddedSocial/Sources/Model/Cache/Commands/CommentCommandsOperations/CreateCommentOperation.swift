@@ -21,7 +21,7 @@ final class CreateCommentOperation: AsyncOperation {
                 
         commentsService.postComment(topicHandle: command.comment.topicHandle,
                                     request: PostCommentRequest(comment: command.comment),
-                                    photo: command.comment.photo,
+                                    photo: command.comment.mediaPhoto,
                                     resultHandler: { [weak self] _ in self?.completeIfNotCancelled() },
                                     failure: {_ in () })
     }

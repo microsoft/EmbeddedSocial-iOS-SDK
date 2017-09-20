@@ -60,7 +60,6 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         
         postedTimeLabel.text = comment.createdTime == nil ? "" : formatter.shortStyle.string(from: comment.createdTime!, to: Date())!
         
-        
         if comment.photoUrl == nil {
             userPhoto.image = UIImage(asset: Asset.userPhotoPlaceholder)
         } else {
@@ -69,12 +68,9 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         
         likeButton.isSelected = comment.liked
         
-        if let url = comment.mediaUrl {
+        if let photo = comment.mediaPhoto {
             mediaButton.imageView?.contentMode = .scaleAspectFill
-            mediaButton.setPhotoWithCaching(Photo(uid: UUID().uuidString,
-                                                  url: url,
-                                                  image: nil),
-                                            placeholder: UIImage(asset: .placeholderPostNoimage))
+            mediaButton.setPhotoWithCaching(photo, placeholder: UIImage(asset: .placeholderPostNoimage))
             mediaButtonHeightConstraint.constant = UIScreen.main.bounds.size.height/3
             
         } else {
