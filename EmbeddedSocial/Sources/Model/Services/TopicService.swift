@@ -73,7 +73,7 @@ protocol PostServiceProtocol {
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler)
     func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler)
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
-    func postTopic(topic request: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure)
+    func postTopic(_ topic: Post, success: @escaping TopicPosted, failure: @escaping Failure)
     
 }
 
@@ -99,21 +99,18 @@ class TopicService: BaseService, PostServiceProtocol {
         super.init()
     }
     
-    func postTopic(topic request: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
-        let topic = Post(request: request, photo: photo)
+    func postTopic(_ topic: Post, success: @escaping TopicPosted, failure: @escaping Failure) {
         let topicCommand = CreateTopicCommand(topic: topic)
         
-        guard let image = photo?.image else {
+        guard let image = topic.photo?.image else {
             execute(command: topicCommand, success: success, failure: failure)
             return
         }
         
         imagesService.uploadTopicImage(image, topicHandle: topic.topicHandle) { [weak self] result in
             if let handle = result.value {
-                var topic = topic
-                topic.imageHandle = handle
-                let updateTopicCommand = CreateTopicCommand(topic: topic)
-                self?.execute(command: updateTopicCommand, success: success, failure: failure)
+                topicCommand.setImageHandle(handle)
+                self?.execute(command: topicCommand, success: success, failure: failure)
             } else if self?.errorHandler.canHandle(result.error) == true {
                 self?.errorHandler.handle(result.error)
             } else {
@@ -160,28 +157,6 @@ class TopicService: BaseService, PostServiceProtocol {
                 failure(error!)
             } else {
                 success()
-            }
-        }
-    }
-    
-    private func cacheTopic(_ topic: PostTopicRequest, with photo: Photo?) {
-        if let photo = photo {
-            cache.cacheOutgoing(photo)
-            topic.blobHandle = photo.uid
-        }
-        cache.cacheOutgoing(topic)
-    }
-    
-    private func postTopic(request: PostTopicRequest, success: @escaping TopicPosted, failure: @escaping Failure) {
-        TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { response, error in
-            if let handle = response?.topicHandle {
-                var topic = Post(request: request, photo: nil)
-                topic.topicHandle = handle
-                success(topic)
-            } else if self.errorHandler.canHandle(error) {
-                self.errorHandler.handle(error)
-            } else {
-                failure(error ?? APIError.unknown)
             }
         }
     }

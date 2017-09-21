@@ -5,13 +5,13 @@
 
 import Foundation
 
-final class UnfollowOperation: UserCommandOperation {
+final class FollowUserOperation: UserCommandOperation {
     
     override func main() {
         guard !isCancelled else {
             return
         }
-        socialService.unfollow(user: command.user) { [weak self] result in
+        socialService.follow(user: command.user) { [weak self] result in
             self?.completeOperation(with: result.error)
         }
     }

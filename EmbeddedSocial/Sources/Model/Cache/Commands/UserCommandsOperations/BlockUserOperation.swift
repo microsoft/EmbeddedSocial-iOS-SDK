@@ -5,13 +5,13 @@
 
 import Foundation
 
-final class UnblockOperation: UserCommandOperation {
+final class BlockUserOperation: UserCommandOperation {
     
     override func main() {
         guard !isCancelled else {
             return
         }
-        socialService.unblock(user: command.user) { [weak self] result in
+        socialService.block(user: command.user) { [weak self] result in
             self?.completeOperation(with: result.error)
         }
     }

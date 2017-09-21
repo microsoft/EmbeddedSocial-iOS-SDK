@@ -14,15 +14,15 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
     static func operation(for command: OutgoingCommand) -> Operation? {
         // user commands
         if let command = command as? FollowCommand {
-            return FollowOperation(command: command, socialService: SocialService())
+            return FollowUserOperation(command: command, socialService: SocialService())
         } else if let command = command as? UnfollowCommand {
-            return UnfollowOperation(command: command, socialService: SocialService())
+            return UnfollowUserOperation(command: command, socialService: SocialService())
         } else if let command = command as? BlockCommand {
-            return BlockOperation(command: command, socialService: SocialService())
+            return BlockUserOperation(command: command, socialService: SocialService())
         } else if let command = command as? UnblockCommand {
-            return UnblockOperation(command: command, socialService: SocialService())
+            return UnblockUserOperation(command: command, socialService: SocialService())
         } else if let command = command as? CancelPendingCommand {
-            return CancelPendingOperation(command: command, socialService: SocialService())
+            return CancelPendingUserOperation(command: command, socialService: SocialService())
         }
         
         // topic commands

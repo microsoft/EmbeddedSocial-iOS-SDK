@@ -5,7 +5,7 @@
 
 import Foundation
 
-final class CancelPendingOperation: UserCommandOperation {
+final class CancelPendingUserOperation: UserCommandOperation {
     
     override func main() {
         guard !isCancelled else {

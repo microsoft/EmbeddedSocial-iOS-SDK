@@ -15,6 +15,12 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     var repliesService: RepliesServiceProtcol?
     var likeService: LikesServiceProtocol?
     
+    private let userHolder: UserHolder
+    
+    init(userHolder: UserHolder = SocialPlus.shared) {
+        self.userHolder = userHolder
+    }
+    
     // MARK: Social Actions
     
     func replyAction(replyHandle: String, action: RepliesSocialAction) {
@@ -79,10 +85,16 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     }
     
     func postReply(commentHandle: String, text: String) {
-        let request = PostReplyRequest()
-        request.text = text
+        let reply = Reply(replyHandle: UUID().uuidString)
+        reply.commentHandle = commentHandle
+        reply.text = text
+        reply.userHandle = userHolder.me?.uid
+        reply.userStatus = userHolder.me?.followerStatus ?? .empty
+        reply.userLastName = userHolder.me?.lastName
+        reply.userFirstName = userHolder.me?.firstName
+        reply.userPhotoUrl = userHolder.me?.photo?.url
         
-        repliesService?.postReply(commentHandle: commentHandle, request: request, success: { (response) in
+        repliesService?.postReply(reply: reply, success: { (response) in
             self.repliesService?.reply(replyHandle: response.replyHandle!, cachedResult: { (cachedReply) in
                 self.output?.replyPosted(reply: cachedReply)
             }, success: { (webReply) in

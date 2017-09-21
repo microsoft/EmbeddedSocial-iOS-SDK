@@ -6,13 +6,13 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class BlockOperationTests: XCTestCase {
+class BlockUserOperationTests: XCTestCase {
     
     func testThatItUsesCorrectServiceMethod() {
         // given
         let command = UserCommand(user: User())
         let service = MockSocialService()
-        let sut = EmbeddedSocial.BlockOperation(command: command, socialService: service)
+        let sut = EmbeddedSocial.BlockUserOperation(command: command, socialService: service)
         
         // when
         let queue = OperationQueue()

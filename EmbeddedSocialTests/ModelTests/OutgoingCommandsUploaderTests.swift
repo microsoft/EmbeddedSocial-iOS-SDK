@@ -75,7 +75,7 @@ class OutgoingCommandsUploaderTests: XCTestCase {
         // given
         let user = User()
         let command = FollowCommand(user: user)
-        operationsBuilder.operationForCommandReturnValue = FollowOperation(command: command, socialService: socialService)
+        operationsBuilder.operationForCommandReturnValue = FollowUserOperation(command: command, socialService: socialService)
         cache.fetchOutgoing_with_ReturnValue = [command]
         
         // when

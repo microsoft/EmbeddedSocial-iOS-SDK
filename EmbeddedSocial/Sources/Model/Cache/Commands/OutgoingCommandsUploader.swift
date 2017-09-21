@@ -8,23 +8,14 @@ import Foundation
 final class OutgoingCommandsUploader: Daemon, NetworkStatusListener {
     
     private let networkTracker: NetworkStatusMulticast
-    private let cache: CacheType
-    private let executionQueue: OperationQueue = {
-       let q = OperationQueue()
-        q.name = "OutgoingCommandsUploader-executionQueue"
-        q.qualityOfService = .background
-        return q
-    }()
-    private let operationsBuilderType: OutgoingCommandOperationsBuilderType.Type
+    private let uploadStrategy: OutgoingCommandsUploadStrategyType
     
     init(networkTracker: NetworkStatusMulticast,
-         cache: CacheType,
-         jsonDecoderType: JSONDecoder.Type,
-         operationsBuilderType: OutgoingCommandOperationsBuilderType.Type) {
+         uploadStrategy: OutgoingCommandsUploadStrategyType,
+         jsonDecoderType: JSONDecoder.Type) {
         
         self.networkTracker = networkTracker
-        self.cache = cache
-        self.operationsBuilderType = operationsBuilderType
+        self.uploadStrategy = uploadStrategy
         jsonDecoderType.setupDecoders()
     }
     
@@ -34,42 +25,11 @@ final class OutgoingCommandsUploader: Daemon, NetworkStatusListener {
     
     func stop() {
         networkTracker.removeListener(self)
+        uploadStrategy.cancelSubmission()
     }
     
     func networkStatusDidChange(_ isReachable: Bool) {
         guard isReachable else { return }
-        executionQueue.cancelAllOperations()
-        executePendingCommands()
-    }
-    
-    private func executePendingCommands() {
-        let fetchOperation = FetchAllOutgoingCommandsOperation(cache: cache)
-        
-        fetchOperation.completionBlock = { [weak self] in
-            guard !fetchOperation.isCancelled else { return }
-            self?.executeCommandsOperations(fetchOperation.commands)
-        }
-        
-        executionQueue.addOperation(fetchOperation)
-    }
-    
-    private func executeCommandsOperations(_ commands: [OutgoingCommand]) {
-        let operations = makeActionOperations(from: commands)
-        executionQueue.addOperations(operations, waitUntilFinished: false)
-    }
-    
-    private func makeActionOperations(from commands: [OutgoingCommand]) -> [Operation] {
-        
-        let operations = commands.flatMap { [weak self] command -> Operation? in
-            let op = self?.operationsBuilderType.operation(for: command)
-            op?.completionBlock = {
-                guard op?.isCancelled != true else { return }
-                let predicate = PredicateBuilder.predicate(for: command)
-                self?.cache.deleteOutgoing(with: predicate)
-            }
-            return op
-        }
-        
-        return operations
+        uploadStrategy.restartSubmission()
     }
 }

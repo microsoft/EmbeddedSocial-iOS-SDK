@@ -6,7 +6,7 @@
 import Foundation
 
 class ReplyCommand: OutgoingCommand {
-    let reply: Reply
+    private(set) var reply: Reply
     
     required init?(json: [String: Any]) {
         guard let replyJSON = json["reply"] as? [String: Any],
@@ -40,6 +40,10 @@ class ReplyCommand: OutgoingCommand {
     }
     
     override func getRelatedHandle() -> String? {
-        return reply.commentHandle
+        return reply.replyHandle
+    }
+    
+    override func setRelatedHandle(_ relatedHandle: String?) {
+        reply.replyHandle = relatedHandle
     }
 }

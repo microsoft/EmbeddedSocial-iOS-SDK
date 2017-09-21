@@ -5,13 +5,15 @@
 
 import Foundation
 
-class FetchAllOutgoingCommandsOperation: Operation {
+class FetchOutgoingCommandsOperation: Operation {
     private let cache: CacheType
+    private let predicate: NSPredicate
     
     var commands: [OutgoingCommand] = []
     
-    init(cache: CacheType) {
+    init(cache: CacheType, predicate: NSPredicate) {
         self.cache = cache
+        self.predicate = predicate
     }
     
     override func main() {
@@ -20,7 +22,7 @@ class FetchAllOutgoingCommandsOperation: Operation {
         }
         
         let request = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                        predicate: PredicateBuilder.allOutgoingCommandsPredicate(),
+                                        predicate: predicate,
                                         sortDescriptors: [Cache.createdAtSortDescriptor])
         
         commands = cache.fetchOutgoing(with: request)
