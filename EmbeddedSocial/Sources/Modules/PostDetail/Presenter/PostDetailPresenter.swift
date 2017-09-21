@@ -187,6 +187,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
 extension PostDetailPresenter: FeedModuleOutput {
     func didFinishRefreshingData() {
         view.refreshPostCell()
+        feedModuleInput?.lockScrolling()
     }
     
     func didScrollFeed(_ feedView: UIScrollView) {
@@ -199,6 +200,7 @@ extension PostDetailPresenter: FeedModuleOutput {
     
     func didFinishRefreshingData(_ error: Error?) {
         view.refreshPostCell()
+        feedModuleInput?.lockScrolling()
     }
     
     func shouldOpenProfile(for userID: String) -> Bool {
