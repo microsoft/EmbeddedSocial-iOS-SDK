@@ -18,4 +18,8 @@ final class SettingsRouter: SettingsRouterInput {
         conf.configure(navigationController: navigationController)
         navigationController?.pushViewController(conf.viewController, animated: true)
     }
+    
+    func logOut() {
+        SocialPlus.shared.coordinator.logOut()
+    }
 }

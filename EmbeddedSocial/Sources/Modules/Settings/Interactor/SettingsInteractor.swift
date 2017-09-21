@@ -6,10 +6,30 @@
 import Foundation
 
 final class SettingsInteractor: SettingsInteractorInput {
+
     private let userService: UserServiceType
     
     init(userService: UserServiceType) {
         self.userService = userService
+    }
+    
+    func signOut(success: @escaping (Void) -> Void, fauilure: @escaping (Error) -> Void) {
+        OperationQueue().cancelAllOperations()
+        do {
+            try SocialPlus.shared.sessionStore.deleteCurrentSession()
+            SocialPlus.shared.coreDataStack.reset { (result) in
+                guard let error = result.error else {
+                    success()
+                    return
+                }
+                
+                fauilure(error)
+            }
+        } catch {
+            //TODO: handle
+            print("signOut failed")
+        }
+
     }
     
     func switchVisibility(_ visibility: Visibility, completion: @escaping (Result<Visibility>) -> Void) {
