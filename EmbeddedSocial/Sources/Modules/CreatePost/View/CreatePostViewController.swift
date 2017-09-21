@@ -150,3 +150,11 @@ extension CreatePostViewController: UITextViewDelegate {
         postButton.isEnabled = !textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
+
+// MARK: UITextFieldDelegate
+extension CreatePostViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        postBodyTextView.becomeFirstResponder()
+        return false
+    }
+}
