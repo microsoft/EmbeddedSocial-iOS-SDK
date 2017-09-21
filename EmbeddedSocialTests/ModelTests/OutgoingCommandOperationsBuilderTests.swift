@@ -13,11 +13,11 @@ class OutgoingCommandOperationsBuilderTests: XCTestCase {
         
         // user commands
         let user = User()
-        XCTAssertTrue(makeOperation(FollowCommand(user: user)) is FollowOperation)
-        XCTAssertTrue(makeOperation(UnfollowCommand(user: user)) is UnfollowOperation)
-        XCTAssertTrue(makeOperation(BlockCommand(user: user)) is EmbeddedSocial.BlockOperation)
-        XCTAssertTrue(makeOperation(UnblockCommand(user: user)) is UnblockOperation)
-        XCTAssertTrue(makeOperation(CancelPendingCommand(user: user)) is CancelPendingOperation)
+        XCTAssertTrue(makeOperation(FollowCommand(user: user)) is FollowUserOperation)
+        XCTAssertTrue(makeOperation(UnfollowCommand(user: user)) is UnfollowUserOperation)
+        XCTAssertTrue(makeOperation(BlockCommand(user: user)) is EmbeddedSocial.BlockUserOperation)
+        XCTAssertTrue(makeOperation(UnblockCommand(user: user)) is UnblockUserOperation)
+        XCTAssertTrue(makeOperation(CancelPendingCommand(user: user)) is CancelPendingUserOperation)
         
         // topic commands
         let topic = Post(topicHandle: UUID().uuidString)

@@ -264,7 +264,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
         let request = CacheFetchRequest(
             resultType: OutgoingCommand.self,
-            predicate: PredicateBuilder.allCommentCommandsPredicate(for: commentView.commentHandle!),
+            predicate: PredicateBuilder.commentActionCommands(for: commentView.commentHandle!),
             sortDescriptors: [Cache.createdAtSortDescriptor]
         )
         

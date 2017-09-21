@@ -9,10 +9,10 @@ import Foundation
 class MockOutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
     
     static var operationForCommandCalled = false
-    static var operationForCommandReturnValue: Operation?
+    static var operationForCommandReturnValue: OutgoingCommandOperation?
     static var operationForCommandInputCommand: OutgoingCommand?
 
-    static func operation(for command: OutgoingCommand) -> Operation? {
+    static func operation(for command: OutgoingCommand) -> OutgoingCommandOperation? {
         operationForCommandCalled = true
         operationForCommandInputCommand = command
         return operationForCommandReturnValue

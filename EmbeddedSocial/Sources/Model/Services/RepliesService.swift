@@ -27,7 +27,7 @@ enum RepliesServiceError: Error {
 
 protocol RepliesServiceProtcol {
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int,cachedResult:  @escaping RepliesFetchResultHandler,resultHandler: @escaping RepliesFetchResultHandler)
-    func postReply(commentHandle: String, request: PostReplyRequest, success: @escaping PostReplyResultHandler, failure: @escaping Failure)
+    func postReply(reply: Reply, success: @escaping PostReplyResultHandler, failure: @escaping Failure)
     func reply(replyHandle: String, cachedResult: @escaping ReplyHandler , success: @escaping ReplyHandler, failure: @escaping Failure)
     func delete(replyHandle: String, completion: @escaping ((Result<Void>) -> Void))
 }
@@ -168,12 +168,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         return cachedReplyView != nil ? convert(replyView: cachedReplyView!) : nil
     }
     
-    func postReply(commentHandle: String,
-                   request: PostReplyRequest,
-                   success: @escaping PostReplyResultHandler,
-                   failure: @escaping Failure) {
-        
-        let reply = Reply(request: request)
+    func postReply(reply: Reply, success: @escaping PostReplyResultHandler, failure: @escaping Failure) {
         let replyCommand = CreateReplyCommand(reply: reply)
         
         guard isNetworkReachable else {
@@ -182,8 +177,11 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             return
         }
         
+        let request = PostReplyRequest()
+        request.text = reply.text
+        
         RepliesAPI.commentRepliesPostReply(
-            commentHandle: commentHandle,
+            commentHandle: reply.commentHandle,
             request: request,
             authorization: authorization) { [weak self] response, error in
                 guard let strongSelf = self else {
@@ -220,7 +218,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         reply.userStatus = FollowStatus(status: replyView.user?.followerStatus)
         
         let request = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                        predicate: PredicateBuilder.allReplyCommandsPredicate(for: replyView.replyHandle!),
+                                        predicate: PredicateBuilder.replyActionCommands(for: replyView.replyHandle!),
                                         sortDescriptors: [Cache.createdAtSortDescriptor])
         
         let commands = cache.fetchOutgoing(with: request) as? [ReplyCommand] ?? []
