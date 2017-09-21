@@ -35,11 +35,15 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int) {
         self.isLoading = true
         self.repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-//            if !cachedResult.replies.isEmpty {
-                self.handleRepliesResult(result: cachedResult)
-//            }
+            if !cachedResult.replies.isEmpty {
+                DispatchQueue.main.async {
+                    self.handleRepliesResult(result: cachedResult)
+                }
+            }
         }, resultHandler: { (webResult) in
-            self.handleRepliesResult(result: webResult)
+            DispatchQueue.main.async {
+                self.handleRepliesResult(result: webResult)
+            }
         })
 
     }
@@ -61,12 +65,15 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         self.isLoading = true
         self.repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
             if !cachedResult.replies.isEmpty {
-               self.handleMoreRepliesResult(result: cachedResult)
+                DispatchQueue.main.async {
+                    self.handleMoreRepliesResult(result: cachedResult)
+                }
             }
         }, resultHandler: { (webResult) in
-            self.handleMoreRepliesResult(result: webResult)
+            DispatchQueue.main.async {
+                self.handleMoreRepliesResult(result: webResult)
+            }
         })
-        
     }
     
     private func handleMoreRepliesResult(result: RepliesFetchResult) {
@@ -84,14 +91,20 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         
         repliesService?.postReply(commentHandle: commentHandle, request: request, success: { (response) in
             self.repliesService?.reply(replyHandle: response.replyHandle!, cachedResult: { (cachedReply) in
-                self.output?.replyPosted(reply: cachedReply)
+                DispatchQueue.main.async {
+                    self.output?.replyPosted(reply: cachedReply)
+                }
             }, success: { (webReply) in
-                self.output?.replyPosted(reply: webReply)
+                DispatchQueue.main.async {
+                    self.output?.replyPosted(reply: webReply)
+                }
             }, failure: { (error) in
                 
             })
         }, failure: { (error) in
-            self.output?.replyFailPost(error: error)
+            DispatchQueue.main.async {
+                self.output?.replyFailPost(error: error)
+            }
         })
     }
 
