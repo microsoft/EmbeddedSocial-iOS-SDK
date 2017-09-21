@@ -11,6 +11,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
 
     var output: CreatePostViewOutput!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet fileprivate weak var userImageView: UIImageView!
     @IBOutlet fileprivate weak var mediaButton: UIButton!
@@ -116,6 +117,17 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         actionSheet.addAction(leavePostAction)
         
         present(actionSheet, animated: true, completion: nil)
+    }
+    
+    
+    override func keyboardWillShow(notification: Notification) {
+        super.keyboardWillShow(notification: notification)
+        let kbSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as! CGRect).size
+        var aRect = self.view.frame;
+        aRect.size.height -= kbSize.height;
+        if (aRect.contains(postBodyTextView.frame.origin) ) {
+            scrollView.scrollRectToVisible(postBodyTextView.frame, animated: true)
+        }
     }
 }
 
