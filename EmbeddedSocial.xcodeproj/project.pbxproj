@@ -1531,9 +1531,9 @@
 		88B94EED1F66A85F002392F9 /* UserCommandOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCommandOperation.swift; sourceTree = "<group>"; };
 		88B94EF11F66A9F3002392F9 /* NSLock+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLock+Ext.swift"; sourceTree = "<group>"; };
 		88B94EF31F66ACA7002392F9 /* AtomicOutgoingCommandsExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicOutgoingCommandsExecutor.swift; sourceTree = "<group>"; };
-		88B94EF71F66B25C002392F9 /* OutgoingCommandsUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutgoingCommandsUploader.swift; path = Commands/OutgoingCommandsUploader.swift; sourceTree = "<group>"; };
+		88B94EF71F66B25C002392F9 /* OutgoingCommandsUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutgoingCommandsUploader.swift; path = OutgoingCommandsUploader.swift; sourceTree = "<group>"; };
 		88B94EF91F66B278002392F9 /* Daemon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Daemon.swift; sourceTree = "<group>"; };
-		88B94EFE1F66BF22002392F9 /* OutgoingCommandOperationsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutgoingCommandOperationsBuilder.swift; path = Commands/OutgoingCommandOperationsBuilder.swift; sourceTree = "<group>"; };
+		88B94EFE1F66BF22002392F9 /* OutgoingCommandOperationsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutgoingCommandOperationsBuilder.swift; path = OutgoingCommandOperationsBuilder.swift; sourceTree = "<group>"; };
 		88B94F011F66CA6D002392F9 /* FetchUserCommandsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchUserCommandsOperation.swift; sourceTree = "<group>"; };
 		88B94F031F66CE67002392F9 /* FollowUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowUserOperation.swift; sourceTree = "<group>"; };
 		88B94F051F66D01E002392F9 /* UnfollowUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnfollowUserOperation.swift; sourceTree = "<group>"; };
@@ -1556,7 +1556,7 @@
 		88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		88D1230B1F73AA9F001523D1 /* OutgoingCommandsUploadStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingCommandsUploadStrategy.swift; sourceTree = "<group>"; };
 		88D1230D1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchOutgoingCommandsOperation.swift; sourceTree = "<group>"; };
-		88D123121F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutgoingCommandsRelatedHandleUpdater.swift; path = ../../Utils/OutgoingCommandsRelatedHandleUpdater.swift; sourceTree = "<group>"; };
+		88D123121F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutgoingCommandsRelatedHandleUpdater.swift; path = OutgoingCommandsRelatedHandleUpdater.swift; sourceTree = "<group>"; };
 		88D123141F740028001523D1 /* MockOutgoingCommandsUploadStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockOutgoingCommandsUploadStrategy.swift; sourceTree = "<group>"; };
 		88D2F8D61F55C2B50004A8BC /* ReportingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportingService.swift; sourceTree = "<group>"; };
 		88D2F8D81F56A4440004A8BC /* ReportSubmittedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportSubmittedViewController.swift; sourceTree = "<group>"; };
@@ -1787,7 +1787,7 @@
 		93AC65A51F3E057C00FE5A3A /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		93AC65A61F3E057C00FE5A3A /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		93AC65A91F3E05C000FE5A3A /* CommentsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsService.swift; sourceTree = "<group>"; };
-		93AC65AD1F3E05DA00FE5A3A /* MockCommentService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockCommentService.swift; path = ../Modules/PostDetail/Mocks/MockCommentService.swift; sourceTree = "<group>"; };
+		93AC65AD1F3E05DA00FE5A3A /* MockCommentService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockCommentService.swift; path = MockCommentService.swift; sourceTree = "<group>"; };
 		93AC65AE1F3E05DA00FE5A3A /* MockPostDetaillnteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPostDetaillnteractor.swift; sourceTree = "<group>"; };
 		93AC65AF1F3E05DA00FE5A3A /* MockPostDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPostDetailPresenter.swift; sourceTree = "<group>"; };
 		93AC65B01F3E05DA00FE5A3A /* MockPostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPostDetailViewController.swift; sourceTree = "<group>"; };
@@ -2034,11 +2034,11 @@
 		880AFD3C1F6FE58900378710 /* TopicCommands */ = {
 			isa = PBXGroup;
 			children = (
+				88ABC7AC1F72A19200C83C82 /* CreateTopicCommandTests.swift */,
 				880AFD391F6FE38D00378710 /* LikeTopicCommandTests.swift */,
 				880AFD3F1F6FE67500378710 /* PinTopicCommandTests.swift */,
 				880AFD3D1F6FE5E400378710 /* UnlikeTopicCommandTests.swift */,
 				880AFD411F6FE6CD00378710 /* UnpinTopicCommandTests.swift */,
-				88ABC7AC1F72A19200C83C82 /* CreateTopicCommandTests.swift */,
 			);
 			path = TopicCommands;
 			sourceTree = "<group>";
@@ -2046,9 +2046,9 @@
 		880AFD431F6FE71900378710 /* ReplyCommands */ = {
 			isa = PBXGroup;
 			children = (
+				88ABC7A61F729C0800C83C82 /* CreateReplyCommandTests.swift */,
 				880AFD441F6FE72300378710 /* LikeReplyCommandTests.swift */,
 				880AFD461F6FE89A00378710 /* UnlikeReplyCommandTests.swift */,
-				88ABC7A61F729C0800C83C82 /* CreateReplyCommandTests.swift */,
 			);
 			path = ReplyCommands;
 			sourceTree = "<group>";
@@ -2056,9 +2056,9 @@
 		880AFD481F6FE92000378710 /* CommentCommands */ = {
 			isa = PBXGroup;
 			children = (
+				88ABC7A21F72943800C83C82 /* CreateCommentCommandTests.swift */,
 				880AFD491F6FE92D00378710 /* LikeCommentCommand.swift */,
 				880AFD4B1F6FE96100378710 /* UnlikeCommentTests.swift */,
-				88ABC7A21F72943800C83C82 /* CreateCommentCommandTests.swift */,
 			);
 			path = CommentCommands;
 			sourceTree = "<group>";
@@ -2077,11 +2077,11 @@
 		880AFD561F70034700378710 /* TopicOperations */ = {
 			isa = PBXGroup;
 			children = (
+				88ABC7AE1F72A1C900C83C82 /* CreateTopicOperationTests.swift */,
 				880AFD571F70035F00378710 /* LikeTopicOperationTests.swift */,
 				880AFD5B1F7004AD00378710 /* PinTopicOperationTests.swift */,
 				880AFD591F70042E00378710 /* UnlikeTopicOperationTests.swift */,
 				880AFD5D1F70057100378710 /* UnpinTopicOperationTests.swift */,
-				88ABC7AE1F72A1C900C83C82 /* CreateTopicOperationTests.swift */,
 			);
 			path = TopicOperations;
 			sourceTree = "<group>";
@@ -2089,9 +2089,9 @@
 		880AFD5F1F70059B00378710 /* ReplyOperations */ = {
 			isa = PBXGroup;
 			children = (
+				88ABC7A81F729C3B00C83C82 /* CreateReplyOperationTests.swift */,
 				880AFD601F7005A900378710 /* LikeReplyOperationTests.swift */,
 				880AFD621F70064C00378710 /* UnlikeReplyOperationTests.swift */,
-				88ABC7A81F729C3B00C83C82 /* CreateReplyOperationTests.swift */,
 			);
 			path = ReplyOperations;
 			sourceTree = "<group>";
@@ -2234,18 +2234,18 @@
 		8811C88A1F4334F800F7513D /* Cache */ = {
 			isa = PBXGroup;
 			children = (
-				883BFFCA1F710A3200E1C4E3 /* Operations */,
 				88EBD22B1F6C133E00F9DDFC /* Commands */,
+				883BFFCA1F710A3200E1C4E3 /* Operations */,
 				88D1230F1F73AE13001523D1 /* Uploader */,
 				8811C88B1F4334F800F7513D /* Cache.swift */,
-				88B94EFE1F66BF22002392F9 /* OutgoingCommandOperationsBuilder.swift */,
-				884C9C3D1F4D83020004907F /* PredicateBuilder.swift */,
 				8834A74C1F5011B600F1D383 /* CacheQueries.swift */,
 				8834A74E1F5011CB00F1D383 /* CacheSortDescriptors.swift */,
 				8811C88E1F4334F800F7513D /* CacheType.swift */,
 				8811C88C1F4334F800F7513D /* Cacheable.swift */,
 				8811C88D1F4334F800F7513D /* CacheableModels.swift */,
 				8811C8901F4334F800F7513D /* JSONDecoder.swift */,
+				88B94EFE1F66BF22002392F9 /* OutgoingCommandOperationsBuilder.swift */,
+				884C9C3D1F4D83020004907F /* PredicateBuilder.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -2447,27 +2447,29 @@
 		883BFFCA1F710A3200E1C4E3 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				885E04071F6FC17200D6EBD8 /* CommentCommandsOperations */,
 				88EBD22A1F6C132300F9DDFC /* FetchOperations */,
 				88ABC7931F72716B00C83C82 /* ImageOperations */,
-				88B94F001F66CA5A002392F9 /* UserCommandsOperations */,
-				88EBD2291F6C12FD00F9DDFC /* TopicCommandsOperations */,
-				885E04071F6FC17200D6EBD8 /* CommentCommandsOperations */,
 				885E03F91F6C2B6800D6EBD8 /* ReplyCommandsOperations */,
+				88EBD2291F6C12FD00F9DDFC /* TopicCommandsOperations */,
+				88B94F001F66CA5A002392F9 /* UserCommandsOperations */,
 				88ABC7BE1F72B32400C83C82 /* OutgoingCommandOperation.swift */,
 				88D123121F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift */,
 			);
 			name = Operations;
+			path = Operations;
 			sourceTree = "<group>";
 		};
 		883BFFCD1F7111F200E1C4E3 /* ImageCommands */ = {
 			isa = PBXGroup;
 			children = (
-				883BFFCB1F710A5D00E1C4E3 /* ImageCommand.swift */,
-				883BFFCE1F71124000E1C4E3 /* CreateTopicImageCommand.swift */,
 				883BFFD01F71127900E1C4E3 /* CreateCommentImageCommand.swift */,
+				883BFFCE1F71124000E1C4E3 /* CreateTopicImageCommand.swift */,
+				883BFFCB1F710A5D00E1C4E3 /* ImageCommand.swift */,
 				88ABC79C1F7272FA00C83C82 /* UpdateUserImageCommand.swift */,
 			);
 			name = ImageCommands;
+			path = ImageCommands;
 			sourceTree = "<group>";
 		};
 		883E1E361F546507004B4861 /* BlockedUsers */ = {
@@ -2793,15 +2795,15 @@
 				88580AAB1F2213AB00C1CBAF /* Dictionary+Ext.swift */,
 				889510821F3B1FCA001A53F5 /* ErrorResponse+Ext.swift */,
 				88B94EF11F66A9F3002392F9 /* NSLock+Ext.swift */,
+				88ABC7911F726FE800C83C82 /* PostCommentRequest+Ext.swift */,
+				883BFFDD1F713EB100E1C4E3 /* PostCommentResponse+Ext.swift */,
+				883BFFE31F7168C700E1C4E3 /* PostReplyResponse+Ext.swift */,
+				883BFFDF1F715D4C00E1C4E3 /* PostTopicRequest+Ext.swift */,
 				88F551B31F38A03200F4AAB9 /* SegmentedControlView+Ext.swift */,
 				88580AAC1F2213AB00C1CBAF /* String+Encoding.swift */,
 				88580AAD1F2213AB00C1CBAF /* String+Memento.swift */,
 				88580AAE1F2213AB00C1CBAF /* UIBarButtonItem+Ext.swift */,
 				88580AAF1F2213AB00C1CBAF /* UIButton+Ext.swift */,
-				883BFFE31F7168C700E1C4E3 /* PostReplyResponse+Ext.swift */,
-				883BFFDD1F713EB100E1C4E3 /* PostCommentResponse+Ext.swift */,
-				88ABC7911F726FE800C83C82 /* PostCommentRequest+Ext.swift */,
-				883BFFDF1F715D4C00E1C4E3 /* PostTopicRequest+Ext.swift */,
 				88F551AB1F38717A00F4AAB9 /* UICollectionView+Ext.swift */,
 				88580AB01F2213AB00C1CBAF /* UIColor+Hex.swift */,
 				8811C8281F3C83E300F7513D /* UIImage+Compress.swift */,
@@ -2855,6 +2857,7 @@
 			children = (
 				88580B071F2213AB00C1CBAF /* MementoMapping */,
 				88580B051F2213AB00C1CBAF /* AuthProvider.swift */,
+				883BFFD71F7118D100E1C4E3 /* Comment.swift */,
 				88580B061F2213AB00C1CBAF /* CredentialsList.swift */,
 				881060FA1F28F3E4008CA2FB /* FollowStatus.swift */,
 				88580B0B1F2213AB00C1CBAF /* Photo.swift */,
@@ -2864,7 +2867,6 @@
 				88580B0D1F2213AB00C1CBAF /* SocialUser.swift */,
 				88580B0E1F2213AB00C1CBAF /* User.swift */,
 				881060FC1F28F4B2008CA2FB /* Visibility.swift */,
-				883BFFD71F7118D100E1C4E3 /* Comment.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -3295,10 +3297,10 @@
 		885E03F21F6C2A0D00D6EBD8 /* ReplyCommands */ = {
 			isa = PBXGroup;
 			children = (
+				883BFFE11F71681A00E1C4E3 /* CreateReplyCommand.swift */,
 				885E03F51F6C2A6700D6EBD8 /* LikeReplyCommand.swift */,
 				885E03F31F6C2A1D00D6EBD8 /* ReplyCommand.swift */,
 				885E03F71F6C2A7C00D6EBD8 /* UnlikeReplyCommand.swift */,
-				883BFFE11F71681A00E1C4E3 /* CreateReplyCommand.swift */,
 			);
 			path = ReplyCommands;
 			sourceTree = "<group>";
@@ -3306,22 +3308,22 @@
 		885E03F91F6C2B6800D6EBD8 /* ReplyCommandsOperations */ = {
 			isa = PBXGroup;
 			children = (
+				88ABC78D1F726D6300C83C82 /* CreateReplyOperation.swift */,
 				885E03FC1F6C2B9F00D6EBD8 /* LikeReplyOperation.swift */,
 				885E03FA1F6C2B8000D6EBD8 /* ReplyCommandOperation.swift */,
 				885E03FE1F6C2BA900D6EBD8 /* UnlikeReplyOperation.swift */,
-				88ABC78D1F726D6300C83C82 /* CreateReplyOperation.swift */,
 			);
 			name = ReplyCommandsOperations;
-			path = Commands/ReplyCommandsOperations;
+			path = ReplyCommandsOperations;
 			sourceTree = "<group>";
 		};
 		885E04001F6FBFA700D6EBD8 /* CommentCommands */ = {
 			isa = PBXGroup;
 			children = (
 				885E04011F6FBFB600D6EBD8 /* CommentCommand.swift */,
+				883BFFD91F71289200E1C4E3 /* CreateCommentCommand.swift */,
 				885E04031F6FBFFD00D6EBD8 /* LikeCommentCommand.swift */,
 				885E04051F6FC00800D6EBD8 /* UnlikeCommentCommand.swift */,
-				883BFFD91F71289200E1C4E3 /* CreateCommentCommand.swift */,
 			);
 			path = CommentCommands;
 			sourceTree = "<group>";
@@ -3330,12 +3332,12 @@
 			isa = PBXGroup;
 			children = (
 				885E04081F6FC18B00D6EBD8 /* CommentCommandOperation.swift */,
+				88ABC78F1F726F4300C83C82 /* CreateCommentOperation.swift */,
 				885E040A1F6FC1A200D6EBD8 /* LikeCommentOperation.swift */,
 				885E040C1F6FC1BF00D6EBD8 /* UnlikeCommentOperation.swift */,
-				88ABC78F1F726F4300C83C82 /* CreateCommentOperation.swift */,
 			);
 			name = CommentCommandsOperations;
-			path = Commands/CommentCommandsOperations;
+			path = CommentCommandsOperations;
 			sourceTree = "<group>";
 		};
 		88635D721F222FEB00577140 /* Entities */ = {
@@ -3564,14 +3566,14 @@
 			children = (
 				880AFD481F6FE92000378710 /* CommentCommands */,
 				88958F421F70087E00ADE411 /* CommentOperations */,
+				88ABC7B01F72A2D700C83C82 /* ImageCommands */,
+				88ABC7B71F72A45000C83C82 /* ImageOperations */,
 				880AFD431F6FE71900378710 /* ReplyCommands */,
 				880AFD5F1F70059B00378710 /* ReplyOperations */,
 				880AFD3C1F6FE58900378710 /* TopicCommands */,
 				880AFD561F70034700378710 /* TopicOperations */,
 				880AFD3B1F6FE57E00378710 /* UserCommands */,
 				880AFD4D1F6FEDF000378710 /* UserOperations */,
-				88ABC7B01F72A2D700C83C82 /* ImageCommands */,
-				88ABC7B71F72A45000C83C82 /* ImageOperations */,
 				886826121F6AA04900F54731 /* OutgoingCommandOperationsBuilderTests.swift */,
 				886826101F6A948700F54731 /* OutgoingCommandTests.swift */,
 				886826141F6AA16700F54731 /* OutgoingCommandsUploaderTests.swift */,
@@ -3643,9 +3645,9 @@
 		88958F421F70087E00ADE411 /* CommentOperations */ = {
 			isa = PBXGroup;
 			children = (
+				88ABC7A41F72946D00C83C82 /* CreateCommentOperationTests.swift */,
 				88958F431F70088A00ADE411 /* LikeCommentOperationTests.swift */,
 				88958F451F70091F00ADE411 /* UnlikeCommentOperationTests.swift */,
-				88ABC7A41F72946D00C83C82 /* CreateCommentOperationTests.swift */,
 			);
 			path = CommentOperations;
 			sourceTree = "<group>";
@@ -3758,24 +3760,24 @@
 			children = (
 				9C3024381F55A5F600675FE9 /* FeedModule */,
 				889AFC141F220BCD003AAF19 /* MockAuthAPI.swift */,
-				88ABC7AA1F729CD700C83C82 /* MockRepliesService.swift */,
 				889AFC151F220BCD003AAF19 /* MockAuthAPIProvider.swift */,
-				88D123141F740028001523D1 /* MockOutgoingCommandsUploadStrategy.swift */,
 				88F7A7881F27896B005FEC5F /* MockAuthService.swift */,
 				8886AA561F6A85B800734F3C /* MockAuthorizationMulticast.swift */,
 				8811C8391F41F30B00F7513D /* MockCache.swift */,
+				93AC65AD1F3E05DA00FE5A3A /* MockCommentService.swift */,
 				8881E4E61F697D7200AA6DF2 /* MockDaemon.swift */,
 				8811C82A1F3D998300F7513D /* MockImageCache.swift */,
 				884C9C391F4C7DA50004907F /* MockImagesService.swift */,
 				886826161F6AA28200F54731 /* MockJSONDecoder.swift */,
 				88F163821F273CEB00DAAF68 /* MockKeyValueRepository.swift */,
-				93AC65AD1F3E05DA00FE5A3A /* MockCommentService.swift */,
 				881F7E611F263888003EB37A /* MockKeyValueStorage.swift */,
 				88E3AC201F5565200016357F /* MockLikesService.swift */,
 				8811C8241F3C72CD00F7513D /* MockLogoutController.swift */,
 				8881E4E81F69819100AA6DF2 /* MockNetworkTracker.swift */,
 				886826181F6AADDD00F54731 /* MockOutgoingCommandOperationsBuilder.swift */,
+				88D123141F740028001523D1 /* MockOutgoingCommandsUploadStrategy.swift */,
 				88F163881F27569900DAAF68 /* MockQueriableRepository.swift */,
+				88ABC7AA1F729CD700C83C82 /* MockRepliesService.swift */,
 				88D2F8E31F56B3880004A8BC /* MockReportingService.swift */,
 				889119C01F4AFA8E005B3B32 /* MockSearchResultsUpdating.swift */,
 				889119AD1F4AE10C005B3B32 /* MockSearchService.swift */,
@@ -3811,32 +3813,35 @@
 		88ABC7931F72716B00C83C82 /* ImageOperations */ = {
 			isa = PBXGroup;
 			children = (
-				88ABC7941F72717F00C83C82 /* ImageCommandOperation.swift */,
-				88ABC7961F7271C000C83C82 /* CreateTopicImageOperation.swift */,
 				88ABC7981F72727A00C83C82 /* CreateCommentImageOperation.swift */,
+				88ABC7961F7271C000C83C82 /* CreateTopicImageOperation.swift */,
+				88ABC7941F72717F00C83C82 /* ImageCommandOperation.swift */,
 				88ABC79E1F72730D00C83C82 /* UpdateUserImageOperation.swift */,
 			);
 			name = ImageOperations;
+			path = ImageOperations;
 			sourceTree = "<group>";
 		};
 		88ABC7B01F72A2D700C83C82 /* ImageCommands */ = {
 			isa = PBXGroup;
 			children = (
-				88ABC7B11F72A2FE00C83C82 /* CreateTopicImageCommandTests.swift */,
 				88ABC7B31F72A37C00C83C82 /* CreateCommentImageCommandTests.swift */,
+				88ABC7B11F72A2FE00C83C82 /* CreateTopicImageCommandTests.swift */,
 				88ABC7B51F72A43600C83C82 /* UpdateUserImageCommandTests.swift */,
 			);
 			name = ImageCommands;
+			path = ImageCommands;
 			sourceTree = "<group>";
 		};
 		88ABC7B71F72A45000C83C82 /* ImageOperations */ = {
 			isa = PBXGroup;
 			children = (
-				88ABC7B81F72A46100C83C82 /* CreateTopicImageOperationTests.swift */,
 				88ABC7BA1F72A51F00C83C82 /* CreateCommentImageOperationTests.swift */,
+				88ABC7B81F72A46100C83C82 /* CreateTopicImageOperationTests.swift */,
 				88ABC7BC1F72A55200C83C82 /* UpdateUserImageOperationTests.swift */,
 			);
 			name = ImageOperations;
+			path = ImageOperations;
 			sourceTree = "<group>";
 		};
 		88B94EB01F62A832002392F9 /* SearchTopics */ = {
@@ -3919,7 +3924,7 @@
 				88B94EED1F66A85F002392F9 /* UserCommandOperation.swift */,
 			);
 			name = UserCommandsOperations;
-			path = Commands/UserCommandsOperations;
+			path = UserCommandsOperations;
 			sourceTree = "<group>";
 		};
 		88BC5C3E1F2B65D0001FBDD2 /* UserProfile */ = {
@@ -4011,10 +4016,11 @@
 		88D1230F1F73AE13001523D1 /* Uploader */ = {
 			isa = PBXGroup;
 			children = (
-				88B94EF71F66B25C002392F9 /* OutgoingCommandsUploader.swift */,
 				88D1230B1F73AA9F001523D1 /* OutgoingCommandsUploadStrategy.swift */,
+				88B94EF71F66B25C002392F9 /* OutgoingCommandsUploader.swift */,
 			);
 			name = Uploader;
+			path = Uploader;
 			sourceTree = "<group>";
 		};
 		88D2F8DC1F56A61D0004A8BC /* Router */ = {
@@ -4246,12 +4252,12 @@
 		88EBD21C1F6BFDC600F9DDFC /* TopicCommands */ = {
 			isa = PBXGroup;
 			children = (
+				883BFFDB1F713AC600E1C4E3 /* CreateTopicCommand.swift */,
 				88EBD21F1F6C004600F9DDFC /* LikeTopicCommand.swift */,
 				88EBD2211F6C005200F9DDFC /* PinTopicCommand.swift */,
 				88EBD21A1F6BFDC100F9DDFC /* TopicCommand.swift */,
 				88EBD21D1F6C003A00F9DDFC /* UnlikeTopicCommand.swift */,
 				88EBD2231F6C005900F9DDFC /* UnpinTopicCommand.swift */,
-				883BFFDB1F713AC600E1C4E3 /* CreateTopicCommand.swift */,
 			);
 			path = TopicCommands;
 			sourceTree = "<group>";
@@ -4259,35 +4265,35 @@
 		88EBD2291F6C12FD00F9DDFC /* TopicCommandsOperations */ = {
 			isa = PBXGroup;
 			children = (
+				88ABC7A01F72753A00C83C82 /* CreateTopicOperation.swift */,
 				88EBD2321F6C13FD00F9DDFC /* LikeTopicOperation.swift */,
 				88EBD22E1F6C138200F9DDFC /* PinTopicOperation.swift */,
 				88EBD22C1F6C135B00F9DDFC /* TopicCommandOperation.swift */,
 				88EBD2341F6C144F00F9DDFC /* UnlikeTopicOperation.swift */,
 				88EBD2301F6C13E900F9DDFC /* UnpinTopicOperation.swift */,
-				88ABC7A01F72753A00C83C82 /* CreateTopicOperation.swift */,
 			);
 			name = TopicCommandsOperations;
-			path = Commands/TopicCommandsOperations;
+			path = TopicCommandsOperations;
 			sourceTree = "<group>";
 		};
 		88EBD22A1F6C132300F9DDFC /* FetchOperations */ = {
 			isa = PBXGroup;
 			children = (
-				88B94F011F66CA6D002392F9 /* FetchUserCommandsOperation.swift */,
 				88D1230D1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift */,
+				88B94F011F66CA6D002392F9 /* FetchUserCommandsOperation.swift */,
 			);
 			name = FetchOperations;
-			path = Commands/FetchOperations;
+			path = FetchOperations;
 			sourceTree = "<group>";
 		};
 		88EBD22B1F6C133E00F9DDFC /* Commands */ = {
 			isa = PBXGroup;
 			children = (
 				885E04001F6FBFA700D6EBD8 /* CommentCommands */,
+				883BFFCD1F7111F200E1C4E3 /* ImageCommands */,
 				885E03F21F6C2A0D00D6EBD8 /* ReplyCommands */,
 				88EBD21C1F6BFDC600F9DDFC /* TopicCommands */,
 				881355A21F6837C1009299D4 /* UserCommands */,
-				883BFFCD1F7111F200E1C4E3 /* ImageCommands */,
 				88EBD2251F6C02C900F9DDFC /* OutgoingCommand.swift */,
 			);
 			path = Commands;
