@@ -27,7 +27,7 @@ protocol ActivityViewOutput: class {
 class ActivityViewController: UIViewController {
     
     struct Style {
-        static let cellSize = CGFloat(120)
+        static let cellSize = CGFloat(80)
     }
     
     var output: ActivityViewOutput!
@@ -91,6 +91,10 @@ extension ActivityViewController: ActivityViewInput {
 
 extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return Style.cellSize
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return output.headerForSection(section)
     }
@@ -125,7 +129,7 @@ extension ActivityViewController: UIScrollViewDelegate {
     func isReachingEndOfContent(scrollView: UIScrollView) -> Bool {
         let contentLeft = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height
         let cellsLeft = contentLeft / Style.cellSize
-        return cellsLeft < CGFloat(Constants.ActivityList.pageSize) / 2.0
+        return cellsLeft < 5
     }
     
 }

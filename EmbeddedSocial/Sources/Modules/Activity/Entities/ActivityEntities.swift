@@ -49,37 +49,45 @@ enum ActivityItem {
 
 // MARK: Models
 
+enum ActivityType: String {
+    case like = "Like"
+    case comment = "Comment"
+    case reply = "Reply"
+    case commentPeer = "CommentPeer"
+    case replyPeer = "ReplyPeer"
+    case following = "Following"
+    case followRequest = "FollowRequest"
+    case followAccept = "FollowAccept"
+}
+
+enum ActivityContentType: String {
+    case topic = "Topic"
+    case comment = "Comment"
+    case reply = "Reply"
+}
+
 struct ActionItem {
-    
-    enum ActivityType: String {
-        case like = "Like"
-        case comment = "Comment"
-        case reply = "Reply"
-        case commentPeer = "CommentPeer"
-        case replyPeer = "ReplyPeer"
-        case following = "Following"
-        case followRequest = "FollowRequest"
-        case followAccept = "FollowAccept"
-    }
-    
     var postDate: Date
     var profileImageURL: String?
     var contentImageURL: String?
     var unread: Bool
-    var type: ActivityType
+    var activityType: ActivityType
     var actorNameList: [(firstName: String, lastName: String)] = []
     var actedOnName: String
+    var actedOnContentType: ActivityContentType?
 }
 
 extension ActionItem {
     static func mock(seed: Int) -> ActionItem {
-        let model = ActionItem(postDate: Date(),
-                               profileImageURL: "image \(seed)",
+        let model = ActionItem(
+            postDate: Date(),
+            profileImageURL: "image \(seed)",
             contentImageURL: "content \(seed)",
             unread: seed % 2 == 0,
-            type: .like,
+            activityType: .like,
             actorNameList: [ ("Alice \(seed)", "Bob \(seed)") ],
-            actedOnName: "User \(seed)")
+            actedOnName: "User \(seed)",
+            actedOnContentType: .topic)
         
         return model
     }
@@ -88,12 +96,16 @@ extension ActionItem {
 
 struct PendingRequestItem {
     var userName: String
+    var lastName: String
     var userHandle: String
 }
 
 extension PendingRequestItem {
     static func mock(seed: Int) -> PendingRequestItem {
-        return PendingRequestItem(userName: "username \(seed)", userHandle: "handle \(seed)")
+        return PendingRequestItem(
+            userName: "username \(seed)",
+            lastName: "lastname \(seed)",
+            userHandle: "handle \(seed)")
     }
 }
 
@@ -105,6 +117,12 @@ enum Change<T> {
     case Update(items: [T])
 }
 
+class ActionTextBuilder {
+    
+   
+    
+}
+
 class ActivityViewModelBuilder {
     
     let cellTypes = [
@@ -112,9 +130,9 @@ class ActivityViewModelBuilder {
         ActivityCell.reuseID: ActivityCell.self
         ]
     
-    private var dateFormatter: DateFormatter = {
+    private var dateFormatter: DateComponentsFormatter = {
         
-        let formatter = DateFormatter()
+        let formatter = DateFormatterTool().shortStyle
         return formatter
         
     }()
@@ -124,7 +142,7 @@ class ActivityViewModelBuilder {
         let cellID = FollowRequestCell.reuseID
         let cellClass = FollowRequestCell.self
         let profileImage = Asset.placeholderPostUser1.image
-        let profileName = model.userName
+        let profileName = model.userName + " " + model.lastName
         
         return PendingRequestViewModel(cellID: cellID,
                                        cellClass: cellClass,
@@ -140,13 +158,17 @@ class ActivityViewModelBuilder {
         let postImage = Asset.placeholderPostImage2.image
         var postText = ""
         
+        // put names
         for (index, person) in model.actorNameList.enumerated() {
             let delimeter = (index < (model.actorNameList.count - 1)) ? "," : ""
-            postText += "\(person.firstName) + \(person.lastName)" + delimeter
+            postText += "\(person.firstName) \(person.lastName)" + delimeter
         }
         
+        // put actions
+        postText += model.activityType.rawValue
+        
         let postDate = model.postDate
-        let timeAgoText = dateFormatter.string(from: postDate)
+        let timeAgoText = dateFormatter.string(from: postDate, to: Date()) ?? ""
         
         
         return ActivityViewModel(cellID: cellID,

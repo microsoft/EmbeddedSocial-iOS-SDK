@@ -18,8 +18,8 @@ protocol ActivityInteractorInput: class {
 }
 
 protocol ActivityService: class {
-    func loadFollowingActivities(cursor: String?, limit: Int, completion: (Result<FeedResponseActivityView>) -> Void)
-    func loadPendingsRequests(cursor: String?, limit: Int, completion: (Result<FeedResponseUserCompactView>) -> Void)
+    func loadFollowingActivities(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseActivityView>) -> Void)
+    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseUserCompactView>) -> Void)
 }
 
 class ActivityServiceMock: ActivityService {
@@ -28,6 +28,12 @@ class ActivityServiceMock: ActivityService {
     
     var followingActivitiesResponse: Result<FeedResponseActivityView>! = .success(FeedResponseActivityView().mockResponse())
     var pendingRequestsResponse: Result<FeedResponseUserCompactView>! = .success(FeedResponseUserCompactView().mockResponse())
+    
+    var pendingRequestsResponsesLeft = 5
+    var followingActivitiesResponsesLeft = 1
+    
+    let emptyPendingRequestsResponse: Result<FeedResponseUserCompactView> = .success(FeedResponseUserCompactView())
+    let emptyFollowingActivitiesResponse: Result<FeedResponseActivityView> = .success(FeedResponseActivityView())
     
     func builder<T>(cursor: String?, limit: Int) -> RequestBuilder<T>? {
         
@@ -43,12 +49,34 @@ class ActivityServiceMock: ActivityService {
         }
     }
     
-    func loadFollowingActivities(cursor: String?, limit: Int, completion: (Result<FeedResponseActivityView>) -> Void) {
-        completion(followingActivitiesResponse)
+    func loadFollowingActivities(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseActivityView>) -> Void) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            guard strongSelf.followingActivitiesResponsesLeft > 0 else {
+                completion(strongSelf.emptyFollowingActivitiesResponse)
+                return
+            }
+            
+            strongSelf.followingActivitiesResponsesLeft -= 1
+            completion(strongSelf.followingActivitiesResponse)
+        }
     }
     
-    func loadPendingsRequests(cursor: String?, limit: Int, completion: (Result<FeedResponseUserCompactView>) -> Void) {
-        completion(pendingRequestsResponse)
+    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseUserCompactView>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            guard strongSelf.pendingRequestsResponsesLeft > 0 else {
+                completion(strongSelf.emptyPendingRequestsResponse)
+                return
+            }
+            
+            strongSelf.pendingRequestsResponsesLeft -= 1
+            
+            completion(strongSelf.pendingRequestsResponse)
+        }
     }
     
     func test<T: Any>(cursor: String?, limit: Int, completion: (Result<T>) -> Void) {
@@ -199,7 +227,7 @@ extension ActivityInteractor: ActivityInteractorInput {
             limit: followersList.limit) { [weak self] (result: Result<FeedResponseActivityView>) in
                 
                 defer {
-                    loadingPages.remove(pageID)
+                    self?.loadingPages.remove(pageID)
                 }
                 
                 // exit on released or canceled
@@ -237,7 +265,7 @@ extension ActivityInteractor: ActivityInteractorInput {
             limit: followersList.limit) { [weak self] (result: Result<FeedResponseUserCompactView>) in
                 
                 defer {
-                    loadingPages.remove(pageID)
+                    self?.loadingPages.remove(pageID)
                 }
                 
                 // exit on released or canceled

@@ -17,8 +17,9 @@ extension ActionItem {
             let postDate = model.createdTime
             else { return nil }
         
-        self.type = type
+        self.activityType = type
         
+        // grab users
         for user in actorUsers {
             if let firstName = user.firstName, let lastName = user.lastName {
                 self.actorNameList.append((firstName, lastName))
@@ -27,6 +28,7 @@ extension ActionItem {
         
         self.unread = model.unread ?? true
         self.actedOnName = actedOnUserName
+        self.actedOnContentType = ActivityContentType(rawValue: model.actedOnContent?.contentType?.rawValue)
         
         self.postDate = postDate
         self.profileImageURL = model.actorUsers?.first?.photoUrl
@@ -39,12 +41,16 @@ extension PendingRequestItem {
     
     init?(with model: UserCompactView) {
         
-        guard let firstName = model.firstName, let userHandle = model.userHandle else {
+        guard let firstName = model.firstName,
+            let userHandle = model.userHandle,
+            let lastName = model.lastName
+            else {
             return nil
         }
         
         self.userName = firstName
         self.userHandle = userHandle
+        self.lastName = lastName
     }
     
 }
