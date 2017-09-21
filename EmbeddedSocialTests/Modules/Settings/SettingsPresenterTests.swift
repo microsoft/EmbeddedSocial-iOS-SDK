@@ -40,6 +40,11 @@ class SettingsPresenterTests: XCTestCase {
         XCTAssertEqual(router.openBlockedListCount, 1)
     }
     
+    func testThatLogInOpened() {
+        sut.signOut()
+        XCTAssertEqual(router.logOutCount, 1)
+    }
+    
     func testThatItSetsInitialStateForPrivateUser() {
         testThatItSetsInitialState(visibility: ._private, switchIsOn: false)
     }

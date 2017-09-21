@@ -7,4 +7,6 @@ import Foundation
 
 protocol SettingsInteractorInput: class {
     func switchVisibility(_ visibility: Visibility, completion: @escaping (Result<Visibility>) -> Void)
+    
+    func signOut(success: @escaping (Void) -> Void, fauilure: @escaping (Error) -> Void)
 }
