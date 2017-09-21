@@ -109,7 +109,7 @@ class ActivityViewModelBuilder {
     
     let cellTypes = [
         FollowRequestCell.reuseID : FollowRequestCell.self,
-        ActivityBaseCell.reuseID: ActivityBaseCell.self
+        ActivityCell.reuseID: ActivityCell.self
         ]
     
     private var dateFormatter: DateFormatter = {
@@ -134,8 +134,8 @@ class ActivityViewModelBuilder {
     
     private func build(with model: ActionItem) -> ActivityItemViewModel {
         
-        let cellID = ActivityBaseCell.reuseID
-        let cellClass = ActivityBaseCell.self
+        let cellID = ActivityCell.reuseID
+        let cellClass = ActivityCell.self
         let profileImage = Asset.userPhotoPlaceholder.image
         let postImage = Asset.placeholderPostImage2.image
         var postText = ""
