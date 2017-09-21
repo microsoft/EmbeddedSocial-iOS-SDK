@@ -24,6 +24,7 @@ class ActivityModuleConfigurator {
 
         let interactor = ActivityInteractor()
         interactor.output = presenter
+        interactor.service = ActivityServiceMock()
 
         presenter.interactor = interactor
         viewController.output = presenter

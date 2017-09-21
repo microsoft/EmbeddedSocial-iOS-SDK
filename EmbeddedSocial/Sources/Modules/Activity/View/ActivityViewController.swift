@@ -17,12 +17,20 @@ protocol ActivityViewOutput: class {
     func numberOfItems(in section: Int) -> Int
     func viewIsReady()
     func cellIdentifier(for indexPath: IndexPath) -> String
+    func headerForSection(_ section: Int) -> String
     func configure(_ cell: UITableViewCell, for indexPath: IndexPath)
+    
+    func loadAll()
+    func loadMore()
 }
 
 class ActivityViewController: UIViewController {
     
-    weak var output: ActivityViewOutput!
+    struct Style {
+        static let cellSize = CGFloat(120)
+    }
+    
+    var output: ActivityViewOutput!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -41,7 +49,22 @@ class ActivityViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
+        tableView.delegate = self
+        
+        tableView.addSubview(self.refreshControl)
     }
+    
+    fileprivate lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(didPullRefresh), for: .valueChanged)
+        refreshControl.tintColor = Palette.lightGrey
+        return refreshControl
+    }()
+    
+    @objc private func didPullRefresh() {
+        output.loadAll()
+    }
+    
 }
 
 extension ActivityViewController: ActivityViewInput {
@@ -55,16 +78,22 @@ extension ActivityViewController: ActivityViewInput {
     }
     
     func registerCell(cell: UITableViewCell.Type, id: String) {
-        
+        tableView.register(cell, forCellReuseIdentifier: id)
     }
     
     func addNewItems(indexes: [IndexPath]) {
-        
+        tableView.beginUpdates()
+        tableView.insertRows(at: indexes, with: .fade)
+        tableView.endUpdates()
     }
     
 }
 
 extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return output.headerForSection(section)
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return output.numberOfSections()
@@ -81,6 +110,22 @@ extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
         output.configure(cell, for: indexPath)
         
         return cell
+    }
+    
+}
+
+extension ActivityViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if isReachingEndOfContent(scrollView: scrollView) {
+            output.loadMore()
+        }
+    }
+    
+    func isReachingEndOfContent(scrollView: UIScrollView) -> Bool {
+        let contentLeft = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height
+        let cellsLeft = contentLeft / Style.cellSize
+        return cellsLeft < CGFloat(Constants.ActivityList.pageSize) / 2.0
     }
     
 }

@@ -107,7 +107,10 @@ enum Change<T> {
 
 class ActivityViewModelBuilder {
     
-    let cellTypes = ["UITableViewCell": UITableViewCell.self]
+    let cellTypes = [
+        FollowRequestCell.reuseID : FollowRequestCell.self,
+        ActivityBaseCell.reuseID: ActivityBaseCell.self
+        ]
     
     private var dateFormatter: DateFormatter = {
         
@@ -118,9 +121,9 @@ class ActivityViewModelBuilder {
     
     private func build(with model: PendingRequestItem) -> PendingRequestViewModel {
         
-        let cellID = ""
-        let cellClass = UITableViewCell.self
-        let profileImage = UIImage()
+        let cellID = FollowRequestCell.reuseID
+        let cellClass = FollowRequestCell.self
+        let profileImage = Asset.placeholderPostUser1.image
         let profileName = model.userName
         
         return PendingRequestViewModel(cellID: cellID,
@@ -131,10 +134,10 @@ class ActivityViewModelBuilder {
     
     private func build(with model: ActionItem) -> ActivityItemViewModel {
         
-        let cellID = ""
-        let cellClass = UITableViewCell.self
-        let profileImage = UIImage()
-        let postImage = UIImage()
+        let cellID = ActivityBaseCell.reuseID
+        let cellClass = ActivityBaseCell.self
+        let profileImage = Asset.userPhotoPlaceholder.image
+        let postImage = Asset.placeholderPostImage2.image
         var postText = ""
         
         for (index, person) in model.actorNameList.enumerated() {
@@ -160,43 +163,12 @@ class ActivityViewModelBuilder {
         case let .pendingRequest(model):
             return build(with: model)
             
-        case let .following(model):
+        case let .follower(model):
             return build(with: model)
             
         default:
             fatalError()
         }
-    }
-    
-}
-
-class SectionsConfigurator {
-    
-    func build(section: ActivityPresenter.State) -> [Section] {
-        
-        switch section {
-        case .my:
-            return my
-        case .others:
-            return others
-        }
-        
-    }
-    
-    private var my: [Section] {
-        let sectionHeader = SectionHeader(name: "Section 1", identifier: "")
-        let model = PendingRequestItem(userName: "User", userHandle: "User handle")
-        let item = ActivityItem.pendingRequest(model)
-        let section = Section(model: sectionHeader, items: [item])
-        return [section]
-    }
-    
-    private var others: [Section] {
-        let sectionHeader = SectionHeader(name: "Section 2", identifier: "")
-        let model = ActionItem.mock(seed: 0)
-        let item = ActivityItem.follower(model)
-        let section = Section(model: sectionHeader, items: [item])
-        return [section]
     }
     
 }
@@ -262,6 +234,102 @@ enum ActivityError: Int, Error {
     case noData
     case mapperNotFound
     case loaderNotFound
+}
+
+protocol DataSourceProtocol {
+    func loadMore()
+    var section: Section { get }
+    var delegate: DataSourceDelegate? { get }
+    var index: Int { get }
+}
+
+protocol DataSourceDelegate {
+    func didFail(error: Error)
+    func didLoad(indexPaths: [IndexPath])
+}
+
+class DataSource: DataSourceProtocol {
+    weak var interactor: ActivityInteractorInput!
+    var section: Section
+    var delegate: DataSourceDelegate?
+    var index: Int
+    
+    func loadMore() { }
+    
+    init(interactor: ActivityInteractorInput,
+         section: Section,
+         delegate: DataSourceDelegate? = nil,
+         index: Int) {
+        
+        self.interactor = interactor
+        self.section = section
+        self.delegate = delegate
+        self.index = index
+    }
+    
+    func insertedIndexes(newItemsCount: Int) -> [IndexPath] {
+        // make paths for inserted items
+        let range = (section.items.count - newItemsCount)..<section.items.count
+        let indexPaths = range.map { IndexPath(row: $0, section: index) }
+        return indexPaths
+    }
+    
+}
+
+
+class MyPendingRequests: DataSource {
+    
+    override func loadMore() {
+        
+        // load pendings
+        interactor.loadNextPagePendigRequestItems { [weak self] (result) in
+            
+            guard let strongSelf = self else { return }
+            
+            switch result {
+            case let .failure(error):
+                strongSelf.delegate?.didFail(error: error)
+            case let .success(models):
+                let items = models.map { ActivityItem.pendingRequest($0) }
+                strongSelf.section.items.append(contentsOf: items)
+                
+                // make paths for inserted items
+                let indexPaths = strongSelf.insertedIndexes(newItemsCount: items.count)
+                strongSelf.delegate?.didLoad(indexPaths: indexPaths)
+            }
+        }
+    }
+    
+}
+
+class MyFollowingsActivity: DataSource {
+    
+    override func loadMore() {
+        // load activity
+        interactor.loadNextPageFollowingActivities {  [weak self] (result) in
+            
+            guard let strongSelf = self else { return }
+            
+            switch result {
+            case let .failure(error):
+                strongSelf.delegate?.didFail(error: error)
+            case let .success(models):
+                let items = models.map { ActivityItem.follower($0) }
+                strongSelf.section.items.append(contentsOf: items)
+                
+                // make paths for inserted items
+                let indexPaths = strongSelf.insertedIndexes(newItemsCount: items.count)
+                strongSelf.delegate?.didLoad(indexPaths: indexPaths)
+            }
+        }
+    }
+}
+
+class MyFollowersActivity: DataSource {
+    
+    override func loadMore() {
+        
+    }
 }
 
 

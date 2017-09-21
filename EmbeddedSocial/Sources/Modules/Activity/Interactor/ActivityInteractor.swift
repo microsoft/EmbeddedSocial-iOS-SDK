@@ -9,7 +9,7 @@ protocol ActivityInteractorOutput: class {
     
 }
 
-protocol ActivityInteractorInput {
+protocol ActivityInteractorInput: class {
     
     func loadAll()
     func loadNextPageFollowingActivities(completion: ((Result<[ActionItem]>) -> Void)?)
@@ -26,8 +26,8 @@ class ActivityServiceMock: ActivityService {
     
     let authorization = "String"
     
-    var followingActivitiesResponse: Result<FeedResponseActivityView>!
-    var pendingRequestsResponse: Result<FeedResponseUserCompactView>!
+    var followingActivitiesResponse: Result<FeedResponseActivityView>! = .success(FeedResponseActivityView().mockResponse())
+    var pendingRequestsResponse: Result<FeedResponseUserCompactView>! = .success(FeedResponseUserCompactView().mockResponse())
     
     func builder<T>(cursor: String?, limit: Int) -> RequestBuilder<T>? {
         
@@ -76,7 +76,7 @@ struct PageModel<T> {
 }
 
 struct PagesList<T> {
-    var limit: Int = 10
+    var limit: Int = Constants.ActivityList.pageSize
     var cursor: String?
     var pages: [PageModel<T>] = []
     

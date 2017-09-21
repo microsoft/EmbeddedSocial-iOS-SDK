@@ -1619,7 +1619,6 @@
 		9CE7D4BF1F5ECE0D008DA2BA /* MockSocialActionsCacheAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSocialActionsCacheAdapter.swift; sourceTree = "<group>"; };
 		9CEA75231F2A0E61009FC89D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		9CEA75271F2A1FA0009FC89D /* LikesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesService.swift; sourceTree = "<group>"; };
-		9CEE0EDD1F6FE3F7008B1104 /* ActivityInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInteractorTests.swift; sourceTree = "<group>"; };
 		9CEF6E031F616B23001FA000 /* ReadMoreTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreTextView.swift; sourceTree = "<group>"; };
 		A6E247E8CC062EC90DC8696A /* Pods-EmbeddedSocialTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmbeddedSocialTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmbeddedSocialTests/Pods-EmbeddedSocialTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BE7D29B032CB7147FB81C41A /* ActivityInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ActivityInteractor.swift; sourceTree = "<group>"; };
@@ -4338,7 +4337,6 @@
 		9CEE0EDC1F6FE3E1008B1104 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
-				9CEE0EDD1F6FE3F7008B1104 /* ActivityInteractorTests.swift */,
 				9CCE405C1F72827A003A51D9 /* ActivityTests.swift */,
 				F8ED92AD1F72DF3E0026AC3E /* ActivityPresenterTests.swift */,
 			);
