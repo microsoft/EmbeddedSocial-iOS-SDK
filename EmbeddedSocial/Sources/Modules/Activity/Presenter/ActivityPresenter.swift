@@ -99,6 +99,7 @@ extension ActivityPresenter: ActivityViewOutput {
         loadMore()
     }
     
+    
     func loadMore() {
         dataSources[state]?.forEach { $0.loadMore() }
     }

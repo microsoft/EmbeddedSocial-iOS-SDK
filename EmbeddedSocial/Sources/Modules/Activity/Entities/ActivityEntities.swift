@@ -42,72 +42,12 @@ struct SectionHeader {
 // MARK: Model
 
 enum ActivityItem {
-    case pendingRequest(PendingRequestItem)
-    case follower(ActionItem)
-    case following(ActionItem)
+    case pendingRequest(UserCompactView)
+    case follower(UserCompactView)
+    case following(ActivityView)
 }
 
 // MARK: Models
-
-enum ActivityType: String {
-    case like = "Like"
-    case comment = "Comment"
-    case reply = "Reply"
-    case commentPeer = "CommentPeer"
-    case replyPeer = "ReplyPeer"
-    case following = "Following"
-    case followRequest = "FollowRequest"
-    case followAccept = "FollowAccept"
-}
-
-enum ActivityContentType: String {
-    case topic = "Topic"
-    case comment = "Comment"
-    case reply = "Reply"
-}
-
-struct ActionItem {
-    var postDate: Date
-    var profileImageURL: String?
-    var contentImageURL: String?
-    var unread: Bool
-    var activityType: ActivityType
-    var actorNameList: [(firstName: String, lastName: String)] = []
-    var actedOnName: String
-    var actedOnContentType: ActivityContentType?
-}
-
-extension ActionItem {
-    static func mock(seed: Int) -> ActionItem {
-        let model = ActionItem(
-            postDate: Date(),
-            profileImageURL: "image \(seed)",
-            contentImageURL: "content \(seed)",
-            unread: seed % 2 == 0,
-            activityType: .like,
-            actorNameList: [ ("Alice \(seed)", "Bob \(seed)") ],
-            actedOnName: "User \(seed)",
-            actedOnContentType: .topic)
-        
-        return model
-    }
-}
-
-
-struct PendingRequestItem {
-    var userName: String
-    var lastName: String
-    var userHandle: String
-}
-
-extension PendingRequestItem {
-    static func mock(seed: Int) -> PendingRequestItem {
-        return PendingRequestItem(
-            userName: "username \(seed)",
-            lastName: "lastname \(seed)",
-            userHandle: "handle \(seed)")
-    }
-}
 
 // Helpers
 
@@ -119,7 +59,6 @@ enum Change<T> {
 
 class ActionTextBuilder {
     
-   
     
 }
 
@@ -137,12 +76,12 @@ class ActivityViewModelBuilder {
         
     }()
     
-    private func build(with model: PendingRequestItem) -> PendingRequestViewModel {
+    private func build(with model: PendingRequestItemType) -> PendingRequestViewModel {
         
         let cellID = FollowRequestCell.reuseID
         let cellClass = FollowRequestCell.self
         let profileImage = Asset.placeholderPostUser1.image
-        let profileName = model.userName + " " + model.lastName
+        let profileName = String(format: "%s %s", model.firstName ?? "", model.lastName ?? "")
         
         return PendingRequestViewModel(cellID: cellID,
                                        cellClass: cellClass,
@@ -150,7 +89,7 @@ class ActivityViewModelBuilder {
                                        profileName: profileName)
     }
     
-    private func build(with model: ActionItem) -> ActivityItemViewModel {
+    private func build(with model: ActivityView) -> ActivityItemViewModel {
         
         let cellID = ActivityCell.reuseID
         let cellClass = ActivityCell.self
@@ -158,18 +97,20 @@ class ActivityViewModelBuilder {
         let postImage = Asset.placeholderPostImage2.image
         var postText = ""
         
+
         // put names
-        for (index, person) in model.actorNameList.enumerated() {
-            let delimeter = (index < (model.actorNameList.count - 1)) ? "," : ""
-            postText += "\(person.firstName) \(person.lastName)" + delimeter
-        }
+//        for (index, person) in model.actorUsers
+//            let delimeter = (index < (model.actorNameList.count - 1)) ? "," : ""
+//            postText += "\(person.firstName) \(person.lastName)" + delimeter
+//        }
         
         // put actions
-        postText += model.activityType.rawValue
+//        postText += model.activityType.rawValue
         
-        let postDate = model.postDate
-        let timeAgoText = dateFormatter.string(from: postDate, to: Date()) ?? ""
-        
+        var timeAgoText = ""
+        if let postDate = model.createdTime {
+            timeAgoText = dateFormatter.string(from: postDate, to: Date()) ?? ""
+        }
         
         return ActivityViewModel(cellID: cellID,
                                  cellClass: cellClass,
@@ -295,9 +236,7 @@ class DataSource: DataSourceProtocol {
         let indexPaths = range.map { IndexPath(row: $0, section: index) }
         return indexPaths
     }
-    
 }
-
 
 class MyPendingRequests: DataSource {
     
@@ -336,7 +275,7 @@ class MyFollowingsActivity: DataSource {
             case let .failure(error):
                 strongSelf.delegate?.didFail(error: error)
             case let .success(models):
-                let items = models.map { ActivityItem.follower($0) }
+                let items = models.map { ActivityItem.following($0) }
                 strongSelf.section.items.append(contentsOf: items)
                 
                 // make paths for inserted items

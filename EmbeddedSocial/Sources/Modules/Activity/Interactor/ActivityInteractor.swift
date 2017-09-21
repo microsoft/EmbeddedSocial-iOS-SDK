@@ -9,36 +9,41 @@ protocol ActivityInteractorOutput: class {
     
 }
 
+typealias ActivityItemType = ActivityView
+typealias PendingRequestItemType = UserCompactView
+typealias ActivityResponseType = FeedResponseActivityView
+typealias PendingRequestsResponseType = FeedResponseUserCompactView
+
 protocol ActivityInteractorInput: class {
     
     func loadAll()
-    func loadNextPageFollowingActivities(completion: ((Result<[ActionItem]>) -> Void)?)
-    func loadNextPagePendigRequestItems(completion: ((Result<[PendingRequestItem]>) -> Void)?)
+    func loadNextPageFollowingActivities(completion: ((Result<[ActivityItemType]>) -> Void)?)
+    func loadNextPagePendigRequestItems(completion: ((Result<[PendingRequestItemType]>) -> Void)?)
     
 }
 
 protocol ActivityService: class {
-    func loadFollowingActivities(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseActivityView>) -> Void)
-    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseUserCompactView>) -> Void)
+    func loadFollowingActivities(cursor: String?, limit: Int, completion: @escaping (Result<ActivityResponseType>) -> Void)
+    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<PendingRequestsResponseType>) -> Void)
 }
 
 class ActivityServiceMock: ActivityService {
     
     let authorization = "String"
     
-    var followingActivitiesResponse: Result<FeedResponseActivityView>! = .success(FeedResponseActivityView().mockResponse())
-    var pendingRequestsResponse: Result<FeedResponseUserCompactView>! = .success(FeedResponseUserCompactView().mockResponse())
+    var followingActivitiesResponse: Result<ActivityResponseType>! = .success(ActivityResponseType().mockResponse())
+    var pendingRequestsResponse: Result<PendingRequestsResponseType>! = .success(PendingRequestsResponseType().mockResponse())
     
     var pendingRequestsResponsesLeft = 5
     var followingActivitiesResponsesLeft = 1
     
-    let emptyPendingRequestsResponse: Result<FeedResponseUserCompactView> = .success(FeedResponseUserCompactView())
-    let emptyFollowingActivitiesResponse: Result<FeedResponseActivityView> = .success(FeedResponseActivityView())
+    let emptyPendingRequestsResponse: Result<PendingRequestsResponseType> = .success(PendingRequestsResponseType())
+    let emptyFollowingActivitiesResponse: Result<ActivityResponseType> = .success(ActivityResponseType())
     
     func builder<T>(cursor: String?, limit: Int) -> RequestBuilder<T>? {
         
         switch T.self {
-        case is FeedResponseUserCompactView.Type:
+        case is PendingRequestsResponseType.Type:
             let result = SocialAPI.myPendingUsersGetPendingUsersWithRequestBuilder(authorization: authorization,
                                                                                    cursor: cursor,
                                                                                    limit: Int32(limit))
@@ -49,7 +54,7 @@ class ActivityServiceMock: ActivityService {
         }
     }
     
-    func loadFollowingActivities(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseActivityView>) -> Void) {
+    func loadFollowingActivities(cursor: String?, limit: Int, completion: @escaping (Result<ActivityResponseType>) -> Void) {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             guard let strongSelf = self else { return }
@@ -64,7 +69,7 @@ class ActivityServiceMock: ActivityService {
         }
     }
     
-    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseUserCompactView>) -> Void) {
+    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<PendingRequestsResponseType>) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             guard let strongSelf = self else { return }
             
@@ -127,11 +132,11 @@ struct PagesList<T> {
 
 class ActivityInteractor {
     
-    typealias FollowingPage = PageModel<ActionItem>
-    typealias PendingRequestPage = PageModel<PendingRequestItem>
+    typealias FollowingPage = PageModel<ActivityItemType>
+    typealias PendingRequestPage = PageModel<PendingRequestItemType>
     typealias PageID = String
-    typealias FollowersActivitiesList = PagesList<ActionItem>
-    typealias PendingRequestsList = PagesList<PendingRequestItem>
+    typealias FollowersActivitiesList = PagesList<ActivityView>
+    typealias PendingRequestsList = PagesList<UserCompactView>
     
     weak var output: ActivityInteractorOutput!
     
@@ -143,68 +148,17 @@ class ActivityInteractor {
     // MARK: State
     
     fileprivate var isLoading: Bool = false
-    
-    //    fileprivate var followingPages: [FollowingPage] = []
-    //    fileprivate var pendingRequestsPages: [PendingRequestPage] = []
-    
-}
 
-protocol ResponseProcessor {
-    associatedtype ResponseType
-    associatedtype ResultType
-    
-    func process(response: ResponseType, pageID: String) -> PageModel<ResultType>?
-}
-
-class ActionItemResponseProcessor: ResponseProcessor {
-    typealias ResponseType = FeedResponseActivityView
-    typealias ResultType = ActionItem
-    
-    func process(response: ResponseType, pageID: String) -> PageModel<ResultType>? {
-        var items = [ActionItem]()
-        
-        // mapping into domain model
-        if let dataItems = response.data {
-            for source in dataItems {
-                guard let item = ActionItem(with: source) else { return nil }
-                items.append(item)
-            }
-        }
-        
-        return PageModel<ActionItem>(uid: pageID, cursor: response.cursor, items: items)
-    }
-    
 }
 
 extension ActivityInteractor: ActivityInteractorInput {
     
-    // TODO: remake using generics
-    private func process(response: FeedResponseActivityView, pageID: String) -> FollowingPage? {
-        var items = [ActionItem]()
-        
-        // mapping into domain model
-        if let dataItems = response.data {
-            for source in dataItems {
-                guard let item = ActionItem(with: source) else { return nil }
-                items.append(item)
-            }
-        }
-        
-        return FollowingPage(uid: pageID, cursor: response.cursor, items: items)
+    private func process(response: ActivityResponseType, pageID: String) -> FollowingPage? {
+        return FollowingPage(uid: pageID, cursor: response.cursor, items: response.data ?? [])
     }
     
-    private func process(response: FeedResponseUserCompactView, pageID: String) -> PendingRequestPage? {
-        var items = [PendingRequestItem]()
-        
-        // mapping into domain model
-        if let dataItems = response.data {
-            for source in dataItems {
-                guard let item = PendingRequestItem(with: source) else { return nil }
-                items.append(item)
-            }
-        }
-        
-        return PendingRequestPage(uid: pageID, cursor: response.cursor, items: items)
+    private func process(response: PendingRequestsResponseType, pageID: String) -> PendingRequestPage? {
+        return PendingRequestPage(uid: pageID, cursor: response.cursor, items: response.data ?? [])
     }
     
     
@@ -217,14 +171,14 @@ extension ActivityInteractor: ActivityInteractorInput {
     }
     
     // TODO: remake using generics
-    func loadNextPageFollowingActivities(completion: ((Result<[ActionItem]>) -> Void)? = nil) {
+    func loadNextPageFollowingActivities(completion: ((Result<[ActivityItemType]>) -> Void)? = nil) {
         
         let pageID = UUID().uuidString
         loadingPages.insert(pageID)
         
         service.loadFollowingActivities(
             cursor: followersList.cursor,
-            limit: followersList.limit) { [weak self] (result: Result<FeedResponseActivityView>) in
+            limit: followersList.limit) { [weak self] (result: Result<ActivityResponseType>) in
                 
                 defer {
                     self?.loadingPages.remove(pageID)
@@ -255,14 +209,14 @@ extension ActivityInteractor: ActivityInteractorInput {
     }
     
     // TODO: remake using generics
-    func loadNextPagePendigRequestItems(completion: ((Result<[PendingRequestItem]>) -> Void)? = nil) {
+    func loadNextPagePendigRequestItems(completion: ((Result<[PendingRequestItemType]>) -> Void)? = nil) {
         
         let pageID = UUID().uuidString
         loadingPages.insert(pageID)
         
         service.loadPendingsRequests(
             cursor: followersList.cursor,
-            limit: followersList.limit) { [weak self] (result: Result<FeedResponseUserCompactView>) in
+            limit: followersList.limit) { [weak self] (result: Result<PendingRequestsResponseType>) in
                 
                 defer {
                     self?.loadingPages.remove(pageID)
