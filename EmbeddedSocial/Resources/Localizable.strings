@@ -126,3 +126,36 @@
 
 "blocked_users.screen_title" = "Blocked users";
 
+# activity
+
+"activity_you_following" = "%s started following you"
+"activity.you_mention_topic" = "%s mentioned you in a topic %s"
+"activity.you_mention_comment" = "%s mentioned you in a comment %s"
+"activity.you_mention_reply" = "%s mentioned you in a reply %s"
+"activity.you_like_topic" = "%s liked your topic %s"
+"activity.you_like_comment" = "%s liked your comment %s"
+"activity.you_like_reply" = "%s liked your reply %s"
+"activity.you_follow_request" = "%s sent you a follow request"
+"activity.you_child_peer_topic" = "%s added a new comment to topic %s"
+"activity.you_child_peer_comment" = "%s added a new reply to comment %s"
+"activity.you_child_topic" = "%s commented on your topic %s"
+"activity.you_child_comment" = "%s replied to your comment %s"
+"activity.you_follow_accepted" = "%s accepted your follow request"
+"activity.following_following" = "%s started following %s
+"activity.following_mention_topic" = "%s mentioned %s in a topic %s"
+"activity.following_mention_comment" = "%s mentioned %s in a comment %s"
+"activity.following_mention_reply" = "%s mentioned %s in a reply %s"
+"activity.following_like_topic" = "%s liked topic %s"
+"activity.following_like_comment" = "%s liked comment %s"
+"activity.following_like_reply" = "%s liked reply %s"
+"activity.following_child_peer_topic" = "%s added a new comment to topic %s"
+"activity.following_child_peer_comment" = "%s added a new reply to comment %s"
+"activity.following_child_topic" = "%s commented on topic %s"
+"activity.following_child_comment" = "%s replied to comment %s"
+
+"one_person" = "%s"
+"two_persons" = "%s and %s"
+"three_persons" = "%s, %s and 1 other person
+"many_persons" = "%s, %s and %d other people
+
+
