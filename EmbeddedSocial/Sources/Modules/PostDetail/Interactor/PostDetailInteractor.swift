@@ -19,10 +19,15 @@ class PostDetailInteractor: PostDetailInteractorInput {
             self.isLoading = true
             self.commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
                 if !cachedResult.comments.isEmpty {
-                    self.fetchedItems(result: cachedResult)
+                    DispatchQueue.main.async {
+                        self.fetchedItems(result: cachedResult)
+                    }
+                    
                 }
             }, resultHandler: { (webResult) in
+                DispatchQueue.main.async {
                     self.fetchedItems(result: webResult)
+                }
             })
     }
 
@@ -44,10 +49,14 @@ class PostDetailInteractor: PostDetailInteractorInput {
         self.isLoading = true
         self.commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
             if !cachedResult.comments.isEmpty {
-                self.fetchedMoreItems(result: cachedResult)
+                DispatchQueue.main.async {
+                    self.fetchedMoreItems(result: cachedResult)
+                }
             }
         }, resultHandler: { (webResult) in
-            self.fetchedMoreItems(result: webResult)
+            DispatchQueue.main.async {
+                self.fetchedMoreItems(result: webResult)
+            }
         })
 
     }

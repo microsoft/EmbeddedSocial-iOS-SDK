@@ -70,7 +70,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             }
             
             let incomingFeed = strongSelf.cache.firstIncoming(ofType: FeedResponseReplyView.self,
-                                                        predicate: PredicateBuilder().predicate(typeID: builder.URLString),
+                                                        predicate: PredicateBuilder().predicate(handle: builder.URLString),
                                                         sortDescriptors: nil)
             
             let incomingReplies = incomingFeed?.data?.map(strongSelf.convert(replyView:)) ?? []
@@ -91,9 +91,16 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                 return
             }
             
+            let typeID = "fetch_replies-\(commentHandle)"
+            
+            if cursor == nil {
+                strongSelf.cache.deleteIncoming(with: PredicateBuilder().predicate(typeID: typeID))
+            }
+            
             var result = RepliesFetchResult()
 
             if let body = response?.body, let data = body.data {
+                body.handle = builder.URLString
                 strongSelf.cache.cacheIncoming(body, for: builder.URLString)
                 result.replies = strongSelf.convert(data: data)
                 result.cursor = body.cursor

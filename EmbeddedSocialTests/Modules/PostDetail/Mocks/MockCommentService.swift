@@ -6,29 +6,53 @@
 import Foundation
 @testable import EmbeddedSocial
 
-class MockCommentService: CommentsService {
+class MockCommentsService: CommentServiceProtocol {
     
-    var commentText = ""
+    //MARK: - fetchComments
     
-    override func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, cachedResult: @escaping CommentFetchResultHandler, resultHandler: @escaping CommentFetchResultHandler) {
-        resultHandler(CommentFetchResult(comments: [Comment()], error: nil, cursor: nil))
+    var fetchCommentsTopicHandleCursorLimitCachedResultResultHandlerCalled = false
+    var fetchCommentsTopicHandleCursorLimitCachedResultResultHandlerReceivedArguments: (topicHandle: String, cursor: String?, limit: Int32?)?
+    var fetchCommentsResult: CommentFetchResult!
+    
+    func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, cachedResult: @escaping CommentFetchResultHandler, resultHandler: @escaping CommentFetchResultHandler) {
+        fetchCommentsTopicHandleCursorLimitCachedResultResultHandlerCalled = true
+        fetchCommentsTopicHandleCursorLimitCachedResultResultHandlerReceivedArguments = (topicHandle: topicHandle, cursor: cursor, limit: limit)
+        resultHandler(fetchCommentsResult)
     }
     
-    override func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure) {
-        commentText = request.text!
-        postComment(topicHandle: topicHandle, request: request, success: resultHandler, failure: failure)
+    //MARK: - comment
+    
+    var commentCommentHandleCachedResultSuccessFailureCalled = false
+    var commentCommentHandleCachedResultSuccessFailureReceivedArguments: (commentHandle: String, cachedResult: CommentHandler)?
+    var getCommentReturnComment: Comment!
+    
+    func comment(commentHandle: String, cachedResult: @escaping CommentHandler, success: @escaping CommentHandler, failure: @escaping Failure) {
+        commentCommentHandleCachedResultSuccessFailureCalled = true
+        commentCommentHandleCachedResultSuccessFailureReceivedArguments = (commentHandle: commentHandle, cachedResult: cachedResult)
+        success(getCommentReturnComment)
     }
     
-    private func postComment(topicHandle: String, request: PostCommentRequest, success: @escaping CommentPostResultHandler, failure: @escaping Failure) {
-        let response = PostCommentResponse()
-        response.commentHandle = "commentHandle"
-        success(response)
+    //MARK: - postComment
+    
+    var postCommentTopicHandleRequestPhotoResultHandlerFailureCalled = false
+    var postCommentTopicHandleRequestPhotoResultHandlerFailureReceivedArguments: (topicHandle: String, request: PostCommentRequest, photo: Photo?)?
+    var postCommentReturnResponse: PostCommentResponse!
+    
+    func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure) {
+        postCommentTopicHandleRequestPhotoResultHandlerFailureCalled = true
+        postCommentTopicHandleRequestPhotoResultHandlerFailureReceivedArguments = (topicHandle: topicHandle, request: request, photo: photo)
+        resultHandler(postCommentReturnResponse)
     }
     
-    override func comment(commentHandle: String, cachedResult: @escaping CommentHandler, success: @escaping CommentHandler, failure: @escaping Failure) {
-        let comment = Comment()
-        comment.commentHandle = commentHandle
-        comment.text = commentText
-        success(comment)
+    //MARK: - deleteComment
+    
+    var deleteCommentCommentHandleCompletionCalled = false
+    var deleteCommentCommentHandleCompletionReceivedCommentHandle: String?
+    var deleteCommentResult: Result<Void>!
+    
+    func deleteComment(commentHandle: String, completion: @escaping ((Result<Void>) -> Void)) {
+        deleteCommentCommentHandleCompletionCalled = true
+        deleteCommentCommentHandleCompletionReceivedCommentHandle = commentHandle
+        completion(deleteCommentResult)
     }
 }

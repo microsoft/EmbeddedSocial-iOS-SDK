@@ -25,15 +25,25 @@ class OutgoingCommandOperationsBuilderTests: XCTestCase {
         XCTAssertTrue(makeOperation(LikeTopicCommand(topic: topic)) is LikeTopicOperation)
         XCTAssertTrue(makeOperation(PinTopicCommand(topic: topic)) is PinTopicOperation)
         XCTAssertTrue(makeOperation(UnpinTopicCommand(topic: topic)) is UnpinTopicOperation)
+        XCTAssertTrue(makeOperation(CreateTopicCommand(topic: topic)) is CreateTopicOperation)
         
         // reply commands
         let reply = Reply(replyHandle: UUID().uuidString)
         XCTAssertTrue(makeOperation(LikeReplyCommand(reply: reply)) is LikeReplyOperation)
         XCTAssertTrue(makeOperation(UnlikeReplyCommand(reply: reply)) is UnlikeReplyOperation)
-        
+        XCTAssertTrue(makeOperation(CreateReplyCommand(reply: reply)) is CreateReplyOperation)
+
         // comment commands
         let comment = Comment(commentHandle: UUID().uuidString)
         XCTAssertTrue(makeOperation(LikeCommentCommand(comment: comment)) is LikeCommentOperation)
         XCTAssertTrue(makeOperation(UnlikeCommentCommand(comment: comment)) is UnlikeCommentOperation)
+        XCTAssertTrue(makeOperation(CreateCommentCommand(comment: comment)) is CreateCommentOperation)
+        
+        // image commands
+        let photo = Photo(image: UIImage(color: .yellow, size: CGSize(width: 8.0, height: 8.0)))
+        let relatedHandle = UUID().uuidString
+        XCTAssertTrue(makeOperation(CreateTopicImageCommand(photo: photo, relatedHandle: relatedHandle)) is CreateTopicImageOperation)
+        XCTAssertTrue(makeOperation(CreateCommentImageCommand(photo: photo, relatedHandle: relatedHandle)) is CreateCommentImageOperation)
+        XCTAssertTrue(makeOperation(UpdateUserImageCommand(photo: photo, relatedHandle: relatedHandle)) is UpdateUserImageOperation)
     }
 }
