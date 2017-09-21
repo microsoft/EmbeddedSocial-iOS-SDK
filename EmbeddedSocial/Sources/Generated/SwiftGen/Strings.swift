@@ -6,119 +6,125 @@ import Foundation
 
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 enum L10n {
-  /// %s started following you
-  static func activityYouFollowing(_ p1: UnsafePointer<unichar>) -> String {
-    return L10n.tr("Localizable", "activity_you_following", p1)
-  }
 
   enum Activity {
-    /// %s replied to comment %s
-    static func followingChildComment(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.following_child_comment", p1, p2)
-    }
-    /// %s added a new reply to comment %s
-    static func followingChildPeerComment(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.following_child_peer_comment", p1, p2)
-    }
-    /// %s added a new comment to topic %s
-    static func followingChildPeerTopic(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.following_child_peer_topic", p1, p2)
-    }
-    /// %s commented on topic %s
-    static func followingChildTopic(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.following_child_topic", p1, p2)
-    }
-    /// %s started following %s
-    static func followingFollowing(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.following_following", p1, p2)
-    }
-    /// %s liked comment %s
-    static func followingLikeComment(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.following_like_comment", p1, p2)
-    }
-    /// %s liked reply %s
-    static func followingLikeReply(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.following_like_reply", p1, p2)
-    }
-    /// %s liked topic %s
-    static func followingLikeTopic(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.following_like_topic", p1, p2)
-    }
-    /// %s mentioned %s in a comment %s
-    static func followingMentionComment(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>, _ p3: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.following_mention_comment", p1, p2, p3)
-    }
-    /// %s mentioned %s in a reply %s
-    static func followingMentionReply(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>, _ p3: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.following_mention_reply", p1, p2, p3)
-    }
-    /// %s mentioned %s in a topic %s
-    static func followingMentionTopic(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>, _ p3: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.following_mention_topic", p1, p2, p3)
-    }
-    /// %s, %s and %d other people
-    static func manyPersons(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>, _ p3: Int) -> String {
+    /// %@, %@ and %d other people
+    static func manyPersons(_ p1: String, _ p2: String, _ p3: Int) -> String {
       return L10n.tr("Localizable", "activity.many_persons", p1, p2, p3)
     }
-    /// %s
-    static func onePerson(_ p1: UnsafePointer<unichar>) -> String {
+    /// %@
+    static func onePerson(_ p1: String) -> String {
       return L10n.tr("Localizable", "activity.one_person", p1)
     }
-    /// %s, %s and 1 other person
-    static func threePersons(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
+    /// %@, %@ and 1 other person
+    static func threePersons(_ p1: String, _ p2: String) -> String {
       return L10n.tr("Localizable", "activity.three_persons", p1, p2)
     }
-    /// %s and %s
-    static func twoPersons(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
+    /// %@ and %@
+    static func twoPersons(_ p1: String, _ p2: String) -> String {
       return L10n.tr("Localizable", "activity.two_persons", p1, p2)
     }
-    /// %s replied to your comment %s
-    static func youChildComment(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.you_child_comment", p1, p2)
+
+    enum Following {
+      /// %@ replied to comment %@
+      static func childComment(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.following.child_comment", p1, p2)
+      }
+      /// %@ added a new reply to comment %@
+      static func childPeerComment(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.following.child_peer_comment", p1, p2)
+      }
+      /// %@ added a new comment to topic %@
+      static func childPeerTopic(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.following.child_peer_topic", p1, p2)
+      }
+      /// %@ commented on topic %@
+      static func childTopic(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.following.child_topic", p1, p2)
+      }
+      /// %@ started following %@
+      static func following(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.following.following", p1, p2)
+      }
+      /// %@ liked comment %@
+      static func likeComment(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.following.like_comment", p1, p2)
+      }
+      /// %@ liked reply %@
+      static func likeReply(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.following.like_reply", p1, p2)
+      }
+      /// %@ liked topic %@
+      static func likeTopic(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.following.like_topic", p1, p2)
+      }
+      /// %@ mentioned %@ in a comment %@
+      static func mentionComment(_ p1: String, _ p2: String, _ p3: String) -> String {
+        return L10n.tr("Localizable", "activity.following.mention_comment", p1, p2, p3)
+      }
+      /// %@ mentioned %@ in a reply %@
+      static func mentionReply(_ p1: String, _ p2: String, _ p3: String) -> String {
+        return L10n.tr("Localizable", "activity.following.mention_reply", p1, p2, p3)
+      }
+      /// %@ mentioned %@ in a topic %@
+      static func mentionTopic(_ p1: String, _ p2: String, _ p3: String) -> String {
+        return L10n.tr("Localizable", "activity.following.mention_topic", p1, p2, p3)
+      }
     }
-    /// %s added a new reply to comment %s
-    static func youChildPeerComment(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.you_child_peer_comment", p1, p2)
-    }
-    /// %s added a new comment to topic %s
-    static func youChildPeerTopic(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.you_child_peer_topic", p1, p2)
-    }
-    /// %s commented on your topic %s
-    static func youChildTopic(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.you_child_topic", p1, p2)
-    }
-    /// %s accepted your follow request
-    static func youFollowAccepted(_ p1: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.you_follow_accepted", p1)
-    }
-    /// %s sent you a follow request
-    static func youFollowRequest(_ p1: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.you_follow_request", p1)
-    }
-    /// %s liked your comment %s
-    static func youLikeComment(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.you_like_comment", p1, p2)
-    }
-    /// %s liked your reply %s
-    static func youLikeReply(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.you_like_reply", p1, p2)
-    }
-    /// %s liked your topic %s
-    static func youLikeTopic(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.you_like_topic", p1, p2)
-    }
-    /// %s mentioned you in a comment %s
-    static func youMentionComment(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.you_mention_comment", p1, p2)
-    }
-    /// %s mentioned you in a reply %s
-    static func youMentionReply(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.you_mention_reply", p1, p2)
-    }
-    /// %s mentioned you in a topic %s
-    static func youMentionTopic(_ p1: UnsafePointer<unichar>, _ p2: UnsafePointer<unichar>) -> String {
-      return L10n.tr("Localizable", "activity.you_mention_topic", p1, p2)
+
+    enum You {
+      /// %@ replied to your comment %@
+      static func childComment(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.you.child_comment", p1, p2)
+      }
+      /// %@ added a new reply to comment %@
+      static func childPeerComment(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.you.child_peer_comment", p1, p2)
+      }
+      /// %@ added a new comment to topic %@
+      static func childPeerTopic(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.you.child_peer_topic", p1, p2)
+      }
+      /// %@ commented on your topic %@
+      static func childTopic(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.you.child_topic", p1, p2)
+      }
+      /// %@ accepted your follow request
+      static func followAccepted(_ p1: String) -> String {
+        return L10n.tr("Localizable", "activity.you.follow_accepted", p1)
+      }
+      /// %@ sent you a follow request
+      static func followRequest(_ p1: String) -> String {
+        return L10n.tr("Localizable", "activity.you.follow_request", p1)
+      }
+      /// %@ started following you
+      static func following(_ p1: String) -> String {
+        return L10n.tr("Localizable", "activity.you.following", p1)
+      }
+      /// %@ liked your comment %@
+      static func likeComment(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.you.like_comment", p1, p2)
+      }
+      /// %@ liked your reply %@
+      static func likeReply(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.you.like_reply", p1, p2)
+      }
+      /// %@ liked your topic %@
+      static func likeTopic(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.you.like_topic", p1, p2)
+      }
+      /// %@ mentioned you in a comment %@
+      static func mentionComment(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.you.mention_comment", p1, p2)
+      }
+      /// %@ mentioned you in a reply %@
+      static func mentionReply(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.you.mention_reply", p1, p2)
+      }
+      /// %@ mentioned you in a topic %@
+      static func mentionTopic(_ p1: String, _ p2: String) -> String {
+        return L10n.tr("Localizable", "activity.you.mention_topic", p1, p2)
+      }
     }
   }
 

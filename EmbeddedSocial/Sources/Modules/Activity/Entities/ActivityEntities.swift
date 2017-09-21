@@ -43,7 +43,7 @@ struct SectionHeader {
 
 enum ActivityItem {
     case pendingRequest(UserCompactView)
-    case follower(UserCompactView)
+    case follower(ActivityView)
     case following(ActivityView)
 }
 
@@ -67,13 +67,11 @@ class ActivityViewModelBuilder {
     let cellTypes = [
         FollowRequestCell.reuseID : FollowRequestCell.self,
         ActivityCell.reuseID: ActivityCell.self
-        ]
+    ]
     
     private var dateFormatter: DateComponentsFormatter = {
-        
         let formatter = DateFormatterTool().shortStyle
         return formatter
-        
     }()
     
     private func build(with model: PendingRequestItemType) -> PendingRequestViewModel {
@@ -98,13 +96,13 @@ class ActivityViewModelBuilder {
         var postText = ""
         
         // put names
-//        for (index, person) in model.actorUsers
-//            let delimeter = (index < (model.actorNameList.count - 1)) ? "," : ""
-//            postText += "\(person.firstName) \(person.lastName)" + delimeter
-//        }
+        //        for (index, person) in model.actorUsers
+        //            let delimeter = (index < (model.actorNameList.count - 1)) ? "," : ""
+        //            postText += "\(person.firstName) \(person.lastName)" + delimeter
+        //        }
         
         // put actions
-//        postText += model.activityType.rawValue
+        //        postText += model.activityType.rawValue
         
         var timeAgoText = ""
         if let postDate = model.createdTime {
@@ -118,54 +116,215 @@ class ActivityViewModelBuilder {
                                  postTime: timeAgoText,
                                  postImage: postImage)
     }
-    
-    
-    func makeActivityText(from model: ActivityView) -> String {
-        
-        
-        if let content = model.actedOnContent {
-            
-        }
-        else if let content = model.actedOnContent, let target = model.actedOnUser {
-            
-        }
-    
+}
 
+class ActivityTextRender {
+    static func render(from item: ActivityItem) -> String? {
         
-        return result
-    }
-    
-    func makeActivityTextWithContent(from model: ActivityView, ) -> String {
-        
-        var result = ""
-        
-        switch model.actedOnContent! {
-        case :
-            <#code#>
-        default:
-            <#code#>
+        switch item  {
+        case let .pendingRequest(model):
+            return nil
+        case let .following(model):
+            return OtherActivityTextRender.render(item: model)
+        case let .follower(model):
+            return MyActivityTextRender.render(item: model)
         }
         
-        return result
+    }
+}
+
+class MyActivityTextRender {
+    
+    private static func renderChild(item: ActivityView) -> String? {
+        
+        guard
+            let content = item.actedOnContent?.text,
+            let contentType = item.actedOnContent?.contentType,
+            let actor = item.actorUsers?.first?.getFullName()
+            else {
+                return nil
+        }
+        
+        switch contentType {
+        case .comment:
+            return L10n.Activity.You.childTopic(actor, content)
+        case .reply:
+            return L10n.Activity.You.childComment(actor, content)
+        default:
+            return nil
+        }
     }
     
-    
-    
-    func build(from item: ActivityItem) -> ActivityItemViewModel {
+    private static func renderPeer(item: ActivityView) -> String? {
         
-        switch item {
-        case let .pendingRequest(model):
-            return build(with: model)
+        guard
+            let content = item.actedOnContent?.text,
+            let contentType = item.actedOnContent?.contentType,
+            let actor = item.actorUsers?.first?.getFullName()
+            else {
+                return nil
+        }
+        
+        switch contentType {
+        case .comment:
+            return L10n.Activity.You.childPeerTopic(actor, content)
+        case .reply:
+            return L10n.Activity.You.childPeerComment(actor, content)
+        default:
+            return nil
+        }
+    }
+    
+    private static func renderLike(item: ActivityView) -> String? {
+        
+        guard
+            let contentType = item.actedOnContent?.contentType,
+            let contentText = item.actedOnContent?.text,
+            let actor = item.actorUsers?.first?.getFullName()
             
-        case let .following(model):
-            return build(with: model)
+            else {
+                return nil
+        }
+        
+        switch contentType {
+        case .comment:
+            return L10n.Activity.You.likeComment(actor, contentText)
+        case .reply:
+            return L10n.Activity.You.likeComment(actor, contentText)
+        case .topic:
+            return L10n.Activity.You.likeTopic(actor, contentText)
+        default:
+            return nil
+        }
+    }
+    
+    private static func renderFollowing(item: ActivityView) -> String? {
+        guard let actor = item.actorUsers?.first?.getFullName() else {
+            return nil
+        }
+        return L10n.Activity.You.following(actor)
+    }
+    
+    static func render(item: ActivityView) -> String? {
+        
+        guard let activityType = item.activityType else {
+            return nil
+        }
+        
+        switch activityType {
+        case .following:
+            return renderFollowing(item: item)
+        case .like:
+            return renderLike(item: item)
+        case .comment, .reply:
+            return renderChild(item: item)
+        case .replyPeer, .commentPeer:
+            return renderPeer(item: item)
             
         default:
-            fatalError()
+            Logger.log(activityType, "Not supported")
+            return nil
         }
     }
     
 }
+
+class OtherActivityTextRender {
+    static func render(item: ActivityView) -> String {
+        
+    }
+}
+
+
+class ActivityItemViewModelBuilder {
+    static func build(from item: ActivityItem) -> ActivityItemViewModel {
+        
+        switch item {
+        case let .pendingRequest(model):
+            return RequestItemViewModelBuilder.build(from: model)
+            
+        case let .following(model):
+            return FollowerItemRequestViewModelBuilder.build(from: model)
+            
+        case let .follower(model):
+            return FollowingItemRequestViewModelBuilder.build(from: model)
+        }
+        
+    }
+}
+
+class RequestItemViewModelBuilder {
+    static func build(from model: UserCompactView) -> ActivityItemViewModel {
+        let cellID = FollowRequestCell.reuseID
+        let cellClass = FollowRequestCell.self
+        let profileImage = Asset.placeholderPostUser1.image
+        let profileName = String(format: "%@ %@", model.firstName ?? "", model.lastName ?? "")
+        
+        return PendingRequestViewModel(cellID: cellID,
+                                       cellClass: cellClass,
+                                       profileImage: profileImage,
+                                       profileName: profileName)
+    }
+}
+
+class FollowerItemRequestViewModelBuilder {
+    static func build(from model: ActivityView) -> ActivityItemViewModel {
+        let cellID = ActivityCell.reuseID
+        let cellClass = ActivityCell.self
+        let profileImage = Asset.userPhotoPlaceholder.image
+        let postImage = Asset.placeholderPostImage2.image
+        var postText = ""
+        
+        // put names
+        //        for (index, person) in model.actorUsers
+        //            let delimeter = (index < (model.actorNameList.count - 1)) ? "," : ""
+        //            postText += "\(person.firstName) \(person.lastName)" + delimeter
+        //        }
+        
+        // put actions
+        //        postText += model.activityType.rawValue
+        
+        var timeAgoText = model.createdTimeAgo() ??  ""
+   
+        
+        return ActivityViewModel(cellID: cellID,
+                                 cellClass: cellClass,
+                                 profileImage: profileImage,
+                                 postText: postText,
+                                 postTime: timeAgoText,
+                                 postImage: postImage)
+    }
+}
+
+class FollowingItemRequestViewModelBuilder {
+    static func build(from model: ActivityView) -> ActivityItemViewModel {
+        let cellID = ActivityCell.reuseID
+        let cellClass = ActivityCell.self
+        let profileImage = Asset.userPhotoPlaceholder.image
+        let postImage = Asset.placeholderPostImage2.image
+        var postText = ""
+        
+        // put names
+        //        for (index, person) in model.actorUsers
+        //            let delimeter = (index < (model.actorNameList.count - 1)) ? "," : ""
+        //            postText += "\(person.firstName) \(person.lastName)" + delimeter
+        //        }
+        
+        // put actions
+        //        postText += model.activityType.rawValue
+        
+        var timeAgoText = model.createdTimeAgo() ?? ""
+        
+        return ActivityViewModel(cellID: cellID,
+                                 cellClass: cellClass,
+                                 profileImage: profileImage,
+                                 postText: postText,
+                                 postTime: timeAgoText,
+                                 postImage: postImage)
+    }
+}
+
+
 
 class CellConfigurator {
     
@@ -323,5 +482,26 @@ class MyFollowersActivity: DataSource {
         
     }
 }
+
+
+extension ActivityView {
+
+    func createdTimeAgo() -> String? {
+        guard let date = self.createdTime else { return nil }
+        return DateFormatterTool.timeAgo(since: date)
+    }
+    
+}
+
+
+extension UserCompactView {
+    
+    func getFullName() -> String {
+        return String(format: "%@ %@", self.firstName ?? "", self.lastName ?? "")
+    }
+
+}
+
+
 
 
