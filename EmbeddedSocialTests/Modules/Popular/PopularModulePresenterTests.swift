@@ -63,6 +63,11 @@ private class FeedModuleMock: FeedModuleInput {
         setHeaderHeightCalled = true
         headerHeight = height
     }
+    
+    var lockScrollingCount = 0
+    func lockScrolling() {
+        lockScrollingCount += 1
+    }
 }
 
 extension FeedModuleMock {

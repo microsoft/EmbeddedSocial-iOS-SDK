@@ -36,14 +36,10 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         self.isLoading = true
         self.repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
             if !cachedResult.replies.isEmpty {
-                DispatchQueue.main.async {
-                    self.handleRepliesResult(result: cachedResult)
-                }
+                self.handleRepliesResult(result: cachedResult)
             }
         }, resultHandler: { (webResult) in
-            DispatchQueue.main.async {
-                self.handleRepliesResult(result: webResult)
-            }
+            self.handleRepliesResult(result: webResult)
         })
 
     }
@@ -65,14 +61,10 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         self.isLoading = true
         self.repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
             if !cachedResult.replies.isEmpty {
-                DispatchQueue.main.async {
-                    self.handleMoreRepliesResult(result: cachedResult)
-                }
+                self.handleMoreRepliesResult(result: cachedResult)
             }
         }, resultHandler: { (webResult) in
-            DispatchQueue.main.async {
-                self.handleMoreRepliesResult(result: webResult)
-            }
+            self.handleMoreRepliesResult(result: webResult)
         })
     }
     
@@ -91,20 +83,14 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         
         repliesService?.postReply(commentHandle: commentHandle, request: request, success: { (response) in
             self.repliesService?.reply(replyHandle: response.replyHandle!, cachedResult: { (cachedReply) in
-                DispatchQueue.main.async {
-                    self.output?.replyPosted(reply: cachedReply)
-                }
+                self.output?.replyPosted(reply: cachedReply)
             }, success: { (webReply) in
-                DispatchQueue.main.async {
-                    self.output?.replyPosted(reply: webReply)
-                }
+                self.output?.replyPosted(reply: webReply)
             }, failure: { (error) in
                 
             })
         }, failure: { (error) in
-            DispatchQueue.main.async {
-                self.output?.replyFailPost(error: error)
-            }
+            self.output?.replyFailPost(error: error)
         })
     }
 
