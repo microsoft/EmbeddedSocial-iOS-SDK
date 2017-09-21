@@ -6,12 +6,12 @@
 import Foundation
 
 protocol OutgoingCommandOperationsBuilderType {
-    static func operation(for command: OutgoingCommand) -> Operation?
+    static func operation(for command: OutgoingCommand) -> OutgoingCommandOperation?
 }
 
 struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
     
-    static func operation(for command: OutgoingCommand) -> Operation? {
+    static func operation(for command: OutgoingCommand) -> OutgoingCommandOperation? {
         // user commands
         if let command = command as? FollowCommand {
             return FollowUserOperation(command: command, socialService: SocialService())

@@ -76,7 +76,15 @@ final class OutgoingCommandsUploadStrategy: OutgoingCommandsUploadStrategyType {
         let operations = commands.flatMap { [weak self] command -> Operation? in
             let op = self?.operationsBuilder.operation(for: command)
             op?.completionBlock = {
-                guard op?.isCancelled != true else { return }
+                guard op?.isCancelled != true else {
+                    return
+                }
+                
+                guard op?.error == nil else {
+                    self?.restartSubmission()
+                    return
+                }
+                
                 let predicate = PredicateBuilder.predicate(for: command)
                 self?.cache.deleteOutgoing(with: predicate)
             }

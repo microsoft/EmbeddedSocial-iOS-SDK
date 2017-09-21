@@ -40,15 +40,6 @@ class FeedResponseParser: FeedResponseParserProtocol {
             return
         }
         
-        //MARK: Remove before commit
-        let cacheRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                             predicate: PredicateBuilder.allCreateTopicCommands(),
-                                             sortDescriptors: [Cache.createdAtSortDescriptor])
-        let createTopicCommands = SocialPlus.shared.cache.fetchOutgoing(with: cacheRequest) as? [CreateTopicCommand] ?? []
-        
-        result.posts = createTopicCommands.map { $0.topic }
-        //MARK: end - Remove before commit
-        
         if let data = response.data {
             result.posts += data.map(Post.init)
         }

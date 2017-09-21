@@ -6,32 +6,6 @@
 import XCTest
 @testable import EmbeddedSocial
 
-
-fileprivate class MockTopicService: TopicService {
-    
-    var fetchPostCount = 0
-    override func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        fetchPostCount += 1
-        var post = Post()
-        post.topicHandle = "fsdf"
-        var result = FeedFetchResult()
-        result.posts = [post]
-        completion(result)
-    }
-    
-    var postTopicCount = 0
-    override func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
-        postTopicCount += 1
-        success(Post())
-    }
-    
-    var updateTopicCount = 0
-    override func updateTopic(topicHandle: String, request: PutTopicRequest, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
-        updateTopicCount += 1
-        success()
-    }
-}
-
 class CreatePostInteractorTests: XCTestCase {
 
     let intercator = CreatePostInteractor()
@@ -39,16 +13,15 @@ class CreatePostInteractorTests: XCTestCase {
     var coreDataStack: CoreDataStack!
     var transactionsDatabase: MockTransactionsDatabaseFacade!
     var cache: CacheType!
-    fileprivate var topicService: MockTopicService!
-    
+    fileprivate var topicService: PostServiceMock!
     
     override func setUp() {
         super.setUp()
         coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
         transactionsDatabase = MockTransactionsDatabaseFacade(incomingRepo:  CoreDataRepository(context: coreDataStack.backgroundContext), outgoingRepo:  CoreDataRepository(context: coreDataStack.backgroundContext))
         cache = Cache(database: transactionsDatabase)
-        topicService = MockTopicService()
-        intercator.topicService = topicService
+        topicService = PostServiceMock()
+        intercator.topicService = PostServiceMock()
         intercator.output = presenter
     }
     
