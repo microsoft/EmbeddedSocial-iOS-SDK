@@ -16,13 +16,14 @@ class ActivityModuleConfigurator {
         
         viewController = StoryboardScene.Activity.instantiateActivityViewController()
 
-        let presenter = ActivityPresenter()
+        let interactor = ActivityInteractor()
+        
+        let presenter = ActivityPresenter(interactor: interactor)
         presenter.view = viewController
         presenter.router = router
         
         module = presenter
 
-        let interactor = ActivityInteractor()
         interactor.output = presenter
         interactor.service = ActivityServiceMock()
 

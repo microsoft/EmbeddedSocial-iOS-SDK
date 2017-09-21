@@ -12,7 +12,7 @@ typealias Section = SectionModel<SectionHeader, ActivityItem>
 class ActivityPresenter {
     
     weak var view: ActivityViewInput!
-    var interactor: ActivityInteractorInput!
+    var interactor: ActivityInteractorInput
     var router: ActivityRouterInput!
     
     enum State: Int {
@@ -30,15 +30,18 @@ class ActivityPresenter {
         viewModelBuilder.cellTypes.forEach{ view.registerCell(cell: $0.value, id: $0.key) }
     }
     
-    init() {
+    init(interactor: ActivityInteractorInput) {
+        self.interactor = interactor
         setup()
     }
     
     fileprivate func setup() {
-
+        dataSources = makeDataSources()
     }
     
-    fileprivate lazy var dataSources: [State: [DataSource]]! = { [unowned self] in
+    fileprivate var dataSources: [State: [DataSource]] = [:]
+    
+    fileprivate func makeDataSources() -> [State: [DataSource]] {
         
         var sources: [State: [DataSource]] = [:]
         
@@ -47,7 +50,7 @@ class ActivityPresenter {
             self.buildMyFollowingsActivityDataSource(index: 1)]
         
         return sources
-    }()
+    }
     
     private func buildPendingRequestsDataSource(index: Int) -> MyPendingRequests {
         let header = SectionHeader(name: "Pending requests", identifier: "")
@@ -94,12 +97,12 @@ extension ActivityPresenter: ActivityViewOutput {
     
     func loadAll() {
         // release data sources
-        dataSources = nil
+        dataSources = makeDataSources()
+        view.reloadItems()
         // load
         loadMore()
     }
-    
-    
+
     func loadMore() {
         dataSources[state]?.forEach { $0.loadMore() }
     }
@@ -137,6 +140,4 @@ extension ActivityPresenter: ActivityViewOutput {
         registerCells()
         loadMore()
     }
-    
-    
 }

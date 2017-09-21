@@ -34,8 +34,8 @@ class ActivityServiceMock: ActivityService {
     var followingActivitiesResponse: Result<ActivityResponseType>! = .success(ActivityResponseType().mockResponse())
     var pendingRequestsResponse: Result<PendingRequestsResponseType>! = .success(PendingRequestsResponseType().mockResponse())
     
-    var pendingRequestsResponsesLeft = 5
-    var followingActivitiesResponsesLeft = 1
+    var pendingRequestsResponsesLeft = 1
+    var followingActivitiesResponsesLeft = 5
     
     let emptyPendingRequestsResponse: Result<PendingRequestsResponseType> = .success(PendingRequestsResponseType())
     let emptyFollowingActivitiesResponse: Result<ActivityResponseType> = .success(ActivityResponseType())
@@ -93,7 +93,6 @@ class ActivityServiceMock: ActivityService {
         builder.execute { (response, error) in
             
         }
-        
     }
     
 }

@@ -81,7 +81,7 @@ class ActivityViewModelBuilder {
         let cellID = FollowRequestCell.reuseID
         let cellClass = FollowRequestCell.self
         let profileImage = Asset.placeholderPostUser1.image
-        let profileName = String(format: "%s %s", model.firstName ?? "", model.lastName ?? "")
+        let profileName = String(format: "%@ %@", model.firstName ?? "", model.lastName ?? "")
         
         return PendingRequestViewModel(cellID: cellID,
                                        cellClass: cellClass,
@@ -97,7 +97,6 @@ class ActivityViewModelBuilder {
         let postImage = Asset.placeholderPostImage2.image
         var postText = ""
         
-
         // put names
 //        for (index, person) in model.actorUsers
 //            let delimeter = (index < (model.actorNameList.count - 1)) ? "," : ""
@@ -120,13 +119,45 @@ class ActivityViewModelBuilder {
                                  postImage: postImage)
     }
     
+    
+    func makeActivityText(from model: ActivityView) -> String {
+        
+        
+        if let content = model.actedOnContent {
+            
+        }
+        else if let content = model.actedOnContent, let target = model.actedOnUser {
+            
+        }
+    
+
+        
+        return result
+    }
+    
+    func makeActivityTextWithContent(from model: ActivityView, ) -> String {
+        
+        var result = ""
+        
+        switch model.actedOnContent! {
+        case :
+            <#code#>
+        default:
+            <#code#>
+        }
+        
+        return result
+    }
+    
+    
+    
     func build(from item: ActivityItem) -> ActivityItemViewModel {
         
         switch item {
         case let .pendingRequest(model):
             return build(with: model)
             
-        case let .follower(model):
+        case let .following(model):
             return build(with: model)
             
         default:

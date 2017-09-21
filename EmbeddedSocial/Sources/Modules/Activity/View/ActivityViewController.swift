@@ -10,6 +10,7 @@ protocol ActivityViewInput: class {
     func registerCell(cell: UITableViewCell.Type, id: String)
     func showError(_ error: Error)
     func addNewItems(indexes: [IndexPath])
+    func reloadItems()
 }
 
 protocol ActivityViewOutput: class {
@@ -68,6 +69,10 @@ class ActivityViewController: UIViewController {
 }
 
 extension ActivityViewController: ActivityViewInput {
+    
+    func reloadItems() {
+        tableView.reloadData()
+    }
     
     func showError(_ error: Error) {
         Logger.log(error, event: .veryImportant)
