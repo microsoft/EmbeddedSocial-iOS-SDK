@@ -29,6 +29,7 @@ struct ActivityViewModel: ActivityItemViewModel {
     
     let profileImagePlaceholder = Asset.userPhotoPlaceholder
     let profileImage: String?
+    let postImagePlaceholder: Asset?
     let postText: String
     let postTime: String
     let postImage: String?
@@ -70,12 +71,14 @@ class MyActivityItemViewModelBuilder {
         let cellClass = ActivityCell.self
         let profileImage = model.actorUsers?.first?.photoUrl
         let postImage = model.actedOnContent?.blobUrl
+        let postImagePlaceholder: Asset? = (model.actedOnContent?.contentType == .topic) ? Asset.placeholderPostNoimage : nil
         let postText = MyActivityTextRender.render(item: model) ?? ""
         let timeAgoText = model.createdTimeAgo() ??  ""
         
         return ActivityViewModel(cellID: cellID,
                                  cellClass: cellClass,
                                  profileImage: profileImage,
+                                 postImagePlaceholder: postImagePlaceholder,
                                  postText: postText,
                                  postTime: timeAgoText,
                                  postImage: postImage)
@@ -88,12 +91,14 @@ class OthersActivityItemViewModelBuilder {
         let cellClass = ActivityCell.self
         let profileImage = model.actorUsers?.first?.photoUrl
         let postImage = model.actedOnContent?.blobUrl
+        let postImagePlaceholder: Asset? = (model.actedOnContent?.contentType == .topic) ? Asset.placeholderPostNoimage : nil
         let postText = OtherActivityTextRender.render(item: model) ?? ""
         let timeAgoText = model.createdTimeAgo() ?? ""
         
         return ActivityViewModel(cellID: cellID,
                                  cellClass: cellClass,
                                  profileImage: profileImage,
+                                 postImagePlaceholder: postImagePlaceholder,
                                  postText: postText,
                                  postTime: timeAgoText,
                                  postImage: postImage)

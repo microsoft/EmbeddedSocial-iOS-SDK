@@ -9,14 +9,14 @@ import SnapKit
 class ActivityBaseCell: UITableViewCell {
     
     struct Style {
-        static let insets = UIEdgeInsets(top: 8, left: 15, bottom: -8, right: -15)
+        static let insets = UIEdgeInsets(top: 15, left: 25, bottom: -15, right: -25)
         static let backgroundColor = UIColor.white
-        static let paddingVertical = 5
+        static let paddingVertical = 15
         static let paddingHorizontal = 15
         static let ItemInterval = 10
         static let numberOfLines = 2
-        static let imagesHeightRatio = 0.8
-        static let buttonsHeightRatio = 0.3
+        static let imagesHeightRatio = 0.6
+        static let buttonsHeightRatio = 0.18
         static let acceptButtonRatio = (65.0 / 48.0)
         
         struct Fonts {
@@ -162,8 +162,6 @@ class ActivityCell: ActivityBaseCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        postImage.makeCircular()
     }
     
     override func setup() {
