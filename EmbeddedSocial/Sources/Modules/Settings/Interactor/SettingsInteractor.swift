@@ -8,28 +8,16 @@ import Foundation
 final class SettingsInteractor: SettingsInteractorInput {
 
     private let userService: UserServiceType
+    private let logoutController: LogoutController
     
-    init(userService: UserServiceType) {
+    init(userService: UserServiceType, logoutController: LogoutController) {
         self.userService = userService
+        self.logoutController = logoutController
     }
     
-    func signOut(success: @escaping (Void) -> Void, fauilure: @escaping (Error) -> Void) {
+    func signOut() {
         OperationQueue().cancelAllOperations()
-        do {
-            try SocialPlus.shared.sessionStore.deleteCurrentSession()
-            SocialPlus.shared.coreDataStack.reset { (result) in
-                guard let error = result.error else {
-                    success()
-                    return
-                }
-                
-                fauilure(error)
-            }
-        } catch {
-            //TODO: handle
-            print("signOut failed")
-        }
-
+        logoutController.logOut()
     }
     
     func switchVisibility(_ visibility: Visibility, completion: @escaping (Result<Visibility>) -> Void) {

@@ -7,6 +7,4 @@ import Foundation
 
 protocol SettingsRouterInput: class {
     func openBlockedList()
-    
-    func logOut()
 }

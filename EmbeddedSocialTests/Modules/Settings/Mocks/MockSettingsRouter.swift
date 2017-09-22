@@ -8,13 +8,8 @@ import Foundation
 
 final class MockSettingsRouter: SettingsRouterInput {
     private(set) var openBlockedListCount = 0
-    private(set) var logOutCount = 0
     
     func openBlockedList() {
         openBlockedListCount += 1
-    }
-    
-    func logOut() {
-        logOutCount += 1
     }
 }
