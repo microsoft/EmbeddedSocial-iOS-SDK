@@ -22,12 +22,16 @@ class ActivityPresenter {
     
     var state: State = .my
     
-    fileprivate var viewModelBuilder = ActivityViewModelBuilder()
     fileprivate var cellConfigurator = CellConfigurator()
     
     // MARK: Private
     fileprivate func registerCells() {
-        viewModelBuilder.cellTypes.forEach{ view.registerCell(cell: $0.value, id: $0.key) }
+        let cellTypes = [
+            FollowRequestCell.reuseID : FollowRequestCell.self,
+            ActivityCell.reuseID: ActivityCell.self
+        ]
+            
+        cellTypes.forEach{ view.registerCell(cell: $0.value, id: $0.key) }
     }
     
     init(interactor: ActivityInteractorInput) {
@@ -45,31 +49,19 @@ class ActivityPresenter {
         
         var sources: [State: [DataSource]] = [:]
         
-        sources[.my] = [
-            self.buildPendingRequestsDataSource(index: 0),
-            self.buildMyFollowingsActivityDataSource(index: 1)]
+        let pendingDataSource = DataSourceBuilder.buildPendingRequestsDataSource(
+            interactor: interactor,
+            index: 0,
+            delegate: self)
+        let myActivityDataSource = DataSourceBuilder.buildMyFollowingsActivityDataSource(
+            interactor: interactor,
+            index: 1,
+            delegate: self)
+        
+        sources[.my]?.append(pendingDataSource)
+        sources[.my]?.append(myActivityDataSource)
         
         return sources
-    }
-    
-    private func buildPendingRequestsDataSource(index: Int) -> MyPendingRequests {
-        let header = SectionHeader(name: "Pending requests", identifier: "")
-        let section = Section(model: header, items: [])
-        
-        return MyPendingRequests(interactor: interactor,
-                                 section:section,
-                                 delegate: self,
-                                 index: index)
-    }
-    
-    private func buildMyFollowingsActivityDataSource(index: Int) -> MyFollowingsActivity {
-        let header = SectionHeader(name: "My followings activity", identifier: "")
-        let section = Section(model: header, items: [])
-        
-        return MyFollowingsActivity(interactor: interactor,
-                                    section: section,
-                                    delegate: self,
-                                    index: index)
     }
 }
 
@@ -109,18 +101,16 @@ extension ActivityPresenter: ActivityViewOutput {
     
     func cellIdentifier(for indexPath: IndexPath) -> String {
         let item = dataSources[state]![indexPath.section].section.items[indexPath.row]
-        let viewModel = viewModelBuilder.build(from: item)
+        let viewModel = ActivityItemViewModelBuilder.build(from: item)
         return viewModel.cellID
     }
     
     func configure(_ cell: UITableViewCell, for indexPath: IndexPath) {
-        
         let itemIndex = indexPath.row
         let sectionIndex = indexPath.section
         let item = dataSources[state]![sectionIndex].section.items[itemIndex]
-        let viewModel = viewModelBuilder.build(from: item)
+        let viewModel = ActivityItemViewModelBuilder.build(from: item)
         cellConfigurator.configure(cell: cell, with: viewModel)
-        
     }
     
     func headerForSection(_ section: Int) -> String {

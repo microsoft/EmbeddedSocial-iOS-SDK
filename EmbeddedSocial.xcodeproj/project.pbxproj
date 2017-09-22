@@ -740,6 +740,9 @@
 		9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8B1F25D60A00D0B59D /* PostCell.xib */; };
 		9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */; };
 		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
+		9C4B6F831F74E4CF001AA5BB /* ActivityViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4B6F821F74E4CF001AA5BB /* ActivityViewModels.swift */; };
+		9C4B6F851F74E4E8001AA5BB /* ActivityTextRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4B6F841F74E4E8001AA5BB /* ActivityTextRender.swift */; };
+		9C4B6F871F74E588001AA5BB /* ActivityDataSourceRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4B6F861F74E588001AA5BB /* ActivityDataSourceRender.swift */; };
 		9C5BE9031F67D04C00F0E20E /* ActivityCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5BE9021F67D04C00F0E20E /* ActivityCells.swift */; };
 		9C683AC41F5F09E70087925E /* FeedServiceAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */; };
 		9C6D359B1F31D1C1005893DB /* FeedModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531381F31CCF2004CE94F /* FeedModuleConfigurator.swift */; };
@@ -749,7 +752,6 @@
 		9C6D35A11F31D1C1005893DB /* FeedModule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CC531421F31CCF2004CE94F /* FeedModule.storyboard */; };
 		9C6D35A21F31D1C1005893DB /* FeedModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531431F31CCF2004CE94F /* FeedModuleViewController.swift */; };
 		9C6D35A41F31D1C1005893DB /* FeedModuleViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531451F31CCF2004CE94F /* FeedModuleViewOutput.swift */; };
-		9C7A42BF1F691D17008F64EA /* ActivityViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7A42BE1F691D17008F64EA /* ActivityViewModels.swift */; };
 		9C7D9B341F2F430B005928F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B331F2F430B005928F4 /* Localizable.strings */; };
 		9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */; };
 		9C813A4A1F45A21900462950 /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531341F31CCD1004CE94F /* FeedModuleInteractor-FetchQuery-Tests.swift */; };
@@ -1583,11 +1585,13 @@
 		9C43EC8B1F25D60A00D0B59D /* PostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuButton.swift; sourceTree = "<group>"; };
+		9C4B6F821F74E4CF001AA5BB /* ActivityViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModels.swift; sourceTree = "<group>"; };
+		9C4B6F841F74E4E8001AA5BB /* ActivityTextRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTextRender.swift; sourceTree = "<group>"; };
+		9C4B6F861F74E588001AA5BB /* ActivityDataSourceRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDataSourceRender.swift; sourceTree = "<group>"; };
 		9C5BE9021F67D04C00F0E20E /* ActivityCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCells.swift; sourceTree = "<group>"; };
 		9C6244F11F457DED004814BB /* PostMenuModuleInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleInteractorTests.swift; sourceTree = "<group>"; };
 		9C6244F31F4580FC004814BB /* PostMenuModulePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenterTests.swift; sourceTree = "<group>"; };
 		9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedServiceAdapters.swift; sourceTree = "<group>"; };
-		9C7A42BE1F691D17008F64EA /* ActivityViewModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewModels.swift; sourceTree = "<group>"; };
 		9C7D9B331F2F430B005928F4 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 1; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		9C985E521F505BDF00514F85 /* FeedCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCacheTests.swift; sourceTree = "<group>"; };
@@ -4082,6 +4086,9 @@
 			children = (
 				9C08804D1F6FB37F0012F73A /* ActivityEntities.swift */,
 				9C08804F1F6FB53E0012F73A /* ActivityEntities+API.swift */,
+				9C4B6F821F74E4CF001AA5BB /* ActivityViewModels.swift */,
+				9C4B6F841F74E4E8001AA5BB /* ActivityTextRender.swift */,
+				9C4B6F861F74E588001AA5BB /* ActivityDataSourceRender.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -4479,7 +4486,6 @@
 			isa = PBXGroup;
 			children = (
 				0D2BA3344089F0C12144A229 /* ActivityPresenter.swift */,
-				9C7A42BE1F691D17008F64EA /* ActivityViewModels.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -5137,6 +5143,7 @@
 				88580C701F2213AB00C1CBAF /* TabMenuContainerViewController.swift in Sources */,
 				881429201F4B19F400FC9F1E /* MyProfileOpener.swift in Sources */,
 				88580C161F2213AB00C1CBAF /* SocialUser.swift in Sources */,
+				9C4B6F851F74E4E8001AA5BB /* ActivityTextRender.swift in Sources */,
 				88580C2B1F2213AB00C1CBAF /* SocialMenuItemsProvider.swift in Sources */,
 				88204FB01F56EA4F00E15F5A /* MulticastDelegate.swift in Sources */,
 				88E3AC2A1F55840D0016357F /* SettingsInteractor.swift in Sources */,
@@ -5195,7 +5202,6 @@
 				88580C131F2213AB00C1CBAF /* User+Memento.swift in Sources */,
 				88580BBA1F2213AB00C1CBAF /* Collection+Ext.swift in Sources */,
 				88BC5C621F2F5EFE001FBDD2 /* TwitterServerBasedAPI.swift in Sources */,
-				9C7A42BF1F691D17008F64EA /* ActivityViewModels.swift in Sources */,
 				8864C8491F4707BB00ADCE13 /* SearchPresenter.swift in Sources */,
 				88580C271F2213AB00C1CBAF /* SessionService.swift in Sources */,
 				8834A7681F5067C700F1D383 /* LikesListInteractorInput.swift in Sources */,
@@ -5232,8 +5238,10 @@
 				88B94EBC1F62A8BC002392F9 /* SearchTopicsViewOutput.swift in Sources */,
 				88580C601F2213AB00C1CBAF /* SideMenuRouter.swift in Sources */,
 				8864C83A1F46DBC200ADCE13 /* SearchPeoplePresenter.swift in Sources */,
+				9C4B6F831F74E4CF001AA5BB /* ActivityViewModels.swift in Sources */,
 				88B94EC31F62AA1C002392F9 /* SearchTopicsModuleInput.swift in Sources */,
 				88FFFA7C1F30BB5E0066A1A0 /* FollowersViewInput.swift in Sources */,
+				9C4B6F871F74E588001AA5BB /* ActivityDataSourceRender.swift in Sources */,
 				8807ADFF1F5EB22100DA3FB0 /* SessionInfo.swift in Sources */,
 				93AC65A71F3E057C00FE5A3A /* CommentCell.swift in Sources */,
 				88580C1A1F2213AB00C1CBAF /* AuthService.swift in Sources */,
