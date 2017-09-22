@@ -11,6 +11,7 @@ protocol ActivityViewInput: class {
     func showError(_ error: Error)
     func addNewItems(indexes: [IndexPath])
     func reloadItems()
+    func switchTab(to index: Int)
 }
 
 protocol ActivityViewOutput: class {
@@ -23,6 +24,9 @@ protocol ActivityViewOutput: class {
     
     func loadAll()
     func loadMore()
+    
+    func didSwitchToTab(to index: Int)
+    
 }
 
 class ActivityViewController: UIViewController {
@@ -33,7 +37,8 @@ class ActivityViewController: UIViewController {
     
     var output: ActivityViewOutput!
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet fileprivate weak var tableView: UITableView!
+    @IBOutlet fileprivate weak var segmentControl: UISegmentedControl!
     
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -51,8 +56,13 @@ class ActivityViewController: UIViewController {
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         tableView.delegate = self
+        segmentControl.tintColor = Palette.green
         
         tableView.addSubview(self.refreshControl)
+    }
+    
+    @IBAction func segmentControlDidChange(_ sender: UISegmentedControl) {
+        output.didSwitchToTab(to: sender.selectedSegmentIndex)
     }
     
     fileprivate lazy var refreshControl: UIRefreshControl = {
@@ -70,6 +80,10 @@ class ActivityViewController: UIViewController {
 
 extension ActivityViewController: ActivityViewInput {
     
+    func switchTab(to index: Int) {
+        segmentControl.selectedSegmentIndex = index
+    }
+
     func reloadItems() {
         tableView.reloadData()
     }

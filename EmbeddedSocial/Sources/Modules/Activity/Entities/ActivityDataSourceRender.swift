@@ -5,41 +5,43 @@
 
 import Foundation
 
+typealias DataSourceContext = (state: ActivityPresenter.State, index: Int)
+
 protocol DataSourceProtocol {
     func loadMore()
     var section: Section { get }
     var delegate: DataSourceDelegate? { get }
-    var index: Int { get }
+    
 }
 
 protocol DataSourceDelegate {
     func didFail(error: Error)
-    func didLoad(indexPaths: [IndexPath])
+    func didLoad(indexPaths: [IndexPath], context: DataSourceContext)
 }
 
 class DataSourceBuilder {
     static func buildPendingRequestsDataSource(interactor: ActivityInteractorInput,
-                                               index: Int,
-                                               delegate: DataSourceDelegate) -> MyPendingRequests {
+                                               delegate: DataSourceDelegate,
+                                               context: DataSourceContext) -> MyPendingRequests {
         let header = SectionHeader(name: "Pending requests", identifier: "")
         let section = Section(model: header, items: [])
         
         return MyPendingRequests(interactor: interactor,
                                  section:section,
                                  delegate: delegate,
-                                 index: index)
+                                 context: context)
     }
     
     static func buildMyFollowingsActivityDataSource(interactor: ActivityInteractorInput,
-                                                    index: Int,
-                                                    delegate: DataSourceDelegate) -> MyFollowingsActivity {
+                                                    delegate: DataSourceDelegate,
+                                                    context: DataSourceContext) -> MyFollowingsActivity {
         let header = SectionHeader(name: "My followings activity", identifier: "")
         let section = Section(model: header, items: [])
         
         return MyFollowingsActivity(interactor: interactor,
                                     section: section,
                                     delegate: delegate,
-                                    index: index)
+                                    context: context)
     }
 }
 
@@ -47,25 +49,25 @@ class DataSource: DataSourceProtocol {
     weak var interactor: ActivityInteractorInput!
     var section: Section
     var delegate: DataSourceDelegate?
-    var index: Int
+    let context: DataSourceContext
     
     func loadMore() { }
     
     init(interactor: ActivityInteractorInput,
          section: Section,
          delegate: DataSourceDelegate? = nil,
-         index: Int) {
+         context: DataSourceContext) {
         
         self.interactor = interactor
         self.section = section
         self.delegate = delegate
-        self.index = index
+        self.context = context
     }
     
     func insertedIndexes(newItemsCount: Int) -> [IndexPath] {
         // make paths for inserted items
         let range = (section.items.count - newItemsCount)..<section.items.count
-        let indexPaths = range.map { IndexPath(row: $0, section: index) }
+        let indexPaths = range.map { IndexPath(row: $0, section: context.index) }
         return indexPaths
     }
 }
@@ -88,7 +90,7 @@ class MyPendingRequests: DataSource {
                 
                 // make paths for inserted items
                 let indexPaths = strongSelf.insertedIndexes(newItemsCount: items.count)
-                strongSelf.delegate?.didLoad(indexPaths: indexPaths)
+                strongSelf.delegate?.didLoad(indexPaths: indexPaths, context: strongSelf.context)
             }
         }
     }
@@ -112,7 +114,7 @@ class MyFollowingsActivity: DataSource {
                 
                 // make paths for inserted items
                 let indexPaths = strongSelf.insertedIndexes(newItemsCount: items.count)
-                strongSelf.delegate?.didLoad(indexPaths: indexPaths)
+                strongSelf.delegate?.didLoad(indexPaths: indexPaths, context: strongSelf.context)
             }
         }
     }

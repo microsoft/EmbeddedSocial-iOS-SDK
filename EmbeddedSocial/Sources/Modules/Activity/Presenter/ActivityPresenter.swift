@@ -15,12 +15,20 @@ class ActivityPresenter {
     var interactor: ActivityInteractorInput
     var router: ActivityRouterInput!
     
-    enum State: Int {
-        case my
-        case others
+    enum State: Int  {
+        case my = 0
+        case others = 1
+        
+        mutating func toggle() {
+            self = State(rawValue: rawValue ^ 1)!
+        }
     }
     
-    var state: State = .my
+    var state: State = .my {
+        didSet {
+            onStateDidChange()
+        }
+    }
     
     fileprivate var cellConfigurator = CellConfigurator()
     
@@ -51,16 +59,23 @@ class ActivityPresenter {
         
         let pendingDataSource = DataSourceBuilder.buildPendingRequestsDataSource(
             interactor: interactor,
-            index: 0,
-            delegate: self)
+            delegate: self,
+            context: DataSourceContext(state: self.state, index:0))
         
         let myActivityDataSource = DataSourceBuilder.buildMyFollowingsActivityDataSource(
             interactor: interactor,
-            index: 1,
-            delegate: self)
+            delegate: self,
+            context: DataSourceContext(state: self.state, index: 1))
         
         sources[.my] = [pendingDataSource, myActivityDataSource]
+        sources[.others] = [myActivityDataSource]
         return sources
+    }
+    
+    private func onStateDidChange() {
+        // load/update feed
+        view.reloadItems()
+        loadMore()
     }
 }
 
@@ -70,7 +85,9 @@ extension ActivityPresenter: DataSourceDelegate {
         Logger.log(error, event: .veryImportant)
     }
     
-    func didLoad(indexPaths: [IndexPath]) {
+    func didLoad(indexPaths: [IndexPath], context: DataSourceContext) {
+        
+        guard state == context.state else { return }
         view.addNewItems(indexes: indexPaths)
     }
     
@@ -85,6 +102,11 @@ extension ActivityPresenter: ActivityInteractorOutput {
 }
 
 extension ActivityPresenter: ActivityViewOutput {
+    
+    func didSwitchToTab(to index: Int) {
+        guard let state = State(rawValue: index) else { fatalError("Wrong index") }
+        self.state = state
+    }
     
     func loadAll() {
         // release data sources
