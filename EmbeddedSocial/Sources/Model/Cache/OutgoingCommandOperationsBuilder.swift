@@ -6,12 +6,14 @@
 import Foundation
 
 protocol OutgoingCommandOperationsBuilderType {
-    static func operation(for command: OutgoingCommand) -> OutgoingCommandOperation?
+    func operation(for command: OutgoingCommand) -> OutgoingCommandOperation?
+    
+    func fetchCommandsOperation(cache: CacheType, predicate: NSPredicate) -> FetchOutgoingCommandsOperation
 }
 
 struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
     
-    static func operation(for command: OutgoingCommand) -> OutgoingCommandOperation? {
+    func operation(for command: OutgoingCommand) -> OutgoingCommandOperation? {
         // user commands
         if let command = command as? FollowCommand {
             return FollowUserOperation(command: command, socialService: SocialService())
@@ -66,5 +68,9 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         }
         
         return nil
+    }
+    
+    func fetchCommandsOperation(cache: CacheType, predicate: NSPredicate) -> FetchOutgoingCommandsOperation {
+        return FetchOutgoingCommandsOperation(cache: cache, predicate: predicate)
     }
 }

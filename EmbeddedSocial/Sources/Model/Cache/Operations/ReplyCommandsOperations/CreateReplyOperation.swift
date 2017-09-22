@@ -8,12 +8,12 @@ import Foundation
 final class CreateReplyOperation: OutgoingCommandOperation {
     let command: ReplyCommand
     private let repliesService: RepliesServiceProtcol
-    private let predicateBuilder: OutgoingCommandsPredicateBuilder.Type
+    private let predicateBuilder: OutgoingCommandsPredicateBuilder
     private let handleUpdater: RelatedHandleUpdater
     
     init(command: ReplyCommand,
          repliesService: RepliesServiceProtcol,
-         predicateBuilder: OutgoingCommandsPredicateBuilder.Type = PredicateBuilder.self,
+         predicateBuilder: OutgoingCommandsPredicateBuilder = PredicateBuilder(),
          handleUpdater: RelatedHandleUpdater = OutgoingCommandsRelatedHandleUpdater()) {
         
         self.command = command

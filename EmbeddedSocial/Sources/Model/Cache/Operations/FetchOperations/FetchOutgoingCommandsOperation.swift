@@ -9,7 +9,7 @@ class FetchOutgoingCommandsOperation: Operation {
     private let cache: CacheType
     private let predicate: NSPredicate
     
-    var commands: [OutgoingCommand] = []
+    private(set) var commands: [OutgoingCommand] = []
     
     init(cache: CacheType, predicate: NSPredicate) {
         self.cache = cache

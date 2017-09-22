@@ -15,7 +15,7 @@ final class DaemonsController: Daemon {
         queue.qualityOfService = .background
         
         let strategy = OutgoingCommandsUploadStrategy(cache: self.cache,
-                                                      operationsBuilderType: OutgoingCommandOperationsBuilder.self,
+                                                      operationsBuilderType: OutgoingCommandOperationsBuilder(),
                                                       executionQueue: queue)
         
         return OutgoingCommandsUploader(networkTracker: self.networkTracker,

@@ -12,37 +12,39 @@ protocol CachePredicateBuilder {
 }
 
 protocol OutgoingCommandsPredicateBuilder {
-    static func allImageCommands() -> NSPredicate
+    func allImageCommands() -> NSPredicate
     
-    static func createTopicCommands() -> NSPredicate
+    func createTopicCommands() -> NSPredicate
     
-    static func createTopicCommand(topicHandle: String) -> NSPredicate
+    func createTopicCommand(topicHandle: String) -> NSPredicate
     
-    static func createCommentCommand(commentHandle: String) -> NSPredicate
+    func createCommentCommand(commentHandle: String) -> NSPredicate
     
-    static func commandsWithRelatedHandle(_ relatedHandle: String, ignoredTypeID: String) -> NSPredicate
+    func commandsWithRelatedHandle(_ relatedHandle: String, ignoredTypeID: String) -> NSPredicate
     
-    static func createCommentCommands() -> NSPredicate
+    func createCommentCommands() -> NSPredicate
     
-    static func allTopicActionCommands() -> NSPredicate
+    func allTopicActionCommands() -> NSPredicate
     
-    static func replyActionCommands() -> NSPredicate
+    func replyActionCommands() -> NSPredicate
     
-    static func createReplyCommands() -> NSPredicate
+    func createReplyCommands() -> NSPredicate
+    
+    func predicate(for command: OutgoingCommand) -> NSPredicate
 }
 
 struct PredicateBuilder: CachePredicateBuilder {
     
-    static func predicate(typeID: String) -> NSPredicate {
+    func predicate(typeID: String) -> NSPredicate {
         return NSPredicate(format: "typeid = %@", typeID)
     }
     
-    static func allOutgoingCommandsPredicate() -> NSPredicate {
+    func allOutgoingCommandsPredicate() -> NSPredicate {
         let typeIDs = OutgoingCommand.allCommandTypes.map { $0.typeIdentifier }
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
-    static func allUserCommands() -> NSPredicate {
+    func allUserCommands() -> NSPredicate {
         let userCommands: [UserCommand.Type] = [
             FollowCommand.self,
             UnfollowCommand.self,
@@ -54,7 +56,7 @@ struct PredicateBuilder: CachePredicateBuilder {
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
-    static func replyActionCommands(for replyHandle: String) -> NSPredicate {
+    func replyActionCommands(for replyHandle: String) -> NSPredicate {
         let replyCommands: [ReplyCommand.Type] = [
             UnlikeReplyCommand.self,
             LikeReplyCommand.self
@@ -63,7 +65,7 @@ struct PredicateBuilder: CachePredicateBuilder {
         return NSPredicate(format: "typeid IN %@ AND handle = %@", typeIDs, replyHandle)
     }
     
-    static func commentActionCommands(for commentHandle: String) -> NSPredicate {
+    func commentActionCommands(for commentHandle: String) -> NSPredicate {
         let commentCommands: [CommentCommand.Type] = [
             UnlikeCommentCommand.self,
             LikeCommentCommand.self
@@ -72,31 +74,31 @@ struct PredicateBuilder: CachePredicateBuilder {
         return NSPredicate(format: "typeid IN %@ AND handle = %@", typeIDs, commentHandle)
     }
     
-    static func allCreateCommentCommands() -> NSPredicate {
+    func allCreateCommentCommands() -> NSPredicate {
         return predicate(typeID: CreateCommentCommand.typeIdentifier)
     }
     
-    static func allCreateReplyCommands() -> NSPredicate {
+    func allCreateReplyCommands() -> NSPredicate {
         return predicate(typeID: CreateReplyCommand.typeIdentifier)
     }
     
-    static func allCreateTopicCommands() -> NSPredicate {
+    func allCreateTopicCommands() -> NSPredicate {
         return predicate(typeID: CreateTopicCommand.typeIdentifier)
     }
     
-    static func createReplyCommand(replyHandle: String) -> NSPredicate {
+    func createReplyCommand(replyHandle: String) -> NSPredicate {
         return NSPredicate(format: "typeid = %@ AND handle = %@", CreateReplyCommand.typeIdentifier, replyHandle)
     }
     
-    static func userCommandsPredicate() -> NSPredicate {
+    func userCommandsPredicate() -> NSPredicate {
         return predicate(typeID: OutgoingCommand.typeIdentifier)
     }
     
-    static func predicate(typeID: String, handle: String) -> NSPredicate {
+    func predicate(typeID: String, handle: String) -> NSPredicate {
         return NSPredicate(format: "typeid = %@ AND handle = %@", typeID, handle)
     }
     
-    static func predicate(for command: OutgoingCommand) -> NSPredicate {
+    func predicate(for command: OutgoingCommand) -> NSPredicate {
         if let handle = command.getHandle() {
             return predicate(typeID: command.typeIdentifier, handle: handle)
         } else {
@@ -106,14 +108,6 @@ struct PredicateBuilder: CachePredicateBuilder {
     
     func predicate(handle: String) -> NSPredicate {
         return NSPredicate(format: "handle = %@", handle)
-    }
-    
-    func predicate(typeID: String) -> NSPredicate {
-        return PredicateBuilder.predicate(typeID: typeID)
-    }
-    
-    func predicate(typeID: String, handle: String) -> NSPredicate {
-        return PredicateBuilder.predicate(typeID: typeID, handle: handle)
     }
     
     func predicate(typeID: String, handle: String, relatedHandle: String) -> NSPredicate {
@@ -127,7 +121,7 @@ struct PredicateBuilder: CachePredicateBuilder {
 
 extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
     
-    static func allImageCommands() -> NSPredicate {
+    func allImageCommands() -> NSPredicate {
         let commands: [ImageCommand.Type] = [
             CreateTopicImageCommand.self,
             CreateCommentImageCommand.self,
@@ -137,7 +131,7 @@ extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
-    static func allTopicActionCommands() -> NSPredicate {
+    func allTopicActionCommands() -> NSPredicate {
         let topicCommands: [TopicCommand.Type] = [
             UnlikeTopicCommand.self,
             LikeTopicCommand.self,
@@ -148,7 +142,7 @@ extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
-    static func commentActionCommands() -> NSPredicate {
+    func commentActionCommands() -> NSPredicate {
         let commands: [CommentCommand.Type] = [
             UnlikeCommentCommand.self,
             LikeCommentCommand.self
@@ -157,7 +151,7 @@ extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
-    static func replyActionCommands() -> NSPredicate {
+    func replyActionCommands() -> NSPredicate {
         let replyCommands: [ReplyCommand.Type] = [
             UnlikeReplyCommand.self,
             LikeReplyCommand.self
@@ -166,27 +160,27 @@ extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
-    static func createTopicCommand(topicHandle: String) -> NSPredicate {
+    func createTopicCommand(topicHandle: String) -> NSPredicate {
         return NSPredicate(format: "typeid = %@ AND handle = %@", CreateTopicCommand.typeIdentifier, topicHandle)
     }
     
-    static func createCommentCommand(commentHandle: String) -> NSPredicate {
+    func createCommentCommand(commentHandle: String) -> NSPredicate {
         return NSPredicate(format: "typeid = %@ AND handle = %@", CreateCommentCommand.typeIdentifier, commentHandle)
     }
     
-    static func commandsWithRelatedHandle(_ relatedHandle: String, ignoredTypeID: String) -> NSPredicate {
+    func commandsWithRelatedHandle(_ relatedHandle: String, ignoredTypeID: String) -> NSPredicate {
         return NSPredicate(format: "relatedHandle = %@ AND typeid != %@", relatedHandle, ignoredTypeID)
     }
     
-    static func createTopicCommands() -> NSPredicate {
+    func createTopicCommands() -> NSPredicate {
         return NSPredicate(format: "typeid = %@", CreateTopicCommand.typeIdentifier)
     }
     
-    static func createCommentCommands() -> NSPredicate {
+    func createCommentCommands() -> NSPredicate {
         return NSPredicate(format: "typeid = %@", CreateCommentCommand.typeIdentifier)
     }
     
-    static func createReplyCommands() -> NSPredicate {
+    func createReplyCommands() -> NSPredicate {
         return NSPredicate(format: "typeid = %@", CreateReplyCommand.typeIdentifier)
     }
 }

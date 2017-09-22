@@ -61,7 +61,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         )
         
         let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                                     predicate: PredicateBuilder.allCreateReplyCommands(),
+                                                     predicate: PredicateBuilder().allCreateReplyCommands(),
                                                      sortDescriptors: [Cache.createdAtSortDescriptor])
         
         cache.fetchOutgoing(with: fetchOutgoingRequest) { [weak self] commands in
@@ -153,7 +153,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
     }
     
     private func cachedOutgoingReply(with replyHandle: String) -> Reply? {
-        let p = PredicateBuilder.createReplyCommand(replyHandle: replyHandle)
+        let p = PredicateBuilder().createReplyCommand(replyHandle: replyHandle)
         
         let cachedCommand = cache.firstOutgoing(ofType: OutgoingCommand.self,
                                                 predicate: p,
@@ -163,7 +163,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
     }
     
     private func cachedIncomingReply(key: String) -> Reply? {
-        let p = PredicateBuilder.predicate(typeID: key)
+        let p = PredicateBuilder().predicate(typeID: key)
         let cachedReplyView = cache.firstIncoming(ofType: ReplyView.self, predicate: p, sortDescriptors: nil)
         return cachedReplyView != nil ? convert(replyView: cachedReplyView!) : nil
     }
@@ -218,7 +218,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         reply.userStatus = FollowStatus(status: replyView.user?.followerStatus)
         
         let request = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                        predicate: PredicateBuilder.replyActionCommands(for: replyView.replyHandle!),
+                                        predicate: PredicateBuilder().replyActionCommands(for: replyView.replyHandle!),
                                         sortDescriptors: [Cache.createdAtSortDescriptor])
         
         let commands = cache.fetchOutgoing(with: request) as? [ReplyCommand] ?? []
