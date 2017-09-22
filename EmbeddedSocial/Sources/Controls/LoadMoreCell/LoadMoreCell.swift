@@ -43,6 +43,7 @@ class LoadMoreCell: UICollectionViewCell {
     func configure(viewModel: LoadMoreCellViewModel) {
         loadButton.isHidden = viewModel.shouldHideLoadingLabel
         activityIndicator.isHidden = viewModel.shouldHideActivityIndicator
+        activityIndicator.startAnimating()
     }
 
     @IBAction func loadPressed(_ sender: Any) {

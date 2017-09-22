@@ -49,9 +49,6 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     
     // MARK: PostDetailInteractorOutput
     func didFetch(comments: [Comment], cursor: String?) {
-        if self.cursor != cursor {
-            enableFetchMore()
-        }
         self.cursor = cursor
         self.comments = comments
         self.comments.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
@@ -60,9 +57,6 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     }
     
     func didFetchMore(comments: [Comment], cursor: String?) {
-        if self.cursor != cursor {
-            enableFetchMore()
-        }
         dataIsFetching = false
         appendWithReplacing(original: &self.comments, appending: comments)
         self.comments.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
@@ -88,6 +82,8 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     private func stopLoading() {
         if cursor == nil {
             loadMoreCellViewModel.cellHeight = 0.1
+        } else {
+            loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
         }
         
         loadMoreCellViewModel.stopLoading()
