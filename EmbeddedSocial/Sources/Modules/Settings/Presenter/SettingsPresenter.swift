@@ -29,11 +29,7 @@ extension SettingsPresenter: SettingsViewOutput {
     }
     
     func signOut() {
-        interactor.signOut(success: { _ in
-            self.router.logOut()
-        }) { (error) in
-            //TODO: handle
-        }
+        interactor.signOut()
     }
     
     func onPrivacySwitch() {

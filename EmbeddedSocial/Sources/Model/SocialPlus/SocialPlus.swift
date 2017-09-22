@@ -107,6 +107,14 @@ extension SocialPlus: LogoutController {
         daemonsController.stop()
         try? sessionStore.deleteCurrentSession()
         setupServices(with: SocialPlusServices())
-        coordinator.logOut()
+        coreDataStack.reset { (result) in
+            guard let error = result.error else {
+                self.coordinator.logOut()
+                return
+            }
+            
+            self.logOut(with: error)
+        }
+        
     }
 }

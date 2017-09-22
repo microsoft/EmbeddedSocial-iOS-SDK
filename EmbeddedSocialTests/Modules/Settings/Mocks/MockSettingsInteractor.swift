@@ -18,8 +18,7 @@ final class MockSettingsInteractor: SettingsInteractorInput {
         }
     }
     
-    func signOut(success: @escaping (Void) -> Void, fauilure: @escaping (Error) -> Void) {
+    func signOut() {
         signOutCount += 1
-        success()
     }
 }
