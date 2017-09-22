@@ -59,7 +59,7 @@ class ActivityBaseCell: UITableViewCell {
     
     let profileImage: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFit
+        view.contentMode = .scaleAspectFill
         return view
     }()
     

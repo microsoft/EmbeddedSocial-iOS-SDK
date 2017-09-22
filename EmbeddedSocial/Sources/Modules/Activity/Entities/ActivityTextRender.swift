@@ -11,7 +11,7 @@ class ActivityTextRender {
         switch item  {
         case let .pendingRequest(model):
             return nil
-        case let .othersActivity(model): 
+        case let .othersActivity(model):
             return OtherActivityTextRender.render(item: model)
         case let .myActivity(model):
             return MyActivityTextRender.render(item: model)
