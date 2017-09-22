@@ -15,19 +15,14 @@ final class SettingsInteractor: SettingsInteractorInput {
     
     func signOut(success: @escaping (Void) -> Void, fauilure: @escaping (Error) -> Void) {
         OperationQueue().cancelAllOperations()
-        do {
-            try SocialPlus.shared.sessionStore.deleteCurrentSession()
-            SocialPlus.shared.coreDataStack.reset { (result) in
-                guard let error = result.error else {
-                    success()
-                    return
-                }
-                
-                fauilure(error)
+        SocialPlus.shared.logOut()
+        SocialPlus.shared.coreDataStack.reset { (result) in
+            guard let error = result.error else {
+                success()
+                return
             }
-        } catch {
-            //TODO: handle
-            print("signOut failed")
+            
+            fauilure(error)
         }
 
     }
