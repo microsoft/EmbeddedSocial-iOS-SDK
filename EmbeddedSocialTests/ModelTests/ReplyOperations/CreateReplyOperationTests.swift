@@ -26,6 +26,6 @@ class CreateReplyOperationTests: XCTestCase {
         
         // then
         XCTAssertTrue(service.postReplyCalled)
-        XCTAssertEqual(service.postReplyReceivedArguments?.commentHandle, command.reply.commentHandle)
+        XCTAssertEqual(service.postReplyReceivedReply, command.reply)
     }
 }

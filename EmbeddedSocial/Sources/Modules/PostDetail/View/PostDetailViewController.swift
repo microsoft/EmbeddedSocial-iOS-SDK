@@ -121,20 +121,21 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     func reloadTable(scrollType: CommentsScrollType) {
-        self.collectionView.reloadData()
-        self.isNewDataLoading = false
-        self.commentTextView.isEditable = true
-        self.mediaButton.isEnabled = true
-        switch scrollType {
-        case .bottom:
-            DispatchQueue.main.asyncAfter(deadline: .now() + self.reloadDelay) {
-                self.scrollCollectionViewToBottom()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            self.isNewDataLoading = false
+            self.commentTextView.isEditable = true
+            self.mediaButton.isEnabled = true
+            switch scrollType {
+            case .bottom:
+                DispatchQueue.main.asyncAfter(deadline: .now() + self.reloadDelay) {
+                    self.scrollCollectionViewToBottom()
+                }
+            default: break
             }
-        default: break
+            
+            self.refreshControl.endRefreshing()
         }
-        
-        refreshControl.endRefreshing()
-
     }
     
     func setFeedViewController(_ feedViewController: UIViewController) {

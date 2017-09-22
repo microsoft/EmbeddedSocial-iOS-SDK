@@ -129,5 +129,12 @@ class FeedModuleViewInputMock: FeedModuleViewInput {
         getViewHeight_Called = true
         return getViewHeight_ReturnValue
     }
+
+    //MARK: - setScrolling
+    
+    var setScrolling_Called = false
+    func setScrolling(enable: Bool) {
+        setScrolling_Called = true
+    }
     
 }

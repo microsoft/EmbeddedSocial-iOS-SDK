@@ -50,4 +50,9 @@ class MockFeedModuleInput: FeedModuleInput {
         headerHeight = height
         setHeaderHeightCount += 1
     }
+    
+    private(set) var lockScrollingCount = 0
+    func lockScrolling() {
+        lockScrollingCount += 1
+    }
 }

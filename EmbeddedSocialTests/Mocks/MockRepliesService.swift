@@ -22,12 +22,12 @@ class MockRepliesService: RepliesServiceProtcol {
     //MARK: - postReply
     
     var postReplyCalled = false
-    var postReplyReceivedArguments: (commentHandle: String, request: PostReplyRequest)?
+    var postReplyReceivedReply: Reply?
     var postReplyReturnResponse: PostReplyResponse!
 
-    func postReply(commentHandle: String, request: PostReplyRequest, success: @escaping PostReplyResultHandler, failure: @escaping Failure) {
+    func postReply(reply: Reply, success: @escaping PostReplyResultHandler, failure: @escaping Failure) {
         postReplyCalled = true
-        postReplyReceivedArguments = (commentHandle: commentHandle, request: request)
+        postReplyReceivedReply = reply
         success(postReplyReturnResponse)
     }
     
