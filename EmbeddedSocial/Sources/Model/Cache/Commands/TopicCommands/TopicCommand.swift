@@ -25,11 +25,7 @@ class TopicCommand: OutgoingCommand {
     }
     
     func setImageHandle(_ imageHandle: String?) {
-        if let imageHandle = imageHandle {
-            topic.photo?.uid = imageHandle
-        } else {
-            topic.photo = nil
-        }
+        topic.imageHandle = imageHandle
     }
     
     func apply(to topic: inout Post) {

@@ -17,7 +17,8 @@ class CreatePostInteractor: CreatePostInteractorInput {
         var topic = Post(topicHandle: UUID().uuidString)
         topic.title = title
         topic.text = body
-        topic.photo = photo
+        topic.imageHandle = photo?.uid
+        topic.imageUrl = photo?.url
         topic.user = userHolder.me
         
         topicService?.postTopic(topic,

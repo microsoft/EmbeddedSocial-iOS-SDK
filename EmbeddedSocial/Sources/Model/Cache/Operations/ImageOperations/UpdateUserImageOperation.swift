@@ -12,11 +12,11 @@ final class UpdateUserImageOperation: ImageCommandOperation {
     init(command: ImageCommand,
          imagesService: ImagesServiceType,
          userHolder: UserHolder = SocialPlus.shared,
-         predicateBuilder: OutgoingCommandsPredicateBuilder.Type = PredicateBuilder.self,
-         cache: CacheType = SocialPlus.shared.cache) {
+         cache: CacheType = SocialPlus.shared.cache,
+         imageCache: ImageCache = ImageCacheAdapter.shared) {
         
         self.userHolder = userHolder
-        super.init(command: command, imagesService: imagesService, predicateBuilder: predicateBuilder, cache: cache)
+        super.init(command: command, imagesService: imagesService, cache: cache, imageCache: imageCache)
     }
     
     override func main() {
@@ -24,7 +24,10 @@ final class UpdateUserImageOperation: ImageCommandOperation {
             return
         }
         
-        imagesService.updateUserPhoto(command.photo) { [weak self] result in
+        var photo = command.photo
+        photo.image = imageCache.image(for: command.photo)
+        
+        imagesService.updateUserPhoto(photo) { [weak self] result in
             guard let strongSelf = self, !strongSelf.isCancelled else {
                 return
             }

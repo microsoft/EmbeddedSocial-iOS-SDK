@@ -10,7 +10,8 @@ struct Post {
     var createdTime: Date?
     
     var user: User?
-    var photo: Photo?
+    var imageUrl: String?
+    var imageHandle: String?
     
     var title: String?
     var text: String?
@@ -52,12 +53,11 @@ struct Post {
         return user?.photo?.url
     }
     
-    var imageUrl: String? {
-        return photo?.url
-    }
-    
-    var imageHandle: String? {
-        return photo?.uid
+    var photo: Photo? {
+        guard let imageHandle = imageHandle else {
+            return nil
+        }
+        return Photo(uid: imageHandle, url: imageUrl)
     }
 }
 
@@ -99,11 +99,10 @@ extension Post: JSONEncodable {
         if let userJSON = json["user"] as? [String: Any] {
             user = User(memento: userJSON)
         }
-        if let photoJSON = json["photo"] as? [String: Any] {
-            photo = Photo(memento: photoJSON)
-        }
         title = json["title"] as? String
         text = json["text"] as? String
+        imageUrl = json["imageUrl"] as? String
+        imageHandle = json["imageHandle"] as? String
         deepLink = json["deepLink"] as? String
         totalLikes = json["totalLikes"] as? Int ?? 0
         totalComments = json["totalComments"] as? Int ?? 0
@@ -116,7 +115,8 @@ extension Post: JSONEncodable {
             "topicHandle": topicHandle,
             "createdTime": createdTime,
             "user": user?.encodeToJSON(),
-            "photo": photo?.encodeToJSON(),
+            "imageUrl": imageUrl,
+            "imageHandle": imageHandle,
             "title": title,
             "text": text,
             "deepLink": deepLink,
@@ -136,9 +136,8 @@ extension Post {
         if let userCompactView = data.user {
             user = User(compactView: userCompactView)
         }
-        if let blobHandle = data.blobHandle {
-            photo = Photo(uid: blobHandle, url: data.blobUrl)
-        }
+        imageHandle = data.blobHandle
+        imageUrl = data.blobUrl
         createdTime = data.createdTime
         title = data.title
         text = data.text

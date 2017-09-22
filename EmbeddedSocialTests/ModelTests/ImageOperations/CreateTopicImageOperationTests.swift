@@ -6,28 +6,90 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class CreateTopicImageOperationTests: XCTestCase {
+class CreateTopicImageOperationTests: CreateImageOperationTests {
     
-    func testThatItUsesCorrectServiceMethod() {
+    func testThatItUploadsImageAndUpdatesRelatedHandle() {
         // given
-        let image = UIImage(color: .yellow, size: CGSize(width: 8.0, height: 8.0))
-        let topicHandle = UUID().uuidString
-        let photo = Photo(image: image)
-        let command = CreateTopicImageCommand(photo: photo, relatedHandle: topicHandle)
+        let photo = Photo(image: UIImage(color: .yellow, size: CGSize(width: 8.0, height: 8.0)))
+        imageCache.imageForReturnValue = photo.image
         
-        let service = MockImagesService()
+        let topic = Post(topicHandle: UUID().uuidString)
+        let relatedTopicCommand = CreateTopicCommand(topic: topic)
+        cache.firstOutgoing_ofType_predicate_sortDescriptors_ReturnValue = relatedTopicCommand
+        
+        let predicate = NSPredicate(value: true)
+        predicateBuilder.createTopicCommandTopicHandleReturnValue = predicate
+        
+        let command = CreateTopicImageCommand(photo: photo, relatedHandle: topic.topicHandle)
         service.uploadTopicImageTopicHandleCompletionReturnResult = .success(command.photo.uid)
         
-        let sut = CreateTopicImageOperation(command: command, imagesService: service)
+        let sut = CreateTopicImageOperation(command: command, imagesService: service, predicateBuilder: predicateBuilder,
+                                            cache: cache, imageCache: imageCache)
         
         // when
-        let queue = OperationQueue()
-        queue.addOperation(sut)
-        queue.waitUntilAllOperationsAreFinished()
+        executeOperationAndWait(sut)
         
         // then
+        XCTAssertTrue(imageCache.imageForCalled)
+        XCTAssertEqual(imageCache.imageForReceivedPhoto, photo)
+        
+        XCTAssertEqual(relatedTopicCommand.topic.photo?.uid, photo.uid)
+        
         XCTAssertTrue(service.uploadTopicImageTopicHandleCompletionCalled)
-        XCTAssertEqual(service.uploadTopicImageTopicHandleCompletionReceivedArguments?.image, image)
-        XCTAssertEqual(service.uploadTopicImageTopicHandleCompletionReceivedArguments?.topicHandle, topicHandle)
+        XCTAssertEqual(service.uploadTopicImageTopicHandleCompletionReceivedArguments?.image, photo.image)
+        XCTAssertEqual(service.uploadTopicImageTopicHandleCompletionReceivedArguments?.topicHandle, topic.topicHandle)
+        
+        XCTAssertTrue(cache.cacheOutgoing_typeID_Called)
+        XCTAssertTrue(cache.firstOutgoing_ofType_predicate_sortDescriptors_Called)
+        XCTAssertEqual(cache.firstOutgoing_ofType_predicate_sortDescriptors_ReceivedArguments?.predicate, predicate)
+        
+        XCTAssertTrue(predicateBuilder.createTopicCommandTopicHandleCalled)
+        XCTAssertEqual(predicateBuilder.createTopicCommandTopicHandleReceivedTopicHandle, topic.topicHandle)
+    }
+    
+    func testThatItFinishesWithErrorWhenUploadFails() {
+        // given
+        let error = APIError.unknown
+        service.uploadTopicImageTopicHandleCompletionReturnResult = .failure(error)
+        
+        let topic = Post(topicHandle: UUID().uuidString)
+        let photo = Photo(image: UIImage(color: .yellow, size: CGSize(width: 8.0, height: 8.0)))
+        imageCache.imageForReturnValue = photo.image
+        
+        let command = CreateTopicImageCommand(photo: photo, relatedHandle: topic.topicHandle)
+        let sut = CreateTopicImageOperation(command: command, imagesService: service, cache: cache, imageCache: imageCache)
+        
+        // when
+        executeOperationAndWait(sut)
+        
+        // then
+        guard let resultError = sut.error as? APIError, case APIError.unknown = resultError else {
+            XCTFail("Must contain error returned from service")
+            return
+        }
+        
+        XCTAssertTrue(imageCache.imageForCalled)
+        XCTAssertEqual(imageCache.imageForReceivedPhoto, photo)
+        
+        XCTAssertTrue(service.uploadTopicImageTopicHandleCompletionCalled)
+        XCTAssertFalse(cache.cacheOutgoing_typeID_Called)
+        XCTAssertFalse(cache.firstOutgoing_ofType_predicate_sortDescriptors_Called)
+    }
+    
+    func testThatItFinishesWhenImageIsMissingFromCache() {
+        // given
+        imageCache.imageForReturnValue = nil
+        
+        let command = CreateTopicImageCommand(photo: Photo(), relatedHandle: UUID().uuidString)
+        let sut = CreateTopicImageOperation(command: command, imagesService: service, cache: cache, imageCache: imageCache)
+        
+        // when
+        executeOperationAndWait(sut)
+        
+        // then
+        XCTAssertTrue(imageCache.imageForCalled)
+        XCTAssertFalse(service.uploadTopicImageTopicHandleCompletionCalled)
+        XCTAssertFalse(cache.cacheOutgoing_typeID_Called)
+        XCTAssertFalse(cache.firstOutgoing_ofType_predicate_sortDescriptors_Called)
     }
 }
