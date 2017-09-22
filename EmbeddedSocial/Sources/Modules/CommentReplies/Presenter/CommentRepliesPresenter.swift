@@ -201,6 +201,14 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     // MARK: CommentRepliesInteractorOutput
+    
+    func fetchedFailed(error: Error) {
+        loadMoreCellViewModel.cellHeight = 0.1
+        loadMoreCellViewModel.stopLoading()
+        view?.updateLoadingCell()
+        view?.unlockUI()
+    }
+    
     func fetched(replies: [Reply], cursor: String?) {
         self.cursor = cursor
         self.replies = replies
@@ -221,6 +229,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             shouldFetchRestOfReplies = false
         } else {
             view?.reloadReplies()
+            view?.updateLoadingCell()
         }
     }
     

@@ -52,6 +52,7 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     
     private func handleRepliesResult(result: RepliesFetchResult) {
         guard result.error == nil else {
+            self.output?.fetchedFailed(error: result.error!)
             return
         }
         
@@ -76,6 +77,7 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     
     private func handleMoreRepliesResult(result: RepliesFetchResult) {
         guard result.error == nil else {
+            self.output?.fetchedFailed(error: result.error!)
             return
         }
         
@@ -94,13 +96,8 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         reply.userPhotoUrl = userHolder.me?.photo?.url
         
         repliesService?.postReply(reply: reply, success: { (response) in
-            self.repliesService?.reply(replyHandle: response.replyHandle!, cachedResult: { (cachedReply) in
-                self.output?.replyPosted(reply: cachedReply)
-            }, success: { (webReply) in
-                self.output?.replyPosted(reply: webReply)
-            }, failure: { (error) in
-                
-            })
+            reply.replyHandle = response.replyHandle
+            self.output?.replyPosted(reply: reply)
         }, failure: { (error) in
             self.output?.replyFailPost(error: error)
         })

@@ -70,7 +70,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     // MARK: PostDetailViewInput
     func setupInitialState() {
         imagePikcer.delegate = self
-        mediaButton.isEnabled = false
         configCollectionView()
         configTextView()
     }
@@ -80,6 +79,12 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         if output.heightForFeed() > 0 {
             SVProgressHUD.dismiss()
         }
+    }
+    
+    func endRefreshing() {
+        refreshControl.endRefreshing()
+        commentTextView.isEditable = true
+        view.isUserInteractionEnabled = true
     }
     
     func updateLoadingCell() {
@@ -124,8 +129,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
             self.isNewDataLoading = false
-            self.commentTextView.isEditable = true
-            self.mediaButton.isEnabled = true
+            self.view.isUserInteractionEnabled = true
             switch scrollType {
             case .bottom:
                 DispatchQueue.main.asyncAfter(deadline: .now() + self.reloadDelay) {
@@ -161,10 +165,12 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         view.layoutIfNeeded()
         collectionView.reloadData()
         scrollCollectionViewToBottom()
+        view.isUserInteractionEnabled = true
     }
     
     func postCommentFailed(error: Error) {
         postButton.isHidden = false
+        view.isUserInteractionEnabled = true
         SVProgressHUD.dismiss()
     }
     
@@ -189,6 +195,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     @IBAction func postComment(_ sender: Any) {
+        view.isUserInteractionEnabled = false
         commentTextView.resignFirstResponder()
         SVProgressHUD.show()
         postButton.isHidden = true

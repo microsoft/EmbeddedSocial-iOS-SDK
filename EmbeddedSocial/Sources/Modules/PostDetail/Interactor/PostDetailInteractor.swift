@@ -15,6 +15,12 @@ class PostDetailInteractor: PostDetailInteractorInput {
     var topicService: PostServiceProtocol?
     var isLoading = false
     
+    private let userHolder: UserHolder
+    
+    init(userHolder: UserHolder = SocialPlus.shared) {
+        self.userHolder = userHolder
+    }
+    
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32) {
             self.isLoading = true
             self.commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
@@ -28,6 +34,7 @@ class PostDetailInteractor: PostDetailInteractorInput {
 
     private func fetchedItems(result: CommentFetchResult) {
         guard result.error == nil else {
+            output?.didFail(error: result.error!)
             return
         }
         
@@ -54,6 +61,7 @@ class PostDetailInteractor: PostDetailInteractorInput {
     
     private func fetchedMoreItems(result: CommentFetchResult) {
         guard result.error == nil else {
+            output?.didFail(error: result.error!)
             return
         }
         
@@ -62,9 +70,34 @@ class PostDetailInteractor: PostDetailInteractorInput {
     }
     
     func postComment(photo: Photo?, topicHandle: String, comment: String) {
+        
+        
         let request = PostCommentRequest()
         request.text = comment
+
+        /*
+        let newComment = Comment(commentHandle: UUID().uuidString)
+        newComment.user = userHolder.me
+        newComment.text = comment
+        newComment.topicHandle = topicHandle
+        newComment.mediaUrl = photo?.url
+        newComment.mediaHandle = photo?.getHandle()
+        newComment.createdTime = Date()
+ */
+         let newComment = Comment(request: request, photo: photo, topicHandle: topicHandle)
+        newComment.createdTime = Date()
+        newComment.user = userHolder.me
+
         
+       /*
+        commentsService?.postComment(comment: newComment, resultHandler: { (response) in
+            newComment.commentHandle = response.commentHandle
+            self.output?.commentDidPost(comment: newComment)
+        }, failure: { (error) in
+            print("error posting comment")
+        })
+ */
+
         commentsService?.postComment(topicHandle: topicHandle, request: request, photo: photo, resultHandler: { (response) in
             self.commentsService?.comment(commentHandle: response.commentHandle!, cachedResult: { (cachedComment) in
                 self.output?.commentDidPost(comment: cachedComment)
@@ -77,6 +110,7 @@ class PostDetailInteractor: PostDetailInteractorInput {
         }, failure: { (error) in
             print("error posting comment")
         })
+ 
         
     }
 }
