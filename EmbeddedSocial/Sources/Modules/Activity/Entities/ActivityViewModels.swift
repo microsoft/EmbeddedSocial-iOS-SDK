@@ -15,39 +15,38 @@ protocol ActivityItemCellConfigurable {
 }
 
 struct PendingRequestViewModel: ActivityItemViewModel {
-    
     var cellID: String
     var cellClass: UITableViewCell.Type
     
-    let profileImage: UIImage
-    let profileName: String
+    let profileImagePlaceholder = Asset.userPhotoPlaceholder
+    let profileImage: String?
+    let profileName: String?
 }
 
 struct ActivityViewModel: ActivityItemViewModel {
-    
     var cellID: String
     var cellClass: UITableViewCell.Type
     
-    let profileImage: UIImage
+    let profileImagePlaceholder = Asset.userPhotoPlaceholder
+    let profileImage: String?
     let postText: String
     let postTime: String
-    let postImage: UIImage
+    let postImage: String?
 }
 
 class ActivityItemViewModelBuilder {
+    
     static func build(from item: ActivityItem) -> ActivityItemViewModel {
-        
         switch item {
         case let .pendingRequest(model):
             return RequestItemViewModelBuilder.build(from: model)
             
-        case let .following(model):
-            return FollowerItemRequestViewModelBuilder.build(from: model)
+        case let .myActivity(model):
+            return MyActivityItemViewModelBuilder.build(from: model)
             
-        case let .follower(model):
-            return FollowingItemRequestViewModelBuilder.build(from: model)
+        case let .othersActivity(model):
+            return OthersActivityItemViewModelBuilder.build(from: model)
         }
-        
     }
 }
 
@@ -55,8 +54,8 @@ class RequestItemViewModelBuilder {
     static func build(from model: UserCompactView) -> ActivityItemViewModel {
         let cellID = FollowRequestCell.reuseID
         let cellClass = FollowRequestCell.self
-        let profileImage = Asset.placeholderPostUser1.image
-        let profileName = String(format: "%@ %@", model.firstName ?? "", model.lastName ?? "")
+        let profileImage = model.photoUrl
+        let profileName = model.getFullName()
         
         return PendingRequestViewModel(cellID: cellID,
                                        cellClass: cellClass,
@@ -65,17 +64,14 @@ class RequestItemViewModelBuilder {
     }
 }
 
-class FollowerItemRequestViewModelBuilder {
+class MyActivityItemViewModelBuilder {
     static func build(from model: ActivityView) -> ActivityItemViewModel {
         let cellID = ActivityCell.reuseID
         let cellClass = ActivityCell.self
-        let profileImage = Asset.userPhotoPlaceholder.image
-        let postImage = Asset.placeholderPostImage2.image
-        var postText = ""
-        
-        //        postText =
-        var timeAgoText = model.createdTimeAgo() ??  ""
-        
+        let profileImage = model.actorUsers?.first?.photoUrl
+        let postImage = model.actedOnContent?.blobUrl
+        let postText = MyActivityTextRender.render(item: model) ?? ""
+        let timeAgoText = model.createdTimeAgo() ??  ""
         
         return ActivityViewModel(cellID: cellID,
                                  cellClass: cellClass,
@@ -86,15 +82,14 @@ class FollowerItemRequestViewModelBuilder {
     }
 }
 
-class FollowingItemRequestViewModelBuilder {
+class OthersActivityItemViewModelBuilder {
     static func build(from model: ActivityView) -> ActivityItemViewModel {
         let cellID = ActivityCell.reuseID
         let cellClass = ActivityCell.self
-        let profileImage = Asset.userPhotoPlaceholder.image
-        let postImage = Asset.placeholderPostImage2.image
-        var postText = ""
-        
-        var timeAgoText = model.createdTimeAgo() ?? ""
+        let profileImage = model.actorUsers?.first?.photoUrl
+        let postImage = model.actedOnContent?.blobUrl
+        let postText = OtherActivityTextRender.render(item: model) ?? ""
+        let timeAgoText = model.createdTimeAgo() ?? ""
         
         return ActivityViewModel(cellID: cellID,
                                  cellClass: cellClass,

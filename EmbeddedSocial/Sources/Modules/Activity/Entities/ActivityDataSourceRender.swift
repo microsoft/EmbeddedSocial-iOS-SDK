@@ -107,7 +107,7 @@ class MyFollowingsActivity: DataSource {
             case let .failure(error):
                 strongSelf.delegate?.didFail(error: error)
             case let .success(models):
-                let items = models.map { ActivityItem.following($0) }
+                let items = models.map { ActivityItem.myActivity($0) }
                 strongSelf.section.items.append(contentsOf: items)
                 
                 // make paths for inserted items

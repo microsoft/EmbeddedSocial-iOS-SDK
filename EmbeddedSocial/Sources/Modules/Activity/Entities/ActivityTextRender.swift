@@ -11,9 +11,9 @@ class ActivityTextRender {
         switch item  {
         case let .pendingRequest(model):
             return nil
-        case let .following(model):
+        case let .othersActivity(model): 
             return OtherActivityTextRender.render(item: model)
-        case let .follower(model):
+        case let .myActivity(model):
             return MyActivityTextRender.render(item: model)
         }
         
@@ -29,15 +29,17 @@ class MyActivityTextRender {
             let contentType = item.actedOnContent?.contentType,
             let actor = item.actorUsers?.first?.getFullName()
             else {
+                Logger.log("Failed parsing", item, event: .veryImportant)
                 return nil
         }
         
         switch contentType {
-        case .comment:
+        case .topic:
             return L10n.Activity.You.childTopic(actor, content)
-        case .reply:
+        case .comment:
             return L10n.Activity.You.childComment(actor, content)
         default:
+            Logger.log("Failed parsing", contentType , event: .veryImportant)
             return nil
         }
     }
@@ -49,6 +51,7 @@ class MyActivityTextRender {
             let contentType = item.actedOnContent?.contentType,
             let actor = item.actorUsers?.first?.getFullName()
             else {
+                Logger.log(item, "Failed parsing", event: .veryImportant)
                 return nil
         }
         
@@ -58,6 +61,7 @@ class MyActivityTextRender {
         case .reply:
             return L10n.Activity.You.childPeerComment(actor, content)
         default:
+            Logger.log("Failed parsing", contentType , event: .veryImportant)
             return nil
         }
     }
@@ -70,6 +74,7 @@ class MyActivityTextRender {
             let actor = item.actorUsers?.first?.getFullName()
             
             else {
+                Logger.log(item, "Failed parsing", event: .veryImportant)
                 return nil
         }
         
@@ -81,6 +86,7 @@ class MyActivityTextRender {
         case .topic:
             return L10n.Activity.You.likeTopic(actor, contentText)
         default:
+            Logger.log("Failed parsing", contentType, event: .veryImportant)
             return nil
         }
     }
@@ -95,6 +101,7 @@ class MyActivityTextRender {
     static func render(item: ActivityView) -> String? {
         
         guard let activityType = item.activityType else {
+            Logger.log("Failed parsing", item, event: .veryImportant)
             return nil
         }
         
@@ -117,7 +124,7 @@ class MyActivityTextRender {
 }
 
 class OtherActivityTextRender {
-    static func render(item: ActivityView) -> String {
+    static func render(item: ActivityView) -> String? {
         return "FIX"
     }
 }

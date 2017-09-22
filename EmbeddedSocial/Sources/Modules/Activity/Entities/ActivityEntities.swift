@@ -14,8 +14,8 @@ struct SectionHeader {
 
 enum ActivityItem {
     case pendingRequest(UserCompactView)
-    case follower(ActivityView)
-    case following(ActivityView)
+    case myActivity(ActivityView)
+    case othersActivity(ActivityView)
 }
 
 // MARK: Models
@@ -40,12 +40,16 @@ class CellConfigurator {
         else if let cell = cell as? FollowRequestCell, let viewModel = viewModel as? PendingRequestViewModel  {
             configure(cell: cell, with: viewModel)
         }
-        
     }
     
     private func configure(cell: ActivityCell, with viewModel: ActivityViewModel) {
-        cell.profileImage.image = viewModel.profileImage
-        cell.postImage.image = viewModel.postImage
+        
+        let profilePhoto = Photo(url: viewModel.profileImage)
+        cell.profileImage.setPhotoWithCaching(profilePhoto, placeholder: viewModel.profileImagePlaceholder.image)
+        
+        if let postImageURL = viewModel.postImage {
+            cell.postImage.setPhotoWithCaching(Photo(url: postImageURL) , placeholder: nil)
+        }
         
         let postTextAttributed = NSAttributedString(string: viewModel.postText,
                                                     attributes: ActivityBaseCell.Style.Fonts.Attributes.normal)
@@ -61,7 +65,8 @@ class CellConfigurator {
     }
     
     private func configure(cell: FollowRequestCell, with viewModel: PendingRequestViewModel) {
-        cell.profileImage.image = viewModel.profileImage
+        let profilePhoto = Photo(url: viewModel.profileImage)
+        cell.profileImage.setPhotoWithCaching(profilePhoto, placeholder: viewModel.profileImagePlaceholder.image)
         cell.profileName.text = viewModel.profileName
     }
     

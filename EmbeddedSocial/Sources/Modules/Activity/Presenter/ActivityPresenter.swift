@@ -53,14 +53,13 @@ class ActivityPresenter {
             interactor: interactor,
             index: 0,
             delegate: self)
+        
         let myActivityDataSource = DataSourceBuilder.buildMyFollowingsActivityDataSource(
             interactor: interactor,
             index: 1,
             delegate: self)
         
-        sources[.my]?.append(pendingDataSource)
-        sources[.my]?.append(myActivityDataSource)
-        
+        sources[.my] = [pendingDataSource, myActivityDataSource]
         return sources
     }
 }
@@ -109,6 +108,7 @@ extension ActivityPresenter: ActivityViewOutput {
         let itemIndex = indexPath.row
         let sectionIndex = indexPath.section
         let item = dataSources[state]![sectionIndex].section.items[itemIndex]
+        // TODO: move out cell ids from VM
         let viewModel = ActivityItemViewModelBuilder.build(from: item)
         cellConfigurator.configure(cell: cell, with: viewModel)
     }
