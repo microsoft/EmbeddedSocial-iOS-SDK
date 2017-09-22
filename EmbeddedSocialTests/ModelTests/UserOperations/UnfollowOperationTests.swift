@@ -6,13 +6,13 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class UnfollowOperationTests: XCTestCase {
+class UnfollowUserOperationTests: XCTestCase {
     
     func testThatItUsesCorrectServiceMethod() {
         // given
         let command = UserCommand(user: User())
         let service = MockSocialService()
-        let sut = UnfollowOperation(command: command, socialService: service)
+        let sut = UnfollowUserOperation(command: command, socialService: service)
         
         // when
         let queue = OperationQueue()

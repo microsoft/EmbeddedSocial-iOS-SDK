@@ -6,13 +6,13 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class CancelPendingOperationTests: XCTestCase {
+class CancelPendingUserOperationTests: XCTestCase {
     
     func testThatItUsesCorrectServiceMethod() {
         // given
         let command = UserCommand(user: User())
         let service = MockSocialService()
-        let sut = CancelPendingOperation(command: command, socialService: service)
+        let sut = CancelPendingUserOperation(command: command, socialService: service)
         
         // when
         let queue = OperationQueue()

@@ -10,11 +10,10 @@ struct Post {
     var createdTime: Date?
     
     var user: User?
+    var photo: Photo?
     
     var title: String?
     var text: String?
-    var imageUrl: String?
-    var imageHandle: String?
 
     var deepLink: String?
     
@@ -52,6 +51,14 @@ struct Post {
     var photoUrl: String? {
         return user?.photo?.url
     }
+    
+    var imageUrl: String? {
+        return photo?.url
+    }
+    
+    var imageHandle: String? {
+        return photo?.uid
+    }
 }
 
 extension Post {
@@ -76,15 +83,6 @@ extension Post {
         self.init()
         self.topicHandle = topicHandle
     }
-    
-    init(request: PostTopicRequest, photo: Photo?) {
-        self.init()
-        topicHandle = UUID().uuidString
-        title = request.title
-        text = request.text
-        imageHandle = photo?.uid
-        imageUrl = photo?.url
-    }
 }
 
 extension Post: JSONEncodable {
@@ -101,9 +99,11 @@ extension Post: JSONEncodable {
         if let userJSON = json["user"] as? [String: Any] {
             user = User(memento: userJSON)
         }
+        if let photoJSON = json["photo"] as? [String: Any] {
+            photo = Photo(memento: photoJSON)
+        }
         title = json["title"] as? String
         text = json["text"] as? String
-        imageUrl = json["imageUrl"] as? String
         deepLink = json["deepLink"] as? String
         totalLikes = json["totalLikes"] as? Int ?? 0
         totalComments = json["totalComments"] as? Int ?? 0
@@ -116,9 +116,9 @@ extension Post: JSONEncodable {
             "topicHandle": topicHandle,
             "createdTime": createdTime,
             "user": user?.encodeToJSON(),
+            "photo": photo?.encodeToJSON(),
             "title": title,
             "text": text,
-            "imageUrl": imageUrl,
             "deepLink": deepLink,
             "totalLikes": totalLikes,
             "totalComments": totalComments,
@@ -136,9 +136,10 @@ extension Post {
         if let userCompactView = data.user {
             user = User(compactView: userCompactView)
         }
-        
+        if let blobHandle = data.blobHandle {
+            photo = Photo(uid: blobHandle, url: data.blobUrl)
+        }
         createdTime = data.createdTime
-        imageUrl = data.blobUrl
         title = data.title
         text = data.text
         pinned = data.pinned ?? false

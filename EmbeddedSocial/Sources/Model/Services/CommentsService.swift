@@ -139,8 +139,8 @@ class CommentsService: BaseService, CommentServiceProtocol {
             }
             
             let incomingFeed = strongSelf.cache.firstIncoming(ofType: FeedResponseCommentView.self,
-                                                        predicate: PredicateBuilder.predicate(typeID: builder.URLString),
-                                                        sortDescriptors: nil)
+                                                              predicate: PredicateBuilder().predicate(handle: builder.URLString),
+                                                              sortDescriptors: nil)
             
             let incomingComments = incomingFeed?.data?.map(strongSelf.convert(commentView:)) ?? []
             
@@ -160,12 +160,18 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 return
             }
             
+            
+            let typeID = "fetch_commens-\(topicHandle)"
+            
+            if cursor == nil {
+                strongSelf.cache.deleteIncoming(with: PredicateBuilder().predicate(typeID: typeID))
+            }
+            
             var result = CommentFetchResult()
             
             if let body = response?.body, let data = body.data {
-                // typeid = "fetch_comments-<topic_id>"
-                // handle = <request_url>
-                strongSelf.cache.cacheIncoming(body, for: builder.URLString)
+                body.handle = builder.URLString
+                strongSelf.cache.cacheIncoming(body, for: typeID)
                 result.comments = strongSelf.convert(data: data)
                 result.cursor = body.cursor
             } else if strongSelf.errorHandler.canHandle(error) {
@@ -258,7 +264,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
         let request = CacheFetchRequest(
             resultType: OutgoingCommand.self,
-            predicate: PredicateBuilder.allCommentCommandsPredicate(for: commentView.commentHandle!),
+            predicate: PredicateBuilder.commentActionCommands(for: commentView.commentHandle!),
             sortDescriptors: [Cache.createdAtSortDescriptor]
         )
         

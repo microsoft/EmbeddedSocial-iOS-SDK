@@ -227,7 +227,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         var post = Post.mock(seed: 1)
         
         post.user = user
-        post.imageUrl = postImageURL
+        post.photo = Photo(url: postImageURL)
         
         let feed = Feed(feedType: .home, items: [post], cursor: "cursor")
         sut.didFetch(feed: feed)
@@ -288,7 +288,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         let user = User(uid: myUserHandle)
         
         post.user = user
-        post.imageUrl = postImageURL
+        post.photo = Photo(url: postImageURL)
         
         
         

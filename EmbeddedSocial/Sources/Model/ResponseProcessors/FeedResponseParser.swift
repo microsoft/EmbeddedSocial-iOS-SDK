@@ -41,7 +41,7 @@ class FeedResponseParser: FeedResponseParserProtocol {
         }
         
         if let data = response.data {
-            result.posts = data.map(Post.init)
+            result.posts += data.map(Post.init)
         }
         
         result.cursor = response.cursor
@@ -74,7 +74,7 @@ class FeedCachePostProcessor {
     
     private func fetchTopicCommands() -> [TopicCommand] {
         let request = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                        predicate: PredicateBuilder.allTopicCommandsPredicate(),
+                                        predicate: PredicateBuilder.allTopicActionCommands(),
                                         sortDescriptors: [Cache.createdAtSortDescriptor])
         
         return cache.fetchOutgoing(with: request) as? [TopicCommand] ?? []

@@ -35,18 +35,6 @@ private class MockLikeSerivce: LikesServiceProtocol {
     func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) { }
 }
 
-private class MockTopicService: PostServiceProtocol {
-    func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        var result = FeedFetchResult()
-        result.posts = [Post()]
-        completion(result)
-    }
-    
-    func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        
-    }
-}
-
 extension MockTopicService {
     
     func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {}

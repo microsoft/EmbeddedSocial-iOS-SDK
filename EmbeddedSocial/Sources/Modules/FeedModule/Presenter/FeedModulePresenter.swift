@@ -20,6 +20,7 @@ protocol FeedModuleInput: class {
     var layout: FeedModuleLayoutType { get set }
     // Changing feedType triggers items refetching and view reload
     var feedType: FeedType? { get set }
+    func lockScrolling()
     
     var isEmpty: Bool { get }
 }
@@ -190,6 +191,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     // MARK: FeedModuleInput
     
+    func lockScrolling() {
+        if moduleOutput is PostDetailPresenter {
+            view.setScrolling(enable: false)
+        }
+    }
+    
     func moduleHeight() -> CGFloat {
         return view.getViewHeight()
     }
@@ -300,8 +307,17 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         switch action {
             
         case .postDetailed:
+            if moduleOutput is PostDetailPresenter {
+                return
+            }
+            
             router.open(route: .postDetails(post: item(for: path)), feedSource: feedType!)
         case .comment:
+            if moduleOutput is PostDetailPresenter {
+                moduleOutput?.commentsPressed()
+                return
+            }
+            
             router.open(route: .comments(post: item(for: path)), feedSource: feedType!)
             moduleOutput?.commentsPressed()
         case .extra:

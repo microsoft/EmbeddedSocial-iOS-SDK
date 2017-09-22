@@ -7,4 +7,11 @@ import Foundation
 
 final class CreateReplyCommand: ReplyCommand {
     
+    override func getRelatedHandle() -> String? {
+        return reply.commentHandle
+    }
+    
+    override func setRelatedHandle(_ relatedHandle: String?) {
+        reply.commentHandle = relatedHandle
+    }
 }

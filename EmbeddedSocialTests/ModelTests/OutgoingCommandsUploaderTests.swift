@@ -8,10 +8,8 @@ import XCTest
 
 class OutgoingCommandsUploaderTests: XCTestCase {
     var networkTracker: MockNetworkTracker!
-    var cache: MockCache!
     var jsonDecoder: MockJSONDecoder.Type!
-    var operationsBuilder: MockOutgoingCommandOperationsBuilder.Type!
-    var socialService: MockSocialService!
+    var strategy: MockOutgoingCommandsUploadStrategy!
     
     var sut: OutgoingCommandsUploader!
     
@@ -19,24 +17,16 @@ class OutgoingCommandsUploaderTests: XCTestCase {
         super.setUp()
         
         networkTracker = MockNetworkTracker()
-        cache = MockCache()
         jsonDecoder = MockJSONDecoder.self
-        operationsBuilder = MockOutgoingCommandOperationsBuilder.self
-        socialService = MockSocialService()
+        strategy = MockOutgoingCommandsUploadStrategy()
         
-        sut = OutgoingCommandsUploader(networkTracker: networkTracker,
-                                      cache: cache,
-                                      jsonDecoderType: jsonDecoder,
-                                      operationsBuilderType: operationsBuilder)
+        sut = OutgoingCommandsUploader(networkTracker: networkTracker, uploadStrategy: strategy, jsonDecoderType: jsonDecoder)
     }
     
     override func tearDown() {
         super.tearDown()
         networkTracker = nil
-        cache = nil
         jsonDecoder = nil
-        operationsBuilder = nil
-        socialService = nil
         sut = nil
     }
     
@@ -69,42 +59,64 @@ class OutgoingCommandsUploaderTests: XCTestCase {
             return
         }
         XCTAssertTrue(listener === sut)
+        
+        XCTAssertTrue(strategy.cancelSubmissionCalled)
     }
     
     func testThatItSubmitsPendingCommandsWhenNetworkBecomesAvailable() {
         // given
-        let user = User()
-        let command = FollowCommand(user: user)
-        operationsBuilder.operationForCommandReturnValue = FollowOperation(command: command, socialService: socialService)
-        cache.fetchOutgoing_with_ReturnValue = [command]
         
         // when
         sut.networkStatusDidChange(true)
         
-        wait(for: [cache.deleteOutgoing_Expectation], timeout: 1.0)
-        
-        XCTAssertEqual(socialService.followCount, 1)
-        XCTAssertEqual(socialService.followInputUser, user)
-        
-        XCTAssertTrue(operationsBuilder.operationForCommandCalled)
-        
-        guard let inputCommand = operationsBuilder.operationForCommandInputCommand as? FollowCommand else {
-            XCTFail("Operations builder must receive the correct input command")
-            return
-        }
-        XCTAssertEqual(inputCommand.user, user)
+        // then
+        XCTAssertTrue(strategy.restartSubmissionCalled)
     }
     
     func testThatItDoesNothingWhenNetworkBecomesUnavailable() {
         // given
-        cache.deleteOutgoing_Expectation.isInverted = true
         
         // when
         sut.networkStatusDidChange(false)
         
-        wait(for: [cache.deleteOutgoing_Expectation], timeout: 1.0)
-        
-        XCTAssertEqual(socialService.followCount, 0)
-        XCTAssertFalse(operationsBuilder.operationForCommandCalled)
+        XCTAssertFalse(strategy.restartSubmissionCalled)
     }
+
+    
+//    func testThatItSubmitsPendingCommandsWhenNetworkBecomesAvailable() {
+//        // given
+//        let user = User()
+//        let command = FollowCommand(user: user)
+//        operationsBuilder.operationForCommandReturnValue = FollowUserOperation(command: command, socialService: socialService)
+//        cache.fetchOutgoing_with_ReturnValue = [command]
+//        
+//        // when
+//        sut.networkStatusDidChange(true)
+//        
+//        wait(for: [cache.deleteOutgoing_Expectation], timeout: 1.0)
+//        
+//        XCTAssertEqual(socialService.followCount, 1)
+//        XCTAssertEqual(socialService.followInputUser, user)
+//        
+//        XCTAssertTrue(operationsBuilder.operationForCommandCalled)
+//        
+//        guard let inputCommand = operationsBuilder.operationForCommandInputCommand as? FollowCommand else {
+//            XCTFail("Operations builder must receive the correct input command")
+//            return
+//        }
+//        XCTAssertEqual(inputCommand.user, user)
+//    }
+//    
+//    func testThatItDoesNothingWhenNetworkBecomesUnavailable() {
+//        // given
+//        cache.deleteOutgoing_Expectation.isInverted = true
+//        
+//        // when
+//        sut.networkStatusDidChange(false)
+//        
+//        wait(for: [cache.deleteOutgoing_Expectation], timeout: 1.0)
+//        
+//        XCTAssertEqual(socialService.followCount, 0)
+//        XCTAssertFalse(operationsBuilder.operationForCommandCalled)
+//    }
 }

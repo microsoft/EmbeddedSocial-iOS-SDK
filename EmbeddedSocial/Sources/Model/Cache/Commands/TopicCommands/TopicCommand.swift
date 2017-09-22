@@ -6,7 +6,7 @@
 import Foundation
 
 class TopicCommand: OutgoingCommand {
-    let topic: Post
+    private(set) var topic: Post
     
     required init?(json: [String: Any]) {
         guard let topicJSON = json["topic"] as? [String: Any],
@@ -24,6 +24,14 @@ class TopicCommand: OutgoingCommand {
         super.init(json: [:])!
     }
     
+    func setImageHandle(_ imageHandle: String?) {
+        if let imageHandle = imageHandle {
+            topic.photo?.uid = imageHandle
+        } else {
+            topic.photo = nil
+        }
+    }
+    
     func apply(to topic: inout Post) {
         
     }
@@ -37,5 +45,13 @@ class TopicCommand: OutgoingCommand {
     
     override func getHandle() -> String? {
         return topic.topicHandle
+    }
+    
+    override func getRelatedHandle() -> String? {
+        return topic.topicHandle
+    }
+    
+    override func setRelatedHandle(_ relatedHandle: String?) {
+        topic.topicHandle = relatedHandle
     }
 }

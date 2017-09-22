@@ -6,5 +6,11 @@
 import Foundation
 
 final class CreateCommentCommand: CommentCommand {
+    override func setRelatedHandle(_ relatedHandle: String?) {
+        comment.topicHandle = relatedHandle
+    }
     
+    override func getRelatedHandle() -> String? {
+        return comment.topicHandle
+    }
 }

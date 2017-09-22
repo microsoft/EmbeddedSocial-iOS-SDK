@@ -6,8 +6,7 @@
 import Foundation
 
 class CommentCommand: OutgoingCommand {
-    let comment: Comment
-    private(set) var relatedHandle: String?
+    private(set) var comment: Comment
     
     required init?(json: [String: Any]) {
         guard let commentJSON = json["comment"] as? [String: Any],
@@ -22,8 +21,11 @@ class CommentCommand: OutgoingCommand {
     
     required init(comment: Comment) {
         self.comment = comment
-        self.relatedHandle = comment.topicHandle
         super.init(json: [:])!
+    }
+    
+    func setImageHandle(_ imageHandle: String?) {
+        comment.mediaHandle = imageHandle
     }
     
     func apply(to comment: inout Comment) {
@@ -38,11 +40,11 @@ class CommentCommand: OutgoingCommand {
     }
     
     override func getRelatedHandle() -> String? {
-        return relatedHandle
+        return comment.commentHandle
     }
     
     override func setRelatedHandle(_ relatedHandle: String?) {
-        self.relatedHandle = relatedHandle
+        comment.commentHandle = relatedHandle
     }
     
     override func getHandle() -> String? {

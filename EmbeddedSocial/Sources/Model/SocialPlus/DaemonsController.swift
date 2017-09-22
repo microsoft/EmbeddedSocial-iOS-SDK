@@ -10,10 +10,17 @@ final class DaemonsController: Daemon {
     private let cache: CacheType
     
     private lazy var outgoingCacheDaemon: OutgoingCommandsUploader = { [unowned self] in
+        let queue = OperationQueue()
+        queue.name = "OutgoingCommandsUploader-executionQueue"
+        queue.qualityOfService = .background
+        
+        let strategy = OutgoingCommandsUploadStrategy(cache: self.cache,
+                                                      operationsBuilderType: OutgoingCommandOperationsBuilder.self,
+                                                      executionQueue: queue)
+        
         return OutgoingCommandsUploader(networkTracker: self.networkTracker,
-                                       cache: self.cache,
-                                       jsonDecoderType: Decoders.self,
-                                       operationsBuilderType: OutgoingCommandOperationsBuilder.self)
+                                        uploadStrategy: strategy,
+                                        jsonDecoderType: Decoders.self)
     }()
     
     private lazy var daemons: [Daemon] = { [unowned self] in
