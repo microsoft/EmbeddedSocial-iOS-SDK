@@ -71,46 +71,19 @@ class PostDetailInteractor: PostDetailInteractorInput {
     
     func postComment(photo: Photo?, topicHandle: String, comment: String) {
         
-        
         let request = PostCommentRequest()
         request.text = comment
 
-        /*
-        let newComment = Comment(commentHandle: UUID().uuidString)
-        newComment.user = userHolder.me
-        newComment.text = comment
-        newComment.topicHandle = topicHandle
-        newComment.mediaUrl = photo?.url
-        newComment.mediaHandle = photo?.getHandle()
-        newComment.createdTime = Date()
- */
-         let newComment = Comment(request: request, photo: photo, topicHandle: topicHandle)
+        let newComment = Comment(request: request, photo: photo, topicHandle: topicHandle)
         newComment.createdTime = Date()
         newComment.user = userHolder.me
 
-        
-       /*
-        commentsService?.postComment(comment: newComment, resultHandler: { (response) in
+        commentsService?.postComment(comment: newComment, photo: photo, resultHandler: { (response) in
             newComment.commentHandle = response.commentHandle
             self.output?.commentDidPost(comment: newComment)
         }, failure: { (error) in
             print("error posting comment")
         })
- */
-
-        commentsService?.postComment(topicHandle: topicHandle, request: request, photo: photo, resultHandler: { (response) in
-            self.commentsService?.comment(commentHandle: response.commentHandle!, cachedResult: { (cachedComment) in
-                self.output?.commentDidPost(comment: cachedComment)
-            }, success: { (webComment) in
-                self.output?.commentDidPost(comment: webComment)
-            }, failure: { (errpr) in
-                print("error fetching single comment")
-            })
-
-        }, failure: { (error) in
-            print("error posting comment")
-        })
- 
         
     }
 }

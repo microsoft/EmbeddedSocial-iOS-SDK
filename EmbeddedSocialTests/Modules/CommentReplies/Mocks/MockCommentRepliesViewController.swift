@@ -55,4 +55,8 @@ class MockCommentRepliesViewController: UIViewController, CommentRepliesViewInpu
         removeReplyCount += 1
     }
     
+    var unlockUICount = 0
+    func unlockUI() {
+        unlockUICount += 1
+    }
 }

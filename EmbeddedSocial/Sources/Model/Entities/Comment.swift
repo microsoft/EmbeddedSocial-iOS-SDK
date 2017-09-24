@@ -13,6 +13,7 @@ class Comment: Equatable {
 
     var user: User?
     
+    
     var text: String?
     var mediaHandle: String?
     var mediaUrl: String?
@@ -62,7 +63,9 @@ extension Comment: JSONEncodable {
         self.topicHandle = json["topicHandle"] as? String
         createdTime = json["createdTime"] as? Date
         text = json["text"] as? String
-        user = json["user"] as? User
+        if let userJSON = json["user"] as? [String: Any] {
+            user = User(memento: userJSON)
+        }
         mediaUrl = json["mediaUrl"] as? String
         mediaHandle = json["mediaHandle"] as? String
         totalLikes = json["totalLikes"] as? Int64 ?? 0

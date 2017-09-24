@@ -44,6 +44,11 @@ class MockCommentsService: CommentServiceProtocol {
         resultHandler(postCommentReturnResponse)
     }
     
+    
+    func postComment(comment: Comment, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure) {
+        
+    }
+    
     //MARK: - deleteComment
     
     var deleteCommentCommentHandleCompletionCalled = false

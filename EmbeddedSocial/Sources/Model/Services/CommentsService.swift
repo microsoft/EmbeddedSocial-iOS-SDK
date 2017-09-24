@@ -28,8 +28,7 @@ enum CommentsServiceError: Error {
 protocol CommentServiceProtocol {
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, cachedResult: @escaping CommentFetchResultHandler, resultHandler: @escaping CommentFetchResultHandler)
     func comment(commentHandle: String, cachedResult: @escaping CommentHandler, success: @escaping CommentHandler, failure: @escaping Failure)
-    func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure)
-    func postComment(comment: Comment, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure)
+    func postComment(comment: Comment, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure)
     func deleteComment(commentHandle: String, completion: @escaping ((Result<Void>) -> Void))
 }
 
@@ -177,15 +176,10 @@ class CommentsService: BaseService, CommentServiceProtocol {
         }
     }
     
-    func postComment(topicHandle: String,
-                     request: PostCommentRequest,
+    func postComment(comment: Comment,
                      photo: Photo?,
                      resultHandler: @escaping CommentPostResultHandler,
                      failure: @escaping Failure) {
-        
-        let comment = Comment(request: request, photo: photo, topicHandle: topicHandle)
-        comment.user = SocialPlus.shared.me
-        comment.createdTime = Date()
         let commentCommand = CreateCommentCommand(comment: comment)
         
         guard let image = photo?.image else {
@@ -203,46 +197,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 failure(result.error ?? APIError.unknown)
             }
         }
-    }
-    
-    func postComment(comment: Comment, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure) {
-        let commentCommand = CreateCommentCommand(comment: comment)
         
-        guard let image = comment.mediaPhoto?.image else {
-            execute(command: commentCommand, resultHandler: resultHandler, failure: failure)
-            return
-        }
-        
-        imagesService.uploadCommentImage(image, commentHandle: comment.commentHandle) { [weak self] result in
-            if let handle = result.value {
-                commentCommand.setImageHandle(handle)
-                self?.execute(command: commentCommand, resultHandler: resultHandler, failure: failure)
-            } else if self?.errorHandler.canHandle(result.error) == true {
-                self?.errorHandler.handle(result.error)
-            } else {
-                failure(result.error ?? APIError.unknown)
-            }
-        }
-        
-/*
-        let topicCommand = CreateTopicCommand(topic: topic)
-        
-        guard let image = topic.photo?.image else {
-            execute(command: topicCommand, success: success, failure: failure)
-            return
-        }
-        
-        imagesService.uploadTopicImage(image, topicHandle: topic.topicHandle) { [weak self] result in
-            if let handle = result.value {
-                topicCommand.setImageHandle(handle)
-                self?.execute(command: topicCommand, success: success, failure: failure)
-            } else if self?.errorHandler.canHandle(result.error) == true {
-                self?.errorHandler.handle(result.error)
-            } else {
-                failure(result.error ?? APIError.unknown)
-            }
-        }
- */
     }
     
     private func execute(command: CreateCommentCommand,
