@@ -10,9 +10,10 @@ class ActivityModuleConfigurator {
     private(set) var viewController: ActivityViewController!
     private(set) var module: ActivityModuleInput!
 
-    func configure() {
+    func configure(navigationController: UINavigationController) {
 
         let router = ActivityRouter()
+        router.navigationController = navigationController
         
         viewController = StoryboardScene.Activity.instantiateActivityViewController()
 

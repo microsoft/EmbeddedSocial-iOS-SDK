@@ -186,7 +186,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     
     lazy var configuredActivity: UIViewController = {
         let configurator = ActivityModuleConfigurator()
-        configurator.configure()
+        configurator.configure(navigationController: self.navigationStack.navigationController)
         return configurator.viewController
     }()
 }

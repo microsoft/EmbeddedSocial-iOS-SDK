@@ -135,12 +135,6 @@ class ActivityCell: ActivityBaseCell {
         return view
     }()
     
-    let touchItem: UIButton = {
-        let view = UIButton(type: .custom)
-        view.addTarget(self, action: #selector(onCellTouch) , for: .touchUpInside)
-        return view
-    }()
-    
     override func layoutSubviews() {
         super.layoutSubviews()
     }
@@ -150,13 +144,19 @@ class ActivityCell: ActivityBaseCell {
         onAction?(path, .touch)
     }
     
+    lazy var touchItem: UIButton = {
+        let button = UIButton(type: .custom)
+        button.addTarget(self, action: #selector(onCellTouch), for: .touchUpInside)
+        return button
+    }()
+    
     override func setup() {
         super.setup()
         
         addSubview(postImage)
         addSubview(postText)
         addSubview(touchItem)
-        
+    
         postImage.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.top.equalToSuperview().offset(Style.insets.top)
@@ -165,13 +165,13 @@ class ActivityCell: ActivityBaseCell {
             $0.height.equalToSuperview().multipliedBy(Style.imagesHeightRatio).priority(.medium)
             $0.width.equalTo(postImage.snp.height)
         }
-        
+
         postText.snp.makeConstraints {
             $0.centerY.equalTo(profileImage)
             $0.left.equalTo(profileImage.snp.right).offset(Style.ItemInterval)
             $0.right.equalTo(postImage.snp.left).offset(-Style.ItemInterval)
         }
-        
+
         // top view to take all actions
         touchItem.snp.makeConstraints {
             $0.edges.equalToSuperview()
