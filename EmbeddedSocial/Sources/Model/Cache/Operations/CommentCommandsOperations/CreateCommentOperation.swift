@@ -37,6 +37,7 @@ final class CreateCommentOperation: OutgoingCommandOperation {
     
     private func updateRelatedCommandsHandle(from oldHandle: String?, to newHandle: String?) {
         guard let oldHandle = oldHandle, let newHandle = newHandle else {
+            completeOperation()
             return
         }
         let predicate = predicateBuilder.commandsWithRelatedHandle(oldHandle, ignoredTypeID: CreateCommentCommand.typeIdentifier)

@@ -66,6 +66,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     }
 
     func configCollecionView() {
+        collectionView.alwaysBounceVertical = true
         prototypeReplyCell = ReplyCell.nib.instantiate(withOwner: nil, options: nil).first as? ReplyCell
         prototypeCommentCell = CommentCell.nib.instantiate(withOwner: nil, options: nil).first as? CommentCell
         collectionView.register(ReplyCell.nib, forCellWithReuseIdentifier: ReplyCell.reuseID)

@@ -6,26 +6,71 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class UpdateUserImageOperationTests: XCTestCase {
+class UpdateUserImageOperationTests: CreateImageOperationTests {
     
-    func testThatItUsesCorrectServiceMethod() {
+    var userHolder: MyProfileHolder!
+    
+    override func setUp() {
+        super.setUp()
+        userHolder = MyProfileHolder()
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+        userHolder = nil
+    }
+    
+    func testThatItUpdatesUserImage() {
         // given
-        let image = UIImage(color: .yellow, size: CGSize(width: 8.0, height: 8.0))
-        let photo = Photo(image: image)
+        let photo = Photo(image: UIImage(color: .yellow, size: CGSize(width: 8.0, height: 8.0)))
+        imageCache.imageForReturnValue = photo.image
+
         let command = UpdateUserImageCommand(photo: photo, relatedHandle: nil)
-        
-        let service = MockImagesService()
         service.updateUserPhotoCompletionReturnResult = .success(command.photo)
         
-        let sut = UpdateUserImageOperation(command: command, imagesService: service)
+        let sut = UpdateUserImageOperation(command: command, imagesService: service,
+                                           userHolder: userHolder, cache: cache, imageCache: imageCache)
         
         // when
-        let queue = OperationQueue()
-        queue.addOperation(sut)
-        queue.waitUntilAllOperationsAreFinished()
+        executeOperationAndWait(sut)
         
         // then
+        XCTAssertTrue(imageCache.imageForCalled)
+        XCTAssertEqual(imageCache.imageForReceivedPhoto, photo)
+        
         XCTAssertTrue(service.updateUserPhotoCompletionCalled)
         XCTAssertEqual(service.updateUserPhotoCompletionReceivedPhoto, photo)
+        
+        XCTAssertEqual(userHolder.me?.photo, photo)
+    }
+    
+    func testThatItFinishesWithErrorWhenUploadFails() {
+        // given
+        let photo = Photo(image: UIImage(color: .yellow, size: CGSize(width: 8.0, height: 8.0)))
+        imageCache.imageForReturnValue = photo.image
+        
+        let error = APIError.unknown
+        service.updateUserPhotoCompletionReturnResult = .failure(error)
+        
+        let command = UpdateUserImageCommand(photo: photo, relatedHandle: nil)
+        let sut = UpdateUserImageOperation(command: command, imagesService: service,
+                                           userHolder: userHolder, cache: cache, imageCache: imageCache)
+        
+        // when
+        executeOperationAndWait(sut)
+        
+        // then
+        XCTAssertTrue(imageCache.imageForCalled)
+        XCTAssertEqual(imageCache.imageForReceivedPhoto, photo)
+        
+        XCTAssertTrue(service.updateUserPhotoCompletionCalled)
+        XCTAssertEqual(service.updateUserPhotoCompletionReceivedPhoto, photo)
+        
+        XCTAssertNotEqual(userHolder.me?.photo, photo)
+        
+        guard let resultError = sut.error as? APIError, case APIError.unknown = resultError else {
+            XCTFail("Must contain error returned from service")
+            return
+        }
     }
 }

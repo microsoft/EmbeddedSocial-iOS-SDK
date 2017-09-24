@@ -38,6 +38,7 @@ final class CreateTopicOperation: OutgoingCommandOperation {
     
     private func updateRelatedCommandsHandle(from oldHandle: String?, to newHandle: String) {
         guard let oldHandle = oldHandle else {
+            completeOperation()
             return
         }
         let predicate = predicateBuilder.commandsWithRelatedHandle(oldHandle, ignoredTypeID: CreateTopicCommand.typeIdentifier)

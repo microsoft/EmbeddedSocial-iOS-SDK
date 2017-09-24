@@ -36,6 +36,7 @@ final class CreateReplyOperation: OutgoingCommandOperation {
     
     private func updateRelatedCommandsHandle(from oldHandle: String?, to newHandle: String?) {
         guard let oldHandle = oldHandle, let newHandle = newHandle else {
+            completeOperation()
             return
         }
         
