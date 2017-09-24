@@ -30,7 +30,17 @@ class ActivityPresenter {
         }
     }
     
-    fileprivate var cellConfigurator = CellConfigurator()
+    fileprivate lazy var actionBuilder: ActivityActionBuilder = { [unowned self] in
+        let builder = ActivityActionBuilder()
+        builder.presenter = self
+        return builder
+    }()
+    
+    fileprivate lazy var cellConfigurator: CellConfigurator = { [unowned self] in
+        let configurator = CellConfigurator()
+        configurator.presenter = self
+        return configurator
+    }()
     
     // MARK: Private
     fileprivate func registerCells() {
@@ -95,6 +105,13 @@ extension ActivityPresenter: DataSourceDelegate {
 
 extension ActivityPresenter: ActivityModuleInput {
     
+    func handleCellEvent(indexPath: IndexPath, event: ActivityCellEvent) {
+        
+        let item = dataSources[state]![indexPath.section].section.items[indexPath.item]        
+        let action = actionBuilder.build(from: item, with: event)
+        action.execute()
+    }
+    
 }
 
 extension ActivityPresenter: ActivityInteractorOutput {
@@ -132,7 +149,10 @@ extension ActivityPresenter: ActivityViewOutput {
         let item = dataSources[state]![sectionIndex].section.items[itemIndex]
         // TODO: move out cell ids from VM
         let viewModel = ActivityItemViewModelBuilder.build(from: item)
-        cellConfigurator.configure(cell: cell, with: viewModel)
+        
+        cellConfigurator.configure(cell: cell, viewModel: viewModel, indexPath: indexPath) { [weak self] path, event in
+            self?.handleCellEvent(indexPath: path, event: event)
+        }
     }
     
     func headerForSection(_ section: Int) -> String {

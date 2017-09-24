@@ -20,14 +20,32 @@ protocol ActivityInteractorInput: class {
     func loadNextPageFollowingActivities(completion: ((Result<[ActivityItemType]>) -> Void)?)
     func loadNextPagePendigRequestItems(completion: ((Result<[PendingRequestItemType]>) -> Void)?)
     
+    func approvePendingRequest(user: UserCompactView, completion: @escaping (Result<Void>) -> Void)
+    func rejectPendingRequest(user: UserCompactView, completion: @escaping (Result<Void>) -> Void)
+    
 }
 
 protocol ActivityService: class {
     func loadFollowingActivities(cursor: String?, limit: Int, completion: @escaping (Result<ActivityResponseType>) -> Void)
     func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<PendingRequestsResponseType>) -> Void)
+    
+    func approvePendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void)
+    func rejectPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void)
 }
 
 class ActivityServiceMock: ActivityService {
+    
+    func approvePendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            completion(.success())
+        }
+    }
+    
+    func rejectPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            completion(.success())
+        }
+    }
     
     let authorization = "String"
     
@@ -39,6 +57,7 @@ class ActivityServiceMock: ActivityService {
     
     let emptyPendingRequestsResponse: Result<PendingRequestsResponseType> = .success(PendingRequestsResponseType())
     let emptyFollowingActivitiesResponse: Result<ActivityResponseType> = .success(ActivityResponseType())
+ 
     
     func builder<T>(cursor: String?, limit: Int) -> RequestBuilder<T>? {
         
@@ -151,6 +170,19 @@ class ActivityInteractor {
 }
 
 extension ActivityInteractor: ActivityInteractorInput {
+    
+    func approvePendingRequest(user: UserCompactView, completion: @escaping (Result<Void>) -> Void) {
+        guard let handle = user.userHandle else {
+            completion(.failure(APIError.missingUserData))
+            return
+        }
+        
+        service.approvePendingRequest(handle: handle, completion: completion)
+    }
+    
+    func rejectPendingRequest(user: UserCompactView, completion: @escaping (Result<Void>) -> Void) {
+        
+    }
     
     private func process(response: ActivityResponseType, pageID: String) -> FollowingPage? {
         return FollowingPage(uid: pageID, cursor: response.cursor, items: response.data ?? [])

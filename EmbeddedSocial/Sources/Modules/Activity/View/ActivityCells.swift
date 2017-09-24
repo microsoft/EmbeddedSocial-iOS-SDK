@@ -6,48 +6,19 @@
 import UIKit
 import SnapKit
 
+enum ActivityCellEvent: Int {
+    case accept
+    case reject
+    case touch
+}
+
+typealias ActivityCellBlock = ((IndexPath, ActivityCellEvent) -> Void)
+
 class ActivityBaseCell: UITableViewCell {
-    
-    struct Style {
-        static let insets = UIEdgeInsets(top: 15, left: 25, bottom: -15, right: -25)
-        static let backgroundColor = UIColor.white
-        static let paddingVertical = 15
-        static let paddingHorizontal = 15
-        static let ItemInterval = 10
-        static let numberOfLines = 2
-        static let imagesHeightRatio = 0.6
-        static let buttonsHeightRatio = 0.18
-        static let acceptButtonRatio = (65.0 / 48.0)
-        
-        struct Fonts {
-            static let normal = UIFont.systemFont(ofSize: 12)
-            static let bold = UIFont.boldSystemFont(ofSize: 12)
-            
-            struct Colors {
-                static let special = UIColor.gray
-            }
-            
-            struct Attributes {
-                
-                static let time = [
-                    NSFontAttributeName: ActivityBaseCell.Style.Fonts.bold,
-                    NSForegroundColorAttributeName: ActivityBaseCell.Style.Fonts.Colors.special]
-                
-                
-                static let normal = [
-                    NSFontAttributeName: ActivityBaseCell.Style.Fonts.bold]
-            }
-        }
-        
-        struct Images {
-            static let accept = Asset.esAccept.image
-            static let reject = Asset.esReject.image
-            static let follow = Asset.esDecorFollow.image
-            static let comment = Asset.esDecorComment.image
-            static let like = Asset.esDecorLike.image
-        }
-    }
-    
+
+    var indexPath: IndexPath!
+    var onAction: ActivityCellBlock?
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -122,27 +93,25 @@ class FollowRequestCell: ActivityBaseCell {
     lazy var acceptButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(ActivityBaseCell.Style.Images.accept, for: UIControlState.normal)
-        button.addTarget(self,
-                         action: #selector(onAccept),
-                         for: .touchUpInside)
+        button.addTarget(self, action: #selector(onAccept), for: .touchUpInside)
         return button
     }()
     
     lazy var rejectButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(Style.Images.reject, for: UIControlState.normal)
-        button.addTarget(self,
-                         action: #selector(onReject),
-                         for: .touchUpInside)
+        button.addTarget(self, action: #selector(onReject), for: .touchUpInside)
         return button
     }()
     
     @objc func onAccept() {
         backgroundColor = UIColor.gray
+        onAction?(indexPath, .accept)
     }
     
     @objc func onReject() {
         backgroundColor = UIColor.red
+        onAction?(indexPath, .reject)
     }
 }
 
@@ -160,8 +129,18 @@ class ActivityCell: ActivityBaseCell {
         return view
     }()
     
+    let touchItem: UIButton = {
+        let view = UIButton(type: .custom)
+        view.addTarget(self, action: #selector(onCellTouch) , for: .touchUpInside)
+        return view
+    }()
+    
     override func layoutSubviews() {
         super.layoutSubviews()
+    }
+    
+    @objc func onCellTouch() {
+        onAction?(indexPath, .touch)
     }
     
     override func setup() {
@@ -169,6 +148,7 @@ class ActivityCell: ActivityBaseCell {
         
         addSubview(postImage)
         addSubview(postText)
+        addSubview(touchItem)
         
         postImage.snp.makeConstraints {
             $0.centerY.equalToSuperview()
@@ -183,6 +163,57 @@ class ActivityCell: ActivityBaseCell {
             $0.centerY.equalTo(profileImage)
             $0.left.equalTo(profileImage.snp.right).offset(Style.ItemInterval)
             $0.right.equalTo(postImage.snp.left).offset(-Style.ItemInterval)
+        }
+        
+        // top view to take all actions
+        touchItem.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
+    
+}
+
+// MARK: Style
+
+extension ActivityBaseCell {
+ 
+    struct Style {
+        static let insets = UIEdgeInsets(top: 15, left: 25, bottom: -15, right: -25)
+        static let backgroundColor = UIColor.white
+        static let paddingVertical = 15
+        static let paddingHorizontal = 15
+        static let ItemInterval = 10
+        static let numberOfLines = 2
+        static let imagesHeightRatio = 0.6
+        static let buttonsHeightRatio = 0.18
+        static let acceptButtonRatio = (65.0 / 48.0)
+        
+        struct Fonts {
+            static let normal = UIFont.systemFont(ofSize: 12)
+            static let bold = UIFont.boldSystemFont(ofSize: 12)
+            
+            struct Colors {
+                static let special = UIColor.gray
+            }
+            
+            struct Attributes {
+                
+                static let time = [
+                    NSFontAttributeName: ActivityBaseCell.Style.Fonts.bold,
+                    NSForegroundColorAttributeName: ActivityBaseCell.Style.Fonts.Colors.special]
+                
+                
+                static let normal = [
+                    NSFontAttributeName: ActivityBaseCell.Style.Fonts.bold]
+            }
+        }
+        
+        struct Images {
+            static let accept = Asset.esAccept.image
+            static let reject = Asset.esReject.image
+            static let follow = Asset.esDecorFollow.image
+            static let comment = Asset.esDecorComment.image
+            static let like = Asset.esDecorLike.image
         }
     }
     

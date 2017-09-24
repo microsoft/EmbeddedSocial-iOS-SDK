@@ -18,6 +18,7 @@
 		3209330D1F2A50D300890218 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209330C1F2A50D300890218 /* Logger.swift */; };
 		321271DD1F5CBF6D003B53F4 /* SocialActionsCaching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321271DC1F5CBF6D003B53F4 /* SocialActionsCaching.swift */; };
 		3234AD1B1F2E70C3009C3327 /* PostCellCompact.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3234AD1A1F2E70C3009C3327 /* PostCellCompact.xib */; };
+		32C8E7BF1F77EFB600303D55 /* ActivityAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C8E7BE1F77EFB600303D55 /* ActivityAction.swift */; };
 		32FAB0511F2E6D3000C5B18D /* PostCellCompact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */; };
 		32FAB0531F2E6D4700C5B18D /* PostCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */; };
 		3FED379D7A0000A8961BD478 /* CommentRepliesViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222D29CB76E365F11BA0B3F0 /* CommentRepliesViewOutput.swift */; };
@@ -840,6 +841,7 @@
 		3209330C1F2A50D300890218 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		321271DC1F5CBF6D003B53F4 /* SocialActionsCaching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialActionsCaching.swift; sourceTree = "<group>"; };
 		3234AD1A1F2E70C3009C3327 /* PostCellCompact.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCellCompact.xib; sourceTree = "<group>"; };
+		32C8E7BE1F77EFB600303D55 /* ActivityAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAction.swift; sourceTree = "<group>"; };
 		32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellCompact.swift; sourceTree = "<group>"; };
 		32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellProtocol.swift; sourceTree = "<group>"; };
 		33008AFF48C0AC69914F9481 /* Pods_Group_EmbeddedSocial_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_EmbeddedSocial_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4089,6 +4091,7 @@
 				9C4B6F821F74E4CF001AA5BB /* ActivityViewModels.swift */,
 				9C4B6F841F74E4E8001AA5BB /* ActivityTextRender.swift */,
 				9C4B6F861F74E588001AA5BB /* ActivityDataSourceRender.swift */,
+				32C8E7BE1F77EFB600303D55 /* ActivityAction.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -5365,6 +5368,7 @@
 				88D2F8D71F55C2B50004A8BC /* ReportingService.swift in Sources */,
 				88580C7D1F2213EF00C1CBAF /* Repository.swift in Sources */,
 				8864C8261F45C57700ADCE13 /* QueryPeopleAPI.swift in Sources */,
+				32C8E7BF1F77EFB600303D55 /* ActivityAction.swift in Sources */,
 				88580C411F2213AB00C1CBAF /* CreatePostConfigurator.swift in Sources */,
 				882CAF171F615DF3001D5F37 /* SearchResultsUpdating.swift in Sources */,
 				884AA9591F3C563F00B85135 /* ReportingAPI.swift in Sources */,

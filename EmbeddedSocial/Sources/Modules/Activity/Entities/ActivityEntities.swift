@@ -18,6 +18,23 @@ enum ActivityItem {
     case othersActivity(ActivityView)
 }
 
+extension ActivityItem: Equatable {
+    static func ==(lhs: ActivityItem, rhs: ActivityItem) -> Bool {
+        switch (lhs, rhs) {
+        case let (.pendingRequest(lhsRequest), .pendingRequest(rhsRequest)):
+            return lhsRequest.userHandle == rhsRequest.userHandle
+        case let (.myActivity(lhsMyActivity), .myActivity(rhsMyActivity)):
+            return lhsMyActivity.activityHandle == rhsMyActivity.activityHandle
+        case let (.othersActivity(lhsOthersActivity), .othersActivity(rhsOthersActivity)):
+            return lhsOthersActivity.activityHandle == rhsOthersActivity.activityHandle
+        default:
+            return false
+        }
+    }
+}
+
+
+
 // MARK: Models
 
 // Helpers
@@ -30,19 +47,29 @@ enum Change<T> {
 
 class CellConfigurator {
     
-    func configure(cell: UITableViewCell, with viewModel: ActivityItemViewModel) {
+    var presenter: ActivityPresenter!
+    
+    func configure(cell: UITableViewCell,
+                   viewModel: ActivityItemViewModel,
+                   indexPath: IndexPath,
+                   onAction: ActivityCellBlock?) {
         
         cell.selectionStyle = .none
         
         if let cell = cell as? ActivityCell, let viewModel = viewModel as? ActivityViewModel {
-            configure(cell: cell, with: viewModel)
+            configure(cell: cell, with: viewModel, indexPath: indexPath, onAction: onAction)
         }
         else if let cell = cell as? FollowRequestCell, let viewModel = viewModel as? PendingRequestViewModel  {
-            configure(cell: cell, with: viewModel)
+            configure(cell: cell, with: viewModel, indexPath: indexPath, onAction: onAction)
+        } else {
+            fatalError("No implementation")
         }
     }
     
-    private func configure(cell: ActivityCell, with viewModel: ActivityViewModel) {
+    private func configure(cell: ActivityCell,
+                           with viewModel: ActivityViewModel,
+                           indexPath: IndexPath,
+                           onAction: ActivityCellBlock?) {
         
         let profilePhoto = Photo(url: viewModel.profileImage)
         cell.profileImage.setPhotoWithCaching(profilePhoto, placeholder: viewModel.profileImagePlaceholder.image)
@@ -62,12 +89,22 @@ class CellConfigurator {
         textAttributed.append(postTimeAttributed)
         
         cell.postText.attributedText = textAttributed
+        
+        cell.indexPath = indexPath
+        cell.onAction = onAction
     }
     
-    private func configure(cell: FollowRequestCell, with viewModel: PendingRequestViewModel) {
+    private func configure(cell: FollowRequestCell,
+                           with viewModel: PendingRequestViewModel,
+                           indexPath: IndexPath,
+                           onAction: ActivityCellBlock?)  {
+        
         let profilePhoto = Photo(url: viewModel.profileImage)
         cell.profileImage.setPhotoWithCaching(profilePhoto, placeholder: viewModel.profileImagePlaceholder.image)
         cell.profileName.text = viewModel.profileName
+        
+        cell.indexPath = indexPath
+        cell.onAction = onAction
     }
     
 }
