@@ -51,16 +51,16 @@ class CellConfigurator {
     
     func configure(cell: UITableViewCell,
                    viewModel: ActivityItemViewModel,
-                   indexPath: IndexPath,
+                   tableView: UITableView,
                    onAction: ActivityCellBlock?) {
         
         cell.selectionStyle = .none
         
         if let cell = cell as? ActivityCell, let viewModel = viewModel as? ActivityViewModel {
-            configure(cell: cell, with: viewModel, indexPath: indexPath, onAction: onAction)
+            configure(cell: cell, with: viewModel, tableView: tableView, onAction: onAction)
         }
         else if let cell = cell as? FollowRequestCell, let viewModel = viewModel as? PendingRequestViewModel  {
-            configure(cell: cell, with: viewModel, indexPath: indexPath, onAction: onAction)
+            configure(cell: cell, with: viewModel, tableView: tableView, onAction: onAction)
         } else {
             fatalError("No implementation")
         }
@@ -68,7 +68,7 @@ class CellConfigurator {
     
     private func configure(cell: ActivityCell,
                            with viewModel: ActivityViewModel,
-                           indexPath: IndexPath,
+                           tableView: UITableView,
                            onAction: ActivityCellBlock?) {
         
         let profilePhoto = Photo(url: viewModel.profileImage)
@@ -90,20 +90,24 @@ class CellConfigurator {
         
         cell.postText.attributedText = textAttributed
         
-        cell.indexPath = indexPath
+        cell.indexPath = { cell in
+            return tableView.indexPath(for: cell)
+        }
         cell.onAction = onAction
     }
     
     private func configure(cell: FollowRequestCell,
                            with viewModel: PendingRequestViewModel,
-                           indexPath: IndexPath,
+                           tableView: UITableView,
                            onAction: ActivityCellBlock?)  {
         
         let profilePhoto = Photo(url: viewModel.profileImage)
         cell.profileImage.setPhotoWithCaching(profilePhoto, placeholder: viewModel.profileImagePlaceholder.image)
         cell.profileName.text = viewModel.profileName
         
-        cell.indexPath = indexPath
+        cell.indexPath = { cell in
+            return tableView.indexPath(for: cell)
+        }
         cell.onAction = onAction
     }
     

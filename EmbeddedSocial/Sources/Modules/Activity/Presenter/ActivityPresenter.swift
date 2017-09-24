@@ -61,7 +61,7 @@ class ActivityPresenter {
         dataSources = makeDataSources()
     }
     
-    fileprivate var dataSources: [State: [DataSource]] = [:]
+    var dataSources: [State: [DataSource]] = [:]
     
     fileprivate func makeDataSources() -> [State: [DataSource]] {
         
@@ -107,8 +107,9 @@ extension ActivityPresenter: ActivityModuleInput {
     
     func handleCellEvent(indexPath: IndexPath, event: ActivityCellEvent) {
         
-        let item = dataSources[state]![indexPath.section].section.items[indexPath.item]        
-        let action = actionBuilder.build(from: item, with: event)
+        let dataSource = dataSources[state]![indexPath.section]
+        let item = dataSource.section.items[indexPath.item]
+        let action = actionBuilder.build(from: item, with: event, dataSource: dataSource)
         action.execute()
     }
     
@@ -119,7 +120,7 @@ extension ActivityPresenter: ActivityInteractorOutput {
 }
 
 extension ActivityPresenter: ActivityViewOutput {
-    
+ 
     func didSwitchToTab(to index: Int) {
         guard let state = State(rawValue: index) else { fatalError("Wrong index") }
         self.state = state
@@ -143,14 +144,14 @@ extension ActivityPresenter: ActivityViewOutput {
         return viewModel.cellID
     }
     
-    func configure(_ cell: UITableViewCell, for indexPath: IndexPath) {
+    func configure(_ cell: UITableViewCell, for tableView: UITableView, with indexPath: IndexPath) {
         let itemIndex = indexPath.row
         let sectionIndex = indexPath.section
         let item = dataSources[state]![sectionIndex].section.items[itemIndex]
         // TODO: move out cell ids from VM
         let viewModel = ActivityItemViewModelBuilder.build(from: item)
         
-        cellConfigurator.configure(cell: cell, viewModel: viewModel, indexPath: indexPath) { [weak self] path, event in
+        cellConfigurator.configure(cell: cell, viewModel: viewModel, tableView: tableView) { [weak self] path, event in
             self?.handleCellEvent(indexPath: path, event: event)
         }
     }

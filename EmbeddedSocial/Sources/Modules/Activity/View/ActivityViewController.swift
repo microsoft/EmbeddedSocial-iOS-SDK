@@ -21,7 +21,7 @@ protocol ActivityViewOutput: class {
     func viewIsReady()
     func cellIdentifier(for indexPath: IndexPath) -> String
     func headerForSection(_ section: Int) -> String
-    func configure(_ cell: UITableViewCell, for indexPath: IndexPath)
+    func configure(_ cell: UITableViewCell, for tableView: UITableView, with indexPath: IndexPath)
     
     func loadAll()
     func loadMore()
@@ -136,7 +136,7 @@ extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
         
         let identifier = output.cellIdentifier(for: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
-        output.configure(cell, for: indexPath)
+        output.configure(cell, for: tableView, with: indexPath)
         
         return cell
     }

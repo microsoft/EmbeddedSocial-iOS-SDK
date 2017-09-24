@@ -13,13 +13,14 @@ enum ActivityActionType: Int {
 }
 
 class Action {
-    weak var presenter: ActivityPresenter!
+    weak var presenter: ActivityPresenter?
     var activityItem: ActivityItem!
-    weak var dataSource: DataSource!
+    weak var dataSource: DataSource?
     
-    init(item: ActivityItem, presenter: ActivityPresenter) {
+    init(item: ActivityItem, presenter: ActivityPresenter, dataSource: DataSource) {
         self.activityItem = item
         self.presenter = presenter
+        self.dataSource = dataSource
     }
     
     func execute() { Logger.log() }
@@ -38,15 +39,18 @@ class Action {
     
     func removeItem() {
     
-        guard let index = dataSource.section.items.index(where: { (item) -> Bool in
+        guard let dataSource = dataSource, let index = dataSource.section.items.index(where: { (item) -> Bool in
             return item == activityItem
         }) else {
             return
         }
         
-        let indexPath = IndexPath(row: index, section: dataSource.context.index)
+        // remove item
+        dataSource.section.items.remove(at: index)
         
-        presenter.view.removeItem(indexes: [indexPath])
+        // notify view
+        let indexPath = IndexPath(row: index, section: dataSource.context.index)
+        presenter?.view.removeItem(indexes: [indexPath])
     }
 }
 
@@ -55,6 +59,7 @@ class AcceptFollowingRequestAction: Action {
     override func execute() {
         // performing the action
 //        presenter.interactor
+        onExecuted(.success())
     }
     
     override func onSuccess() {
@@ -65,6 +70,7 @@ class AcceptFollowingRequestAction: Action {
 class RejectFollowingRequestAction: Action {
     
     override func execute() {
+                onExecuted(.success())
         // performing the action
         //        presenter.interactor
     }
@@ -77,7 +83,7 @@ class RejectFollowingRequestAction: Action {
 class TransitionAction: Action {
     
     override func execute() {
-        presenter.router.open(with: activityItem)
+        presenter?.router.open(with: activityItem)
     }
     
 }
@@ -85,28 +91,28 @@ class TransitionAction: Action {
 
 class ActivityActionBuilder {
     
-    var presenter: ActivityPresenter!
+    weak var presenter: ActivityPresenter!
     
-    func build(from item: ActivityItem, with action: ActivityCellEvent) -> Action {
+    func build(from item: ActivityItem, with action: ActivityCellEvent, dataSource: DataSource) -> Action {
         
         switch item {
         case .pendingRequest(_ ):
             switch action {
             case .accept:
-                return AcceptFollowingRequestAction(item: item, presenter: presenter)
+                return AcceptFollowingRequestAction(item: item, presenter: presenter, dataSource: dataSource)
             case .reject:
-                return RejectFollowingRequestAction(item: item, presenter: presenter)
+                return RejectFollowingRequestAction(item: item, presenter: presenter, dataSource: dataSource)
             default:
                 fatalError("Mismatch of action and item")
             }
         
         case .myActivity(_ ):
             assert(action == .touch)
-            return TransitionAction(item: item, presenter: presenter)
+            return TransitionAction(item: item, presenter: presenter, dataSource: dataSource)
             
         case .othersActivity(_):
             assert(action == .touch)
-            return TransitionAction(item: item, presenter: presenter)
+            return TransitionAction(item: item, presenter: presenter, dataSource: dataSource)
 
         }
 

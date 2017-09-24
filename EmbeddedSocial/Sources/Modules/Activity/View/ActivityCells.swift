@@ -16,8 +16,8 @@ typealias ActivityCellBlock = ((IndexPath, ActivityCellEvent) -> Void)
 
 class ActivityBaseCell: UITableViewCell {
 
-    var indexPath: IndexPath!
     var onAction: ActivityCellBlock?
+    var indexPath: ((UITableViewCell) -> IndexPath?)!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -106,12 +106,18 @@ class FollowRequestCell: ActivityBaseCell {
     
     @objc func onAccept() {
         backgroundColor = UIColor.gray
-        onAction?(indexPath, .accept)
+        
+        guard let path = indexPath(self) else { return }
+        
+        onAction?(path, .accept)
     }
     
     @objc func onReject() {
         backgroundColor = UIColor.red
-        onAction?(indexPath, .reject)
+        
+        guard let path = indexPath(self) else { return }
+        
+        onAction?(path, .reject)
     }
 }
 
@@ -140,7 +146,8 @@ class ActivityCell: ActivityBaseCell {
     }
     
     @objc func onCellTouch() {
-        onAction?(indexPath, .touch)
+        guard let path = indexPath(self) else { return }
+        onAction?(path, .touch)
     }
     
     override func setup() {
