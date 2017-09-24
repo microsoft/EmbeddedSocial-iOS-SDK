@@ -35,18 +35,18 @@ private class MockLikeSerivce: LikesServiceProtocol {
     func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) { }
 }
 
-extension MockTopicService {
-    
-    func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {}
-    func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {}
-    func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {}
-    func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {}
-    func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {}
-    func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {}
-    func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {}
-    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {}
-    func postTopic(topic request: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {}
-}
+//extension MockTopicService {
+//    
+//    func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {}
+//    func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {}
+//    func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {}
+//    func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {}
+//    func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {}
+//    func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {}
+//    func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {}
+//    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {}
+//    func postTopic(topic request: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {}
+//}
 
 class PostDetailsInteractorTests: XCTestCase {
     
@@ -75,7 +75,7 @@ class PostDetailsInteractorTests: XCTestCase {
         cache = Cache(database: transactionsDatabase)
         imageService = ImagesService()
         commentsService = MockCommentsService()
-        topicServer = MockTopicService()
+        topicServer = PostServiceMock()
         interactor.commentsService = commentsService
         interactor.topicService = topicServer
 
