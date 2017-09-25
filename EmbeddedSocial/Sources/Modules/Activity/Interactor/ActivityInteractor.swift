@@ -31,9 +31,13 @@ protocol ActivityInteractorInput: class {
 }
 
 protocol ActivityService: class {
-    func loadMyActivities(cursor: String?, limit: Int, completion: @escaping (Result<ActivityResponseType>) -> Void)
-    func loadOthersActivities(cursor: String?, limit: Int, completion: @escaping (Result<ActivityResponseType>) -> Void)
-    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<PendingRequestsResponseType>) -> Void)
+    
+    typealias ActivityResponse = ListResponse<ActivityView>
+
+    
+    func loadMyActivities(cursor: String?, limit: Int, completion: @escaping (Result<ActivityResponse>) -> Void)
+    func loadOthersActivities(cursor: String?, limit: Int, completion: @escaping (Result<ActivityResponse>) -> Void)
+    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
     
     func approvePendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void)
     func rejectPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void)
