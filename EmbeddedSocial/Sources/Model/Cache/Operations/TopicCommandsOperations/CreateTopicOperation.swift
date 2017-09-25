@@ -9,12 +9,12 @@ final class CreateTopicOperation: OutgoingCommandOperation {
     
     let command: TopicCommand
     private let topicsService: PostServiceProtocol
-    private let predicateBuilder: OutgoingCommandsPredicateBuilder.Type
+    private let predicateBuilder: OutgoingCommandsPredicateBuilder
     private let handleUpdater: RelatedHandleUpdater
     
     init(command: TopicCommand,
          topicsService: PostServiceProtocol,
-         predicateBuilder: OutgoingCommandsPredicateBuilder.Type = PredicateBuilder.self,
+         predicateBuilder: OutgoingCommandsPredicateBuilder = PredicateBuilder(),
          handleUpdater: RelatedHandleUpdater = OutgoingCommandsRelatedHandleUpdater()) {
         
         self.command = command

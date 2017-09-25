@@ -9,31 +9,31 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
     
     //MARK: - allImageCommands
     
-    static var allImageCommandsCalled = false
-    static var allImageCommandsReturnValue: NSPredicate!
+    var allImageCommandsCalled = false
+    var allImageCommandsReturnValue: NSPredicate!
     
-    static func allImageCommands() -> NSPredicate {
+    func allImageCommands() -> NSPredicate {
         allImageCommandsCalled = true
         return allImageCommandsReturnValue
     }
     
     //MARK: - createTopicCommands
     
-    static var createTopicCommandsCalled = false
-    static var createTopicCommandsReturnValue: NSPredicate!
+    var createTopicCommandsCalled = false
+    var createTopicCommandsReturnValue: NSPredicate!
     
-    static func createTopicCommands() -> NSPredicate {
+    func createTopicCommands() -> NSPredicate {
         createTopicCommandsCalled = true
         return createTopicCommandsReturnValue
     }
     
     //MARK: - createTopicCommand
     
-    static var createTopicCommandTopicHandleCalled = false
-    static var createTopicCommandTopicHandleReceivedTopicHandle: String?
-    static var createTopicCommandTopicHandleReturnValue: NSPredicate!
+    var createTopicCommandTopicHandleCalled = false
+    var createTopicCommandTopicHandleReceivedTopicHandle: String?
+    var createTopicCommandTopicHandleReturnValue: NSPredicate!
     
-    static func createTopicCommand(topicHandle: String) -> NSPredicate {
+    func createTopicCommand(topicHandle: String) -> NSPredicate {
         createTopicCommandTopicHandleCalled = true
         createTopicCommandTopicHandleReceivedTopicHandle = topicHandle
         return createTopicCommandTopicHandleReturnValue
@@ -41,11 +41,11 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
     
     //MARK: - createCommentCommand
     
-    static var createCommentCommandCommentHandleCalled = false
-    static var createCommentCommandCommentHandleReceivedCommentHandle: String?
-    static var createCommentCommandCommentHandleReturnValue: NSPredicate!
+    var createCommentCommandCommentHandleCalled = false
+    var createCommentCommandCommentHandleReceivedCommentHandle: String?
+    var createCommentCommandCommentHandleReturnValue: NSPredicate!
     
-    static func createCommentCommand(commentHandle: String) -> NSPredicate {
+    func createCommentCommand(commentHandle: String) -> NSPredicate {
         createCommentCommandCommentHandleCalled = true
         createCommentCommandCommentHandleReceivedCommentHandle = commentHandle
         return createCommentCommandCommentHandleReturnValue
@@ -53,11 +53,11 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
     
     //MARK: - commandsWithRelatedHandle
     
-    static var commandsWithRelatedHandleIgnoredTypeIDCalled = false
-    static var commandsWithRelatedHandleIgnoredTypeIDReceivedArguments: (relatedHandle: String, ignoredTypeID: String)?
-    static var commandsWithRelatedHandleIgnoredTypeIDReturnValue: NSPredicate!
+    var commandsWithRelatedHandleIgnoredTypeIDCalled = false
+    var commandsWithRelatedHandleIgnoredTypeIDReceivedArguments: (relatedHandle: String, ignoredTypeID: String)?
+    var commandsWithRelatedHandleIgnoredTypeIDReturnValue: NSPredicate!
     
-    static func commandsWithRelatedHandle(_ relatedHandle: String, ignoredTypeID: String) -> NSPredicate {
+    func commandsWithRelatedHandle(_ relatedHandle: String, ignoredTypeID: String) -> NSPredicate {
         commandsWithRelatedHandleIgnoredTypeIDCalled = true
         commandsWithRelatedHandleIgnoredTypeIDReceivedArguments = (relatedHandle: relatedHandle, ignoredTypeID: ignoredTypeID)
         return commandsWithRelatedHandleIgnoredTypeIDReturnValue
@@ -65,42 +65,53 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
     
     //MARK: - createCommentCommands
     
-    static var createCommentCommandsCalled = false
-    static var createCommentCommandsReturnValue: NSPredicate!
+    var createCommentCommandsCalled = false
+    var createCommentCommandsReturnValue: NSPredicate!
     
-    static func createCommentCommands() -> NSPredicate {
+    func createCommentCommands() -> NSPredicate {
         createCommentCommandsCalled = true
         return createCommentCommandsReturnValue
     }
     
     //MARK: - allTopicActionCommands
     
-    static var allTopicActionCommandsCalled = false
-    static var allTopicActionCommandsReturnValue: NSPredicate!
+    var allTopicActionCommandsCalled = false
+    var allTopicActionCommandsReturnValue: NSPredicate!
     
-    static func allTopicActionCommands() -> NSPredicate {
+    func allTopicActionCommands() -> NSPredicate {
         allTopicActionCommandsCalled = true
         return allTopicActionCommandsReturnValue
     }
     
     //MARK: - replyActionCommands
     
-    static var replyActionCommandsCalled = false
-    static var replyActionCommandsReturnValue: NSPredicate!
+    var replyActionCommandsCalled = false
+    var replyActionCommandsReturnValue: NSPredicate!
     
-    static func replyActionCommands() -> NSPredicate {
+    func replyActionCommands() -> NSPredicate {
         replyActionCommandsCalled = true
         return replyActionCommandsReturnValue
     }
     
     //MARK: - createReplyCommands
     
-    static var createReplyCommandsCalled = false
-    static var createReplyCommandsReturnValue: NSPredicate!
+    var createReplyCommandsCalled = false
+    var createReplyCommandsReturnValue: NSPredicate!
     
-    static func createReplyCommands() -> NSPredicate {
+    func createReplyCommands() -> NSPredicate {
         createReplyCommandsCalled = true
         return createReplyCommandsReturnValue
     }
     
+    //MARK: - predicate
+    
+    var predicateForCalled = false
+    var predicateForCalledInputCommand: OutgoingCommand?
+    var predicateForReturnValue: NSPredicate!
+    
+    func predicate(for command: OutgoingCommand) -> NSPredicate {
+        predicateForCalled = true
+        predicateForCalledInputCommand = command
+        return predicateForReturnValue
+    }
 }

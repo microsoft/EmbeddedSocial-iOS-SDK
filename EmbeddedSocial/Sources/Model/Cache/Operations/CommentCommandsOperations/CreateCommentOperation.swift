@@ -8,12 +8,12 @@ import Foundation
 final class CreateCommentOperation: OutgoingCommandOperation {
     let command: CommentCommand
     private let commentsService: CommentServiceProtocol
-    private let predicateBuilder: OutgoingCommandsPredicateBuilder.Type
+    private let predicateBuilder: OutgoingCommandsPredicateBuilder
     private let handleUpdater: RelatedHandleUpdater
     
     init(command: CommentCommand,
          commentsService: CommentServiceProtocol,
-         predicateBuilder: OutgoingCommandsPredicateBuilder.Type = PredicateBuilder.self,
+         predicateBuilder: OutgoingCommandsPredicateBuilder = PredicateBuilder(),
          handleUpdater: RelatedHandleUpdater = OutgoingCommandsRelatedHandleUpdater()) {
         
         self.command = command

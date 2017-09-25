@@ -90,7 +90,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
     }
     
     private func cachedOutgoingComment(with handle: String) -> Comment? {
-        let p = PredicateBuilder.createCommentCommand(commentHandle: handle)
+        let p = PredicateBuilder().createCommentCommand(commentHandle: handle)
         
         let cachedCommand = cache.firstOutgoing(ofType: OutgoingCommand.self,
                                                 predicate: p,
@@ -100,7 +100,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
     }
     
     private func cachedIncomingComment(key: String) -> Comment? {
-        let p = PredicateBuilder.predicate(typeID: key)
+        let p = PredicateBuilder().predicate(typeID: key)
         let cachedCommentView = cache.firstIncoming(ofType: CommentView.self, predicate: p, sortDescriptors: nil)
         return cachedCommentView != nil ? convert(commentView: cachedCommentView!) : nil
     }
@@ -118,7 +118,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         )
         
         let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                                     predicate: PredicateBuilder.allCreateCommentCommands(),
+                                                     predicate: PredicateBuilder().allCreateCommentCommands(),
                                                      sortDescriptors: [Cache.createdAtSortDescriptor])
         
         cache.fetchOutgoing(with: fetchOutgoingRequest) { [weak self] commands in
@@ -251,7 +251,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
         let request = CacheFetchRequest(
             resultType: OutgoingCommand.self,
-            predicate: PredicateBuilder.commentActionCommands(for: commentView.commentHandle!),
+            predicate: PredicateBuilder().commentActionCommands(for: commentView.commentHandle!),
             sortDescriptors: [Cache.createdAtSortDescriptor]
         )
         

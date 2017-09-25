@@ -8,7 +8,7 @@ import Foundation
 final class OutgoingCommandsUploader: Daemon, NetworkStatusListener {
     
     private let networkTracker: NetworkStatusMulticast
-    private let uploadStrategy: OutgoingCommandsUploadStrategyType
+    fileprivate var uploadStrategy: OutgoingCommandsUploadStrategyType
     
     init(networkTracker: NetworkStatusMulticast,
          uploadStrategy: OutgoingCommandsUploadStrategyType,
@@ -17,6 +17,7 @@ final class OutgoingCommandsUploader: Daemon, NetworkStatusListener {
         self.networkTracker = networkTracker
         self.uploadStrategy = uploadStrategy
         jsonDecoderType.setupDecoders()
+        self.uploadStrategy.delegate = self
     }
     
     func start() {
@@ -30,6 +31,13 @@ final class OutgoingCommandsUploader: Daemon, NetworkStatusListener {
     
     func networkStatusDidChange(_ isReachable: Bool) {
         guard isReachable else { return }
+        uploadStrategy.restartSubmission()
+    }
+}
+
+extension OutgoingCommandsUploader: OutgoingCommandsUploadStrategyDelegate {
+    func outgoingCommandsSubmissionDidFail(with error: Error) {
+        uploadStrategy.cancelSubmission()
         uploadStrategy.restartSubmission()
     }
 }

@@ -33,7 +33,7 @@ class AtomicOutgoingCommandsExecutor<ResponseType> {
     
     private func cacheCommand(_ command: OutgoingCommand) {
         if let cachedInverseCommand = self.cachedInverseCommand(for: command) {
-            cache?.deleteOutgoing(with: PredicateBuilder.predicate(for: cachedInverseCommand))
+            cache?.deleteOutgoing(with: PredicateBuilder().predicate(for: cachedInverseCommand))
         } else {
             cache?.cacheOutgoing(command)
         }
@@ -44,7 +44,7 @@ class AtomicOutgoingCommandsExecutor<ResponseType> {
             return nil
         }
         return cache?.firstOutgoing(ofType: type(of: inverseCommand),
-                                    predicate: PredicateBuilder.predicate(for: inverseCommand),
+                                    predicate: PredicateBuilder().predicate(for: inverseCommand),
                                     sortDescriptors: nil)
     }
     
