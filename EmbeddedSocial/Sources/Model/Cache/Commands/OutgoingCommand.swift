@@ -57,6 +57,7 @@ class OutgoingCommand: Cacheable {
         LikeCommentCommand.self,
         UnlikeCommentCommand.self,
         CreateCommentCommand.self,
+        RemoveCommentCommand.self,
         
         // Image Commands
         CreateTopicImageCommand.self,

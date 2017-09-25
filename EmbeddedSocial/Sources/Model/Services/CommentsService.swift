@@ -29,7 +29,7 @@ protocol CommentServiceProtocol {
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, cachedResult: @escaping CommentFetchResultHandler, resultHandler: @escaping CommentFetchResultHandler)
     func comment(commentHandle: String, cachedResult: @escaping CommentHandler, success: @escaping CommentHandler, failure: @escaping Failure)
     func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure)
-    func deleteComment(commentHandle: String, completion: @escaping ((Result<Void>) -> Void))
+    func delete(comment: Comment, completion: @escaping ((Result<Void>) -> Void))
 }
 
 class CommentsService: BaseService, CommentServiceProtocol {
@@ -42,13 +42,15 @@ class CommentsService: BaseService, CommentServiceProtocol {
         self.imagesService = imagesService
     }
     
-    func deleteComment(commentHandle: String, completion: @escaping ((Result<Void>) -> Void)) {
-        let request = CommentsAPI.commentsDeleteCommentWithRequestBuilder(commentHandle: commentHandle, authorization: authorization)
-        request.execute { (response, error) in
-            if let error = error {
-                self.errorHandler.handle(error: error, completion: completion)
+    func delete(comment: Comment, completion: @escaping ((Result<Void>) -> Void)) {
+        let command = RemoveCommentCommand(comment: comment)
+        execute(command: command, success: { _ in
+            completion(.success())
+        }) { (error) in
+            if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
             } else {
-                completion(.success())
+                completion(.failure(error))
             }
         }
     }
@@ -160,7 +162,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 return
             }
             
-            
             let typeID = "fetch_commens-\(topicHandle)"
             
             if cursor == nil {
@@ -234,6 +235,26 @@ class CommentsService: BaseService, CommentServiceProtocol {
                     failure(APIError(error: error))
                 }
         }
+    }
+    
+    private func execute(command: RemoveCommentCommand,
+                         success: @escaping ((Void) -> Void),
+                         failure: @escaping Failure) {
+        guard isNetworkReachable else {
+            cache.cacheOutgoing(command)
+            success()
+            return
+        }
+        
+        let request = CommentsAPI.commentsDeleteCommentWithRequestBuilder(commentHandle: command.comment.commentHandle, authorization: authorization)
+        request.execute { (response, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success()
+            }
+        }
+        
     }
     
     private func convert(data: [CommentView]) -> [Comment] {

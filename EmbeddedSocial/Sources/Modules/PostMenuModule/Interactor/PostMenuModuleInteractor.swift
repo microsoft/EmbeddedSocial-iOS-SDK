@@ -60,7 +60,7 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     }
     
     func remove(comment: Comment) {
-        commentService.deleteComment(commentHandle: comment.commentHandle) { [weak self] (result) in
+        commentService.delete(comment: comment) { [weak self] (result) in
             self?.output.didRemove(comment: comment, error: result.error)
         }
     }

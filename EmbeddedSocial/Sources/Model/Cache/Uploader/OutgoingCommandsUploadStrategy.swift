@@ -119,11 +119,11 @@ extension OutgoingCommandsUploadStrategy.Step {
     }
     
     static var topicActions: Step {
-        return Step(predicate: PredicateBuilder.allTopicActionCommands(), next: createComments)
+        return Step(predicate: PredicateBuilder.allTopicActionCommands(), next: createDeleteComments)
     }
     
-    static var createComments: Step {
-        return Step(predicate: PredicateBuilder.createCommentCommands(), next: commentActions)
+    static var createDeleteComments: Step {
+        return Step(predicate: PredicateBuilder.createDeleteCommentCommands(), next: commentActions)
     }
     
     static var commentActions: Step {

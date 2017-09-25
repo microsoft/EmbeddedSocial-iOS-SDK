@@ -54,6 +54,8 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
             return UnlikeCommentOperation(command: command, likesService: LikesService())
         } else if let command = command as? CreateCommentCommand {
             return CreateCommentOperation(command: command, commentsService: CommentsService(imagesService: ImagesService()))
+        } else if let command = command as? RemoveCommentCommand {
+            return RemoveCommentOperation(command: command, commentService: CommentsService(imagesService: ImagesService()))
         }
         
         // image commands
