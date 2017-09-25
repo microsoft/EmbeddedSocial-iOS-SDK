@@ -13,6 +13,7 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
     var cache: MockCache!
     var operationsBuilder: MockOutgoingCommandOperationsBuilder!
     var predicateBuilder: MockOutgoingCommandsPredicateBuilder!
+    var delegate: MockOutgoingCommandsUploadStrategyDelegate!
     var sut: OutgoingCommandsUploadStrategy!
     
     override func setUp() {
@@ -22,8 +23,10 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
         cache = MockCache()
         operationsBuilder = MockOutgoingCommandOperationsBuilder()
         predicateBuilder = MockOutgoingCommandsPredicateBuilder()
+        delegate = MockOutgoingCommandsUploadStrategyDelegate()
         sut = OutgoingCommandsUploadStrategy(cache: cache, operationsBuilderType: operationsBuilder,
                                              executionQueue: queue, predicateBuilder: predicateBuilder)
+        sut.delegate = delegate
     }
     
     override func tearDown() {
@@ -33,6 +36,7 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
         sut = nil
         operationsBuilder = nil
         predicateBuilder = nil
+        delegate = nil
     }
     
     func testThatItCancelsSubmission() {
@@ -94,7 +98,7 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
         cache.deleteOutgoing_Expectation.isInverted = true
         
         // when
-        sut.delegate = self // mock delegate
+        sut.delegate = delegate
         sut.restartSubmission()
         
         // then
