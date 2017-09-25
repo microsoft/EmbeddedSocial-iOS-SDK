@@ -7,4 +7,9 @@ import Foundation
 
 final class CreateTopicCommand: TopicCommand {
     
+    override func apply(to feed: inout FeedFetchResult) {
+        var topics = feed.posts
+        topics.insert(topic, at: 0)
+        feed.posts = topics
+    }
 }

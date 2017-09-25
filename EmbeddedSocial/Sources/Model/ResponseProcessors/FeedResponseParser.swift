@@ -29,9 +29,9 @@ protocol FeedResponseParserProtocol: class {
 
 class FeedResponseParser: FeedResponseParserProtocol {
     
-    private let postProcessor: FeedCachePostProcessor
+    private let postProcessor: FeedResponsePostProcessorType
     
-    init(processor: FeedCachePostProcessor) {
+    init(processor: FeedResponsePostProcessorType) {
         self.postProcessor = processor
     }
     
@@ -52,27 +52,29 @@ class FeedResponseParser: FeedResponseParserProtocol {
     }
 }
 
-class FeedCachePostProcessor {
+protocol FeedResponsePostProcessorType {
+    func process(_ feed: inout FeedFetchResult)
+}
+
+class FeedResponsePostProcessor: FeedResponsePostProcessorType {
     private let cache: CacheType!
+    
+    var fetchTopicsPredicate: NSPredicate {
+        return PredicateBuilder.allTopicActionCommands()
+    }
     
     init(cache: CacheType) {
         self.cache = cache
     }
     
     func process(_ feed: inout FeedFetchResult) {
-        let commands = fetchTopicCommands()
-        
-        feed.posts = feed.posts.map { topic -> Post in
-            var topic = topic
-            let commandsToApply = commands.filter { $0.topic.topicHandle == topic.topicHandle }
-            for command in commandsToApply {
-                command.apply(to: &topic)
-            }
-            return topic
+        let commands = fetchTopicActionCommands()
+        for command in commands {
+            command.apply(to: &feed)
         }
     }
     
-    private func fetchTopicCommands() -> [TopicCommand] {
+    private func fetchTopicActionCommands() -> [TopicCommand] {
         let request = CacheFetchRequest(resultType: OutgoingCommand.self,
                                         predicate: PredicateBuilder.allTopicActionCommands(),
                                         sortDescriptors: [Cache.createdAtSortDescriptor])
@@ -80,3 +82,30 @@ class FeedCachePostProcessor {
         return cache.fetchOutgoing(with: request) as? [TopicCommand] ?? []
     }
 }
+
+final class OtherUserFeedResponsePostProcessor: FeedResponsePostProcessor {
+    
+    override var fetchTopicsPredicate: NSPredicate {
+        return PredicateBuilder.allTopicActionCommands()
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

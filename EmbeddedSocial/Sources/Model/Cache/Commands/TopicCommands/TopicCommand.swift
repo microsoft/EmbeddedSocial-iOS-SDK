@@ -32,6 +32,19 @@ class TopicCommand: OutgoingCommand {
         
     }
     
+    func apply(to feed: inout FeedFetchResult) {
+        var topics = feed.posts
+        
+        for (index, var topic) in topics.enumerated() {
+            if topic.topicHandle == self.topic.topicHandle {
+                apply(to: &topic)
+                topics[index] = topic
+            }
+        }
+        
+        feed.posts = topics
+    }
+    
     override func encodeToJSON() -> Any {
         return [
             "topic": topic.encodeToJSON(),

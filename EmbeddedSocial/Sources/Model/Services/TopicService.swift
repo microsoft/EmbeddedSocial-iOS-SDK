@@ -91,7 +91,7 @@ class TopicService: BaseService, PostServiceProtocol {
     init(imagesService: ImagesServiceType) {
         super.init()
         self.imagesService = imagesService
-        responseParser = FeedResponseParser(processor: FeedCachePostProcessor(cache: cache))
+        responseParser = FeedResponseParser(processor: FeedResponsePostProcessor(cache: cache))
         feedCacheAdapter = FeedCacheAdapter(cache: cache)
     }
     

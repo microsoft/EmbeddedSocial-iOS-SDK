@@ -115,6 +115,5 @@ extension SocialPlus: LogoutController {
             
             self?.coordinator.showError(error)
         }
-        
     }
 }

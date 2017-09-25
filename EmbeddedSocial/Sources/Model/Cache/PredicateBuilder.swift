@@ -31,6 +31,10 @@ protocol OutgoingCommandsPredicateBuilder {
     static func createReplyCommands() -> NSPredicate
 }
 
+protocol TopicServicePredicateBuilder {
+    
+}
+
 struct PredicateBuilder: CachePredicateBuilder {
     
     static func predicate(typeID: String) -> NSPredicate {
