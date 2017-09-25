@@ -19,5 +19,21 @@ class DateFormatterTool {
         return formatter
     }()
     
+    static func timeAgo(since: Date) -> String? {
+        return short.string(from: since, to: Date())
+    }
+    
+    static var short:DateComponentsFormatter {
+        
+        let formatter = DateComponentsFormatter()
+        
+        formatter.unitsStyle = .abbreviated
+        formatter.includesApproximationPhrase = false
+        formatter.zeroFormattingBehavior = .dropAll
+        formatter.maximumUnitCount = 1
+        formatter.allowsFractionalUnits = false
+        
+        return formatter
+    }
     
 }

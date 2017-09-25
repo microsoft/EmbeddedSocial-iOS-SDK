@@ -5,7 +5,7 @@
 
 @testable import EmbeddedSocial
 
-class MockJSONDecoder: JSONDecoder {
+class MockJSONDecoder: JSONDecoderProtocol {
     
     //MARK: - setupDecoders
 
