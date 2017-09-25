@@ -51,14 +51,16 @@ class DataSourceBuilder {
     
 }
 
+
+// TODO: remake via generics
 class DataSource {
     weak var interactor: ActivityInteractorInput!
     var section: Section
     var delegate: DataSourceDelegate?
     let context: DataSourceContext
     
-    func load() { }
-    func loadMore() { }
+    func load() { fatalError("No impl") }
+    func loadMore() { fatalError("No impl") }
     
     init(interactor: ActivityInteractorInput,
          section: Section,
@@ -76,6 +78,10 @@ class DataSource {
         let range = (section.items.count - newItemsCount)..<section.items.count
         let indexPaths = range.map { IndexPath(row: $0, section: context.index) }
         return indexPaths
+    }
+    
+    deinit {
+        Logger.log(self)
     }
 }
 
@@ -112,46 +118,62 @@ class MyPendingRequests: DataSource {
 
 class MyActivities: DataSource {
     
+    private func processResponse(_ result: Result<[ActivityItemType]>) {
+        
+        switch result {
+        case let .failure(error):
+            self.delegate?.didFail(error: error)
+        case let .success(models):
+            let items = models.map { ActivityItem.myActivity($0) }
+            self.section.items.append(contentsOf: items)
+            
+            // make paths for inserted items
+            let indexPaths = self.insertedIndexes(newItemsCount: items.count)
+            self.delegate?.didLoad(indexPaths: indexPaths, context: self.context)
+        }
+    }
+    
+    override func load() {
+        interactor.loadMyActivities { [weak self] (result) in
+            self?.processResponse(result)
+        }
+    }
+    
     override func loadMore() {
-        // load activity
-        interactor.loadNextPageMyActivities {  [weak self] (result) in
-            
-            guard let strongSelf = self else { return }
-            
-            switch result {
-            case let .failure(error):
-                strongSelf.delegate?.didFail(error: error)
-            case let .success(models):
-                let items = models.map { ActivityItem.myActivity($0) }
-                strongSelf.section.items.append(contentsOf: items)
-                
-                // make paths for inserted items
-                let indexPaths = strongSelf.insertedIndexes(newItemsCount: items.count)
-                strongSelf.delegate?.didLoad(indexPaths: indexPaths, context: strongSelf.context)
-            }
+    
+        interactor.loadNextPageMyActivities { [weak self] (result) in
+            self?.processResponse(result)
         }
     }
 }
 
 class OthersActivties: DataSource {
     
+    private func processResponse(_ result: Result<[ActivityItemType]>) {
+        
+        switch result {
+        case let .failure(error):
+            self.delegate?.didFail(error: error)
+        case let .success(models):
+            let items = models.map { ActivityItem.othersActivity($0) }
+            self.section.items.append(contentsOf: items)
+            
+            // make paths for inserted items
+            let indexPaths = self.insertedIndexes(newItemsCount: items.count)
+            self.delegate?.didLoad(indexPaths: indexPaths, context: self.context)
+        }
+    }
+    
+    override func load() {
+        interactor.loadNextPageOthersActivities { [weak self] (result) in
+            self?.processResponse(result)
+        }
+    }
+    
     override func loadMore() {
         // load activity
         interactor.loadNextPageOthersActivities { [weak self] (result) in
-            
-            guard let strongSelf = self else { return }
-            
-            switch result {
-            case let .failure(error):
-                strongSelf.delegate?.didFail(error: error)
-            case let .success(models):
-                let items = models.map { ActivityItem.othersActivity($0) }
-                strongSelf.section.items.append(contentsOf: items)
-                
-                // make paths for inserted items
-                let indexPaths = strongSelf.insertedIndexes(newItemsCount: items.count)
-                strongSelf.delegate?.didLoad(indexPaths: indexPaths, context: strongSelf.context)
-            }
+            self?.processResponse(result)
         }
     }
 }

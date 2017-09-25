@@ -102,10 +102,12 @@ extension ActivityPresenter: DataSourceDelegate {
     
     func didLoad(indexPaths: [IndexPath], context: DataSourceContext) {
         
-        guard state == context.state else { return }
+        guard state == context.state else {
+            return
+        }
         view.addNewItems(indexes: indexPaths)
     }
-    
+
 }
 
 extension ActivityPresenter: ActivityModuleInput {
@@ -131,16 +133,18 @@ extension ActivityPresenter: ActivityViewOutput {
         self.state = state
     }
     
-    func loadAll() {
-        // release data sources
-        dataSources = makeDataSources()
-        view.reloadItems()
-        // load
-        loadMore()
-    }
-
     func loadMore() {
         dataSources[state]?.forEach { $0.loadMore() }
+    }
+    
+    func loadAll() {
+        // wipe data sources
+        dataSources = makeDataSources()
+        
+        // re-load view
+        view.reloadItems()
+        // re-load data stores
+        dataSources[state]?.forEach { $0.load() }
     }
     
     func cellIdentifier(for indexPath: IndexPath) -> String {

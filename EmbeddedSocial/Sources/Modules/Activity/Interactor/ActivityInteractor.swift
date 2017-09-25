@@ -153,6 +153,19 @@ struct PagesList<T> {
     func nextPageAvailable() -> Bool {
         return cursor != nil
     }
+    
+    func indexRangeForPage(pageIndex: Int) -> CountableRange<Int>? {
+        
+        guard let lastPage = pages.last, lastPage.items.count > 0 else {
+            return nil
+        }
+        
+        let itemsCount = pages.reduce(0) { $0.0 + $0.1.items.count }
+        let lastPageItemsCount = lastPage.items.count
+        
+        return (itemsCount - lastPageItemsCount)..<itemsCount
+    }
+    
 }
 
 class ActivityInteractor {
@@ -304,10 +317,12 @@ extension ActivityInteractor: ActivityInteractorInput {
         
         let pageID = UUID().uuidString
         pendingRequestsList.loadingPages.insert(pageID)
+        let cursor = pendingRequestsList.cursor
+        let limit = pendingRequestsList.limit
         
         service.loadPendingsRequests(
-            cursor: pendingRequestsList.cursor,
-            limit: pendingRequestsList.limit) { [weak self] (result: Result<PendingRequestsResponseType>) in
+            cursor: cursor,
+            limit: limit) { [weak self] (result: Result<PendingRequestsResponseType>) in
                 
                 defer {
                     self?.pendingRequestsList.loadingPages.remove(pageID)
@@ -330,7 +345,11 @@ extension ActivityInteractor: ActivityInteractorInput {
                     return
                 }
                 
-                strongSelf.pendingRequestsList.add(page: page)
+                if cursor == nil {
+                    strongSelf.pendingRequestsList.pages = [page]
+                } else {
+                    strongSelf.pendingRequestsList.add(page: page)
+                }
                 
                 completion?(.success(page.items))
         }
