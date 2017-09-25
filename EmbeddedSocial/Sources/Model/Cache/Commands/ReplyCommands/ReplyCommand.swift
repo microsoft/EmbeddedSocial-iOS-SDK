@@ -46,4 +46,19 @@ class ReplyCommand: OutgoingCommand {
     override func setRelatedHandle(_ relatedHandle: String?) {
         reply.replyHandle = relatedHandle
     }
+    
+    static var allReplyCommandTypes: [OutgoingCommand.Type] {
+        return [
+            LikeReplyCommand.self,
+            UnlikeReplyCommand.self,
+            CreateReplyCommand.self,
+        ]
+    }
+    
+    static var replyActionCommandTypes: [OutgoingCommand.Type] {
+        return [
+            LikeReplyCommand.self,
+            UnlikeReplyCommand.self,
+        ]
+    }
 }

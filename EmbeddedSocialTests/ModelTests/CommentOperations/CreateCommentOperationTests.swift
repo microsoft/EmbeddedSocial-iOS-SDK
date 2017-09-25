@@ -52,9 +52,8 @@ class CreateCommentOperationTests: XCTestCase {
         
         // then
         // service called
-        XCTAssertTrue(service.postCommentTopicHandleRequestPhotoResultHandlerFailureCalled)
-        let args = service.postCommentTopicHandleRequestPhotoResultHandlerFailureReceivedArguments
-        XCTAssertEqual(args?.topicHandle, command.comment.topicHandle)
+        XCTAssertTrue(service.postCommentCalled)
+        XCTAssertEqual(service.postCommentReceivedArguments?.comment.topicHandle, command.comment.topicHandle)
         
         // predicate created
         XCTAssertTrue(predicateBuilder.commandsWithRelatedHandleIgnoredTypeIDCalled)
@@ -90,9 +89,8 @@ class CreateCommentOperationTests: XCTestCase {
         
         // then
         // service called
-        XCTAssertTrue(service.postCommentTopicHandleRequestPhotoResultHandlerFailureCalled)
-        let args = service.postCommentTopicHandleRequestPhotoResultHandlerFailureReceivedArguments
-        XCTAssertEqual(args?.topicHandle, command.comment.topicHandle)
+        XCTAssertTrue(service.postCommentCalled)
+        XCTAssertEqual(service.postCommentReceivedArguments?.comment.topicHandle, command.comment.topicHandle)
         
         // predicate created
         XCTAssertFalse(predicateBuilder.commandsWithRelatedHandleIgnoredTypeIDCalled)

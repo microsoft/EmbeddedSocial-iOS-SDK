@@ -50,4 +50,19 @@ class CommentCommand: OutgoingCommand {
     override func getHandle() -> String? {
         return comment.commentHandle
     }
+    
+    static var allCommentCommandTypes: [OutgoingCommand.Type] {
+        return [
+            LikeCommentCommand.self,
+            UnlikeCommentCommand.self,
+            CreateCommentCommand.self,
+        ]
+    }
+    
+    static var commentActionCommandTypes: [OutgoingCommand.Type] {
+        return [
+            LikeCommentCommand.self,
+            UnlikeCommentCommand.self,
+        ]
+    }
 }
