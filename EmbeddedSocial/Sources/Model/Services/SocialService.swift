@@ -200,15 +200,15 @@ class SocialService: BaseService, SocialServiceType {
 }
 
 extension SocialService: ActivityService {
-    
+
     func loadOthersActivities(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseActivityView>) -> Void) {
         let builder = SocialAPI.myFollowingGetActivitiesWithRequestBuilder(authorization: authorization, cursor: cursor, limit: Int32(limit))
         
         let key = builder.URLString
         
-        if let cached = self.fetchFromCache(by: key) {
+//        if let cached: = self.fetchFromCache(by: key) {
 //            completion(.success(cached))
-        }
+//        }
         
         builder.execute { [weak self] (response, error) in
             
@@ -250,26 +250,59 @@ extension SocialService: ActivityService {
     
     }
     
-    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseUserCompactView>) -> Void) {
-        
-    }
-    
-    func approvePendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
-        
-    }
-    
     func rejectPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
         
+        let builder = SocialAPI.myPendingUsersDeletePendingUserWithRequestBuilder(userHandle: handle, authorization: authorization)
+        
+        builder.execute { (response, error) in
+            guard error == nil else {
+                completion(.failure(APIError.failedRequest))
+                return
+            }
+            
+            completion(.success())
+        }
     }
     
     
-    func acceptFollowRequest(for userHandle: String, completion: @escaping (Result<Void>) -> Void) {
+    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<PendingRequestsResponseType>) -> Void) {
+        let builder = SocialAPI.myPendingUsersGetPendingUsersWithRequestBuilder(authorization: authorization,
+                                                                                cursor: cursor,
+                                                                                limit: Int32(limit))
+        
+        let key = builder.URLString
+        
+        builder.execute { [weak self] (response, error) in
+    
+            guard let strongSelf = self else { return }
+            
+            guard let data = response?.body else {
+                completion(.failure(APIError.missingUserData))
+                return
+            }
+    
+            strongSelf.cacheResponse(data, forKey: key)
+    
+            completion(.success(data))
+        }
+    }
+
+    func approvePendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
         
         let request = PostFollowerRequest()
-        request.userHandle = userHandle
+        request.userHandle = handle
         
         let builder = SocialAPI.myFollowersPostFollowerWithRequestBuilder(request: request, authorization: authorization)
         
+        builder.execute { (response, error) in
+           
+            guard error == nil else {
+                completion(.failure(APIError.failedRequest))
+                return
+            }
+            
+            completion(.success())
+        }
         
         
         //        let command = AcceptFollowRequestCommand(user: user)
@@ -277,12 +310,12 @@ extension SocialService: ActivityService {
         //        outgoingActionsExecutor.execute(command: command, builder: builder, completion: completion)
     }
     
-    private func cacheResponse(_ response: FeedResponseActivityView, forKey key: String) {
+    private func cacheResponse(_ response: Cacheable, forKey key: String) {
         cache.cacheIncoming(response, for: key)
     }
     
-    private func fetchFromCache(by cacheKey: String) -> FeedResponseActivityView? {
-        return cache.firstIncoming(ofType: FeedResponseActivityView.self, typeID: cacheKey)
+    private func fetchFromCache<T: Cacheable>(by cacheKey: String) -> T? {
+        return cache.firstIncoming(ofType: T.self, typeID: cacheKey)
     }
 }
 

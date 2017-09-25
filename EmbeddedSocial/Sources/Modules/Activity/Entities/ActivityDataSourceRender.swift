@@ -7,13 +7,6 @@ import Foundation
 
 typealias DataSourceContext = (state: ActivityPresenter.State, index: Int)
 
-protocol DataSourceProtocol {
-    func loadMore()
-    var section: Section { get }
-    var delegate: DataSourceDelegate? { get }
-    
-}
-
 protocol DataSourceDelegate {
     func didFail(error: Error)
     func didLoad(indexPaths: [IndexPath], context: DataSourceContext)
@@ -58,7 +51,7 @@ class DataSourceBuilder {
     
 }
 
-class DataSource: DataSourceProtocol {
+class DataSource {
     weak var interactor: ActivityInteractorInput!
     var section: Section
     var delegate: DataSourceDelegate?

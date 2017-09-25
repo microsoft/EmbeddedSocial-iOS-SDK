@@ -28,6 +28,11 @@ class ActivityBaseCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        profileImage.makeCircular()
+    }
+    
     let profileImage: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
@@ -50,12 +55,6 @@ class ActivityBaseCell: UITableViewCell {
 }
 
 class FollowRequestCell: ActivityBaseCell {
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        profileImage.makeCircular()
-        
-    }
     
     override func setup() {
         super.setup()
@@ -131,13 +130,9 @@ class ActivityCell: ActivityBaseCell {
     
     let postImage: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
+        view.contentMode = .scaleAspectFit
         return view
     }()
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
     
     @objc func onCellTouch() {
         guard let path = indexPath(self) else { return }
