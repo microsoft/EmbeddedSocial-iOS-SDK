@@ -81,42 +81,4 @@ class OutgoingCommandsUploaderTests: XCTestCase {
         
         XCTAssertFalse(strategy.restartSubmissionCalled)
     }
-
-    
-//    func testThatItSubmitsPendingCommandsWhenNetworkBecomesAvailable() {
-//        // given
-//        let user = User()
-//        let command = FollowCommand(user: user)
-//        operationsBuilder.operationForCommandReturnValue = FollowUserOperation(command: command, socialService: socialService)
-//        cache.fetchOutgoing_with_ReturnValue = [command]
-//        
-//        // when
-//        sut.networkStatusDidChange(true)
-//        
-//        wait(for: [cache.deleteOutgoing_Expectation], timeout: 1.0)
-//        
-//        XCTAssertEqual(socialService.followCount, 1)
-//        XCTAssertEqual(socialService.followInputUser, user)
-//        
-//        XCTAssertTrue(operationsBuilder.operationForCommandCalled)
-//        
-//        guard let inputCommand = operationsBuilder.operationForCommandInputCommand as? FollowCommand else {
-//            XCTFail("Operations builder must receive the correct input command")
-//            return
-//        }
-//        XCTAssertEqual(inputCommand.user, user)
-//    }
-//    
-//    func testThatItDoesNothingWhenNetworkBecomesUnavailable() {
-//        // given
-//        cache.deleteOutgoing_Expectation.isInverted = true
-//        
-//        // when
-//        sut.networkStatusDidChange(false)
-//        
-//        wait(for: [cache.deleteOutgoing_Expectation], timeout: 1.0)
-//        
-//        XCTAssertEqual(socialService.followCount, 0)
-//        XCTAssertFalse(operationsBuilder.operationForCommandCalled)
-//    }
 }

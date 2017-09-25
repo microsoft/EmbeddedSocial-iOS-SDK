@@ -13,4 +13,5 @@ protocol CommentRepliesViewInput: class {
     func replyPosted()
     func lockUI()
     func updateLoadingCell()
+    func unlockUI()
 }

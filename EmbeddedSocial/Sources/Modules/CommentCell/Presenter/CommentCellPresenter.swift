@@ -50,7 +50,7 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     }
     
     func avatarPressed() {
-        guard let handle = comment.userHandle else {
+        guard let handle = comment.user?.uid else {
             return
         }
         
@@ -62,7 +62,7 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     }
     
     func mediaPressed() {
-        guard let mediaURL = comment.mediaUrl else {
+        guard let mediaURL = comment.mediaPhoto?.url else {
             return
         }
         
@@ -70,7 +70,7 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     }
     
     func optionsPressed() {
-        let isMyComment = (SocialPlus.shared.me?.uid == comment.userHandle)
+        let isMyComment = (SocialPlus.shared.me?.uid == comment.user?.uid)
         
         if isMyComment {
             router?.openMyCommentOptions(comment: comment)

@@ -100,11 +100,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         self.viewModel = data
         self.collectionView = collectionView
         
-        if data.postImageUrl == nil {
-            postImageButton.setImage(postImagePlaceholder, for: .normal)
-        } else {
-            postImageButton.setPhotoWithCaching(Photo(url: data.postImageUrl), placeholder: postImagePlaceholder)
-        }
+        postImageButton.setPhotoWithCaching(data.postPhoto, placeholder: postImagePlaceholder)
         
         if data.userImageUrl == nil {
             userPhoto.image = userImagePlaceholder

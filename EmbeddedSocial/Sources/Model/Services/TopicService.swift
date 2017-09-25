@@ -85,14 +85,14 @@ protocol PostServiceDelegate: class {
 class TopicService: BaseService, PostServiceProtocol {
     
     private var imagesService: ImagesServiceType!
-    private var responseParser: FeedResponseParser!
-    private var feedCacheAdapter: FeedCacheAdapter!
-    
+    private var responseParser: FeedResponseParserProtocol!
+    private var otherUserFeedResponseParser: FeedResponseParserProtocol!
+
     init(imagesService: ImagesServiceType) {
         super.init()
         self.imagesService = imagesService
         responseParser = FeedResponseParser(processor: FeedResponsePostProcessor(cache: cache))
-        feedCacheAdapter = FeedCacheAdapter(cache: cache)
+        otherUserFeedResponseParser = FeedResponseParser(processor: OtherUserFeedResponsePostProcessor(cache: cache))
     }
     
     init() {
@@ -168,7 +168,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                               cursor: query.cursor,
                                                               limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: responseParser, completion: completion)
     }
     
     func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {
@@ -176,7 +176,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                        cursor: query.cursor,
                                                                        limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: responseParser, completion: completion)
     }
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
@@ -186,7 +186,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                          cursor: query.cursorInt(),
                                                                          limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: responseParser, completion: completion)
     }
     
     func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {
@@ -195,7 +195,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                   cursor: query.cursor,
                                                                   limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: responseParser, completion: completion)
     }
     
     func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
@@ -205,7 +205,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                      cursor: query.cursor,
                                                                      limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: otherUserFeedResponseParser, completion: completion)
     }
     
     func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
@@ -215,7 +215,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                             cursor: query.cursorInt(),
                                                                             limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: otherUserFeedResponseParser, completion: completion)
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
@@ -245,7 +245,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                    cursor: query.cursor,
                                                                    limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: responseParser, completion: completion)
     }
     
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {
@@ -253,7 +253,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                           cursor: query.cursorInt(),
                                                                           limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: responseParser, completion: completion)
     }
     
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
@@ -268,12 +268,13 @@ class TopicService: BaseService, PostServiceProtocol {
     
     // MARK: Private
     private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
+                                responseParser: FeedResponseParserProtocol,
                                 completion: @escaping FetchResultHandler) {
         
         let requestCacheKey = requestBuilder.URLString
         
         // Lookup in cache and return if hit
-        if let result = fetchResultFromCache(by: requestCacheKey) {
+        if let result = fetchResultFromCache(by: requestCacheKey, responseParser: responseParser) {
             
             completion(result)
         }
@@ -289,8 +290,8 @@ class TopicService: BaseService, PostServiceProtocol {
             
             strongSelf.handleError(error, result: &result)
             strongSelf.cacheResponse(response?.body, forKey: requestCacheKey)
-            strongSelf.parseResponse(response?.body, isCached: false, into: &result)
-            
+            responseParser.parse(response?.body, isCached: false, into: &result)
+
             completion(result)
         }
     }
@@ -314,21 +315,15 @@ class TopicService: BaseService, PostServiceProtocol {
         }
     }
     
-    private func fetchResultFromCache(by cacheKey: String) -> FeedFetchResult? {
+    private func fetchResultFromCache(by cacheKey: String, responseParser: FeedResponseParserProtocol) -> FeedFetchResult? {
         
-        guard let cachedResponse = feedCacheAdapter.cached(by: cacheKey) else {
+        guard let cachedResponse = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: cacheKey) else {
             return nil
         }
         
         var result = FeedFetchResult()
-        
-        self.parseResponse(cachedResponse, isCached: true, into: &result)
-        
+        responseParser.parse(cachedResponse, isCached: true, into: &result)
         return result
-    }
-    
-    private func parseResponse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout FeedFetchResult) {
-        responseParser.parse(response, isCached: isCached, into: &result)
     }
 }
 

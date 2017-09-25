@@ -94,7 +94,8 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         SVProgressHUD.show()
     }
     
-    fileprivate func unlockUI() {
+    func unlockUI() {
+        refreshControl.endRefreshing()
         view.isUserInteractionEnabled = true
         SVProgressHUD.dismiss()
     }

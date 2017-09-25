@@ -20,7 +20,7 @@ class FetchUserCommandsOperation: Operation {
         }
         
         let request = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                        predicate: PredicateBuilder.allUserCommands(),
+                                        predicate: PredicateBuilder().allUserCommands(),
                                         sortDescriptors: [Cache.createdAtSortDescriptor])
         
         commands = cache.fetchOutgoing(with: request) as? [UserCommand] ?? []

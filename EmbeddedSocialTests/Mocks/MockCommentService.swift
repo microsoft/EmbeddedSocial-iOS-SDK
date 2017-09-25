@@ -33,15 +33,21 @@ class MockCommentsService: CommentServiceProtocol {
     }
     
     //MARK: - postComment
+
+    var postCommentCalled = false
+    var postCommentReceivedArguments: (comment: Comment, photo: Photo?)?
+    var postCommentReturnResponse: PostCommentResponse?
+    var postCommentReturnError: Error?
     
-    var postCommentTopicHandleRequestPhotoResultHandlerFailureCalled = false
-    var postCommentTopicHandleRequestPhotoResultHandlerFailureReceivedArguments: (topicHandle: String, request: PostCommentRequest, photo: Photo?)?
-    var postCommentReturnResponse: PostCommentResponse!
-    
-    func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure) {
-        postCommentTopicHandleRequestPhotoResultHandlerFailureCalled = true
-        postCommentTopicHandleRequestPhotoResultHandlerFailureReceivedArguments = (topicHandle: topicHandle, request: request, photo: photo)
-        resultHandler(postCommentReturnResponse)
+    func postComment(comment: Comment, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure) {
+        postCommentCalled = true
+        postCommentReceivedArguments = (comment, photo)
+        
+        if let response = postCommentReturnResponse {
+            resultHandler(response)
+        } else if let error = postCommentReturnError {
+            failure(error)
+        }
     }
     
     //MARK: - deleteComment

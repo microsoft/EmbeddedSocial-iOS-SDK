@@ -8,12 +8,12 @@ import Foundation
 final class CreateCommentOperation: OutgoingCommandOperation {
     let command: CommentCommand
     private let commentsService: CommentServiceProtocol
-    private let predicateBuilder: OutgoingCommandsPredicateBuilder.Type
+    private let predicateBuilder: OutgoingCommandsPredicateBuilder
     private let handleUpdater: RelatedHandleUpdater
     
     init(command: CommentCommand,
          commentsService: CommentServiceProtocol,
-         predicateBuilder: OutgoingCommandsPredicateBuilder.Type = PredicateBuilder.self,
+         predicateBuilder: OutgoingCommandsPredicateBuilder = PredicateBuilder(),
          handleUpdater: RelatedHandleUpdater = OutgoingCommandsRelatedHandleUpdater()) {
         
         self.command = command
@@ -29,12 +29,10 @@ final class CreateCommentOperation: OutgoingCommandOperation {
         
         let oldHandle = command.comment.commentHandle
         
-        commentsService.postComment(
-            topicHandle: command.comment.topicHandle,
-            request: PostCommentRequest(comment: command.comment),
-            photo: command.comment.mediaPhoto,
-            resultHandler: { [weak self] comment in self?.updateRelatedCommandsHandle(from: oldHandle, to: comment.commentHandle) },
-            failure: { [weak self] error in self?.completeOperation(with: error) })
+        commentsService.postComment(comment: command.comment,
+                                    photo: command.comment.mediaPhoto,
+                                    resultHandler: { [weak self] comment in self?.updateRelatedCommandsHandle(from: oldHandle, to: comment.commentHandle) },
+                                    failure: { [weak self] error in self?.completeOperation(with: error) })
     }
     
     private func updateRelatedCommandsHandle(from oldHandle: String?, to newHandle: String?) {

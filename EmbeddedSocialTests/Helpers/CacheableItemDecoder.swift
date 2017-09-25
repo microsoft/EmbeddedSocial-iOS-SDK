@@ -6,7 +6,7 @@
 import Foundation
 @testable import EmbeddedSocial
 
-struct CacheableItemDecoder: JSONDecoder {
+struct CacheableItemDecoder: JSONDecoderProtocol {
     static func decode<T>(type: T.Type, payload: Any?) -> T? {
         guard T.self is CacheableItem.Type,
             let payload = payload as? [String: Any],

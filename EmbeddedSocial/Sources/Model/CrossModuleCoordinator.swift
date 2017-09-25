@@ -25,6 +25,7 @@ protocol CrossModuleCoordinatorProtocol: class {
     var configuredSearch: UIViewController { get }
     var configuredSettings: UIViewController { get }
     var configuredMyPins: UIViewController { get }
+    var configuredActivity: UIViewController { get }
 }
 
 class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput {
@@ -194,6 +195,12 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     
     lazy var configuredSettings: UIViewController = {
         let configurator = SettingsConfigurator()
+        configurator.configure(navigationController: self.navigationStack.navigationController)
+        return configurator.viewController
+    }()
+    
+    lazy var configuredActivity: UIViewController = {
+        let configurator = ActivityModuleConfigurator()
         configurator.configure(navigationController: self.navigationStack.navigationController)
         return configurator.viewController
     }()

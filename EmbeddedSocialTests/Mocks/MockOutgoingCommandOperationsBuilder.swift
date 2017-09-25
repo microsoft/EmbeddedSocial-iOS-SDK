@@ -8,14 +8,24 @@ import Foundation
 
 class MockOutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
     
-    static var operationForCommandCalled = false
-    static var operationForCommandReturnValue: OutgoingCommandOperation?
-    static var operationForCommandInputCommand: OutgoingCommand?
+    var operationForCommandCalled = false
+    var operationForCommandInputCommand: OutgoingCommand?
+    var operationForCommandReturnValueMaker: (() -> OutgoingCommandOperation?)!
 
-    static func operation(for command: OutgoingCommand) -> OutgoingCommandOperation? {
+    func operation(for command: OutgoingCommand) -> OutgoingCommandOperation? {
         operationForCommandCalled = true
         operationForCommandInputCommand = command
-        return operationForCommandReturnValue
+        return operationForCommandReturnValueMaker()
+    }
+    
+    var fetchCommandsOperationPredicateCalled = false
+    var fetchCommandsOperationPredicateInputValues: (cache: CacheType, predicate: NSPredicate)?
+    var fetchCommandsOperationPredicateReturnValueMaker: (() -> FetchOutgoingCommandsOperation)!
+    
+    func fetchCommandsOperation(cache: CacheType, predicate: NSPredicate) -> FetchOutgoingCommandsOperation {
+        fetchCommandsOperationPredicateCalled = true
+        fetchCommandsOperationPredicateInputValues = (cache, predicate)
+        return fetchCommandsOperationPredicateReturnValueMaker()
     }
 }
 

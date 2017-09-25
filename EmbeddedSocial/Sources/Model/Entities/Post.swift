@@ -12,6 +12,7 @@ struct Post {
     var user: User?
     var imageUrl: String?
     var imageHandle: String?
+    var image: UIImage?
     
     var title: String?
     var text: String?
@@ -57,7 +58,7 @@ struct Post {
         guard let imageHandle = imageHandle else {
             return nil
         }
-        return Photo(uid: imageHandle, url: imageUrl)
+        return Photo(uid: imageHandle, url: imageUrl, image: image)
     }
 }
 

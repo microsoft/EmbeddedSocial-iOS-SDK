@@ -8,13 +8,13 @@ import Foundation
 class ImageCommandOperation: OutgoingCommandOperation {
     let command: ImageCommand
     let imagesService: ImagesServiceType
-    let predicateBuilder: OutgoingCommandsPredicateBuilder.Type
+    let predicateBuilder: OutgoingCommandsPredicateBuilder
     let cache: CacheType
     let imageCache: ImageCache
 
     init(command: ImageCommand,
          imagesService: ImagesServiceType,
-         predicateBuilder: OutgoingCommandsPredicateBuilder.Type = PredicateBuilder.self,
+         predicateBuilder: OutgoingCommandsPredicateBuilder = PredicateBuilder(),
          cache: CacheType = SocialPlus.shared.cache,
          imageCache: ImageCache = ImageCacheAdapter.shared) {
         

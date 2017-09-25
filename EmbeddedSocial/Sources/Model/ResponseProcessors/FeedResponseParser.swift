@@ -5,26 +5,12 @@
 
 import Foundation
 
-protocol FeedCacheAdapterProtocol: class {
-    func cached(by cacheKey: String) -> FeedResponseTopicView?
-}
-
-class FeedCacheAdapter: FeedCacheAdapterProtocol {
-    
-    let cache: CacheType!
-    
-    init(cache: CacheType) {
-        self.cache = cache
-    }
-    
-    func cached(by cacheKey: String) -> FeedResponseTopicView? {
-        return cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: cacheKey)
-    }
-}
-
-
 protocol FeedResponseParserProtocol: class {
     func parse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout FeedFetchResult)
+}
+
+protocol FeedResponsePostProcessorType {
+    func process(_ feed: inout FeedFetchResult)
 }
 
 class FeedResponseParser: FeedResponseParserProtocol {
@@ -52,19 +38,17 @@ class FeedResponseParser: FeedResponseParserProtocol {
     }
 }
 
-protocol FeedResponsePostProcessorType {
-    func process(_ feed: inout FeedFetchResult)
-}
-
 class FeedResponsePostProcessor: FeedResponsePostProcessorType {
     private let cache: CacheType!
+    let predicateBuilder: TopicServicePredicateBuilder
     
     var fetchTopicsPredicate: NSPredicate {
-        return PredicateBuilder.allTopicActionCommands()
+        return predicateBuilder.allTopicCommands()
     }
     
-    init(cache: CacheType) {
+    init(cache: CacheType, predicateBuilder: TopicServicePredicateBuilder = PredicateBuilder()) {
         self.cache = cache
+        self.predicateBuilder = predicateBuilder
     }
     
     func process(_ feed: inout FeedFetchResult) {
@@ -76,7 +60,7 @@ class FeedResponsePostProcessor: FeedResponsePostProcessorType {
     
     private func fetchTopicActionCommands() -> [TopicCommand] {
         let request = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                        predicate: PredicateBuilder.allTopicActionCommands(),
+                                        predicate: fetchTopicsPredicate,
                                         sortDescriptors: [Cache.createdAtSortDescriptor])
         
         return cache.fetchOutgoing(with: request) as? [TopicCommand] ?? []
@@ -86,26 +70,6 @@ class FeedResponsePostProcessor: FeedResponsePostProcessorType {
 final class OtherUserFeedResponsePostProcessor: FeedResponsePostProcessor {
     
     override var fetchTopicsPredicate: NSPredicate {
-        return PredicateBuilder.allTopicActionCommands()
+        return predicateBuilder.allTopicActionCommands()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

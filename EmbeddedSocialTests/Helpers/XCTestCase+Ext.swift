@@ -4,6 +4,7 @@
 //
 
 import XCTest
+@testable import EmbeddedSocial
 
 extension XCTestCase {
     var className: String {
@@ -28,3 +29,25 @@ extension XCTestCase {
     }
     
 }
+
+extension XCTestCase {
+    
+    func loadResponse<T>(from file: String) -> T? {
+        
+        let bundle = Bundle(for: type(of: self))
+        let path = bundle.path(forResource: file, ofType: "json")
+        let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
+        let json = try? JSONSerialization.jsonObject(with: data!)
+        
+        let result = Decoders.decode(clazz: T.self, source: json as AnyObject, instance: nil)
+        switch result {
+        case let .success(value):
+            return value
+        case let .failure(error):
+            XCTFail("Failed to decode with error \(error)")
+            return nil
+        }
+    }
+}
+
+

@@ -136,3 +136,35 @@
 
 "suggested_users.screen_title" = "Suggested users";
 "suggested_users.no_data_text" = "No suggested users to show.";
+
+"activity.you.following" = "%@ started following you.";
+"activity.you.mention_topic" = "%@ mentioned you in a topic \"%@\".";
+"activity.you.mention_comment" = "%@ mentioned you in a comment \"%@\".";
+"activity.you.mention_reply" = "%@ mentioned you in a reply \"%@\".";
+"activity.you.like_topic" = "%@ liked your topic \"%@\".";
+"activity.you.like_comment" = "%@ liked your comment \"%@\".";
+"activity.you.like_reply" = "%@ liked your reply \"%@\".";
+"activity.you.follow_request" = "%@ sent you a follow request.";
+"activity.you.child_peer_topic" = "%@ added a new comment to topic \"%@\".";
+"activity.you.child_peer_comment" = "%@ added a new reply to comment \"%@\".";
+"activity.you.child_topic" = "%@ commented on your topic \"%@\".";
+"activity.you.child_comment" = "%@ replied to your comment \"%@\".";
+"activity.you.follow_accepted" = "%@ accepted your follow request.";
+"activity.following.following" = "%@ started following %@";
+"activity.following.mention_topic" = "%@ mentioned %@ in a topic \"%@\".";
+"activity.following.mention_comment" = "%@ mentioned %@ in a comment \"%@\".";
+"activity.following.mention_reply" = "%@ mentioned %@ in a reply \"%@\".";
+"activity.following.like_topic" = "%@ liked topic \"%@\".";
+"activity.following.like_comment" = "%@ liked comment \"%@\".";
+"activity.following.like_reply" = "%@ liked reply \"%@\".";
+"activity.following.child_peer_topic" = "%@ added a new comment to topic \"%@\".";
+"activity.following.child_peer_comment" = "%@ added a new reply to comment \"%@\".";
+"activity.following.child_topic" = "%@ commented on topic \"%@\".";
+"activity.following.child_comment" = "%@ replied to comment \"%@\".";
+
+"activity.one_person" = "%@";
+"activity.two_persons" = "%@ and %@";
+"activity.three_persons" = "%@, %@ and 1 other person";
+"activity.many_persons" = "%@, %@ and %d other people";
+
+

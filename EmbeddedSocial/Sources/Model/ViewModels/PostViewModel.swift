@@ -25,11 +25,17 @@ struct PostViewModel {
     let timeCreated: String
     let userImageUrl: String?
     let postImageUrl: String?
+    let postImageHandle: String?
     let isTrimmed: Bool
     let cellType: String
     
     // sourcery: skipEquality
     let onAction: ActionHandler?
+    
+    var postPhoto: Photo? {
+        guard let uid = postImageHandle else { return nil }
+        return Photo(uid: uid, url: postImageUrl)
+    }
   
     init(with post: Post,
          isTrimmed: Bool = false,
@@ -54,6 +60,7 @@ struct PostViewModel {
         }
         userImageUrl = post.photoUrl
         postImageUrl = post.imageUrl
+        postImageHandle = post.imageHandle
         
         isLiked = post.liked
         isPinned = post.pinned

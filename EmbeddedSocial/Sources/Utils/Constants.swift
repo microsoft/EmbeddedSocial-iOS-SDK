@@ -35,6 +35,10 @@ extension Constants {
         static let pageSize = 30
     }
     
+    struct ActivityList {
+        static let pageSize = 20
+    }
+    
     struct FeedModule {
         struct Collection  {
             static var rowsMargin = CGFloat(10.0)

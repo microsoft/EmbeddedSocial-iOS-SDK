@@ -63,4 +63,23 @@ class TopicCommand: OutgoingCommand {
     override func setRelatedHandle(_ relatedHandle: String?) {
         topic.topicHandle = relatedHandle
     }
+    
+    static var topicActionCommandTypes: [OutgoingCommand.Type] {
+        return [
+            UnlikeTopicCommand.self,
+            LikeTopicCommand.self,
+            PinTopicCommand.self,
+            UnpinTopicCommand.self
+        ]
+    }
+    
+    static var allTopicCommandTypes: [OutgoingCommand.Type] {
+        return [
+            UnlikeTopicCommand.self,
+            LikeTopicCommand.self,
+            PinTopicCommand.self,
+            UnpinTopicCommand.self,
+            CreateTopicCommand.self
+        ]
+    }
 }

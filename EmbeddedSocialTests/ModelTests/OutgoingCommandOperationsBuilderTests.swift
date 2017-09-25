@@ -9,7 +9,8 @@ import XCTest
 class OutgoingCommandOperationsBuilderTests: XCTestCase {
     
     func testThatItReturnsCorrectOperationClass() {
-        let makeOperation = OutgoingCommandOperationsBuilder.operation(for:)
+        let builder = OutgoingCommandOperationsBuilder()
+        let makeOperation = builder.operation(for:)
         
         // user commands
         let user = User()
