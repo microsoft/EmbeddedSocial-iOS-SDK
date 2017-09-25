@@ -12,7 +12,7 @@ final class OutgoingCommandsUploader: Daemon, NetworkStatusListener {
     
     init(networkTracker: NetworkStatusMulticast,
          uploadStrategy: OutgoingCommandsUploadStrategyType,
-         jsonDecoderType: JSONDecoder.Type) {
+         jsonDecoderType: JSONDecoderProtocol.Type) {
         
         self.networkTracker = networkTracker
         self.uploadStrategy = uploadStrategy

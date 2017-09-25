@@ -50,6 +50,7 @@
 		63F8489D1F4AE85E00D434CF /* MockCommentRepliesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F8489C1F4AE85E00D434CF /* MockCommentRepliesViewController.swift */; };
 		63F8489F1F4DA52700D434CF /* MockPostDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F8489E1F4DA52700D434CF /* MockPostDetailRouter.swift */; };
 		6A1E54B293644825826F92D8 /* CommentCellRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1ECDB428A92745248FE72C /* CommentCellRouterInput.swift */; };
+		7176BCF1B470CC39B0D05ED9 /* Pods_Group_EmbeddedSocialUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5032A2696CA3C2C171B66506 /* Pods_Group_EmbeddedSocialUITests.framework */; };
 		837524BE76C276DF2DA68F21 /* CommentRepliesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03953E1FFCBD39CDB219B8 /* CommentRepliesRouter.swift */; };
 		8802F2181F5968C800FD0A15 /* CommonCacheRequestExecutionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8802F2171F5968C800FD0A15 /* CommonCacheRequestExecutionStrategy.swift */; };
 		8802F21A1F596BBA00FD0A15 /* RequestExecutorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8802F2191F596BBA00FD0A15 /* RequestExecutorProvider.swift */; };
@@ -878,12 +879,11 @@
 		9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8B1F25D60A00D0B59D /* PostCell.xib */; };
 		9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */; };
 		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
-		9C683AC41F5F09E70087925E /* FeedResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C683AC31F5F09E70087925E /* FeedResponseParser.swift */; };
 		9C4B6F831F74E4CF001AA5BB /* ActivityViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4B6F821F74E4CF001AA5BB /* ActivityViewModels.swift */; };
 		9C4B6F851F74E4E8001AA5BB /* ActivityTextRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4B6F841F74E4E8001AA5BB /* ActivityTextRender.swift */; };
 		9C4B6F871F74E588001AA5BB /* ActivityDataSourceRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4B6F861F74E588001AA5BB /* ActivityDataSourceRender.swift */; };
 		9C5BE9031F67D04C00F0E20E /* ActivityCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5BE9021F67D04C00F0E20E /* ActivityCells.swift */; };
-		9C683AC41F5F09E70087925E /* FeedServiceAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C683AC31F5F09E70087925E /* FeedServiceAdapters.swift */; };
+		9C683AC41F5F09E70087925E /* FeedResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C683AC31F5F09E70087925E /* FeedResponseParser.swift */; };
 		9C6D359B1F31D1C1005893DB /* FeedModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531381F31CCF2004CE94F /* FeedModuleConfigurator.swift */; };
 		9C6D359C1F31D1C1005893DB /* FeedModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313A1F31CCF2004CE94F /* FeedModuleInteractor.swift */; };
 		9C6D359E1F31D1C1005893DB /* FeedModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313D1F31CCF2004CE94F /* FeedModulePresenter.swift */; };
@@ -1931,7 +1931,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C3ABCE133BE0BB04E6170C3 /* Pods_Group_EmbeddedSocialUITests.framework in Frameworks */,
+				7176BCF1B470CC39B0D05ED9 /* Pods_Group_EmbeddedSocialUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6887,6 +6887,7 @@
 		};
 		9CD8053F1F0D012F00B9B0AC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4593957CB6B188458E11B08F /* Pods-Group-EmbeddedSocial.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -6932,6 +6933,7 @@
 		};
 		9CD805421F0D012F00B9B0AC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 499816CC9FB1BEB8A301A338 /* Pods-EmbeddedSocialTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 285W24646W;
