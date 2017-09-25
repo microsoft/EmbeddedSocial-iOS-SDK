@@ -16,9 +16,13 @@ typealias PendingRequestsResponseType = FeedResponseUserCompactView
 
 protocol ActivityInteractorInput: class {
     
-    func loadAll()
+    func loadMyActivities(completion: ((Result<[ActivityItemType]>) -> Void)?)
     func loadNextPageMyActivities(completion: ((Result<[ActivityItemType]>) -> Void)?)
+    
+    func loadOthersActivties(completion: ((Result<[ActivityItemType]>) -> Void)?)
     func loadNextPageOthersActivities(completion: ((Result<[ActivityItemType]>) -> Void)?)
+    
+    func loadPendingRequestItems(completion: ((Result<[PendingRequestItemType]>) -> Void)?)
     func loadNextPagePendigRequestItems(completion: ((Result<[PendingRequestItemType]>) -> Void)?)
     
     func approvePendingRequest(user: UserCompactView, completion: @escaping (Result<Void>) -> Void)
@@ -132,6 +136,7 @@ struct PagesList<T> {
     var limit: Int = Constants.ActivityList.pageSize
     var cursor: String?
     var pages: [PageModel<T>] = []
+    var loadingPages: Set<String> = Set()
     
     mutating func add(items: [T], cursor: String?) {
         assert(items.count <= limit)
@@ -165,7 +170,6 @@ class ActivityInteractor {
     fileprivate var myActivitiesList: ActivitiesList = ActivitiesList()
     fileprivate var othersActivitiesList: ActivitiesList = ActivitiesList()
     fileprivate var pendingRequestsList: PendingRequestsList = PendingRequestsList()
-    fileprivate var loadingPages: Set<PageID> = Set()
     
     // MARK: State
     
@@ -185,7 +189,11 @@ extension ActivityInteractor: ActivityInteractorInput {
     }
     
     func rejectPendingRequest(user: UserCompactView, completion: @escaping (Result<Void>) -> Void) {
-        
+        guard let handle = user.userHandle else {
+            completion(.failure(APIError.missingUserData))
+            return
+        }
+        service.rejectPendingRequest(handle: handle, completion: completion)
     }
     
     private func process(response: ActivityResponseType, pageID: String) -> FollowingPage? {
@@ -196,30 +204,43 @@ extension ActivityInteractor: ActivityInteractorInput {
         return PendingRequestPage(uid: pageID, cursor: response.cursor, items: response.data ?? [])
     }
     
-    
     func loadAll() {
         myActivitiesList = ActivitiesList()
         othersActivitiesList = ActivitiesList()
         pendingRequestsList = PendingRequestsList()
-        loadingPages = Set()
     }
     
+    func loadMyActivities(completion: ((Result<[ActivityItemType]>) -> Void)?) {
+        myActivitiesList = ActivitiesList()
+        loadNextPageMyActivities(completion: completion)
+    }
+    
+    func loadPendingRequestItems(completion: ((Result<[PendingRequestItemType]>) -> Void)?) {
+        pendingRequestsList = PendingRequestsList()
+        loadNextPagePendigRequestItems(completion: completion)
+    }
+    
+    func loadOthersActivties(completion: ((Result<[ActivityItemType]>) -> Void)?) {
+        othersActivitiesList = ActivitiesList()
+        loadNextPageOthersActivities(completion: completion)
+    }
+   
     // TODO: remake using generics
     func loadNextPageMyActivities(completion: ((Result<[ActivityItemType]>) -> Void)? = nil) {
         
         let pageID = UUID().uuidString
-        loadingPages.insert(pageID)
+        myActivitiesList.loadingPages.insert(pageID)
         
         service.loadMyActivities(
             cursor: myActivitiesList.cursor,
             limit: myActivitiesList.limit) { [weak self] (result: Result<ActivityResponseType>) in
                 
                 defer {
-                    self?.loadingPages.remove(pageID)
+                    self?.myActivitiesList.loadingPages.remove(pageID)
                 }
                 
                 // exit on released or canceled
-                guard let strongSelf = self, strongSelf.loadingPages.contains(pageID) else {
+                guard let strongSelf = self, strongSelf.myActivitiesList.loadingPages.contains(pageID) else {
                     return
                 }
                 
@@ -245,18 +266,18 @@ extension ActivityInteractor: ActivityInteractorInput {
     // TODO: remake using generics
     func loadNextPageOthersActivities(completion: ((Result<[ActivityItemType]>) -> Void)?) {
         let pageID = UUID().uuidString
-        loadingPages.insert(pageID)
+        othersActivitiesList.loadingPages.insert(pageID)
         
         service.loadOthersActivities(
             cursor: othersActivitiesList.cursor,
             limit: othersActivitiesList.limit) { [weak self] (result: Result<ActivityResponseType>) in
                 
                 defer {
-                    self?.loadingPages.remove(pageID)
+                    self?.othersActivitiesList.loadingPages.remove(pageID)
                 }
                 
                 // exit on released or canceled
-                guard let strongSelf = self, strongSelf.loadingPages.contains(pageID) else {
+                guard let strongSelf = self, strongSelf.othersActivitiesList.loadingPages.contains(pageID) else {
                     return
                 }
                 
@@ -282,18 +303,18 @@ extension ActivityInteractor: ActivityInteractorInput {
     func loadNextPagePendigRequestItems(completion: ((Result<[PendingRequestItemType]>) -> Void)? = nil) {
         
         let pageID = UUID().uuidString
-        loadingPages.insert(pageID)
+        pendingRequestsList.loadingPages.insert(pageID)
         
         service.loadPendingsRequests(
             cursor: pendingRequestsList.cursor,
             limit: pendingRequestsList.limit) { [weak self] (result: Result<PendingRequestsResponseType>) in
                 
                 defer {
-                    self?.loadingPages.remove(pageID)
+                    self?.pendingRequestsList.loadingPages.remove(pageID)
                 }
                 
                 // exit on released or canceled
-                guard let strongSelf = self, strongSelf.loadingPages.contains(pageID) else {
+                guard let strongSelf = self, strongSelf.pendingRequestsList.loadingPages.contains(pageID) else {
                     return
                 }
                 

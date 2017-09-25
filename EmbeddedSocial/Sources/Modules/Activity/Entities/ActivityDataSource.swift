@@ -57,6 +57,7 @@ class DataSource {
     var delegate: DataSourceDelegate?
     let context: DataSourceContext
     
+    func load() { }
     func loadMore() { }
     
     init(interactor: ActivityInteractorInput,
@@ -80,24 +81,30 @@ class DataSource {
 
 class MyPendingRequests: DataSource {
     
+    private func processResponse(_ result: Result<[PendingRequestItemType]>) {
+    
+        switch result {
+        case let .failure(error):
+            self.delegate?.didFail(error: error)
+        case let .success(models):
+            let items = models.map { ActivityItem.pendingRequest($0) }
+            self.section.items.append(contentsOf: items)
+            
+            // make paths for inserted items
+            let indexPaths = self.insertedIndexes(newItemsCount: items.count)
+            self.delegate?.didLoad(indexPaths: indexPaths, context: self.context)
+        }
+    }
+    
+    override func load() {
+        interactor.loadPendingRequestItems { [weak self] (result) in
+            self?.processResponse(result)
+        }
+    }
+    
     override func loadMore() {
-        
-        // load pendings
         interactor.loadNextPagePendigRequestItems { [weak self] (result) in
-            
-            guard let strongSelf = self else { return }
-            
-            switch result {
-            case let .failure(error):
-                strongSelf.delegate?.didFail(error: error)
-            case let .success(models):
-                let items = models.map { ActivityItem.pendingRequest($0) }
-                strongSelf.section.items.append(contentsOf: items)
-                
-                // make paths for inserted items
-                let indexPaths = strongSelf.insertedIndexes(newItemsCount: items.count)
-                strongSelf.delegate?.didLoad(indexPaths: indexPaths, context: strongSelf.context)
-            }
+            self?.processResponse(result)
         }
     }
     
