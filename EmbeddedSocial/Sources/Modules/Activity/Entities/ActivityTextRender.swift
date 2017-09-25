@@ -53,6 +53,9 @@ class BaseActivityTextRender {
             return renderPeer(item: item)
         case .followAccept:
             return renderFollowAccepted(item: item)
+        case .followRequest:
+            return renderFollowRequest(item: item)
+            
         default:
             Logger.log(activityType, "Not supported")
             return nil
@@ -63,6 +66,7 @@ class BaseActivityTextRender {
     func renderPeer(item: ActivityView) -> String? { return "No impl" }
     func renderLike(item: ActivityView) -> String? { return "No impl" }
     func renderFollowing(item: ActivityView) -> String? { return "No impl" }
+    func renderFollowRequest(item: ActivityView) -> String? { return "No impl" }
     func renderFollowAccepted(item: ActivityView) -> String? { return "No impl" }
 }
 
@@ -88,6 +92,12 @@ class MyActivityTextRender: BaseActivityTextRender {
             Logger.log("Failed parsing", contentType , event: .veryImportant)
             return nil
         }
+    }
+    
+    override func renderFollowRequest(item: ActivityView) -> String? {
+        guard let actor = item.actorUsers?.first?.getFullName() else { return nil }
+        
+        return L10n.Activity.You.followRequest(actor)
     }
     
     override func renderPeer(item: ActivityView) -> String? {

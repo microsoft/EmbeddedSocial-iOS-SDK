@@ -201,7 +201,7 @@ class SocialService: BaseService, SocialServiceType {
 
 extension SocialService: ActivityService {
     
-    func loadMyActivities(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseActivityView>) -> Void) {
+    func loadOthersActivities(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseActivityView>) -> Void) {
         let builder = SocialAPI.myFollowingGetActivitiesWithRequestBuilder(authorization: authorization, cursor: cursor, limit: Int32(limit))
         
         let key = builder.URLString
@@ -226,7 +226,7 @@ extension SocialService: ActivityService {
         
     }
     
-    func loadOthersActivities(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseActivityView>) -> Void) {
+    func loadMyActivities(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseActivityView>) -> Void) {
         
         let builder = NotificationsAPI.myNotificationsGetNotificationsWithRequestBuilder(authorization: authorization,
                                                                            cursor: cursor,

@@ -74,7 +74,7 @@ class MyActivityItemViewModelBuilder {
         let postImagePlaceholder: Asset? = (model.actedOnContent?.contentType == .topic) ? Asset.placeholderPostNoimage : nil
         let postText = ActivityTextRender.shared.renderMyActivity(model: model) ?? ""
         let timeAgoText = model.createdTimeAgo() ??  ""
-        
+//        
         return ActivityViewModel(cellID: cellID,
                                  cellClass: cellClass,
                                  profileImage: profileImage,
