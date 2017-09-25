@@ -168,4 +168,15 @@ class SocialService: BaseService, SocialServiceType {
         let builder = SocialAPI.myFollowingGetSuggestionsUsersWithRequestBuilder(authorization: authorization)
         suggestedUsersExecutor.execute(with: builder, completion: completion)
     }
+    
+    func acceptFollowRequest(for userHandle: String, completion: @escaping (Result<Void>) -> Void) {
+        
+        let request = PostFollowerRequest()
+        request.userHandle = userHandle
+        let builder = SocialAPI.myFollowersPostFollowerWithRequestBuilder(request: request, authorization: authorization)
+        
+//        let command = AcceptFollowRequestCommand(user: user)
+//        let builder = SocialAPI.ac
+//        outgoingActionsExecutor.execute(command: command, builder: builder, completion: completion)
+    }
 }
