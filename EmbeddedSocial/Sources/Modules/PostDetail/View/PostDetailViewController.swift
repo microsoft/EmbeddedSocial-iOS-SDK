@@ -182,7 +182,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     private func configTextView() {
-        commentTextView.isEditable = false
         commentTextView.layer.borderWidth = 1
         commentTextView.layer.borderColor = UIColor.lightGray.cgColor
         commentTextView.layer.cornerRadius = 1
