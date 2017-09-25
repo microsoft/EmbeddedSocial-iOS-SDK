@@ -203,7 +203,9 @@ class SocialService: BaseService, SocialServiceType {
 
 extension SocialService: ActivityService {
     
-    func loadMyActivities(cursor: String?, limit: Int, completion: @escaping (Result<ActivityService.ActivityResponse>) -> Void) {
+    func loadMyActivities(cursor: String?,
+                          limit: Int,
+                          completion: @escaping (Result<ActivityService.ActivityResponse>) -> Void) {
         let builder = NotificationsAPI.myNotificationsGetNotificationsWithRequestBuilder(authorization: authorization,
                                                                                          cursor: cursor,
                                                                                          limit: Int32(limit))

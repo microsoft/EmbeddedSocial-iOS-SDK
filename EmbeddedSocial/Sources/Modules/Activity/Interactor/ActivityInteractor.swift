@@ -248,10 +248,9 @@ extension ActivityInteractor: ActivityInteractorInput {
         let pageID = UUID().uuidString
         myActivitiesList.loadingPages.insert(pageID)
         
-        service.loadMyActivities(
-            cursor: myActivitiesList.cursor,
-            limit: myActivitiesList.limit) { [weak self] (result: Result<ActivityResponseType>) in
-                
+        service.loadMyActivities(cursor: myActivitiesList.cursor,
+                                 limit: myActivitiesList.limit) { [weak self] (result) in
+    
                 defer {
                     self?.myActivitiesList.loadingPages.remove(pageID)
                 }
