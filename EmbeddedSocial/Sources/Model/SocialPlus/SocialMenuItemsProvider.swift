@@ -76,6 +76,8 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     
     var builderForHome: ModuleBuilder = { $0.configuredHome }
     
+    var builderForActivity: ModuleBuilder = { $0.configuredActivity }
+    
     var builderForPopular: ModuleBuilder = { $0.configuredPopular }
     
     var builderForSearch: ModuleBuilder = { $0.configuredSearch }
@@ -124,7 +126,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
                  title: L10n.ActivityFeed.screenTitle,
                  image: UIImage(asset: Asset.iconActivity),
                  highlighted: UIImage(asset: Asset.iconActivityActive),
-                 builder: self.builderForDummy),
+                 builder: self.builderForActivity),
                 (key: .settings,
                  title: L10n.Settings.screenTitle,
                  image: UIImage(asset: Asset.iconSettings),

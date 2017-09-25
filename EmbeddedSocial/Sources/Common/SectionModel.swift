@@ -8,18 +8,22 @@ import Foundation
 protocol SectionModelType {
     associatedtype Item
     
-    var items: [Item] { get }
+    var items: [Item] { get set }
 }
 
 struct SectionModel<Section, ItemType>: SectionModelType {
     typealias Item = ItemType
     
-    let model: Section
-    let items: [Item]
+    var model: Section
+    var items: [Item]
     
     init(model: Section, items: [Item]) {
         self.model = model
         self.items = items
+    }
+    
+    mutating func erase() {
+        items = []
     }
 }
 

@@ -7,6 +7,8 @@
 
 class MockOutgoingCommandsUploadStrategy: OutgoingCommandsUploadStrategyType {
     
+    weak var delegate: OutgoingCommandsUploadStrategyDelegate?
+    
     //MARK: - restartSubmission
     
     var restartSubmissionCalled = false

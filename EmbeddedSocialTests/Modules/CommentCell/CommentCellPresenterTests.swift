@@ -30,7 +30,7 @@ class CommentCellPresenterTests: XCTestCase {
         let commentHandle = "Handle"
         let comment = Comment()
         comment.commentHandle = commentHandle
-        comment.userHandle = "user"
+        comment.user = User(uid: "handle")
         presenter.comment = comment
     }
     
@@ -89,6 +89,7 @@ class CommentCellPresenterTests: XCTestCase {
 
         //given
         presenter.comment.mediaUrl = "url"
+        presenter.comment.mediaHandle = "handle"
 
         //when
         presenter.mediaPressed()

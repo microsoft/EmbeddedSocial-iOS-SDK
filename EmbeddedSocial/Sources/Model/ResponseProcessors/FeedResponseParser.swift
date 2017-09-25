@@ -74,7 +74,7 @@ class FeedCachePostProcessor {
     
     private func fetchTopicCommands() -> [TopicCommand] {
         let request = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                        predicate: PredicateBuilder.allTopicActionCommands(),
+                                        predicate: PredicateBuilder().allTopicActionCommands(),
                                         sortDescriptors: [Cache.createdAtSortDescriptor])
         
         return cache.fetchOutgoing(with: request) as? [TopicCommand] ?? []

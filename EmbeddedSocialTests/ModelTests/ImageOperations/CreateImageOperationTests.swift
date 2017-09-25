@@ -11,7 +11,7 @@ class CreateImageOperationTests: XCTestCase {
     var imageCache: MockImageCache!
     var service: MockImagesService!
     var cache: MockCache!
-    var predicateBuilder: MockOutgoingCommandsPredicateBuilder.Type!
+    var predicateBuilder: MockOutgoingCommandsPredicateBuilder!
     private var queue: OperationQueue!
     
     override func setUp() {
@@ -20,7 +20,7 @@ class CreateImageOperationTests: XCTestCase {
         cache = MockCache()
         imageCache = MockImageCache()
         service = MockImagesService()
-        predicateBuilder = MockOutgoingCommandsPredicateBuilder.self
+        predicateBuilder = MockOutgoingCommandsPredicateBuilder()
         queue = OperationQueue()
     }
     
