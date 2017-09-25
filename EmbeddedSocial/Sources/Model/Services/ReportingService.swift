@@ -10,7 +10,7 @@ protocol ReportingServiceType {
     
     func reportPost(postID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void)
     
-    func reportComment(commentID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void)
+    func report(comment: Comment, reason: ReportReason, completion: @escaping (Result<Void>) -> Void)
     
     func reportReply(replyID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void)
 }
@@ -41,13 +41,19 @@ final class ReportingService: BaseService, ReportingServiceType {
         }
     }
     
-    func reportComment(commentID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
+    func report(comment: Comment, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
+        let command = ReportCommentCommand(comment: comment)
+        command.reportReason = reason
+        
         let request = PostReportRequest()
         request.reason = PostReportRequest.Reason(rawValue: reason.rawValue)
         
-        ReportingAPI.commentReportsPostReport(commentHandle: commentID, postReportRequest: request, authorization: authorization) { (response, error) in
-            self.processResponse(response: response, error: error, completion: completion)
+        guard isNetworkReachable else {
+            cache.cacheOutgoing(command)
+            return
         }
+        
+        execute(command: command, request: request, completion: completion)
     }
     
     func reportReply(replyID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
@@ -66,6 +72,26 @@ final class ReportingService: BaseService, ReportingServiceType {
             completion(.failure(APIError(error: error)))
             self.errorHandler.handle(error: error, completion: completion)
         }
+    }
+    
+    private func execute(command: ReportCommentCommand,
+                         request: PostReportRequest,
+                         completion: @escaping (Result<Void>) -> Void) {
+        guard isNetworkReachable else {
+            cache.cacheOutgoing(command)
+            completion(.success())
+            return
+        }
+        
+        ReportingAPI.commentReportsPostReport(commentHandle: command.comment.commentHandle, postReportRequest: request, authorization: authorization) { (response, error) in
+            if error == nil {
+                completion(.success())
+            } else {
+                completion(.failure(APIError(error: error)))
+                self.errorHandler.handle(error: error, completion: completion)
+            }
+        }
+        
     }
 }
 

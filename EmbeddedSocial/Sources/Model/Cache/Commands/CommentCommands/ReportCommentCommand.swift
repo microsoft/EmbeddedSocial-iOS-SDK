@@ -7,4 +7,13 @@ import Foundation
 
 final class ReportCommentCommand: CommentCommand {
     
+    var reportReason: ReportReason!
+    
+    override func setRelatedHandle(_ relatedHandle: String?) {
+        comment.topicHandle = relatedHandle
+    }
+    
+    override func getRelatedHandle() -> String? {
+        return comment.topicHandle
+    }
 }

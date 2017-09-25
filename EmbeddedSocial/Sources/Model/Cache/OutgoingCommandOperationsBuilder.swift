@@ -58,6 +58,8 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
             return CreateCommentOperation(command: command, commentsService: CommentsService(imagesService: ImagesService()))
         } else if let command = command as? RemoveCommentCommand {
             return RemoveCommentOperation(command: command, commentService: CommentsService(imagesService: ImagesService()))
+        } else if let command = command as? ReportCommentCommand {
+            return ReportCommentOperation(command: command, reportService: ReportingService())
         }
         
         // image commands
