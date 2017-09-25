@@ -1,10 +1,11 @@
 //
-//  {{ module_info.name }}{{ module_info.file_name }}
-//  {{ module_info.project_name }}
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 //
-//  Created by {{ developer.name }} on {{ date }}.
-//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
-//
+
+protocol {{ module_info.name }}ModuleInput: class {
+    
+}
 
 class {{ module_info.name }}Presenter: {{ module_info.name }}ModuleInput, {{ module_info.name }}ViewOutput, {{ module_info.name }}InteractorOutput {
 

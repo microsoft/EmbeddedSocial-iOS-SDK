@@ -8,7 +8,7 @@ import Foundation
 class Cache: CacheType {
     
     private let database: TransactionsDatabaseFacadeType
-    private let decoder: JSONDecoder.Type
+    private let decoder: JSONDecoderProtocol.Type
     
     private let incomingQueries: Queries<IncomingTransaction>
     private let outgoingQueries: Queries<OutgoingTransaction>
@@ -16,7 +16,7 @@ class Cache: CacheType {
     private let predicateBuilder: CachePredicateBuilder
     
     init(database: TransactionsDatabaseFacadeType,
-         decoder: JSONDecoder.Type = Decoders.self,
+         decoder: JSONDecoderProtocol.Type = Decoders.self,
          predicateBuilder: CachePredicateBuilder = PredicateBuilder()) {
         
         self.database = database

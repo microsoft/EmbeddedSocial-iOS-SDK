@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Activity View Controller-->
+        <scene sceneID="X77-2g-X4h">
+            <objects>
+                <viewController storyboardIdentifier="ActivityViewController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" id="dtS-HN-S8A" customClass="ActivityViewController" customModule="EmbeddedSocial" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JeG-G6-DkY"/>
+                        <viewControllerLayoutGuide type="bottom" id="jBH-GO-Gsg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yww-qq-qHW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMz-oM-LL1">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Gpa-Cb-OPS">
+                                        <rect key="frame" x="115" y="16" width="145" height="29"/>
+                                        <segments>
+                                            <segment title="You"/>
+                                            <segment title="Following"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="segmentControlDidChange:" destination="dtS-HN-S8A" eventType="valueChanged" id="zqJ-dH-nIJ"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="LgK-kq-Jtj"/>
+                                    <constraint firstItem="Gpa-Cb-OPS" firstAttribute="centerX" secondItem="zMz-oM-LL1" secondAttribute="centerX" id="Tvv-K4-GPS"/>
+                                    <constraint firstItem="Gpa-Cb-OPS" firstAttribute="centerY" secondItem="zMz-oM-LL1" secondAttribute="centerY" id="ds9-Gf-XRZ"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0N8-UD-xM6">
+                                <rect key="frame" x="0.0" y="60" width="375" height="607"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="dtS-HN-S8A" id="lyt-BG-2R6"/>
+                                    <outlet property="delegate" destination="dtS-HN-S8A" id="Wpb-0a-3f7"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0N8-UD-xM6" firstAttribute="top" secondItem="zMz-oM-LL1" secondAttribute="bottom" id="5xG-MT-a9I"/>
+                            <constraint firstItem="0N8-UD-xM6" firstAttribute="leading" secondItem="Yww-qq-qHW" secondAttribute="leading" id="9bC-ht-D3O"/>
+                            <constraint firstAttribute="trailing" secondItem="0N8-UD-xM6" secondAttribute="trailing" id="CUQ-Ok-a4e"/>
+                            <constraint firstItem="zMz-oM-LL1" firstAttribute="leading" secondItem="Yww-qq-qHW" secondAttribute="leading" id="LB9-ch-dzL"/>
+                            <constraint firstItem="zMz-oM-LL1" firstAttribute="top" secondItem="Yww-qq-qHW" secondAttribute="top" id="VJc-xk-RN8"/>
+                            <constraint firstAttribute="trailing" secondItem="zMz-oM-LL1" secondAttribute="trailing" id="bv5-ds-ScN"/>
+                            <constraint firstItem="jBH-GO-Gsg" firstAttribute="top" secondItem="0N8-UD-xM6" secondAttribute="bottom" id="kqS-Re-kVh"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <connections>
+                        <outlet property="segmentControl" destination="Gpa-Cb-OPS" id="Gx5-cH-7Ig"/>
+                        <outlet property="tableView" destination="0N8-UD-xM6" id="1SF-Ls-8oQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gLV-ni-3n7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-18.399999999999999" y="-392.65367316341832"/>
+        </scene>
+    </scenes>
+</document>

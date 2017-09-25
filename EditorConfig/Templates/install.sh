@@ -1,2 +1,4 @@
 #! /bin/bash
-cp -R EmbeddedSocial\ Swift\ File.xctemplate ~/Library/Developer/Xcode/Templates/Custom/
+destination=$HOME"/Library/Developer/Xcode/Templates/Custom/"
+mkdir -p $destination
+cp -R EmbeddedSocial\ Swift\ File.xctemplate $destination
