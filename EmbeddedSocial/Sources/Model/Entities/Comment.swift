@@ -10,12 +10,9 @@ class Comment: Equatable {
     var commentHandle: String!
     var topicHandle: String!
     var createdTime: Date?
+
+    var user: User?
     
-    var userHandle: String?
-    var firstName: String?
-    var lastName: String?
-    var photoHandle: String?
-    var photoUrl: String?
     
     var text: String?
     var mediaHandle: String?
@@ -25,11 +22,6 @@ class Comment: Equatable {
     var liked = false
     var pinned = false
     var userStatus: FollowStatus = .empty
-    
-    var user: User? {
-        guard let userHandle = userHandle else { return nil }
-        return User(uid: userHandle, firstName: firstName, lastName: lastName, photo: Photo(url: photoUrl))
-    }
     
     var mediaPhoto: Photo? {
         guard let mediaHandle = mediaHandle else { return nil }
@@ -70,12 +62,10 @@ extension Comment: JSONEncodable {
         self.commentHandle = commentHandle
         self.topicHandle = json["topicHandle"] as? String
         createdTime = json["createdTime"] as? Date
-        userHandle = json["userHandle"] as? String
-        firstName = json["firstName"] as? String
-        lastName = json["lastName"] as? String
-        photoHandle = json["photoHandle"] as? String
-        photoUrl = json["photoUrl"] as? String
         text = json["text"] as? String
+        if let userJSON = json["user"] as? [String: Any] {
+            user = User(memento: userJSON)
+        }
         mediaUrl = json["mediaUrl"] as? String
         mediaHandle = json["mediaHandle"] as? String
         totalLikes = json["totalLikes"] as? Int64 ?? 0
@@ -96,11 +86,7 @@ extension Comment: JSONEncodable {
             "commentHandle": commentHandle,
             "topicHandle": topicHandle,
             "createdTime": createdTime,
-            "userHandle": userHandle,
-            "firstName": firstName,
-            "lastName": lastName,
-            "photoHandle": photoHandle,
-            "photoUrl": photoUrl,
+            "user": user?.encodeToJSON(),
             "text": text,
             "mediaUrl": mediaUrl,
             "mediaHandle": mediaHandle,

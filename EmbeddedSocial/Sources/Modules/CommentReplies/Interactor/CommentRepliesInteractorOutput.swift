@@ -8,6 +8,7 @@ import Foundation
 protocol CommentRepliesInteractorOutput: class {
     func fetched(replies: [Reply], cursor: String?)
     func fetchedMore(replies: [Reply], cursor: String?)
+    func fetchedFailed(error: Error)
     func replyPosted(reply: Reply)
     func replyFailPost(error: Error)
     func didPostAction(replyHandle: String, action: RepliesSocialAction, error: Error?)

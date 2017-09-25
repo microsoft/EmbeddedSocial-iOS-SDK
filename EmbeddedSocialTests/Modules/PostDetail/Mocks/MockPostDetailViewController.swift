@@ -69,4 +69,9 @@ class MockPostDetailViewController: UIViewController, PostDetailViewInput {
     func scrollCollectionViewToBottom() {
         scrollCollectionViewToBottomCount += 1
     }
+    
+    var endRefreshingCount = 0
+    func endRefreshing() {
+        endRefreshingCount += 1
+    }
 }

@@ -82,7 +82,11 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             cachedResult(result)
         }
         
+        var result = RepliesFetchResult()
+        
         guard isNetworkReachable else {
+            result.error = RepliesServiceError.failedToFetch(message: L10n.Error.unknown)
+            resultHandler(result)
             return
         }
         
@@ -96,8 +100,6 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             if cursor == nil {
                 strongSelf.cache.deleteIncoming(with: PredicateBuilder().predicate(typeID: typeID))
             }
-            
-            var result = RepliesFetchResult()
 
             if let body = response?.body, let data = body.data {
                 body.handle = builder.URLString
