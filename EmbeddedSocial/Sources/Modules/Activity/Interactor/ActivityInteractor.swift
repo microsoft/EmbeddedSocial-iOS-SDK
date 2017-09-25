@@ -17,7 +17,8 @@ typealias PendingRequestsResponseType = FeedResponseUserCompactView
 protocol ActivityInteractorInput: class {
     
     func loadAll()
-    func loadNextPageFollowingActivities(completion: ((Result<[ActivityItemType]>) -> Void)?)
+    func loadNextPageMyActivities(completion: ((Result<[ActivityItemType]>) -> Void)?)
+    func loadNextPageOthersActivities(completion: ((Result<[ActivityItemType]>) -> Void)?)
     func loadNextPagePendigRequestItems(completion: ((Result<[PendingRequestItemType]>) -> Void)?)
     
     func approvePendingRequest(user: UserCompactView, completion: @escaping (Result<Void>) -> Void)
@@ -26,95 +27,96 @@ protocol ActivityInteractorInput: class {
 }
 
 protocol ActivityService: class {
-    func loadFollowingActivities(cursor: String?, limit: Int, completion: @escaping (Result<ActivityResponseType>) -> Void)
+    func loadMyActivities(cursor: String?, limit: Int, completion: @escaping (Result<ActivityResponseType>) -> Void)
+    func loadOthersActivities(cursor: String?, limit: Int, completion: @escaping (Result<ActivityResponseType>) -> Void)
     func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<PendingRequestsResponseType>) -> Void)
     
     func approvePendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void)
     func rejectPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void)
 }
 
-class ActivityServiceMock: ActivityService {
-    
-    func approvePendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            completion(.success())
-        }
-    }
-    
-    func rejectPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            completion(.success())
-        }
-    }
-    
-    let authorization = "String"
-    
-    var followingActivitiesResponse: Result<ActivityResponseType>! = .success(ActivityResponseType().mockResponse())
-    var pendingRequestsResponse: Result<PendingRequestsResponseType>! = .success(PendingRequestsResponseType().mockResponse())
-    
-    var pendingRequestsResponsesLeft = 1
-    var followingActivitiesResponsesLeft = 5
-    
-    let emptyPendingRequestsResponse: Result<PendingRequestsResponseType> = .success(PendingRequestsResponseType())
-    let emptyFollowingActivitiesResponse: Result<ActivityResponseType> = .success(ActivityResponseType())
- 
-    
-    func builder<T>(cursor: String?, limit: Int) -> RequestBuilder<T>? {
-        
-        switch T.self {
-        case is PendingRequestsResponseType.Type:
-            let result = SocialAPI.myPendingUsersGetPendingUsersWithRequestBuilder(authorization: authorization,
-                                                                                   cursor: cursor,
-                                                                                   limit: Int32(limit))
-            
-            return result as? RequestBuilder<T>
-        default:
-            return nil
-        }
-    }
-    
-    func loadFollowingActivities(cursor: String?, limit: Int, completion: @escaping (Result<ActivityResponseType>) -> Void) {
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            guard let strongSelf = self else { return }
-            
-            guard strongSelf.followingActivitiesResponsesLeft > 0 else {
-                completion(strongSelf.emptyFollowingActivitiesResponse)
-                return
-            }
-            
-            strongSelf.followingActivitiesResponsesLeft -= 1
-            completion(strongSelf.followingActivitiesResponse)
-        }
-    }
-    
-    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<PendingRequestsResponseType>) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            guard let strongSelf = self else { return }
-            
-            guard strongSelf.pendingRequestsResponsesLeft > 0 else {
-                completion(strongSelf.emptyPendingRequestsResponse)
-                return
-            }
-            
-            strongSelf.pendingRequestsResponsesLeft -= 1
-            
-            completion(strongSelf.pendingRequestsResponse)
-        }
-    }
-    
-    func test<T: Any>(cursor: String?, limit: Int, completion: (Result<T>) -> Void) {
-        
-        guard let builder: RequestBuilder<T> = self.builder(cursor: cursor, limit: limit) else {
-            fatalError("Builder not found")
-        }
-        
-        builder.execute { (response, error) in
-            
-        }
-    }
-    
-}
+//class ActivityServiceMock: ActivityService {
+//
+//    func approvePendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//            completion(.success())
+//        }
+//    }
+//
+//    func rejectPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//            completion(.success())
+//        }
+//    }
+//
+//    let authorization = "String"
+//
+//    var followingActivitiesResponse: Result<ActivityResponseType>! = .success(ActivityResponseType().mockResponse())
+//    var pendingRequestsResponse: Result<PendingRequestsResponseType>! = .success(PendingRequestsResponseType().mockResponse())
+//
+//    var pendingRequestsResponsesLeft = 1
+//    var followingActivitiesResponsesLeft = 5
+//
+//    let emptyPendingRequestsResponse: Result<PendingRequestsResponseType> = .success(PendingRequestsResponseType())
+//    let emptyFollowingActivitiesResponse: Result<ActivityResponseType> = .success(ActivityResponseType())
+//
+//
+//    func builder<T>(cursor: String?, limit: Int) -> RequestBuilder<T>? {
+//
+//        switch T.self {
+//        case is PendingRequestsResponseType.Type:
+//            let result = SocialAPI.myPendingUsersGetPendingUsersWithRequestBuilder(authorization: authorization,
+//                                                                                   cursor: cursor,
+//                                                                                   limit: Int32(limit))
+//
+//            return result as? RequestBuilder<T>
+//        default:
+//            return nil
+//        }
+//    }
+//
+//    func loadFollowingActivities(cursor: String?, limit: Int, completion: @escaping (Result<ActivityResponseType>) -> Void) {
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+//            guard let strongSelf = self else { return }
+//
+//            guard strongSelf.followingActivitiesResponsesLeft > 0 else {
+//                completion(strongSelf.emptyFollowingActivitiesResponse)
+//                return
+//            }
+//
+//            strongSelf.followingActivitiesResponsesLeft -= 1
+//            completion(strongSelf.followingActivitiesResponse)
+//        }
+//    }
+//
+//    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<PendingRequestsResponseType>) -> Void) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+//            guard let strongSelf = self else { return }
+//
+//            guard strongSelf.pendingRequestsResponsesLeft > 0 else {
+//                completion(strongSelf.emptyPendingRequestsResponse)
+//                return
+//            }
+//
+//            strongSelf.pendingRequestsResponsesLeft -= 1
+//
+//            completion(strongSelf.pendingRequestsResponse)
+//        }
+//    }
+//
+//    func test<T: Any>(cursor: String?, limit: Int, completion: (Result<T>) -> Void) {
+//
+//        guard let builder: RequestBuilder<T> = self.builder(cursor: cursor, limit: limit) else {
+//            fatalError("Builder not found")
+//        }
+//
+//        builder.execute { (response, error) in
+//
+//        }
+//    }
+//
+//}
 
 struct PageModel<T> {
     let uid: String
@@ -153,13 +155,15 @@ class ActivityInteractor {
     typealias FollowingPage = PageModel<ActivityItemType>
     typealias PendingRequestPage = PageModel<PendingRequestItemType>
     typealias PageID = String
-    typealias FollowersActivitiesList = PagesList<ActivityView>
+    typealias ActivitiesList = PagesList<ActivityView>
     typealias PendingRequestsList = PagesList<UserCompactView>
     
     weak var output: ActivityInteractorOutput!
     
-    var service: ActivityServiceMock = ActivityServiceMock()
-    fileprivate var followersList: FollowersActivitiesList = FollowersActivitiesList()
+    var service: ActivityService!
+    
+    fileprivate var myActivitiesList: ActivitiesList = ActivitiesList()
+    fileprivate var othersActivitiesList: ActivitiesList = ActivitiesList()
     fileprivate var pendingRequestsList: PendingRequestsList = PendingRequestsList()
     fileprivate var loadingPages: Set<PageID> = Set()
     
@@ -194,22 +198,21 @@ extension ActivityInteractor: ActivityInteractorInput {
     
     
     func loadAll() {
-        followersList = FollowersActivitiesList()
+        myActivitiesList = ActivitiesList()
+        othersActivitiesList = ActivitiesList()
         pendingRequestsList = PendingRequestsList()
         loadingPages = Set()
-        
-        //        loadNextPage()
     }
     
     // TODO: remake using generics
-    func loadNextPageFollowingActivities(completion: ((Result<[ActivityItemType]>) -> Void)? = nil) {
+    func loadNextPageMyActivities(completion: ((Result<[ActivityItemType]>) -> Void)? = nil) {
         
         let pageID = UUID().uuidString
         loadingPages.insert(pageID)
         
-        service.loadFollowingActivities(
-            cursor: followersList.cursor,
-            limit: followersList.limit) { [weak self] (result: Result<ActivityResponseType>) in
+        service.loadMyActivities(
+            cursor: myActivitiesList.cursor,
+            limit: myActivitiesList.limit) { [weak self] (result: Result<ActivityResponseType>) in
                 
                 defer {
                     self?.loadingPages.remove(pageID)
@@ -232,11 +235,47 @@ extension ActivityInteractor: ActivityInteractorInput {
                     return
                 }
                 
-                strongSelf.followersList.add(page: page)
+                strongSelf.myActivitiesList.add(page: page)
                 
                 completion?(.success(page.items))
         }
         
+    }
+    
+    // TODO: remake using generics
+    func loadNextPageOthersActivities(completion: ((Result<[ActivityItemType]>) -> Void)?) {
+        let pageID = UUID().uuidString
+        loadingPages.insert(pageID)
+        
+        service.loadOthersActivities(
+            cursor: othersActivitiesList.cursor,
+            limit: othersActivitiesList.limit) { [weak self] (result: Result<ActivityResponseType>) in
+                
+                defer {
+                    self?.loadingPages.remove(pageID)
+                }
+                
+                // exit on released or canceled
+                guard let strongSelf = self, strongSelf.loadingPages.contains(pageID) else {
+                    return
+                }
+                
+                // must have data
+                guard let response = result.value else {
+                    completion?(.failure(ActivityError.noData))
+                    return
+                }
+                
+                // map data into page
+                guard let page = strongSelf.process(response: response, pageID: pageID) else {
+                    completion?(.failure(ActivityError.notParsable))
+                    return
+                }
+                
+                strongSelf.othersActivitiesList.add(page: page)
+                
+                completion?(.success(page.items))
+        }
     }
     
     // TODO: remake using generics
@@ -246,8 +285,8 @@ extension ActivityInteractor: ActivityInteractorInput {
         loadingPages.insert(pageID)
         
         service.loadPendingsRequests(
-            cursor: followersList.cursor,
-            limit: followersList.limit) { [weak self] (result: Result<PendingRequestsResponseType>) in
+            cursor: pendingRequestsList.cursor,
+            limit: pendingRequestsList.limit) { [weak self] (result: Result<PendingRequestsResponseType>) in
                 
                 defer {
                     self?.loadingPages.remove(pageID)

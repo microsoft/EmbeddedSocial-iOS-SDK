@@ -72,13 +72,18 @@ class ActivityPresenter {
             delegate: self,
             context: DataSourceContext(state: self.state, index:0))
         
-        let myActivityDataSource = DataSourceBuilder.buildMyFollowingsActivityDataSource(
+        let myActivityDataSource = DataSourceBuilder.buildMyActivitiesDataSource(
             interactor: interactor,
             delegate: self,
             context: DataSourceContext(state: self.state, index: 1))
         
+        let othersActivityDataSource = DataSourceBuilder.buildOthersActivitiesDataSource(
+            interactor: interactor,
+            delegate: self,
+            context: DataSourceContext(state: self.state, index: 0))
+        
         sources[.my] = [pendingDataSource, myActivityDataSource]
-        sources[.others] = [myActivityDataSource]
+        sources[.others] = [othersActivityDataSource]
         return sources
     }
     

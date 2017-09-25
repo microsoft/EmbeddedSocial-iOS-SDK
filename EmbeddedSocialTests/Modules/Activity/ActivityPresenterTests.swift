@@ -25,7 +25,7 @@ class ActivityInteractorMock: ActivityInteractorInput, DataSourceDelegate {
         
     }
     
-    func loadNextPageFollowingActivities(completion: ((Result<[ActionItem]>) -> Void)? = nil) {
+    func loadNextPageMyActivities(completion: ((Result<[ActionItem]>) -> Void)? = nil) {
         completion?(followingActivityItemsResult)
     }
     
@@ -114,7 +114,7 @@ class ActivityPresenterTests: XCTestCase {
         
         let header = SectionHeader(name: "", identifier: "")
         let section = Section(model: header, items: [])
-        let dataSource = MyFollowingsActivity(interactor: interactor, section: section, index: 0)
+        let dataSource = MyActivities(interactor: interactor, section: section, index: 0)
         
         interactor.followingActivityItemsResult = resultMock
         

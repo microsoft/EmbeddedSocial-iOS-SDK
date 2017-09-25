@@ -71,7 +71,7 @@ class ActivityEntitiesTests: XCTestCase {
         let followingActivities = expectation(description: #file)
         
         // when #2
-        interactor.loadNextPageFollowingActivities { (result) in
+        interactor.loadNextPageMyActivities { (result) in
             
             // then #2
             guard let items = result.value else {

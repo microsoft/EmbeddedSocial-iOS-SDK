@@ -72,7 +72,7 @@ class MyActivityItemViewModelBuilder {
         let profileImage = model.actorUsers?.first?.photoUrl
         let postImage = model.actedOnContent?.blobUrl
         let postImagePlaceholder: Asset? = (model.actedOnContent?.contentType == .topic) ? Asset.placeholderPostNoimage : nil
-        let postText = MyActivityTextRender.render(item: model) ?? ""
+        let postText = ActivityTextRender.shared.renderMyActivity(model: model) ?? ""
         let timeAgoText = model.createdTimeAgo() ??  ""
         
         return ActivityViewModel(cellID: cellID,
@@ -92,7 +92,7 @@ class OthersActivityItemViewModelBuilder {
         let profileImage = model.actorUsers?.first?.photoUrl
         let postImage = model.actedOnContent?.blobUrl
         let postImagePlaceholder: Asset? = (model.actedOnContent?.contentType == .topic) ? Asset.placeholderPostNoimage : nil
-        let postText = OtherActivityTextRender.render(item: model) ?? ""
+        let postText = ActivityTextRender.shared.renderOthersActivity(model: model) ?? ""
         let timeAgoText = model.createdTimeAgo() ?? ""
         
         return ActivityViewModel(cellID: cellID,

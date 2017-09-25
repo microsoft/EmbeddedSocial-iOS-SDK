@@ -26,19 +26,19 @@ enum L10n {
     }
 
     enum Following {
-      /// %@ replied to comment %@
+      /// %@ replied to comment "%@".
       static func childComment(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.following.child_comment", p1, p2)
       }
-      /// %@ added a new reply to comment %@
+      /// %@ added a new reply to comment "%@".
       static func childPeerComment(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.following.child_peer_comment", p1, p2)
       }
-      /// %@ added a new comment to topic %@
+      /// %@ added a new comment to topic "%@".
       static func childPeerTopic(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.following.child_peer_topic", p1, p2)
       }
-      /// %@ commented on topic %@
+      /// %@ commented on topic "%@".
       static func childTopic(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.following.child_topic", p1, p2)
       }
@@ -46,82 +46,82 @@ enum L10n {
       static func following(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.following.following", p1, p2)
       }
-      /// %@ liked comment %@
+      /// %@ liked comment "%@".
       static func likeComment(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.following.like_comment", p1, p2)
       }
-      /// %@ liked reply %@
+      /// %@ liked reply "%@".
       static func likeReply(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.following.like_reply", p1, p2)
       }
-      /// %@ liked topic %@
+      /// %@ liked topic "%@".
       static func likeTopic(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.following.like_topic", p1, p2)
       }
-      /// %@ mentioned %@ in a comment %@
+      /// %@ mentioned %@ in a comment "%@".
       static func mentionComment(_ p1: String, _ p2: String, _ p3: String) -> String {
         return L10n.tr("Localizable", "activity.following.mention_comment", p1, p2, p3)
       }
-      /// %@ mentioned %@ in a reply %@
+      /// %@ mentioned %@ in a reply "%@".
       static func mentionReply(_ p1: String, _ p2: String, _ p3: String) -> String {
         return L10n.tr("Localizable", "activity.following.mention_reply", p1, p2, p3)
       }
-      /// %@ mentioned %@ in a topic %@
+      /// %@ mentioned %@ in a topic "%@".
       static func mentionTopic(_ p1: String, _ p2: String, _ p3: String) -> String {
         return L10n.tr("Localizable", "activity.following.mention_topic", p1, p2, p3)
       }
     }
 
     enum You {
-      /// %@ replied to your comment %@
+      /// %@ replied to your comment "%@".
       static func childComment(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.you.child_comment", p1, p2)
       }
-      /// %@ added a new reply to comment %@
+      /// %@ added a new reply to comment "%@".
       static func childPeerComment(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.you.child_peer_comment", p1, p2)
       }
-      /// %@ added a new comment to topic %@
+      /// %@ added a new comment to topic "%@".
       static func childPeerTopic(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.you.child_peer_topic", p1, p2)
       }
-      /// %@ commented on your topic %@
+      /// %@ commented on your topic "%@".
       static func childTopic(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.you.child_topic", p1, p2)
       }
-      /// %@ accepted your follow request
+      /// %@ accepted your follow request.
       static func followAccepted(_ p1: String) -> String {
         return L10n.tr("Localizable", "activity.you.follow_accepted", p1)
       }
-      /// %@ sent you a follow request
+      /// %@ sent you a follow request.
       static func followRequest(_ p1: String) -> String {
         return L10n.tr("Localizable", "activity.you.follow_request", p1)
       }
-      /// %@ started following you
+      /// %@ started following you.
       static func following(_ p1: String) -> String {
         return L10n.tr("Localizable", "activity.you.following", p1)
       }
-      /// %@ liked your comment %@
+      /// %@ liked your comment "%@".
       static func likeComment(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.you.like_comment", p1, p2)
       }
-      /// %@ liked your reply %@
+      /// %@ liked your reply "%@".
       static func likeReply(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.you.like_reply", p1, p2)
       }
-      /// %@ liked your topic %@
+      /// %@ liked your topic "%@".
       static func likeTopic(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.you.like_topic", p1, p2)
       }
-      /// %@ mentioned you in a comment %@
+      /// %@ mentioned you in a comment "%@".
       static func mentionComment(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.you.mention_comment", p1, p2)
       }
-      /// %@ mentioned you in a reply %@
+      /// %@ mentioned you in a reply "%@".
       static func mentionReply(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.you.mention_reply", p1, p2)
       }
-      /// %@ mentioned you in a topic %@
+      /// %@ mentioned you in a topic "%@".
       static func mentionTopic(_ p1: String, _ p2: String) -> String {
         return L10n.tr("Localizable", "activity.you.mention_topic", p1, p2)
       }

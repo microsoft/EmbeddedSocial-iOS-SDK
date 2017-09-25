@@ -197,15 +197,92 @@ class SocialService: BaseService, SocialServiceType {
         let builder = SocialAPI.myFollowingGetSuggestionsUsersWithRequestBuilder(authorization: authorization)
         suggestedUsersExecutor.execute(with: builder, completion: completion)
     }
+}
+
+extension SocialService: ActivityService {
+    
+    func loadMyActivities(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseActivityView>) -> Void) {
+        let builder = SocialAPI.myFollowingGetActivitiesWithRequestBuilder(authorization: authorization, cursor: cursor, limit: Int32(limit))
+        
+        let key = builder.URLString
+        
+        if let cached = self.fetchFromCache(by: key) {
+//            completion(.success(cached))
+        }
+        
+        builder.execute { [weak self] (response, error) in
+            
+            guard let strongSelf = self else { return }
+            
+            guard let data = response?.body else {
+                completion(.failure(APIError.missingUserData))
+                return
+            }
+            
+            strongSelf.cacheResponse(data, forKey: key)
+            
+            completion(.success(data))
+        }
+        
+    }
+    
+    func loadOthersActivities(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseActivityView>) -> Void) {
+        
+        let builder = NotificationsAPI.myNotificationsGetNotificationsWithRequestBuilder(authorization: authorization,
+                                                                           cursor: cursor,
+                                                                           limit: Int32(limit))
+        
+        let key = builder.URLString
+        
+        builder.execute { [weak self]  (response, error) in
+            
+            guard let strongSelf = self else { return }
+            
+            guard let data = response?.body else {
+                completion(.failure(APIError.missingUserData))
+                return
+            }
+            
+            strongSelf.cacheResponse(data, forKey: key)
+            
+            completion(.success(data))
+        }
+    
+    }
+    
+    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<FeedResponseUserCompactView>) -> Void) {
+        
+    }
+    
+    func approvePendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
+        
+    }
+    
+    func rejectPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
+        
+    }
+    
     
     func acceptFollowRequest(for userHandle: String, completion: @escaping (Result<Void>) -> Void) {
         
         let request = PostFollowerRequest()
         request.userHandle = userHandle
+        
         let builder = SocialAPI.myFollowersPostFollowerWithRequestBuilder(request: request, authorization: authorization)
         
-//        let command = AcceptFollowRequestCommand(user: user)
-//        let builder = SocialAPI.ac
-//        outgoingActionsExecutor.execute(command: command, builder: builder, completion: completion)
+        
+        
+        //        let command = AcceptFollowRequestCommand(user: user)
+        //        let builder = SocialAPI.ac
+        //        outgoingActionsExecutor.execute(command: command, builder: builder, completion: completion)
+    }
+    
+    private func cacheResponse(_ response: FeedResponseActivityView, forKey key: String) {
+        cache.cacheIncoming(response, for: key)
+    }
+    
+    private func fetchFromCache(by cacheKey: String) -> FeedResponseActivityView? {
+        return cache.firstIncoming(ofType: FeedResponseActivityView.self, typeID: cacheKey)
     }
 }
+

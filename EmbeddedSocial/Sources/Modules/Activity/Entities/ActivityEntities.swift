@@ -145,8 +145,12 @@ extension ActivityView {
 
 extension UserCompactView {
     
-    func getFullName() -> String {
-        return String(format: "%@ %@", self.firstName ?? "", self.lastName ?? "")
+    func getFullName() -> String? {
+        
+        guard let firstName = self.firstName, let lastName = self.lastName else {
+            return nil
+        }
+        return String(format: "%@ %@", firstName, lastName)
     }
 
 }

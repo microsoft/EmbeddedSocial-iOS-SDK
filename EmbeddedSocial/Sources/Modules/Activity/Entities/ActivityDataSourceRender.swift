@@ -32,17 +32,30 @@ class DataSourceBuilder {
                                  context: context)
     }
     
-    static func buildMyFollowingsActivityDataSource(interactor: ActivityInteractorInput,
+    static func buildMyActivitiesDataSource(interactor: ActivityInteractorInput,
                                                     delegate: DataSourceDelegate,
-                                                    context: DataSourceContext) -> MyFollowingsActivity {
+                                                    context: DataSourceContext) -> MyActivities {
         let header = SectionHeader(name: "My followings activity", identifier: "")
         let section = Section(model: header, items: [])
         
-        return MyFollowingsActivity(interactor: interactor,
+        return MyActivities(interactor: interactor,
                                     section: section,
                                     delegate: delegate,
                                     context: context)
     }
+    
+    static func buildOthersActivitiesDataSource(interactor: ActivityInteractorInput,
+                                                    delegate: DataSourceDelegate,
+                                                    context: DataSourceContext) -> OthersActivties {
+        let header = SectionHeader(name: "Others activities", identifier: "")
+        let section = Section(model: header, items: [])
+        
+        return OthersActivties(interactor: interactor,
+                            section: section,
+                            delegate: delegate,
+                            context: context)
+    }
+    
 }
 
 class DataSource: DataSourceProtocol {
@@ -97,11 +110,11 @@ class MyPendingRequests: DataSource {
     
 }
 
-class MyFollowingsActivity: DataSource {
+class MyActivities: DataSource {
     
     override func loadMore() {
         // load activity
-        interactor.loadNextPageFollowingActivities {  [weak self] (result) in
+        interactor.loadNextPageMyActivities {  [weak self] (result) in
             
             guard let strongSelf = self else { return }
             
@@ -120,9 +133,25 @@ class MyFollowingsActivity: DataSource {
     }
 }
 
-class MyFollowersActivity: DataSource {
+class OthersActivties: DataSource {
     
     override func loadMore() {
-        
+        // load activity
+        interactor.loadNextPageOthersActivities { [weak self] (result) in
+            
+            guard let strongSelf = self else { return }
+            
+            switch result {
+            case let .failure(error):
+                strongSelf.delegate?.didFail(error: error)
+            case let .success(models):
+                let items = models.map { ActivityItem.othersActivity($0) }
+                strongSelf.section.items.append(contentsOf: items)
+                
+                // make paths for inserted items
+                let indexPaths = strongSelf.insertedIndexes(newItemsCount: items.count)
+                strongSelf.delegate?.didLoad(indexPaths: indexPaths, context: strongSelf.context)
+            }
+        }
     }
 }

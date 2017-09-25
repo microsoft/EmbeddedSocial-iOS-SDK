@@ -26,7 +26,7 @@ class ActivityModuleConfigurator {
         module = presenter
 
         interactor.output = presenter
-        interactor.service = ActivityServiceMock()
+        interactor.service = SocialService()
 
         presenter.interactor = interactor
         viewController.output = presenter
