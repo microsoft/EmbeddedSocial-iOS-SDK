@@ -7,17 +7,23 @@ class CreatePostInteractor: CreatePostInteractorInput {
     
     weak var output: CreatePostInteractorOutput!
     var topicService: TopicService?
+    private let userHolder: UserHolder
+    
+    init(userHolder: UserHolder = SocialPlus.shared) {
+        self.userHolder = userHolder
+    }
     
     func postTopic(photo: Photo?, title: String?, body: String!) {
-        let topic = PostTopicRequest()
+        var topic = Post(topicHandle: UUID().uuidString)
         topic.title = title
         topic.text = body
+        topic.imageHandle = photo?.uid
+        topic.imageUrl = photo?.url
+        topic.user = userHolder.me
         
-        topicService?.postTopic(topic: topic, photo: photo, success: { (_) in
-            self.output.created()
-        }, failure: { (error) in
-            self.output.postCreationFailed(error: error)
-        })
+        topicService?.postTopic(topic,
+                                success: { [weak self] _ in self?.output.created() },
+                                failure: { [weak self] error in self?.output.postCreationFailed(error: error) })
     }
     
     func updateTopic(topicHandle: String, title: String?, body: String) {

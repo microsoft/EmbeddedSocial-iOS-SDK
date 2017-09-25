@@ -134,6 +134,8 @@ enum L10n {
   }
 
   enum BlockedUsers {
+    /// You haven't blocked anyone.
+    static let noDataText = L10n.tr("Localizable", "blocked_users.no_data_text")
     /// Blocked users
     static let screenTitle = L10n.tr("Localizable", "blocked_users.screen_title")
   }
@@ -254,13 +256,21 @@ enum L10n {
   }
 
   enum Followers {
+    /// Currently nobody is following you.
+    static let noDataText = L10n.tr("Localizable", "followers.no_data_text")
     /// Followers
     static let screenTitle = L10n.tr("Localizable", "followers.screen_title")
   }
 
   enum Following {
+    /// Currently you are not following anyone.
+    static let noDataText = L10n.tr("Localizable", "following.no_data_text")
     /// Following
     static let screenTitle = L10n.tr("Localizable", "following.screen_title")
+    /// Search people
+    static let searchPeople = L10n.tr("Localizable", "following.search_people")
+    /// Suggested users
+    static let suggestedUsers = L10n.tr("Localizable", "following.suggested_users")
   }
 
   enum Home {
@@ -282,6 +292,21 @@ enum L10n {
   enum LikesList {
     /// Like this post
     static let screenTitle = L10n.tr("Localizable", "likes_list.screen_title")
+
+    enum Comment {
+      /// No one has liked this comment yet.
+      static let noDataText = L10n.tr("Localizable", "likes_list.comment.no_data_text")
+    }
+
+    enum Post {
+      /// No one has liked this post yet.
+      static let noDataText = L10n.tr("Localizable", "likes_list.post.no_data_text")
+    }
+
+    enum Reply {
+      /// No one has liked this reply yet.
+      static let noDataText = L10n.tr("Localizable", "likes_list.reply.no_data_text")
+    }
   }
 
   enum Login {
@@ -428,6 +453,13 @@ enum L10n {
     static let signIn = L10n.tr("Localizable", "side_menu.sign_in")
     /// Social
     static let social = L10n.tr("Localizable", "side_menu.social")
+  }
+
+  enum SuggestedUsers {
+    /// No suggested users to show.
+    static let noDataText = L10n.tr("Localizable", "suggested_users.no_data_text")
+    /// Suggested users
+    static let screenTitle = L10n.tr("Localizable", "suggested_users.screen_title")
   }
 
   enum UploadPhotoCell {

@@ -35,18 +35,6 @@ private class MockLikeSerivce: LikesServiceProtocol {
     func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) { }
 }
 
-private class MockTopicService: PostServiceProtocol {
-    func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
-        var result = FeedFetchResult()
-        result.posts = [Post()]
-        completion(result)
-    }
-    
-    func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        
-    }
-}
-
 extension MockTopicService {
     
     func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {}
@@ -57,7 +45,7 @@ extension MockTopicService {
     func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {}
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {}
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {}
-
+    func postTopic(topic request: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {}
 }
 
 class PostDetailsInteractorTests: XCTestCase {
@@ -70,7 +58,7 @@ class PostDetailsInteractorTests: XCTestCase {
     var transactionsDatabase: MockTransactionsDatabaseFacade!
     var cache: CacheType!
     
-    var commentsService: CommentServiceProtocol?
+    var commentsService: MockCommentsService!
     var likeService: LikesServiceProtocol?
     var topicServer: PostServiceProtocol?
     var imageService: ImagesServiceType?
@@ -86,7 +74,7 @@ class PostDetailsInteractorTests: XCTestCase {
         transactionsDatabase = MockTransactionsDatabaseFacade(incomingRepo:  CoreDataRepository(context: coreDataStack.backgroundContext), outgoingRepo:  CoreDataRepository(context: coreDataStack.backgroundContext))
         cache = Cache(database: transactionsDatabase)
         imageService = ImagesService()
-        commentsService = MockCommentService(imagesService: imageService!)
+        commentsService = MockCommentsService()
         topicServer = MockTopicService()
         interactor.commentsService = commentsService
         interactor.topicService = topicServer
@@ -110,6 +98,9 @@ class PostDetailsInteractorTests: XCTestCase {
         
         //given
         //default in MockCommentService fetching 1 item
+        var result = CommentFetchResult()
+        result.comments = [Comment()]
+        commentsService.fetchCommentsResult = result
         
         //when
         interactor.fetchComments(topicHandle: "test", cursor: "cursor", limit: 10)
@@ -122,7 +113,9 @@ class PostDetailsInteractorTests: XCTestCase {
         
         //given
         //default in MockCommentService fetching 1 item
-        
+        var result = CommentFetchResult()
+        result.comments = [Comment()]
+        commentsService.fetchCommentsResult = result
         
         //when
         interactor.fetchMoreComments(topicHandle: "test", cursor: "cursor", limit: 10)
@@ -134,13 +127,21 @@ class PostDetailsInteractorTests: XCTestCase {
     func testThatCommentPosted() {
         
         //given
-        let comment = "Test"
+        let comment = Comment(commentHandle: UUID().uuidString)
+        comment.text = UUID().uuidString
+        comment.topicHandle = UUID().uuidString
+        
+        let response = PostCommentResponse()
+        response.commentHandle = comment.commentHandle
+        commentsService.postCommentReturnResponse = response
+        
+        commentsService.getCommentReturnComment = comment
         
         //when
-        interactor.postComment(photo: nil, topicHandle: "test", comment: comment)
+        interactor.postComment(photo: nil, topicHandle: comment.topicHandle, comment: comment.text!)
         
         //then
-        XCTAssertEqual(output.postedComment?.text, comment)
+        XCTAssertEqual(output.postedComment?.text, comment.text)
     }
 
 

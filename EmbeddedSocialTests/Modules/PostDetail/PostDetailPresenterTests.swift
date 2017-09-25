@@ -20,7 +20,16 @@ class PostDetailsPresenterTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        let tempPost = Post(topicHandle: "topicHandle", createdTime: Date(), userHandle: "User", userStatus: .none, firstName: "first name", lastName: "last name", photoHandle: "photoHandle", photoUrl: nil, title: "ttile", text: nil, imageUrl: nil, deepLink: nil, totalLikes: 0, totalComments: 0, liked: false, pinned: false)
+        let user = User(uid: "User",
+                        firstName: "first name",
+                        lastName: "last name",
+                        photo: Photo(uid: "photoHandle"),
+                        followerStatus: .empty)
+        
+        var tempPost = Post(topicHandle: "topicHandle")
+        tempPost.createdTime = Date()
+        tempPost.user = user
+        tempPost.title = "ttile"
         
         post = PostViewModel(with: tempPost, cellType: "", actionHandler: { (action, path) in
             

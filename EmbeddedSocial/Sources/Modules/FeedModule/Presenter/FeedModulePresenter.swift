@@ -20,6 +20,7 @@ protocol FeedModuleInput: class {
     var layout: FeedModuleLayoutType { get set }
     // Changing feedType triggers items refetching and view reload
     var feedType: FeedType? { get set }
+    func lockScrolling()
     
     var isEmpty: Bool { get }
 }
@@ -30,7 +31,8 @@ protocol FeedModuleOutput: class {
     func didStartRefreshingData()
     func didFinishRefreshingData(_ error: Error?)
     func didUpdateFeed()
-    
+    func postRemoved()
+    func commentsPressed()
     func shouldOpenProfile(for userID: String) -> Bool
 }
 
@@ -40,7 +42,8 @@ extension FeedModuleOutput {
     func didStartRefreshingData() { }
     func didFinishRefreshingData(_ error: Error?) { }
     func didUpdateFeed() { }
-    
+    func commentsPressed() { }
+    func postRemoved() { }
     func shouldOpenProfile(for userID: String) -> Bool {
         return false
     }
@@ -188,6 +191,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     // MARK: FeedModuleInput
     
+    func lockScrolling() {
+        if moduleOutput is PostDetailPresenter {
+            view.setScrolling(enable: false)
+        }
+    }
+    
     func moduleHeight() -> CGFloat {
         return view.getViewHeight()
     }
@@ -298,9 +307,19 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         switch action {
             
         case .postDetailed:
+            if moduleOutput is PostDetailPresenter {
+                return
+            }
+            
             router.open(route: .postDetails(post: item(for: path)), feedSource: feedType!)
         case .comment:
+            if moduleOutput is PostDetailPresenter {
+                moduleOutput?.commentsPressed()
+                return
+            }
+            
             router.open(route: .comments(post: item(for: path)), feedSource: feedType!)
+            moduleOutput?.commentsPressed()
         case .extra:
             
             let isMyPost = (userHolder?.me?.uid == userHandle)
@@ -501,15 +520,15 @@ extension FeedModulePresenter: PostMenuModuleOutput {
         view.setRefreshingWithBlocking(state: false)
     }
     
-    func didBlock(user: UserHandle) {
+    func didBlock(user: User) {
         Logger.log("Success")
     }
     
-    func didUnblock(user: UserHandle) {
+    func didUnblock(user: User) {
         Logger.log("Success")
     }
     
-    func didFollow(user: UserHandle) {
+    func didFollow(user: User) {
         
         if isHomeFeedType() {
             
@@ -520,8 +539,8 @@ extension FeedModulePresenter: PostMenuModuleOutput {
             
             // Update following status for current posts
             for (index, item) in items.enumerated() {
-                if item.userHandle == user {
-                    items[index].userStatus = .follow
+                if item.userHandle == user.uid {
+                    items[index].userStatus = .accepted
                 }
             }
             
@@ -529,7 +548,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
         }
     }
     
-    func didUnfollow(user: UserHandle) {
+    func didUnfollow(user: User) {
        
         if isHomeFeedType() {
             
@@ -540,8 +559,8 @@ extension FeedModulePresenter: PostMenuModuleOutput {
             
             // Update following status for current posts
             for (index, item) in items.enumerated() {
-                if item.userHandle == user && item.userStatus == .follow {
-                    items[index].userStatus = .none
+                if item.userHandle == user.uid && item.userStatus == .accepted {
+                    items[index].userStatus = .empty
                 }
             }
             
@@ -559,6 +578,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     
     func didRemove(post: PostHandle) {
         didRemoveItem(post: post)
+        moduleOutput?.postRemoved()
     }
     
     func didReport(post: PostHandle) {

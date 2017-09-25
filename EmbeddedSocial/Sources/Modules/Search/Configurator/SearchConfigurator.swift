@@ -5,9 +5,10 @@
 
 import Foundation
 
-struct SearchConfigurator {
+final class SearchConfigurator {
     
     let viewController: SearchViewController
+    private(set) var moduleInput: SearchModuleInput!
     
     init() {
         viewController = StoryboardScene.Search.instantiateSearchViewController()
@@ -28,5 +29,7 @@ struct SearchConfigurator {
         presenter.interactor = SearchInteractor()
         
         viewController.output = presenter
+        
+        moduleInput = presenter
     }
 }

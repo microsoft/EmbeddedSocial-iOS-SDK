@@ -7,6 +7,11 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
     
+    enum ActionSectionItems: Int {
+        case blockList
+        case signOut
+    }
+    
     var output: SettingsViewOutput!
     
     @IBOutlet fileprivate weak var privacySwitch: UISwitch!
@@ -19,8 +24,15 @@ class SettingsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 && indexPath.row == 0 {
-            output.onBlockedList()
+        if indexPath.section == 1 {
+            switch indexPath.row {
+            case ActionSectionItems.blockList.rawValue:
+                output.onBlockedList()
+            case ActionSectionItems.signOut.rawValue:
+                output.signOut()
+            default:
+                print("wrong state")
+            }
         }
     }
     

@@ -6,35 +6,59 @@
 import Foundation
 
 struct Post {
+    var topicHandle: String!
+    var createdTime: Date?
     
-    enum UserStatus: Int {
-        case none
-        case follow
-        case pending
-        case blocked
+    var user: User?
+    var imageUrl: String?
+    var imageHandle: String?
+    
+    var title: String?
+    var text: String?
+
+    var deepLink: String?
+    
+    var totalLikes: Int = 0
+    var totalComments: Int = 0
+
+    var liked: Bool = false
+    var pinned: Bool = false
+    
+    var userHandle: String? {
+        return user?.uid
     }
-
-    public var topicHandle: String!
-    public var createdTime: Date?
     
-    public var userHandle: String?
-    public var userStatus: UserStatus = .none
-    public var firstName: String?
-    public var lastName: String?
-    public var photoHandle: String?
-    public var photoUrl: String?
+    var userStatus: FollowStatus {
+        get {
+            return user?.followerStatus ?? .empty
+        }
+        set {
+            user?.followerStatus = newValue
+        }
+    }
     
-    public var title: String?
-    public var text: String?
-    public var imageUrl: String?
-
-    public var deepLink: String?
+    var firstName: String? {
+        return user?.firstName
+    }
     
-    public var totalLikes: Int = 0
-    public var totalComments: Int = 0
-
-    public var liked: Bool = false
-    public var pinned: Bool = false
+    var lastName: String? {
+        return user?.lastName
+    }
+    
+    var photoHandle: String? {
+        return user?.photo?.uid
+    }
+    
+    var photoUrl: String? {
+        return user?.photo?.url
+    }
+    
+    var photo: Photo? {
+        guard let imageHandle = imageHandle else {
+            return nil
+        }
+        return Photo(uid: imageHandle, url: imageUrl)
+    }
 }
 
 extension Post {
@@ -48,9 +72,60 @@ extension Post {
         post.totalLikes = seed
         post.totalComments = seed + 10
         post.topicHandle = "topic handle \(seed)"
-        post.userHandle = "user handle"
-        post.userStatus = Post.UserStatus.none
+        post.user = User(uid: "user handle", followerStatus: .empty)
         return post
+    }
+}
+
+extension Post {
+    
+    init(topicHandle: String) {
+        self.init()
+        self.topicHandle = topicHandle
+    }
+}
+
+extension Post: JSONEncodable {
+    
+    init?(json: [String: Any]) {
+        guard let topicHandle = json["topicHandle"] as? String else {
+            return nil
+        }
+        
+        self.init()
+        
+        self.topicHandle = topicHandle
+        createdTime = json["createdTime"] as? Date
+        if let userJSON = json["user"] as? [String: Any] {
+            user = User(memento: userJSON)
+        }
+        title = json["title"] as? String
+        text = json["text"] as? String
+        imageUrl = json["imageUrl"] as? String
+        imageHandle = json["imageHandle"] as? String
+        deepLink = json["deepLink"] as? String
+        totalLikes = json["totalLikes"] as? Int ?? 0
+        totalComments = json["totalComments"] as? Int ?? 0
+        liked = json["liked"] as? Bool ?? false
+        pinned = json["pinned"] as? Bool ?? false
+    }
+    
+    func encodeToJSON() -> Any {
+        let json: [String: Any?] = [
+            "topicHandle": topicHandle,
+            "createdTime": createdTime,
+            "user": user?.encodeToJSON(),
+            "imageUrl": imageUrl,
+            "imageHandle": imageHandle,
+            "title": title,
+            "text": text,
+            "deepLink": deepLink,
+            "totalLikes": totalLikes,
+            "totalComments": totalComments,
+            "liked": liked,
+            "pinned": pinned,
+        ]
+        return json.flatMap { $0 }
     }
 }
 
@@ -58,26 +133,12 @@ extension Post {
     
     init(data: TopicView) {
         
-        if let user = data.user {
-            firstName = user.firstName
-            lastName = user.lastName
-            photoUrl = user.photoUrl
-            userHandle = user.userHandle
-            
-            switch user.followerStatus! {
-            case ._none:
-                userStatus = .none
-            case .blocked:
-                userStatus = .blocked
-            case .follow:
-                userStatus = .follow
-            case .pending:
-                userStatus = .pending
-            }
+        if let userCompactView = data.user {
+            user = User(compactView: userCompactView)
         }
-        
-        createdTime = data.createdTime
+        imageHandle = data.blobHandle
         imageUrl = data.blobUrl
+        createdTime = data.createdTime
         title = data.title
         text = data.text
         pinned = data.pinned ?? false

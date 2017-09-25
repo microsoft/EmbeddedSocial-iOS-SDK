@@ -56,42 +56,48 @@ class MockLikesService: LikesServiceProtocol {
     
     var likeCommentCommentHandleCompletionCalled = false
     var likeCommentCommentHandleCompletionReceivedArguments: (commentHandle: String, completion: CommentCompletionHandler)?
-    
+    var likeCommentCommentHandleCompletionReturnValue: (String, Error?)!
+
     func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
         likeCommentCommentHandleCompletionCalled = true
         likeCommentCommentHandleCompletionReceivedArguments = (commentHandle: commentHandle, completion: completion)
-        completion("completion", nil)
+        completion(likeCommentCommentHandleCompletionReturnValue!.0, likeCommentCommentHandleCompletionReturnValue!.1)
     }
     
     //MARK: - unlikeComment
     
     var unlikeCommentCommentHandleCompletionCalled = false
     var unlikeCommentCommentHandleCompletionReceivedArguments: (commentHandle: String, completion: CompletionHandler)?
+    var unlikeCommentCommentHandleCompletionReturnValue: (String, Error?)!
     
     func unlikeComment(commentHandle: String, completion: @escaping CompletionHandler) {
         unlikeCommentCommentHandleCompletionCalled = true
         unlikeCommentCommentHandleCompletionReceivedArguments = (commentHandle: commentHandle, completion: completion)
-        completion("completion", nil)
+        completion(unlikeCommentCommentHandleCompletionReturnValue!.0, unlikeCommentCommentHandleCompletionReturnValue!.1)
     }
     
     //MARK: - likeReply
     
     var likeReplyReplyHandleCompletionCalled = false
     var likeReplyReplyHandleCompletionReceivedArguments: (replyHandle: String, completion: ReplyLikeCompletionHandler)?
+    var likeReplyReplyHandleCompletionReturnValue: (String, Error?)!
     
     func likeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler) {
         likeReplyReplyHandleCompletionCalled = true
         likeReplyReplyHandleCompletionReceivedArguments = (replyHandle: replyHandle, completion: completion)
+        completion(likeReplyReplyHandleCompletionReturnValue!.0, likeReplyReplyHandleCompletionReturnValue!.1)
     }
     
     //MARK: - unlikeReply
     
     var unlikeReplyReplyHandleCompletionCalled = false
     var unlikeReplyReplyHandleCompletionReceivedArguments: (replyHandle: String, completion: ReplyLikeCompletionHandler)?
-    
+    var unlikeReplyReplyHandleCompletionReturnValue: (String, Error?)!
+
     func unlikeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler) {
         unlikeReplyReplyHandleCompletionCalled = true
         unlikeReplyReplyHandleCompletionReceivedArguments = (replyHandle: replyHandle, completion: completion)
+        completion(unlikeReplyReplyHandleCompletionReturnValue!.0, unlikeReplyReplyHandleCompletionReturnValue!.1)
     }
     
     //MARK: - getPostLikes

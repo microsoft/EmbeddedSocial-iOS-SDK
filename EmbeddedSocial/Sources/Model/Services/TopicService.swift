@@ -5,7 +5,7 @@
 import Foundation
 import Alamofire
 
-typealias TopicPosted = (PostTopicRequest) -> Void
+typealias TopicPosted = (Post) -> Void
 typealias Failure = (Error) -> Void
 
 enum FeedServiceError: Error {
@@ -73,6 +73,7 @@ protocol PostServiceProtocol {
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler)
     func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler)
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
+    func postTopic(_ topic: Post, success: @escaping TopicPosted, failure: @escaping Failure)
     
 }
 
@@ -84,41 +85,68 @@ protocol PostServiceDelegate: class {
 class TopicService: BaseService, PostServiceProtocol {
     
     private var imagesService: ImagesServiceType!
+    private var responseParser: FeedResponseParser!
+    private var feedCacheAdapter: FeedCacheAdapter!
     
     init(imagesService: ImagesServiceType) {
         super.init()
         self.imagesService = imagesService
+        responseParser = FeedResponseParser(processor: FeedCachePostProcessor(cache: cache))
+        feedCacheAdapter = FeedCacheAdapter(cache: cache)
     }
     
     init() {
         super.init()
     }
     
-    func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
-        guard let network = NetworkReachabilityManager() else {
-            failure(APIError.unknown)
+    func postTopic(_ topic: Post, success: @escaping TopicPosted, failure: @escaping Failure) {
+        let topicCommand = CreateTopicCommand(topic: topic)
+        
+        guard let image = topic.photo?.image else {
+            execute(command: topicCommand, success: success, failure: failure)
             return
         }
         
-        guard network.isReachable else {
-            cacheTopic(topic, with: photo)
-            return
-        }
-        
-        guard let image = photo?.image else {
-            postTopic(request: topic, success: success, failure: failure)
-            return
-        }
-        
-        imagesService.uploadContentImage(image) { [unowned self] result in
+        imagesService.uploadTopicImage(image, topicHandle: topic.topicHandle) { [weak self] result in
             if let handle = result.value {
-                topic.blobHandle = handle
-                topic.blobType = .image
-                self.postTopic(request: topic, success: success, failure: failure)
-            } else if self.errorHandler.canHandle(result.error) {
-                self.errorHandler.handle(result.error)
+                topicCommand.setImageHandle(handle)
+                self?.execute(command: topicCommand, success: success, failure: failure)
+            } else if self?.errorHandler.canHandle(result.error) == true {
+                self?.errorHandler.handle(result.error)
             } else {
                 failure(result.error ?? APIError.unknown)
+            }
+        }
+    }
+    
+    private func execute(command: CreateTopicCommand,
+                         success: @escaping TopicPosted,
+                         failure: @escaping Failure) {
+        
+        guard isNetworkReachable else {
+            cache.cacheOutgoing(command)
+            success(command.topic)
+            return
+        }
+        
+        let request = PostTopicRequest()
+        request.text = command.topic.text
+        request.title = command.topic.title
+        
+        if let imageHandle = command.topic.imageHandle {
+            request.blobHandle = imageHandle
+            request.blobType = .image
+        }
+        
+        TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { response, error in
+            if let handle = response?.topicHandle {
+                var topic = command.topic
+                topic.topicHandle = handle
+                success(topic)
+            } else if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else {
+                failure(error ?? APIError.unknown)
             }
         }
     }
@@ -129,26 +157,6 @@ class TopicService: BaseService, PostServiceProtocol {
                 failure(error!)
             } else {
                 success()
-            }
-        }
-    }
-    
-    private func cacheTopic(_ topic: PostTopicRequest, with photo: Photo?) {
-        if let photo = photo {
-            cache.cacheOutgoing(photo)
-            topic.blobHandle = photo.uid
-        }
-        cache.cacheOutgoing(topic)
-    }
-    
-    private func postTopic(request: PostTopicRequest, success: @escaping TopicPosted, failure: @escaping Failure) {
-        TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { response, error in
-            if response != nil {
-                success(request)
-            } else if self.errorHandler.canHandle(error) {
-                self.errorHandler.handle(error)
-            } else {
-                failure(error ?? APIError.unknown)
             }
         }
     }
@@ -319,17 +327,8 @@ class TopicService: BaseService, PostServiceProtocol {
         return result
     }
     
-    private lazy var responseParser: FeedResponseParser = { [unowned self] in
-        return FeedResponseParser(processor: FeedCachePostProcessor(cacheAdapter: FeedCacheActionsAdapter(cache: self.cache)))
-        }()
-    
     private func parseResponse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout FeedFetchResult) {
         responseParser.parse(response, isCached: isCached, into: &result)
     }
-    
-    private lazy var feedCacheAdapter: FeedCacheAdapter = { [unowned self] in
-        return FeedCacheAdapter(cache: self.cache)
-        }()
-    
 }
 

@@ -7,6 +7,7 @@ import UIKit
 import SnapKit
 
 private let loadingIndicatorHeight: CGFloat = 44.0
+private let navBarAndStatusBarHeight: CGFloat = 64
 
 class UserListView: UIView {
     
@@ -29,6 +30,9 @@ class UserListView: UIView {
         tableView.accessibilityIdentifier = "UserList"
         self.addSubview(tableView)
         tableView.addSubview(self.refreshControl)
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         return tableView
     }()
     
@@ -45,6 +49,18 @@ class UserListView: UIView {
         refreshControl.tintColor = Palette.lightGrey
         return refreshControl
     }()
+    
+    fileprivate lazy var noDataLabel: UILabel = { [unowned self] in
+        let label = UILabel()
+        self.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.centerX.equalTo(self)
+            make.centerY.equalTo(self).offset(-navBarAndStatusBarHeight)
+        }
+        return label
+    }()
+    
+    weak fileprivate var noDataView: UIView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,11 +85,7 @@ extension UserListView: UserListViewInput {
         dataManager.setIsLoading(isLoading, user: item.user)
     }
     
-    func setupInitialState() {
-        tableView.snp.makeConstraints { make in
-            make.edges.equalTo(self)
-        }
-    }
+    func setupInitialState() { }
     
     func setUsers(_ users: [User]) {
         dataManager.setup(with: users)
@@ -98,5 +110,28 @@ extension UserListView: UserListViewInput {
     
     func endPullToRefreshAnimation() {
         refreshControl.endRefreshing()
+    }
+    
+    func setNoDataText(_ text: NSAttributedString?) {
+        noDataLabel.attributedText = text
+    }
+    
+    func setNoDataView(_ view: UIView?) {
+        noDataView = view
+        
+        guard let view = view else {
+            return
+        }
+        tableView.addSubview(view)
+        view.snp.makeConstraints { make in
+            make.size.equalTo(self.tableView)
+            make.centerX.equalTo(self.tableView)
+            make.centerY.equalTo(self.tableView).offset(-navBarAndStatusBarHeight)
+        }
+    }
+    
+    func setIsEmpty(_ isEmpty: Bool) {
+        noDataLabel.isHidden = !isEmpty
+        noDataView?.isHidden = !isEmpty
     }
 }

@@ -21,4 +21,10 @@ protocol UserListViewInput: class {
     func removeUser(_ user: User)
     
     func endPullToRefreshAnimation()
+    
+    func setNoDataText(_ text: NSAttributedString?)
+    
+    func setNoDataView(_ view: UIView?)
+    
+    func setIsEmpty(_ isEmpty: Bool)
 }

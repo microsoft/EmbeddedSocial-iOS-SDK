@@ -75,10 +75,40 @@ final class MockUserListView: UIView, UserListViewInput {
     }
     
     //MARK: - endPullToRefreshAnimation
-
+    
     var endPullToRefreshAnimationCalled = false
-
+    
     func endPullToRefreshAnimation() {
         endPullToRefreshAnimationCalled = true
+    }
+    
+    //MARK: - setNoDataText
+    
+    var setNoDataTextCalled = false
+    var setNoDataTextReceivedText: NSAttributedString?
+    
+    func setNoDataText(_ text: NSAttributedString?) {
+        setNoDataTextCalled = true
+        setNoDataTextReceivedText = text
+    }
+    
+    //MARK: - setNoDataView
+    
+    var setNoDataViewCalled = false
+    var setNoDataViewReceivedView: UIView?
+    
+    func setNoDataView(_ view: UIView?) {
+        setNoDataViewCalled = true
+        setNoDataViewReceivedView = view
+    }
+    
+    //MARK: - setIsEmpty
+    
+    var setIsEmptyCalled = false
+    var setIsEmptyReceivedIsEmpty: Bool?
+    
+    func setIsEmpty(_ isEmpty: Bool) {
+        setIsEmptyCalled = true
+        setIsEmptyReceivedIsEmpty = isEmpty
     }
 }

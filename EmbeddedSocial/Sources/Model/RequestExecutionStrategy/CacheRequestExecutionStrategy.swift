@@ -11,6 +11,7 @@ class CacheRequestExecutionStrategy<T, U>: RequestExecutionStrategy {
     
     var cache: CacheType?
     var errorHandler: APIErrorHandler?
+    var networkTracker: NetworkStatusMulticast?
     
     func execute(with builder: RequestBuilder<ResponseType>, completion: @escaping (Result<ResultType>) -> Void) {
         fatalError("Abstract method")

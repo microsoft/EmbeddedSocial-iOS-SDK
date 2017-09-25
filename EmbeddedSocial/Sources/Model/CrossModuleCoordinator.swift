@@ -11,7 +11,8 @@ protocol CrossModuleCoordinatorProtocol: class {
     func openPopularScreen()
     func openMyProfile()
     func openLoginScreen()
-    
+    func openSearchPeople()
+
     func logOut()
     func showError(_ error: Error)
 
@@ -113,6 +114,12 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         menuModule.openSocialItem(index: index)
     }
     
+    func openSearchPeople() {
+        let index = menuItemsProvider.getMenuItemIndex(for: .search)!
+        menuModule.openSocialItem(index: index)
+        searchModule.selectPeopleTab()
+    }
+    
     func logOut() {
         user = nil
         menuModule.user = nil
@@ -171,12 +178,20 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         return vc
     }()
     
-    lazy var configuredSearch: UIViewController = {
+    lazy var configuredSearchModule: SearchConfigurator = { [unowned self] in
         let configurator = SearchConfigurator()
         configurator.configure(isLoggedInUser: self.isUserAuthenticated(),
                                navigationController: self.navigationStack.navigationController)
-        return configurator.viewController
+        return configurator
     }()
+    
+    var configuredSearch: UIViewController {
+        return configuredSearchModule.viewController
+    }
+    
+    var searchModule: SearchModuleInput {
+        return configuredSearchModule.moduleInput
+    }
     
     lazy var configuredSettings: UIViewController = {
         let configurator = SettingsConfigurator()
@@ -192,6 +207,8 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
 }
 
 extension CrossModuleCoordinator: MyProfileOpener { }
+
+extension CrossModuleCoordinator: SearchPeopleOpener { }
 
 extension CrossModuleCoordinator: LoginModalOpener {
     

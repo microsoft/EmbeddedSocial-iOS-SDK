@@ -23,6 +23,7 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     @IBOutlet weak var repliesButton: UIButton!
 
     @IBOutlet weak var postedTimeLabel: UILabel!
+    @IBOutlet weak var separator: UIView!
     
     var commentView: CommentViewModel!
     
@@ -46,6 +47,11 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
+    }
+    
     func configure(comment: Comment) {
         userName.text = User.fullName(firstName: comment.firstName, lastName: comment.lastName)
         commentTextLabel.text = comment.text ?? ""
@@ -53,7 +59,6 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         repliesCountButton.setTitle(L10n.Post.repliesCount(Int(comment.totalReplies)), for: .normal)
         
         postedTimeLabel.text = comment.createdTime == nil ? "" : formatter.shortStyle.string(from: comment.createdTime!, to: Date())!
-        
         
         if comment.photoUrl == nil {
             userPhoto.image = UIImage(asset: Asset.userPhotoPlaceholder)
@@ -63,12 +68,9 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         
         likeButton.isSelected = comment.liked
         
-        if let url = comment.mediaUrl {
+        if let photo = comment.mediaPhoto {
             mediaButton.imageView?.contentMode = .scaleAspectFill
-            mediaButton.setPhotoWithCaching(Photo(uid: UUID().uuidString,
-                                                  url: url,
-                                                  image: nil),
-                                            placeholder: UIImage(asset: .placeholderPostNoimage))
+            mediaButton.setPhotoWithCaching(photo, placeholder: UIImage(asset: .placeholderPostNoimage))
             mediaButtonHeightConstraint.constant = UIScreen.main.bounds.size.height/3
             
         } else {

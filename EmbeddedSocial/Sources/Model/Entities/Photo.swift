@@ -6,7 +6,7 @@
 import Foundation
 
 struct Photo {
-    let uid: String
+    var uid: String
     let url: String?
     var image: UIImage?
     

@@ -316,6 +316,18 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum SuggestedUsers: String, StoryboardSceneType {
+    static let storyboardName = "SuggestedUsers"
+
+    case suggestedUsersViewControllerScene = "SuggestedUsersViewController"
+    static func instantiateSuggestedUsersViewController() -> EmbeddedSocial.SuggestedUsersViewController {
+      guard let vc = StoryboardScene.SuggestedUsers.suggestedUsersViewControllerScene.viewController() as? EmbeddedSocial.SuggestedUsersViewController
+      else {
+        fatalError("ViewController 'SuggestedUsersViewController' is not of the expected class EmbeddedSocial.SuggestedUsersViewController.")
+      }
+      return vc
+    }
+  }
   enum UserProfile: String, StoryboardSceneType {
     static let storyboardName = "UserProfile"
 

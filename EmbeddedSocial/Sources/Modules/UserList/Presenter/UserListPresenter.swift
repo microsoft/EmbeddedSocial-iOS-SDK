@@ -10,6 +10,10 @@ class UserListPresenter {
     var interactor: UserListInteractorInput!
     weak var moduleOutput: UserListModuleOutput?
     var router: UserListRouterInput!
+    
+    var noDataText: NSAttributedString?
+    var noDataView: UIView?
+    
     fileprivate let myProfileHolder: UserHolder
     fileprivate var isAnimatingPullToRefresh: Bool = false
     
@@ -18,6 +22,8 @@ class UserListPresenter {
     }
     
     func loadNextPage() {
+        view.setIsEmpty(false)
+        
         interactor.getNextListPage { [weak self] result in
             self?.processUsersResult(result)
         }
@@ -30,6 +36,8 @@ class UserListPresenter {
         } else {
             moduleOutput?.didFailToLoadList(listView: listView, error: result.error ?? APIError.unknown)
         }
+        
+        view.setIsEmpty(result.value?.isEmpty ?? true)
     }
 }
 
@@ -44,7 +52,6 @@ extension UserListPresenter: UserListInteractorOutput {
 extension UserListPresenter: UserListViewOutput {
     
     func onItemAction(item: UserListItem) {
-        
         guard myProfileHolder.me != nil else {
             router.openLogin()
             return
@@ -53,6 +60,7 @@ extension UserListPresenter: UserListViewOutput {
         view.setIsLoading(true, item: item)
         
         interactor.processSocialRequest(to: item.user) { [weak self] result in
+            
             guard let strongSelf = self else {
                 return
             }
@@ -88,10 +96,12 @@ extension UserListPresenter: UserListViewOutput {
     
     func onPullToRefresh() {
         isAnimatingPullToRefresh = true
+        view.setIsEmpty(false)
+
         interactor.reloadList { [weak self] result in
             self?.isAnimatingPullToRefresh = false
-            self?.processUsersResult(result)
             self?.view.endPullToRefreshAnimation()
+            self?.processUsersResult(result)
         }
     }
 }
@@ -107,6 +117,8 @@ extension UserListPresenter: UserListModuleInput {
     
     func setupInitialState() {
         view.setupInitialState()
+        view.setNoDataText(noDataText)
+        view.setNoDataView(noDataView)
         loadNextPage()
     }
     

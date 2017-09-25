@@ -22,7 +22,7 @@ class PostDetailInteractor: PostDetailInteractorInput {
                     self.fetchedItems(result: cachedResult)
                 }
             }, resultHandler: { (webResult) in
-                    self.fetchedItems(result: webResult)
+                self.fetchedItems(result: webResult)
             })
     }
 

@@ -9,6 +9,7 @@ import XCTest
 class TestHome: UITestBase {
     var sideMenu: SideMenu!
     var feed: Feed!
+    var details: PostDetails!
     var pageSize: Int!
     var feedName: String!
     
@@ -16,6 +17,7 @@ class TestHome: UITestBase {
         super.setUp()
         sideMenu = SideMenu(app)
         feed = Feed(app)
+        details = PostDetails(app)
         pageSize = EmbeddedSocial.Constants.Feed.pageSize
         feedName = "topics"
     }
@@ -28,6 +30,7 @@ class TestHome: UITestBase {
     
     
     func openScreen() {
+        sideMenu.navigateTo("Popular")
         sideMenu.navigateTo("Home")
     }
     
@@ -106,7 +109,7 @@ class TestHome: UITestBase {
         openScreen()
         
         var seenPosts = Set<String>()
-        var retryCount = 15
+        var retryCount = 25
         
         
         while seenPosts.count <= pageSize && retryCount != 0 {
@@ -153,6 +156,18 @@ class TestHome: UITestBase {
         XCTAssertNotNil(APIState.getLatestRequest().contains("/images/"), "Post images weren't loaded")
     }
     
+    func testOpenPostDetails() {
+        openScreen()
+        
+        APIConfig.values = ["text": "Post Details Screen"]
+        
+        let (_, post) = feed.getRandomPost()
+        
+        post.teaser.tap()
+        
+        XCTAssertEqual(details.post.teaser.value as! String, "Post Details Screen", "Post details screen haven't been opened")
+    }
+    
     func testPagingTileMode() {
         APIConfig.numberedTopicTeasers = true
         
@@ -160,7 +175,7 @@ class TestHome: UITestBase {
         
         feed.switchViewMode()
         
-        var retryCount = 10
+        var retryCount = 25
         var response = APIState.getLatestResponse(forService: "topics")
         
         while Int(response?["cursor"] as! String)! <= pageSize && retryCount != 0 {
@@ -204,5 +219,19 @@ class TestHome: UITestBase {
         
         let response = APIState.getLatestResponse(forService: "topics")
         XCTAssertGreaterThanOrEqual(Int(response?["cursor"] as! String)!, pageSize, "Pages weren't loaded on Pull to Refresh")
+    }
+    
+    func testOpenPostDetailsTileMode() {
+        openScreen()
+        
+        feed.switchViewMode()
+        
+        APIConfig.values = ["text": "Post Details Screen"]
+        
+        let (_, post) = feed.getRandomPost()
+        
+        post.cell.tap()
+        
+        XCTAssertEqual(details.post.teaser.value as! String, "Post Details Screen", "Post details screen haven't been opened")
     }
 }

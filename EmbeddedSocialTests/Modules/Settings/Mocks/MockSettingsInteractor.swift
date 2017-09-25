@@ -8,6 +8,7 @@ import Foundation
 
 final class MockSettingsInteractor: SettingsInteractorInput {
     private(set) var switchVisibilityCount = 0
+    private(set) var signOutCount = 0
     var switchVisibilityReturnValue: Result<Visibility>?
     
     func switchVisibility(_ visibility: Visibility, completion: @escaping (Result<Visibility>) -> Void) {
@@ -15,5 +16,9 @@ final class MockSettingsInteractor: SettingsInteractorInput {
         if let result = switchVisibilityReturnValue {
             completion(result)
         }
+    }
+    
+    func signOut() {
+        signOutCount += 1
     }
 }

@@ -7,6 +7,14 @@
 
 class MockCommentRepliesRouter: CommentRepliesRouterInput {
     
+    func openMyReplyOptions(reply: Reply, from view: UIViewController) {
+        
+    }
+    
+    func openOtherReplyOptions(reply: Reply, from view: UIViewController) {
+        
+    }
+    
     //MARK: - openUser
     
     var openUserUserHandleFromCalled = false

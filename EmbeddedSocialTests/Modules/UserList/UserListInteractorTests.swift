@@ -85,7 +85,7 @@ class UserListInteractorTests: XCTestCase {
     
     func testThatItProcessesSocialRequest() {
         // given
-        let user = User(uid: UUID().uuidString, followerStatus: .empty)
+        let user = User(uid: UUID().uuidString, visibility: ._public, followerStatus: .empty)
         
         // when
         let expectation = self.expectation(description: #function)

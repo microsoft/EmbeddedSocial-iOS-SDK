@@ -57,12 +57,7 @@ extension Post: Equatable {}
 internal func == (lhs: Post, rhs: Post) -> Bool {
     guard compareOptionals(lhs: lhs.topicHandle, rhs: rhs.topicHandle, compare: ==) else { return false }
     guard compareOptionals(lhs: lhs.createdTime, rhs: rhs.createdTime, compare: ==) else { return false }
-    guard compareOptionals(lhs: lhs.userHandle, rhs: rhs.userHandle, compare: ==) else { return false }
-    guard lhs.userStatus == rhs.userStatus else { return false }
-    guard compareOptionals(lhs: lhs.firstName, rhs: rhs.firstName, compare: ==) else { return false }
-    guard compareOptionals(lhs: lhs.lastName, rhs: rhs.lastName, compare: ==) else { return false }
-    guard compareOptionals(lhs: lhs.photoHandle, rhs: rhs.photoHandle, compare: ==) else { return false }
-    guard compareOptionals(lhs: lhs.photoUrl, rhs: rhs.photoUrl, compare: ==) else { return false }
+    guard compareOptionals(lhs: lhs.user, rhs: rhs.user, compare: ==) else { return false }
     guard compareOptionals(lhs: lhs.title, rhs: rhs.title, compare: ==) else { return false }
     guard compareOptionals(lhs: lhs.text, rhs: rhs.text, compare: ==) else { return false }
     guard compareOptionals(lhs: lhs.imageUrl, rhs: rhs.imageUrl, compare: ==) else { return false }

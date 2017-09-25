@@ -5,10 +5,10 @@
 
 protocol PostMenuModuleInteractorInput {
 
-    func block(user: UserHandle)
-    func unblock(user: UserHandle)
-    func follow(user: UserHandle)
-    func unfollow(user: UserHandle)
+    func block(user: User)
+    func unblock(user: User)
+    func follow(user: User)
+    func unfollow(user: User)
     func hide(post: PostHandle)
     func edit(post: PostHandle)
     func remove(post: PostHandle)
@@ -19,10 +19,10 @@ protocol PostMenuModuleInteractorInput {
 
 protocol PostMenuModuleInteractorOutput: class {
     
-    func didBlock(user: UserHandle, error: Error?)
-    func didUnblock(user: UserHandle, error: Error?)
-    func didFollow(user: UserHandle, error: Error?)
-    func didUnfollow(user: UserHandle, error: Error?)
+    func didBlock(user: User, error: Error?)
+    func didUnblock(user: User, error: Error?)
+    func didFollow(user: User, error: Error?)
+    func didUnfollow(user: User, error: Error?)
     func didHide(post: PostHandle, error: Error?)
     func didEdit(post: PostHandle, error: Error?)
     func didRemove(post: PostHandle, error: Error?)
@@ -41,14 +41,14 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     
     // MARK: Input
     
-    func follow(user: UserHandle) {
-        socialService.follow(userID: user) { [weak self] (result) in
+    func follow(user: User) {
+        socialService.follow(user: user) { [weak self] (result) in
             self?.output.didFollow(user: user, error: result.error)
         }
     }
     
-    func unfollow(user: UserHandle) {
-        socialService.unfollow(userID: user) { [weak self] (result) in
+    func unfollow(user: User) {
+        socialService.unfollow(user: user) { [weak self] (result) in
             self?.output.didUnfollow(user: user, error: result.error)
         }
     }
@@ -71,14 +71,14 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
         }
     }
     
-    func block(user: UserHandle) {
-        socialService.block(userID: user) { [weak self] (result) in
+    func block(user: User) {
+        socialService.block(user: user) { [weak self] (result) in
             self?.output.didBlock(user: user, error: result.error)
         }
     }
     
-    func unblock(user: UserHandle) {
-        socialService.unblock(userID: user) { [weak self] (result) in
+    func unblock(user: User) {
+        socialService.unblock(user: user) { [weak self] (result) in
             self?.output.didUnblock(user: user, error: result.error)
         }
     }

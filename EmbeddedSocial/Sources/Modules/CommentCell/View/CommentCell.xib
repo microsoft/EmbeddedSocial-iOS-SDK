@@ -21,7 +21,7 @@
                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="xbj-W3-BRS" userLabel="header">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="500" image="user_photo_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="sda-gf-jxV">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="500" image="user_photo_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="sda-gf-jxV">
                                 <rect key="frame" x="20" y="10" width="30" height="30"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Avatar" label="Avatar">
                                     <bool key="isElement" value="YES"/>
@@ -49,6 +49,7 @@
                                     <constraint firstAttribute="height" constant="44" id="dNh-V6-QP1"/>
                                     <constraint firstAttribute="width" constant="44" id="hqW-8f-pfJ"/>
                                 </constraints>
+                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                 <state key="normal" title="Button" image="icon_dots"/>
                                 <connections>
                                     <action selector="commentOptionsPressed:" destination="eDS-mq-vOG" eventType="touchUpInside" id="qnJ-Nh-mHh"/>
@@ -83,11 +84,13 @@
                         <rect key="frame" x="0.0" y="140" width="320" height="50"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DpI-cb-fNv" userLabel="like">
-                                <rect key="frame" x="55" y="15" width="20" height="20"/>
+                                <rect key="frame" x="50" y="10" width="30" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="Like"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="CFU-Yo-LHe"/>
-                                    <constraint firstAttribute="height" constant="20" id="Ing-Zz-qtE"/>
+                                    <constraint firstAttribute="width" constant="30" id="CFU-Yo-LHe"/>
+                                    <constraint firstAttribute="height" constant="30" id="Ing-Zz-qtE"/>
                                 </constraints>
+                                <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                 <state key="normal" title="Button" image="icon_liked"/>
                                 <state key="selected" image="icon_liked_active"/>
                                 <connections>
@@ -95,11 +98,13 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffo-F5-hAE" userLabel="comment">
-                                <rect key="frame" x="95" y="15" width="20" height="20"/>
+                                <rect key="frame" x="95" y="10" width="30" height="30"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Reply" label="Reply"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="6j8-pm-uOv"/>
-                                    <constraint firstAttribute="height" constant="20" id="FD8-py-z7g"/>
+                                    <constraint firstAttribute="width" constant="30" id="6j8-pm-uOv"/>
+                                    <constraint firstAttribute="height" constant="30" id="FD8-py-z7g"/>
                                 </constraints>
+                                <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                 <state key="normal" title="Button" image="icon_comment"/>
                                 <connections>
                                     <action selector="commentPressed:" destination="eDS-mq-vOG" eventType="touchUpInside" id="csw-Do-wFf"/>
@@ -157,8 +162,8 @@
                             <constraint firstItem="cqo-Ho-aZY" firstAttribute="centerY" secondItem="tF5-wy-hbD" secondAttribute="centerY" id="YzZ-ir-glO"/>
                             <constraint firstItem="6Tm-M8-YVC" firstAttribute="leading" secondItem="cqo-Ho-aZY" secondAttribute="trailing" constant="3.5" id="ZTt-6C-aNF"/>
                             <constraint firstItem="6Tm-M8-YVC" firstAttribute="centerY" secondItem="tF5-wy-hbD" secondAttribute="centerY" id="aMF-Cf-wjd"/>
-                            <constraint firstItem="ffo-F5-hAE" firstAttribute="leading" secondItem="DpI-cb-fNv" secondAttribute="trailing" constant="20" id="gBp-dc-ErT"/>
-                            <constraint firstItem="DpI-cb-fNv" firstAttribute="leading" secondItem="tF5-wy-hbD" secondAttribute="leading" constant="55" id="oNh-kE-e0H"/>
+                            <constraint firstItem="ffo-F5-hAE" firstAttribute="leading" secondItem="DpI-cb-fNv" secondAttribute="trailing" constant="15" id="gBp-dc-ErT"/>
+                            <constraint firstItem="DpI-cb-fNv" firstAttribute="leading" secondItem="tF5-wy-hbD" secondAttribute="leading" constant="50" id="oNh-kE-e0H"/>
                             <constraint firstItem="DZH-Du-aM6" firstAttribute="centerY" secondItem="tF5-wy-hbD" secondAttribute="centerY" id="vzC-CY-3Yw"/>
                         </constraints>
                     </view>
@@ -216,6 +221,7 @@
                 <outlet property="postedTimeLabel" destination="vdj-ym-b7e" id="OjH-Ad-eLA"/>
                 <outlet property="repliesButton" destination="ffo-F5-hAE" id="HeS-z4-IrM"/>
                 <outlet property="repliesCountButton" destination="wPY-c7-XbV" id="alM-Kl-Okc"/>
+                <outlet property="separator" destination="63r-Wp-bDR" id="wIc-p2-Kyr"/>
                 <outlet property="userName" destination="OUZ-GN-Jg2" id="j1Z-7b-bBR"/>
                 <outlet property="userPhoto" destination="sda-gf-jxV" id="fNH-K1-6Cr"/>
             </connections>

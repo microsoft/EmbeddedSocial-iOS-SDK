@@ -6,7 +6,7 @@
 import Foundation
 
 struct UsersListResponse {
-    let users: [User]
+    var users: [User]
     let cursor: String?
     let isFromCache: Bool
 }

@@ -50,6 +50,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.alwaysBounceVertical = true
         collectionView.addSubview(self.refreshControl)
         collectionView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
         refreshControl.beginRefreshing()
@@ -60,6 +61,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionView.reloadSections([CommentsSections.comments.rawValue])
+        postButton.isHidden = commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
@@ -120,27 +122,28 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     func reloadTable(scrollType: CommentsScrollType) {
-        self.collectionView.reloadData()
-        self.isNewDataLoading = false
-        self.commentTextView.isEditable = true
-        self.mediaButton.isEnabled = true
-        switch scrollType {
-        case .bottom:
-            DispatchQueue.main.asyncAfter(deadline: .now() + self.reloadDelay) {
-                self.scrollCollectionViewToBottom()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            self.isNewDataLoading = false
+            self.commentTextView.isEditable = true
+            self.mediaButton.isEnabled = true
+            switch scrollType {
+            case .bottom:
+                DispatchQueue.main.asyncAfter(deadline: .now() + self.reloadDelay) {
+                    self.scrollCollectionViewToBottom()
+                }
+            default: break
             }
-        default: break
+            
+            self.refreshControl.endRefreshing()
         }
-        
-        refreshControl.endRefreshing()
-
     }
     
     func setFeedViewController(_ feedViewController: UIViewController) {
         feedView = feedViewController.view
     }
     
-    fileprivate func scrollCollectionViewToBottom() {
+    func scrollCollectionViewToBottom() {
         if  output.numberOfItems() > 1 {
             collectionView.scrollToItem(at: IndexPath(row: output.numberOfItems() - 1, section: CommentsSections.comments.rawValue), at: .bottom, animated: true)
         }
@@ -204,11 +207,19 @@ extension PostDetailViewController: UICollectionViewDelegate {
             
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? CommentCell else {
+            return
+        }
+        
+        cell.separator.isHidden = indexPath.row == output.numberOfItems() - 1 && indexPath.section == CommentsSections.comments.rawValue
+    }
 }
 
 extension PostDetailViewController: LoadMoreCellDelegate {
     func loadPressed() {
-        if output.enableFetchMore() {
+        if output.canFetchMore() {
             output.fetchMore()
         }
     }
@@ -294,7 +305,7 @@ extension PostDetailViewController: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        output.loadRestComments()
+        scrollCollectionViewToBottom()
     }
     
 }

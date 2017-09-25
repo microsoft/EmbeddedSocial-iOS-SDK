@@ -23,6 +23,8 @@ struct UserListConfigurator {
         presenter.moduleOutput = settings.output
         presenter.interactor = interactor
         presenter.router = router
+        presenter.noDataText = settings.noDataText
+        presenter.noDataView = settings.noDataView
         
         interactor.output = presenter
         
@@ -46,6 +48,8 @@ extension UserListConfigurator {
         var navigationController: UINavigationController?
         var output: UserListModuleOutput?
         var listItemsBuilder: UserListItemsBuilder
+        var noDataText: NSAttributedString?
+        var noDataView: UIView?
         
         init(api: UsersListAPI,
              myProfileHolder: UserHolder = SocialPlus.shared,
@@ -53,7 +57,9 @@ extension UserListConfigurator {
              loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator,
              navigationController: UINavigationController?,
              output: UserListModuleOutput?,
-             listItemsBuilder: UserListItemsBuilder = UserListItemsBuilder()) {
+             listItemsBuilder: UserListItemsBuilder = UserListItemsBuilder(),
+             noDataText: NSAttributedString? = nil,
+             noDataView: UIView? = nil) {
             
             self.api = api
             self.myProfileHolder = myProfileHolder
@@ -62,6 +68,8 @@ extension UserListConfigurator {
             self.navigationController = navigationController
             self.output = output
             self.listItemsBuilder = listItemsBuilder
+            self.noDataText = noDataText
+            self.noDataView = noDataView
         }
     }
 }

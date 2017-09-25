@@ -19,7 +19,6 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     
     private var formatter = DateFormatterTool()
     private var cursor: String?
-    private let maxLimit: Int32 = 30000
     private var shouldFetchRestOfComments = false
     
     fileprivate var dataIsFetching = false
@@ -55,11 +54,9 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         self.comments.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
         stopLoading()
         view.reloadTable(scrollType: scrollType)
-        scrollType = .none
     }
     
     func didFetchMore(comments: [Comment], cursor: String?) {
-        
         dataIsFetching = false
         appendWithReplacing(original: &self.comments, appending: comments)
         self.comments.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
@@ -77,9 +74,16 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         
     }
     
+    private func enableFetchMore() {
+        loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
+        view.updateLoadingCell()
+    }
+    
     private func stopLoading() {
         if cursor == nil {
             loadMoreCellViewModel.cellHeight = 0.1
+        } else {
+            loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
         }
         
         loadMoreCellViewModel.stopLoading()
@@ -123,12 +127,13 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         return loadMoreCellViewModel
     }
     
-    func enableFetchMore() -> Bool {
+    func canFetchMore() -> Bool {
         return cursor != nil && !dataIsFetching
     }
     
     func refresh() {
         cursor = nil
+        scrollType = .none
         loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
         loadMoreCellViewModel.startLoading()
         view.updateLoadingCell()
@@ -138,12 +143,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     func viewIsReady() {
         view.setupInitialState()
         setupFeed()
-        switch scrollType {
-            case .bottom:
-                interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: maxLimit)
-            default:
-                interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
-        }
+        interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
     }
     
     func loadRestComments() {
@@ -163,12 +163,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         dataIsFetching = true
         loadMoreCellViewModel.startLoading()
         view.updateLoadingCell()
-        if shouldFetchRestOfComments {
-            interactor.fetchMoreComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: maxLimit)
-        } else {
-            interactor.fetchMoreComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
-        }
-        
+        interactor.fetchMoreComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
     }
     
     func comment(at index: Int) -> Comment {
@@ -188,6 +183,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
 extension PostDetailPresenter: FeedModuleOutput {
     func didFinishRefreshingData() {
         view.refreshPostCell()
+        feedModuleInput?.lockScrolling()
     }
     
     func didScrollFeed(_ feedView: UIScrollView) {
@@ -200,10 +196,23 @@ extension PostDetailPresenter: FeedModuleOutput {
     
     func didFinishRefreshingData(_ error: Error?) {
         view.refreshPostCell()
+        feedModuleInput?.lockScrolling()
     }
     
     func shouldOpenProfile(for userID: String) -> Bool {
         return true
     }
+    
+    func commentsPressed() {
+        view.scrollCollectionViewToBottom()
+    }
+    
+    func postRemoved() {
+        guard let vc = view as? UIViewController else {
+            return
+        }
+        router.backToFeed(from: vc)
+    }
+
 }
 
