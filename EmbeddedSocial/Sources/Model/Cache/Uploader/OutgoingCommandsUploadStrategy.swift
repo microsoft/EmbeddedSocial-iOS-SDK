@@ -130,7 +130,7 @@ extension OutgoingCommandsUploadStrategy.Step {
     }
     
     static var topicActions: Step {
-        return Step(predicate: PredicateBuilder.allTopicActionCommands(), next: createDeleteComments)
+        return Step(predicate: PredicateBuilder().allTopicActionCommands(), next: createDeleteComments)
     }
     
     static var createDeleteComments: Step {
