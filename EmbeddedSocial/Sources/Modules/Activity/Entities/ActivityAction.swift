@@ -46,7 +46,7 @@ class Action {
         }
         
         // remove item
-        dataSource.section.items.remove(at: index)
+        dataSource.section.removeItem(itemIndex: index)
         
         // notify view
         let indexPath = IndexPath(row: index, section: dataSource.context.index)

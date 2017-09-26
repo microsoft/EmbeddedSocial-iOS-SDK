@@ -203,9 +203,7 @@ class SocialService: BaseService, SocialServiceType {
 
 extension SocialService: ActivityService {
     
-    func loadMyActivities(cursor: String?,
-                          limit: Int,
-                          completion: @escaping (Result<ActivityService.ActivityResponse>) -> Void) {
+    func loadMyActivities(cursor: String?, limit: Int, completion: @escaping (ActivityItemListResult) -> Void) {
         let builder = NotificationsAPI.myNotificationsGetNotificationsWithRequestBuilder(authorization: authorization,
                                                                                          cursor: cursor,
                                                                                          limit: Int32(limit))
@@ -214,7 +212,7 @@ extension SocialService: ActivityService {
         }
     }
     
-    func loadOthersActivities(cursor: String?, limit: Int, completion: @escaping (Result<ActivityService.ActivityResponse>) -> Void) {
+    func loadOthersActivities(cursor: String?, limit: Int, completion: @escaping (ActivityItemListResult) -> Void) {
         let builder = SocialAPI.myFollowingGetActivitiesWithRequestBuilder(authorization: authorization, cursor: cursor, limit: Int32(limit))
         
         activitiesExecutor.execute(with: builder) {
@@ -222,8 +220,7 @@ extension SocialService: ActivityService {
         }
     }
     
-    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        
+    func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (UserRequestListResult) -> Void) {
         let builder = SocialAPI.myPendingUsersGetPendingUsersWithRequestBuilder(authorization: authorization,
                                                                                 cursor: cursor,
                                                                                 limit: Int32(limit))

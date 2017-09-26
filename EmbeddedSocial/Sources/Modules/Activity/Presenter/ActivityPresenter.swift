@@ -7,7 +7,7 @@ protocol ActivityModuleInput: class {
     
 }
 
-typealias Section = SectionModel<SectionHeader, ActivityItem>
+typealias Section = PagesListModel<SectionHeader, ActivityItem>
 
 class ActivityPresenter {
     
@@ -166,7 +166,7 @@ extension ActivityPresenter: ActivityViewOutput {
     }
     
     func headerForSection(_ section: Int) -> String {
-        return dataSources[state]![section].section.model.name
+        return dataSources[state]![section].section.header.name
     }
     
     func numberOfSections() -> Int {

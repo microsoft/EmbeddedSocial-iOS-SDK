@@ -17,7 +17,7 @@ class DataSourceBuilder {
                                                delegate: DataSourceDelegate,
                                                context: DataSourceContext) -> MyPendingRequests {
         let header = SectionHeader(name: "Pending requests", identifier: "")
-        let section = Section(model: header, items: [])
+        let section = Section(header: header, pages: [])
         
         return MyPendingRequests(interactor: interactor,
                                  section:section,
@@ -29,7 +29,7 @@ class DataSourceBuilder {
                                                     delegate: DataSourceDelegate,
                                                     context: DataSourceContext) -> MyActivities {
         let header = SectionHeader(name: "My followings activity", identifier: "")
-        let section = Section(model: header, items: [])
+        let section = Section(header: header, pages: [])
         
         return MyActivities(interactor: interactor,
                                     section: section,
@@ -41,7 +41,7 @@ class DataSourceBuilder {
                                                     delegate: DataSourceDelegate,
                                                     context: DataSourceContext) -> OthersActivties {
         let header = SectionHeader(name: "Others activities", identifier: "")
-        let section = Section(model: header, items: [])
+        let section = Section(header: header, pages: [])
         
         return OthersActivties(interactor: interactor,
                             section: section,
@@ -73,13 +73,6 @@ class DataSource {
         self.context = context
     }
     
-    func insertedIndexes(newItemsCount: Int) -> [IndexPath] {
-        // make paths for inserted items
-        let range = (section.items.count - newItemsCount)..<section.items.count
-        let indexPaths = range.map { IndexPath(row: $0, section: context.index) }
-        return indexPaths
-    }
-    
     deinit {
         Logger.log(self)
     }
@@ -87,30 +80,37 @@ class DataSource {
 
 class MyPendingRequests: DataSource {
     
-    private func processResponse(_ result: Result<[PendingRequestItemType]>) {
+    private func processResponse(_ result: UserRequestListResult, _ page: Int) {
     
         switch result {
         case let .failure(error):
             self.delegate?.didFail(error: error)
-        case let .success(models):
-            let items = models.map { ActivityItem.pendingRequest($0) }
-            self.section.items.append(contentsOf: items)
+        case let .success(list):
+            let items = list.users.map { ActivityItem.pendingRequest($0) }
             
-            // make paths for inserted items
-            let indexPaths = self.insertedIndexes(newItemsCount: items.count)
+            // replace page with new data, probaby from cache
+            if section.pages.indices.contains(page) {
+                section.pages[page] = items
+            } else {
+                section.pages.insert(items, at: page)
+            }
+        
+            let indexPaths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
             self.delegate?.didLoad(indexPaths: indexPaths, context: self.context)
         }
     }
     
     override func load() {
+        section.pages = []
         interactor.loadPendingRequestItems { [weak self] (result) in
-            self?.processResponse(result)
+            self?.processResponse(result, 0)
         }
     }
     
     override func loadMore() {
+        let nextPage = section.pages.count
         interactor.loadNextPagePendigRequestItems { [weak self] (result) in
-            self?.processResponse(result)
+            self?.processResponse(result, nextPage)
         }
     }
     
@@ -118,62 +118,77 @@ class MyPendingRequests: DataSource {
 
 class MyActivities: DataSource {
     
-    private func processResponse(_ result: Result<[ActivityItemType]>) {
+    private func processResponse(_ result: ActivityItemListResult, _ page: Int) {
         
         switch result {
         case let .failure(error):
             self.delegate?.didFail(error: error)
         case let .success(models):
-            let items = models.map { ActivityItem.myActivity($0) }
-            self.section.items.append(contentsOf: items)
+            let items = models.items.map { ActivityItem.myActivity($0) }
+        
+            // replace page with new data, probaby from cache
+            if section.pages.indices.contains(page) {
+                section.pages[page] = items
+            } else {
+                section.pages.insert(items, at: page)
+            }
             
             // make paths for inserted items
-            let indexPaths = self.insertedIndexes(newItemsCount: items.count)
+            let indexPaths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
             self.delegate?.didLoad(indexPaths: indexPaths, context: self.context)
         }
     }
     
     override func load() {
+        section.pages = []
         interactor.loadMyActivities { [weak self] (result) in
-            self?.processResponse(result)
+            self?.processResponse(result, 0)
         }
     }
     
     override func loadMore() {
-    
+        let nextPage = section.pages.count
         interactor.loadNextPageMyActivities { [weak self] (result) in
-            self?.processResponse(result)
+            self?.processResponse(result, nextPage)
         }
     }
 }
 
+// TODO: remake via generic
 class OthersActivties: DataSource {
     
-    private func processResponse(_ result: Result<[ActivityItemType]>) {
+    private func processResponse(_ result: ActivityItemListResult, _ page: Int) {
         
         switch result {
         case let .failure(error):
             self.delegate?.didFail(error: error)
         case let .success(models):
-            let items = models.map { ActivityItem.othersActivity($0) }
-            self.section.items.append(contentsOf: items)
+            let items = models.items.map { ActivityItem.othersActivity($0) }
+            
+            // replace page with new data, probaby from cache
+            if section.pages.indices.contains(page) {
+                section.pages[page] = items
+            } else {
+                section.pages.insert(items, at: page)
+            }
             
             // make paths for inserted items
-            let indexPaths = self.insertedIndexes(newItemsCount: items.count)
+            let indexPaths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
             self.delegate?.didLoad(indexPaths: indexPaths, context: self.context)
         }
     }
     
     override func load() {
-        interactor.loadNextPageOthersActivities { [weak self] (result) in
-            self?.processResponse(result)
+        section.pages = []
+        interactor.loadOthersActivities { [weak self] (result) in
+            self?.processResponse(result, 0)
         }
     }
     
     override func loadMore() {
-        // load activity
+        let nextPage = section.pages.count
         interactor.loadNextPageOthersActivities { [weak self] (result) in
-            self?.processResponse(result)
+            self?.processResponse(result, nextPage)
         }
     }
 }
