@@ -9,6 +9,7 @@ final class FollowRequestsPresenter: FollowRequestsViewOutput {
     weak var view: FollowRequestsViewInput!
     var interactor: FollowRequestsInteractorInput!
     var router: FollowRequestsRouterInput!
+    weak var output: FollowRequestsModuleOutput?
     
     fileprivate var isAnimatingPullToRefresh = false
     
@@ -57,6 +58,9 @@ final class FollowRequestsPresenter: FollowRequestsViewOutput {
         view.setIsLoading(true, item: item)
         interactor.acceptPendingRequest(to: item.user) { [weak self] result in
             self?.processPendingRequestResult(result, item: item)
+            if result.isSuccess {
+                self?.output?.didAcceptFollowRequest()
+            }
         }
     }
     

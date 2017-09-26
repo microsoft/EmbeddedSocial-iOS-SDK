@@ -41,11 +41,11 @@ class SettingsPresenterTests: XCTestCase {
     }
     
     func testThatItSetsInitialStateForPrivateUser() {
-        testThatItSetsInitialState(visibility: ._private, switchIsOn: false)
+        testThatItSetsInitialState(visibility: ._private, switchIsOn: true)
     }
     
     func testThatItSetsInitialStateForPublicUser() {
-        testThatItSetsInitialState(visibility: ._public, switchIsOn: true)
+        testThatItSetsInitialState(visibility: ._public, switchIsOn: false)
     }
     
     func testThatItSetsInitialState(visibility: Visibility, switchIsOn: Bool) {

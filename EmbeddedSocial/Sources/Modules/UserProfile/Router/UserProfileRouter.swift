@@ -13,6 +13,7 @@ final class UserProfileRouter: UserProfileRouterInput {
     weak var createPostModuleOutput: CreatePostModuleOutput?
     weak var editProfileModuleOutput: EditProfileModuleOutput?
     weak var loginOpener: LoginModalOpener?
+    weak var followRequestsModuleOutput: FollowRequestsModuleOutput?
 
     func openFollowers(user: User) {        
         let api: UsersListAPI = user.isMe ?
@@ -96,7 +97,7 @@ final class UserProfileRouter: UserProfileRouterInput {
     
     func openFollowRequests() {
         let configurator = FollowRequestsConfigurator()
-        configurator.configure(navigationController: viewController?.navigationController)
+        configurator.configure(output: followRequestsModuleOutput, navigationController: viewController?.navigationController)
         viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
 }

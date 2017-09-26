@@ -5,6 +5,18 @@
 
 import Foundation
 
-protocol UsersListAPI: UsersListProcessorAPI {
+protocol UsersListAPI {
     func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
+}
+
+extension UsersListAPI {
+    
+    func getUsersList(cursor: String?, limit: Int, skipCache: Bool, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        getUsersList(cursor: cursor, limit: limit) { response in
+            if skipCache && response.value?.isFromCache == true {
+                return
+            }
+            completion(response)
+        }
+    }
 }

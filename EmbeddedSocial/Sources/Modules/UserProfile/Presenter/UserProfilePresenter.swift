@@ -38,7 +38,9 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     init(userID: String? = nil, myProfileHolder: UserHolder) {
-        guard myProfileHolder.me != nil || userID != nil else { fatalError("Either userID or myProfileHolder must be supplied") }
+        guard myProfileHolder.me != nil || userID != nil else {
+            fatalError("Either userID or myProfileHolder must be supplied")
+        }
         
         self.userID = userID
         followersCount = 0
@@ -292,5 +294,12 @@ extension UserProfilePresenter: EditProfileModuleOutput {
         setUser(me) { [weak self] in
             self?.myProfileHolder?.me = $0
         }
+    }
+}
+
+extension UserProfilePresenter: FollowRequestsModuleOutput {
+    
+    func didAcceptFollowRequest() {
+        followersCount += 1
     }
 }

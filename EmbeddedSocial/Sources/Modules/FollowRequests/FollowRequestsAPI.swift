@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct FollowRequestsAPI: UsersListProcessorAPI {
+struct FollowRequestsAPI: UsersListAPI {
     private let activityService: ActivityService
     
     init(activityService: ActivityService) {

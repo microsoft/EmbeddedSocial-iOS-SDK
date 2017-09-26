@@ -9,21 +9,6 @@ protocol UsersListProcessorDelegate: class {
     func didUpdateListLoadingState(_ isLoading: Bool)
 }
 
-protocol UsersListProcessorAPI {
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
-}
-
-extension UsersListProcessorAPI {
-    func getUsersList(cursor: String?, limit: Int, skipCache: Bool, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        getUsersList(cursor: cursor, limit: limit) { response in
-            if skipCache && response.value?.isFromCache == true {
-                return
-            }
-            completion(response)
-        }
-    }
-}
-
 protocol UsersListProcessorType {
     var isLoadingList: Bool { get }
     
@@ -33,7 +18,7 @@ protocol UsersListProcessorType {
     
     func getNextListPage(completion: @escaping (Result<[User]>) -> Void)
     
-    func setAPI(_ api: UsersListProcessorAPI)
+    func setAPI(_ api: UsersListAPI)
     
     func reloadList(completion: @escaping (Result<[User]>) -> Void)
 }
@@ -43,7 +28,7 @@ class UsersListProcessor: UsersListProcessorType {
     
     weak var delegate: UsersListProcessorDelegate?
     
-    private var api: UsersListProcessorAPI
+    private var api: UsersListAPI
     private var pages: [UsersListPage] = []
     private var pendingPages: Set<String> = Set()
     
@@ -67,12 +52,12 @@ class UsersListProcessor: UsersListProcessorType {
     
     private let networkTracker: NetworkStatusMulticast
     
-    init(api: UsersListProcessorAPI, networkTracker: NetworkStatusMulticast = SocialPlus.shared.networkTracker) {
+    init(api: UsersListAPI, networkTracker: NetworkStatusMulticast = SocialPlus.shared.networkTracker) {
         self.api = api
         self.networkTracker = networkTracker
     }
     
-    func setAPI(_ api: UsersListProcessorAPI) {
+    func setAPI(_ api: UsersListAPI) {
         self.api = api
         resetLoadingState()
     }

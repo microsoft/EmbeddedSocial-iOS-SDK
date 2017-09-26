@@ -39,6 +39,17 @@ class UserProfileInteractorTests: XCTestCase {
         XCTAssertEqual(userService.getUserProfileCount, 1)
     }
     
+    func testThatItGetsCurrentUserProfile() {
+        // given
+        let credentials = CredentialsList(provider: .facebook, accessToken: UUID().uuidString, socialUID: UUID().uuidString)
+        
+        // when
+        sut.getMe(credentials: credentials) { _ in () }
+        
+        // then
+        XCTAssertEqual(userService.getMyProfileCount, 1)
+    }
+    
     func testThatItProcessesSocialRequest() {
         // given
         let user = User(visibility: ._public, followerStatus: .empty)
@@ -71,6 +82,11 @@ class UserProfileInteractorTests: XCTestCase {
     func testThatUserIsLoadedFromCache() {
         _ = sut.cachedUser(with: "")
         XCTAssertTrue(cache.firstIncoming_ofType_handle_Called)
+    }
+    
+    func testThatItBlocksUser() {
+        sut.block(user: User(), completion: { _ in () })
+        XCTAssertEqual(socialService.blockCount, 1)
     }
 }
 

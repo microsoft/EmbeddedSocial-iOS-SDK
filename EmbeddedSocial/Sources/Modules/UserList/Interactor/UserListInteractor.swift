@@ -20,13 +20,10 @@ class UserListInteractor: UserListInteractorInput {
         return listProcessor.listHasMoreItems
     }
     
-    init(api: UsersListAPI,
-         socialService: SocialServiceType,
-         networkTracker: NetworkStatusMulticast = SocialPlus.shared.networkTracker) {
-        
+    init(listProcessor: UsersListProcessorType, socialService: SocialServiceType) {
         self.socialService = socialService
-        listProcessor = UsersListProcessor(api: api, networkTracker: networkTracker)
-        listProcessor.delegate = self
+        self.listProcessor = listProcessor
+        self.listProcessor.delegate = self
     }
     
     func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void) {

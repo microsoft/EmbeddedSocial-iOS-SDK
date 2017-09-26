@@ -14,7 +14,7 @@ struct FollowRequestsConfigurator {
         viewController.title = L10n.FollowRequests.screenTitle.uppercased()
     }
     
-    func configure(navigationController: UINavigationController?) {
+    func configure(output: FollowRequestsModuleOutput?, navigationController: UINavigationController?) {
         let listProcessor = UsersListProcessor(api: FollowRequestsAPI(activityService: SocialService()))
         let interactor = FollowRequestsInteractor(listProcessor: listProcessor, activityService: SocialService())
         
@@ -26,6 +26,7 @@ struct FollowRequestsConfigurator {
         presenter.router = FollowRequestsRouter(navigationController: navigationController)
         presenter.interactor = interactor
         presenter.view = viewController
+        presenter.output = output
         
         interactor.output = presenter
         

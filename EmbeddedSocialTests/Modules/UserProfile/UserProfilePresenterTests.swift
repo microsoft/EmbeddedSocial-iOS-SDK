@@ -539,3 +539,19 @@ extension UserProfilePresenterTests {
         XCTAssertEqual(feedInput.refreshDataCount, 1)
     }
 }
+
+//MARK: FollowRequestsModuleOutput tests
+
+extension UserProfilePresenterTests {
+    
+    func testThatItUpdatesFollowersCountWhenFollowRequestIsAccepted() {
+        // given
+        let presenter = makeDefaultPresenter()
+        
+        // when
+        presenter.didAcceptFollowRequest()
+        
+        // then
+        XCTAssertEqual(view.setFollowersCount, 1)
+    }
+}
