@@ -10,41 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="7OX-so-UMG">
-            <objects>
-                <navigationController id="ghY-Wn-Lvg" sceneMemberID="viewController">
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="XD1-SD-WkJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="utA-eo-7pl" kind="relationship" relationship="rootViewController" id="wfz-5c-Dou"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7Ov-EM-Kaj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-759" y="152"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="pDK-2T-TqQ">
-            <objects>
-                <viewController id="utA-eo-7pl" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="iVk-op-swg"/>
-                        <viewControllerLayoutGuide type="bottom" id="f4X-WI-IRM"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="O4z-8p-bm0">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="icd-hy-wyS"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nSm-nT-vLT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="25" y="153"/>
-        </scene>
         <!--Side Menu View Controller-->
         <scene sceneID="Yei-wB-oMm">
             <objects>
