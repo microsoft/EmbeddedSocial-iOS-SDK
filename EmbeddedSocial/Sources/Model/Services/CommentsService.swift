@@ -230,9 +230,19 @@ class CommentsService: BaseService, CommentServiceProtocol {
                          success: @escaping ((Void) -> Void),
                          failure: @escaping Failure) {
         guard isNetworkReachable else {
-            cache.cacheOutgoing(command)
-            success()
-            return
+            let predicate =  PredicateBuilder().createCommentCommand(commentHandle: command.comment.commentHandle)
+            let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
+                                                         predicate: predicate,
+                                                         sortDescriptors: [Cache.createdAtSortDescriptor])
+            if !self.cache.fetchOutgoing(with: fetchOutgoingRequest).isEmpty {
+                self.cache.deleteOutgoing(with:predicate)
+                success()
+                return
+            } else {
+                cache.cacheOutgoing(command)
+                success()
+                return
+            }
         }
         
         let request = CommentsAPI.commentsDeleteCommentWithRequestBuilder(commentHandle: command.comment.commentHandle, authorization: authorization)
