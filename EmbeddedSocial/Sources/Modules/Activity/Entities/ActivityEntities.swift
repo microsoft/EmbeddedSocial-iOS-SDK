@@ -23,7 +23,7 @@ struct PagesListModel<Header, Item> {
     
     func range(forPage index: Int) -> CountableRange<Int> {
         let page = pages[index]
-        let startIndex = pages[..<index].reduce(0) { result, page in
+        let startIndex = pages[0..<index].reduce(0) { result, page in
             return result + page.count
         }
         return startIndex..<startIndex + page.count
