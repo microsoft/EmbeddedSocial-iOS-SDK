@@ -155,6 +155,10 @@ extension UserCompactView {
 
 }
 
-
+struct ListResponse<T> {
+    var items: [T] = []
+    var cursor: String? = nil
+    var isFromCache: Bool = false
+}
 
 
