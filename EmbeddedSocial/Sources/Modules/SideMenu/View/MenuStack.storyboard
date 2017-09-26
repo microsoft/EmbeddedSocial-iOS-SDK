@@ -27,10 +27,10 @@
             </objects>
             <point key="canvasLocation" x="-759" y="152"/>
         </scene>
-        <!--Navigation Stack Container-->
+        <!--View Controller-->
         <scene sceneID="pDK-2T-TqQ">
             <objects>
-                <viewController storyboardIdentifier="NavigationStackContainer" id="utA-eo-7pl" customClass="NavigationStackContainer" customModule="EmbeddedSocial" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="utA-eo-7pl" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iVk-op-swg"/>
                         <viewControllerLayoutGuide type="bottom" id="f4X-WI-IRM"/>

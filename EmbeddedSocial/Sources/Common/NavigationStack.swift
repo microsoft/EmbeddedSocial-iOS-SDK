@@ -32,7 +32,6 @@ protocol NavigationStackProtocol {
 public class NavigationStack: NavigationStackProtocol {
     
     private(set) var navigationController: UINavigationController
-//    private var container: NavigationStackContainer
     private var window: UIWindow
     private var menuStackController: MenuStackController!
     private var presentedModal: UIViewController?
@@ -81,13 +80,8 @@ public class NavigationStack: NavigationStackProtocol {
     init(window: UIWindow, menuViewController: UIViewController) {
         
         self.window = window
-        
-        // container for all View Controllers shown through framework
-        
-        NavigationStack.vc.view.backgroundColor = UIColor.white
-//        container = StoryboardScene.MenuStack.instantiateNavigationStackContainer()
-        // container is embedded into navigation controller
-        navigationController = UINavigationController(rootViewController: NavigationStack.vc)
+ 
+        navigationController = UINavigationController()
         
         menuStackController = MenuStackController(mainViewController: navigationController,
                                             leftMenuViewController: menuViewController)

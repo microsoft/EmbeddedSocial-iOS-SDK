@@ -205,15 +205,6 @@ enum StoryboardScene {
       return vc
     }
 
-    case navigationStackContainerScene = "NavigationStackContainer"
-    static func instantiateNavigationStackContainer() -> EmbeddedSocial.NavigationStackContainer {
-      guard let vc = StoryboardScene.MenuStack.navigationStackContainerScene.viewController() as? EmbeddedSocial.NavigationStackContainer
-      else {
-        fatalError("ViewController 'NavigationStackContainer' is not of the expected class EmbeddedSocial.NavigationStackContainer.")
-      }
-      return vc
-    }
-
     case sideMenuViewControllerScene = "SideMenuViewController"
     static func instantiateSideMenuViewController() -> EmbeddedSocial.SideMenuViewController {
       guard let vc = StoryboardScene.MenuStack.sideMenuViewControllerScene.viewController() as? EmbeddedSocial.SideMenuViewController
