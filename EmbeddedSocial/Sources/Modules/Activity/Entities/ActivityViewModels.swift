@@ -52,11 +52,11 @@ class ActivityItemViewModelBuilder {
 }
 
 class RequestItemViewModelBuilder {
-    static func build(from model: UserCompactView) -> ActivityItemViewModel {
+    static func build(from model: User) -> ActivityItemViewModel {
         let cellID = FollowRequestCell.reuseID
         let cellClass = FollowRequestCell.self
-        let profileImage = model.photoUrl
-        let profileName = model.getFullName()
+        let profileImage = model.photo?.getHandle()
+        let profileName = model.fullName
         
         return PendingRequestViewModel(cellID: cellID,
                                        cellClass: cellClass,

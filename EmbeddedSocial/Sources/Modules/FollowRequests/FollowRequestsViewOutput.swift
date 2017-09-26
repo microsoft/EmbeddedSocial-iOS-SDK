@@ -6,5 +6,15 @@
 import Foundation
 
 protocol FollowRequestsViewOutput: class {
+    func viewIsReady()
     
+    func onAccept(_ item: FollowRequestItem)
+    
+    func onReject(_ item: FollowRequestItem)
+    
+    func onReachingEndOfPage()
+    
+    func onItemSelected(_ item: FollowRequestItem)
+    
+    func onPullToRefresh()
 }

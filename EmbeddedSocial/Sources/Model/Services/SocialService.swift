@@ -5,8 +5,6 @@
 
 import Foundation
 
-typealias UserRequestListResult = Result<UsersListResponse>
-
 protocol SocialServiceType {
     func follow(user: User, completion: @escaping (Result<Void>) -> Void)
     
@@ -246,7 +244,7 @@ extension SocialService: ActivityService {
         }
     }
 
-    func approvePendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
+    func acceptPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
         
         let request = PostFollowerRequest()
         request.userHandle = handle

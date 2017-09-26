@@ -5,6 +5,6 @@
 
 import Foundation
 
-protocol UsersListAPI: UsersListProcessorAPI {
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
+protocol FollowRequestsInteractorOutput: class {
+    func didUpdateListLoadingState(_ isLoading: Bool)
 }

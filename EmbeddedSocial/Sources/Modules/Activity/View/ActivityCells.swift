@@ -103,17 +103,20 @@ class FollowRequestCell: ActivityBaseCell {
         return button
     }()
     
+    var isLoading = false {
+        didSet {
+            rejectButton.setEnabledUpdatingOpacity(!isLoading)
+            acceptButton.setEnabledUpdatingOpacity(!isLoading)
+        }
+    }
+    
     @objc func onAccept() {
-        backgroundColor = UIColor.gray
-        
         guard let path = indexPath(self) else { return }
         
         onAction?(path, .accept)
     }
     
     @objc func onReject() {
-        backgroundColor = UIColor.red
-        
         guard let path = indexPath(self) else { return }
         
         onAction?(path, .reject)

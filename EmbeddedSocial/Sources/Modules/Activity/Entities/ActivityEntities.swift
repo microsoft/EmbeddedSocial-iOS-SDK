@@ -12,8 +12,46 @@ struct SectionHeader {
 
 // MARK: Model
 
+struct PagesListModel<Header, Item> {
+    
+    var header: Header
+    var pages: [[Item]] = []
+    
+    var items: [Item] {
+        return pages.flatMap{ $0 }
+    }
+    
+    func range(forPage index: Int) -> CountableRange<Int> {
+        let page = pages[index]
+        let startIndex = pages[0..<index].reduce(0) { result, page in
+            return result + page.count
+        }
+        return startIndex..<startIndex + page.count
+    }
+    
+    mutating func removeItem(itemIndex: Int) {
+        
+        var indexes = 0
+        for (index, page) in pages.enumerated() {
+            
+            // page range
+            let range = indexes..<indexes + page.count
+            
+            // check for looking index in page
+            if range.contains(itemIndex) {
+                let indexInPage = itemIndex - range.startIndex
+                pages[index].remove(at: indexInPage)
+                break
+            }
+            
+            indexes += page.count
+        }
+        
+    }
+}
+
 enum ActivityItem {
-    case pendingRequest(UserCompactView)
+    case pendingRequest(User)
     case myActivity(ActivityView)
     case othersActivity(ActivityView)
 }
@@ -22,7 +60,7 @@ extension ActivityItem: Equatable {
     static func ==(lhs: ActivityItem, rhs: ActivityItem) -> Bool {
         switch (lhs, rhs) {
         case let (.pendingRequest(lhsRequest), .pendingRequest(rhsRequest)):
-            return lhsRequest.userHandle == rhsRequest.userHandle
+            return lhsRequest == rhsRequest
         case let (.myActivity(lhsMyActivity), .myActivity(rhsMyActivity)):
             return lhsMyActivity.activityHandle == rhsMyActivity.activityHandle
         case let (.othersActivity(lhsOthersActivity), .othersActivity(rhsOthersActivity)):
@@ -40,9 +78,9 @@ extension ActivityItem: Equatable {
 // Helpers
 
 enum Change<T> {
-    case Insertion(items: [T])
-    case Deletion(items: [T])
-    case Update(items: [T])
+    case insertion([T])
+    case deletion([T])
+    case update([T])
 }
 
 class CellConfigurator {
@@ -113,18 +151,6 @@ class CellConfigurator {
     
 }
 
-extension PageModel: Hashable {
-    
-    var hashValue: Int {
-        return uid.hashValue
-    }
-    
-    static func ==(lhs: PageModel<T>, rhs: PageModel<T>) -> Bool {
-        return lhs.uid == rhs.uid
-    }
-    
-}
-
 enum ActivityError: Int, Error {
     case notParsable
     case noData
@@ -132,19 +158,14 @@ enum ActivityError: Int, Error {
     case loaderNotFound
 }
 
-
 extension ActivityView {
-
     func createdTimeAgo() -> String? {
         guard let date = self.createdTime else { return nil }
         return DateFormatterTool.timeAgo(since: date)
     }
-    
 }
 
-
 extension UserCompactView {
-    
     func getFullName() -> String? {
         
         guard let firstName = self.firstName, let lastName = self.lastName else {
@@ -152,7 +173,6 @@ extension UserCompactView {
         }
         return String(format: "%@ %@", firstName, lastName)
     }
-
 }
 
 struct ListResponse<T> {
@@ -160,5 +180,4 @@ struct ListResponse<T> {
     var cursor: String? = nil
     var isFromCache: Bool = false
 }
-
 

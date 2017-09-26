@@ -91,9 +91,7 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
     }
     
     func isReachingEndOfContent(scrollView: UIScrollView) -> Bool {
-        let contentLeft = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height
-        let cellsLeft = contentLeft / cellHeight
-        return cellsLeft < CGFloat(Constants.UserList.pageSize) / 2.0
+        return scrollView.isReachingEndOfContent(cellHeight: cellHeight, cellsPerPage: Constants.UserList.pageSize)
     }
     
     func removeUser(_ user: User) {

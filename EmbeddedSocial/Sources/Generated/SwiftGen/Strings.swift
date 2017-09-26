@@ -72,6 +72,39 @@ enum L10n {
       }
     }
 
+    enum Sections {
+
+      enum My {
+        /// RECENT ACTIVITY
+        static let title = L10n.tr("Localizable", "activity.sections.my.title")
+      }
+
+      enum Others {
+        /// RECENT ACTIVITY
+        static let title = L10n.tr("Localizable", "activity.sections.others.title")
+      }
+
+      enum Pending {
+        /// NEW FOLLOW REQUESTS
+        static let title = L10n.tr("Localizable", "activity.sections.pending.title")
+      }
+    }
+
+    enum Tabs {
+      /// You
+      static let myTitle = L10n.tr("Localizable", "activity.tabs.my_title")
+      /// Following
+      static let othersTitle = L10n.tr("Localizable", "activity.tabs.others_title")
+    }
+
+    enum Views {
+
+      enum Main {
+        /// Activity Feed
+        static let title = L10n.tr("Localizable", "activity.views.main.title")
+      }
+    }
+
     enum You {
       /// %@ replied to your comment "%@".
       static func childComment(_ p1: String, _ p2: String) -> String {
@@ -256,6 +289,8 @@ enum L10n {
   }
 
   enum FollowRequests {
+    /// No follow requests to show.
+    static let noDataText = L10n.tr("Localizable", "follow_requests.no_data_text")
     /// New follow requests
     static let screenTitle = L10n.tr("Localizable", "follow_requests.screen_title")
   }
