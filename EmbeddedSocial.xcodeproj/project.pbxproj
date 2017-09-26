@@ -640,6 +640,7 @@
 		88C6825C1F7A4DFD004BD291 /* FollowRequestsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C6825B1F7A4DFD004BD291 /* FollowRequestsRouter.swift */; };
 		88C6825F1F7A4E21004BD291 /* FollowRequestsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C6825E1F7A4E21004BD291 /* FollowRequestsConfigurator.swift */; };
 		88C682611F7A5292004BD291 /* FollowRequestsDataDisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C682601F7A5292004BD291 /* FollowRequestsDataDisplayManager.swift */; };
+		88C682631F7A6468004BD291 /* ActivityFeedProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C682621F7A6468004BD291 /* ActivityFeedProcessor.swift */; };
 		88D1230C1F73AA9F001523D1 /* OutgoingCommandsUploadStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D1230B1F73AA9F001523D1 /* OutgoingCommandsUploadStrategy.swift */; };
 		88D1230E1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D1230D1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift */; };
 		88D123131F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D123121F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift */; };
@@ -1627,6 +1628,7 @@
 		88C6825B1F7A4DFD004BD291 /* FollowRequestsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowRequestsRouter.swift; sourceTree = "<group>"; };
 		88C6825E1F7A4E21004BD291 /* FollowRequestsConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowRequestsConfigurator.swift; sourceTree = "<group>"; };
 		88C682601F7A5292004BD291 /* FollowRequestsDataDisplayManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowRequestsDataDisplayManager.swift; sourceTree = "<group>"; };
+		88C682621F7A6468004BD291 /* ActivityFeedProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityFeedProcessor.swift; sourceTree = "<group>"; };
 		88D1230B1F73AA9F001523D1 /* OutgoingCommandsUploadStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingCommandsUploadStrategy.swift; sourceTree = "<group>"; };
 		88D1230D1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchOutgoingCommandsOperation.swift; sourceTree = "<group>"; };
 		88D123121F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingCommandsRelatedHandleUpdater.swift; sourceTree = "<group>"; };
@@ -2408,6 +2410,7 @@
 		881355991F680DAC009299D4 /* ResponseProcessors */ = {
 			isa = PBXGroup;
 			children = (
+				88C682621F7A6468004BD291 /* ActivityFeedProcessor.swift */,
 				9C683AC31F5F09E70087925E /* FeedResponseParser.swift */,
 				881355A01F682EFC009299D4 /* MyBlockedUsersResponseProcessor.swift */,
 				8813559E1F680DDE009299D4 /* MyFollowingResponseProcessor.swift */,
@@ -5889,6 +5892,7 @@
 				88D8CCB21F31CA680032FB2B /* UserListItemsBuilder.swift in Sources */,
 				88D1230E1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift in Sources */,
 				93AC65AA1F3E05C000FE5A3A /* CommentsService.swift in Sources */,
+				88C682631F7A6468004BD291 /* ActivityFeedProcessor.swift in Sources */,
 				88580C321F2213AB00C1CBAF /* CreateAccountConfigurator.swift in Sources */,
 				9C2D9C0C1F4AF3EE001514C3 /* PopularModuleRouter.swift in Sources */,
 				885E03F41F6C2A1D00D6EBD8 /* ReplyCommand.swift in Sources */,
