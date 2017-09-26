@@ -78,9 +78,9 @@ extension ActivityItem: Equatable {
 // Helpers
 
 enum Change<T> {
-    case Insertion(items: [T])
-    case Deletion(items: [T])
-    case Update(items: [T])
+    case insertion([T])
+    case deletion([T])
+    case update([T])
 }
 
 class CellConfigurator {

@@ -10,7 +10,8 @@ protocol ActivityViewInput: class {
     func registerCell(cell: UITableViewCell.Type, id: String)
     func showError(_ error: Error)
     func addNewItems(indexes: [IndexPath])
-    func removeItem(indexes: [IndexPath])
+    func removeItems(indexes: [IndexPath])
+    func reloadItems(indexes: [IndexPath])
     func reloadItems()
     func switchTab(to index: Int)
 }
@@ -100,13 +101,19 @@ extension ActivityViewController: ActivityViewInput {
         tableView.register(cell, forCellReuseIdentifier: id)
     }
     
+    func reloadItems(indexes: [IndexPath]) {
+        tableView.beginUpdates()
+        tableView.reloadRows(at: indexes, with: .fade)
+        tableView.endUpdates()
+    }
+    
     func addNewItems(indexes: [IndexPath]) {
         tableView.beginUpdates()
         tableView.insertRows(at: indexes, with: .fade)
         tableView.endUpdates()
     }
     
-    func removeItem(indexes: [IndexPath]) {
+    func removeItems(indexes: [IndexPath]) {
         tableView.beginUpdates()
         tableView.deleteRows(at: indexes, with: .fade)
         tableView.endUpdates()

@@ -96,18 +96,31 @@ class ActivityPresenter {
 
 extension ActivityPresenter: DataSourceDelegate {
     
+    func didChangeItems(change: Change<IndexPath>, context: DataSourceContext) {
+    
+        guard state == context.state else {
+            return
+        }
+        
+        switch change {
+        case let .update(items):
+            view.reloadItems(indexes: items)
+        case let .insertion(items):
+            view.addNewItems(indexes: items)
+        case let .deletion(items):
+            view.removeItems(indexes: items)
+        }
+    }
+    
     func didFail(error: Error) {
         Logger.log(error, event: .veryImportant)
     }
     
     func didLoad(indexPaths: [IndexPath], context: DataSourceContext) {
-        
         guard state == context.state else {
             return
         }
-        view.addNewItems(indexes: indexPaths)
     }
-
 }
 
 extension ActivityPresenter: ActivityModuleInput {

@@ -50,7 +50,7 @@ class Action {
         
         // notify view
         let indexPath = IndexPath(row: index, section: dataSource.context.index)
-        presenter?.view.removeItem(indexes: [indexPath])
+        dataSource.delegate?.didChangeItems(change: .deletion([indexPath]), context: dataSource.context)
     }
 }
 

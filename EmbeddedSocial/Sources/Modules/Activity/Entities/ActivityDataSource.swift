@@ -9,7 +9,7 @@ typealias DataSourceContext = (state: ActivityPresenter.State, index: Int)
 
 protocol DataSourceDelegate {
     func didFail(error: Error)
-    func didLoad(indexPaths: [IndexPath], context: DataSourceContext)
+    func didChangeItems(change: Change<IndexPath>, context: DataSourceContext)
 }
 
 class DataSourceBuilder {
@@ -78,6 +78,7 @@ class DataSource {
     }
 }
 
+// TODO: remake via generic
 class MyPendingRequests: DataSource {
     
     private func processResponse(_ result: UserRequestListResult, _ page: Int) {
@@ -89,17 +90,25 @@ class MyPendingRequests: DataSource {
             let items = list.users.map { ActivityItem.pendingRequest($0) }
             
             // replace page with new data, probaby from cache
-            if section.pages.indices.contains(page) {
-                section.pages[page] = items
-            } else {
+            let isNewData = (section.pages.indices.contains(page) == false)
+            
+            if isNewData {
                 section.pages.insert(items, at: page)
+            } else {
+                section.pages[page] = items
             }
-        
-            let indexPaths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
-            self.delegate?.didLoad(indexPaths: indexPaths, context: self.context)
+            
+            // make paths for inserted items
+            let paths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
+            if isNewData {
+                delegate?.didChangeItems(change: .insertion(paths), context: context)
+            } else {
+                delegate?.didChangeItems(change: .update(paths), context: context)
+            }
         }
     }
     
+
     override func load() {
         section.pages = []
         interactor.loadPendingRequestItems { [weak self] (result) in
@@ -116,6 +125,7 @@ class MyPendingRequests: DataSource {
     
 }
 
+// TODO: remake via generic
 class MyActivities: DataSource {
     
     private func processResponse(_ result: ActivityItemListResult, _ page: Int) {
@@ -127,15 +137,21 @@ class MyActivities: DataSource {
             let items = models.items.map { ActivityItem.myActivity($0) }
         
             // replace page with new data, probaby from cache
-            if section.pages.indices.contains(page) {
-                section.pages[page] = items
-            } else {
+            let isNewData = (section.pages.indices.contains(page) == false)
+            
+            if isNewData {
                 section.pages.insert(items, at: page)
+            } else {
+                section.pages[page] = items
             }
             
             // make paths for inserted items
-            let indexPaths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
-            self.delegate?.didLoad(indexPaths: indexPaths, context: self.context)
+            let paths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
+            if isNewData {
+                delegate?.didChangeItems(change: .insertion(paths), context: context)
+            } else {
+                delegate?.didChangeItems(change: .update(paths), context: context)
+            }
         }
     }
     
@@ -166,15 +182,21 @@ class OthersActivties: DataSource {
             let items = models.items.map { ActivityItem.othersActivity($0) }
             
             // replace page with new data, probaby from cache
-            if section.pages.indices.contains(page) {
-                section.pages[page] = items
-            } else {
+            let isNewData = (section.pages.indices.contains(page) == false)
+            
+            if isNewData {
                 section.pages.insert(items, at: page)
+            } else {
+                section.pages[page] = items
             }
             
             // make paths for inserted items
-            let indexPaths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
-            self.delegate?.didLoad(indexPaths: indexPaths, context: self.context)
+            let paths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
+            if isNewData {
+                delegate?.didChangeItems(change: .insertion(paths), context: context)
+            } else {
+                delegate?.didChangeItems(change: .update(paths), context: context)
+            }
         }
     }
     
