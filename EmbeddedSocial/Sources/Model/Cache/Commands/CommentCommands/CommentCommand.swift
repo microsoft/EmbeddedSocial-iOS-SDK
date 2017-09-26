@@ -19,7 +19,7 @@ class CommentCommand: OutgoingCommand {
         super.init(json: json)
     }
     
-    required init(comment: Comment) {
+    init(comment: Comment) {
         self.comment = comment
         super.init(json: [:])!
     }

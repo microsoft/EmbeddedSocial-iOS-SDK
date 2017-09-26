@@ -145,7 +145,8 @@ extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
     func commentActionCommands() -> NSPredicate {
         let commands: [CommentCommand.Type] = [
             UnlikeCommentCommand.self,
-            LikeCommentCommand.self
+            LikeCommentCommand.self,
+            ReportCommentCommand.self
         ]
         let typeIDs = commands.map { $0.typeIdentifier }
         return NSPredicate(format: "typeid IN %@", typeIDs)

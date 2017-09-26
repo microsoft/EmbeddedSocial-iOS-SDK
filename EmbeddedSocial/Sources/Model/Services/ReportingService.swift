@@ -42,18 +42,15 @@ final class ReportingService: BaseService, ReportingServiceType {
     }
     
     func report(comment: Comment, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
-        let command = ReportCommentCommand(comment: comment)
-        command.reportReason = reason
-        
-        let request = PostReportRequest()
-        request.reason = PostReportRequest.Reason(rawValue: reason.rawValue)
+        let command = ReportCommentCommand(comment: comment, reportReason: reason)
         
         guard isNetworkReachable else {
             cache.cacheOutgoing(command)
+            completion(.success())
             return
         }
         
-        execute(command: command, request: request, completion: completion)
+        execute(command: command, completion: completion)
     }
     
     func reportReply(replyID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
@@ -75,13 +72,10 @@ final class ReportingService: BaseService, ReportingServiceType {
     }
     
     private func execute(command: ReportCommentCommand,
-                         request: PostReportRequest,
                          completion: @escaping (Result<Void>) -> Void) {
-        guard isNetworkReachable else {
-            cache.cacheOutgoing(command)
-            completion(.success())
-            return
-        }
+        
+        let request = PostReportRequest()
+        request.reason = PostReportRequest.Reason(rawValue: command.reportReason.rawValue)
         
         ReportingAPI.commentReportsPostReport(commentHandle: command.comment.commentHandle, postReportRequest: request, authorization: authorization) { (response, error) in
             if error == nil {
