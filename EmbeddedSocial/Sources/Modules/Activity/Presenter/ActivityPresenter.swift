@@ -90,7 +90,7 @@ class ActivityPresenter {
     private func onStateDidChange() {
         // load/update feed
         view.reloadItems()
-        loadMore()
+        loadAll()
     }
 }
 
@@ -98,9 +98,11 @@ extension ActivityPresenter: DataSourceDelegate {
     
     func didChangeItems(change: Change<IndexPath>, context: DataSourceContext) {
     
-//        guard state == context.state else {
-//            return
-//        }
+        guard state == context.state else {
+            return
+        }
+        
+        Logger.log(change, context)
         
         switch change {
         case let .update(items):

@@ -75,7 +75,7 @@ class DataSource {
     
     func process(items: [ActivityItem], page: Int) {
         // replace page with new data, probaby from cache
-        let isNewData = (section.pages.indices.contains(page) == false)
+        let isNewData = (section.pages.count == 0 || section.pages.indices.contains(page) == false)
         
         if isNewData {
             // inserting new page
@@ -86,14 +86,14 @@ class DataSource {
             
         } else {
             
-            let dataNeedsMerging = (section.pages[page].count != items.count)
+            let needInsertingNewRows = (section.pages[page].count != items.count)
             
             // replacing items for existing page
             section.pages[page] = items
             
             let paths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
             
-            if dataNeedsMerging {
+            if needInsertingNewRows {
                 delegate?.didChangeItems(change: .deletion(paths), context: context)
                 delegate?.didChangeItems(change: .insertion(paths), context: context)
             } else {
