@@ -230,10 +230,28 @@ class CommentsService: BaseService, CommentServiceProtocol {
                          success: @escaping ((Void) -> Void),
                          failure: @escaping Failure) {
         guard isNetworkReachable else {
+            
+            let fetchIncomingRequest = CacheFetchRequest(resultType: FeedResponseCommentView.self, page: nil, predicate: nil, sortDescriptors: nil)
+            let incomingFeed = self.cache.fetchIncoming(with: fetchIncomingRequest)
+            for feedResponse in incomingFeed {
+                guard let data = feedResponse.data else {
+                    break
+                }
+                
+                if let index = data.index(where: { $0.commentHandle == command.comment.commentHandle }) {
+                    feedResponse.data?.remove(at: index)
+                    self.cache.deleteIncoming(with: PredicateBuilder().predicate(typeID: "fetch_replies-\(command.comment.commentHandle)"))
+//                    self.cache.cacheIncoming(feedResponse)
+                }
+            }
+            
+            
             let predicate =  PredicateBuilder().createCommentCommand(commentHandle: command.comment.commentHandle)
             let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
                                                          predicate: predicate,
                                                          sortDescriptors: [Cache.createdAtSortDescriptor])
+            
+            
             if !self.cache.fetchOutgoing(with: fetchOutgoingRequest).isEmpty {
                 self.cache.deleteOutgoing(with:predicate)
                 success()
