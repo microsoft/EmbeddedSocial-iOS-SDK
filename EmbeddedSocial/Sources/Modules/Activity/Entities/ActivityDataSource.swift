@@ -16,7 +16,7 @@ class DataSourceBuilder {
     static func buildPendingRequestsDataSource(interactor: ActivityInteractorInput,
                                                delegate: DataSourceDelegate,
                                                context: DataSourceContext) -> MyPendingRequests {
-        let header = SectionHeader(name: "Pending requests", identifier: "")
+        let header = SectionHeader(name: L10n.Activity.Sections.Pending.title, identifier: "")
         let section = Section(header: header, pages: [])
         
         return MyPendingRequests(interactor: interactor,
@@ -28,7 +28,7 @@ class DataSourceBuilder {
     static func buildMyActivitiesDataSource(interactor: ActivityInteractorInput,
                                                     delegate: DataSourceDelegate,
                                                     context: DataSourceContext) -> MyActivities {
-        let header = SectionHeader(name: "My followings activity", identifier: "")
+        let header = SectionHeader(name: L10n.Activity.Sections.My.title, identifier: "")
         let section = Section(header: header, pages: [])
         
         return MyActivities(interactor: interactor,
@@ -40,7 +40,7 @@ class DataSourceBuilder {
     static func buildOthersActivitiesDataSource(interactor: ActivityInteractorInput,
                                                     delegate: DataSourceDelegate,
                                                     context: DataSourceContext) -> OthersActivties {
-        let header = SectionHeader(name: "Others activities", identifier: "")
+        let header = SectionHeader(name: L10n.Activity.Sections.Others.title, identifier: "")
         let section = Section(header: header, pages: [])
         
         return OthersActivties(interactor: interactor,
