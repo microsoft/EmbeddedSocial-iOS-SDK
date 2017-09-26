@@ -137,6 +137,13 @@
 "suggested_users.screen_title" = "Suggested users";
 "suggested_users.no_data_text" = "No suggested users to show.";
 
+"activity.views.main.title" = "Activity Feed";
+"activity.sections.pending.title" = "NEW FOLLOW REQUESTS";
+"activity.sections.my.title" = "RECENT ACTIVITY";
+"activity.sections.others.title" = "RECENT ACTIVITY";
+"activity.tabs.my_title" = "You";
+"activity.tabs.others_title" = "Following";
+
 "activity.you.following" = "%@ started following you.";
 "activity.you.mention_topic" = "%@ mentioned you in a topic \"%@\".";
 "activity.you.mention_comment" = "%@ mentioned you in a comment \"%@\".";

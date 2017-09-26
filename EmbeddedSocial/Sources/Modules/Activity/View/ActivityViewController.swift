@@ -10,7 +10,8 @@ protocol ActivityViewInput: class {
     func registerCell(cell: UITableViewCell.Type, id: String)
     func showError(_ error: Error)
     func addNewItems(indexes: [IndexPath])
-    func removeItem(indexes: [IndexPath])
+    func removeItems(indexes: [IndexPath])
+    func reloadItems(indexes: [IndexPath])
     func reloadItems()
     func switchTab(to index: Int)
 }
@@ -30,7 +31,6 @@ protocol ActivityViewOutput: class {
 }
 
 class ActivityViewController: UIViewController {
-    
     struct Style {
         static let cellSize = CGFloat(80)
     }
@@ -50,6 +50,8 @@ class ActivityViewController: UIViewController {
     }
     
     private func setup() {
+        
+        title = "Activity Feed"
         
         // Appearance
         tableView.tableFooterView = UIView()
@@ -74,8 +76,11 @@ class ActivityViewController: UIViewController {
     
     @objc private func didPullRefresh() {
         output.loadAll()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.refreshControl.endRefreshing()
+        }
     }
-    
 }
 
 extension ActivityViewController: ActivityViewInput {
@@ -100,22 +105,26 @@ extension ActivityViewController: ActivityViewInput {
         tableView.register(cell, forCellReuseIdentifier: id)
     }
     
+    func reloadItems(indexes: [IndexPath]) {
+        tableView.beginUpdates()
+        tableView.reloadRows(at: indexes, with: .fade)
+        tableView.endUpdates()
+    }
+    
     func addNewItems(indexes: [IndexPath]) {
         tableView.beginUpdates()
         tableView.insertRows(at: indexes, with: .fade)
         tableView.endUpdates()
     }
     
-    func removeItem(indexes: [IndexPath]) {
+    func removeItems(indexes: [IndexPath]) {
         tableView.beginUpdates()
         tableView.deleteRows(at: indexes, with: .fade)
         tableView.endUpdates()
     }
-    
 }
 
 extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return Style.cellSize
     }
@@ -133,7 +142,6 @@ extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let identifier = output.cellIdentifier(for: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
         output.configure(cell, for: tableView, with: indexPath)
