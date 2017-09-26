@@ -13,6 +13,7 @@ protocol DataSourceDelegate {
 }
 
 class DataSourceBuilder {
+    
     static func buildPendingRequestsDataSource(interactor: ActivityInteractorInput,
                                                delegate: DataSourceDelegate,
                                                context: DataSourceContext) -> MyPendingRequests {
@@ -54,6 +55,7 @@ class DataSourceBuilder {
 
 // TODO: remake via generics
 class DataSource {
+    
     weak var interactor: ActivityInteractorInput!
     var section: Section
     var delegate: DataSourceDelegate?
@@ -100,10 +102,6 @@ class DataSource {
                 delegate?.didChangeItems(change: .update(paths), context: context)
             }
         }
-    }
-    
-    deinit {
-        Logger.log(self)
     }
 }
 
