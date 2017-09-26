@@ -28,7 +28,7 @@ enum CommentsServiceError: Error {
 protocol CommentServiceProtocol {
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, cachedResult: @escaping CommentFetchResultHandler, resultHandler: @escaping CommentFetchResultHandler)
     func comment(commentHandle: String, cachedResult: @escaping CommentHandler, success: @escaping CommentHandler, failure: @escaping Failure)
-    func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure)
+    func postComment(comment: Comment, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure)
     func deleteComment(commentHandle: String, completion: @escaping ((Result<Void>) -> Void))
 }
 
@@ -90,7 +90,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
     }
     
     private func cachedOutgoingComment(with handle: String) -> Comment? {
-        let p = PredicateBuilder.createCommentCommand(commentHandle: handle)
+        let p = PredicateBuilder().createCommentCommand(commentHandle: handle)
         
         let cachedCommand = cache.firstOutgoing(ofType: OutgoingCommand.self,
                                                 predicate: p,
@@ -100,21 +100,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
     }
     
     private func cachedIncomingComment(key: String) -> Comment? {
-        let p = PredicateBuilder.predicate(typeID: key)
+        let p = PredicateBuilder().predicate(typeID: key)
         let cachedCommentView = cache.firstIncoming(ofType: CommentView.self, predicate: p, sortDescriptors: nil)
         return cachedCommentView != nil ? convert(commentView: cachedCommentView!) : nil
-    }
-    
-    private func createCommentFromRequest(request: PostCommentRequest) -> Comment {
-        let comment = Comment()
-        comment.text = request.text
-        comment.commentHandle = request.handle
-        comment.topicHandle = request.relatedHandle
-        comment.userHandle = SocialPlus.shared.me?.uid
-        comment.photoUrl = SocialPlus.shared.me?.photo?.url
-        comment.firstName = SocialPlus.shared.me?.firstName
-        comment.lastName = SocialPlus.shared.me?.lastName
-        return comment
     }
     
     func fetchComments(topicHandle: String,
@@ -130,7 +118,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         )
         
         let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                                     predicate: PredicateBuilder.allCreateCommentCommands(),
+                                                     predicate: PredicateBuilder().allCreateCommentCommands(),
                                                      sortDescriptors: [Cache.createdAtSortDescriptor])
         
         cache.fetchOutgoing(with: fetchOutgoingRequest) { [weak self] commands in
@@ -151,7 +139,11 @@ class CommentsService: BaseService, CommentServiceProtocol {
             cachedResult(result)
         }
         
+        var result = CommentFetchResult()
+        
         guard isNetworkReachable else {
+            result.error = CommentsServiceError.failedToFetch(message: L10n.Error.unknown)
+            resultHandler(result)
             return
         }
         
@@ -167,7 +159,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 strongSelf.cache.deleteIncoming(with: PredicateBuilder().predicate(typeID: typeID))
             }
             
-            var result = CommentFetchResult()
             
             if let body = response?.body, let data = body.data {
                 body.handle = builder.URLString
@@ -185,13 +176,10 @@ class CommentsService: BaseService, CommentServiceProtocol {
         }
     }
     
-    func postComment(topicHandle: String,
-                     request: PostCommentRequest,
+    func postComment(comment: Comment,
                      photo: Photo?,
                      resultHandler: @escaping CommentPostResultHandler,
                      failure: @escaping Failure) {
-        
-        let comment = Comment(request: request, photo: photo, topicHandle: topicHandle)
         let commentCommand = CreateCommentCommand(comment: comment)
         
         guard let image = photo?.image else {
@@ -201,7 +189,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
         imagesService.uploadCommentImage(image, commentHandle: comment.commentHandle) { [weak self] result in
             if let handle = result.value {
-                commentCommand.comment.mediaHandle = handle
+                commentCommand.setImageHandle(handle)
                 self?.execute(command: commentCommand, resultHandler: resultHandler, failure: failure)
             } else if self?.errorHandler.canHandle(result.error) == true {
                 self?.errorHandler.handle(result.error)
@@ -209,6 +197,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 failure(result.error ?? APIError.unknown)
             }
         }
+        
     }
     
     private func execute(command: CreateCommentCommand,
@@ -243,13 +232,11 @@ class CommentsService: BaseService, CommentServiceProtocol {
     private func convert(commentView: CommentView) -> Comment {
         var comment = Comment()
         comment.commentHandle = commentView.commentHandle!
-        comment.firstName = commentView.user?.firstName
-        comment.lastName = commentView.user?.lastName
-        comment.photoUrl = commentView.user?.photoUrl
-        comment.userHandle = commentView.user?.userHandle
+        comment.user = User(compactView: commentView.user!)
         comment.createdTime = commentView.createdTime
         comment.text = commentView.text
         comment.mediaUrl = commentView.blobUrl
+        comment.mediaHandle = commentView.blobHandle
         comment.topicHandle = commentView.topicHandle
         comment.totalLikes = commentView.totalLikes ?? 0
         comment.liked = commentView.liked ?? false
@@ -264,7 +251,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
         let request = CacheFetchRequest(
             resultType: OutgoingCommand.self,
-            predicate: PredicateBuilder.commentActionCommands(for: commentView.commentHandle!),
+            predicate: PredicateBuilder().commentActionCommands(for: commentView.commentHandle!),
             sortDescriptors: [Cache.createdAtSortDescriptor]
         )
         

@@ -5,7 +5,13 @@
 
 import Foundation
 
+protocol OutgoingCommandsUploadStrategyDelegate: class {
+    func outgoingCommandsSubmissionDidFail(with error: Error)
+}
+
 protocol OutgoingCommandsUploadStrategyType {
+    weak var delegate: OutgoingCommandsUploadStrategyDelegate? { get set }
+    
     func restartSubmission()
     func cancelSubmission()
 }
@@ -14,13 +20,15 @@ final class OutgoingCommandsUploadStrategy: OutgoingCommandsUploadStrategyType {
     
     private let executionQueue: OperationQueue
     private let cache: CacheType
-    private let operationsBuilder: OutgoingCommandOperationsBuilderType.Type
-    private let predicateBuilder: OutgoingCommandsPredicateBuilder.Type
+    private let operationsBuilder: OutgoingCommandOperationsBuilderType
+    private let predicateBuilder: OutgoingCommandsPredicateBuilder
+    
+    weak var delegate: OutgoingCommandsUploadStrategyDelegate?
     
     init(cache: CacheType,
-         operationsBuilderType: OutgoingCommandOperationsBuilderType.Type,
+         operationsBuilderType: OutgoingCommandOperationsBuilderType,
          executionQueue: OperationQueue,
-         predicateBuilder: OutgoingCommandsPredicateBuilder.Type = PredicateBuilder.self) {
+         predicateBuilder: OutgoingCommandsPredicateBuilder = PredicateBuilder()) {
         
         self.cache = cache
         self.operationsBuilder = operationsBuilderType
@@ -52,7 +60,7 @@ final class OutgoingCommandsUploadStrategy: OutgoingCommandsUploadStrategyType {
     }
     
     private func fetchCommands(with predicate: NSPredicate, completion: @escaping ([OutgoingCommand]) -> Void) {
-        let fetchOperation = FetchOutgoingCommandsOperation(cache: cache, predicate: predicate)
+        let fetchOperation = operationsBuilder.fetchCommandsOperation(cache: cache, predicate: predicate)
         
         fetchOperation.completionBlock = {
             guard !fetchOperation.isCancelled else {
@@ -72,7 +80,6 @@ final class OutgoingCommandsUploadStrategy: OutgoingCommandsUploadStrategyType {
     }
     
     private func makeActionOperations(from commands: [OutgoingCommand]) -> [Operation] {
-        
         let operations = commands.flatMap { [weak self] command -> Operation? in
             let op = self?.operationsBuilder.operation(for: command)
             op?.completionBlock = {
@@ -80,12 +87,16 @@ final class OutgoingCommandsUploadStrategy: OutgoingCommandsUploadStrategyType {
                     return
                 }
                 
-                guard op?.error == nil else {
-                    self?.restartSubmission()
+                let error = op?.error
+                
+                guard error == nil else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self?.delegate?.outgoingCommandsSubmissionDidFail(with: error!)
+                    }
                     return
                 }
                 
-                let predicate = PredicateBuilder.predicate(for: command)
+                let predicate = self?.predicateBuilder.predicate(for: command) ?? NSPredicate()
                 self?.cache.deleteOutgoing(with: predicate)
             }
             return op
@@ -111,33 +122,38 @@ extension OutgoingCommandsUploadStrategy.Step {
     typealias Step = OutgoingCommandsUploadStrategy.Step
     
     static var images: Step {
-        return Step(predicate: PredicateBuilder.allImageCommands(), next: createTopics)
+        return Step(predicate: PredicateBuilder().allImageCommands(), next: createTopics)
     }
     
     static var createTopics: Step {
-        return Step(predicate: PredicateBuilder.createTopicCommands(), next: topicActions)
+        return Step(predicate: PredicateBuilder().createTopicCommands(), next: topicActions)
     }
     
     static var topicActions: Step {
-        return Step(predicate: PredicateBuilder.allTopicActionCommands(), next: createComments)
+        return Step(predicate: PredicateBuilder().allTopicActionCommands(), next: createComments)
     }
     
     static var createComments: Step {
-        return Step(predicate: PredicateBuilder.createCommentCommands(), next: commentActions)
+        return Step(predicate: PredicateBuilder().createCommentCommands(), next: commentActions)
     }
     
     static var commentActions: Step {
-        return Step(predicate: PredicateBuilder.commentActionCommands(), next: createReplies)
+        return Step(predicate: PredicateBuilder().commentActionCommands(), next: createReplies)
     }
     
     static var createReplies: Step {
-        return Step(predicate: PredicateBuilder.createReplyCommands(), next: replyActions)
+        return Step(predicate: PredicateBuilder().createReplyCommands(), next: replyActions)
     }
     
     static var replyActions: Step {
-        return Step(predicate: PredicateBuilder.replyActionCommands(), next: nil)
+        return Step(predicate: PredicateBuilder().replyActionCommands(), next: nil)
     }
 }
 
+extension OutgoingCommandsUploadStrategy.Step: Equatable {
+    static func ==(lhs: OutgoingCommandsUploadStrategy.Step, rhs: OutgoingCommandsUploadStrategy.Step) -> Bool {
+        return lhs.predicate == rhs.predicate && lhs.next == rhs.next
+    }
+}
 
 

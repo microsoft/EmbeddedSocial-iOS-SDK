@@ -32,6 +32,19 @@ class TopicCommand: OutgoingCommand {
         
     }
     
+    func apply(to feed: inout FeedFetchResult) {
+        var topics = feed.posts
+        
+        for (index, var topic) in topics.enumerated() {
+            if topic.topicHandle == self.topic.topicHandle {
+                apply(to: &topic)
+                topics[index] = topic
+            }
+        }
+        
+        feed.posts = topics
+    }
+    
     override func encodeToJSON() -> Any {
         return [
             "topic": topic.encodeToJSON(),
@@ -49,5 +62,24 @@ class TopicCommand: OutgoingCommand {
     
     override func setRelatedHandle(_ relatedHandle: String?) {
         topic.topicHandle = relatedHandle
+    }
+    
+    static var topicActionCommandTypes: [OutgoingCommand.Type] {
+        return [
+            UnlikeTopicCommand.self,
+            LikeTopicCommand.self,
+            PinTopicCommand.self,
+            UnpinTopicCommand.self
+        ]
+    }
+    
+    static var allTopicCommandTypes: [OutgoingCommand.Type] {
+        return [
+            UnlikeTopicCommand.self,
+            LikeTopicCommand.self,
+            PinTopicCommand.self,
+            UnpinTopicCommand.self,
+            CreateTopicCommand.self
+        ]
     }
 }

@@ -19,6 +19,7 @@ class CreatePostInteractor: CreatePostInteractorInput {
         topic.text = body
         topic.imageHandle = photo?.uid
         topic.imageUrl = photo?.url
+        topic.image = photo?.image
         topic.user = userHolder.me
         
         topicService?.postTopic(topic,

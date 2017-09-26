@@ -14,5 +14,20 @@ class CreateTopicCommandTests: XCTestCase {
         let sut = CreateTopicCommand(topic: topic)
         XCTAssertNil(sut.inverseCommand)
     }
+    
+    func testThatItAppliedChangesToFeed() {
+        // given
+        var feed = FeedFetchResult()
+        feed.posts = [Post(topicHandle: UUID().uuidString), Post(topicHandle: UUID().uuidString)]
+        
+        let sut = CreateTopicCommand(topic: Post(topicHandle: UUID().uuidString))
+        
+        // when
+        sut.apply(to: &feed)
+        
+        // then
+        XCTAssertEqual(feed.posts.count, 3)
+        XCTAssertEqual(feed.posts.first, sut.topic)
+    }
 }
 

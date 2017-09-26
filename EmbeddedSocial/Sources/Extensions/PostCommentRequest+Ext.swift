@@ -11,7 +11,7 @@ extension PostCommentRequest {
         
         text = comment.text
         
-        if let photoHandle = comment.photoHandle {
+        if let photoHandle = comment.mediaPhoto?.getHandle() {
             blobHandle = photoHandle
             blobType = .image
         }

@@ -48,4 +48,12 @@ class ImageCommand: OutgoingCommand {
     override func getHandle() -> String? {
         return photo.uid
     }
+    
+    static var allImageCommandTypes: [OutgoingCommand.Type] {
+        return [
+            CreateTopicImageCommand.self,
+            CreateCommentImageCommand.self,
+            UpdateUserImageCommand.self
+        ]
+    }
 }

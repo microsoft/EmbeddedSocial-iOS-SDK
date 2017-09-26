@@ -41,7 +41,7 @@ class EditProfileInteractorTests: XCTestCase {
         let photo = Photo()
         
         // when
-        sut.cachePhoto(Photo())
+        sut.cachePhoto(photo)
         
         // then
         XCTAssertTrue(imageCache.storePhotoCalled)

@@ -53,17 +53,17 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     }
     
     func configure(comment: Comment) {
-        userName.text = User.fullName(firstName: comment.firstName, lastName: comment.lastName)
+        userName.text = User.fullName(firstName: comment.user?.firstName, lastName: comment.user?.lastName)
         commentTextLabel.text = comment.text ?? ""
         likesCountButton.setTitle(L10n.Post.likesCount(Int(comment.totalLikes)), for: .normal)
         repliesCountButton.setTitle(L10n.Post.repliesCount(Int(comment.totalReplies)), for: .normal)
         
         postedTimeLabel.text = comment.createdTime == nil ? "" : formatter.shortStyle.string(from: comment.createdTime!, to: Date())!
         
-        if comment.photoUrl == nil {
+        if comment.user?.photo?.url == nil {
             userPhoto.image = UIImage(asset: Asset.userPhotoPlaceholder)
         } else {
-            userPhoto.setPhotoWithCaching(Photo(url: comment.photoUrl), placeholder: UIImage(asset: Asset.userPhotoPlaceholder))
+            userPhoto.setPhotoWithCaching(Photo(url: comment.user?.photo?.url), placeholder: UIImage(asset: Asset.userPhotoPlaceholder))
         }
         
         likeButton.isSelected = comment.liked
