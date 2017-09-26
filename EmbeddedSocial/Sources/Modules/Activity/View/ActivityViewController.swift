@@ -103,7 +103,7 @@ extension ActivityViewController: ActivityViewInput {
     
     func reloadItems(indexes: [IndexPath]) {
         tableView.beginUpdates()
-        tableView.reloadRows(at: indexes, with: .fade)
+        //tableView.reloadRows(at: indexes, with: .fade)
         tableView.endUpdates()
     }
     

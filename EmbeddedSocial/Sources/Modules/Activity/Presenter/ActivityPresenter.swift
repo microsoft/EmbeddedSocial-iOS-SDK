@@ -98,9 +98,9 @@ extension ActivityPresenter: DataSourceDelegate {
     
     func didChangeItems(change: Change<IndexPath>, context: DataSourceContext) {
     
-        guard state == context.state else {
-            return
-        }
+//        guard state == context.state else {
+//            return
+//        }
         
         switch change {
         case let .update(items):
@@ -124,15 +124,12 @@ extension ActivityPresenter: DataSourceDelegate {
 }
 
 extension ActivityPresenter: ActivityModuleInput {
-    
     func handleCellEvent(indexPath: IndexPath, event: ActivityCellEvent) {
-        
         let dataSource = dataSources[state]![indexPath.section]
         let item = dataSource.section.items[indexPath.item]
         let action = actionBuilder.build(from: item, with: event, dataSource: dataSource)
         action.execute()
     }
-    
 }
 
 extension ActivityPresenter: ActivityInteractorOutput {
@@ -193,6 +190,6 @@ extension ActivityPresenter: ActivityViewOutput {
     
     func viewIsReady() {
         registerCells()
-        loadMore()
+        loadAll()
     }
 }

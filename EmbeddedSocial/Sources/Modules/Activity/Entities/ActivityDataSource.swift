@@ -73,6 +73,35 @@ class DataSource {
         self.context = context
     }
     
+    func process(items: [ActivityItem], page: Int) {
+        // replace page with new data, probaby from cache
+        let isNewData = (section.pages.indices.contains(page) == false)
+        
+        if isNewData {
+            // inserting new page
+            section.pages.insert(items, at: page)
+            
+            let paths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
+            delegate?.didChangeItems(change: .insertion(paths), context: context)
+            
+        } else {
+            
+            let dataNeedsMerging = (section.pages[page].count != items.count)
+            
+            // replacing items for existing page
+            section.pages[page] = items
+            
+            let paths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
+            
+            if dataNeedsMerging {
+                delegate?.didChangeItems(change: .deletion(paths), context: context)
+                delegate?.didChangeItems(change: .insertion(paths), context: context)
+            } else {
+                delegate?.didChangeItems(change: .update(paths), context: context)
+            }
+        }
+    }
+    
     deinit {
         Logger.log(self)
     }
@@ -88,27 +117,10 @@ class MyPendingRequests: DataSource {
             self.delegate?.didFail(error: error)
         case let .success(list):
             let items = list.users.map { ActivityItem.pendingRequest($0) }
-            
-            // replace page with new data, probaby from cache
-            let isNewData = (section.pages.indices.contains(page) == false)
-            
-            if isNewData {
-                section.pages.insert(items, at: page)
-            } else {
-                section.pages[page] = items
-            }
-            
-            // make paths for inserted items
-            let paths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
-            if isNewData {
-                delegate?.didChangeItems(change: .insertion(paths), context: context)
-            } else {
-                delegate?.didChangeItems(change: .update(paths), context: context)
-            }
+            process(items: items, page: page)
         }
     }
     
-
     override func load() {
         section.pages = []
         interactor.loadPendingRequestItems { [weak self] (result) in
@@ -122,7 +134,6 @@ class MyPendingRequests: DataSource {
             self?.processResponse(result, nextPage)
         }
     }
-    
 }
 
 // TODO: remake via generic
@@ -135,23 +146,7 @@ class MyActivities: DataSource {
             self.delegate?.didFail(error: error)
         case let .success(models):
             let items = models.items.map { ActivityItem.myActivity($0) }
-        
-            // replace page with new data, probaby from cache
-            let isNewData = (section.pages.indices.contains(page) == false)
-            
-            if isNewData {
-                section.pages.insert(items, at: page)
-            } else {
-                section.pages[page] = items
-            }
-            
-            // make paths for inserted items
-            let paths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
-            if isNewData {
-                delegate?.didChangeItems(change: .insertion(paths), context: context)
-            } else {
-                delegate?.didChangeItems(change: .update(paths), context: context)
-            }
+            process(items: items, page: page)
         }
     }
     
@@ -181,22 +176,7 @@ class OthersActivties: DataSource {
         case let .success(models):
             let items = models.items.map { ActivityItem.othersActivity($0) }
             
-            // replace page with new data, probaby from cache
-            let isNewData = (section.pages.indices.contains(page) == false)
-            
-            if isNewData {
-                section.pages.insert(items, at: page)
-            } else {
-                section.pages[page] = items
-            }
-            
-            // make paths for inserted items
-            let paths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
-            if isNewData {
-                delegate?.didChangeItems(change: .insertion(paths), context: context)
-            } else {
-                delegate?.didChangeItems(change: .update(paths), context: context)
-            }
+            process(items: items, page: page)
         }
     }
     

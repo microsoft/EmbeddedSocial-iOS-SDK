@@ -78,16 +78,13 @@ extension ActivityInteractor: ActivityInteractorInput {
         }
         service.rejectPendingRequest(handle: handle, completion: completion)
     }
-
-    func loadAll() {
-        myActivitiesList = ActivitiesList()
-        othersActivitiesList = ActivitiesList()
-        pendingRequestsList = PendingRequestsList()
-    }
     
     func loadMyActivities(completion: ((ActivityItemListResult) -> Void)?) {
         myActivitiesList = ActivitiesList()
-        loadNextPageMyActivities(completion: completion)
+        loadNextPageMyActivities { [weak list = myActivitiesList] (result) in
+            list?.cursor = result.value?.cursor
+            completion?(result)
+        }
     }
     
     func loadNextPageMyActivities(completion: ((ActivityItemListResult) -> Void)?) {
@@ -99,11 +96,17 @@ extension ActivityInteractor: ActivityInteractorInput {
     
     func loadPendingRequestItems(completion: ((UserRequestListResult) -> Void)?) {
         pendingRequestsList = PendingRequestsList()
-        loadNextPagePendigRequestItems(completion: completion)
+        service.loadPendingsRequests(cursor: nil, limit: pendingRequestsList.limit) { [weak list = pendingRequestsList] (result) in
+            list?.cursor = result.value?.cursor
+            completion?(result)
+        }
     }
     
     func loadNextPagePendigRequestItems(completion: ((UserRequestListResult) -> Void)?) {
-        service.loadPendingsRequests(cursor: pendingRequestsList.cursor, limit: pendingRequestsList.limit) { [weak list = pendingRequestsList] (result) in
+        guard let cursor = pendingRequestsList.cursor  else {
+            return
+        }
+        service.loadPendingsRequests(cursor: cursor, limit: pendingRequestsList.limit) { [weak list = pendingRequestsList] (result) in
             list?.cursor = result.value?.cursor
             completion?(result)
         }
@@ -111,7 +114,10 @@ extension ActivityInteractor: ActivityInteractorInput {
     
     func loadOthersActivities(completion: ((ActivityItemListResult) -> Void)?) {
         othersActivitiesList = ActivitiesList()
-        loadNextPageOthersActivities(completion: completion)
+        service.loadOthersActivities(cursor: othersActivitiesList.cursor, limit: othersActivitiesList.limit) { [weak list = othersActivitiesList] (result) in
+            list?.cursor = result.value?.cursor
+            completion?(result)
+        }
     }
     
     func loadNextPageOthersActivities(completion: ((ActivityItemListResult) -> Void)?) {
