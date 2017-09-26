@@ -118,11 +118,9 @@ extension ActivityViewController: ActivityViewInput {
         tableView.deleteRows(at: indexes, with: .fade)
         tableView.endUpdates()
     }
-    
 }
 
 extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return Style.cellSize
     }
@@ -140,7 +138,6 @@ extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let identifier = output.cellIdentifier(for: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
         output.configure(cell, for: tableView, with: indexPath)
