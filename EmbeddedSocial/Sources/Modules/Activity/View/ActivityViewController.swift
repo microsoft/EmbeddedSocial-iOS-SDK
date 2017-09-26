@@ -31,7 +31,6 @@ protocol ActivityViewOutput: class {
 }
 
 class ActivityViewController: UIViewController {
-    
     struct Style {
         static let cellSize = CGFloat(80)
     }
@@ -51,6 +50,8 @@ class ActivityViewController: UIViewController {
     }
     
     private func setup() {
+        
+        title = "Activity Feed"
         
         // Appearance
         tableView.tableFooterView = UIView()
@@ -75,8 +76,11 @@ class ActivityViewController: UIViewController {
     
     @objc private func didPullRefresh() {
         output.loadAll()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.refreshControl.endRefreshing()
+        }
     }
-    
 }
 
 extension ActivityViewController: ActivityViewInput {

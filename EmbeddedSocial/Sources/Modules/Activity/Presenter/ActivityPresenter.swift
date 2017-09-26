@@ -95,14 +95,10 @@ class ActivityPresenter {
 }
 
 extension ActivityPresenter: DataSourceDelegate {
-    
     func didChangeItems(change: Change<IndexPath>, context: DataSourceContext) {
-    
         guard state == context.state else {
             return
         }
-        
-        Logger.log(change, context)
         
         switch change {
         case let .update(items):
@@ -115,7 +111,7 @@ extension ActivityPresenter: DataSourceDelegate {
     }
     
     func didFail(error: Error) {
-        Logger.log(error, event: .veryImportant)
+        view.showError(error)
     }
     
     func didLoad(indexPaths: [IndexPath], context: DataSourceContext) {
