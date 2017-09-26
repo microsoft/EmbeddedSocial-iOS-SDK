@@ -104,16 +104,12 @@ class FollowRequestCell: ActivityBaseCell {
     }()
     
     @objc func onAccept() {
-        backgroundColor = UIColor.gray
-        
         guard let path = indexPath(self) else { return }
         
         onAction?(path, .accept)
     }
     
     @objc func onReject() {
-        backgroundColor = UIColor.red
-        
         guard let path = indexPath(self) else { return }
         
         onAction?(path, .reject)
