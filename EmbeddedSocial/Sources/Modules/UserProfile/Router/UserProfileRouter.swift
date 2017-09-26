@@ -61,11 +61,15 @@ final class UserProfileRouter: UserProfileRouterInput {
         viewController?.navigationController?.present(navController, animated: true, completion: nil)
     }
     
-    func showMyMenu(_ addPostHandler: @escaping () -> Void) {
+    func showMyMenu(addPostHandler: @escaping () -> Void, followRequestsHandler: @escaping () -> Void) {
         guard let vc = viewController else {
             return
         }
-        let menu = UserProfileActionSheetBuilder.makeMyActionsSheet(viewController: vc, addPostHandler: addPostHandler)
+        let menu = UserProfileActionSheetBuilder.makeMyActionsSheet(
+            viewController: vc,
+            addPostHandler: addPostHandler,
+            followRequestsHandler: followRequestsHandler
+        )
         vc.present(menu, animated: true, completion: nil)
     }
     
@@ -88,5 +92,11 @@ final class UserProfileRouter: UserProfileRouterInput {
     
     func openLogin() {
         loginOpener?.openLogin(parentViewController: viewController?.navigationController)
+    }
+    
+    func openFollowRequests() {
+        let configurator = FollowRequestsConfigurator()
+        configurator.configure(navigationController: viewController?.navigationController)
+        viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
 }

@@ -189,7 +189,10 @@ final class UserProfilePresenter: UserProfileViewOutput {
                 reportHandler: { [weak self] in self?.router.openReport(user: user) }
             )
         } else if let me = me {
-            router.showMyMenu { [weak self] in self?.router.openCreatePost(user: me) }
+            router.showMyMenu(
+                addPostHandler: { [weak self] in self?.router.openCreatePost(user: me) },
+                followRequestsHandler: { [weak self] in self?.router.openFollowRequests() }
+            )
         }
     }
     

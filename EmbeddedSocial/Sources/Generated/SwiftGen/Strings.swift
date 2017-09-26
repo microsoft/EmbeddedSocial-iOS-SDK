@@ -255,6 +255,11 @@ enum L10n {
     static let userNotLoggedIn = L10n.tr("Localizable", "error.user_not_logged_in")
   }
 
+  enum FollowRequests {
+    /// New follow requests
+    static let screenTitle = L10n.tr("Localizable", "follow_requests.screen_title")
+  }
+
   enum Followers {
     /// Currently nobody is following you.
     static let noDataText = L10n.tr("Localizable", "followers.no_data_text")

@@ -137,6 +137,8 @@
 "suggested_users.screen_title" = "Suggested users";
 "suggested_users.no_data_text" = "No suggested users to show.";
 
+"follow_requests.screen_title" = "New follow requests";
+
 "activity.you.following" = "%@ started following you.";
 "activity.you.mention_topic" = "%@ mentioned you in a topic \"%@\".";
 "activity.you.mention_comment" = "%@ mentioned you in a comment \"%@\".";
@@ -166,5 +168,3 @@
 "activity.two_persons" = "%@ and %@";
 "activity.three_persons" = "%@, %@ and 1 other person";
 "activity.many_persons" = "%@, %@ and %d other people";
-
-
