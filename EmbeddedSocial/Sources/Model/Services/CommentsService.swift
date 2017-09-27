@@ -119,29 +119,27 @@ class CommentsService: BaseService, CommentServiceProtocol {
             cursor: cursor, limit: limit
         )
         
+        var result = CommentFetchResult()
+        
         let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
                                                      predicate: PredicateBuilder().allCreateCommentCommands(),
                                                      sortDescriptors: [Cache.createdAtSortDescriptor])
         
-        cache.fetchOutgoing(with: fetchOutgoingRequest) { [weak self] commands in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            let incomingFeed = strongSelf.cache.firstIncoming(ofType: FeedResponseCommentView.self,
-                                                              predicate: PredicateBuilder().predicate(handle: builder.URLString),
-                                                              sortDescriptors: nil)
-            
-            let incomingComments = incomingFeed?.data?.map(strongSelf.convert(commentView:)) ?? []
-            
-            let outgoingComments = commands.flatMap { ($0 as? CreateCommentCommand)?.comment }
-            
-            let result = CommentFetchResult(comments: outgoingComments + incomingComments, error: nil, cursor: incomingFeed?.cursor)
-            
-            cachedResult(result)
-        }
+        let commands = cache.fetchOutgoing(with: fetchOutgoingRequest)
+        let incomingFeed = self.cache.firstIncoming(ofType: FeedResponseCommentView.self,
+                                                          predicate: PredicateBuilder().predicate(handle: builder.URLString),
+                                                          sortDescriptors: nil)
         
-        var result = CommentFetchResult()
+        let incomingComments = incomingFeed?.data?.map(self.convert(commentView:)) ?? []
+        
+        let outgoingComments = commands.flatMap { ($0 as? CreateCommentCommand)?.comment }
+        
+        result.comments = outgoingComments + incomingComments
+        result.cursor = incomingFeed?.cursor
+        
+        cachedResult(result)
+        
+
         
         guard isNetworkReachable else {
             result.error = CommentsServiceError.failedToFetch(message: L10n.Error.unknown)

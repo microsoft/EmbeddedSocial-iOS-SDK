@@ -60,29 +60,30 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             limit: Int32(limit)
         )
         
+        var result = RepliesFetchResult()
+        
         let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
                                                      predicate: PredicateBuilder().allCreateReplyCommands(),
                                                      sortDescriptors: [Cache.createdAtSortDescriptor])
         
-        cache.fetchOutgoing(with: fetchOutgoingRequest) { [weak self] commands in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            let incomingFeed = strongSelf.cache.firstIncoming(ofType: FeedResponseReplyView.self,
-                                                        predicate: PredicateBuilder().predicate(handle: builder.URLString),
-                                                        sortDescriptors: nil)
-            
-            let incomingReplies = incomingFeed?.data?.map(strongSelf.convert(replyView:)) ?? []
-            
-            let outgoingReplies = commands.flatMap { ($0 as? CreateReplyCommand)?.reply }
-            
-            let result = RepliesFetchResult(replies: outgoingReplies + incomingReplies, error: nil, cursor: incomingFeed?.cursor)
-            
-            cachedResult(result)
-        }
+        let commands = cache.fetchOutgoing(with: fetchOutgoingRequest)
+        let outgoingReplies = commands.flatMap { ($0 as? CreateReplyCommand)?.reply }
+        let incomingFeed = self.cache.firstIncoming(ofType: FeedResponseReplyView.self,
+                                                    predicate: PredicateBuilder().predicate(handle: builder.URLString),
+                                                    sortDescriptors: nil)
+        let f = self.cache.firstIncoming(ofType: FeedResponseReplyView.self,
+                                    predicate: PredicateBuilder().predicate(typeID: "fetch_replies-3sQy-ISjLbM"),
+                                    sortDescriptors: nil)
+
         
-        var result = RepliesFetchResult()
+        let incomingReplies = incomingFeed?.data?.map(self.convert(replyView:)) ?? []
+        
+        
+        result.replies = outgoingReplies + incomingReplies
+        result.cursor = incomingFeed?.cursor
+        
+        cachedResult(result)
+        
         
         guard isNetworkReachable else {
             result.error = RepliesServiceError.failedToFetch(message: L10n.Error.unknown)
@@ -103,7 +104,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
 
             if let body = response?.body, let data = body.data {
                 body.handle = builder.URLString
-                strongSelf.cache.cacheIncoming(body, for: builder.URLString)
+                strongSelf.cache.cacheIncoming(body, for: typeID)
                 result.replies = strongSelf.convert(data: data)
                 result.cursor = body.cursor
             } else if strongSelf.errorHandler.canHandle(error) {
