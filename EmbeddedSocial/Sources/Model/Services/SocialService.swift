@@ -39,6 +39,8 @@ protocol SocialServiceType {
     
     /// Get my blocked users
     func getMyBlockedUsers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
+    
+    func getMyPendingRequests(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
 }
 
 class SocialService: BaseService, SocialServiceType {
@@ -48,7 +50,7 @@ class SocialService: BaseService, SocialServiceType {
     private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
     fileprivate var activitiesExecutor: MyActivityRequestExecutor!
     
-    private let executorProvider: CacheRequestExecutorProviderType.Type
+    fileprivate let executorProvider: CacheRequestExecutorProviderType.Type
     
     init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
         self.executorProvider = provider
@@ -217,6 +219,22 @@ class SocialService: BaseService, SocialServiceType {
         let builder = SocialAPI.myFollowingGetSuggestionsUsersWithRequestBuilder(authorization: authorization)
         suggestedUsersExecutor.execute(with: builder, completion: completion)
     }
+    
+    func getMyPendingRequests(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        let builder = SocialAPI.myPendingUsersGetPendingUsersWithRequestBuilder(
+            authorization: authorization,
+            cursor: cursor,
+            limit: Int32(limit)
+        )
+        
+        let executor = executorProvider.makeMyPendingRequestsExecutor(for: self)
+        
+        executor.execute(with: builder) { result in
+            withExtendedLifetime(executor) {
+                completion(result)
+            }
+        }
+    }
 }
 
 extension SocialService: ActivityService {
@@ -239,13 +257,7 @@ extension SocialService: ActivityService {
     }
     
     func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (UserRequestListResult) -> Void) {
-        let builder = SocialAPI.myPendingUsersGetPendingUsersWithRequestBuilder(authorization: authorization,
-                                                                                cursor: cursor,
-                                                                                limit: Int32(limit))
-        
-        usersFeedExecutor.execute(with: builder) {
-            completion($0)
-        }
+        getMyPendingRequests(cursor: cursor, limit: limit, completion: completion)
     }
 
     func rejectPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
