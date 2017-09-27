@@ -5,8 +5,8 @@ input_storyboards="EmbeddedSocial/Sources"
 input_assets="EmbeddedSocial/Resources/Images.xcassets"
 output_swiftgen="EmbeddedSocial/Sources/Generated/SwiftGen/"
 
-swiftgen storyboards -t swift3 --param module="EmbeddedSocial" $input_storyboards -o $output_swiftgen"Storyboards.swift"
-swiftgen images -t swift3 $input_assets -o $output_swiftgen"Images.swift"
+./Pods/SwiftGen/bin/swiftgen storyboards -t swift3 --param module="EmbeddedSocial" $input_storyboards -o $output_swiftgen"Storyboards.swift"
+./Pods/SwiftGen/bin/swiftgen images -t swift3 $input_assets -o $output_swiftgen"Images.swift"
 
 echo "---=== Sourcery ===---"
 
