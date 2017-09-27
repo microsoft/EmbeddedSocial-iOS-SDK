@@ -17,7 +17,7 @@ class TestPopularToday: TestHome {
     }
     
     override func openScreen() {
-        sideMenu.navigateTo("Popular")
+        sideMenu.navigate(to: .popular)
         popular.todayButton.tap()
         sleep(1)
     }
@@ -34,7 +34,7 @@ class TestPopularThisWeek: TestHome {
     }
     
     override func openScreen() {
-        sideMenu.navigateTo("Popular")
+        sideMenu.navigate(to: .popular)
         popular.thisWeekButton.tap()
         sleep(1)
     }
@@ -51,7 +51,7 @@ class TestPopularAllTime: TestHome {
     }
     
     override func openScreen() {
-        sideMenu.navigateTo("Popular")
+        sideMenu.navigate(to: .popular)
         popular.allTimeButton.tap()
         sleep(1)
     }

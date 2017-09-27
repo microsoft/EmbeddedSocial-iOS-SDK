@@ -22,7 +22,7 @@ class TestPostComments: UITestBase {
     }
     
     func openScreen() {
-        sideMenu.navigateTo("Home")
+        sideMenu.navigate(to: .home)
         let (_, post) = feed.getRandomPost()
         post.teaser.tap()
         sleep(1)

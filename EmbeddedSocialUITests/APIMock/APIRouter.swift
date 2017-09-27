@@ -181,6 +181,18 @@ open class APIRouter: WebApp {
             }
         }
         
+        self["/v0.7/users/me/visibility"] = APIResponse(serviceName: "visibility") { environ, sendJSON -> Void in
+            print(environ)
+            let method = environ["REQUEST_METHOD"] as! String
+            if method == "PUT" {
+                let input = environ["swsgi.input"] as! SWSGIInput
+                JSONReader.read(input) { json in
+                    APIState.setLatestData(forService: "visibility", data: json)
+                    sendJSON(Templates.load(name: "user"))
+                }
+            }
+        }
+        
         self["/v0.7/users/me/following/users/?(.*)"] = APIResponse(serviceName: "followers") { environ, sendJSON -> Void in
             let method = environ["REQUEST_METHOD"] as! String
             let input = environ["swsgi.input"] as! SWSGIInput
