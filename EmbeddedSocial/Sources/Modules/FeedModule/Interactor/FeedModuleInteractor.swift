@@ -11,27 +11,24 @@ enum PostSocialAction: Int {
 }
 
 struct FeedFetchRequest {
+    var uid: String
     var cursor: String?
     var limit: Int32?
     var feedType: FeedType
 }
 
 protocol FeedModuleInteractorInput {
-    
     func fetchPosts(request: FeedFetchRequest)
     func postAction(post: PostHandle, action: PostSocialAction)
-    
 }
 
 protocol FeedModuleInteractorOutput: class {
-    
     func didFetch(feed: Feed)
     func didFetchMore(feed: Feed)
     func didFail(error: FeedServiceError)
     func didStartFetching()
     func didFinishFetching()
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?)
-    
 }
 
 class FeedModuleInteractor: FeedModuleInteractorInput {
@@ -42,18 +39,20 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     var searchService: SearchServiceType!
     weak var userHolder: UserHolder? = SocialPlus.shared
     
-    func handleFetch(result: FeedFetchResult, feedType: FeedType, isLoadingMore: Bool = false) {
+    func handleFetch(result: FeedFetchResult, request: FeedFetchRequest) {
         
         defer {
             output.didFinishFetching()
         }
+        
+        let isLoadingMore = request.cursor != nil
         
         guard result.error == nil else {
             output.didFail(error: result.error!)
             return
         }
         
-        let feed = Feed(fetchID: feedType: feedType, items: result.posts, cursor: result.cursor)
+        let feed = Feed(fetchID: request.uid, feedType: request.feedType, items: result.posts, cursor: result.cursor)
         
         if isLoadingMore {
            output.didFetchMore(feed: feed)
@@ -62,9 +61,12 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         }
     }
     
-    func fetchPosts(limit: Int32? = nil, cursor: String? = nil, feedType: FeedType) {
+    func fetchPosts(request: FeedFetchRequest) {
         
-        let isLoadingMore = cursor != nil
+        let isLoadingMore = request.cursor != nil
+        let feedType = request.feedType
+        let cursor = request.cursor
+        let limit = request.limit
         
         Logger.log("Fetching: limit:\(String(describing: limit)) cursor:\(String(describing: cursor)) type:\(feedType) more: \(isLoadingMore)")
         
@@ -75,13 +77,13 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
         case .home:
             let query = FeedQuery(cursor: cursor, limit: limit)
             postService.fetchHome(query: query) { [weak self] result in
-                self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                self?.handleFetch(result: result, request: request)
             }
             
         case .recent:
             let query = FeedQuery(cursor: cursor, limit: limit)
             postService.fetchRecent(query: query) { [weak self] result in
-                self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                self?.handleFetch(result: result, request: request)
             }
             
         case let .popular(type: range):
@@ -99,7 +101,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             }
             
             postService.fetchPopular(query: query) { [weak self] result in
-                self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                self?.handleFetch(result: result, request: request)
             }
             
         case let .user(user: user, scope: scope):
@@ -112,12 +114,12 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
                 switch scope {
                 case .popular:
                     postService.fetchMyPopular(query: query) { [weak self] result in
-                        self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                        self?.handleFetch(result: result, request: request)
                     }
 
                 case .recent:
                     postService.fetchMyPosts(query: query) { [weak self] result in
-                        self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                        self?.handleFetch(result: result, request: request)
                     }
                 }
             }
@@ -130,31 +132,30 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
                 switch scope {
                 case .popular:
                     postService.fetchUserPopular(query: query) { [weak self] result in
-                        self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                        self?.handleFetch(result: result, request: request)
                     }
                 case .recent:
                     postService.fetchUserRecent(query: query) { [weak self] result in
-                        self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                        self?.handleFetch(result: result, request: request)
                     }
                 }
             }
             
         case let .single(post: post):
             postService.fetchPost(post: post) { [weak self] result in
-                self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                self?.handleFetch(result: result, request: request)
             }
             
         case let .search(query):
-            //            let intLimit = limit == nil ? Constants.Feed.pageSize : Int(limit!)
             searchService.queryTopics(query: query ?? "", cursor: cursor, limit: Constants.Feed.pageSize) { [weak self] result in
                 let result = result.value ?? FeedFetchResult(error: result.error ?? APIError.unknown)
-                self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                self?.handleFetch(result: result, request: request)
             }
             
         case .myPins:
             let query = FeedQuery(cursor: cursor, limit: limit)
             postService.fetchMyPins(query: query, completion: { [weak self] result in
-                self?.handleFetch(result: result, feedType: feedType, isLoadingMore: isLoadingMore)
+                self?.handleFetch(result: result, request: request)
             })
         }
     }
@@ -163,7 +164,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     
     func postAction(post: PostHandle, action: PostSocialAction) {
         
-        let completion:LikesServiceProtocol.CompletionHandler = { [weak self] (handle, err) in
+        let completion: LikesServiceProtocol.CompletionHandler = { [weak self] (handle, err) in
             self?.output.didPostAction(post: post, action: action, error: err)
         }
         

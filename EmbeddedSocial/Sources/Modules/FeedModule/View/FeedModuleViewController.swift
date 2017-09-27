@@ -139,12 +139,12 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         switch type {
         case .grid:
             layoutChangeButton.image = UIImage(asset: .iconList)
-            if collectionView!.collectionViewLayout != gridLayout {
-                collectionView!.setCollectionViewLayout(gridLayout, animated: animated)
+            if collectionView?.collectionViewLayout != gridLayout {
+                collectionView?.setCollectionViewLayout(gridLayout, animated: animated)
             }
         case .list:
             layoutChangeButton.image = UIImage(asset: .iconGallery)
-            if collectionView!.collectionViewLayout != listLayout {
+            if collectionView?.collectionViewLayout != listLayout {
                 collectionView?.setCollectionViewLayout(listLayout, animated: animated)
             }
         }

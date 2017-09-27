@@ -229,6 +229,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     fileprivate func isHomeFeedType() -> Bool {
         return feedType == .home
     }
+    
+    private func makeFetchRequest(with cursor: String?, feedType: FeedType) -> FeedFetchRequest {
+        let uid = UUID().uuidString
+        fetchIDs.insert(uid)
+        return FeedFetchRequest(uid: uid, cursor: cursor, limit: limit, feedType: feedType)
+    }
  
     private func fetchItems(with cursor: String? = nil) {
         guard let feedType = self.feedType else {
@@ -236,8 +242,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
 
-        fetchIDs.insert(UUID().uuidString)
-        interactor.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
+        let request = makeFetchRequest(with: cursor, feedType: feedType)
+        interactor.fetchPosts(request: request)
     }
     
     fileprivate func fetchAllItems() {
@@ -422,7 +428,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     // MARK: FeedModuleInteractorOutput
     func didFetch(feed: Feed) {
         
-        guard feedType == feed.feedType else {
+        guard fetchIDs.contains(feed.fetchID), feedType == feed.feedType else {
             return
         }
         
@@ -431,7 +437,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         cursor = feed.cursor
         items = feed.items
         
-<<<<<<< HEAD
         let shouldAddItems = items.count > cachedNumberOfItems
         let shouldRemoveItems = items.count < cachedNumberOfItems
         
@@ -450,18 +455,11 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             Logger.log(items.count, cachedNumberOfItems)
             view.reloadVisible()
         }
-=======
-        view.reload()
-        
-        moduleOutput?.didUpdateFeed()
->>>>>>> develop
     }
     
     func didFetchMore(feed: Feed) {
-        
-        guard fetchIDs
-        
-        guard feedType == feed.feedType else {
+
+        guard fetchIDs.contains(feed.fetchID), feedType == feed.feedType else {
             return
         }
         
@@ -470,7 +468,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         cursor = feed.cursor
         appendWithReplacing(original: &items, appending: feed.items)
         
-<<<<<<< HEAD
         let needAddNewItems = items.count - cachedNumberOfItems
         let needRemoveItems = cachedNumberOfItems - items.count
         
@@ -487,11 +484,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             view.reloadVisible()
             Logger.log("reloading visible", event: .veryImportant)
         }
-=======
-        view.reload()
-        
-        moduleOutput?.didUpdateFeed()
->>>>>>> develop
     }
     
     func didFail(error: FeedServiceError) {
