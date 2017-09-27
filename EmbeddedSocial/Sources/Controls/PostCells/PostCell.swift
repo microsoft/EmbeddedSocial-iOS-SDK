@@ -8,6 +8,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     weak var collectionView: UICollectionView!
     var viewModel: PostViewModel!
     
+    @IBOutlet weak var postImageHeight: NSLayoutConstraint!
     @IBOutlet var staticHeigthElements: [UIView]!
     @IBOutlet var dynamicElement: UIView!
     
@@ -96,6 +97,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         contentView.addSubview(container)
         postImageButton.imageView?.contentMode = .scaleAspectFill
         postText.maximumNumberOfLines = Constants.FeedModule.Collection.Cell.maxLines
+        postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
     }
     
     func setup() {
@@ -111,6 +113,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         commentedCount.text = nil
         postText.readMoreTapHandle = nil
         collectionView = nil
+        postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
         
         super.prepareForReuse()
     }
@@ -120,7 +123,12 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         viewModel = data
         self.collectionView = collectionView
         
-        postImageButton.setPhotoWithCaching(data.postPhoto, placeholder: postImagePlaceholder)
+        // showing post image if url is available, else - hiding
+        if data.postPhoto?.url != nil {
+            postImageButton.setPhotoWithCaching(data.postPhoto, placeholder: postImagePlaceholder)
+        } else {
+            postImageHeight.constant = 0
+        }
         
         if data.userImageUrl == nil {
             userPhoto.image = userImagePlaceholder
@@ -153,15 +161,26 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         return cell
     }
     
+    // calculates static and dynamic(TextView) items
     func getHeight(with width: CGFloat) -> CGFloat {
         
-        let staticElementsHeight = staticHeigthElements.reduce(0) { result, view in
+        var staticElementsHeight = staticHeigthElements.reduce(0) { result, view in
             return result + view.frame.size.height
         }
         
+        // ignore image height if none
+        if viewModel.postImageUrl == nil {
+            staticElementsHeight -= Constants.FeedModule.Collection.imageHeight
+        }
+        
+        // TODO: its a heavy calculation function
         let dynamicHeight = dynamicElement.systemLayoutSizeFitting(self.bounds.size).height
     
-        let result = [staticElementsHeight, dynamicHeight].reduce(0.0, +)
+        var result = [staticElementsHeight, dynamicHeight].reduce(0.0, +)
+        
+        
+        // hacks, small tweaking
+        result += 10
     
         return result
     }

@@ -178,7 +178,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     fileprivate var cursor: String? = nil
     fileprivate var limit: Int32 = Int32(Constants.Feed.pageSize)
     fileprivate var items = [Post]()
-    fileprivate var fetchIDs: Set<String> = Set()
+    fileprivate var fetchRequests: Set<String> = Set()
     fileprivate var header: SupplementaryItemModel?
     
     var headerSize: CGSize {
@@ -215,7 +215,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     private func onLayoutTypeChange() {
         view.setLayout(type: self.layout)
         view.paddingEnabled = collectionPaddingNeeded()
-        fetchAllItems()
     }
     
     private func onFeedTypeChange() {
@@ -232,7 +231,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     private func makeFetchRequest(with cursor: String?, feedType: FeedType) -> FeedFetchRequest {
         let uid = UUID().uuidString
-        fetchIDs.insert(uid)
+        fetchRequests.insert(uid)
         return FeedFetchRequest(uid: uid, cursor: cursor, limit: limit, feedType: feedType)
     }
  
@@ -250,7 +249,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         cursor = nil
         items = []
         view.reload()
-        fetchIDs = Set()
+        fetchRequests = Set()
         fetchItems()
     }
     
@@ -428,7 +427,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     // MARK: FeedModuleInteractorOutput
     func didFetch(feed: Feed) {
         
-        guard fetchIDs.contains(feed.fetchID), feedType == feed.feedType else {
+        guard fetchRequests.contains(feed.fetchID), feedType == feed.feedType else {
             return
         }
         
@@ -459,7 +458,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didFetchMore(feed: Feed) {
 
-        guard fetchIDs.contains(feed.fetchID), feedType == feed.feedType else {
+        guard fetchRequests.contains(feed.fetchID), feedType == feed.feedType else {
             return
         }
         
@@ -500,7 +499,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         if let delegate = moduleOutput {
             delegate.didStartRefreshingData()
         } else {
-            view.setRefreshingWithBlocking(state: true)
+            view.setRefreshing(state: true)
         }
     }
     
@@ -510,7 +509,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         if let delegate = moduleOutput {
             delegate.didFinishRefreshingData(nil)
         } else {
-            view.setRefreshingWithBlocking(state: false)
+            view.setRefreshing(state: false)
         }
     }
     

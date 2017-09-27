@@ -135,33 +135,37 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
         
+        collectionView.reloadData()
+        
         // switch layout
         switch type {
         case .grid:
             layoutChangeButton.image = UIImage(asset: .iconList)
-            if collectionView?.collectionViewLayout != gridLayout {
-                collectionView?.setCollectionViewLayout(gridLayout, animated: animated)
+            if collectionView.collectionViewLayout != gridLayout {
+                collectionView.performBatchUpdates({
+                    collectionView.setCollectionViewLayout(gridLayout, animated: animated)
+                }, completion: nil)
             }
         case .list:
             layoutChangeButton.image = UIImage(asset: .iconGallery)
-            if collectionView?.collectionViewLayout != listLayout {
-                collectionView?.setCollectionViewLayout(listLayout, animated: animated)
+            if collectionView.collectionViewLayout != listLayout {
+                collectionView.performBatchUpdates({
+                    collectionView.setCollectionViewLayout(listLayout, animated: animated)
+                }, completion: nil)
             }
         }
     }
     
     private func onUpdateBounds() {
-        if let collectionView = self.collectionView {
-            updateFlowLayoutForList(layout: listLayout, containerWidth: containerWidth())
-            updateFlowLayoutForGrid(layout: gridLayout, containerWidth: containerWidth())
-            
-            let limits = [
-                numberOfItemsInList(listLayout, in: collectionView.frame),
-                numberOfItemsInGrid(gridLayout, in: collectionView.frame)
-            ]
-            
-            cachedLimit = limits.max()
-        }
+        updateFlowLayoutForList(layout: listLayout, containerWidth: containerWidth())
+        updateFlowLayoutForGrid(layout: gridLayout, containerWidth: containerWidth())
+        
+        let limits = [
+            numberOfItemsInList(listLayout, in: collectionView.frame),
+            numberOfItemsInGrid(gridLayout, in: collectionView.frame)
+        ]
+        
+        cachedLimit = limits.max()
     }
     
     private func updateFlowLayoutForGrid(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
