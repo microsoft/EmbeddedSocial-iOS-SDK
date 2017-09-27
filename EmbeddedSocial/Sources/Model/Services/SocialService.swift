@@ -85,16 +85,8 @@ class SocialService: BaseService, SocialServiceType {
         request.userHandle = user.uid
         
         let builder = SocialAPI.myFollowersPostFollowerWithRequestBuilder(request: request, authorization: authorization)
-        
-        builder.execute { (response, error) in
-            
-            guard error == nil else {
-                completion(.failure(APIError.failedRequest))
-                return
-            }
-            
-            completion(.success())
-        }
+        let command = AcceptPendingCommand(user: user)
+        outgoingActionsExecutor.execute(command: command, builder: builder, completion: completion)
     }
 
     func unblock(user: User, completion: @escaping (Result<Void>) -> Void) {
@@ -145,7 +137,14 @@ class SocialService: BaseService, SocialServiceType {
             cursor: cursor,
             limit: Int32(limit)
         )
-        usersFeedExecutor.execute(with: builder, completion: completion)
+        
+        let executor = executorProvider.makeMyFollowersExecutor(for: self)
+        
+        executor.execute(with: builder) { result in
+            withExtendedLifetime(executor) {
+                completion(result)
+            }
+        }
     }
     
     func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
