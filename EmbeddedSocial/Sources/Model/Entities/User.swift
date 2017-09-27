@@ -17,7 +17,7 @@ struct User {
     var followingCount: Int
     var visibility: Visibility?
     var followerStatus: FollowStatus?
-    let followingStatus: FollowStatus?
+    var followingStatus: FollowStatus?
     
     var isMe: Bool {
         return credentials != nil
@@ -109,7 +109,9 @@ extension User {
         uid = compactView.userHandle!
         firstName = compactView.firstName
         lastName = compactView.lastName
-        photo = Photo(uid: compactView.photoHandle ?? UUID().uuidString, url: compactView.photoUrl)
+        if let photoHandle = compactView.photoHandle {
+            photo = Photo(uid: photoHandle, url: compactView.photoUrl)
+        }
         visibility = compactView.visibility != nil ? Visibility(visibility: compactView.visibility!) : ._private
         followerStatus = FollowStatus(status: compactView.followerStatus)
         
@@ -119,5 +121,11 @@ extension User {
         followingCount = 0
         followingStatus = nil
         credentials = nil
+    }
+}
+
+extension User: JSONEncodable {
+    func encodeToJSON() -> Any {
+        return memento
     }
 }

@@ -116,6 +116,18 @@ extension FeedResponseUserCompactView: Cacheable, HandleMixin {
     }
 }
 
+extension FeedResponseActivityView: Cacheable, HandleMixin {
+    func getHandle() -> String? {
+        return handle
+    }
+    
+    func setHandle(_ handle: String?) {
+        if let handle = handle {
+            self.handle = handle
+        }
+    }
+}
+
 extension UserCompactView: Cacheable {
     func getHandle() -> String? {
         return userHandle
@@ -158,9 +170,27 @@ class LikeCommentRequest: Cacheable, HandleMixin{
     }
 }
 
-extension FeedResponseCommentView: Cacheable {
+extension FeedResponseCommentView: Cacheable, HandleMixin {
+    func setHandle(_ handle: String?) {
+        if let handle = handle {
+            self.handle = handle
+        }
+    }
+    
+    func getHandle() -> String? {
+        return handle
+    }
 }
 
-extension FeedResponseReplyView: Cacheable {
+extension FeedResponseReplyView: Cacheable, HandleMixin {
+    func setHandle(_ handle: String?) {
+        if let handle = handle {
+            self.handle = handle
+        }
+    }
+    
+    func getHandle() -> String? {
+        return handle
+    }
 }
 

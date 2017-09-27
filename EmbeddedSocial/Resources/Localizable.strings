@@ -59,14 +59,22 @@
 "edit_profile.label.account_information" = "Account Information";
 
 "followers.screen_title" = "Followers";
+"followers.no_data_text" = "Currently nobody is following you.";
 
 "following.screen_title" = "Following";
+"following.no_data_text" = "Currently you are not following anyone.";
+"following.suggested_users" = "Suggested users";
+"following.search_people" = "Search people";
 
 "login.screen_title" = "Sign in";
 
 "post_menu.report" = "Report post";
+"post_menu.report_comment" = "Report comment";
+"post_menu.report_reply" = "Report reply";
 "post_menu.edit" = "Edit post";
 "post_menu.remove" = "Remove post";
+"post_menu.remove_comment" = "Remove comment";
+"post_menu.remove_reply" = "Remove reply";
 "post_menu.follow" = "Follow";
 "post_menu.unfollow" = "Unfollow";
 "post_menu.block" = "Block";
@@ -89,6 +97,10 @@
 "side_menu.debug" = "Debug";
 
 "report.screen_title" = "Report an issue";
+"report.post.header_title" = "What's the problem with this post?";
+"report.user.header_title" = "What's the problem with this account?";
+"report.comment.header_title" = "What's the problem with this comment?";
+"report.reply.header_title" = "What's the problem with this reply?";
 
 "search.screen_title" = "Search";
 "search.placeholder.search_people" = "Search people";
@@ -115,6 +127,52 @@
 "popular_module.feed_option.all_time" = "All time";
 
 "likes_list.screen_title" = "Like this post";
+"likes_list.post.no_data_text" = "No one has liked this post yet.";
+"likes_list.comment.no_data_text" = "No one has liked this comment yet.";
+"likes_list.reply.no_data_text" = "No one has liked this reply yet.";
 
 "blocked_users.screen_title" = "Blocked users";
+"blocked_users.no_data_text" = "You haven't blocked anyone.";
 
+"suggested_users.screen_title" = "Suggested users";
+"suggested_users.no_data_text" = "No suggested users to show.";
+
+"follow_requests.screen_title" = "New follow requests";
+"follow_requests.no_data_text" = "No follow requests to show.";
+
+"activity.views.main.title" = "Activity Feed";
+"activity.sections.pending.title" = "NEW FOLLOW REQUESTS";
+"activity.sections.my.title" = "RECENT ACTIVITY";
+"activity.sections.others.title" = "RECENT ACTIVITY";
+"activity.tabs.my_title" = "You";
+"activity.tabs.others_title" = "Following";
+
+"activity.you.following" = "%@ started following you.";
+"activity.you.mention_topic" = "%@ mentioned you in a topic \"%@\".";
+"activity.you.mention_comment" = "%@ mentioned you in a comment \"%@\".";
+"activity.you.mention_reply" = "%@ mentioned you in a reply \"%@\".";
+"activity.you.like_topic" = "%@ liked your topic \"%@\".";
+"activity.you.like_comment" = "%@ liked your comment \"%@\".";
+"activity.you.like_reply" = "%@ liked your reply \"%@\".";
+"activity.you.follow_request" = "%@ sent you a follow request.";
+"activity.you.child_peer_topic" = "%@ added a new comment to topic \"%@\".";
+"activity.you.child_peer_comment" = "%@ added a new reply to comment \"%@\".";
+"activity.you.child_topic" = "%@ commented on your topic \"%@\".";
+"activity.you.child_comment" = "%@ replied to your comment \"%@\".";
+"activity.you.follow_accepted" = "%@ accepted your follow request.";
+"activity.following.following" = "%@ started following %@";
+"activity.following.mention_topic" = "%@ mentioned %@ in a topic \"%@\".";
+"activity.following.mention_comment" = "%@ mentioned %@ in a comment \"%@\".";
+"activity.following.mention_reply" = "%@ mentioned %@ in a reply \"%@\".";
+"activity.following.like_topic" = "%@ liked topic \"%@\".";
+"activity.following.like_comment" = "%@ liked comment \"%@\".";
+"activity.following.like_reply" = "%@ liked reply \"%@\".";
+"activity.following.child_peer_topic" = "%@ added a new comment to topic \"%@\".";
+"activity.following.child_peer_comment" = "%@ added a new reply to comment \"%@\".";
+"activity.following.child_topic" = "%@ commented on topic \"%@\".";
+"activity.following.child_comment" = "%@ replied to comment \"%@\".";
+
+"activity.one_person" = "%@";
+"activity.two_persons" = "%@ and %@";
+"activity.three_persons" = "%@, %@ and 1 other person";
+"activity.many_persons" = "%@, %@ and %d other people";

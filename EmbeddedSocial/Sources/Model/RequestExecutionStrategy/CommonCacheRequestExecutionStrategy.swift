@@ -8,11 +8,22 @@ import Foundation
 class CommonCacheRequestExecutionStrategy<ResponseType, ResultType>:
 CacheRequestExecutionStrategy<ResponseType, ResultType> where ResponseType: Cacheable {
     
-    var mapper: ((ResponseType?) -> ResultType)?
+    var responseProcessor: ResponseProcessor<ResponseType, ResultType>!
     
     override func execute(with builder: RequestBuilder<ResponseType>, completion: @escaping (Result<ResultType>) -> Void) {
-        if let cachedResponse = cache?.firstIncoming(ofType: ResponseType.self, handle: builder.URLString) {
-            processResponse(cachedResponse, error: nil, completion: completion)
+        let cachedResponse = cache?.firstIncoming(ofType: ResponseType.self, handle: builder.URLString)
+        
+        if cachedResponse != nil {
+            DispatchQueue.main.async {
+                self.processResponse(cachedResponse!, isFromCache: true, error: nil, completion: completion)
+            }
+        }
+        
+        if let networkTracker = networkTracker, !networkTracker.isReachable {
+            if cachedResponse == nil {
+                processResponse(nil, isFromCache: false, error: nil, completion: completion)
+            }
+            return
         }
         
         builder.execute { [weak self] result, error in
@@ -21,24 +32,20 @@ CacheRequestExecutionStrategy<ResponseType, ResultType> where ResponseType: Cach
             if let response = response {
                 self?.cache?.cacheIncoming(response)
             }
-            self?.processResponse(response, error: error, completion: completion)
+            DispatchQueue.main.async {
+                self?.processResponse(response, isFromCache: false, error: error, completion: completion)
+            }
         }
     }
     
     private func processResponse(_ response: ResponseType?,
+                                 isFromCache: Bool,
                                  error: Error?,
                                  completion: @escaping (Result<ResultType>) -> Void) {
-        
-        guard let mapper = mapper else {
-            completion(.failure(APIError.custom("CommonCacheRequestExecutionStrategy: mapper is missing")))
-            return
-        }
-        
         if error != nil {
             errorHandler?.handle(error: error, completion: completion)
         } else {
-            let result = mapper(response)
-            completion(.success(result))
+            responseProcessor.process(response, isFromCache: isFromCache, completion: completion)
         }
     }
 }

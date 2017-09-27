@@ -22,11 +22,15 @@ class CommentRepliesPresenterTests: XCTestCase {
         comment.commentHandle = "test"
         comment.firstName = "first name"
         comment.lastName = "last name"
+        myProfileHolder = MyProfileHolder()
+        presenter = CommentRepliesPresenter(myProfileHolder: myProfileHolder)
         presenter.comment = comment
         presenter.commentCell = CommentCell.nib.instantiate(withOwner: nil, options: nil).first as! CommentCell
         presenter.interactor = interactor
         presenter.view = view
         interactor.output = presenter
+        router = MockCommentRepliesRouter()
+        presenter.router = router
         view.output = presenter
         presenter.router = router
     }
@@ -85,13 +89,26 @@ class CommentRepliesPresenterTests: XCTestCase {
     
     func testThatFetchedMore() {
         //given
-        //In interactor default fetching 1 element
+        let reply = Reply()
+        reply.replyHandle = "handle 1"
+        reply.createdTime = Date()
+        presenter.replies = [reply]
+        presenter.cursor = nil
         
         //when
         presenter.fetchMore()
         
         //then
-        XCTAssertEqual(presenter.replies.count, 1)
+        XCTAssertEqual(presenter.loadMoreCellViewModel.cellHeight, LoadMoreCell.cellHeight)
+        XCTAssertEqual(presenter.replies.count, 2)
+        
+        //when
+        presenter.fetchMore()
+        
+        //then
+        XCTAssertEqual(presenter.loadMoreCellViewModel.cellHeight, 0.1)
+        XCTAssertEqual(presenter.replies.count, 2)
+        
     }
     
     

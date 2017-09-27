@@ -33,19 +33,21 @@ class EmbeddedEditProfileInteractorTests: XCTestCase {
         sut.cachePhoto(photo)
         
         // then
-        XCTAssertEqual(imageCache.storePhotoSyncCount, 1)
+        XCTAssertTrue(imageCache.storePhotoCalled)
+        XCTAssertEqual(imageCache.storePhotoReceivedPhoto, photo)
     }
     
     func testThatPhotoIsUpdatedWithImageFromCache() {
         // given
         let photo = Photo()
         let image = UIImage(color: .yellow, size: CGSize(width: 8.0, height: 8.0))
-        imageCache.imageToReturn = image
+        imageCache.imageForReturnValue = image
         
         // when
         let updatedPhoto = sut.updatedPhotoWithImageFromCache(photo)
         
         // then
         XCTAssertEqual(updatedPhoto.image, image)
+        XCTAssertTrue(imageCache.imageForCalled)
     }
 }

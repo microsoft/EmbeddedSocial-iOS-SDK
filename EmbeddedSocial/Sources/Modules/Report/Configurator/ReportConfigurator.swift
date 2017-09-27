@@ -15,6 +15,7 @@ struct ReportConfigurator {
     
     func configure(api: ReportAPI,
                    navigationController: UINavigationController?,
+                   reportListTitle: String?,
                    myProfileHolder: UserHolder = SocialPlus.shared,
                    loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
         
@@ -26,5 +27,6 @@ struct ReportConfigurator {
         presenter.router = ReportRouter(navigationController: navigationController, loginOpener: loginOpener)
         
         viewController.output = presenter
+        viewController.headerTitleLabel.text = reportListTitle
     }
 }

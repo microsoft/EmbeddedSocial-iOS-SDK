@@ -47,6 +47,16 @@ class MockCommentRepliesViewController: UIViewController, CommentRepliesViewInpu
     
     var updateLoadingCellCount = 0
     func updateLoadingCell() {
-        
+        updateLoadingCellCount += 1
+    }
+    
+    var removeReplyCount = 0
+    func removeReply(index: Int) {
+        removeReplyCount += 1
+    }
+    
+    var unlockUICount = 0
+    func unlockUI() {
+        unlockUICount += 1
     }
 }

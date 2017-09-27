@@ -29,10 +29,14 @@ extension Constants {
         static let contentPadding: CGFloat = 20.0
         static let uploadPhotoHeight: CGFloat = 84.0
         static let maxBioLength = 500
-}
+    }
     
     struct UserList {
         static let pageSize = 30
+    }
+    
+    struct ActivityList {
+        static let pageSize = 20
     }
     
     struct FeedModule {
@@ -69,11 +73,15 @@ extension Constants {
     }
     
     struct PostDetails {
-        static let pageSize = 10
+        static let pageSize = 5
     }
     
     struct CommentReplies {
-        static let pageSize = 10
+        static let pageSize = 5
+    }
+    
+    struct FollowRequests {
+        static let pageSize = 30
     }
 }
 

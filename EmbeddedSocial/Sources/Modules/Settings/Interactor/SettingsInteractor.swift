@@ -6,10 +6,18 @@
 import Foundation
 
 final class SettingsInteractor: SettingsInteractorInput {
+
     private let userService: UserServiceType
+    private let logoutController: LogoutController
     
-    init(userService: UserServiceType) {
+    init(userService: UserServiceType, logoutController: LogoutController) {
         self.userService = userService
+        self.logoutController = logoutController
+    }
+    
+    func signOut() {
+        OperationQueue().cancelAllOperations()
+        logoutController.logOut()
     }
     
     func switchVisibility(_ visibility: Visibility, completion: @escaping (Result<Visibility>) -> Void) {

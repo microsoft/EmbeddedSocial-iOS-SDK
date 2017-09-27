@@ -222,6 +222,7 @@ class UserProfilePresenterTests: XCTestCase {
         // given
         let user = User(uid: UUID().uuidString, visibility: visibility, followingStatus: oldStatus)
         interactor.userToReturn = user
+        interactor.processSocialRequestResult = .success(newStatus)
         
         let presenter = makeDefaultPresenter(userID: user.uid)
         
@@ -244,6 +245,7 @@ class UserProfilePresenterTests: XCTestCase {
         let presenter = makeDefaultPresenter(userID: user.uid)
         
         // when
+        presenter.viewIsReady()
         presenter.onFollowRequest(currentStatus: followStatus)
         
         // then
@@ -253,7 +255,7 @@ class UserProfilePresenterTests: XCTestCase {
         
         XCTAssertNil(view.lastFollowStatus)
         XCTAssertNil(view.isProcessingFollowRequest)
-        XCTAssertNil(view.lastFollowersCount)
+        XCTAssertEqual(view.lastFollowersCount, user.followersCount)
     }
     
     func testThatMyMoreMenuIsShown() {
@@ -535,5 +537,21 @@ extension UserProfilePresenterTests {
         
         // then
         XCTAssertEqual(feedInput.refreshDataCount, 1)
+    }
+}
+
+//MARK: FollowRequestsModuleOutput tests
+
+extension UserProfilePresenterTests {
+    
+    func testThatItUpdatesFollowersCountWhenFollowRequestIsAccepted() {
+        // given
+        let presenter = makeDefaultPresenter()
+        
+        // when
+        presenter.didAcceptFollowRequest()
+        
+        // then
+        XCTAssertEqual(view.setFollowersCount, 1)
     }
 }

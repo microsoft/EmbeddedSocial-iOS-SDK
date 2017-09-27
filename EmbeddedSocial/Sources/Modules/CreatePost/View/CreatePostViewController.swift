@@ -11,6 +11,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
 
     var output: CreatePostViewOutput!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet fileprivate weak var userImageView: UIImageView!
     @IBOutlet fileprivate weak var mediaButton: UIButton!
@@ -68,6 +69,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     }
     
     func show(post: Post) {
+        mediaButton.imageView?.contentMode = .scaleAspectFill
         postBodyTextView.text = post.text
         titleTextField.text = post.title
         postBodyTextViewHeightConstraint.constant = postBodyTextView.contentSize.height
@@ -116,6 +118,17 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         
         present(actionSheet, animated: true, completion: nil)
     }
+    
+    
+    override func keyboardWillShow(notification: Notification) {
+        super.keyboardWillShow(notification: notification)
+        let kbSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as! CGRect).size
+        var aRect = self.view.frame;
+        aRect.size.height -= kbSize.height;
+        if (aRect.contains(postBodyTextView.frame.origin) ) {
+            scrollView.scrollRectToVisible(postBodyTextView.frame, animated: true)
+        }
+    }
 }
 
 // MARK: ImagePickerDelegate
@@ -129,6 +142,7 @@ extension CreatePostViewController: ImagePickerDelegate {
     }
 
     func selected(photo: Photo) {
+        mediaButton.setTitle(nil, for: .normal)
         mediaButtonHeightConstraint.priority = 250
         self.photo = photo
         let image = photo.image
@@ -146,5 +160,13 @@ extension CreatePostViewController: UITextViewDelegate {
         view.layoutIfNeeded()
         textView.setContentOffset(CGPoint.zero, animated:false)
         postButton.isEnabled = !textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+}
+
+// MARK: UITextFieldDelegate
+extension CreatePostViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        postBodyTextView.becomeFirstResponder()
+        return false
     }
 }

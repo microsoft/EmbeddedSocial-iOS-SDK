@@ -16,6 +16,8 @@ class MockUserProfileInteractor: UserProfileInteractorInput {
     private(set) var blockCount = 0
     private(set) var cachedUserCount = 0
     
+    var processSocialRequestResult: Result<FollowStatus>?
+    
     var userToReturn: User?
     var meToReturn: User?
     var cachedUserToReturn: User?
@@ -34,34 +36,16 @@ class MockUserProfileInteractor: UserProfileInteractorInput {
         }
     }
     
-    func getRecentPosts(userID: String, completion: @escaping (Result<[Any]>) -> Void) {
-        getRecentPostsCount += 1
-        completion(.success([]))
-    }
-    
-    func getPopularPosts(userID: String, completion: @escaping (Result<[Any]>) -> Void) {
-        getPopularPostsCount += 1
-        completion(.success([]))
-    }
-    
-    func getMyRecentPosts(completion: @escaping (Result<[Any]>) -> Void) {
-        getMyRecentPostsCount += 1
-        completion(.success([]))
-    }
-    
-    func getMyPopularPosts(completion: @escaping (Result<[Any]>) -> Void) {
-        getMyPopularPostsCount += 1
-        completion(.success([]))
-    }
-    
-    func block(userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func block(user: User, completion: @escaping (Result<Void>) -> Void) {
         blockCount += 1
         completion(.success())
     }
     
-    func processSocialRequest(currentFollowStatus: FollowStatus, userID: String, completion: @escaping (Result<Void>) -> Void) {
+    func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void) {
         socialRequestCount += 1
-        completion(.success())
+        if let processSocialRequestResult = processSocialRequestResult {
+            completion(processSocialRequestResult)
+        }
     }
     
     func cachedUser(with handle: String) -> User? {

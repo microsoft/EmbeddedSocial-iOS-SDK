@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,8 +19,23 @@
                     <view key="view" contentMode="scaleToFill" id="9l3-dI-Fot">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No users match the search query" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xmq-Hq-XL7">
+                                <rect key="frame" x="74" y="40" width="227.5" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xmq-Hq-XL7" firstAttribute="top" secondItem="mbe-GR-KGd" secondAttribute="bottom" constant="20" id="3WH-g3-VwU"/>
+                            <constraint firstItem="xmq-Hq-XL7" firstAttribute="centerX" secondItem="9l3-dI-Fot" secondAttribute="centerX" id="fUQ-d2-gNa"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="noContentLabel" destination="xmq-Hq-XL7" id="LG4-Xa-A7C"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asq-Qi-Rf3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

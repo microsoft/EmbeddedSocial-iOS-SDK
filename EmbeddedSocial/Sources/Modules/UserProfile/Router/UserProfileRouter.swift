@@ -13,6 +13,7 @@ final class UserProfileRouter: UserProfileRouterInput {
     weak var createPostModuleOutput: CreatePostModuleOutput?
     weak var editProfileModuleOutput: EditProfileModuleOutput?
     weak var loginOpener: LoginModalOpener?
+    weak var followRequestsModuleOutput: FollowRequestsModuleOutput?
 
     func openFollowers(user: User) {        
         let api: UsersListAPI = user.isMe ?
@@ -55,15 +56,21 @@ final class UserProfileRouter: UserProfileRouterInput {
         let config = ReportConfigurator()
         let navController = UINavigationController(rootViewController: config.viewController)
         let api = ReportUserAPI(userID: user.uid, reportingService: ReportingService())
-        config.configure(api: api, navigationController: navController)
+        config.configure(api: api,
+                         navigationController: navController,
+                         reportListTitle: L10n.Report.User.headerTitle.uppercased())
         viewController?.navigationController?.present(navController, animated: true, completion: nil)
     }
     
-    func showMyMenu(_ addPostHandler: @escaping () -> Void) {
+    func showMyMenu(addPostHandler: @escaping () -> Void, followRequestsHandler: @escaping () -> Void) {
         guard let vc = viewController else {
             return
         }
-        let menu = UserProfileActionSheetBuilder.makeMyActionsSheet(viewController: vc, addPostHandler: addPostHandler)
+        let menu = UserProfileActionSheetBuilder.makeMyActionsSheet(
+            viewController: vc,
+            addPostHandler: addPostHandler,
+            followRequestsHandler: followRequestsHandler
+        )
         vc.present(menu, animated: true, completion: nil)
     }
     
@@ -86,5 +93,11 @@ final class UserProfileRouter: UserProfileRouterInput {
     
     func openLogin() {
         loginOpener?.openLogin(parentViewController: viewController?.navigationController)
+    }
+    
+    func openFollowRequests() {
+        let configurator = FollowRequestsConfigurator()
+        configurator.configure(output: followRequestsModuleOutput, navigationController: viewController?.navigationController)
+        viewController?.navigationController?.pushViewController(configurator.viewController, animated: true)
     }
 }

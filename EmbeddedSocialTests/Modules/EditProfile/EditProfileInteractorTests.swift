@@ -37,7 +37,14 @@ class EditProfileInteractorTests: XCTestCase {
     }
     
     func testThatPhotoIsCached() {
-        sut.cachePhoto(Photo())
-        XCTAssertEqual(imageCache.storePhotoSyncCount, 1)
+        // given
+        let photo = Photo()
+        
+        // when
+        sut.cachePhoto(photo)
+        
+        // then
+        XCTAssertTrue(imageCache.storePhotoCalled)
+        XCTAssertEqual(imageCache.storePhotoReceivedPhoto, photo)
     }
 }

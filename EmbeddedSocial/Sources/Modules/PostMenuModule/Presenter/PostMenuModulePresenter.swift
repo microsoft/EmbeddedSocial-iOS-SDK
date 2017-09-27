@@ -5,39 +5,66 @@
 
 protocol PostMenuModuleOutput: class {
 
-    func didBlock(user: UserHandle)
-    func didUnblock(user: UserHandle)
-    func didFollow(user: UserHandle)
-    func didUnfollow(user: UserHandle)
+    func didBlock(user: User)
+    func didUnblock(user: User)
+    func didFollow(user: User)
+    func didUnfollow(user: User)
     func didHide(post: PostHandle)
     func didEdit(post: PostHandle)
     func didRemove(post: PostHandle)
+    func didRemove(comment: Comment)
+    func didRemove(reply: Reply)
     func didReport(post: PostHandle)
+    func didReport(comment: Comment)
+    func didReport(reply: Reply)
     func didRequestFail(error: Error)
     func postMenuProcessDidStart()
     func postMenuProcessDidFinish()
 }
 
+extension PostMenuModuleOutput {
+    func didHide(post: PostHandle) {}
+    func didEdit(post: PostHandle) {}
+    func didRemove(post: PostHandle) {}
+    func didRemove(comment: Comment) {}
+    func didRemove(reply: Reply) {}
+    func didReport(post: PostHandle) {}
+    func didReport(comment: Comment) {}
+    func didReport(reply: Reply) {}
+}
+
 protocol PostMenuModuleInput: class {
     
-    func didTapBlock(user: UserHandle)
-    func didTapUnblock(user: UserHandle)
+    func didTapBlock(user: User)
+    func didTapUnblock(user: User)
     func didTapHide(post: PostHandle)
-    func didTapFollow(user: UserHandle)
-    func didTapUnfollow(user: UserHandle)
+    func didTapFollow(user: User)
+    func didTapUnfollow(user: User)
     func didTapEditPost(post: Post)
     func didTapRemovePost(post: PostHandle)
+    func didTapReport(comment: Comment)
+    func didTapReport(reply: Reply)
+    func didTapRemove(comment: Comment)
+    func didTapRemove(reply: Reply)
 }
 
 enum PostMenuType: CustomStringConvertible {
     case myPost(post: Post)
     case otherPost(post: Post, isHome: Bool)
+    case myComment(comment: Comment)
+    case otherComment(comment: Comment)
+    case myReply(reply: Reply)
+    case otherReply(reply: Reply)
     
     var description: String  {
         get {
             switch self {
             case .myPost(let post ), .otherPost(let post, _):
                 return post.topicHandle!
+            case .myComment(let comment), .otherComment(let comment):
+                return comment.commentHandle
+            case .myReply(let reply), .otherReply(let reply):
+                return reply.replyHandle
             }
         }
     }
@@ -77,6 +104,14 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
             return buildActionListForMyPost(post: post)
         case .otherPost(let post, let isHomeFeed):
             return buildActionListForOtherPost(post: post, isHomeFeed: isHomeFeed)
+        case .myComment(let comment):
+            return MenuViewModelBuilder().buildActionListForMyComment(comment: comment, delegate: self)
+        case .otherComment(let comment):
+            return MenuViewModelBuilder().buildActionListForOtherComment(comment: comment, delegate: self)
+        case .myReply(let reply):
+            return MenuViewModelBuilder().buildActionListForMyReply(reply: reply, delegate: self)
+        case .otherReply(let reply):
+            return MenuViewModelBuilder().buildActionListForOtherReply(reply: reply, delegate: self)
         }
     }
     
@@ -120,21 +155,24 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         return [editItem, removeitem]
     }
     
+    
     // MARK: View Models builder
     
     private func followersViewModel(post: Post) -> ActionViewModel {
         
         var item = ActionViewModel()
         
-        let shouldFollow = (post.userStatus == .follow) ? false : true
-        let userHandle = post.userHandle!
+        let shouldFollow = (post.userStatus == .accepted) ? false : true
         
         item.title = shouldFollow ? L10n.PostMenu.follow : L10n.PostMenu.unfollow
+        
         item.action = { [weak self] in
+            guard let user = post.user else { return }
+            
             if shouldFollow {
-                self?.didTapFollow(user: userHandle)
+                self?.didTapFollow(user: user)
             } else {
-                self?.didTapUnfollow(user: userHandle)
+                self?.didTapUnfollow(user: user)
             }
         }
         return item
@@ -143,16 +181,17 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     private func blockViewModel(post: Post) -> ActionViewModel {
         
         var item = ActionViewModel()
-        let userHandle = post.userHandle!
         
         let shouldUnblock = post.userStatus == .blocked
         
         item.title = shouldUnblock ? L10n.PostMenu.unblock : L10n.PostMenu.block
         item.action = { [weak self] in
+            guard let user = post.user else { return }
+
             if shouldUnblock {
-                self?.didTapUnblock(user: userHandle)
+                self?.didTapUnblock(user: user)
             } else {
-                self?.didTapBlock(user: userHandle)
+                self?.didTapBlock(user: user)
             }
         }
         return item
@@ -170,7 +209,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     }
     
     // MARK: Module Input
-    func didTapBlock(user: UserHandle) {
+    func didTapBlock(user: User) {
         guard myProfileHolder.me != nil else {
             router.openLogin()
             return
@@ -179,7 +218,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         self.interactor.block(user: user)
     }
     
-    func didTapUnblock(user: UserHandle) {
+    func didTapUnblock(user: User) {
         self.output?.didUnblock(user: user)
         self.interactor.unblock(user: user)
     }
@@ -189,12 +228,12 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         self.interactor.hide(post: post)
     }
     
-    func didTapFollow(user: UserHandle) {
+    func didTapFollow(user: User) {
         self.output?.postMenuProcessDidStart()
         self.interactor.follow(user: user)
     }
     
-    func didTapUnfollow(user: UserHandle) {
+    func didTapUnfollow(user: User) {
         self.output?.postMenuProcessDidStart()
         self.interactor.unfollow(user: user)
     }
@@ -208,27 +247,66 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         self.interactor.remove(post: post)
     }
     
+    func didTapRemove(comment: Comment) {
+        self.output?.didRemove(comment: comment)
+        self.interactor.remove(comment: comment)
+    }
+    
+    func didTapRemove(reply: Reply) {
+        self.output?.didRemove(reply: reply)
+        self.interactor.remove(reply: reply)
+    }
+    
     func didTapReportPost(post: PostHandle) {
-//        self.output?.didReport(post: post)
+        self.output?.didReport(post: post)
        router.openReport(postHandle: post)
     }
     
+    func didTapReport(comment: Comment) {
+        self.output?.didReport(comment: comment)
+        router.openReport(comment: comment)
+    }
+    
+    func didTapReport(reply: Reply) {
+        self.output?.didReport(reply: reply)
+        router.openReport(reply: reply)
+    }
+    
     // MARK: Interactor Output
-    func didBlock(user: UserHandle, error: Error?) {
+    
+    func didRemove(reply: Reply, error: Error?) {
+        output?.postMenuProcessDidFinish()
+        if let error = error {
+            output?.didRequestFail(error: error)
+        } else {
+            output?.didRemove(reply: reply)
+        }
+    }
+    
+    func didRemove(comment: Comment, error: Error?) {
+        output?.postMenuProcessDidFinish()
+        if let error = error {
+            output?.didRequestFail(error: error)
+        } else {
+            output?.didRemove(comment: comment)
+        }
+    }
+    
+    func didBlock(user: User, error: Error?) {
         Logger.log(user, error)
         if let error = error {
             output?.didRequestFail(error: error)
         }
     }
     
-    func didUnblock(user: UserHandle, error: Error?) {
+    func didUnblock(user: User, error: Error?) {
         Logger.log(user, error)
         if let error = error {
             output?.didRequestFail(error: error)
         }
     }
     
-    func didFollow(user: UserHandle, error: Error?) {
+    func didFollow(user: User, error: Error?) {
         Logger.log(user, error)
         output?.postMenuProcessDidFinish()
         if let error = error {
@@ -238,7 +316,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         }
     }
     
-    func didUnfollow(user: UserHandle, error: Error?) {
+    func didUnfollow(user: User, error: Error?) {
         Logger.log(user, error)
         output?.postMenuProcessDidFinish()
         if let error = error {

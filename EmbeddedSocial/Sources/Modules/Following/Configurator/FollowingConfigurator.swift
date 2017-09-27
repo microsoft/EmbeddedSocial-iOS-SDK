@@ -10,28 +10,34 @@ final class FollowingConfigurator {
     
     init() {
         viewController = StoryboardScene.Following.instantiateFollowingViewController()
-        viewController.title = L10n.Followers.screenTitle
+        viewController.title = L10n.Following.screenTitle
     }
     
     func configure(api: UsersListAPI,
                    navigationController: UINavigationController?,
-                   moduleOutput: FollowingModuleOutput? = nil) {
+                   moduleOutput: FollowingModuleOutput? = nil,
+                   searchPeopleOpener: SearchPeopleOpener? = SocialPlus.shared.coordinator) {
         
         let presenter = FollowingPresenter()
         presenter.view = viewController
         presenter.usersList = makeUserListModule(api: api, navigationController: navigationController, output: presenter)
         presenter.moduleOutput = moduleOutput
+        presenter.router = FollowingRouter(searchPeopleOpener: searchPeopleOpener, navigationController: navigationController)
 
         viewController.output = presenter
     }
     
     private func makeUserListModule(api: UsersListAPI,
                                     navigationController: UINavigationController?,
-                                    output: UserListModuleOutput?) -> UserListModuleInput {
+                                    output: (UserListModuleOutput & FollowingNoDataViewDelegate)?) -> UserListModuleInput {
+        
+        let noDataView = FollowingNoDataView.fromNib()
+        noDataView.delegate = output
         
         let settings = UserListConfigurator.Settings(api: api,
                                                      navigationController: navigationController,
-                                                     output: output)
+                                                     output: output,
+                                                     noDataView: noDataView)
         
         return UserListConfigurator().configure(with: settings)
     }

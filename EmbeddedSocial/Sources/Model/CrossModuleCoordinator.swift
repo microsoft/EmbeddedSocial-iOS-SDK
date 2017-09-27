@@ -11,7 +11,8 @@ protocol CrossModuleCoordinatorProtocol: class {
     func openPopularScreen()
     func openMyProfile()
     func openLoginScreen()
-    
+    func openSearchPeople()
+
     func logOut()
     func showError(_ error: Error)
 
@@ -24,6 +25,7 @@ protocol CrossModuleCoordinatorProtocol: class {
     var configuredSearch: UIViewController { get }
     var configuredSettings: UIViewController { get }
     var configuredMyPins: UIViewController { get }
+    var configuredActivity: UIViewController { get }
 }
 
 class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput {
@@ -112,6 +114,12 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         menuModule.openSocialItem(index: index)
     }
     
+    func openSearchPeople() {
+        let index = menuItemsProvider.getMenuItemIndex(for: .search)!
+        menuModule.openSocialItem(index: index)
+        searchModule.selectPeopleTab()
+    }
+    
     func logOut() {
         user = nil
         menuModule.user = nil
@@ -170,21 +178,37 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         return vc
     }()
     
-    lazy var configuredSearch: UIViewController = {
+    lazy var configuredSearchModule: SearchConfigurator = { [unowned self] in
         let configurator = SearchConfigurator()
         configurator.configure(isLoggedInUser: self.isUserAuthenticated(),
                                navigationController: self.navigationStack.navigationController)
-        return configurator.viewController
+        return configurator
     }()
+    
+    var configuredSearch: UIViewController {
+        return configuredSearchModule.viewController
+    }
+    
+    var searchModule: SearchModuleInput {
+        return configuredSearchModule.moduleInput
+    }
     
     lazy var configuredSettings: UIViewController = {
         let configurator = SettingsConfigurator()
         configurator.configure(navigationController: self.navigationStack.navigationController)
         return configurator.viewController
     }()
+    
+    lazy var configuredActivity: UIViewController = {
+        let configurator = ActivityModuleConfigurator()
+        configurator.configure(navigationController: self.navigationStack.navigationController)
+        return configurator.viewController
+    }()
 }
 
 extension CrossModuleCoordinator: MyProfileOpener { }
+
+extension CrossModuleCoordinator: SearchPeopleOpener { }
 
 extension CrossModuleCoordinator: LoginModalOpener {
     

@@ -10,28 +10,41 @@ class UserListPresenter {
     var interactor: UserListInteractorInput!
     weak var moduleOutput: UserListModuleOutput?
     var router: UserListRouterInput!
+    
+    var noDataText: NSAttributedString?
+    var noDataView: UIView?
+    
     fileprivate let myProfileHolder: UserHolder
+    fileprivate var isAnimatingPullToRefresh = false
     
     init(myProfileHolder: UserHolder) {
         self.myProfileHolder = myProfileHolder
     }
     
     func loadNextPage() {
+        view.setIsEmpty(false)
+        
         interactor.getNextListPage { [weak self] result in
-            guard let strongSelf = self else { return }
-            
-            if let users = result.value {
-                strongSelf.view.setUsers(users)
-            } else {
-                strongSelf.moduleOutput?.didFailToLoadList(listView: strongSelf.listView, error: result.error ?? APIError.unknown)
-            }
+            self?.processUsersResult(result)
         }
+    }
+    
+    fileprivate func processUsersResult(_ result: Result<[User]>) {
+        if let users = result.value {
+            view.setUsers(users)
+            moduleOutput?.didUpdateList(listView, with: users)
+        } else {
+            moduleOutput?.didFailToLoadList(listView: listView, error: result.error ?? APIError.unknown)
+        }
+        
+        view.setIsEmpty(result.value?.isEmpty ?? true)
     }
 }
 
 extension UserListPresenter: UserListInteractorOutput {
     
     func didUpdateListLoadingState(_ isLoading: Bool) {
+        guard !isAnimatingPullToRefresh else { return }
         view.setIsLoading(isLoading)
     }
 }
@@ -39,7 +52,6 @@ extension UserListPresenter: UserListInteractorOutput {
 extension UserListPresenter: UserListViewOutput {
     
     func onItemAction(item: UserListItem) {
-        
         guard myProfileHolder.me != nil else {
             router.openLogin()
             return
@@ -48,6 +60,7 @@ extension UserListPresenter: UserListViewOutput {
         view.setIsLoading(true, item: item)
         
         interactor.processSocialRequest(to: item.user) { [weak self] result in
+            
             guard let strongSelf = self else {
                 return
             }
@@ -80,9 +93,21 @@ extension UserListPresenter: UserListViewOutput {
             router.openUserProfile(item.user.uid)
         }
     }
+    
+    func onPullToRefresh() {
+        isAnimatingPullToRefresh = true
+        view.setIsEmpty(false)
+
+        interactor.reloadList { [weak self] result in
+            self?.isAnimatingPullToRefresh = false
+            self?.view.endPullToRefreshAnimation()
+            self?.processUsersResult(result)
+        }
+    }
 }
 
 extension UserListPresenter: UserListModuleInput {
+    
     var listView: UIView {
         guard let view = view as? UIView else {
             fatalError("View not set")
@@ -92,6 +117,8 @@ extension UserListPresenter: UserListModuleInput {
     
     func setupInitialState() {
         view.setupInitialState()
+        view.setNoDataText(noDataText)
+        view.setNoDataView(noDataView)
         loadNextPage()
     }
     

@@ -57,6 +57,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
+        postButton.isHidden = replyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
     // MARK: Internal
@@ -65,6 +66,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     }
 
     func configCollecionView() {
+        collectionView.alwaysBounceVertical = true
         prototypeReplyCell = ReplyCell.nib.instantiate(withOwner: nil, options: nil).first as? ReplyCell
         prototypeCommentCell = CommentCell.nib.instantiate(withOwner: nil, options: nil).first as? CommentCell
         collectionView.register(ReplyCell.nib, forCellWithReuseIdentifier: ReplyCell.reuseID)
@@ -92,7 +94,8 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         SVProgressHUD.show()
     }
     
-    fileprivate func unlockUI() {
+    func unlockUI() {
+        refreshControl.endRefreshing()
         view.isUserInteractionEnabled = true
         SVProgressHUD.dismiss()
     }
@@ -129,6 +132,10 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         collectionView.reloadItems(at: [IndexPath(item: index, section: RepliesSections.replies.rawValue)])
     }
     
+    func removeReply(index: Int) {
+        collectionView.deleteItems(at: [IndexPath(item: index, section: RepliesSections.replies.rawValue)])
+    }
+    
     func reloadTable(scrollType: RepliesScrollType) {
         postButton.isHidden = replyTextView.text.isEmpty
         collectionView.reloadSections([RepliesSections.replies.rawValue])
@@ -147,8 +154,10 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     }
     
     func replyPosted() {
-        reloadReplies()
+        collectionView.insertItems(at: [IndexPath(item: output.numberOfItems() - 1, section: RepliesSections.replies.rawValue)])
+        scrollTableToBottom()
         replyTextView.text = ""
+        postButton.isHidden = true
         unlockUI()
     }
     
@@ -202,6 +211,14 @@ extension CommentRepliesViewController: UICollectionViewDelegate {
             replyTextView.resignFirstResponder()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? ReplyCell else {
+            return
+        }
+        
+        cell.separator.isHidden = indexPath.row == output.numberOfItems() - 1 && indexPath.section == RepliesSections.replies.rawValue
+    }
 }
 
 extension CommentRepliesViewController: LoadMoreCellDelegate {
@@ -237,7 +254,7 @@ extension CommentRepliesViewController: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        output.loadRestReplies()
+        scrollTableToBottom()
     }
     
 }

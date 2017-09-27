@@ -15,7 +15,7 @@ final class SearchPeopleInteractor: SearchPeopleInteractorInput {
     }
     
     func runSearchQuery(for searchBar: UISearchBar, usersListModule: UserListModuleInput) {
-        guard let searchText = searchBar.text?.trimmingCharacters(in: .whitespaces) else {
+        guard let searchText = searchBar.text?.trimmingCharacters(in: .whitespaces), !searchText.isEmpty else {
             return
         }
         let api = QueryPeopleAPI(query: searchText, searchService: SearchService())

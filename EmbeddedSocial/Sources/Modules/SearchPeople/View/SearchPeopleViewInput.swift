@@ -5,4 +5,6 @@
 
 protocol SearchPeopleViewInput: class {
     func setupInitialState(listView: UIView)
+    
+    func setIsEmpty(_ isEmpty: Bool)
 }

@@ -10,6 +10,13 @@ final class SearchPeopleViewController: UIViewController {
     
     weak var output: SearchPeopleViewOutput!
     
+    @IBOutlet weak var noContentLabel: UILabel! {
+        didSet {
+            noContentLabel.isHidden = true
+            noContentLabel.textColor = Palette.darkGrey
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -22,5 +29,11 @@ extension SearchPeopleViewController: SearchPeopleViewInput {
         listView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        view.bringSubview(toFront: noContentLabel)
+    }
+    
+    func setIsEmpty(_ isEmpty: Bool) {
+        guard noContentLabel != nil else { return }
+        noContentLabel.isHidden = !isEmpty
     }
 }

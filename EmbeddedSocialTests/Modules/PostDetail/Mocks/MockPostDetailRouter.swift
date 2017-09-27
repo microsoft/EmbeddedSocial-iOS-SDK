@@ -8,23 +8,17 @@ import Foundation
 
 class MockPostDetailRouter: PostDetailRouterInput {
     
-    var openImageCount = 0
-    func openImage(imageUrl: String, from view: UIViewController) {
-       openImageCount += 1
-    }
-    
-    var openUserCount = 0
-    func openUser(userHandle: UserHandle, from view: UIViewController) {
-        openUserCount += 1
-    }
-    
-    var openRepliesCount = 0
-    func openReplies(commentView: CommentViewModel, scrollType: RepliesScrollType, from view: UIViewController, postDetailPresenter: PostDetailPresenter?) {
-        openRepliesCount += 1
+    var backIfNeededCount = 0
+    func backIfNeeded(from view: UIViewController) {
+        backIfNeededCount += 1
     }
     
     var openLoginCount = 0
     func openLogin(from view: UIViewController) {
         openLoginCount += 1
+    }
+    
+    func backToFeed(from view: UIViewController) {
+        
     }
 }

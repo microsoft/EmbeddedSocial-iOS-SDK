@@ -23,6 +23,8 @@ class MockFeedModuleInput: FeedModuleInput {
         }
     }
     
+    var isEmpty = false
+    
     private(set) var refreshDataCount = 0
 
     func refreshData() {
@@ -47,5 +49,10 @@ class MockFeedModuleInput: FeedModuleInput {
     func setHeaderHeight(_ height: CGFloat) {
         headerHeight = height
         setHeaderHeightCount += 1
+    }
+    
+    private(set) var lockScrollingCount = 0
+    func lockScrolling() {
+        lockScrollingCount += 1
     }
 }

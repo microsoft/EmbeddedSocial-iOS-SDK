@@ -5,25 +5,29 @@
 
 protocol PostMenuModuleInteractorInput {
 
-    func block(user: UserHandle)
-    func unblock(user: UserHandle)
-    func follow(user: UserHandle)
-    func unfollow(user: UserHandle)
+    func block(user: User)
+    func unblock(user: User)
+    func follow(user: User)
+    func unfollow(user: User)
     func hide(post: PostHandle)
     func edit(post: PostHandle)
     func remove(post: PostHandle)
+    func remove(comment: Comment)
+    func remove(reply: Reply)
     
 }
 
 protocol PostMenuModuleInteractorOutput: class {
     
-    func didBlock(user: UserHandle, error: Error?)
-    func didUnblock(user: UserHandle, error: Error?)
-    func didFollow(user: UserHandle, error: Error?)
-    func didUnfollow(user: UserHandle, error: Error?)
+    func didBlock(user: User, error: Error?)
+    func didUnblock(user: User, error: Error?)
+    func didFollow(user: User, error: Error?)
+    func didUnfollow(user: User, error: Error?)
     func didHide(post: PostHandle, error: Error?)
     func didEdit(post: PostHandle, error: Error?)
     func didRemove(post: PostHandle, error: Error?)
+    func didRemove(comment: Comment, error: Error?)
+    func didRemove(reply: Reply, error: Error?)
     
 }
 
@@ -32,17 +36,19 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
     weak var output: PostMenuModuleInteractorOutput!
     var socialService: SocialServiceType!
     var topicsService: PostServiceProtocol!
+    var commentService: CommentServiceProtocol!
+    var repliesService: RepliesServiceProtcol!
     
     // MARK: Input
     
-    func follow(user: UserHandle) {
-        socialService.follow(userID: user) { [weak self] (result) in
+    func follow(user: User) {
+        socialService.follow(user: user) { [weak self] (result) in
             self?.output.didFollow(user: user, error: result.error)
         }
     }
     
-    func unfollow(user: UserHandle) {
-        socialService.unfollow(userID: user) { [weak self] (result) in
+    func unfollow(user: User) {
+        socialService.unfollow(user: user) { [weak self] (result) in
             self?.output.didUnfollow(user: user, error: result.error)
         }
     }
@@ -53,14 +59,26 @@ class PostMenuModuleInteractor: PostMenuModuleInteractorInput {
         }
     }
     
-    func block(user: UserHandle) {
-        socialService.block(userID: user) { [weak self] (result) in
+    func remove(comment: Comment) {
+        commentService.deleteComment(commentHandle: comment.commentHandle) { [weak self] (result) in
+            self?.output.didRemove(comment: comment, error: result.error)
+        }
+    }
+    
+    func remove(reply: Reply) {
+        repliesService.delete(replyHandle: reply.replyHandle) { [weak self] (result) in
+            self?.output.didRemove(reply: reply, error: result.error)
+        }
+    }
+    
+    func block(user: User) {
+        socialService.block(user: user) { [weak self] (result) in
             self?.output.didBlock(user: user, error: result.error)
         }
     }
     
-    func unblock(user: UserHandle) {
-        socialService.unblock(userID: user) { [weak self] (result) in
+    func unblock(user: User) {
+        socialService.unblock(user: user) { [weak self] (result) in
             self?.output.didUnblock(user: user, error: result.error)
         }
     }

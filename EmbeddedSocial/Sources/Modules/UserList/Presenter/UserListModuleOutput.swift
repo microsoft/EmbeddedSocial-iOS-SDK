@@ -11,6 +11,8 @@ protocol UserListModuleOutput: class {
     func didFailToPerformSocialRequest(listView: UIView, error: Error)
     
     func didUpdateFollowStatus(for user: User)
+    
+    func didUpdateList(_ listView: UIView, with users: [User])
 }
 
 //MARK: - Optional methods
@@ -21,4 +23,6 @@ extension UserListModuleOutput {
     func didFailToLoadList(listView: UIView, error: Error) { }
     
     func didUpdateFollowStatus(for user: User) { }
+    
+    func didUpdateList(_ listView: UIView, with users: [User]) { }
 }

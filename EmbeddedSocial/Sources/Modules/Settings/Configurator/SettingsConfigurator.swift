@@ -13,15 +13,14 @@ struct SettingsConfigurator {
         viewController.title = L10n.Settings.screenTitle
     }
     
-    func configure(myProfileHolder: UserHolder = SocialPlus.shared, navigationController: UINavigationController?) {
+    func configure(myProfileHolder: UserHolder = SocialPlus.shared, logoutController: LogoutController = SocialPlus.shared, navigationController: UINavigationController?) {
         let router = SettingsRouter(navigationController: navigationController)
         
         let presenter = SettingsPresenter(myProfileHolder: myProfileHolder)
         presenter.router = router
         presenter.view = viewController
         let userService = UserService(imagesService: ImagesService())
-        presenter.interactor = SettingsInteractor(userService: userService)
-        
+        presenter.interactor = SettingsInteractor(userService: userService, logoutController: logoutController)
         viewController.output = presenter
     }
 }

@@ -1,0 +1,230 @@
+{
+    "data": [
+             {
+             "activityHandle": "3shxpwwGpMH",
+             "createdTime": "2017-09-20T08:18:48.8390341Z",
+             "activityType": "Reply",
+             "actorUsers": [
+                            {
+                            "userHandle": "3v9gnzwILTS",
+                            "firstName": "Alex",
+                            "lastName": "Test",
+                            "photoHandle": "67564D82-0A9C-4773-B4B2-3A81147BF878",
+                            "photoUrl": "https://sp-ppe.azureedge.net/images/67564D82-0A9C-4773-B4B2-3A81147BF878",
+                            "visibility": "Public",
+                            "followerStatus": "Follow"
+                            }
+                            ],
+             "actedOnUser": {
+             "userHandle": "3v9gnzwILTS",
+             "firstName": "Alex",
+             "lastName": "Test",
+             "photoHandle": "67564D82-0A9C-4773-B4B2-3A81147BF878",
+             "photoUrl": "https://sp-ppe.azureedge.net/images/67564D82-0A9C-4773-B4B2-3A81147BF878",
+             "visibility": "Public",
+             "followerStatus": "Follow"
+             },
+             "actedOnContent": {
+             "contentType": "Comment",
+             "contentHandle": "3sjLwVd5s7S",
+             "parentHandle": "3uhkWMemLBe",
+             "rootHandle": null,
+             "text": "15",
+             "blobType": "Unknown",
+             "blobHandle": null,
+             "blobUrl": null
+             },
+             "totalActions": 1,
+             "unread": true,
+             "app": {
+             "name": "iOS SDK Dev",
+             "iconHandle": null,
+             "iconUrl": null,
+             "platformType": "IOS",
+             "deepLink": null,
+             "storeLink": null
+             }
+             },
+             {
+             "activityHandle": "3shxrN0P7Zb",
+             "createdTime": "2017-09-20T08:18:37.1817906Z",
+             "activityType": "Reply",
+             "actorUsers": [
+                            {
+                            "userHandle": "3v9gnzwILTS",
+                            "firstName": "Alex",
+                            "lastName": "Test",
+                            "photoHandle": "67564D82-0A9C-4773-B4B2-3A81147BF878",
+                            "photoUrl": "https://sp-ppe.azureedge.net/images/67564D82-0A9C-4773-B4B2-3A81147BF878",
+                            "visibility": "Public",
+                            "followerStatus": "Follow"
+                            }
+                            ],
+             "actedOnUser": {
+             "userHandle": "3v9gnzwILTS",
+             "firstName": "Alex",
+             "lastName": "Test",
+             "photoHandle": "67564D82-0A9C-4773-B4B2-3A81147BF878",
+             "photoUrl": "https://sp-ppe.azureedge.net/images/67564D82-0A9C-4773-B4B2-3A81147BF878",
+             "visibility": "Public",
+             "followerStatus": "Follow"
+             },
+             "actedOnContent": {
+             "contentType": "Comment",
+             "contentHandle": "3sjLwVd5s7S",
+             "parentHandle": "3uhkWMemLBe",
+             "rootHandle": null,
+             "text": "15",
+             "blobType": "Unknown",
+             "blobHandle": null,
+             "blobUrl": null
+             },
+             "totalActions": 1,
+             "unread": true,
+             "app": {
+             "name": "iOS SDK Dev",
+             "iconHandle": null,
+             "iconUrl": null,
+             "platformType": "IOS",
+             "deepLink": null,
+             "storeLink": null
+             }
+             },
+             {
+             "activityHandle": "3shxvcT99QT",
+             "createdTime": "2017-09-20T08:18:02.307599Z",
+             "activityType": "Comment",
+             "actorUsers": [
+                            {
+                            "userHandle": "3v9gnzwILTS",
+                            "firstName": "Alex",
+                            "lastName": "Test",
+                            "photoHandle": "67564D82-0A9C-4773-B4B2-3A81147BF878",
+                            "photoUrl": "https://sp-ppe.azureedge.net/images/67564D82-0A9C-4773-B4B2-3A81147BF878",
+                            "visibility": "Public",
+                            "followerStatus": "Follow"
+                            }
+                            ],
+             "actedOnUser": {
+             "userHandle": "3vasrlAHhYf",
+             "firstName": "Oleg",
+             "lastName": "Rezhko",
+             "photoHandle": "null",
+             "photoUrl": "https://sp-ppe.azureedge.net/images/null",
+             "visibility": "Public",
+             "followerStatus": "Follow"
+             },
+             "actedOnContent": {
+             "contentType": "Topic",
+             "contentHandle": "3uhkWMemLBe",
+             "parentHandle": null,
+             "rootHandle": null,
+             "text": "test 1",
+             "blobType": "Unknown",
+             "blobHandle": null,
+             "blobUrl": null
+             },
+             "totalActions": 1,
+             "unread": true,
+             "app": {
+             "name": "iOS SDK Dev",
+             "iconHandle": null,
+             "iconUrl": null,
+             "platformType": "IOS",
+             "deepLink": null,
+             "storeLink": null
+             }
+             },
+             {
+             "activityHandle": "3sjLvLVarKY",
+             "createdTime": "2017-09-19T19:20:22.9745832Z",
+             "activityType": "Comment",
+             "actorUsers": [
+                            {
+                            "userHandle": "3v9gnzwILTS",
+                            "firstName": "Alex",
+                            "lastName": "Test",
+                            "photoHandle": "67564D82-0A9C-4773-B4B2-3A81147BF878",
+                            "photoUrl": "https://sp-ppe.azureedge.net/images/67564D82-0A9C-4773-B4B2-3A81147BF878",
+                            "visibility": "Public",
+                            "followerStatus": "Follow"
+                            }
+                            ],
+             "actedOnUser": {
+             "userHandle": "3vasrlAHhYf",
+             "firstName": "Oleg",
+             "lastName": "Rezhko",
+             "photoHandle": "null",
+             "photoUrl": "https://sp-ppe.azureedge.net/images/null",
+             "visibility": "Public",
+             "followerStatus": "Follow"
+             },
+             "actedOnContent": {
+             "contentType": "Topic",
+             "contentHandle": "3uhkWMemLBe",
+             "parentHandle": null,
+             "rootHandle": null,
+             "text": "test 1",
+             "blobType": "Unknown",
+             "blobHandle": null,
+             "blobUrl": null
+             },
+             "totalActions": 1,
+             "unread": true,
+             "app": {
+             "name": "iOS SDK Dev",
+             "iconHandle": null,
+             "iconUrl": null,
+             "platformType": "IOS",
+             "deepLink": null,
+             "storeLink": null
+             }
+             },
+             {
+             "activityHandle": "3sjLwVd5s7S",
+             "createdTime": "2017-09-19T19:20:13.4850261Z",
+             "activityType": "Comment",
+             "actorUsers": [
+                            {
+                            "userHandle": "3v9gnzwILTS",
+                            "firstName": "Alex",
+                            "lastName": "Test",
+                            "photoHandle": "67564D82-0A9C-4773-B4B2-3A81147BF878",
+                            "photoUrl": "https://sp-ppe.azureedge.net/images/67564D82-0A9C-4773-B4B2-3A81147BF878",
+                            "visibility": "Public",
+                            "followerStatus": "Follow"
+                            }
+                            ],
+             "actedOnUser": {
+             "userHandle": "3vasrlAHhYf",
+             "firstName": "Oleg",
+             "lastName": "Rezhko",
+             "photoHandle": "null",
+             "photoUrl": "https://sp-ppe.azureedge.net/images/null",
+             "visibility": "Public",
+             "followerStatus": "Follow"
+             },
+             "actedOnContent": {
+             "contentType": "Topic",
+             "contentHandle": "3uhkWMemLBe",
+             "parentHandle": null,
+             "rootHandle": null,
+             "text": "test 1",
+             "blobType": "Unknown",
+             "blobHandle": null,
+             "blobUrl": null
+             },
+             "totalActions": 1,
+             "unread": true,
+             "app": {
+             "name": "iOS SDK Dev",
+             "iconHandle": null,
+             "iconUrl": null,
+             "platformType": "IOS",
+             "deepLink": null,
+             "storeLink": null
+             }
+             }
+             ],
+    "cursor": "3sjLwVd5s7S"
+}

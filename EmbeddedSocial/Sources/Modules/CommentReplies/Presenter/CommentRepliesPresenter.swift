@@ -4,7 +4,7 @@
 //
 
 enum RepliesCellAction {
-    case like, profile, toLikes
+    case like, profile, toLikes, extra
 }
 
 struct ReplyViewModel {
@@ -43,7 +43,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     fileprivate var loadMoreCellViewModel = LoadMoreCellViewModel()
     
     private var cursor: String?
-    private let maxLimit: Int = 30000
     private let myProfileHolder: UserHolder
     
     init(myProfileHolder: UserHolder) {
@@ -78,10 +77,15 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     private func handle(action: RepliesCellAction, index: Int) {
         
         let replyHandle = replies[index].replyHandle
+        let reply = replies[index]
         let userHandle = replies[index].userHandle!
         
         switch action {
         case .like:
+            guard myProfileHolder.me != nil else {
+                router.openLogin(from: view as? UIViewController ?? UIViewController())
+                return
+            }
             
             let status = replies[index].liked
             let action: RepliesSocialAction = status ? .unlike : .like
@@ -102,6 +106,13 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             
         case .toLikes:
             router.openLikes(replyHandle: replyHandle!, from: view as! UIViewController)
+            
+        case .extra:
+            if reply.userHandle == SocialPlus.shared.me?.uid {
+                router.openMyReplyOptions(reply: reply, from: view as! UIViewController)
+            } else {
+                router.openOtherReplyOptions(reply: reply, from: view as! UIViewController)
+            }
         }
         
     }
@@ -118,6 +129,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     func refresh() {
         cursor = nil
+        scrollType = .none
         loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
         loadMoreCellViewModel.startLoading()
         interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
@@ -140,23 +152,13 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             return
         }
         
-        switch scrollType {
-        case .bottom:
-            interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: maxLimit)
-        default:
-            interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
-        }
-        
+        interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
     }
     
     func fetchMore() {
         loadMoreCellViewModel.startLoading()
         view?.updateLoadingCell()
-        if shouldFetchRestOfReplies {
-            interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: maxLimit)
-        } else {
-            interactor.fetchMoreReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
-        }
+        interactor.fetchMoreReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
     }
     
     func loadRestReplies() {
@@ -183,22 +185,36 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         interactor.postReply(commentHandle: comment.commentHandle, text: text)
     }
     
+    private func enableFetchMore() {
+        loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
+        view?.updateLoadingCell()
+    }
+    
     private func stopLoading() {
         if cursor == nil {
             loadMoreCellViewModel.cellHeight = 0.1
+        } else {
+            loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
         }
         
         loadMoreCellViewModel.stopLoading()
     }
     
     // MARK: CommentRepliesInteractorOutput
+    
+    func fetchedFailed(error: Error) {
+        loadMoreCellViewModel.cellHeight = 0.1
+        loadMoreCellViewModel.stopLoading()
+        view?.updateLoadingCell()
+        view?.unlockUI()
+    }
+    
     func fetched(replies: [Reply], cursor: String?) {
         self.cursor = cursor
         self.replies = replies
+        self.replies.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
         stopLoading()
         view?.reloadTable(scrollType: scrollType)
-        
-        scrollType = .none
     }
     
     func fetchedMore(replies: [Reply], cursor: String?) {
@@ -213,6 +229,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             shouldFetchRestOfReplies = false
         } else {
             view?.reloadReplies()
+            view?.updateLoadingCell()
         }
     }
     
@@ -253,5 +270,59 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             view?.refreshReplyCell(index: index)
         }
         
+    }
+}
+
+extension CommentRepliesPresenter: PostMenuModuleOutput {
+    
+    func postMenuProcessDidStart() {
+        //        view.setRefreshingWithBlocking(state: true)
+    }
+    
+    func postMenuProcessDidFinish() {
+        //        view.setRefreshingWithBlocking(state: false)
+    }
+    
+    func didBlock(user: User) {
+        Logger.log("Success")
+    }
+    
+    func didUnblock(user: User) {
+        Logger.log("Success")
+    }
+    
+    func didRemove(reply: Reply) {
+        guard let index = replies.index(where: { $0.replyHandle == reply.replyHandle }) else {
+            return
+        }
+        
+        replies.remove(at: index)
+        comment.totalReplies -= 1
+        commentCell.configure(comment: comment)
+        view?.removeReply(index: index)
+    }
+    
+    func didFollow(user: User) {
+        for (index, item) in replies.enumerated() {
+            if item.userHandle == user.uid {
+                replies[index].userStatus = .accepted
+                view?.refreshReplyCell(index: index)
+                return
+            }
+        }
+    }
+    
+    func didUnfollow(user: User) {
+        for (index, item) in replies.enumerated() {
+            if item.userHandle == user.uid && item.userStatus == .accepted {
+                replies[index].userStatus = .empty
+                view?.refreshReplyCell(index: index)
+                return
+            }
+        }
+    }
+    
+    func didRequestFail(error: Error) {
+        Logger.log("Reloading feed", error, event: .error)
     }
 }

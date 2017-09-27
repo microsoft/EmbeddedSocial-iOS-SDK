@@ -59,7 +59,7 @@ class TestFollowers: UITestBase {
         followers.back()
         openScreen()
 
-        XCTAssertEqual(follower.followButton.label, "BLOCKED", "Users are not marked as blocked")
+        XCTAssertEqual(follower.followButton.label, "UNBLOCK", "Users are not marked as blocked")
     }
     
     func testFollowUser() {

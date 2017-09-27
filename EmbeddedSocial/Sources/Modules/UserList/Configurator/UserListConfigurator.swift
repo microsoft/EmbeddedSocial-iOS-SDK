@@ -5,10 +5,6 @@
 
 import Foundation
 
-protocol UsersListAPI {
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
-}
-
 struct UserListConfigurator {
     
     func configure(with settings: Settings) -> UserListModuleInput {
@@ -20,13 +16,16 @@ struct UserListConfigurator {
         
         let view = UserListView()
         
-        let interactor = UserListInteractor(api: settings.api, socialService: SocialService())
+        let listProcessor = UsersListProcessor(api: settings.api)
+        let interactor = UserListInteractor(listProcessor: listProcessor, socialService: SocialService())
         
         let presenter = UserListPresenter(myProfileHolder: settings.myProfileHolder)
         presenter.view = view
         presenter.moduleOutput = settings.output
         presenter.interactor = interactor
         presenter.router = router
+        presenter.noDataText = settings.noDataText
+        presenter.noDataView = settings.noDataView
         
         interactor.output = presenter
         
@@ -50,6 +49,8 @@ extension UserListConfigurator {
         var navigationController: UINavigationController?
         var output: UserListModuleOutput?
         var listItemsBuilder: UserListItemsBuilder
+        var noDataText: NSAttributedString?
+        var noDataView: UIView?
         
         init(api: UsersListAPI,
              myProfileHolder: UserHolder = SocialPlus.shared,
@@ -57,7 +58,9 @@ extension UserListConfigurator {
              loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator,
              navigationController: UINavigationController?,
              output: UserListModuleOutput?,
-             listItemsBuilder: UserListItemsBuilder = UserListItemsBuilder()) {
+             listItemsBuilder: UserListItemsBuilder = UserListItemsBuilder(),
+             noDataText: NSAttributedString? = nil,
+             noDataView: UIView? = nil) {
             
             self.api = api
             self.myProfileHolder = myProfileHolder
@@ -66,6 +69,8 @@ extension UserListConfigurator {
             self.navigationController = navigationController
             self.output = output
             self.listItemsBuilder = listItemsBuilder
+            self.noDataText = noDataText
+            self.noDataView = noDataView
         }
     }
 }

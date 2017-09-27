@@ -6,12 +6,14 @@
 import Foundation
 
 final class SearchPresenter: NSObject {
+    
     weak var view: SearchViewInput!
     var peopleSearchModule: SearchPeopleModuleInput!
+    var topicsSearchModule: SearchTopicsModuleInput!
     var interactor: SearchInteractorInput!
     
-    var feedViewController: UIViewController?
-    var feedModuleInput: FeedModuleInput?
+    fileprivate var isViewReady = false
+    fileprivate var initialTab = SearchTabInfo.Tab.topics
     
     fileprivate var topicsTab: SearchTabInfo!
     fileprivate var peopleTab: SearchTabInfo!
@@ -30,16 +32,16 @@ extension SearchPresenter: SearchViewOutput {
     
     func viewIsReady() {
         peopleSearchModule.setupInitialState()
+        topicsSearchModule.setupInitialState()
         
         peopleTab = interactor.makePeopleTab(with: peopleSearchModule)
-        topicsTab = interactor.makeTopicsTab(feedViewController: feedViewController, searchResultsHandler: self)
-        selectedTab = topicsTab
+        topicsTab = interactor.makeTopicsTab(with: topicsSearchModule)
+        selectedTab = initialTab == .people ? peopleTab : topicsTab
         
-        view.setupInitialState(topicsTab)
+        view.setupInitialState(selectedTab!)
+        view.setLayoutAsset(topicsSearchModule.layoutAsset)
         
-        if let feedModuleInput = feedModuleInput {
-            view.setLayoutAsset(feedModuleInput.layout.nextLayoutAsset)
-        }
+        isViewReady = true
     }
     
     func onTopics() {
@@ -51,42 +53,23 @@ extension SearchPresenter: SearchViewOutput {
     }
     
     func onFlipTopicsLayout() {
-        guard let feedModuleInput = feedModuleInput else {
-            return
-        }
-        feedModuleInput.layout = feedModuleInput.layout.flipped
-        view.setLayoutAsset(feedModuleInput.layout.nextLayoutAsset)
+        topicsSearchModule.flipLayout()
+        view.setLayoutAsset(topicsSearchModule.layoutAsset)
     }
 }
 
-extension SearchPresenter: SearchResultsUpdating {
-    
-    func updateSearchResults(for searchBar: UISearchBar) {
-        // Throttle search events https://stackoverflow.com/a/29760716/6870041
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.runSearchQuery(for:)),
-                                               object: searchBar)
-        perform(#selector(self.runSearchQuery(for:)), with: searchBar, afterDelay: 0.5)
-    }
-    
-    @objc private func runSearchQuery(for searchBar: UISearchBar) {
-        if let feedModule = feedModuleInput {
-            interactor.runSearchQuery(for: searchBar, feedModule: feedModule)
-        }
-    }
-}
-
-extension SearchPresenter: FeedModuleOutput {
-    
-    func shouldOpenProfile(for userID: String) -> Bool {
-        return true
-    }
-}
-
-extension SearchPresenter: SearchPeopleModuleOutput {
+extension SearchPresenter: SearchPeopleModuleOutput, SearchTopicsModuleOutput {
     
     func didFailToLoadSuggestedUsers(_ error: Error) { }
     
     func didFailToLoadSearchQuery(_ error: Error) {
         view.showError(error)
+    }
+}
+
+extension SearchPresenter: SearchModuleInput {
+    
+    func selectPeopleTab() {
+        isViewReady ? (selectedTab = peopleTab) : (initialTab = .people)
     }
 }

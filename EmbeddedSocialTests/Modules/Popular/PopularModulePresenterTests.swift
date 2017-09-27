@@ -44,42 +44,13 @@ private class PopularModuleViewMock: PopularModuleViewInput {
     }
 }
 
-private class FeedModuleMock: FeedModuleInput {
-
-    var feedType: FeedType?
-    
-    var didRefreshData = false
-    
-    func refreshData() {
-        didRefreshData = true
-    }
-
-    var layout: FeedModuleLayoutType = .list
-    var setHeaderHeightCalled = false
-    var headerHeight: CGFloat? = nil
-    
-    func setHeaderHeight(_ height: CGFloat) {
-        setHeaderHeightCalled = true
-        headerHeight = height
-    }
-}
-
-extension FeedModuleMock {
-    
-    func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
-                        size: CGSize,
-                        configurator: @escaping (T) -> Void) {}
-    
-    func moduleHeight() -> CGFloat { return 0 }
-}
-
 
 class PopularModulePresenterTests: XCTestCase {
     
     var sut: PopularModulePresenter!
     private var view: PopularModuleViewMock!
     var router: PopularModuleRouter!
-    private var feedModule: FeedModuleMock!
+    private var feedModule: MockFeedModuleInput!
     
     override func setUp() {
         super.setUp()
@@ -92,7 +63,7 @@ class PopularModulePresenterTests: XCTestCase {
         router.navigationController = UINavigationController()
         sut.router = router
         
-        feedModule = FeedModuleMock()
+        feedModule = MockFeedModuleInput()
         
         sut.configuredFeedModule = { [feedModule] navigationController, output in
             

@@ -24,6 +24,7 @@ protocol FeedModuleViewInput: class {
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void)
     func refreshLayout()
+    func setScrolling(enable: Bool)
     
     func getViewHeight() -> CGFloat
     //func getItemSize() -> CGSize
@@ -271,6 +272,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     func refreshLayout() {
         collectionView?.collectionViewLayout.invalidateLayout()
+    }
+    
+    func setScrolling(enable: Bool) {
+        collectionView.isScrollEnabled = enable
     }
     
     func setRefreshing(state: Bool) {

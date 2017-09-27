@@ -4,6 +4,7 @@
 //
 
 @testable import EmbeddedSocial
+import XCTest
 
 class MockCache: CacheType {
     
@@ -104,7 +105,7 @@ class MockCache: CacheType {
     var fetchOutgoing_with_Called = false
     var fetchOutgoing_with_ReceivedRequest: Any?
     var fetchOutgoing_with_ReturnValue: [Cacheable] = []
-    
+
     func fetchOutgoing<Item: Cacheable>(with request: CacheFetchRequest<Item>) -> [Item] {
         fetchOutgoing_with_Called = true
         fetchOutgoing_with_ReceivedRequest = request
@@ -137,9 +138,11 @@ class MockCache: CacheType {
     
     var deleteOutgoing_with_Called = false
     var deleteOutgoing_with_ReceivedPredicate: NSPredicate?
+    var deleteOutgoing_Expectation = XCTestExpectation()
 
     func deleteOutgoing(with predicate: NSPredicate) {
         deleteOutgoing_with_Called = true
-        deleteIncoming_with_ReceivedPredicate = predicate
+        deleteOutgoing_with_ReceivedPredicate = predicate
+        deleteOutgoing_Expectation.fulfill()
     }
 }

@@ -5,7 +5,7 @@
 import Foundation
 import Alamofire
 
-typealias TopicPosted = (PostTopicRequest) -> Void
+typealias TopicPosted = (Post) -> Void
 typealias Failure = (Error) -> Void
 
 enum FeedServiceError: Error {
@@ -73,6 +73,7 @@ protocol PostServiceProtocol {
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler)
     func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler)
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
+    func postTopic(_ topic: Post, success: @escaping TopicPosted, failure: @escaping Failure)
     
 }
 
@@ -84,41 +85,68 @@ protocol PostServiceDelegate: class {
 class TopicService: BaseService, PostServiceProtocol {
     
     private var imagesService: ImagesServiceType!
-    
+    private var responseParser: FeedResponseParserProtocol!
+    private var otherUserFeedResponseParser: FeedResponseParserProtocol!
+
     init(imagesService: ImagesServiceType) {
         super.init()
         self.imagesService = imagesService
+        responseParser = FeedResponseParser(processor: FeedResponsePostProcessor(cache: cache))
+        otherUserFeedResponseParser = FeedResponseParser(processor: OtherUserFeedResponsePostProcessor(cache: cache))
     }
     
     init() {
         super.init()
     }
     
-    func postTopic(topic: PostTopicRequest, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
-        guard let network = NetworkReachabilityManager() else {
-            failure(APIError.unknown)
+    func postTopic(_ topic: Post, success: @escaping TopicPosted, failure: @escaping Failure) {
+        let topicCommand = CreateTopicCommand(topic: topic)
+        
+        guard let image = topic.photo?.image else {
+            execute(command: topicCommand, success: success, failure: failure)
             return
         }
         
-        guard network.isReachable else {
-            cacheTopic(topic, with: photo)
-            return
-        }
-        
-        guard let image = photo?.image else {
-            postTopic(request: topic, success: success, failure: failure)
-            return
-        }
-        
-        imagesService.uploadContentImage(image) { [unowned self] result in
+        imagesService.uploadTopicImage(image, topicHandle: topic.topicHandle) { [weak self] result in
             if let handle = result.value {
-                topic.blobHandle = handle
-                topic.blobType = .image
-                self.postTopic(request: topic, success: success, failure: failure)
-            } else if self.errorHandler.canHandle(result.error) {
-                self.errorHandler.handle(result.error)
+                topicCommand.setImageHandle(handle)
+                self?.execute(command: topicCommand, success: success, failure: failure)
+            } else if self?.errorHandler.canHandle(result.error) == true {
+                self?.errorHandler.handle(result.error)
             } else {
                 failure(result.error ?? APIError.unknown)
+            }
+        }
+    }
+    
+    private func execute(command: CreateTopicCommand,
+                         success: @escaping TopicPosted,
+                         failure: @escaping Failure) {
+        
+        guard isNetworkReachable else {
+            cache.cacheOutgoing(command)
+            success(command.topic)
+            return
+        }
+        
+        let request = PostTopicRequest()
+        request.text = command.topic.text
+        request.title = command.topic.title
+        
+        if let imageHandle = command.topic.imageHandle {
+            request.blobHandle = imageHandle
+            request.blobType = .image
+        }
+        
+        TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { response, error in
+            if let handle = response?.topicHandle {
+                var topic = command.topic
+                topic.topicHandle = handle
+                success(topic)
+            } else if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else {
+                failure(error ?? APIError.unknown)
             }
         }
     }
@@ -133,26 +161,6 @@ class TopicService: BaseService, PostServiceProtocol {
         }
     }
     
-    private func cacheTopic(_ topic: PostTopicRequest, with photo: Photo?) {
-        if let photo = photo {
-            cache.cacheOutgoing(photo)
-            topic.blobHandle = photo.uid
-        }
-        cache.cacheOutgoing(topic)
-    }
-    
-    private func postTopic(request: PostTopicRequest, success: @escaping TopicPosted, failure: @escaping Failure) {
-        TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { response, error in
-            if response != nil {
-                success(request)
-            } else if self.errorHandler.canHandle(error) {
-                self.errorHandler.handle(error)
-            } else {
-                failure(error ?? APIError.unknown)
-            }
-        }
-    }
-    
     // MARK: GET
     
     func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler) {
@@ -160,7 +168,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                               cursor: query.cursor,
                                                               limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: responseParser, completion: completion)
     }
     
     func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {
@@ -168,7 +176,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                        cursor: query.cursor,
                                                                        limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: responseParser, completion: completion)
     }
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
@@ -178,7 +186,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                          cursor: query.cursorInt(),
                                                                          limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: responseParser, completion: completion)
     }
     
     func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {
@@ -187,7 +195,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                   cursor: query.cursor,
                                                                   limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: responseParser, completion: completion)
     }
     
     func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
@@ -197,7 +205,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                      cursor: query.cursor,
                                                                      limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: otherUserFeedResponseParser, completion: completion)
     }
     
     func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
@@ -207,7 +215,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                             cursor: query.cursorInt(),
                                                                             limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: otherUserFeedResponseParser, completion: completion)
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
@@ -237,7 +245,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                    cursor: query.cursor,
                                                                    limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: responseParser, completion: completion)
     }
     
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {
@@ -245,7 +253,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                           cursor: query.cursorInt(),
                                                                           limit: query.limit)
         
-        processRequest(request, completion: completion)
+        processRequest(request, responseParser: responseParser, completion: completion)
     }
     
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
@@ -260,12 +268,13 @@ class TopicService: BaseService, PostServiceProtocol {
     
     // MARK: Private
     private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
+                                responseParser: FeedResponseParserProtocol,
                                 completion: @escaping FetchResultHandler) {
         
         let requestCacheKey = requestBuilder.URLString
         
         // Lookup in cache and return if hit
-        if let result = fetchResultFromCache(by: requestCacheKey) {
+        if let result = fetchResultFromCache(by: requestCacheKey, responseParser: responseParser) {
             
             completion(result)
         }
@@ -281,8 +290,8 @@ class TopicService: BaseService, PostServiceProtocol {
             
             strongSelf.handleError(error, result: &result)
             strongSelf.cacheResponse(response?.body, forKey: requestCacheKey)
-            strongSelf.parseResponse(response?.body, isCached: false, into: &result)
-            
+            responseParser.parse(response?.body, isCached: false, into: &result)
+
             completion(result)
         }
     }
@@ -306,30 +315,15 @@ class TopicService: BaseService, PostServiceProtocol {
         }
     }
     
-    private func fetchResultFromCache(by cacheKey: String) -> FeedFetchResult? {
+    private func fetchResultFromCache(by cacheKey: String, responseParser: FeedResponseParserProtocol) -> FeedFetchResult? {
         
-        guard let cachedResponse = feedCacheAdapter.cached(by: cacheKey) else {
+        guard let cachedResponse = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: cacheKey) else {
             return nil
         }
         
         var result = FeedFetchResult()
-        
-        self.parseResponse(cachedResponse, isCached: true, into: &result)
-        
+        responseParser.parse(cachedResponse, isCached: true, into: &result)
         return result
     }
-    
-    private lazy var responseParser: FeedResponseParser = { [unowned self] in
-        return FeedResponseParser(processor: FeedCachePostProcessor(cacheAdapter: FeedCacheActionsAdapter(cache: self.cache)))
-        }()
-    
-    private func parseResponse(_ response: FeedResponseTopicView?, isCached: Bool, into result: inout FeedFetchResult) {
-        responseParser.parse(response, isCached: isCached, into: &result)
-    }
-    
-    private lazy var feedCacheAdapter: FeedCacheAdapter = { [unowned self] in
-        return FeedCacheAdapter(cache: self.cache)
-        }()
-    
 }
 

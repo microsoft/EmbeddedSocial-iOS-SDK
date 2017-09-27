@@ -14,7 +14,7 @@ protocol UserProfileRouterInput {
     
     func openCreatePost(user: User)
     
-    func showMyMenu(_ addPostHandler: @escaping () -> Void)
+    func showMyMenu(addPostHandler: @escaping () -> Void, followRequestsHandler: @escaping () -> Void)
     
     func showUserMenu(_ user: User, blockHandler: @escaping () -> Void, reportHandler: @escaping () -> Void)
     
@@ -23,4 +23,6 @@ protocol UserProfileRouterInput {
     func popTopScreen()
     
     func openLogin()
+    
+    func openFollowRequests()
 }

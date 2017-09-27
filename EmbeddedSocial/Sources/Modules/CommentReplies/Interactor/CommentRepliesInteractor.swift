@@ -15,6 +15,12 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     var repliesService: RepliesServiceProtcol?
     var likeService: LikesServiceProtocol?
     
+    private let userHolder: UserHolder
+    
+    init(userHolder: UserHolder = SocialPlus.shared) {
+        self.userHolder = userHolder
+    }
+    
     // MARK: Social Actions
     
     func replyAction(replyHandle: String, action: RepliesSocialAction) {
@@ -46,6 +52,7 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     
     private func handleRepliesResult(result: RepliesFetchResult) {
         guard result.error == nil else {
+            self.output?.fetchedFailed(error: result.error!)
             return
         }
         
@@ -61,16 +68,16 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         self.isLoading = true
         self.repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
             if !cachedResult.replies.isEmpty {
-               self.handleMoreRepliesResult(result: cachedResult)
+                self.handleMoreRepliesResult(result: cachedResult)
             }
         }, resultHandler: { (webResult) in
             self.handleMoreRepliesResult(result: webResult)
         })
-        
     }
     
     private func handleMoreRepliesResult(result: RepliesFetchResult) {
         guard result.error == nil else {
+            self.output?.fetchedFailed(error: result.error!)
             return
         }
         
@@ -79,17 +86,18 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     }
     
     func postReply(commentHandle: String, text: String) {
-        let request = PostReplyRequest()
-        request.text = text
+        let reply = Reply(replyHandle: UUID().uuidString)
+        reply.commentHandle = commentHandle
+        reply.text = text
+        reply.userHandle = userHolder.me?.uid
+        reply.userStatus = userHolder.me?.followerStatus ?? .empty
+        reply.userLastName = userHolder.me?.lastName
+        reply.userFirstName = userHolder.me?.firstName
+        reply.userPhotoUrl = userHolder.me?.photo?.url
         
-        repliesService?.postReply(commentHandle: commentHandle, request: request, success: { (response) in
-            self.repliesService?.reply(replyHandle: response.replyHandle!, cachedResult: { (cachedReply) in
-                self.output?.replyPosted(reply: cachedReply)
-            }, success: { (webReply) in
-                self.output?.replyPosted(reply: webReply)
-            }, failure: { (error) in
-                
-            })
+        repliesService?.postReply(reply: reply, success: { (response) in
+            reply.replyHandle = response.replyHandle
+            self.output?.replyPosted(reply: reply)
         }, failure: { (error) in
             self.output?.replyFailPost(error: error)
         })

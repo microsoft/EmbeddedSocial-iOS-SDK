@@ -8,4 +8,6 @@ import Foundation
 
 protocol PostDetailRouterInput {
     func openLogin(from view: UIViewController)
+    func backIfNeeded(from view: UIViewController)
+    func backToFeed(from view: UIViewController)
 }

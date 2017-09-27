@@ -13,15 +13,23 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     var view: CommentCellViewInput?
     var interactor: CommentCellInteractorInput?
     var router: CommentCellRouterInput?
+    var myProfileHolder: UserHolder?
+    
+    weak var postDetailsInput: PostDetailModuleInput!
     
     var comment: Comment!
     
     // MARK: CommentCellViewOutput
     func viewIsReady() {
+     
         
     }
     
     func like() {
+        guard myProfileHolder?.me != nil else {
+            router?.openLogin()
+            return
+        }
         let status = comment.liked
         let action: CommentSocialAction = status ? .unlike : .like
 
@@ -42,7 +50,7 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     }
     
     func avatarPressed() {
-        guard let handle = comment.userHandle else {
+        guard let handle = comment.user?.uid else {
             return
         }
         
@@ -54,11 +62,21 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     }
     
     func mediaPressed() {
-        guard let mediaURL = comment.mediaUrl else {
+        guard let mediaURL = comment.mediaPhoto?.url else {
             return
         }
         
         router?.openImage(imageUrl: mediaURL)
+    }
+    
+    func optionsPressed() {
+        let isMyComment = (SocialPlus.shared.me?.uid == comment.user?.uid)
+        
+        if isMyComment {
+            router?.openMyCommentOptions(comment: comment)
+        } else {
+            router?.openOtherCommentOptions(comment: comment)
+        }
     }
     
     // MARK: CommentCellInteractorOutput
@@ -78,4 +96,48 @@ extension CommentCellPresenter: CommentCellModuleProtocol {
     func mainComment() -> Comment {
         return comment
     }
+}
+
+extension CommentCellPresenter: PostMenuModuleOutput {
+    
+    func postMenuProcessDidStart() {
+//        view.setRefreshingWithBlocking(state: true)
+    }
+    
+    func postMenuProcessDidFinish() {
+//        view.setRefreshingWithBlocking(state: false)
+    }
+    
+    func didBlock(user: User) {
+        Logger.log("Success")
+    }
+    
+    func didUnblock(user: User) {
+        Logger.log("Success")
+    }
+    
+    func didFollow(user: User) {
+        comment.userStatus = .accepted
+        view?.configure(comment: comment)
+    }
+    
+    func didUnfollow(user: User) {
+        comment.userStatus = .empty
+        view?.configure(comment: comment)
+    }
+    
+    func didRemove(comment: Comment) {
+         postDetailsInput.commentRemoved(comment: comment)
+    }
+    
+    func didReport(post: PostHandle) {
+        Logger.log("Not implemented")
+    }
+    
+    func didRequestFail(error: Error) {
+        Logger.log("Reloading feed", error, event: .error)
+//        view.showError(error: error)
+//        fetchAllItems()
+    }
+
 }

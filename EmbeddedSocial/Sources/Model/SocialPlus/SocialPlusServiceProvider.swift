@@ -23,6 +23,8 @@ protocol SocialPlusServicesType {
     func getNetworkTracker() -> NetworkTrackerType
     
     func getAuthorizationMulticast() -> AuthorizationMulticastType
+    
+    func getDaemonsController(cache: CacheType) -> Daemon
 }
 
 final class SocialPlusServices: SocialPlusServicesType {
@@ -71,5 +73,9 @@ final class SocialPlusServices: SocialPlusServicesType {
 
     func getAuthorizationMulticast() -> AuthorizationMulticastType {
         return authorizationMulticast
+    }
+    
+    func getDaemonsController(cache: CacheType) -> Daemon {
+        return DaemonsController(networkTracker: networkTracker, cache: cache)
     }
 }

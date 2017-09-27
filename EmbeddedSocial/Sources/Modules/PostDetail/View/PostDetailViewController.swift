@@ -9,9 +9,9 @@ import SKPhotoBrowser
 
 fileprivate enum CommentsSections: Int {
     case post = 0
-    case loadMore = 1
-    case comments = 2
-    case sectionsCount = 3
+    case loadMore
+    case comments
+    case sectionsCount
 }
 
 class PostDetailViewController: BaseViewController, PostDetailViewInput {
@@ -50,6 +50,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.alwaysBounceVertical = true
         collectionView.addSubview(self.refreshControl)
         collectionView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
         refreshControl.beginRefreshing()
@@ -60,6 +61,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionView.reloadSections([CommentsSections.comments.rawValue])
+        postButton.isHidden = commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
@@ -69,7 +71,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     // MARK: PostDetailViewInput
     func setupInitialState() {
         imagePikcer.delegate = self
-        mediaButton.isEnabled = false
         configCollectionView()
         configTextView()
     }
@@ -81,8 +82,19 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         }
     }
     
+    func endRefreshing() {
+        refreshControl.endRefreshing()
+        commentTextView.isEditable = true
+        view.isUserInteractionEnabled = true
+    }
+    
     func updateLoadingCell() {
         collectionView.reloadItems(at: [IndexPath(item: 0, section: CommentsSections.loadMore.rawValue)])
+    }
+
+    
+    func removeComment(index: Int) {
+        collectionView.deleteItems(at: [IndexPath(item: index, section: CommentsSections.comments.rawValue)])
     }
 
     func updateComments() {
@@ -115,27 +127,27 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     func reloadTable(scrollType: CommentsScrollType) {
-        self.collectionView.reloadData()
-        self.isNewDataLoading = false
-        self.commentTextView.isEditable = true
-        self.mediaButton.isEnabled = true
-        switch scrollType {
-        case .bottom:
-            DispatchQueue.main.asyncAfter(deadline: .now() + self.reloadDelay) {
-                self.scrollCollectionViewToBottom()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            self.isNewDataLoading = false
+            self.view.isUserInteractionEnabled = true
+            switch scrollType {
+            case .bottom:
+                DispatchQueue.main.asyncAfter(deadline: .now() + self.reloadDelay) {
+                    self.scrollCollectionViewToBottom()
+                }
+            default: break
             }
-        default: break
+            
+            self.refreshControl.endRefreshing()
         }
-        
-        refreshControl.endRefreshing()
-
     }
     
     func setFeedViewController(_ feedViewController: UIViewController) {
         feedView = feedViewController.view
     }
     
-    fileprivate func scrollCollectionViewToBottom() {
+    func scrollCollectionViewToBottom() {
         if  output.numberOfItems() > 1 {
             collectionView.scrollToItem(at: IndexPath(row: output.numberOfItems() - 1, section: CommentsSections.comments.rawValue), at: .bottom, animated: true)
         }
@@ -154,10 +166,12 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         view.layoutIfNeeded()
         collectionView.reloadData()
         scrollCollectionViewToBottom()
+        view.isUserInteractionEnabled = true
     }
     
     func postCommentFailed(error: Error) {
         postButton.isHidden = false
+        view.isUserInteractionEnabled = true
         SVProgressHUD.dismiss()
     }
     
@@ -168,7 +182,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     private func configTextView() {
-        commentTextView.isEditable = false
         commentTextView.layer.borderWidth = 1
         commentTextView.layer.borderColor = UIColor.lightGray.cgColor
         commentTextView.layer.cornerRadius = 1
@@ -182,6 +195,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     @IBAction func postComment(_ sender: Any) {
+        view.isUserInteractionEnabled = false
         commentTextView.resignFirstResponder()
         SVProgressHUD.show()
         postButton.isHidden = true
@@ -199,11 +213,19 @@ extension PostDetailViewController: UICollectionViewDelegate {
             
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? CommentCell else {
+            return
+        }
+        
+        cell.separator.isHidden = indexPath.row == output.numberOfItems() - 1 && indexPath.section == CommentsSections.comments.rawValue
+    }
 }
 
 extension PostDetailViewController: LoadMoreCellDelegate {
     func loadPressed() {
-        if output.enableFetchMore() {
+        if output.canFetchMore() {
             output.fetchMore()
         }
     }
@@ -249,7 +271,7 @@ extension PostDetailViewController: UICollectionViewDataSource {
         case CommentsSections.comments.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
             let config = CommentCellModuleConfigurator()
-            config.configure(cell: cell, comment: output.comment(at: indexPath.row), navigationController: self.navigationController)
+            config.configure(cell: cell, comment: output.comment(at: indexPath.row), navigationController: self.navigationController, moduleOutput: self.output as! PostDetailModuleInput)
             cell.repliesButton.isHidden = false
             cell.tag = indexPath.row
             return cell
@@ -289,7 +311,7 @@ extension PostDetailViewController: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        output.loadRestComments()
+        scrollCollectionViewToBottom()
     }
     
 }

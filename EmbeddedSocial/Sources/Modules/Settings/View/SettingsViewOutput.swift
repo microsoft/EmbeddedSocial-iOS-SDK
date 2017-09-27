@@ -10,5 +10,7 @@ protocol SettingsViewOutput: class {
     
     func onBlockedList()
     
+    func signOut()
+    
     func onPrivacySwitch()
 }

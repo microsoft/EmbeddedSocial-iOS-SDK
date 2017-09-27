@@ -38,4 +38,14 @@ final class MockUserListInteractor: UserListInteractorInput {
             completion(result)
         }
     }
+    
+    private(set) var reloadListCount = 0
+    var reloadListReturnValue: Result<[User]>?
+
+    func reloadList(completion: @escaping (Result<[User]>) -> Void) {
+        reloadListCount += 1
+        if let result = reloadListReturnValue {
+            completion(result)
+        }
+    }
 }

@@ -10,14 +10,14 @@ public final class SocialPlus {
     public static let shared = SocialPlus()
     
     fileprivate let queue = DispatchQueue(label: "Social Plus read-write queue")
-
+    
     private(set) var sessionStore: SessionStore!
     private(set) var serviceProvider: SocialPlusServicesType!
     private(set) var coordinator: CrossModuleCoordinator!
     private(set) var coreDataStack: CoreDataStack!
     private(set) var cache: CacheType!
-    private(set) var outgoingCacheProcessor: CachedActionsExecuter!
     fileprivate(set) var authorizationMulticast: AuthorizationMulticastType!
+    private(set) var daemonsController: Daemon!
     
     var networkTracker: NetworkTrackerType {
         return serviceProvider.getNetworkTracker()
@@ -41,7 +41,7 @@ public final class SocialPlus {
         coreDataStack = serviceProvider.getCoreDataStack()
         cache = serviceProvider.getCache(coreDataStack: coreDataStack)
         authorizationMulticast = serviceProvider.getAuthorizationMulticast()
-        authorizationMulticast.authorization = sessionStore.authorization
+        daemonsController = serviceProvider.getDaemonsController(cache: cache)
     }
     
     public func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
@@ -57,18 +57,16 @@ public final class SocialPlus {
         coordinator.setup(launchArguments: args, loginHandler: self)
         
         if sessionStore.isLoggedIn {
-            startOutgoingCacheProcessor()
-            coordinator.onSessionCreated(user: sessionStore.user!, sessionToken: sessionStore.sessionToken!)
+            startSession(with: sessionStore.info!)
         } else {
             coordinator.openPopularScreen()
         }
     }
     
-    fileprivate func startOutgoingCacheProcessor() {
-        outgoingCacheProcessor = CachedActionsExecuter(isConnectionAvailable: networkTracker.isReachable,
-                                                       cacheAdapter: FeedCacheActionsAdapter(cache: cache),
-                                                       likesService: LikesService())
-        networkTracker.addListener(outgoingCacheProcessor)
+    fileprivate func startSession(with info: SessionInfo) {
+        coordinator.onSessionCreated(with: info)
+        authorizationMulticast.authorization = sessionStore.authorization
+        daemonsController.start()
     }
 }
 
@@ -77,16 +75,14 @@ extension SocialPlus: LoginModuleOutput {
     func onSessionCreated(with info: SessionInfo) {
         sessionStore.createSession(withUser: info.user, sessionToken: info.token)
         try? sessionStore.saveCurrentSession()
-        coordinator.onSessionCreated(with: info)
-        authorizationMulticast.authorization = sessionStore.authorization
-        startOutgoingCacheProcessor()
+        startSession(with: info)
     }
 }
 
 extension SocialPlus: UserHolder {
     var me: User? {
         set {
-            guard let newValue = newValue, newValue != me else { return }
+            guard let newValue = newValue else { return }
             queue.async {
                 self.sessionStore.updateSession(withUser: newValue)
                 try? self.sessionStore.saveCurrentSession()
@@ -108,8 +104,16 @@ extension SocialPlus: LogoutController {
     }
     
     func logOut() {
+        daemonsController.stop()
         try? sessionStore.deleteCurrentSession()
         setupServices(with: SocialPlusServices())
-        coordinator.logOut()
+        coreDataStack.reset { [weak self] result in
+            guard let error = result.error else {
+                self?.coordinator.logOut()
+                return
+            }
+            
+            self?.coordinator.showError(error)
+        }
     }
 }

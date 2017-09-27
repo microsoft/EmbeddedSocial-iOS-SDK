@@ -28,7 +28,8 @@ enum CommentsServiceError: Error {
 protocol CommentServiceProtocol {
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, cachedResult: @escaping CommentFetchResultHandler, resultHandler: @escaping CommentFetchResultHandler)
     func comment(commentHandle: String, cachedResult: @escaping CommentHandler, success: @escaping CommentHandler, failure: @escaping Failure)
-    func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure)
+    func postComment(comment: Comment, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure)
+    func deleteComment(commentHandle: String, completion: @escaping ((Result<Void>) -> Void))
 }
 
 class CommentsService: BaseService, CommentServiceProtocol {
@@ -41,200 +42,226 @@ class CommentsService: BaseService, CommentServiceProtocol {
         self.imagesService = imagesService
     }
     
-    func comment(commentHandle: String, cachedResult: @escaping CommentHandler, success: @escaping CommentHandler, failure: @escaping Failure) {
-        
-        let request = CommentsAPI.commentsGetCommentWithRequestBuilder(commentHandle: commentHandle, authorization: authorization)
-        let requesURLString = request.URLString
-        
-        let cacheRequestForOutgoing = CacheFetchRequest(resultType: PostCommentRequest.self, predicate: PredicateBuilder().predicate(handle: commentHandle))
-        let outgoingFetchResult = cache.fetchOutgoing(with: cacheRequestForOutgoing)
-        
-        if !outgoingFetchResult.isEmpty {
-            cachedResult(createCommentFromRequest(request: outgoingFetchResult.first!))
-        } else {
-            let cacheRequestForIncoming = CacheFetchRequest(resultType: CommentView.self, predicate: PredicateBuilder().predicate(typeID: requesURLString))
-            if let convertedComment = convert(data: cache.fetchIncoming(with: cacheRequestForIncoming)).first {
-                cachedResult(convertedComment)
+    func deleteComment(commentHandle: String, completion: @escaping ((Result<Void>) -> Void)) {
+        let request = CommentsAPI.commentsDeleteCommentWithRequestBuilder(commentHandle: commentHandle, authorization: authorization)
+        request.execute { (response, error) in
+            if let error = error {
+                self.errorHandler.handle(error: error, completion: completion)
+            } else {
+                completion(.success())
             }
         }
-        
-        if isNetworkReachable {
-            request.execute { (result, error) in
-                if let body = result?.body {
-                    self.cache.cacheIncoming(body, for: requesURLString)
-                    success(self.convert(data: [body]).first!)
-                } else {
-                    failure(error ?? APIError.unknown)
-                }
-            }
-        }
-
     }
     
-    private func createCommentFromRequest(request: PostCommentRequest) -> Comment {
-        let comment = Comment()
-        comment.text = request.text
-        comment.commentHandle = request.handle
-        comment.topicHandle = request.relatedHandle
-        comment.userHandle = SocialPlus.shared.me?.uid
-        comment.photoUrl = SocialPlus.shared.me?.photo?.url
-        comment.firstName = SocialPlus.shared.me?.firstName
-        comment.lastName = SocialPlus.shared.me?.lastName
-        return comment
-    }
-    
-    func fetchComments(topicHandle: String, cursor: String? = nil, limit: Int32? = nil, cachedResult: @escaping CommentFetchResultHandler , resultHandler: @escaping CommentFetchResultHandler) {
+    func comment(commentHandle: String,
+                 cachedResult: @escaping CommentHandler,
+                 success: @escaping CommentHandler,
+                 failure: @escaping Failure) {
         
-        let request = CommentsAPI.topicCommentsGetTopicCommentsWithRequestBuilder(topicHandle: topicHandle, authorization: authorization, cursor: cursor, limit: limit)
-        let requestURLString = request.URLString
+        let builder = CommentsAPI.commentsGetCommentWithRequestBuilder(commentHandle: commentHandle, authorization: authorization)
         
-        var cacheResult = CommentFetchResult()
-        
-        let cacheRequest = CacheFetchRequest(resultType: PostCommentRequest.self, predicate: PredicateBuilder().predicate(typeID: topicHandle))
-        
-        cache.fetchOutgoing(with: cacheRequest).forEach { (cachedNewComments) in
-            cacheResult.comments.append(createCommentFromRequest(request: cachedNewComments))
-        }
-        
-        if let fetchResult = self.cache.firstIncoming(ofType: FeedResponseCommentView.self, predicate:  PredicateBuilder().predicate(typeID: requestURLString), sortDescriptors: nil)  {
-            if let cachedComments = fetchResult.data {
-                cacheResult.comments.append(contentsOf: convert(data: cachedComments))
-                cacheResult.cursor = fetchResult.cursor
-                cachedResult(cacheResult)
-            }
-        }
-        
-        if isNetworkReachable {
-            request.execute { (response, error) in
-                
-                if cursor == nil {
-                    //TODO: remove cached comments for topicHandle
-                }
-                
-                var result = CommentFetchResult()
-                
-                guard error == nil else {
-                    result.error = CommentsServiceError.failedToFetch(message: error!.localizedDescription)
-                    resultHandler(result)
-                    return
-                }
-                
-                guard let data = response?.body?.data else {
-                    result.error = CommentsServiceError.failedToFetch(message: L10n.Error.noItemsReceived)
-                    resultHandler(result)
-                    return
-                }
-                
-                if let body = response?.body {
-                    self.cache.cacheIncoming(body, for: requestURLString)
-                    result.comments = self.convert(data: data)
-                    result.cursor = body.cursor
-                }
-                
-                resultHandler(result)
-            }
-        }
-
-        
-    }
-    
-    func postComment(topicHandle: String, request: PostCommentRequest, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure) {
-        
-        if !isNetworkReachable {
-            if let unwrapptedPhoto = photo {
-                cachePhoto(photo: unwrapptedPhoto, for: topicHandle)
-            }
-        }
-        
-        guard let image = photo?.image else {
-            postComment(topicHandle: topicHandle, request: request, success: resultHandler, failure: failure)
+        if let cachedComment = self.cachedComment(with: commentHandle, requestURL: builder.URLString) {
+            cachedResult(cachedComment)
             return
         }
         
-        imagesService.uploadContentImage(image) { [unowned self] result in
+        guard isNetworkReachable else {
+            failure(APIError.unknown)
+            return
+        }
+        
+        builder.execute { [weak self] (result, error) in
+            guard let strongSelf = self else {
+                return
+            }
+            if let commentView = result?.body {
+                strongSelf.cache.cacheIncoming(commentView, for: builder.URLString)
+                success(strongSelf.convert(commentView: commentView))
+            } else if strongSelf.errorHandler.canHandle(error) {
+                strongSelf.errorHandler.handle(error)
+            } else {
+                failure(APIError(error: error))
+            }
+        }
+    }
+    
+    private func cachedComment(with handle: String, requestURL: String) -> Comment? {
+        return cachedOutgoingComment(with: handle) ?? cachedIncomingComment(key: requestURL)
+    }
+    
+    private func cachedOutgoingComment(with handle: String) -> Comment? {
+        let p = PredicateBuilder().createCommentCommand(commentHandle: handle)
+        
+        let cachedCommand = cache.firstOutgoing(ofType: OutgoingCommand.self,
+                                                predicate: p,
+                                                sortDescriptors: [Cache.createdAtSortDescriptor])
+        
+        return (cachedCommand as? CreateCommentCommand)?.comment
+    }
+    
+    private func cachedIncomingComment(key: String) -> Comment? {
+        let p = PredicateBuilder().predicate(typeID: key)
+        let cachedCommentView = cache.firstIncoming(ofType: CommentView.self, predicate: p, sortDescriptors: nil)
+        return cachedCommentView != nil ? convert(commentView: cachedCommentView!) : nil
+    }
+    
+    func fetchComments(topicHandle: String,
+                       cursor: String? = nil,
+                       limit: Int32? = nil,
+                       cachedResult: @escaping CommentFetchResultHandler,
+                       resultHandler: @escaping CommentFetchResultHandler) {
+        
+        let builder = CommentsAPI.topicCommentsGetTopicCommentsWithRequestBuilder(
+            topicHandle: topicHandle,
+            authorization: authorization,
+            cursor: cursor, limit: limit
+        )
+        
+        let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
+                                                     predicate: PredicateBuilder().allCreateCommentCommands(),
+                                                     sortDescriptors: [Cache.createdAtSortDescriptor])
+        
+        cache.fetchOutgoing(with: fetchOutgoingRequest) { [weak self] commands in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            let incomingFeed = strongSelf.cache.firstIncoming(ofType: FeedResponseCommentView.self,
+                                                              predicate: PredicateBuilder().predicate(handle: builder.URLString),
+                                                              sortDescriptors: nil)
+            
+            let incomingComments = incomingFeed?.data?.map(strongSelf.convert(commentView:)) ?? []
+            
+            let outgoingComments = commands.flatMap { ($0 as? CreateCommentCommand)?.comment }
+            
+            let result = CommentFetchResult(comments: outgoingComments + incomingComments, error: nil, cursor: incomingFeed?.cursor)
+            
+            cachedResult(result)
+        }
+        
+        var result = CommentFetchResult()
+        
+        guard isNetworkReachable else {
+            result.error = CommentsServiceError.failedToFetch(message: L10n.Error.unknown)
+            resultHandler(result)
+            return
+        }
+        
+        builder.execute { [weak self] (response, error) in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            
+            let typeID = "fetch_commens-\(topicHandle)"
+            
+            if cursor == nil {
+                strongSelf.cache.deleteIncoming(with: PredicateBuilder().predicate(typeID: typeID))
+            }
+            
+            
+            if let body = response?.body, let data = body.data {
+                body.handle = builder.URLString
+                strongSelf.cache.cacheIncoming(body, for: typeID)
+                result.comments = strongSelf.convert(data: data)
+                result.cursor = body.cursor
+            } else if strongSelf.errorHandler.canHandle(error) {
+                strongSelf.errorHandler.handle(error)
+                return
+            } else {
+                result.error = CommentsServiceError.failedToFetch(message: error?.localizedDescription ?? L10n.Error.noItemsReceived)
+            }
+            
+            resultHandler(result)
+        }
+    }
+    
+    func postComment(comment: Comment,
+                     photo: Photo?,
+                     resultHandler: @escaping CommentPostResultHandler,
+                     failure: @escaping Failure) {
+        let commentCommand = CreateCommentCommand(comment: comment)
+        
+        guard let image = photo?.image else {
+            execute(command: commentCommand, resultHandler: resultHandler, failure: failure)
+            return
+        }
+        
+        imagesService.uploadCommentImage(image, commentHandle: comment.commentHandle) { [weak self] result in
             if let handle = result.value {
-                request.blobHandle = handle
-                request.blobType = .image
-                self.postComment(topicHandle: topicHandle, request: request, success: resultHandler, failure: failure)
-            } else if self.errorHandler.canHandle(result.error) {
-                self.errorHandler.handle(result.error)
+                commentCommand.setImageHandle(handle)
+                self?.execute(command: commentCommand, resultHandler: resultHandler, failure: failure)
+            } else if self?.errorHandler.canHandle(result.error) == true {
+                self?.errorHandler.handle(result.error)
             } else {
                 failure(result.error ?? APIError.unknown)
             }
         }
+        
     }
     
-    private func cachePhoto(photo: Photo, for topicHandle: String) {
-        cache.cacheOutgoing(photo, for: topicHandle)
-    }
-    
-    private func postComment(topicHandle: String, request: PostCommentRequest, success: @escaping CommentPostResultHandler, failure: @escaping Failure) {
+    private func execute(command: CreateCommentCommand,
+                         resultHandler: @escaping CommentPostResultHandler,
+                         failure: @escaping Failure) {
         
-        let requestBuilder = CommentsAPI.topicCommentsPostCommentWithRequestBuilder(topicHandle: topicHandle, request: request, authorization: authorization)
-        
-        if !isNetworkReachable {
-            cache.cacheOutgoing(request, for: topicHandle)
-            
-            let cacheRequest = CacheFetchRequest(resultType: PostCommentRequest.self, predicate: PredicateBuilder().predicate(typeID: topicHandle))
-            
-            let commentHandle = self.cache.fetchOutgoing(with: cacheRequest).last?.handle
-            
-            let result = PostCommentResponse()
-            result.commentHandle = commentHandle
-            
-            success(result)
-            
+        guard isNetworkReachable else {
+            cache.cacheOutgoing(command)
+            let response = PostCommentResponse(comment: command.comment)
+            resultHandler(response)
             return
         }
         
-        requestBuilder.execute { (response, error) in
-            if response != nil {
-                success(response!.body!)
-            } else if self.errorHandler.canHandle(error) {
-                self.errorHandler.handle(error)
-            } else {
-                failure(error ?? APIError.unknown)
-            }
+        CommentsAPI.topicCommentsPostComment(
+            topicHandle: command.comment.topicHandle,
+            request: PostCommentRequest(comment: command.comment),
+            authorization: authorization) { (response, error) in
+                if let response = response {
+                    resultHandler(response)
+                } else if self.errorHandler.canHandle(error) {
+                    self.errorHandler.handle(error)
+                } else {
+                    failure(APIError(error: error))
+                }
         }
     }
     
     private func convert(data: [CommentView]) -> [Comment] {
-        var comments = [Comment]()
-        for commentView in data {
-            let comment = Comment()
-            comment.commentHandle = commentView.commentHandle!
-            comment.firstName = commentView.user?.firstName
-            comment.lastName = commentView.user?.lastName
-            comment.photoUrl = commentView.user?.photoUrl
-            comment.userHandle = commentView.user?.userHandle
-            comment.createdTime = commentView.createdTime
-            comment.text = commentView.text
-            comment.mediaUrl = commentView.blobUrl
-            comment.topicHandle = commentView.topicHandle
-            comment.totalLikes = commentView.totalLikes ?? 0
-            comment.liked = commentView.liked ?? false
-            
-            let cacheRequestForLikes = CacheFetchRequest(resultType: FeedActionRequest.self, predicate: PredicateBuilder().predicate(handle: commentView.commentHandle!))
-            let cacheResultForLikes = cache.fetchOutgoing(with: cacheRequestForLikes)
-
-            if let firstCachedLikeAction = cacheResultForLikes.first {
-                switch firstCachedLikeAction.actionMethod {
-                case .post:
-                    comment.totalLikes += 1
-                    comment.liked = true
-                case .delete:
-                    comment.totalLikes = comment.totalLikes > 0 ? comment.totalLikes - 1 : 0
-                    comment.liked = false
-                }
-            }
-            
-            let cacheRequestForComment = CacheFetchRequest(resultType: PostReplyRequest.self, predicate: PredicateBuilder().predicate(typeID: commentView.commentHandle!))
-            comment.totalReplies = (commentView.totalReplies ?? 0) + Int64(cache.fetchOutgoing(with: cacheRequestForComment).count)
-            
-            comments.append(comment)
-        }
-        return comments
+        return data.map(convert(commentView:))
+    }
+    
+    private func convert(commentView: CommentView) -> Comment {
+        var comment = Comment()
+        comment.commentHandle = commentView.commentHandle!
+        comment.user = User(compactView: commentView.user!)
+        comment.createdTime = commentView.createdTime
+        comment.text = commentView.text
+        comment.mediaUrl = commentView.blobUrl
+        comment.mediaHandle = commentView.blobHandle
+        comment.topicHandle = commentView.topicHandle
+        comment.totalLikes = commentView.totalLikes ?? 0
+        comment.liked = commentView.liked ?? false
+        comment.userStatus = FollowStatus(status: commentView.user?.followerStatus)
         
+        let cacheRequestForComment = CacheFetchRequest(
+            resultType: PostReplyRequest.self,
+            predicate: PredicateBuilder().predicate(typeID: commentView.commentHandle!))
+        
+        let cachedRepliesCount = cache.fetchOutgoing(with: cacheRequestForComment).count
+        comment.totalReplies = (commentView.totalReplies ?? 0) + Int64(cachedRepliesCount)
+        
+        let request = CacheFetchRequest(
+            resultType: OutgoingCommand.self,
+            predicate: PredicateBuilder().commentActionCommands(for: commentView.commentHandle!),
+            sortDescriptors: [Cache.createdAtSortDescriptor]
+        )
+        
+        let commands = cache.fetchOutgoing(with: request) as? [CommentCommand] ?? []
+        
+        for command in commands {
+            command.apply(to: &comment)
+        }
+        
+        return comment
     }
 }
 
@@ -263,27 +290,4 @@ struct CommentViewModel {
     var tag: Int = 0
     var cellType: String = CommentCell.reuseID
     var onAction: ActionHandler?
-}
-
-class Comment: Equatable {
-    public var commentHandle: String!
-    public var topicHandle: String!
-    public var createdTime: Date?
-    
-    public var userHandle: String?
-    public var firstName: String?
-    public var lastName: String?
-    public var photoHandle: String?
-    public var photoUrl: String?
-    
-    public var text: String?
-    public var mediaUrl: String?
-    public var totalLikes: Int64 = 0
-    public var totalReplies: Int64 = 0
-    public var liked = false
-    public var pinned = false
-    
-    static func ==(left: Comment, right: Comment) -> Bool{
-        return left.commentHandle == right.commentHandle
-    }
 }

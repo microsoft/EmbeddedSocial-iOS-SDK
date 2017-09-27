@@ -59,4 +59,19 @@ class MockPostDetailViewController: UIViewController, PostDetailViewInput {
     func setFeedViewController(_ feedViewController: UIViewController) {
         
     }
+    
+    var removeCommentCount = 0
+    func removeComment(index: Int) {
+        removeCommentCount += 1
+    }
+    
+    var scrollCollectionViewToBottomCount = 0
+    func scrollCollectionViewToBottom() {
+        scrollCollectionViewToBottomCount += 1
+    }
+    
+    var endRefreshingCount = 0
+    func endRefreshing() {
+        endRefreshingCount += 1
+    }
 }

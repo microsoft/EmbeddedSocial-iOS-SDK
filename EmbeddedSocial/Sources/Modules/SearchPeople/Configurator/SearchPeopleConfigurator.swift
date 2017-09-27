@@ -5,24 +5,22 @@
 
 import Foundation
 
-struct SearchPeopleConfigurator {
+final class SearchPeopleConfigurator {
     let viewController: SearchPeopleViewController
+    private(set) var moduleInput: SearchPeopleModuleInput!
     
     init() {
         viewController = StoryboardScene.SearchPeople.instantiateSearchPeopleViewController()
     }
     
-    func configure(isLoggedInUser: Bool,
-                   navigationController: UINavigationController?,
-                   output: SearchPeopleModuleOutput?) -> SearchPeopleModuleInput {
+    func configure(isLoggedInUser: Bool, navigationController: UINavigationController?, output: SearchPeopleModuleOutput?) {
         let interactor = SearchPeopleInteractor()
         
-        let api = QueryPeopleAPI(query: "", searchService: SearchService())
-        let usersListModule = makeUserListModule(api: api, navigationController: navigationController, output: nil)
-        
         let presenter = SearchPeoplePresenter()
+        
         presenter.view = viewController
-        presenter.usersListModule = usersListModule
+        presenter.usersListModule = makeUserListModule(api: EmptyUsersListAPI(), noDataText: nil,
+                                                       navigationController: navigationController, output: presenter)
         presenter.interactor = interactor
         presenter.moduleOutput = output
         
@@ -33,23 +31,25 @@ struct SearchPeopleConfigurator {
         
         viewController.output = presenter
         
-        return presenter
-    }
-    
-    private func makeUserListModule(api: UsersListAPI,
-                                    navigationController: UINavigationController?,
-                                    output: UserListModuleOutput?) -> UserListModuleInput {
-        
-        let settings = UserListConfigurator.Settings(api: api,
-                                                     navigationController: navigationController,
-                                                     output: output)
-        
-        return UserListConfigurator().configure(with: settings)
+        moduleInput = presenter
     }
     
     private func makeBackgroundUsersListModule(navigationController: UINavigationController?,
                                                output: UserListModuleOutput?) -> UserListModuleInput {
         let api = SuggestedUsersAPI(socialService: SocialService())
-        return makeUserListModule(api: api, navigationController: navigationController, output: output)
+        return makeUserListModule(api: api, noDataText: nil, navigationController: navigationController, output: output)
+    }
+    
+    private func makeUserListModule(api: UsersListAPI,
+                                    noDataText: NSAttributedString?,
+                                    navigationController: UINavigationController?,
+                                    output: UserListModuleOutput?) -> UserListModuleInput {
+        
+        let settings = UserListConfigurator.Settings(api: api,
+                                                     navigationController: navigationController,
+                                                     output: output,
+                                                     noDataText: noDataText)
+        
+        return UserListConfigurator().configure(with: settings)
     }
 }

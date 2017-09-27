@@ -18,8 +18,11 @@ class CommentRepliesModuleConfigurator {
         viewController = StoryboardScene.CommentReplies.instantiateCommentRepliesViewController()
     }
     
-    func configure(commentModule: CommentCellModuleProtocol, scrollType: RepliesScrollType, myProfileHolder: UserHolder = SocialPlus.shared,
+    func configure(commentModule: CommentCellModuleProtocol,
+                   scrollType: RepliesScrollType,
+                   myProfileHolder: UserHolder = SocialPlus.shared,
                    loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
+        
         let router = CommentRepliesRouter()
         router.loginOpener = loginOpener
         
@@ -38,6 +41,10 @@ class CommentRepliesModuleConfigurator {
         interactor.likeService = likeService
         
         presenter.interactor = interactor
+        
+        router.postMenuModuleOutput = presenter
+        router.moduleInput = presenter
+        
         interactor.repliesService = repliesService
         viewController.output = presenter
         

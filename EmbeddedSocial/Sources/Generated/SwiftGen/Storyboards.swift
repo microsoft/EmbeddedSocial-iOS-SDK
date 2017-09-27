@@ -42,6 +42,18 @@ extension UIViewController {
 }
 
 enum StoryboardScene {
+  enum Activity: String, StoryboardSceneType {
+    static let storyboardName = "Activity"
+
+    case activityViewControllerScene = "ActivityViewController"
+    static func instantiateActivityViewController() -> EmbeddedSocial.ActivityViewController {
+      guard let vc = StoryboardScene.Activity.activityViewControllerScene.viewController() as? EmbeddedSocial.ActivityViewController
+      else {
+        fatalError("ViewController 'ActivityViewController' is not of the expected class EmbeddedSocial.ActivityViewController.")
+      }
+      return vc
+    }
+  }
   enum BlockedUsers: String, StoryboardSceneType {
     static let storyboardName = "BlockedUsers"
 
@@ -128,6 +140,18 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum FollowRequests: String, StoryboardSceneType {
+    static let storyboardName = "FollowRequests"
+
+    case followRequestsViewControllerScene = "FollowRequestsViewController"
+    static func instantiateFollowRequestsViewController() -> EmbeddedSocial.FollowRequestsViewController {
+      guard let vc = StoryboardScene.FollowRequests.followRequestsViewControllerScene.viewController() as? EmbeddedSocial.FollowRequestsViewController
+      else {
+        fatalError("ViewController 'FollowRequestsViewController' is not of the expected class EmbeddedSocial.FollowRequestsViewController.")
+      }
+      return vc
+    }
+  }
   enum Followers: String, StoryboardSceneType {
     static let storyboardName = "Followers"
 
@@ -189,15 +213,6 @@ enum StoryboardScene {
     static func initialViewController() -> UINavigationController {
       guard let vc = storyboard().instantiateInitialViewController() as? UINavigationController else {
         fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
-      }
-      return vc
-    }
-
-    case navigationStackContainerScene = "NavigationStackContainer"
-    static func instantiateNavigationStackContainer() -> EmbeddedSocial.NavigationStackContainer {
-      guard let vc = StoryboardScene.MenuStack.navigationStackContainerScene.viewController() as? EmbeddedSocial.NavigationStackContainer
-      else {
-        fatalError("ViewController 'NavigationStackContainer' is not of the expected class EmbeddedSocial.NavigationStackContainer.")
       }
       return vc
     }
@@ -280,6 +295,18 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum SearchTopics: String, StoryboardSceneType {
+    static let storyboardName = "SearchTopics"
+
+    case searchTopicsViewControllerScene = "SearchTopicsViewController"
+    static func instantiateSearchTopicsViewController() -> EmbeddedSocial.SearchTopicsViewController {
+      guard let vc = StoryboardScene.SearchTopics.searchTopicsViewControllerScene.viewController() as? EmbeddedSocial.SearchTopicsViewController
+      else {
+        fatalError("ViewController 'SearchTopicsViewController' is not of the expected class EmbeddedSocial.SearchTopicsViewController.")
+      }
+      return vc
+    }
+  }
   enum Settings: String, StoryboardSceneType {
     static let storyboardName = "Settings"
 
@@ -288,6 +315,18 @@ enum StoryboardScene {
       guard let vc = StoryboardScene.Settings.settingsViewControllerScene.viewController() as? EmbeddedSocial.SettingsViewController
       else {
         fatalError("ViewController 'SettingsViewController' is not of the expected class EmbeddedSocial.SettingsViewController.")
+      }
+      return vc
+    }
+  }
+  enum SuggestedUsers: String, StoryboardSceneType {
+    static let storyboardName = "SuggestedUsers"
+
+    case suggestedUsersViewControllerScene = "SuggestedUsersViewController"
+    static func instantiateSuggestedUsersViewController() -> EmbeddedSocial.SuggestedUsersViewController {
+      guard let vc = StoryboardScene.SuggestedUsers.suggestedUsersViewControllerScene.viewController() as? EmbeddedSocial.SuggestedUsersViewController
+      else {
+        fatalError("ViewController 'SuggestedUsersViewController' is not of the expected class EmbeddedSocial.SuggestedUsersViewController.")
       }
       return vc
     }

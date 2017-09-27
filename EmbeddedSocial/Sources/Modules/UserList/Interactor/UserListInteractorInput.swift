@@ -15,6 +15,8 @@ protocol UserListInteractorInput {
     func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void)
     
     func setAPI(_ api: UsersListAPI)
+    
+    func reloadList(completion: @escaping (Result<[User]>) -> Void)
 }
 
 protocol UserListInteractorOutput: class {

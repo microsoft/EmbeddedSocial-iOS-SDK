@@ -5,9 +5,10 @@
 
 import Foundation
 
-struct SearchConfigurator {
+final class SearchConfigurator {
     
     let viewController: SearchViewController
+    private(set) var moduleInput: SearchModuleInput!
     
     init() {
         viewController = StoryboardScene.Search.instantiateSearchViewController()
@@ -16,21 +17,19 @@ struct SearchConfigurator {
     func configure(isLoggedInUser: Bool, navigationController: UINavigationController?) {
         let presenter = SearchPresenter()
 
-        let conf = SearchPeopleConfigurator()
-        let peopleSearchModule = conf.configure(isLoggedInUser: isLoggedInUser,
-                                                navigationController: navigationController,
-                                                output: presenter)
+        let peopleConf = SearchPeopleConfigurator()
+        peopleConf.configure(isLoggedInUser: isLoggedInUser, navigationController: navigationController, output: presenter)
         
+        let topicsConf = SearchTopicsConfigurator()
+        topicsConf.configure(navigationController: navigationController, output: presenter)
+
         presenter.view = viewController
-        presenter.peopleSearchModule = peopleSearchModule
+        presenter.peopleSearchModule = peopleConf.moduleInput
+        presenter.topicsSearchModule = topicsConf.moduleInput
         presenter.interactor = SearchInteractor()
         
         viewController.output = presenter
         
-        let feedConfigurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache)
-        feedConfigurator.configure(navigationController: navigationController, moduleOutput: presenter)
-        
-        presenter.feedViewController = feedConfigurator.viewController
-        presenter.feedModuleInput = feedConfigurator.moduleInput
+        moduleInput = presenter
     }
 }

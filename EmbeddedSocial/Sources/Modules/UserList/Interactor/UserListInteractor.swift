@@ -6,46 +6,35 @@
 import Foundation
 
 class UserListInteractor: UserListInteractorInput {
-    typealias ListState = PaginatedResponse<User, String>
     
     weak var output: UserListInteractorOutput?
 
-    private var api: UsersListAPI
     private let socialService: SocialServiceType
-    private var pages: [Page] = []
-    
-    var isLoadingList = false {
-        didSet {
-            output?.didUpdateListLoadingState(isLoadingList)
-        }
-    }
-    
-    private let queue = DispatchQueue(label: "UserListInteractor-queue")
-    
-    private var listState: ListState {
-        let lastCursor = pages.last?.response.cursor
-        let users = pages.flatMap { $0.response.users }
-        return ListState(items: users, hasMore: lastCursor != nil, error: nil, cursor: lastCursor)
+    private var listProcessor: UsersListProcessorType
+
+    var isLoadingList: Bool {
+        return listProcessor.isLoadingList
     }
     
     var listHasMoreItems: Bool {
-        return listState.hasMore
+        return listProcessor.listHasMoreItems
     }
-
-    init(api: UsersListAPI, socialService: SocialServiceType) {
-        self.api = api
+    
+    init(listProcessor: UsersListProcessorType, socialService: SocialServiceType) {
         self.socialService = socialService
+        self.listProcessor = listProcessor
+        self.listProcessor.delegate = self
     }
     
     func processSocialRequest(to user: User, completion: @escaping (Result<FollowStatus>) -> Void) {
-        guard let followStatus = user.followerStatus else {
+        guard let followStatus = user.followerStatus, let visibility = user.visibility else {
             completion(.failure(APIError.missingUserData))
             return
         }
         
-        let nextStatus = FollowStatus.reduce(status: followStatus, visibility: user.visibility ?? ._private)
+        let nextStatus = FollowStatus.reduce(status: followStatus, visibility: visibility)
         
-        socialService.request(currentFollowStatus: user.followerStatus ?? .empty, userID: user.uid) { result in
+        socialService.changeFollowStatus(user: user) { result in
             if result.isSuccess {
                 completion(.success(nextStatus))
             } else {
@@ -55,56 +44,21 @@ class UserListInteractor: UserListInteractorInput {
     }
     
     func setAPI(_ api: UsersListAPI) {
-        self.api = api
-        pages = []
-        isLoadingList = false
+        listProcessor.setAPI(api)
+    }
+    
+    func reloadList(completion: @escaping (Result<[User]>) -> Void) {
+        listProcessor.reloadList(completion: completion)
     }
     
     func getNextListPage(completion: @escaping (Result<[User]>) -> Void) {
-        isLoadingList = true
-        
-        let pageID = UUID().uuidString
-        
-        api.getUsersList(cursor: listState.cursor, limit: Constants.UserList.pageSize) { [weak self] result in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            if let response = result.value {
-                let page = Page(uid: pageID, response: response)
-                strongSelf.addUniquePage(page)
-                completion(.success(strongSelf.listState.items))
-            } else {
-                completion(.failure(result.error ?? APIError.unknown))
-            }
-            
-            strongSelf.isLoadingList = false
-        }
-    }
-    
-    private func addUniquePage(_ page: Page) {
-        queue.sync {
-            if let index = pages.index(of: page) {
-                pages[index] = page
-            } else {
-                pages.append(page)
-            }
-        }
+        listProcessor.getNextListPage(completion: completion)
     }
 }
 
-extension UserListInteractor {
+extension UserListInteractor: UsersListProcessorDelegate {
     
-    struct Page: Hashable {
-        let uid: String
-        let response: UsersListResponse
-        
-        var hashValue: Int {
-            return uid.hashValue
-        }
-        
-        static func ==(lhs: Page, rhs: Page) -> Bool {
-            return lhs.uid == rhs.uid
-        }
+    func didUpdateListLoadingState(_ isLoading: Bool) {
+        output?.didUpdateListLoadingState(isLoading)
     }
 }

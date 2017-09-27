@@ -18,14 +18,18 @@ final class SettingsPresenter {
 }
 
 extension SettingsPresenter: SettingsViewOutput {
-    
+
     func viewIsReady() {
-        let isOn = myProfileHolder.me?.visibility == ._public
+        let isOn = myProfileHolder.me?.visibility == ._private
         view.setSwitchIsOn(isOn)
     }
     
     func onBlockedList() {
         router.openBlockedList()
+    }
+    
+    func signOut() {
+        interactor.signOut()
     }
     
     func onPrivacySwitch() {

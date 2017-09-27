@@ -26,17 +26,19 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4yC-A1-pmT">
                                         <rect key="frame" x="20" y="11" width="284" height="33"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="ReplyText" label="ReplyText"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="33" id="NFE-vQ-A56"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Type here to comment on this post"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Type here to reply to this comment"/>
                                         </userDefinedRuntimeAttributes>
                                     </textView>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qut-uO-elp">
                                         <rect key="frame" x="324" y="14" width="31" height="30"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="Post" label="Post"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="CqH-qr-0yE"/>
                                             <constraint firstAttribute="width" constant="31" id="sqU-aF-vUK"/>

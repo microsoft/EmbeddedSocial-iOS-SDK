@@ -20,7 +20,9 @@ class MockPostDetailsInteractor: PostDetailInteractorInput {
     
     func postComment(photo: Photo?, topicHandle: String, comment: String) {
         let comment = Comment()
-        comment.photoUrl = photo?.url
+        comment.mediaUrl = photo?.url
+        comment.mediaHandle = photo?.uid
         output.commentDidPost(comment: comment)
     }
+    
 }

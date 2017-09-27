@@ -12,4 +12,14 @@ class PostDetailRouter: PostDetailRouterInput {
     func openLogin(from view: UIViewController) {
         loginOpener?.openLogin(parentViewController: view.navigationController)
     }
+    
+    func backIfNeeded(from view: UIViewController) {
+        if view.navigationController?.viewControllers.last is CommentRepliesViewController  {
+            view.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    func backToFeed(from view: UIViewController) {
+        view.navigationController?.popViewController(animated: true)
+    }
 }

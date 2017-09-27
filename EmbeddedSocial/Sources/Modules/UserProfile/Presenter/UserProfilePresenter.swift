@@ -38,7 +38,9 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     init(userID: String? = nil, myProfileHolder: UserHolder) {
-        guard myProfileHolder.me != nil || userID != nil else { fatalError("Either userID or myProfileHolder must be supplied") }
+        guard myProfileHolder.me != nil || userID != nil else {
+            fatalError("Either userID or myProfileHolder must be supplied")
+        }
         
         self.userID = userID
         followersCount = 0
@@ -133,7 +135,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     func onFollowRequest(currentStatus followStatus: FollowStatus) {
-        guard let userID = userID else { return }
+        guard let user = user else { return }
         
         guard me != nil else {
             router.openLogin()
@@ -142,12 +144,9 @@ final class UserProfilePresenter: UserProfileViewOutput {
         
         view.setIsProcessingFollowRequest(true)
         
-        let callback = { [weak self] (result: Result<Void>) in
-            let status = FollowStatus.reduce(status: followStatus, visibility: self?.user?.visibility ?? ._public)
-            self?.processSocialResponse(result.map { status })
+        interactor.processSocialRequest(to: user) { [weak self] response in
+           self?.processSocialResponse(response)
         }
-        
-        interactor.processSocialRequest(currentFollowStatus: followStatus, userID: userID, completion: callback)
     }
     
     private func processSocialResponse(_ response: Result<FollowStatus>) {
@@ -192,14 +191,17 @@ final class UserProfilePresenter: UserProfileViewOutput {
                 reportHandler: { [weak self] in self?.router.openReport(user: user) }
             )
         } else if let me = me {
-            router.showMyMenu { [weak self] in self?.router.openCreatePost(user: me) }
+            router.showMyMenu(
+                addPostHandler: { [weak self] in self?.router.openCreatePost(user: me) },
+                followRequestsHandler: { [weak self] in self?.router.openFollowRequests() }
+            )
         }
     }
     
     private func block(user: User) {
         view.setIsLoadingUser(true)
 
-        interactor.block(userID: user.uid) { [weak self] result in
+        interactor.block(user: user) { [weak self] result in
             self?.view.setIsLoadingUser(false)
             
             if result.isSuccess {
@@ -221,7 +223,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
     
     private func setFeedScope(_ scope: FeedType.UserFeedScope) {
         guard let uid = userID ?? me?.uid else { return }
-        feedModuleInput?.feedType = (.user(user: uid, scope: scope))
+        feedModuleInput?.feedType = .user(user: uid, scope: scope)
         view.setFilterEnabled(false)
     }
     
@@ -292,5 +294,12 @@ extension UserProfilePresenter: EditProfileModuleOutput {
         setUser(me) { [weak self] in
             self?.myProfileHolder?.me = $0
         }
+    }
+}
+
+extension UserProfilePresenter: FollowRequestsModuleOutput {
+    
+    func didAcceptFollowRequest() {
+        followersCount += 1
     }
 }

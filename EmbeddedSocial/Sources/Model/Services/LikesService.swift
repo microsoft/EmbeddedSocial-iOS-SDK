@@ -57,64 +57,68 @@ extension LikesServiceProtocol {
 class LikesService: BaseService, LikesServiceProtocol {
     
     private var requestExecutor: UsersFeedRequestExecutor!
+    private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
 
     init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
         super.init()
         requestExecutor = provider.makeUsersFeedExecutor(for: self)
+        outgoingActionsExecutor = provider.makeOutgoingActionRequestExecutor(for: self)
     }
     
-    private lazy var outgoingActionsCache: FeedCacheActionsAdapter = { [unowned self] in
-        return FeedCacheActionsAdapter(cache: self.cache)
-    }()
-    
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
-        
-        let builder:RequestBuilder<Object> = LikesAPI.topicLikesPostLikeWithRequestBuilder(
-            topicHandle: postHandle,
-            authorization: authorization)
-        
-        execute(builder, handle: postHandle, actionType: .like, completion: completion)
+        let topic = Post(topicHandle: postHandle)
+        let builder = LikesAPI.topicLikesDeleteLikeWithRequestBuilder(topicHandle: postHandle, authorization: authorization)
+        let command = LikeTopicCommand(topic: topic)
+        outgoingActionsExecutor.execute(command: command, builder: builder) { result in
+            completion(postHandle, result.error)
+        }
     }
     
     func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
-        
-        let builder:RequestBuilder<Object> = LikesAPI.topicLikesDeleteLikeWithRequestBuilder(
-            topicHandle: postHandle,
-            authorization: authorization)
-        
-        execute(builder, handle: postHandle, actionType: .like, completion: completion)
+        let topic = Post(topicHandle: postHandle)
+        let builder = LikesAPI.topicLikesDeleteLikeWithRequestBuilder(topicHandle: postHandle, authorization: authorization)
+        let command = UnlikeTopicCommand(topic: topic)
+        outgoingActionsExecutor.execute(command: command, builder: builder) { result in
+            completion(postHandle, result.error)
+        }
     }
     
     func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
-        
-        let request: RequestBuilder<Object> = LikesAPI.commentLikesPostLikeWithRequestBuilder(
-            commentHandle: commentHandle, authorization: authorization)
-
-        execute(request, handle: commentHandle, actionType: .like, completion: completion)
+        let comment = Comment(commentHandle: commentHandle)
+        let command = LikeCommentCommand(comment: comment)
+        let builder = LikesAPI.commentLikesPostLikeWithRequestBuilder(commentHandle: commentHandle,
+                                                                      authorization: authorization)
+        outgoingActionsExecutor.execute(command: command, builder: builder) { result in
+            completion(commentHandle, result.error)
+        }
     }
     
     func unlikeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) {
-        
-        let request: RequestBuilder<Object> = LikesAPI.commentLikesDeleteLikeWithRequestBuilder(
-            commentHandle: commentHandle,
-            authorization: authorization)
-        
-        execute(request, handle: commentHandle, actionType: .like, completion: completion)
+        let comment = Comment(commentHandle: commentHandle)
+        let command = UnlikeCommentCommand(comment: comment)
+        let builder = LikesAPI.commentLikesDeleteLikeWithRequestBuilder(commentHandle: commentHandle,
+                                                                        authorization: authorization)
+        outgoingActionsExecutor.execute(command: command, builder: builder) { result in
+            completion(commentHandle, result.error)
+        }
     }
     
     func likeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler) {
-        
-        let request: RequestBuilder<Object> = LikesAPI.replyLikesPostLikeWithRequestBuilder(replyHandle: replyHandle,
-                                                                                            authorization: authorization)
-
-        execute(request, handle: replyHandle, actionType: .like, completion: completion)
+        let reply = Reply(replyHandle: replyHandle)
+        let command = LikeReplyCommand(reply: reply)
+        let builder = LikesAPI.replyLikesPostLikeWithRequestBuilder(replyHandle: replyHandle, authorization: authorization)
+        outgoingActionsExecutor.execute(command: command, builder: builder) { result in
+            completion(replyHandle, result.error)
+        }
     }
     
     func unlikeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler) {
-        let request: RequestBuilder<Object> = LikesAPI.replyLikesDeleteLikeWithRequestBuilder(replyHandle: replyHandle,
-                                                                                              authorization: authorization)
-        
-        execute(request, handle: replyHandle, actionType: .like, completion: completion)
+        let reply = Reply(replyHandle: replyHandle)
+        let command = UnlikeReplyCommand(reply: reply)
+        let builder = LikesAPI.replyLikesDeleteLikeWithRequestBuilder(replyHandle: replyHandle, authorization: authorization)
+        outgoingActionsExecutor.execute(command: command, builder: builder) { result in
+            completion(replyHandle, result.error)
+        }
     }
     
     func getPostLikes(postHandle: String, cursor: String?, limit: Int,
@@ -149,48 +153,23 @@ class LikesService: BaseService, LikesServiceProtocol {
         requestExecutor.execute(with: builder, completion: completion)
     }
     
-    private func execute(_ requestBuilder: RequestBuilder<Object>,
-                         handle: String,
-                         actionType: FeedActionRequest.ActionType,
-                         completion: @escaping CompletionHandler) {
-        
-        // If no connection, cache request
-        guard isNetworkReachable == true else {
-            
-            let action = FeedActionRequestBuilder.build(
-                method: requestBuilder.method,
-                handle: handle,
-                action: actionType)
-            
-            outgoingActionsCache.cache(action)
-            completion(handle, nil)
-            return
-        }
-        
-        requestBuilder.execute { (response, error) in
-            if self.errorHandler.canHandle(error) {
-                self.errorHandler.handle(error)
-            } else {
-                completion(handle, error)
-            }
-        }
-    }
-    
     func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
-        
         let request = PostPinRequest()
         request.topicHandle = postHandle
-        let builder = PinsAPI.myPinsPostPinWithRequestBuilder(request: request, authorization: authorization)
         
-        execute(builder, handle: postHandle, actionType: .pin, completion: completion)
+        let builder = PinsAPI.myPinsPostPinWithRequestBuilder(request: request, authorization: authorization)
+        let command = PinTopicCommand(topic: Post(topicHandle: postHandle))
+        outgoingActionsExecutor.execute(command: command, builder: builder) { result in
+            completion(postHandle, result.error)
+        }
     }
     
     func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
-        
         let builder = PinsAPI.myPinsDeletePinWithRequestBuilder(topicHandle: postHandle, authorization: authorization)
-        
-        execute(builder, handle: postHandle, actionType: .pin, completion: completion)
+        let command = UnpinTopicCommand(topic: Post(topicHandle: postHandle))
+        outgoingActionsExecutor.execute(command: command, builder: builder) { result in
+            completion(postHandle, result.error)
+        }
     }
-
 }
 
