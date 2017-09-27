@@ -11,7 +11,7 @@ class UsersListResponseProcessorTests: XCTestCase {
     
     var cache: MockCache!
     var builder: MockFetchUserCommandsOperationBuilder!
-    var sut: UsersListResponseProcessor!
+    private var sut: UsersListResponseProcessor!
     
     override func setUp() {
         super.setUp()
@@ -47,6 +47,32 @@ class UsersListResponseProcessorTests: XCTestCase {
     
     func testThatItCorrectlyAppliesCommands() {
         // given
+        let user1 = User()
+        let command1 = MockUserCommand(user: user1)
+        
+        let user2 = User()
+        let command2 = MockUserCommand(user: user2)
+        
+        let operation = MockFetchUserCommandsOperation(cache: cache)
+        operation.setCommands([command1, command2])
+        
+        cache.fetchOutgoing_with_ReturnValue = [command1, command2]
+        
+        let response = UsersListResponse(users: [user1, user2], cursor: nil, isFromCache: true)
+        
+        // when
+        _ = sut.apply(commands: [command1, command2], to: response)
+        
+        // then
+        expect(command1.applyCalled).toEventually(beTrue())
+        expect(command1.applyInputUser).toEventually(equal(user1))
+        
+        expect(command2.applyCalled).toEventually(beTrue())
+        expect(command2.applyInputUser).toEventually(equal(user2))
+    }
+    
+    func testThatItCorrectlyTransformsResponse() {
+        // given
         let userView1 = UserCompactView()
         userView1.userHandle = UUID().uuidString
         
@@ -56,18 +82,9 @@ class UsersListResponseProcessorTests: XCTestCase {
         let response = FeedResponseUserCompactView()
         response.data = [userView1, userView2]
         
-        let user1 = User(compactView: userView1)
-        let command1 = MockUserCommand(user: user1)
+        cache.fetchOutgoing_with_ReturnValue = []
         
-        let user2 = User(compactView: userView2)
-        let command2 = MockUserCommand(user: user2)
-        
-        let operation = MockFetchUserCommandsOperation(cache: cache)
-        operation.setCommands([command1, command2])
-        
-        cache.fetchOutgoing_with_ReturnValue = [command1, command2]
-        
-        builder.makeFetchUserCommandsOperationCacheReturnValue = operation
+        builder.makeFetchUserCommandsOperationCacheReturnValue = MockFetchUserCommandsOperation(cache: cache)
         
         var result: Result<UsersListResponse>?
 
@@ -76,11 +93,6 @@ class UsersListResponseProcessorTests: XCTestCase {
         
         // then
         expect(result).toEventuallyNot(beNil())
-        
-        expect(command1.applyCalled).toEventually(beTrue())
-        expect(command1.applyInputUser).toEventually(equal(user1))
-        
-        expect(command2.applyCalled).toEventually(beTrue())
-        expect(command2.applyInputUser).toEventually(equal(user2))
+        expect(result?.value?.isFromCache).toEventually(beTrue())
     }
 }
