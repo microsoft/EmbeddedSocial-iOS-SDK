@@ -29,8 +29,8 @@ abstract_target 'Group' do
     target 'EmbeddedSocial' do
       target 'EmbeddedSocialTests' do
         inherit! :search_paths
-        #pod 'Quick'
-        #pod 'Nimble'
+        pod 'Quick'
+        pod 'Nimble'
 
         end
     end
