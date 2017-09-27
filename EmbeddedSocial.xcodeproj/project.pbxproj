@@ -45,6 +45,8 @@
 		63A1D7221F2A03150090C67A /* MockCreatePostInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7211F2A03150090C67A /* MockCreatePostInteractor.swift */; };
 		63A1D7251F2A04EB0090C67A /* MockCreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7241F2A04EB0090C67A /* MockCreatePostViewController.swift */; };
 		63A1D7281F2A24900090C67A /* MockCreatePostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7271F2A24900090C67A /* MockCreatePostPresenter.swift */; };
+		63E1DA201F7BE95800187E35 /* CommentsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1DA1E1F7BE95800187E35 /* CommentsProcessor.swift */; };
+		63E1DA211F7BE95800187E35 /* CommentsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1DA1F1F7BE95800187E35 /* CommentsService.swift */; };
 		63EF32151F78EC7F00E8C28B /* RemoveCommentCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EF32141F78EC7F00E8C28B /* RemoveCommentCommand.swift */; };
 		63EF32171F78EC8E00E8C28B /* ReportCommentCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EF32161F78EC8E00E8C28B /* ReportCommentCommand.swift */; };
 		63F848971F4ADF3500D434CF /* MockCommentRepliesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F848961F4ADF3500D434CF /* MockCommentRepliesPresenter.swift */; };
@@ -855,7 +857,6 @@
 		93AC65A11F3E056F00FE5A3A /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65941F3E056F00FE5A3A /* PostDetailViewController.swift */; };
 		93AC65A71F3E057C00FE5A3A /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65A51F3E057C00FE5A3A /* CommentCell.swift */; };
 		93AC65A81F3E057C00FE5A3A /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93AC65A61F3E057C00FE5A3A /* CommentCell.xib */; };
-		93AC65AA1F3E05C000FE5A3A /* CommentsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65A91F3E05C000FE5A3A /* CommentsService.swift */; };
 		93AC65B31F3E05DA00FE5A3A /* MockCommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65AD1F3E05DA00FE5A3A /* MockCommentService.swift */; };
 		93AC65B41F3E05DA00FE5A3A /* MockPostDetaillnteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65AE1F3E05DA00FE5A3A /* MockPostDetaillnteractor.swift */; };
 		93AC65B51F3E05DA00FE5A3A /* MockPostDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC65AF1F3E05DA00FE5A3A /* MockPostDetailPresenter.swift */; };
@@ -1015,6 +1016,8 @@
 		63A1D7211F2A03150090C67A /* MockCreatePostInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostInteractor.swift; sourceTree = "<group>"; };
 		63A1D7241F2A04EB0090C67A /* MockCreatePostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostViewController.swift; sourceTree = "<group>"; };
 		63A1D7271F2A24900090C67A /* MockCreatePostPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostPresenter.swift; sourceTree = "<group>"; };
+		63E1DA1E1F7BE95800187E35 /* CommentsProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsProcessor.swift; sourceTree = "<group>"; };
+		63E1DA1F1F7BE95800187E35 /* CommentsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsService.swift; sourceTree = "<group>"; };
 		63EF32141F78EC7F00E8C28B /* RemoveCommentCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveCommentCommand.swift; sourceTree = "<group>"; };
 		63EF32161F78EC8E00E8C28B /* ReportCommentCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportCommentCommand.swift; sourceTree = "<group>"; };
 		63F848921F4ADD6F00D434CF /* CommentRepliesPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentRepliesPresenterTests.swift; sourceTree = "<group>"; };
@@ -1839,7 +1842,6 @@
 		93AC65961F3E056F00FE5A3A /* PostDetailViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewOutput.swift; sourceTree = "<group>"; };
 		93AC65A51F3E057C00FE5A3A /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		93AC65A61F3E057C00FE5A3A /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
-		93AC65A91F3E05C000FE5A3A /* CommentsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsService.swift; sourceTree = "<group>"; };
 		93AC65AD1F3E05DA00FE5A3A /* MockCommentService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentService.swift; sourceTree = "<group>"; };
 		93AC65AE1F3E05DA00FE5A3A /* MockPostDetaillnteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPostDetaillnteractor.swift; sourceTree = "<group>"; };
 		93AC65AF1F3E05DA00FE5A3A /* MockPostDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPostDetailPresenter.swift; sourceTree = "<group>"; };
@@ -2056,6 +2058,15 @@
 				63A1D7241F2A04EB0090C67A /* MockCreatePostViewController.swift */,
 			);
 			path = Mock;
+			sourceTree = "<group>";
+		};
+		63E1DA1D1F7BE95800187E35 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				63E1DA1E1F7BE95800187E35 /* CommentsProcessor.swift */,
+				63E1DA1F1F7BE95800187E35 /* CommentsService.swift */,
+			);
+			path = Comments;
 			sourceTree = "<group>";
 		};
 		63F8488E1F4ADD3B00D434CF /* CommentReplies */ = {
@@ -2966,8 +2977,8 @@
 		88580B101F2213AB00C1CBAF /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				63E1DA1D1F7BE95800187E35 /* Comments */,
 				8895111C1F3C4F39001A53F5 /* BaseService.swift */,
-				93AC65A91F3E05C000FE5A3A /* CommentsService.swift */,
 				8811C8261F3C809400F7513D /* ImagesService.swift */,
 				9CEA75271F2A1FA0009FC89D /* LikesService.swift */,
 				63148EA61F41D3EA00407C4B /* RepliesService.swift */,
@@ -5640,6 +5651,7 @@
 				88580C1A1F2213AB00C1CBAF /* AuthService.swift in Sources */,
 				884AA9631F3C563F00B85135 /* AppCompactView.swift in Sources */,
 				88580C281F2213AB00C1CBAF /* SessionStoreDatabase.swift in Sources */,
+				63E1DA211F7BE95800187E35 /* CommentsService.swift in Sources */,
 				88E3AC0D1F5556C10016357F /* SettingsViewInput.swift in Sources */,
 				88EBD21B1F6BFDC100F9DDFC /* TopicCommand.swift in Sources */,
 				884C9C3E1F4D83020004907F /* PredicateBuilder.swift in Sources */,
@@ -5673,6 +5685,7 @@
 				32FAB0531F2E6D4700C5B18D /* PostCellProtocol.swift in Sources */,
 				88ABC78E1F726D6300C83C82 /* CreateReplyOperation.swift in Sources */,
 				9C6D359F1F31D1C1005893DB /* FeedModuleRouter.swift in Sources */,
+				63E1DA201F7BE95800187E35 /* CommentsProcessor.swift in Sources */,
 				93AC659E1F3E056F00FE5A3A /* PostDetailRouter.swift in Sources */,
 				88580C1B1F2213AB00C1CBAF /* AuthServiceImplementation.swift in Sources */,
 				8834A7601F50669800F1D383 /* LikesListViewInput.swift in Sources */,
@@ -5799,7 +5812,6 @@
 				8811C8561F42F88D00F7513D /* EmbeddedEditProfileViewOutput.swift in Sources */,
 				88D8CCB21F31CA680032FB2B /* UserListItemsBuilder.swift in Sources */,
 				88D1230E1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift in Sources */,
-				93AC65AA1F3E05C000FE5A3A /* CommentsService.swift in Sources */,
 				88580C321F2213AB00C1CBAF /* CreateAccountConfigurator.swift in Sources */,
 				9C2D9C0C1F4AF3EE001514C3 /* PopularModuleRouter.swift in Sources */,
 				885E03F41F6C2A1D00D6EBD8 /* ReplyCommand.swift in Sources */,
