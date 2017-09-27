@@ -103,6 +103,13 @@ class FollowRequestCell: ActivityBaseCell {
         return button
     }()
     
+    var isLoading = false {
+        didSet {
+            rejectButton.setEnabledUpdatingOpacity(!isLoading)
+            acceptButton.setEnabledUpdatingOpacity(!isLoading)
+        }
+    }
+    
     @objc func onAccept() {
         guard let path = indexPath(self) else { return }
         

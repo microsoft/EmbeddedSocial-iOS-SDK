@@ -160,9 +160,7 @@ extension ActivityViewController: UIScrollViewDelegate {
     }
     
     func isReachingEndOfContent(scrollView: UIScrollView) -> Bool {
-        let contentLeft = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height
-        let cellsLeft = contentLeft / Style.cellSize
-        return cellsLeft < 5
+        return scrollView.isReachingEndOfContent(cellHeight: Style.cellSize, cellsPerPage: 5)
     }
     
 }

@@ -16,7 +16,8 @@ struct UserListConfigurator {
         
         let view = UserListView()
         
-        let interactor = UserListInteractor(api: settings.api, socialService: SocialService())
+        let listProcessor = UsersListProcessor(api: settings.api)
+        let interactor = UserListInteractor(listProcessor: listProcessor, socialService: SocialService())
         
         let presenter = UserListPresenter(myProfileHolder: settings.myProfileHolder)
         presenter.view = view

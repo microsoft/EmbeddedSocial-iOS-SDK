@@ -34,6 +34,7 @@ struct UserProfileConfigurator {
         router.createPostModuleOutput = presenter
         router.editProfileModuleOutput = presenter
         router.loginOpener = loginOpener
+        router.followRequestsModuleOutput = presenter
         
         viewController.output = presenter
         

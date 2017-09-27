@@ -12,6 +12,8 @@ protocol SocialServiceType {
     
     func cancelPending(user: User, completion: @escaping (Result<Void>) -> Void)
     
+    func acceptPending(user: User, completion: @escaping (Result<Void>) -> Void)
+
     func unblock(user: User, completion: @escaping (Result<Void>) -> Void)
     
     func block(user: User, completion: @escaping (Result<Void>) -> Void)
@@ -76,6 +78,23 @@ class SocialService: BaseService, SocialServiceType {
         let builder = SocialAPI.myPendingUsersDeletePendingUserWithRequestBuilder(userHandle: user.uid, authorization: authorization)
         let command = CancelPendingCommand(user: user)
         outgoingActionsExecutor.execute(command: command, builder: builder, completion: completion)
+    }
+    
+    func acceptPending(user: User, completion: @escaping (Result<Void>) -> Void) {
+        let request = PostFollowerRequest()
+        request.userHandle = user.uid
+        
+        let builder = SocialAPI.myFollowersPostFollowerWithRequestBuilder(request: request, authorization: authorization)
+        
+        builder.execute { (response, error) in
+            
+            guard error == nil else {
+                completion(.failure(APIError.failedRequest))
+                return
+            }
+            
+            completion(.success())
+        }
     }
 
     func unblock(user: User, completion: @escaping (Result<Void>) -> Void) {
@@ -244,7 +263,7 @@ extension SocialService: ActivityService {
         }
     }
 
-    func approvePendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
+    func acceptPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
         
         let request = PostFollowerRequest()
         request.userHandle = handle

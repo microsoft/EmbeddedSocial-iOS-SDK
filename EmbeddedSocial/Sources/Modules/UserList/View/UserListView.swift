@@ -93,11 +93,7 @@ extension UserListView: UserListViewInput {
     
     func setIsLoading(_ isLoading: Bool) {
         loadingIndicatorView.isLoading = isLoading
-        if isLoading {
-            tableView.tableFooterView = loadingIndicatorView
-        } else {
-            tableView.tableFooterView = UIView()
-        }
+        tableView.tableFooterView = isLoading ? loadingIndicatorView : UIView()
     }
     
     func setListHeaderView(_ view: UIView?) {
