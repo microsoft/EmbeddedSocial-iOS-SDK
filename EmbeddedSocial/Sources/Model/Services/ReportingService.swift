@@ -12,7 +12,7 @@ protocol ReportingServiceType {
     
     func report(comment: Comment, reason: ReportReason, completion: @escaping (Result<Void>) -> Void)
     
-    func reportReply(replyID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void)
+    func report(reply: Reply, reason: ReportReason, completion: @escaping (Result<Void>) -> Void)
 }
 
 final class ReportingService: BaseService, ReportingServiceType {
@@ -53,13 +53,16 @@ final class ReportingService: BaseService, ReportingServiceType {
         execute(command: command, completion: completion)
     }
     
-    func reportReply(replyID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
-        let request = PostReportRequest()
-        request.reason = PostReportRequest.Reason(rawValue: reason.rawValue)
+    func report(reply: Reply, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
+        let command = ReportReplyCommand(reply: reply, reportReason: reason)
         
-        ReportingAPI.replyReportsPostReport(replyHandle: replyID, postReportRequest: request, authorization: authorization) { (response, error) in
-            self.processResponse(response: response, error: error, completion: completion)
+        guard isNetworkReachable else {
+            cache.cacheOutgoing(command)
+            completion(.success())
+            return
         }
+        
+        execute(command: command, completion: completion)
     }
     
     private func processResponse(response: Object?, error: ErrorResponse?, completion: @escaping (Result<Void>) -> Void) {
@@ -73,7 +76,6 @@ final class ReportingService: BaseService, ReportingServiceType {
     
     private func execute(command: ReportCommentCommand,
                          completion: @escaping (Result<Void>) -> Void) {
-        
         let request = PostReportRequest()
         request.reason = PostReportRequest.Reason(rawValue: command.reportReason.rawValue)
         
@@ -85,7 +87,21 @@ final class ReportingService: BaseService, ReportingServiceType {
                 self.errorHandler.handle(error: error, completion: completion)
             }
         }
+    }
+    
+    private func execute(command: ReportReplyCommand,
+                         completion: @escaping (Result<Void>) -> Void) {
+        let request = PostReportRequest()
+        request.reason = PostReportRequest.Reason(rawValue: command.reportReason.rawValue)
         
+        ReportingAPI.replyReportsPostReport(replyHandle: command.reply.replyHandle, postReportRequest: request, authorization: authorization) { (response, error) in
+            if error == nil {
+                completion(.success())
+            } else {
+                completion(.failure(APIError(error: error)))
+                self.errorHandler.handle(error: error, completion: completion)
+            }
+        }
     }
 }
 

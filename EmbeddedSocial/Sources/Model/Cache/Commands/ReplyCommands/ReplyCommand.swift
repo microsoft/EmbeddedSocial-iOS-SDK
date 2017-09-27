@@ -19,7 +19,7 @@ class ReplyCommand: OutgoingCommand {
         super.init(json: json)
     }
     
-    required init(reply: Reply) {
+    init(reply: Reply) {
         self.reply = reply
         super.init(json: [:])!
     }

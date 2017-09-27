@@ -28,7 +28,7 @@ protocol OutgoingCommandsPredicateBuilder {
     
     func replyActionCommands() -> NSPredicate
     
-    func createReplyCommands() -> NSPredicate
+    func createDeleteReplyCommands() -> NSPredicate
     
     func predicate(for command: OutgoingCommand) -> NSPredicate
 }
@@ -186,7 +186,12 @@ extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
-    func createReplyCommands() -> NSPredicate {
-        return NSPredicate(format: "typeid = %@", CreateReplyCommand.typeIdentifier)
+    func createDeleteReplyCommands() -> NSPredicate {
+        let commands: [ReplyCommand.Type] = [
+            CreateReplyCommand.self,
+            RemoveReplyCommand.self
+        ]
+        let typeIDs = commands.map { $0.typeIdentifier }
+        return NSPredicate(format: "typeid IN %@", typeIDs)
     }
 }

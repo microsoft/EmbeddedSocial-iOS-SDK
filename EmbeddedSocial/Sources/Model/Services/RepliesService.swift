@@ -29,13 +29,13 @@ protocol RepliesServiceProtcol {
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int,cachedResult:  @escaping RepliesFetchResultHandler,resultHandler: @escaping RepliesFetchResultHandler)
     func postReply(reply: Reply, success: @escaping PostReplyResultHandler, failure: @escaping Failure)
     func reply(replyHandle: String, cachedResult: @escaping ReplyHandler , success: @escaping ReplyHandler, failure: @escaping Failure)
-    func delete(replyHandle: String, completion: @escaping ((Result<Void>) -> Void))
+    func delete(reply: Reply, completion: @escaping ((Result<Void>) -> Void))
 }
 
 class RepliesService: BaseService, RepliesServiceProtcol {
     
-    func delete(replyHandle: String, completion: @escaping ((Result<Void>) -> Void)) {
-        let request = RepliesAPI.repliesDeleteReplyWithRequestBuilder(replyHandle: replyHandle, authorization: authorization)
+    func delete(reply: Reply, completion: @escaping ((Result<Void>) -> Void)) {
+        let request = RepliesAPI.repliesDeleteReplyWithRequestBuilder(replyHandle: reply.replyHandle, authorization: authorization)
         request.execute { (response, error) in
             request.execute { (response, error) in
                 if let error = error {
@@ -71,10 +71,6 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         let incomingFeed = self.cache.firstIncoming(ofType: FeedResponseReplyView.self,
                                                     predicate: PredicateBuilder().predicate(handle: builder.URLString),
                                                     sortDescriptors: nil)
-        let f = self.cache.firstIncoming(ofType: FeedResponseReplyView.self,
-                                    predicate: PredicateBuilder().predicate(typeID: "fetch_replies-3sQy-ISjLbM"),
-                                    sortDescriptors: nil)
-
         
         let incomingReplies = incomingFeed?.data?.map(self.convert(replyView:)) ?? []
         
