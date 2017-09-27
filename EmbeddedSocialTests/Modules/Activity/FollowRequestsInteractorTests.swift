@@ -78,4 +78,29 @@ class FollowRequestsInteractorTests: XCTestCase {
         XCTAssertTrue(output.didUpdateListLoadingStateCalled)
         XCTAssertEqual(output.didUpdateListLoadingStateReceivedIsLoading, false)
     }
+    
+    func testThatItCancelsPendingRequest() {
+        // given
+        let user = User()
+        
+        // when
+        sut.rejectPendingRequest(to: user, completion: { _ in () } )
+        
+        // then
+        XCTAssertEqual(socialService.cancelPendingCount, 1)
+        XCTAssertEqual(socialService.cancelPendingInputUser, user)
+    }
+    
+    func testThatItAcceptsPendingRequest() {
+        // given
+        let user = User()
+        socialService.acceptPendingReturnResult = .success()
+        
+        // when
+        sut.acceptPendingRequest(to: user, completion: { _ in () } )
+        
+        // then
+        XCTAssertTrue(socialService.acceptPendingCalled)
+        XCTAssertEqual(socialService.acceptPendingInputUser, user)
+    }
 }

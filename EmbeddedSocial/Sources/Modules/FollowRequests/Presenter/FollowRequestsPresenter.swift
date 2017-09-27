@@ -72,11 +72,13 @@ final class FollowRequestsPresenter: FollowRequestsViewOutput {
     }
     
     private func processPendingRequestResult(_ result: Result<Void>, item: FollowRequestItem) {
+        view.setIsLoading(false, item: item)
+
         guard result.isSuccess else {
             view.showError(result.error ?? APIError.unknown)
             return
         }
-        view.setIsLoading(false, item: item)
+        
         view.removeUser(item.user)
     }
     
