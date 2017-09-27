@@ -107,6 +107,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         self.collectionView.delegate = self
+          collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
         
         navigationItem.rightBarButtonItem = layoutChangeButton
     }
@@ -397,9 +398,30 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         return CGSize(width: containerWidth(), height: output.headerSize.height)
     }
     
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForFooterInSection section: Int) -> CGSize {
+        if collectionView.numberOfItems(inSection: 0) > 1 {
+            return CGSize(width: collectionView.frame.size.width, height: Constants.FeedModule.Collection.footerHeight)
+        } else {
+            return CGSize.zero
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        if kind == UICollectionElementKindSectionHeader {
+        if kind == UICollectionElementKindSectionFooter {
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                       withReuseIdentifier: "footer",
+                                                                       for: indexPath)
+            
+            view.addSubview(bottomRefreshControl)
+            bottomRefreshControl.snp.makeConstraints({ (make) in
+                make.center.equalToSuperview()
+            })
+            
+            return view
+        } else if kind == UICollectionElementKindSectionHeader {
             
             guard let headerReuseID = headerReuseID else {
                 fatalError("Header wasn't registered")
