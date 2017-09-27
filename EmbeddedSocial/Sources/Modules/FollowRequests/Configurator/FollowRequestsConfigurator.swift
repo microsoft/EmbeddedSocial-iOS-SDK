@@ -16,7 +16,7 @@ struct FollowRequestsConfigurator {
     
     func configure(output: FollowRequestsModuleOutput?, navigationController: UINavigationController?) {
         let listProcessor = UsersListProcessor(api: FollowRequestsAPI(activityService: SocialService()))
-        let interactor = FollowRequestsInteractor(listProcessor: listProcessor, activityService: SocialService())
+        let interactor = FollowRequestsInteractor(listProcessor: listProcessor, socialService: SocialService())
         
         let noDataText = NSAttributedString(string: L10n.FollowRequests.noDataText,
                                             attributes: [NSFontAttributeName: Fonts.medium,

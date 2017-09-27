@@ -576,6 +576,8 @@
 		88ABC7BB1F72A51F00C83C82 /* CreateCommentImageOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88ABC7BA1F72A51F00C83C82 /* CreateCommentImageOperationTests.swift */; };
 		88ABC7BD1F72A55200C83C82 /* UpdateUserImageOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88ABC7BC1F72A55200C83C82 /* UpdateUserImageOperationTests.swift */; };
 		88ABC7BF1F72B32400C83C82 /* OutgoingCommandOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88ABC7BE1F72B32400C83C82 /* OutgoingCommandOperation.swift */; };
+		88B2D6761F7B9F5E00920E43 /* FollowRequestsInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B2D6751F7B9F5E00920E43 /* FollowRequestsInteractorTests.swift */; };
+		88B2D6781F7B9F8500920E43 /* MockFollowRequestsInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B2D6771F7B9F8500920E43 /* MockFollowRequestsInteractorOutput.swift */; };
 		88B94EAE1F6199BB002392F9 /* MockUserProfileModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EAD1F6199BB002392F9 /* MockUserProfileModuleOutput.swift */; };
 		88B94EB21F62A840002392F9 /* SearchTopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EB11F62A840002392F9 /* SearchTopicsViewController.swift */; };
 		88B94EB41F62A850002392F9 /* SearchTopics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88B94EB31F62A850002392F9 /* SearchTopics.storyboard */; };
@@ -1052,7 +1054,7 @@
 		8802F2191F596BBA00FD0A15 /* RequestExecutorProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestExecutorProvider.swift; sourceTree = "<group>"; };
 		880435BB1F66D64800154ACD /* BlockUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockUserOperation.swift; sourceTree = "<group>"; };
 		880435BD1F66D64E00154ACD /* UnblockUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnblockUserOperation.swift; sourceTree = "<group>"; };
-		880435C91F67CF3C00154ACD /* UsersListAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UsersListAPI.swift; path = UsersListAPI.swift; sourceTree = "<group>"; };
+		880435C91F67CF3C00154ACD /* UsersListAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListAPI.swift; sourceTree = "<group>"; };
 		880435CB1F67D04500154ACD /* AsyncOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		8807ADFE1F5EB22100DA3FB0 /* SessionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionInfo.swift; sourceTree = "<group>"; };
 		88087B451F2A431E00A33E9A /* ButtonDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonDecorator.swift; sourceTree = "<group>"; };
@@ -1575,6 +1577,8 @@
 		88ABC7BA1F72A51F00C83C82 /* CreateCommentImageOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateCommentImageOperationTests.swift; sourceTree = "<group>"; };
 		88ABC7BC1F72A55200C83C82 /* UpdateUserImageOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserImageOperationTests.swift; sourceTree = "<group>"; };
 		88ABC7BE1F72B32400C83C82 /* OutgoingCommandOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingCommandOperation.swift; sourceTree = "<group>"; };
+		88B2D6751F7B9F5E00920E43 /* FollowRequestsInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowRequestsInteractorTests.swift; sourceTree = "<group>"; };
+		88B2D6771F7B9F8500920E43 /* MockFollowRequestsInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFollowRequestsInteractorOutput.swift; sourceTree = "<group>"; };
 		88B94EAD1F6199BB002392F9 /* MockUserProfileModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserProfileModuleOutput.swift; sourceTree = "<group>"; };
 		88B94EB11F62A840002392F9 /* SearchTopicsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTopicsViewController.swift; sourceTree = "<group>"; };
 		88B94EB31F62A850002392F9 /* SearchTopics.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchTopics.storyboard; sourceTree = "<group>"; };
@@ -1757,7 +1761,7 @@
 		88F385881F31BF140048B04C /* UserListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListCell.swift; sourceTree = "<group>"; };
 		88F385891F31BF140048B04C /* UserListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserListCell.xib; sourceTree = "<group>"; };
 		88F5518E1F3366A100F4AAB9 /* UserListInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListInteractorTests.swift; sourceTree = "<group>"; };
-		88F551901F3366C600F4AAB9 /* MockUsersListAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockUsersListAPI.swift; path = MockUsersListAPI.swift; sourceTree = "<group>"; };
+		88F551901F3366C600F4AAB9 /* MockUsersListAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUsersListAPI.swift; sourceTree = "<group>"; };
 		88F551921F336D9200F4AAB9 /* UserListPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListPresenterTests.swift; sourceTree = "<group>"; };
 		88F551941F336DCB00F4AAB9 /* MockUserListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListInteractor.swift; sourceTree = "<group>"; };
 		88F551981F336FB700F4AAB9 /* MockUserListModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListModuleOutput.swift; sourceTree = "<group>"; };
@@ -3830,6 +3834,7 @@
 		889AFC071F220BCD003AAF19 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				88B2D6741F7B9F1D00920E43 /* FollowRequests */,
 				9CEE0EDC1F6FE3E1008B1104 /* Activity */,
 				88E3AC161F5562A10016357F /* BlockedUsers */,
 				639A94371F5D2F8200EB0253 /* CommentCell */,
@@ -3904,6 +3909,7 @@
 				889AFC151F220BCD003AAF19 /* MockAuthAPIProvider.swift */,
 				88F7A7881F27896B005FEC5F /* MockAuthService.swift */,
 				8886AA561F6A85B800734F3C /* MockAuthorizationMulticast.swift */,
+				88B2D6771F7B9F8500920E43 /* MockFollowRequestsInteractorOutput.swift */,
 				8811C8391F41F30B00F7513D /* MockCache.swift */,
 				93AC65AD1F3E05DA00FE5A3A /* MockCommentService.swift */,
 				8881E4E61F697D7200AA6DF2 /* MockDaemon.swift */,
@@ -3993,6 +3999,15 @@
 				88ABC7BC1F72A55200C83C82 /* UpdateUserImageOperationTests.swift */,
 			);
 			path = ImageOperations;
+			sourceTree = "<group>";
+		};
+		88B2D6741F7B9F1D00920E43 /* FollowRequests */ = {
+			isa = PBXGroup;
+			children = (
+				88B2D6751F7B9F5E00920E43 /* FollowRequestsInteractorTests.swift */,
+			);
+			name = FollowRequests;
+			path = Activity;
 			sourceTree = "<group>";
 		};
 		88B94EB01F62A832002392F9 /* SearchTopics */ = {
@@ -4178,7 +4193,6 @@
 				88C6824C1F7A4D31004BD291 /* FollowRequestsViewInput.swift */,
 				88C6824E1F7A4D44004BD291 /* FollowRequestsViewOutput.swift */,
 			);
-			name = View;
 			path = View;
 			sourceTree = "<group>";
 		};
@@ -4188,7 +4202,6 @@
 				88E662071F7A9A9600C98526 /* FollowRequestsModuleOutput.swift */,
 				88C682501F7A4D52004BD291 /* FollowRequestsPresenter.swift */,
 			);
-			name = Presenter;
 			path = Presenter;
 			sourceTree = "<group>";
 		};
@@ -4199,7 +4212,6 @@
 				88C682541F7A4D82004BD291 /* FollowRequestsInteractorInput.swift */,
 				88E662031F7A76A300C98526 /* FollowRequestsInteractorOutput.swift */,
 			);
-			name = Interactor;
 			path = Interactor;
 			sourceTree = "<group>";
 		};
@@ -4209,7 +4221,6 @@
 				88C6825B1F7A4DFD004BD291 /* FollowRequestsRouter.swift */,
 				88C682591F7A4DE9004BD291 /* FollowRequestsRouterInput.swift */,
 			);
-			name = Router;
 			path = Router;
 			sourceTree = "<group>";
 		};
@@ -4218,7 +4229,6 @@
 			children = (
 				88C6825E1F7A4E21004BD291 /* FollowRequestsConfigurator.swift */,
 			);
-			name = Configurator;
 			path = Configurator;
 			sourceTree = "<group>";
 		};
@@ -4229,7 +4239,6 @@
 				88C682651F7A674D004BD291 /* FollowRequestsItem.swift */,
 				88C682671F7A6854004BD291 /* FollowRequestsItemsBuilder.swift */,
 			);
-			name = DataDisplayManager;
 			path = DataDisplayManager;
 			sourceTree = "<group>";
 		};
@@ -4238,7 +4247,6 @@
 			children = (
 				88C682701F7A71EE004BD291 /* FollowRequestsAPI.swift */,
 			);
-			name = Helpers;
 			path = Helpers;
 			sourceTree = "<group>";
 		};
@@ -6293,6 +6301,7 @@
 				88ABC7BB1F72A51F00C83C82 /* CreateCommentImageOperationTests.swift in Sources */,
 				88D2F8E41F56B3880004A8BC /* MockReportingService.swift in Sources */,
 				884C9C331F4C371B0004907F /* MyProfileHolder.swift in Sources */,
+				88B2D6761F7B9F5E00920E43 /* FollowRequestsInteractorTests.swift in Sources */,
 				886826191F6AADDD00F54731 /* MockOutgoingCommandOperationsBuilder.swift in Sources */,
 				880AFD401F6FE67500378710 /* PinTopicCommandTests.swift in Sources */,
 				889AFC201F220BCD003AAF19 /* UIImage+Ext.swift in Sources */,
@@ -6456,6 +6465,7 @@
 				886826111F6A948700F54731 /* OutgoingCommandTests.swift in Sources */,
 				889119C31F4AFBB1005B3B32 /* MockSearchView.swift in Sources */,
 				88E662121F7AAA7900C98526 /* MockUserListInteractorOutput.swift in Sources */,
+				88B2D6781F7B9F8500920E43 /* MockFollowRequestsInteractorOutput.swift in Sources */,
 				8811C8BD1F4457E500F7513D /* MockEditProfileView.swift in Sources */,
 				88D2F8F61F56D2250004A8BC /* MockReportAPI.swift in Sources */,
 				88F551D01F39E9F300F4AAB9 /* MockFollowersView.swift in Sources */,
