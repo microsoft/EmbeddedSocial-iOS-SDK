@@ -47,6 +47,10 @@
 		63A1D7281F2A24900090C67A /* MockCreatePostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7271F2A24900090C67A /* MockCreatePostPresenter.swift */; };
 		63E1DA201F7BE95800187E35 /* CommentsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1DA1E1F7BE95800187E35 /* CommentsProcessor.swift */; };
 		63E1DA211F7BE95800187E35 /* CommentsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1DA1F1F7BE95800187E35 /* CommentsService.swift */; };
+		63E1DA231F7BF0D200187E35 /* RemoveReplyCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1DA221F7BF0D200187E35 /* RemoveReplyCommand.swift */; };
+		63E1DA251F7BF0E300187E35 /* ReportReplyCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1DA241F7BF0E300187E35 /* ReportReplyCommand.swift */; };
+		63E1DA271F7BF13300187E35 /* RemoveReplyOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1DA261F7BF13300187E35 /* RemoveReplyOperation.swift */; };
+		63E1DA291F7BF14500187E35 /* ReportReplyOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1DA281F7BF14500187E35 /* ReportReplyOperation.swift */; };
 		63EF32151F78EC7F00E8C28B /* RemoveCommentCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EF32141F78EC7F00E8C28B /* RemoveCommentCommand.swift */; };
 		63EF32171F78EC8E00E8C28B /* ReportCommentCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EF32161F78EC8E00E8C28B /* ReportCommentCommand.swift */; };
 		63F848971F4ADF3500D434CF /* MockCommentRepliesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F848961F4ADF3500D434CF /* MockCommentRepliesPresenter.swift */; };
@@ -1018,6 +1022,10 @@
 		63A1D7271F2A24900090C67A /* MockCreatePostPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostPresenter.swift; sourceTree = "<group>"; };
 		63E1DA1E1F7BE95800187E35 /* CommentsProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsProcessor.swift; sourceTree = "<group>"; };
 		63E1DA1F1F7BE95800187E35 /* CommentsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsService.swift; sourceTree = "<group>"; };
+		63E1DA221F7BF0D200187E35 /* RemoveReplyCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveReplyCommand.swift; sourceTree = "<group>"; };
+		63E1DA241F7BF0E300187E35 /* ReportReplyCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportReplyCommand.swift; sourceTree = "<group>"; };
+		63E1DA261F7BF13300187E35 /* RemoveReplyOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveReplyOperation.swift; sourceTree = "<group>"; };
+		63E1DA281F7BF14500187E35 /* ReportReplyOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportReplyOperation.swift; sourceTree = "<group>"; };
 		63EF32141F78EC7F00E8C28B /* RemoveCommentCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveCommentCommand.swift; sourceTree = "<group>"; };
 		63EF32161F78EC8E00E8C28B /* ReportCommentCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportCommentCommand.swift; sourceTree = "<group>"; };
 		63F848921F4ADD6F00D434CF /* CommentRepliesPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentRepliesPresenterTests.swift; sourceTree = "<group>"; };
@@ -3395,6 +3403,8 @@
 				885E03F51F6C2A6700D6EBD8 /* LikeReplyCommand.swift */,
 				885E03F31F6C2A1D00D6EBD8 /* ReplyCommand.swift */,
 				885E03F71F6C2A7C00D6EBD8 /* UnlikeReplyCommand.swift */,
+				63E1DA221F7BF0D200187E35 /* RemoveReplyCommand.swift */,
+				63E1DA241F7BF0E300187E35 /* ReportReplyCommand.swift */,
 			);
 			path = ReplyCommands;
 			sourceTree = "<group>";
@@ -3406,6 +3416,8 @@
 				885E03FC1F6C2B9F00D6EBD8 /* LikeReplyOperation.swift */,
 				885E03FA1F6C2B8000D6EBD8 /* ReplyCommandOperation.swift */,
 				885E03FE1F6C2BA900D6EBD8 /* UnlikeReplyOperation.swift */,
+				63E1DA261F7BF13300187E35 /* RemoveReplyOperation.swift */,
+				63E1DA281F7BF14500187E35 /* ReportReplyOperation.swift */,
 			);
 			path = ReplyCommandsOperations;
 			sourceTree = "<group>";
@@ -5672,6 +5684,7 @@
 				639E622A1F5433680030C1F2 /* PostViewModel.swift in Sources */,
 				88580C111F2213AB00C1CBAF /* CredentialsList+Memento.swift in Sources */,
 				88580C5F1F2213AB00C1CBAF /* SideMenuPresenter.swift in Sources */,
+				63E1DA271F7BF13300187E35 /* RemoveReplyOperation.swift in Sources */,
 				883BFFD11F71127900E1C4E3 /* CreateCommentImageCommand.swift in Sources */,
 				93AC65971F3E056F00FE5A3A /* PostDetailConfigurator.swift in Sources */,
 				884AA9871F3C563F00B85135 /* PutNotificationsStatusRequest.swift in Sources */,
@@ -5698,6 +5711,7 @@
 				884AA9781F3C563F00B85135 /* PostFollowingTopicRequest.swift in Sources */,
 				88580C571F2213AB00C1CBAF /* LoginViewInput.swift in Sources */,
 				884AA9741F3C563F00B85135 /* PostBlockedUserRequest.swift in Sources */,
+				63E1DA231F7BF0D200187E35 /* RemoveReplyCommand.swift in Sources */,
 				8811C8811F431B9A00F7513D /* EditProfileConfigurator.swift in Sources */,
 				88580C591F2213AB00C1CBAF /* SideMenuConfigurator.swift in Sources */,
 				8846CB4D1F30CA1000F11EC8 /* UserListView.swift in Sources */,
@@ -5811,6 +5825,7 @@
 				88580C421F2213AB00C1CBAF /* CreatePostInitializer.swift in Sources */,
 				8811C8561F42F88D00F7513D /* EmbeddedEditProfileViewOutput.swift in Sources */,
 				88D8CCB21F31CA680032FB2B /* UserListItemsBuilder.swift in Sources */,
+				63E1DA251F7BF0E300187E35 /* ReportReplyCommand.swift in Sources */,
 				88D1230E1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift in Sources */,
 				88580C321F2213AB00C1CBAF /* CreateAccountConfigurator.swift in Sources */,
 				9C2D9C0C1F4AF3EE001514C3 /* PopularModuleRouter.swift in Sources */,
@@ -5925,6 +5940,7 @@
 				884AA9511F3C563F00B85135 /* CommentsAPI.swift in Sources */,
 				88B94EF81F66B25C002392F9 /* OutgoingCommandsUploader.swift in Sources */,
 				8875CCEA1F331CB3001F2474 /* UserFollowingAPI.swift in Sources */,
+				63E1DA291F7BF14500187E35 /* ReportReplyOperation.swift in Sources */,
 				882AD0D11F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift in Sources */,
 				88580BC51F2213AB00C1CBAF /* UIViewController+Alerts.swift in Sources */,
 				8811C8871F431B9A00F7513D /* EditProfileViewController.swift in Sources */,
