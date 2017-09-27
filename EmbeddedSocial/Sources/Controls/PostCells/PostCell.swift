@@ -102,9 +102,22 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         clipsToBounds = true
     }
     
+    override func prepareForReuse() {
+        viewModel = nil
+        userName.text = nil
+        postTitle.text = nil
+        postCreation.text = nil
+        likedCount.text = nil
+        commentedCount.text = nil
+        postText.readMoreTapHandle = nil
+        collectionView = nil
+        
+        super.prepareForReuse()
+    }
+    
     func configure(with data: PostViewModel, collectionView: UICollectionView?) {
         
-        self.viewModel = data
+        viewModel = data
         self.collectionView = collectionView
         
         if data.postImageUrl == nil {
@@ -132,11 +145,11 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         commentButton.isEnabled = !usedInThirdPartModule
         
         // Text View
-        self.postText.readMoreTapHandle = { [weak self] in
+        postText.readMoreTapHandle = { [weak self] in
             self?.handleAction(action: .postDetailed)
         }
         
-        self.postText.isTrimmed = data.isTrimmed
+        postText.isTrimmed = data.isTrimmed
     }
     
     static func sizingCell() -> PostCell {

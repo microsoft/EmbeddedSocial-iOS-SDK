@@ -294,18 +294,22 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func reloadVisible() {
         Logger.log()
         if let paths = collectionView?.indexPathsForVisibleItems {
-            collectionView.performBatchUpdates({ 
+//            collectionView.performBatchUpdates({
                 self.collectionView?.reloadItems(at: paths)
-            }, completion: nil)
+//            }, completion: nil)
         }
     }
     
     func insertNewItems(with paths:[IndexPath]) {
         Logger.log()
+        
         weak var collection = collectionView
-        collectionView?.performBatchUpdates({ 
+        collection?.numberOfItems(inSection: 0)
+//        collectionView?.performBatchUpdates({
             collection?.insertItems(at: paths)
-        }, completion:nil)
+//        }, completion:  { _ in
+//            print("readt")
+//        })
     }
     
     func removeItems(with paths: [IndexPath]) {
@@ -313,7 +317,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         collectionView?.performBatchUpdates({
             self.collectionView?.deleteItems(at: paths)
         }, completion:  { _ in
-            self.reloadVisible()
+//            self.reloadVisible()
         })
     }
     

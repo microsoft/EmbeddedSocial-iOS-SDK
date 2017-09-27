@@ -10,9 +10,15 @@ enum PostSocialAction: Int {
     case like, unlike, pin, unpin
 }
 
+struct FeedFetchRequest {
+    var cursor: String?
+    var limit: Int32?
+    var feedType: FeedType
+}
+
 protocol FeedModuleInteractorInput {
     
-    func fetchPosts(limit: Int32?, cursor: String?, feedType: FeedType)
+    func fetchPosts(request: FeedFetchRequest)
     func postAction(post: PostHandle, action: PostSocialAction)
     
 }
@@ -38,14 +44,16 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     
     func handleFetch(result: FeedFetchResult, feedType: FeedType, isLoadingMore: Bool = false) {
         
-        defer { output.didFinishFetching() }
+        defer {
+            output.didFinishFetching()
+        }
         
         guard result.error == nil else {
             output.didFail(error: result.error!)
             return
         }
         
-        let feed = Feed(feedType: feedType, items: result.posts, cursor: result.cursor)
+        let feed = Feed(fetchID: feedType: feedType, items: result.posts, cursor: result.cursor)
         
         if isLoadingMore {
            output.didFetchMore(feed: feed)

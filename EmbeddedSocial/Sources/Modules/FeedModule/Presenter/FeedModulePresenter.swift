@@ -167,6 +167,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     fileprivate var cursor: String? = nil
     fileprivate var limit: Int32 = Int32(Constants.Feed.pageSize)
     fileprivate var items = [Post]()
+    fileprivate var fetchIDs: Set<String> = Set()
     fileprivate var header: SupplementaryItemModel?
     
     var headerSize: CGSize {
@@ -218,11 +219,15 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
 
+        fetchIDs.insert(UUID().uuidString)
         interactor.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
     }
     
     fileprivate func fetchAllItems() {
         cursor = nil
+        items = []
+        view.reload()
+        fetchIDs = Set()
         fetchItems()
     }
     
@@ -402,7 +407,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         let shouldAddItems = items.count > cachedNumberOfItems
         let shouldRemoveItems = items.count < cachedNumberOfItems
         
-        if shouldAddItems {
+        if cachedNumberOfItems == 0 {
+            view.reload()
+        }
+        else if shouldAddItems {
             let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
             view.insertNewItems(with: paths)
         }
@@ -418,21 +426,32 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didFetchMore(feed: Feed) {
         
-        guard feedType == feed.feedType else { return }
+        guard fetchIDs
+        
+        guard feedType == feed.feedType else {
+            return
+        }
         
         let cachedNumberOfItems = items.count
     
         cursor = feed.cursor
         appendWithReplacing(original: &items, appending: feed.items)
         
-        let newItemsArrived = items.count > cachedNumberOfItems
+        let needAddNewItems = items.count - cachedNumberOfItems
+        let needRemoveItems = cachedNumberOfItems - items.count
         
-        if newItemsArrived {
+        if needAddNewItems > 0 {
             let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
             view.insertNewItems(with: paths)
+            Logger.log(needRemoveItems, event: .veryImportant)
         }
-        else {
+        else if needRemoveItems > 0 {
+            let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
+            view.removeItems(with: paths)
+            Logger.log(needRemoveItems, event: .veryImportant)
+        } else {
             view.reloadVisible()
+            Logger.log("reloading visible", event: .veryImportant)
         }
     }
     

@@ -97,6 +97,7 @@ extension Post {
 
 // MARK: Feed
 struct Feed {
+    var fetchID: String
     var feedType: FeedType
     var items: [Post]
     var cursor: String? = nil
