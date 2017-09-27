@@ -114,4 +114,14 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
         predicateForCalledInputCommand = command
         return predicateForReturnValue
     }
+    
+    //MARK: - allUserCommands
+    
+    var allUserCommandsCalled = false
+    var allUserCommandsReturnValue: NSPredicate!
+    
+    func allUserCommands() -> NSPredicate {
+        allUserCommandsCalled = true
+        return allUserCommandsReturnValue
+    }
 }

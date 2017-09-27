@@ -259,45 +259,5 @@ extension SocialService: ActivityService {
     func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (UserRequestListResult) -> Void) {
         getMyPendingRequests(cursor: cursor, limit: limit, completion: completion)
     }
-
-    func rejectPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
-        
-        let builder = SocialAPI.myPendingUsersDeletePendingUserWithRequestBuilder(userHandle: handle, authorization: authorization)
-        
-        builder.execute { (response, error) in
-            guard error == nil else {
-                completion(.failure(APIError.failedRequest))
-                return
-            }
-            
-            completion(.success())
-        }
-    }
-
-    func acceptPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
-        
-        let request = PostFollowerRequest()
-        request.userHandle = handle
-        
-        let builder = SocialAPI.myFollowersPostFollowerWithRequestBuilder(request: request, authorization: authorization)
-        
-        builder.execute { (response, error) in
-           
-            guard error == nil else {
-                completion(.failure(APIError.failedRequest))
-                return
-            }
-            
-            completion(.success())
-        }
-    }
-    
-    private func cacheResponse(_ response: Cacheable, forKey key: String) {
-        cache.cacheIncoming(response, for: key)
-    }
-    
-    private func fetchFromCache<T: Cacheable>(by cacheKey: String) -> T? {
-        return cache.firstIncoming(ofType: T.self, typeID: cacheKey)
-    }
 }
 
