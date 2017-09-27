@@ -19,6 +19,7 @@ class MockTopicCommand: TopicCommand {
     var applyToFeedInputFeed: FeedFetchResult?
     
     override func apply(to feed: inout FeedFetchResult) {
+        super.apply(to: &feed)
         applyToFeedCalled = true
         applyToFeedInputFeed = feed
     }

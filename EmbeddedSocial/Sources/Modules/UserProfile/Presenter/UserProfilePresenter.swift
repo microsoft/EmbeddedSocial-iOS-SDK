@@ -38,7 +38,9 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     init(userID: String? = nil, myProfileHolder: UserHolder) {
-        guard myProfileHolder.me != nil || userID != nil else { fatalError("Either userID or myProfileHolder must be supplied") }
+        guard myProfileHolder.me != nil || userID != nil else {
+            fatalError("Either userID or myProfileHolder must be supplied")
+        }
         
         self.userID = userID
         followersCount = 0
@@ -189,7 +191,10 @@ final class UserProfilePresenter: UserProfileViewOutput {
                 reportHandler: { [weak self] in self?.router.openReport(user: user) }
             )
         } else if let me = me {
-            router.showMyMenu { [weak self] in self?.router.openCreatePost(user: me) }
+            router.showMyMenu(
+                addPostHandler: { [weak self] in self?.router.openCreatePost(user: me) },
+                followRequestsHandler: { [weak self] in self?.router.openFollowRequests() }
+            )
         }
     }
     
@@ -289,5 +294,12 @@ extension UserProfilePresenter: EditProfileModuleOutput {
         setUser(me) { [weak self] in
             self?.myProfileHolder?.me = $0
         }
+    }
+}
+
+extension UserProfilePresenter: FollowRequestsModuleOutput {
+    
+    func didAcceptFollowRequest() {
+        followersCount += 1
     }
 }

@@ -6,13 +6,17 @@
 @testable import EmbeddedSocial
 
 final class MockUsersListAPI: UsersListAPI {
-    var resultToReturn: Result<UsersListResponse>?
-    private(set) var getUsersListCount = 0
+    
+    //MARK: - getUsersList
+    
+    var getUsersListCalled = false
+    var getUsersListReceivedArguments: (cursor: String?, limit: Int)?
+    var getUsersListReturnValue: Result<UsersListResponse>!
     
     func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        getUsersListCount += 1
-        if let result = resultToReturn {
-            completion(result)
-        }
+        getUsersListCalled = true
+        getUsersListReceivedArguments = (cursor: cursor, limit: limit)
+        completion(getUsersListReturnValue)
     }
+    
 }
