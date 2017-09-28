@@ -14,7 +14,8 @@ protocol FeedModuleViewInput: class {
     func reload()
     func reload(with index: Int)
     func reloadVisible()
-    func removeItem(index: Int)
+    func insertNewItems(with paths: [IndexPath])
+    func removeItems(with paths: [IndexPath])
     // Turns off "pull to refresh"
     func setRefreshing(state: Bool)
     // Turns on/off loading indicator
@@ -54,6 +55,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     fileprivate var listLayout = UICollectionViewFlowLayout()
     fileprivate var gridLayout = UICollectionViewFlowLayout()
     fileprivate var headerReuseID: String?
+    fileprivate var footerReuseID: String = "footer"
     fileprivate var isPullingBottom = false {
         didSet {
             if isPullingBottom == true && isPullingBottom != oldValue {
@@ -92,7 +94,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     fileprivate lazy var sizingCell: PostCell = { [unowned self] in
         let cell = PostCell.nib.instantiate(withOwner: nil, options: nil).last as! PostCell
-        let width = self.collectionView.bounds.width
+        let width = self.containerWidth()
         let height = cell.frame.height
         cell.frame = CGRect(x: 0, y: 0, width: width, height: height)
         return cell
@@ -101,14 +103,17 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        output.viewIsReady()
         
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         self.collectionView.delegate = self
-          collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerReuseID)
         
         navigationItem.rightBarButtonItem = layoutChangeButton
+        
+        onUpdateBounds()
+        
+        output.viewIsReady()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -135,33 +140,34 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
         
+        collectionView.reloadData()
+        collectionView.collectionViewLayout.invalidateLayout()
+        
         // switch layout
         switch type {
         case .grid:
             layoutChangeButton.image = UIImage(asset: .iconList)
-            if collectionView!.collectionViewLayout != gridLayout {
-                collectionView!.setCollectionViewLayout(gridLayout, animated: animated)
+            if collectionView.collectionViewLayout != gridLayout {
+                collectionView.setCollectionViewLayout(gridLayout, animated: animated)
             }
         case .list:
             layoutChangeButton.image = UIImage(asset: .iconGallery)
-            if collectionView!.collectionViewLayout != listLayout {
-                collectionView?.setCollectionViewLayout(listLayout, animated: animated)
+            if collectionView.collectionViewLayout != listLayout {
+                collectionView.setCollectionViewLayout(listLayout, animated: animated)
             }
         }
     }
     
     private func onUpdateBounds() {
-        if let collectionView = self.collectionView {
-            updateFlowLayoutForList(layout: listLayout, containerWidth: collectionView.frame.size.width)
-            updateFlowLayoutForGrid(layout: gridLayout, containerWidth: collectionView.frame.size.width)
-            
-            let limits = [
-                numberOfItemsInList(listLayout, in: collectionView.frame),
-                numberOfItemsInGrid(gridLayout, in: collectionView.frame)
-            ]
-            
-            cachedLimit = limits.max()
-        }
+        updateFlowLayoutForList(layout: listLayout, containerWidth: containerWidth())
+        updateFlowLayoutForGrid(layout: gridLayout, containerWidth: containerWidth())
+        
+        let limits = [
+            numberOfItemsInList(listLayout, in: collectionView.frame),
+            numberOfItemsInGrid(gridLayout, in: collectionView.frame)
+        ]
+        
+        cachedLimit = limits.max()
     }
     
     private func updateFlowLayoutForGrid(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
@@ -184,7 +190,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     private func updateFlowLayoutForList(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
-        let padding = Constants.FeedModule.Collection.gridCellsPadding
+        let padding = paddingEnabled ? Constants.FeedModule.Collection.gridCellsPadding : 0
         layout.minimumLineSpacing = Constants.FeedModule.Collection.rowsMargin
         layout.sectionInset = UIEdgeInsets(top: padding , left: padding , bottom: padding , right: padding )
         layout.itemSize = CGSize(width: containerWidth, height: CGFloat(0))
@@ -218,13 +224,8 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         
         sizingCell.configure(with: viewModel, collectionView: nil)
         
-        // TODO: remake via manual calculation
-        sizingCell.needsUpdateConstraints()
-        sizingCell.updateConstraints()
-        sizingCell.setNeedsLayout()
-        sizingCell.layoutIfNeeded()
-        
-        var size = sizingCell.container.bounds.size
+        var size = CGSize.zero
+        size.height = sizingCell.getHeight(with: 0)
         size.width = containerWidth()
         
         return size
@@ -240,7 +241,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: Private
-    
     fileprivate func containerWidth() -> CGFloat {
         
         var result = view.frame.width
@@ -293,11 +293,11 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func setRefreshingWithBlocking(state: Bool) {
         Logger.log(state)
         if state {
-            collectionView.isUserInteractionEnabled = false
+            //            collectionView.isUserInteractionEnabled = false
             SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.none)
             SVProgressHUD.show()
         } else {
-            collectionView.isUserInteractionEnabled = true
+            //            collectionView.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
         }
     }
@@ -305,15 +305,31 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func reloadVisible() {
         Logger.log()
         if let paths = collectionView?.indexPathsForVisibleItems {
-            collectionView?.reloadItems(at: paths)
+            //            collectionView.performBatchUpdates({
+            self.collectionView?.reloadItems(at: paths)
+            //            }, completion: nil)
         }
     }
     
-    func removeItem(index: Int) {
+    func insertNewItems(with paths:[IndexPath]) {
+        Logger.log()
+        
+        weak var collection = collectionView
+        collection?.numberOfItems(inSection: 0)
+        //        collectionView?.performBatchUpdates({
+        collection?.insertItems(at: paths)
+        //        }, completion:  { _ in
+        //            print("readt")
+        //        })
+    }
+    
+    func removeItems(with paths: [IndexPath]) {
         Logger.log(index)
-        collectionView?.performBatchUpdates({ [weak self] in
-            self?.collectionView?.deleteItems(at: [IndexPath(item: index, section: 0)])
-        }, completion: nil)
+        collectionView?.performBatchUpdates({
+            self.collectionView?.deleteItems(at: paths)
+        }, completion:  { _ in
+            //            self.reloadVisible()
+        })
     }
     
     func reload() {
@@ -364,7 +380,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         if collectionViewLayout === listLayout {
             
             let item = output.item(for: indexPath)
-
+            
             return calculateCellSizeWith(viewModel: item)
             
         } else if collectionViewLayout === gridLayout {
@@ -377,7 +393,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         output.didTapItem(path: indexPath)
     }
- 
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
         return CGSize(width: containerWidth(), height: output.headerSize.height)
@@ -397,7 +413,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         
         if kind == UICollectionElementKindSectionFooter {
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                       withReuseIdentifier: "footer",
+                                                                       withReuseIdentifier: footerReuseID,
                                                                        for: indexPath)
             
             view.addSubview(bottomRefreshControl)
