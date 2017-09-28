@@ -5,17 +5,23 @@
 
 import XCTest
 
-class TestSettings: TestHome {
+class TestSettings: UITestBase {
     
+    var sideMenu: SideMenu!
     var privacySettingOptionSwitch: XCUIElement!
     
-    override func openScreen() {
-        sideMenu.navigateToUserProfile()
+    override func setUp() {
+        super.setUp()
+        
+        sideMenu = SideMenu(app)
+    }
+    
+    func openSettingsScreen() {
         sideMenu.navigate(to: .settings)
     }
     
     func testPrivacySettingsOption() {
-        openScreen()
+        openSettingsScreen()
 
         privacySettingOptionSwitch = app.switches.element(boundBy: 0)
         
