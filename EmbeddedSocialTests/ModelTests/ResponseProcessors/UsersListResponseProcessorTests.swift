@@ -10,21 +10,24 @@ import Nimble
 class UsersListResponseProcessorTests: XCTestCase {
     
     var cache: MockCache!
-    var builder: MockFetchUserCommandsOperationBuilder!
+    var operationsBuilder: MockOutgoingCommandOperationsBuilder!
+    var predicateBuilder: MockOutgoingCommandsPredicateBuilder!
     private var sut: UsersListResponseProcessor!
     
     override func setUp() {
         super.setUp()
         cache = MockCache()
-        builder = MockFetchUserCommandsOperationBuilder()
-        sut = UsersListResponseProcessor(cache: cache, operationsBuilder: builder)
+        operationsBuilder = MockOutgoingCommandOperationsBuilder()
+        predicateBuilder = MockOutgoingCommandsPredicateBuilder()
+        sut = UsersListResponseProcessor(cache: cache, operationsBuilder: operationsBuilder, predicateBuilder: predicateBuilder)
     }
     
     override func tearDown() {
         super.tearDown()
         sut = nil
         cache = nil
-        builder = nil
+        operationsBuilder = nil
+        predicateBuilder = nil
     }
     
     func testThatItDoesNotModifyIsFromCacheValue() {
@@ -34,10 +37,14 @@ class UsersListResponseProcessorTests: XCTestCase {
     
     func testThatItDoesNotModifyIsFromCacheValue(isFromCache: Bool) {
         // given
-        builder.makeFetchUserCommandsOperationCacheReturnValue = MockFetchUserCommandsOperation(cache: cache)
+        operationsBuilder.fetchCommandsOperationPredicateReturnValueMaker = {
+            MockFetchOutgoingCommandsOperation(cache: self.cache, predicate: NSPredicate())
+        }
         cache.fetchOutgoing_with_ReturnValue = []
         var result: Result<UsersListResponse>?
         
+        predicateBuilder.allUserCommandsReturnValue = NSPredicate()
+
         // when
         sut.process(FeedResponseUserCompactView(), isFromCache: isFromCache) { result = $0  }
         
@@ -53,7 +60,7 @@ class UsersListResponseProcessorTests: XCTestCase {
         let user2 = User()
         let command2 = MockUserCommand(user: user2)
         
-        let operation = MockFetchUserCommandsOperation(cache: cache)
+        let operation = MockFetchOutgoingCommandsOperation(cache: cache, predicate: NSPredicate())
         operation.setCommands([command1, command2])
         
         cache.fetchOutgoing_with_ReturnValue = [command1, command2]
@@ -84,7 +91,11 @@ class UsersListResponseProcessorTests: XCTestCase {
         
         cache.fetchOutgoing_with_ReturnValue = []
         
-        builder.makeFetchUserCommandsOperationCacheReturnValue = MockFetchUserCommandsOperation(cache: cache)
+        operationsBuilder.fetchCommandsOperationPredicateReturnValueMaker = {
+            MockFetchOutgoingCommandsOperation(cache: self.cache, predicate: NSPredicate())
+        }
+        
+        predicateBuilder.allUserCommandsReturnValue = NSPredicate()
         
         var result: Result<UsersListResponse>?
 
