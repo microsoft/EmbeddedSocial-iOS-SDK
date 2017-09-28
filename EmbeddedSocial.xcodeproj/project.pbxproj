@@ -595,6 +595,8 @@
 		88B2D69A1F7BFC4C00920E43 /* MyBlockedUsersResponseProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B2D6991F7BFC4C00920E43 /* MyBlockedUsersResponseProcessorTests.swift */; };
 		88B2D69C1F7CE5C600920E43 /* MyFollowersResponseProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B2D69B1F7CE5C600920E43 /* MyFollowersResponseProcessorTests.swift */; };
 		88B2D69E1F7CE63500920E43 /* PendingRequestsResponseProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B2D69D1F7CE63500920E43 /* PendingRequestsResponseProcessorTests.swift */; };
+		88B2D6A01F7CFB7D00920E43 /* OtherUserTopicsFeedResponseProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B2D69F1F7CFB7D00920E43 /* OtherUserTopicsFeedResponseProcessor.swift */; };
+		88B2D6A21F7CFF0500920E43 /* SearchTopicsFeedResponseProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B2D6A11F7CFF0500920E43 /* SearchTopicsFeedResponseProcessor.swift */; };
 		88B94EAE1F6199BB002392F9 /* MockUserProfileModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EAD1F6199BB002392F9 /* MockUserProfileModuleOutput.swift */; };
 		88B94EB21F62A840002392F9 /* SearchTopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EB11F62A840002392F9 /* SearchTopicsViewController.swift */; };
 		88B94EB41F62A850002392F9 /* SearchTopics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88B94EB31F62A850002392F9 /* SearchTopics.storyboard */; };
@@ -620,7 +622,6 @@
 		88B94EF81F66B25C002392F9 /* OutgoingCommandsUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EF71F66B25C002392F9 /* OutgoingCommandsUploader.swift */; };
 		88B94EFA1F66B278002392F9 /* Daemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EF91F66B278002392F9 /* Daemon.swift */; };
 		88B94EFF1F66BF22002392F9 /* OutgoingCommandOperationsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94EFE1F66BF22002392F9 /* OutgoingCommandOperationsBuilder.swift */; };
-		88B94F021F66CA6D002392F9 /* FetchUserCommandsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94F011F66CA6D002392F9 /* FetchUserCommandsOperation.swift */; };
 		88B94F041F66CE67002392F9 /* FollowUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94F031F66CE67002392F9 /* FollowUserOperation.swift */; };
 		88B94F061F66D01E002392F9 /* UnfollowUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B94F051F66D01E002392F9 /* UnfollowUserOperation.swift */; };
 		88BC5C4E1F2B65D0001FBDD2 /* UserProfileConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC5C401F2B65D0001FBDD2 /* UserProfileConfigurator.swift */; };
@@ -937,7 +938,6 @@
 		9C4B6F851F74E4E8001AA5BB /* ActivityTextRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4B6F841F74E4E8001AA5BB /* ActivityTextRender.swift */; };
 		9C4B6F871F74E588001AA5BB /* ActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4B6F861F74E588001AA5BB /* ActivityDataSource.swift */; };
 		9C5BE9031F67D04C00F0E20E /* ActivityCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5BE9021F67D04C00F0E20E /* ActivityCells.swift */; };
-		9C683AC41F5F09E70087925E /* FeedResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C683AC31F5F09E70087925E /* FeedResponseParser.swift */; };
 		9C6D359B1F31D1C1005893DB /* FeedModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531381F31CCF2004CE94F /* FeedModuleConfigurator.swift */; };
 		9C6D359C1F31D1C1005893DB /* FeedModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313A1F31CCF2004CE94F /* FeedModuleInteractor.swift */; };
 		9C6D359E1F31D1C1005893DB /* FeedModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5313D1F31CCF2004CE94F /* FeedModulePresenter.swift */; };
@@ -1613,6 +1613,8 @@
 		88B2D6991F7BFC4C00920E43 /* MyBlockedUsersResponseProcessorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBlockedUsersResponseProcessorTests.swift; sourceTree = "<group>"; };
 		88B2D69B1F7CE5C600920E43 /* MyFollowersResponseProcessorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFollowersResponseProcessorTests.swift; sourceTree = "<group>"; };
 		88B2D69D1F7CE63500920E43 /* PendingRequestsResponseProcessorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingRequestsResponseProcessorTests.swift; sourceTree = "<group>"; };
+		88B2D69F1F7CFB7D00920E43 /* OtherUserTopicsFeedResponseProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherUserTopicsFeedResponseProcessor.swift; sourceTree = "<group>"; };
+		88B2D6A11F7CFF0500920E43 /* SearchTopicsFeedResponseProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTopicsFeedResponseProcessor.swift; sourceTree = "<group>"; };
 		88B94EAD1F6199BB002392F9 /* MockUserProfileModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserProfileModuleOutput.swift; sourceTree = "<group>"; };
 		88B94EB11F62A840002392F9 /* SearchTopicsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTopicsViewController.swift; sourceTree = "<group>"; };
 		88B94EB31F62A850002392F9 /* SearchTopics.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchTopics.storyboard; sourceTree = "<group>"; };
@@ -1638,7 +1640,6 @@
 		88B94EF71F66B25C002392F9 /* OutgoingCommandsUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingCommandsUploader.swift; sourceTree = "<group>"; };
 		88B94EF91F66B278002392F9 /* Daemon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Daemon.swift; sourceTree = "<group>"; };
 		88B94EFE1F66BF22002392F9 /* OutgoingCommandOperationsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingCommandOperationsBuilder.swift; sourceTree = "<group>"; };
-		88B94F011F66CA6D002392F9 /* FetchUserCommandsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchUserCommandsOperation.swift; sourceTree = "<group>"; };
 		88B94F031F66CE67002392F9 /* FollowUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowUserOperation.swift; sourceTree = "<group>"; };
 		88B94F051F66D01E002392F9 /* UnfollowUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnfollowUserOperation.swift; sourceTree = "<group>"; };
 		88BC5C401F2B65D0001FBDD2 /* UserProfileConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileConfigurator.swift; sourceTree = "<group>"; };
@@ -1686,8 +1687,8 @@
 		88C6826D1F7A6E64004BD291 /* UsersListProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListProcessor.swift; sourceTree = "<group>"; };
 		88C682701F7A71EE004BD291 /* FollowRequestsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowRequestsAPI.swift; sourceTree = "<group>"; };
 		88D1230B1F73AA9F001523D1 /* OutgoingCommandsUploadStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingCommandsUploadStrategy.swift; sourceTree = "<group>"; };
-		88D1230D1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchOutgoingCommandsOperation.swift; sourceTree = "<group>"; };
-		88D123121F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingCommandsRelatedHandleUpdater.swift; sourceTree = "<group>"; };
+		88D1230D1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FetchOutgoingCommandsOperation.swift; path = FetchOperations/FetchOutgoingCommandsOperation.swift; sourceTree = "<group>"; };
+		88D123121F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutgoingCommandsRelatedHandleUpdater.swift; path = ../Model/Cache/Operations/OutgoingCommandsRelatedHandleUpdater.swift; sourceTree = "<group>"; };
 		88D123141F740028001523D1 /* MockOutgoingCommandsUploadStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockOutgoingCommandsUploadStrategy.swift; sourceTree = "<group>"; };
 		88D123191F751A9A001523D1 /* CreateImageOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateImageOperationTests.swift; sourceTree = "<group>"; };
 		88D1231B1F7521FC001523D1 /* MockOutgoingCommandsPredicateBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockOutgoingCommandsPredicateBuilder.swift; sourceTree = "<group>"; };
@@ -1972,7 +1973,6 @@
 		9C5BE9021F67D04C00F0E20E /* ActivityCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCells.swift; sourceTree = "<group>"; };
 		9C6244F11F457DED004814BB /* PostMenuModuleInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleInteractorTests.swift; sourceTree = "<group>"; };
 		9C6244F31F4580FC004814BB /* PostMenuModulePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenterTests.swift; sourceTree = "<group>"; };
-		9C683AC31F5F09E70087925E /* FeedResponseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedResponseParser.swift; sourceTree = "<group>"; };
 		9C7D9B331F2F430B005928F4 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 1; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		9C985E521F505BDF00514F85 /* FeedCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCacheTests.swift; sourceTree = "<group>"; };
@@ -2467,13 +2467,14 @@
 			isa = PBXGroup;
 			children = (
 				88C682621F7A6468004BD291 /* ActivityFeedProcessor.swift */,
-				9C683AC31F5F09E70087925E /* FeedResponseParser.swift */,
 				881355A01F682EFC009299D4 /* MyBlockedUsersResponseProcessor.swift */,
 				88B2D6861F7BC71F00920E43 /* MyFollowersResponseProcessor.swift */,
 				8813559E1F680DDE009299D4 /* MyFollowingResponseProcessor.swift */,
 				88B2D6881F7BC99B00920E43 /* PendingRequestsResponseProcessor.swift */,
 				881355951F6805AB009299D4 /* ResponseProcessor.swift */,
 				885E040E1F6FC43300D6EBD8 /* TopicsFeedResponseProcessor.swift */,
+				88B2D69F1F7CFB7D00920E43 /* OtherUserTopicsFeedResponseProcessor.swift */,
+				88B2D6A11F7CFF0500920E43 /* SearchTopicsFeedResponseProcessor.swift */,
 				8813559A1F680DBD009299D4 /* UsersListResponseProcessor.swift */,
 			);
 			path = ResponseProcessors;
@@ -2622,13 +2623,12 @@
 			isa = PBXGroup;
 			children = (
 				885E04071F6FC17200D6EBD8 /* CommentCommandsOperations */,
-				88EBD22A1F6C132300F9DDFC /* FetchOperations */,
 				88ABC7931F72716B00C83C82 /* ImageOperations */,
 				885E03F91F6C2B6800D6EBD8 /* ReplyCommandsOperations */,
 				88EBD2291F6C12FD00F9DDFC /* TopicCommandsOperations */,
 				88B94F001F66CA5A002392F9 /* UserCommandsOperations */,
 				88ABC7BE1F72B32400C83C82 /* OutgoingCommandOperation.swift */,
-				88D123121F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift */,
+				88D1230D1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -3428,6 +3428,7 @@
 		88580B921F2213AB00C1CBAF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				88D123121F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift */,
 				88580B9A1F2213AB00C1CBAF /* Validators */,
 				889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */,
 				8811C8331F3DE8A500F7513D /* AssociatedValue.swift */,
@@ -4047,7 +4048,6 @@
 				88B2D6751F7B9F5E00920E43 /* FollowRequestsInteractorTests.swift */,
 				88B2D6791F7BAABE00920E43 /* FollowRequestsPresenterTests.swift */,
 			);
-			name = FollowRequests;
 			path = FollowRequests;
 			sourceTree = "<group>";
 		};
@@ -4058,7 +4058,6 @@
 				88B2D6801F7BADDA00920E43 /* MockFollowRequestsModuleOutput.swift */,
 				88B2D67E1F7BAD9E00920E43 /* MockFollowRequestsView.swift */,
 			);
-			name = Mocks;
 			path = Mocks;
 			sourceTree = "<group>";
 		};
@@ -4073,7 +4072,6 @@
 				88B2D69D1F7CE63500920E43 /* PendingRequestsResponseProcessorTests.swift */,
 				88B2D68E1F7BE7CA00920E43 /* UsersListResponseProcessorTests.swift */,
 			);
-			name = ResponseProcessors;
 			path = ResponseProcessors;
 			sourceTree = "<group>";
 		};
@@ -4584,15 +4582,6 @@
 				88EBD2301F6C13E900F9DDFC /* UnpinTopicOperation.swift */,
 			);
 			path = TopicCommandsOperations;
-			sourceTree = "<group>";
-		};
-		88EBD22A1F6C132300F9DDFC /* FetchOperations */ = {
-			isa = PBXGroup;
-			children = (
-				88D1230D1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift */,
-				88B94F011F66CA6D002392F9 /* FetchUserCommandsOperation.swift */,
-			);
-			path = FetchOperations;
 			sourceTree = "<group>";
 		};
 		88EBD22B1F6C133E00F9DDFC /* Commands */ = {
@@ -5744,6 +5733,7 @@
 				88580C461F2213AB00C1CBAF /* CreatePostModuleInput.swift in Sources */,
 				884AA95A1F3C563F00B85135 /* SearchAPI.swift in Sources */,
 				8811C86A1F42FFDA00F7513D /* EmbeddedEditProfileCellsBuilder.swift in Sources */,
+				88B2D6A01F7CFB7D00920E43 /* OtherUserTopicsFeedResponseProcessor.swift in Sources */,
 				88580C2E1F2213AB00C1CBAF /* URLSchemeService.swift in Sources */,
 				88580C3A1F2213AB00C1CBAF /* UploadPhotoCell.swift in Sources */,
 				884AA9851F3C563F00B85135 /* PostUserRequest.swift in Sources */,
@@ -5915,7 +5905,6 @@
 				885E04061F6FC00800D6EBD8 /* UnlikeCommentCommand.swift in Sources */,
 				883BFFDE1F713EB100E1C4E3 /* PostCommentResponse+Ext.swift in Sources */,
 				8846CB4C1F30CA0E00F11EC8 /* UserListDataDisplayManager.swift in Sources */,
-				88B94F021F66CA6D002392F9 /* FetchUserCommandsOperation.swift in Sources */,
 				88580BC41F2213AB00C1CBAF /* UIView+Ext.swift in Sources */,
 				8811C8851F431B9A00F7513D /* EditProfilePresenter.swift in Sources */,
 				8875CCD91F3314B6001F2474 /* UserFollowersAPI.swift in Sources */,
@@ -5954,10 +5943,10 @@
 				88E3AC3C1F55B0400016357F /* ReportViewController.swift in Sources */,
 				88B2D6871F7BC71F00920E43 /* MyFollowersResponseProcessor.swift in Sources */,
 				88EBD2221F6C005200F9DDFC /* PinTopicCommand.swift in Sources */,
+				88B2D6A21F7CFF0500920E43 /* SearchTopicsFeedResponseProcessor.swift in Sources */,
 				8864C8381F46DBA700ADCE13 /* SearchPeopleViewOutput.swift in Sources */,
 				88D123131F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift in Sources */,
 				88580C5B1F2213AB00C1CBAF /* SideMenuInteractor.swift in Sources */,
-				9C683AC41F5F09E70087925E /* FeedResponseParser.swift in Sources */,
 				884AA98B1F3C563F00B85135 /* PutUserInfoRequest.swift in Sources */,
 				8834A7621F5066ED00F1D383 /* LikesListConfigurator.swift in Sources */,
 				8811C8551F42F88D00F7513D /* EmbeddedEditProfileViewInput.swift in Sources */,
