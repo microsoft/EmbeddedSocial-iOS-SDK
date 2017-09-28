@@ -278,6 +278,8 @@ open class APIRouter: WebApp {
         ) {
         let path = environ["PATH_INFO"] as! String
         
+        APIState.latestRequstMethod = environ["REQUEST_METHOD"] as! String
+        
         if let (webApp, captures) = matchRoute(to: path) {
             var environ = environ
             environ["ambassador.router_captures"] = captures

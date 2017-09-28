@@ -7,11 +7,15 @@ import Foundation
 import XCTest
 
 class Post {
+    
     var app: XCUIApplication
     var cell: XCUIElement
     var teaser: XCUIElement
     var likeButton: XCUIElement
     var pinButton: XCUIElement
+    
+    private var menuButton: XCUIElement
+    private var postMenu: PostMenu!
     
     init(_ cell: XCUIElement, _ application: XCUIApplication) {
         self.app = application
@@ -19,6 +23,9 @@ class Post {
         self.teaser = self.cell.textViews["Teaser"]
         self.likeButton = self.cell.buttons["Like"]
         self.pinButton = self.cell.buttons["Pin"]
+        self.menuButton = self.cell.buttons["Post Menu"]
+        
+        postMenu = PostMenu(app, self)
     }
     
     //UILabel values cannot be read when element has an accessibility identifier
@@ -38,12 +45,20 @@ class Post {
         sleep(1)
     }
     
-    func pin(){
+    func pin() {
         scrollToElement(self.pinButton, self.app)
         self.pinButton.tap()
         sleep(1)
     }
-
+    
+    func menu() -> PostMenu {
+        if !postMenu.isOpened {
+            menuButton.tap()
+            postMenu.isOpened = true
+        }
+        return postMenu
+    }
+    
 }
 
 class Feed {
