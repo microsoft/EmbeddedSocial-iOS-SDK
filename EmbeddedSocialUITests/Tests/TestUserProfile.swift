@@ -27,7 +27,7 @@ class TestUserProfile: UITestBase {
     }
     
     func openScreen() {
-        sideMenu.navigateTo("Home")
+        sideMenu.navigate(to: .home)
         let (_, post) = feed.getRandomPost()
         post.getLabelByText(userName).tapByCoordinate()
         sleep(1)
@@ -89,7 +89,7 @@ class TestUserProfileRecentPosts: TestHome {
     }
     
     override func openScreen() {
-        sideMenu.navigateTo("Home")
+        sideMenu.navigate(to: .home)
         let (_, post) = feed.getRandomPost()
         if !post.getLabelByText(userName).exists {
             userName = "Alan Poe"
@@ -113,7 +113,7 @@ class TestUserProfilePopularPosts: TestHome {
     }
     
     override func openScreen() {
-        sideMenu.navigateTo("Home")
+        sideMenu.navigate(to: .home)
         let (_, post) = feed.getRandomPost()
         if !post.getLabelByText(userName).exists {
             userName = "Alan Poe"

@@ -19,7 +19,7 @@ final class SearchService: BaseService, SearchServiceType {
         super.init()
         
         usersRequestExecutor = provider.makeUsersFeedExecutor(for: self)
-        topicsRequestExecutor = provider.makeTopicsFeedExecutor(for: self)
+        topicsRequestExecutor = provider.makeSearchTopicsFeedExecutor(for: self)
     }
     
     func queryUsers(query: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {

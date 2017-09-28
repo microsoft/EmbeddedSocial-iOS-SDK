@@ -31,7 +31,8 @@ struct UITestsHelper {
                     email: "jonh.doe@contoso.com",
                     bio: "Lorem ipsum dolor",
                     photo: Photo(image:(UIImage(asset: .userPhotoPlaceholder))),
-                    credentials: creds)
+                    credentials: creds,
+                    visibility: ._public)
     }
     
     static var mockSessionToken: String {

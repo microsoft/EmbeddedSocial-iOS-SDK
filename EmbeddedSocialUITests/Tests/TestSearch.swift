@@ -16,7 +16,7 @@ class TestSearchTopics: TestHome {
     }
     
     override func openScreen() {
-        sideMenu.navigateTo("Search")
+        sideMenu.navigate(to: .search)
         search.topicsButton.tap()
         search.topicsQuery.tap()
         search.topicsQuery.typeText(feedName)
@@ -36,7 +36,7 @@ class TestSearchPeople: TestFollowers {
     }
     
     override func openScreen() {
-        sideMenu.navigateTo("Search")
+        sideMenu.navigate(to: .search)
         search.peopleButton.tap()
         search.peopleQuery.tap()
         search.peopleQuery.typeText(feedName)
