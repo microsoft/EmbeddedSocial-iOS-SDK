@@ -179,7 +179,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     fileprivate var limit: Int32 = Int32(Constants.Feed.pageSize)
     fileprivate var items = [Post]()
     fileprivate var fetchRequests: Set<String> = Set()
-    fileprivate var preloadingRequest: FeedFetchRequest?
     fileprivate var header: SupplementaryItemModel?
     
     var headerSize: CGSize {
@@ -264,41 +263,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         fetchItems(with: cursor)
     }
     
-    private func preloadNextPage() {
-        guard let cursor = cursor, let feedType = feedType else {
-            return
-        }
-        
-        var request = makeFetchRequest(with: cursor, feedType: feedType)
-        request.uid = cursor
-        
-        preloadingRequest = request
-        interactor.fetchPosts(request: request)
-    }
-    
-    fileprivate var shouldPreloadNextPage: Bool = false {
-        didSet {
-            if shouldPreloadNextPage && preloadingRequest == nil {
-                
-                preloadNextPage()
-                shouldPreloadNextPage = false
-            }
-        }
-    }
-    
     // MARK: FeedModuleViewOutput
-    func willDisplayItem(path: IndexPath) {
-        // preloading
-        let index = path.row
-        
-        if (items.count - index) < 5 {
-            Logger.log("preloading \(items.count) - \(index)", event: .veryImportant)
-            DispatchQueue.main.async {
-                self.shouldPreloadNextPage = true
-            }
-        }
-    }
-    
     func item(for path: IndexPath) -> PostViewModel {
         
         let index = path.row
