@@ -206,7 +206,7 @@ extension ActivityBaseCell {
         static let imagesHeightRatio = 0.6
         static let buttonsHeightRatio = 0.18
         static let acceptButtonRatio = (65.0 / 48.0)
-        static let actionIconSize = 30
+        static let actionIconSize = 20
         
         struct Fonts {
             static let normal = UIFont.systemFont(ofSize: 12)
