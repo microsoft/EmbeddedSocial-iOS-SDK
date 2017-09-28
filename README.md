@@ -1,6 +1,6 @@
-# Microsoft Research Embedded Social Software Development Kit
+# Microsoft Embedded Social
 ## iOS SDK
-This is a SDK for accessing "Microsoft Research Embedded Social Software Development Kit" from your iOS application.
+This is an SDK that works with the Microsoft Embedded Social service to provide social networking functionality inside your iOS application.
 
 By using this code, you agree to the [Developer Code of Conduct](DeveloperCodeOfConduct.md), and the [License Terms](LICENSE).
 
