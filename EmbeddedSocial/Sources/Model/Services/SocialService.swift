@@ -39,6 +39,8 @@ protocol SocialServiceType {
     
     /// Get my blocked users
     func getMyBlockedUsers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
+    
+    func getMyPendingRequests(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
 }
 
 class SocialService: BaseService, SocialServiceType {
@@ -48,7 +50,7 @@ class SocialService: BaseService, SocialServiceType {
     private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
     fileprivate var activitiesExecutor: MyActivityRequestExecutor!
     
-    private let executorProvider: CacheRequestExecutorProviderType.Type
+    fileprivate let executorProvider: CacheRequestExecutorProviderType.Type
     
     init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
         self.executorProvider = provider
@@ -85,16 +87,8 @@ class SocialService: BaseService, SocialServiceType {
         request.userHandle = user.uid
         
         let builder = SocialAPI.myFollowersPostFollowerWithRequestBuilder(request: request, authorization: authorization)
-        
-        builder.execute { (response, error) in
-            
-            guard error == nil else {
-                completion(.failure(APIError.failedRequest))
-                return
-            }
-            
-            completion(.success())
-        }
+        let command = AcceptPendingCommand(user: user)
+        outgoingActionsExecutor.execute(command: command, builder: builder, completion: completion)
     }
 
     func unblock(user: User, completion: @escaping (Result<Void>) -> Void) {
@@ -145,7 +139,14 @@ class SocialService: BaseService, SocialServiceType {
             cursor: cursor,
             limit: Int32(limit)
         )
-        usersFeedExecutor.execute(with: builder, completion: completion)
+        
+        let executor = executorProvider.makeMyFollowersExecutor(for: self)
+        
+        executor.execute(with: builder) { result in
+            withExtendedLifetime(executor) {
+                completion(result)
+            }
+        }
     }
     
     func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
@@ -218,6 +219,22 @@ class SocialService: BaseService, SocialServiceType {
         let builder = SocialAPI.myFollowingGetSuggestionsUsersWithRequestBuilder(authorization: authorization)
         suggestedUsersExecutor.execute(with: builder, completion: completion)
     }
+    
+    func getMyPendingRequests(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        let builder = SocialAPI.myPendingUsersGetPendingUsersWithRequestBuilder(
+            authorization: authorization,
+            cursor: cursor,
+            limit: Int32(limit)
+        )
+        
+        let executor = executorProvider.makeMyPendingRequestsExecutor(for: self)
+        
+        executor.execute(with: builder) { result in
+            withExtendedLifetime(executor) {
+                completion(result)
+            }
+        }
+    }
 }
 
 extension SocialService: ActivityService {
@@ -240,53 +257,7 @@ extension SocialService: ActivityService {
     }
     
     func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (UserRequestListResult) -> Void) {
-        let builder = SocialAPI.myPendingUsersGetPendingUsersWithRequestBuilder(authorization: authorization,
-                                                                                cursor: cursor,
-                                                                                limit: Int32(limit))
-        
-        usersFeedExecutor.execute(with: builder) {
-            completion($0)
-        }
-    }
-
-    func rejectPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
-        
-        let builder = SocialAPI.myPendingUsersDeletePendingUserWithRequestBuilder(userHandle: handle, authorization: authorization)
-        
-        builder.execute { (response, error) in
-            guard error == nil else {
-                completion(.failure(APIError.failedRequest))
-                return
-            }
-            
-            completion(.success())
-        }
-    }
-
-    func acceptPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void) {
-        
-        let request = PostFollowerRequest()
-        request.userHandle = handle
-        
-        let builder = SocialAPI.myFollowersPostFollowerWithRequestBuilder(request: request, authorization: authorization)
-        
-        builder.execute { (response, error) in
-           
-            guard error == nil else {
-                completion(.failure(APIError.failedRequest))
-                return
-            }
-            
-            completion(.success())
-        }
-    }
-    
-    private func cacheResponse(_ response: Cacheable, forKey key: String) {
-        cache.cacheIncoming(response, for: key)
-    }
-    
-    private func fetchFromCache<T: Cacheable>(by cacheKey: String) -> T? {
-        return cache.firstIncoming(ofType: T.self, typeID: cacheKey)
+        getMyPendingRequests(cursor: cursor, limit: limit, completion: completion)
     }
 }
 

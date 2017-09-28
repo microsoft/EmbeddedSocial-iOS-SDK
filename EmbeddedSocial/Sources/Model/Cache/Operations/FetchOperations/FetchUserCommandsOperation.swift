@@ -8,7 +8,7 @@ import Foundation
 class FetchUserCommandsOperation: Operation {
     private let cache: CacheType
     
-    var commands: [UserCommand] = []
+    private(set) var commands: [UserCommand] = []
     
     init(cache: CacheType) {
         self.cache = cache

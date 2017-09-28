@@ -12,7 +12,7 @@ class BlockUserOperationTests: XCTestCase {
         // given
         let command = UserCommand(user: User())
         let service = MockSocialService()
-        let sut = EmbeddedSocial.BlockUserOperation(command: command, socialService: service)
+        let sut = BlockUserOperation(command: command, socialService: service)
         
         // when
         let queue = OperationQueue()

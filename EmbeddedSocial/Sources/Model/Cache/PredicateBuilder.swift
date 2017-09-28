@@ -31,6 +31,8 @@ protocol OutgoingCommandsPredicateBuilder {
     func createReplyCommands() -> NSPredicate
     
     func predicate(for command: OutgoingCommand) -> NSPredicate
+    
+    func allUserCommands() -> NSPredicate
 }
 
 protocol TopicServicePredicateBuilder {

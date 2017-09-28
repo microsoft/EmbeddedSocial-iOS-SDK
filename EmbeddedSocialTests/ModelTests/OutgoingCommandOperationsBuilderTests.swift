@@ -19,7 +19,8 @@ class OutgoingCommandOperationsBuilderTests: XCTestCase {
         XCTAssertTrue(makeOperation(BlockCommand(user: user)) is EmbeddedSocial.BlockUserOperation)
         XCTAssertTrue(makeOperation(UnblockCommand(user: user)) is UnblockUserOperation)
         XCTAssertTrue(makeOperation(CancelPendingCommand(user: user)) is CancelPendingUserOperation)
-        
+        XCTAssertTrue(makeOperation(AcceptPendingCommand(user: user)) is AcceptPendingUserOperation)
+
         // topic commands
         let topic = Post(topicHandle: UUID().uuidString)
         XCTAssertTrue(makeOperation(UnlikeTopicCommand(topic: topic)) is UnlikeTopicOperation)

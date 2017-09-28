@@ -33,8 +33,8 @@ protocol ActivityService: class {
     func loadOthersActivities(cursor: String?, limit: Int, completion: @escaping (ActivityItemListResult) -> Void)
     func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (UserRequestListResult) -> Void)
     
-    func acceptPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void)
-    func rejectPendingRequest(handle: String, completion: @escaping (Result<Void>) -> Void)
+    func acceptPending(user: User, completion: @escaping (Result<Void>) -> Void)
+    func cancelPending(user: User, completion: @escaping (Result<Void>) -> Void)
 }
 
 class ItemList<T> {
@@ -61,19 +61,11 @@ class ActivityInteractor {
 extension ActivityInteractor: ActivityInteractorInput {
     
     func acceptPendingRequest(user: UserCompactView, completion: @escaping (Result<Void>) -> Void) {
-        guard let handle = user.userHandle else {
-            completion(.failure(APIError.missingUserData))
-            return
-        }
-        service.acceptPendingRequest(handle: handle, completion: completion)
+        service.acceptPending(user: User(compactView: user), completion: completion)
     }
     
     func rejectPendingRequest(user: UserCompactView, completion: @escaping (Result<Void>) -> Void) {
-        guard let handle = user.userHandle else {
-            completion(.failure(APIError.missingUserData))
-            return
-        }
-        service.rejectPendingRequest(handle: handle, completion: completion)
+        service.cancelPending(user: User(compactView: user), completion: completion)
     }
     
     // MARK: My Activity
