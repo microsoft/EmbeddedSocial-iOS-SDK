@@ -171,12 +171,6 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         let vc = configurator.viewController!
         return vc
     }()
-
-    lazy var configuredDebug: UIViewController = {
-        let vc = UIViewController()
-        vc.view.backgroundColor = UIColor.purple
-        return vc
-    }()
     
     lazy var configuredSearchModule: SearchConfigurator = { [unowned self] in
         let configurator = SearchConfigurator()

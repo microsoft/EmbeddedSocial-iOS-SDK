@@ -182,7 +182,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         
         
         // hacks, small tweaking
-        result += 10
+        result += 40
     
         return result
     }
