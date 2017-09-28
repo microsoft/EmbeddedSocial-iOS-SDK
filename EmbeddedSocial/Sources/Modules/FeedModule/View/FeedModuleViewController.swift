@@ -55,6 +55,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     fileprivate var listLayout = UICollectionViewFlowLayout()
     fileprivate var gridLayout = UICollectionViewFlowLayout()
     fileprivate var headerReuseID: String?
+    fileprivate var footerReuseID: String = "footer"
     fileprivate var isPullingBottom = false {
         didSet {
             if isPullingBottom == true && isPullingBottom != oldValue {
@@ -102,14 +103,17 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        output.viewIsReady()
         
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         self.collectionView.delegate = self
-          collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerReuseID)
         
         navigationItem.rightBarButtonItem = layoutChangeButton
+        
+        onUpdateBounds()
+        
+        output.viewIsReady()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -137,22 +141,19 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
         
         collectionView.reloadData()
+        collectionView.collectionViewLayout.invalidateLayout()
         
         // switch layout
         switch type {
         case .grid:
             layoutChangeButton.image = UIImage(asset: .iconList)
             if collectionView.collectionViewLayout != gridLayout {
-                collectionView.performBatchUpdates({
-                    collectionView.setCollectionViewLayout(gridLayout, animated: animated)
-                }, completion: nil)
+                collectionView.setCollectionViewLayout(gridLayout, animated: animated)
             }
         case .list:
             layoutChangeButton.image = UIImage(asset: .iconGallery)
             if collectionView.collectionViewLayout != listLayout {
-                collectionView.performBatchUpdates({
-                    collectionView.setCollectionViewLayout(listLayout, animated: animated)
-                }, completion: nil)
+                collectionView.setCollectionViewLayout(listLayout, animated: animated)
             }
         }
     }
@@ -222,11 +223,11 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     fileprivate func calculateCellSizeWith(viewModel: PostViewModel) -> CGSize {
         
         sizingCell.configure(with: viewModel, collectionView: nil)
- 
+        
         var size = CGSize.zero
         size.height = sizingCell.getHeight(with: 0)
         size.width = containerWidth()
-
+        
         return size
     }
     
@@ -292,11 +293,11 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func setRefreshingWithBlocking(state: Bool) {
         Logger.log(state)
         if state {
-//            collectionView.isUserInteractionEnabled = false
+            //            collectionView.isUserInteractionEnabled = false
             SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.none)
             SVProgressHUD.show()
         } else {
-//            collectionView.isUserInteractionEnabled = true
+            //            collectionView.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
         }
     }
@@ -304,9 +305,9 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func reloadVisible() {
         Logger.log()
         if let paths = collectionView?.indexPathsForVisibleItems {
-//            collectionView.performBatchUpdates({
-                self.collectionView?.reloadItems(at: paths)
-//            }, completion: nil)
+            //            collectionView.performBatchUpdates({
+            self.collectionView?.reloadItems(at: paths)
+            //            }, completion: nil)
         }
     }
     
@@ -315,11 +316,11 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         
         weak var collection = collectionView
         collection?.numberOfItems(inSection: 0)
-//        collectionView?.performBatchUpdates({
-            collection?.insertItems(at: paths)
-//        }, completion:  { _ in
-//            print("readt")
-//        })
+        //        collectionView?.performBatchUpdates({
+        collection?.insertItems(at: paths)
+        //        }, completion:  { _ in
+        //            print("readt")
+        //        })
     }
     
     func removeItems(with paths: [IndexPath]) {
@@ -327,7 +328,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         collectionView?.performBatchUpdates({
             self.collectionView?.deleteItems(at: paths)
         }, completion:  { _ in
-//            self.reloadVisible()
+            //            self.reloadVisible()
         })
     }
     
@@ -379,7 +380,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         if collectionViewLayout === listLayout {
             
             let item = output.item(for: indexPath)
-
+            
             return calculateCellSizeWith(viewModel: item)
             
         } else if collectionViewLayout === gridLayout {
@@ -392,7 +393,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         output.didTapItem(path: indexPath)
     }
- 
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
         return CGSize(width: containerWidth(), height: output.headerSize.height)
@@ -412,7 +413,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         
         if kind == UICollectionElementKindSectionFooter {
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                       withReuseIdentifier: "footer",
+                                                                       withReuseIdentifier: footerReuseID,
                                                                        for: indexPath)
             
             view.addSubview(bottomRefreshControl)

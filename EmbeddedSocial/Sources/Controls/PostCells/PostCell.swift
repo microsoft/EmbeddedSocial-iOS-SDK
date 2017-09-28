@@ -113,6 +113,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         commentedCount.text = nil
         postText.readMoreTapHandle = nil
         collectionView = nil
+        postImageButton.setPhotoWithCaching(nil, placeholder: nil)
+        userPhoto.setPhotoWithCaching(nil, placeholder: nil)
         postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
         
         super.prepareForReuse()
