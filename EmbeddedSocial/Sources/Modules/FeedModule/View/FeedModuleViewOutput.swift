@@ -13,7 +13,7 @@ protocol FeedModuleViewOutput {
     
     func didTapChangeLayout()
     func didTapItem(path: IndexPath)
-    
+
     func didAskFetchAll()
     func didAskFetchMore()
     

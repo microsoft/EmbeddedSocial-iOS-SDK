@@ -41,15 +41,16 @@ extension Constants {
     
     struct FeedModule {
         struct Collection  {
-            static var rowsMargin = CGFloat(10.0)
-            static var itemsPerRow = CGFloat(2)
-            static var gridCellsPadding = CGFloat(5)
-            static var footerHeight = CGFloat(60)
-            static var containerPadding = CGFloat(10)
-            static var containerColor = UIColor.white
+            static let rowsMargin = CGFloat(10.0)
+            static let itemsPerRow = CGFloat(2)
+            static let gridCellsPadding = CGFloat(5)
+            static let footerHeight = CGFloat(60)
+            static let containerPadding = CGFloat(10)
+            static let containerColor = UIColor.white
+            static let imageHeight = CGFloat(180)
             
             struct Cell {
-                static var maxLines = 10
+                static let maxLines = 10
             }
         }
     }

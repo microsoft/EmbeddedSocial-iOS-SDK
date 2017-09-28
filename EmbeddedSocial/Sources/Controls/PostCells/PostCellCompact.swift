@@ -8,6 +8,11 @@ class PostCellCompact: UICollectionViewCell, PostCellProtocol {
     weak var collectionView: UICollectionView!
     @IBOutlet weak var postImage: UIImageView!
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        postImage.setPhotoWithCaching(nil, placeholder: nil)
+    }
+    
     func configure(with data: PostViewModel, collectionView: UICollectionView?) {
         
         self.collectionView = collectionView
