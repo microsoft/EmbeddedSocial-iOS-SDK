@@ -83,11 +83,12 @@ protocol PostServiceDelegate: class {
 }
 
 class TopicService: BaseService, PostServiceProtocol {
-    
+
     private let imagesService: ImagesServiceType
     fileprivate let executorProvider: CacheRequestExecutorProviderType.Type
     private var topicsFeedExecutor: TopicsFeedRequestExecutor!
     private var otherUserTopicsFeedExecutor: TopicsFeedRequestExecutor!
+    private var singlePostFetchExecuter: SingleTopicRequestExecutor!
 
     init(imagesService: ImagesServiceType,
          executorProvider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
@@ -99,6 +100,7 @@ class TopicService: BaseService, PostServiceProtocol {
         
         topicsFeedExecutor = executorProvider.makeTopicsFeedExecutor(for: self)
         otherUserTopicsFeedExecutor = executorProvider.makeOtherUsersTopicsFeedExecutor(for: self)
+        singlePostFetchExecuter = CacheRequestExecutorProvider.makeSinglePostExecutor(for: self)
     }
     
     func postTopic(_ topic: Post, success: @escaping TopicPosted, failure: @escaping Failure) {
@@ -215,6 +217,22 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
+        
+        let request = TopicsAPI.topicsGetTopicWithRequestBuilder(topicHandle: post, authorization: authorization)
+        
+        singlePostFetchExecuter.execute(with: request) { (result) in
+            var feedFetchResult = FeedFetchResult()
+            
+            guard let post = result.value else {
+                feedFetchResult.error = result.error ?? APIError.missingUserData
+                completion(feedFetchResult)
+                return
+            }
+            
+            feedFetchResult.posts = [post]
+            completion(feedFetchResult)
+        }
+        
         TopicsAPI.topicsGetTopic(topicHandle: post, authorization: authorization) { (topic, error) in
             
             var result = FeedFetchResult()

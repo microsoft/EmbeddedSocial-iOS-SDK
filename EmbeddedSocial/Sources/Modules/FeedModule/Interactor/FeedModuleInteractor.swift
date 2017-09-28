@@ -25,7 +25,7 @@ protocol FeedModuleInteractorInput {
 protocol FeedModuleInteractorOutput: class {
     func didFetch(feed: Feed)
     func didFetchMore(feed: Feed)
-    func didFail(error: FeedServiceError)
+    func didFail(error: Error)
     func didStartFetching()
     func didFinishFetching()
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?)

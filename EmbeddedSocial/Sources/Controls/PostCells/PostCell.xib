@@ -81,16 +81,16 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="iJH-I2-d58" userLabel="postcontent">
-                            <rect key="frame" x="15" y="245" width="334" height="197"/>
+                            <rect key="frame" x="15" y="230" width="334" height="212"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="998" text="Smooth Sailing Over Calm Waters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYk-wD-2lQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="334" height="17"/>
+                                    <rect key="frame" x="0.0" y="15" width="334" height="17"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="249" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhP-eN-hI9" customClass="ReadMoreTextView" customModule="EmbeddedSocial" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="37" width="334" height="150"/>
+                                    <rect key="frame" x="0.0" y="52" width="334" height="150"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <accessibility key="accessibilityConfiguration" identifier="Teaser" label="Teaser"/>
                                     <string key="text">Well, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoat</string>
@@ -106,7 +106,7 @@
                                 <constraint firstItem="bhP-eN-hI9" firstAttribute="leading" secondItem="iJH-I2-d58" secondAttribute="leading" id="Ti4-xa-hNA"/>
                                 <constraint firstAttribute="trailing" secondItem="bhP-eN-hI9" secondAttribute="trailing" id="dF4-ux-pkW"/>
                                 <constraint firstItem="bhP-eN-hI9" firstAttribute="top" secondItem="WYk-wD-2lQ" secondAttribute="bottom" constant="20" id="fJ4-uc-xJ2"/>
-                                <constraint firstItem="WYk-wD-2lQ" firstAttribute="top" secondItem="iJH-I2-d58" secondAttribute="top" id="iYV-1c-E4e"/>
+                                <constraint firstItem="WYk-wD-2lQ" firstAttribute="top" secondItem="iJH-I2-d58" secondAttribute="top" constant="15" id="iYV-1c-E4e"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ugb-5x-70X" userLabel="footer">
@@ -229,7 +229,7 @@
                         <constraint firstAttribute="trailing" secondItem="oqe-ch-5n3" secondAttribute="trailing" id="OXB-yI-2as"/>
                         <constraint firstItem="3kI-kt-ADv" firstAttribute="top" secondItem="oqe-ch-5n3" secondAttribute="bottom" id="TfN-yV-UrG"/>
                         <constraint firstItem="oqe-ch-5n3" firstAttribute="leading" secondItem="OEZ-HU-KUq" secondAttribute="leading" id="Ujk-CD-tye"/>
-                        <constraint firstItem="iJH-I2-d58" firstAttribute="top" secondItem="3kI-kt-ADv" secondAttribute="bottom" constant="15" id="ZAp-05-Pv0"/>
+                        <constraint firstItem="iJH-I2-d58" firstAttribute="top" secondItem="3kI-kt-ADv" secondAttribute="bottom" id="ZAp-05-Pv0"/>
                         <constraint firstAttribute="trailing" secondItem="3kI-kt-ADv" secondAttribute="trailing" id="k2U-Wn-6UZ"/>
                         <constraint firstAttribute="trailing" secondItem="iJH-I2-d58" secondAttribute="trailing" constant="15" id="oLt-mS-jOt"/>
                         <constraint firstAttribute="bottom" secondItem="Ugb-5x-70X" secondAttribute="bottom" id="qa8-yC-g9j"/>

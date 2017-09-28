@@ -268,6 +268,8 @@ enum L10n {
     static let imageCompressionFailed = L10n.tr("Localizable", "error.image_compression_failed")
     /// Image is invalid
     static let invalidImage = L10n.tr("Localizable", "error.invalid_image")
+    /// Invalid server response
+    static let invalidResponse = L10n.tr("Localizable", "error.invalid_response")
     /// Last session is not available.
     static let lastSessionNotAvailable = L10n.tr("Localizable", "error.last_session_not_available")
     /// User credentials are missing.
