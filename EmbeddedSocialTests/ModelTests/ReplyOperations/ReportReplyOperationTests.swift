@@ -6,21 +6,22 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class ReportReplyAPITests: XCTestCase {
+class ReportReplyOperationTests: XCTestCase {
     
-    func testThatItCallsCorrectServiceMethod() {
+    func testThatItUsesCorrectServiceMethod() {
         // given
         let reply = Reply(replyHandle: UUID().uuidString)
-        let reason = ReportReason.contentInfringement
+        let command = ReportReplyCommand(reply: reply, reportReason: .other)
         let service = MockReportingService()
-        let sut = ReportReplyAPI(reply: reply, reportingService: service)
+        let sut = ReportReplyOperation(command: command, reportService: service)
         
         // when
-        sut.submitReport(with: reason) { _ in () }
+        let queue = OperationQueue()
+        queue.addOperation(sut)
+        queue.waitUntilAllOperationsAreFinished()
         
         // then
         XCTAssertEqual(service.reportReplyCount, 1)
-        XCTAssertEqual(service.reportReplyInputParameters?.reply.replyHandle, reply.replyHandle)
-        XCTAssertEqual(service.reportReplyInputParameters?.reason, reason)
     }
+    
 }

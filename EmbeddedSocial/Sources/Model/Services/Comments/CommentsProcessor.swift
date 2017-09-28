@@ -34,7 +34,6 @@ class CommentsProcessor: CommentsProcessorType {
         
     }
     
-    
     private func fetchCommentActionCommands() -> [CommentCommand] {
         let request = CacheFetchRequest(resultType: OutgoingCommand.self,
                                         predicate: PredicateBuilder().commentActionCommands(),
@@ -45,7 +44,7 @@ class CommentsProcessor: CommentsProcessorType {
     
     private func fetchCreateDeleteCommentCommands() -> [CommentCommand] {
         let request = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                        predicate: PredicateBuilder.createDeleteCommentCommands(),
+                                        predicate: PredicateBuilder().createDeleteCommentCommands(),
                                         sortDescriptors: [Cache.createdAtSortDescriptor])
         
         return cache.fetchOutgoing(with: request) as? [CommentCommand] ?? []

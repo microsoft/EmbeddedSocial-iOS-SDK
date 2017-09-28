@@ -52,6 +52,8 @@ class ReplyCommand: OutgoingCommand {
             LikeReplyCommand.self,
             UnlikeReplyCommand.self,
             CreateReplyCommand.self,
+            RemoveReplyCommand.self,
+            ReportReplyCommand.self
         ]
     }
     
@@ -59,6 +61,7 @@ class ReplyCommand: OutgoingCommand {
         return [
             LikeReplyCommand.self,
             UnlikeReplyCommand.self,
+            ReportReplyCommand.self
         ]
     }
 }

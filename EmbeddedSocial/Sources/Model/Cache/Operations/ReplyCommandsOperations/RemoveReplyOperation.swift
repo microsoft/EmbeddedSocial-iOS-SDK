@@ -19,8 +19,8 @@ final class RemoveReplyOperation: OutgoingCommandOperation {
             return
         }
         
-        repliesService.delete(reply: command.reply) { (_) in
-            
+        repliesService.delete(reply: command.reply) { (result) in
+            self.completeOperation(with: result.error)
         }
     }
 }

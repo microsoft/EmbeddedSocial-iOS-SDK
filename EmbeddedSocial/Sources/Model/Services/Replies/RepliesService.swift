@@ -34,8 +34,14 @@ protocol RepliesServiceProtcol {
 
 class RepliesService: BaseService, RepliesServiceProtcol {
     
+    private var processor: RepliesProcessorType!
+    
+    init() {
+        super.init()
+        processor = RepliesProcessor(cache: cache)
+    }
+    
     func delete(reply: Reply, completion: @escaping ((Result<Void>) -> Void)) {
-        
         let command = RemoveReplyCommand(reply: reply)
         execute(command: command, success: { _ in
             completion(.success())
@@ -46,17 +52,6 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                 completion(.failure(error))
             }
         }
-        
-//        let request = RepliesAPI.repliesDeleteReplyWithRequestBuilder(replyHandle: reply.replyHandle, authorization: authorization)
-//        request.execute { (response, error) in
-//            request.execute { (response, error) in
-//                if let error = error {
-//                    self.errorHandler.handle(error: error, completion: completion)
-//                } else {
-//                    completion(.success())
-//                }
-//            }
-//        }
     }
     
     func fetchReplies(commentHandle: String,
@@ -90,6 +85,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         result.replies = outgoingReplies + incomingReplies
         result.cursor = incomingFeed?.cursor
         
+        processor.proccess(&result)
         cachedResult(result)
         
         

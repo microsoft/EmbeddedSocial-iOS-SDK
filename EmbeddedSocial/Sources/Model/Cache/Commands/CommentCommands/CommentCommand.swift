@@ -56,6 +56,8 @@ class CommentCommand: OutgoingCommand {
             LikeCommentCommand.self,
             UnlikeCommentCommand.self,
             CreateCommentCommand.self,
+            RemoveCommentCommand.self,
+            ReportCommentCommand.self
         ]
     }
     
@@ -63,6 +65,7 @@ class CommentCommand: OutgoingCommand {
         return [
             LikeCommentCommand.self,
             UnlikeCommentCommand.self,
+            ReportCommentCommand.self
         ]
     }
 }

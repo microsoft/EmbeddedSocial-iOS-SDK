@@ -22,7 +22,7 @@ protocol OutgoingCommandsPredicateBuilder {
     
     func commandsWithRelatedHandle(_ relatedHandle: String, ignoredTypeID: String) -> NSPredicate
     
-    static func createDeleteCommentCommands() -> NSPredicate
+    func createDeleteCommentCommands() -> NSPredicate
     
     func allTopicActionCommands() -> NSPredicate
     
@@ -123,22 +123,12 @@ extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
     }
     
     func commentActionCommands() -> NSPredicate {
-        let commands: [CommentCommand.Type] = [
-            UnlikeCommentCommand.self,
-            LikeCommentCommand.self,
-            ReportCommentCommand.self
-        ]
-        let typeIDs = commands.map { $0.typeIdentifier }
+        let typeIDs = CommentCommand.commentActionCommandTypes.map { $0.typeIdentifier }
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
     func replyActionCommands() -> NSPredicate {
-        let replyCommands: [ReplyCommand.Type] = [
-            UnlikeReplyCommand.self,
-            LikeReplyCommand.self,
-            ReportReplyCommand.self
-        ]
-        let typeIDs = replyCommands.map { $0.typeIdentifier }
+        let typeIDs = ReplyCommand.replyActionCommandTypes.map { $0.typeIdentifier }
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
@@ -158,7 +148,7 @@ extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
         return NSPredicate(format: "typeid = %@", CreateTopicCommand.typeIdentifier)
     }
     
-    static func createDeleteCommentCommands() -> NSPredicate {
+    func createDeleteCommentCommands() -> NSPredicate {
         let commands: [CommentCommand.Type] = [
             CreateCommentCommand.self,
             RemoveCommentCommand.self

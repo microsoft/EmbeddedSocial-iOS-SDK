@@ -49,10 +49,11 @@ class MockRepliesService: RepliesServiceProtcol {
     var deleteReplyReceivedReplyHandle: String?
     var deleteReplyReturnResult: Result<Void>!
     
-    func delete(replyHandle: String, completion: @escaping ((Result<Void>) -> Void)) {
+    func delete(reply: Reply, completion: @escaping ((Result<Void>) -> Void)) {
         deleteReplyCalled = true
-        deleteReplyReceivedReplyHandle = replyHandle
-        completion(deleteReplyReturnResult)
+        deleteReplyReceivedReplyHandle = reply.replyHandle
+        completion(.success())
     }
+    
     
 }

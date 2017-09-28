@@ -33,40 +33,13 @@ class OutgoingCommand: Cacheable {
         return matchingType.init(json: json)
     }
     
-    static var allCommandTypes: [OutgoingCommand.Type] = [
-        // User Commands
-        FollowCommand.self,
-        UnfollowCommand.self,
-        CancelPendingCommand.self,
-        BlockCommand.self,
-        UnblockCommand.self,
-        
-        // Topic Commands
-        UnlikeTopicCommand.self,
-        LikeTopicCommand.self,
-        PinTopicCommand.self,
-        UnpinTopicCommand.self,
-        CreateTopicCommand.self,
-        
-        // Reply Commands
-        LikeReplyCommand.self,
-        UnlikeReplyCommand.self,
-        CreateReplyCommand.self,
-        RemoveReplyCommand.self,
-        ReportReplyCommand.self,
-        
-        // Comment Commands
-        LikeCommentCommand.self,
-        UnlikeCommentCommand.self,
-        CreateCommentCommand.self,
-        RemoveCommentCommand.self,
-        ReportCommentCommand.self,
-        
-        // Image Commands
-        CreateTopicImageCommand.self,
-        CreateCommentImageCommand.self,
-        UpdateUserImageCommand.self,
-    ]
+    static var allCommandTypes: [OutgoingCommand.Type] {
+        return TopicCommand.allTopicCommandTypes +
+            UserCommand.allUserCommandTypes +
+            ReplyCommand.allReplyCommandTypes +
+            CommentCommand.allCommentCommandTypes +
+            ImageCommand.allImageCommandTypes
+    }
     
     //MARK: Cacheable
     

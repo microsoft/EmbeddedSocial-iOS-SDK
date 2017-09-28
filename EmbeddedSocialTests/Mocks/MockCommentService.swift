@@ -52,13 +52,13 @@ class MockCommentsService: CommentServiceProtocol {
     
     //MARK: - deleteComment
     
-    var deleteCommentCommentHandleCompletionCalled = false
-    var deleteCommentCommentHandleCompletionReceivedCommentHandle: String?
+    var deleteCommentCompletionCalled = false
+    var deleteCommentCompletionReceivedCommentHandle: String?
     var deleteCommentResult: Result<Void>!
     
-    func deleteComment(commentHandle: String, completion: @escaping ((Result<Void>) -> Void)) {
-        deleteCommentCommentHandleCompletionCalled = true
-        deleteCommentCommentHandleCompletionReceivedCommentHandle = commentHandle
-        completion(deleteCommentResult)
+    func delete(comment: Comment, completion: @escaping ((Result<Void>) -> Void)) {
+        deleteCommentCompletionCalled = true
+        deleteCommentCompletionReceivedCommentHandle = comment.commentHandle
+        completion(.success())
     }
 }
