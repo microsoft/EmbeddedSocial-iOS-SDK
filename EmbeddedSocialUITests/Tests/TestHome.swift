@@ -28,10 +28,9 @@ class TestHome: UITestBase {
         APIConfig.showTopicImages = false
     }
     
-    
     func openScreen() {
-        sideMenu.navigateTo("Popular")
-        sideMenu.navigateTo("Home")
+        sideMenu.navigate(to: .popular)
+        sideMenu.navigate(to: .home)
     }
     
     //Post titles and handles depend on feed source

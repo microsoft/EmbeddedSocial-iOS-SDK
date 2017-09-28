@@ -827,6 +827,7 @@
 		88FFFA7A1F30BAFE0066A1A0 /* FollowersViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA791F30BAFE0066A1A0 /* FollowersViewOutput.swift */; };
 		88FFFA7C1F30BB5E0066A1A0 /* FollowersViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FFFA7B1F30BB5E0066A1A0 /* FollowersViewInput.swift */; };
 		8C84040B1FBC9516BE309630 /* CommentRepliesInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AA90FDAE2627B036CBE5CC /* CommentRepliesInteractorInput.swift */; };
+		8E26833F1F7CF6BF00A5B25B /* TestSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E26833E1F7CF6BF00A5B25B /* TestSettings.swift */; };
 		8E536BBE1F69DB2D006AF7A8 /* RepliesFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E536BBD1F69DB2D006AF7A8 /* RepliesFeed.swift */; };
 		8E536BC01F69DE83006AF7A8 /* TestReplies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E536BBF1F69DE83006AF7A8 /* TestReplies.swift */; };
 		8E536BC21F6BC0EA006AF7A8 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E536BC11F6BC0EA006AF7A8 /* Search.swift */; };
@@ -1853,6 +1854,7 @@
 		88FFFA761F30BAE60066A1A0 /* FollowersPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersPresenter.swift; sourceTree = "<group>"; };
 		88FFFA791F30BAFE0066A1A0 /* FollowersViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersViewOutput.swift; sourceTree = "<group>"; };
 		88FFFA7B1F30BB5E0066A1A0 /* FollowersViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersViewInput.swift; sourceTree = "<group>"; };
+		8E26833E1F7CF6BF00A5B25B /* TestSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSettings.swift; sourceTree = "<group>"; };
 		8E536BBD1F69DB2D006AF7A8 /* RepliesFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepliesFeed.swift; sourceTree = "<group>"; };
 		8E536BBF1F69DE83006AF7A8 /* TestReplies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestReplies.swift; sourceTree = "<group>"; };
 		8E536BC11F6BC0EA006AF7A8 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
@@ -4847,6 +4849,7 @@
 		8EF0E5C51F2AA01F00E88ED6 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				8E26833E1F7CF6BF00A5B25B /* TestSettings.swift */,
 				8EF0E59D1F1FA5EF00E88ED6 /* Base.swift */,
 				8EF0E5A11F1FA5EF00E88ED6 /* Loop.swift */,
 				8EF0E5C71F2AA13E00E88ED6 /* TestCreatePost.swift */,
@@ -5662,6 +5665,7 @@
 				8E536BC01F69DE83006AF7A8 /* TestReplies.swift in Sources */,
 				8EE2C6C41F4594C500CFFE21 /* XCUIElementTapByCoordinate.swift in Sources */,
 				8E6070741F41DD2000110F4F /* TestFollowing.swift in Sources */,
+				8E26833F1F7CF6BF00A5B25B /* TestSettings.swift in Sources */,
 				8EE2C6CC1F46D8DB00CFFE21 /* TestEditProfile.swift in Sources */,
 				8EAF459A1F6989FF0046F704 /* TestPostDetails.swift in Sources */,
 				8E6070531F34CE6900110F4F /* SideMenu.swift in Sources */,
