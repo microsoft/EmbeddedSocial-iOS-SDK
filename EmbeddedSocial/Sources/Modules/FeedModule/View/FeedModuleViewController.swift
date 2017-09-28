@@ -394,6 +394,10 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         output.didTapItem(path: indexPath)
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        output.willDisplayItem(path: indexPath)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
         return CGSize(width: containerWidth(), height: output.headerSize.height)
