@@ -424,13 +424,20 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     // MARK: FeedModuleInteractorOutput
-    func didFetch(feed: Feed) {
+    
+    private func processFetchResult(feed: Feed, isMore: Bool) {
         
         guard fetchRequests.contains(feed.fetchID), feedType == feed.feedType else {
             return
         }
         
         let cachedNumberOfItems = items.count
+        
+        if isMore {
+            appendWithReplacing(original: &items, appending: feed.items)
+        } else {
+            items = feed.items
+        }
         
         cursor = feed.cursor
         items = feed.items
@@ -450,38 +457,17 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             view.removeItems(with: paths)
         }
         else {
-            Logger.log(items.count, cachedNumberOfItems)
             view.reloadVisible()
         }
+        
+    }
+    
+    func didFetch(feed: Feed) {
+        processFetchResult(feed: feed, isMore: false)
     }
     
     func didFetchMore(feed: Feed) {
-
-        guard fetchRequests.contains(feed.fetchID), feedType == feed.feedType else {
-            return
-        }
-        
-        let cachedNumberOfItems = items.count
-    
-        cursor = feed.cursor
-        appendWithReplacing(original: &items, appending: feed.items)
-        
-        let needAddNewItems = items.count - cachedNumberOfItems
-        let needRemoveItems = cachedNumberOfItems - items.count
-        
-        if needAddNewItems > 0 {
-            let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
-            view.insertNewItems(with: paths)
-            Logger.log(needRemoveItems, event: .veryImportant)
-        }
-        else if needRemoveItems > 0 {
-            let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
-            view.removeItems(with: paths)
-            Logger.log(needRemoveItems, event: .veryImportant)
-        } else {
-            view.reloadVisible()
-            Logger.log("reloading visible", event: .veryImportant)
-        }
+        processFetchResult(feed: feed, isMore: true)
     }
     
     func didFail(error: Error) {
