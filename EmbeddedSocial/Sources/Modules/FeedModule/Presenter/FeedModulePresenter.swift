@@ -263,7 +263,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         fetchItems(with: cursor)
     }
     
-    
     // MARK: FeedModuleViewOutput
     func item(for path: IndexPath) -> PostViewModel {
         

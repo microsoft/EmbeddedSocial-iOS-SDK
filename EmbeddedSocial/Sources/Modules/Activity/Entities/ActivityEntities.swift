@@ -109,6 +109,7 @@ class CellConfigurator {
                            tableView: UITableView,
                            onAction: ActivityCellBlock?) {
         
+        cell.actionIcon.image = viewModel.iconImage?.image
         let profilePhoto = Photo(url: viewModel.profileImage)
         cell.profileImage.setPhotoWithCaching(profilePhoto, placeholder: viewModel.profileImagePlaceholder.image)
         
