@@ -35,6 +35,10 @@ protocol CacheRequestExecutorProviderType {
     static func makeMyFollowersExecutor(for service: BaseService) -> UsersFeedRequestExecutor
     
     static func makeMyPendingRequestsExecutor(for service: BaseService) -> UsersFeedRequestExecutor
+    
+    static func makeOtherUsersTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor
+    
+    static func makeSearchTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor
 }
 
 struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
@@ -64,7 +68,14 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
         return makeCommonExecutor(requestType: FeedResponseTopicView.self,
                                   responseType: FeedFetchResult.self,
                                   service: service,
-                                  responseProcessor: TopicsFeedResponseProcessor())
+                                  responseProcessor: TopicsFeedResponseProcessor(cache: service.cache))
+    }
+    
+    static func makeOtherUsersTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor {
+        return makeCommonExecutor(requestType: FeedResponseTopicView.self,
+                                  responseType: FeedFetchResult.self,
+                                  service: service,
+                                  responseProcessor: OtherUserTopicsFeedResponseProcessor(cache: service.cache))
     }
     
     static func makeMyActivityExecutor(for service: BaseService) -> MyActivityRequestExecutor {
@@ -100,6 +111,13 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
                                   responseType: UsersListResponse.self,
                                   service: service,
                                   responseProcessor: PendingRequestsResponseProcessor(cache: service.cache))
+    }
+    
+    static func makeSearchTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor {
+        return makeCommonExecutor(requestType: FeedResponseTopicView.self,
+                                  responseType: FeedFetchResult.self,
+                                  service: service,
+                                  responseProcessor: SearchTopicsFeedResponseProcessor(cache: service.cache))
     }
     
     private static func makeCommonExecutor<T: Cacheable, U>(
