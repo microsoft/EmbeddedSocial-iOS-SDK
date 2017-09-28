@@ -29,20 +29,27 @@ protocol RepliesServiceProtcol {
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int,cachedResult:  @escaping RepliesFetchResultHandler,resultHandler: @escaping RepliesFetchResultHandler)
     func postReply(reply: Reply, success: @escaping PostReplyResultHandler, failure: @escaping Failure)
     func reply(replyHandle: String, cachedResult: @escaping ReplyHandler , success: @escaping ReplyHandler, failure: @escaping Failure)
-    func delete(replyHandle: String, completion: @escaping ((Result<Void>) -> Void))
+    func delete(reply: Reply, completion: @escaping ((Result<Void>) -> Void))
 }
 
 class RepliesService: BaseService, RepliesServiceProtcol {
     
-    func delete(replyHandle: String, completion: @escaping ((Result<Void>) -> Void)) {
-        let request = RepliesAPI.repliesDeleteReplyWithRequestBuilder(replyHandle: replyHandle, authorization: authorization)
-        request.execute { (response, error) in
-            request.execute { (response, error) in
-                if let error = error {
-                    self.errorHandler.handle(error: error, completion: completion)
-                } else {
-                    completion(.success())
-                }
+    private var processor: RepliesProcessorType!
+    
+    init() {
+        super.init()
+        processor = RepliesProcessor(cache: cache)
+    }
+    
+    func delete(reply: Reply, completion: @escaping ((Result<Void>) -> Void)) {
+        let command = RemoveReplyCommand(reply: reply)
+        execute(command: command, success: { _ in
+            completion(.success())
+        }) { (error) in
+            if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else {
+                completion(.failure(error))
             }
         }
     }
@@ -60,29 +67,27 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             limit: Int32(limit)
         )
         
+        var result = RepliesFetchResult()
+        
         let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
                                                      predicate: PredicateBuilder().allCreateReplyCommands(),
                                                      sortDescriptors: [Cache.createdAtSortDescriptor])
         
-        cache.fetchOutgoing(with: fetchOutgoingRequest) { [weak self] commands in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            let incomingFeed = strongSelf.cache.firstIncoming(ofType: FeedResponseReplyView.self,
-                                                        predicate: PredicateBuilder().predicate(handle: builder.URLString),
-                                                        sortDescriptors: nil)
-            
-            let incomingReplies = incomingFeed?.data?.map(strongSelf.convert(replyView:)) ?? []
-            
-            let outgoingReplies = commands.flatMap { ($0 as? CreateReplyCommand)?.reply }
-            
-            let result = RepliesFetchResult(replies: outgoingReplies + incomingReplies, error: nil, cursor: incomingFeed?.cursor)
-            
-            cachedResult(result)
-        }
+        let commands = cache.fetchOutgoing(with: fetchOutgoingRequest)
+        let outgoingReplies = commands.flatMap { ($0 as? CreateReplyCommand)?.reply }
+        let incomingFeed = self.cache.firstIncoming(ofType: FeedResponseReplyView.self,
+                                                    predicate: PredicateBuilder().predicate(handle: builder.URLString),
+                                                    sortDescriptors: nil)
         
-        var result = RepliesFetchResult()
+        let incomingReplies = incomingFeed?.data?.map(self.convert(replyView:)) ?? []
+        
+        
+        result.replies = outgoingReplies + incomingReplies
+        result.cursor = incomingFeed?.cursor
+        
+        processor.proccess(&result)
+        cachedResult(result)
+        
         
         guard isNetworkReachable else {
             result.error = RepliesServiceError.failedToFetch(message: L10n.Error.unknown)
@@ -103,7 +108,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
 
             if let body = response?.body, let data = body.data {
                 body.handle = builder.URLString
-                strongSelf.cache.cacheIncoming(body, for: builder.URLString)
+                strongSelf.cache.cacheIncoming(body, for: typeID)
                 result.replies = strongSelf.convert(data: data)
                 result.cursor = body.cursor
             } else if strongSelf.errorHandler.canHandle(error) {
@@ -199,6 +204,41 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         }
     }
     
+    
+    private func execute(command: RemoveReplyCommand,
+                         success: @escaping ((Void) -> Void),
+                         failure: @escaping Failure) {
+        guard isNetworkReachable else {
+            
+            let predicate =  PredicateBuilder().createReplyCommand(replyHandle: command.reply.replyHandle)
+            let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
+                                                         predicate: predicate,
+                                                         sortDescriptors: [Cache.createdAtSortDescriptor])
+            
+            
+            if !self.cache.fetchOutgoing(with: fetchOutgoingRequest).isEmpty {
+                self.cache.deleteOutgoing(with:predicate)
+                success()
+                return
+            } else {
+                cache.cacheOutgoing(command)
+                success()
+                return
+            }
+        }
+        
+        
+        let request = RepliesAPI.repliesDeleteReplyWithRequestBuilder(replyHandle: command.reply.replyHandle, authorization: authorization)
+        request.execute { (response, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success()
+            }
+        }
+        
+    }
+    
     private func convert(data: [ReplyView]) -> [Reply] {
         return data.map(convert(replyView:))
     }
@@ -218,16 +258,6 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         reply.userHandle = replyView.user?.userHandle
         reply.totalLikes = Int(replyView.totalLikes!)
         reply.userStatus = FollowStatus(status: replyView.user?.followerStatus)
-        
-        let request = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                        predicate: PredicateBuilder().replyActionCommands(for: replyView.replyHandle!),
-                                        sortDescriptors: [Cache.createdAtSortDescriptor])
-        
-        let commands = cache.fetchOutgoing(with: request) as? [ReplyCommand] ?? []
-        
-        for command in commands {
-            command.apply(to: &reply)
-        }
         
         return reply
     }

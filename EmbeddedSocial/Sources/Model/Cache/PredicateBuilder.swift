@@ -22,13 +22,13 @@ protocol OutgoingCommandsPredicateBuilder {
     
     func commandsWithRelatedHandle(_ relatedHandle: String, ignoredTypeID: String) -> NSPredicate
     
-    func createCommentCommands() -> NSPredicate
+    func createDeleteCommentCommands() -> NSPredicate
     
     func allTopicActionCommands() -> NSPredicate
     
     func replyActionCommands() -> NSPredicate
     
-    func createReplyCommands() -> NSPredicate
+    func createDeleteReplyCommands() -> NSPredicate
     
     func predicate(for command: OutgoingCommand) -> NSPredicate
     
@@ -150,12 +150,22 @@ extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
         return NSPredicate(format: "typeid = %@", CreateTopicCommand.typeIdentifier)
     }
     
-    func createCommentCommands() -> NSPredicate {
-        return NSPredicate(format: "typeid = %@", CreateCommentCommand.typeIdentifier)
+    func createDeleteCommentCommands() -> NSPredicate {
+        let commands: [CommentCommand.Type] = [
+            CreateCommentCommand.self,
+            RemoveCommentCommand.self
+        ]
+        let typeIDs = commands.map { $0.typeIdentifier }
+        return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
-    func createReplyCommands() -> NSPredicate {
-        return NSPredicate(format: "typeid = %@", CreateReplyCommand.typeIdentifier)
+    func createDeleteReplyCommands() -> NSPredicate {
+        let commands: [ReplyCommand.Type] = [
+            CreateReplyCommand.self,
+            RemoveReplyCommand.self
+        ]
+        let typeIDs = commands.map { $0.typeIdentifier }
+        return NSPredicate(format: "typeid IN %@", typeIDs)
     }
 }
 

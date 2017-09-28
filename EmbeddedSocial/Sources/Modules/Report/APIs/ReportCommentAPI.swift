@@ -7,14 +7,14 @@ import Foundation
 
 struct ReportCommentAPI: ReportAPI {
     private let reportingService: ReportingServiceType
-    private let commentID: String
+    private let comment: Comment
     
-    init(commentID: String, reportingService: ReportingServiceType) {
-        self.commentID = commentID
+    init(comment: Comment, reportingService: ReportingServiceType) {
+        self.comment = comment
         self.reportingService = reportingService
     }
     
     func submitReport(with reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
-        reportingService.reportComment(commentID: commentID, reason: reason, completion: completion)
+        reportingService.report(comment: comment, reason: reason, completion: completion)
     }
 }

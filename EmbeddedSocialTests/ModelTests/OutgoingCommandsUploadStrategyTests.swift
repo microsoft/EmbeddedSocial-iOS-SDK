@@ -112,13 +112,13 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
         
         validateSubmissionStep(.createTopics, predicate: PredicateBuilder().createTopicCommands(), nextStep: .topicActions)
         
-        validateSubmissionStep(.topicActions, predicate: PredicateBuilder().allTopicActionCommands(), nextStep: .createComments)
+        validateSubmissionStep(.topicActions, predicate: PredicateBuilder().allTopicActionCommands(), nextStep: .createDeleteComments)
         
-        validateSubmissionStep(.createComments, predicate: PredicateBuilder().createCommentCommands(), nextStep: .commentActions)
+        validateSubmissionStep(.createDeleteComments, predicate: PredicateBuilder().createDeleteCommentCommands(), nextStep: .commentActions)
         
-        validateSubmissionStep(.commentActions, predicate: PredicateBuilder().commentActionCommands(), nextStep: .createReplies)
+        validateSubmissionStep(.commentActions, predicate: PredicateBuilder().commentActionCommands(), nextStep: .createDeleteReplies)
         
-        validateSubmissionStep(.createReplies, predicate: PredicateBuilder().createReplyCommands(), nextStep: .replyActions)
+        validateSubmissionStep(.createDeleteReplies, predicate: PredicateBuilder().createDeleteReplyCommands(), nextStep: .replyActions)
         
         validateSubmissionStep(.replyActions, predicate: PredicateBuilder().replyActionCommands(), nextStep: .userActions)
         

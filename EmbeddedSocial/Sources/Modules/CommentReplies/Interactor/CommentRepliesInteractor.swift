@@ -94,6 +94,7 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         reply.userLastName = userHolder.me?.lastName
         reply.userFirstName = userHolder.me?.firstName
         reply.userPhotoUrl = userHolder.me?.photo?.url
+        reply.createdTime = Date()
         
         repliesService?.postReply(reply: reply, success: { (response) in
             reply.replyHandle = response.replyHandle
