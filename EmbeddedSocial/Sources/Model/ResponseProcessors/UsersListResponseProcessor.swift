@@ -5,17 +5,6 @@
 
 import Foundation
 
-protocol FetchUserCommandsOperationBuilderType {
-    func makeFetchUserCommandsOperation(cache: CacheType) -> FetchUserCommandsOperation
-}
-
-struct FetchUserCommandsOperationBuilder: FetchUserCommandsOperationBuilderType {
-    
-    func makeFetchUserCommandsOperation(cache: CacheType) -> FetchUserCommandsOperation {
-        return FetchUserCommandsOperation(cache: cache)
-    }
-}
-
 class UsersListResponseProcessor: ResponseProcessor<FeedResponseUserCompactView, UsersListResponse> {
     
     private let queue: OperationQueue = {
@@ -26,11 +15,15 @@ class UsersListResponseProcessor: ResponseProcessor<FeedResponseUserCompactView,
     }()
     
     let cache: CacheType
-    let operationsBuilder: FetchUserCommandsOperationBuilderType
+    let operationsBuilder: OutgoingCommandOperationsBuilderType
+    let predicateBuilder: OutgoingCommandsPredicateBuilder
 
-    init(cache: CacheType, operationsBuilder: FetchUserCommandsOperationBuilderType = FetchUserCommandsOperationBuilder()) {
+    init(cache: CacheType,
+         operationsBuilder: OutgoingCommandOperationsBuilderType = OutgoingCommandOperationsBuilder(),
+         predicateBuilder: OutgoingCommandsPredicateBuilder = PredicateBuilder()) {
         self.cache = cache
         self.operationsBuilder = operationsBuilder
+        self.predicateBuilder = predicateBuilder
     }
     
     override func process(_ response: FeedResponseUserCompactView?,
@@ -38,6 +31,14 @@ class UsersListResponseProcessor: ResponseProcessor<FeedResponseUserCompactView,
                           completion: @escaping (Result<UsersListResponse>) -> Void) {
         
         let usersList = UsersListResponse(response: response, isFromCache: isFromCache)
+        
+        guard isFromCache else {
+            DispatchQueue.main.async {
+                completion(.success(usersList))
+            }
+            return
+        }
+        
         applyUserCommands(to: usersList) { usersList in
             DispatchQueue.main.async {
                 completion(.success(usersList))
@@ -46,7 +47,7 @@ class UsersListResponseProcessor: ResponseProcessor<FeedResponseUserCompactView,
     }
     
     private func applyUserCommands(to usersList: UsersListResponse, completion: @escaping (UsersListResponse) -> Void) {
-        let fetchCommands = operationsBuilder.makeFetchUserCommandsOperation(cache: cache)
+        let fetchCommands = operationsBuilder.fetchCommandsOperation(cache: cache, predicate: predicateBuilder.allUserCommands())
         
         fetchCommands.completionBlock = { [weak self] in
             guard let strongSelf = self, !fetchCommands.isCancelled else {
@@ -55,7 +56,8 @@ class UsersListResponseProcessor: ResponseProcessor<FeedResponseUserCompactView,
             }
             
             strongSelf.queue.addOperation {
-                let list = strongSelf.apply(commands: fetchCommands.commands, to: usersList)
+                let commands = fetchCommands.commands as? [UserCommand] ?? []
+                let list = strongSelf.apply(commands: commands, to: usersList)
                 completion(list)
             }
         }
