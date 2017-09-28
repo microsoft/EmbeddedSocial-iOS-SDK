@@ -259,16 +259,6 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         reply.totalLikes = Int(replyView.totalLikes!)
         reply.userStatus = FollowStatus(status: replyView.user?.followerStatus)
         
-        let request = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                        predicate: PredicateBuilder().replyActionCommands(for: replyView.replyHandle!),
-                                        sortDescriptors: [Cache.createdAtSortDescriptor])
-        
-        let commands = cache.fetchOutgoing(with: request) as? [ReplyCommand] ?? []
-        
-        for command in commands {
-            command.apply(to: &reply)
-        }
-        
         return reply
     }
 }
