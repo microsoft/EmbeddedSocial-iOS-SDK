@@ -8,7 +8,7 @@ import XCTest
 @testable import EmbeddedSocial
 
 class TopicsFeedResponseProcessorTests: XCTestCase {
-    var sut: TopicsFeedResponseProcessor!
+    private var sut: TopicsFeedResponseProcessor!
     var cache: MockCache!
     var operationsBuilder: MockOutgoingCommandOperationsBuilder!
     var predicateBuilder: MockTopicServicePredicateBuilder!
@@ -68,6 +68,9 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
         
         expect(operation.mainCalled).toEventually(beTrue())
         expect(command.applyToFeedCalled).toEventually(beTrue())
+        
+        expect(self.operationsBuilder.fetchCommandsOperationPredicateCalled).to(beTrue())
+        expect(self.predicateBuilder.allTopicCommandsCalled).to(beTrue())
     }
     
     func testThatItIgnoresResultsFromAPI() {
@@ -151,45 +154,8 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
         let processedFeed = sut.apply(commands: commands, to: feed)
         
         // then
-        
         let processedIDs = processedFeed.posts.flatMap { $0.topicHandle }
         expect(processedIDs).to(contain(createdTopic.topicHandle))
         expect(processedIDs.count).to(equal(topics.count + 1))
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
