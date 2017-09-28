@@ -5,6 +5,17 @@
 
 import Foundation
 
+protocol FetchUserCommandsOperationBuilderType {
+    func makeFetchUserCommandsOperation(cache: CacheType) -> FetchUserCommandsOperation
+}
+
+struct FetchUserCommandsOperationBuilder: FetchUserCommandsOperationBuilderType {
+    
+    func makeFetchUserCommandsOperation(cache: CacheType) -> FetchUserCommandsOperation {
+        return FetchUserCommandsOperation(cache: cache)
+    }
+}
+
 class UsersListResponseProcessor: ResponseProcessor<FeedResponseUserCompactView, UsersListResponse> {
     
     private let queue: OperationQueue = {
@@ -15,9 +26,11 @@ class UsersListResponseProcessor: ResponseProcessor<FeedResponseUserCompactView,
     }()
     
     let cache: CacheType
-    
-    init(cache: CacheType) {
+    let operationsBuilder: FetchUserCommandsOperationBuilderType
+
+    init(cache: CacheType, operationsBuilder: FetchUserCommandsOperationBuilderType = FetchUserCommandsOperationBuilder()) {
         self.cache = cache
+        self.operationsBuilder = operationsBuilder
     }
     
     override func process(_ response: FeedResponseUserCompactView?,
@@ -33,7 +46,7 @@ class UsersListResponseProcessor: ResponseProcessor<FeedResponseUserCompactView,
     }
     
     private func applyUserCommands(to usersList: UsersListResponse, completion: @escaping (UsersListResponse) -> Void) {
-        let fetchCommands = FetchUserCommandsOperation(cache: cache)
+        let fetchCommands = operationsBuilder.makeFetchUserCommandsOperation(cache: cache)
         
         fetchCommands.completionBlock = { [weak self] in
             guard let strongSelf = self, !fetchCommands.isCancelled else {

@@ -25,6 +25,8 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
             return UnblockUserOperation(command: command, socialService: SocialService())
         } else if let command = command as? CancelPendingCommand {
             return CancelPendingUserOperation(command: command, socialService: SocialService())
+        } else if let command = command as? AcceptPendingCommand {
+            return AcceptPendingUserOperation(command: command, socialService: SocialService())
         }
         
         // topic commands

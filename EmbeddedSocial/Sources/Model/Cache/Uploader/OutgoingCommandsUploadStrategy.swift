@@ -90,7 +90,7 @@ final class OutgoingCommandsUploadStrategy: OutgoingCommandsUploadStrategyType {
                 let error = op?.error
                 
                 guard error == nil else {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    DispatchQueue.main.async {
                         self?.delegate?.outgoingCommandsSubmissionDidFail(with: error!)
                     }
                     return
@@ -146,7 +146,11 @@ extension OutgoingCommandsUploadStrategy.Step {
     }
     
     static var replyActions: Step {
-        return Step(predicate: PredicateBuilder().replyActionCommands(), next: nil)
+        return Step(predicate: PredicateBuilder().replyActionCommands(), next: userActions)
+    }
+    
+    static var userActions: Step {
+        return Step(predicate: PredicateBuilder().allUserCommands(), next: nil)
     }
 }
 

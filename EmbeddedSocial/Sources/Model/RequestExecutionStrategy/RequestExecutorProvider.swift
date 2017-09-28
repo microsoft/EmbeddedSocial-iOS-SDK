@@ -31,6 +31,10 @@ protocol CacheRequestExecutorProviderType {
     static func makeMyBlockedUsersExecutor(for service: BaseService) -> UsersFeedRequestExecutor
     
     static func makeMyActivityExecutor(for service: BaseService) -> MyActivityRequestExecutor
+    
+    static func makeMyFollowersExecutor(for service: BaseService) -> UsersFeedRequestExecutor
+    
+    static func makeMyPendingRequestsExecutor(for service: BaseService) -> UsersFeedRequestExecutor
 }
 
 struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
@@ -82,6 +86,20 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
         executor.cache = service.cache
         executor.errorHandler = service.errorHandler
         return executor
+    }
+    
+    static func makeMyFollowersExecutor(for service: BaseService) -> UsersFeedRequestExecutor {
+        return makeCommonExecutor(requestType: FeedResponseUserCompactView.self,
+                                  responseType: UsersListResponse.self,
+                                  service: service,
+                                  responseProcessor: MyFollowersResponseProcessor(cache: service.cache))
+    }
+    
+    static func makeMyPendingRequestsExecutor(for service: BaseService) -> UsersFeedRequestExecutor {
+        return makeCommonExecutor(requestType: FeedResponseUserCompactView.self,
+                                  responseType: UsersListResponse.self,
+                                  service: service,
+                                  responseProcessor: PendingRequestsResponseProcessor(cache: service.cache))
     }
     
     private static func makeCommonExecutor<T: Cacheable, U>(

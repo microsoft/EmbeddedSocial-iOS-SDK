@@ -46,7 +46,7 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
     
     func testThatItRestartsSubmission() {
         // given
-        let submissionStepsCount = 7
+        let submissionStepsCount = 8
         let predicate = NSPredicate()
         var createdFetchOperations: [MockFetchOutgoingCommandsOperation] = []
         let commands = [MockOutgoingCommand(uid: UUID().uuidString), MockOutgoingCommand(uid: UUID().uuidString)]
@@ -61,6 +61,7 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
         operationsBuilder.operationForCommandReturnValueMaker = { MockOutgoingCommandOperation() }
         
         cache.deleteOutgoing_Expectation.expectedFulfillmentCount = UInt(submissionStepsCount * commands.count)
+        cache.deleteOutgoing_Expectation.assertForOverFulfill = true
         
         predicateBuilder.predicateForReturnValue = NSPredicate()
 
@@ -119,7 +120,9 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
         
         validateSubmissionStep(.createDeleteReplies, predicate: PredicateBuilder().createDeleteReplyCommands(), nextStep: .replyActions)
         
-        validateSubmissionStep(.replyActions, predicate: PredicateBuilder().replyActionCommands(), nextStep: nil)
+        validateSubmissionStep(.replyActions, predicate: PredicateBuilder().replyActionCommands(), nextStep: .userActions)
+        
+        validateSubmissionStep(.userActions, predicate: PredicateBuilder().allUserCommands(), nextStep: nil)
     }
     
     private func validateSubmissionStep(_ step: Step, predicate: NSPredicate, nextStep: Step?) {
