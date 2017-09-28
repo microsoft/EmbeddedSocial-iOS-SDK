@@ -12,6 +12,7 @@ struct Post {
     var user: User?
     var imageUrl: String?
     var imageHandle: String?
+    var image: UIImage?
     
     var title: String?
     var text: String?
@@ -57,7 +58,7 @@ struct Post {
         guard let imageHandle = imageHandle else {
             return nil
         }
-        return Photo(uid: imageHandle, url: imageUrl)
+        return Photo(uid: imageHandle, url: imageUrl, image: image)
     }
 }
 
@@ -66,7 +67,13 @@ extension Post {
     static func mock(seed: Int) -> Post {
         var post = Post()
         post.title = "Title \(seed)"
-        post.text = "\n\(seed)\nL\n\no\nn\ng\nt\ne\nx\nt"
+        
+        var text = "Post text"
+        for i in 0...seed {
+            text += "\n \(i)"
+        }
+        post.text = text
+        
         post.liked = seed % 2 == 0
         post.pinned = false
         post.totalLikes = seed
@@ -152,12 +159,13 @@ extension Post {
 
 // MARK: Feed
 struct Feed {
+    var fetchID: String
     var feedType: FeedType
     var items: [Post]
     var cursor: String? = nil
 }
 
-// MARK: PostsFetchResult
+// MARK: Service Query Result
 struct FeedFetchResult {
     var posts: [Post] = []
     var error: FeedServiceError?

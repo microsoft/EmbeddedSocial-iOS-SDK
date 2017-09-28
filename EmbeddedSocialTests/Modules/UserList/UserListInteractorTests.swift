@@ -7,31 +7,34 @@ import XCTest
 @testable import EmbeddedSocial
 
 class UserListInteractorTests: XCTestCase {
-    var usersAPI: MockUsersListAPI!
     var socialService: MockSocialService!
+    var listProcessor: MockUsersListProcessor!
     var sut: UserListInteractor!
+    var output: MockUserListInteractorOutput!
     
     private let timeout: TimeInterval = 5.0
     
     override func setUp() {
         super.setUp()
-        usersAPI = MockUsersListAPI()
         socialService = MockSocialService()
-        sut = UserListInteractor(api: usersAPI, socialService: socialService)
+        listProcessor = MockUsersListProcessor()
+        output = MockUserListInteractorOutput()
+        sut = UserListInteractor(listProcessor: listProcessor, socialService: socialService)
+        sut.output = output
     }
     
     override func tearDown() {
         super.tearDown()
-        usersAPI = nil
+        listProcessor = nil
         socialService = nil
         sut = nil
+        output = nil
     }
     
-    func testThatItGetsUsersList() {
+    func testThatItCorrectlyLoadsNextPage() {
         // given
         let users = [User(), User(), User()]
-        let result: Result<UsersListResponse> = .success(UsersListResponse(users: users, cursor: nil, isFromCache: false))
-        usersAPI.resultToReturn = result
+        listProcessor.getNextListPageCompletionReturnValue = .success(users)
         
         // when
         let expectation = self.expectation(description: #function)
@@ -44,28 +47,26 @@ class UserListInteractorTests: XCTestCase {
         }
         
         wait(for: [expectation], timeout: timeout)
+        
+        XCTAssertTrue(listProcessor.getNextListPageCompletionCalled)
     }
     
-    func testThatItSetsCorrectLoadingState() {
-        testThatItSetsCorrectLoadingState(cursor: nil, shouldHaveMoreItems: false)
-        testThatItSetsCorrectLoadingState(cursor: UUID().uuidString, shouldHaveMoreItems: true)
-    }
-    
-    func testThatItSetsCorrectLoadingState(cursor: String?, shouldHaveMoreItems: Bool) {
+    func testThatItCorrectlyReloadsList() {
         // given
-        usersAPI.resultToReturn = .success(UsersListResponse(users: [], cursor: cursor, isFromCache: false))
+        let users = [User(), User(), User()]
+        listProcessor.reloadListCompletionReturnValue = .success(users)
         
         // when
         let expectation = self.expectation(description: #function)
-        
-        sut.getNextListPage { receivedUsers in
+        sut.reloadList { receivedUsers in
             expectation.fulfill()
+            
+            // then
+            XCTAssertEqual(receivedUsers.value ?? [], users)
         }
-        
         wait(for: [expectation], timeout: timeout)
         
-        XCTAssertEqual(sut.isLoadingList, false)
-        XCTAssertEqual(sut.listHasMoreItems, shouldHaveMoreItems)
+        XCTAssertTrue(listProcessor.reloadListCompletionCalled)
     }
     
     func testThatItDoesNotProcessRequestForUserWithoutFollowStatus() {
@@ -98,37 +99,25 @@ class UserListInteractorTests: XCTestCase {
         wait(for: [expectation], timeout: timeout)
     }
     
-    func testThatItSkipsCacheWhenReloadsList() {
+    func testThatItSetsAPI() {
         // given
-        let shortTimeout: TimeInterval = 0.1
-        let users = [User(), User(), User()]
-        usersAPI.resultToReturn = .success(UsersListResponse(users: users, cursor: nil, isFromCache: true))
+        let api = MockUsersListAPI()
         
         // when
-        let expectation = self.expectation(description: #function)
-        expectation.isInverted = true
-        sut.reloadList { receivedUsers in
-            expectation.fulfill()
-            
-            // then
-            XCTAssertEqual(receivedUsers.value ?? [], users)
-        }
-        wait(for: [expectation], timeout: shortTimeout)
+        sut.setAPI(api)
+        
+        // then
+        XCTAssertTrue(listProcessor.setAPICalled)
+        XCTAssertTrue((listProcessor.setAPIReceivedApi as? MockUsersListAPI) === api)
     }
     
-    func testThatItReloadsList() {
-        // given
-        let users = [User(), User(), User()]
-        usersAPI.resultToReturn = .success(UsersListResponse(users: users, cursor: nil, isFromCache: false))
+    func testThatItCallsOutputWhenListLoadingStateIsUpdated() {
+        sut.didUpdateListLoadingState(true)
+        XCTAssertTrue(output.didUpdateListLoadingStateCalled)
+        XCTAssertEqual(output.didUpdateListLoadingStateReceivedIsLoading, true)
         
-        // when
-        let expectation = self.expectation(description: #function)
-        sut.reloadList { receivedUsers in
-            expectation.fulfill()
-            
-            // then
-            XCTAssertEqual(receivedUsers.value ?? [], users)
-        }
-        wait(for: [expectation], timeout: timeout)
+        sut.didUpdateListLoadingState(false)
+        XCTAssertTrue(output.didUpdateListLoadingStateCalled)
+        XCTAssertEqual(output.didUpdateListLoadingStateReceivedIsLoading, false)
     }
 }

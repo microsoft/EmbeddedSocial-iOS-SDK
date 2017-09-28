@@ -15,7 +15,7 @@ class UserListPresenter {
     var noDataView: UIView?
     
     fileprivate let myProfileHolder: UserHolder
-    fileprivate var isAnimatingPullToRefresh: Bool = false
+    fileprivate var isAnimatingPullToRefresh = false
     
     init(myProfileHolder: UserHolder) {
         self.myProfileHolder = myProfileHolder

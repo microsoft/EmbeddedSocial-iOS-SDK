@@ -7,9 +7,13 @@ import UIKit
 
 struct UserProfileActionSheetBuilder {
     
-    static func makeMyActionsSheet(viewController: UIViewController, addPostHandler: @escaping () -> Void) -> UIAlertController {
+    static func makeMyActionsSheet(viewController: UIViewController,
+                                   addPostHandler: @escaping () -> Void,
+                                   followRequestsHandler: @escaping () -> Void) -> UIAlertController {
+        
         let menu = makeDefaultController(presentingViewController: viewController)
         menu.addAction(UIAlertAction(title: L10n.UserProfile.Button.addPost, style: .default, handler: { _ in addPostHandler() }))
+        menu.addAction(UIAlertAction(title: L10n.FollowRequests.screenTitle, style: .default, handler: { _ in followRequestsHandler() }))
         return menu
     }
     

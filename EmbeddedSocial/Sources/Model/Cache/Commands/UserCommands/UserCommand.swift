@@ -38,4 +38,14 @@ class UserCommand: OutgoingCommand {
     override func getHandle() -> String? {
         return user.uid
     }
+    
+    static var allUserCommandTypes: [OutgoingCommand.Type] {
+        return [
+            FollowCommand.self,
+            UnfollowCommand.self,
+            CancelPendingCommand.self,
+            BlockCommand.self,
+            UnblockCommand.self
+        ]
+    }
 }

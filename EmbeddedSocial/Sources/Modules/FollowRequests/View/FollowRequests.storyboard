@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Follow Requests View Controller-->
+        <scene sceneID="Pjy-pK-6Uc">
+            <objects>
+                <viewController storyboardIdentifier="FollowRequestsViewController" id="Ct8-D5-VBT" customClass="FollowRequestsViewController" customModule="EmbeddedSocial" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IFp-w9-jHp"/>
+                        <viewControllerLayoutGuide type="bottom" id="lzy-xt-unN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Mab-mJ-8xH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0et-e7-ntI">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tbo-f3-B27">
+                                <rect key="frame" x="166" y="259" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Tbo-f3-B27" firstAttribute="centerX" secondItem="Mab-mJ-8xH" secondAttribute="centerX" id="7ec-ye-O2m"/>
+                            <constraint firstItem="Tbo-f3-B27" firstAttribute="centerY" secondItem="Mab-mJ-8xH" secondAttribute="centerY" constant="-64" id="GSE-Jv-hUi"/>
+                            <constraint firstItem="0et-e7-ntI" firstAttribute="leading" secondItem="Mab-mJ-8xH" secondAttribute="leading" id="T4a-Z4-SJj"/>
+                            <constraint firstAttribute="trailing" secondItem="0et-e7-ntI" secondAttribute="trailing" id="oII-Kg-4B4"/>
+                            <constraint firstItem="0et-e7-ntI" firstAttribute="top" secondItem="Mab-mJ-8xH" secondAttribute="top" id="tTS-a9-aIG"/>
+                            <constraint firstItem="lzy-xt-unN" firstAttribute="top" secondItem="0et-e7-ntI" secondAttribute="bottom" id="uHE-kX-kmc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="noDataLabel" destination="Tbo-f3-B27" id="6Ef-rW-KqS"/>
+                        <outlet property="tableView" destination="0et-e7-ntI" id="uno-ek-BgP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2QL-B2-VFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-18.399999999999999" y="-152.47376311844079"/>
+        </scene>
+    </scenes>
+</document>
