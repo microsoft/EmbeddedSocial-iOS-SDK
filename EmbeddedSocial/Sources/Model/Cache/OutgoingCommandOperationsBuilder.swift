@@ -47,6 +47,10 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
             return UnlikeReplyOperation(command: command, likesService: LikesService())
         } else if let command = command as? CreateReplyCommand {
             return CreateReplyOperation(command: command, repliesService: RepliesService())
+        } else if let command = command as? RemoveReplyCommand {
+            return RemoveReplyOperation(command: command, repliesService: RepliesService())
+        } else if let command = command as? ReportReplyCommand {
+            return ReportReplyOperation(command: command, reportService: ReportingService())
         }
         
         // comment commands

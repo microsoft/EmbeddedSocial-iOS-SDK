@@ -26,7 +26,7 @@ final class ReportReplyCommand: ReplyCommand {
     
     override func encodeToJSON() -> Any {
         return [
-            "comment": reply.encodeToJSON(),
+            "reply": reply.encodeToJSON(),
             "type": typeIdentifier,
             "reportReason": reportReason.rawValue
         ]

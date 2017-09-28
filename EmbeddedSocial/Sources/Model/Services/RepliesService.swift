@@ -35,16 +35,28 @@ protocol RepliesServiceProtcol {
 class RepliesService: BaseService, RepliesServiceProtcol {
     
     func delete(reply: Reply, completion: @escaping ((Result<Void>) -> Void)) {
-        let request = RepliesAPI.repliesDeleteReplyWithRequestBuilder(replyHandle: reply.replyHandle, authorization: authorization)
-        request.execute { (response, error) in
-            request.execute { (response, error) in
-                if let error = error {
-                    self.errorHandler.handle(error: error, completion: completion)
-                } else {
-                    completion(.success())
-                }
+        
+        let command = RemoveReplyCommand(reply: reply)
+        execute(command: command, success: { _ in
+            completion(.success())
+        }) { (error) in
+            if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else {
+                completion(.failure(error))
             }
         }
+        
+//        let request = RepliesAPI.repliesDeleteReplyWithRequestBuilder(replyHandle: reply.replyHandle, authorization: authorization)
+//        request.execute { (response, error) in
+//            request.execute { (response, error) in
+//                if let error = error {
+//                    self.errorHandler.handle(error: error, completion: completion)
+//                } else {
+//                    completion(.success())
+//                }
+//            }
+//        }
     }
     
     func fetchReplies(commentHandle: String,
@@ -194,6 +206,41 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                     failure(APIError(error: error))
                 }
         }
+    }
+    
+    
+    private func execute(command: RemoveReplyCommand,
+                         success: @escaping ((Void) -> Void),
+                         failure: @escaping Failure) {
+        guard isNetworkReachable else {
+            
+            let predicate =  PredicateBuilder().createReplyCommand(replyHandle: command.reply.replyHandle)
+            let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
+                                                         predicate: predicate,
+                                                         sortDescriptors: [Cache.createdAtSortDescriptor])
+            
+            
+            if !self.cache.fetchOutgoing(with: fetchOutgoingRequest).isEmpty {
+                self.cache.deleteOutgoing(with:predicate)
+                success()
+                return
+            } else {
+                cache.cacheOutgoing(command)
+                success()
+                return
+            }
+        }
+        
+        
+        let request = RepliesAPI.repliesDeleteReplyWithRequestBuilder(replyHandle: command.reply.replyHandle, authorization: authorization)
+        request.execute { (response, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success()
+            }
+        }
+        
     }
     
     private func convert(data: [ReplyView]) -> [Reply] {
