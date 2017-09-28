@@ -10,10 +10,6 @@ protocol ActivityItemViewModel {
     var cellClass: UITableViewCell.Type { get set }
 }
 
-protocol ActivityItemCellConfigurable {
-    func configure(with viewModel: ActivityItemViewModel)
-}
-
 struct PendingRequestViewModel: ActivityItemViewModel {
     var cellID: String
     var cellClass: UITableViewCell.Type

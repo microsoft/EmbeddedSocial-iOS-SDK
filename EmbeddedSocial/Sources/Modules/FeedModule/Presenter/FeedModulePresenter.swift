@@ -178,6 +178,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     fileprivate var cursor: String? = nil
     fileprivate var limit: Int32 = Int32(Constants.Feed.pageSize)
     fileprivate var items = [Post]()
+    fileprivate var fetchRequests: Set<String> = Set()
     fileprivate var header: SupplementaryItemModel?
     
     var headerSize: CGSize {
@@ -214,7 +215,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     private func onLayoutTypeChange() {
         view.setLayout(type: self.layout)
         view.paddingEnabled = collectionPaddingNeeded()
-        fetchAllItems()
     }
     
     private func onFeedTypeChange() {
@@ -228,6 +228,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     fileprivate func isHomeFeedType() -> Bool {
         return feedType == .home
     }
+    
+    private func makeFetchRequest(with cursor: String?, feedType: FeedType) -> FeedFetchRequest {
+        let uid = UUID().uuidString
+        fetchRequests.insert(uid)
+        return FeedFetchRequest(uid: uid, cursor: cursor, limit: limit, feedType: feedType)
+    }
  
     private func fetchItems(with cursor: String? = nil) {
         guard let feedType = self.feedType else {
@@ -235,11 +241,15 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
 
-        interactor.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
+        let request = makeFetchRequest(with: cursor, feedType: feedType)
+        interactor.fetchPosts(request: request)
     }
     
     fileprivate func fetchAllItems() {
         cursor = nil
+        items = []
+        view.reload()
+        fetchRequests = Set()
         fetchItems()
     }
     
@@ -417,30 +427,62 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     // MARK: FeedModuleInteractorOutput
     func didFetch(feed: Feed) {
         
-        guard feedType == feed.feedType else {
+        guard fetchRequests.contains(feed.fetchID), feedType == feed.feedType else {
             return
         }
+        
+        let cachedNumberOfItems = items.count
         
         cursor = feed.cursor
         items = feed.items
         
-        view.reload()
+        let shouldAddItems = items.count > cachedNumberOfItems
+        let shouldRemoveItems = items.count < cachedNumberOfItems
         
-        moduleOutput?.didUpdateFeed()
+        if cachedNumberOfItems == 0 {
+            view.reload()
+        }
+        else if shouldAddItems {
+            let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
+            view.insertNewItems(with: paths)
+        }
+        else if shouldRemoveItems {
+            let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
+            view.removeItems(with: paths)
+        }
+        else {
+            Logger.log(items.count, cachedNumberOfItems)
+            view.reloadVisible()
+        }
     }
     
     func didFetchMore(feed: Feed) {
-        
-        guard feedType == feed.feedType else {
+
+        guard fetchRequests.contains(feed.fetchID), feedType == feed.feedType else {
             return
         }
         
+        let cachedNumberOfItems = items.count
+    
         cursor = feed.cursor
         appendWithReplacing(original: &items, appending: feed.items)
         
-        view.reload()
+        let needAddNewItems = items.count - cachedNumberOfItems
+        let needRemoveItems = cachedNumberOfItems - items.count
         
-        moduleOutput?.didUpdateFeed()
+        if needAddNewItems > 0 {
+            let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
+            view.insertNewItems(with: paths)
+            Logger.log(needRemoveItems, event: .veryImportant)
+        }
+        else if needRemoveItems > 0 {
+            let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
+            view.removeItems(with: paths)
+            Logger.log(needRemoveItems, event: .veryImportant)
+        } else {
+            view.reloadVisible()
+            Logger.log("reloading visible", event: .veryImportant)
+        }
     }
     
     func didFail(error: FeedServiceError) {
@@ -457,7 +499,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         if let delegate = moduleOutput {
             delegate.didStartRefreshingData()
         } else {
-            view.setRefreshingWithBlocking(state: true)
+            view.setRefreshing(state: true)
         }
     }
     
@@ -467,7 +509,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         if let delegate = moduleOutput {
             delegate.didFinishRefreshingData(nil)
         } else {
-            view.setRefreshingWithBlocking(state: false)
+            view.setRefreshing(state: false)
         }
     }
     
@@ -608,7 +650,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     private func didRemoveItem(post: PostHandle) {
         if let index = items.index(where: { $0.topicHandle == post }) {
             items.remove(at: index)
-            view.removeItem(index: index)
+            view.removeItems(with: [IndexPath(row: index, section: 0)])
         }
     }
     

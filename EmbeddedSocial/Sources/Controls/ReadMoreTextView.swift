@@ -80,14 +80,18 @@ class ReadMoreTextView: UITextView {
     }
     
     override func layoutSubviews() {
-        super.layoutSubviews()
+        
         attributedText = _originalAttributedText
         if isTrimmed {
             showLessText()
         }
+        super.layoutSubviews()
     }
     
     override var intrinsicContentSize : CGSize {
+        
+        layoutIfNeeded()
+        
         textContainer.size = CGSize(width: bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
         var intrinsicContentSize = layoutManager.boundingRect(forGlyphRange: layoutManager.glyphRange(for: textContainer), in: textContainer).size
         intrinsicContentSize.width = UIViewNoIntrinsicMetric
@@ -145,9 +149,10 @@ class ReadMoreTextView: UITextView {
     }
     
     private func showLessText() {
-        if let readMoreText = readMoreText, text.hasSuffix(readMoreText) { return }
         
         textContainer.maximumNumberOfLines = maximumNumberOfLines
+        
+        if let readMoreText = readMoreText, text.hasSuffix(readMoreText) { return }
         
         layoutManager.invalidateLayout(forCharacterRange: layoutManager.characterRangeThatFits(textContainer: textContainer), actualCharacterRange: nil)
         textContainer.size = CGSize(width: bounds.size.width, height: CGFloat.greatestFiniteMagnitude)

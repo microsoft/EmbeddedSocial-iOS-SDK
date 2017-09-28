@@ -2880,7 +2880,6 @@
 		88580A9C1F2213AB00C1CBAF /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				93AC65A41F3E057C00FE5A3A /* CommentCell */,
 				88580A9D1F2213AB00C1CBAF /* GroupHeaderTableCell */,
 				636474881F5FFD31000D7B3D /* LoadMoreCell */,
 				9C43EC8A1F25D60A00D0B59D /* PostCells */,
@@ -4890,13 +4889,6 @@
 				93AC65961F3E056F00FE5A3A /* PostDetailViewOutput.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		93AC65A41F3E057C00FE5A3A /* CommentCell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CommentCell;
 			sourceTree = "<group>";
 		};
 		93AC65AB1F3E05DA00FE5A3A /* PostDetail */ = {
