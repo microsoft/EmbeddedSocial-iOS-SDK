@@ -67,7 +67,7 @@ class LikesService: BaseService, LikesServiceProtocol {
     
     func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
         let topic = Post(topicHandle: postHandle)
-        let builder = LikesAPI.topicLikesDeleteLikeWithRequestBuilder(topicHandle: postHandle, authorization: authorization)
+        let builder = LikesAPI.topicLikesPostLikeWithRequestBuilder(topicHandle: postHandle, authorization: authorization)
         let command = LikeTopicCommand(topic: topic)
         outgoingActionsExecutor.execute(command: command, builder: builder) { result in
             completion(postHandle, result.error)

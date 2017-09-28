@@ -42,7 +42,7 @@ class PostMenuModuleRouter: PostMenuModuleRouterInput {
     func openReport(comment: Comment) {
         let config = ReportConfigurator()
         let navController = UINavigationController(rootViewController: config.viewController)
-        let api = ReportCommentAPI(commentID: comment.commentHandle, reportingService: ReportingService())
+        let api = ReportCommentAPI(comment: comment, reportingService: ReportingService())
         config.configure(api: api,
                          navigationController: navController,
                          reportListTitle: L10n.Report.Comment.headerTitle.uppercased())
@@ -52,7 +52,7 @@ class PostMenuModuleRouter: PostMenuModuleRouterInput {
     func openReport(reply: Reply) {
         let config = ReportConfigurator()
         let navController = UINavigationController(rootViewController: config.viewController)
-        let api = ReportReplyAPI(replyID: reply.replyHandle, reportingService: ReportingService())
+        let api = ReportReplyAPI(reply: reply, reportingService: ReportingService())
         config.configure(api: api,
                          navigationController: navController,
                          reportListTitle: L10n.Report.Reply.headerTitle.uppercased())

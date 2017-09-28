@@ -20,7 +20,6 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         case myPins
         case activity
         case settings
-        case debug
     }
     
     enum State: Int {
@@ -59,18 +58,6 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         let vc = UIViewController()
         vc.view.backgroundColor = UIColor.blue
         vc.title = "Dummy"
-        return vc
-    }
-    
-    var builderForDebug: ModuleBuilder = { coordinator in
-        let vc = UIViewController()
-        vc.view.backgroundColor = UIColor.blue
-        vc.title = "Debug"
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { 
-            SocialPlus.shared.logOut()
-        })
-        
         return vc
     }
     
@@ -131,12 +118,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
                  title: L10n.Settings.screenTitle,
                  image: UIImage(asset: Asset.iconSettings),
                  highlighted: UIImage(asset: Asset.iconSettingsActive),
-                 builder: self.builderForSettings),
-                (key: .settings,
-                 title: "DEBUG",
-                 image: UIImage(asset: Asset.iconLogout),
-                 highlighted: UIImage(asset: Asset.iconLogout),
-                 builder: self.builderForDebug)
+                 builder: self.builderForSettings)
                 
             ],
             State.unauthenticated: [

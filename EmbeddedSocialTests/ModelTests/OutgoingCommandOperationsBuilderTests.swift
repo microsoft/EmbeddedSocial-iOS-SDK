@@ -19,7 +19,8 @@ class OutgoingCommandOperationsBuilderTests: XCTestCase {
         XCTAssertTrue(makeOperation(BlockCommand(user: user)) is EmbeddedSocial.BlockUserOperation)
         XCTAssertTrue(makeOperation(UnblockCommand(user: user)) is UnblockUserOperation)
         XCTAssertTrue(makeOperation(CancelPendingCommand(user: user)) is CancelPendingUserOperation)
-        
+        XCTAssertTrue(makeOperation(AcceptPendingCommand(user: user)) is AcceptPendingUserOperation)
+
         // topic commands
         let topic = Post(topicHandle: UUID().uuidString)
         XCTAssertTrue(makeOperation(UnlikeTopicCommand(topic: topic)) is UnlikeTopicOperation)
@@ -33,12 +34,16 @@ class OutgoingCommandOperationsBuilderTests: XCTestCase {
         XCTAssertTrue(makeOperation(LikeReplyCommand(reply: reply)) is LikeReplyOperation)
         XCTAssertTrue(makeOperation(UnlikeReplyCommand(reply: reply)) is UnlikeReplyOperation)
         XCTAssertTrue(makeOperation(CreateReplyCommand(reply: reply)) is CreateReplyOperation)
+        XCTAssertTrue(makeOperation(RemoveReplyCommand(reply: reply)) is RemoveReplyOperation)
+        XCTAssertTrue(makeOperation(ReportReplyCommand(reply: reply, reportReason: .other)) is ReportReplyOperation)
 
         // comment commands
         let comment = Comment(commentHandle: UUID().uuidString)
         XCTAssertTrue(makeOperation(LikeCommentCommand(comment: comment)) is LikeCommentOperation)
         XCTAssertTrue(makeOperation(UnlikeCommentCommand(comment: comment)) is UnlikeCommentOperation)
         XCTAssertTrue(makeOperation(CreateCommentCommand(comment: comment)) is CreateCommentOperation)
+        XCTAssertTrue(makeOperation(RemoveCommentCommand(comment: comment)) is RemoveCommentOperation)
+        XCTAssertTrue(makeOperation(ReportCommentCommand(comment: comment, reportReason: .other)) is ReportCommentOperation)
         
         // image commands
         let photo = Photo(image: UIImage(color: .yellow, size: CGSize(width: 8.0, height: 8.0)))

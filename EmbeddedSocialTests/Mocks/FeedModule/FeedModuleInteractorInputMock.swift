@@ -10,22 +10,21 @@ class FeedModuleInteractorInputMock: FeedModuleInteractorInput {
     
     //MARK: - fetchPosts
     
-    var fetchPostsCalled = false
-    var fetchPostsReceivedArguments: (limit: Int32?, cursor: String?, feedType: FeedType)?
+    var fetchPostsRequestCalled = false
+    var fetchPostsRequestReceivedRequest: FeedFetchRequest?
     
-    func fetchPosts(limit: Int32?, cursor: String?, feedType: FeedType) {
-        fetchPostsCalled = true
-        fetchPostsReceivedArguments = (limit: limit, cursor: cursor, feedType: feedType)
+    func fetchPosts(request: FeedFetchRequest) {
+        fetchPostsRequestCalled = true
+        fetchPostsRequestReceivedRequest = request
     }
     
     //MARK: - postAction
     
-    var postActionCalled = false
-    var postActionReceivedArguments: (post: PostHandle, action: PostSocialAction)?
+    var postActionPostActionCalled = false
+    var postActionPostActionReceivedArguments: (post: PostHandle, action: PostSocialAction)?
     
     func postAction(post: PostHandle, action: PostSocialAction) {
-        postActionCalled = true
-        postActionReceivedArguments = (post: post, action: action)
+        postActionPostActionCalled = true
+        postActionPostActionReceivedArguments = (post: post, action: action)
     }
-    
 }

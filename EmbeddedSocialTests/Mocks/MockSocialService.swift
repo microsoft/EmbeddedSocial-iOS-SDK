@@ -105,4 +105,8 @@ final class MockSocialService: SocialServiceType {
         acceptPendingInputUser = user
         completion(acceptPendingReturnResult)
     }
+    
+    func getMyPendingRequests(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        
+    }
 }

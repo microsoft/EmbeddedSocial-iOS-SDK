@@ -10,17 +10,17 @@ class ReportCommentAPITests: XCTestCase {
     
     func testThatItCallsCorrectServiceMethod() {
         // given
-        let commentID = UUID().uuidString
+        let comment = Comment(commentHandle: UUID().uuidString)
         let reason = ReportReason.contentInfringement
         let service = MockReportingService()
-        let sut = ReportCommentAPI(commentID: commentID, reportingService: service)
+        let sut = ReportCommentAPI(comment: comment, reportingService: service)
         
         // when
         sut.submitReport(with: reason) { _ in () }
         
         // then
         XCTAssertEqual(service.reportCommentCount, 1)
-        XCTAssertEqual(service.reportCommentInputParameters?.commentID, commentID)
+        XCTAssertEqual(service.reportCommentInputParameters?.comment.commentHandle, comment.commentHandle)
         XCTAssertEqual(service.reportCommentInputParameters?.reason, reason)
     }
 }

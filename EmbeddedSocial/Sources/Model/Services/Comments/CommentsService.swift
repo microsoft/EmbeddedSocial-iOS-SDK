@@ -29,26 +29,30 @@ protocol CommentServiceProtocol {
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, cachedResult: @escaping CommentFetchResultHandler, resultHandler: @escaping CommentFetchResultHandler)
     func comment(commentHandle: String, cachedResult: @escaping CommentHandler, success: @escaping CommentHandler, failure: @escaping Failure)
     func postComment(comment: Comment, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure)
-    func deleteComment(commentHandle: String, completion: @escaping ((Result<Void>) -> Void))
+    func delete(comment: Comment, completion: @escaping ((Result<Void>) -> Void))
 }
 
 class CommentsService: BaseService, CommentServiceProtocol {
     
     // MARK: Public
     private var imagesService: ImagesServiceType!
+    private var processor: CommentsProcessorType!
     
     init(imagesService: ImagesServiceType) {
         super.init()
         self.imagesService = imagesService
+        processor = CommentsProcessor(cache: cache)
     }
     
-    func deleteComment(commentHandle: String, completion: @escaping ((Result<Void>) -> Void)) {
-        let request = CommentsAPI.commentsDeleteCommentWithRequestBuilder(commentHandle: commentHandle, authorization: authorization)
-        request.execute { (response, error) in
-            if let error = error {
-                self.errorHandler.handle(error: error, completion: completion)
+    func delete(comment: Comment, completion: @escaping ((Result<Void>) -> Void)) {
+        let command = RemoveCommentCommand(comment: comment)
+        execute(command: command, success: { _ in
+            completion(.success())
+        }) { (error) in
+            if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
             } else {
-                completion(.success())
+                completion(.failure(error))
             }
         }
     }
@@ -117,29 +121,26 @@ class CommentsService: BaseService, CommentServiceProtocol {
             cursor: cursor, limit: limit
         )
         
+        var result = CommentFetchResult()
+        
         let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
                                                      predicate: PredicateBuilder().allCreateCommentCommands(),
                                                      sortDescriptors: [Cache.createdAtSortDescriptor])
         
-        cache.fetchOutgoing(with: fetchOutgoingRequest) { [weak self] commands in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            let incomingFeed = strongSelf.cache.firstIncoming(ofType: FeedResponseCommentView.self,
-                                                              predicate: PredicateBuilder().predicate(handle: builder.URLString),
-                                                              sortDescriptors: nil)
-            
-            let incomingComments = incomingFeed?.data?.map(strongSelf.convert(commentView:)) ?? []
-            
-            let outgoingComments = commands.flatMap { ($0 as? CreateCommentCommand)?.comment }
-            
-            let result = CommentFetchResult(comments: outgoingComments + incomingComments, error: nil, cursor: incomingFeed?.cursor)
-            
-            cachedResult(result)
-        }
+        let commands = cache.fetchOutgoing(with: fetchOutgoingRequest)
+        let incomingFeed = self.cache.firstIncoming(ofType: FeedResponseCommentView.self,
+                                                          predicate: PredicateBuilder().predicate(handle: builder.URLString),
+                                                          sortDescriptors: nil)
         
-        var result = CommentFetchResult()
+        let incomingComments = incomingFeed?.data?.map(self.convert(commentView:)) ?? []
+        
+        let outgoingComments = commands.flatMap { ($0 as? CreateCommentCommand)?.comment }
+        
+        result.comments = outgoingComments + incomingComments
+        result.cursor = incomingFeed?.cursor
+        
+        processor.proccess(&result)
+        cachedResult(result)
         
         guard isNetworkReachable else {
             result.error = CommentsServiceError.failedToFetch(message: L10n.Error.unknown)
@@ -151,7 +152,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
             guard let strongSelf = self else {
                 return
             }
-            
             
             let typeID = "fetch_commens-\(topicHandle)"
             
@@ -225,12 +225,45 @@ class CommentsService: BaseService, CommentServiceProtocol {
         }
     }
     
+    private func execute(command: RemoveCommentCommand,
+                         success: @escaping ((Void) -> Void),
+                         failure: @escaping Failure) {
+        guard isNetworkReachable else {
+            
+            let predicate =  PredicateBuilder().createCommentCommand(commentHandle: command.comment.commentHandle)
+            let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
+                                                         predicate: predicate,
+                                                         sortDescriptors: [Cache.createdAtSortDescriptor])
+            
+            
+            if !self.cache.fetchOutgoing(with: fetchOutgoingRequest).isEmpty {
+                self.cache.deleteOutgoing(with:predicate)
+                success()
+                return
+            } else {
+                cache.cacheOutgoing(command)
+                success()
+                return
+            }
+        }
+        
+        let request = CommentsAPI.commentsDeleteCommentWithRequestBuilder(commentHandle: command.comment.commentHandle, authorization: authorization)
+        request.execute { (response, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success()
+            }
+        }
+        
+    }
+    
     private func convert(data: [CommentView]) -> [Comment] {
         return data.map(convert(commentView:))
     }
     
     private func convert(commentView: CommentView) -> Comment {
-        var comment = Comment()
+        let comment = Comment()
         comment.commentHandle = commentView.commentHandle!
         comment.user = User(compactView: commentView.user!)
         comment.createdTime = commentView.createdTime
@@ -248,18 +281,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
         let cachedRepliesCount = cache.fetchOutgoing(with: cacheRequestForComment).count
         comment.totalReplies = (commentView.totalReplies ?? 0) + Int64(cachedRepliesCount)
-        
-        let request = CacheFetchRequest(
-            resultType: OutgoingCommand.self,
-            predicate: PredicateBuilder().commentActionCommands(for: commentView.commentHandle!),
-            sortDescriptors: [Cache.createdAtSortDescriptor]
-        )
-        
-        let commands = cache.fetchOutgoing(with: request) as? [CommentCommand] ?? []
-        
-        for command in commands {
-            command.apply(to: &comment)
-        }
         
         return comment
     }
