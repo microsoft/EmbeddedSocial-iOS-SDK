@@ -17,6 +17,8 @@ typealias MyActivityRequestExecutor = CacheRequestExecutionStrategy<FeedResponse
 
 typealias OthersActivityRequestExecutor = CacheRequestExecutionStrategy<FeedResponseActivityView, ListResponse<ActivityView> >
 
+typealias SingleTopicRequestExecutor = CacheRequestExecutionStrategy<TopicView, Post>
+
 protocol CacheRequestExecutorProviderType {
     static func makeUsersFeedExecutor(for service: BaseService) -> UsersFeedRequestExecutor
     
@@ -31,6 +33,8 @@ protocol CacheRequestExecutorProviderType {
     static func makeMyBlockedUsersExecutor(for service: BaseService) -> UsersFeedRequestExecutor
     
     static func makeMyActivityExecutor(for service: BaseService) -> MyActivityRequestExecutor
+    
+    static func makeSinglePostExecutor(for service: BaseService) -> SingleTopicRequestExecutor
 }
 
 struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
@@ -70,6 +74,12 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
                                   responseProcessor: ActivityFeedProcessor())
     }
     
+    static func makeSinglePostExecutor(for service: BaseService) -> SingleTopicRequestExecutor {
+        return makeCommonExecutor(requestType: TopicView.self,
+                                  responseType: Post.self,
+                                  service: service,
+                                  responseProcessor: SinglePostResponseProcessor())
+    }
     
     static func makeSuggestedUsersExecutor(for service: BaseService) -> SuggestedUsersRequestExecutor {
         let executor = SuggestedUsersRequestExecutionStrategy()

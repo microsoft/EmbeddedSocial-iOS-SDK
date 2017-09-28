@@ -484,7 +484,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
     }
     
-    func didFail(error: FeedServiceError) {
+    func didFail(error: Error) {
         view.showError(error: error)
     }
     

@@ -21,77 +21,6 @@ extension UserProfileView: Cacheable {
     }
 }
 
-extension PostTopicRequest: Cacheable, HandleMixin, RelatedHandleMixin {
-    
-    func getHandle() -> String? {
-        return handle
-    }
-    
-    func getRelatedHandle() -> String? {
-        return relatedHandle
-    }
-    
-    func setHandle(_ handle: String?) {
-        if let handle = handle {
-            self.handle = handle
-        }
-    }
-    
-    func setRelatedHandle(_ relatedHandle: String?) {
-        if let relatedHandle = relatedHandle {
-            self.relatedHandle = relatedHandle
-        }
-    }
-}
-
-extension PostCommentRequest: Cacheable, HandleMixin, RelatedHandleMixin {
-    
-    func getHandle() -> String? {
-        return handle
-    }
-    
-    func getRelatedHandle() -> String? {
-        return relatedHandle
-    }
-    
-    func setHandle(_ handle: String?) {
-        if let handle = handle {
-            self.handle = handle
-        }
-    }
-    
-    func setRelatedHandle(_ relatedHandle: String?) {
-        if let relatedHandle = relatedHandle {
-            self.relatedHandle = relatedHandle
-        }
-    }
-    
-}
-
-extension PostReplyRequest: Cacheable, HandleMixin, RelatedHandleMixin {
-    
-    func getHandle() -> String? {
-        return handle
-    }
-    
-    func getRelatedHandle() -> String? {
-        return relatedHandle
-    }
-    
-    func setHandle(_ handle: String?) {
-        if let handle = handle {
-            self.handle = handle
-        }
-    }
-    
-    func setRelatedHandle(_ relatedHandle: String?) {
-        if let relatedHandle = relatedHandle {
-            self.relatedHandle = relatedHandle
-        }
-    }
-    
-}
-
 extension CommentView: Cacheable {
     func getHandle() -> String? {
         return commentHandle
@@ -99,32 +28,6 @@ extension CommentView: Cacheable {
     
     func getRelatedHandle() -> String? {
         return topicHandle
-    }
-}
-
-extension FeedResponseTopicView: Cacheable { }
-
-extension FeedResponseUserCompactView: Cacheable, HandleMixin {
-    func getHandle() -> String? {
-        return handle
-    }
-    
-    func setHandle(_ handle: String?) {
-        if let handle = handle {
-            self.handle = handle
-        }
-    }
-}
-
-extension FeedResponseActivityView: Cacheable, HandleMixin {
-    func getHandle() -> String? {
-        return handle
-    }
-    
-    func setHandle(_ handle: String?) {
-        if let handle = handle {
-            self.handle = handle
-        }
     }
 }
 
@@ -148,49 +51,20 @@ extension ReplyView: Cacheable {
     }
 }
 
-class LikeCommentRequest: Cacheable, HandleMixin{
-    var commentHandle: String
-    
-    init(commentHandle: String) {
-        self.commentHandle = commentHandle
-    }
-    
-    func setHandle(_ handle: String?) {
-        if let handle = handle {
-            self.handle = handle
-        }
-    }
-    
-    func getHandle() -> String? {
-        return commentHandle
-    }
-    
-    func encodeToJSON() -> Any {
-        return ["commentHandle" : commentHandle]
-    }
-}
+extension PostTopicRequest: Cacheable, HandleMixin, RelatedHandleMixin { }
 
-extension FeedResponseCommentView: Cacheable, HandleMixin {
-    func setHandle(_ handle: String?) {
-        if let handle = handle {
-            self.handle = handle
-        }
-    }
-    
-    func getHandle() -> String? {
-        return handle
-    }
-}
+extension PostCommentRequest: Cacheable, HandleMixin, RelatedHandleMixin { }
 
-extension FeedResponseReplyView: Cacheable, HandleMixin {
-    func setHandle(_ handle: String?) {
-        if let handle = handle {
-            self.handle = handle
-        }
-    }
-    
-    func getHandle() -> String? {
-        return handle
-    }
-}
+extension PostReplyRequest: Cacheable, HandleMixin, RelatedHandleMixin { }
 
+extension FeedResponseTopicView: Cacheable, HandleMixin { }
+
+extension FeedResponseUserCompactView: Cacheable, HandleMixin {  }
+
+extension FeedResponseActivityView: Cacheable, HandleMixin { }
+
+extension FeedResponseCommentView: Cacheable, HandleMixin { }
+
+extension FeedResponseReplyView: Cacheable, HandleMixin { }
+
+extension TopicView: Cacheable, HandleMixin { }

@@ -87,16 +87,15 @@ class TopicService: BaseService, PostServiceProtocol {
     private var imagesService: ImagesServiceType!
     private var responseParser: FeedResponseParserProtocol!
     private var otherUserFeedResponseParser: FeedResponseParserProtocol!
-
+    private var singlePostFetchExecuter: SingleTopicRequestExecutor!
+    
     init(imagesService: ImagesServiceType) {
+        
         super.init()
         self.imagesService = imagesService
         responseParser = FeedResponseParser(processor: FeedResponsePostProcessor(cache: cache))
         otherUserFeedResponseParser = FeedResponseParser(processor: OtherUserFeedResponsePostProcessor(cache: cache))
-    }
-    
-    init() {
-        super.init()
+        singlePostFetchExecuter = CacheRequestExecutorProvider.makeSinglePostExecutor(for: self)
     }
     
     func postTopic(_ topic: Post, success: @escaping TopicPosted, failure: @escaping Failure) {
@@ -219,6 +218,22 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
+        
+        let request = TopicsAPI.topicsGetTopicWithRequestBuilder(topicHandle: post, authorization: authorization)
+        
+        singlePostFetchExecuter.execute(with: request) { (result) in
+            var feedFetchResult = FeedFetchResult()
+            
+            guard let post = result.value else {
+                feedFetchResult.error = result.error ?? APIError.missingUserData
+                completion(feedFetchResult)
+                return
+            }
+            
+            feedFetchResult.posts = [post]
+            completion(feedFetchResult)
+        }
+        
         TopicsAPI.topicsGetTopic(topicHandle: post, authorization: authorization) { (topic, error) in
             
             var result = FeedFetchResult()
