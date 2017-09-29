@@ -391,7 +391,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         case .likesList:
             router.open(route: .likesList(postHandle: post.topicHandle), feedSource: feedType!)
         }
-        
     }
     
     func isUserAuthorizedToPerformAction(_ action: FeedPostCellAction) -> Bool {
@@ -447,20 +446,19 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
         
         cursor = feed.cursor
-        items = feed.items
         
         // show changes on UI
-        let shouldAddItems = items.count > cachedNumberOfItems
-        let shouldRemoveItems = items.count < cachedNumberOfItems
+        let shouldAddItems = items.count - cachedNumberOfItems
+        let shouldRemoveItems = cachedNumberOfItems - items.count
         
         if cachedNumberOfItems == 0 {
             view.reload()
         }
-        else if shouldAddItems {
+        else if shouldAddItems > 0 {
             let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
             view.insertNewItems(with: paths)
         }
-        else if shouldRemoveItems {
+        else if shouldRemoveItems > 0 {
             let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
             view.removeItems(with: paths)
         }

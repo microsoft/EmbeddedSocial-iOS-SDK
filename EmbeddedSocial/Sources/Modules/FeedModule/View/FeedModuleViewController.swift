@@ -326,19 +326,23 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     func reloadVisible() {
+        Logger.log(event: .veryImportant)
         let paths = collectionView.indexPathsForVisibleItems
         self.collectionView.reloadItems(at: paths)
     }
     
     func insertNewItems(with paths:[IndexPath]) {
+        Logger.log(paths, event: .veryImportant)
         collectionView.insertItems(at: paths)
     }
     
     func removeItems(with paths: [IndexPath]) {
+        Logger.log(paths, event: .veryImportant)
         collectionView.deleteItems(at: paths)
     }
     
     func reload() {
+        Logger.log(event: .veryImportant)
         collectionView.reloadData()
     }
     
@@ -368,8 +372,6 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         
         let item = output.item(for: indexPath)
         
-        Logger.log(item.cellType, event: .veryImportant)
-        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: item.cellType, for: indexPath) as? PostCellProtocol else {
             fatalError("Wrong cell")
         }
@@ -386,7 +388,6 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         if collectionViewLayout === listLayout {
             
             let item = output.item(for: indexPath)
-            Logger.log(" \(calculateCellSizeWith(viewModel: item)), \(indexPath.row)", event: .veryImportant)
             return calculateCellSizeWith(viewModel: item)
             
         } else if collectionViewLayout === gridLayout {
