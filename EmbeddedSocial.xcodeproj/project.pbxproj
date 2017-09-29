@@ -561,6 +561,7 @@
 		8892F2551F7E319400A58D8B /* LinkedAccountsInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892F2541F7E319400A58D8B /* LinkedAccountsInteractorInput.swift */; };
 		8892F2591F7E323500A58D8B /* LinkedAccountsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892F2581F7E323500A58D8B /* LinkedAccountsInteractor.swift */; };
 		8892F25B1F7E618500A58D8B /* LinkedAccountView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892F25A1F7E618500A58D8B /* LinkedAccountView+Ext.swift */; };
+		8892F2621F7E83D100A58D8B /* AuthProvider+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892F2611F7E83D100A58D8B /* AuthProvider+Ext.swift */; };
 		8895107F1F3B0FDC001A53F5 /* EmbeddedSocial.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8895107D1F3B0FDC001A53F5 /* EmbeddedSocial.xcdatamodeld */; };
 		889510811F3B1CB4001A53F5 /* APIErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */; };
 		889510831F3B1FCA001A53F5 /* ErrorResponse+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889510821F3B1FCA001A53F5 /* ErrorResponse+Ext.swift */; };
@@ -1610,6 +1611,7 @@
 		8892F2541F7E319400A58D8B /* LinkedAccountsInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsInteractorInput.swift; sourceTree = "<group>"; };
 		8892F2581F7E323500A58D8B /* LinkedAccountsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsInteractor.swift; sourceTree = "<group>"; };
 		8892F25A1F7E618500A58D8B /* LinkedAccountView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LinkedAccountView+Ext.swift"; sourceTree = "<group>"; };
+		8892F2611F7E83D100A58D8B /* AuthProvider+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthProvider+Ext.swift"; sourceTree = "<group>"; };
 		8895107E1F3B0FDC001A53F5 /* MSGP.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MSGP.xcdatamodel; sourceTree = "<group>"; };
 		889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIErrorHandler.swift; sourceTree = "<group>"; };
 		889510821F3B1FCA001A53F5 /* ErrorResponse+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ErrorResponse+Ext.swift"; sourceTree = "<group>"; };
@@ -2744,17 +2746,19 @@
 				883720241F7D455F00694A2E /* View */,
 			);
 			name = LinkedAccounts;
+			path = LinkedAccounts;
 			sourceTree = "<group>";
 		};
 		883720241F7D455F00694A2E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				883720201F7D439A00694A2E /* LinkedAccountsViewController.swift */,
-				8892F24F1F7E2E6100A58D8B /* LinkedAccountsViewOutput.swift */,
-				8892F2511F7E2EA100A58D8B /* LinkedAccountsViewInput.swift */,
 				883720221F7D43B000694A2E /* LinkedAccounts.storyboard */,
+				883720201F7D439A00694A2E /* LinkedAccountsViewController.swift */,
+				8892F2511F7E2EA100A58D8B /* LinkedAccountsViewInput.swift */,
+				8892F24F1F7E2E6100A58D8B /* LinkedAccountsViewOutput.swift */,
 			);
 			name = View;
+			path = View;
 			sourceTree = "<group>";
 		};
 		883720251F7D456600694A2E /* Configurator */ = {
@@ -2763,6 +2767,7 @@
 				883720261F7D457300694A2E /* LinkedAccountsConfigurator.swift */,
 			);
 			name = Configurator;
+			path = Configurator;
 			sourceTree = "<group>";
 		};
 		883BFFCA1F710A3200E1C4E3 /* Operations */ = {
@@ -3109,14 +3114,15 @@
 		88580AA91F2213AB00C1CBAF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				8892F2611F7E83D100A58D8B /* AuthProvider+Ext.swift */,
 				88580AAA1F2213AB00C1CBAF /* Collection+Ext.swift */,
 				88580AAB1F2213AB00C1CBAF /* Dictionary+Ext.swift */,
 				889510821F3B1FCA001A53F5 /* ErrorResponse+Ext.swift */,
 				88E662051F7A7A6100C98526 /* FollowRequestCell+Ext.swift */,
+				8892F25A1F7E618500A58D8B /* LinkedAccountView+Ext.swift */,
 				88B94EF11F66A9F3002392F9 /* NSLock+Ext.swift */,
 				88ABC7911F726FE800C83C82 /* PostCommentRequest+Ext.swift */,
 				883BFFDD1F713EB100E1C4E3 /* PostCommentResponse+Ext.swift */,
-				8892F25A1F7E618500A58D8B /* LinkedAccountView+Ext.swift */,
 				883BFFE31F7168C700E1C4E3 /* PostReplyResponse+Ext.swift */,
 				883BFFDF1F715D4C00E1C4E3 /* PostTopicRequest+Ext.swift */,
 				88F551B31F38A03200F4AAB9 /* SegmentedControlView+Ext.swift */,
@@ -3979,15 +3985,17 @@
 				8892F24D1F7E2E5800A58D8B /* LinkedAccountsPresenter.swift */,
 			);
 			name = Presenter;
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		8892F2531F7E318800A58D8B /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				8892F2541F7E319400A58D8B /* LinkedAccountsInteractorInput.swift */,
 				8892F2581F7E323500A58D8B /* LinkedAccountsInteractor.swift */,
+				8892F2541F7E319400A58D8B /* LinkedAccountsInteractorInput.swift */,
 			);
 			name = Interactor;
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		8895108B1F3B5589001A53F5 /* SocialPlus */ = {
@@ -5016,8 +5024,6 @@
 		8EF0E5C51F2AA01F00E88ED6 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				8E5FCAAC1F820F0900A81E2E /* TestPostMenu.swift */,
-				8E26833E1F7CF6BF00A5B25B /* TestSettings.swift */,
 				8EF0E59D1F1FA5EF00E88ED6 /* Base.swift */,
 				8EF0E5A11F1FA5EF00E88ED6 /* Loop.swift */,
 				8EF0E5C71F2AA13E00E88ED6 /* TestCreatePost.swift */,
@@ -5031,6 +5037,7 @@
 				8EAF45981F6989FF0046F704 /* TestPostDetails.swift */,
 				8E536BBF1F69DE83006AF7A8 /* TestReplies.swift */,
 				8E536BC41F6BC94A006AF7A8 /* TestSearch.swift */,
+				8E26833E1F7CF6BF00A5B25B /* TestSettings.swift */,
 				8EE2C6C71F4594ED00CFFE21 /* TestUserProfile.swift */,
 				8EA8374F1F7E84F100C7489E /* TestMyPins.swift */,
 			);
@@ -5370,8 +5377,8 @@
 				9CD805361F0D012F00B9B0AC /* EmbeddedSocialTests */,
 				8EF0E5931F1FA5CC00E88ED6 /* EmbeddedSocialUITests */,
 				2C6B77FF4F1F2F71CA420D6B /* Frameworks */,
-				9CD8052A1F0D012F00B9B0AC /* Products */,
 				86BCB0EEA5530A9D0C52A3AE /* Pods */,
+				9CD8052A1F0D012F00B9B0AC /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -6452,6 +6459,7 @@
 				88580C1C1F2213AB00C1CBAF /* FacebookAPI.swift in Sources */,
 				8846CB4E1F30CA1100F11EC8 /* UserListViewInput.swift in Sources */,
 				88E3AC3C1F55B0400016357F /* ReportViewController.swift in Sources */,
+				8892F2621F7E83D100A58D8B /* AuthProvider+Ext.swift in Sources */,
 				88B2D6871F7BC71F00920E43 /* MyFollowersResponseProcessor.swift in Sources */,
 				88EBD2221F6C005200F9DDFC /* PinTopicCommand.swift in Sources */,
 				88B2D6A21F7CFF0500920E43 /* SearchTopicsFeedResponseProcessor.swift in Sources */,

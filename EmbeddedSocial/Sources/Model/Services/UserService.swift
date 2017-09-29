@@ -23,6 +23,8 @@ protocol UserServiceType {
     func getLinkedAccounts(completion: @escaping (Result<[LinkedAccountView]>) -> Void)
     
     func linkAccount(authorization: Authorization, sessionToken: String, completion: @escaping (Result<Void>) -> Void)
+    
+    func deleteLinkedAccount(for provider: AuthProvider, completion: @escaping (Result<Void>) -> Void)
 }
 
 class UserService: BaseService, UserServiceType {
@@ -188,5 +190,12 @@ class UserService: BaseService, UserServiceType {
             self.processResult(response, error, completion)
         }
     }
+    
+    func deleteLinkedAccount(for provider: AuthProvider, completion: @escaping (Result<Void>) -> Void) {
+        UsersAPI.myLinkedAccountsDeleteLinkedAccount(
+            identityProvider: provider.usersAPIIdentityProvider,
+            authorization: authorization) { response, error in
+                self.processResult(response, error, completion)
+        }
+    }
 }
-
