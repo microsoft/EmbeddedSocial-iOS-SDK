@@ -225,6 +225,20 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
     }
     
+    fileprivate func shouldFetchOnViewAppear() -> Bool {
+        
+        guard let feedType = feedType else {
+            return false
+        }
+        
+        switch feedType {
+        case let .popular(type: _ ):
+            return false
+        default:
+            return true
+        }
+    }
+    
     fileprivate func isHomeFeedType() -> Bool {
         return feedType == .home
     }
@@ -414,7 +428,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func viewDidAppear() {
         limit = Int32(view.itemsLimit)
-        didAskFetchAll()
+        
+        if shouldFetchOnViewAppear() {
+            didAskFetchAll()
+        }
     }
     
     func didAskFetchAll() {
