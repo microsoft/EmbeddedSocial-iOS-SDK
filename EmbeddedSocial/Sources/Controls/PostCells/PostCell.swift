@@ -113,6 +113,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         commentedCount.text = nil
         postText.readMoreTapHandle = nil
         collectionView = nil
+        
         postImageButton.setPhotoWithCaching(nil, placeholder: nil)
         userPhoto.setPhotoWithCaching(nil, placeholder: nil)
         postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
@@ -126,17 +127,15 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         self.collectionView = collectionView
         
         // showing post image if url is available, else - hiding
-        if data.postPhoto?.url != nil {
-            postImageButton.setPhotoWithCaching(data.postPhoto, placeholder: postImagePlaceholder)
-        } else {
+        if data.postImageUrl == nil {
             postImageHeight.constant = 0
         }
         
-        if data.userImageUrl == nil {
-            userPhoto.image = userImagePlaceholder
-        } else {
-            userPhoto.setPhotoWithCaching(Photo(url: data.userImageUrl), placeholder: userImagePlaceholder)
-        }
+        let downloadablePostImage = Photo(url: data.postImageUrl)
+        postImageButton.setPhotoWithCaching(downloadablePostImage, placeholder: postImagePlaceholder)
+        
+        let downloadableUserImage = Photo(url: data.userImageUrl)
+        userPhoto.setPhotoWithCaching(downloadableUserImage, placeholder: userImagePlaceholder)
         
         userName.text = data.userName
         postTitle.text = data.title

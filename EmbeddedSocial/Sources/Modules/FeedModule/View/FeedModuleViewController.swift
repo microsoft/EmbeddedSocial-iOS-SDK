@@ -82,7 +82,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         view.isHidden = true
         
         return view
-    }()
+        }()
     
     lazy var refreshControl: UIRefreshControl = {
         let control = UIRefreshControl()
@@ -123,14 +123,14 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         // Navigation
         navigationItem.rightBarButtonItem = layoutChangeButton
         
-
+        
         // Subviews
         view.addSubview(noContentLabel)
         
         noContentLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
         }
-
+        
         // Init Done
         onUpdateBounds()
         output.viewIsReady()
@@ -326,43 +326,28 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     func reloadVisible() {
-        Logger.log()
-        if let paths = collectionView?.indexPathsForVisibleItems {
-            //            collectionView.performBatchUpdates({
-            self.collectionView?.reloadItems(at: paths)
-            //            }, completion: nil)
-        }
+        Logger.log(event: .veryImportant)
+        let paths = collectionView.indexPathsForVisibleItems
+        self.collectionView.reloadItems(at: paths)
     }
     
     func insertNewItems(with paths:[IndexPath]) {
-        Logger.log()
-        
-        weak var collection = collectionView
-        collection?.numberOfItems(inSection: 0)
-        //        collectionView?.performBatchUpdates({
-        collection?.insertItems(at: paths)
-        //        }, completion:  { _ in
-        //            print("readt")
-        //        })
+        Logger.log(paths, event: .veryImportant)
+        collectionView.insertItems(at: paths)
     }
     
     func removeItems(with paths: [IndexPath]) {
-        Logger.log(index)
-        collectionView?.performBatchUpdates({
-            self.collectionView?.deleteItems(at: paths)
-        }, completion:  { _ in
-            //            self.reloadVisible()
-        })
+        Logger.log(paths, event: .veryImportant)
+        collectionView.deleteItems(at: paths)
     }
     
     func reload() {
-        Logger.log()
-        collectionView?.reloadData()
+        Logger.log(event: .veryImportant)
+        collectionView.reloadData()
     }
     
     func reload(with index: Int) {
-        Logger.log(index)
-        collectionView?.reloadItems(at: [IndexPath(item: index, section: 0)])
+        collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void) {
@@ -403,7 +388,6 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         if collectionViewLayout === listLayout {
             
             let item = output.item(for: indexPath)
-            
             return calculateCellSizeWith(viewModel: item)
             
         } else if collectionViewLayout === gridLayout {
