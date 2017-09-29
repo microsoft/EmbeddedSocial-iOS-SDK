@@ -42,9 +42,13 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         let feedType = FeedType.recent
         let limit = Int32(5)
         let cursor = uniqueString()
+        let fetchRequest = FeedFetchRequest(uid: uniqueString(),
+                                            cursor: cursor,
+                                            limit: limit,
+                                            feedType: feedType)
         
         // when
-        sut.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
+        sut.fetchPosts(request: fetchRequest)
         
         // then
         XCTAssertTrue(postService.fetchRecentQueryCompletionCalled)
@@ -58,9 +62,13 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         let feedType = FeedType.home
         let cursor = uniqueString()
         let limit = Int32(5)
+        let fetchRequest = FeedFetchRequest(uid: uniqueString(),
+                                            cursor: cursor,
+                                            limit: limit,
+                                            feedType: feedType)
         
         // when
-        sut.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
+        sut.fetchPosts(request: fetchRequest)
         
         // then
         XCTAssertTrue(postService.fetchHomeQueryCompletionCalled)
@@ -74,15 +82,20 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         // given
         let feedType = FeedType.popular(type: .today)
         let cursor = uniqueString()
+        let limit = Int32(5)
+        let fetchRequest = FeedFetchRequest(uid: uniqueString(),
+                                            cursor: cursor,
+                                            limit: limit,
+                                            feedType: feedType)
         
         // when
-        sut.fetchPosts(limit: 5, cursor: cursor, feedType: feedType)
+        sut.fetchPosts(request: fetchRequest)
         
         // then
         XCTAssertTrue(postService.fetchPopularQueryCompletionCalled)
         XCTAssertTrue(postService.fetchPopularQueryCompletionReceivedArguments?.query.timeRange == .today )
         XCTAssertTrue(postService.fetchPopularQueryCompletionReceivedArguments?.query.cursor == cursor)
-        XCTAssertTrue(postService.fetchPopularQueryCompletionReceivedArguments?.query.limit == 5)
+        XCTAssertTrue(postService.fetchPopularQueryCompletionReceivedArguments?.query.limit == limit)
     }
     
     func testThatSinglePostFetchFeedRequestIsValid() {
@@ -90,9 +103,13 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         // given
         let handle = uniqueString()
         let feedType = FeedType.single(post: handle)
+        let fetchRequest = FeedFetchRequest(uid: uniqueString(),
+                                            cursor: nil,
+                                            limit: 10,
+                                            feedType: feedType)
         
         // when
-        sut.fetchPosts(feedType: feedType)
+        sut.fetchPosts(request: fetchRequest)
         
         // then
         XCTAssertTrue(postService.fetchPostPostCompletionReceivedArguments?.post == handle)
@@ -104,13 +121,18 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         let user = uniqueString()
         let feedType = FeedType.user(user: user, scope: .recent)
         let cursor = uniqueString()
+        let limit = Int32(20)
+        let fetchRequest = FeedFetchRequest(uid: uniqueString(),
+                                            cursor: cursor,
+                                            limit: limit,
+                                            feedType: feedType)
         
         // when
-        sut.fetchPosts(limit: 20, cursor: cursor, feedType: feedType)
+        sut.fetchPosts(request: fetchRequest)
         
         // then
         XCTAssertTrue(postService.fetchUserRecentQueryCompletionCalled)
-        XCTAssertTrue(postService.fetchUserRecentQueryCompletionReceivedArguments?.query.limit == 20)
+        XCTAssertTrue(postService.fetchUserRecentQueryCompletionReceivedArguments?.query.limit == limit)
         XCTAssertTrue(postService.fetchUserRecentQueryCompletionReceivedArguments?.query.user == user)
         XCTAssertTrue(postService.fetchUserRecentQueryCompletionReceivedArguments?.query.cursor == cursor)
     }
@@ -123,9 +145,13 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         let user = uniqueString()
         let limit = Int32(20)
         let feedType = FeedType.user(user: user, scope: .popular)
+        let fetchRequest = FeedFetchRequest(uid: uniqueString(),
+                                            cursor: cursor,
+                                            limit: limit,
+                                            feedType: feedType)
         
         // when
-        sut.fetchPosts(limit: limit, cursor: cursor, feedType: feedType)
+        sut.fetchPosts(request: fetchRequest)
         
         // then
         XCTAssertTrue(postService.fetchUserPopularQueryCompletionCalled)
@@ -143,9 +169,13 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         let scope = FeedType.UserFeedScope.popular
         let feed = FeedType.user(user: myUserHandle, scope: scope)
         sut.userHolder!.me!.uid = myUserHandle
+        let fetchRequest = FeedFetchRequest(uid: uniqueString(),
+                                            cursor: cursor,
+                                            limit: limit,
+                                            feedType: feed)
         
         // when
-        sut.fetchPosts(limit: limit, cursor: cursor, feedType: feed)
+        sut.fetchPosts(request: fetchRequest)
         
         // then
         XCTAssert(postService.fetchMyPopularQueryCompletionCalled)
@@ -163,8 +193,13 @@ class FeedModuleInteractor_FetchQuery_Tests: XCTestCase {
         let feed = FeedType.user(user: myUserHandle, scope: scope)
         sut.userHolder!.me!.uid = myUserHandle
         
+        let fetchRequest = FeedFetchRequest(uid: uniqueString(),
+                                            cursor: cursor,
+                                            limit: limit,
+                                            feedType: feed)
+        
         // when
-        sut.fetchPosts(limit: limit, cursor: cursor, feedType: feed)
+        sut.fetchPosts(request: fetchRequest)
         
         // then
         XCTAssertTrue(postService.fetchMyPostsQueryCompletionCalled)

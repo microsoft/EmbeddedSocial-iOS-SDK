@@ -16,6 +16,7 @@
 "error.no_item_for" = "No item for %@";
 "error.no_items_received" = "No Items Received";
 "error.user_list_no_api" = "User list module configuration error: API not set.";
+"error.invalid_response" = "Invalid server response";
 
 "common.ok" = "OK";
 "common.cancel" = "Cancel";
@@ -29,6 +30,7 @@
 "common.submit" = "Submit";
 "common.done" = "Done";
 "common.unblock" = "Unblock";
+"common.no_content" = "No content";
 
 "image_picker.take_photo" = "Take photo";
 "image_picker.choose_existing" = "Choose existing";

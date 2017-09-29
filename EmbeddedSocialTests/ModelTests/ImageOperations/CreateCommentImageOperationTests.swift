@@ -44,7 +44,6 @@ class CreateCommentImageOperationTests: CreateImageOperationTests {
         XCTAssertEqual(cache.firstOutgoing_ofType_predicate_sortDescriptors_ReceivedArguments?.predicate, predicate)
         
         XCTAssertTrue(predicateBuilder.createCommentCommandCommentHandleCalled)
-        XCTAssertEqual(predicateBuilder.createCommentCommandCommentHandleReceivedCommentHandle, comment.commentHandle)
     }
     
     func testThatItFinishesWithErrorWhenUploadFails() {

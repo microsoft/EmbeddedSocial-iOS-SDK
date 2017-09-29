@@ -20,7 +20,6 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         case myPins
         case activity
         case settings
-        case debug
     }
     
     enum State: Int {
@@ -59,18 +58,6 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         let vc = UIViewController()
         vc.view.backgroundColor = UIColor.blue
         vc.title = "Dummy"
-        return vc
-    }
-    
-    var builderForDebug: ModuleBuilder = { coordinator in
-        let vc = UIViewController()
-        vc.view.backgroundColor = UIColor.blue
-        vc.title = "Debug"
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { 
-            SocialPlus.shared.logOut()
-        })
-        
         return vc
     }
     

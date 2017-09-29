@@ -24,3 +24,15 @@ extension HandleMixin {
         }
     }
 }
+
+extension HandleMixin where Self: Cacheable {
+    func getHandle() -> String? {
+        return handle
+    }
+    
+    func setHandle(_ handle: String?) {
+        if let handle = handle {
+            self.handle = handle
+        }
+    }
+}

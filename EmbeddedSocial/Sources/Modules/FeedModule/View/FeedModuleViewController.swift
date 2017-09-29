@@ -27,6 +27,7 @@ protocol FeedModuleViewInput: class {
     func setScrolling(enable: Bool)
     
     func getViewHeight() -> CGFloat
+    func needShowNoContent(state: Bool)
     //func getItemSize() -> CGSize
     
     var itemsLimit: Int { get }
@@ -74,6 +75,15 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         return activity
     }()
     
+    lazy var noContentLabel: UILabel = { [unowned self] in
+        let view = UILabel()
+        view.text = L10n.Common.noContent
+        view.sizeToFit()
+        view.isHidden = true
+        
+        return view
+    }()
+    
     lazy var refreshControl: UIRefreshControl = {
         let control = UIRefreshControl()
         control.addTarget(
@@ -104,15 +114,25 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Table
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         self.collectionView.delegate = self
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerReuseID)
         
+        // Navigation
         navigationItem.rightBarButtonItem = layoutChangeButton
         
-        onUpdateBounds()
+
+        // Subviews
+        view.addSubview(noContentLabel)
         
+        noContentLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+
+        // Init Done
+        onUpdateBounds()
         output.viewIsReady()
     }
     
@@ -252,7 +272,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: Input
-    
     func setupInitialState() {
         collectionView.backgroundColor = Palette.extraLightGrey
         collectionView.alwaysBounceVertical = true
@@ -261,6 +280,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     func showError(error: Error) {
         self.showErrorAlert(error)
+    }
+    
+    func needShowNoContent(state: Bool) {
+        noContentLabel.isHidden = !state
     }
     
     func resetFocus() {

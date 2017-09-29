@@ -36,13 +36,14 @@ class CreateCommentOperationTests: XCTestCase {
         let response = PostCommentResponse()
         response.commentHandle = createdComment.commentHandle
         
+        
         let service = MockCommentsService()
         service.postCommentReturnResponse = response
         
         let sut = CreateCommentOperation(command: command, commentsService: service,
                                          predicateBuilder: predicateBuilder, handleUpdater: handleUpdater)
         
-        let predicate = NSPredicate()
+        let predicate = NSPredicate(value: true)
         predicateBuilder.commandsWithRelatedHandleIgnoredTypeIDReturnValue = predicate
         
         // when

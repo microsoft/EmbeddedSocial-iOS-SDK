@@ -83,20 +83,24 @@ protocol PostServiceDelegate: class {
 }
 
 class TopicService: BaseService, PostServiceProtocol {
-    
-    private var imagesService: ImagesServiceType!
-    private var responseParser: FeedResponseParserProtocol!
-    private var otherUserFeedResponseParser: FeedResponseParserProtocol!
 
-    init(imagesService: ImagesServiceType) {
-        super.init()
+    private let imagesService: ImagesServiceType
+    fileprivate let executorProvider: CacheRequestExecutorProviderType.Type
+    private var topicsFeedExecutor: TopicsFeedRequestExecutor!
+    private var otherUserTopicsFeedExecutor: TopicsFeedRequestExecutor!
+    private var singlePostFetchExecuter: SingleTopicRequestExecutor!
+
+    init(imagesService: ImagesServiceType,
+         executorProvider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
+        
         self.imagesService = imagesService
-        responseParser = FeedResponseParser(processor: FeedResponsePostProcessor(cache: cache))
-        otherUserFeedResponseParser = FeedResponseParser(processor: OtherUserFeedResponsePostProcessor(cache: cache))
-    }
-    
-    init() {
+        self.executorProvider = executorProvider
+
         super.init()
+        
+        topicsFeedExecutor = executorProvider.makeTopicsFeedExecutor(for: self)
+        otherUserTopicsFeedExecutor = executorProvider.makeOtherUsersTopicsFeedExecutor(for: self)
+        singlePostFetchExecuter = CacheRequestExecutorProvider.makeSinglePostExecutor(for: self)
     }
     
     func postTopic(_ topic: Post, success: @escaping TopicPosted, failure: @escaping Failure) {
@@ -164,61 +168,71 @@ class TopicService: BaseService, PostServiceProtocol {
     // MARK: GET
     
     func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        let request = PinsAPI.myPinsGetPinsWithRequestBuilder(authorization: authorization,
+        let builder = PinsAPI.myPinsGetPinsWithRequestBuilder(authorization: authorization,
                                                               cursor: query.cursor,
                                                               limit: query.limit)
-        
-        processRequest(request, responseParser: responseParser, completion: completion)
+        execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
     }
     
     func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        let request = SocialAPI.myFollowingGetTopicsWithRequestBuilder(authorization: authorization,
+        let builder = SocialAPI.myFollowingGetTopicsWithRequestBuilder(authorization: authorization,
                                                                        cursor: query.cursor,
                                                                        limit: query.limit)
-        
-        processRequest(request, responseParser: responseParser, completion: completion)
+        execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
     }
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
-        
-        let request = TopicsAPI.topicsGetPopularTopicsWithRequestBuilder(timeRange: query.timeRange,
+        let builder = TopicsAPI.topicsGetPopularTopicsWithRequestBuilder(timeRange: query.timeRange,
                                                                          authorization: authorization,
                                                                          cursor: query.cursorInt(),
                                                                          limit: query.limit)
         
-        processRequest(request, responseParser: responseParser, completion: completion)
+        execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
     }
     
     func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        
-        let request = TopicsAPI.topicsGetTopicsWithRequestBuilder(authorization: authorization,
+        let builder = TopicsAPI.topicsGetTopicsWithRequestBuilder(authorization: authorization,
                                                                   cursor: query.cursor,
                                                                   limit: query.limit)
         
-        processRequest(request, responseParser: responseParser, completion: completion)
+        execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
     }
     
     func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        
-        let request = UsersAPI.userTopicsGetTopicsWithRequestBuilder(userHandle: query.user,
+        let builder = UsersAPI.userTopicsGetTopicsWithRequestBuilder(userHandle: query.user,
                                                                      authorization: authorization,
                                                                      cursor: query.cursor,
                                                                      limit: query.limit)
         
-        processRequest(request, responseParser: otherUserFeedResponseParser, completion: completion)
+        execute(builder: builder, executor: otherUserTopicsFeedExecutor, completion: completion)
     }
     
     func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
-        
-        let request = UsersAPI.userTopicsGetPopularTopicsWithRequestBuilder(userHandle: query.user,
+        let builder = UsersAPI.userTopicsGetPopularTopicsWithRequestBuilder(userHandle: query.user,
                                                                             authorization: authorization,
                                                                             cursor: query.cursorInt(),
                                                                             limit: query.limit)
         
-        processRequest(request, responseParser: otherUserFeedResponseParser, completion: completion)
+        execute(builder: builder, executor: otherUserTopicsFeedExecutor, completion: completion)
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
+        
+        let request = TopicsAPI.topicsGetTopicWithRequestBuilder(topicHandle: post, authorization: authorization)
+        
+        singlePostFetchExecuter.execute(with: request) { (result) in
+            var feedFetchResult = FeedFetchResult()
+            
+            guard let post = result.value else {
+                feedFetchResult.error = result.error ?? APIError.missingUserData
+                completion(feedFetchResult)
+                return
+            }
+            
+            feedFetchResult.posts = [post]
+            completion(feedFetchResult)
+        }
+        
         TopicsAPI.topicsGetTopic(topicHandle: post, authorization: authorization) { (topic, error) in
             
             var result = FeedFetchResult()
@@ -240,20 +254,19 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        
-        let request = UsersAPI.myTopicsGetTopicsWithRequestBuilder(authorization: authorization,
+        let builder = UsersAPI.myTopicsGetTopicsWithRequestBuilder(authorization: authorization,
                                                                    cursor: query.cursor,
                                                                    limit: query.limit)
         
-        processRequest(request, responseParser: responseParser, completion: completion)
+        execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
     }
     
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {
-        let request = UsersAPI.myTopicsGetPopularTopicsWithRequestBuilder(authorization: authorization,
+        let builder = UsersAPI.myTopicsGetPopularTopicsWithRequestBuilder(authorization: authorization,
                                                                           cursor: query.cursorInt(),
                                                                           limit: query.limit)
         
-        processRequest(request, responseParser: responseParser, completion: completion)
+        execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
     }
     
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
@@ -266,64 +279,75 @@ class TopicService: BaseService, PostServiceProtocol {
         }
     }
     
-    // MARK: Private
-    private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
-                                responseParser: FeedResponseParserProtocol,
-                                completion: @escaping FetchResultHandler) {
+    private func execute(builder: RequestBuilder<FeedResponseTopicView>,
+                         executor: TopicsFeedRequestExecutor,
+                         completion: @escaping FetchResultHandler) {
         
-        let requestCacheKey = requestBuilder.URLString
-        
-        // Lookup in cache and return if hit
-        if let result = fetchResultFromCache(by: requestCacheKey, responseParser: responseParser) {
-            
-            completion(result)
-        }
-        
-        guard isNetworkReachable == true else { return }
-        
-        // Request execution
-        requestBuilder.execute { [weak self] (response, error) in
-            
-            guard let strongSelf = self else { return }
-            
-            var result = FeedFetchResult()
-            
-            strongSelf.handleError(error, result: &result)
-            strongSelf.cacheResponse(response?.body, forKey: requestCacheKey)
-            responseParser.parse(response?.body, isCached: false, into: &result)
-
-            completion(result)
+        executor.execute(with: builder) { result in
+            var feed = result.value ?? FeedFetchResult()
+            if let error = result.error {
+                feed.error = FeedServiceError.failedToFetch(message: error.localizedDescription)
+            }
+            completion(feed)
         }
     }
     
-    private func cacheResponse(_ response: FeedResponseTopicView?, forKey key: String) {
-        
-        guard let response = response else { return }
-        
-        cache.cacheIncoming(response, for: key)
-    }
-    
-    private func handleError(_ error: ErrorResponse?, result: inout FeedFetchResult) {
-        
-        guard let error = error else { return }
-        
-        if errorHandler.canHandle(error) {
-            errorHandler.handle(error)
-        } else {
-            let message = error.localizedDescription
-            result.error = FeedServiceError.failedToFetch(message: message)
-        }
-    }
-    
-    private func fetchResultFromCache(by cacheKey: String, responseParser: FeedResponseParserProtocol) -> FeedFetchResult? {
-        
-        guard let cachedResponse = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: cacheKey) else {
-            return nil
-        }
-        
-        var result = FeedFetchResult()
-        responseParser.parse(cachedResponse, isCached: true, into: &result)
-        return result
-    }
+//    // MARK: Private
+//    private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
+//                                responseParser: FeedResponseParserType,
+//                                completion: @escaping FetchResultHandler) {
+//        
+//        let requestCacheKey = requestBuilder.URLString
+//        
+//        // Lookup in cache and return if hit
+//        if let result = fetchResultFromCache(by: requestCacheKey, responseParser: responseParser) {
+//            
+//            completion(result)
+//        }
+//        
+//        guard isNetworkReachable == true else { return }
+//        
+//        // Request execution
+//        requestBuilder.execute { [weak self] (response, error) in
+//            
+//            guard let strongSelf = self else { return }
+//            
+//            var result = FeedFetchResult()
+//            
+//            strongSelf.handleError(error, result: &result)
+//            strongSelf.cacheResponse(response?.body, forKey: requestCacheKey)
+//            responseParser.parse(response?.body, isCached: false, into: &result)
+//            
+//            completion(result)
+//        }
+//    }
+//    
+//    private func execute(builder: RequestBuilder<FeedResponseTopicView>,
+//                         executor: TopicsFeedRequestExecutor,
+//                         completion: @escaping FetchResultHandler) {
+//        
+//        executor.execute(with: builder) { result in
+//            completion(result.value ?? FeedFetchResult())
+//        }
+//    }
+//    
+//    private func cacheResponse(_ response: FeedResponseTopicView?, forKey key: String) {
+//        
+//        guard let response = response else { return }
+//        
+//        cache.cacheIncoming(response, for: key)
+//    }
+//    
+//    private func handleError(_ error: ErrorResponse?, result: inout FeedFetchResult) {
+//        
+//        guard let error = error else { return }
+//        
+//        if errorHandler.canHandle(error) {
+//            errorHandler.handle(error)
+//        } else {
+//            let message = error.localizedDescription
+//            result.error = FeedServiceError.failedToFetch(message: message)
+//        }
+//    }
 }
 

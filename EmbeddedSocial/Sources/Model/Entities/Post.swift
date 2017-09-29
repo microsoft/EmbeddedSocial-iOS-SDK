@@ -168,7 +168,7 @@ struct Feed {
 // MARK: Service Query Result
 struct FeedFetchResult {
     var posts: [Post] = []
-    var error: FeedServiceError?
+    var error: Error?
     var cursor: String?
 }
 

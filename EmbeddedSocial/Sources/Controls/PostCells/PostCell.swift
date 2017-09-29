@@ -166,6 +166,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     // calculates static and dynamic(TextView) items
     func getHeight(with width: CGFloat) -> CGFloat {
         
+        // sum all blocks
         var staticElementsHeight = staticHeigthElements.reduce(0) { result, view in
             return result + view.frame.size.height
         }
@@ -175,15 +176,11 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
             staticElementsHeight -= Constants.FeedModule.Collection.imageHeight
         }
         
-        // TODO: its a heavy calculation function
+        // append text view height (Optimization possible)
         let dynamicHeight = dynamicElement.systemLayoutSizeFitting(self.bounds.size).height
     
         var result = [staticElementsHeight, dynamicHeight].reduce(0.0, +)
         
-        
-        // hacks, small tweaking
-        result += 10
-    
         return result
     }
     

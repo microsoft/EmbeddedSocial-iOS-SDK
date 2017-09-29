@@ -49,6 +49,10 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
             return UnlikeReplyOperation(command: command, likesService: LikesService())
         } else if let command = command as? CreateReplyCommand {
             return CreateReplyOperation(command: command, repliesService: RepliesService())
+        } else if let command = command as? RemoveReplyCommand {
+            return RemoveReplyOperation(command: command, repliesService: RepliesService())
+        } else if let command = command as? ReportReplyCommand {
+            return ReportReplyOperation(command: command, reportService: ReportingService())
         }
         
         // comment commands
@@ -58,6 +62,10 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
             return UnlikeCommentOperation(command: command, likesService: LikesService())
         } else if let command = command as? CreateCommentCommand {
             return CreateCommentOperation(command: command, commentsService: CommentsService(imagesService: ImagesService()))
+        } else if let command = command as? RemoveCommentCommand {
+            return RemoveCommentOperation(command: command, commentService: CommentsService(imagesService: ImagesService()))
+        } else if let command = command as? ReportCommentCommand {
+            return ReportCommentOperation(command: command, reportService: ReportingService())
         }
         
         // image commands

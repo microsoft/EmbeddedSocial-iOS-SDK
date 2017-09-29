@@ -229,6 +229,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         return feedType == .home
     }
     
+    fileprivate func checkIfNoContent() {
+        if isHomeFeedType() {
+            view.needShowNoContent(state: items.count == 0)
+        }
+    }
+    
     private func makeFetchRequest(with cursor: String?, feedType: FeedType) -> FeedFetchRequest {
         let uid = UUID().uuidString
         fetchRequests.insert(uid)
@@ -424,7 +430,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     // MARK: FeedModuleInteractorOutput
-    func didFetch(feed: Feed) {
+    
+    private func processFetchResult(feed: Feed, isMore: Bool) {
         
         guard fetchRequests.contains(feed.fetchID), feedType == feed.feedType else {
             return
@@ -432,9 +439,16 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         
         let cachedNumberOfItems = items.count
         
+        if isMore {
+            appendWithReplacing(original: &items, appending: feed.items)
+        } else {
+            items = feed.items
+        }
+        
         cursor = feed.cursor
         items = feed.items
         
+        // show changes on UI
         let shouldAddItems = items.count > cachedNumberOfItems
         let shouldRemoveItems = items.count < cachedNumberOfItems
         
@@ -450,41 +464,22 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             view.removeItems(with: paths)
         }
         else {
-            Logger.log(items.count, cachedNumberOfItems)
             view.reloadVisible()
         }
+        
+        // Update "No content"
+        checkIfNoContent()
+    }
+    
+    func didFetch(feed: Feed) {
+        processFetchResult(feed: feed, isMore: false)
     }
     
     func didFetchMore(feed: Feed) {
-
-        guard fetchRequests.contains(feed.fetchID), feedType == feed.feedType else {
-            return
-        }
-        
-        let cachedNumberOfItems = items.count
-    
-        cursor = feed.cursor
-        appendWithReplacing(original: &items, appending: feed.items)
-        
-        let needAddNewItems = items.count - cachedNumberOfItems
-        let needRemoveItems = cachedNumberOfItems - items.count
-        
-        if needAddNewItems > 0 {
-            let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
-            view.insertNewItems(with: paths)
-            Logger.log(needRemoveItems, event: .veryImportant)
-        }
-        else if needRemoveItems > 0 {
-            let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
-            view.removeItems(with: paths)
-            Logger.log(needRemoveItems, event: .veryImportant)
-        } else {
-            view.reloadVisible()
-            Logger.log("reloading visible", event: .veryImportant)
-        }
+        processFetchResult(feed: feed, isMore: true)
     }
     
-    func didFail(error: FeedServiceError) {
+    func didFail(error: Error) {
         view.showError(error: error)
     }
     
