@@ -24,19 +24,19 @@ class LinkedAccountsViewController: UITableViewController {
     }
     
     @IBAction func onFacebookSwitch(_ sender: UISwitch) {
-        
+        output.onFacebookSwitchValueChanged(sender.isOn)
     }
     
     @IBAction func onGoogleSwitch(_ sender: UISwitch) {
-        
+        output.onGoogleSwitchValueChanged(sender.isOn)
     }
     
     @IBAction func onMicrosoftSwitch(_ sender: UISwitch) {
-        
+        output.onMicrosoftSwitchValueChanged(sender.isOn)
     }
     
     @IBAction func onTwitterSwitch(_ sender: UISwitch) {
-        
+        output.onTwitterSwitchValueChanged(sender.isOn)
     }
 }
 
@@ -46,20 +46,12 @@ extension LinkedAccountsViewController: LinkedAccountsViewInput {
         tableView.tableFooterView = UIView()
     }
     
-    func setFacebookSwitchOn(_ isOn: Bool) {
-        facebookSwitch.setOn(isOn, animated: true)
+    func setSwitchOn(_ isOn: Bool, for provider: AuthProvider) {
+        switcher(for: provider)?.setOn(isOn, animated: true)
     }
     
-    func setGoogleSwitchOn(_ isOn: Bool) {
-        googleSwitch.setOn(isOn, animated: true)
-    }
-    
-    func setMicrosoftSwitchOn(_ isOn: Bool) {
-        microsoftSwitch.setOn(isOn, animated: true)
-    }
-    
-    func setTwitterSwitchOn(_ isOn: Bool) {
-        twitterSwitch.setOn(isOn, animated: true)
+    func setSwitchEnabled(_ isEnabled: Bool, for provider: AuthProvider) {
+        switcher(for: .google)?.isEnabled = isEnabled
     }
     
     func showError(_ error: Error) {
@@ -71,19 +63,17 @@ extension LinkedAccountsViewController: LinkedAccountsViewInput {
             sw.isEnabled = isEnabled
         }
     }
+    
+    private func switcher(for provider: AuthProvider) -> UISwitch? {
+        switch provider {
+        case .facebook:
+            return facebookSwitch
+        case .google:
+            return googleSwitch
+        case .microsoft:
+            return microsoftSwitch
+        case .twitter:
+            return twitterSwitch
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

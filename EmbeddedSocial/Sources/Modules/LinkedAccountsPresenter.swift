@@ -35,15 +35,58 @@ extension LinkedAccountsPresenter: LinkedAccountsViewOutput {
     }
     
     private func setLinkedAccount(_ linkedAccount: LinkedAccountView) {
-        let switchSetters: [LinkedAccountView.IdentityProvider: (Bool) -> Void] = [
-            .facebook: view.setFacebookSwitchOn,
-            .google: view.setGoogleSwitchOn,
-            .microsoft: view.setMicrosoftSwitchOn,
-            .twitter: view.setTwitterSwitchOn
-        ]
-        
-        if let indentityProvider = linkedAccount.identityProvider {
-            switchSetters[indentityProvider]?(true)
+        if let authProvider = linkedAccount.identityProvider?.authProvider {
+            view.setSwitchOn(true, for: authProvider)
+        }
+    }
+    
+    func onFacebookSwitchValueChanged(_ isOn: Bool) {
+        processSwitchValueChanged(isOn, provider: .facebook)
+    }
+    
+    func onGoogleSwitchValueChanged(_ isOn: Bool) {
+        processSwitchValueChanged(isOn, provider: .google)
+    }
+    
+    func onMicrosoftSwitchValueChanged(_ isOn: Bool) {
+        processSwitchValueChanged(isOn, provider: .microsoft)
+    }
+    
+    func onTwitterSwitchValueChanged(_ isOn: Bool) {
+        processSwitchValueChanged(isOn, provider: .twitter)
+    }
+    
+    private func processSwitchValueChanged(_ isOn: Bool, provider: AuthProvider) {
+        if isOn {
+            login(with: provider)
+        } else {
+            // delete linked account
+        }
+    }
+    
+    private func login(with provider: AuthProvider) {
+        view.setSwitchesEnabled(false)
+
+        interactor.login(with: provider, from: view as? UIViewController) { [weak self] result in
+            guard let authorization = result.value else {
+                self?.view.showError(result.error ?? APIError.unknown)
+                return
+            }
+            
+            self?.interactor.linkAccount(authorization: authorization) { result in
+                self?.view.setSwitchesEnabled(true)
+                
+                if let error = result.error {
+                    self?.view.setSwitchOn(false, for: provider)
+                    self?.view.showError(error)
+                }
+            }
         }
     }
 }
+
+
+
+
+
+

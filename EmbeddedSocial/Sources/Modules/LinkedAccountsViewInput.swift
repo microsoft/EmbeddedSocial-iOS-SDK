@@ -8,13 +8,9 @@ import Foundation
 protocol LinkedAccountsViewInput: class {
     func setupInitialState()
     
-    func setFacebookSwitchOn(_ isOn: Bool)
+    func setSwitchOn(_ isOn: Bool, for provider: AuthProvider)
     
-    func setGoogleSwitchOn(_ isOn: Bool)
-    
-    func setMicrosoftSwitchOn(_ isOn: Bool)
-    
-    func setTwitterSwitchOn(_ isOn: Bool)
+    func setSwitchEnabled(_ isEnabled: Bool, for provider: AuthProvider)
     
     func showError(_ error: Error)
     

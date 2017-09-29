@@ -7,4 +7,10 @@ import Foundation
 
 protocol LinkedAccountsInteractorInput: class {
     func getLinkedAccounts(completion: @escaping (Result<[LinkedAccountView]>) -> Void)
+    
+    func login(with provider: AuthProvider,
+               from viewController: UIViewController?,
+               completion: @escaping (Result<Authorization>) -> Void)
+    
+    func linkAccount(authorization: Authorization, completion: @escaping (Result<Void>) -> Void)
 }

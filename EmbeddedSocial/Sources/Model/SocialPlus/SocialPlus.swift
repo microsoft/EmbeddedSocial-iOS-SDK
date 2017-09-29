@@ -63,7 +63,7 @@ public final class SocialPlus {
         }
         
         let conf = LinkedAccountsConfigurator()
-        conf.configure()
+        conf.configure(sessionToken: sessionStore.sessionToken!)
         coordinator.navigationStack.show(conf.viewController)
     }
     

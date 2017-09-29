@@ -7,4 +7,12 @@ import Foundation
 
 protocol LinkedAccountsViewOutput: class {
     func viewIsReady()
+    
+    func onFacebookSwitchValueChanged(_ isOn: Bool)
+    
+    func onGoogleSwitchValueChanged(_ isOn: Bool)
+
+    func onMicrosoftSwitchValueChanged(_ isOn: Bool)
+
+    func onTwitterSwitchValueChanged(_ isOn: Bool)
 }

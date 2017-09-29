@@ -12,9 +12,14 @@ struct LinkedAccountsConfigurator {
         viewController = StoryboardScene.LinkedAccounts.linkedAccountsViewController.instantiate()
     }
     
-    func configure() {
+    func configure(sessionToken: String) {
         let presenter = LinkedAccountsPresenter()
-        presenter.interactor = LinkedAccountsInteractor(usersService: UserService(imagesService: ImagesService()))
+        
+        let usersService = UserService(imagesService: ImagesService())
+        let authService = AuthService(apiProvider: AuthAPIProvider())
+        presenter.interactor = LinkedAccountsInteractor(usersService: usersService,
+                                                        authService: authService,
+                                                        sessionToken: sessionToken)
         presenter.view = viewController
         
         viewController.output = presenter

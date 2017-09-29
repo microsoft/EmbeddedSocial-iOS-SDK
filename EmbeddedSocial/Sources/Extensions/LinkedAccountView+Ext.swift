@@ -13,3 +13,21 @@ extension LinkedAccountView {
         identityProvider = IdentityProvider(rawValue: json["identityProvider"] as? String ?? "")
     }
 }
+
+extension LinkedAccountView.IdentityProvider {
+    
+    var authProvider: AuthProvider? {
+        switch self {
+        case .facebook:
+            return .facebook
+        case .google:
+            return .google
+        case .microsoft:
+            return .microsoft
+        case .twitter:
+            return .twitter
+        default:
+            return nil
+        }
+    }
+}

@@ -21,6 +21,8 @@ protocol UserServiceType {
     func updateVisibility(to visibility: Visibility, completion: @escaping (Result<Void>) -> Void)
     
     func getLinkedAccounts(completion: @escaping (Result<[LinkedAccountView]>) -> Void)
+    
+    func linkAccount(authorization: Authorization, sessionToken: String, completion: @escaping (Result<Void>) -> Void)
 }
 
 class UserService: BaseService, UserServiceType {
@@ -139,7 +141,7 @@ class UserService: BaseService, UserServiceType {
         request.bio = user.bio
         
         UsersAPI.usersPutUserInfo(request: request, authorization: authorization) { response, error in
-            self.processResult(response, error, completion: completion)
+            self.processResult(response, error, completion)
         }
     }
     
@@ -147,15 +149,17 @@ class UserService: BaseService, UserServiceType {
         let request = PutUserVisibilityRequest()
         request.visibility = PutUserVisibilityRequest.Visibility(rawValue: visibility.rawValue)
         UsersAPI.usersPutUserVisibility(request: request, authorization: authorization) { response, error in
-            self.processResult(response, error, completion: completion)
+            self.processResult(response, error, completion)
         }
     }
     
-    private func processResult(_ data: Object?, _ error: ErrorResponse?, completion: @escaping (Result<Void>) -> Void) {
-        if error == nil {
-            completion(.success())
-        } else {
-            self.errorHandler.handle(error: error, completion: completion)
+    private func processResult(_ data: Object?, _ error: ErrorResponse?, _ completion: @escaping (Result<Void>) -> Void) {
+        DispatchQueue.main.async {
+            if error == nil {
+                completion(.success())
+            } else {
+                self.errorHandler.handle(error: error, completion: completion)
+            }
         }
     }
     
@@ -167,10 +171,22 @@ class UserService: BaseService, UserServiceType {
                 let intermediateJson = try? JSONSerialization.jsonObject(with: data!, options: [])
                 let json = intermediateJson as? [[String: Any]]
                 let accounts = json?.map(LinkedAccountView.init) ?? []
-                completion(.success(accounts))
+                DispatchQueue.main.async {
+                    completion(.success(accounts))
+                }
             } else {
                 self.errorHandler.handle(error: error, completion: completion)
             }
         }
     }
+    
+    func linkAccount(authorization: Authorization, sessionToken: String, completion: @escaping (Result<Void>) -> Void) {
+        let request = PostLinkedAccountRequest()
+        request.sessionToken = sessionToken
+        
+        UsersAPI.myLinkedAccountsPostLinkedAccount(request: request, authorization: authorization) { response, error in
+            self.processResult(response, error, completion)
+        }
+    }
 }
+
