@@ -10,7 +10,7 @@ final class SearchTopicsConfigurator {
     private(set) var moduleInput: SearchTopicsModuleInput!
     
     init() {
-        viewController = StoryboardScene.SearchTopics.instantiateSearchTopicsViewController()
+        viewController = StoryboardScene.SearchTopics.searchTopicsViewController.instantiate()
     }
     
     func configure(navigationController: UINavigationController?, output: SearchTopicsModuleOutput?) {

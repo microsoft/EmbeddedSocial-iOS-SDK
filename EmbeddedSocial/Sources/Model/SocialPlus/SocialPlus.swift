@@ -61,6 +61,10 @@ public final class SocialPlus {
         } else {
             coordinator.openPopularScreen()
         }
+        
+        let conf = LinkedAccountsConfigurator()
+        conf.configure()
+        coordinator.navigationStack.show(conf.viewController)
     }
     
     fileprivate func startSession(with info: SessionInfo) {

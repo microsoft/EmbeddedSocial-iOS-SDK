@@ -9,7 +9,7 @@ final class FollowersConfigurator {
     let viewController: FollowersViewController
     
     init() {
-        viewController = StoryboardScene.Followers.instantiateFollowersViewController()
+        viewController = StoryboardScene.Followers.followersViewController.instantiate()
         viewController.title = L10n.Followers.screenTitle
     }
     

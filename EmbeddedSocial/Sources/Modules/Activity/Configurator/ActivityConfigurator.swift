@@ -15,7 +15,7 @@ class ActivityModuleConfigurator {
         let router = ActivityRouter()
         router.navigationController = navigationController
         
-        viewController = StoryboardScene.Activity.instantiateActivityViewController()
+        viewController = StoryboardScene.Activity.activityViewController.instantiate()
 
         let interactor = ActivityInteractor()
         

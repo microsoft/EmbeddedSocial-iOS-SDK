@@ -15,7 +15,7 @@ class CommentRepliesModuleConfigurator {
     let viewController: CommentRepliesViewController
     
     init() {
-        viewController = StoryboardScene.CommentReplies.instantiateCommentRepliesViewController()
+        viewController = StoryboardScene.CommentReplies.commentRepliesViewController.instantiate()
     }
     
     func configure(commentModule: CommentCellModuleProtocol,

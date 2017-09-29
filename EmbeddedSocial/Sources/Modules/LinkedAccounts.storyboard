@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Linked Accounts View Controller-->
+        <scene sceneID="uhf-g2-Fmi">
+            <objects>
+                <tableViewController storyboardIdentifier="LinkedAccountsViewController" id="xCa-sh-OsW" customClass="LinkedAccountsViewController" customModule="EmbeddedSocial" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6EZ-Xt-iEg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="roV-uR-CGz">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="3XD-HW-gvI">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3XD-HW-gvI" id="eX9-qt-Maq">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gEH-Ew-hPh">
+                                                    <rect key="frame" x="318" y="6" width="51" height="31"/>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Facebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5xC-9B-HEf">
+                                                    <rect key="frame" x="16" y="13" width="286" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gEH-Ew-hPh" firstAttribute="leading" secondItem="5xC-9B-HEf" secondAttribute="trailing" constant="16" id="0On-wv-LSV"/>
+                                                <constraint firstItem="gEH-Ew-hPh" firstAttribute="centerY" secondItem="eX9-qt-Maq" secondAttribute="centerY" id="2Ux-Hw-on4"/>
+                                                <constraint firstItem="5xC-9B-HEf" firstAttribute="centerY" secondItem="eX9-qt-Maq" secondAttribute="centerY" id="EwJ-dM-KYv"/>
+                                                <constraint firstItem="5xC-9B-HEf" firstAttribute="leading" secondItem="eX9-qt-Maq" secondAttribute="leading" constant="16" id="XQ3-eK-g5Q"/>
+                                                <constraint firstAttribute="trailing" secondItem="gEH-Ew-hPh" secondAttribute="trailing" constant="8" id="dGA-5a-rGu"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ukO-Ts-TQ9">
+                                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ukO-Ts-TQ9" id="AS8-bi-a3A">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1xw-uv-s3b">
+                                                    <rect key="frame" x="318" y="6" width="51" height="31"/>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Google" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lYC-4n-irY">
+                                                    <rect key="frame" x="16" y="13" width="286" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="1xw-uv-s3b" secondAttribute="trailing" constant="8" id="0qJ-sb-DoQ"/>
+                                                <constraint firstItem="1xw-uv-s3b" firstAttribute="centerY" secondItem="AS8-bi-a3A" secondAttribute="centerY" id="AvN-Jh-CbH"/>
+                                                <constraint firstItem="lYC-4n-irY" firstAttribute="centerY" secondItem="AS8-bi-a3A" secondAttribute="centerY" id="NvB-jv-wcm"/>
+                                                <constraint firstItem="1xw-uv-s3b" firstAttribute="leading" secondItem="lYC-4n-irY" secondAttribute="trailing" constant="16" id="YJp-Ka-D7j"/>
+                                                <constraint firstItem="lYC-4n-irY" firstAttribute="leading" secondItem="AS8-bi-a3A" secondAttribute="leading" constant="16" id="zw8-jU-eOl"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="XAs-Mv-fsu">
+                                        <rect key="frame" x="0.0" y="88" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XAs-Mv-fsu" id="ml2-J1-nDU">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Ak-Ke-Wlv">
+                                                    <rect key="frame" x="318" y="6" width="51" height="31"/>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Microsoft" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H5b-ew-gwh">
+                                                    <rect key="frame" x="16" y="13" width="286" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="0Ak-Ke-Wlv" secondAttribute="trailing" constant="8" id="4hG-pb-ru5"/>
+                                                <constraint firstItem="0Ak-Ke-Wlv" firstAttribute="leading" secondItem="H5b-ew-gwh" secondAttribute="trailing" constant="16" id="5bS-pv-hbg"/>
+                                                <constraint firstItem="H5b-ew-gwh" firstAttribute="centerY" secondItem="ml2-J1-nDU" secondAttribute="centerY" id="Ckc-a6-AMH"/>
+                                                <constraint firstItem="0Ak-Ke-Wlv" firstAttribute="centerY" secondItem="ml2-J1-nDU" secondAttribute="centerY" id="YAL-9y-gl0"/>
+                                                <constraint firstItem="H5b-ew-gwh" firstAttribute="leading" secondItem="ml2-J1-nDU" secondAttribute="leading" constant="16" id="mTZ-gu-DkF"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ft3-kN-Z7Q">
+                                        <rect key="frame" x="0.0" y="132" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ft3-kN-Z7Q" id="g4F-5B-wgB">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xhG-fe-wIN">
+                                                    <rect key="frame" x="318" y="6" width="51" height="31"/>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Twitter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QBS-pv-6R0">
+                                                    <rect key="frame" x="16" y="13" width="286" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="QBS-pv-6R0" firstAttribute="leading" secondItem="g4F-5B-wgB" secondAttribute="leading" constant="16" id="8jI-tr-i7V"/>
+                                                <constraint firstAttribute="trailing" secondItem="xhG-fe-wIN" secondAttribute="trailing" constant="8" id="GOH-PE-vR0"/>
+                                                <constraint firstItem="xhG-fe-wIN" firstAttribute="leading" secondItem="QBS-pv-6R0" secondAttribute="trailing" constant="16" id="Jdr-cs-I6Z"/>
+                                                <constraint firstItem="xhG-fe-wIN" firstAttribute="centerY" secondItem="g4F-5B-wgB" secondAttribute="centerY" id="XAk-Pn-ygM"/>
+                                                <constraint firstItem="QBS-pv-6R0" firstAttribute="centerY" secondItem="g4F-5B-wgB" secondAttribute="centerY" id="c0K-cX-Rkj"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="xCa-sh-OsW" id="TCX-TN-0jL"/>
+                            <outlet property="delegate" destination="xCa-sh-OsW" id="e5v-TT-1YZ"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="facebookSwitch" destination="gEH-Ew-hPh" id="NZz-hL-5TX"/>
+                        <outlet property="googleSwitch" destination="1xw-uv-s3b" id="2Y0-Io-jlc"/>
+                        <outlet property="microsoftSwitch" destination="0Ak-Ke-Wlv" id="Zxn-Zx-oOV"/>
+                        <outlet property="twitterSwitch" destination="xhG-fe-wIN" id="IQy-51-AUl"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r1G-jd-wHf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="381.60000000000002" y="-687.7061469265368"/>
+        </scene>
+    </scenes>
+</document>

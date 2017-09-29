@@ -15,7 +15,7 @@ final class ReportRouter: ReportRouterInput {
     }
     
     func openReportSuccess(onDone: (() -> Void)?) {
-        let vc = StoryboardScene.Report.instantiateReportSubmittedViewController()
+        let vc = StoryboardScene.Report.reportSubmittedViewController.instantiate()
         vc.title = L10n.Report.screenTitle
         vc.onDone = onDone
         navigationController?.pushViewController(vc, animated: true)

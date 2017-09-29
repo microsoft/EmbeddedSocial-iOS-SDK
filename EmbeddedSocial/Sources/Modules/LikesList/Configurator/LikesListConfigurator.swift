@@ -10,7 +10,7 @@ struct LikesListConfigurator {
     let viewController: LikesListViewController
     
     init() {
-        viewController = StoryboardScene.LikesList.instantiateLikesListViewController()
+        viewController = StoryboardScene.LikesList.likesListViewController.instantiate()
         viewController.title = L10n.LikesList.screenTitle
     }
     

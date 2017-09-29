@@ -10,7 +10,7 @@ class CreateAccountConfigurator {
     let viewController: CreateAccountViewController
     
     init() {
-        viewController = StoryboardScene.CreateAccount.instantiateCreateAccountViewController()
+        viewController = StoryboardScene.CreateAccount.createAccountViewController.instantiate()
     }
 
     func configure(user: User, moduleOutput: CreateAccountModuleOutput?) {

@@ -9,7 +9,7 @@ final class FollowingConfigurator {
     let viewController: FollowingViewController
     
     init() {
-        viewController = StoryboardScene.Following.instantiateFollowingViewController()
+        viewController = StoryboardScene.Following.followingViewController.instantiate()
         viewController.title = L10n.Following.screenTitle
     }
     

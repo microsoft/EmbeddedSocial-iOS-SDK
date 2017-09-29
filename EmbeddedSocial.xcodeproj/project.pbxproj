@@ -214,6 +214,9 @@
 		8836496A1F6BCF9A00D552C2 /* FollowingNoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883649691F6BCF9A00D552C2 /* FollowingNoDataView.swift */; };
 		8836496C1F6BCFBC00D552C2 /* FollowingNoDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8836496B1F6BCFBC00D552C2 /* FollowingNoDataView.xib */; };
 		8837201E1F7D331200694A2E /* SearchTopicsFeedResponseProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8837201D1F7D331200694A2E /* SearchTopicsFeedResponseProcessorTests.swift */; };
+		883720211F7D439A00694A2E /* LinkedAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883720201F7D439A00694A2E /* LinkedAccountsViewController.swift */; };
+		883720231F7D43B000694A2E /* LinkedAccounts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 883720221F7D43B000694A2E /* LinkedAccounts.storyboard */; };
+		883720271F7D457300694A2E /* LinkedAccountsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883720261F7D457300694A2E /* LinkedAccountsConfigurator.swift */; };
 		883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */; };
 		883B9B601F276BCF00D1E66E /* TestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B5E1F276BCF00D1E66E /* TestModel.xcdatamodeld */; };
 		883B9B641F2776E600D1E66E /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B631F2776E600D1E66E /* Item.swift */; };
@@ -1239,6 +1242,9 @@
 		883649691F6BCF9A00D552C2 /* FollowingNoDataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingNoDataView.swift; sourceTree = "<group>"; };
 		8836496B1F6BCFBC00D552C2 /* FollowingNoDataView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FollowingNoDataView.xib; sourceTree = "<group>"; };
 		8837201D1F7D331200694A2E /* SearchTopicsFeedResponseProcessorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTopicsFeedResponseProcessorTests.swift; sourceTree = "<group>"; };
+		883720201F7D439A00694A2E /* LinkedAccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsViewController.swift; sourceTree = "<group>"; };
+		883720221F7D43B000694A2E /* LinkedAccounts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LinkedAccounts.storyboard; sourceTree = "<group>"; };
+		883720261F7D457300694A2E /* LinkedAccountsConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsConfigurator.swift; sourceTree = "<group>"; };
 		883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModelTests.swift; sourceTree = "<group>"; };
 		883B9B5F1F276BCF00D1E66E /* TestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModel.xcdatamodel; sourceTree = "<group>"; };
 		883B9B631F2776E600D1E66E /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -2678,6 +2684,32 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		8837201F1F7D438C00694A2E /* LinkedAccounts */ = {
+			isa = PBXGroup;
+			children = (
+				883720251F7D456600694A2E /* Configurator */,
+				883720241F7D455F00694A2E /* View */,
+			);
+			name = LinkedAccounts;
+			sourceTree = "<group>";
+		};
+		883720241F7D455F00694A2E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				883720201F7D439A00694A2E /* LinkedAccountsViewController.swift */,
+				883720221F7D43B000694A2E /* LinkedAccounts.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		883720251F7D456600694A2E /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				883720261F7D457300694A2E /* LinkedAccountsConfigurator.swift */,
+			);
+			name = Configurator;
+			sourceTree = "<group>";
+		};
 		883BFFCA1F710A3200E1C4E3 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
@@ -3172,6 +3204,7 @@
 		88580B2D1F2213AB00C1CBAF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				8837201F1F7D438C00694A2E /* LinkedAccounts */,
 				0040C130E7A65D00DDE73FAB /* Activity */,
 				883E1E361F546507004B4861 /* BlockedUsers */,
 				A79504C3F9B495F629E1F3B5 /* CommentCell */,
@@ -5651,6 +5684,7 @@
 				9C0963761F67CA8900E70C30 /* ActivityUserRequestCell.xib in Resources */,
 				88580C631F2213AB00C1CBAF /* MenuStack.storyboard in Resources */,
 				9C0963741F67CA6C00E70C30 /* ActivityRecentSection.xib in Resources */,
+				883720231F7D43B000694A2E /* LinkedAccounts.storyboard in Resources */,
 				88BC5C541F2B65D0001FBDD2 /* UserProfile.storyboard in Resources */,
 				3234AD1B1F2E70C3009C3327 /* PostCellCompact.xib in Resources */,
 				9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */,
@@ -5915,6 +5949,7 @@
 				88580C601F2213AB00C1CBAF /* SideMenuRouter.swift in Sources */,
 				8864C83A1F46DBC200ADCE13 /* SearchPeoplePresenter.swift in Sources */,
 				88C682571F7A4D91004BD291 /* FollowRequestsInteractor.swift in Sources */,
+				883720271F7D457300694A2E /* LinkedAccountsConfigurator.swift in Sources */,
 				9C4B6F831F74E4CF001AA5BB /* ActivityViewModels.swift in Sources */,
 				88B94EC31F62AA1C002392F9 /* SearchTopicsModuleInput.swift in Sources */,
 				88FFFA7C1F30BB5E0066A1A0 /* FollowersViewInput.swift in Sources */,
@@ -6313,6 +6348,7 @@
 				88580C3E1F2213AB00C1CBAF /* CreateAccountViewOutput.swift in Sources */,
 				88580BB41F2213AB00C1CBAF /* SubtitleTableCell.swift in Sources */,
 				88B94EBA1F62A8B4002392F9 /* SearchTopicsViewInput.swift in Sources */,
+				883720211F7D439A00694A2E /* LinkedAccountsViewController.swift in Sources */,
 				88580C581F2213AB00C1CBAF /* LoginViewOutput.swift in Sources */,
 				88635D8B1F25D96800577140 /* TransactionsDatabaseFacade.swift in Sources */,
 				88580BC11F2213AB00C1CBAF /* UIImage+Resize.swift in Sources */,

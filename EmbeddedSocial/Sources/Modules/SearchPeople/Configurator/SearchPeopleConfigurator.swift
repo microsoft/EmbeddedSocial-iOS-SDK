@@ -10,7 +10,7 @@ final class SearchPeopleConfigurator {
     private(set) var moduleInput: SearchPeopleModuleInput!
     
     init() {
-        viewController = StoryboardScene.SearchPeople.instantiateSearchPeopleViewController()
+        viewController = StoryboardScene.SearchPeople.searchPeopleViewController.instantiate()
     }
     
     func configure(isLoggedInUser: Bool, navigationController: UINavigationController?, output: SearchPeopleModuleOutput?) {
