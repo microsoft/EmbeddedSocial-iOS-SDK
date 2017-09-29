@@ -3204,7 +3204,6 @@
 		88580B2D1F2213AB00C1CBAF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				8837201F1F7D438C00694A2E /* LinkedAccounts */,
 				0040C130E7A65D00DDE73FAB /* Activity */,
 				883E1E361F546507004B4861 /* BlockedUsers */,
 				A79504C3F9B495F629E1F3B5 /* CommentCell */,
@@ -3218,6 +3217,7 @@
 				88FFFA6D1F30B9720066A1A0 /* Followers */,
 				8875CCDB1F331CB3001F2474 /* Following */,
 				8834A7541F5063B800F1D383 /* LikesList */,
+				8837201F1F7D438C00694A2E /* LinkedAccounts */,
 				88580B581F2213AB00C1CBAF /* Login */,
 				9C2D9C001F4ADEE6001514C3 /* Popular */,
 				93AC65841F3E056F00FE5A3A /* PostDetail */,
@@ -3910,6 +3910,13 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		8892F2631F7E977A00A58D8B /* LinkedAccounts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = LinkedAccounts;
+			sourceTree = "<group>";
+		};
 		8895108B1F3B5589001A53F5 /* SocialPlus */ = {
 			isa = PBXGroup;
 			children = (
@@ -3972,6 +3979,7 @@
 		889AFC071F220BCD003AAF19 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				8892F2631F7E977A00A58D8B /* LinkedAccounts */,
 				9CEE0EDC1F6FE3E1008B1104 /* Activity */,
 				88E3AC161F5562A10016357F /* BlockedUsers */,
 				639A94371F5D2F8200EB0253 /* CommentCell */,
