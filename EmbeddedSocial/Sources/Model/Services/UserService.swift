@@ -19,6 +19,8 @@ protocol UserServiceType {
     func updateProfile(me: User, completion: @escaping (Result<User>) -> Void)
     
     func updateVisibility(to visibility: Visibility, completion: @escaping (Result<Void>) -> Void)
+    
+    func getLinkedAccounts(completion: @escaping (Result<[LinkedAccountView]>) -> Void)
 }
 
 class UserService: BaseService, UserServiceType {
@@ -154,6 +156,16 @@ class UserService: BaseService, UserServiceType {
             completion(.success())
         } else {
             self.errorHandler.handle(error: error, completion: completion)
+        }
+    }
+    
+    func getLinkedAccounts(completion: @escaping (Result<[LinkedAccountView]>) -> Void) {
+        UsersAPI.myLinkedAccountsGetLinkedAccounts(authorization: authorization) { accounts, error in
+            if let accounts = accounts {
+                completion(.success(accounts))
+            } else {
+                self.errorHandler.handle(error: error, completion: completion)
+            }
         }
     }
 }
