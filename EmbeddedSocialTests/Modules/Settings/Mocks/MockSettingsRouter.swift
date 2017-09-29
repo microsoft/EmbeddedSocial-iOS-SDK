@@ -12,4 +12,15 @@ final class MockSettingsRouter: SettingsRouterInput {
     func openBlockedList() {
         openBlockedListCount += 1
     }
+    
+    
+    // MARK: - openLinkedAccounts
+    
+    var openLinkedAccountsCalled = false
+    var openLinkedAccountsInputSessionToken: String?
+    
+    func openLinkedAccounts(sessionToken: String) {
+        openLinkedAccountsCalled = true
+        openLinkedAccountsInputSessionToken = sessionToken
+    }
 }
