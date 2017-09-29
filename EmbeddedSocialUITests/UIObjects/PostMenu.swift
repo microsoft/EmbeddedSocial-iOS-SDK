@@ -10,7 +10,7 @@ enum PostMenuItem: String {
     case unfollow = "Unfollow"
     case block    = "Block"
     case unblock  = "Unblock"
-    case report   = "Report"
+    case report   = "Report post"
     case hide     = "Hide"
     case cancel   = "Cancel"
     
