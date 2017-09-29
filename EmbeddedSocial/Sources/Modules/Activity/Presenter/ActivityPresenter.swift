@@ -7,7 +7,7 @@ protocol ActivityModuleInput: class {
     
 }
 
-typealias Section = SectionModel<SectionHeader, ActivityItem>
+typealias Section = PagesListModel<SectionHeader, ActivityItem>
 
 class ActivityPresenter {
     
@@ -90,34 +90,44 @@ class ActivityPresenter {
     private func onStateDidChange() {
         // load/update feed
         view.reloadItems()
-        loadMore()
+        loadAll()
     }
 }
 
 extension ActivityPresenter: DataSourceDelegate {
+    func didChangeItems(change: Change<IndexPath>, context: DataSourceContext) {
+        guard state == context.state else {
+            return
+        }
+        
+        switch change {
+        case let .update(items):
+            view.reloadItems(indexes: items)
+        case let .insertion(items):
+            view.addNewItems(indexes: items)
+        case let .deletion(items):
+            view.removeItems(indexes: items)
+        }
+    }
     
     func didFail(error: Error) {
-        Logger.log(error, event: .veryImportant)
+        view.showError(error)
     }
     
     func didLoad(indexPaths: [IndexPath], context: DataSourceContext) {
-        
-        guard state == context.state else { return }
-        view.addNewItems(indexes: indexPaths)
+        guard state == context.state else {
+            return
+        }
     }
-    
 }
 
 extension ActivityPresenter: ActivityModuleInput {
-    
     func handleCellEvent(indexPath: IndexPath, event: ActivityCellEvent) {
-        
         let dataSource = dataSources[state]![indexPath.section]
         let item = dataSource.section.items[indexPath.item]
         let action = actionBuilder.build(from: item, with: event, dataSource: dataSource)
         action.execute()
     }
-    
 }
 
 extension ActivityPresenter: ActivityInteractorOutput {
@@ -131,16 +141,18 @@ extension ActivityPresenter: ActivityViewOutput {
         self.state = state
     }
     
-    func loadAll() {
-        // release data sources
-        dataSources = makeDataSources()
-        view.reloadItems()
-        // load
-        loadMore()
-    }
-
     func loadMore() {
         dataSources[state]?.forEach { $0.loadMore() }
+    }
+    
+    func loadAll() {
+        // wipe data sources
+        dataSources = makeDataSources()
+        
+        // re-load view
+        view.reloadItems()
+        // re-load data stores
+        dataSources[state]?.forEach { $0.load() }
     }
     
     func cellIdentifier(for indexPath: IndexPath) -> String {
@@ -162,7 +174,7 @@ extension ActivityPresenter: ActivityViewOutput {
     }
     
     func headerForSection(_ section: Int) -> String {
-        return dataSources[state]![section].section.model.name
+        return dataSources[state]![section].section.header.name
     }
     
     func numberOfSections() -> Int {
@@ -176,6 +188,6 @@ extension ActivityPresenter: ActivityViewOutput {
     
     func viewIsReady() {
         registerCells()
-        loadMore()
+        loadAll()
     }
 }

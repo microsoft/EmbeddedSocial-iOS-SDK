@@ -39,9 +39,16 @@ class ActivityBaseCell: UITableViewCell {
         return view
     }()
     
+    let actionIcon: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+    
     func setup() {
         backgroundColor = Style.backgroundColor
         addSubview(profileImage)
+        addSubview(actionIcon)
         
         profileImage.snp.makeConstraints {
             $0.left.equalToSuperview().offset(Style.insets.left)
@@ -50,6 +57,13 @@ class ActivityBaseCell: UITableViewCell {
             $0.height.equalToSuperview().multipliedBy(Style.imagesHeightRatio).priority(.medium)
             $0.width.equalTo(profileImage.snp.height)
             $0.centerY.equalToSuperview()
+        }
+        
+        actionIcon.snp.makeConstraints {
+            $0.bottom.equalTo(profileImage)
+            $0.right.equalTo(profileImage)
+            $0.height.equalTo(Style.actionIconSize)
+            $0.width.equalTo(actionIcon.snp.height)
         }
     }
 }
@@ -103,17 +117,20 @@ class FollowRequestCell: ActivityBaseCell {
         return button
     }()
     
+    var isLoading = false {
+        didSet {
+            rejectButton.setEnabledUpdatingOpacity(!isLoading)
+            acceptButton.setEnabledUpdatingOpacity(!isLoading)
+        }
+    }
+    
     @objc func onAccept() {
-        backgroundColor = UIColor.gray
-        
         guard let path = indexPath(self) else { return }
         
         onAction?(path, .accept)
     }
     
     @objc func onReject() {
-        backgroundColor = UIColor.red
-        
         guard let path = indexPath(self) else { return }
         
         onAction?(path, .reject)
@@ -130,7 +147,7 @@ class ActivityCell: ActivityBaseCell {
     
     let postImage: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFit
+        view.contentMode = .scaleAspectFill
         return view
     }()
     
@@ -189,6 +206,7 @@ extension ActivityBaseCell {
         static let imagesHeightRatio = 0.6
         static let buttonsHeightRatio = 0.18
         static let acceptButtonRatio = (65.0 / 48.0)
+        static let actionIconSize = 20
         
         struct Fonts {
             static let normal = UIFont.systemFont(ofSize: 12)

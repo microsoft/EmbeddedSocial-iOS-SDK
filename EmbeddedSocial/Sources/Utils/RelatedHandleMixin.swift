@@ -24,3 +24,15 @@ extension RelatedHandleMixin {
         }
     }
 }
+
+extension RelatedHandleMixin where Self: Cacheable {
+    func getRelatedHandle() -> String? {
+        return relatedHandle
+    }
+    
+    func setRelatedHandle(_ relatedHandle: String?) {
+        if let relatedHandle = relatedHandle {
+            self.relatedHandle = relatedHandle
+        }
+    }
+}

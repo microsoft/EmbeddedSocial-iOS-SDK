@@ -32,7 +32,6 @@ protocol NavigationStackProtocol {
 public class NavigationStack: NavigationStackProtocol {
     
     private(set) var navigationController: UINavigationController
-    private var container: NavigationStackContainer
     private var window: UIWindow
     private var menuStackController: MenuStackController!
     private var presentedModal: UIViewController?
@@ -46,10 +45,8 @@ public class NavigationStack: NavigationStackProtocol {
     }
     
     func show(_ viewController: UIViewController) {
-//        container.show(viewController: viewController)
-        
-        let image = UIImage(named: "icon_hamburger", in: Bundle(for: type(of: self)), compatibleWith: nil)!
-        viewController.addLeftBarButtonWithImage(image)
+    
+        viewController.addLeftBarButtonWithImage(Asset.iconHamburger.image)
         viewController.slideMenuController()?.removeLeftGestures()
         viewController.slideMenuController()?.addLeftGestures()
         
@@ -79,14 +76,12 @@ public class NavigationStack: NavigationStackProtocol {
         navigationController.showErrorAlert(error)
     }
     
+    static let vc = UIViewController()
     init(window: UIWindow, menuViewController: UIViewController) {
         
         self.window = window
-        
-        // container for all View Controllers shown through framework
-        container = StoryboardScene.MenuStack.instantiateNavigationStackContainer()
-        // container is embedded into navigation controller
-        navigationController = UINavigationController(rootViewController: self.container)
+ 
+        navigationController = UINavigationController()
         
         menuStackController = MenuStackController(mainViewController: navigationController,
                                             leftMenuViewController: menuViewController)

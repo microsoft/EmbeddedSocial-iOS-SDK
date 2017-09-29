@@ -90,7 +90,7 @@ final class OutgoingCommandsUploadStrategy: OutgoingCommandsUploadStrategyType {
                 let error = op?.error
                 
                 guard error == nil else {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    DispatchQueue.main.async {
                         self?.delegate?.outgoingCommandsSubmissionDidFail(with: error!)
                     }
                     return
@@ -130,23 +130,27 @@ extension OutgoingCommandsUploadStrategy.Step {
     }
     
     static var topicActions: Step {
-        return Step(predicate: PredicateBuilder().allTopicActionCommands(), next: createComments)
+        return Step(predicate: PredicateBuilder().allTopicActionCommands(), next: createDeleteComments)
     }
     
-    static var createComments: Step {
-        return Step(predicate: PredicateBuilder().createCommentCommands(), next: commentActions)
+    static var createDeleteComments: Step {
+        return Step(predicate: PredicateBuilder().createDeleteCommentCommands(), next: commentActions)
     }
     
     static var commentActions: Step {
-        return Step(predicate: PredicateBuilder().commentActionCommands(), next: createReplies)
+        return Step(predicate: PredicateBuilder().commentActionCommands(), next: createDeleteReplies)
     }
     
-    static var createReplies: Step {
-        return Step(predicate: PredicateBuilder().createReplyCommands(), next: replyActions)
+    static var createDeleteReplies: Step {
+        return Step(predicate: PredicateBuilder().createDeleteReplyCommands(), next: replyActions)
     }
     
     static var replyActions: Step {
-        return Step(predicate: PredicateBuilder().replyActionCommands(), next: nil)
+        return Step(predicate: PredicateBuilder().replyActionCommands(), next: userActions)
+    }
+    
+    static var userActions: Step {
+        return Step(predicate: PredicateBuilder().allUserCommands(), next: nil)
     }
 }
 

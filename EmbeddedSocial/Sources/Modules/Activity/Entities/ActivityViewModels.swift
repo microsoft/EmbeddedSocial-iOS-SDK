@@ -10,10 +10,6 @@ protocol ActivityItemViewModel {
     var cellClass: UITableViewCell.Type { get set }
 }
 
-protocol ActivityItemCellConfigurable {
-    func configure(with viewModel: ActivityItemViewModel)
-}
-
 struct PendingRequestViewModel: ActivityItemViewModel {
     var cellID: String
     var cellClass: UITableViewCell.Type
@@ -27,6 +23,7 @@ struct ActivityViewModel: ActivityItemViewModel {
     var cellID: String
     var cellClass: UITableViewCell.Type
     
+    let iconImage: Asset?
     let profileImagePlaceholder = Asset.userPhotoPlaceholder
     let profileImage: String?
     let postImagePlaceholder: Asset?
@@ -49,14 +46,31 @@ class ActivityItemViewModelBuilder {
             return OthersActivityItemViewModelBuilder.build(from: model)
         }
     }
+    
+    static func assetForActivity(_ model: ActivityView) -> Asset? {
+        var result: Asset?
+        if let activityType = model.activityType {
+            switch activityType {
+            case .comment:
+                result = Asset.esDecorComment
+            case .following:
+                result = Asset.esDecorFollow
+            case .like:
+                result = Asset.esDecorLike
+            default:
+                result = nil
+            }
+        }
+        return result
+    }
 }
 
 class RequestItemViewModelBuilder {
-    static func build(from model: UserCompactView) -> ActivityItemViewModel {
+    static func build(from model: User) -> ActivityItemViewModel {
         let cellID = FollowRequestCell.reuseID
         let cellClass = FollowRequestCell.self
-        let profileImage = model.photoUrl
-        let profileName = model.getFullName()
+        let profileImage = model.photo?.getHandle()
+        let profileName = model.fullName
         
         return PendingRequestViewModel(cellID: cellID,
                                        cellClass: cellClass,
@@ -64,6 +78,7 @@ class RequestItemViewModelBuilder {
                                        profileName: profileName)
     }
 }
+
 
 class MyActivityItemViewModelBuilder {
     static func build(from model: ActivityView) -> ActivityItemViewModel {
@@ -74,9 +89,12 @@ class MyActivityItemViewModelBuilder {
         let postImagePlaceholder: Asset? = (model.actedOnContent?.contentType == .topic) ? Asset.placeholderPostNoimage : nil
         let postText = ActivityTextRender.shared.renderMyActivity(model: model) ?? ""
         let timeAgoText = model.createdTimeAgo() ??  ""
-//        
+        
+        let activityIcon = ActivityItemViewModelBuilder.assetForActivity(model)
+        
         return ActivityViewModel(cellID: cellID,
                                  cellClass: cellClass,
+                                 iconImage: activityIcon,
                                  profileImage: profileImage,
                                  postImagePlaceholder: postImagePlaceholder,
                                  postText: postText,
@@ -94,9 +112,11 @@ class OthersActivityItemViewModelBuilder {
         let postImagePlaceholder: Asset? = (model.actedOnContent?.contentType == .topic) ? Asset.placeholderPostNoimage : nil
         let postText = ActivityTextRender.shared.renderOthersActivity(model: model) ?? ""
         let timeAgoText = model.createdTimeAgo() ?? ""
+        let activityIcon = ActivityItemViewModelBuilder.assetForActivity(model)
         
         return ActivityViewModel(cellID: cellID,
                                  cellClass: cellClass,
+                                 iconImage: activityIcon,
                                  profileImage: profileImage,
                                  postImagePlaceholder: postImagePlaceholder,
                                  postText: postText,

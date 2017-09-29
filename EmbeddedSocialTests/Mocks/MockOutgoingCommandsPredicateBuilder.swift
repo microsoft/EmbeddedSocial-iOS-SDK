@@ -51,6 +51,26 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
         return createCommentCommandCommentHandleReturnValue
     }
     
+    //MARK: - createDeleteCommentCommands
+    
+    var createDeleteCommentCommandsCalled = false
+    var createDeleteCommentCommandsReturnValue: NSPredicate!
+    
+    func createDeleteCommentCommands() -> NSPredicate {
+        createDeleteCommentCommandsCalled = true
+        return createDeleteCommentCommandsReturnValue
+    }
+    
+    //MARK: - createDeleteReplyCommands
+    
+    var createDeleteReplyCommandsCalled = false
+    var createDeleteReplyCommandsReturnValue: NSPredicate!
+    
+    func createDeleteReplyCommands() -> NSPredicate {
+        createDeleteReplyCommandsCalled = true
+        return createDeleteReplyCommandsReturnValue
+    }
+    
     //MARK: - commandsWithRelatedHandle
     
     var commandsWithRelatedHandleIgnoredTypeIDCalled = false
@@ -113,5 +133,15 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
         predicateForCalled = true
         predicateForCalledInputCommand = command
         return predicateForReturnValue
+    }
+    
+    //MARK: - allUserCommands
+    
+    var allUserCommandsCalled = false
+    var allUserCommandsReturnValue: NSPredicate!
+    
+    func allUserCommands() -> NSPredicate {
+        allUserCommandsCalled = true
+        return allUserCommandsReturnValue
     }
 }

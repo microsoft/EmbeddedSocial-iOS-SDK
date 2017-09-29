@@ -140,6 +140,18 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum FollowRequests: String, StoryboardSceneType {
+    static let storyboardName = "FollowRequests"
+
+    case followRequestsViewControllerScene = "FollowRequestsViewController"
+    static func instantiateFollowRequestsViewController() -> EmbeddedSocial.FollowRequestsViewController {
+      guard let vc = StoryboardScene.FollowRequests.followRequestsViewControllerScene.viewController() as? EmbeddedSocial.FollowRequestsViewController
+      else {
+        fatalError("ViewController 'FollowRequestsViewController' is not of the expected class EmbeddedSocial.FollowRequestsViewController.")
+      }
+      return vc
+    }
+  }
   enum Followers: String, StoryboardSceneType {
     static let storyboardName = "Followers"
 
@@ -201,15 +213,6 @@ enum StoryboardScene {
     static func initialViewController() -> UINavigationController {
       guard let vc = storyboard().instantiateInitialViewController() as? UINavigationController else {
         fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
-      }
-      return vc
-    }
-
-    case navigationStackContainerScene = "NavigationStackContainer"
-    static func instantiateNavigationStackContainer() -> EmbeddedSocial.NavigationStackContainer {
-      guard let vc = StoryboardScene.MenuStack.navigationStackContainerScene.viewController() as? EmbeddedSocial.NavigationStackContainer
-      else {
-        fatalError("ViewController 'NavigationStackContainer' is not of the expected class EmbeddedSocial.NavigationStackContainer.")
       }
       return vc
     }

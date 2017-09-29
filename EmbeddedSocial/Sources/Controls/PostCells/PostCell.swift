@@ -8,6 +8,10 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     weak var collectionView: UICollectionView!
     var viewModel: PostViewModel!
     
+    @IBOutlet weak var postImageHeight: NSLayoutConstraint!
+    @IBOutlet var staticHeigthElements: [UIView]!
+    @IBOutlet var dynamicElement: UIView!
+    
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var pinButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
@@ -86,21 +90,47 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     }
     
     override func awakeFromNib() {
-        self.contentView.addSubview(container)
-        self.postImageButton.imageView?.contentMode = .scaleAspectFill
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        container.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(container)
+        postImageButton.imageView?.contentMode = .scaleAspectFill
         postText.maximumNumberOfLines = Constants.FeedModule.Collection.Cell.maxLines
+        postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
     }
     
     func setup() {
         clipsToBounds = true
     }
-  
+    
+    override func prepareForReuse() {
+        viewModel = nil
+        userName.text = nil
+        postTitle.text = nil
+        postCreation.text = nil
+        likedCount.text = nil
+        commentedCount.text = nil
+        postText.readMoreTapHandle = nil
+        collectionView = nil
+        postImageButton.setPhotoWithCaching(nil, placeholder: nil)
+        userPhoto.setPhotoWithCaching(nil, placeholder: nil)
+        postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
+        
+        super.prepareForReuse()
+    }
+    
     func configure(with data: PostViewModel, collectionView: UICollectionView?) {
         
-        self.viewModel = data
+        viewModel = data
         self.collectionView = collectionView
         
-        postImageButton.setPhotoWithCaching(data.postPhoto, placeholder: postImagePlaceholder)
+        // showing post image if url is available, else - hiding
+        if data.postPhoto?.url != nil {
+            postImageButton.setPhotoWithCaching(data.postPhoto, placeholder: postImagePlaceholder)
+        } else {
+            postImageHeight.constant = 0
+        }
         
         if data.userImageUrl == nil {
             userPhoto.image = userImagePlaceholder
@@ -121,11 +151,37 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         commentButton.isEnabled = !usedInThirdPartModule
         
         // Text View
-        self.postText.readMoreTapHandle = { [weak self] in
+        postText.readMoreTapHandle = { [weak self] in
             self?.handleAction(action: .postDetailed)
         }
         
-        self.postText.isTrimmed = data.isTrimmed
+        postText.isTrimmed = data.isTrimmed
+    }
+    
+    static func sizingCell() -> PostCell {
+        let cell = PostCell.nib.instantiate(withOwner: nil, options: nil).last as! PostCell
+        return cell
+    }
+    
+    // calculates static and dynamic(TextView) items
+    func getHeight(with width: CGFloat) -> CGFloat {
+        
+        // sum all blocks
+        var staticElementsHeight = staticHeigthElements.reduce(0) { result, view in
+            return result + view.frame.size.height
+        }
+        
+        // ignore image height if none
+        if viewModel.postImageUrl == nil {
+            staticElementsHeight -= Constants.FeedModule.Collection.imageHeight
+        }
+        
+        // append text view height (Optimization possible)
+        let dynamicHeight = dynamicElement.systemLayoutSizeFitting(self.bounds.size).height
+    
+        var result = [staticElementsHeight, dynamicHeight].reduce(0.0, +)
+        
+        return result
     }
     
     // MARK: Private
@@ -142,4 +198,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     private lazy var userImagePlaceholder: UIImage = {
         return UIImage(asset: Asset.userPhotoPlaceholder)
     }()
+    
+    deinit {
+        Logger.log()
+    }
 }

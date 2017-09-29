@@ -45,7 +45,8 @@ class UserCommand: OutgoingCommand {
             UnfollowCommand.self,
             CancelPendingCommand.self,
             BlockCommand.self,
-            UnblockCommand.self
+            UnblockCommand.self,
+            AcceptPendingCommand.self
         ]
     }
 }

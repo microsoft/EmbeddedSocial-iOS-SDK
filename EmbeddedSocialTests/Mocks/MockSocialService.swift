@@ -94,4 +94,19 @@ final class MockSocialService: SocialServiceType {
         getMyBlockedUsersCount += 1
         completion(.success(UsersListResponse(users: [], cursor: nil, isFromCache: false)))
     }
+    
+    
+    var acceptPendingCalled = false
+    var acceptPendingInputUser: User?
+    var acceptPendingReturnResult: Result<Void>!
+    
+    func acceptPending(user: User, completion: @escaping (Result<Void>) -> Void) {
+        acceptPendingCalled = true
+        acceptPendingInputUser = user
+        completion(acceptPendingReturnResult)
+    }
+    
+    func getMyPendingRequests(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        
+    }
 }
