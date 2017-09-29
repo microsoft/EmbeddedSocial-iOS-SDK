@@ -27,6 +27,10 @@ public final class SocialPlus {
         return sessionStore.authorization
     }
     
+    var sessionToken: String? {
+        return sessionStore.sessionToken
+    }
+    
     private init() {
         setupServices(with: SocialPlusServices())
     }
@@ -61,10 +65,6 @@ public final class SocialPlus {
         } else {
             coordinator.openPopularScreen()
         }
-        
-        let conf = LinkedAccountsConfigurator()
-        conf.configure(sessionToken: sessionStore.sessionToken!)
-        coordinator.navigationStack.show(conf.viewController)
     }
     
     fileprivate func startSession(with info: SessionInfo) {

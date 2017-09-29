@@ -11,9 +11,11 @@ final class SettingsPresenter {
     var interactor: SettingsInteractorInput!
     
     fileprivate var myProfileHolder: UserHolder
+    fileprivate let sessionToken: String?
     
-    init(myProfileHolder: UserHolder) {
+    init(myProfileHolder: UserHolder, sessionToken: String? = SocialPlus.shared.sessionToken) {
         self.myProfileHolder = myProfileHolder
+        self.sessionToken = sessionToken
     }
 }
 
@@ -49,5 +51,12 @@ extension SettingsPresenter: SettingsViewOutput {
                 self?.view.showError(result.error ?? APIError.unknown)
             }
         }
+    }
+    
+    func onLinkedAccounts() {
+        guard let token = sessionToken else {
+            return
+        }
+        router.openLinkedAccounts(sessionToken: token)
     }
 }

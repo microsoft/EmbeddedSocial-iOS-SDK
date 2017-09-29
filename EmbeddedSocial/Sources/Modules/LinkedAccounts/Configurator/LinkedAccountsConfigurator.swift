@@ -10,6 +10,7 @@ struct LinkedAccountsConfigurator {
     
     init() {
         viewController = StoryboardScene.LinkedAccounts.linkedAccountsViewController.instantiate()
+        viewController.title = L10n.LinkedAccounts.screenTitle
     }
     
     func configure(sessionToken: String) {
