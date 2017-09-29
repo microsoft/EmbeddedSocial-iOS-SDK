@@ -266,6 +266,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
+        fetchRequests = Set()
         fetchItems(with: cursor)
     }
     

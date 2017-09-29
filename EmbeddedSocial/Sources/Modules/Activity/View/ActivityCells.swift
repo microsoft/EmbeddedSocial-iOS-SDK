@@ -33,6 +33,13 @@ class ActivityBaseCell: UITableViewCell {
         profileImage.makeCircular()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        profileImage.setPhotoWithCaching(nil, placeholder: nil)
+        actionIcon.image = nil
+        onAction = nil
+    }
+    
     let profileImage: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
@@ -69,6 +76,11 @@ class ActivityBaseCell: UITableViewCell {
 }
 
 class FollowRequestCell: ActivityBaseCell {
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        profileName.text = nil
+    }
     
     override func setup() {
         super.setup()
@@ -161,6 +173,14 @@ class ActivityCell: ActivityBaseCell {
         button.addTarget(self, action: #selector(onCellTouch), for: .touchUpInside)
         return button
     }()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        postImage.setPhotoWithCaching(nil, placeholder: nil)
+        postText.text = nil
+        onAction = nil
+    }
     
     override func setup() {
         super.setup()
