@@ -13,6 +13,10 @@ struct LinkedAccountsConfigurator {
     }
     
     func configure() {
+        let presenter = LinkedAccountsPresenter()
+        presenter.interactor = LinkedAccountsInteractor(usersService: UserService(imagesService: ImagesService()))
+        presenter.view = viewController
         
+        viewController.output = presenter
     }
 }

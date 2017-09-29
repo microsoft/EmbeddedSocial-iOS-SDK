@@ -17,4 +17,6 @@ protocol LinkedAccountsViewInput: class {
     func setTwitterSwitchOn(_ isOn: Bool)
     
     func showError(_ error: Error)
+    
+    func setSwitchesEnabled(_ isEnabled: Bool)
 }

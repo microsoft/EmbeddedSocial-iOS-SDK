@@ -163,6 +163,11 @@ class UserService: BaseService, UserServiceType {
         UsersAPI.myLinkedAccountsGetLinkedAccounts(authorization: authorization) { accounts, error in
             if let accounts = accounts {
                 completion(.success(accounts))
+            } else if let error = error, case let ErrorResponse.DecodeError(data, _) = error, data != nil {
+                let intermediateJson = try? JSONSerialization.jsonObject(with: data!, options: [])
+                let json = intermediateJson as? [[String: Any]]
+                let accounts = json?.map(LinkedAccountView.init) ?? []
+                completion(.success(accounts))
             } else {
                 self.errorHandler.handle(error: error, completion: completion)
             }

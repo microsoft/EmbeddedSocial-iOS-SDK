@@ -14,6 +14,10 @@ class LinkedAccountsViewController: UITableViewController {
     @IBOutlet fileprivate weak var microsoftSwitch: UISwitch!
     @IBOutlet fileprivate weak var twitterSwitch: UISwitch!
     
+    fileprivate var switches: [UISwitch] {
+        return [facebookSwitch, googleSwitch, microsoftSwitch, twitterSwitch]
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
@@ -60,6 +64,12 @@ extension LinkedAccountsViewController: LinkedAccountsViewInput {
     
     func showError(_ error: Error) {
         showErrorAlert(error)
+    }
+    
+    func setSwitchesEnabled(_ isEnabled: Bool) {
+        for sw in switches {
+            sw.isEnabled = isEnabled
+        }
     }
 }
 
