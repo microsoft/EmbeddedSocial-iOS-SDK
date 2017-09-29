@@ -31,7 +31,7 @@ class SettingsViewController: UITableViewController {
             case ActionSectionItems.signOut.rawValue:
                 output.signOut()
             default:
-                print("wrong state")
+                break
             }
         }
     }

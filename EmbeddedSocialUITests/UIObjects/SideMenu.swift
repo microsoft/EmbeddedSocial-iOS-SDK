@@ -6,7 +6,17 @@
 import Foundation
 import XCTest
 
+enum SideMenuItem: String {
+    case home         = "Home"
+    case search       = "Search"
+    case popular      = "Popular"
+    case myPins       = "My pins"
+    case activityFeed = "Activity Feed"
+    case settings     = "Settings"
+}
+
 class SideMenu {
+    
     var app: XCUIApplication
     var menuButton: XCUIElement
     var isOpened = false
@@ -37,6 +47,10 @@ class SideMenu {
         self.app.tables.staticTexts[menuItem].tap()
         self.isOpened = false
         sleep(1) //Required for running without animations
+    }
+    
+    func navigate(to menuItem: SideMenuItem) {
+        navigateTo(menuItem.rawValue)
     }
     
     func navigateToUserProfile() {
