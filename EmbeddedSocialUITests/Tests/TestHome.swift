@@ -7,11 +7,14 @@ import XCTest
 @testable import EmbeddedSocial
 
 class TestHome: UITestBase {
+    
     var sideMenu: SideMenu!
     var feed: Feed!
     var details: PostDetails!
     var pageSize: Int!
     var feedName: String!
+    
+    var serviceName: String!
     
     override func setUp() {
         super.setUp()
@@ -20,6 +23,8 @@ class TestHome: UITestBase {
         details = PostDetails(app)
         pageSize = EmbeddedSocial.Constants.Feed.pageSize
         feedName = "topics"
+        
+        serviceName = "topics"
     }
     
     override func tearDown() {
@@ -34,6 +39,7 @@ class TestHome: UITestBase {
     }
     
     //Post titles and handles depend on feed source
+    
     func testFeedSource() {
         openScreen()
 
@@ -83,8 +89,7 @@ class TestHome: UITestBase {
         XCTAssert(post.textExists("0 likes"), "Likes counter wasn't decremented")
     }
     
-    
-    func testPinPost() {
+    func testPinPostButton() {
         openScreen()
         
         let (index, post) = feed.getRandomPost()
@@ -139,7 +144,7 @@ class TestHome: UITestBase {
         let finish = post.cell.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
         start.press(forDuration: 0, thenDragTo: finish)
         
-        let response = APIState.getLatestResponse(forService: "topics")
+        let response = APIState.getLatestResponse(forService: serviceName)
 
         XCTAssertEqual(Int(response?["cursor"] as! String), pageSize, "First page wasn't loaded on Pull to Refresh")
     }
@@ -175,11 +180,11 @@ class TestHome: UITestBase {
         feed.switchViewMode()
         
         var retryCount = 25
-        var response = APIState.getLatestResponse(forService: "topics")
+        var response = APIState.getLatestResponse(forService: serviceName)
         
         while Int(response?["cursor"] as! String)! <= pageSize && retryCount != 0 {
             retryCount -= 1
-            response = APIState.getLatestResponse(forService: "topics")
+            response = APIState.getLatestResponse(forService: serviceName)
             app.swipeUp()
         }
         
@@ -216,7 +221,7 @@ class TestHome: UITestBase {
         let finish = post.cell.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
         start.press(forDuration: 0, thenDragTo: finish)
         
-        let response = APIState.getLatestResponse(forService: "topics")
+        let response = APIState.getLatestResponse(forService: serviceName)
         XCTAssertGreaterThanOrEqual(Int(response?["cursor"] as! String)!, pageSize, "Pages weren't loaded on Pull to Refresh")
     }
     
