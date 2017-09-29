@@ -229,6 +229,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         return feedType == .home
     }
     
+    fileprivate func checkIfNoContent() {
+        if isHomeFeedType() {
+            view.needShowNoContent(state: items.count == 0)
+        }
+    }
+    
     private func makeFetchRequest(with cursor: String?, feedType: FeedType) -> FeedFetchRequest {
         let uid = UUID().uuidString
         fetchRequests.insert(uid)
@@ -442,6 +448,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         cursor = feed.cursor
         items = feed.items
         
+        // show changes on UI
         let shouldAddItems = items.count > cachedNumberOfItems
         let shouldRemoveItems = items.count < cachedNumberOfItems
         
@@ -460,6 +467,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             view.reloadVisible()
         }
         
+        // Update "No content"
+        checkIfNoContent()
     }
     
     func didFetch(feed: Feed) {
