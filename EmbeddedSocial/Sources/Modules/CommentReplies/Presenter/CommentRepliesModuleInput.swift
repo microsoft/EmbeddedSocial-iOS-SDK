@@ -4,5 +4,5 @@
 //
 
 protocol CommentRepliesModuleInput: class {
-
+    func removed(reply: Reply)
 }

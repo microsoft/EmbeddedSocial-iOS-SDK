@@ -98,8 +98,8 @@ extension ReplyCellPresenter: PostMenuModuleOutput {
 //        view?.configure(comment: comment)
     }
     
-    func didRemove(comment: Comment) {
-//        postDetailsInput.commentRemoved(comment: comment)
+    func didRemove(reply: Reply) {
+        commentDetailsInput.removed(reply: reply)
     }
     
     func didReport(post: PostHandle) {
