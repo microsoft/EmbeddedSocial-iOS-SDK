@@ -19,7 +19,7 @@ struct FeedFetchRequest {
 
 protocol FeedModuleInteractorInput {
     func fetchPosts(request: FeedFetchRequest)
-    func postAction(post: PostHandle, action: PostSocialAction)
+    func postAction(post: Post, action: PostSocialAction)
 }
 
 protocol FeedModuleInteractorOutput: class {
@@ -162,21 +162,21 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     
     // MARK: Social Actions
     
-    func postAction(post: PostHandle, action: PostSocialAction) {
+    func postAction(post: Post, action: PostSocialAction) {
         
         let completion: LikesServiceProtocol.CompletionHandler = { [weak self] (handle, err) in
-            self?.output.didPostAction(post: post, action: action, error: err)
+            self?.output.didPostAction(post: post.topicHandle, action: action, error: err)
         }
         
         switch action {
         case .like:
-            likesService.postLike(postHandle: post, completion: completion)
+            likesService.postLike(post: post, completion: completion)
         case .unlike:
-            likesService.deleteLike(postHandle: post, completion: completion)
+            likesService.deleteLike(post: post, completion: completion)
         case .pin:
-            likesService.postPin(postHandle: post, completion: completion)
+            likesService.postPin(post: post, completion: completion)
         case .unpin:
-            likesService.deletePin(postHandle: post, completion: completion)
+            likesService.deletePin(post: post, completion: completion)
         }
         
     }
