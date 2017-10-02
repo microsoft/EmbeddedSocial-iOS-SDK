@@ -3957,13 +3957,6 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		8892F2631F7E977A00A58D8B /* LinkedAccounts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = LinkedAccounts;
-			sourceTree = "<group>";
-		};
 		8892F26C1F7EA02200A58D8B /* LinkedAccounts */ = {
 			isa = PBXGroup;
 			children = (
@@ -3971,7 +3964,6 @@
 				8892F2721F7EA1D500A58D8B /* LinkedAccounstInteractorTests.swift */,
 				8892F2741F8237E300A58D8B /* LinkedAccountsPresenterTests.swift */,
 			);
-			name = LinkedAccounts;
 			path = LinkedAccounts;
 			sourceTree = "<group>";
 		};
@@ -3981,7 +3973,6 @@
 				8892F26E1F7EA0EA00A58D8B /* MockLinkedAccountsInteractor.swift */,
 				8892F2701F7EA1BC00A58D8B /* MockLinkedAccountsView.swift */,
 			);
-			name = Mocks;
 			path = Mocks;
 			sourceTree = "<group>";
 		};
@@ -4061,7 +4052,6 @@
 				88F551BE1F39D50700F4AAB9 /* Following */,
 				8834A76B1F53FE0800F1D383 /* LikesList */,
 				8892F26C1F7EA02200A58D8B /* LinkedAccounts */,
-				8892F2631F7E977A00A58D8B /* LinkedAccounts */,
 				88F7A7871F2788E1005FEC5F /* Login */,
 				9C2D9C0D1F4AFB81001514C3 /* Popular */,
 				93AC65AB1F3E05DA00FE5A3A /* PostDetail */,
