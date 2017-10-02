@@ -11,7 +11,7 @@ final class TwitterWebBasedAPI: AuthAPI {
     
     private let sessionService = SessionService()
     
-    fileprivate let authenticator = OAuth1Authorizer(
+    fileprivate let authenticator = OAuth1Swift(
         consumerKey: ThirdPartyConfigurator.Keys.twitterConsumerKey,
         consumerSecret: ThirdPartyConfigurator.Keys.twitterConsumerSecret,
         requestTokenUrl: "https://api.twitter.com/oauth/request_token",
