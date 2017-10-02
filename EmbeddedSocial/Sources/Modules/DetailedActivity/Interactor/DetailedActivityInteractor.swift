@@ -6,10 +6,13 @@
 protocol DetailedActivityInteractorOutput: class {
     func loaded(comment: Comment)
     func loaded(reply: Reply)
+    func failedLoadComment(error: Error)
+    func failedLoadReply(error: Error)
 }
 
 protocol DetailedActivityInteractorInput {
-    
+    func loadComment()
+    func loadReply()
 }
 
 class DetailedActivityInteractor: DetailedActivityInteractorInput {
@@ -28,26 +31,18 @@ class DetailedActivityInteractor: DetailedActivityInteractorInput {
         }, success: { (webComment) in
             self.output.loaded(comment: webComment)
         }) { (error) in
-            
+            self.output.failedLoadComment(error: error)
         }
     }
     
     func loadReply() {
         replyService.reply(replyHandle: replyHandle!, cachedResult: { (cachedReply) in
-            self.loaded(reply: cachedReply)
+            self.output.loaded(reply: cachedReply)
         }, success: { (webReply) in
-            self.loaded(reply: webReply)
+            self.output.loaded(reply: webReply)
         }) { (error) in
-            
+            self.output.failedLoadReply(error: error)
         }
-    }
-    
-    private func loaded(comment: Comment) {
-        
-    }
-    
-    private func loaded(reply: Reply) {
-        
     }
 
 }

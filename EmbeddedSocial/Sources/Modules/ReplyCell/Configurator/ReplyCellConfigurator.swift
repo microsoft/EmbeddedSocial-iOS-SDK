@@ -11,7 +11,7 @@ class ReplyCellModuleConfigurator {
     @discardableResult func configure(cell: ReplyCell?,
                                       reply: Reply,
                                       navigationController: UINavigationController?,
-                                      moduleOutput: CommentRepliesModuleInput,
+                                      moduleOutput: ReplyCellModuleOutput? = nil,
                                       myProfileHolder: UserHolder? = SocialPlus.shared,
                                       loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) -> ReplyCellModuleInput {
         
@@ -23,7 +23,7 @@ class ReplyCellModuleConfigurator {
         presenter.view = cell
         presenter.router = router
         presenter.reply = reply
-        presenter.commentDetailsInput = moduleOutput
+        presenter.moduleOutput = moduleOutput
         presenter.myProfileHolder = myProfileHolder
         
         let interactor = ReplyCellInteractor()

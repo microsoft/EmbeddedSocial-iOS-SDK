@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oZf-f7-wbp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,7 +11,7 @@
         <!--Detailed Activity View Controller-->
         <scene sceneID="KVl-X4-6tO">
             <objects>
-                <viewController id="oZf-f7-wbp" customClass="DetailedActivityViewController" customModule="EmbeddedSocial" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailedActivityViewController" id="oZf-f7-wbp" customClass="DetailedActivityViewController" customModule="EmbeddedSocial" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cbD-QH-AIB"/>
                         <viewControllerLayoutGuide type="bottom" id="DLR-oS-yKn"/>
@@ -40,17 +40,30 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Failed to load" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zjy-Wa-gnR">
+                                <rect key="frame" x="100" y="315" width="175" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="9hg-F3-hg3"/>
+                                    <constraint firstAttribute="width" constant="175" id="flc-T3-Hmy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Gb2-2f-8OA" firstAttribute="leading" secondItem="gAa-IT-Ne9" secondAttribute="leading" id="6pM-BF-qAE"/>
                             <constraint firstItem="Gb2-2f-8OA" firstAttribute="top" secondItem="gAa-IT-Ne9" secondAttribute="top" id="7Ns-s3-Dej"/>
+                            <constraint firstItem="Zjy-Wa-gnR" firstAttribute="centerX" secondItem="gAa-IT-Ne9" secondAttribute="centerX" id="U45-eL-i6T"/>
                             <constraint firstAttribute="trailing" secondItem="Gb2-2f-8OA" secondAttribute="trailing" id="rWc-jw-wcN"/>
+                            <constraint firstItem="Zjy-Wa-gnR" firstAttribute="centerY" secondItem="gAa-IT-Ne9" secondAttribute="centerY" id="rtz-i8-KeZ"/>
                             <constraint firstItem="DLR-oS-yKn" firstAttribute="top" secondItem="Gb2-2f-8OA" secondAttribute="bottom" id="zJy-Ni-sMG"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="Gb2-2f-8OA" id="tAI-xf-BOn"/>
+                        <outlet property="errorLabel" destination="Zjy-Wa-gnR" id="BbN-p8-Fiv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NpP-TL-Pp5" userLabel="First Responder" sceneMemberID="firstResponder"/>

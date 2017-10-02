@@ -271,7 +271,10 @@ extension PostDetailViewController: UICollectionViewDataSource {
         case CommentsSections.comments.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
             let config = CommentCellModuleConfigurator()
-            config.configure(cell: cell, comment: output.comment(at: indexPath.row), navigationController: self.navigationController, moduleOutput: self.output as! PostDetailModuleInput)
+            config.configure(cell: cell,
+                             comment: output.comment(at: indexPath.row),
+                             navigationController: self.navigationController,
+                             moduleOutput: self.output as! CommentCellModuleOutout)
             cell.repliesButton.isHidden = false
             cell.tag = indexPath.row
             return cell

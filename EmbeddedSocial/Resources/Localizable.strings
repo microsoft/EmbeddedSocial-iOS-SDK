@@ -149,6 +149,9 @@
 "activity.tabs.my_title" = "You";
 "activity.tabs.others_title" = "Following";
 
+"detailed_activity.button.open_topic" = "Open topic";
+"detailed_activity.button.open_comment" = "Open comment";
+
 "activity.you.following" = "%@ started following you.";
 "activity.you.mention_topic" = "%@ mentioned you in a topic \"%@\".";
 "activity.you.mention_comment" = "%@ mentioned you in a comment \"%@\".";

@@ -79,16 +79,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         return true
     }
     
-    func removed(reply: Reply) {
-        guard let index = replies.index(where: { $0.replyHandle == reply.replyHandle }) else {
-            return
-        }
-        
-        replies.remove(at: index)
-        router.backIfNeeded(from: view as! UIViewController)
-        view?.removeReply(index: index)
-    }
-    
     func viewIsReady() {
         guard let commentHandle = comment.commentHandle else {
             return
@@ -212,6 +202,18 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             view?.refreshReplyCell(index: index)
         }
         
+    }
+}
+
+extension CommentRepliesPresenter: ReplyCellModuleOutput {
+    func removed(reply: Reply) {
+        guard let index = replies.index(where: { $0.replyHandle == reply.replyHandle }) else {
+            return
+        }
+        
+        replies.remove(at: index)
+        router.backIfNeeded(from: view as! UIViewController)
+        view?.removeReply(index: index)
     }
 }
 

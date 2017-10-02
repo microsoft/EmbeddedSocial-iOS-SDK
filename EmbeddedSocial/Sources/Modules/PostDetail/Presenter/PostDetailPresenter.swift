@@ -36,17 +36,6 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         self.myProfileHolder = myProfileHolder
     }
     
-    func commentRemoved(comment: Comment) {
-        guard let index = comments.index(where: { $0.commentHandle == comment.commentHandle }) else {
-            return
-        }
-        
-        comments.remove(at: index)
-        router.backIfNeeded(from: view as! UIViewController)
-        view.removeComment(index: index)
-        feedModuleInput?.refreshData()
-    }
-    
     // MARK: PostDetailInteractorOutput
     func didFetch(comments: [Comment], cursor: String?) {
         self.cursor = cursor
@@ -183,6 +172,19 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         }
         view.showHUD()
         interactor.postComment(photo: photo, topicHandle: topicHandle, comment: comment)
+    }
+}
+
+extension PostDetailPresenter: CommentCellModuleOutout {
+    func removed(comment: Comment) {
+        guard let index = comments.index(where: { $0.commentHandle == comment.commentHandle }) else {
+            return
+        }
+        
+        comments.remove(at: index)
+        router.backIfNeeded(from: view as! UIViewController)
+        view.removeComment(index: index)
+        feedModuleInput?.refreshData()
     }
 }
 

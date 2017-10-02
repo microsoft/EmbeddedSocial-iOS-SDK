@@ -197,7 +197,7 @@ extension CommentRepliesViewController: UICollectionViewDataSource {
             case RepliesSections.replies.rawValue:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
                 let config = ReplyCellModuleConfigurator()
-                config.configure(cell: cell, reply: output.reply(index: indexPath.row), navigationController: self.navigationController, moduleOutput: self.output as! CommentRepliesModuleInput)
+                config.configure(cell: cell, reply: output.reply(index: indexPath.row), navigationController: self.navigationController, moduleOutput: self.output as? ReplyCellModuleOutput)
                 cell.tag = indexPath.row
                 return cell
             default:

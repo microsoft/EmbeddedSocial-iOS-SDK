@@ -12,11 +12,12 @@ enum DetailedActivityState {
 
 class DetailedActivityModuleConfigurator {
 
-    let viewController = StoryboardScene.DetailedActivity.initialViewController() as! DetailedActivityViewController
+    let viewController = StoryboardScene.DetailedActivity.initialViewController()
     
-    func configure(state: DetailedActivityState, commentHandle: String? = nil, replyHandle: String? = nil) {
+    func configure(state: DetailedActivityState, commentHandle: String? = nil, replyHandle: String? = nil, navigationController: UINavigationController) {
 
         let router = DetailedActivityRouter()
+        router.navigationController = navigationController
 
         let presenter = DetailedActivityPresenter()
         presenter.view = viewController

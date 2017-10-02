@@ -8,11 +8,22 @@
 
 import UIKit
 
+protocol ActivityButtonCellDelegate: class {
+    func openPressed()
+}
+
 class ActivityButtonCell: UICollectionViewCell {
 
+    @IBOutlet weak var openButton: UIButton!
+    
+    weak var delegate: ActivityButtonCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    @IBAction func openPressed(_ sender: Any) {
+        delegate?.openPressed()
     }
     
     static func cellSize() -> CGSize {

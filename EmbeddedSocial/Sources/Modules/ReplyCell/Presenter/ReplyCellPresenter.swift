@@ -7,6 +7,10 @@ protocol ReplyCellModuleInput: class {
     
 }
 
+protocol ReplyCellModuleOutput: class {
+    func removed(reply: Reply)
+}
+
 class ReplyCellPresenter: ReplyCellModuleInput, ReplyCellViewOutput, ReplyCellInteractorOutput {
 
     weak var view: ReplyCellViewInput?
@@ -14,7 +18,7 @@ class ReplyCellPresenter: ReplyCellModuleInput, ReplyCellViewOutput, ReplyCellIn
     var router: ReplyCellRouterInput?
     
     var myProfileHolder: UserHolder?
-    weak var commentDetailsInput: CommentRepliesModuleInput!
+    weak var moduleOutput: ReplyCellModuleOutput!
     
     var reply: Reply!
 
@@ -99,7 +103,7 @@ extension ReplyCellPresenter: PostMenuModuleOutput {
     }
     
     func didRemove(reply: Reply) {
-        commentDetailsInput.removed(reply: reply)
+        moduleOutput.removed(reply: reply)
     }
     
     func didReport(post: PostHandle) {

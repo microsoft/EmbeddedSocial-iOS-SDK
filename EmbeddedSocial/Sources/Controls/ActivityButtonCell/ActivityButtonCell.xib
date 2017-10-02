@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ActivityButtonCell" customModule="EmbeddedSocial" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ActivityButtonCell" id="gTV-IL-0wX" customClass="ActivityButtonCell" customModule="EmbeddedSocial" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="308" height="73"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -26,6 +26,9 @@
                         <state key="normal" title="Open">
                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <connections>
+                            <action selector="openPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Fub-yc-Pgv"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>
@@ -35,6 +38,9 @@
                 <constraint firstAttribute="trailing" secondItem="6y9-6M-ggU" secondAttribute="trailing" constant="20" id="zaw-b3-FRa"/>
             </constraints>
             <size key="customSize" width="308" height="73"/>
+            <connections>
+                <outlet property="openButton" destination="6y9-6M-ggU" id="TkZ-UH-5Zy"/>
+            </connections>
             <point key="canvasLocation" x="163" y="65.5"/>
         </collectionViewCell>
     </objects>

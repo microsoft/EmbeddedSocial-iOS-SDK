@@ -4,7 +4,6 @@
 //
 
 protocol DetailedActivityModuleInput: class {
-    
 }
 
 class DetailedActivityPresenter: DetailedActivityModuleInput {
@@ -17,19 +16,23 @@ class DetailedActivityPresenter: DetailedActivityModuleInput {
     var contentIsLoaded = false
     var comment: Comment?
     var reply: Reply?
-    
-    func loadContent() {
-        switch state {
-        case .comment:
-            break
-        case .reply:
-            break
-        }
-    }
 
 }
 
+fileprivate enum DetailedActivityItems: Int {
+    case empty = 0
+    case loaded = 2
+}
+
 extension DetailedActivityPresenter: DetailedActivityViewOutput {
+    func openNextContent() {
+        switch state {
+        case .reply:
+            router.openComment(handle: reply!.commentHandle)
+        case .comment:
+            router.openTopic(handle: comment!.topicHandle)
+        }
+    }
     
     func contentReply() -> Reply {
         return reply!
@@ -45,9 +48,9 @@ extension DetailedActivityPresenter: DetailedActivityViewOutput {
     
     func numberOfItems() -> Int {
         if contentIsLoaded == false {
-            return 0
+            return DetailedActivityItems.empty.rawValue
         } else {
-            return 2
+            return DetailedActivityItems.loaded.rawValue
         }
     }
     
@@ -55,9 +58,30 @@ extension DetailedActivityPresenter: DetailedActivityViewOutput {
         return state
     }
     
+    func loadContent() {
+        switch state {
+        case .comment:
+            interactor.loadComment()
+        case .reply:
+            interactor.loadReply()
+        }
+    }
+    
 }
 
 extension DetailedActivityPresenter: DetailedActivityInteractorOutput {
+    func failedLoadComment(error: Error) {
+        comment = nil
+        contentIsLoaded = false
+        view?.setErrorText(text: error.localizedDescription)
+    }
+    
+    func failedLoadReply(error: Error) {
+        reply = nil
+        contentIsLoaded = false
+        view?.setErrorText(text: error.localizedDescription)
+    }
+
     func loaded(reply: Reply) {
         contentIsLoaded = true
         self.reply = reply
@@ -68,5 +92,19 @@ extension DetailedActivityPresenter: DetailedActivityInteractorOutput {
         contentIsLoaded = true
         self.comment = comment
         view?.reloadAllContent()
+    }
+}
+
+extension DetailedActivityPresenter: ReplyCellModuleOutput {
+    func removed(reply: Reply) {
+        self.reply = nil
+        router.back()
+    }
+}
+
+extension DetailedActivityPresenter: CommentCellModuleOutout {
+    func removed(comment: Comment) {
+        self.comment = nil
+        router.back()
     }
 }
