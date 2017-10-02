@@ -161,7 +161,31 @@ open class APIRouter: WebApp {
         self["/images/(.*)"] = self["/v0.7/images/(.*)"]
         
         self["/v0.7/users/(.*(?<!follow))"] = APIResponse(serviceName: "me") { environ, sendJSON -> Void in
+            let path = environ["PATH_INFO"] as! String
             let method = environ["REQUEST_METHOD"] as! String
+            
+            if path.contains("blocked_users") {
+                let input = environ["swsgi.input"] as! SWSGIInput
+                switch method {
+                case "POST":
+                    JSONReader.read(input) { json in
+                        APIState.setLatestData(forService: "blockedUsers", data: json)
+                        sendJSON(Templates.load(name: "block_user_post"))
+                    }
+                case "DELETE":
+                    sendJSON(Templates.load(name: "block_user_delete"))
+                default:
+                    let query = URLParametersReader.parseURLParameters(environ: environ)
+                    let cursor = query["cursor"] ?? "0"
+                    if let limit = query["limit"] {
+                        sendJSON(Templates.loadFollowers(firstName: "User", lastName: "Following", cursor: Int(cursor)!, limit: Int(limit)!))
+                    } else {
+                        sendJSON(Templates.loadFollowers(firstName: "User", lastName: "Following"))
+                    }
+                }
+                return
+            }
+            
             switch method {
             case "POST":
                 break
@@ -205,7 +229,6 @@ open class APIRouter: WebApp {
                 sendJSON(Templates.load(name: ""))
             default:
                 let query = URLParametersReader.parseURLParameters(environ: environ)
-                print(query)
                 let cursor = query["cursor"] ?? "0"
                 if let limit = query["limit"] {
                     sendJSON(Templates.loadFollowers(firstName: "User", lastName: "Following", cursor: Int(cursor)!, limit: Int(limit)!))
