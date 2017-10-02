@@ -120,9 +120,9 @@ class FeedModuleInteractor_Tests: XCTestCase {
         sut.fetchPosts(request: request)
         
         // then
-        XCTAssertTrue(presenter.fetchedFeed?.cursor == cursor)
-        XCTAssertTrue(presenter.fetchedFeed?.items.count == 1)
-        XCTAssertTrue(presenter.fetchedFeed?.items.last == Post.mock(seed: 0))
+        XCTAssertTrue(presenter.fetchedMoreFeed?.cursor == cursor)
+        XCTAssertTrue(presenter.fetchedMoreFeed?.items.count == 1)
+        XCTAssertTrue(presenter.fetchedMoreFeed?.items.last == Post.mock(seed: 0))
     }
     
     func testThatFetchRecentResultIsCorrect() {
@@ -138,9 +138,9 @@ class FeedModuleInteractor_Tests: XCTestCase {
         sut.fetchPosts(request: request)
         
         // then
-        XCTAssertTrue(presenter.fetchedFeed?.cursor == cursor)
-        XCTAssertTrue(presenter.fetchedFeed?.items.count == 1)
-        XCTAssertTrue(presenter.fetchedFeed?.items.last == Post.mock(seed: 0))
+        XCTAssertTrue(presenter.fetchedMoreFeed?.cursor == cursor)
+        XCTAssertTrue(presenter.fetchedMoreFeed?.items.count == 1)
+        XCTAssertTrue(presenter.fetchedMoreFeed?.items.last == Post.mock(seed: 0))
     }
     
     
@@ -158,8 +158,8 @@ class FeedModuleInteractor_Tests: XCTestCase {
         sut.fetchPosts(request: request)
         
         // then
-        XCTAssertTrue(presenter.fetchedFeed?.cursor == cursor)
-        XCTAssertTrue(presenter.fetchedFeed?.items.count == 1)
+        XCTAssertTrue(presenter.fetchedMoreFeed?.cursor == cursor)
+        XCTAssertTrue(presenter.fetchedMoreFeed?.items.count == 1)
     }
     
     func testThatUserPopularFeedIsCorrect() {
@@ -176,7 +176,8 @@ class FeedModuleInteractor_Tests: XCTestCase {
         sut.fetchPosts(request: request)
         
         // then
-        XCTAssertTrue(presenter.fetchedFeed?.cursor == cursor)
+        XCTAssertTrue(presenter.fetchedMoreFeed?.cursor == cursor)
+        XCTAssertTrue(presenter.fetchedMoreFeed?.feedType == feed)
     }
     
     func testThatUserRecentFeedIsCorrect() {
@@ -193,7 +194,7 @@ class FeedModuleInteractor_Tests: XCTestCase {
         sut.fetchPosts(request: request)
         
         // then
-        XCTAssertTrue(presenter.fetchedFeed?.cursor == cursor)
+        XCTAssertTrue(presenter.fetchedMoreFeed?.cursor == cursor)
     }
     
     func testThatSinglePostFetchResultIsCorrect() {
@@ -202,15 +203,16 @@ class FeedModuleInteractor_Tests: XCTestCase {
         let handle = uniqueString()
         let feed = FeedType.single(post: handle)
         let request = FeedFetchRequest(uid: UUID().uuidString, cursor: nil, limit: nil, feedType: feed)
-        service.fetchPostPostCompletion = FeedFetchResult()
-        service.fetchPostPostCompletion.posts = [Post.mock(seed: 100)]
-    
+        let post = Post.mock(seed: 1)
+        let response = FeedFetchResult(posts: [post], error: nil, cursor: nil)
+        service.fetchPostPostCompletion = response
+
         // when
         sut.fetchPosts(request: request)
         
         // then
         XCTAssertTrue(presenter.fetchedFeed?.items.count == 1)
-        XCTAssertTrue(presenter.fetchedFeed?.items.last == Post.mock(seed: 100))
+        XCTAssertTrue(presenter.fetchedFeed?.items.last == post)
     }
     
 }
