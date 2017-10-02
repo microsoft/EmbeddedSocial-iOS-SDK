@@ -14,15 +14,26 @@ class CreatePostInteractor: CreatePostInteractorInput {
     }
     
     func postTopic(photo: Photo?, title: String?, body: String!) {
-        var topic = Post(topicHandle: UUID().uuidString)
-        topic.title = title
-        topic.text = body
-        topic.imageHandle = photo?.uid
-        topic.imageUrl = photo?.url
-        topic.image = photo?.image
-        topic.user = userHolder.me
+        var uid = UUID().uuidString
         
-        topicService?.postTopic(topic,
+        guard let user = userHolder.me else {
+            fatalError("Cant create topic with no user")
+        }
+            
+        let post = Post(topicHandle: uid,
+             createdTime: nil,
+             user: user,
+             imageUrl: photo?.url,
+             imageHandle: photo?.uid,
+             title: title,
+             text: body,
+             deepLink: nil,
+             totalLikes: 0,
+             totalComments: 0,
+             liked: false,
+             pinned: false)
+        
+        topicService?.postTopic(post,
                                 success: { [weak self] _ in self?.output.created() },
                                 failure: { [weak self] error in self?.output.postCreationFailed(error: error) })
     }

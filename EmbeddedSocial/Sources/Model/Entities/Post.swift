@@ -57,7 +57,7 @@ struct Post {
         guard let imageHandle = imageHandle else {
             return nil
         }
-        return Photo(uid: imageHandle, url: imageUrl, image: image)
+        return Photo(uid: imageHandle, url: imageUrl)
     }
 }
 
@@ -76,7 +76,6 @@ extension Post {
         let pinned = false
         let totalLikes = seed
         let totalComments = seed + 10
-        let topicHandle = "topic handle \(seed)"
         let user = User(uid: "user handle \(seed)", followerStatus: .empty)
 
         return Post(topicHandle: handle,
@@ -199,7 +198,13 @@ struct FeedFetchResult {
 
 extension FeedFetchResult {
     init(response: FeedResponseTopicView?) {
-        posts = response?.data?.map(Post.init) ?? []
+        
+        if let items = response?.data {
+            
+            // ignore error on corrupted data
+            posts = items.map(Post.init).flatMap{ $0 }
+        }
+        
         error = nil
         cursor = response?.cursor
     }
