@@ -124,6 +124,28 @@ open class APIRouter: WebApp {
             let input = environ["swsgi.input"] as! SWSGIInput
             let method = environ["REQUEST_METHOD"] as! String
             switch method {
+            case "GET":
+                let query = URLParametersReader.parseURLParameters(environ: environ)
+                let captures = environ["ambassador.router_captures"] as! [String]
+                var interval = "pins"
+                if captures.count > 0 && captures[0] != "" {
+                    interval = ""
+                    for i in 0...captures.count - 1 {
+                        interval += captures[i]
+                    }
+                }
+                print(query)
+                let cursor = query["cursor"] ?? "0"
+                
+                APIConfig.values = ["pinned" : true]
+                
+                if let limit = query["limit"] {
+                    sendJSON(Templates.loadTopics(interval: interval, cursor: Int(cursor)!, limit: Int(limit)!))
+                } else {
+                    sendJSON(Templates.loadTopics(interval: interval))
+                }
+                break
+                
             case "POST":
                 JSONReader.read(input) { json in
                     APIState.setLatestData(forService: "pins", data: json)
@@ -277,6 +299,8 @@ open class APIRouter: WebApp {
         sendBody: @escaping ((Data) -> Void)
         ) {
         let path = environ["PATH_INFO"] as! String
+        
+        APIState.latestRequstMethod = environ["REQUEST_METHOD"] as! String
         
         if let (webApp, captures) = matchRoute(to: path) {
             var environ = environ

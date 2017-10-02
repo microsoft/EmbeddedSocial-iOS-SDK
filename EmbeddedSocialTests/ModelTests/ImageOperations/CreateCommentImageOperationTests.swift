@@ -21,7 +21,7 @@ class CreateCommentImageOperationTests: CreateImageOperationTests {
         service.uploadCommentImageCommentHandleCompletionReturnResult = .success(command.photo.uid)
         
         let predicate = NSPredicate(value: true)
-        predicateBuilder.createDeleteCommentCommandsReturnValue = predicate
+        predicateBuilder.createCommentCommandCommentHandleReturnValue = predicate
         
         let sut = CreateCommentImageOperation(command: command, imagesService: service, predicateBuilder: predicateBuilder,
                                               cache: cache, imageCache: imageCache)
@@ -43,7 +43,7 @@ class CreateCommentImageOperationTests: CreateImageOperationTests {
         XCTAssertTrue(cache.firstOutgoing_ofType_predicate_sortDescriptors_Called)
         XCTAssertEqual(cache.firstOutgoing_ofType_predicate_sortDescriptors_ReceivedArguments?.predicate, predicate)
         
-        XCTAssertTrue(predicateBuilder.createDeleteCommentCommandsCalled)
+        XCTAssertTrue(predicateBuilder.createCommentCommandCommentHandleCalled)
     }
     
     func testThatItFinishesWithErrorWhenUploadFails() {

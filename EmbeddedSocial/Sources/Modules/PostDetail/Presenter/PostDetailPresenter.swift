@@ -117,10 +117,12 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     }
     
     private func setupFeed() {
-        feedModuleInput?.refreshData()
         guard let vc = feedViewController else {
             return
         }
+        
+        _ = vc.view
+        feedModuleInput?.refreshData()
         
         view.setFeedViewController(vc)
     }

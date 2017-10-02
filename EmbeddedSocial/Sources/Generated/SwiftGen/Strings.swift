@@ -186,6 +186,8 @@ enum L10n {
     static let follow = L10n.tr("Localizable", "common.follow")
     /// Following
     static let following = L10n.tr("Localizable", "common.following")
+    /// No content
+    static let noContent = L10n.tr("Localizable", "common.no_content")
     /// OK
     static let ok = L10n.tr("Localizable", "common.ok")
     /// Pending

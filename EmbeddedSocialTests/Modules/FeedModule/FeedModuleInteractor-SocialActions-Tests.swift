@@ -48,7 +48,7 @@ private class FeedModulePresenterMock: FeedModuleInteractorOutput {
     
     func didFetchMore(feed: Feed) { }
     
-    func didFail(error: FeedServiceError) { }
+    func didFail(error: Error) { }
     
     func didStartFetching() { }
     

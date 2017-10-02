@@ -30,6 +30,7 @@
 "common.submit" = "Submit";
 "common.done" = "Done";
 "common.unblock" = "Unblock";
+"common.no_content" = "No content";
 
 "image_picker.take_photo" = "Take photo";
 "image_picker.choose_existing" = "Choose existing";
