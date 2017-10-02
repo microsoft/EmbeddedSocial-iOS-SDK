@@ -109,6 +109,9 @@ enum StoryboardScene {
       return vc
     }
   }
+  enum DetailedActivity: StoryboardSceneType {
+    static let storyboardName = "DetailedActivity"
+  }
   enum EditProfile: String, StoryboardSceneType {
     static let storyboardName = "EditProfile"
 
@@ -209,13 +212,6 @@ enum StoryboardScene {
   }
   enum MenuStack: String, StoryboardSceneType {
     static let storyboardName = "MenuStack"
-
-    static func initialViewController() -> UINavigationController {
-      guard let vc = storyboard().instantiateInitialViewController() as? UINavigationController else {
-        fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
-      }
-      return vc
-    }
 
     case sideMenuViewControllerScene = "SideMenuViewController"
     static func instantiateSideMenuViewController() -> EmbeddedSocial.SideMenuViewController {

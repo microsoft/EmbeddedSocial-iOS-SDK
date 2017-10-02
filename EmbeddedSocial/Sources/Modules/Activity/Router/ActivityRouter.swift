@@ -36,8 +36,11 @@ class ActivityRouter: ActivityRouterInput {
         
         switch contentType {
         case .comment:
-            let vc = buildCommentVC(with: contentHandle)
-            openViewController(vc)
+            let configureator = DetailedActivityModuleConfigurator()
+            configureator.configure(state: .comment, commentHandle: contentHandle)
+            openViewController(configureator.viewController)
+//            let vc = buildCommentVC(with: contentHandle)
+//            openViewController(vc)
         case .reply:
             let vc = buildReplyVC(with: contentHandle)
             openViewController(vc)

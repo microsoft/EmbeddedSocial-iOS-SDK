@@ -5,10 +5,10 @@
 
 import Foundation
 
-protocol ActivityCommentRouterInput {
+protocol DetailedActivityRouterInput {
     
 }
 
-class ActivityCommentRouter: ActivityCommentRouterInput {
+class DetailedActivityRouter: DetailedActivityRouterInput {
 
 }
