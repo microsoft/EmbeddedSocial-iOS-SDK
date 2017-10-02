@@ -112,9 +112,8 @@ class FeedModuleInteractor_Tests: XCTestCase {
         // given
         let cursor = uniqueString()
         let request = FeedFetchRequest(uid: UUID().uuidString, cursor: cursor, limit: nil, feedType: .home)
-        service.fetchHomeQueryCompletion = FeedFetchResult()
-        service.fetchHomeQueryCompletion.cursor = cursor
-        service.fetchHomeQueryCompletion.posts = [Post.mock(seed: 0)]
+        let post = Post.mock()
+        service.fetchHomeQueryCompletion = FeedFetchResult(posts: [post], error: nil, cursor: cursor)
 
         // when
         sut.fetchPosts(request: request)
@@ -122,17 +121,16 @@ class FeedModuleInteractor_Tests: XCTestCase {
         // then
         XCTAssertTrue(presenter.fetchedMoreFeed?.cursor == cursor)
         XCTAssertTrue(presenter.fetchedMoreFeed?.items.count == 1)
-        XCTAssertTrue(presenter.fetchedMoreFeed?.items.last == Post.mock(seed: 0))
+        XCTAssertTrue(presenter.fetchedMoreFeed?.items.last == post)
     }
     
     func testThatFetchRecentResultIsCorrect() {
         
         // given
         let cursor = uniqueString()
-        let request = FeedFetchRequest(uid: UUID().uuidString, cursor: cursor, limit: nil, feedType: .home)
-        service.fetchRecentQueryCompletion = FeedFetchResult()
-        service.fetchRecentQueryCompletion.cursor = cursor
-        service.fetchRecentQueryCompletion.posts = [Post.mock(seed: 0)]
+        let request = FeedFetchRequest(uid: UUID().uuidString, cursor: cursor, limit: nil, feedType: .recent)
+        let post = Post.mock(seed: 0)
+        service.fetchRecentQueryCompletion = FeedFetchResult(posts: [post], error: nil, cursor: cursor)
         
         // when
         sut.fetchPosts(request: request)
@@ -140,9 +138,8 @@ class FeedModuleInteractor_Tests: XCTestCase {
         // then
         XCTAssertTrue(presenter.fetchedMoreFeed?.cursor == cursor)
         XCTAssertTrue(presenter.fetchedMoreFeed?.items.count == 1)
-        XCTAssertTrue(presenter.fetchedMoreFeed?.items.last == Post.mock(seed: 0))
+        XCTAssertTrue(presenter.fetchedMoreFeed?.items.last == post)
     }
-    
     
     func testThatFetchPopularResultIsCorrect() {
         

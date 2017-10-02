@@ -148,9 +148,9 @@ class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
         sut.postAction(post: post, action: action)
         
         // then
-        XCTAssertTrue(presenter.didPostAction!.action == .unpin)
-        XCTAssertTrue(presenter.didPostAction!.error != nil)
-        XCTAssertTrue(presenter.didPostAction!.post == "handle")
+        XCTAssertTrue(presenter.didPostAction?.action == .unpin)
+        XCTAssertTrue(presenter.didPostAction?.error != nil)
+        XCTAssertTrue(presenter.didPostAction?.post == post.topicHandle)
     }
 
 }

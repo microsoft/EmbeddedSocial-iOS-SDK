@@ -210,13 +210,6 @@ enum StoryboardScene {
   enum MenuStack: String, StoryboardSceneType {
     static let storyboardName = "MenuStack"
 
-    static func initialViewController() -> UINavigationController {
-      guard let vc = storyboard().instantiateInitialViewController() as? UINavigationController else {
-        fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
-      }
-      return vc
-    }
-
     case sideMenuViewControllerScene = "SideMenuViewController"
     static func instantiateSideMenuViewController() -> EmbeddedSocial.SideMenuViewController {
       guard let vc = StoryboardScene.MenuStack.sideMenuViewControllerScene.viewController() as? EmbeddedSocial.SideMenuViewController

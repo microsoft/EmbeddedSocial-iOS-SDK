@@ -296,8 +296,6 @@ class FeedModulePresenter_Tests: XCTestCase {
         post.user = user
         post.imageUrl = postImageURL
         
-        
-        
         let feed = Feed(fetchID: uniqueString(),
                         feedType: .home,
                         items: [post],

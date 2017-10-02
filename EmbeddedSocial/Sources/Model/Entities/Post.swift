@@ -63,7 +63,7 @@ struct Post {
 
 extension Post {
     
-    static func mock(seed: Int) -> Post {
+    static func mock(seed: Int = 1) -> Post {
         
         let handle = "Handle\(seed)"
         let title = "Title \(seed)"

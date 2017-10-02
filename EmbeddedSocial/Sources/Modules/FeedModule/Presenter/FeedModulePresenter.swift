@@ -367,7 +367,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             items[index].liked = !status
             
             // change item locally
-            // TODO: remove this, since outgoing it's outgoing cache responsibility
+            // TODO: remove this, since it's responsibility of outgoing cache 
             if action == .like {
                 items[index].totalLikes += 1
             } else if action == .unlike && items[index].totalLikes > 0 {
