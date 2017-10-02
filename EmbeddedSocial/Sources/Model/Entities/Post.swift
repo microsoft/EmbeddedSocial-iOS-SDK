@@ -72,14 +72,14 @@ extension Post {
             text += "\n \(i)"
         }
         
-        let liked = seed % 2 == 0
+        let liked = false
         let pinned = false
-        let totalLikes = seed
-        let totalComments = seed + 10
+        let totalLikes = 0
+        let totalComments = 0
         let user = User(uid: "user handle \(seed)", followerStatus: .empty)
 
         return Post(topicHandle: handle,
-                    createdTime: Date(),
+                    createdTime: nil,
                     user: user,
                     imageUrl: nil,
                     imageHandle: nil,
@@ -179,8 +179,6 @@ extension Post {
             let text = data.text,
             let pinned = data.pinned,
             let liked = data.liked,
-            let imageHandle = data.blobHandle,
-            let imageURL = data.blobUrl,
             let date = data.createdTime,
             let likesNumber64 = data.totalLikes,
             let commentsNumber64 = data.totalComments,
@@ -193,8 +191,8 @@ extension Post {
         self.init(topicHandle: handle,
                   createdTime: date,
                   user: user,
-                  imageUrl: imageURL,
-                  imageHandle: imageHandle,
+                  imageUrl: data.blobUrl,
+                  imageHandle: data.blobHandle,
                   title: title,
                   text: text,
                   deepLink: data.deepLink,

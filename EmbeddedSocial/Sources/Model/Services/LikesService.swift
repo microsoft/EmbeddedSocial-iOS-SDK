@@ -33,10 +33,6 @@ protocol LikesServiceProtocol {
 
 extension LikesServiceProtocol {
     
-    func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) { }
-    
-    func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler) { }
-    
     func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) { }
     
     func unlikeComment(commentHandle: String, completion: @escaping CompletionHandler) { }
