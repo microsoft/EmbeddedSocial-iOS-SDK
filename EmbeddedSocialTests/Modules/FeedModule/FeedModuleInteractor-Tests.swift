@@ -7,18 +7,18 @@ import XCTest
 @testable import EmbeddedSocial
 
 private class FeedModulePresenterMock: FeedModuleInteractorOutput {
-  
+
     var startFetchingIsCalled = false
     var finishFetchingIsCalled = false
 
-    var failedError: FeedServiceError?
+    var failedError: Error?
     var postedAction: (post: PostHandle, action: PostSocialAction, error: Error?)?
     var fetchedFeed: Feed?
     var fetchedMoreFeed: Feed?
     var startedFetching = false
     var finishedFetching = false
     
-    func didFail(error: FeedServiceError) {
+    func didFail(error: Error) {
         failedError = error
     }
     

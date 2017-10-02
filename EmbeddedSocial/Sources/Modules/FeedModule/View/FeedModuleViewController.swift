@@ -160,9 +160,9 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
         
-        collectionView.reloadData()
         collectionView.collectionViewLayout.invalidateLayout()
-        
+        collectionView.reloadData()
+
         // switch layout
         switch type {
         case .grid:
@@ -176,6 +176,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
                 collectionView.setCollectionViewLayout(listLayout, animated: animated)
             }
         }
+        
     }
     
     private func onUpdateBounds() {

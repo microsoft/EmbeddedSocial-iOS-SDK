@@ -6,7 +6,7 @@
 import Foundation
 
 struct Post {
-    var topicHandle: String!
+    var topicHandle: String
     var createdTime: Date?
     
     var user: User?
@@ -25,8 +25,8 @@ struct Post {
     var liked: Bool = false
     var pinned: Bool = false
     
-    var userHandle: String? {
-        return user?.uid
+    var userHandle: String {
+        return user?.uid ?? ""
     }
     
     var userStatus: FollowStatus {
@@ -65,9 +65,9 @@ struct Post {
 extension Post {
     
     static func mock(seed: Int) -> Post {
-        var post = Post()
-        post.title = "Title \(seed)"
+        var post = Post(topicHandle: "handle\(seed)")
         
+        post.title = "Title \(seed)"
         var text = "Post text"
         for i in 0...seed {
             text += "\n \(i)"
@@ -84,14 +84,6 @@ extension Post {
     }
 }
 
-extension Post {
-    
-    init(topicHandle: String) {
-        self.init()
-        self.topicHandle = topicHandle
-    }
-}
-
 extension Post: JSONEncodable {
     
     init?(json: [String: Any]) {
@@ -99,9 +91,6 @@ extension Post: JSONEncodable {
             return nil
         }
         
-        self.init()
-        
-        self.topicHandle = topicHandle
         createdTime = json["createdTime"] as? Date
         if let userJSON = json["user"] as? [String: Any] {
             user = User(memento: userJSON)
@@ -138,11 +127,26 @@ extension Post: JSONEncodable {
 
 extension Post {
     
-    init(data: TopicView) {
+    init?(data: TopicView) {
         
         if let userCompactView = data.user {
             user = User(compactView: userCompactView)
         }
+        
+        guard
+            let handle = data.topicHandle,
+            let text = data.text,
+            let pinned = data.pinned,
+            let liked = data.liked,
+            let imageHandle = data.blobHandle,
+            let date = data.createdTime,
+            let likesNumber = data.totalLikes,
+            let commentsNumber = data.totalComments,
+            let totalLikes = data.totalLikes,
+            let title = data.title else {
+                return nil
+        }
+        
         imageHandle = data.blobHandle
         imageUrl = data.blobUrl
         createdTime = data.createdTime
@@ -151,8 +155,11 @@ extension Post {
         pinned = data.pinned ?? false
         liked = data.liked ?? false
         topicHandle = data.topicHandle
-        totalLikes = Int(exactly: Double(data.totalLikes ?? 0))!
-        totalComments = Int(exactly: Double(data.totalComments ?? 0))!
+        let likes = Int(exactly: Double(data.totalLikes ?? 0))!
+        let comments = Int(exactly: Double(data.totalComments ?? 0))!
+        
+        self.init(topicHandle: data.top,
+                  createdTime: <#T##Date?#>, user: <#T##User?#>, imageUrl: <#T##String?#>, imageHandle: <#T##String?#>, image: <#T##UIImage?#>, title: <#T##String?#>, text: <#T##String?#>, deepLink: <#T##String?#>, totalLikes: <#T##Int#>, totalComments: <#T##Int#>, liked: <#T##Bool#>, pinned: <#T##Bool#>)
     }
     
 }

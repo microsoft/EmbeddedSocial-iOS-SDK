@@ -294,6 +294,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             self?.handle(action: action, path: path)
         }
     
+        // trimmed text for post cell
         var isTrimmed = true
         switch feedType! {
         case .single(post: _):
@@ -330,8 +331,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
         
         let index = path.row
-        let postHandle = items[index].topicHandle!
-        let userHandle = items[index].userHandle!
+        let postHandle = items[index].topicHandle
+        let userHandle = items[index].userHandle
         let post = items[index]
         
         switch action {
@@ -419,10 +420,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func viewIsReady() {
         view.setupInitialState()
         view.paddingEnabled = collectionPaddingNeeded()
-        view.setLayout(type: layout)
+        
         if let header = header {
             view.registerHeader(withType: header.type, configurator: header.configurator)
         }
+        
+        view.setLayout(type: layout)
         isViewReady = true
     }
     
@@ -468,6 +471,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         let shouldAddItems = items.count - cachedNumberOfItems
         let shouldRemoveItems = cachedNumberOfItems - items.count
         
+        // insert/remove items
         if cachedNumberOfItems == 0 {
             view.reload()
         }
@@ -479,11 +483,11 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
             view.removeItems(with: paths)
         }
-        else {
-            view.reloadVisible()
-        }
         
-        // Update "No content"
+        // update visible
+        view.reloadVisible()
+        
+        // update "No content"
         checkIfNoContent()
     }
     

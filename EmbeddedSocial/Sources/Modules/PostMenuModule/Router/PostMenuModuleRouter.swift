@@ -22,7 +22,7 @@ class PostMenuModuleRouter: PostMenuModuleRouterInput {
         let vc = StoryboardScene.CreatePost.instantiateCreatePostViewController()
         let configurator = CreatePostModuleConfigurator()
         var user = User()
-        user.uid = post.userHandle!
+        user.uid = post.userHandle
         user.firstName = post.firstName
         user.lastName = post.lastName
         configurator.configure(viewController: vc, user: user, post: post)
