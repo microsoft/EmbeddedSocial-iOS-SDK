@@ -9,7 +9,7 @@ struct SettingsConfigurator {
     let viewController: SettingsViewController
     
     init() {
-        viewController = StoryboardScene.Settings.instantiateSettingsViewController()
+        viewController = StoryboardScene.Settings.settingsViewController.instantiate()
         viewController.title = L10n.Settings.screenTitle
     }
     

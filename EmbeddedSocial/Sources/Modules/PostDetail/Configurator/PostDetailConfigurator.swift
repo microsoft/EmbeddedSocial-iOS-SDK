@@ -15,7 +15,7 @@ class PostDetailModuleConfigurator {
     let viewController: PostDetailViewController
     
     init() {
-        viewController = StoryboardScene.PostDetail.instantiatePostDetailViewController()
+        viewController = StoryboardScene.PostDetail.postDetailViewController.instantiate()
     }
     
     func configure(topicHandle: PostHandle,

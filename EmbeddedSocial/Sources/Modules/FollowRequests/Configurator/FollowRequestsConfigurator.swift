@@ -10,7 +10,7 @@ struct FollowRequestsConfigurator {
     let viewController: FollowRequestsViewController
     
     init() {
-        viewController = StoryboardScene.FollowRequests.instantiateFollowRequestsViewController()
+        viewController = StoryboardScene.FollowRequests.followRequestsViewController.instantiate()
         viewController.title = L10n.FollowRequests.screenTitle.uppercased()
     }
     

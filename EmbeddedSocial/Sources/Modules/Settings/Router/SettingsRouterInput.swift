@@ -7,4 +7,6 @@ import Foundation
 
 protocol SettingsRouterInput: class {
     func openBlockedList()
+    
+    func openLinkedAccounts(sessionToken: String)
 }

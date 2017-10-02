@@ -7,11 +7,11 @@ import OAuthSwift
 import UIKit
 import SafariServices
 
-final class TwitterServerBasedAPI: AuthAPI {
+final class TwitterServerBasedAPI: NSObject, AuthAPI {
     
     private let sessionService = SessionService()
     
-    fileprivate let authenticator = OAuth1Authorizer(
+    fileprivate let authenticator = OAuth1Swift(
         consumerKey: ThirdPartyConfigurator.Keys.twitterConsumerKey,
         consumerSecret: ThirdPartyConfigurator.Keys.twitterConsumerSecret,
         requestTokenUrl: "https://api.twitter.com/oauth/request_token",
@@ -28,9 +28,11 @@ final class TwitterServerBasedAPI: AuthAPI {
         return controller
     }()
     
-    fileprivate var request: OAuthSwiftRequestHandle?
+    fileprivate var loginCompletion: ((Result<SocialUser>) -> Void)?
     
     func login(from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void) {
+        loginCompletion = handler
+        
         authenticator.authorizeURLHandler = urlHandler(withType: .safari, sourceViewController: viewController)
         
         sessionService.requestToken(authProvider: .twitter) { [unowned self] result in
@@ -84,8 +86,7 @@ final class TwitterServerBasedAPI: AuthAPI {
             }
             return internalWebViewController
         case .safari:
-            if #available(iOS 9.0, *),
-                let vc = sourceViewController {
+            if let vc = sourceViewController {
                 return makeSafariURLHandler(viewController: vc)
             } else {
                 return urlHandler(withType: .embedded, sourceViewController: sourceViewController)
@@ -93,10 +94,10 @@ final class TwitterServerBasedAPI: AuthAPI {
         }
     }
     
-    @available(iOS 9.0, *)
     private func makeSafariURLHandler(viewController: UIViewController) -> SafariURLHandler {
         let handler = SafariURLHandler(viewController: viewController, oauthSwift: authenticator)
-        handler.factory = { return SFSafariViewController(url: $0) }
+        handler.factory = { SFSafariViewController(url: $0) }
+        handler.delegate = self
         return handler
     }
 }
@@ -106,6 +107,14 @@ extension TwitterServerBasedAPI {
         case embedded
         case external
         case safari
+    }
+}
+
+extension TwitterServerBasedAPI: SFSafariViewControllerDelegate {
+    
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        authenticator.cancel()
+        loginCompletion?(.failure(APIError.cancelled))
     }
 }
 
@@ -123,17 +132,5 @@ extension TwitterServerBasedAPI: OAuthWebViewControllerDelegate {
     
     func oauthWebViewControllerDidDisappear() {
         authenticator.cancel()
-    }
-}
-
-class OAuth1Authorizer: OAuth1Swift {
-    
-    override func postOAuthRequestToken(callbackURL: URL, success: @escaping TokenSuccessHandler, failure: FailureHandler?) {
-        if !client.credential.oauthToken.isEmpty {
-            success(client.credential, nil, [:])
-            return
-        }
-        
-        super.postOAuthRequestToken(callbackURL: callbackURL, success: success, failure: failure)
     }
 }

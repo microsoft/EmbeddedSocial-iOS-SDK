@@ -9,7 +9,7 @@ struct ReportConfigurator {
     let viewController: ReportViewController
     
     init() {
-        viewController = StoryboardScene.Report.instantiateReportViewController()
+        viewController = StoryboardScene.Report.reportViewController.instantiate()
         viewController.title = L10n.Report.screenTitle
     }
     

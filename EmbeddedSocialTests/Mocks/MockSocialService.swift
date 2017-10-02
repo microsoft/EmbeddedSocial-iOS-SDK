@@ -16,7 +16,6 @@ final class MockSocialService: SocialServiceType {
     private(set) var getUserFollowersCount = 0
     private(set) var getUserFollowingCount = 0
     private(set) var changeFollowStatusCount = 0
-    private(set) var getSuggestedUsersCount = 0
     private(set) var getMyBlockedUsersCount = 0
 
     var followInputUser: User?
@@ -85,9 +84,14 @@ final class MockSocialService: SocialServiceType {
         
     }
     
-    func getSuggestedUsers(completion: @escaping (Result<UsersListResponse>) -> Void) {
-        getSuggestedUsersCount += 1
-        completion(.success(UsersListResponse(users: [], cursor: nil, isFromCache: false)))
+    var getSuggestedUsersCalled = false
+    var getSuggestedUsersInputAuthorization: Authorization?
+    var getSuggestedUsersReturnValue: Result<UsersListResponse>!
+    
+    func getSuggestedUsers(authorization: Authorization, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        getSuggestedUsersCalled = true
+        getSuggestedUsersInputAuthorization = authorization
+        completion(getSuggestedUsersReturnValue)
     }
     
     func getMyBlockedUsers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {

@@ -26,12 +26,15 @@ class TestPostMenu: TestHome {
         XCTAssertTrue(APIState.getLatestRequest().contains("me/following/users"))
         XCTAssertTrue(APIState.latestRequstMethod == "POST")
         
+        let followingUser = APIState.getLatestData(forService: "followers")?["userHandle"] as? String
+        XCTAssertNotNil(followingUser)
+        
         // Unfollow test
         
         clearRequestsHistory()
         select(menuItem: .unfollow, for: randomFeedPostInformation.post)
         
-        XCTAssertTrue(APIState.getLatestRequest().contains("me/following/users"))
+        XCTAssertTrue(APIState.getLatestRequest().contains("me/following/users/\(followingUser!)"))
         XCTAssertTrue(APIState.latestRequstMethod == "DELETE")
     }
     
@@ -48,12 +51,15 @@ class TestPostMenu: TestHome {
         XCTAssertTrue(APIState.getLatestRequest().contains("me/blocked_users"))
         XCTAssertTrue(APIState.latestRequstMethod == "POST")
         
+        let blockedUser = APIState.getLatestData(forService: "blockedUsers")?["userHandle"] as? String
+        XCTAssertNotNil(blockedUser)
+        
         // unblock test
         
         clearRequestsHistory()
         select(menuItem: .unblock, for: randomFeedPostInformation.post)
         
-        XCTAssertTrue(APIState.getLatestRequest().contains("me/blocked_users"))
+        XCTAssertTrue(APIState.getLatestRequest().contains("me/blocked_users/\(blockedUser!)"))
         XCTAssertTrue(APIState.latestRequstMethod == "DELETE")
     }
     

@@ -10,7 +10,7 @@ class EditProfileConfigurator {
     let viewController: EditProfileViewController
     
     init() {
-        viewController = StoryboardScene.EditProfile.instantiateEditProfileViewController()
+        viewController = StoryboardScene.EditProfile.editProfileViewController.instantiate()
     }
 
     func configure(user: User, moduleOutput: EditProfileModuleOutput?) {
