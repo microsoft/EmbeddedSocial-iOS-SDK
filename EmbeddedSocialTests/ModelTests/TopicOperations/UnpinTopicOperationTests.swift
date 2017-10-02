@@ -10,7 +10,7 @@ class UnpinTopicOperationTests: XCTestCase {
     
     func testThatItUsesCorrectServiceMethod() {
         // given
-        let topic = Post(topicHandle: UUID().uuidString)
+        let topic = Post.mock(seed: 0)
         let command = TopicCommand(topic: topic)
         let service = MockLikesService()
         let sut = UnpinTopicOperation(command: command, likesService: service)

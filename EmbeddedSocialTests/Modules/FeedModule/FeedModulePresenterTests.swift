@@ -64,7 +64,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         let user = User(firstName: firstName,
                         lastName: lastName)
         
-        var post = Post()
+        var post = Post.mock(seed: 0)
         
         post.topicHandle = "handle"
         post.user = user
@@ -323,7 +323,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         }
        
         
-        expect(<#T##expression: T?##T?#>)
+//        expect(<#T##expression: T?##T?#>)
         
         
     

@@ -26,7 +26,7 @@ class PostDetailsPresenterTests: XCTestCase {
                         photo: Photo(uid: "photoHandle"),
                         followerStatus: .empty)
         
-        var tempPost = Post(topicHandle: "topicHandle")
+        var tempPost = Post.mock(seed: 0)
         tempPost.createdTime = Date()
         tempPost.user = user
         tempPost.title = "ttile"

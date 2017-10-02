@@ -331,7 +331,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
         
         let index = path.row
-        let postHandle = items[index].topicHandle
         let userHandle = items[index].userHandle
         let post = items[index]
         
@@ -368,6 +367,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             items[index].liked = !status
             
             // change item locally
+            // TODO: remove this, since outgoing it's outgoing cache responsibility
             if action == .like {
                 items[index].totalLikes += 1
             } else if action == .unlike && items[index].totalLikes > 0 {
@@ -505,6 +505,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
+        view.reload()
         Logger.log(action, post, error)
     }
     

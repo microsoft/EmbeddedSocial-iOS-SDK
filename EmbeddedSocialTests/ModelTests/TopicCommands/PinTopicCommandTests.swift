@@ -10,7 +10,8 @@ class PinTopicCommandTests: XCTestCase {
     
     func testThatItCorrectlyAppliesChanges() {
         // given
-        var topic = Post(topicHandle: UUID().uuidString)
+        var topic = Post.mock(seed: 1)
+        topic.pinned = false
         let sut = PinTopicCommand(topic: topic)
         
         // when
@@ -22,7 +23,7 @@ class PinTopicCommandTests: XCTestCase {
     
     func testThatItReturnsCorrectInverseCommand() {
         // given
-        let topic = Post(topicHandle: UUID().uuidString)
+        let topic = Post.mock(seed: 0)
         let sut = PinTopicCommand(topic: topic)
         
         // when

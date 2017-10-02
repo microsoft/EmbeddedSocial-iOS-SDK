@@ -13,10 +13,10 @@ class MockLikesService: LikesServiceProtocol {
     var postPinPostHandleCompletionCalled = false
     var postPinPostHandleCompletionReceivedArguments: (postHandle: PostHandle, completion: CompletionHandler)?
     
-    func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
+    func postPin(post: Post, completion: @escaping CompletionHandler) {
         postPinPostHandleCompletionCalled = true
-        postPinPostHandleCompletionReceivedArguments = (postHandle: postHandle, completion: completion)
-        completion(postHandle, nil)
+        postPinPostHandleCompletionReceivedArguments = (postHandle: post.topicHandle, completion: completion)
+        completion(post.topicHandle, nil)
     }
     
     //MARK: - deletePin
@@ -24,10 +24,10 @@ class MockLikesService: LikesServiceProtocol {
     var deletePinPostHandleCompletionCalled = false
     var deletePinPostHandleCompletionReceivedArguments: (postHandle: PostHandle, completion: CompletionHandler)?
     
-    func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
+    func deletePin(post: Post, completion: @escaping CompletionHandler) {
         deletePinPostHandleCompletionCalled = true
-        deletePinPostHandleCompletionReceivedArguments = (postHandle: postHandle, completion: completion)
-        completion(postHandle, nil)
+        deletePinPostHandleCompletionReceivedArguments = (postHandle: post.topicHandle, completion: completion)
+        completion(post.topicHandle, nil)
     }
     
     //MARK: - postLike
@@ -35,10 +35,10 @@ class MockLikesService: LikesServiceProtocol {
     var postLikePostHandleCompletionCalled = false
     var postLikePostHandleCompletionReceivedArguments: (postHandle: PostHandle, completion: CompletionHandler)?
     
-    func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
+    func postLike(post: Post, completion: @escaping CompletionHandler) {
         postLikePostHandleCompletionCalled = true
-        postLikePostHandleCompletionReceivedArguments = (postHandle: postHandle, completion: completion)
-        completion(postHandle, nil)
+        postLikePostHandleCompletionReceivedArguments = (postHandle: post.topicHandle, completion: completion)
+        completion(post.topicHandle, nil)
     }
     
     //MARK: - deleteLike
@@ -46,10 +46,10 @@ class MockLikesService: LikesServiceProtocol {
     var deleteLikePostHandleCompletionCalled = false
     var deleteLikePostHandleCompletionReceivedArguments: (postHandle: PostHandle, completion: CompletionHandler)?
     
-    func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
+    func deleteLike(post: Post, completion: @escaping CompletionHandler) {
         deleteLikePostHandleCompletionCalled = true
-        deleteLikePostHandleCompletionReceivedArguments = (postHandle: postHandle, completion: completion)
-        completion(postHandle, nil)
+        deleteLikePostHandleCompletionReceivedArguments = (postHandle: post.topicHandle, completion: completion)
+        completion(post.topicHandle, nil)
     }
     
     //MARK: - likeComment
