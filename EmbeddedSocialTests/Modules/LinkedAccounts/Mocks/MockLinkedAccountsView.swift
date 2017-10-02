@@ -19,10 +19,12 @@ class MockLinkedAccountsView: LinkedAccountsViewInput {
     
     var setSwitchOnForCalled = false
     var setSwitchOnForReceivedArguments: (isOn: Bool, provider: AuthProvider)?
-    
+    var setSwitchOnForAllReceivedArguments: [(isOn: Bool, provider: AuthProvider)?] = []
+
     func setSwitchOn(_ isOn: Bool, for provider: AuthProvider) {
         setSwitchOnForCalled = true
         setSwitchOnForReceivedArguments = (isOn: isOn, provider: provider)
+        setSwitchOnForAllReceivedArguments.append(setSwitchOnForReceivedArguments)
     }
     
     //MARK: - setSwitchEnabled

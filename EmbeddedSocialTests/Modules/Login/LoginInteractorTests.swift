@@ -35,7 +35,7 @@ class LoginInteractorTests: XCTestCase {
         sut.login(provider: .facebook, from: nil) { _ in () }
         
         // then
-        XCTAssertEqual(authService.loginCount, 1)
+        XCTAssertTrue(authService.loginCalled)
     }
     
     func testThatGetMyProfileSucceeds() {

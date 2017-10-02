@@ -58,20 +58,24 @@ final class MockUserService: UserServiceType {
     // MARK: - linkAccount
 
     var linkAccountCalled = false
+    var linkAccountInputValues: (authorization: Authorization, sessionToken: String)?
     var linkAccountReturnValue: Result<Void>!
     
     func linkAccount(authorization: Authorization, sessionToken: String, completion: @escaping (Result<Void>) -> Void) {
         linkAccountCalled = true
+        linkAccountInputValues = (authorization: authorization, sessionToken: sessionToken)
         completion(linkAccountReturnValue)
     }
     
     // MARK: - deleteLinkedAccount
     
     var deleteLinkedAccountCalled = false
+    var deleteLinkedAccountInputProvider: AuthProvider?
     var deleteLinkedAccountReturnValue: Result<Void>!
     
     func deleteLinkedAccount(for provider: AuthProvider, completion: @escaping (Result<Void>) -> Void) {
         deleteLinkedAccountCalled = true
+        deleteLinkedAccountInputProvider = provider
         completion(deleteLinkedAccountReturnValue)
     }
 }

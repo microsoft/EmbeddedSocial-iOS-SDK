@@ -8,10 +8,10 @@ import Foundation
 final class LinkedAccountsInteractor: LinkedAccountsInteractorInput {
     
     private let usersService: UserServiceType
-    private let authService: AuthService
+    private let authService: AuthServiceType
     private let sessionToken: String
 
-    init(usersService: UserServiceType, authService: AuthService, sessionToken: String) {
+    init(usersService: UserServiceType, authService: AuthServiceType, sessionToken: String) {
         self.usersService = usersService
         self.authService = authService
         self.sessionToken = sessionToken
