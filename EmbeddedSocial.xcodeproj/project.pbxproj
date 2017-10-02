@@ -491,6 +491,7 @@
 		88640D701F828B290004CDF9 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D6F1F828B290004CDF9 /* Theme.swift */; };
 		88640D721F828B3E0004CDF9 /* ThemeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D711F828B3E0004CDF9 /* ThemeClient.swift */; };
 		88640D741F828DE60004CDF9 /* ThemeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D731F828DE60004CDF9 /* ThemeLoader.swift */; };
+		88640D761F82918A0004CDF9 /* light_theme.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88640D751F82918A0004CDF9 /* light_theme.plist */; };
 		8864C8221F45BA6000ADCE13 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8211F45BA6000ADCE13 /* SearchViewController.swift */; };
 		8864C8241F45BA7000ADCE13 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8864C8231F45BA7000ADCE13 /* Search.storyboard */; };
 		8864C8261F45C57700ADCE13 /* QueryPeopleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8251F45C57700ADCE13 /* QueryPeopleAPI.swift */; };
@@ -1539,6 +1540,7 @@
 		88640D6F1F828B290004CDF9 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		88640D711F828B3E0004CDF9 /* ThemeClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeClient.swift; sourceTree = "<group>"; };
 		88640D731F828DE60004CDF9 /* ThemeLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeLoader.swift; sourceTree = "<group>"; };
+		88640D751F82918A0004CDF9 /* light_theme.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = light_theme.plist; sourceTree = "<group>"; };
 		8864C8211F45BA6000ADCE13 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8864C8231F45BA7000ADCE13 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		8864C8251F45C57700ADCE13 /* QueryPeopleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryPeopleAPI.swift; sourceTree = "<group>"; };
@@ -3739,6 +3741,7 @@
 			children = (
 				88640D6F1F828B290004CDF9 /* Theme.swift */,
 				88640D711F828B3E0004CDF9 /* ThemeClient.swift */,
+				88640D751F82918A0004CDF9 /* light_theme.plist */,
 				88640D731F828DE60004CDF9 /* ThemeLoader.swift */,
 			);
 			name = Theme;
@@ -5822,6 +5825,7 @@
 				88F3858B1F31BF140048B04C /* UserListCell.xib in Resources */,
 				6387F5531F41B95A0066628E /* CommentReplies.storyboard in Resources */,
 				88F551A41F3472E100F4AAB9 /* SegmentedControlView.xib in Resources */,
+				88640D761F82918A0004CDF9 /* light_theme.plist in Resources */,
 				8864C8331F46DA7800ADCE13 /* SearchPeople.storyboard in Resources */,
 				9C0963761F67CA8900E70C30 /* ActivityUserRequestCell.xib in Resources */,
 				88580C631F2213AB00C1CBAF /* MenuStack.storyboard in Resources */,

@@ -7,11 +7,18 @@ import Foundation
 
 class Theme {
     
+    let config: [String: Any]
+    
     init?(filename: String) {
-        Bundle(for: type(of: self)).path(forResource: filename, ofType: <#T##String?#>)
-        
-        if let path = Bundle.main.path(forResource: "Config", ofType: "plist") {
-            myDict = NSDictionary(contentsOfFile: path)
+        guard let path = Bundle(for: type(of: self)).path(forResource: filename, ofType: "plist"),
+            let config = NSDictionary(contentsOfFile: path) as? [String: Any] else {
+                return nil
         }
+        self.config = config
+        load()
+    }
+    
+    func load() {
+        print(config["contentBackground"])
     }
 }

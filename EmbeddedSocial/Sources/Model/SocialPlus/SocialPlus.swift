@@ -65,6 +65,9 @@ public final class SocialPlus {
         } else {
             coordinator.openPopularScreen()
         }
+        
+        let theme = Theme(filename: "light_theme")
+        print(theme)
     }
     
     fileprivate func startSession(with info: SessionInfo) {
