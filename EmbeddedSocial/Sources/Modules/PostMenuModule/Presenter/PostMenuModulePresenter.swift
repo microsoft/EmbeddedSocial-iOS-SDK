@@ -60,7 +60,7 @@ enum PostMenuType: CustomStringConvertible {
         get {
             switch self {
             case .myPost(let post ), .otherPost(let post, _):
-                return post.topicHandle!
+                return post.topicHandle
             case .myComment(let comment), .otherComment(let comment):
                 return comment.commentHandle
             case .myReply(let reply), .otherReply(let reply):
