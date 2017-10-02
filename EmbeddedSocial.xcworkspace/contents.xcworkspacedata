@@ -5,6 +5,9 @@
       location = "group:EmbeddedSocial.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:EmbeddedSocialUITests/Tests">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
