@@ -97,50 +97,46 @@ extension Post: JSONEncodable {
     
      init?(json: [String: Any]) {
         
-        guard let topicView: TopicView = Decoders.decode(type: TopicView.self, payload: json) else {
+//        guard let topicView: TopicView = Decoders.decode(type: TopicView.self, payload: json) else {
+//            return nil
+//        }
+//
+//        self.init(data: topicView)
+        
+//
+        guard let handle = json["topicHandle"] as? String else {
             return nil
         }
-        
-        self.init(data: topicView)
-        
-//
-//        guard let handle = json["topicHandle"] as? String else {
-//            return nil
-//        }
-//
-//        createdTime = json["createdTime"] as? Date
-//        guard let userJSON = json["user"] as? [String: Any] else {
-//            return nil
-//        }
-//
-//        guard let user = User(memento: userJSON) else {
-//            return nil
-//        }
-//
-//        guard let title = json["title"] as? String,
-//            let text = json["text"] as? String,
-//            let imageUrl = json["imageUrl"] as? String,
-//            let imageHandle = json["imageHandle"] as? String,
-//            let deepLink = json["deepLink"] as? String,
-//            let totalLikes = json["totalLikes"] as? Int,
-//            let totalComments = json["totalComments"] as? Int,
-//            let liked = json["liked"] as? Bool,
-//            let pinned = json["pinned"] as? Bool else {
-//                return nil
-//        }
-//
-//        self.init(topicHandle: handle,
-//                    createdTime: createdTime,
-//                    user: user,
-//                    imageUrl: imageUrl,
-//                    imageHandle: imageHandle,
-//                    title: title,
-//                    text: text,
-//                    deepLink: deepLink,
-//                    totalLikes: totalLikes,
-//                    totalComments: totalComments,
-//                    liked: liked,
-//                    pinned: pinned)
+
+        guard let userJSON = json["user"] as? [String: Any] else {
+            return nil
+        }
+
+        guard let user = User(memento: userJSON) else {
+            return nil
+        }
+
+        guard let title = json["title"] as? String,
+            let text = json["text"] as? String,
+            let totalLikes = json["totalLikes"] as? Int,
+            let totalComments = json["totalComments"] as? Int,
+            let liked = json["liked"] as? Bool,
+            let pinned = json["pinned"] as? Bool else {
+                return nil
+        }
+
+        self.init(topicHandle: handle,
+                    createdTime: json["createdTime"] as? Date,
+                    user: user,
+                    imageUrl: json["imageUrl"] as? String,
+                    imageHandle: json["imageHandle"] as? String,
+                    title: title,
+                    text: text,
+                    deepLink: json["deepLink"] as? String,
+                    totalLikes: totalLikes,
+                    totalComments: totalComments,
+                    liked: liked,
+                    pinned: pinned)
     }
     
     func encodeToJSON() -> Any {
