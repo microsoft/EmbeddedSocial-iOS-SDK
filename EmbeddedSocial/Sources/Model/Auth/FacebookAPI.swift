@@ -10,7 +10,7 @@ import FBSDKLoginKit
 final class FacebookAPI: AuthAPI {
     private let loginManager = FBSDKLoginManager()
     
-    private let readPermissions = ["public_profile", "email"]
+    private let readPermissions = ["public_profile", "email", "user_friends"]
     
     private let userInfoParams = ["fields": "first_name, last_name, email, picture"]
     
@@ -47,8 +47,7 @@ final class FacebookAPI: AuthAPI {
     
     private func makeSocialUser(json: Any?, token: String) -> SocialUser? {
         guard let json = json as? [String: Any],
-            let uid = json["id"] as? String
-            else {
+            let uid = json["id"] as? String else {
                 return nil
         }
         

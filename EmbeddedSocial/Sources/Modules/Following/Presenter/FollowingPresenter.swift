@@ -10,6 +10,12 @@ class FollowingPresenter: FollowingViewOutput {
     var usersList: UserListModuleInput!
     weak var moduleOutput: FollowingModuleOutput?
     var router: FollowingRouterInput!
+    
+    fileprivate let myProfileHolder: UserHolder?
+    
+    init(myProfileHolder: UserHolder? = SocialPlus.shared) {
+        self.myProfileHolder = myProfileHolder
+    }
 
     func viewIsReady() {
         view.setupInitialState(userListView: usersList.listView)
@@ -39,6 +45,9 @@ extension FollowingPresenter: FollowingNoDataViewDelegate {
     }
     
     func didSelectSuggestedUsers() {
-        router.openSuggestedUsers()
+        guard let auth = myProfileHolder?.me?.credentials?.authorization else {
+            return
+        }
+        router.openSuggestedUsers(authorization: auth)
     }
 }

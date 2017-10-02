@@ -73,30 +73,26 @@ class FeedCachingTests: XCTestCase {
     }
     
     func testThatItCachesIncomingItemAndLoadsItByHandle() {
-        
         // given
-        topicViewResponseA.cursor = "original cursor"
-        topicViewResponseB.cursor = "new cursor"
+        let handle = UUID().uuidString
+        let cursor1 = UUID().uuidString
+        let cursor2 = UUID().uuidString
+        let typeID = UUID().uuidString
+
+        topicViewResponseA.cursor = cursor1
+        topicViewResponseA.setHandle(handle)
         
-        XCTAssert(topicViewResponseB.cursor != topicViewResponseA.cursor)
-        
-        let cacheKey = UUID().uuidString
-        //        let item = CacheableResponse(response: topicViewResponse )
-        //        cache.cacheIncoming(item, for: requestURLString)
-        cache.cacheIncoming(topicViewResponseA, for: cacheKey)
-        cache.cacheIncoming(topicViewResponseB, for: cacheKey)
-        
-        //        let request = CacheFetchRequest(resultType: FeedResponseTopicView.self)
-        //        let predicate = PredicateBuilder().predicate(typeID: requestURLString)
+        topicViewResponseB.cursor = cursor2
+        topicViewResponseB.setHandle(handle)
         
         // when
-        //        let fetchedItem = cache.firstIncoming(ofType: FeedResponseTopicView.self,
-        //                                              predicate: predicate,
-        //                                              sortDescriptors: nil)
+        cache.cacheIncoming(topicViewResponseA, for: typeID)
+        cache.cacheIncoming(topicViewResponseB, for: typeID)
         
-        let cachedItem = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: cacheKey)
-        
-        XCTAssertEqual(cachedItem!.cursor, "new cursor")
+        // then
+        let cachedItem = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: typeID)
+        XCTAssertNotNil(cachedItem)
+        XCTAssertEqual(cachedItem?.cursor, cursor2)
     }
     
     func testFeedGetsCached() {
