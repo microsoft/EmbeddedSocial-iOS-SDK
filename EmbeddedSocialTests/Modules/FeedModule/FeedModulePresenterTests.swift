@@ -76,12 +76,13 @@ class FeedModulePresenter_Tests: XCTestCase {
         post.createdTime = creationDate
         
         let posts = [post]
-        let feed = Feed(fetchID: uniqueString(),
+        let request = sut.makeFetchRequest(feedType: .home)
+        let feedResponse = Feed(fetchID: request.uid,
                         feedType: .home,
                         items: posts,
                         cursor: nil)
         
-        sut.didFetch(feed: feed)
+        sut.didFetch(feed: feedResponse)
         let path = IndexPath(row: 0, section: 0)
         
         // when
@@ -139,16 +140,22 @@ class FeedModulePresenter_Tests: XCTestCase {
         
         // given
         let path = IndexPath(row: 0, section: 0)
+        let feedType = FeedType.home
         
-        let postsA = [Post.mock(seed: 1), Post.mock(seed: 2)]
-        let feedA = Feed(fetchID: uniqueString(), feedType: .home, items: postsA, cursor: nil)
-        sut.didFetch(feed: feedA)
+        let feedPosts1 = [Post.mock(seed: 1), Post.mock(seed: 2)]
+        let fetchID1 = uniqueString()
         
-        let postsB = [Post.mock(seed: 3), Post.mock(seed: 4), Post.mock(seed: 5)]
-        let feedB = Feed(fetchID: uniqueString(), feedType: .home, items: postsB, cursor: nil)
+        _ = sut.makeFetchRequest(requestID: fetchID1, cursor: nil, feedType: feedType)
+        let feedResponse1 = Feed(fetchID: fetchID1, feedType: .home, items: feedPosts1, cursor: nil)
+        
+        let feedPosts2 = [Post.mock(seed: 3), Post.mock(seed: 4), Post.mock(seed: 5)]
+        let fetchID2 = uniqueString()
+        _ = sut.makeFetchRequest(requestID: fetchID2, cursor: nil, feedType: feedType)
+        let feedResponse2 = Feed(fetchID: fetchID2, feedType: .home, items: feedPosts2, cursor: nil)
         
         // when
-        sut.didFetch(feed: feedB)
+        sut.didFetch(feed: feedResponse1)
+        sut.didFetch(feed: feedResponse2)
         
         // then
         XCTAssert(sut.numberOfItems() == 3)
@@ -231,14 +238,20 @@ class FeedModulePresenter_Tests: XCTestCase {
         post.user = user
         post.imageUrl = postImageURL
         
-        let feed = Feed(fetchID: uniqueString(),
-                        feedType: .home,
-                        items: [post],
-                        cursor: "cursor")
+        let fetchRequestID = uniqueString()
         
-        sut.didFetch(feed: feed)
+        // register fetch request
+        _ = sut.makeFetchRequest(requestID: fetchRequestID, feedType: .home)
+        
+        let feedResponse = Feed(fetchID: fetchRequestID,
+                                feedType: .home,
+                                items: [post],
+                                cursor: "cursor")
+        
+        // stub response
+        sut.didFetch(feed: feedResponse)
+        
         let path = IndexPath(row: 0, section: 0)
-        
         let postViewModel = PostViewModel(with: post, cellType: "")
         
         var testsForOtherUser = [FeedModuleRoutes: FeedPostCellAction]()
@@ -296,12 +309,19 @@ class FeedModulePresenter_Tests: XCTestCase {
         post.user = user
         post.imageUrl = postImageURL
         
-        let feed = Feed(fetchID: uniqueString(),
+        
+        let fetchRequestID = uniqueString()
+        
+        // register fetch request
+        _ = sut.makeFetchRequest(requestID: fetchRequestID, feedType: .home)
+        
+        let feedResponse = Feed(fetchID: fetchRequestID,
                         feedType: .home,
                         items: [post],
                         cursor: "cursor")
+        // stub response
+        sut.didFetch(feed: feedResponse)
         
-        sut.didFetch(feed: feed)
         let path = IndexPath(row: 0, section: 0)
         
         var expectedResults = [FeedPostCellAction: FeedModuleRoutes]()

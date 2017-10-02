@@ -232,7 +232,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
         
         switch feedType {
-        case let .popular(type: _ ):
+        case .popular(type: _ ):
             return false
         default:
             return true
@@ -249,10 +249,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
     }
     
-    private func makeFetchRequest(with cursor: String?, feedType: FeedType) -> FeedFetchRequest {
-        let uid = UUID().uuidString
-        fetchRequests.insert(uid)
-        return FeedFetchRequest(uid: uid, cursor: cursor, limit: limit, feedType: feedType)
+    func makeFetchRequest(requestID: String = UUID().uuidString, cursor: String? = nil, feedType: FeedType) -> FeedFetchRequest {
+        fetchRequests.insert(requestID)
+        return FeedFetchRequest(uid: requestID, cursor: cursor, limit: limit, feedType: feedType)
     }
  
     private func fetchItems(with cursor: String? = nil) {
@@ -261,7 +260,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
 
-        let request = makeFetchRequest(with: cursor, feedType: feedType)
+        let request = makeFetchRequest(cursor: cursor, feedType: feedType)
         interactor.fetchPosts(request: request)
     }
     
