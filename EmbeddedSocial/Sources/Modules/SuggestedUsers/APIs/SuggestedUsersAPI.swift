@@ -7,12 +7,14 @@ import Foundation
 
 final class SuggestedUsersAPI: UsersListAPI {
     private let socialService: SocialServiceType
+    private let authorization: Authorization
 
-    init(socialService: SocialServiceType) {
+    init(socialService: SocialServiceType, authorization: Authorization) {
         self.socialService = socialService
+        self.authorization = authorization
     }
     
     func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        socialService.getSuggestedUsers(completion: completion)
+        socialService.getSuggestedUsers(authorization: authorization, completion: completion)
     }
 }
