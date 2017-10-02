@@ -18,4 +18,10 @@ final class SettingsRouter: SettingsRouterInput {
         conf.configure(navigationController: navigationController)
         navigationController?.pushViewController(conf.viewController, animated: true)
     }
+    
+    func openLinkedAccounts(sessionToken: String) {
+        let conf = LinkedAccountsConfigurator()
+        conf.configure(sessionToken: sessionToken)
+        navigationController?.pushViewController(conf.viewController, animated: true)
+    }
 }

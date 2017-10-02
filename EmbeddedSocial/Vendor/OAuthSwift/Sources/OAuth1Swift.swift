@@ -128,6 +128,11 @@ open class OAuth1Swift: OAuthSwift {
 
     // 1. Request token
     open func postOAuthRequestToken(callbackURL: URL, success: @escaping TokenSuccessHandler, failure: FailureHandler?) {
+        if !client.credential.oauthToken.isEmpty {
+            success(client.credential, nil, [:])
+            return
+        }
+        
         var parameters = [String: Any]()
         parameters["oauth_callback"] = callbackURL.absoluteString
 

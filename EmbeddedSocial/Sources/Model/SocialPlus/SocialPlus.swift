@@ -27,6 +27,10 @@ public final class SocialPlus {
         return sessionStore.authorization
     }
     
+    var sessionToken: String? {
+        return sessionStore.sessionToken
+    }
+    
     private init() {
         setupServices(with: SocialPlusServices())
     }

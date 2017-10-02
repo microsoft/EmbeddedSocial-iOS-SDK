@@ -16,7 +16,7 @@ class SideMenuModuleConfigurator {
                    socialMenuItemsProvider: SideMenuItemsProvider,
                    clientMenuItemsProvider: SideMenuItemsProvider?) {
         
-        viewController = StoryboardScene.MenuStack.instantiateSideMenuViewController()
+        viewController = StoryboardScene.MenuStack.sideMenuViewController.instantiate()
         
         router = SideMenuRouter()
         router.coordinator = coordinator

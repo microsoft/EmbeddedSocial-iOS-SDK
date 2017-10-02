@@ -19,7 +19,7 @@ class PostMenuModuleRouter: PostMenuModuleRouterInput {
     
     func openEdit(post: Post) {
         Logger.log(post.topicHandle)
-        let vc = StoryboardScene.CreatePost.instantiateCreatePostViewController()
+        let vc = StoryboardScene.CreatePost.createPostViewController.instantiate()
         let configurator = CreatePostModuleConfigurator()
         var user = User()
         user.uid = post.userHandle

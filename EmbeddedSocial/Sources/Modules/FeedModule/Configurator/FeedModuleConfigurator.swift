@@ -26,7 +26,7 @@ class FeedModuleConfigurator {
                    myProfileOpener: MyProfileOpener? = SocialPlus.shared.coordinator,
                    loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
         
-        let viewController = StoryboardScene.FeedModule.instantiateFeedModuleViewController()
+        let viewController = StoryboardScene.FeedModule.feedModuleViewController.instantiate()
         let router = FeedModuleRouter()
         router.navigationController = navigationController
         router.myProfileOpener = myProfileOpener

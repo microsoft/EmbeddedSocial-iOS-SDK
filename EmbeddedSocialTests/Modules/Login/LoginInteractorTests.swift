@@ -4,6 +4,7 @@
 //
 
 import XCTest
+import Nimble
 @testable import EmbeddedSocial
 
 class LoginInteractorTests: XCTestCase {
@@ -30,12 +31,18 @@ class LoginInteractorTests: XCTestCase {
     
     func testThatLoginSucceeds() {
         // given
+        let creds = CredentialsList(provider: .facebook, accessToken: UUID().uuidString, socialUID: UUID().uuidString)
+        let user = SocialUser(credentials: creds, firstName: nil, lastName: nil, email: nil, photo: nil)
+        authService.loginReturnValue = .success(user)
+        
+        var result: Result<SocialUser>?
 
         // when
-        sut.login(provider: .facebook, from: nil) { _ in () }
+        sut.login(provider: .facebook, from: nil) { result = $0 }
         
         // then
-        XCTAssertEqual(authService.loginCount, 1)
+        expect(self.authService.loginCalled).toEventually(beTrue())
+        expect(result).toEventuallyNot(beNil())
     }
     
     func testThatGetMyProfileSucceeds() {

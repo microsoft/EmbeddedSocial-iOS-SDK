@@ -355,6 +355,11 @@ enum L10n {
     }
   }
 
+  enum LinkedAccounts {
+    /// Linked accounts
+    static let screenTitle = L10n.tr("Localizable", "linked_accounts.screen_title")
+  }
+
   enum Login {
     /// Sign in
     static let screenTitle = L10n.tr("Localizable", "login.screen_title")

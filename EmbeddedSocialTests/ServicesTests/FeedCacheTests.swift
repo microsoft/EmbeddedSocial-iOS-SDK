@@ -72,6 +72,29 @@ class FeedCachingTests: XCTestCase {
         }
     }
     
+    func testThatItCachesIncomingItemAndLoadsItByHandle() {
+        // given
+        let handle = UUID().uuidString
+        let cursor1 = UUID().uuidString
+        let cursor2 = UUID().uuidString
+        let typeID = UUID().uuidString
+
+        topicViewResponseA.cursor = cursor1
+        topicViewResponseA.setHandle(handle)
+        
+        topicViewResponseB.cursor = cursor2
+        topicViewResponseB.setHandle(handle)
+        
+        // when
+        cache.cacheIncoming(topicViewResponseA, for: typeID)
+        cache.cacheIncoming(topicViewResponseB, for: typeID)
+        
+        // then
+        let cachedItem = cache.firstIncoming(ofType: FeedResponseTopicView.self, typeID: typeID)
+        XCTAssertNotNil(cachedItem)
+        XCTAssertEqual(cachedItem?.cursor, cursor2)
+    }
+    
     func testFeedGetsCached() {
         
         // given

@@ -9,6 +9,7 @@ class SettingsViewController: UITableViewController {
     
     enum ActionSectionItems: Int {
         case blockList
+        case linkedAccounts
         case signOut
     }
     
@@ -28,6 +29,8 @@ class SettingsViewController: UITableViewController {
             switch indexPath.row {
             case ActionSectionItems.blockList.rawValue:
                 output.onBlockedList()
+            case ActionSectionItems.linkedAccounts.rawValue:
+                output.onLinkedAccounts()
             case ActionSectionItems.signOut.rawValue:
                 output.signOut()
             default:

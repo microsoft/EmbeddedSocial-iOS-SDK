@@ -11,7 +11,7 @@ final class SearchConfigurator {
     private(set) var moduleInput: SearchModuleInput!
     
     init() {
-        viewController = StoryboardScene.Search.instantiateSearchViewController()
+        viewController = StoryboardScene.Search.searchViewController.instantiate()
     }
     
     func configure(isLoggedInUser: Bool, navigationController: UINavigationController?) {
