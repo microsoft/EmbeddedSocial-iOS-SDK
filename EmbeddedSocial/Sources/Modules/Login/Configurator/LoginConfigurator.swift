@@ -10,7 +10,7 @@ final class LoginConfigurator {
     let viewController: LoginViewController
     
     init() {
-        viewController = StoryboardScene.Login.instantiateLoginViewController()
+        viewController = StoryboardScene.Login.loginViewController.instantiate()
     }
 
     func configure(moduleOutput: LoginModuleOutput, source: SessionInfo.Source = .menu) {

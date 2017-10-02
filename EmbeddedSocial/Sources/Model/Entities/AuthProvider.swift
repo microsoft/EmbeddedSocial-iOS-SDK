@@ -27,13 +27,4 @@ extension AuthProvider {
         }
         return name
     }
-    
-    var sessionServiceIdentityProvider: SessionsAPI.IdentityProvider_requestTokensGetRequestToken {
-        switch self {
-        case .facebook: return .facebook
-        case .microsoft: return .microsoft
-        case .google: return .google
-        case .twitter: return .twitter
-        }
-    }
 }

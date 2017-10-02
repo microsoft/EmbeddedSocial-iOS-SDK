@@ -10,7 +10,7 @@ struct UserProfileConfigurator {
     let viewController: UserProfileViewController
     
     init() {
-        viewController = StoryboardScene.UserProfile.instantiateUserProfileViewController()
+        viewController = StoryboardScene.UserProfile.userProfileViewController.instantiate()
     }
     
     func configure(userID: String? = nil,

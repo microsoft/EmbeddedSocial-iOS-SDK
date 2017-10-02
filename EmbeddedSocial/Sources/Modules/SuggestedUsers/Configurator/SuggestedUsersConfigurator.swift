@@ -9,7 +9,7 @@ final class SuggestedUsersConfigurator {
     let viewController: SuggestedUsersViewController
     
     init() {
-        viewController = StoryboardScene.SuggestedUsers.instantiateSuggestedUsersViewController()
+        viewController = StoryboardScene.SuggestedUsers.suggestedUsersViewController.instantiate()
         viewController.title = L10n.SuggestedUsers.screenTitle
     }
     

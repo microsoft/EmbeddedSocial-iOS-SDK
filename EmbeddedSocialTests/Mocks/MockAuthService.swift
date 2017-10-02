@@ -6,11 +6,17 @@
 @testable import EmbeddedSocial
 
 final class MockAuthService: AuthServiceType {
-    private(set) var loginCount = 0
     
+    var loginCalled = false
+    var loginInputValues: (provider: AuthProvider, viewController: UIViewController?)?
+    var loginReturnValue: Result<SocialUser>!
+
     func login(with provider: AuthProvider,
                from viewController: UIViewController?,
                handler: @escaping (Result<SocialUser>) -> Void) {
-        loginCount += 1
+        
+        loginCalled = true
+        loginInputValues = (provider, viewController)
+        handler(loginReturnValue)
     }
 }

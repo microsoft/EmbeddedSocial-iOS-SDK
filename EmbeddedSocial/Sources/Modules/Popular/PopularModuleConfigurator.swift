@@ -11,7 +11,7 @@ class PopularModuleConfigurator {
     
     func configure(navigationController: UINavigationController) {
         
-        let popularViewController = StoryboardScene.PopularModuleView.instantiatePopularModuleView()
+        let popularViewController = StoryboardScene.PopularModuleView.popularModuleView.instantiate()
         
         let router = PopularModuleRouter()
         router.navigationController = navigationController

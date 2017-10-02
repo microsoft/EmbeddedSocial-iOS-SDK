@@ -10,7 +10,7 @@ struct BlockedUsersConfigurator {
     let viewController: BlockedUsersViewController
     
     init() {
-        viewController = StoryboardScene.BlockedUsers.instantiateBlockedUsersViewController()
+        viewController = StoryboardScene.BlockedUsers.blockedUsersViewController.instantiate()
         viewController.title = L10n.BlockedUsers.screenTitle
     }
     

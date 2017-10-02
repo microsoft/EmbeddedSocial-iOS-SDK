@@ -178,3 +178,5 @@
 "activity.two_persons" = "%@ and %@";
 "activity.three_persons" = "%@, %@ and 1 other person";
 "activity.many_persons" = "%@, %@ and %d other people";
+
+"linked_accounts.screen_title" = "Linked accounts";
