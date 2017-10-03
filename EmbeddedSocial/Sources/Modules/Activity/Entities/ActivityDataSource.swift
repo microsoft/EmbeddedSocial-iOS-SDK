@@ -89,13 +89,13 @@ class DataSource {
         } else {
             
             let cachedNumberOfItems = section.pages[pageIdx].count
-            let needAddItems = (cachedNumberOfItems - newItems.count)
-            let needRemoveItems = (newItems.count - cachedNumberOfItems)
+            let needRemoveItems = (cachedNumberOfItems - newItems.count)
+            let needAddItems = (newItems.count - cachedNumberOfItems)
+            
+            let paths = section.range(forPage: pageIdx).map { IndexPath(row: $0, section: context.index) }
             
             // replacing items for existing page
             section.pages[pageIdx] = newItems
-            
-            let paths = section.range(forPage: pageIdx).map { IndexPath(row: $0, section: context.index) }
             
             // notify UI about changes
             if needAddItems > 0 {
