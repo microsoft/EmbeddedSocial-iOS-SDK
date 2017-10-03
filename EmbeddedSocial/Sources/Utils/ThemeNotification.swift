@@ -5,8 +5,6 @@
 
 import Foundation
 
-class ThemeLoader {
-    static let shared = ThemeLoader()
-    
-    private init() { }
+extension Notification.Name {
+    static let themeDidChange = Notification.Name("EmbeddedSocial.ThemeDidChangeNotification")
 }

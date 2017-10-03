@@ -490,8 +490,11 @@
 		88635D8B1F25D96800577140 /* TransactionsDatabaseFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */; };
 		88640D701F828B290004CDF9 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D6F1F828B290004CDF9 /* Theme.swift */; };
 		88640D721F828B3E0004CDF9 /* ThemeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D711F828B3E0004CDF9 /* ThemeClient.swift */; };
-		88640D741F828DE60004CDF9 /* ThemeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D731F828DE60004CDF9 /* ThemeLoader.swift */; };
+		88640D741F828DE60004CDF9 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D731F828DE60004CDF9 /* ThemeManager.swift */; };
 		88640D761F82918A0004CDF9 /* light_theme.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88640D751F82918A0004CDF9 /* light_theme.plist */; };
+		88640D781F83781E0004CDF9 /* ThemeUpdatesNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D771F83781E0004CDF9 /* ThemeUpdatesNotifier.swift */; };
+		88640D7A1F8378910004CDF9 /* ThemeNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D791F8378910004CDF9 /* ThemeNotification.swift */; };
+		88640D7C1F8379EE0004CDF9 /* ThemeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D7B1F8379EE0004CDF9 /* ThemeType.swift */; };
 		8864C8221F45BA6000ADCE13 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8211F45BA6000ADCE13 /* SearchViewController.swift */; };
 		8864C8241F45BA7000ADCE13 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8864C8231F45BA7000ADCE13 /* Search.storyboard */; };
 		8864C8261F45C57700ADCE13 /* QueryPeopleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8251F45C57700ADCE13 /* QueryPeopleAPI.swift */; };
@@ -1539,8 +1542,11 @@
 		88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDatabaseFacade.swift; sourceTree = "<group>"; };
 		88640D6F1F828B290004CDF9 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		88640D711F828B3E0004CDF9 /* ThemeClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeClient.swift; sourceTree = "<group>"; };
-		88640D731F828DE60004CDF9 /* ThemeLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeLoader.swift; sourceTree = "<group>"; };
+		88640D731F828DE60004CDF9 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		88640D751F82918A0004CDF9 /* light_theme.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = light_theme.plist; sourceTree = "<group>"; };
+		88640D771F83781E0004CDF9 /* ThemeUpdatesNotifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeUpdatesNotifier.swift; sourceTree = "<group>"; };
+		88640D791F8378910004CDF9 /* ThemeNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeNotification.swift; sourceTree = "<group>"; };
+		88640D7B1F8379EE0004CDF9 /* ThemeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeType.swift; sourceTree = "<group>"; };
 		8864C8211F45BA6000ADCE13 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8864C8231F45BA7000ADCE13 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		8864C8251F45C57700ADCE13 /* QueryPeopleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryPeopleAPI.swift; sourceTree = "<group>"; };
@@ -3742,7 +3748,10 @@
 				88640D6F1F828B290004CDF9 /* Theme.swift */,
 				88640D711F828B3E0004CDF9 /* ThemeClient.swift */,
 				88640D751F82918A0004CDF9 /* light_theme.plist */,
-				88640D731F828DE60004CDF9 /* ThemeLoader.swift */,
+				88640D731F828DE60004CDF9 /* ThemeManager.swift */,
+				88640D7B1F8379EE0004CDF9 /* ThemeType.swift */,
+				88640D771F83781E0004CDF9 /* ThemeUpdatesNotifier.swift */,
+				88640D791F8378910004CDF9 /* ThemeNotification.swift */,
 			);
 			name = Theme;
 			sourceTree = "<group>";
@@ -6255,6 +6264,7 @@
 				8811C8671F42FE5A00F7513D /* EmbeddedEditProfileItem.swift in Sources */,
 				63EF32171F78EC8E00E8C28B /* ReportCommentCommand.swift in Sources */,
 				884AA9811F3C563F00B85135 /* PostSessionResponse.swift in Sources */,
+				88640D7C1F8379EE0004CDF9 /* ThemeType.swift in Sources */,
 				882AD0C31F2225FF00FC20B7 /* QueriableRepository.swift in Sources */,
 				88580C101F2213AB00C1CBAF /* CredentialsList.swift in Sources */,
 				88580C4C1F2213AB00C1CBAF /* CreatePostViewInput.swift in Sources */,
@@ -6426,7 +6436,7 @@
 				88580C4E1F2213AB00C1CBAF /* LoginConfigurator.swift in Sources */,
 				88B94F061F66D01E002392F9 /* UnfollowUserOperation.swift in Sources */,
 				93AC659D1F3E056F00FE5A3A /* PostDetailPresenter.swift in Sources */,
-				88640D741F828DE60004CDF9 /* ThemeLoader.swift in Sources */,
+				88640D741F828DE60004CDF9 /* ThemeManager.swift in Sources */,
 				639E622A1F5433680030C1F2 /* PostViewModel.swift in Sources */,
 				88580C111F2213AB00C1CBAF /* CredentialsList+Memento.swift in Sources */,
 				88580C5F1F2213AB00C1CBAF /* SideMenuPresenter.swift in Sources */,
@@ -6562,6 +6572,7 @@
 				882CAF171F615DF3001D5F37 /* SearchResultsUpdating.swift in Sources */,
 				884AA9591F3C563F00B85135 /* ReportingAPI.swift in Sources */,
 				88580C671F2213AB00C1CBAF /* TabMenuContainerConfigurator.swift in Sources */,
+				88640D781F83781E0004CDF9 /* ThemeUpdatesNotifier.swift in Sources */,
 				884AA95D1F3C563F00B85135 /* TopicsAPI.swift in Sources */,
 				88580C201F2213AB00C1CBAF /* TwitterWebBasedAPI.swift in Sources */,
 				882AD0C51F22266B00FC20B7 /* CoreDataRepository.swift in Sources */,
@@ -6667,6 +6678,7 @@
 				88E3AC461F55B7570016357F /* ReportViewInput.swift in Sources */,
 				88580C3C1F2213AB00C1CBAF /* CreateAccountViewController.swift in Sources */,
 				88580C2F1F2213AB00C1CBAF /* UserService.swift in Sources */,
+				88640D7A1F8378910004CDF9 /* ThemeNotification.swift in Sources */,
 				8834A7491F50071300F1D383 /* QueryPage.swift in Sources */,
 				88D2F8DE1F56A6260004A8BC /* ReportRouterInput.swift in Sources */,
 				884AA98D1F3C563F00B85135 /* PutUserVisibilityRequest.swift in Sources */,
