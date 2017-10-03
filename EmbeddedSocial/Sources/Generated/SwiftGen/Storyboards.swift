@@ -76,26 +76,14 @@ enum StoryboardScene {
 
     static let createPostViewController = SceneType<EmbeddedSocial.CreatePostViewController>(storyboard: CreatePost.self, identifier: "CreatePostViewController")
   }
-  enum DetailedActivity: String, StoryboardSceneType {
-    static let storyboardName = "DetailedActivity"
-
-    static func initialViewController() -> EmbeddedSocial.DetailedActivityViewController {
-      guard let vc = storyboard().instantiateInitialViewController() as? EmbeddedSocial.DetailedActivityViewController else {
-        fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
-      }
-      return vc
+    enum DetailedActivity: StoryboardType {
+        static let storyboardName = "DetailedActivity"
+        
+        static let initialScene = InitialSceneType<EmbeddedSocial.DetailedActivityViewController>(storyboard: DetailedActivity.self)
+        
+        static let detailedActivityViewController = SceneType<EmbeddedSocial.DetailedActivityViewController>(storyboard: DetailedActivity.self, identifier: "DetailedActivityViewController")
     }
-
-    case detailedActivityViewControllerScene = "DetailedActivityViewController"
-    static func instantiateDetailedActivityViewController() -> EmbeddedSocial.DetailedActivityViewController {
-      guard let vc = StoryboardScene.DetailedActivity.detailedActivityViewControllerScene.viewController() as? EmbeddedSocial.DetailedActivityViewController
-      else {
-        fatalError("ViewController 'DetailedActivityViewController' is not of the expected class EmbeddedSocial.DetailedActivityViewController.")
-      }
-      return vc
-    }
-  }
-  enum EditProfile: String, StoryboardSceneType {
+  enum EditProfile: StoryboardType {
     static let storyboardName = "EditProfile"
 
     static let initialScene = InitialSceneType<EmbeddedSocial.EditProfileViewController>(storyboard: EditProfile.self)
@@ -142,14 +130,7 @@ enum StoryboardScene {
   enum MenuStack: StoryboardType {
     static let storyboardName = "MenuStack"
 
-    case sideMenuViewControllerScene = "SideMenuViewController"
-    static func instantiateSideMenuViewController() -> EmbeddedSocial.SideMenuViewController {
-      guard let vc = StoryboardScene.MenuStack.sideMenuViewControllerScene.viewController() as? EmbeddedSocial.SideMenuViewController
-      else {
-        fatalError("ViewController 'SideMenuViewController' is not of the expected class EmbeddedSocial.SideMenuViewController.")
-      }
-      return vc
-    }
+    static let sideMenuViewController = SceneType<EmbeddedSocial.SideMenuViewController>(storyboard: MenuStack.self, identifier: "SideMenuViewController")
   }
   enum PopularModuleView: StoryboardType {
     static let storyboardName = "PopularModuleView"
