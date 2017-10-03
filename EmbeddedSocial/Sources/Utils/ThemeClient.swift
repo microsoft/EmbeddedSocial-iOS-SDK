@@ -11,27 +11,12 @@ protocol ThemeClient: class {
 
 extension ThemeClient {
     
-    func use<T: Theme>(_ type: T.Type, apply: @escaping (Self, T) -> Void) {
-        if let theme = ThemeManager.shared.currentTheme as? T {
-            apply(self, theme)
-        }
-        
-        notifier.mapping[String(describing: type.self)] = { (themeUser: ThemeClient, theme: Theme) in
-            guard let themeUser = themeUser as? Self,
-                let theme = theme as? T else {
-                    return
-            }
-            
-            apply(themeUser, theme)
-        }
-    }
-    
-    fileprivate var notifier: ThemeNotifier {
+    var theme: Theme? {
         get {
-            return associated(to: self, key: &ThemeClientAssociationKeys.notifier) { ThemeNotifier(host: self) }
+            return associated(to: self, key: &ThemeClientAssociationKeys.theme) { nil }
         }
         set {
-            associate(to: self, key: &ThemeClientAssociationKeys.notifier, value: newValue)
+            associate(to: self, key: &ThemeClientAssociationKeys.theme, value: newValue)
         }
     }
 }
@@ -39,7 +24,7 @@ extension ThemeClient {
 extension NSObject: ThemeClient {}
 
 struct ThemeClientAssociationKeys {
-    static fileprivate var notifier: UInt8 = 0
+    static fileprivate var theme: UInt8 = 0
 }
 
 

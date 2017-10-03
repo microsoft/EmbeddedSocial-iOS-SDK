@@ -490,11 +490,7 @@
 		88635D8B1F25D96800577140 /* TransactionsDatabaseFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */; };
 		88640D701F828B290004CDF9 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D6F1F828B290004CDF9 /* Theme.swift */; };
 		88640D721F828B3E0004CDF9 /* ThemeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D711F828B3E0004CDF9 /* ThemeClient.swift */; };
-		88640D741F828DE60004CDF9 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D731F828DE60004CDF9 /* ThemeManager.swift */; };
-		88640D761F82918A0004CDF9 /* light_theme.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88640D751F82918A0004CDF9 /* light_theme.plist */; };
-		88640D781F83781E0004CDF9 /* ThemeNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D771F83781E0004CDF9 /* ThemeNotifier.swift */; };
-		88640D7A1F8378910004CDF9 /* ThemeNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D791F8378910004CDF9 /* ThemeNotification.swift */; };
-		88640D7C1F8379EE0004CDF9 /* ThemeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D7B1F8379EE0004CDF9 /* ThemeType.swift */; };
+		88640D761F82918A0004CDF9 /* light.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88640D751F82918A0004CDF9 /* light.plist */; };
 		8864C8221F45BA6000ADCE13 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8211F45BA6000ADCE13 /* SearchViewController.swift */; };
 		8864C8241F45BA7000ADCE13 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8864C8231F45BA7000ADCE13 /* Search.storyboard */; };
 		8864C8261F45C57700ADCE13 /* QueryPeopleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8251F45C57700ADCE13 /* QueryPeopleAPI.swift */; };
@@ -735,6 +731,12 @@
 		88D2F8F61F56D2250004A8BC /* MockReportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2F8F51F56D2250004A8BC /* MockReportAPI.swift */; };
 		88D2F8F81F56D3700004A8BC /* ReportUserAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2F8F71F56D3700004A8BC /* ReportUserAPITests.swift */; };
 		88D2F8FA1F56D42F0004A8BC /* ReportPostAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2F8F91F56D42F0004A8BC /* ReportPostAPITests.swift */; };
+		88D35FB41F8381C1008BB38C /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D35FB31F8381C1008BB38C /* AppConfiguration.swift */; };
+		88D35FB61F838212008BB38C /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88D35FB51F838212008BB38C /* config.plist */; };
+		88D35FB81F83903E008BB38C /* ThemePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D35FB71F83903E008BB38C /* ThemePalette.swift */; };
+		88D35FBC1F839184008BB38C /* AppConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D35FBB1F839184008BB38C /* AppConfigurationTests.swift */; };
+		88D35FBE1F8391D0008BB38C /* test_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88D35FBD1F8391D0008BB38C /* test_config.plist */; };
+		88D35FC01F8391F6008BB38C /* light.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88D35FBF1F8391F6008BB38C /* light.plist */; };
 		88D45C1A1F4491F600DCB475 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D45C191F4491F600DCB475 /* Strings.swift */; };
 		88D8CCB01F31CA520032FB2B /* UserListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D8CCAF1F31CA520032FB2B /* UserListItem.swift */; };
 		88D8CCB21F31CA680032FB2B /* UserListItemsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D8CCB11F31CA680032FB2B /* UserListItemsBuilder.swift */; };
@@ -1542,11 +1544,7 @@
 		88635D8A1F25D96800577140 /* TransactionsDatabaseFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDatabaseFacade.swift; sourceTree = "<group>"; };
 		88640D6F1F828B290004CDF9 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		88640D711F828B3E0004CDF9 /* ThemeClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeClient.swift; sourceTree = "<group>"; };
-		88640D731F828DE60004CDF9 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
-		88640D751F82918A0004CDF9 /* light_theme.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = light_theme.plist; sourceTree = "<group>"; };
-		88640D771F83781E0004CDF9 /* ThemeNotifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeNotifier.swift; sourceTree = "<group>"; };
-		88640D791F8378910004CDF9 /* ThemeNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeNotification.swift; sourceTree = "<group>"; };
-		88640D7B1F8379EE0004CDF9 /* ThemeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeType.swift; sourceTree = "<group>"; };
+		88640D751F82918A0004CDF9 /* light.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = light.plist; sourceTree = "<group>"; };
 		8864C8211F45BA6000ADCE13 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8864C8231F45BA7000ADCE13 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		8864C8251F45C57700ADCE13 /* QueryPeopleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryPeopleAPI.swift; sourceTree = "<group>"; };
@@ -1803,6 +1801,12 @@
 		88D2F8F51F56D2250004A8BC /* MockReportAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockReportAPI.swift; sourceTree = "<group>"; };
 		88D2F8F71F56D3700004A8BC /* ReportUserAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportUserAPITests.swift; sourceTree = "<group>"; };
 		88D2F8F91F56D42F0004A8BC /* ReportPostAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportPostAPITests.swift; sourceTree = "<group>"; };
+		88D35FB31F8381C1008BB38C /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		88D35FB51F838212008BB38C /* config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
+		88D35FB71F83903E008BB38C /* ThemePalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemePalette.swift; sourceTree = "<group>"; };
+		88D35FBB1F839184008BB38C /* AppConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfigurationTests.swift; sourceTree = "<group>"; };
+		88D35FBD1F8391D0008BB38C /* test_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = test_config.plist; sourceTree = "<group>"; };
+		88D35FBF1F8391F6008BB38C /* light.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = light.plist; sourceTree = "<group>"; };
 		88D45C191F4491F600DCB475 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		88D8CCAF1F31CA520032FB2B /* UserListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListItem.swift; sourceTree = "<group>"; };
 		88D8CCB11F31CA680032FB2B /* UserListItemsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListItemsBuilder.swift; sourceTree = "<group>"; };
@@ -3607,12 +3611,12 @@
 		88580B921F2213AB00C1CBAF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				88D35FB91F839105008BB38C /* AppConfiguration */,
 				88580B9A1F2213AB00C1CBAF /* Validators */,
 				889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */,
 				8811C8331F3DE8A500F7513D /* AssociatedValue.swift */,
 				882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */,
 				88087B451F2A431E00A33E9A /* ButtonDecorator.swift */,
-				88640D6E1F828B0C0004CDF9 /* Theme */,
 				8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */,
 				88580B931F2213AB00C1CBAF /* Constants.swift */,
 				88B94EDB1F62D882002392F9 /* EmptyUsersListAPI.swift */,
@@ -3742,18 +3746,15 @@
 			path = SessionStoreDatabase;
 			sourceTree = "<group>";
 		};
-		88640D6E1F828B0C0004CDF9 /* Theme */ = {
+		88640D6E1F828B0C0004CDF9 /* Theming */ = {
 			isa = PBXGroup;
 			children = (
 				88640D6F1F828B290004CDF9 /* Theme.swift */,
+				88D35FB71F83903E008BB38C /* ThemePalette.swift */,
 				88640D711F828B3E0004CDF9 /* ThemeClient.swift */,
-				88640D751F82918A0004CDF9 /* light_theme.plist */,
-				88640D731F828DE60004CDF9 /* ThemeManager.swift */,
-				88640D7B1F8379EE0004CDF9 /* ThemeType.swift */,
-				88640D771F83781E0004CDF9 /* ThemeNotifier.swift */,
-				88640D791F8378910004CDF9 /* ThemeNotification.swift */,
+				88640D751F82918A0004CDF9 /* light.plist */,
 			);
-			name = Theme;
+			name = Theming;
 			sourceTree = "<group>";
 		};
 		8864C8201F45BA6000ADCE13 /* Search */ = {
@@ -3954,6 +3955,7 @@
 				880AFD3B1F6FE57E00378710 /* UserCommands */,
 				880AFD4D1F6FEDF000378710 /* UserOperations */,
 				886826121F6AA04900F54731 /* OutgoingCommandOperationsBuilderTests.swift */,
+				88D35FBA1F839178008BB38C /* AppConfiguration */,
 				886826101F6A948700F54731 /* OutgoingCommandTests.swift */,
 				88D1231D1F7531EE001523D1 /* OutgoingCommandsUploadStrategyTests.swift */,
 				886826141F6AA16700F54731 /* OutgoingCommandsUploaderTests.swift */,
@@ -4614,6 +4616,25 @@
 				88D2F8F11F56C69E0004A8BC /* ReportUserAPI.swift */,
 			);
 			path = APIs;
+			sourceTree = "<group>";
+		};
+		88D35FB91F839105008BB38C /* AppConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				88D35FB31F8381C1008BB38C /* AppConfiguration.swift */,
+				88640D6E1F828B0C0004CDF9 /* Theming */,
+			);
+			name = AppConfiguration;
+			sourceTree = "<group>";
+		};
+		88D35FBA1F839178008BB38C /* AppConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				88D35FBB1F839184008BB38C /* AppConfigurationTests.swift */,
+				88D35FBD1F8391D0008BB38C /* test_config.plist */,
+				88D35FBF1F8391F6008BB38C /* light.plist */,
+			);
+			name = AppConfiguration;
 			sourceTree = "<group>";
 		};
 		88D8CCAE1F31CA3E0032FB2B /* DataDisplayManager */ = {
@@ -5281,6 +5302,7 @@
 				886B39DA1F13910B00BF1A8E /* Images.xcassets */,
 				9C7D9B331F2F430B005928F4 /* Localizable.strings */,
 				9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */,
+				88D35FB51F838212008BB38C /* config.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -5795,6 +5817,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88D35FC01F8391F6008BB38C /* light.plist in Resources */,
+				88D35FBE1F8391D0008BB38C /* test_config.plist in Resources */,
 				9C0479221F70F48600792B68 /* myActivity.json in Resources */,
 				9CCE405B1F725E14003A51D9 /* myPendingRequests.json in Resources */,
 				9C8F68961F3485CA00AF4A7F /* topics&limit20.json in Resources */,
@@ -5833,8 +5857,9 @@
 				9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */,
 				88F3858B1F31BF140048B04C /* UserListCell.xib in Resources */,
 				6387F5531F41B95A0066628E /* CommentReplies.storyboard in Resources */,
+				88D35FB61F838212008BB38C /* config.plist in Resources */,
 				88F551A41F3472E100F4AAB9 /* SegmentedControlView.xib in Resources */,
-				88640D761F82918A0004CDF9 /* light_theme.plist in Resources */,
+				88640D761F82918A0004CDF9 /* light.plist in Resources */,
 				8864C8331F46DA7800ADCE13 /* SearchPeople.storyboard in Resources */,
 				9C0963761F67CA8900E70C30 /* ActivityUserRequestCell.xib in Resources */,
 				88580C631F2213AB00C1CBAF /* MenuStack.storyboard in Resources */,
@@ -6264,7 +6289,6 @@
 				8811C8671F42FE5A00F7513D /* EmbeddedEditProfileItem.swift in Sources */,
 				63EF32171F78EC8E00E8C28B /* ReportCommentCommand.swift in Sources */,
 				884AA9811F3C563F00B85135 /* PostSessionResponse.swift in Sources */,
-				88640D7C1F8379EE0004CDF9 /* ThemeType.swift in Sources */,
 				882AD0C31F2225FF00FC20B7 /* QueriableRepository.swift in Sources */,
 				88580C101F2213AB00C1CBAF /* CredentialsList.swift in Sources */,
 				88580C4C1F2213AB00C1CBAF /* CreatePostViewInput.swift in Sources */,
@@ -6319,6 +6343,7 @@
 				88E662041F7A76A300C98526 /* FollowRequestsInteractorOutput.swift in Sources */,
 				88B94EF21F66A9F3002392F9 /* NSLock+Ext.swift in Sources */,
 				88ABC79D1F7272FA00C83C82 /* UpdateUserImageCommand.swift in Sources */,
+				88D35FB41F8381C1008BB38C /* AppConfiguration.swift in Sources */,
 				88580C6B1F2213AB00C1CBAF /* TabMenuContainerInteractorOutput.swift in Sources */,
 				884AA9861F3C563F00B85135 /* PostUserResponse.swift in Sources */,
 				884AA9561F3C563F00B85135 /* PinsAPI.swift in Sources */,
@@ -6436,7 +6461,6 @@
 				88580C4E1F2213AB00C1CBAF /* LoginConfigurator.swift in Sources */,
 				88B94F061F66D01E002392F9 /* UnfollowUserOperation.swift in Sources */,
 				93AC659D1F3E056F00FE5A3A /* PostDetailPresenter.swift in Sources */,
-				88640D741F828DE60004CDF9 /* ThemeManager.swift in Sources */,
 				639E622A1F5433680030C1F2 /* PostViewModel.swift in Sources */,
 				88580C111F2213AB00C1CBAF /* CredentialsList+Memento.swift in Sources */,
 				88580C5F1F2213AB00C1CBAF /* SideMenuPresenter.swift in Sources */,
@@ -6572,7 +6596,6 @@
 				882CAF171F615DF3001D5F37 /* SearchResultsUpdating.swift in Sources */,
 				884AA9591F3C563F00B85135 /* ReportingAPI.swift in Sources */,
 				88580C671F2213AB00C1CBAF /* TabMenuContainerConfigurator.swift in Sources */,
-				88640D781F83781E0004CDF9 /* ThemeNotifier.swift in Sources */,
 				884AA95D1F3C563F00B85135 /* TopicsAPI.swift in Sources */,
 				88580C201F2213AB00C1CBAF /* TwitterWebBasedAPI.swift in Sources */,
 				882AD0C51F22266B00FC20B7 /* CoreDataRepository.swift in Sources */,
@@ -6590,6 +6613,7 @@
 				88D8CCB21F31CA680032FB2B /* UserListItemsBuilder.swift in Sources */,
 				63E1DA251F7BF0E300187E35 /* ReportReplyCommand.swift in Sources */,
 				88D1230E1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift in Sources */,
+				88D35FB81F83903E008BB38C /* ThemePalette.swift in Sources */,
 				88C682631F7A6468004BD291 /* ActivityFeedProcessor.swift in Sources */,
 				88580C321F2213AB00C1CBAF /* CreateAccountConfigurator.swift in Sources */,
 				9C2D9C0C1F4AF3EE001514C3 /* PopularModuleRouter.swift in Sources */,
@@ -6678,7 +6702,6 @@
 				88E3AC461F55B7570016357F /* ReportViewInput.swift in Sources */,
 				88580C3C1F2213AB00C1CBAF /* CreateAccountViewController.swift in Sources */,
 				88580C2F1F2213AB00C1CBAF /* UserService.swift in Sources */,
-				88640D7A1F8378910004CDF9 /* ThemeNotification.swift in Sources */,
 				8834A7491F50071300F1D383 /* QueryPage.swift in Sources */,
 				88D2F8DE1F56A6260004A8BC /* ReportRouterInput.swift in Sources */,
 				884AA98D1F3C563F00B85135 /* PutUserVisibilityRequest.swift in Sources */,
@@ -7016,6 +7039,7 @@
 				639A94441F5D300100EB0253 /* MockCommentCell.swift in Sources */,
 				8811C8C11F4458AD00F7513D /* MockEditProfileInteractor.swift in Sources */,
 				88ABC7A71F729C0800C83C82 /* CreateReplyCommandTests.swift in Sources */,
+				88D35FBC1F839184008BB38C /* AppConfigurationTests.swift in Sources */,
 				889AFC271F220BCD003AAF19 /* AuthServiceTests.swift in Sources */,
 				88F7A7951F278D90005FEC5F /* MockLoginRouter.swift in Sources */,
 				88D2F8ED1F56B8B80004A8BC /* ReportPresenterTests.swift in Sources */,

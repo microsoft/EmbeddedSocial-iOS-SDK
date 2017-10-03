@@ -31,6 +31,8 @@ public final class SocialPlus {
         return sessionStore.sessionToken
     }
     
+    lazy var config = AppConfiguration(filename: "config")!
+    
     private init() {
         setupServices(with: SocialPlusServices())
     }
