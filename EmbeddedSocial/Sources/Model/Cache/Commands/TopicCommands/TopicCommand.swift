@@ -61,7 +61,9 @@ class TopicCommand: OutgoingCommand {
     }
     
     override func setRelatedHandle(_ relatedHandle: String?) {
-        topic.topicHandle = relatedHandle
+        if let relatedHandle = relatedHandle {
+            topic.topicHandle = relatedHandle
+        }
     }
     
     static var topicActionCommandTypes: [OutgoingCommand.Type] {

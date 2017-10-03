@@ -26,7 +26,7 @@ class PostDetailsPresenterTests: XCTestCase {
                         photo: Photo(uid: "photoHandle"),
                         followerStatus: .empty)
         
-        var tempPost = Post(topicHandle: "topicHandle")
+        var tempPost = Post.mock(seed: 0)
         tempPost.createdTime = Date()
         tempPost.user = user
         tempPost.title = "ttile"
@@ -38,7 +38,7 @@ class PostDetailsPresenterTests: XCTestCase {
         presenter = PostDetailPresenter(myProfileHolder: myProfileHolder)
         presenter.interactor = interactor
         presenter.view = view
-        presenter.postViewModel = post
+        presenter.topicHandle = "topicHandle"
         presenter.router = router
         interactor.output = presenter
         view.output = presenter
@@ -47,7 +47,7 @@ class PostDetailsPresenterTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         post = nil
-        presenter.postViewModel = nil
+        presenter.topicHandle = nil
         presenter.interactor = nil
         interactor.output = nil
         presenter.view = nil

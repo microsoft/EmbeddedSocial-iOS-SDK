@@ -25,8 +25,8 @@ class CreateTopicOperationTests: XCTestCase {
     
     func testThatItUsesCorrectServiceMethodAndUpdatesRelatedHandle() {
         // given
-        let oldTopic = Post(topicHandle: UUID().uuidString)
-        let createdTopic = Post(topicHandle: UUID().uuidString)
+        let oldTopic = Post.mock(seed: 0)
+        let createdTopic = Post.mock(seed: 0)
         let command = CreateTopicCommand(topic: oldTopic)
         
         let service = PostServiceMock()
@@ -66,7 +66,7 @@ class CreateTopicOperationTests: XCTestCase {
         let service = PostServiceMock()
         service.postTopicError = APIError.unknown
         
-        let topic = Post(topicHandle: UUID().uuidString)
+        let topic = Post.mock(seed: 0)
         let command = CreateTopicCommand(topic: topic)
 
         let sut = CreateTopicOperation(command: command, topicsService: service,

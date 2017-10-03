@@ -9,6 +9,8 @@ import Foundation
 class APIState {
     static var requestHistory: [String] = []
     
+    static var latestRequstMethod: String = ""
+    
     class func getLatestResponse(forService: String) -> Dictionary<String, Any>? {
         let data = UserDefaults.standard.string(forKey: "response" + forService)?.data(using: .utf8)
         return try! JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any]

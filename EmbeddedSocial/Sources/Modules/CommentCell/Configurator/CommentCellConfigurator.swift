@@ -7,8 +7,12 @@ import UIKit
 
 class CommentCellModuleConfigurator {
 
-    @discardableResult func configure(cell: CommentCell?, comment: Comment, navigationController: UINavigationController?, moduleOutput: PostDetailModuleInput, myProfileHolder: UserHolder? = SocialPlus.shared,
-        loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) -> CommentCellModuleInput {
+    @discardableResult func configure(cell: CommentCell?,
+                                      comment: Comment,
+                                      navigationController: UINavigationController?,
+                                      moduleOutput: CommentCellModuleOutout ,
+                                      myProfileHolder: UserHolder? = SocialPlus.shared,
+                                      loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) -> CommentCellModuleInput {
 
         let router = CommentCellRouter()
         router.navigationController = navigationController
@@ -18,7 +22,7 @@ class CommentCellModuleConfigurator {
         presenter.view = cell
         presenter.router = router
         presenter.comment = comment
-        presenter.postDetailsInput = moduleOutput
+        presenter.moduleOutput = moduleOutput
         presenter.myProfileHolder = myProfileHolder
 
         let interactor = CommentCellInteractor()

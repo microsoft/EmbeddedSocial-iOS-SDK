@@ -44,7 +44,7 @@ class CreateCommentOperationTests: XCTestCase {
                                          predicateBuilder: predicateBuilder, handleUpdater: handleUpdater)
         
         let predicate = NSPredicate(value: true)
-        predicateBuilder.createTopicCommandTopicHandleReturnValue = predicate
+        predicateBuilder.commandsWithRelatedHandleIgnoredTypeIDReturnValue = predicate
         
         // when
         let queue = OperationQueue()

@@ -1,351 +1,188 @@
 // Generated using SwiftGen, by O.Halligon — https://github.com/SwiftGen/SwiftGen
 
+// swiftlint:disable sorted_imports
 import Foundation
 import UIKit
 
 // swiftlint:disable file_length
-// swiftlint:disable line_length
-// swiftlint:disable type_body_length
 
-protocol StoryboardSceneType {
+protocol StoryboardType {
   static var storyboardName: String { get }
 }
 
-extension StoryboardSceneType {
-  static func storyboard() -> UIStoryboard {
+extension StoryboardType {
+  static var storyboard: UIStoryboard {
     return UIStoryboard(name: self.storyboardName, bundle: Bundle(for: BundleToken.self))
   }
+}
 
-  static func initialViewController() -> UIViewController {
-    guard let vc = storyboard().instantiateInitialViewController() else {
-      fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
+struct SceneType<T: Any> {
+  let storyboard: StoryboardType.Type
+  let identifier: String
+
+  func instantiate() -> T {
+    guard let controller = storyboard.storyboard.instantiateViewController(withIdentifier: identifier) as? T else {
+      fatalError("ViewController '\(identifier)' is not of the expected class \(T.self).")
     }
-    return vc
+    return controller
   }
 }
 
-extension StoryboardSceneType where Self: RawRepresentable, Self.RawValue == String {
-  func viewController() -> UIViewController {
-    return Self.storyboard().instantiateViewController(withIdentifier: self.rawValue)
-  }
-  static func viewController(identifier: Self) -> UIViewController {
-    return identifier.viewController()
+struct InitialSceneType<T: Any> {
+  let storyboard: StoryboardType.Type
+
+  func instantiate() -> T {
+    guard let controller = storyboard.storyboard.instantiateInitialViewController() as? T else {
+      fatalError("ViewController is not of the expected class \(T.self).")
+    }
+    return controller
   }
 }
 
-protocol StoryboardSegueType: RawRepresentable { }
+protocol SegueType: RawRepresentable { }
 
 extension UIViewController {
-  func perform<S: StoryboardSegueType>(segue: S, sender: Any? = nil) where S.RawValue == String {
+  func perform<S: SegueType>(segue: S, sender: Any? = nil) where S.RawValue == String {
     performSegue(withIdentifier: segue.rawValue, sender: sender)
   }
 }
 
+// swiftlint:disable explicit_type_interface identifier_name line_length type_body_length type_name
 enum StoryboardScene {
-  enum Activity: String, StoryboardSceneType {
+  enum Activity: StoryboardType {
     static let storyboardName = "Activity"
 
-    case activityViewControllerScene = "ActivityViewController"
-    static func instantiateActivityViewController() -> EmbeddedSocial.ActivityViewController {
-      guard let vc = StoryboardScene.Activity.activityViewControllerScene.viewController() as? EmbeddedSocial.ActivityViewController
-      else {
-        fatalError("ViewController 'ActivityViewController' is not of the expected class EmbeddedSocial.ActivityViewController.")
-      }
-      return vc
-    }
+    static let activityViewController = SceneType<EmbeddedSocial.ActivityViewController>(storyboard: Activity.self, identifier: "ActivityViewController")
   }
-  enum BlockedUsers: String, StoryboardSceneType {
+  enum BlockedUsers: StoryboardType {
     static let storyboardName = "BlockedUsers"
 
-    case blockedUsersViewControllerScene = "BlockedUsersViewController"
-    static func instantiateBlockedUsersViewController() -> EmbeddedSocial.BlockedUsersViewController {
-      guard let vc = StoryboardScene.BlockedUsers.blockedUsersViewControllerScene.viewController() as? EmbeddedSocial.BlockedUsersViewController
-      else {
-        fatalError("ViewController 'BlockedUsersViewController' is not of the expected class EmbeddedSocial.BlockedUsersViewController.")
-      }
-      return vc
-    }
+    static let blockedUsersViewController = SceneType<EmbeddedSocial.BlockedUsersViewController>(storyboard: BlockedUsers.self, identifier: "BlockedUsersViewController")
   }
-  enum CommentReplies: String, StoryboardSceneType {
+  enum CommentReplies: StoryboardType {
     static let storyboardName = "CommentReplies"
 
-    case commentRepliesViewControllerScene = "CommentRepliesViewController"
-    static func instantiateCommentRepliesViewController() -> EmbeddedSocial.CommentRepliesViewController {
-      guard let vc = StoryboardScene.CommentReplies.commentRepliesViewControllerScene.viewController() as? EmbeddedSocial.CommentRepliesViewController
-      else {
-        fatalError("ViewController 'CommentRepliesViewController' is not of the expected class EmbeddedSocial.CommentRepliesViewController.")
-      }
-      return vc
-    }
+    static let commentRepliesViewController = SceneType<EmbeddedSocial.CommentRepliesViewController>(storyboard: CommentReplies.self, identifier: "CommentRepliesViewController")
   }
-  enum CreateAccount: String, StoryboardSceneType {
+  enum CreateAccount: StoryboardType {
     static let storyboardName = "CreateAccount"
 
-    static func initialViewController() -> EmbeddedSocial.CreateAccountViewController {
-      guard let vc = storyboard().instantiateInitialViewController() as? EmbeddedSocial.CreateAccountViewController else {
-        fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
-      }
-      return vc
-    }
+    static let initialScene = InitialSceneType<EmbeddedSocial.CreateAccountViewController>(storyboard: CreateAccount.self)
 
-    case createAccountViewControllerScene = "CreateAccountViewController"
-    static func instantiateCreateAccountViewController() -> EmbeddedSocial.CreateAccountViewController {
-      guard let vc = StoryboardScene.CreateAccount.createAccountViewControllerScene.viewController() as? EmbeddedSocial.CreateAccountViewController
-      else {
-        fatalError("ViewController 'CreateAccountViewController' is not of the expected class EmbeddedSocial.CreateAccountViewController.")
-      }
-      return vc
-    }
+    static let createAccountViewController = SceneType<EmbeddedSocial.CreateAccountViewController>(storyboard: CreateAccount.self, identifier: "CreateAccountViewController")
   }
-  enum CreatePost: String, StoryboardSceneType {
+  enum CreatePost: StoryboardType {
     static let storyboardName = "CreatePost"
 
-    case createPostViewControllerScene = "CreatePostViewController"
-    static func instantiateCreatePostViewController() -> EmbeddedSocial.CreatePostViewController {
-      guard let vc = StoryboardScene.CreatePost.createPostViewControllerScene.viewController() as? EmbeddedSocial.CreatePostViewController
-      else {
-        fatalError("ViewController 'CreatePostViewController' is not of the expected class EmbeddedSocial.CreatePostViewController.")
-      }
-      return vc
-    }
+    static let createPostViewController = SceneType<EmbeddedSocial.CreatePostViewController>(storyboard: CreatePost.self, identifier: "CreatePostViewController")
   }
-  enum EditProfile: String, StoryboardSceneType {
+    enum DetailedActivity: StoryboardType {
+        static let storyboardName = "DetailedActivity"
+        
+        static let initialScene = InitialSceneType<EmbeddedSocial.DetailedActivityViewController>(storyboard: DetailedActivity.self)
+        
+        static let detailedActivityViewController = SceneType<EmbeddedSocial.DetailedActivityViewController>(storyboard: DetailedActivity.self, identifier: "DetailedActivityViewController")
+    }
+  enum EditProfile: StoryboardType {
     static let storyboardName = "EditProfile"
 
-    static func initialViewController() -> EmbeddedSocial.EditProfileViewController {
-      guard let vc = storyboard().instantiateInitialViewController() as? EmbeddedSocial.EditProfileViewController else {
-        fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
-      }
-      return vc
-    }
+    static let initialScene = InitialSceneType<EmbeddedSocial.EditProfileViewController>(storyboard: EditProfile.self)
 
-    case editProfileViewControllerScene = "EditProfileViewController"
-    static func instantiateEditProfileViewController() -> EmbeddedSocial.EditProfileViewController {
-      guard let vc = StoryboardScene.EditProfile.editProfileViewControllerScene.viewController() as? EmbeddedSocial.EditProfileViewController
-      else {
-        fatalError("ViewController 'EditProfileViewController' is not of the expected class EmbeddedSocial.EditProfileViewController.")
-      }
-      return vc
-    }
+    static let editProfileViewController = SceneType<EmbeddedSocial.EditProfileViewController>(storyboard: EditProfile.self, identifier: "EditProfileViewController")
   }
-  enum FeedModule: String, StoryboardSceneType {
+  enum FeedModule: StoryboardType {
     static let storyboardName = "FeedModule"
 
-    case feedModuleViewControllerScene = "FeedModuleViewController"
-    static func instantiateFeedModuleViewController() -> EmbeddedSocial.FeedModuleViewController {
-      guard let vc = StoryboardScene.FeedModule.feedModuleViewControllerScene.viewController() as? EmbeddedSocial.FeedModuleViewController
-      else {
-        fatalError("ViewController 'FeedModuleViewController' is not of the expected class EmbeddedSocial.FeedModuleViewController.")
-      }
-      return vc
-    }
+    static let feedModuleViewController = SceneType<EmbeddedSocial.FeedModuleViewController>(storyboard: FeedModule.self, identifier: "FeedModuleViewController")
   }
-  enum FollowRequests: String, StoryboardSceneType {
+  enum FollowRequests: StoryboardType {
     static let storyboardName = "FollowRequests"
 
-    case followRequestsViewControllerScene = "FollowRequestsViewController"
-    static func instantiateFollowRequestsViewController() -> EmbeddedSocial.FollowRequestsViewController {
-      guard let vc = StoryboardScene.FollowRequests.followRequestsViewControllerScene.viewController() as? EmbeddedSocial.FollowRequestsViewController
-      else {
-        fatalError("ViewController 'FollowRequestsViewController' is not of the expected class EmbeddedSocial.FollowRequestsViewController.")
-      }
-      return vc
-    }
+    static let followRequestsViewController = SceneType<EmbeddedSocial.FollowRequestsViewController>(storyboard: FollowRequests.self, identifier: "FollowRequestsViewController")
   }
-  enum Followers: String, StoryboardSceneType {
+  enum Followers: StoryboardType {
     static let storyboardName = "Followers"
 
-    case followersViewControllerScene = "FollowersViewController"
-    static func instantiateFollowersViewController() -> EmbeddedSocial.FollowersViewController {
-      guard let vc = StoryboardScene.Followers.followersViewControllerScene.viewController() as? EmbeddedSocial.FollowersViewController
-      else {
-        fatalError("ViewController 'FollowersViewController' is not of the expected class EmbeddedSocial.FollowersViewController.")
-      }
-      return vc
-    }
+    static let followersViewController = SceneType<EmbeddedSocial.FollowersViewController>(storyboard: Followers.self, identifier: "FollowersViewController")
   }
-  enum Following: String, StoryboardSceneType {
+  enum Following: StoryboardType {
     static let storyboardName = "Following"
 
-    case followingViewControllerScene = "FollowingViewController"
-    static func instantiateFollowingViewController() -> EmbeddedSocial.FollowingViewController {
-      guard let vc = StoryboardScene.Following.followingViewControllerScene.viewController() as? EmbeddedSocial.FollowingViewController
-      else {
-        fatalError("ViewController 'FollowingViewController' is not of the expected class EmbeddedSocial.FollowingViewController.")
-      }
-      return vc
-    }
+    static let followingViewController = SceneType<EmbeddedSocial.FollowingViewController>(storyboard: Following.self, identifier: "FollowingViewController")
   }
-  enum LikesList: String, StoryboardSceneType {
+  enum LikesList: StoryboardType {
     static let storyboardName = "LikesList"
 
-    case likesListViewControllerScene = "LikesListViewController"
-    static func instantiateLikesListViewController() -> EmbeddedSocial.LikesListViewController {
-      guard let vc = StoryboardScene.LikesList.likesListViewControllerScene.viewController() as? EmbeddedSocial.LikesListViewController
-      else {
-        fatalError("ViewController 'LikesListViewController' is not of the expected class EmbeddedSocial.LikesListViewController.")
-      }
-      return vc
-    }
+    static let likesListViewController = SceneType<EmbeddedSocial.LikesListViewController>(storyboard: LikesList.self, identifier: "LikesListViewController")
   }
-  enum Login: String, StoryboardSceneType {
+  enum LinkedAccounts: StoryboardType {
+    static let storyboardName = "LinkedAccounts"
+
+    static let linkedAccountsViewController = SceneType<EmbeddedSocial.LinkedAccountsViewController>(storyboard: LinkedAccounts.self, identifier: "LinkedAccountsViewController")
+  }
+  enum Login: StoryboardType {
     static let storyboardName = "Login"
 
-    static func initialViewController() -> EmbeddedSocial.LoginViewController {
-      guard let vc = storyboard().instantiateInitialViewController() as? EmbeddedSocial.LoginViewController else {
-        fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
-      }
-      return vc
-    }
+    static let initialScene = InitialSceneType<EmbeddedSocial.LoginViewController>(storyboard: Login.self)
 
-    case loginViewControllerScene = "LoginViewController"
-    static func instantiateLoginViewController() -> EmbeddedSocial.LoginViewController {
-      guard let vc = StoryboardScene.Login.loginViewControllerScene.viewController() as? EmbeddedSocial.LoginViewController
-      else {
-        fatalError("ViewController 'LoginViewController' is not of the expected class EmbeddedSocial.LoginViewController.")
-      }
-      return vc
-    }
+    static let loginViewController = SceneType<EmbeddedSocial.LoginViewController>(storyboard: Login.self, identifier: "LoginViewController")
   }
-  enum MenuStack: String, StoryboardSceneType {
+  enum MenuStack: StoryboardType {
     static let storyboardName = "MenuStack"
 
-    static func initialViewController() -> UINavigationController {
-      guard let vc = storyboard().instantiateInitialViewController() as? UINavigationController else {
-        fatalError("Failed to instantiate initialViewController for \(self.storyboardName)")
-      }
-      return vc
-    }
-
-    case sideMenuViewControllerScene = "SideMenuViewController"
-    static func instantiateSideMenuViewController() -> EmbeddedSocial.SideMenuViewController {
-      guard let vc = StoryboardScene.MenuStack.sideMenuViewControllerScene.viewController() as? EmbeddedSocial.SideMenuViewController
-      else {
-        fatalError("ViewController 'SideMenuViewController' is not of the expected class EmbeddedSocial.SideMenuViewController.")
-      }
-      return vc
-    }
+    static let sideMenuViewController = SceneType<EmbeddedSocial.SideMenuViewController>(storyboard: MenuStack.self, identifier: "SideMenuViewController")
   }
-  enum PopularModuleView: String, StoryboardSceneType {
+  enum PopularModuleView: StoryboardType {
     static let storyboardName = "PopularModuleView"
 
-    case popularModuleViewScene = "PopularModuleView"
-    static func instantiatePopularModuleView() -> EmbeddedSocial.PopularModuleView {
-      guard let vc = StoryboardScene.PopularModuleView.popularModuleViewScene.viewController() as? EmbeddedSocial.PopularModuleView
-      else {
-        fatalError("ViewController 'PopularModuleView' is not of the expected class EmbeddedSocial.PopularModuleView.")
-      }
-      return vc
-    }
+    static let popularModuleView = SceneType<EmbeddedSocial.PopularModuleView>(storyboard: PopularModuleView.self, identifier: "PopularModuleView")
   }
-  enum PostDetail: String, StoryboardSceneType {
+  enum PostDetail: StoryboardType {
     static let storyboardName = "PostDetail"
 
-    case postDetailViewControllerScene = "PostDetailViewController"
-    static func instantiatePostDetailViewController() -> EmbeddedSocial.PostDetailViewController {
-      guard let vc = StoryboardScene.PostDetail.postDetailViewControllerScene.viewController() as? EmbeddedSocial.PostDetailViewController
-      else {
-        fatalError("ViewController 'PostDetailViewController' is not of the expected class EmbeddedSocial.PostDetailViewController.")
-      }
-      return vc
-    }
+    static let postDetailViewController = SceneType<EmbeddedSocial.PostDetailViewController>(storyboard: PostDetail.self, identifier: "PostDetailViewController")
   }
-  enum Report: String, StoryboardSceneType {
+  enum Report: StoryboardType {
     static let storyboardName = "Report"
 
-    case reportSubmittedViewControllerScene = "ReportSubmittedViewController"
-    static func instantiateReportSubmittedViewController() -> EmbeddedSocial.ReportSubmittedViewController {
-      guard let vc = StoryboardScene.Report.reportSubmittedViewControllerScene.viewController() as? EmbeddedSocial.ReportSubmittedViewController
-      else {
-        fatalError("ViewController 'ReportSubmittedViewController' is not of the expected class EmbeddedSocial.ReportSubmittedViewController.")
-      }
-      return vc
-    }
+    static let reportSubmittedViewController = SceneType<EmbeddedSocial.ReportSubmittedViewController>(storyboard: Report.self, identifier: "ReportSubmittedViewController")
 
-    case reportViewControllerScene = "ReportViewController"
-    static func instantiateReportViewController() -> EmbeddedSocial.ReportViewController {
-      guard let vc = StoryboardScene.Report.reportViewControllerScene.viewController() as? EmbeddedSocial.ReportViewController
-      else {
-        fatalError("ViewController 'ReportViewController' is not of the expected class EmbeddedSocial.ReportViewController.")
-      }
-      return vc
-    }
+    static let reportViewController = SceneType<EmbeddedSocial.ReportViewController>(storyboard: Report.self, identifier: "ReportViewController")
   }
-  enum Search: String, StoryboardSceneType {
+  enum Search: StoryboardType {
     static let storyboardName = "Search"
 
-    case searchViewControllerScene = "SearchViewController"
-    static func instantiateSearchViewController() -> EmbeddedSocial.SearchViewController {
-      guard let vc = StoryboardScene.Search.searchViewControllerScene.viewController() as? EmbeddedSocial.SearchViewController
-      else {
-        fatalError("ViewController 'SearchViewController' is not of the expected class EmbeddedSocial.SearchViewController.")
-      }
-      return vc
-    }
+    static let searchViewController = SceneType<EmbeddedSocial.SearchViewController>(storyboard: Search.self, identifier: "SearchViewController")
   }
-  enum SearchPeople: String, StoryboardSceneType {
+  enum SearchPeople: StoryboardType {
     static let storyboardName = "SearchPeople"
 
-    case searchPeopleViewControllerScene = "SearchPeopleViewController"
-    static func instantiateSearchPeopleViewController() -> EmbeddedSocial.SearchPeopleViewController {
-      guard let vc = StoryboardScene.SearchPeople.searchPeopleViewControllerScene.viewController() as? EmbeddedSocial.SearchPeopleViewController
-      else {
-        fatalError("ViewController 'SearchPeopleViewController' is not of the expected class EmbeddedSocial.SearchPeopleViewController.")
-      }
-      return vc
-    }
+    static let searchPeopleViewController = SceneType<EmbeddedSocial.SearchPeopleViewController>(storyboard: SearchPeople.self, identifier: "SearchPeopleViewController")
   }
-  enum SearchTopics: String, StoryboardSceneType {
+  enum SearchTopics: StoryboardType {
     static let storyboardName = "SearchTopics"
 
-    case searchTopicsViewControllerScene = "SearchTopicsViewController"
-    static func instantiateSearchTopicsViewController() -> EmbeddedSocial.SearchTopicsViewController {
-      guard let vc = StoryboardScene.SearchTopics.searchTopicsViewControllerScene.viewController() as? EmbeddedSocial.SearchTopicsViewController
-      else {
-        fatalError("ViewController 'SearchTopicsViewController' is not of the expected class EmbeddedSocial.SearchTopicsViewController.")
-      }
-      return vc
-    }
+    static let searchTopicsViewController = SceneType<EmbeddedSocial.SearchTopicsViewController>(storyboard: SearchTopics.self, identifier: "SearchTopicsViewController")
   }
-  enum Settings: String, StoryboardSceneType {
+  enum Settings: StoryboardType {
     static let storyboardName = "Settings"
 
-    case settingsViewControllerScene = "SettingsViewController"
-    static func instantiateSettingsViewController() -> EmbeddedSocial.SettingsViewController {
-      guard let vc = StoryboardScene.Settings.settingsViewControllerScene.viewController() as? EmbeddedSocial.SettingsViewController
-      else {
-        fatalError("ViewController 'SettingsViewController' is not of the expected class EmbeddedSocial.SettingsViewController.")
-      }
-      return vc
-    }
+    static let settingsViewController = SceneType<EmbeddedSocial.SettingsViewController>(storyboard: Settings.self, identifier: "SettingsViewController")
   }
-  enum SuggestedUsers: String, StoryboardSceneType {
+  enum SuggestedUsers: StoryboardType {
     static let storyboardName = "SuggestedUsers"
 
-    case suggestedUsersViewControllerScene = "SuggestedUsersViewController"
-    static func instantiateSuggestedUsersViewController() -> EmbeddedSocial.SuggestedUsersViewController {
-      guard let vc = StoryboardScene.SuggestedUsers.suggestedUsersViewControllerScene.viewController() as? EmbeddedSocial.SuggestedUsersViewController
-      else {
-        fatalError("ViewController 'SuggestedUsersViewController' is not of the expected class EmbeddedSocial.SuggestedUsersViewController.")
-      }
-      return vc
-    }
+    static let suggestedUsersViewController = SceneType<EmbeddedSocial.SuggestedUsersViewController>(storyboard: SuggestedUsers.self, identifier: "SuggestedUsersViewController")
   }
-  enum UserProfile: String, StoryboardSceneType {
+  enum UserProfile: StoryboardType {
     static let storyboardName = "UserProfile"
 
-    case userProfileViewControllerScene = "UserProfileViewController"
-    static func instantiateUserProfileViewController() -> EmbeddedSocial.UserProfileViewController {
-      guard let vc = StoryboardScene.UserProfile.userProfileViewControllerScene.viewController() as? EmbeddedSocial.UserProfileViewController
-      else {
-        fatalError("ViewController 'UserProfileViewController' is not of the expected class EmbeddedSocial.UserProfileViewController.")
-      }
-      return vc
-    }
+    static let userProfileViewController = SceneType<EmbeddedSocial.UserProfileViewController>(storyboard: UserProfile.self, identifier: "UserProfileViewController")
   }
 }
 
 enum StoryboardSegue {
 }
+// swiftlint:enable explicit_type_interface identifier_name line_length type_body_length type_name
 
 private final class BundleToken {}

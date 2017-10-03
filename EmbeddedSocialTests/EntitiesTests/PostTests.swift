@@ -49,7 +49,10 @@ class PostTests: XCTestCase {
         let postData = topicViewResponse.data!.first!
         
         // when
-        let post = Post(data: postData)
+        guard let post = Post(data: postData) else {
+            XCTFail()
+            return
+        }
         
         // then
         XCTAssertTrue(post.topicHandle == "3uhkWMemLBe")

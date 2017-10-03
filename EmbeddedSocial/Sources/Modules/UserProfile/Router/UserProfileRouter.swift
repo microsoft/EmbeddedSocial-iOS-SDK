@@ -47,7 +47,7 @@ final class UserProfileRouter: UserProfileRouterInput {
     
     func openCreatePost(user: User) {
         let config = CreatePostModuleConfigurator()
-        let vc = StoryboardScene.CreatePost.instantiateCreatePostViewController()
+        let vc = StoryboardScene.CreatePost.createPostViewController.instantiate()
         config.configure(viewController: vc, user: user, moduleOutput: createPostModuleOutput)
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }

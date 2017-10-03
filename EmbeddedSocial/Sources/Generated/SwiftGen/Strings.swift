@@ -186,6 +186,8 @@ enum L10n {
     static let follow = L10n.tr("Localizable", "common.follow")
     /// Following
     static let following = L10n.tr("Localizable", "common.following")
+    /// No content
+    static let noContent = L10n.tr("Localizable", "common.no_content")
     /// OK
     static let ok = L10n.tr("Localizable", "common.ok")
     /// Pending
@@ -268,12 +270,14 @@ enum L10n {
     static let imageCompressionFailed = L10n.tr("Localizable", "error.image_compression_failed")
     /// Image is invalid
     static let invalidImage = L10n.tr("Localizable", "error.invalid_image")
-    /// Invalid server response
+    /// Invalid server response.
     static let invalidResponse = L10n.tr("Localizable", "error.invalid_response")
     /// Last session is not available.
     static let lastSessionNotAvailable = L10n.tr("Localizable", "error.last_session_not_available")
     /// User credentials are missing.
     static let missingCredentials = L10n.tr("Localizable", "error.missing_credentials")
+    /// Cant handle response, data is corrupted.
+    static let missingResponseData = L10n.tr("Localizable", "error.missing_response_data")
     /// User data is missing.
     static let missingUserData = L10n.tr("Localizable", "error.missing_user_data")
     /// No item for %@
@@ -349,6 +353,11 @@ enum L10n {
       /// No one has liked this reply yet.
       static let noDataText = L10n.tr("Localizable", "likes_list.reply.no_data_text")
     }
+  }
+
+  enum LinkedAccounts {
+    /// Linked accounts
+    static let screenTitle = L10n.tr("Localizable", "linked_accounts.screen_title")
   }
 
   enum Login {
@@ -526,6 +535,15 @@ enum L10n {
       static let reportUser = L10n.tr("Localizable", "user_profile.button.report_user")
     }
   }
+    
+    enum DetailedActivity {
+        enum Button {
+            /// Open comment
+            static let openComment = L10n.tr("Localizable", "detailed_activity.button.open_comment")
+            /// Open topic
+            static let openTopic = L10n.tr("Localizable", "detailed_activity.button.open_topic")
+        }
+    }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 

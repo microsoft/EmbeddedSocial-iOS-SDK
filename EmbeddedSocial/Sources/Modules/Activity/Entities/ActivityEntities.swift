@@ -81,6 +81,7 @@ enum Change<T> {
     case insertion([T])
     case deletion([T])
     case update([T])
+    case updateVisible
 }
 
 class CellConfigurator {

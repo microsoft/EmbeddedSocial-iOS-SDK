@@ -7,31 +7,31 @@ import XCTest
 @testable import EmbeddedSocial
 
 private class SocialServicesMock: LikesServiceProtocol {
-    
+  
     var postLikeIsCalled = false
     var deleteLikeIsCalled = false
     var postPinIsCalled = false
     var deletePinIsCalled = false
     var error: FeedServiceError?
     
-    func postLike(postHandle: PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
+    func postLike(post: Post, completion: @escaping LikesServiceProtocol.CompletionHandler) {
         postLikeIsCalled = true
-        completion(postHandle, error)
+        completion(post.topicHandle, error)
     }
     
-    func deleteLike(postHandle: PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
+    func deleteLike(post: Post, completion: @escaping LikesServiceProtocol.CompletionHandler) {
         deleteLikeIsCalled = true
-        completion(postHandle, error)
+        completion(post.topicHandle, error)
     }
     
-    func postPin(postHandle: PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
+    func postPin(post: Post, completion: @escaping LikesServiceProtocol.CompletionHandler) {
         postPinIsCalled = true
-        completion(postHandle, error)
+        completion(post.topicHandle, error)
     }
     
-    func deletePin(postHandle: PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
+    func deletePin(post: Post, completion: @escaping LikesServiceProtocol.CompletionHandler) {
         deletePinIsCalled = true
-        completion(postHandle, error)
+        completion(post.topicHandle, error)
     }
 }
 
@@ -48,7 +48,7 @@ private class FeedModulePresenterMock: FeedModuleInteractorOutput {
     
     func didFetchMore(feed: Feed) { }
     
-    func didFail(error: FeedServiceError) { }
+    func didFail(error: Error) { }
     
     func didStartFetching() { }
     
@@ -87,7 +87,8 @@ class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
     func testPostLikeIsCalled() {
         // given
         let action = PostSocialAction.like
-        let post = "handle"
+        let post = Post.mock(seed: 0)
+        
         
         // when
         sut.postAction(post: post, action: action)
@@ -100,7 +101,7 @@ class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
         
         // given
         let action = PostSocialAction.unlike
-        let post = "handle"
+        let post = Post.mock(seed: 0)
         
         // when
         sut.postAction(post: post, action: action)
@@ -113,7 +114,7 @@ class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
         
         // given
         let action = PostSocialAction.pin
-        let post = "handle"
+        let post = Post.mock(seed: 0)
         
         // when
         sut.postAction(post: post, action: action)
@@ -126,7 +127,7 @@ class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
         
         // given
         let action = PostSocialAction.unpin
-        let post = "handle"
+        let post = Post.mock(seed: 0)
         
         // when
         sut.postAction(post: post, action: action)
@@ -140,16 +141,16 @@ class FeedModuleInteractor_SocialActions_Tests: XCTestCase {
         
         // given
         let action = PostSocialAction.unpin
-        let post = "handle"
+        let post = Post.mock(seed: 0)
         service.error = FeedServiceError.failedToUnPin(message: "Ooops")
         
         // when
         sut.postAction(post: post, action: action)
         
         // then
-        XCTAssertTrue(presenter.didPostAction!.action == .unpin)
-        XCTAssertTrue(presenter.didPostAction!.error != nil)
-        XCTAssertTrue(presenter.didPostAction!.post == "handle")
+        XCTAssertTrue(presenter.didPostAction?.action == .unpin)
+        XCTAssertTrue(presenter.didPostAction?.error != nil)
+        XCTAssertTrue(presenter.didPostAction?.post == post.topicHandle)
     }
 
 }

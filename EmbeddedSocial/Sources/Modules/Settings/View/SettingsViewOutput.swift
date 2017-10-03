@@ -10,6 +10,8 @@ protocol SettingsViewOutput: class {
     
     func onBlockedList()
     
+    func onLinkedAccounts()
+
     func signOut()
     
     func onPrivacySwitch()

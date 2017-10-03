@@ -22,8 +22,8 @@ protocol ActivityInteractorInput: class {
     func loadPendingRequestItems(completion: ((UserRequestListResult) -> Void)?)
     func loadNextPagePendigRequestItems(completion: ((UserRequestListResult) -> Void)?)
     
-    func acceptPendingRequest(user: UserCompactView, completion: @escaping (Result<Void>) -> Void)
-    func rejectPendingRequest(user: UserCompactView, completion: @escaping (Result<Void>) -> Void)
+    func acceptPendingRequest(user: User, completion: @escaping (Result<Void>) -> Void)
+    func rejectPendingRequest(user: User, completion: @escaping (Result<Void>) -> Void)
 }
 
 protocol ActivityService: class {
@@ -60,12 +60,12 @@ class ActivityInteractor {
 
 extension ActivityInteractor: ActivityInteractorInput {
     
-    func acceptPendingRequest(user: UserCompactView, completion: @escaping (Result<Void>) -> Void) {
-        service.acceptPending(user: User(compactView: user), completion: completion)
+    func acceptPendingRequest(user: User, completion: @escaping (Result<Void>) -> Void) {
+        service.acceptPending(user: user, completion: completion)
     }
     
-    func rejectPendingRequest(user: UserCompactView, completion: @escaping (Result<Void>) -> Void) {
-        service.cancelPending(user: User(compactView: user), completion: completion)
+    func rejectPendingRequest(user: User, completion: @escaping (Result<Void>) -> Void) {
+        service.cancelPending(user: user, completion: completion)
     }
     
     // MARK: My Activity

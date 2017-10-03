@@ -20,7 +20,7 @@ protocol SocialServiceType {
     
     func changeFollowStatus(user: User, completion: @escaping (Result<Void>) -> Void)
     
-    func getSuggestedUsers(completion: @escaping (Result<UsersListResponse>) -> Void)
+    func getSuggestedUsers(authorization: Authorization, completion: @escaping (Result<UsersListResponse>) -> Void)
     
     /// Get the feed of users that follow me
     func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
@@ -215,7 +215,7 @@ class SocialService: BaseService, SocialServiceType {
         }
     }
     
-    func getSuggestedUsers(completion: @escaping (Result<UsersListResponse>) -> Void) {
+    func getSuggestedUsers(authorization: Authorization, completion: @escaping (Result<UsersListResponse>) -> Void) {
         let builder = SocialAPI.myFollowingGetSuggestionsUsersWithRequestBuilder(authorization: authorization)
         suggestedUsersExecutor.execute(with: builder, completion: completion)
     }

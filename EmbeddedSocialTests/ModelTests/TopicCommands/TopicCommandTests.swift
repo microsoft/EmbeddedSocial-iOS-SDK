@@ -10,9 +10,9 @@ class TopicCommandTests: XCTestCase {
     
     func testThatItCorrectlyAppliesChangesToFeed() {
         // given
-        let topic1 = Post(topicHandle: UUID().uuidString)
-        let topic2 = Post(topicHandle: UUID().uuidString)
-        let topic3 = Post(topicHandle: UUID().uuidString)
+        let topic1 = Post.mock(seed: 0)
+        let topic2 = Post.mock(seed: 1)
+        let topic3 = Post.mock(seed: 2)
 
         var feed = FeedFetchResult()
         feed.posts = [topic1, topic2, topic3]
