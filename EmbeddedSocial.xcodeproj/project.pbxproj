@@ -5680,6 +5680,15 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
+		F8C8405F1F82BDA900F72635 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				8E5FCAAC1F820F0900A81E2E /* TestPostMenu.swift */,
+				8EA8374F1F7E84F100C7489E /* TestMyPins.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		F8EA613C5391120FE86A6ADC /* View */ = {
 			isa = PBXGroup;
 			children = (
