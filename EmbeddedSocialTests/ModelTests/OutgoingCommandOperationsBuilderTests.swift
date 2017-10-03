@@ -22,7 +22,7 @@ class OutgoingCommandOperationsBuilderTests: XCTestCase {
         XCTAssertTrue(makeOperation(AcceptPendingCommand(user: user)) is AcceptPendingUserOperation)
 
         // topic commands
-        let topic = Post(topicHandle: UUID().uuidString)
+        let topic = Post.mock(seed: 1)
         XCTAssertTrue(makeOperation(UnlikeTopicCommand(topic: topic)) is UnlikeTopicOperation)
         XCTAssertTrue(makeOperation(LikeTopicCommand(topic: topic)) is LikeTopicOperation)
         XCTAssertTrue(makeOperation(PinTopicCommand(topic: topic)) is PinTopicOperation)

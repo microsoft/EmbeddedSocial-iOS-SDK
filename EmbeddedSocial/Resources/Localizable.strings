@@ -16,7 +16,8 @@
 "error.no_item_for" = "No item for %@";
 "error.no_items_received" = "No Items Received";
 "error.user_list_no_api" = "User list module configuration error: API not set.";
-"error.invalid_response" = "Invalid server response";
+"error.invalid_response" = "Invalid server response.";
+"error.missing_response_data" = "Cant handle response, data is corrupted.";
 
 "common.ok" = "OK";
 "common.cancel" = "Cancel";

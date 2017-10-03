@@ -6,13 +6,12 @@
 import Foundation
 
 struct Post {
-    var topicHandle: String!
+    var topicHandle: String
     var createdTime: Date?
     
-    var user: User?
+    var user: User
     var imageUrl: String?
     var imageHandle: String?
-    var image: UIImage?
     
     var title: String?
     var text: String?
@@ -25,103 +24,126 @@ struct Post {
     var liked: Bool = false
     var pinned: Bool = false
     
-    var userHandle: String? {
-        return user?.uid
+    var userHandle: String {
+        return user.uid
     }
     
     var userStatus: FollowStatus {
         get {
-            return user?.followerStatus ?? .empty
+            return user.followerStatus ?? .empty
         }
         set {
-            user?.followerStatus = newValue
+            user.followerStatus = newValue
         }
     }
     
     var firstName: String? {
-        return user?.firstName
+        return user.firstName
     }
     
     var lastName: String? {
-        return user?.lastName
+        return user.lastName
     }
     
     var photoHandle: String? {
-        return user?.photo?.uid
+        return user.photo?.uid
     }
     
     var photoUrl: String? {
-        return user?.photo?.url
+        return user.photo?.url
     }
     
     var photo: Photo? {
         guard let imageHandle = imageHandle else {
             return nil
         }
-        return Photo(uid: imageHandle, url: imageUrl, image: image)
+        return Photo(uid: imageHandle, url: imageUrl)
     }
 }
 
 extension Post {
     
-    static func mock(seed: Int) -> Post {
-        var post = Post()
-        post.title = "Title \(seed)"
+    static func mock(seed: Int = 1) -> Post {
         
+        let handle = "Handle\(seed)"
+        let title = "Title \(seed)"
         var text = "Post text"
         for i in 0...seed {
             text += "\n \(i)"
         }
-        post.text = text
         
-        post.liked = seed % 2 == 0
-        post.pinned = false
-        post.totalLikes = seed
-        post.totalComments = seed + 10
-        post.topicHandle = "topic handle \(seed)"
-        post.user = User(uid: "user handle", followerStatus: .empty)
-        return post
-    }
-}
+        let liked = false
+        let pinned = false
+        let totalLikes = 0
+        let totalComments = 0
+        let user = User(uid: "user handle \(seed)", followerStatus: .empty)
 
-extension Post {
-    
-    init(topicHandle: String) {
-        self.init()
-        self.topicHandle = topicHandle
+        return Post(topicHandle: handle,
+                    createdTime: nil,
+                    user: user,
+                    imageUrl: nil,
+                    imageHandle: nil,
+                    title: title,
+                    text: text,
+                    deepLink: nil,
+                    totalLikes: totalLikes,
+                    totalComments: totalComments,
+                    liked: liked,
+                    pinned: pinned)
     }
 }
 
 extension Post: JSONEncodable {
     
-    init?(json: [String: Any]) {
-        guard let topicHandle = json["topicHandle"] as? String else {
+     init?(json: [String: Any]) {
+        
+//        guard let topicView: TopicView = Decoders.decode(type: TopicView.self, payload: json) else {
+//            return nil
+//        }
+//
+//        self.init(data: topicView)
+        
+//
+        guard let handle = json["topicHandle"] as? String else {
             return nil
         }
-        
-        self.init()
-        
-        self.topicHandle = topicHandle
-        createdTime = json["createdTime"] as? Date
-        if let userJSON = json["user"] as? [String: Any] {
-            user = User(memento: userJSON)
+
+        guard let userJSON = json["user"] as? [String: Any] else {
+            return nil
         }
-        title = json["title"] as? String
-        text = json["text"] as? String
-        imageUrl = json["imageUrl"] as? String
-        imageHandle = json["imageHandle"] as? String
-        deepLink = json["deepLink"] as? String
-        totalLikes = json["totalLikes"] as? Int ?? 0
-        totalComments = json["totalComments"] as? Int ?? 0
-        liked = json["liked"] as? Bool ?? false
-        pinned = json["pinned"] as? Bool ?? false
+
+        guard let user = User(memento: userJSON) else {
+            return nil
+        }
+
+        guard let title = json["title"] as? String,
+            let text = json["text"] as? String,
+            let totalLikes = json["totalLikes"] as? Int,
+            let totalComments = json["totalComments"] as? Int,
+            let liked = json["liked"] as? Bool,
+            let pinned = json["pinned"] as? Bool else {
+                return nil
+        }
+
+        self.init(topicHandle: handle,
+                    createdTime: json["createdTime"] as? Date,
+                    user: user,
+                    imageUrl: json["imageUrl"] as? String,
+                    imageHandle: json["imageHandle"] as? String,
+                    title: title,
+                    text: text,
+                    deepLink: json["deepLink"] as? String,
+                    totalLikes: totalLikes,
+                    totalComments: totalComments,
+                    liked: liked,
+                    pinned: pinned)
     }
     
     func encodeToJSON() -> Any {
         let json: [String: Any?] = [
             "topicHandle": topicHandle,
             "createdTime": createdTime,
-            "user": user?.encodeToJSON(),
+            "user": user.encodeToJSON(),
             "imageUrl": imageUrl,
             "imageHandle": imageHandle,
             "title": title,
@@ -138,21 +160,42 @@ extension Post: JSONEncodable {
 
 extension Post {
     
-    init(data: TopicView) {
-        
-        if let userCompactView = data.user {
-            user = User(compactView: userCompactView)
+    init?(data: TopicView) {
+
+        // must have user
+        guard let userCompactView = data.user else {
+            return nil
         }
-        imageHandle = data.blobHandle
-        imageUrl = data.blobUrl
-        createdTime = data.createdTime
-        title = data.title
-        text = data.text
-        pinned = data.pinned ?? false
-        liked = data.liked ?? false
-        topicHandle = data.topicHandle
-        totalLikes = Int(exactly: Double(data.totalLikes ?? 0))!
-        totalComments = Int(exactly: Double(data.totalComments ?? 0))!
+        
+        let user = User(compactView: userCompactView)
+        
+        // must have this data, else - invalid
+        guard
+            let handle = data.topicHandle,
+            let text = data.text,
+            let pinned = data.pinned,
+            let liked = data.liked,
+            let date = data.createdTime,
+            let likesNumber64 = data.totalLikes,
+            let commentsNumber64 = data.totalComments,
+            let likesNumber = Int(exactly: likesNumber64),
+            let commentsNumber = Int(exactly: commentsNumber64),
+            let title = data.title else {
+                return nil
+        }
+        
+        self.init(topicHandle: handle,
+                  createdTime: date,
+                  user: user,
+                  imageUrl: data.blobUrl,
+                  imageHandle: data.blobHandle,
+                  title: title,
+                  text: text,
+                  deepLink: data.deepLink,
+                  totalLikes: likesNumber,
+                  totalComments: commentsNumber,
+                  liked: liked,
+                  pinned: pinned)
     }
     
 }
@@ -174,7 +217,13 @@ struct FeedFetchResult {
 
 extension FeedFetchResult {
     init(response: FeedResponseTopicView?) {
-        posts = response?.data?.map(Post.init) ?? []
+        
+        if let items = response?.data {
+            
+            // ignore error on corrupted data
+            posts = items.map(Post.init).flatMap{ $0 }
+        }
+        
         error = nil
         cursor = response?.cursor
     }
