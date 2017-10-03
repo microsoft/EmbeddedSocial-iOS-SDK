@@ -48,7 +48,7 @@ class DetailedActivityPresenterTests: XCTestCase {
         presenter.state = .comment
         presenter.loadContent()
         
-        XCTAssertNil(presenter.comment)
+        XCTAssertNotNil(presenter.comment)
         XCTAssertEqual(view.reloadAllContentCount, 1)
     }
     
@@ -57,7 +57,7 @@ class DetailedActivityPresenterTests: XCTestCase {
         presenter.state = .reply
         presenter.loadContent()
         
-        XCTAssertNil(presenter.reply)
+        XCTAssertNotNil(presenter.reply)
         XCTAssertEqual(view.reloadAllContentCount, 1)
     }
 

@@ -43,7 +43,7 @@ extension DetailedActivityPresenter: DetailedActivityViewOutput {
     }
 
     func viewIsReady() {
-        
+        view?.setupInitialState()
     }
     
     func numberOfItems() -> Int {

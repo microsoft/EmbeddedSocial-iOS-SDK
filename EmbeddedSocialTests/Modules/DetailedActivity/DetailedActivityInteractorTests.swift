@@ -22,6 +22,7 @@ class DetailedActivityInteractorTests: XCTestCase {
         output = MockDetailedActivityPresenter()
         
         interactor.replyService = repliesService
+        interactor.output = output
         interactor.commentService = commentService
         interactor.commentHandle = UUID().uuidString
         interactor.replyHandle = UUID().uuidString
@@ -29,6 +30,7 @@ class DetailedActivityInteractorTests: XCTestCase {
     
     override func tearDown() {
         repliesService = nil
+        interactor.output = nil
         commentService = nil
         interactor.commentHandle = nil
         interactor.replyHandle = nil
@@ -37,12 +39,27 @@ class DetailedActivityInteractorTests: XCTestCase {
     }
     
     func testThatCommentLoaded() {
+        
+        //given
+        let comment = Comment(commentHandle: UUID().uuidString)
+        comment.text = UUID().uuidString
+        comment.topicHandle = UUID().uuidString
+        
+        commentService.getCommentReturnComment = comment
+        
         interactor.loadComment()
         
         XCTAssertEqual(output.loadedCommentCount, 1)
     }
     
     func testThatReplyLoaded() {
+        
+        //given
+        let reply = Reply(replyHandle: UUID().uuidString)
+        reply.text = UUID().uuidString
+        reply.commentHandle = UUID().uuidString
+        repliesService.getReplyReturnReply = reply        
+        
         interactor.loadReply()
         
         XCTAssertEqual(output.loadedReplyCount, 1)
