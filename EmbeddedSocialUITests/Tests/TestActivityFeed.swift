@@ -37,6 +37,15 @@ class TestYouActivityFeed: BaseTestActivityFeed {
         recentActivities = RecentActivity(app)
     }
     
+    func testProfilesImagesLoading() {
+        APIConfig.showUserImages = true
+        
+        openScreen()
+        sleep(2)
+        
+        XCTAssertTrue(APIState.getLatestRequest().contains("/images/"))
+    }
+    
     func testPendingRequestAccepting() {
         openScreen()
         
@@ -48,9 +57,6 @@ class TestYouActivityFeed: BaseTestActivityFeed {
         let beforeAcceptingRequestsCount = activityFollowRequests.getRequestsCount()
         APIConfig.values = ["userHandle" : "Name LastName #\(requestIndex)"]
         requestItem.accept()
-        
-        print("BEFORE: \(beforeAcceptingRequestsCount)")
-        print("CURRENT: \(activityFollowRequests.getRequestsCount())")
         
         let acceptUserHandleResponse = APIState.getLatestResponse(forService: "followers")?["userHandle"] as? String
         XCTAssertTrue((beforeAcceptingRequestsCount - 1) == activityFollowRequests.getRequestsCount())
@@ -69,9 +75,6 @@ class TestYouActivityFeed: BaseTestActivityFeed {
         
         let beforeDecliningRequestsCount = activityFollowRequests.getRequestsCount()
         requestItem.decline()
-        
-        print("BEFORE: \(beforeDecliningRequestsCount)")
-        print("CURRENT: \(activityFollowRequests.getRequestsCount())")
         
         XCTAssertTrue((beforeDecliningRequestsCount - 1) == activityFollowRequests.getRequestsCount())
         XCTAssertTrue(APIState.getLatestRequest().contains("/me/pending_users/"))
@@ -98,8 +101,6 @@ class TestFollowingActivityFeed: BaseTestActivityFeed {
         sleep(2)
         
         XCTAssertTrue(APIState.getLatestRequest().contains("/images/"))
-        
-        APIConfig.showUserImages = false
     }
     
 }

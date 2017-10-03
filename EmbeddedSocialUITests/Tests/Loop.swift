@@ -10,6 +10,7 @@ import XCTest
 class Loop: UITestBase {
     
     func testAPIMock() {
+        APIConfig.showUserImages = true
         while true {}
     }
     
