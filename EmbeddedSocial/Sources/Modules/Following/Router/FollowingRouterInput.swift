@@ -6,7 +6,7 @@
 import Foundation
 
 protocol FollowingRouterInput {
-    func openSuggestedUsers()
+    func openSuggestedUsers(authorization: Authorization)
     
     func openSearchPeople()
 }

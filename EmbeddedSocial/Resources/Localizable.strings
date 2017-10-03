@@ -16,7 +16,8 @@
 "error.no_item_for" = "No item for %@";
 "error.no_items_received" = "No Items Received";
 "error.user_list_no_api" = "User list module configuration error: API not set.";
-"error.invalid_response" = "Invalid server response";
+"error.invalid_response" = "Invalid server response.";
+"error.missing_response_data" = "Cant handle response, data is corrupted.";
 
 "common.ok" = "OK";
 "common.cancel" = "Cancel";
@@ -148,6 +149,9 @@
 "activity.sections.others.title" = "RECENT ACTIVITY";
 "activity.tabs.my_title" = "You";
 "activity.tabs.others_title" = "Following";
+
+"detailed_activity.button.open_topic" = "Open topic";
+"detailed_activity.button.open_comment" = "Open comment";
 
 "activity.you.following" = "%@ started following you.";
 "activity.you.mention_topic" = "%@ mentioned you in a topic \"%@\".";

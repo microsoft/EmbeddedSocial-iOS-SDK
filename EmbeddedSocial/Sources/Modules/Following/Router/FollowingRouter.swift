@@ -15,9 +15,9 @@ final class FollowingRouter: FollowingRouterInput {
         self.navigationController = navigationController
     }
     
-    func openSuggestedUsers() {
+    func openSuggestedUsers(authorization: Authorization) {
         let configurator = SuggestedUsersConfigurator()
-        configurator.configure(navigationController: navigationController)
+        configurator.configure(authorization: authorization, navigationController: navigationController)
         navigationController?.pushViewController(configurator.viewController, animated: true)
     }
     

@@ -10,7 +10,7 @@ class CreateTopicCommandTests: XCTestCase {
     
     func testThatItReturnsCorrectInverseCommand() {
         // given
-        let topic = Post(topicHandle: UUID().uuidString)
+        let topic = Post.mock(seed: 0)
         let sut = CreateTopicCommand(topic: topic)
         XCTAssertNil(sut.inverseCommand)
     }
@@ -18,9 +18,9 @@ class CreateTopicCommandTests: XCTestCase {
     func testThatItAppliedChangesToFeed() {
         // given
         var feed = FeedFetchResult()
-        feed.posts = [Post(topicHandle: UUID().uuidString), Post(topicHandle: UUID().uuidString)]
+        feed.posts = [Post.mock(seed: 0), Post.mock(seed: 0)]
         
-        let sut = CreateTopicCommand(topic: Post(topicHandle: UUID().uuidString))
+        let sut = CreateTopicCommand(topic: Post.mock(seed: 0))
         
         // when
         sut.apply(to: &feed)

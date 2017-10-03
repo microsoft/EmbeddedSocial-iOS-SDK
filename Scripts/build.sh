@@ -13,4 +13,4 @@ echo "---=== Sourcery ===---"
 input_sourcery="EmbeddedSocial/Sources/Model/"
 output_sourcery="EmbeddedSocial/Sources/Generated/Sourcery/"
 
-sourcery --sources $input_sourcery --templates ./templates --output $output_sourcery
+./Pods/Sourcery/bin/sourcery --sources $input_sourcery --templates ./templates --output $output_sourcery

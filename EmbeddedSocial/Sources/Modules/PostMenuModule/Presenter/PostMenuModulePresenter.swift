@@ -60,7 +60,7 @@ enum PostMenuType: CustomStringConvertible {
         get {
             switch self {
             case .myPost(let post ), .otherPost(let post, _):
-                return post.topicHandle!
+                return post.topicHandle
             case .myComment(let comment), .otherComment(let comment):
                 return comment.commentHandle
             case .myReply(let reply), .otherReply(let reply):
@@ -123,7 +123,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         var reportItem = ActionViewModel()
         reportItem.title = L10n.PostMenu.report
         reportItem.action = { [weak self] in
-            self?.didTapReportPost(post: post.topicHandle!)
+            self?.didTapReportPost(post: post.topicHandle)
         }
         
         var items = [followItem, blockItem, reportItem]
@@ -138,7 +138,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
 
     private func buildActionListForMyPost(post: Post) -> [ActionViewModel] {
         
-        let postHandle = post.topicHandle!
+        let postHandle = post.topicHandle
         
         var editItem = ActionViewModel()
         editItem.title = L10n.PostMenu.edit
@@ -167,7 +167,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         item.title = shouldFollow ? L10n.PostMenu.follow : L10n.PostMenu.unfollow
         
         item.action = { [weak self] in
-            guard let user = post.user else { return }
+            let user = post.user
             
             if shouldFollow {
                 self?.didTapFollow(user: user)
@@ -186,7 +186,8 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         
         item.title = shouldUnblock ? L10n.PostMenu.unblock : L10n.PostMenu.block
         item.action = { [weak self] in
-            guard let user = post.user else { return }
+            
+            let user = post.user
 
             if shouldUnblock {
                 self?.didTapUnblock(user: user)
@@ -202,7 +203,7 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
         var item = ActionViewModel()
         item.title = L10n.PostMenu.hide
         item.action = { [weak self] in
-            self?.didTapHide(post: post.topicHandle!)
+            self?.didTapHide(post: post.topicHandle)
         }
         
         return item

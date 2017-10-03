@@ -76,6 +76,13 @@ enum StoryboardScene {
 
     static let createPostViewController = SceneType<EmbeddedSocial.CreatePostViewController>(storyboard: CreatePost.self, identifier: "CreatePostViewController")
   }
+    enum DetailedActivity: StoryboardType {
+        static let storyboardName = "DetailedActivity"
+        
+        static let initialScene = InitialSceneType<EmbeddedSocial.DetailedActivityViewController>(storyboard: DetailedActivity.self)
+        
+        static let detailedActivityViewController = SceneType<EmbeddedSocial.DetailedActivityViewController>(storyboard: DetailedActivity.self, identifier: "DetailedActivityViewController")
+    }
   enum EditProfile: StoryboardType {
     static let storyboardName = "EditProfile"
 

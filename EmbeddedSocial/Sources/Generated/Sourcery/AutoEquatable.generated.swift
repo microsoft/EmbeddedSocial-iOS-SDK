@@ -55,12 +55,11 @@ internal func == (lhs: Photo, rhs: Photo) -> Bool {
 // MARK: - Post AutoEquatable
 extension Post: Equatable {}
 internal func == (lhs: Post, rhs: Post) -> Bool {
-    guard compareOptionals(lhs: lhs.topicHandle, rhs: rhs.topicHandle, compare: ==) else { return false }
+    guard lhs.topicHandle == rhs.topicHandle else { return false }
     guard compareOptionals(lhs: lhs.createdTime, rhs: rhs.createdTime, compare: ==) else { return false }
-    guard compareOptionals(lhs: lhs.user, rhs: rhs.user, compare: ==) else { return false }
+    guard lhs.user == rhs.user else { return false }
     guard compareOptionals(lhs: lhs.imageUrl, rhs: rhs.imageUrl, compare: ==) else { return false }
     guard compareOptionals(lhs: lhs.imageHandle, rhs: rhs.imageHandle, compare: ==) else { return false }
-    guard compareOptionals(lhs: lhs.image, rhs: rhs.image, compare: ==) else { return false }
     guard compareOptionals(lhs: lhs.title, rhs: rhs.title, compare: ==) else { return false }
     guard compareOptionals(lhs: lhs.text, rhs: rhs.text, compare: ==) else { return false }
     guard compareOptionals(lhs: lhs.deepLink, rhs: rhs.deepLink, compare: ==) else { return false }

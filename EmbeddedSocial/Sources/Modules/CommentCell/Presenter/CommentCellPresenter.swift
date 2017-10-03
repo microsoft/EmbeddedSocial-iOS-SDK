@@ -8,6 +8,10 @@ protocol CommentCellModuleProtocol {
     func mainComment() -> Comment
 }
 
+protocol CommentCellModuleOutout: class {
+    func removed(comment: Comment)
+}
+
 class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, CommentCellInteractorOutput {
     
     var view: CommentCellViewInput?
@@ -15,7 +19,7 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     var router: CommentCellRouterInput?
     var myProfileHolder: UserHolder?
     
-    weak var postDetailsInput: PostDetailModuleInput!
+    weak var moduleOutput: CommentCellModuleOutout?
     
     var comment: Comment!
     
@@ -127,7 +131,7 @@ extension CommentCellPresenter: PostMenuModuleOutput {
     }
     
     func didRemove(comment: Comment) {
-         postDetailsInput.commentRemoved(comment: comment)
+         moduleOutput?.removed(comment: comment)
     }
     
     func didReport(post: PostHandle) {

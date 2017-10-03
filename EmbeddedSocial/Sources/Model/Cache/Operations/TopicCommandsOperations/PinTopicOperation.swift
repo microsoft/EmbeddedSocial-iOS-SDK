@@ -12,7 +12,7 @@ final class PinTopicOperation: TopicCommandOperation {
             return
         }
         
-        likesService.postPin(postHandle: command.topic.topicHandle) { [weak self] _, error in
+        likesService.postPin(post: command.topic) { [weak self] _, error in
             self?.completeOperation(with: error)
         }
     }

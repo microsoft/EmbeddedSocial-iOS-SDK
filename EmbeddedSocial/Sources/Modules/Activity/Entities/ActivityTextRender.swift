@@ -138,7 +138,7 @@ class MyActivityTextRender: BaseActivityTextRender {
         case .comment:
             return L10n.Activity.You.likeComment(actor, contentText)
         case .reply:
-            return L10n.Activity.You.likeComment(actor, contentText)
+            return L10n.Activity.You.likeReply(actor, contentText)
         case .topic:
             return L10n.Activity.You.likeTopic(actor, contentText)
         default:

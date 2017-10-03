@@ -10,7 +10,7 @@ class LikeTopicCommandTests: XCTestCase {
     
     func testThatItCorrectlyAppliesChanges() {
         // given
-        var topic = Post(topicHandle: UUID().uuidString)
+        var topic = Post.mock(seed: 0)
         let sut = LikeTopicCommand(topic: topic)
         
         // when
@@ -23,7 +23,7 @@ class LikeTopicCommandTests: XCTestCase {
     
     func testThatItReturnsCorrectInverseCommand() {
         // given
-        let topic = Post(topicHandle: UUID().uuidString)
+        let topic = Post.mock(seed: 0)
         let sut = LikeTopicCommand(topic: topic)
         
         // when

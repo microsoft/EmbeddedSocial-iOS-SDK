@@ -75,32 +75,38 @@ class DataSource {
         self.context = context
     }
     
-    func process(items: [ActivityItem], page: Int) {
+    func process(newItems: [ActivityItem], pageIdx: Int) {
         // replace page with new data, probaby from cache
-        let isNewData = (section.pages.count == 0 || section.pages.indices.contains(page) == false)
+        let isNewData = (section.pages.count == 0 || section.pages.indices.contains(pageIdx) == false)
         
         if isNewData {
             // inserting new page
-            section.pages.insert(items, at: page)
+            section.pages.insert(newItems, at: pageIdx)
             
-            let paths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
+            let paths = section.range(forPage: pageIdx).map { IndexPath(row: $0, section: context.index) }
             delegate?.didChangeItems(change: .insertion(paths), context: context)
             
         } else {
             
-            let needInsertingNewRows = (section.pages[page].count != items.count)
+            let cachedNumberOfItems = section.pages[pageIdx].count
+            let needAddItems = (cachedNumberOfItems - newItems.count)
+            let needRemoveItems = (newItems.count - cachedNumberOfItems)
             
             // replacing items for existing page
-            section.pages[page] = items
+            section.pages[pageIdx] = newItems
             
-            let paths = section.range(forPage: page).map { IndexPath(row: $0, section: context.index) }
+            let paths = section.range(forPage: pageIdx).map { IndexPath(row: $0, section: context.index) }
             
-            if needInsertingNewRows {
-                delegate?.didChangeItems(change: .deletion(paths), context: context)
+            // notify UI about changes
+            if needAddItems > 0 {
                 delegate?.didChangeItems(change: .insertion(paths), context: context)
-            } else {
-                delegate?.didChangeItems(change: .update(paths), context: context)
             }
+            else if needRemoveItems > 0 {
+                delegate?.didChangeItems(change: .deletion(paths), context: context)
+            }
+            
+            // update visible
+            delegate?.didChangeItems(change: .updateVisible, context: context)
         }
     }
 }
@@ -115,7 +121,7 @@ class MyPendingRequests: DataSource {
             self.delegate?.didFail(error: error)
         case let .success(list):
             let items = list.users.map { ActivityItem.pendingRequest($0) }
-            process(items: items, page: page)
+            process(newItems: items, pageIdx: page)
         }
     }
     
@@ -144,7 +150,7 @@ class MyActivities: DataSource {
             self.delegate?.didFail(error: error)
         case let .success(models):
             let items = models.items.map { ActivityItem.myActivity($0) }
-            process(items: items, page: page)
+            process(newItems: items, pageIdx: page)
         }
     }
     
@@ -174,7 +180,7 @@ class OthersActivties: DataSource {
         case let .success(models):
             let items = models.items.map { ActivityItem.othersActivity($0) }
             
-            process(items: items, page: page)
+            process(newItems: items, pageIdx: page)
         }
     }
     

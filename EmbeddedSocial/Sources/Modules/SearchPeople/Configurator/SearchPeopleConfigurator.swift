@@ -25,19 +25,17 @@ final class SearchPeopleConfigurator {
         presenter.moduleOutput = output
         
         if isLoggedInUser {
-            presenter.backgroundUsersListModule =
-                makeBackgroundUsersListModule(navigationController: navigationController, output: presenter)
+            presenter.backgroundUsersListModule = makeUserListModule(
+                api: EmptyUsersListAPI(),
+                noDataText: nil,
+                navigationController: navigationController,
+                output: presenter
+            )
         }
         
         viewController.output = presenter
         
         moduleInput = presenter
-    }
-    
-    private func makeBackgroundUsersListModule(navigationController: UINavigationController?,
-                                               output: UserListModuleOutput?) -> UserListModuleInput {
-        let api = SuggestedUsersAPI(socialService: SocialService())
-        return makeUserListModule(api: api, noDataText: nil, navigationController: navigationController, output: output)
     }
     
     private func makeUserListModule(api: UsersListAPI,
