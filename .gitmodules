@@ -1,0 +1,3 @@
+[submodule "EmbeddedSocial/Vendor/MSR-EmbeddedSocial-Swift-API-Library"]
+	path = EmbeddedSocial/Vendor/MSR-EmbeddedSocial-Swift-API-Library
+	url = git@github.com:Microsoft/MSR-EmbeddedSocial-Swift-API-Library.git

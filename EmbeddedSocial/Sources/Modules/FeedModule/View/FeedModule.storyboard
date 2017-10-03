@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Feed Module View Controller-->
+        <scene sceneID="JnH-Ah-SlK">
+            <objects>
+                <viewController storyboardIdentifier="FeedModuleViewController" automaticallyAdjustsScrollViewInsets="NO" id="Tyv-zk-Xar" customClass="FeedModuleViewController" customModule="EmbeddedSocial" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qKF-xA-dpz"/>
+                        <viewControllerLayoutGuide type="bottom" id="lVh-HY-g2M"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Vrb-ac-Gvh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77O-LY-MDz" customClass="CollectionView" customModule="EmbeddedSocial" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jgo-la-I8r">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Tyv-zk-Xar" id="jhw-aw-3xZ"/>
+                                    <outlet property="delegate" destination="Tyv-zk-Xar" id="KK0-1y-dED"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="77O-LY-MDz" firstAttribute="leading" secondItem="Vrb-ac-Gvh" secondAttribute="leading" id="6DK-xx-X55"/>
+                            <constraint firstAttribute="bottom" secondItem="77O-LY-MDz" secondAttribute="bottom" id="OMf-IR-ee2"/>
+                            <constraint firstItem="77O-LY-MDz" firstAttribute="top" secondItem="qKF-xA-dpz" secondAttribute="bottom" id="gFG-RH-EMv"/>
+                            <constraint firstAttribute="trailing" secondItem="77O-LY-MDz" secondAttribute="trailing" id="yq2-TG-ThH"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="77O-LY-MDz" id="LWK-qn-Zte"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vne-Xw-jCx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-370.39999999999998" y="-75.112443778110944"/>
+        </scene>
+    </scenes>
+</document>

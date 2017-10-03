@@ -1,0 +1,32 @@
+
+##### Setup ######
+  desc "Install pod dependencies"
+  lane :install_pods do
+    cocoapods
+  end
+
+# Test
+  desc "Runs unit tests"
+  lane :unit_tests do |params|
+    scan(
+	scheme: "EmbeddedSocial"
+    )
+  end
+
+# Build
+lane :build_app do
+gym(
+scheme: "EmbeddedSocial-Example",
+configuration: "Release",
+export_method: "development",
+clean: true
+)
+end
+
+#Launch
+lane :launch do
+install_pods
+unit_tests
+build_app
+end
+
