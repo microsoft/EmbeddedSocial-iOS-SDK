@@ -163,8 +163,8 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         commentTextView.text = nil
         postButton.isHidden = true
         SVProgressHUD.dismiss()
+        collectionView.insertItems(at: [IndexPath(item: output.numberOfItems() - 1 , section: CommentsSections.comments.rawValue)])
         view.layoutIfNeeded()
-        collectionView.reloadData()
         scrollCollectionViewToBottom()
         view.isUserInteractionEnabled = true
     }
