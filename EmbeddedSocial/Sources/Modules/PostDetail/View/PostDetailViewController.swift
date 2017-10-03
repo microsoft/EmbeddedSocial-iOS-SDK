@@ -166,7 +166,8 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         collectionView.insertItems(at: [IndexPath(item: output.numberOfItems() - 1 , section: CommentsSections.comments.rawValue)])
         view.layoutIfNeeded()
         scrollCollectionViewToBottom()
-        view.isUserInteractionEnabled = true    }
+        view.isUserInteractionEnabled = true
+    }
     
     func postCommentFailed(error: Error) {
         postButton.isHidden = false
