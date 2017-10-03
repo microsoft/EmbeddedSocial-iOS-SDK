@@ -295,7 +295,49 @@ open class APIRouter: WebApp {
                 sendJSON(Templates.loadFollowers(firstName: query["query"]!, lastName: ""))
             }
         }
-
+        
+        self["/v0.7/users/me/pending_users"] = APIResponse(serviceName: "followers") { environ, sendJSON -> Void in
+            let query = URLParametersReader.parseURLParameters(environ: environ)
+            let method = environ["REQUEST_METHOD"] as! String
+            
+            switch method {
+                case "POST":
+                    let input = environ["swsgi.input"] as! SWSGIInput
+                    JSONReader.read(input) { json in
+                        APIState.setLatestData(forService: "followers", data: json)
+                        sendJSON(Templates.load(name: "follower_post"))
+                    }
+                break
+                
+            default:
+//                let cursor = query["cursor"] ?? "0"
+//                if let limit = query["limit"] {
+//                    sendJSON(Templates.loadFollowers(firstName: "User", lastName: "Follower", cursor: Int(cursor)!, limit: Int(limit)!))
+//                } else {
+                    sendJSON(Templates.loadFollowers(firstName: "Name", lastName: "LastName #"))
+//                }
+            }
+        }
+        
+        self["/v0.7/users/me/following/activities"] = APIResponse(serviceName: "activities") { environ, sendJSON -> Void in
+            let query = URLParametersReader.parseURLParameters(environ: environ)
+            let cursor = Int(query["cursor"] ?? "0")!
+            if let limit = Int(query["limit"] ?? "") {
+                sendJSON(Templates.loadActivities(cursor: cursor, limit: limit))
+            } else {
+                sendJSON(Templates.loadActivities(cursor: cursor))
+            }
+        }
+        
+        self["/v0.7/users/me/notifications"] = APIResponse(serviceName: "notifications") { environ, sendJSON -> Void in
+            let query = URLParametersReader.parseURLParameters(environ: environ)
+            let cursor = Int(query["cursor"] ?? "0")!
+            if let limit = Int(query["limit"] ?? "") {
+                sendJSON(Templates.loadActivities(cursor: cursor, limit: limit))
+            } else {
+                sendJSON(Templates.loadActivities(cursor: cursor))
+            }
+        }
     }
     
     open subscript(path: String) -> WebApp? {
