@@ -4,11 +4,17 @@
 <dict>
 	<key>contentBackground</key>
 	<string>#ffffff</string>
-	<key>accent</key>
+	<key>controlHighlighted</key>
 	<string>#5bbb7b</string>
+	<key>controlUnhighlighted</key>
+	<string>#b0b0b0</string>
+	<key>controlHighlightedTitle</key>
+	<string>#ffffff</string>
 	<key>navigationBarBackground</key>
 	<string>#f7f7f7</string>
 	<key>navigationBarTint</key>
 	<string>#007aff</string>
+	<key>navigationBarTitle</key>
+	<string>#000000</string>
 </dict>
 </plist>

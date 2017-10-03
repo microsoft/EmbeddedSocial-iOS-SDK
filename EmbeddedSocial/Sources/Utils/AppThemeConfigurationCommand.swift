@@ -9,7 +9,7 @@ struct AppThemeConfigurationCommand: Command {
     
     private let theme: Theme?
     
-    init(theme: Theme? = SocialPlus.shared.theme) {
+    init(theme: Theme? = SocialPlus.theme) {
         self.theme = theme
     }
     
@@ -19,6 +19,6 @@ struct AppThemeConfigurationCommand: Command {
         }
         UINavigationBar.appearance().barTintColor = palette.navigationBarBackground
         UINavigationBar.appearance().tintColor = palette.navigationBarTint
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: palette.navigationBarTint]
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: palette.navigationBarTitle]
     }
 }

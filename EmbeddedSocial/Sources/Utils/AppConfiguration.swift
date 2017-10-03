@@ -6,18 +6,19 @@
 import Foundation
 
 protocol AppConfigurationType {
-    var theme: Theme? { get }
+    var theme: Theme { get }
 }
 
 class AppConfiguration: AppConfigurationType {
     
     private let config: [String: Any]
     
-    lazy var theme: Theme? = { [unowned self] in
-        guard let themeName = self.config["theme"] as? String else {
-            return nil
+    lazy var theme: Theme = { [unowned self] in
+        guard let themeName = self.config["theme"] as? String,
+            let theme = Theme(filename: themeName) else {
+                fatalError("Theme is wrong or missing. Please check the config file.")
         }
-        return Theme(filename: themeName)
+        return theme
     }()
     
     init?(filename: String) {

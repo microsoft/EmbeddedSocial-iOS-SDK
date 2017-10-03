@@ -33,8 +33,12 @@ public final class SocialPlus {
         return sessionStore.sessionToken
     }
     
-    var theme: Theme? {
-        return config.theme
+    static var theme: Theme {
+        return shared.config.theme
+    }
+    
+    static var palette: ThemePalette {
+        return theme.palette
     }
     
     private init() {

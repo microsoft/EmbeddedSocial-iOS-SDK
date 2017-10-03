@@ -28,6 +28,6 @@ final class LoginConfigurator {
         
         viewController.output = presenter
         viewController.title = L10n.Login.screenTitle
-        viewController.theme = SocialPlus.shared.theme
+        viewController.theme = SocialPlus.theme
     }
 }
