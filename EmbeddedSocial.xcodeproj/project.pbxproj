@@ -492,7 +492,7 @@
 		88640D721F828B3E0004CDF9 /* ThemeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D711F828B3E0004CDF9 /* ThemeClient.swift */; };
 		88640D741F828DE60004CDF9 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D731F828DE60004CDF9 /* ThemeManager.swift */; };
 		88640D761F82918A0004CDF9 /* light_theme.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88640D751F82918A0004CDF9 /* light_theme.plist */; };
-		88640D781F83781E0004CDF9 /* ThemeUpdatesNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D771F83781E0004CDF9 /* ThemeUpdatesNotifier.swift */; };
+		88640D781F83781E0004CDF9 /* ThemeNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D771F83781E0004CDF9 /* ThemeNotifier.swift */; };
 		88640D7A1F8378910004CDF9 /* ThemeNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D791F8378910004CDF9 /* ThemeNotification.swift */; };
 		88640D7C1F8379EE0004CDF9 /* ThemeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88640D7B1F8379EE0004CDF9 /* ThemeType.swift */; };
 		8864C8221F45BA6000ADCE13 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864C8211F45BA6000ADCE13 /* SearchViewController.swift */; };
@@ -1544,7 +1544,7 @@
 		88640D711F828B3E0004CDF9 /* ThemeClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeClient.swift; sourceTree = "<group>"; };
 		88640D731F828DE60004CDF9 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		88640D751F82918A0004CDF9 /* light_theme.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = light_theme.plist; sourceTree = "<group>"; };
-		88640D771F83781E0004CDF9 /* ThemeUpdatesNotifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeUpdatesNotifier.swift; sourceTree = "<group>"; };
+		88640D771F83781E0004CDF9 /* ThemeNotifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeNotifier.swift; sourceTree = "<group>"; };
 		88640D791F8378910004CDF9 /* ThemeNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeNotification.swift; sourceTree = "<group>"; };
 		88640D7B1F8379EE0004CDF9 /* ThemeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeType.swift; sourceTree = "<group>"; };
 		8864C8211F45BA6000ADCE13 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -3750,7 +3750,7 @@
 				88640D751F82918A0004CDF9 /* light_theme.plist */,
 				88640D731F828DE60004CDF9 /* ThemeManager.swift */,
 				88640D7B1F8379EE0004CDF9 /* ThemeType.swift */,
-				88640D771F83781E0004CDF9 /* ThemeUpdatesNotifier.swift */,
+				88640D771F83781E0004CDF9 /* ThemeNotifier.swift */,
 				88640D791F8378910004CDF9 /* ThemeNotification.swift */,
 			);
 			name = Theme;
@@ -6572,7 +6572,7 @@
 				882CAF171F615DF3001D5F37 /* SearchResultsUpdating.swift in Sources */,
 				884AA9591F3C563F00B85135 /* ReportingAPI.swift in Sources */,
 				88580C671F2213AB00C1CBAF /* TabMenuContainerConfigurator.swift in Sources */,
-				88640D781F83781E0004CDF9 /* ThemeUpdatesNotifier.swift in Sources */,
+				88640D781F83781E0004CDF9 /* ThemeNotifier.swift in Sources */,
 				884AA95D1F3C563F00B85135 /* TopicsAPI.swift in Sources */,
 				88580C201F2213AB00C1CBAF /* TwitterWebBasedAPI.swift in Sources */,
 				882AD0C51F22266B00FC20B7 /* CoreDataRepository.swift in Sources */,

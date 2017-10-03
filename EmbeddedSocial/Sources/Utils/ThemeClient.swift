@@ -16,7 +16,7 @@ extension ThemeClient {
             apply(self, theme)
         }
         
-        theme_handler.mapping[String(describing: type.self)] = { (themeUser: ThemeClient, theme: Theme) in
+        notifier.mapping[String(describing: type.self)] = { (themeUser: ThemeClient, theme: Theme) in
             guard let themeUser = themeUser as? Self,
                 let theme = theme as? T else {
                     return
@@ -26,18 +26,22 @@ extension ThemeClient {
         }
     }
     
-    fileprivate var theme_handler: ThemeNotitifer {
-        if let handler = objc_getAssociatedObject(self, &key) as? ThemeNotitifer {
-            return handler
-        } else {
-            let handler = ThemeNotitifer(host: self)
-            handler.observe()
-            objc_setAssociatedObject(self, &key, handler, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            return handler
+    fileprivate var notifier: ThemeNotifier {
+        get {
+            return associated(to: self, key: &ThemeClientAssociationKeys.notifier) { ThemeNotifier(host: self) }
+        }
+        set {
+            associate(to: self, key: &ThemeClientAssociationKeys.notifier, value: newValue)
         }
     }
 }
 
 extension NSObject: ThemeClient {}
 
-private var key = "themeNotifier"
+struct ThemeClientAssociationKeys {
+    static fileprivate var notifier: UInt8 = 0
+}
+
+
+
+

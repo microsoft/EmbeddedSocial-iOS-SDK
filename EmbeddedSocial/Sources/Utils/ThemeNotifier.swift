@@ -5,8 +5,8 @@
 
 import Foundation
 
-class ThemeUpdatesNotifier {
-    var observer: NSObjectProtocol!
+class ThemeNotifier {
+    private var observer: NSObjectProtocol!
     
     weak var host: ThemeClient?
     var mapping = [String: (ThemeClient, Theme) -> Void]()
