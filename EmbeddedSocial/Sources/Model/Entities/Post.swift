@@ -175,7 +175,6 @@ extension Post {
             let text = data.text,
             let pinned = data.pinned,
             let liked = data.liked,
-            let date = data.createdTime,
             let likesNumber64 = data.totalLikes,
             let commentsNumber64 = data.totalComments,
             let likesNumber = Int(exactly: likesNumber64),
@@ -185,7 +184,7 @@ extension Post {
         }
         
         self.init(topicHandle: handle,
-                  createdTime: date,
+                  createdTime: data.createdTime,
                   user: user,
                   imageUrl: data.blobUrl,
                   imageHandle: data.blobHandle,

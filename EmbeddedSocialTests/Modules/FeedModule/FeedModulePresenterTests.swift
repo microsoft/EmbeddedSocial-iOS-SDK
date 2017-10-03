@@ -18,11 +18,7 @@ class FeedModulePresenter_Tests: XCTestCase {
     private var cache: Cache!
     
     private let timeout: TimeInterval = 5
-    
-    lazy var bundle: Bundle = {
-       return Bundle(for: type(of: self))
-    }()
-    
+
     func setupCache() {
         super.setUp()
         coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()

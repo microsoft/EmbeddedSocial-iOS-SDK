@@ -29,27 +29,16 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
     }
     
     func testThatItProcessesFeedResponse() {
+        
         // given
-        let topicView1 = TopicView()
-        topicView1.topicHandle = UUID().uuidString
-        
-        let topicView2 = TopicView()
-        topicView2.topicHandle = UUID().uuidString
-        
-        let topicView3 = TopicView()
-        topicView3.topicHandle = UUID().uuidString
-        
-        let response = FeedResponseTopicView()
-        response.data = [topicView1, topicView2, topicView3]
-        response.cursor = UUID().uuidString
-        
+        let response: FeedResponseTopicView = loadResponse(from: "topics&limit20")!
+   
         var result: Result<FeedFetchResult>?
         
         predicateBuilder.allTopicCommandsReturnValue = NSPredicate()
         
-        var post = Post.mock(seed: 0)
-        post.topicHandle = topicView1.topicHandle!
-        
+        let postView = response.data!.first!
+        let post = Post(data: postView)!
         let command = MockTopicCommand(topic: post)
         
         let operation = MockFetchOutgoingCommandsOperation(cache: cache, predicate: NSPredicate())

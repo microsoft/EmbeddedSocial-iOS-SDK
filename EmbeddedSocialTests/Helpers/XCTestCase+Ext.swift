@@ -27,10 +27,13 @@ extension XCTestCase {
     func uniqueString() -> String {
         return UUID().uuidString
     }
-    
 }
 
 extension XCTestCase {
+    
+    func bundle() -> Bundle {
+        return Bundle(for: type(of: self))
+    }
     
     func loadResponse<T>(from file: String) -> T? {
         
