@@ -13,6 +13,7 @@ protocol ActivityViewInput: class {
     func removeItems(indexes: [IndexPath])
     func reloadItems(indexes: [IndexPath])
     func reloadItems()
+    func updateVisible()
     func switchTab(to index: Int)
 }
 
@@ -105,21 +106,25 @@ extension ActivityViewController: ActivityViewInput {
         tableView.register(cell, forCellReuseIdentifier: id)
     }
     
+    func updateVisible() {
+        if let paths = tableView.indexPathsForVisibleRows {
+            tableView.reloadRows(at: paths, with: .automatic)
+        }
+    }
+    
     func reloadItems(indexes: [IndexPath]) {
-        tableView.beginUpdates()
-        tableView.reloadRows(at: indexes, with: .fade)
-        tableView.endUpdates()
+        tableView.reloadRows(at: indexes, with: .automatic)
     }
     
     func addNewItems(indexes: [IndexPath]) {
         tableView.beginUpdates()
-        tableView.insertRows(at: indexes, with: .fade)
+        tableView.insertRows(at: indexes, with: .automatic)
         tableView.endUpdates()
     }
     
     func removeItems(indexes: [IndexPath]) {
         tableView.beginUpdates()
-        tableView.deleteRows(at: indexes, with: .fade)
+        tableView.deleteRows(at: indexes, with: .automatic)
         tableView.endUpdates()
     }
 }

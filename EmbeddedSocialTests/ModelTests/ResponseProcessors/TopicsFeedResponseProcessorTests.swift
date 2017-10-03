@@ -47,7 +47,10 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
         
         predicateBuilder.allTopicCommandsReturnValue = NSPredicate()
         
-        let command = MockTopicCommand(topic: Post(topicHandle: topicView1.topicHandle!))
+        var post = Post.mock(seed: 0)
+        post.topicHandle = topicView1.topicHandle!
+        
+        let command = MockTopicCommand(topic: post)
         
         let operation = MockFetchOutgoingCommandsOperation(cache: cache, predicate: NSPredicate())
         operation.setCommands([command])
@@ -93,10 +96,10 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
     func testThatItAppliesLikesAndPinsToFeed() {
         // given
         let commands: [TopicCommand] = [
-            PinTopicCommand(topic: Post(topicHandle: UUID().uuidString)),
-            LikeTopicCommand(topic: Post(topicHandle: UUID().uuidString)),
-            LikeTopicCommand(topic: Post(topicHandle: UUID().uuidString)),
-            PinTopicCommand(topic: Post(topicHandle: UUID().uuidString))
+            PinTopicCommand(topic: Post.mock(seed: 0)),
+            LikeTopicCommand(topic: Post.mock(seed: 1)),
+            LikeTopicCommand(topic: Post.mock(seed: 2)),
+            PinTopicCommand(topic: Post.mock(seed: 3))
         ]
         
         var topicIDsToBePinned: [String] = []
@@ -111,7 +114,7 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
         
         let affectedTopics = commands.map { $0.topic }
         
-        let notAffectedTopics = [Post(topicHandle: UUID().uuidString), Post(topicHandle: UUID().uuidString)]
+        let notAffectedTopics = [Post.mock(seed: 4), Post.mock(seed: 5)]
         
         let feed = FeedFetchResult(posts: affectedTopics + notAffectedTopics, error: nil, cursor: nil)
         
@@ -145,9 +148,9 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
     
     func testThatItAddsCreatedTopicsToTheFeed() {
         // given
-        let createdTopic = Post(topicHandle: UUID().uuidString)
+        let createdTopic = Post.mock(seed: 0)
         let commands = [CreateTopicCommand(topic: createdTopic)]
-        let topics = [Post(topicHandle: UUID().uuidString), Post(topicHandle: UUID().uuidString)]
+        let topics = [Post.mock(seed: 0), Post.mock(seed: 0)]
         let feed = FeedFetchResult(posts: topics, error: nil, cursor: nil)
         
         // when

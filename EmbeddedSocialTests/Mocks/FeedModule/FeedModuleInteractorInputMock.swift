@@ -23,8 +23,8 @@ class FeedModuleInteractorInputMock: FeedModuleInteractorInput {
     var postActionPostActionCalled = false
     var postActionPostActionReceivedArguments: (post: PostHandle, action: PostSocialAction)?
     
-    func postAction(post: PostHandle, action: PostSocialAction) {
+    func postAction(post: Post, action: PostSocialAction) {
         postActionPostActionCalled = true
-        postActionPostActionReceivedArguments = (post: post, action: action)
+        postActionPostActionReceivedArguments = (post: post.topicHandle, action: action)
     }
 }

@@ -13,7 +13,7 @@ class CreateTopicImageOperationTests: CreateImageOperationTests {
         let photo = Photo(image: UIImage(color: .yellow, size: CGSize(width: 8.0, height: 8.0)))
         imageCache.imageForReturnValue = photo.image
         
-        let topic = Post(topicHandle: UUID().uuidString)
+        let topic = Post.mock(seed: 0)
         let relatedTopicCommand = CreateTopicCommand(topic: topic)
         cache.firstOutgoing_ofType_predicate_sortDescriptors_ReturnValue = relatedTopicCommand
         
@@ -52,7 +52,7 @@ class CreateTopicImageOperationTests: CreateImageOperationTests {
         let error = APIError.unknown
         service.uploadTopicImageTopicHandleCompletionReturnResult = .failure(error)
         
-        let topic = Post(topicHandle: UUID().uuidString)
+        let topic = Post.mock(seed: 0)
         let photo = Photo(image: UIImage(color: .yellow, size: CGSize(width: 8.0, height: 8.0)))
         imageCache.imageForReturnValue = photo.image
         

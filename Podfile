@@ -20,6 +20,7 @@ abstract_target 'Group' do
     pod 'GoogleSignIn', '4.0.2'
     pod 'SDWebImage', '4.0.0'
     pod 'SwiftGen', '4.2.1'
+    pod 'Sourcery', '0.7.2'
     pod 'UITextView+Placeholder', '1.2.0'
     pod 'OAuthSwift', :path => 'EmbeddedSocial/Vendor/OAuthSwift'
     pod 'LiveSDK', :path => 'EmbeddedSocial/Vendor/LiveSDK'

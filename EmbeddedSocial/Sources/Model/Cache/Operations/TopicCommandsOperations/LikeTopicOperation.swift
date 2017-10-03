@@ -12,7 +12,7 @@ final class LikeTopicOperation: TopicCommandOperation {
             return
         }
         
-        likesService.postLike(postHandle: command.topic.topicHandle) { [weak self] _, error in
+        likesService.postLike(post: command.topic) { [weak self] _, error in
             self?.completeOperation(with: error)
         }
     }
