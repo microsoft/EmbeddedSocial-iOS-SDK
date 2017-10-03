@@ -296,17 +296,13 @@ open class APIRouter: WebApp {
             }
         }
         
-        self["/v0.7/users/me/pending_users"] = APIResponse(serviceName: "followers") { environ, sendJSON -> Void in
+        self["/v0.7/users/me/pending_users"] = APIResponse(serviceName: "pendingUsers") { environ, sendJSON -> Void in
             let query = URLParametersReader.parseURLParameters(environ: environ)
             let method = environ["REQUEST_METHOD"] as! String
             
             switch method {
-                case "POST":
-                    let input = environ["swsgi.input"] as! SWSGIInput
-                    JSONReader.read(input) { json in
-                        APIState.setLatestData(forService: "followers", data: json)
-                        sendJSON(Templates.load(name: "follower_post"))
-                    }
+                case "DELETE":
+                    
                 break
                 
             default:

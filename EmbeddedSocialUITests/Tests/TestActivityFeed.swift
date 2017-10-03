@@ -49,11 +49,33 @@ class TestYouActivityFeed: BaseTestActivityFeed {
         APIConfig.values = ["userHandle" : "Name LastName #\(requestIndex)"]
         requestItem.accept()
         
+        print("BEFORE: \(beforeAcceptingRequestsCount)")
+        print("CURRENT: \(activityFollowRequests.getRequestsCount())")
+        
         let acceptUserHandleResponse = APIState.getLatestResponse(forService: "followers")?["userHandle"] as? String
         XCTAssertTrue((beforeAcceptingRequestsCount - 1) == activityFollowRequests.getRequestsCount())
         XCTAssertTrue(APIState.getLatestRequest().contains("/me/followers"))
         XCTAssertTrue(APIState.latestRequstMethod == "POST")
         XCTAssertNotNil(acceptUserHandleResponse == "Name LastName #\(requestIndex)")
+    }
+    
+    func testPendingRequestDeclining() {
+        openScreen()
+        
+        let (requestIndex, requestItem) = activityFollowRequests.getRandomRequestItem()
+        
+        XCTAssertNotNil(requestItem)
+        XCTAssertTrue(requestItem.isExists(text: "Name LastName #\(requestIndex)"))
+        
+        let beforeDecliningRequestsCount = activityFollowRequests.getRequestsCount()
+        requestItem.decline()
+        
+        print("BEFORE: \(beforeDecliningRequestsCount)")
+        print("CURRENT: \(activityFollowRequests.getRequestsCount())")
+        
+        XCTAssertTrue((beforeDecliningRequestsCount - 1) == activityFollowRequests.getRequestsCount())
+        XCTAssertTrue(APIState.getLatestRequest().contains("/me/pending_users/"))
+        XCTAssertTrue(APIState.latestRequstMethod == "DELETE")
     }
     
 }
