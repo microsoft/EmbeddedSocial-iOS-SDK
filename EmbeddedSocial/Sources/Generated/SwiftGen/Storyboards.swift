@@ -113,11 +113,6 @@ enum StoryboardScene {
 
     static let linkedAccountsViewController = SceneType<EmbeddedSocial.LinkedAccountsViewController>(storyboard: LinkedAccounts.self, identifier: "LinkedAccountsViewController")
   }
-  enum LinkedAccounts: StoryboardType {
-    static let storyboardName = "LinkedAccounts"
-
-    static let linkedAccountsViewController = SceneType<EmbeddedSocial.LinkedAccountsViewController>(storyboard: LinkedAccounts.self, identifier: "LinkedAccountsViewController")
-  }
   enum Login: StoryboardType {
     static let storyboardName = "Login"
 
