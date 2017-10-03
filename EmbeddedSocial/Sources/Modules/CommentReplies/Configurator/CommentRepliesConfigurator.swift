@@ -31,6 +31,7 @@ class CommentRepliesModuleConfigurator {
         let presenter = CommentRepliesPresenter(myProfileHolder: myProfileHolder)
         presenter.comment = commentModule.mainComment()
         presenter.commentCell = commentModule.cell()
+        presenter.commentCell.separator.isHidden = false
         presenter.view = viewController
         presenter.router = router
         presenter.scrollType = scrollType
