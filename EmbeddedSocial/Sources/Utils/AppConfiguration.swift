@@ -5,7 +5,11 @@
 
 import Foundation
 
-class AppConfiguration {
+protocol AppConfigurationType {
+    var theme: Theme? { get }
+}
+
+class AppConfiguration: AppConfigurationType {
     
     private let config: [String: Any]
     

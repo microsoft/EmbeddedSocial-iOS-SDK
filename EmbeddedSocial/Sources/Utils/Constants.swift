@@ -92,5 +92,7 @@ extension Constants {
         static let unauthorizedStatusCode = 401
         static let anonymousAuthorization: Authorization = "Anon AK=\(Constants.appKey)"
         static func authorization(_ sessionToken: String) -> Authorization { return "SocialPlus TK=\(sessionToken)" }
+        static let ppeBasePath = "https://ppe.embeddedsocial.microsoft.com"
+        static let productionBasePath = "https://api.embeddedsocial.microsoft.com"
     }
 }

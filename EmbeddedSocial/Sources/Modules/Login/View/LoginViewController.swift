@@ -17,10 +17,11 @@ class LoginViewController: UIViewController, LoginViewInput {
     @IBOutlet fileprivate weak var buttonsContainerView: UIView!
     
     var output: LoginViewOutput!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
+        apply(theme: theme)
     }
     
     func setupInitialState() {

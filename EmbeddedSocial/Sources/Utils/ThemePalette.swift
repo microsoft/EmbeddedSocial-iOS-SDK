@@ -8,7 +8,10 @@ import Foundation
 class ThemePalette: NSObject {
     
     var contentBackground: UIColor!
-    
+    var accent: UIColor!
+    var navigationBarBackground: UIColor!
+    var navigationBarTint: UIColor!
+
     init(config: [String: Any]) {
         super.init()
         setup(with: config)

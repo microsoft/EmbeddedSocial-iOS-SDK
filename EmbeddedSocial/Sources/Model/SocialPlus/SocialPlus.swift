@@ -11,13 +11,15 @@ public final class SocialPlus {
     
     fileprivate let queue = DispatchQueue(label: "Social Plus read-write queue")
     
-    private(set) var sessionStore: SessionStore!
     private(set) var serviceProvider: SocialPlusServicesType!
+
+    private(set) var sessionStore: SessionStore!
     private(set) var coordinator: CrossModuleCoordinator!
     private(set) var coreDataStack: CoreDataStack!
     private(set) var cache: CacheType!
     fileprivate(set) var authorizationMulticast: AuthorizationMulticastType!
     private(set) var daemonsController: Daemon!
+    private(set) var config: AppConfigurationType!
     
     var networkTracker: NetworkTrackerType {
         return serviceProvider.getNetworkTracker()
@@ -31,7 +33,9 @@ public final class SocialPlus {
         return sessionStore.sessionToken
     }
     
-    lazy var config = AppConfiguration(filename: "config")!
+    var theme: Theme? {
+        return config.theme
+    }
     
     private init() {
         setupServices(with: SocialPlusServices())
@@ -48,6 +52,7 @@ public final class SocialPlus {
         cache = serviceProvider.getCache(coreDataStack: coreDataStack)
         authorizationMulticast = serviceProvider.getAuthorizationMulticast()
         daemonsController = serviceProvider.getDaemonsController(cache: cache)
+        config = serviceProvider.getAppConfiguration(configFilename: "config")
     }
     
     public func application(_ app: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool {
@@ -55,8 +60,8 @@ public final class SocialPlus {
     }
     
     public func start(launchArguments args: LaunchArguments) {
-        serviceProvider.getThirdPartyConfigurator().setup(application: args.app, launchOptions: args.launchOptions)
-        _ = APISettings.shared
+        let startupCommands = serviceProvider.getStartupCommands(launchArgs: args)
+        startupCommands.forEach { $0.execute() }
         networkTracker.startTracking()
         
         coordinator = CrossModuleCoordinator(cache: cache)
@@ -67,9 +72,6 @@ public final class SocialPlus {
         } else {
             coordinator.openPopularScreen()
         }
-        
-        let theme = Theme(filename: "light_theme")
-        print(theme)
     }
     
     fileprivate func startSession(with info: SessionInfo) {

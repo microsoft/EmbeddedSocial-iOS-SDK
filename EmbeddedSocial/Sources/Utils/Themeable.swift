@@ -5,25 +5,23 @@
 
 import Foundation
 
-protocol ThemeClient: class {
-    
+protocol Themeable: class {
+    func apply(theme: Theme?)
 }
 
-extension ThemeClient {
+extension Themeable {
     
     var theme: Theme? {
         get {
-            return associated(to: self, key: &ThemeClientAssociationKeys.theme) { nil }
+            return associated(to: self, key: &ThemeableAssociationKeys.theme) { nil }
         }
         set {
-            associate(to: self, key: &ThemeClientAssociationKeys.theme, value: newValue)
+            associate(to: self, key: &ThemeableAssociationKeys.theme, value: newValue)
         }
     }
 }
 
-extension NSObject: ThemeClient {}
-
-struct ThemeClientAssociationKeys {
+struct ThemeableAssociationKeys {
     static fileprivate var theme: UInt8 = 0
 }
 

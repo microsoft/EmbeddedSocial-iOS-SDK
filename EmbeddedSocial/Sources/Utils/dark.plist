@@ -3,6 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>contentBackground</key>
-	<string>#EEEEEEFF</string>
+	<string>#ffffff</string>
+	<key>accent</key>
+	<string>#5bbb7b</string>
+	<key>navigationBarBackground</key>
+	<string>#f7f7f7</string>
+	<key>navigationBarTint</key>
+	<string>#007aff</string>
 </dict>
 </plist>
