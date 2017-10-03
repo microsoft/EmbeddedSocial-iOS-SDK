@@ -14,7 +14,7 @@ enum ActivityActionType: Int {
 
 class Action {
     weak var presenter: ActivityPresenter?
-    var activityItem: ActivityItem!
+    var activityItem: ActivityItem
     weak var dataSource: DataSource?
     
     init(item: ActivityItem, presenter: ActivityPresenter, dataSource: DataSource) {
@@ -57,9 +57,15 @@ class Action {
 class AcceptFollowingRequestAction: Action {
     
     override func execute() {
-        // performing the action
-//        presenter.interactor
-        onExecuted(.success())
+    
+        guard case let ActivityItem.pendingRequest(user) = activityItem else {
+            fatalError("Wrong item")
+        }
+
+        presenter?.interactor.acceptPendingRequest(user: user, completion: { result in
+            self.onExecuted(result)
+        })
+
     }
     
     override func onSuccess() {
@@ -70,9 +76,14 @@ class AcceptFollowingRequestAction: Action {
 class RejectFollowingRequestAction: Action {
     
     override func execute() {
-                onExecuted(.success())
-        // performing the action
-        //        presenter.interactor
+        
+        guard case let ActivityItem.pendingRequest(user) = activityItem else {
+            fatalError("Wrong item")
+        }
+
+        presenter?.interactor.rejectPendingRequest(user: user, completion: { result in
+            self.onExecuted(result)
+        })
     }
     
     override func onSuccess() {
