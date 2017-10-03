@@ -196,7 +196,8 @@ extension CommentRepliesViewController: UICollectionViewDataSource {
             return cell
             case RepliesSections.replies.rawValue:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
-                cell.config(replyView: output.replyView(index: indexPath.row))
+                let config = ReplyCellModuleConfigurator()
+                config.configure(cell: cell, reply: output.reply(index: indexPath.row), navigationController: self.navigationController, moduleOutput: self.output as? ReplyCellModuleOutput)
                 cell.tag = indexPath.row
                 return cell
             default:
@@ -237,8 +238,7 @@ extension CommentRepliesViewController: UICollectionViewDelegateFlowLayout {
         case RepliesSections.loadMore.rawValue:
             return CGSize(width: UIScreen.main.bounds.width, height: output.loadCellModel().cellHeight)
         case RepliesSections.replies.rawValue:
-            prototypeReplyCell.config(replyView: output.replyView(index: indexPath.row))
-            print(prototypeReplyCell.cellSize())
+            prototypeReplyCell.configure(reply: output.reply(index: indexPath.row))
             return prototypeReplyCell.cellSize()
         default:
             return CGSize()

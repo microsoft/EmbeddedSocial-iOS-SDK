@@ -5,36 +5,37 @@
 
 import UIKit
 
-class CommentCellModuleConfigurator {
+class ReplyCellModuleConfigurator {
 
-    @discardableResult func configure(cell: CommentCell?,
-                                      comment: Comment,
+
+    @discardableResult func configure(cell: ReplyCell?,
+                                      reply: Reply,
                                       navigationController: UINavigationController?,
-                                      moduleOutput: CommentCellModuleOutout ,
+                                      moduleOutput: ReplyCellModuleOutput? = nil,
                                       myProfileHolder: UserHolder? = SocialPlus.shared,
-                                      loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) -> CommentCellModuleInput {
-
-        let router = CommentCellRouter()
+                                      loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) -> ReplyCellModuleInput {
+        
+        let router = ReplyCellRouter()
         router.navigationController = navigationController
         router.loginOpener = loginOpener
-
-        let presenter = CommentCellPresenter()
+        
+        let presenter = ReplyCellPresenter()
         presenter.view = cell
         presenter.router = router
-        presenter.comment = comment
+        presenter.reply = reply
         presenter.moduleOutput = moduleOutput
         presenter.myProfileHolder = myProfileHolder
-
-        let interactor = CommentCellInteractor()
+        
+        let interactor = ReplyCellInteractor()
         interactor.output = presenter
         interactor.likeService = LikesService()
-
+        
         presenter.interactor = interactor
         router.postMenuModuleOutput = presenter
         router.moduleInput = presenter
         cell?.output = presenter
         
-        cell?.configure(comment: comment)
+        cell?.configure(reply: reply)
         
         return presenter
     }

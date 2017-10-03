@@ -535,6 +535,15 @@ enum L10n {
       static let reportUser = L10n.tr("Localizable", "user_profile.button.report_user")
     }
   }
+    
+    enum DetailedActivity {
+        enum Button {
+            /// Open comment
+            static let openComment = L10n.tr("Localizable", "detailed_activity.button.open_comment")
+            /// Open topic
+            static let openTopic = L10n.tr("Localizable", "detailed_activity.button.open_topic")
+        }
+    }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 
