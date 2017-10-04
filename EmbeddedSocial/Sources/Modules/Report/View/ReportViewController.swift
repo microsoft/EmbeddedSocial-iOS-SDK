@@ -27,6 +27,7 @@ class ReportViewController: UITableViewController {
         tableView.tableFooterView = UIView()
         navigationItem.rightBarButtonItem = submitButton
         navigationItem.leftBarButtonItem = cancelButton
+        apply(theme: theme)
         output.viewIsReady()
     }
     
@@ -71,3 +72,31 @@ extension ReportViewController: ReportViewInput {
         cell.accessoryType = .none
     }
 }
+
+extension ReportViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        
+        headerView.backgroundColor = palette.contentBackground
+        tableView.backgroundColor = palette.contentBackground
+        
+        for row in 0..<tableView.numberOfRows(inSection: 0) {
+            let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0))
+            cell?.textLabel?.textColor = palette.textPrimary
+            cell?.backgroundColor = .clear
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
