@@ -34,7 +34,7 @@ struct EmbeddedEditProfileCellsBuilder {
         let firstNameStyle = TextFieldCell.Style(
             text: user.firstName,
             placeholderText: L10n.EditProfile.Placeholder.firstName,
-            font: Fonts.regular,
+            font: AppFonts.regular,
             edgeInsets: edgeInsets,
             onTextChanged: onFirstNameChanged
         )
@@ -42,14 +42,14 @@ struct EmbeddedEditProfileCellsBuilder {
         let lastNameStyle = TextFieldCell.Style(
             text: user.lastName,
             placeholderText: L10n.EditProfile.Placeholder.lastName,
-            font: Fonts.regular,
+            font: AppFonts.regular,
             edgeInsets: edgeInsets,
             onTextChanged: onLastNameChanged
         )
         
         let bioStyle = TextViewCell.Style(
             text: user.bio,
-            font: Fonts.regular,
+            font: AppFonts.regular,
             placeholder: L10n.EditProfile.Placeholder.bio,
             edgeInsets: edgeInsets,
             charactersLimit: Constants.EditProfile.maxBioLength,

@@ -29,7 +29,10 @@ class ActivityModuleConfigurator {
         interactor.service = SocialService()
 
         presenter.interactor = interactor
+        
         viewController.output = presenter
+        
+        viewController.theme = SocialPlus.theme
     }
 
 }

@@ -33,7 +33,7 @@ class LoginViewController: UIViewController, LoginViewInput {
         
         for button in [facebookButton, twitterButton, microsoftButton, googleButton] {
             button?.setTitleColor(Palette.darkGrey, for: .normal)
-            button?.titleLabel?.font = Fonts.regular
+            button?.titleLabel?.font = AppFonts.regular
         }
     }
     

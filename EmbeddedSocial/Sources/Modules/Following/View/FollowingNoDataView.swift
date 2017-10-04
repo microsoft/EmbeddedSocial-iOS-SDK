@@ -20,7 +20,7 @@ class FollowingNoDataView: UIView {
         didSet {
             noDataLabel.text = L10n.Following.noDataText
             noDataLabel.textColor = Palette.darkGrey
-            noDataLabel.font = Fonts.medium
+            noDataLabel.font = AppFonts.medium
         }
     }
     

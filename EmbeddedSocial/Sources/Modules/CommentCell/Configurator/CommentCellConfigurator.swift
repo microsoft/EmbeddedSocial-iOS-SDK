@@ -32,6 +32,8 @@ class CommentCellModuleConfigurator {
         
         cell?.configure(comment: comment)
         
+        cell?.theme = SocialPlus.theme
+        
         return presenter
     }
 

@@ -14,7 +14,11 @@ class ThemePalette: NSObject {
     var controlHighlighted: UIColor!
     var controlUnhighlighted: UIColor!
     var controlHighlightedTitle: UIColor!
-
+    var textPrimary: UIColor!
+    var textSecondary: UIColor!
+    var topicBackground: UIColor!
+    var separator: UIColor!
+    
     init(config: [String: Any]) {
         super.init()
         setup(with: config)

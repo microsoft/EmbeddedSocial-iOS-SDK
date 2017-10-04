@@ -30,7 +30,7 @@ final class FollowersConfigurator {
                                     output: UserListModuleOutput?) -> UserListModuleInput {
         
         let noDataText = NSAttributedString(string: L10n.Followers.noDataText,
-                                            attributes: [NSFontAttributeName: Fonts.medium,
+                                            attributes: [NSFontAttributeName: AppFonts.medium,
                                                          NSForegroundColorAttributeName: Palette.darkGrey])
         
         let settings = UserListConfigurator.Settings(api: api,

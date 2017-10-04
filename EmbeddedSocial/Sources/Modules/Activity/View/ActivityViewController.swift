@@ -45,7 +45,8 @@ class ActivityViewController: UIViewController {
         super.viewDidLoad()
         
         setup()
-        
+        apply(theme: theme)
+
         output.viewIsReady()
     }
     
@@ -163,5 +164,18 @@ extension ActivityViewController: UIScrollViewDelegate {
         return scrollView.isReachingEndOfContent(cellHeight: Style.cellSize, cellsPerPage: 5)
     }
     
+}
+
+extension ActivityViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let theme = theme else {
+            return
+        }
+        let palette = theme.palette
+        view.backgroundColor = palette.contentBackground
+        tableView.backgroundColor = palette.contentBackground
+        segmentControl.apply(theme: theme)
+    }
 }
 

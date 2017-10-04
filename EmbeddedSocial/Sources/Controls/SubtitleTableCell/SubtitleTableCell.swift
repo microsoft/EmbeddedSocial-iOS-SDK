@@ -35,9 +35,9 @@ extension SubtitleTableCell.Style {
     
     static var createAccountGroupHeader: Style {
         return Style(titleColor: nil,
-                     titleFont: Fonts.regular,
+                     titleFont: AppFonts.regular,
                      subTitleColor: Palette.darkGrey,
-                     subTitleFont: Fonts.regular,
+                     subTitleFont: AppFonts.regular,
                      backgroundColor: Palette.extraLightGrey)
     }
 }

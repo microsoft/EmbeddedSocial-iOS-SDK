@@ -29,7 +29,7 @@ class UserListCell: UITableViewCell {
     }
     
     private func setup() {
-        nameLabel.font = Fonts.medium
+        nameLabel.font = AppFonts.medium
         nameLabel.textColor = Palette.black
     }
     

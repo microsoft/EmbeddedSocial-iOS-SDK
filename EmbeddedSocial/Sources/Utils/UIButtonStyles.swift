@@ -38,7 +38,7 @@ extension UIButton.Style {
                               backgroundColor: .clear,
                               tintColor: SocialPlus.palette.controlHighlighted,
                               titleColor:SocialPlus.palette.controlHighlighted,
-                              titleFont: Fonts.small,
+                              titleFont: AppFonts.small,
                               borderColor: SocialPlus.palette.controlHighlighted,
                               borderWidth: 1.0,
                               cornerRadius: 8.0)
@@ -49,7 +49,7 @@ extension UIButton.Style {
                               backgroundColor: .clear,
                               tintColor: SocialPlus.palette.controlUnhighlighted,
                               titleColor: SocialPlus.palette.controlUnhighlighted,
-                              titleFont: Fonts.small,
+                              titleFont: AppFonts.small,
                               borderColor: SocialPlus.palette.controlUnhighlighted,
                               borderWidth: 1.0,
                               cornerRadius: 8.0)
@@ -60,7 +60,7 @@ extension UIButton.Style {
                               backgroundColor: SocialPlus.palette.controlHighlighted,
                               tintColor: SocialPlus.palette.controlHighlighted,
                               titleColor: SocialPlus.palette.controlHighlightedTitle,
-                              titleFont: Fonts.small,
+                              titleFont: AppFonts.small,
                               borderColor: nil,
                               borderWidth: 0.0,
                               cornerRadius: 8.0)
@@ -71,7 +71,7 @@ extension UIButton.Style {
                               backgroundColor: .clear,
                               tintColor: SocialPlus.palette.controlUnhighlighted,
                               titleColor: SocialPlus.palette.controlUnhighlighted,
-                              titleFont: Fonts.small,
+                              titleFont: AppFonts.small,
                               borderColor: SocialPlus.palette.controlUnhighlighted,
                               borderWidth: 1.0,
                               cornerRadius: 8.0)

@@ -38,6 +38,7 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         layer.shouldRasterize = true
         layer.drawsAsynchronously = true
         layer.rasterizationScale = UIScreen.main.scale
+        apply(theme: theme)
     }
     
     static let identifier = "CommentCell"

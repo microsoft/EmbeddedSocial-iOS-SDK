@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct Fonts {
+struct AppFonts {
     static let small = UIFont.systemFont(ofSize: 12.0)
     static let medium = UIFont.systemFont(ofSize: 14.0)
     static let regular = UIFont.systemFont(ofSize: 16.0)
@@ -16,7 +16,7 @@ struct Fonts {
 }
 
 // swiftlint:disable type_name
-extension Fonts {
+extension AppFonts {
     struct bold {
         static let small = UIFont.boldSystemFont(ofSize: 12.0)
         static let regular = UIFont.boldSystemFont(ofSize: 16.0)

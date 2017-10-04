@@ -39,7 +39,7 @@ final class UploadPhotoCell: UITableViewCell {
     }
     
     private func setupSubviews() {
-        uploadLabel.font = Fonts.regular
+        uploadLabel.font = AppFonts.regular
         uploadLabel.textColor = Palette.darkGrey
         uploadLabel.text = L10n.UploadPhotoCell.uploadPhoto
         
