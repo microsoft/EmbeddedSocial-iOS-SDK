@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import EmbeddedSocial
 
 class BundleHelper {
     
