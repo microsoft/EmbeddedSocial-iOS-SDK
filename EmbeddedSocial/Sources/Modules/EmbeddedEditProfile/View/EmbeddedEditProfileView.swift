@@ -47,6 +47,8 @@ extension EmbeddedEditProfileView: EmbeddedEditProfileViewInput {
         dataManager.onFirstNameChanged = { [weak self] text in self?.output.onFirstNameChanged(text) }
         dataManager.onBioChanged = { [weak self] text in self?.output.onBioChanged(text) }
         dataManager.onSelectPhoto = { [weak self] in self?.output.onSelectPhoto() }
+        
+        apply(theme: theme)
     }
     
     func setUser(_ user: User) {
@@ -60,3 +62,44 @@ extension EmbeddedEditProfileView: EmbeddedEditProfileViewInput {
         tableView.isHidden = isLoading
     }
 }
+
+extension EmbeddedEditProfileView: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        backgroundColor = palette.contentBackground
+        tableView.backgroundColor = palette.contentBackground
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

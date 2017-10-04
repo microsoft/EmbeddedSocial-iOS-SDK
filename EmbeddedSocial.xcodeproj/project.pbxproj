@@ -228,6 +228,7 @@
 		8839B8801F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */; };
 		8839B8841F84E4A700D97BE6 /* CommentCell+Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */; };
 		8839B8861F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */; };
+		8839B8881F8503B100D97BE6 /* PostCell+Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8839B8871F8503B100D97BE6 /* PostCell+Themeable.swift */; };
 		883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */; };
 		883B9B601F276BCF00D1E66E /* TestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B5E1F276BCF00D1E66E /* TestModel.xcdatamodeld */; };
 		883B9B641F2776E600D1E66E /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B631F2776E600D1E66E /* Item.swift */; };
@@ -359,8 +360,6 @@
 		88580BB11F2213AB00C1CBAF /* GroupHeaderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580A9E1F2213AB00C1CBAF /* GroupHeaderTableCell.swift */; };
 		88580BB21F2213AB00C1CBAF /* GroupHeaderTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88580A9F1F2213AB00C1CBAF /* GroupHeaderTableCell.xib */; };
 		88580BB31F2213AB00C1CBAF /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580AA01F2213AB00C1CBAF /* LoadingIndicatorView.swift */; };
-		88580BB41F2213AB00C1CBAF /* SubtitleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580AA21F2213AB00C1CBAF /* SubtitleTableCell.swift */; };
-		88580BB51F2213AB00C1CBAF /* SubtitleTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88580AA31F2213AB00C1CBAF /* SubtitleTableCell.xib */; };
 		88580BB61F2213AB00C1CBAF /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580AA41F2213AB00C1CBAF /* TextFieldCell.swift */; };
 		88580BB71F2213AB00C1CBAF /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580AA61F2213AB00C1CBAF /* TextViewCell.swift */; };
 		88580BB81F2213AB00C1CBAF /* TextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88580AA71F2213AB00C1CBAF /* TextViewCell.xib */; };
@@ -1298,6 +1297,7 @@
 		8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Themeable.swift"; sourceTree = "<group>"; };
 		8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentCell+Themeable.swift"; sourceTree = "<group>"; };
 		8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentRepliesViewController+Themeable.swift"; sourceTree = "<group>"; };
+		8839B8871F8503B100D97BE6 /* PostCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PostCell+Themeable.swift"; sourceTree = "<group>"; };
 		883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModelTests.swift; sourceTree = "<group>"; };
 		883B9B5F1F276BCF00D1E66E /* TestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModel.xcdatamodel; sourceTree = "<group>"; };
 		883B9B631F2776E600D1E66E /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -1422,8 +1422,6 @@
 		88580A9E1F2213AB00C1CBAF /* GroupHeaderTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupHeaderTableCell.swift; sourceTree = "<group>"; };
 		88580A9F1F2213AB00C1CBAF /* GroupHeaderTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupHeaderTableCell.xib; sourceTree = "<group>"; };
 		88580AA01F2213AB00C1CBAF /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
-		88580AA21F2213AB00C1CBAF /* SubtitleTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleTableCell.swift; sourceTree = "<group>"; };
-		88580AA31F2213AB00C1CBAF /* SubtitleTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubtitleTableCell.xib; sourceTree = "<group>"; };
 		88580AA41F2213AB00C1CBAF /* TextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		88580AA61F2213AB00C1CBAF /* TextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
 		88580AA71F2213AB00C1CBAF /* TextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextViewCell.xib; sourceTree = "<group>"; };
@@ -3128,7 +3126,6 @@
 				88BC5C581F2B6628001FBDD2 /* ProfileSummaryView */,
 				6387F54B1F41B1B80066628E /* ReplyCell */,
 				8875CCF61F33384D001F2474 /* SegmentedControlView */,
-				88580AA11F2213AB00C1CBAF /* SubtitleTableCell */,
 				88580AA51F2213AB00C1CBAF /* TextViewCell */,
 				88FFFA601F306EC80066A1A0 /* BarButtonItemWithTarget.swift */,
 				88580A891F2213AB00C1CBAF /* ButtonWithTarget.swift */,
@@ -3149,15 +3146,6 @@
 				88580A9F1F2213AB00C1CBAF /* GroupHeaderTableCell.xib */,
 			);
 			path = GroupHeaderTableCell;
-			sourceTree = "<group>";
-		};
-		88580AA11F2213AB00C1CBAF /* SubtitleTableCell */ = {
-			isa = PBXGroup;
-			children = (
-				88580AA21F2213AB00C1CBAF /* SubtitleTableCell.swift */,
-				88580AA31F2213AB00C1CBAF /* SubtitleTableCell.xib */,
-			);
-			path = SubtitleTableCell;
 			sourceTree = "<group>";
 		};
 		88580AA51F2213AB00C1CBAF /* TextViewCell */ = {
@@ -4285,6 +4273,7 @@
 			children = (
 				88A9704D1F83AA040047D591 /* LoginViewController+Themeable.swift */,
 				8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */,
+				8839B8871F8503B100D97BE6 /* PostCell+Themeable.swift */,
 				8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */,
 				8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */,
 			);
@@ -5884,7 +5873,6 @@
 				6364748C1F5FFD40000D7B3D /* LoadMoreCell.xib in Resources */,
 				8839B87A1F83BA8600D97BE6 /* dark.plist in Resources */,
 				9CCE40591F725E13003A51D9 /* topics&limit20.json in Resources */,
-				88580BB51F2213AB00C1CBAF /* SubtitleTableCell.xib in Resources */,
 				8834A7581F5064BC00F1D383 /* LikesList.storyboard in Resources */,
 				88BC5C5C1F2B6628001FBDD2 /* ProfileSummaryView.xib in Resources */,
 				883E1E491F546517004B4861 /* BlockedUsers.storyboard in Resources */,
@@ -6371,6 +6359,7 @@
 				88580C3A1F2213AB00C1CBAF /* UploadPhotoCell.swift in Sources */,
 				884AA9851F3C563F00B85135 /* PostUserRequest.swift in Sources */,
 				8811C86D1F43008000F7513D /* EmbeddedEditProfileRouterInput.swift in Sources */,
+				8839B8881F8503B100D97BE6 /* PostCell+Themeable.swift in Sources */,
 				884AA9701F3C563F00B85135 /* GetTopicByNameResponse.swift in Sources */,
 				8834A7561F50647400F1D383 /* LikesListViewController.swift in Sources */,
 				636474931F628715000D7B3D /* MenuViewModelBuilder.swift in Sources */,
@@ -6885,7 +6874,6 @@
 				88E662081F7A9A9600C98526 /* FollowRequestsModuleOutput.swift in Sources */,
 				88C682661F7A674D004BD291 /* FollowRequestsItem.swift in Sources */,
 				88580C3E1F2213AB00C1CBAF /* CreateAccountViewOutput.swift in Sources */,
-				88580BB41F2213AB00C1CBAF /* SubtitleTableCell.swift in Sources */,
 				88B94EBA1F62A8B4002392F9 /* SearchTopicsViewInput.swift in Sources */,
 				883720211F7D439A00694A2E /* LinkedAccountsViewController.swift in Sources */,
 				88580C581F2213AB00C1CBAF /* LoginViewOutput.swift in Sources */,

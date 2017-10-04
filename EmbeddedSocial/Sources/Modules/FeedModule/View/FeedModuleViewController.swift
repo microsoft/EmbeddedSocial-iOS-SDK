@@ -378,6 +378,8 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         
         cell.configure(with: item, collectionView: collectionView)
         
+        (cell as? Themeable)?.apply(theme: theme)
+        
         return cell as! UICollectionViewCell
     }
     
@@ -455,5 +457,18 @@ extension FeedModuleViewController: UIScrollViewDelegate {
         let containerHeight = scrollView.frame.size.height
         
         isPullingBottom = offsetY > 0 && (contentHeight - offsetY) < (containerHeight - 10)
+    }
+}
+
+extension FeedModuleViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        collectionView.backgroundColor = palette.topicsFeedBackground
+        view.backgroundColor = palette.topicsFeedBackground
+        noContentLabel.textColor = palette.textPrimary
+        refreshControl.tintColor = palette.loadingIndicator
     }
 }

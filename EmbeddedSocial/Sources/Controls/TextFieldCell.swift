@@ -93,7 +93,8 @@ extension TextFieldCell {
         typealias TextChangeHandler = (String?) -> Void
         
         let text: String?
-        let placeholderText: String?
+        let textColor: UIColor
+        let placeholderText: NSAttributedString?
         let font: UIFont
         let onTextChanged: TextChangeHandler?
         let icon: UIImage? /// adjust edgeInsets to make sure text field doesn't overlap image
@@ -103,7 +104,8 @@ extension TextFieldCell {
         let contentBackgroundColor: UIColor
         
         init(text: String?,
-             placeholderText: String?,
+             textColor: UIColor,
+             placeholderText: NSAttributedString?,
              font: UIFont = .systemFont(ofSize: UIFont.systemFontSize),
              edgeInsets: UIEdgeInsets = .zero,
              isSecureTextEntry: Bool = false,
@@ -111,7 +113,9 @@ extension TextFieldCell {
              contentBackgroundColor: UIColor = .clear,
              icon: UIImage? = nil,
              onTextChanged: TextChangeHandler? = nil) {
+            
             self.text = text
+            self.textColor = textColor
             self.edgeInsets = edgeInsets
             self.placeholderText = placeholderText
             self.onTextChanged = onTextChanged
@@ -125,8 +129,9 @@ extension TextFieldCell {
     
     func apply(style: Style) {
         textField.text = style.text
+        textField.textColor = style.textColor
         textField.font = style.font
-        textField.placeholder = style.placeholderText
+        textField.attributedPlaceholder = style.placeholderText
         textField.isSecureTextEntry = style.isSecureTextEntry
         textField.clearButtonMode = style.clearButtonMode
         onTextChanged = style.onTextChanged

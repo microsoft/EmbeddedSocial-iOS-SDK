@@ -62,3 +62,13 @@ extension UploadPhotoCell {
         photoImageView.setPhotoWithCaching(photo, placeholder: UIImage(asset: .userPhotoPlaceholder))
     }
 }
+
+extension UploadPhotoCell: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        uploadLabel.textColor = palette.textPrimary
+    }
+}

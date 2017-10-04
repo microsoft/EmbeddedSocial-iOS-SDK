@@ -90,9 +90,9 @@ extension LoadingIndicatorView {
         let spinnerStyle: UIActivityIndicatorViewStyle
         
         static let standard = Style(backgroundColor: .clear,
-                                    font: UIFont.systemFont(ofSize: 14),
-                                    textColor: .gray,
-                                    spinnerColor: .gray,
+                                    font: AppFonts.medium,
+                                    textColor: SocialPlus.palette.textPrimary,
+                                    spinnerColor: SocialPlus.palette.loadingIndicator,
                                     spinnerStyle: .gray)
     }
 }

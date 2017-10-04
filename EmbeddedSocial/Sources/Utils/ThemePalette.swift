@@ -19,6 +19,10 @@ class ThemePalette: NSObject {
     var topicBackground: UIColor!
     var separator: UIColor!
     var textPlaceholder: UIColor!
+    var loadingIndicator: UIColor!
+    var topicsFeedBackground: UIColor!
+    var tableGroupHeaderBackground: UIColor!
+    var topicSecondaryText: UIColor!
     
     init(config: [String: Any]) {
         super.init()
