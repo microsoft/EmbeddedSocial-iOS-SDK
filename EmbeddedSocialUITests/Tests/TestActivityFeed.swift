@@ -51,7 +51,7 @@ class TestYouActivityFeed: BaseTestActivityFeed {
         
 //        let (requestIndex, requestItem) = activityFollowRequests.getRandomRequestItem()
         
-        let requestIndex: Uint = 1
+        let requestIndex: UInt = 1
         let requestItem = activityFollowRequests.getRequestItem(at: requestIndex)
         
         XCTAssertNotNil(requestItem)
@@ -73,7 +73,7 @@ class TestYouActivityFeed: BaseTestActivityFeed {
         
         //        let (requestIndex, requestItem) = activityFollowRequests.getRandomRequestItem()
         
-        let requestIndex: Uint = 1
+        let requestIndex: UInt = 1
         let requestItem = activityFollowRequests.getRequestItem(at: requestIndex)
         
         XCTAssertNotNil(requestItem)
