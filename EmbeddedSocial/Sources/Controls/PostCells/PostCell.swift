@@ -87,8 +87,9 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     override func layoutSubviews() {
         
-        // Temp solution for fixed textview size.
-        // 1. calculate text size. 2. Bound textview to this size
+        // Workaround to textview height:
+        // 1. Calculate text size
+        // 2. Bound textview to this size
         let size = CGSize(width: postText.frame.width, height: CGFloat.greatestFiniteMagnitude)
         let height = postText.sizeThatFits(size).height
         textHeight.constant = ceil(height)
@@ -187,8 +188,9 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         
         // dynamic part of calculation:
         
-        // Temp solution for fixed textview size.
-        // 1. calculate text size. 2. Bound textview to this size
+        // Workaround to textview height:
+        // 1. Calculate text size
+        // 2. Bound textview to this size
         let size = CGSize(width: postText.frame.width, height: CGFloat.greatestFiniteMagnitude)
         let height = postText.sizeThatFits(size).height
         
