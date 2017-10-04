@@ -178,7 +178,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     fileprivate var cursor: String? = nil
     fileprivate var limit: Int32 = Int32(Constants.Feed.pageSize)
     fileprivate var items = [Post]()
-    fileprivate var fetchRequests: Set<String> = Set()
+    fileprivate var fetchRequestsInProgress: Set<String> = Set()
     fileprivate var header: SupplementaryItemModel?
     
     var headerSize: CGSize {
@@ -213,6 +213,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     private func onLayoutTypeChange() {
+        // Invalidate subsequent responses
+        fetchRequestsInProgress = Set()
         view.setLayout(type: self.layout)
         view.paddingEnabled = collectionPaddingNeeded()
     }
@@ -250,7 +252,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func makeFetchRequest(requestID: String = UUID().uuidString, cursor: String? = nil, feedType: FeedType) -> FeedFetchRequest {
-        fetchRequests.insert(requestID)
+        fetchRequestsInProgress.insert(requestID)
         return FeedFetchRequest(uid: requestID, cursor: cursor, limit: limit, feedType: feedType)
     }
  
@@ -268,7 +270,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         cursor = nil
         items = []
         view.reload()
-        fetchRequests = Set()
+        fetchRequestsInProgress = Set()
         fetchItems()
     }
     
@@ -279,7 +281,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
-        fetchRequests = Set()
+        fetchRequestsInProgress = Set()
         fetchItems(with: cursor)
     }
     
@@ -453,7 +455,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     private func processFetchResult(feed: Feed, isMore: Bool) {
         
-        guard fetchRequests.contains(feed.fetchID), feedType == feed.feedType else {
+        guard fetchRequestsInProgress.contains(feed.fetchID), feedType == feed.feedType else {
             return
         }
         
