@@ -18,8 +18,8 @@ protocol CrossModuleCoordinatorProtocol: class {
 
     func isUserAuthenticated() -> Bool
     
-    var configuredHome: UIViewController! { get }
-    var configuredPopular: UIViewController! { get }
+    var configuredHome: UIViewController { get }
+    var configuredPopular: UIViewController { get }
     var configuredUserProfile: UIViewController { get }
     var configuredLogin: UIViewController { get }
     var configuredSearch: UIViewController { get }
@@ -123,8 +123,8 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     func logOut() {
         user = nil
         menuModule.user = nil
-        configuredHome = nil
-        configuredPopular = nil
+        _configuredHome = nil
+        _configuredPopular = nil
         navigationStack.cleanStack()
         openLoginScreen()
     }
@@ -146,22 +146,46 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         return configurator.viewController
     }
     
-    lazy var configuredHome: UIViewController! = {
-        let configurator = FeedModuleConfigurator(cache: self.cache)
-        configurator.configure(navigationController: self.navigationStack.navigationController)
+    private var _configuredHome: UIViewController?
+    var configuredHome: UIViewController {
+        get {
+            if let vc = _configuredHome {
+                return vc
+            } else {
+                _configuredHome = homeBuilder(self)
+                return _configuredHome!
+            }
+        }
+    }
+    
+    private var _configuredPopular: UIViewController?
+    var configuredPopular: UIViewController {
+        get {
+            if let vc = _configuredPopular {
+                return vc
+            } else {
+                _configuredPopular = popularBuilder(self)
+                return _configuredPopular!
+            }
+        }
+    }
+    
+    private let homeBuilder: (CrossModuleCoordinator) -> UIViewController = {
+        let configurator = FeedModuleConfigurator(cache: $0.cache)
+        configurator.configure(navigationController: $0.navigationStack.navigationController)
         configurator.moduleInput.feedType = (.home)
         configurator.viewController.title = L10n.Home.screenTitle
         let vc = configurator.viewController!
         return vc
-    }()
+    }
 
-    lazy var configuredPopular: UIViewController! = {
+    private let popularBuilder: (CrossModuleCoordinator) -> UIViewController = {
         let configurator = PopularModuleConfigurator()
-        configurator.configure(navigationController: self.navigationStack.navigationController)
+        configurator.configure(navigationController: $0.navigationStack.navigationController)
         configurator.viewController.title = L10n.Popular.screenTitle
         let vc = configurator.viewController!
         return vc
-    }()
+    }
     
     lazy var configuredMyPins: UIViewController = {
         let configurator = FeedModuleConfigurator(cache: self.cache)
