@@ -48,6 +48,7 @@ class CommentRepliesModuleConfigurator {
         interactor.repliesService = repliesService
         viewController.output = presenter
         
+        viewController.theme = SocialPlus.theme
     }
 
 }

@@ -18,6 +18,7 @@ class ThemePalette: NSObject {
     var textSecondary: UIColor!
     var topicBackground: UIColor!
     var separator: UIColor!
+    var textPlaceholder: UIColor!
     
     init(config: [String: Any]) {
         super.init()

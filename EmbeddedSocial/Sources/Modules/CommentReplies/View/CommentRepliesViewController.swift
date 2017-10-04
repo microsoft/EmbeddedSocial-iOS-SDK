@@ -48,6 +48,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         view.isUserInteractionEnabled = false
         configCollecionView()
         configTextView()
+        apply(theme: theme)
         output.viewIsReady()
     }
     
@@ -185,10 +186,10 @@ extension CommentRepliesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
-            case RepliesSections.comment.rawValue:
-                let cell = output.mainCommentCell()
-                cell.repliesButton.isHidden = true
-                return cell
+        case RepliesSections.comment.rawValue:
+            let cell = output.mainCommentCell()
+            cell.repliesButton.isHidden = true
+            return cell
         case RepliesSections.loadMore.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadMoreCell.reuseID, for: indexPath) as! LoadMoreCell
             cell.configure(viewModel: output.loadCellModel())

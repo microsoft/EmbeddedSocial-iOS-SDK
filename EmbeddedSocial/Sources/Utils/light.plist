@@ -17,12 +17,14 @@
 	<key>navigationBarTitle</key>
 	<string>#000000</string>
 	<key>textPrimary</key>
-	<string>#df0000</string>
+	<string>#322e2f</string>
 	<key>textSecondary</key>
-	<string>#8a0000</string>
+	<string>#b0b0b0</string>
 	<key>topicBackground</key>
 	<string>#ffffff</string>
 	<key>separator</key>
 	<string>#e0e0e0</string>
+	<key>textPlaceholder</key>
+	<string>#c7c7cd</string>
 </dict>
 </plist>

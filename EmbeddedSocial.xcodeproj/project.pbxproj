@@ -227,6 +227,7 @@
 		8839B87A1F83BA8600D97BE6 /* dark.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8839B8791F83BA8600D97BE6 /* dark.plist */; };
 		8839B8801F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */; };
 		8839B8841F84E4A700D97BE6 /* CommentCell+Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */; };
+		8839B8861F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */; };
 		883B9B5D1F276B9600D1E66E /* CoreDataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */; };
 		883B9B601F276BCF00D1E66E /* TestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B5E1F276BCF00D1E66E /* TestModel.xcdatamodeld */; };
 		883B9B641F2776E600D1E66E /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B9B631F2776E600D1E66E /* Item.swift */; };
@@ -1296,6 +1297,7 @@
 		8839B8791F83BA8600D97BE6 /* dark.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dark.plist; sourceTree = "<group>"; };
 		8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Themeable.swift"; sourceTree = "<group>"; };
 		8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentCell+Themeable.swift"; sourceTree = "<group>"; };
+		8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentRepliesViewController+Themeable.swift"; sourceTree = "<group>"; };
 		883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModelTests.swift; sourceTree = "<group>"; };
 		883B9B5F1F276BCF00D1E66E /* TestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModel.xcdatamodel; sourceTree = "<group>"; };
 		883B9B631F2776E600D1E66E /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -4284,6 +4286,7 @@
 				88A9704D1F83AA040047D591 /* LoginViewController+Themeable.swift */,
 				8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */,
 				8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */,
+				8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */,
 			);
 			name = ThemeableExtensions;
 			sourceTree = "<group>";
@@ -6779,6 +6782,7 @@
 				88580BC51F2213AB00C1CBAF /* UIViewController+Alerts.swift in Sources */,
 				8811C8871F431B9A00F7513D /* EditProfileViewController.swift in Sources */,
 				883E1E481F546517004B4861 /* BlockedUsersPresenter.swift in Sources */,
+				8839B8861F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift in Sources */,
 				8839B8761F83B6A100D97BE6 /* APIBasePathSetupCommand.swift in Sources */,
 				88F551AA1F386F1300F4AAB9 /* UserProfileHeaderView.swift in Sources */,
 				8895111D1F3C4F39001A53F5 /* BaseService.swift in Sources */,
