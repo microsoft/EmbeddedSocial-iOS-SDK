@@ -81,7 +81,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="iJH-I2-d58" userLabel="postcontent">
-                            <rect key="frame" x="15" y="230" width="334" height="212"/>
+                            <rect key="frame" x="15" y="230" width="334" height="72"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="998" text="Smooth Sailing Over Calm Waters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYk-wD-2lQ">
                                     <rect key="frame" x="0.0" y="15" width="334" height="17"/>
@@ -90,9 +90,11 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="249" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhP-eN-hI9" customClass="ReadMoreTextView" customModule="EmbeddedSocial" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="52" width="334" height="150"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <rect key="frame" x="0.0" y="52" width="334" height="10"/>
                                     <accessibility key="accessibilityConfiguration" identifier="Teaser" label="Teaser"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="10" id="dq9-Gp-GoY"/>
+                                    </constraints>
                                     <string key="text">Well, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoat</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -110,7 +112,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ugb-5x-70X" userLabel="footer">
-                            <rect key="frame" x="0.0" y="442" width="364" height="60"/>
+                            <rect key="frame" x="0.0" y="302" width="364" height="60"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2C6-WJ-LvS" userLabel="like">
                                     <rect key="frame" x="15" y="8" width="44" height="44"/>
@@ -257,6 +259,7 @@
                 <outlet property="postImageHeight" destination="IKi-3a-VjQ" id="ZKi-T8-dfn"/>
                 <outlet property="postText" destination="bhP-eN-hI9" id="2me-8O-h5I"/>
                 <outlet property="postTitle" destination="WYk-wD-2lQ" id="OJU-HT-vgq"/>
+                <outlet property="textHeight" destination="dq9-Gp-GoY" id="B3z-3m-9Bq"/>
                 <outlet property="userName" destination="xH5-qG-Dco" id="hja-Z9-zzS"/>
                 <outlet property="userPhoto" destination="bYI-rM-xRs" id="QLN-qh-MaP"/>
                 <outletCollection property="staticHeigthElements" destination="tng-AR-z1W" collectionClass="NSMutableArray" id="T9L-U5-wfi"/>

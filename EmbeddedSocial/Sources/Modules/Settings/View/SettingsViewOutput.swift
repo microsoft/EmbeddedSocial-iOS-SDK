@@ -15,4 +15,8 @@ protocol SettingsViewOutput: class {
     func signOut()
     
     func onPrivacySwitch()
+    
+    func onPrivacyPolicy()
+    
+    func onTermsAndConditions()
 }
