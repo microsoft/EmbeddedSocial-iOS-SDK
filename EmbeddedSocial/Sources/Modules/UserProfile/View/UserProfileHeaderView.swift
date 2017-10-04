@@ -37,7 +37,6 @@ class UserProfileHeaderView: UIView {
             ])
         filterView.selectSegment(Constants.UserProfile.recentSegment)
         filterView.isSeparatorHidden = false
-        filterView.separatorColor = Palette.extraLightGrey
         
         self.addSubview(filterView)
         filterView.snp.makeConstraints { make in
@@ -63,5 +62,17 @@ class UserProfileHeaderView: UIView {
     private func setup() {
         _ = summaryView
         _ = filterView
+    }
+}
+
+extension UserProfileHeaderView {
+    
+    func apply(theme: Theme?) {
+        summaryView.theme = theme
+        
+        filterView.apply(theme: theme)
+        summaryView.apply(theme: theme)
+        
+        backgroundColor = .clear
     }
 }

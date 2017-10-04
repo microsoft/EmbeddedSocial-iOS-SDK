@@ -51,6 +51,7 @@ class UserProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        apply(theme: theme)
         output.viewIsReady()
     }
     
@@ -150,3 +151,48 @@ extension UserProfileViewController: UserProfileViewInput {
         feedLayoutButton.sizeToFit()
     }
 }
+
+extension UserProfileViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        feedLayoutButton.tintColor = palette.navigationBarTint
+        stickyFilterView.apply(theme: theme)
+        headerView.apply(theme: theme)
+        view.backgroundColor = palette.contentBackground
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
