@@ -29,6 +29,7 @@
 		6315CB341F791DD200F68087 /* RemoveCommentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB331F791DD200F68087 /* RemoveCommentOperation.swift */; };
 		6315CB361F791DDE00F68087 /* ReportCommentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB351F791DDE00F68087 /* ReportCommentOperation.swift */; };
 		635641FF1F8503470074289D /* BaseNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635641FE1F8503470074289D /* BaseNavigationViewController.swift */; };
+		635642001F8509060074289D /* ReplyCellInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B62ED31F83CA34003DC885 /* ReplyCellInteractorTests.swift */; };
 		636474821F5EDD2F000D7B3D /* CommentCellInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A94491F5D348D00EB0253 /* CommentCellInteractorTests.swift */; };
 		6364748B1F5FFD40000D7B3D /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636474891F5FFD40000D7B3D /* LoadMoreCell.swift */; };
 		6364748C1F5FFD40000D7B3D /* LoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6364748A1F5FFD40000D7B3D /* LoadMoreCell.xib */; };
@@ -54,7 +55,6 @@
 		63B62ECE1F838C5F003DC885 /* DetailedActivityPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3EAB21F82952B00E8E7ED /* DetailedActivityPresenterTests.swift */; };
 		63B62ECF1F838C61003DC885 /* DetailedActivityInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3EAB41F82954F00E8E7ED /* DetailedActivityInteractorTests.swift */; };
 		63B62ED21F83CA17003DC885 /* ReplyCellPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B62ED11F83CA17003DC885 /* ReplyCellPresenterTests.swift */; };
-		63B62ED41F83CA34003DC885 /* ReplyCellInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B62ED31F83CA34003DC885 /* ReplyCellInteractorTests.swift */; };
 		63B62ED71F83CACF003DC885 /* MockReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B62ED61F83CACF003DC885 /* MockReplyCell.swift */; };
 		63B62ED91F83CAE1003DC885 /* MockReplyCellRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B62ED81F83CAE1003DC885 /* MockReplyCellRouter.swift */; };
 		63B62EDB1F83CB05003DC885 /* MockReplyCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B62EDA1F83CB05003DC885 /* MockReplyCellPresenter.swift */; };
@@ -6948,6 +6948,7 @@
 				889119BA1F4AF7CF005B3B32 /* SearchInteractorTests.swift in Sources */,
 				88B2D69A1F7BFC4C00920E43 /* MyBlockedUsersResponseProcessorTests.swift in Sources */,
 				88F5518F1F3366A100F4AAB9 /* UserListInteractorTests.swift in Sources */,
+				635642001F8509060074289D /* ReplyCellInteractorTests.swift in Sources */,
 				88F7A7891F27896B005FEC5F /* MockAuthService.swift in Sources */,
 				88F551951F336DCB00F4AAB9 /* MockUserListInteractor.swift in Sources */,
 				63DCE6D11F7D1F3A00F9F76B /* ReportReplyCommandTests.swift in Sources */,
