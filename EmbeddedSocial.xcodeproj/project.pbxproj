@@ -603,7 +603,6 @@
 		88A970481F8397E50047D591 /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A970471F8397E50047D591 /* HexColor.swift */; };
 		88A9704A1F83A7420047D591 /* ThemeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A970491F83A7420047D591 /* ThemeTests.swift */; };
 		88A9704C1F83A78D0047D591 /* ThemePaletteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A9704B1F83A78D0047D591 /* ThemePaletteTests.swift */; };
-		88A9704E1F83AA040047D591 /* LoginViewController+Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A9704D1F83AA040047D591 /* LoginViewController+Themeable.swift */; };
 		88ABC78E1F726D6300C83C82 /* CreateReplyOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88ABC78D1F726D6300C83C82 /* CreateReplyOperation.swift */; };
 		88ABC7901F726F4300C83C82 /* CreateCommentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88ABC78F1F726F4300C83C82 /* CreateCommentOperation.swift */; };
 		88ABC7921F726FE800C83C82 /* PostCommentRequest+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88ABC7911F726FE800C83C82 /* PostCommentRequest+Ext.swift */; };
@@ -1678,7 +1677,6 @@
 		88A970471F8397E50047D591 /* HexColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexColor.swift; sourceTree = "<group>"; };
 		88A970491F83A7420047D591 /* ThemeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTests.swift; sourceTree = "<group>"; };
 		88A9704B1F83A78D0047D591 /* ThemePaletteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemePaletteTests.swift; sourceTree = "<group>"; };
-		88A9704D1F83AA040047D591 /* LoginViewController+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LoginViewController+Themeable.swift"; sourceTree = "<group>"; };
 		88ABC78D1F726D6300C83C82 /* CreateReplyOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateReplyOperation.swift; sourceTree = "<group>"; };
 		88ABC78F1F726F4300C83C82 /* CreateCommentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateCommentOperation.swift; sourceTree = "<group>"; };
 		88ABC7911F726FE800C83C82 /* PostCommentRequest+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PostCommentRequest+Ext.swift"; sourceTree = "<group>"; };
@@ -4271,7 +4269,6 @@
 		88A9704F1F83AA400047D591 /* ThemeableExtensions */ = {
 			isa = PBXGroup;
 			children = (
-				88A9704D1F83AA040047D591 /* LoginViewController+Themeable.swift */,
 				8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */,
 				8839B8871F8503B100D97BE6 /* PostCell+Themeable.swift */,
 				8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */,
@@ -6776,7 +6773,6 @@
 				88F551AA1F386F1300F4AAB9 /* UserProfileHeaderView.swift in Sources */,
 				8895111D1F3C4F39001A53F5 /* BaseService.swift in Sources */,
 				88580BBD1F2213AB00C1CBAF /* String+Memento.swift in Sources */,
-				88A9704E1F83AA040047D591 /* LoginViewController+Themeable.swift in Sources */,
 				885E04041F6FBFFD00D6EBD8 /* LikeCommentCommand.swift in Sources */,
 				88580C121F2213AB00C1CBAF /* Photo+Memento.swift in Sources */,
 				88580C0F1F2213AB00C1CBAF /* AuthProvider.swift in Sources */,

@@ -12,6 +12,8 @@ class LoginViewController: UIViewController, LoginViewInput {
     @IBOutlet fileprivate weak var microsoftButton: UIButton!
     @IBOutlet fileprivate weak var googleButton: UIButton!
     
+    @IBOutlet fileprivate weak var signInWithLabel: UILabel!
+
     @IBOutlet fileprivate weak var loadingIndicatorView: LoadingIndicatorView!
     
     @IBOutlet fileprivate weak var buttonsContainerView: UIView!
@@ -71,5 +73,21 @@ class LoginViewController: UIViewController, LoginViewInput {
     
     @IBAction fileprivate func onGooglePlusSignIn(_ sender: UIButton) {
         output.onGoogleSignInTapped()
+    }
+}
+
+extension LoginViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let theme = theme else {
+            return
+        }
+        let palette = theme.palette
+        view.backgroundColor = palette.contentBackground
+        signInWithLabel.textColor = palette.textPrimary
+        
+        [facebookButton, googleButton, microsoftButton, twitterButton].forEach {
+            $0?.setTitleColor(palette.textPrimary, for: .normal)
+        }
     }
 }
