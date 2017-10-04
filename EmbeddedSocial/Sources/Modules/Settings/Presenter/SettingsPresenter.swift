@@ -20,6 +20,13 @@ final class SettingsPresenter {
 }
 
 extension SettingsPresenter: SettingsViewOutput {
+    func onPrivacyPolicy() {
+        router.openLink(type: .privacyPolicy)
+    }
+    func onTermsAndConditions() {
+        router.openLink(type: .termsAndConditions)
+    }
+
 
     func viewIsReady() {
         let isOn = myProfileHolder.me?.visibility == ._private
