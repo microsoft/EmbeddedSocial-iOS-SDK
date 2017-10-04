@@ -5,7 +5,9 @@
 
 @testable import EmbeddedSocial
 
-class MockReplyCellPresenter: ReplyCellViewOutput {
+class MockReplyCellPresenter: ReplyCellViewOutput, ReplyCellInteractorOutput {
+    
+    var reply: Reply?
     
     var likeCount = 0
     func like() {
@@ -26,5 +28,17 @@ class MockReplyCellPresenter: ReplyCellViewOutput {
     func optionsPressed() {
         optionsPressedCount += 1
     }
+    
+    func didPostAction(replyHandle: String, action: RepliesSocialAction, error: Error?) {
+        switch action {
+        case .like:
+            reply?.totalLikes += 1
+            reply?.liked = true
+        case .unlike:
+            reply?.totalLikes -= 1
+            reply?.liked = false
+        }
+    }
+    
     
 }

@@ -8,15 +8,65 @@ import XCTest
 
 class ReplyCellInteractorTests: XCTestCase {
     
+    var output: MockReplyCellPresenter!
+    var interactor: ReplyCellInteractor!
+    
+    var likeService: MockLikesService!
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        output = MockReplyCellPresenter()
+        interactor = ReplyCellInteractor()
+        interactor.output = output
+        likeService = MockLikesService()
+        interactor.likeService = likeService
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+        interactor.output = nil
+        likeService = nil
     }
     
+    
+    func testThatReplyLiked() {
+        
+        //given
+        let reply = Reply()
+        reply.replyHandle = "handle"
+        reply.text = "text"
+        reply.totalLikes = 0
+        reply.liked = false
+        output.reply = reply
+        
+        likeService.likeReplyReplyHandleCompletionReturnValue = (reply.replyHandle!, nil)
+        
+        //when
+        interactor.replyAction(replyHandle: reply.replyHandle!, action: .like)
+        
+        //then
+        XCTAssertEqual(output.reply?.totalLikes , 1)
+        XCTAssertEqual(output.reply?.liked , true)
+    }
+    
+    func testThatReplyUnliked() {
+        
+        //given
+        let reply = Reply()
+        reply.replyHandle = "handle"
+        reply.text = "text"
+        reply.totalLikes = 1
+        reply.liked = true
+        output.reply = reply
+        
+        likeService.unlikeReplyReplyHandleCompletionReturnValue = (reply.replyHandle!, nil)
+        
+        //when
+        interactor.replyAction(replyHandle: reply.replyHandle!, action: .unlike)
+        
+        //then
+        XCTAssertEqual(output.reply?.totalLikes , 0)
+        XCTAssertEqual(output.reply?.liked , false)
+    }
     
 }
