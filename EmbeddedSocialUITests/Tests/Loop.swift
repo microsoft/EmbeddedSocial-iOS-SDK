@@ -7,11 +7,11 @@ import XCTest
 
 //Uncomment and run to test and debug API Mock
 //
-class Loop: UITestBase {
-    
-    func testAPIMock() {
-        APIConfig.showUserImages = true
-        while true {}
-    }
-    
-}
+//class Loop: UITestBase {
+//    
+//    func testAPIMock() {
+//        APIConfig.showUserImages = true
+//        while true {}
+//    }
+//    
+//}

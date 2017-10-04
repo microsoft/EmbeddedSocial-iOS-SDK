@@ -49,7 +49,10 @@ class TestYouActivityFeed: BaseTestActivityFeed {
     func testPendingRequestAccepting() {
         openScreen()
         
-        let (requestIndex, requestItem) = activityFollowRequests.getRandomRequestItem()
+//        let (requestIndex, requestItem) = activityFollowRequests.getRandomRequestItem()
+        
+        let requestIndex: Uint = 1
+        let requestItem = activityFollowRequests.getRequestItem(at: requestIndex)
         
         XCTAssertNotNil(requestItem)
         XCTAssertTrue(requestItem.isExists(text: "Name LastName #\(requestIndex)"))
@@ -68,7 +71,10 @@ class TestYouActivityFeed: BaseTestActivityFeed {
     func testPendingRequestDeclining() {
         openScreen()
         
-        let (requestIndex, requestItem) = activityFollowRequests.getRandomRequestItem()
+        //        let (requestIndex, requestItem) = activityFollowRequests.getRandomRequestItem()
+        
+        let requestIndex: Uint = 1
+        let requestItem = activityFollowRequests.getRequestItem(at: requestIndex)
         
         XCTAssertNotNil(requestItem)
         XCTAssertTrue(requestItem.isExists(text: "Name LastName #\(requestIndex)"))
