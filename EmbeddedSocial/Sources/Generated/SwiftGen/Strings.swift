@@ -406,6 +406,11 @@ enum L10n {
     }
   }
 
+  enum PostDetails {
+    /// Type here to comment on this post
+    static let commentPlaceholder = L10n.tr("Localizable", "post_details.comment_placeholder")
+  }
+
   enum PostMenu {
     /// Block
     static let block = L10n.tr("Localizable", "post_menu.block")

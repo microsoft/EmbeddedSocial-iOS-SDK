@@ -45,6 +45,7 @@ class PostDetailModuleConfigurator {
         
         presenter.interactor = interactor
         viewController.output = presenter
+        viewController.theme = SocialPlus.theme
         
         let feedConfigurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache)
         feedConfigurator.configure(navigationController: navigationController, moduleOutput: presenter)

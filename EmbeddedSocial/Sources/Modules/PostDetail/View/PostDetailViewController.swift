@@ -54,6 +54,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         collectionView.addSubview(self.refreshControl)
         collectionView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
         refreshControl.beginRefreshing()
+        apply(theme: theme)
         output.viewIsReady()
         SVProgressHUD.show()
     }
@@ -328,3 +329,21 @@ extension PostDetailViewController: ImagePickerDelegate {
     }
 }
 
+extension PostDetailViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        
+        view.backgroundColor = palette.contentBackground
+        collectionView.backgroundColor = palette.contentBackground
+        postButton.setTitleColor(palette.controlHighlighted, for: .normal)
+        postButton.titleLabel?.font = AppFonts.medium
+        
+        let attrs: [String : Any] = [NSForegroundColorAttributeName: palette.textPlaceholder, NSFontAttributeName: AppFonts.medium]
+        commentTextView.textColor = palette.textPrimary
+        commentTextView.attributedPlaceholder = NSAttributedString(string: L10n.PostDetails.commentPlaceholder, attributes: attrs)
+        commentTextView.font = AppFonts.medium
+    }
+}
