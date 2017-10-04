@@ -64,7 +64,7 @@ class ReplyCellPresenter: ReplyCellModuleInput, ReplyCellViewOutput, ReplyCellIn
     }
     
     func optionsPressed() {
-        let isMyComment = (SocialPlus.shared.me?.uid == reply.user?.uid)
+        let isMyComment = (myProfileHolder?.me?.uid == reply.user?.uid)
         
         if isMyComment {
             router?.openMyReplyOptions(reply: reply)
