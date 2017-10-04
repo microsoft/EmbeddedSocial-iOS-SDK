@@ -1094,6 +1094,7 @@
 		61494E4B897730AE4E0BD7AB /* CommentCellRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentCellRouter.swift; sourceTree = "<group>"; };
 		6315CB331F791DD200F68087 /* RemoveCommentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveCommentOperation.swift; sourceTree = "<group>"; };
 		6315CB351F791DDE00F68087 /* ReportCommentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportCommentOperation.swift; sourceTree = "<group>"; };
+		635642011F850F790074289D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		636474891F5FFD40000D7B3D /* LoadMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
 		6364748A1F5FFD40000D7B3D /* LoadMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreCell.xib; sourceTree = "<group>"; };
 		636474921F628715000D7B3D /* MenuViewModelBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewModelBuilder.swift; sourceTree = "<group>"; };
@@ -2205,6 +2206,7 @@
 		2C6B77FF4F1F2F71CA420D6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				635642011F850F790074289D /* SafariServices.framework */,
 				886B3AE61F13D1EC00BF1A8E /* Bolts.framework */,
 				886B3AE71F13D1EC00BF1A8E /* FBSDKCoreKit.framework */,
 				886B3AE81F13D1EC00BF1A8E /* FBSDKLoginKit.framework */,
