@@ -50,6 +50,7 @@ class UserListCell: UITableViewCell {
 }
 
 extension UserListCell {
+    
     func configure(_ item: UserListItem) {
         self.item = item
 
@@ -68,5 +69,13 @@ extension UserListCell {
             actionButton.apply(style: buttonStyle)
             primaryAction = item.action
         }
+    }
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        nameLabel.textColor = palette.textPrimary
+        backgroundColor = palette.contentBackground
     }
 }
