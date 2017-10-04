@@ -21,7 +21,7 @@ You need to include the following notice & consent in the Embedded Social First 
     - Privacy policy
     - Terms of Use
     The application you are using may have additional terms.
-where the Privacylink above needs to point to http://go.microsoft.com/fwlink/?LinkId=521839, and the Terms of Use link needs to point to http://go.microsoft.com/fwlink/?LinkID=206977. 
+where the Privacylink above needs to point to https://privacy.microsoft.com/en-us/privacystatement, and the Terms of Use link needs to point to http://go.microsoft.com/fwlink/?LinkID=206977. 
 
 ### Reporting abuse & requests to access or delete personal information: 
 Your application must provide a way for users to report abuse and delete content that they have authored. We ask that you use the mechanism we provide in Embedded Social for reporting abuse and deleting content. 
