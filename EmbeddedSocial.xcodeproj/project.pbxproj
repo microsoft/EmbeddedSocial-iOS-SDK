@@ -7065,7 +7065,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = UBF8T346G9;
+				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = EmbeddedSocialUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -7082,7 +7082,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = UBF8T346G9;
+				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = EmbeddedSocialUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -7212,7 +7212,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = UBF8T346G9;
+				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -7243,7 +7243,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = UBF8T346G9;
+				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -7271,7 +7271,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = UBF8T346G9;
+				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				INFOPLIST_FILE = EmbeddedSocialTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -7286,7 +7286,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = UBF8T346G9;
+				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				INFOPLIST_FILE = EmbeddedSocialTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
