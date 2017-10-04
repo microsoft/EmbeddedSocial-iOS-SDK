@@ -16,8 +16,6 @@ class ReplyCellPresenterTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        let mockUserHolder = MyProfileHolder()
-        presenter.myProfileHolder = mockUserHolder
         interactor = MockReplyCellInteractor()
         view = MockReplyCell()
         router = MockReplyCellRouter()
@@ -27,13 +25,17 @@ class ReplyCellPresenterTests: XCTestCase {
         presenter.router = router
         presenter.view = view
         presenter.interactor = interactor
+        let mockUserHolder = MyProfileHolder()
+        presenter.myProfileHolder = mockUserHolder
 
         presenter.reply = Reply(replyHandle: UUID().uuidString)
+        presenter.reply.userHandle = mockUserHolder.me?.uid
     }
     
     override func tearDown() {
         super.tearDown()
         presenter.reply = nil
+        presenter.myProfileHolder = nil
         presenter = nil
         interactor = nil
         view = nil
@@ -57,12 +59,13 @@ class ReplyCellPresenterTests: XCTestCase {
     }
     
     func testThatOpenOptions() {
-        presenter.reply.userHandle = SocialPlus.shared.me?.uid
         presenter.optionsPressed()
         
         XCTAssertEqual(router.openMyReplyOptionsCount, 1)
         
-        presenter.reply.userHandle = UUID().uuidString
+        presenter.myProfileHolder?.me?.uid = UUID().uuidString
+        
+        presenter.optionsPressed()
         
         XCTAssertEqual(router.openOtherReplyOptionsCount, 1)
     }
