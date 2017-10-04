@@ -27,6 +27,10 @@ class RecentActivityItem {
         return self.cell.staticTexts[text]
     }
     
+    func asUIElement() -> XCUIElement {
+        return cell
+    }
+    
 }
 
 class RecentActivity {
@@ -46,9 +50,12 @@ class RecentActivity {
         return recentActivityTable.cells.count - offset
     }
     
-    func getActivityItem(at index: UInt) -> RecentActivityItem {
+    func getActivityItem(at index: UInt, withScroll scroll: Bool = true) -> RecentActivityItem {
         let cell = recentActivityTable.cells.element(boundBy: index + offset)
-        scrollToElement(cell, application)
+        
+        if scroll {
+            scrollToElement(cell, application)
+        }
         
         let activityItem = RecentActivityItem(application, cell: cell)
         return activityItem

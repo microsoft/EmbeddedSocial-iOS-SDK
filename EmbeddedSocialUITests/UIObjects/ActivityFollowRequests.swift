@@ -39,8 +39,8 @@ class FollowRequestItem {
         return self.cell.staticTexts[text].exists
     }
     
-    func getLabel(with text: String) -> XCUIElement {
-        return self.cell.staticTexts[text]
+    func asUIElement() -> XCUIElement {
+        return cell
     }
     
 }
@@ -66,9 +66,12 @@ class ActivityFollowRequests {
         return count
     }
     
-    func getRequestItem(at index: UInt) -> FollowRequestItem {
+    func getRequestItem(at index: UInt, withScroll scroll: Bool = true) -> FollowRequestItem {
         let cell = requestsTable.cells.element(boundBy: index)
-        scrollToElement(cell, application)
+        
+        if scroll {
+            scrollToElement(cell, application)
+        }
         
         let requestItem = FollowRequestItem(application, cell: cell)
         return requestItem

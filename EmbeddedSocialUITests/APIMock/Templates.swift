@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import EmbeddedSocial
 
 class BundleHelper {
     
@@ -132,18 +133,18 @@ class Templates {
                              "FollowAccept"]
 
         for i in cursor...cursor + limit - 1 {
-            let followers = (loadFollowers(firstName: "Name", lastName: "LastName", cursor: 0, limit: i + 1) as! [String : Any])["data"] as! [Any]
+            let followers = (loadFollowers(firstName: "Name", lastName: "LastName", cursor: i, limit: i + 1) as! [String : Any])["data"] as! [Any]
             
-            let activityType = activityTypes[Int(Random.randomUInt(UInt(activityTypes.count)))]
+            let activityType = activityTypes[Int(Random.randomUInt(UInt(/*activityTypes.count*/2)))]
             
             let values = ["activityHandle" : "String",
                           "createdTime"    : Date().ISOString,
-                          "activityType"   : activityType,
+                          "activityType"   : "Comment",//activityType,
                           "actorUsers"     : followers,
                           "actedOnUser"    : followers[i],
                           "actedOnContent" : [
-                                "contentType"   : activityType,
-                                "text"          : "Some Text Example",
+                                "contentType"   : "Like", //activityType,
+                                "text"          : "TextExample",
                                 "blobHandle"    : UUID().uuidString]]
             
             activities.append(load(name: "activity", values: values))
