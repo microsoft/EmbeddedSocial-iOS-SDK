@@ -16,7 +16,7 @@ final class FollowRequestsDataDisplayManager: NSObject {
     var onRejectRequest: ((FollowRequestItem) -> Void)?
     var onReachingEndOfContent: (() -> Void)?
     var onItemSelected: ((FollowRequestItem) -> Void)?
-    
+        
     weak var tableView: UITableView!
     
     private var users: [User] = []
