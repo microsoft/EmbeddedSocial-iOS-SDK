@@ -232,7 +232,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
         
         switch feedType {
-        case let .popular(type: _ ):
+        case .popular(type: _ ):
             return false
         default:
             return true

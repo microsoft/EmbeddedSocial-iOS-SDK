@@ -27,12 +27,14 @@ class FollowingNoDataView: UIView {
     @IBOutlet fileprivate weak var searchPeopleButton: UIButton! {
         didSet {
             searchPeopleButton.setTitle(L10n.Following.searchPeople, for: .normal)
+            searchPeopleButton.titleLabel?.font = AppFonts.medium
         }
     }
     
     @IBOutlet fileprivate weak var suggestedUsersButton: UIButton! {
         didSet {
             suggestedUsersButton.setTitle(L10n.Following.suggestedUsers, for: .normal)
+            suggestedUsersButton.titleLabel?.font = AppFonts.medium
         }
     }
     
@@ -40,6 +42,7 @@ class FollowingNoDataView: UIView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        apply(theme: theme)
     }
     
     @IBAction private func onSearchPeople(_ sender: UIButton) {
@@ -52,5 +55,19 @@ class FollowingNoDataView: UIView {
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return containerView.point(inside: convert(point, to: containerView), with: event)
+    }
+}
+
+extension FollowingNoDataView: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        noDataLabel.textColor = palette.textPrimary
+        searchPeopleButton.setTitleColor(palette.controlHighlighted, for: .normal)
+        suggestedUsersButton.setTitleColor(palette.controlHighlighted, for: .normal)
+        backgroundColor = palette.contentBackground
+        containerView.backgroundColor = .clear
     }
 }

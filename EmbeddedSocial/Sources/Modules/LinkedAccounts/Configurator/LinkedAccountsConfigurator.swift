@@ -24,5 +24,6 @@ struct LinkedAccountsConfigurator {
         presenter.view = viewController
         
         viewController.output = presenter
+        viewController.theme = SocialPlus.theme
     }
 }

@@ -244,7 +244,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
     }
     
     private func convert(replyView: ReplyView) -> Reply {
-        var reply = Reply()
+        let reply = Reply()
         reply.commentHandle = replyView.commentHandle
         reply.text = replyView.text
         reply.liked = replyView.liked ?? false
