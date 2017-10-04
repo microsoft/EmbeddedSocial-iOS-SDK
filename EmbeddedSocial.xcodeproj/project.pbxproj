@@ -1293,10 +1293,10 @@
 		8839B8751F83B6A100D97BE6 /* APIBasePathSetupCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIBasePathSetupCommand.swift; sourceTree = "<group>"; };
 		8839B8771F83B6E200D97BE6 /* AppThemeConfigurationCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppThemeConfigurationCommand.swift; sourceTree = "<group>"; };
 		8839B8791F83BA8600D97BE6 /* dark.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dark.plist; sourceTree = "<group>"; };
-		8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Themeable.swift"; sourceTree = "<group>"; };
-		8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentCell+Themeable.swift"; sourceTree = "<group>"; };
-		8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentRepliesViewController+Themeable.swift"; sourceTree = "<group>"; };
-		8839B8871F8503B100D97BE6 /* PostCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PostCell+Themeable.swift"; sourceTree = "<group>"; };
+		8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UISegmentedControl+Themeable.swift"; path = "../Utils/UISegmentedControl+Themeable.swift"; sourceTree = "<group>"; };
+		8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CommentCell+Themeable.swift"; path = "../Utils/CommentCell+Themeable.swift"; sourceTree = "<group>"; };
+		8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CommentRepliesViewController+Themeable.swift"; path = "../Utils/CommentRepliesViewController+Themeable.swift"; sourceTree = "<group>"; };
+		8839B8871F8503B100D97BE6 /* PostCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PostCell+Themeable.swift"; path = "../Utils/PostCell+Themeable.swift"; sourceTree = "<group>"; };
 		883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModelTests.swift; sourceTree = "<group>"; };
 		883B9B5F1F276BCF00D1E66E /* TestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModel.xcdatamodel; sourceTree = "<group>"; };
 		883B9B631F2776E600D1E66E /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -3158,6 +3158,10 @@
 		88580AA91F2213AB00C1CBAF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */,
+				8839B8871F8503B100D97BE6 /* PostCell+Themeable.swift */,
+				8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */,
+				8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */,
 				8892F2611F7E83D100A58D8B /* AuthProvider+Ext.swift */,
 				88580AAA1F2213AB00C1CBAF /* Collection+Ext.swift */,
 				88580AAB1F2213AB00C1CBAF /* Dictionary+Ext.swift */,
@@ -3767,7 +3771,6 @@
 				88640D6F1F828B290004CDF9 /* Theme.swift */,
 				88D35FB71F83903E008BB38C /* ThemePalette.swift */,
 				88640D711F828B3E0004CDF9 /* Themeable.swift */,
-				88A9704F1F83AA400047D591 /* ThemeableExtensions */,
 				88640D751F82918A0004CDF9 /* light.plist */,
 				8839B8791F83BA8600D97BE6 /* dark.plist */,
 			);
@@ -4264,17 +4267,6 @@
 				8811C8221F3C728E00F7513D /* UnauthorizedErrorHandlerTests.swift */,
 			);
 			path = UtilsTest;
-			sourceTree = "<group>";
-		};
-		88A9704F1F83AA400047D591 /* ThemeableExtensions */ = {
-			isa = PBXGroup;
-			children = (
-				8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */,
-				8839B8871F8503B100D97BE6 /* PostCell+Themeable.swift */,
-				8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */,
-				8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */,
-			);
-			name = ThemeableExtensions;
 			sourceTree = "<group>";
 		};
 		88ABC7931F72716B00C83C82 /* ImageOperations */ = {

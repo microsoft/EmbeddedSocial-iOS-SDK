@@ -71,14 +71,12 @@ class PopularModuleView: UIViewController {
     
     // MARK: Life Cycle
     override func viewDidLoad() {
-        container.backgroundColor = Palette.extraLightGrey
-        
-        feedControl.tintColor = Palette.green
         feedControl.addTarget(self,
                               action: #selector(onOptionChange(_:)),
                               for: .valueChanged)
         
         navigationItem.rightBarButtonItem = layoutChangeButton
+        apply(theme: theme)
         output.viewIsReady()
     }
     
@@ -101,17 +99,12 @@ extension PopularModuleView: PopularModuleViewInput {
     }
     
     func embedFeedViewController(_ viewController: UIViewController) {
-        viewController.willMove(toParentViewController: self)
-        addChildViewController(viewController)
-        container.addSubview(viewController.view)
+        addChildController(viewController, containerView: container, pinToEdges: false)
+        
+        let padding = Constants.FeedModule.Collection.containerPadding
         viewController.view.snp.makeConstraints {
-            $0.edges.equalTo(container).inset(
-                UIEdgeInsetsMake(0,
-                                 Constants.FeedModule.Collection.containerPadding,
-                                 0,
-                                 Constants.FeedModule.Collection.containerPadding))
+            $0.edges.equalTo(container).inset(UIEdgeInsetsMake(0, padding, 0, padding))
         }
-        viewController.didMove(toParentViewController: self)
     }
     
     func handleError(error: Error) {
@@ -140,3 +133,15 @@ extension PopularModuleView: PopularModuleViewInput {
 }
 
 
+extension PopularModuleView: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+
+        view.backgroundColor = palette.topicsFeedBackground
+        container.backgroundColor = palette.topicsFeedBackground
+        feedControl.apply(theme: theme)
+    }
+}
