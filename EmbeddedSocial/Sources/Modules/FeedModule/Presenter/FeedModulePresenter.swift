@@ -459,6 +459,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
+        Logger.log("items arrived", event: .veryImportant)
+        
         let cachedNumberOfItems = items.count
         
         if isMore {
@@ -477,18 +479,23 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         if cachedNumberOfItems == 0 {
             view.reload()
         }
-        else if shouldAddItems > 0 {
-            let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
-            view.insertNewItems(with: paths)
+        else {
+            
+            if shouldAddItems > 0 {
+                let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
+                Logger.log("inserting \(paths)", event: .veryImportant)
+                view.insertNewItems(with: paths)
+            }
+            else if shouldRemoveItems > 0 {
+                let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
+                print("removing \(paths)")
+                view.removeItems(with: paths)
+            }
+            
+            // update data for rest of cells
+            view.reloadVisible()
         }
-        else if shouldRemoveItems > 0 {
-            let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
-            view.removeItems(with: paths)
-        }
-        
-        // update visible
-        view.reloadVisible()
-        
+    
         // update "No content"
         checkIfNoContent()
     }
