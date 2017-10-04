@@ -233,7 +233,7 @@ extension CrossModuleCoordinator: LoginModalOpener {
     func openLogin(parentViewController: UIViewController?) {
         let configurator = LoginConfigurator()
         configurator.configure(moduleOutput: loginHandler, source: .modal)
-        let navController = UINavigationController(rootViewController: configurator.viewController)
+        let navController = BaseNavigationController(rootViewController: configurator.viewController)
         navigationStack.presentModal(navController, parentViewController: parentViewController)
     }
 }
