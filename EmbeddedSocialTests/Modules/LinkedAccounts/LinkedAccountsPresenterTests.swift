@@ -117,6 +117,10 @@ class LinkedAccountsPresenterTests: XCTestCase {
         testThatItHandlesSwitchTurnOffAction(with: .facebook, switchValueChange: sut.onFacebookSwitchValueChanged)
     }
     
+    func testFacebook_turnOffAction_whenDeleteFails() {
+        testThatItHandlesSwitchTurnOffAction(with: .facebook, switchValueChange: sut.onFacebookSwitchValueChanged)
+    }
+    
     // MARK: - Google Switch Value Changes
 
     func testGoogle_switchTurnOnAction_whenAPISucceeds() {
@@ -132,6 +136,10 @@ class LinkedAccountsPresenterTests: XCTestCase {
     }
     
     func testGoogle_turnOffAction() {
+        testThatItHandlesSwitchTurnOffAction(with: .google, switchValueChange: sut.onGoogleSwitchValueChanged)
+    }
+    
+    func testGoogle_turnOffAction_whenDeleteFails() {
         testThatItHandlesSwitchTurnOffAction(with: .google, switchValueChange: sut.onGoogleSwitchValueChanged)
     }
     
@@ -153,6 +161,10 @@ class LinkedAccountsPresenterTests: XCTestCase {
         testThatItHandlesSwitchTurnOffAction(with: .microsoft, switchValueChange: sut.onMicrosoftSwitchValueChanged)
     }
     
+    func testMicrosoft_turnOffAction_whenDeleteFails() {
+        testThatItHandlesSwitchTurnOffAction(with: .microsoft, switchValueChange: sut.onMicrosoftSwitchValueChanged)
+    }
+    
     // MARK: - Twitter Switch Value Changes
     
     func testTwitter_switchTurnOnAction_whenAPISucceeds() {
@@ -168,6 +180,10 @@ class LinkedAccountsPresenterTests: XCTestCase {
     }
     
     func testTwitter_turnOffAction() {
+        testThatItHandlesSwitchTurnOffAction(with: .twitter, switchValueChange: sut.onTwitterSwitchValueChanged)
+    }
+    
+    func testTwitter_turnOffAction_whenDeleteFails() {
         testThatItHandlesSwitchTurnOffAction(with: .twitter, switchValueChange: sut.onTwitterSwitchValueChanged)
     }
     
@@ -207,6 +223,11 @@ class LinkedAccountsPresenterTests: XCTestCase {
         
         expect(self.view.setSwitchesEnabledCalled).toEventually(beTrue())
         expect(self.view.setSwitchesEnabledReceivedIsEnabled).toEventually(beTrue())
+        
+        expect(self.view.setSwitchOnForCalled).toEventually(beTrue())
+        expect(self.view.setSwitchOnForReceivedArguments?.provider).toEventually(equal(provider))
+        expect(self.view.setSwitchOnForReceivedArguments?.isOn).toEventually(beFalse())
+
         expect(self.view.showErrorCalled).toEventually(beTrue())
         expect(self.view.showErrorReceivedError).toEventually(matchError(APIError.unknown))
     }
@@ -231,6 +252,10 @@ class LinkedAccountsPresenterTests: XCTestCase {
         expect(self.view.setSwitchesEnabledReceivedIsEnabled).toEventually(beTrue())
         expect(self.view.showErrorCalled).toEventually(beTrue())
         expect(self.view.showErrorReceivedError).toEventually(matchError(APIError.unknown))
+        
+        expect(self.view.setSwitchOnForCalled).toEventually(beTrue())
+        expect(self.view.setSwitchOnForReceivedArguments?.provider).toEventually(equal(provider))
+        expect(self.view.setSwitchOnForReceivedArguments?.isOn).toEventually(beFalse())
     }
     
     func testThatItHandlesSwitchTurnOffAction(with provider: AuthProvider, switchValueChange: (Bool) -> Void) {
@@ -246,6 +271,28 @@ class LinkedAccountsPresenterTests: XCTestCase {
 
         expect(self.view.setSwitchesEnabledCalled).toEventually(beTrue())
         expect(self.view.setSwitchesEnabledReceivedIsEnabled).toEventually(beTrue())
+    }
+    
+    func testThatItHandlesSwitchTurnOffActionWithError(with provider: AuthProvider, switchValueChange: (Bool) -> Void) {
+        // given
+        interactor.deleteLinkedAccountProviderCompletionReturnValue = .failure(APIError.unknown)
+        
+        // when
+        switchValueChange(false)
+        
+        // then
+        expect(self.interactor.deleteLinkedAccountProviderCompletionCalled).toEventually(beTrue())
+        expect(self.interactor.deleteLinkedAccountProviderCompletionReceivedProvider).toEventually(equal(provider))
+        
+        expect(self.view.setSwitchesEnabledCalled).toEventually(beTrue())
+        expect(self.view.setSwitchesEnabledReceivedIsEnabled).toEventually(beFalse())
+        
+        expect(self.view.showErrorCalled).toEventually(beTrue())
+        expect(self.view.showErrorReceivedError).toEventually(matchError(APIError.unknown))
+        
+        expect(self.view.setSwitchOnForCalled).toEventually(beTrue())
+        expect(self.view.setSwitchOnForReceivedArguments?.provider).toEventually(equal(provider))
+        expect(self.view.setSwitchOnForReceivedArguments?.isOn).toEventually(beTrue())
     }
 }
 
