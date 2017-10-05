@@ -71,6 +71,9 @@ extension UserProfileHeaderView {
         summaryView.theme = theme
         
         filterView.apply(theme: theme)
+        filterView.backgroundColor = theme?.palette.topicBackground
+        filterView.separatorColor = theme?.palette.contentBackground
+
         summaryView.apply(theme: theme)
         
         backgroundColor = .clear

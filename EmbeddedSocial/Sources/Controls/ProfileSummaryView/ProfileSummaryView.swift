@@ -155,6 +155,9 @@ extension ProfileSummaryView: Themeable {
         guard let palette = theme?.palette else {
             return
         }
+        
+        backgroundColor = palette.topicBackground
+        
         nameLabel.textColor = palette.textPrimary
         detailsLabel.textColor = palette.textPrimary
         

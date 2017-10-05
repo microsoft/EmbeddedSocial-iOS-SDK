@@ -81,7 +81,7 @@ extension ReplyCell {
         backgroundColor = palette.contentBackground
         
         totalLikesButton.setTitleColor(palette.topicSecondaryText, for: .normal)
-        totalLikesButton.titleLabel.font = AppFonts.small
+        totalLikesButton.titleLabel?.font = AppFonts.small
         
         postTimeLabel.textColor = palette.topicSecondaryText
         postTimeLabel.font = AppFonts.medium

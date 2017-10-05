@@ -51,7 +51,6 @@ class UserProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        apply(theme: theme)
         output.viewIsReady()
     }
     
@@ -76,16 +75,12 @@ extension UserProfileViewController: UserProfileViewInput {
     }
     
     func setupInitialState() {
-        view.backgroundColor = Palette.extraLightGrey
         navigationItem.rightBarButtonItems = [createPostButton, UIBarButtonItem(customView: self.feedLayoutButton)]
+        apply(theme: theme)
     }
     
     func setFeedViewController(_ feedViewController: UIViewController) {
-        feedViewController.willMove(toParentViewController: self)
-        addChildViewController(feedViewController)
-        feedViewController.didMove(toParentViewController: self)
-        
-        view.addSubview(feedViewController.view)
+        addChildController(feedViewController)
         
         feedViewController.view.snp.makeConstraints { make in
             make.left.equalTo(self.view).offset(Constants.FeedModule.Collection.containerPadding)
@@ -104,6 +99,7 @@ extension UserProfileViewController: UserProfileViewInput {
             return
         }
         
+        reusableView.backgroundColor = .clear
         reusableView.addSubview(headerView)
         headerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -158,41 +154,11 @@ extension UserProfileViewController: Themeable {
         guard let palette = theme?.palette else {
             return
         }
+        view.backgroundColor = palette.contentBackground
         feedLayoutButton.tintColor = palette.navigationBarTint
         stickyFilterView.apply(theme: theme)
+        stickyFilterView.backgroundColor = theme?.palette.topicBackground
+        stickyFilterView.separatorColor = theme?.palette.contentBackground
         headerView.apply(theme: theme)
-        view.backgroundColor = palette.contentBackground
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
