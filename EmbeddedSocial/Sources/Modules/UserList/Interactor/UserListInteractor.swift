@@ -10,7 +10,7 @@ class UserListInteractor: UserListInteractorInput {
     weak var output: UserListInteractorOutput?
 
     private let socialService: SocialServiceType
-    private var listProcessor: UsersListProcessorType
+    private var listProcessor: AbstractPaginatedListProcessor<User>
 
     var isLoadingList: Bool {
         return listProcessor.isLoadingList
@@ -20,7 +20,7 @@ class UserListInteractor: UserListInteractorInput {
         return listProcessor.listHasMoreItems
     }
     
-    init(listProcessor: UsersListProcessorType, socialService: SocialServiceType) {
+    init(listProcessor: AbstractPaginatedListProcessor<User>, socialService: SocialServiceType) {
         self.socialService = socialService
         self.listProcessor = listProcessor
         self.listProcessor.delegate = self
@@ -56,7 +56,7 @@ class UserListInteractor: UserListInteractorInput {
     }
 }
 
-extension UserListInteractor: UsersListProcessorDelegate {
+extension UserListInteractor: AbstractPaginatedListProcessor<User> {
     
     func didUpdateListLoadingState(_ isLoading: Bool) {
         output?.didUpdateListLoadingState(isLoading)

@@ -5,13 +5,13 @@
 
 import Foundation
 
-struct PaginatedResponse<Item, Cursor> {
+struct PaginatedResponse<Item> {
     let items: [Item]
     let hasMore: Bool
     let error: Error?
-    let cursor: Cursor?
+    let cursor: String?
     
-    init(items: [Item] = [], hasMore: Bool = true, error: Error? = nil, cursor: Cursor? = nil) {
+    init(items: [Item] = [], hasMore: Bool = true, error: Error? = nil, cursor: String? = nil) {
         self.items = items
         self.hasMore = hasMore
         self.error = error
@@ -19,7 +19,7 @@ struct PaginatedResponse<Item, Cursor> {
     }
 }
 
-extension PaginatedResponse where Item == User, Cursor == String {
+extension PaginatedResponse where Item == User {
     func reduce(result: Result<UsersListResponse>) -> PaginatedResponse {
         let itemsToAdd = result.value?.users ?? []
         return PaginatedResponse(items: items + itemsToAdd,

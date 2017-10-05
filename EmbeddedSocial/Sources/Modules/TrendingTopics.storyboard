@@ -11,7 +11,7 @@
         <!--Trending Topics View Controller-->
         <scene sceneID="VUK-bV-NjH">
             <objects>
-                <viewController storyboardIdentifier="TrendingTopicsViewController" id="fvP-rb-siv" customClass="TrendingTopicsViewController" customModule="EmbeddedSocial" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TrendingTopicsViewController" id="fvP-rb-siv" customClass="TrendingTopicsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NzO-Tg-wuR"/>
                         <viewControllerLayoutGuide type="bottom" id="Fis-je-B0e"/>
@@ -19,12 +19,27 @@
                     <view key="view" contentMode="scaleToFill" id="o8d-rq-uJ6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="h0u-rJ-wN8">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="h0u-rJ-wN8" firstAttribute="top" secondItem="o8d-rq-uJ6" secondAttribute="top" id="6w3-by-6Yz"/>
+                            <constraint firstItem="h0u-rJ-wN8" firstAttribute="leading" secondItem="o8d-rq-uJ6" secondAttribute="leading" id="TmZ-n6-cOr"/>
+                            <constraint firstItem="Fis-je-B0e" firstAttribute="top" secondItem="h0u-rJ-wN8" secondAttribute="bottom" id="haK-kq-UqT"/>
+                            <constraint firstAttribute="trailing" secondItem="h0u-rJ-wN8" secondAttribute="trailing" id="kfW-62-SGk"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="h0u-rJ-wN8" id="cir-0X-sEd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="djB-nr-9Ni" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-185" y="251"/>
+            <point key="canvasLocation" x="-186.40000000000001" y="250.52473763118442"/>
         </scene>
     </scenes>
 </document>

@@ -7,5 +7,13 @@ import Foundation
 
 class TrendingTopicsViewController: UIViewController {
     
+    @IBOutlet fileprivate weak var tableView: UITableView!
     
+}
+
+extension TrendingTopicsViewController: TrendingTopicsViewInput {
+    
+    func setHashtags(_ hashtags: [Hashtag]) {
+        
+    }
 }
