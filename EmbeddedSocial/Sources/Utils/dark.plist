@@ -23,9 +23,9 @@
 	<key>separator</key>
 	<string>#eeeeee</string>
 	<key>textPlaceholder</key>
-	<string>#060000</string>
+	<string>#808080</string>
 	<key>loadingIndicator</key>
-	<string>#7a7a7a</string>
+	<string>#a0a0a0</string>
 	<key>topicBackground</key>
 	<string>#303030</string>
 	<key>topicsFeedBackground</key>

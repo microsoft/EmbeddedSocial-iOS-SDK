@@ -18,5 +18,6 @@ extension CommentCell: Themeable {
         userName.textColor = palette.textPrimary
         likesCountButton.setTitleColor(palette.textPrimary, for: .normal)
         repliesCountButton.setTitleColor(palette.textPrimary, for: .normal)
+        separator.backgroundColor = palette.separator
     }
 }

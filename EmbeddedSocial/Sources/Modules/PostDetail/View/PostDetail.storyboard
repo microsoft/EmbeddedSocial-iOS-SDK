@@ -123,6 +123,7 @@
                     <connections>
                         <outlet property="bottomConstraint" destination="oIj-SC-CKh" id="kAX-2V-McZ"/>
                         <outlet property="collectionView" destination="wSC-Nv-S9L" id="h6U-A0-EgW"/>
+                        <outlet property="commentInputContainer" destination="Hky-KE-Hsj" id="VVn-Wk-8Ws"/>
                         <outlet property="commentTextView" destination="UWb-fe-MDv" id="wwy-3N-4KH"/>
                         <outlet property="commentTextViewHeightConstraint" destination="SDv-1s-D72" id="5Qb-GQ-bBC"/>
                         <outlet property="mediaButton" destination="NYZ-dv-R0E" id="G1m-NE-1rS"/>

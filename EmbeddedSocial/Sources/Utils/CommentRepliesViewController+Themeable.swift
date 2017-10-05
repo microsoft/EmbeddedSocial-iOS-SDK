@@ -13,7 +13,18 @@ extension CommentRepliesViewController: Themeable {
         }
         view.backgroundColor = palette.contentBackground
         collectionView.backgroundColor = palette.contentBackground
+        
         postButton.setTitleColor(palette.controlHighlighted, for: .normal)
+        postButton.titleLabel?.font = AppFonts.medium
+        
+        replyInputContainer.backgroundColor = palette.contentBackground
+        
+        let attrs: [String: Any] = [NSForegroundColorAttributeName: palette.textPlaceholder, NSFontAttributeName: AppFonts.medium]
         replyTextView.textColor = palette.textPrimary
+        replyTextView.attributedPlaceholder = NSAttributedString(string: L10n.PostDetails.commentPlaceholder, attributes: attrs)
+        replyTextView.font = AppFonts.medium
+        replyTextView.backgroundColor = palette.contentBackground
+        
+        refreshControl.tintColor = palette.loadingIndicator
     }
 }

@@ -1026,7 +1026,6 @@
 		CCEF0A3F609F1EE21AE975DC /* CommentRepliesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04309D4B677733DD5F9F4809 /* CommentRepliesPresenter.swift */; };
 		D8AF057A0B27A37AF1438B4E /* CommentRepliesRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD82867111B8BF3556D3CC /* CommentRepliesRouterInput.swift */; };
 		EAA0D00B523CD9524F3FA49E /* Pods_Group_EmbeddedSocial_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52296AA3EA7D51EFEFEED2C1 /* Pods_Group_EmbeddedSocial_Example.framework */; };
-		EB45E0D87E3DCF49B5A22162 /* CommentRepliesInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC43B539B5A91FF6D4EAB9B /* CommentRepliesInitializer.swift */; };
 		EC75A126A73CC5F294926613 /* CommentRepliesConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C6D69159F11B9D4D3F7000 /* CommentRepliesConfigurator.swift */; };
 		ED9BC53643CA7A3E7A3106DC /* CommentCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1F824A8069868818F477BD /* CommentCellConfigurator.swift */; };
 /* End PBXBuildFile section */
@@ -1085,7 +1084,6 @@
 		32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellProtocol.swift; sourceTree = "<group>"; };
 		33AA90FDAE2627B036CBE5CC /* CommentRepliesInteractorInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesInteractorInput.swift; sourceTree = "<group>"; };
 		3A5F5E4F68BFB6D073137B6D /* Pods-Group-EmbeddedSocialUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Group-EmbeddedSocialUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Group-EmbeddedSocialUITests/Pods-Group-EmbeddedSocialUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		4BC43B539B5A91FF6D4EAB9B /* CommentRepliesInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesInitializer.swift; sourceTree = "<group>"; };
 		4BCD82867111B8BF3556D3CC /* CommentRepliesRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesRouterInput.swift; sourceTree = "<group>"; };
 		506163A2149B59C12FA2F531 /* CommentCellViewInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentCellViewInput.swift; sourceTree = "<group>"; };
 		52296AA3EA7D51EFEFEED2C1 /* Pods_Group_EmbeddedSocial_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Group_EmbeddedSocial_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5537,7 +5535,6 @@
 			isa = PBXGroup;
 			children = (
 				74C6D69159F11B9D4D3F7000 /* CommentRepliesConfigurator.swift */,
-				4BC43B539B5A91FF6D4EAB9B /* CommentRepliesInitializer.swift */,
 			);
 			path = Configurator;
 			sourceTree = "<group>";
@@ -6890,7 +6887,6 @@
 				88C6825C1F7A4DFD004BD291 /* FollowRequestsRouter.swift in Sources */,
 				88204FB21F580DA800E15F5A /* RequestExecutionStrategy.swift in Sources */,
 				EC75A126A73CC5F294926613 /* CommentRepliesConfigurator.swift in Sources */,
-				EB45E0D87E3DCF49B5A22162 /* CommentRepliesInitializer.swift in Sources */,
 				885E04091F6FC18B00D6EBD8 /* CommentCommandOperation.swift in Sources */,
 				88EBD2141F6BECC700F9DDFC /* SuggestedUsersViewOutput.swift in Sources */,
 				88E662061F7A7A6100C98526 /* FollowRequestCell+Ext.swift in Sources */,

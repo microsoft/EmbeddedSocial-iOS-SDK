@@ -31,6 +31,8 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var replyInputContainer: UIView!
+    
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -189,20 +191,23 @@ extension CommentRepliesViewController: UICollectionViewDataSource {
         case RepliesSections.comment.rawValue:
             let cell = output.mainCommentCell()
             cell.repliesButton.isHidden = true
+            cell.apply(theme: theme)
             return cell
         case RepliesSections.loadMore.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadMoreCell.reuseID, for: indexPath) as! LoadMoreCell
             cell.configure(viewModel: output.loadCellModel())
+            cell.apply(theme: theme)
             cell.delegate = self
             return cell
-            case RepliesSections.replies.rawValue:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
-                cell.config(replyView: output.replyView(index: indexPath.row))
-                cell.tag = indexPath.row
-                return cell
-            default:
-                return UICollectionViewCell()
-            }
+        case RepliesSections.replies.rawValue:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
+            cell.config(replyView: output.replyView(index: indexPath.row))
+            cell.tag = indexPath.row
+            cell.apply(theme: theme)
+            return cell
+        default:
+            return UICollectionViewCell()
+        }
     }
 }
 
