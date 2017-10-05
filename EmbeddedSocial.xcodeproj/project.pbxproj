@@ -705,6 +705,7 @@
 		88BC87421F14FA1B00EAEFD7 /* EmbeddedSocial.h in Headers */ = {isa = PBXBuildFile; fileRef = 88BC873F1F14FA1B00EAEFD7 /* EmbeddedSocial.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		88BC87571F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
+		88C665041F86620000A7763D /* MockAppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C665031F86620000A7763D /* MockAppConfiguration.swift */; };
 		88C682351F78EFE4004BD291 /* MockOutgoingCommandsUploadStrategyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C682341F78EFE4004BD291 /* MockOutgoingCommandsUploadStrategyDelegate.swift */; };
 		88C682371F78F240004BD291 /* MockRelatedHandleUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C682361F78F240004BD291 /* MockRelatedHandleUpdater.swift */; };
 		88C682391F7939D6004BD291 /* TopicCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C682381F7939D6004BD291 /* TopicCommandTests.swift */; };
@@ -1343,10 +1344,10 @@
 		8839B8751F83B6A100D97BE6 /* APIBasePathSetupCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIBasePathSetupCommand.swift; sourceTree = "<group>"; };
 		8839B8771F83B6E200D97BE6 /* AppThemeConfigurationCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppThemeConfigurationCommand.swift; sourceTree = "<group>"; };
 		8839B8791F83BA8600D97BE6 /* dark.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dark.plist; sourceTree = "<group>"; };
-		8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UISegmentedControl+Themeable.swift"; path = "UISegmentedControl+Themeable.swift"; sourceTree = "<group>"; };
-		8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CommentCell+Themeable.swift"; path = "CommentCell+Themeable.swift"; sourceTree = "<group>"; };
-		8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CommentRepliesViewController+Themeable.swift"; path = "CommentRepliesViewController+Themeable.swift"; sourceTree = "<group>"; };
-		8839B8871F8503B100D97BE6 /* PostCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PostCell+Themeable.swift"; path = "PostCell+Themeable.swift"; sourceTree = "<group>"; };
+		8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Themeable.swift"; sourceTree = "<group>"; };
+		8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentCell+Themeable.swift"; sourceTree = "<group>"; };
+		8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentRepliesViewController+Themeable.swift"; sourceTree = "<group>"; };
+		8839B8871F8503B100D97BE6 /* PostCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PostCell+Themeable.swift"; sourceTree = "<group>"; };
 		883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModelTests.swift; sourceTree = "<group>"; };
 		883B9B5F1F276BCF00D1E66E /* TestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModel.xcdatamodel; sourceTree = "<group>"; };
 		883B9B631F2776E600D1E66E /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -1816,6 +1817,7 @@
 		88BC873F1F14FA1B00EAEFD7 /* EmbeddedSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmbeddedSocial.h; sourceTree = "<group>"; };
 		88BC87401F14FA1B00EAEFD7 /* EmbeddedSocial.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = EmbeddedSocial.modulemap; sourceTree = "<group>"; };
 		88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		88C665031F86620000A7763D /* MockAppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAppConfiguration.swift; sourceTree = "<group>"; };
 		88C682341F78EFE4004BD291 /* MockOutgoingCommandsUploadStrategyDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockOutgoingCommandsUploadStrategyDelegate.swift; sourceTree = "<group>"; };
 		88C682361F78F240004BD291 /* MockRelatedHandleUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockRelatedHandleUpdater.swift; sourceTree = "<group>"; };
 		88C682381F7939D6004BD291 /* TopicCommandTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicCommandTests.swift; sourceTree = "<group>"; };
@@ -2993,7 +2995,6 @@
 				8839B8701F83B5CC00D97BE6 /* Command.swift */,
 				8839B8731F83B60E00D97BE6 /* ThirdPartiesConfigurationCommand.swift */,
 			);
-			name = StartupCommands;
 			path = StartupCommands;
 			sourceTree = "<group>";
 		};
@@ -3950,7 +3951,6 @@
 				8839B8791F83BA8600D97BE6 /* dark.plist */,
 				88640D751F82918A0004CDF9 /* light.plist */,
 			);
-			name = Theming;
 			path = Theming;
 			sourceTree = "<group>";
 		};
@@ -4387,6 +4387,7 @@
 				889AFC151F220BCD003AAF19 /* MockAuthAPIProvider.swift */,
 				88F7A7881F27896B005FEC5F /* MockAuthService.swift */,
 				8886AA561F6A85B800734F3C /* MockAuthorizationMulticast.swift */,
+				88C665031F86620000A7763D /* MockAppConfiguration.swift */,
 				8811C8391F41F30B00F7513D /* MockCache.swift */,
 				93AC65AD1F3E05DA00FE5A3A /* MockCommentService.swift */,
 				8881E4E61F697D7200AA6DF2 /* MockDaemon.swift */,
@@ -4824,7 +4825,6 @@
 				88640D6E1F828B0C0004CDF9 /* Theming */,
 				88D35FB31F8381C1008BB38C /* AppConfiguration.swift */,
 			);
-			name = AppConfiguration;
 			path = AppConfiguration;
 			sourceTree = "<group>";
 		};
@@ -4835,7 +4835,6 @@
 				88A9704B1F83A78D0047D591 /* ThemePaletteTests.swift */,
 				88A970491F83A7420047D591 /* ThemeTests.swift */,
 			);
-			name = AppConfiguration;
 			path = AppConfiguration;
 			sourceTree = "<group>";
 		};
@@ -5274,8 +5273,6 @@
 		8EF0E5B01F1FA61D00E88ED6 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
-				8E5FCAB01F821C5500A81E2E /* block_user_delete.json */,
-				8E5FCAAE1F821C3600A81E2E /* block_user_post.json */,
 				8EAF45A01F698A350046F704 /* comment.json */,
 				8EAF459F1F698A350046F704 /* comment_post.json */,
 				8E6070691F3D9E4000110F4F /* follower.json */,
@@ -7399,6 +7396,7 @@
 				88B2D67D1F7BAB9100920E43 /* MockFollowRequestsInteractor.swift in Sources */,
 				88087B4A1F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift in Sources */,
 				88B2D68F1F7BE7CA00920E43 /* UsersListResponseProcessorTests.swift in Sources */,
+				88C665041F86620000A7763D /* MockAppConfiguration.swift in Sources */,
 				8811C89F1F44332B00F7513D /* EmbeddedEditProfilePresenterTests.swift in Sources */,
 				880AFD631F70064C00378710 /* UnlikeReplyOperationTests.swift in Sources */,
 				889119BA1F4AF7CF005B3B32 /* SearchInteractorTests.swift in Sources */,

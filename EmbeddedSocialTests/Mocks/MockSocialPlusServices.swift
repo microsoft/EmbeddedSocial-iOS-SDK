@@ -92,53 +92,27 @@ class MockSocialPlusServices: SocialPlusServicesType {
         return getDaemonsControllerCacheReturnValue
     }
     
-}
+    //MARK: - getStartupCommands
 
-/*final class MockSocialPlusServices: SocialPlusServicesType {
+    var getStartupCommandsCalled = false
+    var getStartupCommandsReceivedLaunchArgs: LaunchArguments?
+    var getStartupCommandsReturnValue: [Command]!
     
-    var thirdPartyConfigurator: ThirdPartyConfiguratorType!
-    var urlSchemeService: URLSchemeServiceType!
-    var sessionStoreRepositoriesProvider: SessionStoreRepositoryProviderType!
-    var authorizationMulticast: AuthorizationMulticastType!
-    
-    func getURLSchemeService() -> URLSchemeServiceType {
-        return urlSchemeService
+    func getStartupCommands(launchArgs: LaunchArguments) -> [Command] {
+        getStartupCommandsCalled = true
+        getStartupCommandsReceivedLaunchArgs = launchArgs
+        return getStartupCommandsReturnValue
     }
     
-    func getSessionStoreRepositoriesProvider() -> SessionStoreRepositoryProviderType {
-        return sessionStoreRepositoriesProvider
-    }
+    //MARK: - getAppConfiguration
     
-    func getThirdPartyConfigurator() -> ThirdPartyConfiguratorType {
-        return thirdPartyConfigurator
-    }
-    
-    func getCoreDataStack() -> CoreDataStack {
-        return CoreDataHelper.makeEmbeddedSocialInMemoryStack()
-    }
-    
-    func getCache(coreDataStack stack: CoreDataStack) -> CacheType {
-        let database = TransactionsDatabaseFacade(incomingRepo: CoreDataRepository(context: stack.backgroundContext),
-                                                  outgoingRepo: CoreDataRepository(context: stack.backgroundContext))
-        return Cache(database: database)
-    }
-    
-    func getNetworkTracker() -> NetworkTrackerType {
-        return NetworkTracker()
-    }
-    
-    func getAuthorizationMulticast() -> AuthorizationMulticastType {
-        return authorizationMulticast!
-    }
-    
-    var getDaemonsControllerCalled = false
-    var getDaemonsControllerInputCache: CacheType?
-    var getDaemonsControllerReturnValue: Daemon = MockDaemon()
-    
-    func getDaemonsController(cache: CacheType) -> Daemon {
-        getDaemonsControllerCalled = true
-        getDaemonsControllerInputCache = cache
-        return getDaemonsControllerReturnValue
+    var getAppConfigurationCalled = false
+    var getAppConfigurationReceivedConfigFilename: String?
+    var getAppConfigurationReturnValue: AppConfigurationType!
+
+    func getAppConfiguration(configFilename: String) -> AppConfigurationType {
+        getAppConfigurationCalled = true
+        getAppConfigurationReceivedConfigFilename = configFilename
+        return getAppConfigurationReturnValue
     }
 }
-*/

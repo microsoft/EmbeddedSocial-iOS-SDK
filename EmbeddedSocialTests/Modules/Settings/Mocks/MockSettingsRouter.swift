@@ -23,4 +23,10 @@ final class MockSettingsRouter: SettingsRouterInput {
         openLinkedAccountsCalled = true
         openLinkedAccountsInputSessionToken = sessionToken
     }
+    
+    // MARK: - openLink
+
+    func openLink(type: SettingsLinkRouter) {
+        
+    }
 }
