@@ -178,7 +178,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     fileprivate var cursor: String? = nil
     fileprivate var limit: Int32 = Int32(Constants.Feed.pageSize)
     fileprivate var items = [Post]()
-    fileprivate var fetchRequests: Set<String> = Set()
+    fileprivate var fetchRequestsInProgress: Set<String> = Set()
     fileprivate var header: SupplementaryItemModel?
     
     var headerSize: CGSize {
@@ -213,6 +213,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     private func onLayoutTypeChange() {
+        // Invalidate subsequent responses
+        fetchRequestsInProgress = Set()
         view.setLayout(type: self.layout)
         view.paddingEnabled = collectionPaddingNeeded()
     }
@@ -250,7 +252,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func makeFetchRequest(requestID: String = UUID().uuidString, cursor: String? = nil, feedType: FeedType) -> FeedFetchRequest {
-        fetchRequests.insert(requestID)
+        fetchRequestsInProgress.insert(requestID)
         return FeedFetchRequest(uid: requestID, cursor: cursor, limit: limit, feedType: feedType)
     }
  
@@ -268,7 +270,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         cursor = nil
         items = []
         view.reload()
-        fetchRequests = Set()
+        fetchRequestsInProgress = Set()
         fetchItems()
     }
     
@@ -279,7 +281,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
-        fetchRequests = Set()
+        fetchRequestsInProgress = Set()
         fetchItems(with: cursor)
     }
     
@@ -453,9 +455,11 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     private func processFetchResult(feed: Feed, isMore: Bool) {
         
-        guard fetchRequests.contains(feed.fetchID), feedType == feed.feedType else {
+        guard fetchRequestsInProgress.contains(feed.fetchID), feedType == feed.feedType else {
             return
         }
+        
+        Logger.log("items arrived", event: .veryImportant)
         
         let cachedNumberOfItems = items.count
         
@@ -475,18 +479,21 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         if cachedNumberOfItems == 0 {
             view.reload()
         }
-        else if shouldAddItems > 0 {
-            let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
-            view.insertNewItems(with: paths)
+        else {
+            
+            if shouldAddItems > 0 {
+                let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
+                view.insertNewItems(with: paths)
+            }
+            else if shouldRemoveItems > 0 {
+                let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
+                view.removeItems(with: paths)
+            }
+            
+            // update data for rest of cells
+            view.reloadVisible()
         }
-        else if shouldRemoveItems > 0 {
-            let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
-            view.removeItems(with: paths)
-        }
-        
-        // update visible
-        view.reloadVisible()
-        
+    
         // update "No content"
         checkIfNoContent()
     }
