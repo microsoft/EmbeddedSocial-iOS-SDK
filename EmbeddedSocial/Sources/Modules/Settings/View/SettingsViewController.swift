@@ -16,11 +16,14 @@ class SettingsViewController: UITableViewController {
     var output: SettingsViewOutput!
     
     @IBOutlet fileprivate weak var privacySwitch: UISwitch!
+    @IBOutlet fileprivate weak var privacyLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = Constants.standardCellHeight
+        tableView.tableFooterView = UIView()
+        apply(theme: theme)
         output.viewIsReady()
     }
     
@@ -46,6 +49,11 @@ class SettingsViewController: UITableViewController {
     @IBAction func onPrivacySwitch(_ sender: UISwitch) {
         output.onPrivacySwitch()
     }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as? UITableViewHeaderFooterView
+        header?.textLabel?.textColor = theme?.palette.textSecondary
+    }
 }
 
 extension SettingsViewController: SettingsViewInput {
@@ -62,3 +70,22 @@ extension SettingsViewController: SettingsViewInput {
     }
 }
 
+extension SettingsViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        tableView.backgroundColor = palette.contentBackground
+        
+        privacyLabel.textColor = palette.textPrimary
+        
+        for section in 0..<tableView.numberOfSections {
+            for row in 0..<tableView.numberOfRows(inSection: section) {
+                let cell = tableView.cellForRow(at: IndexPath(row: row, section: section))
+                cell?.textLabel?.textColor = palette.textPrimary
+                cell?.backgroundColor = palette.tableGroupHeaderBackground
+            }
+        }
+    }
+}

@@ -71,35 +71,6 @@ extension EmbeddedEditProfileView: Themeable {
         }
         backgroundColor = palette.contentBackground
         tableView.backgroundColor = palette.contentBackground
+        
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -70,5 +70,6 @@ extension UploadPhotoCell: Themeable {
             return
         }
         uploadLabel.textColor = palette.textPrimary
+        backgroundColor = palette.contentBackground
     }
 }

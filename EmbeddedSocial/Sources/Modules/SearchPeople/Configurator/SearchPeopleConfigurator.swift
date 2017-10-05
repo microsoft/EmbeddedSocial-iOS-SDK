@@ -19,15 +19,15 @@ final class SearchPeopleConfigurator {
         let presenter = SearchPeoplePresenter()
         
         presenter.view = viewController
-        presenter.usersListModule = makeUserListModule(api: EmptyUsersListAPI(), noDataText: nil,
-                                                       navigationController: navigationController, output: presenter)
+        presenter.usersListModule = makeUserListModule(api: EmptyUsersListAPI(),
+                                                       navigationController: navigationController,
+                                                       output: presenter)
         presenter.interactor = interactor
         presenter.moduleOutput = output
         
         if isLoggedInUser {
             presenter.backgroundUsersListModule = makeUserListModule(
                 api: EmptyUsersListAPI(),
-                noDataText: nil,
                 navigationController: navigationController,
                 output: presenter
             )
@@ -40,14 +40,12 @@ final class SearchPeopleConfigurator {
     }
     
     private func makeUserListModule(api: UsersListAPI,
-                                    noDataText: NSAttributedString?,
                                     navigationController: UINavigationController?,
                                     output: UserListModuleOutput?) -> UserListModuleInput {
         
         let settings = UserListConfigurator.Settings(api: api,
                                                      navigationController: navigationController,
-                                                     output: output,
-                                                     noDataText: noDataText)
+                                                     output: output)
         
         return UserListConfigurator().configure(with: settings)
     }

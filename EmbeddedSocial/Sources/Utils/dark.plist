@@ -11,11 +11,11 @@
 	<key>controlHighlightedTitle</key>
 	<string>#ffffff</string>
 	<key>navigationBarBackground</key>
-	<string>#f7f7f7</string>
+	<string>#212121</string>
 	<key>navigationBarTint</key>
-	<string>#007aff</string>
+	<string>#ffffff</string>
 	<key>navigationBarTitle</key>
-	<string>#000000</string>
+	<string>#ffffff</string>
 	<key>textPrimary</key>
 	<string>#ffffffdf</string>
 	<key>textSecondary</key>
@@ -31,7 +31,7 @@
 	<key>topicsFeedBackground</key>
 	<string>#404040</string>
 	<key>tableGroupHeaderBackground</key>
-	<string>#eeeeee</string>
+	<string>#606060</string>
 	<key>topicSecondaryText</key>
 	<string>#999999</string>
 </dict>

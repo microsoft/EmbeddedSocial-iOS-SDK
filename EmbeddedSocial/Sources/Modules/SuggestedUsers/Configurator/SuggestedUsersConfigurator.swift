@@ -29,7 +29,7 @@ final class SuggestedUsersConfigurator {
         
         let noDataText = NSAttributedString(string: L10n.SuggestedUsers.noDataText,
                                             attributes: [NSFontAttributeName: AppFonts.medium,
-                                                         NSForegroundColorAttributeName: Palette.darkGrey])
+                                                         NSForegroundColorAttributeName: SocialPlus.palette.textPrimary])
         
         let api = SuggestedUsersAPI(socialService: SocialService(), authorization: authorization)
         

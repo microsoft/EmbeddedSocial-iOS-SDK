@@ -137,6 +137,7 @@ extension TextFieldCell {
         onTextChanged = style.onTextChanged
         
         customContentView.backgroundColor = style.contentBackgroundColor
+        backgroundColor = style.contentBackgroundColor
         
         customContentView.snp.remakeConstraints { make in
             make.edges.equalTo(style.edgeInsets)
