@@ -483,12 +483,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             
             if shouldAddItems > 0 {
                 let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
-                Logger.log("inserting \(paths)", event: .veryImportant)
                 view.insertNewItems(with: paths)
             }
             else if shouldRemoveItems > 0 {
                 let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
-                print("removing \(paths)")
                 view.removeItems(with: paths)
             }
             
