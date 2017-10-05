@@ -14,7 +14,10 @@ extension FollowRequestCell {
             return tableView?.indexPath(for: cell)
         }
         self.onAction = onAction
-        
+        apply(theme: theme)
+    }
+    
+    func apply(theme: Theme?) {
         profileName.textColor = theme?.palette.textPrimary
         backgroundColor = theme?.palette.contentBackground
     }

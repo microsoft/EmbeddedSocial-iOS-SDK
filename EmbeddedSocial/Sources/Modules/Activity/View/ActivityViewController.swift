@@ -59,7 +59,6 @@ class ActivityViewController: UIViewController {
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         tableView.delegate = self
-        segmentControl.tintColor = Palette.green
         
         tableView.addSubview(self.refreshControl)
     }
@@ -169,12 +168,12 @@ extension ActivityViewController: UIScrollViewDelegate {
 extension ActivityViewController: Themeable {
     
     func apply(theme: Theme?) {
-        guard let theme = theme else {
+        guard let palette = theme?.palette else {
             return
         }
-        let palette = theme.palette
         view.backgroundColor = palette.contentBackground
         tableView.backgroundColor = palette.contentBackground
+        refreshControl.tintColor = palette.loadingIndicator
         segmentControl.apply(theme: theme)
     }
 }

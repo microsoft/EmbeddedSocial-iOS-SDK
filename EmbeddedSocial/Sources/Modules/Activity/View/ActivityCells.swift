@@ -237,14 +237,14 @@ extension ActivityBaseCell {
                 static var time: [String: Any] {
                     return [
                         NSFontAttributeName: ActivityBaseCell.Style.Fonts.bold,
-                        NSForegroundColorAttributeName: SocialPlus.palette.textPrimary
+                        NSForegroundColorAttributeName: SocialPlus.palette.textSecondary
                     ]
                 }
                 
                 static var normal: [String: Any] {
                     return [
                         NSFontAttributeName: ActivityBaseCell.Style.Fonts.bold,
-                        NSForegroundColorAttributeName: SocialPlus.palette.textSecondary
+                        NSForegroundColorAttributeName: SocialPlus.palette.textPrimary
                     ]
                 }
             }
