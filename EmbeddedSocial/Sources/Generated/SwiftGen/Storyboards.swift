@@ -76,13 +76,13 @@ enum StoryboardScene {
 
     static let createPostViewController = SceneType<EmbeddedSocial.CreatePostViewController>(storyboard: CreatePost.self, identifier: "CreatePostViewController")
   }
-    enum DetailedActivity: StoryboardType {
-        static let storyboardName = "DetailedActivity"
-        
-        static let initialScene = InitialSceneType<EmbeddedSocial.DetailedActivityViewController>(storyboard: DetailedActivity.self)
-        
-        static let detailedActivityViewController = SceneType<EmbeddedSocial.DetailedActivityViewController>(storyboard: DetailedActivity.self, identifier: "DetailedActivityViewController")
-    }
+  enum DetailedActivity: StoryboardType {
+    static let storyboardName = "DetailedActivity"
+
+    static let initialScene = InitialSceneType<EmbeddedSocial.DetailedActivityViewController>(storyboard: DetailedActivity.self)
+
+    static let detailedActivityViewController = SceneType<EmbeddedSocial.DetailedActivityViewController>(storyboard: DetailedActivity.self, identifier: "DetailedActivityViewController")
+  }
   enum EditProfile: StoryboardType {
     static let storyboardName = "EditProfile"
 
@@ -114,6 +114,11 @@ enum StoryboardScene {
     static let storyboardName = "LikesList"
 
     static let likesListViewController = SceneType<EmbeddedSocial.LikesListViewController>(storyboard: LikesList.self, identifier: "LikesListViewController")
+  }
+  enum LinkedAccounts: StoryboardType {
+    static let storyboardName = "LinkedAccounts"
+
+    static let linkedAccountsViewController = SceneType<EmbeddedSocial.LinkedAccountsViewController>(storyboard: LinkedAccounts.self, identifier: "LinkedAccountsViewController")
   }
   enum LinkedAccounts: StoryboardType {
     static let storyboardName = "LinkedAccounts"
@@ -173,6 +178,11 @@ enum StoryboardScene {
     static let storyboardName = "SuggestedUsers"
 
     static let suggestedUsersViewController = SceneType<EmbeddedSocial.SuggestedUsersViewController>(storyboard: SuggestedUsers.self, identifier: "SuggestedUsersViewController")
+  }
+  enum TrendingTopics: StoryboardType {
+    static let storyboardName = "TrendingTopics"
+
+    static let trendingTopicsViewController = SceneType<EmbeddedSocial.TrendingTopicsViewController>(storyboard: TrendingTopics.self, identifier: "TrendingTopicsViewController")
   }
   enum UserProfile: StoryboardType {
     static let storyboardName = "UserProfile"
