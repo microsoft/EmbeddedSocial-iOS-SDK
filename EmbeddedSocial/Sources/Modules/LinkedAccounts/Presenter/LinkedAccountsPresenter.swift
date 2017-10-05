@@ -70,6 +70,7 @@ extension LinkedAccountsPresenter: LinkedAccountsViewOutput {
         interactor.login(with: provider, from: view as? UIViewController) { [weak self] result in
             guard let authorization = result.value else {
                 self?.view.setSwitchesEnabled(true)
+                self?.view.setSwitchOn(false, for: provider)
                 self?.view.showError(result.error ?? APIError.unknown)
                 return
             }
