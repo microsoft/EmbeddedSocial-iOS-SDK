@@ -19,7 +19,7 @@ class SideMenuSectionHeader: UITableViewHeaderFooterView {
     
     lazy var title: UILabel = {
         let label = UILabel()
-        label.font = Fonts.bold.regular
+        label.font = AppFonts.bold.regular
         label.textColor = UIColor.white
         return label
     }()

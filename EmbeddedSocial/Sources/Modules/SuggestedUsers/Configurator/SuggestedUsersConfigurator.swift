@@ -28,8 +28,8 @@ final class SuggestedUsersConfigurator {
                                     output: UserListModuleOutput?) -> UserListModuleInput {
         
         let noDataText = NSAttributedString(string: L10n.SuggestedUsers.noDataText,
-                                            attributes: [NSFontAttributeName: Fonts.medium,
-                                                         NSForegroundColorAttributeName: Palette.darkGrey])
+                                            attributes: [NSFontAttributeName: AppFonts.medium,
+                                                         NSForegroundColorAttributeName: SocialPlus.palette.textPrimary])
         
         let api = SuggestedUsersAPI(socialService: SocialService(), authorization: authorization)
         

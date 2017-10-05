@@ -46,6 +46,8 @@
 "create_post.leave_new_post" = "Going back to the feed will delete the content of this draft, are you sure you want to go back?";
 "create_post.return_to_feed" = "Return to feed?";
 "create_post.button.add_picture" = "Tap here to add a picture";
+"create_post.body_placeholder" = "Text";
+"create_post.title_placeholder" = "Title";
 
 "create_account.screen_title" = "Create an account";
 "create_account.button.sign_up" = "Sign up";
@@ -184,3 +186,5 @@
 "activity.many_persons" = "%@, %@ and %d other people";
 
 "linked_accounts.screen_title" = "Linked accounts";
+
+"post_details.comment_placeholder" = "Type here to comment on this post";

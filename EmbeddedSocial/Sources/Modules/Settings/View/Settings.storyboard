@@ -87,6 +87,7 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="dhz-d6-PDx" secondAttribute="bottom" constant="8" id="vJX-uX-eso"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -128,6 +129,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="BVc-p7-qdu" style="IBUITableViewCellStyleDefault" id="zUC-5U-WjY">
                                         <rect key="frame" x="0.0" y="387.5" width="375" height="44"/>
@@ -145,6 +147,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -155,6 +158,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="privacyLabel" destination="dhz-d6-PDx" id="hkZ-jB-pye"/>
                         <outlet property="privacySwitch" destination="wKI-R6-QhL" id="o7V-1U-Ixz"/>
                     </connections>
                 </tableViewController>

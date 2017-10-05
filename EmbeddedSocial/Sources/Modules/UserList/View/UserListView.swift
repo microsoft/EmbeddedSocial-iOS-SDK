@@ -85,7 +85,9 @@ extension UserListView: UserListViewInput {
         dataManager.setIsLoading(isLoading, user: item.user)
     }
     
-    func setupInitialState() { }
+    func setupInitialState() {
+        apply(theme: theme)
+    }
     
     func setUsers(_ users: [User]) {
         dataManager.setup(with: users)
@@ -131,3 +133,16 @@ extension UserListView: UserListViewInput {
         noDataView?.isHidden = !isEmpty
     }
 }
+
+extension UserListView: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        tableView.backgroundColor = palette.contentBackground
+        refreshControl.tintColor = palette.loadingIndicator
+        noDataLabel.textColor = palette.textPrimary
+    }
+}
+

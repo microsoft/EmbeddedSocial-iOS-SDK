@@ -46,7 +46,8 @@ class ActivityViewController: UIViewController {
         super.viewDidLoad()
         
         setup()
-        
+        apply(theme: theme)
+
         output.viewIsReady()
     }
     
@@ -59,7 +60,6 @@ class ActivityViewController: UIViewController {
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         tableView.delegate = self
-        segmentControl.tintColor = Palette.green
         
         tableView.addSubview(self.refreshControl)
     }
@@ -168,5 +168,18 @@ extension ActivityViewController: UIScrollViewDelegate {
         return scrollView.isReachingEndOfContent(cellHeight: Style.cellSize, cellsPerPage: 5)
     }
     
+}
+
+extension ActivityViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        view.backgroundColor = palette.contentBackground
+        tableView.backgroundColor = palette.contentBackground
+        refreshControl.tintColor = palette.loadingIndicator
+        segmentControl.apply(theme: theme)
+    }
 }
 

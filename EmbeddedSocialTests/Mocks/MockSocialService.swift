@@ -113,4 +113,15 @@ final class MockSocialService: SocialServiceType {
     func getMyPendingRequests(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         
     }
+    
+    
+    var getPopularUsersCalled = false
+    var getPopularUsersInputValues: (cursor: String?, limit: Int)?
+    var getPopularUsersReturnValue: Result<UsersListResponse>!
+    
+    func getPopularUsers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        getPopularUsersCalled = true
+        getPopularUsersInputValues = (cursor, limit)
+        completion(getPopularUsersReturnValue)
+    }
 }

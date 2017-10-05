@@ -17,4 +17,10 @@ extension UsersListResponse {
         cursor = response?.cursor
         self.isFromCache = isFromCache
     }
+    
+    init(response: FeedResponseUserProfileView?, isFromCache: Bool) {
+        users = response?.data?.map { User(profileView: $0) } ?? []
+        cursor = response?.cursor
+        self.isFromCache = isFromCache
+    }
 }
