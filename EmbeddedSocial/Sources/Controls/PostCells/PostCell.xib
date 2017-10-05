@@ -61,7 +61,7 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="xH5-qG-Dco" firstAttribute="centerY" secondItem="bYI-rM-xRs" secondAttribute="centerY" id="0bT-8O-xFy"/>
                                 <constraint firstItem="hIe-cI-XjE" firstAttribute="leading" secondItem="tng-AR-z1W" secondAttribute="trailing" constant="20.5" id="2CW-7k-JFd"/>
@@ -97,7 +97,7 @@
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="WYk-wD-2lQ" firstAttribute="leading" secondItem="iJH-I2-d58" secondAttribute="leading" id="6vq-lL-fQu"/>
                                 <constraint firstAttribute="trailing" secondItem="WYk-wD-2lQ" secondAttribute="trailing" id="8GG-yZ-KDO"/>
@@ -185,7 +185,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="G0a-2Y-w6G" firstAttribute="centerY" secondItem="Ugb-5x-70X" secondAttribute="centerY" id="0fm-Nm-X64"/>
                                 <constraint firstItem="2C6-WJ-LvS" firstAttribute="centerY" secondItem="Ugb-5x-70X" secondAttribute="centerY" id="1Lq-m4-MN8"/>
@@ -219,7 +219,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="3kI-kt-ADv" firstAttribute="leading" secondItem="OEZ-HU-KUq" secondAttribute="leading" id="6mF-Md-SgL"/>
                         <constraint firstItem="Ugb-5x-70X" firstAttribute="top" secondItem="iJH-I2-d58" secondAttribute="bottom" id="BKX-Sv-a61"/>

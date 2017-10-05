@@ -30,6 +30,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         didSet {
             postText.textContainerInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 5)
             postText.textContainer.lineFragmentPadding = 0
+            postText.backgroundColor = .clear
         }
     }
     

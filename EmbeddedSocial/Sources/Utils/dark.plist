@@ -3,12 +3,36 @@
 <plist version="1.0">
 <dict>
 	<key>contentBackground</key>
-	<string>#ffffff</string>
-	<key>accent</key>
+	<string>#303030</string>
+	<key>controlHighlighted</key>
 	<string>#5bbb7b</string>
+	<key>controlUnhighlighted</key>
+	<string>#b0b0b0</string>
+	<key>controlHighlightedTitle</key>
+	<string>#ffffff</string>
 	<key>navigationBarBackground</key>
 	<string>#f7f7f7</string>
 	<key>navigationBarTint</key>
 	<string>#007aff</string>
+	<key>navigationBarTitle</key>
+	<string>#000000</string>
+	<key>textPrimary</key>
+	<string>#ffffffdf</string>
+	<key>textSecondary</key>
+	<string>#ffffffaa</string>
+	<key>separator</key>
+	<string>#eeeeee</string>
+	<key>textPlaceholder</key>
+	<string>#060000</string>
+	<key>loadingIndicator</key>
+	<string>#7a7a7a</string>
+	<key>topicBackground</key>
+	<string>#303030</string>
+	<key>topicsFeedBackground</key>
+	<string>#404040</string>
+	<key>tableGroupHeaderBackground</key>
+	<string>#eeeeee</string>
+	<key>topicSecondaryText</key>
+	<string>#999999</string>
 </dict>
 </plist>
