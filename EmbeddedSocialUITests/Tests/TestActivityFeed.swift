@@ -32,7 +32,7 @@ class BaseTestActivityFeed: TestHome {
     
 }
 
-class TestYouActivityFeed: BaseTestActivityFeed {
+class TestYourActivityFeed: BaseTestActivityFeed {
     
     private var activityFollowRequests: ActivityFollowRequests!
     private var recentActivities: RecentActivity!
@@ -48,7 +48,6 @@ class TestYouActivityFeed: BaseTestActivityFeed {
         APIConfig.showUserImages = true
         
         openScreen()
-        sleep(2)
         
         XCTAssertTrue(APIState.getLatestRequest().contains("/images/"))
     }
@@ -171,7 +170,6 @@ class TestFollowingActivityFeed: BaseTestActivityFeed {
         
         openScreen()
         selectSegment(item: .following)
-        sleep(2)
         
         XCTAssertTrue(APIState.getLatestRequest().contains("/images/"))
     }

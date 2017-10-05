@@ -138,11 +138,11 @@ class Templates {
             
             let values = ["activityHandle" : "String",
                           "createdTime"    : Date().ISOString,
-                          "activityType"   : "Comment",//activityType,
+                          "activityType"   : activityType,
                           "actorUsers"     : followers,
                           "actedOnUser"    : followers[i],
                           "actedOnContent" : [
-                                "contentType"   : "Like", //activityType,
+                                "contentType"   : "Comment", //activityType,
                                 "text"          : "TextExample",
                                 "blobHandle"    : UUID().uuidString]]
             
