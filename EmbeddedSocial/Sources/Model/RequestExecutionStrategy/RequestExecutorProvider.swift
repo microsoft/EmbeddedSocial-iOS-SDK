@@ -19,6 +19,8 @@ typealias OthersActivityRequestExecutor = CacheRequestExecutionStrategy<FeedResp
 
 typealias SingleTopicRequestExecutor = CacheRequestExecutionStrategy<TopicView, Post>
 
+typealias PopularUsersRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserProfileView, UsersListResponse>
+
 protocol CacheRequestExecutorProviderType {
     static func makeUsersFeedExecutor(for service: BaseService) -> UsersFeedRequestExecutor
     
@@ -43,6 +45,8 @@ protocol CacheRequestExecutorProviderType {
     static func makeOtherUsersTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor
     
     static func makeSearchTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor
+    
+    static func makePopularUsersExecutor(for service: BaseService) -> PopularUsersRequestExecutor
 }
 
 struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
@@ -128,6 +132,13 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
                                   responseType: FeedFetchResult.self,
                                   service: service,
                                   responseProcessor: SearchTopicsFeedResponseProcessor(cache: service.cache))
+    }
+    
+    static func makePopularUsersExecutor(for service: BaseService) -> PopularUsersRequestExecutor {
+        return makeCommonExecutor(requestType: FeedResponseUserProfileView.self,
+                                  responseType: UsersListResponse.self,
+                                  service: service,
+                                  responseProcessor: PopularUsersResponseProcessor())
     }
     
     private static func makeCommonExecutor<T: Cacheable, U>(

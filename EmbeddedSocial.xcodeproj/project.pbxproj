@@ -705,8 +705,9 @@
 		88BC87571F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88C665041F86620000A7763D /* MockAppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C665031F86620000A7763D /* MockAppConfiguration.swift */; };
-		88C6650D1F867B0900A7763D /* TrendingTopics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88C6650C1F867B0900A7763D /* TrendingTopics.storyboard */; };
-		88C6650F1F867B1B00A7763D /* TrendingTopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C6650E1F867B1B00A7763D /* TrendingTopicsViewController.swift */; };
+		88C665061F866B0800A7763D /* PopularUsersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C665051F866B0800A7763D /* PopularUsersAPI.swift */; };
+		88C665081F866E8500A7763D /* PopularUsersResponseProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C665071F866E8500A7763D /* PopularUsersResponseProcessor.swift */; };
+		88C6650A1F8671B200A7763D /* PopularUsersAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C665091F8671B200A7763D /* PopularUsersAPITests.swift */; };
 		88C682351F78EFE4004BD291 /* MockOutgoingCommandsUploadStrategyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C682341F78EFE4004BD291 /* MockOutgoingCommandsUploadStrategyDelegate.swift */; };
 		88C682371F78F240004BD291 /* MockRelatedHandleUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C682361F78F240004BD291 /* MockRelatedHandleUpdater.swift */; };
 		88C682391F7939D6004BD291 /* TopicCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C682381F7939D6004BD291 /* TopicCommandTests.swift */; };
@@ -1811,6 +1812,9 @@
 		88C665031F86620000A7763D /* MockAppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAppConfiguration.swift; sourceTree = "<group>"; };
 		88C6650C1F867B0900A7763D /* TrendingTopics.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TrendingTopics.storyboard; sourceTree = "<group>"; };
 		88C6650E1F867B1B00A7763D /* TrendingTopicsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingTopicsViewController.swift; sourceTree = "<group>"; };
+		88C665051F866B0800A7763D /* PopularUsersAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularUsersAPI.swift; sourceTree = "<group>"; };
+		88C665071F866E8500A7763D /* PopularUsersResponseProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularUsersResponseProcessor.swift; sourceTree = "<group>"; };
+		88C665091F8671B200A7763D /* PopularUsersAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularUsersAPITests.swift; sourceTree = "<group>"; };
 		88C682341F78EFE4004BD291 /* MockOutgoingCommandsUploadStrategyDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockOutgoingCommandsUploadStrategyDelegate.swift; sourceTree = "<group>"; };
 		88C682361F78F240004BD291 /* MockRelatedHandleUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockRelatedHandleUpdater.swift; sourceTree = "<group>"; };
 		88C682381F7939D6004BD291 /* TopicCommandTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicCommandTests.swift; sourceTree = "<group>"; };
@@ -2777,6 +2781,7 @@
 				881355951F6805AB009299D4 /* ResponseProcessor.swift */,
 				88B2D6A11F7CFF0500920E43 /* SearchTopicsFeedResponseProcessor.swift */,
 				846CF1241F7D592500C9DBB3 /* SinglePostResponseProcessor.swift */,
+				88C665071F866E8500A7763D /* PopularUsersResponseProcessor.swift */,
 				885E040E1F6FC43300D6EBD8 /* TopicsFeedResponseProcessor.swift */,
 				8813559A1F680DBD009299D4 /* UsersListResponseProcessor.swift */,
 			);
@@ -3939,6 +3944,7 @@
 				8864C8411F46DDAD00ADCE13 /* Interactor */,
 				8864C83B1F46DBCC00ADCE13 /* Presenter */,
 				8864C8341F46DB6E00ADCE13 /* View */,
+				88C665051F866B0800A7763D /* PopularUsersAPI.swift */,
 			);
 			path = SearchPeople;
 			sourceTree = "<group>";
@@ -4141,6 +4147,7 @@
 			children = (
 				889119B11F4AE766005B3B32 /* Mocks */,
 				889119AB1F4AE0C8005B3B32 /* QueryPeopleAPITests.swift */,
+				88C665091F8671B200A7763D /* PopularUsersAPITests.swift */,
 				889119A91F4AE071005B3B32 /* SearchPeopleInteractorTests.swift */,
 				889119B61F4AE873005B3B32 /* SearchPeoplePresenterTests.swift */,
 			);
@@ -6402,6 +6409,7 @@
 				88ABC78E1F726D6300C83C82 /* CreateReplyOperation.swift in Sources */,
 				9C6D359F1F31D1C1005893DB /* FeedModuleRouter.swift in Sources */,
 				63E1DA201F7BE95800187E35 /* CommentsProcessor.swift in Sources */,
+				88C665081F866E8500A7763D /* PopularUsersResponseProcessor.swift in Sources */,
 				93AC659E1F3E056F00FE5A3A /* PostDetailRouter.swift in Sources */,
 				88580C1B1F2213AB00C1CBAF /* AuthServiceImplementation.swift in Sources */,
 				8834A7601F50669800F1D383 /* LikesListViewInput.swift in Sources */,
@@ -6564,6 +6572,7 @@
 				88F551CB1F39E7F700F4AAB9 /* AutoEquatable.swift in Sources */,
 				93AC65A11F3E056F00FE5A3A /* PostDetailViewController.swift in Sources */,
 				88E3AC351F55A5710016357F /* ReportReason.swift in Sources */,
+				88C665061F866B0800A7763D /* PopularUsersAPI.swift in Sources */,
 				884AA9691F3C563F00B85135 /* FeedResponseActivityView.swift in Sources */,
 				881060F91F28E502008CA2FB /* UIButtonStyles.swift in Sources */,
 				88EBD2311F6C13E900F9DDFC /* UnpinTopicOperation.swift in Sources */,
@@ -7119,6 +7128,7 @@
 				636474821F5EDD2F000D7B3D /* CommentCellInteractorTests.swift in Sources */,
 				9CDDB2051F38870400C46785 /* DateFormatterTests.swift in Sources */,
 				63F8489B1F4AE81F00D434CF /* MockCommentRepliesInteractor.swift in Sources */,
+				88C6650A1F8671B200A7763D /* PopularUsersAPITests.swift in Sources */,
 				889AFC301F220BCD003AAF19 /* NameComponentsSplitterTests.swift in Sources */,
 				8811C8C51F4459B700F7513D /* MockEditProfileModuleOutput.swift in Sources */,
 				88F551C21F39D59000F4AAB9 /* MockFollowingView.swift in Sources */,

@@ -69,3 +69,5 @@ extension FeedResponseReplyView: Cacheable, HandleMixin { }
 
 extension TopicView: Cacheable, HandleMixin { }
 
+extension FeedResponseUserProfileView: Cacheable, HandleMixin { }
+
