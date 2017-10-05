@@ -1277,10 +1277,10 @@
 		8839B8751F83B6A100D97BE6 /* APIBasePathSetupCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIBasePathSetupCommand.swift; sourceTree = "<group>"; };
 		8839B8771F83B6E200D97BE6 /* AppThemeConfigurationCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppThemeConfigurationCommand.swift; sourceTree = "<group>"; };
 		8839B8791F83BA8600D97BE6 /* dark.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dark.plist; sourceTree = "<group>"; };
-		8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UISegmentedControl+Themeable.swift"; path = "../Utils/UISegmentedControl+Themeable.swift"; sourceTree = "<group>"; };
-		8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CommentCell+Themeable.swift"; path = "../Utils/CommentCell+Themeable.swift"; sourceTree = "<group>"; };
-		8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CommentRepliesViewController+Themeable.swift"; path = "../Utils/CommentRepliesViewController+Themeable.swift"; sourceTree = "<group>"; };
-		8839B8871F8503B100D97BE6 /* PostCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PostCell+Themeable.swift"; path = "../Utils/PostCell+Themeable.swift"; sourceTree = "<group>"; };
+		8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UISegmentedControl+Themeable.swift"; path = "UISegmentedControl+Themeable.swift"; sourceTree = "<group>"; };
+		8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CommentCell+Themeable.swift"; path = "CommentCell+Themeable.swift"; sourceTree = "<group>"; };
+		8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CommentRepliesViewController+Themeable.swift"; path = "CommentRepliesViewController+Themeable.swift"; sourceTree = "<group>"; };
+		8839B8871F8503B100D97BE6 /* PostCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PostCell+Themeable.swift"; path = "PostCell+Themeable.swift"; sourceTree = "<group>"; };
 		883B9B5C1F276B9600D1E66E /* CoreDataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModelTests.swift; sourceTree = "<group>"; };
 		883B9B5F1F276BCF00D1E66E /* TestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModel.xcdatamodel; sourceTree = "<group>"; };
 		883B9B631F2776E600D1E66E /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -2773,12 +2773,13 @@
 		8839B8721F83B5CE00D97BE6 /* StartupCommands */ = {
 			isa = PBXGroup;
 			children = (
-				8839B8701F83B5CC00D97BE6 /* Command.swift */,
-				8839B8731F83B60E00D97BE6 /* ThirdPartiesConfigurationCommand.swift */,
 				8839B8751F83B6A100D97BE6 /* APIBasePathSetupCommand.swift */,
 				8839B8771F83B6E200D97BE6 /* AppThemeConfigurationCommand.swift */,
+				8839B8701F83B5CC00D97BE6 /* Command.swift */,
+				8839B8731F83B60E00D97BE6 /* ThirdPartiesConfigurationCommand.swift */,
 			);
 			name = StartupCommands;
+			path = StartupCommands;
 			sourceTree = "<group>";
 		};
 		883BFFCA1F710A3200E1C4E3 /* Operations */ = {
@@ -3030,11 +3031,11 @@
 				88580A871F2213AB00C1CBAF /* Base */,
 				88580A951F2213AB00C1CBAF /* SideMenu */,
 				88580A8B1F2213AB00C1CBAF /* APIError.swift */,
+				88580A8C1F2213AB00C1CBAF /* AppFonts.swift */,
 				880435CB1F67D04500154ACD /* AsyncOperation.swift */,
 				88580A8A1F2213AB00C1CBAF /* CellModel.swift */,
 				88B94EF91F66B278002392F9 /* Daemon.swift */,
 				9CDDB2021F38866000C46785 /* DateFormatter.swift */,
-				88580A8C1F2213AB00C1CBAF /* AppFonts.swift */,
 				88580A8D1F2213AB00C1CBAF /* Identifiable.swift */,
 				88580A8E1F2213AB00C1CBAF /* Indetifiable.swift */,
 				88580A8F1F2213AB00C1CBAF /* LaunchArguments.swift */,
@@ -3115,17 +3116,16 @@
 		88580AA91F2213AB00C1CBAF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */,
-				8839B8871F8503B100D97BE6 /* PostCell+Themeable.swift */,
-				8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */,
-				8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */,
 				8892F2611F7E83D100A58D8B /* AuthProvider+Ext.swift */,
 				88580AAA1F2213AB00C1CBAF /* Collection+Ext.swift */,
+				8839B8831F84E4A700D97BE6 /* CommentCell+Themeable.swift */,
+				8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */,
 				88580AAB1F2213AB00C1CBAF /* Dictionary+Ext.swift */,
 				889510821F3B1FCA001A53F5 /* ErrorResponse+Ext.swift */,
 				88E662051F7A7A6100C98526 /* FollowRequestCell+Ext.swift */,
 				8892F25A1F7E618500A58D8B /* LinkedAccountView+Ext.swift */,
 				88B94EF11F66A9F3002392F9 /* NSLock+Ext.swift */,
+				8839B8871F8503B100D97BE6 /* PostCell+Themeable.swift */,
 				88ABC7911F726FE800C83C82 /* PostCommentRequest+Ext.swift */,
 				883BFFDD1F713EB100E1C4E3 /* PostCommentResponse+Ext.swift */,
 				883BFFE31F7168C700E1C4E3 /* PostReplyResponse+Ext.swift */,
@@ -3141,6 +3141,7 @@
 				88580AB11F2213AB00C1CBAF /* UIImage+Resize.swift */,
 				88580AB21F2213AB00C1CBAF /* UIImageView+ImageCache.swift */,
 				88C682691F7A6B77004BD291 /* UIScrollView+Ext.swift */,
+				8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */,
 				88580AB31F2213AB00C1CBAF /* UITableView+Ext.swift */,
 				88580AB41F2213AB00C1CBAF /* UIView+Ext.swift */,
 				88580AB51F2213AB00C1CBAF /* UIViewController+Alerts.swift */,
@@ -3587,6 +3588,7 @@
 			isa = PBXGroup;
 			children = (
 				88D35FB91F839105008BB38C /* AppConfiguration */,
+				8839B8721F83B5CE00D97BE6 /* StartupCommands */,
 				88580B9A1F2213AB00C1CBAF /* Validators */,
 				889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */,
 				8811C8331F3DE8A500F7513D /* AssociatedValue.swift */,
@@ -3599,7 +3601,6 @@
 				88E3AC301F559D0B0016357F /* HandleMixin.swift */,
 				88580B0F1F2213AB00C1CBAF /* ImageCache.swift */,
 				88580B961F2213AB00C1CBAF /* ImagePicker.swift */,
-				8839B8721F83B5CE00D97BE6 /* StartupCommands */,
 				3209330C1F2A50D300890218 /* Logger.swift */,
 				882CAF091F5EC4B1001D5F37 /* LoginModalOpener.swift */,
 				88204FAF1F56EA4F00E15F5A /* MulticastDelegate.swift */,
@@ -3728,10 +3729,11 @@
 				88640D6F1F828B290004CDF9 /* Theme.swift */,
 				88D35FB71F83903E008BB38C /* ThemePalette.swift */,
 				88640D711F828B3E0004CDF9 /* Themeable.swift */,
-				88640D751F82918A0004CDF9 /* light.plist */,
 				8839B8791F83BA8600D97BE6 /* dark.plist */,
+				88640D751F82918A0004CDF9 /* light.plist */,
 			);
 			name = Theming;
+			path = Theming;
 			sourceTree = "<group>";
 		};
 		8864C8201F45BA6000ADCE13 /* Search */ = {
@@ -4599,20 +4601,22 @@
 		88D35FB91F839105008BB38C /* AppConfiguration */ = {
 			isa = PBXGroup;
 			children = (
-				88D35FB31F8381C1008BB38C /* AppConfiguration.swift */,
 				88640D6E1F828B0C0004CDF9 /* Theming */,
+				88D35FB31F8381C1008BB38C /* AppConfiguration.swift */,
 			);
 			name = AppConfiguration;
+			path = AppConfiguration;
 			sourceTree = "<group>";
 		};
 		88D35FBA1F839178008BB38C /* AppConfiguration */ = {
 			isa = PBXGroup;
 			children = (
 				88D35FBB1F839184008BB38C /* AppConfigurationTests.swift */,
-				88A970491F83A7420047D591 /* ThemeTests.swift */,
 				88A9704B1F83A78D0047D591 /* ThemePaletteTests.swift */,
+				88A970491F83A7420047D591 /* ThemeTests.swift */,
 			);
 			name = AppConfiguration;
+			path = AppConfiguration;
 			sourceTree = "<group>";
 		};
 		88D8CCAE1F31CA3E0032FB2B /* DataDisplayManager */ = {
@@ -5050,6 +5054,8 @@
 		8EF0E5B01F1FA61D00E88ED6 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				8E5FCAB01F821C5500A81E2E /* block_user_delete.json */,
+				8E5FCAAE1F821C3600A81E2E /* block_user_post.json */,
 				8EAF45A01F698A350046F704 /* comment.json */,
 				8EAF459F1F698A350046F704 /* comment_post.json */,
 				8E6070691F3D9E4000110F4F /* follower.json */,
@@ -5066,8 +5072,6 @@
 				8EF0E5A41F1FA5EF00E88ED6 /* topic.json */,
 				8EF0E5C31F28B86100E88ED6 /* topic_post.json */,
 				8E6070651F3CB61F00110F4F /* user.json */,
-				8E5FCAAE1F821C3600A81E2E /* block_user_post.json */,
-				8E5FCAB01F821C5500A81E2E /* block_user_delete.json */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
