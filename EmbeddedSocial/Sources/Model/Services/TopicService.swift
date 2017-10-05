@@ -248,7 +248,8 @@ class TopicService: BaseService, PostServiceProtocol {
                 return
             }
             
-            result.posts = [Post(data: data)]
+            // get rid of nills
+            result.posts = [Post(data: data)].flatMap { $0 }
             completion(result)
         }
     }

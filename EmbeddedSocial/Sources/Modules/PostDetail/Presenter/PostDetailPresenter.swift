@@ -10,12 +10,12 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     var router: PostDetailRouterInput!
     var scrollType: CommentsScrollType = .none
     
-    var postViewModel: PostViewModel?
-    
     var feedViewController: UIViewController?
     var feedModuleInput: FeedModuleInput?
 
     var comments = [Comment]()
+    
+    var topicHandle: PostHandle!
     
     private var formatter = DateFormatterTool()
     private var cursor: String?
@@ -34,17 +34,6 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
 
     init(myProfileHolder: UserHolder) {
         self.myProfileHolder = myProfileHolder
-    }
-    
-    func commentRemoved(comment: Comment) {
-        guard let index = comments.index(where: { $0.commentHandle == comment.commentHandle }) else {
-            return
-        }
-        
-        comments.remove(at: index)
-        router.backIfNeeded(from: view as! UIViewController)
-        view.removeComment(index: index)
-        feedModuleInput?.refreshData()
     }
     
     // MARK: PostDetailInteractorOutput
@@ -143,13 +132,13 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
         loadMoreCellViewModel.startLoading()
         view.updateLoadingCell()
-        interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
+        interactor.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
     }
     
     func viewIsReady() {
         view.setupInitialState()
         setupFeed()
-        interactor.fetchComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
+        interactor.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
     }
     
     func loadRestComments() {
@@ -169,7 +158,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         dataIsFetching = true
         loadMoreCellViewModel.startLoading()
         view.updateLoadingCell()
-        interactor.fetchMoreComments(topicHandle: (postViewModel?.topicHandle)!, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
+        interactor.fetchMoreComments(topicHandle: topicHandle, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
     }
     
     func comment(at index: Int) -> Comment {
@@ -182,7 +171,20 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
             return
         }
         view.showHUD()
-        interactor.postComment(photo: photo, topicHandle: (postViewModel?.topicHandle)!, comment: comment)
+        interactor.postComment(photo: photo, topicHandle: topicHandle, comment: comment)
+    }
+}
+
+extension PostDetailPresenter: CommentCellModuleOutout {
+    func removed(comment: Comment) {
+        guard let index = comments.index(where: { $0.commentHandle == comment.commentHandle }) else {
+            return
+        }
+        
+        comments.remove(at: index)
+        router.backIfNeeded(from: view as! UIViewController)
+        view.removeComment(index: index)
+        feedModuleInput?.refreshData()
     }
 }
 

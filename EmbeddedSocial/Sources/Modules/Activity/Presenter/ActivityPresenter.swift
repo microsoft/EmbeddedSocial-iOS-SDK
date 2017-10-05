@@ -110,6 +110,8 @@ extension ActivityPresenter: DataSourceDelegate {
             view.addNewItems(indexes: items)
         case let .deletion(items):
             view.removeItems(indexes: items)
+        case .updateVisible:
+            view.updateVisible()
         }
     }
     

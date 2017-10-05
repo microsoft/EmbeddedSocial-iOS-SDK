@@ -249,10 +249,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
     }
     
-    private func makeFetchRequest(with cursor: String?, feedType: FeedType) -> FeedFetchRequest {
-        let uid = UUID().uuidString
-        fetchRequests.insert(uid)
-        return FeedFetchRequest(uid: uid, cursor: cursor, limit: limit, feedType: feedType)
+    func makeFetchRequest(requestID: String = UUID().uuidString, cursor: String? = nil, feedType: FeedType) -> FeedFetchRequest {
+        fetchRequests.insert(requestID)
+        return FeedFetchRequest(uid: requestID, cursor: cursor, limit: limit, feedType: feedType)
     }
  
     private func fetchItems(with cursor: String? = nil) {
@@ -261,7 +260,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
 
-        let request = makeFetchRequest(with: cursor, feedType: feedType)
+        let request = makeFetchRequest(cursor: cursor, feedType: feedType)
         interactor.fetchPosts(request: request)
     }
     
@@ -294,6 +293,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             self?.handle(action: action, path: path)
         }
     
+        // trimmed text for post cell
         var isTrimmed = true
         switch feedType! {
         case .single(post: _):
@@ -330,8 +330,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
         
         let index = path.row
-        let postHandle = items[index].topicHandle!
-        let userHandle = items[index].userHandle!
+        let userHandle = items[index].userHandle
         let post = items[index]
         
         switch action {
@@ -366,6 +365,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             
             items[index].liked = !status
             
+            // change item locally
+            // TODO: remove this, since it's responsibility of outgoing cache 
             if action == .like {
                 items[index].totalLikes += 1
             } else if action == .unlike && items[index].totalLikes > 0 {
@@ -373,7 +374,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             }
             
             view.reload(with: index)
-            interactor.postAction(post: postHandle, action: action)
+            interactor.postAction(post: items[index], action: action)
             
         case .pin:
             let status = items[index].pinned
@@ -382,7 +383,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             items[index].pinned = !status
             
             view.reload(with: index)
-            interactor.postAction(post: postHandle, action: action)
+            interactor.postAction(post: items[index], action: action)
             
         case .profile:
             guard moduleOutput?.shouldOpenProfile(for: userHandle) ?? true else { return }
@@ -419,10 +420,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func viewIsReady() {
         view.setupInitialState()
         view.paddingEnabled = collectionPaddingNeeded()
-        view.setLayout(type: layout)
+        
         if let header = header {
             view.registerHeader(withType: header.type, configurator: header.configurator)
         }
+        
+        view.setLayout(type: layout)
         isViewReady = true
     }
     
@@ -468,6 +471,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         let shouldAddItems = items.count - cachedNumberOfItems
         let shouldRemoveItems = cachedNumberOfItems - items.count
         
+        // insert/remove items
         if cachedNumberOfItems == 0 {
             view.reload()
         }
@@ -479,11 +483,11 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
             view.removeItems(with: paths)
         }
-        else {
-            view.reloadVisible()
-        }
         
-        // Update "No content"
+        // update visible
+        view.reloadVisible()
+        
+        // update "No content"
         checkIfNoContent()
     }
     
@@ -500,6 +504,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
+        view.reload()
         Logger.log(action, post, error)
     }
     

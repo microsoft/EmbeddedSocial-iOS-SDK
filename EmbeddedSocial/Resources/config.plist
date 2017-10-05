@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>theme</key>
-	<string>dark</string>
+	<string>light</string>
 	<key>accentColor</key>
 	<string>#5bbb7b</string>
 </dict>

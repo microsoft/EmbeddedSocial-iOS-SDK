@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import SafariServices
 
 final class SettingsRouter: SettingsRouterInput {
     
@@ -23,5 +24,18 @@ final class SettingsRouter: SettingsRouterInput {
         let conf = LinkedAccountsConfigurator()
         conf.configure(sessionToken: sessionToken)
         navigationController?.pushViewController(conf.viewController, animated: true)
+    }
+    
+    func openLink(type: SettingsLinkRouter) {
+        let url: URL!
+        switch type {
+        case .privacyPolicy:
+            url = Constants.Settings.privacyPolicyURL
+        case .termsAndConditions:
+            url = Constants.Settings.termsAndConditionsURL
+        }
+        
+        let vc = SFSafariViewController(url: url)
+        navigationController?.present(vc, animated: true)
     }
 }

@@ -10,7 +10,7 @@ class LikeTopicOperationTests: XCTestCase {
     
     func testThatItUsesCorrectServiceMethod() {
         // given
-        let topic = Post(topicHandle: UUID().uuidString)
+        let topic = Post.mock(seed: 1)
         let command = TopicCommand(topic: topic)
         let service = MockLikesService()
         let sut = LikeTopicOperation(command: command, likesService: service)

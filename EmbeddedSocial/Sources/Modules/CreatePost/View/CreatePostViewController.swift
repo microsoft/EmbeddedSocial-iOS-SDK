@@ -58,10 +58,12 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     }
     
     func topicCreated() {
+        unlockNavigationBar()
         SVProgressHUD.dismiss()
     }
     
     func topicUpdated() {
+        unlockNavigationBar()
         SVProgressHUD.dismiss()
     }
     
@@ -90,9 +92,20 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         present(alert, animated: true, completion: nil)
     }
     
+    func lockNavigationBar() {
+        navigationController?.navigationBar.isUserInteractionEnabled = false
+        navigationController?.navigationBar.tintColor = .lightGray
+    }
+    
+    func unlockNavigationBar() {
+        navigationController?.navigationBar.isUserInteractionEnabled = true
+        navigationController?.navigationBar.tintColor = .blue
+    }
+    
     // MARK: Actions
     @objc fileprivate func post() {
         SVProgressHUD.show()
+        lockNavigationBar()
         output.post(photo: photo, title: titleTextField.text, body: postBodyTextView.text)
     }
     

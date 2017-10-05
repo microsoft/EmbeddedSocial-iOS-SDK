@@ -10,12 +10,13 @@ protocol LikesServiceProtocol {
     typealias CompletionHandler = (_ postHandle: PostHandle, _ error: Error?) -> Void
     typealias CommentCompletionHandler = (_ commentHandle: String, _ error: Error?) -> Void
     typealias ReplyLikeCompletionHandler = (_ commentHandle: String, _ error: Error?) -> Void
+
+    func postPin(post: Post, completion: @escaping CompletionHandler)
+    func deletePin(post: Post, completion: @escaping CompletionHandler)
+
+    func postLike(post: Post, completion: @escaping CompletionHandler)
+    func deleteLike(post: Post, completion: @escaping CompletionHandler)
     
-    
-    func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler)
-    func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler)
-    func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler)
-    func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler)
     func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler)
     func unlikeComment(commentHandle: String, completion: @escaping CompletionHandler)
     func likeReply(replyHandle: String, completion: @escaping ReplyLikeCompletionHandler)
@@ -31,10 +32,6 @@ protocol LikesServiceProtocol {
 //MARK: - Optional methods
 
 extension LikesServiceProtocol {
-    
-    func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) { }
-    
-    func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler) { }
     
     func likeComment(commentHandle: String, completion: @escaping CommentCompletionHandler) { }
     
@@ -64,22 +61,19 @@ class LikesService: BaseService, LikesServiceProtocol {
         requestExecutor = provider.makeUsersFeedExecutor(for: self)
         outgoingActionsExecutor = provider.makeOutgoingActionRequestExecutor(for: self)
     }
-    
-    func postLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
-        let topic = Post(topicHandle: postHandle)
-        let builder = LikesAPI.topicLikesPostLikeWithRequestBuilder(topicHandle: postHandle, authorization: authorization)
-        let command = LikeTopicCommand(topic: topic)
+    func postLike(post: Post, completion: @escaping CompletionHandler) {
+        let builder = LikesAPI.topicLikesPostLikeWithRequestBuilder(topicHandle: post.topicHandle, authorization: authorization)
+        let command = LikeTopicCommand(topic: post)
         outgoingActionsExecutor.execute(command: command, builder: builder) { result in
-            completion(postHandle, result.error)
+            completion(post.topicHandle, result.error)
         }
     }
     
-    func deleteLike(postHandle: PostHandle, completion: @escaping CompletionHandler) {
-        let topic = Post(topicHandle: postHandle)
-        let builder = LikesAPI.topicLikesDeleteLikeWithRequestBuilder(topicHandle: postHandle, authorization: authorization)
-        let command = UnlikeTopicCommand(topic: topic)
+    func deleteLike(post: Post, completion: @escaping CompletionHandler) {
+        let builder = LikesAPI.topicLikesDeleteLikeWithRequestBuilder(topicHandle: post.topicHandle, authorization: authorization)
+        let command = UnlikeTopicCommand(topic: post)
         outgoingActionsExecutor.execute(command: command, builder: builder) { result in
-            completion(postHandle, result.error)
+            completion(post.topicHandle, result.error)
         }
     }
     
@@ -153,22 +147,22 @@ class LikesService: BaseService, LikesServiceProtocol {
         requestExecutor.execute(with: builder, completion: completion)
     }
     
-    func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
+    func postPin(post: Post, completion: @escaping CompletionHandler) {
         let request = PostPinRequest()
-        request.topicHandle = postHandle
+        request.topicHandle = post.topicHandle
         
         let builder = PinsAPI.myPinsPostPinWithRequestBuilder(request: request, authorization: authorization)
-        let command = PinTopicCommand(topic: Post(topicHandle: postHandle))
+        let command = PinTopicCommand(topic: post)
         outgoingActionsExecutor.execute(command: command, builder: builder) { result in
-            completion(postHandle, result.error)
+            completion(post.topicHandle, result.error)
         }
     }
     
-    func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) {
-        let builder = PinsAPI.myPinsDeletePinWithRequestBuilder(topicHandle: postHandle, authorization: authorization)
-        let command = UnpinTopicCommand(topic: Post(topicHandle: postHandle))
+    func deletePin(post: Post, completion: @escaping CompletionHandler) {
+        let builder = PinsAPI.myPinsDeletePinWithRequestBuilder(topicHandle: post.topicHandle, authorization: authorization)
+        let command = UnpinTopicCommand(topic: post)
         outgoingActionsExecutor.execute(command: command, builder: builder) { result in
-            completion(postHandle, result.error)
+            completion(post.topicHandle, result.error)
         }
     }
 }

@@ -13,6 +13,17 @@ class SettingsViewController: UITableViewController {
         case signOut
     }
     
+    enum AboutSectionItems: Int {
+        case privacyPolicy
+        case termsAndConditions
+    }
+    
+    enum SettingsSections: Int {
+        case about
+        case privacy
+        case account
+    }
+    
     var output: SettingsViewOutput!
     
     @IBOutlet fileprivate weak var privacySwitch: UISwitch!
@@ -28,7 +39,20 @@ class SettingsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
+        
+        switch indexPath.section {
+        case SettingsSections.about.rawValue:
+            switch indexPath.row {
+            case AboutSectionItems.privacyPolicy.rawValue:
+                output.onPrivacyPolicy()
+            case AboutSectionItems.termsAndConditions.rawValue:
+                output.onTermsAndConditions()
+            default:
+                break
+            }
+        case SettingsSections.privacy.rawValue:
+            break
+        case SettingsSections.account.rawValue:
             switch indexPath.row {
             case ActionSectionItems.blockList.rawValue:
                 output.onBlockedList()
@@ -39,6 +63,8 @@ class SettingsViewController: UITableViewController {
             default:
                 break
             }
+        default:
+            break
         }
     }
     

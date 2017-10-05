@@ -36,14 +36,17 @@ class ActivityRouter: ActivityRouterInput {
         
         switch contentType {
         case .comment:
-            let vc = buildCommentVC(with: contentHandle)
-            openViewController(vc)
+            let configureator = DetailedActivityModuleConfigurator()
+            configureator.configure(state: .comment, commentHandle: contentHandle, navigationController: navigationController)
+            openViewController(configureator.viewController)
         case .reply:
-            let vc = buildReplyVC(with: contentHandle)
-            openViewController(vc)
+            let configureator = DetailedActivityModuleConfigurator()
+            configureator.configure(state: .reply, replyHandle: contentHandle, navigationController: navigationController)
+            openViewController(configureator.viewController)
         case .topic:
-            let vc = buildPostVC(with: contentHandle)
-            openViewController(vc)
+            let configureator = PostDetailModuleConfigurator()
+            configureator.configure(topicHandle: contentHandle, scrollType: .none, myProfileHolder: SocialPlus.shared, navigationController: navigationController)
+            openViewController(configureator.viewController)
         default:
             Logger.log("Cant process", contentType, event: .veryImportant)
             return

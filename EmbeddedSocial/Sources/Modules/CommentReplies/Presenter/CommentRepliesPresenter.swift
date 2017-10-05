@@ -49,74 +49,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         self.myProfileHolder = myProfileHolder
     }
     
-    //MARK Internal
-    private func viewModel(with reply: Reply) -> ReplyViewModel {
-        
-        var viewModel = ReplyViewModel()
-        viewModel.userHandle = reply.userHandle!
-        viewModel.replyHandle = reply.replyHandle
-        viewModel.userName = User.fullName(firstName: reply.userFirstName, lastName: reply.userLastName)
-        viewModel.text = reply.text ?? ""
-        
-        viewModel.totalLikes = L10n.Post.likesCount(Int(reply.totalLikes))
-        
-        viewModel.timeCreated =  reply.createdTime == nil ? "" : formatter.shortStyle.string(from: reply.createdTime!, to: Date())!
-        viewModel.userImageUrl = reply.userPhotoUrl
-        
-        viewModel.isLiked = reply.liked
-        
-        
-        viewModel.cellType = CommentCell.reuseID
-        viewModel.onAction = { [weak self] action, index in
-            self?.handle(action: action, index: index)
-        }
-        
-        return viewModel
-    }
-    
-    private func handle(action: RepliesCellAction, index: Int) {
-        
-        let replyHandle = replies[index].replyHandle
-        let reply = replies[index]
-        let userHandle = replies[index].userHandle!
-        
-        switch action {
-        case .like:
-            guard myProfileHolder.me != nil else {
-                router.openLogin(from: view as? UIViewController ?? UIViewController())
-                return
-            }
-            
-            let status = replies[index].liked
-            let action: RepliesSocialAction = status ? .unlike : .like
-            
-            replies[index].liked = !status
-            
-            if action == .like {
-                replies[index].totalLikes += 1
-            } else if action == .unlike && replies[index].totalLikes > 0 {
-                replies[index].totalLikes -= 1
-            }
-            
-            view?.refreshReplyCell(index: index)
-            interactor.replyAction(replyHandle: replyHandle!, action: action)
-            
-        case .profile:
-            router.openUser(userHandle: userHandle, from: view as! UIViewController)
-            
-        case .toLikes:
-            router.openLikes(replyHandle: replyHandle!, from: view as! UIViewController)
-            
-        case .extra:
-            if reply.userHandle == SocialPlus.shared.me?.uid {
-                router.openMyReplyOptions(reply: reply, from: view as! UIViewController)
-            } else {
-                router.openOtherReplyOptions(reply: reply, from: view as! UIViewController)
-            }
-        }
-        
-    }
-    
     // MARK: CommentRepliesViewOutput
     
     func loadCellModel() -> LoadMoreCellViewModel {
@@ -135,8 +67,8 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
     }
     
-    func replyView(index: Int) -> ReplyViewModel {
-        return viewModel(with: replies[index])
+    func reply(index: Int) -> Reply {
+        return replies[index]
     }
     
     func canFetchMore() -> Bool {
@@ -270,6 +202,18 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             view?.refreshReplyCell(index: index)
         }
         
+    }
+}
+
+extension CommentRepliesPresenter: ReplyCellModuleOutput {
+    func removed(reply: Reply) {
+        guard let index = replies.index(where: { $0.replyHandle == reply.replyHandle }) else {
+            return
+        }
+        
+        replies.remove(at: index)
+        router.backIfNeeded(from: view as! UIViewController)
+        view?.removeReply(index: index)
     }
 }
 

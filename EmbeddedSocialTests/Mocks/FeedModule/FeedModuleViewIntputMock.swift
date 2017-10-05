@@ -8,6 +8,42 @@ import Foundation
 
 class FeedModuleViewInputMock: FeedModuleViewInput {
     
+    //MARK: - needShowNoContent
+    var needShowNoContentStateCalled = false
+    var needShowNoContentStateReceivedState: Bool?
+    
+    func needShowNoContent(state: Bool) {
+        needShowNoContentStateCalled = true
+        needShowNoContentStateReceivedState = state
+    }
+    
+    //MARK: - reloadVisible
+    var reloadVisibleCalled = false
+    
+    func reloadVisible() {
+        reloadVisibleCalled = true
+    }
+    
+    //MARK: - insertNewItems
+    
+    var insertNewItemsWithCalled = false
+    var insertNewItemsWithReceivedPaths: [IndexPath]?
+    
+    func insertNewItems(with paths: [IndexPath]) {
+        insertNewItemsWithCalled = true
+        insertNewItemsWithReceivedPaths = paths
+    }
+    
+    //MARK: - removeItems
+    
+    var removeItemsWithCalled = false
+    var removeItemsWithReceivedPaths: [IndexPath]?
+    
+    func removeItems(with paths: [IndexPath]) {
+        removeItemsWithCalled = true
+        removeItemsWithReceivedPaths = paths
+    }
+    
     //MARK: - setupInitialState
     var paddingEnabled: Bool = false
     
@@ -54,14 +90,6 @@ class FeedModuleViewInputMock: FeedModuleViewInput {
     func reload(with index: Int) {
         reload_with_Called = true
         reload_with_ReceivedIndex = index
-    }
-    
-    //MARK: - reloadVisible
-    
-    var reloadVisible_Called = false
-    
-    func reloadVisible() {
-        reloadVisible_Called = true
     }
     
     //MARK: - removeItem

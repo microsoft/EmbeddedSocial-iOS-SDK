@@ -81,7 +81,7 @@ public class NavigationStack: NavigationStackProtocol {
         
         self.window = window
  
-        navigationController = UINavigationController()
+        navigationController = BaseNavigationController()
         
         menuStackController = MenuStackController(mainViewController: navigationController,
                                             leftMenuViewController: menuViewController)

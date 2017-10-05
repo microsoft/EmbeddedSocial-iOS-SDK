@@ -11,8 +11,14 @@ class SinglePostResponseProcessor: ResponseProcessor<TopicView, Post> {
         
         DispatchQueue.main.async {
             if let response = response {
-                completion(.success(Post(data: response)))
-            } else {
+                if let post = Post(data: response)  {
+                    completion(.success(post))
+                }
+                else {
+                    completion(.failure(APIError.missingUserData))
+                }
+            }
+            else {
                 completion(.failure(APIError.failedRequest))
             }
         }

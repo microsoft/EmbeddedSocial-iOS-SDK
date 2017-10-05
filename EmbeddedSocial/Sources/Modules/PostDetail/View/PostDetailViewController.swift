@@ -65,6 +65,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         super.viewWillAppear(animated)
         collectionView.reloadSections([CommentsSections.comments.rawValue])
         postButton.isHidden = commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        view.isUserInteractionEnabled = true
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
@@ -166,8 +167,8 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         commentTextView.text = nil
         postButton.isHidden = true
         SVProgressHUD.dismiss()
+        collectionView.insertItems(at: [IndexPath(item: output.numberOfItems() - 1 , section: CommentsSections.comments.rawValue)])
         view.layoutIfNeeded()
-        collectionView.reloadData()
         scrollCollectionViewToBottom()
         view.isUserInteractionEnabled = true
     }
@@ -273,7 +274,10 @@ extension PostDetailViewController: UICollectionViewDataSource {
         case CommentsSections.comments.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
             let config = CommentCellModuleConfigurator()
-            config.configure(cell: cell, comment: output.comment(at: indexPath.row), navigationController: self.navigationController, moduleOutput: self.output as! PostDetailModuleInput)
+            config.configure(cell: cell,
+                             comment: output.comment(at: indexPath.row),
+                             navigationController: self.navigationController,
+                             moduleOutput: self.output as! CommentCellModuleOutout)
             cell.repliesButton.isHidden = false
             cell.tag = indexPath.row
             cell.apply(theme: theme)

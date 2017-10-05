@@ -43,7 +43,7 @@ class OutgoingCommandTests: XCTestCase {
             UnpinTopicCommand.self,
             ]
         
-        let topic = Post(topicHandle: UUID().uuidString)
+        let topic = Post.mock(seed: 0)
         
         testThatItCreatesCommands(
             ofTypes: topicCommands,

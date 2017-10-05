@@ -7,7 +7,7 @@ protocol CommentRepliesViewOutput {
     func viewIsReady()
     func numberOfItems() -> Int
     func postReply(text: String)
-    func replyView(index: Int) -> ReplyViewModel
+    func reply(index: Int) -> Reply
     func loadRestReplies()
     func fetchMore()
     func canFetchMore() -> Bool

@@ -5,7 +5,19 @@
 
 import UIKit
 
-class ReplyCell: UICollectionViewCell {
+protocol ReplyCellViewInput: class {
+    func configure(reply: Reply)
+//    func setupInitialState()
+}
+
+protocol ReplyCellViewOutput {
+    func like()
+    func avatarPressed()
+    func likesPressed()
+    func optionsPressed()
+}
+
+class ReplyCell: UICollectionViewCell, ReplyCellViewInput {
 
     static let defaultHeight: CGFloat = 120
 
@@ -19,6 +31,8 @@ class ReplyCell: UICollectionViewCell {
     
     var replyView: ReplyViewModel!
     
+    var output: ReplyCellViewOutput!
+    
     private var formatter = DateFormatterTool()
     
     override func awakeFromNib() {
@@ -30,22 +44,20 @@ class ReplyCell: UICollectionViewCell {
         userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
     }
     
-    func config(replyView: ReplyViewModel) {
-        self.replyView = replyView
+    func configure(reply: Reply) {
+        userName.text = User.fullName(firstName: reply.user?.firstName, lastName: reply.user?.lastName)
+        replyLabel.text = reply.text ?? ""
+        totalLikesButton.setTitle(L10n.Post.likesCount(Int(reply.totalLikes)), for: .normal)
         
+        postTimeLabel.text = reply.createdTime == nil ? "" : formatter.shortStyle.string(from: reply.createdTime!, to: Date())!
         
-        if replyView.userImageUrl == nil {
+        if reply.user?.photo?.url == nil {
             userPhoto.image = UIImage(asset: Asset.userPhotoPlaceholder)
         } else {
-            userPhoto.setPhotoWithCaching(Photo(url: replyView.userImageUrl), placeholder: UIImage(asset: Asset.userPhotoPlaceholder))
+            userPhoto.setPhotoWithCaching(Photo(url: reply.user?.photo?.url), placeholder: UIImage(asset: Asset.userPhotoPlaceholder))
         }
-
-        totalLikesButton.setTitle(replyView.totalLikes, for: .normal)
-        replyLabel.text = replyView.text
-        userName.text = replyView.userName
         
-        postTimeLabel.text = replyView.timeCreated
-        likeButton.isSelected = replyView.isLiked
+        likeButton.isSelected = reply.liked
         contentView.layoutIfNeeded()
     }
     
@@ -54,19 +66,19 @@ class ReplyCell: UICollectionViewCell {
     }
     
     @IBAction func like(_ sender: Any) {
-        replyView.onAction?(.like, tag)
+        output.like()
     }
 
     @IBAction func toLikes(_ sender: Any) {
-        replyView.onAction?(.toLikes, tag)
+        output.likesPressed()
     }
     
     @IBAction func actionsPressed(_ sender: Any) {
-        replyView.onAction?(.extra, tag)
+        output.optionsPressed()
     }
     
     @IBAction func toProfile(_ sender: Any) {
-        replyView.onAction?(.profile, tag)
+        output.avatarPressed()
     }
 
 }

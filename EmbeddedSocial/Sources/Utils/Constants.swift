@@ -84,6 +84,13 @@ extension Constants {
     struct FollowRequests {
         static let pageSize = 30
     }
+    
+    struct Settings {
+        static let privacyPolicyURL = URL(string: "http://go.microsoft.com/fwlink/?LinkId=521839")
+        
+        static let termsAndConditionsURL = URL(string: "http://go.microsoft.com/fwlink/?LinkID=206977")
+        
+    }
 }
 
 extension Constants {
