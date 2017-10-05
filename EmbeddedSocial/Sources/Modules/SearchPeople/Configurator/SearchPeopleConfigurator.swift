@@ -27,7 +27,7 @@ final class SearchPeopleConfigurator {
         
         if isLoggedInUser {
             presenter.backgroundUsersListModule = makeUserListModule(
-                api: EmptyUsersListAPI(),
+                api: PopularUsersAPI(socialService: SocialService()),
                 navigationController: navigationController,
                 output: presenter
             )

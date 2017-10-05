@@ -118,7 +118,7 @@ class ProfileSummaryView: UIView {
     private func attributedString(_ inputString: String, withBoldNumber number: Int) -> NSAttributedString {
         let font = AppFonts.small
         let boldFont = AppFonts.bold.small
-        let textColor = theme?.palette.accent ?? .red
+        let textColor = theme?.palette.accent ?? Palette.green
         
         let numberAttrs: [String: Any] = [NSFontAttributeName: boldFont, NSForegroundColorAttributeName: textColor]
         let stringAttrs: [String: Any] = [NSFontAttributeName: font, NSForegroundColorAttributeName: textColor]
