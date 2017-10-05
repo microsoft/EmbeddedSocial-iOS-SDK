@@ -109,6 +109,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration" identifier="Blocked users">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
