@@ -11,7 +11,6 @@ class ThemePalette: NSObject {
     var navigationBarBackground: UIColor!
     var navigationBarTint: UIColor!
     var navigationBarTitle: UIColor!
-    var controlHighlighted: UIColor!
     var controlUnhighlighted: UIColor!
     var controlHighlightedTitle: UIColor!
     var textPrimary: UIColor!
@@ -23,8 +22,10 @@ class ThemePalette: NSObject {
     var topicsFeedBackground: UIColor!
     var tableGroupHeaderBackground: UIColor!
     var topicSecondaryText: UIColor!
+    let accent: UIColor
     
-    init(config: [String: Any]) {
+    init(config: [String: Any], accentColor: UIColor) {
+        accent = accentColor
         super.init()
         setup(with: config)
     }

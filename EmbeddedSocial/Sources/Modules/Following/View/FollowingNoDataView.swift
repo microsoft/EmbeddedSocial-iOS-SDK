@@ -65,8 +65,8 @@ extension FollowingNoDataView: Themeable {
             return
         }
         noDataLabel.textColor = palette.textPrimary
-        searchPeopleButton.setTitleColor(palette.controlHighlighted, for: .normal)
-        suggestedUsersButton.setTitleColor(palette.controlHighlighted, for: .normal)
+        searchPeopleButton.setTitleColor(palette.accent, for: .normal)
+        suggestedUsersButton.setTitleColor(palette.accent, for: .normal)
         backgroundColor = palette.contentBackground
         containerView.backgroundColor = .clear
     }

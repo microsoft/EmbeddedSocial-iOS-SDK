@@ -10,12 +10,16 @@ class UserProfileViewController: UIViewController {
     
     var output: UserProfileViewOutput!
     
-    fileprivate lazy var createPostButton: UIBarButtonItem = { [unowned self] in
-        return UIBarButtonItem(asset: .iconDots, color: Palette.defaultTint, action: self.output.onMore)
+    fileprivate lazy var moreButton: UIBarButtonItem = { [unowned self] in
+        return UIBarButtonItem(asset: .iconDots,
+                               color: self.theme?.palette.navigationBarTint ?? Palette.defaultTint,
+                               action: self.output.onMore)
     }()
     
     fileprivate lazy var feedLayoutButton: UIButton = { [unowned self] in
-        return UIButton.makeButton(asset: nil, color: Palette.defaultTint, action: self.output.onFlipFeedLayout)
+        return UIButton.makeButton(asset: nil,
+                                   color: self.theme?.palette.navigationBarTint ?? Palette.defaultTint,
+                                   action: self.output.onFlipFeedLayout)
     }()
     
     fileprivate lazy var headerView: UserProfileHeaderView = { [unowned self] in
@@ -75,7 +79,7 @@ extension UserProfileViewController: UserProfileViewInput {
     }
     
     func setupInitialState() {
-        navigationItem.rightBarButtonItems = [createPostButton, UIBarButtonItem(customView: self.feedLayoutButton)]
+        navigationItem.rightBarButtonItems = [moreButton, UIBarButtonItem(customView: self.feedLayoutButton)]
         apply(theme: theme)
     }
     
@@ -154,7 +158,7 @@ extension UserProfileViewController: Themeable {
         guard let palette = theme?.palette else {
             return
         }
-        view.backgroundColor = palette.contentBackground
+        view.backgroundColor = palette.topicsFeedBackground
         feedLayoutButton.tintColor = palette.navigationBarTint
         stickyFilterView.apply(theme: theme)
         stickyFilterView.backgroundColor = theme?.palette.topicBackground

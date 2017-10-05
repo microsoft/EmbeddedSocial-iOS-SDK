@@ -191,7 +191,7 @@ extension CreatePostViewController: Themeable {
         titleTextField.attributedPlaceholder = NSAttributedString(string: L10n.CreatePost.titlePlaceholder, attributes: attrs)
         postBodyTextView.attributedPlaceholder = NSAttributedString(string: L10n.CreatePost.bodyPlaceholder, attributes: attrs)
         
-        mediaButton.setTitleColor(palette.controlHighlighted, for: .normal)
+        mediaButton.setTitleColor(palette.accent, for: .normal)
     }
 }
 

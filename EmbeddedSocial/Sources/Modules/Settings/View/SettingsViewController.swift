@@ -76,7 +76,7 @@ extension SettingsViewController: Themeable {
         guard let palette = theme?.palette else {
             return
         }
-        tableView.backgroundColor = palette.contentBackground
+        tableView.backgroundColor = palette.topicsFeedBackground
         
         privacyLabel.textColor = palette.textPrimary
         
@@ -84,7 +84,7 @@ extension SettingsViewController: Themeable {
             for row in 0..<tableView.numberOfRows(inSection: section) {
                 let cell = tableView.cellForRow(at: IndexPath(row: row, section: section))
                 cell?.textLabel?.textColor = palette.textPrimary
-                cell?.backgroundColor = palette.tableGroupHeaderBackground
+                cell?.backgroundColor = palette.contentBackground
             }
         }
     }

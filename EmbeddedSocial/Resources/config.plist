@@ -4,5 +4,7 @@
 <dict>
 	<key>theme</key>
 	<string>dark</string>
+	<key>accentColor</key>
+	<string>#5bbb7b</string>
 </dict>
 </plist>

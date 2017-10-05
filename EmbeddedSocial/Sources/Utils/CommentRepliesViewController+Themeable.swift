@@ -14,7 +14,7 @@ extension CommentRepliesViewController: Themeable {
         view.backgroundColor = palette.contentBackground
         collectionView.backgroundColor = palette.contentBackground
         
-        postButton.setTitleColor(palette.controlHighlighted, for: .normal)
+        postButton.setTitleColor(palette.accent, for: .normal)
         postButton.titleLabel?.font = AppFonts.medium
         
         replyInputContainer.backgroundColor = palette.contentBackground

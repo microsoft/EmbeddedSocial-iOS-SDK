@@ -4,8 +4,6 @@
 <dict>
 	<key>contentBackground</key>
 	<string>#ffffff</string>
-	<key>controlHighlighted</key>
-	<string>#5bbb7b</string>
 	<key>controlUnhighlighted</key>
 	<string>#b0b0b0</string>
 	<key>controlHighlightedTitle</key>

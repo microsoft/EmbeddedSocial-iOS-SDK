@@ -3,9 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>contentBackground</key>
-	<string>#404040</string>
-	<key>controlHighlighted</key>
-	<string>#5bbb7b</string>
+	<string>#606060</string>
 	<key>controlUnhighlighted</key>
 	<string>#b0b0b0</string>
 	<key>controlHighlightedTitle</key>

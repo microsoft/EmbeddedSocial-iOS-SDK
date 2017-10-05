@@ -11,8 +11,8 @@ extension UISegmentedControl: Themeable {
         guard let palette = theme?.palette else {
             return
         }
-        tintColor = palette.controlHighlighted
+        tintColor = palette.accent
         setTitleTextAttributes([NSForegroundColorAttributeName: palette.controlHighlightedTitle], for: .selected)
-        setTitleTextAttributes([NSForegroundColorAttributeName: palette.controlHighlighted], for: .normal)
+        setTitleTextAttributes([NSForegroundColorAttributeName: palette.accent], for: .normal)
     }
 }

@@ -118,7 +118,7 @@ class ProfileSummaryView: UIView {
     private func attributedString(_ inputString: String, withBoldNumber number: Int) -> NSAttributedString {
         let font = AppFonts.small
         let boldFont = AppFonts.bold.small
-        let textColor = theme?.palette.controlHighlighted ?? .red
+        let textColor = theme?.palette.accent ?? .red
         
         let numberAttrs: [String: Any] = [NSFontAttributeName: boldFont, NSForegroundColorAttributeName: textColor]
         let stringAttrs: [String: Any] = [NSFontAttributeName: font, NSForegroundColorAttributeName: textColor]
@@ -161,9 +161,9 @@ extension ProfileSummaryView: Themeable {
         nameLabel.textColor = palette.textPrimary
         detailsLabel.textColor = palette.textPrimary
         
-        followersButton.setTitleColor(palette.controlHighlighted, for: .normal)
-        editButton.setTitleColor(palette.controlHighlighted, for: .normal)
-        followingButton.setTitleColor(palette.controlHighlighted, for: .normal)
-        followButton.setTitleColor(palette.controlHighlighted, for: .normal)
+        followersButton.setTitleColor(palette.accent, for: .normal)
+        editButton.setTitleColor(palette.accent, for: .normal)
+        followingButton.setTitleColor(palette.accent, for: .normal)
+        followButton.setTitleColor(palette.accent, for: .normal)
     }
 }

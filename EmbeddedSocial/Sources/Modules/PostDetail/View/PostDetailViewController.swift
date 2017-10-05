@@ -340,7 +340,7 @@ extension PostDetailViewController: Themeable {
         
         view.backgroundColor = palette.contentBackground
         collectionView.backgroundColor = palette.contentBackground
-        postButton.setTitleColor(palette.controlHighlighted, for: .normal)
+        postButton.setTitleColor(palette.accent, for: .normal)
         postButton.titleLabel?.font = AppFonts.medium
         
         let attrs: [String : Any] = [NSForegroundColorAttributeName: palette.textPlaceholder, NSFontAttributeName: AppFonts.medium]

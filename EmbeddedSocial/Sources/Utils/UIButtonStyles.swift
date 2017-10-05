@@ -36,10 +36,10 @@ extension UIButton.Style {
     static var follow: UIButton.Style {
         return UIButton.Style(title: L10n.Common.follow.uppercased(),
                               backgroundColor: .clear,
-                              tintColor: SocialPlus.palette.controlHighlighted,
-                              titleColor:SocialPlus.palette.controlHighlighted,
+                              tintColor: SocialPlus.palette.accent,
+                              titleColor:SocialPlus.palette.accent,
                               titleFont: AppFonts.small,
-                              borderColor: SocialPlus.palette.controlHighlighted,
+                              borderColor: SocialPlus.palette.accent,
                               borderWidth: 1.0,
                               cornerRadius: 8.0)
     }
@@ -57,8 +57,8 @@ extension UIButton.Style {
     
     static var following: UIButton.Style {
         return UIButton.Style(title: L10n.Common.following.uppercased(),
-                              backgroundColor: SocialPlus.palette.controlHighlighted,
-                              tintColor: SocialPlus.palette.controlHighlighted,
+                              backgroundColor: SocialPlus.palette.accent,
+                              tintColor: SocialPlus.palette.accent,
                               titleColor: SocialPlus.palette.controlHighlightedTitle,
                               titleFont: AppFonts.small,
                               borderColor: nil,

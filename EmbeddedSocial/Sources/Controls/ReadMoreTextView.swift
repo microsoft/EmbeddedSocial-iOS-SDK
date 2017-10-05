@@ -144,7 +144,7 @@ class ReadMoreTextView: UITextView {
     fileprivate func attributedStringForMoreText(_ text: String) -> NSAttributedString {
         return NSAttributedString(string: text, attributes: [
             NSFontAttributeName: font ?? AppFonts.medium,
-            NSForegroundColorAttributeName: theme?.palette.controlHighlighted ?? UIColor.darkGray
+            NSForegroundColorAttributeName: theme?.palette.accent ?? UIColor.darkGray
             ])
     }
     
