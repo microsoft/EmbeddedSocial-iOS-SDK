@@ -22,25 +22,21 @@ protocol SocialServiceType {
     
     func getSuggestedUsers(authorization: Authorization, completion: @escaping (Result<UsersListResponse>) -> Void)
     
-    /// Get the feed of users that follow me
     func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
     
-    /// Get the feed of users that I am following
     func getMyFollowing(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
     
-    /// Get followers of a user
     func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
     
-    /// Get following users of a user
     func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
     
-    /// Hide for post
     func deletePostFromMyFollowing(postID: String, completion: @escaping (Result<Void>) -> Void)
     
-    /// Get my blocked users
     func getMyBlockedUsers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
     
     func getMyPendingRequests(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
+    
+    func getPopularUsers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
 }
 
 class SocialService: BaseService, SocialServiceType {
@@ -228,6 +224,22 @@ class SocialService: BaseService, SocialServiceType {
         )
         
         let executor = executorProvider.makeMyPendingRequestsExecutor(for: self)
+        
+        executor.execute(with: builder) { result in
+            withExtendedLifetime(executor) {
+                completion(result)
+            }
+        }
+    }
+    
+    func getPopularUsers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        let builder = UsersAPI.usersGetPopularUsersWithRequestBuilder(
+            authorization: authorization,
+            cursor: Int32(cursor ?? ""),
+            limit: Int32(limit)
+        )
+        
+        let executor = executorProvider.makePopularUsersExecutor(for: self)
         
         executor.execute(with: builder) { result in
             withExtendedLifetime(executor) {
