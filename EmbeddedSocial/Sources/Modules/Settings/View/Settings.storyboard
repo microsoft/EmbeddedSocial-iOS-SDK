@@ -110,6 +110,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="Blocked users">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Ylj-Y8-PS5" style="IBUITableViewCellStyleDefault" id="eQR-xL-dWQ">
                                         <rect key="frame" x="0.0" y="343.5" width="375" height="44"/>

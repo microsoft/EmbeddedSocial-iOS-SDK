@@ -199,11 +199,15 @@ open class APIRouter: WebApp {
                 default:
                     let query = URLParametersReader.parseURLParameters(environ: environ)
                     let cursor = query["cursor"] ?? "0"
+                    
+                    var sendedJSON: Any
                     if let limit = query["limit"] {
-                        sendJSON(Templates.loadFollowers(firstName: "User", lastName: "Following", cursor: Int(cursor)!, limit: Int(limit)!))
+                        sendedJSON = Templates.loadFollowers(firstName: "Blocked", lastName: "User", cursor: Int(cursor)!, limit: Int(limit)!)
                     } else {
-                        sendJSON(Templates.loadFollowers(firstName: "User", lastName: "Following"))
+                        sendedJSON = Templates.loadFollowers(firstName: "Blocked", lastName: "Blocked")
                     }
+                    sendJSON(sendedJSON)
+                    APIState.setLatestResponse(forService: "blockedUsers", data: sendedJSON)
                 }
                 return
             }
