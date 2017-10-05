@@ -1,0 +1,37 @@
+{
+    "activityHandle": "string",
+    "createdTime": "2017-10-02T06:44:00.999Z",
+    "activityType": "Like",
+    "actorUsers": [
+        {
+            "userHandle": "string",
+            "firstName": "string",
+            "lastName": "string",
+            "photoHandle": "string",
+            "photoUrl": "string",
+            "visibility": "Public",
+            "followerStatus": "None"
+        }
+    ],
+    "actedOnUser": {
+        "userHandle": "string",
+        "firstName": "string",
+        "lastName": "string",
+        "photoHandle": "string",
+        "photoUrl": "string",
+        "visibility": "Public",
+        "followerStatus": "None"
+    },
+    "actedOnContent": {
+        "contentType": "Unknown",
+        "contentHandle": "string",
+        "parentHandle": "string",
+        "rootHandle": "string",
+        "text": "string",
+        "blobType": "Unknown",
+        "blobHandle": "string",
+        "blobUrl": "string"
+    },
+    "totalActions": 0,
+    "unread": true,
+}
