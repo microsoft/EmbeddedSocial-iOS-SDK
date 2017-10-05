@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="17A365" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -50,7 +50,7 @@
                                     <constraint firstAttribute="width" constant="44" id="oat-FS-5Rw"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                <state key="normal" title="Button" image="icon_dots"/>
+                                <state key="normal" image="icon_dots"/>
                                 <connections>
                                     <action selector="actionsPressed:" destination="1Q8-cV-eUv" eventType="touchUpInside" id="Xcp-sl-WkO"/>
                                 </connections>
@@ -62,7 +62,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Fts-ac-sxR" firstAttribute="top" secondItem="fc2-TV-mHx" secondAttribute="top" id="6zC-C5-rAv"/>
                             <constraint firstAttribute="trailing" secondItem="4zP-pi-d2X" secondAttribute="trailing" constant="10" id="B2q-cc-PMc"/>
@@ -125,7 +125,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="uur-6E-HBf" firstAttribute="leading" secondItem="plo-d9-ded" secondAttribute="trailing" constant="5" id="Il4-KL-G3F"/>
                             <constraint firstItem="uur-6E-HBf" firstAttribute="centerY" secondItem="WzL-el-h0h" secondAttribute="centerY" id="RRu-ow-3T7"/>
@@ -140,8 +140,7 @@
                         <rect key="frame" x="15" y="125" width="360" height="1"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="V5W-Sj-rt2"/>
-                            <constraint firstAttribute="height" constant="1" id="WfR-rg-kI8"/>
+                            <constraint firstAttribute="height" constant="0.5" id="WfR-rg-kI8"/>
                         </constraints>
                     </view>
                 </subviews>

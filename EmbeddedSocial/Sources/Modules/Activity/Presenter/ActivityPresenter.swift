@@ -15,6 +15,8 @@ class ActivityPresenter {
     var interactor: ActivityInteractorInput
     var router: ActivityRouterInput!
     
+    var theme: Theme?
+    
     enum State: Int  {
         case my = 0
         case others = 1
@@ -39,6 +41,7 @@ class ActivityPresenter {
     fileprivate lazy var cellConfigurator: CellConfigurator = { [unowned self] in
         let configurator = CellConfigurator()
         configurator.presenter = self
+        configurator.theme = self.theme
         return configurator
     }()
     

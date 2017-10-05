@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17A365" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -133,12 +133,14 @@
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="bodySeparatorView" destination="HyY-ge-u5J" id="QKa-Xk-wp4"/>
                         <outlet property="bottomConstraint" destination="IpI-FF-yjt" id="7Mw-XZ-ggQ"/>
                         <outlet property="mediaButton" destination="c1s-Vy-Hc2" id="p9R-nu-q8h"/>
                         <outlet property="mediaButtonHeightConstraint" destination="4XO-oG-yBA" id="jVp-ZA-QM0"/>
                         <outlet property="postBodyTextView" destination="aPb-Vd-1gr" id="HuW-ou-9mR"/>
                         <outlet property="postBodyTextViewHeightConstraint" destination="aAI-r9-dzh" id="UK7-hB-VIe"/>
                         <outlet property="scrollView" destination="8AP-7d-JDz" id="z9e-g2-RSE"/>
+                        <outlet property="titleSeparatorView" destination="5s3-Bn-nZn" id="ldC-Hw-Fuh"/>
                         <outlet property="titleTextField" destination="umy-ax-MEg" id="oYa-PO-RpN"/>
                         <outlet property="userImageView" destination="0Lk-bh-ewt" id="SEb-0d-xpg"/>
                         <outlet property="usernameLabel" destination="vR4-Iq-PLG" id="ISI-o5-jbz"/>

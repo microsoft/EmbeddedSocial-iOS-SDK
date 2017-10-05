@@ -28,5 +28,6 @@ struct ReportConfigurator {
         
         viewController.output = presenter
         viewController.headerTitleLabel.text = reportListTitle
+        viewController.theme = SocialPlus.theme
     }
 }

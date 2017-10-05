@@ -36,6 +36,7 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        apply(theme: theme)
         output.viewIsReady()
     }
     
@@ -123,5 +124,18 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: false)
+    }
+}
+
+extension SearchViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        view.backgroundColor = palette.contentBackground
+        feedLayoutButton.tintColor = palette.navigationBarTint
+        searchBar.tintColor = palette.navigationBarTint
+        filterView.apply(theme: theme)
     }
 }

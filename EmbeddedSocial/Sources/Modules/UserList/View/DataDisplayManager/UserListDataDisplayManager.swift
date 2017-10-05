@@ -18,6 +18,8 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
     
     var onItemSelected: ((UserListItem) -> Void)?
     
+    var theme: Theme?
+    
     weak var tableView: UITableView!
     
     func tableDataSource(for tableView: UITableView) -> UITableViewDataSource? {
@@ -66,6 +68,7 @@ final class UserListDataDisplayManager: NSObject, TableDataDisplayManager {
     private func configure(cell: UITableViewCell, with item: UserListItem) {        
         cell.selectionStyle = .none
         (cell as? UserListCell)?.configure(item)
+        (cell as? UserListCell)?.apply(theme: theme)
     }
     
     func updateListItem(with user: User) {

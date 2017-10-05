@@ -88,6 +88,8 @@ class CellConfigurator {
     
     var presenter: ActivityPresenter!
     
+    var theme: Theme?
+    
     func configure(cell: UITableViewCell,
                    viewModel: ActivityItemViewModel,
                    tableView: UITableView,
@@ -97,8 +99,7 @@ class CellConfigurator {
         
         if let cell = cell as? ActivityCell, let viewModel = viewModel as? ActivityViewModel {
             configure(cell: cell, with: viewModel, tableView: tableView, onAction: onAction)
-        }
-        else if let cell = cell as? FollowRequestCell, let viewModel = viewModel as? PendingRequestViewModel  {
+        } else if let cell = cell as? FollowRequestCell, let viewModel = viewModel as? PendingRequestViewModel  {
             configure(cell: cell, with: viewModel, tableView: tableView, onAction: onAction)
         } else {
             fatalError("No implementation")
@@ -149,6 +150,8 @@ class CellConfigurator {
             return tableView.indexPath(for: cell)
         }
         cell.onAction = onAction
+        
+        cell.apply(theme: theme)
     }
     
 }

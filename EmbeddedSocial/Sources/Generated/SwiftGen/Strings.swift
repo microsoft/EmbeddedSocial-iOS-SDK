@@ -216,6 +216,8 @@ enum L10n {
   }
 
   enum CreatePost {
+    /// Text
+    static let bodyPlaceholder = L10n.tr("Localizable", "create_post.body_placeholder")
     /// Going back to the feed will delete the content of this draft, are you sure you want to go back?
     static let leaveNewPost = L10n.tr("Localizable", "create_post.leave_new_post")
     /// Leave post
@@ -226,6 +228,8 @@ enum L10n {
     static let returnToFeed = L10n.tr("Localizable", "create_post.return_to_feed")
     /// Save
     static let save = L10n.tr("Localizable", "create_post.save")
+    /// Title
+    static let titlePlaceholder = L10n.tr("Localizable", "create_post.title_placeholder")
 
     enum Button {
       /// Tap here to add a picture
@@ -402,6 +406,11 @@ enum L10n {
     static func repliesCount(_ p1: Int) -> String {
       return L10n.tr("Localizable", "post.replies_count", p1)
     }
+  }
+
+  enum PostDetails {
+    /// Type here to comment on this post
+    static let commentPlaceholder = L10n.tr("Localizable", "post_details.comment_placeholder")
   }
 
   enum PostMenu {

@@ -19,6 +19,8 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     @IBOutlet fileprivate weak var postBodyTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet fileprivate weak var postBodyTextView: UITextView!
     @IBOutlet weak var mediaButtonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var bodySeparatorView: UIView!
+    @IBOutlet fileprivate weak var titleSeparatorView: UIView!
     
     fileprivate let imagePicker = ImagePicker()
     fileprivate var photo: Photo?
@@ -27,6 +29,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        apply(theme: theme)
         output.viewIsReady()
     }
     
@@ -183,3 +186,27 @@ extension CreatePostViewController: UITextFieldDelegate {
         return false
     }
 }
+
+extension CreatePostViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        view.backgroundColor = palette.contentBackground
+        usernameLabel.textColor = palette.textPrimary
+        titleTextField.textColor = palette.textPrimary
+        postBodyTextView.textColor = palette.textPrimary
+        bodySeparatorView.backgroundColor = palette.separator
+        titleSeparatorView.backgroundColor = palette.separator
+
+        let attrs: [String: Any] = [NSFontAttributeName: AppFonts.medium, NSForegroundColorAttributeName: palette.textPlaceholder]
+        titleTextField.attributedPlaceholder = NSAttributedString(string: L10n.CreatePost.titlePlaceholder, attributes: attrs)
+        postBodyTextView.attributedPlaceholder = NSAttributedString(string: L10n.CreatePost.bodyPlaceholder, attributes: attrs)
+        
+        mediaButton.setTitleColor(palette.accent, for: .normal)
+    }
+}
+
+
+

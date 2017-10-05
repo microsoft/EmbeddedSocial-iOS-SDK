@@ -23,9 +23,6 @@ class GroupHeaderTableCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = Palette.extraLightGrey
-        titleLabel.font = Fonts.regular
-        titleLabel.textColor = Palette.darkGrey
     }
     
     override func prepareForReuse() {
@@ -63,17 +60,17 @@ extension GroupHeaderTableCell.Style {
     
     static var editProfile: Style {
         let insets = UIEdgeInsets(top: 0.0, left: Constants.CreateAccount.contentPadding, bottom: 0.0, right: 0.0)
-        return Style(titleColor: Palette.darkGrey,
-                     titleFont: Fonts.regular,
-                     backgroundColor: Palette.extraLightGrey,
+        return Style(titleColor: SocialPlus.palette.textPrimary,
+                     titleFont: AppFonts.regular,
+                     backgroundColor: SocialPlus.palette.tableGroupHeaderBackground,
                      titleInsets: insets)
     }
     
     static var peopleSearch: Style {
         let insets = UIEdgeInsets(top: 0.0, left: Constants.CreateAccount.contentPadding, bottom: 0.0, right: 0.0)
-        return Style(titleColor: Palette.darkGrey,
-                     titleFont: Fonts.regular,
-                     backgroundColor: Palette.extraLightGrey,
+        return Style(titleColor: SocialPlus.palette.textPrimary,
+                     titleFont: AppFonts.regular,
+                     backgroundColor: SocialPlus.palette.tableGroupHeaderBackground,
                      titleInsets: insets)
     }
 }

@@ -31,6 +31,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         didSet {
             postText.textContainerInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 5)
             postText.textContainer.lineFragmentPadding = 0
+            postText.backgroundColor = .clear
         }
     }
     
@@ -203,7 +204,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
         var result = [staticElementsHeight, dynamicHeight].reduce(0.0, +)
         
-        return result
+        return [staticElementsHeight, dynamicHeight].reduce(0.0, +)
     }
     
     // MARK: Private

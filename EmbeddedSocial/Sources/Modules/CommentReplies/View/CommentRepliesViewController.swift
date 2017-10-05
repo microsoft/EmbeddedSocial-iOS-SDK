@@ -31,6 +31,8 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var replyInputContainer: UIView!
+    
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -48,6 +50,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         view.isUserInteractionEnabled = false
         configCollecionView()
         configTextView()
+        apply(theme: theme)
         output.viewIsReady()
     }
     
@@ -188,13 +191,15 @@ extension CommentRepliesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
-            case RepliesSections.comment.rawValue:
-                let cell = output.mainCommentCell()
-                cell.repliesButton.isHidden = true
-                return cell
+        case RepliesSections.comment.rawValue:
+            let cell = output.mainCommentCell()
+            cell.repliesButton.isHidden = true
+            cell.apply(theme: theme)
+            return cell
         case RepliesSections.loadMore.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadMoreCell.reuseID, for: indexPath) as! LoadMoreCell
             cell.configure(viewModel: output.loadCellModel())
+            cell.apply(theme: theme)
             cell.delegate = self
             return cell
             case RepliesSections.replies.rawValue:
@@ -202,6 +207,7 @@ extension CommentRepliesViewController: UICollectionViewDataSource {
                 let config = ReplyCellModuleConfigurator()
                 config.configure(cell: cell, reply: output.reply(index: indexPath.row), navigationController: self.navigationController, moduleOutput: self.output as? ReplyCellModuleOutput)
                 cell.tag = indexPath.row
+                cell.apply(theme: theme)
                 return cell
             default:
                 return UICollectionViewCell()

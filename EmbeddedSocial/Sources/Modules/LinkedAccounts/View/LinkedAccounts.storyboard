@@ -12,7 +12,7 @@
         <scene sceneID="uhf-g2-Fmi">
             <objects>
                 <tableViewController storyboardIdentifier="LinkedAccountsViewController" id="xCa-sh-OsW" customClass="LinkedAccountsViewController" customModule="EmbeddedSocial" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6EZ-Xt-iEg">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6EZ-Xt-iEg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -47,6 +47,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="gEH-Ew-hPh" secondAttribute="trailing" constant="8" id="dGA-5a-rGu"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="ukO-Ts-TQ9">
                                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -76,6 +77,7 @@
                                                 <constraint firstItem="lYC-4n-irY" firstAttribute="leading" secondItem="AS8-bi-a3A" secondAttribute="leading" constant="16" id="zw8-jU-eOl"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="XAs-Mv-fsu">
                                         <rect key="frame" x="0.0" y="88" width="375" height="44"/>
@@ -105,6 +107,7 @@
                                                 <constraint firstItem="H5b-ew-gwh" firstAttribute="leading" secondItem="ml2-J1-nDU" secondAttribute="leading" constant="16" id="mTZ-gu-DkF"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="ft3-kN-Z7Q">
                                         <rect key="frame" x="0.0" y="132" width="375" height="44"/>
@@ -134,6 +137,7 @@
                                                 <constraint firstItem="QBS-pv-6R0" firstAttribute="centerY" secondItem="g4F-5B-wgB" secondAttribute="centerY" id="c0K-cX-Rkj"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -144,9 +148,13 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="facebookLabel" destination="5xC-9B-HEf" id="tw5-Pa-Xd5"/>
                         <outlet property="facebookSwitch" destination="gEH-Ew-hPh" id="NZz-hL-5TX"/>
+                        <outlet property="googleLabel" destination="lYC-4n-irY" id="P4R-DM-SCD"/>
                         <outlet property="googleSwitch" destination="1xw-uv-s3b" id="2Y0-Io-jlc"/>
+                        <outlet property="microsoftLabel" destination="H5b-ew-gwh" id="y7W-Q2-aKC"/>
                         <outlet property="microsoftSwitch" destination="0Ak-Ke-Wlv" id="Zxn-Zx-oOV"/>
+                        <outlet property="twitterLabel" destination="QBS-pv-6R0" id="VvV-Rl-97u"/>
                         <outlet property="twitterSwitch" destination="xhG-fe-wIN" id="IQy-51-AUl"/>
                     </connections>
                 </tableViewController>

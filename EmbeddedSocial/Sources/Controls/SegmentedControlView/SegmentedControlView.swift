@@ -79,3 +79,15 @@ extension SegmentedControlView {
         let action: (() -> Void)?
     }
 }
+
+extension SegmentedControlView: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        segmentedControl.apply(theme: theme)
+        backgroundColor = palette.contentBackground
+        separatorView.backgroundColor = palette.separator
+    }
+}

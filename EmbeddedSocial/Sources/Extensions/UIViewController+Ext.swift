@@ -14,14 +14,17 @@ extension UIViewController {
         controller.removeFromParentViewController()
     }
     
-    func addChildController(_ controller: UIViewController, containerView: UIView) {
+    func addChildController(_ controller: UIViewController, containerView: UIView, pinToEdges: Bool = true) {
         controller.willMove(toParentViewController: nil)
 
         addChildViewController(controller)
         
         containerView.addSubview(controller.view)
-        controller.view.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        
+        if pinToEdges {
+            controller.view.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
         }
         
         controller.didMove(toParentViewController: self)

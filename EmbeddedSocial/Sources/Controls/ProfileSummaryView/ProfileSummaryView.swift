@@ -12,16 +12,14 @@ class ProfileSummaryView: UIView {
     @IBOutlet fileprivate weak var nameLabel: UILabel! {
         didSet {
             nameLabel.text = L10n.Common.Placeholder.unknown
-            nameLabel.font = Fonts.bold.large
-            nameLabel.textColor = Palette.black
+            nameLabel.font = AppFonts.bold.large
         }
     }
     
     @IBOutlet weak var detailsLabel: UILabel! {
         didSet {
             detailsLabel.text = L10n.Common.Placeholder.notSpecified
-            detailsLabel.font = Fonts.medium
-            detailsLabel.textColor = Palette.black
+            detailsLabel.font = AppFonts.medium
         }
     }
     
@@ -29,16 +27,14 @@ class ProfileSummaryView: UIView {
         didSet {
             let title = attributedString(L10n.ProfileSummary.Button.followers, withBoldNumber: 0)
             followersButton.setAttributedTitle(title, for: .normal)
-            followersButton.setTitleColor(Palette.green, for: .normal)
-            followersButton.titleLabel?.font = Fonts.small
+            followersButton.titleLabel?.font = AppFonts.small
         }
     }
     
     @IBOutlet fileprivate weak var editButton: UIButton! {
         didSet {
             editButton.setTitle(L10n.ProfileSummary.Button.edit, for: .normal)
-            editButton.setTitleColor(Palette.green, for: .normal)
-            editButton.titleLabel?.font = Fonts.small
+            editButton.titleLabel?.font = AppFonts.small
             editButton.isHidden = true
         }
     }
@@ -47,8 +43,7 @@ class ProfileSummaryView: UIView {
         didSet {
             let title = attributedString(L10n.ProfileSummary.Button.following, withBoldNumber: 0)
             followingButton.setAttributedTitle(title, for: .normal)
-            followingButton.setTitleColor(Palette.green, for: .normal)
-            followingButton.titleLabel?.font = Fonts.small
+            followingButton.titleLabel?.font = AppFonts.small
         }
     }
     
@@ -121,9 +116,9 @@ class ProfileSummaryView: UIView {
     }
     
     private func attributedString(_ inputString: String, withBoldNumber number: Int) -> NSAttributedString {
-        let font = Fonts.small
-        let boldFont = Fonts.bold.small
-        let textColor = Palette.green
+        let font = AppFonts.small
+        let boldFont = AppFonts.bold.small
+        let textColor = theme?.palette.accent ?? .red
         
         let numberAttrs: [String: Any] = [NSFontAttributeName: boldFont, NSForegroundColorAttributeName: textColor]
         let stringAttrs: [String: Any] = [NSFontAttributeName: font, NSForegroundColorAttributeName: textColor]
@@ -151,5 +146,24 @@ class ProfileSummaryView: UIView {
             return
         }
         onFollow?(followStatus)
+    }
+}
+
+extension ProfileSummaryView: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        
+        backgroundColor = palette.topicBackground
+        
+        nameLabel.textColor = palette.textPrimary
+        detailsLabel.textColor = palette.textPrimary
+        
+        followersButton.setTitleColor(palette.accent, for: .normal)
+        editButton.setTitleColor(palette.accent, for: .normal)
+        followingButton.setTitleColor(palette.accent, for: .normal)
+        followButton.setTitleColor(palette.accent, for: .normal)
     }
 }

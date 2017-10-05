@@ -26,6 +26,7 @@ final class SearchTopicsConfigurator {
         presenter.feedViewController = feedConfigurator.viewController
         
         viewController.output = presenter
+        viewController.theme = SocialPlus.theme
         
         moduleInput = presenter
     }

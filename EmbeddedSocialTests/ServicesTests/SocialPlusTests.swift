@@ -15,6 +15,7 @@ class SocialPlusTests: XCTestCase {
     var servicesProvider: MockSocialPlusServices!
     var cache: MockCache!
     var networkTracker: MockNetworkTracker!
+    var appConfiguration: MockAppConfiguration!
     
     var sut = SocialPlus.shared
     
@@ -28,6 +29,7 @@ class SocialPlusTests: XCTestCase {
         daemonsController = MockDaemon()
         cache = MockCache()
         networkTracker = MockNetworkTracker()
+        appConfiguration = MockAppConfiguration()
         
         servicesProvider = MockSocialPlusServices()
         servicesProvider.getURLSchemeServiceReturnValue = urlSchemeService
@@ -38,6 +40,8 @@ class SocialPlusTests: XCTestCase {
         servicesProvider.getCoreDataStackReturnValue = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
         servicesProvider.getCacheCoreDataStackReturnValue = cache
         servicesProvider.getNetworkTrackerReturnValue = networkTracker
+        servicesProvider.getAppConfigurationReturnValue = appConfiguration
+        servicesProvider.getStartupCommandsReturnValue = []
         
         urlSchemeService.openURLReturnValue = true
         
@@ -55,6 +59,7 @@ class SocialPlusTests: XCTestCase {
         servicesProvider = nil
         cache = nil
         networkTracker = nil
+        appConfiguration = nil
         
         sut.setupServices(with: SocialPlusServices())
     }
@@ -98,8 +103,6 @@ class SocialPlusTests: XCTestCase {
     }
     
     private func validateThirdPartyConfiguratorCalled(with args: LaunchArguments) {
-        XCTAssertTrue(thirdPartyConfigurator.setupApplicationLaunchOptionsCalled)
-        
         let receivedArgs = thirdPartyConfigurator.setupApplicationLaunchOptionsReceivedArguments
         XCTAssertEqual(receivedArgs?.application, args.app)
         XCTAssertTrue(NSDictionary(dictionary: receivedArgs?.launchOptions ?? [:]).isEqual(to: args.launchOptions))

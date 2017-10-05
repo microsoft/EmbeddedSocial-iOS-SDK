@@ -39,7 +39,7 @@ final class UploadPhotoCell: UITableViewCell {
     }
     
     private func setupSubviews() {
-        uploadLabel.font = Fonts.regular
+        uploadLabel.font = AppFonts.regular
         uploadLabel.textColor = Palette.darkGrey
         uploadLabel.text = L10n.UploadPhotoCell.uploadPhoto
         
@@ -60,5 +60,16 @@ final class UploadPhotoCell: UITableViewCell {
 extension UploadPhotoCell {
     func configure(photo: Photo?) {
         photoImageView.setPhotoWithCaching(photo, placeholder: UIImage(asset: .userPhotoPlaceholder))
+    }
+}
+
+extension UploadPhotoCell: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        uploadLabel.textColor = palette.textPrimary
+        backgroundColor = palette.contentBackground
     }
 }
