@@ -108,6 +108,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         postImageButton.imageView?.contentMode = .scaleAspectFill
         postText.maximumNumberOfLines = Constants.FeedModule.Collection.Cell.maxLines
         postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
+        postText.isScrollEnabled = false
     }
     
     func setup() {
