@@ -123,7 +123,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         // Navigation
         navigationItem.rightBarButtonItem = layoutChangeButton
         
-        
         // Subviews
         view.addSubview(noContentLabel)
         
@@ -160,23 +159,29 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
         
-        collectionView.collectionViewLayout.invalidateLayout()
-    
-        // switch layout
-        switch type {
-        case .grid:
-            layoutChangeButton.image = UIImage(asset: .iconList)
-            if collectionView.collectionViewLayout != gridLayout {
-                collectionView.setCollectionViewLayout(gridLayout, animated: animated)
-            }
-        case .list:
-            layoutChangeButton.image = UIImage(asset: .iconGallery)
-            if collectionView.collectionViewLayout != listLayout {
-                collectionView.setCollectionViewLayout(listLayout, animated: animated)
-            }
-        }
+//        self.collectionView.collectionViewLayout.invalidateLayout()
+        Logger.log(type, event: .veryImportant)
+        self.collectionView.reloadSections([0])
+
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//
+//            // switch layout
+//            switch type {
+//            case .grid:
+//                self.layoutChangeButton.image = UIImage(asset: .iconList)
+//                //if collectionView.collectionViewLayout != gridLayout {
+//                self.collectionView.setCollectionViewLayout(self.gridLayout, animated: animated)
+//            //}
+//            case .list:
+//                self.layoutChangeButton.image = UIImage(asset: .iconGallery)
+//                //if collectionView.collectionViewLayout != listLayout {
+//                self.collectionView.setCollectionViewLayout(self.listLayout, animated: animated)
+//                //}
+//            }
+//
+//        }
         
-        collectionView.reloadData()
+        
     }
     
     private func onUpdateBounds() {
@@ -327,9 +332,14 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     func reloadVisible() {
-        Logger.log(event: .veryImportant)
+        
+        
         let paths = collectionView.indexPathsForVisibleItems
-        self.collectionView.reloadItems(at: paths)
+        Logger.log(paths, event: .veryImportant)
+        self.collectionView.performBatchUpdates({
+            self.collectionView.reloadItems(at: paths)
+        }, completion: nil)
+        
     }
     
     func insertNewItems(with paths:[IndexPath]) {
@@ -343,7 +353,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     func reload() {
-        Logger.log(event: .veryImportant)
+        Logger.log(output.numberOfItems(), collectionView.indexPathsForVisibleItems.count , event: .veryImportant)
         collectionView.reloadData()
     }
     
@@ -373,6 +383,8 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         
         let item = output.item(for: indexPath)
         
+        Logger.log(indexPath, item.cellType, event: .veryImportant)
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: item.cellType, for: indexPath) as? PostCellProtocol else {
             fatalError("Wrong cell")
         }
@@ -396,7 +408,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         } else if collectionViewLayout === gridLayout {
             return gridLayout.itemSize
         } else {
-            fatalError("Unexpected")
+           return CGSize.zero
         }
     }
     

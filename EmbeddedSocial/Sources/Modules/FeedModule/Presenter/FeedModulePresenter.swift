@@ -187,7 +187,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didTapChangeLayout() {
         layout = layout.flipped
-        view.setLayout(type: layout)
     }
     
     // MARK: FeedModuleInput
@@ -287,7 +286,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     // MARK: FeedModuleViewOutput
     func item(for path: IndexPath) -> PostViewModel {
-        
         let index = path.row
         let item = items[index]
         
@@ -499,7 +497,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didFetch(feed: Feed) {
-        processFetchResult(feed: feed, isMore: false)
+        DispatchQueue.main.async {
+            self.processFetchResult(feed: feed, isMore: false)
+        }
+        
     }
     
     func didFetchMore(feed: Feed) {
