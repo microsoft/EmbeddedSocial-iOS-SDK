@@ -9,7 +9,8 @@
   desc "Runs unit tests"
   lane :unit_tests do |params|
     scan(
-	scheme: "EmbeddedSocial"
+	scheme: "EmbeddedSocial",
+	device: "iPhone 7 (10.3)"
     )
   end
 
