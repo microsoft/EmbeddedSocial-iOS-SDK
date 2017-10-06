@@ -13,10 +13,16 @@ class MockActivityInteractor: ActivityInteractorInput {
     
     var loadMyActivitiesCompletionCalled = false
     var loadMyActivitiesResult: ActivityItemListResult!
+    var loadMyActivitiesResultCached: ActivityItemListResult?
     
     func loadMyActivities(completion: ((ActivityItemListResult) -> Void)?) {
         loadMyActivitiesCompletionCalled = true
-        loadMyActivitiesResult?(loadMyActivitiesResult)
+        
+        if let cached = loadMyActivitiesResultCached {
+            completion?(cached)
+        }
+        
+        completion?(loadMyActivitiesResult)
     }
     
     //MARK: - loadNextPageMyActivities
@@ -94,18 +100,18 @@ class MockActivityInteractor: ActivityInteractorInput {
 
 class ActivityPresenterTests: XCTestCase {
     
-    var sut: ActivityPresenter!
-    var interactor : ActivityInteractorMock!
-    var view: ActivityViewMock!
+//    var sut: ActivityPresenter!
+//    var interactor : ActivityInteractorMock!
+//    var view: ActivityViewMock!
     
     override func setUp() {
         super.setUp()
         
-        view = ActivityViewMock()
-        sut = ActivityPresenter()
-        sut.view = view
-        interactor = ActivityInteractorMock()
-        sut.interactor = interactor
+//        view = ActivityViewMock()
+//        sut = ActivityPresenter()
+//        sut.view = view
+//        interactor = ActivityInteractorMock()
+//        sut.interactor = interactor
         
     }
     
