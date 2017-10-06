@@ -7,13 +7,6 @@ import XCTest
 @testable import EmbeddedSocial
 
 class QueryPeopleAPITests: XCTestCase {
-    override func setUp() {
-        super.setUp()
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-    }
     
     func testThatItCallsCorrectServiceAPI() {
         // given

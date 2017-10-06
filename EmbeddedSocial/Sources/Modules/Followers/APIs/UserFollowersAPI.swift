@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct UserFollowersAPI: UsersListAPI {
+final class UserFollowersAPI: UsersListAPI {
     private let service: SocialServiceType
     private let userID: String
     
@@ -14,7 +14,7 @@ struct UserFollowersAPI: UsersListAPI {
         self.service = service
     }
     
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+    override func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         service.getUserFollowers(userID: userID, cursor: cursor, limit: limit, completion: completion)
     }
 }

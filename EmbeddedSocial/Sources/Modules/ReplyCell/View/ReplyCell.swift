@@ -82,3 +82,28 @@ class ReplyCell: UICollectionViewCell, ReplyCellViewInput {
     }
 
 }
+
+extension ReplyCell {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        
+        backgroundColor = palette.contentBackground
+        
+        totalLikesButton.setTitleColor(palette.topicSecondaryText, for: .normal)
+        totalLikesButton.titleLabel?.font = AppFonts.small
+        
+        postTimeLabel.textColor = palette.topicSecondaryText
+        postTimeLabel.font = AppFonts.medium
+        
+        userName.textColor = palette.textPrimary
+        userName.font = AppFonts.medium
+        
+        separator.backgroundColor = palette.separator
+        
+        replyLabel.textColor = palette.textPrimary
+        replyLabel.font = AppFonts.regular
+    }
+}

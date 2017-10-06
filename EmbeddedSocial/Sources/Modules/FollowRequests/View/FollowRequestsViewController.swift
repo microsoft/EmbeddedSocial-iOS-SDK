@@ -50,6 +50,7 @@ class FollowRequestsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        apply(theme: theme)
         output.viewIsReady()
     }
     
@@ -98,3 +99,41 @@ extension FollowRequestsViewController: FollowRequestsViewInput {
         noDataLabel.attributedText = text
     }
 }
+
+extension FollowRequestsViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        view.backgroundColor = palette.contentBackground
+        refreshControl.tintColor = palette.loadingIndicator
+        tableView.backgroundColor = palette.contentBackground
+        noDataLabel.textColor = palette.textPrimary
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

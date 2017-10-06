@@ -36,6 +36,7 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        apply(theme: theme)
         output.viewIsReady()
     }
     
@@ -76,6 +77,12 @@ class SearchViewController: UIViewController {
             backgroundView.removeFromSuperview()
         }
     }
+    
+    fileprivate func search(text searchText: String) {
+        activeTab?.searchResultsController.view.isHidden = searchText.isEmpty
+        activeTab?.searchText = searchText
+        activeTab?.searchResultsHandler.updateSearchResults(for: searchBar)
+    }
 }
 
 extension SearchViewController: SearchViewInput {
@@ -99,6 +106,11 @@ extension SearchViewController: SearchViewInput {
         feedLayoutButton.setImage(UIImage(asset: asset), for: .normal)
         feedLayoutButton.sizeToFit()
     }
+    
+    func search(hashtag: Hashtag) {
+        searchBar.text = hashtag
+        search(text: hashtag)
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
@@ -108,9 +120,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        activeTab?.searchResultsController.view.isHidden = searchText.isEmpty
-        activeTab?.searchText = searchText
-        activeTab?.searchResultsHandler.updateSearchResults(for: searchBar)
+        search(text: searchText)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -123,5 +133,18 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: false)
+    }
+}
+
+extension SearchViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        view.backgroundColor = palette.contentBackground
+        feedLayoutButton.tintColor = palette.navigationBarTint
+        searchBar.tintColor = palette.navigationBarTint
+        filterView.apply(theme: theme)
     }
 }

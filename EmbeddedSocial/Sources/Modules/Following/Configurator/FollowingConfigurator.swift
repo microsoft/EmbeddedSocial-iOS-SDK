@@ -33,6 +33,7 @@ final class FollowingConfigurator {
         
         let noDataView = FollowingNoDataView.fromNib()
         noDataView.delegate = output
+        noDataView.apply(theme: SocialPlus.theme)
         
         let settings = UserListConfigurator.Settings(api: api,
                                                      navigationController: navigationController,

@@ -216,6 +216,8 @@ enum L10n {
   }
 
   enum CreatePost {
+    /// Text
+    static let bodyPlaceholder = L10n.tr("Localizable", "create_post.body_placeholder")
     /// Going back to the feed will delete the content of this draft, are you sure you want to go back?
     static let leaveNewPost = L10n.tr("Localizable", "create_post.leave_new_post")
     /// Leave post
@@ -226,6 +228,8 @@ enum L10n {
     static let returnToFeed = L10n.tr("Localizable", "create_post.return_to_feed")
     /// Save
     static let save = L10n.tr("Localizable", "create_post.save")
+    /// Title
+    static let titlePlaceholder = L10n.tr("Localizable", "create_post.title_placeholder")
 
     enum Button {
       /// Tap here to add a picture
@@ -234,6 +238,16 @@ enum L10n {
       static let addPost = L10n.tr("Localizable", "create_post.button.add_post")
       /// Update post
       static let updatePost = L10n.tr("Localizable", "create_post.button.update_post")
+    }
+  }
+
+  enum DetailedActivity {
+
+    enum Button {
+      /// Open comment
+      static let openComment = L10n.tr("Localizable", "detailed_activity.button.open_comment")
+      /// Open topic
+      static let openTopic = L10n.tr("Localizable", "detailed_activity.button.open_topic")
     }
   }
 
@@ -286,6 +300,8 @@ enum L10n {
     }
     /// No Items Received
     static let noItemsReceived = L10n.tr("Localizable", "error.no_items_received")
+    /// Not implemented.
+    static let notImplemented = L10n.tr("Localizable", "error.not_implemented")
     /// Unknown error occurred.
     static let unknown = L10n.tr("Localizable", "error.unknown")
     /// User list module configuration error: API not set.
@@ -404,6 +420,11 @@ enum L10n {
     }
   }
 
+  enum PostDetails {
+    /// Type here to comment on this post
+    static let commentPlaceholder = L10n.tr("Localizable", "post_details.comment_placeholder")
+  }
+
   enum PostMenu {
     /// Block
     static let block = L10n.tr("Localizable", "post_menu.block")
@@ -482,6 +503,8 @@ enum L10n {
     enum Label {
       /// Based on who you follow
       static let basedOnWhoYouFollow = L10n.tr("Localizable", "search.label.based_on_who_you_follow")
+      /// Trending topics
+      static let trendingTopics = L10n.tr("Localizable", "search.label.trending_topics")
     }
 
     enum Placeholder {
@@ -535,15 +558,6 @@ enum L10n {
       static let reportUser = L10n.tr("Localizable", "user_profile.button.report_user")
     }
   }
-    
-    enum DetailedActivity {
-        enum Button {
-            /// Open comment
-            static let openComment = L10n.tr("Localizable", "detailed_activity.button.open_comment")
-            /// Open topic
-            static let openTopic = L10n.tr("Localizable", "detailed_activity.button.open_topic")
-        }
-    }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 

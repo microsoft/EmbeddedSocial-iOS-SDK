@@ -274,9 +274,9 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     // MARK: Input
     func setupInitialState() {
-        collectionView.backgroundColor = Palette.extraLightGrey
         collectionView.alwaysBounceVertical = true
         collectionView.addSubview(refreshControl)
+        apply(theme: theme)
     }
     
     func showError(error: Error) {
@@ -377,6 +377,8 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
             fatalError("Wrong cell")
         }
         
+        (cell as? Themeable)?.apply(theme: theme)
+
         cell.configure(with: item, collectionView: collectionView)
         
         return cell as! UICollectionViewCell
@@ -456,5 +458,18 @@ extension FeedModuleViewController: UIScrollViewDelegate {
         let containerHeight = scrollView.frame.size.height
         
         isPullingBottom = offsetY > 0 && (contentHeight - offsetY) < (containerHeight - 10)
+    }
+}
+
+extension FeedModuleViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        collectionView.backgroundColor = palette.topicsFeedBackground
+        view.backgroundColor = palette.topicsFeedBackground
+        noContentLabel.textColor = palette.textPrimary
+        refreshControl.tintColor = palette.loadingIndicator
     }
 }

@@ -36,10 +36,10 @@ extension UIButton.Style {
     static var follow: UIButton.Style {
         return UIButton.Style(title: L10n.Common.follow.uppercased(),
                               backgroundColor: .clear,
-                              tintColor: Palette.green,
-                              titleColor: Palette.green,
-                              titleFont: Fonts.small,
-                              borderColor: Palette.green,
+                              tintColor: SocialPlus.palette.accent,
+                              titleColor:SocialPlus.palette.accent,
+                              titleFont: AppFonts.small,
+                              borderColor: SocialPlus.palette.accent,
                               borderWidth: 1.0,
                               cornerRadius: 8.0)
     }
@@ -47,20 +47,20 @@ extension UIButton.Style {
     static var pending: UIButton.Style {
         return UIButton.Style(title: L10n.Common.pending.uppercased(),
                               backgroundColor: .clear,
-                              tintColor: Palette.lightGrey,
-                              titleColor: Palette.lightGrey,
-                              titleFont: Fonts.small,
-                              borderColor: Palette.lightGrey,
+                              tintColor: SocialPlus.palette.controlUnhighlighted,
+                              titleColor: SocialPlus.palette.controlUnhighlighted,
+                              titleFont: AppFonts.small,
+                              borderColor: SocialPlus.palette.controlUnhighlighted,
                               borderWidth: 1.0,
                               cornerRadius: 8.0)
     }
     
     static var following: UIButton.Style {
         return UIButton.Style(title: L10n.Common.following.uppercased(),
-                              backgroundColor: Palette.green,
-                              tintColor: Palette.green,
-                              titleColor: Palette.white,
-                              titleFont: Fonts.small,
+                              backgroundColor: SocialPlus.palette.accent,
+                              tintColor: SocialPlus.palette.accent,
+                              titleColor: SocialPlus.palette.controlHighlightedTitle,
+                              titleFont: AppFonts.small,
                               borderColor: nil,
                               borderWidth: 0.0,
                               cornerRadius: 8.0)
@@ -69,10 +69,10 @@ extension UIButton.Style {
     static var unblock: UIButton.Style {
         return UIButton.Style(title: L10n.Common.unblock.uppercased(),
                               backgroundColor: .clear,
-                              tintColor: Palette.lightGrey,
-                              titleColor: Palette.lightGrey,
-                              titleFont: Fonts.small,
-                              borderColor: Palette.lightGrey,
+                              tintColor: SocialPlus.palette.controlUnhighlighted,
+                              titleColor: SocialPlus.palette.controlUnhighlighted,
+                              titleFont: AppFonts.small,
+                              borderColor: SocialPlus.palette.controlUnhighlighted,
                               borderWidth: 1.0,
                               cornerRadius: 8.0)
     }

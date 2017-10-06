@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5vd-0T-hlO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17A365" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5vd-0T-hlO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -116,6 +115,7 @@
                         <outlet property="googleButton" destination="D7W-KD-wfX" id="DMe-Zn-jCM"/>
                         <outlet property="loadingIndicatorView" destination="Y5e-gU-uZH" id="DO7-rl-XO9"/>
                         <outlet property="microsoftButton" destination="dvV-ix-pQ9" id="GPV-Xh-vlj"/>
+                        <outlet property="signInWithLabel" destination="0wE-Kp-Fxe" id="mRt-dk-inx"/>
                         <outlet property="twitterButton" destination="pU1-Pc-bfK" id="Te9-te-ozQ"/>
                     </connections>
                 </viewController>

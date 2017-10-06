@@ -7,13 +7,15 @@ protocol ActivityModuleInput: class {
     
 }
 
-typealias Section = PagesListModel<SectionHeader, ActivityItem>
+typealias ActivitySection = PagesListModel<SectionHeader, ActivityItem>
 
 class ActivityPresenter {
     
     weak var view: ActivityViewInput!
     var interactor: ActivityInteractorInput
     var router: ActivityRouterInput!
+    
+    var theme: Theme?
     
     enum State: Int  {
         case my = 0
@@ -39,6 +41,7 @@ class ActivityPresenter {
     fileprivate lazy var cellConfigurator: CellConfigurator = { [unowned self] in
         let configurator = CellConfigurator()
         configurator.presenter = self
+        configurator.theme = self.theme
         return configurator
     }()
     

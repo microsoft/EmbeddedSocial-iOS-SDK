@@ -14,8 +14,6 @@ protocol SocialPlusServicesType {
     
     func getSessionStoreRepositoriesProvider() -> SessionStoreRepositoryProviderType
     
-    func getThirdPartyConfigurator() -> ThirdPartyConfiguratorType
-    
     func getCoreDataStack() -> CoreDataStack
     
     func getCache(coreDataStack: CoreDataStack) -> CacheType
@@ -25,6 +23,10 @@ protocol SocialPlusServicesType {
     func getAuthorizationMulticast() -> AuthorizationMulticastType
     
     func getDaemonsController(cache: CacheType) -> Daemon
+    
+    func getAppConfiguration(configFilename: String) -> AppConfigurationType
+    
+    func getStartupCommands(launchArgs: LaunchArguments) -> [Command]
 }
 
 final class SocialPlusServices: SocialPlusServicesType {
@@ -42,10 +44,6 @@ final class SocialPlusServices: SocialPlusServicesType {
     
     func getSessionStoreRepositoriesProvider() -> SessionStoreRepositoryProviderType {
         return SessionStoreRepositoryProvider()
-    }
-    
-    func getThirdPartyConfigurator() -> ThirdPartyConfiguratorType {
-        return ThirdPartyConfigurator()
     }
     
     func getCoreDataStack() -> CoreDataStack {
@@ -77,5 +75,19 @@ final class SocialPlusServices: SocialPlusServicesType {
     
     func getDaemonsController(cache: CacheType) -> Daemon {
         return DaemonsController(networkTracker: networkTracker, cache: cache)
+    }
+    
+    func getAppConfiguration(configFilename: String) -> AppConfigurationType {
+        guard let config = AppConfiguration(filename: configFilename) else {
+            fatalError("Config file is wrong or missing.")
+        }
+        return config
+    }
+    
+    func getStartupCommands(launchArgs: LaunchArguments) -> [Command] {
+        let command1 = ThirdPartiesConfigurationCommand(configurator: ThirdPartyConfigurator(), launchArgs: launchArgs)
+        let command2 = APIBasePathSetupCommand()
+        let command3 = AppThemeConfigurationCommand()
+        return [command1, command2, command3]
     }
 }

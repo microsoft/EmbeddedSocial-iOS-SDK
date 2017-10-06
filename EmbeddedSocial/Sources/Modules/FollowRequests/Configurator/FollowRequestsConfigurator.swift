@@ -15,11 +15,12 @@ struct FollowRequestsConfigurator {
     }
     
     func configure(output: FollowRequestsModuleOutput?, navigationController: UINavigationController?) {
-        let listProcessor = UsersListProcessor(api: FollowRequestsAPI(activityService: SocialService()))
+        let listProcessor = PaginatedListProcessor<User>(api: FollowRequestsAPI(activityService: SocialService()),
+                                                         pageSize: Constants.UserList.pageSize)
         let interactor = FollowRequestsInteractor(listProcessor: listProcessor, socialService: SocialService())
         
         let noDataText = NSAttributedString(string: L10n.FollowRequests.noDataText,
-                                            attributes: [NSFontAttributeName: Fonts.medium,
+                                            attributes: [NSFontAttributeName: AppFonts.medium,
                                                          NSForegroundColorAttributeName: Palette.darkGrey])
         
         let presenter = FollowRequestsPresenter(noDataText: noDataText)
@@ -32,5 +33,6 @@ struct FollowRequestsConfigurator {
         
         viewController.output = presenter
         viewController.dataManager = FollowRequestsDataDisplayManager()
+        viewController.theme = SocialPlus.theme
     }
 }
