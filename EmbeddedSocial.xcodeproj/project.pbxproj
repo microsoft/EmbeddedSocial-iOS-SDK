@@ -1022,6 +1022,8 @@
 		9C6D35A11F31D1C1005893DB /* FeedModule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CC531421F31CCF2004CE94F /* FeedModule.storyboard */; };
 		9C6D35A21F31D1C1005893DB /* FeedModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531431F31CCF2004CE94F /* FeedModuleViewController.swift */; };
 		9C6D35A41F31D1C1005893DB /* FeedModuleViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531451F31CCF2004CE94F /* FeedModuleViewOutput.swift */; };
+		9C7975BA1F87538B00FB4FFC /* ActivityPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ED92AD1F72DF3E0026AC3E /* ActivityPresenterTests.swift */; };
+		9C7975BC1F87553000FB4FFC /* ActivityDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7975BB1F87553000FB4FFC /* ActivityDataSourceTests.swift */; };
 		9C7D9B341F2F430B005928F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B331F2F430B005928F4 /* Localizable.strings */; };
 		9C7D9B361F2F4372005928F4 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */; };
 		9C805F3F1F822E12006D4F79 /* FeedModuleInteractor-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C316E101F31E3CB00B90089 /* FeedModuleInteractor-Tests.swift */; };
@@ -2140,6 +2142,7 @@
 		9C5BE9021F67D04C00F0E20E /* ActivityCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCells.swift; sourceTree = "<group>"; };
 		9C6244F11F457DED004814BB /* PostMenuModuleInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleInteractorTests.swift; sourceTree = "<group>"; };
 		9C6244F31F4580FC004814BB /* PostMenuModulePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenterTests.swift; sourceTree = "<group>"; };
+		9C7975BB1F87553000FB4FFC /* ActivityDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDataSourceTests.swift; sourceTree = "<group>"; };
 		9C7D9B331F2F430B005928F4 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 1; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		9C985E521F505BDF00514F85 /* FeedCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCacheTests.swift; sourceTree = "<group>"; };
@@ -5681,6 +5684,7 @@
 			children = (
 				F8ED92AD1F72DF3E0026AC3E /* ActivityPresenterTests.swift */,
 				9CCE405C1F72827A003A51D9 /* ActivityTests.swift */,
+				9C7975BB1F87553000FB4FFC /* ActivityDataSourceTests.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -6874,6 +6878,7 @@
 				88D2F8F81F56D3700004A8BC /* ReportUserAPITests.swift in Sources */,
 				8868260F1F6A936600F54731 /* CancelPendingCommandTests.swift in Sources */,
 				886826131F6AA04900F54731 /* OutgoingCommandOperationsBuilderTests.swift in Sources */,
+				9C7975BC1F87553000FB4FFC /* ActivityDataSourceTests.swift in Sources */,
 				880AFD581F70035F00378710 /* LikeTopicOperationTests.swift in Sources */,
 				8834A7511F50348300F1D383 /* CachePredicateBuilderTests.swift in Sources */,
 				88F551BD1F39D2EF00F4AAB9 /* MockUserProfileView.swift in Sources */,
@@ -7009,6 +7014,7 @@
 				88F551BA1F39BB9700F4AAB9 /* MockFeedModuleInput.swift in Sources */,
 				88F1637B1F26494100DAAF68 /* SocialUserTests.swift in Sources */,
 				889AFC1D1F220BCD003AAF19 /* CredentialsListTests.swift in Sources */,
+				9C7975BA1F87538B00FB4FFC /* ActivityPresenterTests.swift in Sources */,
 				88D2F8E21F56B3350004A8BC /* ReportInteractorTests.swift in Sources */,
 				88B2D6A61F7D163B00920E43 /* OtherUserTopicsFeedResponseProcessorTests.swift in Sources */,
 				889119BC1F4AF868005B3B32 /* MockSearchPeopleModule.swift in Sources */,
