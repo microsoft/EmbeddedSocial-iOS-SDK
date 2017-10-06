@@ -935,6 +935,8 @@
 		8E6070721F3DCCEA00110F4F /* FollowersFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6070711F3DCCEA00110F4F /* FollowersFeed.swift */; };
 		8E6070741F41DD2000110F4F /* TestFollowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6070731F41DD2000110F4F /* TestFollowing.swift */; };
 		8E7C1EB5B841BD0D4A3D91DC /* CommentRepliesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F5C38DC3B411C39E5EB38C /* CommentRepliesInteractor.swift */; };
+		8E884CD61F87AE48008C0F51 /* CommentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E884CD51F87AE48008C0F51 /* CommentMenu.swift */; };
+		8E884CD81F87B036008C0F51 /* TestCommentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E884CD71F87B036008C0F51 /* TestCommentMenu.swift */; };
 		8EAF45801F5ECCBE0046F704 /* PopularTopics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAF457F1F5ECCBE0046F704 /* PopularTopics.swift */; };
 		8EAF45821F5ECDE70046F704 /* TestPopular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAF45811F5ECDE70046F704 /* TestPopular.swift */; };
 		8EAF45991F6989FF0046F704 /* TestPostComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAF45971F6989FF0046F704 /* TestPostComments.swift */; };
@@ -2048,6 +2050,8 @@
 		8E60706F1F3DC9CF00110F4F /* TestFollowers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestFollowers.swift; sourceTree = "<group>"; };
 		8E6070711F3DCCEA00110F4F /* FollowersFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersFeed.swift; sourceTree = "<group>"; };
 		8E6070731F41DD2000110F4F /* TestFollowing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestFollowing.swift; sourceTree = "<group>"; };
+		8E884CD51F87AE48008C0F51 /* CommentMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentMenu.swift; sourceTree = "<group>"; };
+		8E884CD71F87B036008C0F51 /* TestCommentMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCommentMenu.swift; sourceTree = "<group>"; };
 		8EAF457F1F5ECCBE0046F704 /* PopularTopics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularTopics.swift; sourceTree = "<group>"; };
 		8EAF45811F5ECDE70046F704 /* TestPopular.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestPopular.swift; sourceTree = "<group>"; };
 		8EAF45971F6989FF0046F704 /* TestPostComments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestPostComments.swift; sourceTree = "<group>"; };
@@ -5292,6 +5296,7 @@
 				8EE2C6C71F4594ED00CFFE21 /* TestUserProfile.swift */,
 				8E5FCAB21F824BC100A81E2E /* TestActivityFeed.swift */,
 				8E1DC28F1F8666BB000F5066 /* TestBlockedUsers.swift */,
+				8E884CD71F87B036008C0F51 /* TestCommentMenu.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -5315,6 +5320,7 @@
 				8E5FCAC11F827D5400A81E2E /* ActivityFollowRequests.swift */,
 				8E5FCAC31F83918700A81E2E /* RecentActivity.swift */,
 				8E1DC2911F867881000F5066 /* BlockedFollowersFeed.swift */,
+				8E884CD51F87AE48008C0F51 /* CommentMenu.swift */,
 			);
 			path = UIObjects;
 			sourceTree = "<group>";
@@ -6153,6 +6159,7 @@
 				8E1DC2901F8666BB000F5066 /* TestBlockedUsers.swift in Sources */,
 				8EE2C6C41F4594C500CFFE21 /* XCUIElementTapByCoordinate.swift in Sources */,
 				8E6070741F41DD2000110F4F /* TestFollowing.swift in Sources */,
+				8E884CD61F87AE48008C0F51 /* CommentMenu.swift in Sources */,
 				8E26833F1F7CF6BF00A5B25B /* TestSettings.swift in Sources */,
 				8EE2C6CC1F46D8DB00CFFE21 /* TestEditProfile.swift in Sources */,
 				8E16EAE51F7D36F300AAF1DA /* PostMenu.swift in Sources */,
@@ -6185,6 +6192,7 @@
 				8E6070681F3CB63F00110F4F /* TestMyProfile.swift in Sources */,
 				8E6070561F34D15200110F4F /* Random.swift in Sources */,
 				8E536BC51F6BC94A006AF7A8 /* TestSearch.swift in Sources */,
+				8E884CD81F87B036008C0F51 /* TestCommentMenu.swift in Sources */,
 				8E5FCAB61F82558800A81E2E /* TestMyPins.swift in Sources */,
 				8E6070601F3A2A2400110F4F /* TestConfig.swift in Sources */,
 				8EAF45991F6989FF0046F704 /* TestPostComments.swift in Sources */,
