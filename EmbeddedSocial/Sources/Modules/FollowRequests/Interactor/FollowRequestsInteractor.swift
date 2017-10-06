@@ -10,7 +10,7 @@ class FollowRequestsInteractor: FollowRequestsInteractorInput {
     weak var output: FollowRequestsInteractorOutput?
     
     private let socialService: SocialServiceType
-    private var listProcessor: UsersListProcessorType
+    private var listProcessor: AbstractPaginatedListProcessor<User>
     
     var isLoadingList: Bool {
         return listProcessor.isLoadingList
@@ -20,7 +20,7 @@ class FollowRequestsInteractor: FollowRequestsInteractorInput {
         return listProcessor.listHasMoreItems
     }
     
-    init(listProcessor: UsersListProcessorType, socialService: SocialServiceType) {
+    init(listProcessor: AbstractPaginatedListProcessor<User>, socialService: SocialServiceType) {
         self.socialService = socialService
         self.listProcessor = listProcessor
         self.listProcessor.delegate = self
@@ -43,7 +43,7 @@ class FollowRequestsInteractor: FollowRequestsInteractorInput {
     }
 }
 
-extension FollowRequestsInteractor: UsersListProcessorDelegate {
+extension FollowRequestsInteractor: PaginatedListProcessorDelegate {
     
     func didUpdateListLoadingState(_ isLoading: Bool) {
         output?.didUpdateListLoadingState(isLoading)

@@ -18,7 +18,7 @@ class DataSourceBuilder {
                                                delegate: DataSourceDelegate? = nil,
                                                context: DataSourceContext) -> MyPendingRequests {
         let header = SectionHeader(name: L10n.Activity.Sections.Pending.title, identifier: "")
-        let section = Section(header: header, pages: [])
+        let section = ActivitySection(header: header, pages: [])
         
         return MyPendingRequests(interactor: interactor,
                                  section:section,
@@ -30,7 +30,7 @@ class DataSourceBuilder {
                                                     delegate: DataSourceDelegate? = nil,
                                                     context: DataSourceContext) -> MyActivities {
         let header = SectionHeader(name: L10n.Activity.Sections.My.title, identifier: "")
-        let section = Section(header: header, pages: [])
+        let section = ActivitySection(header: header, pages: [])
         
         return MyActivities(interactor: interactor,
                                     section: section,
@@ -42,7 +42,7 @@ class DataSourceBuilder {
                                                     delegate: DataSourceDelegate? = nil,
                                                     context: DataSourceContext) -> OthersActivties {
         let header = SectionHeader(name: L10n.Activity.Sections.Others.title, identifier: "")
-        let section = Section(header: header, pages: [])
+        let section = ActivitySection(header: header, pages: [])
         
         return OthersActivties(interactor: interactor,
                             section: section,
@@ -57,7 +57,7 @@ class DataSourceBuilder {
 class DataSource {
     
     weak var interactor: ActivityInteractorInput!
-    var section: Section
+    var section: ActivitySection
     var delegate: DataSourceDelegate?
     let context: DataSourceContext
     
@@ -65,7 +65,7 @@ class DataSource {
     func loadMore() { fatalError("No impl") }
     
     init(interactor: ActivityInteractorInput,
-         section: Section,
+         section: ActivitySection,
          delegate: DataSourceDelegate? = nil,
          context: DataSourceContext) {
         
@@ -124,7 +124,7 @@ class MyPendingRequests: DataSource {
         case let .failure(error):
             self.delegate?.didFail(error: error)
         case let .success(list):
-            let items = list.users.map { ActivityItem.pendingRequest($0) }
+            let items = list.items.map { ActivityItem.pendingRequest($0) }
             process(newItems: items, pageIdx: page)
         }
     }

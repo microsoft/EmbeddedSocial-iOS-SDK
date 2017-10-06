@@ -57,22 +57,22 @@ final class MockSocialService: SocialServiceType {
     
     func getMyFollowers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         getMyFollowersCount += 1
-        completion(.success(UsersListResponse(users: [], cursor: nil, isFromCache: false)))
+        completion(.success(UsersListResponse(items: [], cursor: nil, isFromCache: false)))
     }
     
     func getMyFollowing(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         getMyFollowingCount += 1
-        completion(.success(UsersListResponse(users: [], cursor: nil, isFromCache: false)))
+        completion(.success(UsersListResponse(items: [], cursor: nil, isFromCache: false)))
     }
     
     func getUserFollowers(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         getUserFollowersCount += 1
-        completion(.success(UsersListResponse(users: [], cursor: nil, isFromCache: false)))
+        completion(.success(UsersListResponse(items: [], cursor: nil, isFromCache: false)))
     }
     
     func getUserFollowing(userID: String, cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         getUserFollowingCount += 1
-        completion(.success(UsersListResponse(users: [], cursor: nil, isFromCache: false)))
+        completion(.success(UsersListResponse(items: [], cursor: nil, isFromCache: false)))
     }
     
     func changeFollowStatus(user: User, completion: @escaping (Result<Void>) -> Void) {
@@ -96,7 +96,7 @@ final class MockSocialService: SocialServiceType {
     
     func getMyBlockedUsers(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         getMyBlockedUsersCount += 1
-        completion(.success(UsersListResponse(users: [], cursor: nil, isFromCache: false)))
+        completion(.success(UsersListResponse(items: [], cursor: nil, isFromCache: false)))
     }
     
     

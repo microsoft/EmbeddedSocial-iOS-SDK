@@ -118,10 +118,5 @@ internal func == (lhs: User, rhs: User) -> Bool {
     guard compareOptionals(lhs: lhs.followingStatus, rhs: rhs.followingStatus, compare: ==) else { return false }
     return true
 }
-// MARK: - UsersListResponse AutoEquatable
-extension UsersListResponse: Equatable {}
- func == (lhs: UsersListResponse, rhs: UsersListResponse) -> Bool {
-    return true
-}
 
 // MARK: - AutoEquatable for Enums

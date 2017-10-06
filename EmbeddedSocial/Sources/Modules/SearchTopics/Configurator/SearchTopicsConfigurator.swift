@@ -16,14 +16,18 @@ final class SearchTopicsConfigurator {
     func configure(navigationController: UINavigationController?, output: SearchTopicsModuleOutput?) {
         let presenter = SearchTopicsPresenter()
         
-        let feedConfigurator = FeedModuleConfigurator()
-        feedConfigurator.configure(navigationController: navigationController, moduleOutput: presenter)
-        
         presenter.view = viewController
         presenter.interactor = SearchTopicsInteractor()
         presenter.moduleOutput = output
+        
+        let feedConfigurator = FeedModuleConfigurator()
+        feedConfigurator.configure(navigationController: navigationController, moduleOutput: presenter)
         presenter.feedModule = feedConfigurator.moduleInput
         presenter.feedViewController = feedConfigurator.viewController
+        
+        var trendingTopicsConfigurator = TrendingTopicsConfigurator()
+        trendingTopicsConfigurator.configure(output: presenter)
+        presenter.trendingTopicsModule = trendingTopicsConfigurator.moduleInput
         
         viewController.output = presenter
         viewController.theme = SocialPlus.theme

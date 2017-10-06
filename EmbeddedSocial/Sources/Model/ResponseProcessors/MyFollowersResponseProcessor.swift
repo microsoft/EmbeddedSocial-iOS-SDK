@@ -9,7 +9,7 @@ class MyFollowersResponseProcessor: UsersListResponseProcessor {
     
     override func apply(commands: [UserCommand], to usersList: UsersListResponse) -> UsersListResponse {
         var usersList = usersList
-        usersList.users += usersToAdd(commands: commands, to: usersList)
+        usersList.items += usersToAdd(commands: commands, to: usersList)
         return super.apply(commands: commands, to: usersList)
     }
     
@@ -18,7 +18,7 @@ class MyFollowersResponseProcessor: UsersListResponseProcessor {
         
         for command in commands {
             let isAcceptPendingCommand = command is AcceptPendingCommand
-            let isNew = !usersList.users.contains(where: { command.user.uid == $0.uid })
+            let isNew = !usersList.items.contains(where: { command.user.uid == $0.uid })
             
             if isAcceptPendingCommand && isNew {
                 usersToAdd.append(command.user)

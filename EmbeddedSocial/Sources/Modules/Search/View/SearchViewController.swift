@@ -77,6 +77,12 @@ class SearchViewController: UIViewController {
             backgroundView.removeFromSuperview()
         }
     }
+    
+    fileprivate func search(text searchText: String) {
+        activeTab?.searchResultsController.view.isHidden = searchText.isEmpty
+        activeTab?.searchText = searchText
+        activeTab?.searchResultsHandler.updateSearchResults(for: searchBar)
+    }
 }
 
 extension SearchViewController: SearchViewInput {
@@ -100,6 +106,11 @@ extension SearchViewController: SearchViewInput {
         feedLayoutButton.setImage(UIImage(asset: asset), for: .normal)
         feedLayoutButton.sizeToFit()
     }
+    
+    func search(hashtag: Hashtag) {
+        searchBar.text = hashtag
+        search(text: hashtag)
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
@@ -109,9 +120,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        activeTab?.searchResultsController.view.isHidden = searchText.isEmpty
-        activeTab?.searchText = searchText
-        activeTab?.searchResultsHandler.updateSearchResults(for: searchBar)
+        search(text: searchText)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

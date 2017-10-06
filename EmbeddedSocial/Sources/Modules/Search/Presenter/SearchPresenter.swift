@@ -65,6 +65,10 @@ extension SearchPresenter: SearchPeopleModuleOutput, SearchTopicsModuleOutput {
     func didFailToLoadSearchQuery(_ error: Error) {
         view.showError(error)
     }
+    
+    func didSelectHashtag(_ hashtag: Hashtag) {
+        view.search(hashtag: hashtag)
+    }
 }
 
 extension SearchPresenter: SearchModuleInput {
