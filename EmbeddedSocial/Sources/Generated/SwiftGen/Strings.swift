@@ -241,6 +241,16 @@ enum L10n {
     }
   }
 
+  enum DetailedActivity {
+
+    enum Button {
+      /// Open comment
+      static let openComment = L10n.tr("Localizable", "detailed_activity.button.open_comment")
+      /// Open topic
+      static let openTopic = L10n.tr("Localizable", "detailed_activity.button.open_topic")
+    }
+  }
+
   enum EditProfile {
     /// Edit profile
     static let screenTitle = L10n.tr("Localizable", "edit_profile.screen_title")
@@ -290,6 +300,8 @@ enum L10n {
     }
     /// No Items Received
     static let noItemsReceived = L10n.tr("Localizable", "error.no_items_received")
+    /// Not implemented.
+    static let notImplemented = L10n.tr("Localizable", "error.not_implemented")
     /// Unknown error occurred.
     static let unknown = L10n.tr("Localizable", "error.unknown")
     /// User list module configuration error: API not set.
@@ -544,15 +556,6 @@ enum L10n {
       static let reportUser = L10n.tr("Localizable", "user_profile.button.report_user")
     }
   }
-    
-    enum DetailedActivity {
-        enum Button {
-            /// Open comment
-            static let openComment = L10n.tr("Localizable", "detailed_activity.button.open_comment")
-            /// Open topic
-            static let openTopic = L10n.tr("Localizable", "detailed_activity.button.open_topic")
-        }
-    }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 

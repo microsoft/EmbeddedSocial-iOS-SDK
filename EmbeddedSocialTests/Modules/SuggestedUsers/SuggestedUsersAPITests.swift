@@ -19,7 +19,7 @@ class SuggestedUsersAPITests: XCTestCase {
     func testThatItCallsCorrectServiceAPI() {
         // given
         let socialService = MockSocialService()
-        let response = UsersListResponse(users: [], cursor: nil, isFromCache: false)
+        let response = UsersListResponse(items: [], cursor: nil, isFromCache: false)
         socialService.getSuggestedUsersReturnValue = .success(response)
         let sut = SuggestedUsersAPI(socialService: socialService, authorization: UUID().uuidString)
         

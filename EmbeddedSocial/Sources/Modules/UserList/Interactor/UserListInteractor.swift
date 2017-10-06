@@ -56,7 +56,7 @@ class UserListInteractor: UserListInteractorInput {
     }
 }
 
-extension UserListInteractor: AbstractPaginatedListProcessor<User> {
+extension UserListInteractor: PaginatedListProcessorDelegate {
     
     func didUpdateListLoadingState(_ isLoading: Bool) {
         output?.didUpdateListLoadingState(isLoading)

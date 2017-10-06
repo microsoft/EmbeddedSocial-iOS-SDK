@@ -18,6 +18,7 @@
 "error.user_list_no_api" = "User list module configuration error: API not set.";
 "error.invalid_response" = "Invalid server response.";
 "error.missing_response_data" = "Cant handle response, data is corrupted.";
+"error.not_implemented" = "Not implemented.";
 
 "common.ok" = "OK";
 "common.cancel" = "Cancel";

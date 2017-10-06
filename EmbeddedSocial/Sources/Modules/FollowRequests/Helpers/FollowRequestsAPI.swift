@@ -5,14 +5,14 @@
 
 import Foundation
 
-struct FollowRequestsAPI: UsersListAPI {
+final class FollowRequestsAPI: UsersListAPI {
     private let activityService: ActivityService
     
     init(activityService: ActivityService) {
         self.activityService = activityService
     }
     
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+    override func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         activityService.loadPendingsRequests(cursor: cursor, limit: limit, completion: completion)
     }
 }

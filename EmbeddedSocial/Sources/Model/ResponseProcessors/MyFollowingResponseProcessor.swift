@@ -12,8 +12,8 @@ class MyFollowingResponseProcessor: UsersListResponseProcessor {
         let usersToExclude = self.usersToExclude(commands: commands, from: usersList)
         let usersToAdd = self.usersToAdd(commands: commands, to: usersList)
         
-        usersList.users = usersList.users.filter { user in !usersToExclude.contains(where: { $0.uid == user.uid }) }
-        usersList.users += usersToAdd
+        usersList.items = usersList.items.filter { user in !usersToExclude.contains(where: { $0.uid == user.uid }) }
+        usersList.items += usersToAdd
                 
         return super.apply(commands: commands, to: usersList)
     }
@@ -46,7 +46,7 @@ class MyFollowingResponseProcessor: UsersListResponseProcessor {
         
         for command in commands {
             let isFollowCommand = command is FollowCommand
-            let isNew = !usersList.users.contains(where: { command.user.uid == $0.uid })
+            let isNew = !usersList.items.contains(where: { command.user.uid == $0.uid })
             
             if isFollowCommand && isNew {
                 usersToAdd.append(command.user)
