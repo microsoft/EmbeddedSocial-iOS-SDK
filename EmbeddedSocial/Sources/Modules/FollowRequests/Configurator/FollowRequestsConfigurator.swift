@@ -15,7 +15,8 @@ struct FollowRequestsConfigurator {
     }
     
     func configure(output: FollowRequestsModuleOutput?, navigationController: UINavigationController?) {
-        let listProcessor = UsersListProcessor(api: FollowRequestsAPI(activityService: SocialService()))
+        let listProcessor = PaginatedListProcessor<User>(api: FollowRequestsAPI(activityService: SocialService()),
+                                                         pageSize: Constants.UserList.pageSize)
         let interactor = FollowRequestsInteractor(listProcessor: listProcessor, socialService: SocialService())
         
         let noDataText = NSAttributedString(string: L10n.FollowRequests.noDataText,

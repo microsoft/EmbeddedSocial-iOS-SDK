@@ -5,19 +5,19 @@
 
 @testable import EmbeddedSocial
 
-class MockUsersListProcessor: UsersListProcessorType {
-    var isLoadingList = false
+class MockUsersListProcessor: AbstractPaginatedListProcessor<User> {
+    var _listHasMoreItems = false
     
-    var listHasMoreItems = false
-    
-    var delegate: UsersListProcessorDelegate?
+    override var listHasMoreItems: Bool {
+        return _listHasMoreItems
+    }
     
     //MARK: - getNextListPage
     
     var getNextListPageCompletionCalled = false
     var getNextListPageCompletionReturnValue: Result<[User]>!
     
-    func getNextListPage(completion: @escaping (Result<[User]>) -> Void) {
+    override func getNextListPage(completion: @escaping (Result<[User]>) -> Void) {
         getNextListPageCompletionCalled = true
         completion(getNextListPageCompletionReturnValue)
     }
@@ -25,9 +25,9 @@ class MockUsersListProcessor: UsersListProcessorType {
     //MARK: - setAPI
     
     var setAPICalled = false
-    var setAPIReceivedApi: UsersListAPI?
+    var setAPIReceivedApi: ListAPI<User>?
     
-    func setAPI(_ api: UsersListAPI) {
+    override func setAPI(_ api: ListAPI<User>) {
         setAPICalled = true
         setAPIReceivedApi = api
     }
@@ -37,7 +37,7 @@ class MockUsersListProcessor: UsersListProcessorType {
     var reloadListCompletionCalled = false
     var reloadListCompletionReturnValue: Result<[User]>!
     
-    func reloadList(completion: @escaping (Result<[User]>) -> Void) {
+    override func reloadList(completion: @escaping (Result<[User]>) -> Void) {
         reloadListCompletionCalled = true
         completion(reloadListCompletionReturnValue)
     }

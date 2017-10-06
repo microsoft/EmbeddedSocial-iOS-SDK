@@ -83,6 +83,13 @@ class SearchTopicsPresenterTests: XCTestCase {
         XCTAssertTrue(view.setIsEmptyCalled)
         XCTAssertEqual(view.setIsEmptyReceivedIsEmpty, isViewExpectedToBeEmpty)
     }
+    
+    func testThatItNotifiesModuleOutputWhenHashtagIsSelected() {
+        let hashtag = UUID().uuidString
+        sut.didSelectHashtag(hashtag)
+        XCTAssertTrue(moduleOutput.didSelectHashtagCalled)
+        XCTAssertEqual(moduleOutput.didSelectHashtagReceivedHashtag, hashtag)
+    }
 }
 
 /// MARK: - UISearchResultsUpdating

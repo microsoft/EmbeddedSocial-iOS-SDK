@@ -14,7 +14,7 @@ final class SuggestedUsersAPI: UsersListAPI {
         self.authorization = authorization
     }
     
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+    override func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         socialService.getSuggestedUsers(authorization: authorization, completion: completion)
     }
 }
