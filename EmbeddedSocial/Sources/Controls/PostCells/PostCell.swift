@@ -11,6 +11,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     @IBOutlet weak var postImageHeight: NSLayoutConstraint!
     @IBOutlet var staticHeigthElements: [UIView]!
     @IBOutlet var dynamicElement: UIView!
+    @IBOutlet var textHeight: NSLayoutConstraint!
     
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var pinButton: UIButton!
@@ -30,6 +31,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         didSet {
             postText.textContainerInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 5)
             postText.textContainer.lineFragmentPadding = 0
+            postText.backgroundColor = .clear
         }
     }
     
@@ -85,6 +87,14 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     }
     
     override func layoutSubviews() {
+        
+        // Workaround to textview height:
+        // 1. Calculate text size
+        // 2. Bound textview to this size
+        let size = CGSize(width: postText.frame.width, height: CGFloat.greatestFiniteMagnitude)
+        let height = postText.sizeThatFits(size).height
+        textHeight.constant = ceil(height)
+        
         super.layoutSubviews()
         userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
     }
@@ -98,6 +108,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         postImageButton.imageView?.contentMode = .scaleAspectFill
         postText.maximumNumberOfLines = Constants.FeedModule.Collection.Cell.maxLines
         postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
+        postText.isScrollEnabled = false
     }
     
     func setup() {
@@ -108,6 +119,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         viewModel = nil
         userName.text = nil
         postTitle.text = nil
+        postText.text = ""
+        textHeight.constant = 0
         postCreation.text = nil
         likedCount.text = nil
         commentedCount.text = nil
@@ -165,7 +178,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     // calculates static and dynamic(TextView) items
     func getHeight(with width: CGFloat) -> CGFloat {
         
-        // sum all blocks
+        // sum all statuic blocks
         var staticElementsHeight = staticHeigthElements.reduce(0) { result, view in
             return result + view.frame.size.height
         }
@@ -175,12 +188,24 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
             staticElementsHeight -= Constants.FeedModule.Collection.imageHeight
         }
         
-        // append text view height (Optimization possible)
-        let dynamicHeight = dynamicElement.systemLayoutSizeFitting(self.bounds.size).height
+        // dynamic part of calculation:
+        
+        // Workaround to textview height:
+        // 1. Calculate text size
+        // 2. Bound textview to this size
+        let size = CGSize(width: postText.frame.width, height: CGFloat.greatestFiniteMagnitude)
+        let height = postText.sizeThatFits(size).height
+        
+        textHeight.constant = ceil(height)
+        
+        dynamicElement.setNeedsLayout()
+        dynamicElement.layoutIfNeeded()
+ 
+        let dynamicHeight = dynamicElement.frame.height
     
         var result = [staticElementsHeight, dynamicHeight].reduce(0.0, +)
         
-        return result
+        return [staticElementsHeight, dynamicHeight].reduce(0.0, +)
     }
     
     // MARK: Private

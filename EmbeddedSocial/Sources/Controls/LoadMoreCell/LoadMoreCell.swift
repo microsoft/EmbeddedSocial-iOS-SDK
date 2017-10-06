@@ -51,3 +51,17 @@ class LoadMoreCell: UICollectionViewCell {
     }
     
 }
+
+extension LoadMoreCell {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        backgroundColor = palette.contentBackground
+        activityIndicator.color = palette.loadingIndicator
+        loadButton.backgroundColor = palette.contentBackground
+        loadButton.setTitleColor(palette.topicSecondaryText, for: .normal)
+        loadButton.titleLabel?.font = AppFonts.regular
+    }
+}

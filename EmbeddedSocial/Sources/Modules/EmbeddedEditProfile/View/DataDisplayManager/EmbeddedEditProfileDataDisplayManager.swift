@@ -24,6 +24,7 @@ final class EmbeddedEditProfileDataDisplayManager: NSObject, TableDataDisplayMan
     
     private lazy var builder: EmbeddedEditProfileCellsBuilder = { [unowned self] in
         var builder = EmbeddedEditProfileCellsBuilder()
+        builder.theme = self.theme
         builder.onFirstNameChanged = { self.onFirstNameChanged?($0) }
         builder.onLastNameChanged = { self.onLastNameChanged?($0) }
         builder.onBioChanged = {
@@ -91,6 +92,8 @@ final class EmbeddedEditProfileDataDisplayManager: NSObject, TableDataDisplayMan
             (cell as? TextViewCell)?.apply(style: style)
             cell.accessibilityIdentifier = "Bio"
         }
+        
+        (cell as? Themeable)?.apply(theme: theme)
     }
 }
 
@@ -146,5 +149,11 @@ extension EmbeddedEditProfileDataDisplayManager: UITableViewDelegate {
         case .bio:
             return UITableViewAutomaticDimension
         }
+    }
+}
+
+extension EmbeddedEditProfileDataDisplayManager: Themeable {
+    func apply(theme: Theme?) {
+        
     }
 }

@@ -80,25 +80,32 @@ extension TextViewCell {
         typealias LinesCountChangeHandler = (String?) -> Void
         
         let text: String?
+        let textColor: UIColor
         let font: UIFont
-        let placeholder: String?
+        let placeholder: NSAttributedString?
         let edgeInsets: UIEdgeInsets
         let charactersLimit: Int?
+        let backgroundColor: UIColor
         let onTextChanged: TextChangeHandler?
         let onLinesCountChanged: LinesCountChangeHandler?
         
         init(text: String? = nil,
+             textColor: UIColor,
              font: UIFont = .systemFont(ofSize: UIFont.systemFontSize),
-             placeholder: String? = nil,
+             placeholder: NSAttributedString? = nil,
              edgeInsets: UIEdgeInsets = .zero,
              charactersLimit: Int? = nil,
+             backgroundColor: UIColor = .clear,
              onTextChanged: TextChangeHandler? = nil,
              onLinesCountChanged: LinesCountChangeHandler? = nil) {
+            
             self.text = text
+            self.textColor = textColor
             self.font = font
             self.placeholder = placeholder
             self.edgeInsets = edgeInsets
             self.charactersLimit = charactersLimit
+            self.backgroundColor = backgroundColor
             self.onTextChanged = onTextChanged
             self.onLinesCountChanged = onLinesCountChanged
         }
@@ -106,11 +113,15 @@ extension TextViewCell {
     
     func apply(style: Style) {
         textView.text = style.text
-        textView.placeholder = style.placeholder
+        textView.textColor = style.textColor
+        textView.attributedPlaceholder = style.placeholder
         textView.font = style.font
+        textView.backgroundColor = style.backgroundColor
         limit = style.charactersLimit
         onTextChanged = style.onTextChanged
         onLinesCountChanged = style.onLinesCountChanged
         textView.textContainerInset = style.edgeInsets
+        backgroundColor = style.backgroundColor
+
     }
 }

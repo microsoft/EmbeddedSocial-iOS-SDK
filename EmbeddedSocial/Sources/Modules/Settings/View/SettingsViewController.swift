@@ -13,19 +13,46 @@ class SettingsViewController: UITableViewController {
         case signOut
     }
     
+    enum AboutSectionItems: Int {
+        case privacyPolicy
+        case termsAndConditions
+    }
+    
+    enum SettingsSections: Int {
+        case about
+        case privacy
+        case account
+    }
+    
     var output: SettingsViewOutput!
     
     @IBOutlet fileprivate weak var privacySwitch: UISwitch!
+    @IBOutlet fileprivate weak var privacyLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = Constants.standardCellHeight
+        tableView.tableFooterView = UIView()
+        apply(theme: theme)
         output.viewIsReady()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
+        
+        switch indexPath.section {
+        case SettingsSections.about.rawValue:
+            switch indexPath.row {
+            case AboutSectionItems.privacyPolicy.rawValue:
+                output.onPrivacyPolicy()
+            case AboutSectionItems.termsAndConditions.rawValue:
+                output.onTermsAndConditions()
+            default:
+                break
+            }
+        case SettingsSections.privacy.rawValue:
+            break
+        case SettingsSections.account.rawValue:
             switch indexPath.row {
             case ActionSectionItems.blockList.rawValue:
                 output.onBlockedList()
@@ -36,6 +63,8 @@ class SettingsViewController: UITableViewController {
             default:
                 break
             }
+        default:
+            break
         }
     }
     
@@ -45,6 +74,11 @@ class SettingsViewController: UITableViewController {
     
     @IBAction func onPrivacySwitch(_ sender: UISwitch) {
         output.onPrivacySwitch()
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as? UITableViewHeaderFooterView
+        header?.textLabel?.textColor = theme?.palette.textSecondary
     }
 }
 
@@ -62,3 +96,22 @@ extension SettingsViewController: SettingsViewInput {
     }
 }
 
+extension SettingsViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        tableView.backgroundColor = palette.topicsFeedBackground
+        
+        privacyLabel.textColor = palette.textPrimary
+        
+        for section in 0..<tableView.numberOfSections {
+            for row in 0..<tableView.numberOfRows(inSection: section) {
+                let cell = tableView.cellForRow(at: IndexPath(row: row, section: section))
+                cell?.textLabel?.textColor = palette.textPrimary
+                cell?.backgroundColor = palette.contentBackground
+            }
+        }
+    }
+}

@@ -5,9 +5,11 @@
 
 import UIKit
 
-class CommentRepliesModuleInitializer: NSObject {
+class BaseNavigationController: UINavigationController {
 
-    //Connect with object on storyboard
-    @IBOutlet weak var commentrepliesViewController: CommentRepliesViewController!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationBar.isTranslucent = false
+    }
 
 }

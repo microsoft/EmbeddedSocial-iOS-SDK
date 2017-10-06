@@ -27,6 +27,8 @@ class CreatePostModuleConfigurator {
 
         presenter.interactor = interactor
         viewController.output = presenter
+        
+        viewController.theme = SocialPlus.theme
     }
 
 }

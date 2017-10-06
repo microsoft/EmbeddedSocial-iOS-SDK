@@ -14,12 +14,22 @@ class LinkedAccountsViewController: UITableViewController {
     @IBOutlet fileprivate weak var microsoftSwitch: UISwitch!
     @IBOutlet fileprivate weak var twitterSwitch: UISwitch!
     
+    @IBOutlet fileprivate weak var facebookLabel: UILabel!
+    @IBOutlet fileprivate weak var googleLabel: UILabel!
+    @IBOutlet fileprivate weak var microsoftLabel: UILabel!
+    @IBOutlet fileprivate weak var twitterLabel: UILabel!
+    
+    fileprivate var labels: [UILabel] {
+        return [facebookLabel, googleLabel, microsoftLabel, twitterLabel]
+    }
+    
     fileprivate var switches: [UISwitch] {
         return [facebookSwitch, googleSwitch, microsoftSwitch, twitterSwitch]
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        apply(theme: theme)
         output.viewIsReady()
     }
     
@@ -75,5 +85,17 @@ extension LinkedAccountsViewController: LinkedAccountsViewInput {
         case .twitter:
             return twitterSwitch
         }
+    }
+}
+
+extension LinkedAccountsViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        view.backgroundColor = palette.contentBackground
+        tableView.backgroundColor = palette.contentBackground
+        labels.forEach { $0.textColor = palette.textPrimary }
     }
 }

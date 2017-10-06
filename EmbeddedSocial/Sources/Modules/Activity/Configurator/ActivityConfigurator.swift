@@ -22,6 +22,7 @@ class ActivityModuleConfigurator {
         let presenter = ActivityPresenter(interactor: interactor)
         presenter.view = viewController
         presenter.router = router
+        presenter.theme = SocialPlus.theme
         
         module = presenter
 
@@ -29,7 +30,10 @@ class ActivityModuleConfigurator {
         interactor.service = SocialService()
 
         presenter.interactor = interactor
+        
         viewController.output = presenter
+        
+        viewController.theme = SocialPlus.theme
     }
 
 }

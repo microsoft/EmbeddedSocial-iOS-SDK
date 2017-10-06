@@ -32,6 +32,8 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     @IBOutlet weak var commentTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var mediaButton: UIButton!
     
+    @IBOutlet weak var commentInputContainer: UIView!
+    
     fileprivate var photo: Photo?
     fileprivate let imagePikcer = ImagePicker()
     
@@ -54,6 +56,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         collectionView.addSubview(self.refreshControl)
         collectionView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
         refreshControl.beginRefreshing()
+        apply(theme: theme)
         output.viewIsReady()
         SVProgressHUD.show()
     }
@@ -248,6 +251,7 @@ extension PostDetailViewController: UICollectionViewDataSource {
         switch indexPath.section {
         case CommentsSections.post.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainPostCell", for: indexPath)
+            cell.backgroundColor = theme?.palette.contentBackground
             
             guard let feedView = feedView else {
                 return cell
@@ -256,10 +260,7 @@ extension PostDetailViewController: UICollectionViewDataSource {
             if !cell.subviews.contains(feedView) {
                 cell.addSubview(feedView)
                 feedView.snp.makeConstraints { make in
-                    make.left.equalTo(cell)
-                    make.right.equalTo(cell)
-                    make.top.equalTo(cell)
-                    make.bottom.equalTo(cell)
+                    make.edges.equalToSuperview()
                 }
                 
             }
@@ -267,6 +268,7 @@ extension PostDetailViewController: UICollectionViewDataSource {
         case CommentsSections.loadMore.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadMoreCell.reuseID, for: indexPath) as! LoadMoreCell
             cell.configure(viewModel: output.loadCellModel())
+            cell.apply(theme: theme)
             cell.delegate = self
             return cell
         case CommentsSections.comments.rawValue:
@@ -278,6 +280,7 @@ extension PostDetailViewController: UICollectionViewDataSource {
                              moduleOutput: self.output as! CommentCellModuleOutout)
             cell.repliesButton.isHidden = false
             cell.tag = indexPath.row
+            cell.apply(theme: theme)
             return cell
         default:
             return UICollectionViewCell()
@@ -332,3 +335,26 @@ extension PostDetailViewController: ImagePickerDelegate {
     }
 }
 
+extension PostDetailViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        
+        view.backgroundColor = palette.contentBackground
+        collectionView.backgroundColor = palette.contentBackground
+        postButton.setTitleColor(palette.accent, for: .normal)
+        postButton.titleLabel?.font = AppFonts.medium
+        
+        let attrs: [String : Any] = [NSForegroundColorAttributeName: palette.textPlaceholder, NSFontAttributeName: AppFonts.medium]
+        commentTextView.textColor = palette.textPrimary
+        commentTextView.attributedPlaceholder = NSAttributedString(string: L10n.PostDetails.commentPlaceholder, attributes: attrs)
+        commentTextView.font = AppFonts.medium
+        commentTextView.backgroundColor = palette.contentBackground
+        
+        commentInputContainer.backgroundColor = palette.contentBackground
+        
+        refreshControl.tintColor = palette.loadingIndicator
+    }
+}

@@ -15,12 +15,12 @@ class SearchTopicsViewController: UIViewController {
     @IBOutlet weak var noContentLabel: UILabel! {
         didSet {
             noContentLabel.isHidden = true
-            noContentLabel.textColor = Palette.darkGrey
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        apply(theme: theme)
     }
 }
 
@@ -39,5 +39,16 @@ extension SearchTopicsViewController: SearchTopicsViewInput {
         guard noContentLabel != nil else { return }
         noContentLabel.isHidden = !isEmpty
         feedView?.isHidden = isEmpty
+    }
+}
+
+extension SearchTopicsViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        noContentLabel.textColor = palette.textPrimary
+        view.backgroundColor = palette.contentBackground
     }
 }

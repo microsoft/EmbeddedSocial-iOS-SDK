@@ -13,12 +13,12 @@ final class SearchPeopleViewController: UIViewController {
     @IBOutlet weak var noContentLabel: UILabel! {
         didSet {
             noContentLabel.isHidden = true
-            noContentLabel.textColor = Palette.darkGrey
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        apply(theme: theme)
     }
 }
 
@@ -35,5 +35,16 @@ extension SearchPeopleViewController: SearchPeopleViewInput {
     func setIsEmpty(_ isEmpty: Bool) {
         guard noContentLabel != nil else { return }
         noContentLabel.isHidden = !isEmpty
+    }
+}
+
+extension SearchPeopleViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        noContentLabel.textColor = palette.textPrimary
+        view.backgroundColor = palette.contentBackground
     }
 }

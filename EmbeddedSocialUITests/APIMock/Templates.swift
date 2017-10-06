@@ -123,4 +123,33 @@ class Templates {
         print(comments.count)
         return ["data": comments, "cursor": String(cursor + limit)]
     }
+    
+    class func loadActivities(cursor: Int, limit: Int = 10) -> Any {
+        var activities: Array<[String: Any]> = []
+        
+        let activityTypes = ["Like", "Comment", "Reply", "CommentPeer",
+                             "ReplyPeer", "Following", "FollowRequest",
+                             "FollowAccept"]
+
+        for i in cursor...cursor + limit - 1 {
+            let followers = (loadFollowers(firstName: "Name", lastName: "LastName", cursor: i, limit: i + 1) as! [String : Any])["data"] as! [Any]
+            
+            let activityType = activityTypes[Int(Random.randomUInt(UInt(/*activityTypes.count*/2)))]
+            
+            let values = ["activityHandle" : "String",
+                          "createdTime"    : Date().ISOString,
+                          "activityType"   : activityType,
+                          "actorUsers"     : followers,
+                          "actedOnUser"    : followers[i],
+                          "actedOnContent" : [
+                                "contentType"   : "Comment", //activityType,
+                                "text"          : "TextExample",
+                                "blobHandle"    : UUID().uuidString]]
+            
+            activities.append(load(name: "activity", values: values))
+        }
+        
+        return ["data": activities, "cursor": String(cursor + limit)]
+    }
+    
 }

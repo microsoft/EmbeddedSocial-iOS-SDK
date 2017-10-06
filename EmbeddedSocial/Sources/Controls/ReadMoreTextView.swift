@@ -28,7 +28,7 @@ class ReadMoreTextView: UITextView {
     
         self.attributedReadMoreText = attributedStringForMoreText(readMoreText)
     }
-
+    
     var maximumNumberOfLines: Int = 0 {
         didSet {
             _originalMaximumNumberOfLines = maximumNumberOfLines
@@ -136,15 +136,15 @@ class ReadMoreTextView: UITextView {
     
     private func attributedStringWithDefaultAttributes(from text: String) -> NSAttributedString {
         return NSAttributedString(string: text, attributes: [
-            NSFontAttributeName: font ?? UIFont.systemFont(ofSize: 14),
+            NSFontAttributeName: font ?? AppFonts.medium,
             NSForegroundColorAttributeName: textColor ?? UIColor.black
             ])
     }
     
-    private func attributedStringForMoreText(_ text: String) -> NSAttributedString {
+    fileprivate func attributedStringForMoreText(_ text: String) -> NSAttributedString {
         return NSAttributedString(string: text, attributes: [
-            NSFontAttributeName: font ?? UIFont.systemFont(ofSize: 14),
-            NSForegroundColorAttributeName: textColor ?? UIColor.darkGray
+            NSFontAttributeName: font ?? AppFonts.medium,
+            NSForegroundColorAttributeName: theme?.palette.accent ?? UIColor.darkGray
             ])
     }
     
@@ -268,3 +268,19 @@ extension NSLayoutManager {
     }
     
 }
+
+extension ReadMoreTextView: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        textColor = palette.textPrimary
+        if let readMoreText = readMoreText {
+            attributedReadMoreText = attributedStringForMoreText(readMoreText)
+        }
+    }
+}
+
+
+

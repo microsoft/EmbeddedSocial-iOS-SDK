@@ -19,7 +19,7 @@ struct FollowRequestsConfigurator {
         let interactor = FollowRequestsInteractor(listProcessor: listProcessor, socialService: SocialService())
         
         let noDataText = NSAttributedString(string: L10n.FollowRequests.noDataText,
-                                            attributes: [NSFontAttributeName: Fonts.medium,
+                                            attributes: [NSFontAttributeName: AppFonts.medium,
                                                          NSForegroundColorAttributeName: Palette.darkGrey])
         
         let presenter = FollowRequestsPresenter(noDataText: noDataText)
@@ -32,5 +32,6 @@ struct FollowRequestsConfigurator {
         
         viewController.output = presenter
         viewController.dataManager = FollowRequestsDataDisplayManager()
+        viewController.theme = SocialPlus.theme
     }
 }

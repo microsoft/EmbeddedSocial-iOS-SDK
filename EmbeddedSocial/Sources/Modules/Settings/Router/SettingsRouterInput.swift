@@ -5,8 +5,15 @@
 
 import Foundation
 
+enum SettingsLinkRouter {
+    case privacyPolicy
+    case termsAndConditions
+}
+
 protocol SettingsRouterInput: class {
     func openBlockedList()
     
     func openLinkedAccounts(sessionToken: String)
+    
+    func openLink(type: SettingsLinkRouter)
 }

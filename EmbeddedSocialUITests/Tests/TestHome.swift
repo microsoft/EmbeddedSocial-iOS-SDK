@@ -31,6 +31,7 @@ class TestHome: UITestBase {
         super.tearDown()
         APIConfig.numberedTopicTeasers = false
         APIConfig.showTopicImages = false
+        APIConfig.showUserImages = false
     }
     
     func openScreen() {

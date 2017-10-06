@@ -84,6 +84,13 @@ extension Constants {
     struct FollowRequests {
         static let pageSize = 30
     }
+    
+    struct Settings {
+        static let privacyPolicyURL = URL(string: "http://go.microsoft.com/fwlink/?LinkId=521839")
+        
+        static let termsAndConditionsURL = URL(string: "http://go.microsoft.com/fwlink/?LinkID=206977")
+        
+    }
 }
 
 extension Constants {
@@ -92,5 +99,7 @@ extension Constants {
         static let unauthorizedStatusCode = 401
         static let anonymousAuthorization: Authorization = "Anon AK=\(Constants.appKey)"
         static func authorization(_ sessionToken: String) -> Authorization { return "SocialPlus TK=\(sessionToken)" }
+        static let ppeBasePath = "https://ppe.embeddedsocial.microsoft.com"
+        static let productionBasePath = "https://api.embeddedsocial.microsoft.com"
     }
 }
