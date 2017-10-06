@@ -17,4 +17,13 @@ class MockSearchTopicsModuleOutput: SearchTopicsModuleOutput {
         didFailToLoadSearchQueryReceivedError = error
     }
     
+    //MARK: - didSelectHashtag
+    
+    var didSelectHashtagCalled = false
+    var didSelectHashtagReceivedHashtag: Hashtag?
+    
+    func didSelectHashtag(_ hashtag: Hashtag) {
+        didSelectHashtagCalled = true
+        didSelectHashtagReceivedHashtag = hashtag
+    }
 }

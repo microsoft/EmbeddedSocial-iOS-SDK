@@ -47,4 +47,14 @@ class MockSearchView: SearchViewInput {
         setLayoutAssetReceivedAsset = asset
     }
     
+    // MARK: - search
+    
+    var searchHashtagCalled = false
+    var searchHashtagInputHashtag: Hashtag?
+
+    func search(hashtag: Hashtag) {
+        searchHashtagCalled = true
+        searchHashtagInputHashtag = hashtag
+    }
+    
 }

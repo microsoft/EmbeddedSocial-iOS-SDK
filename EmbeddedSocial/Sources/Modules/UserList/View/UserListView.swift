@@ -46,7 +46,6 @@ class UserListView: UIView {
     fileprivate lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(onPullToRefresh), for: .valueChanged)
-        refreshControl.tintColor = Palette.lightGrey
         return refreshControl
     }()
     

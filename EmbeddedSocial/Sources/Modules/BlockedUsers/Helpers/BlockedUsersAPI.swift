@@ -5,14 +5,14 @@
 
 import Foundation
 
-struct BlockedUsersAPI: UsersListAPI {
+final class BlockedUsersAPI: UsersListAPI {
     private let socialService: SocialServiceType
 
     init(socialService: SocialServiceType) {
         self.socialService = socialService
     }
     
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+    override func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         socialService.getMyBlockedUsers(cursor: cursor, limit: limit, completion: completion)
     }
 }

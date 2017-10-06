@@ -5,26 +5,41 @@
 
 import Foundation
 
-struct PaginatedResponse<Item, Cursor> {
-    let items: [Item]
-    let hasMore: Bool
-    let error: Error?
-    let cursor: Cursor?
+typealias UsersListResponse = PaginatedResponse<User>
+
+struct PaginatedResponse<Item> {
+    var items: [Item]
+    let cursor: String?
+    let isFromCache: Bool
     
-    init(items: [Item] = [], hasMore: Bool = true, error: Error? = nil, cursor: Cursor? = nil) {
+    var hasMore: Bool {
+        return cursor != nil
+    }
+    
+    init(items: [Item] = [], cursor: String? = nil, isFromCache: Bool = false) {
         self.items = items
-        self.hasMore = hasMore
-        self.error = error
         self.cursor = cursor
+        self.isFromCache = isFromCache
     }
 }
 
-extension PaginatedResponse where Item == User, Cursor == String {
-    func reduce(result: Result<UsersListResponse>) -> PaginatedResponse {
-        let itemsToAdd = result.value?.users ?? []
+extension PaginatedResponse where Item == User {
+    func reduce(result: Result<UsersListResponse>, isFromCache: Bool) -> PaginatedResponse {
+        let itemsToAdd = result.value?.items ?? []
         return PaginatedResponse(items: items + itemsToAdd,
-                                 hasMore: result.value?.cursor != nil,
-                                 error: result.error ?? error,
-                                 cursor: result.value?.cursor)
+                                 cursor: result.value?.cursor,
+                                 isFromCache: isFromCache)
+    }
+    
+    init(response: FeedResponseUserCompactView?, isFromCache: Bool) {
+        items = response?.data?.map(User.init) ?? []
+        cursor = response?.cursor
+        self.isFromCache = isFromCache
+    }
+    
+    init(response: FeedResponseUserProfileView?, isFromCache: Bool) {
+        items = response?.data?.map { User(profileView: $0) } ?? []
+        cursor = response?.cursor
+        self.isFromCache = isFromCache
     }
 }

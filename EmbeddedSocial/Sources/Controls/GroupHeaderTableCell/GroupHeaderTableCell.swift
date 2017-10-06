@@ -66,7 +66,7 @@ extension GroupHeaderTableCell.Style {
                      titleInsets: insets)
     }
     
-    static var peopleSearch: Style {
+    static var search: Style {
         let insets = UIEdgeInsets(top: 0.0, left: Constants.CreateAccount.contentPadding, bottom: 0.0, right: 0.0)
         return Style(titleColor: SocialPlus.palette.textPrimary,
                      titleFont: AppFonts.regular,

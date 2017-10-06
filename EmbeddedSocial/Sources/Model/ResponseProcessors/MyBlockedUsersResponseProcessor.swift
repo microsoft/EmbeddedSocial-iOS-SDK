@@ -9,11 +9,11 @@ class MyBlockedUsersResponseProcessor: UsersListResponseProcessor {
     
     override func apply(commands: [UserCommand], to usersList: UsersListResponse) -> UsersListResponse {
         let uniqueBlockCommands = commands.filter { command -> Bool in
-            command is BlockCommand && !usersList.users.contains(where: { $0.uid == command.user.uid })
+            command is BlockCommand && !usersList.items.contains(where: { $0.uid == command.user.uid })
         }
         
         var usersList = usersList
-        usersList.users += uniqueBlockCommands.flatMap { $0.user }
+        usersList.items += uniqueBlockCommands.flatMap { $0.user }
         return usersList
     }
 }

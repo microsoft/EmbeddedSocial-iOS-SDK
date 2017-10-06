@@ -16,7 +16,7 @@ struct UserListConfigurator {
         
         let view = UserListView()
         
-        let listProcessor = UsersListProcessor(api: settings.api)
+        let listProcessor = PaginatedListProcessor<User>(api: settings.api, pageSize: Constants.UserList.pageSize)
         let interactor = UserListInteractor(listProcessor: listProcessor, socialService: SocialService())
         
         let presenter = UserListPresenter(myProfileHolder: settings.myProfileHolder)

@@ -11,7 +11,7 @@ class PopularUsersAPITests: XCTestCase {
     func testThatItCallsCorrectServiceAPI() {
         // given
         let service = MockSocialService()
-        service.getPopularUsersReturnValue = .success(UsersListResponse(users: [], cursor: nil, isFromCache: true))
+        service.getPopularUsersReturnValue = .success(UsersListResponse(items: [], cursor: nil, isFromCache: true))
         let api = PopularUsersAPI(socialService: service)
         let cursor = UUID().uuidString
         let limit = Int(arc4random() % 100)

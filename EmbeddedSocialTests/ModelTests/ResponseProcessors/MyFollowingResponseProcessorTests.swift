@@ -32,7 +32,7 @@ class MyFollowingResponseProcessorTests: UsersListResponseProcessorTests {
         let users = [User(), User()]
         let usersToAdd = commands.map { $0.user }
         
-        let response = UsersListResponse(users: users, cursor: nil, isFromCache: true)
+        let response = UsersListResponse(items: users, cursor: nil, isFromCache: true)
 
         cache.fetchOutgoing_with_ReturnValue = commands
 
@@ -40,10 +40,10 @@ class MyFollowingResponseProcessorTests: UsersListResponseProcessorTests {
         let processedResponse = sut.apply(commands: commands, to: response)
         
         // then
-        let userIDs = processedResponse.users.map { $0.uid }
+        let userIDs = processedResponse.items.map { $0.uid }
         let userIDsToAdd = usersToAdd.map { $0.uid }
         expect(userIDs).to(contain(userIDsToAdd))
-        expect(processedResponse.users).to(haveCount(users.count + commands.count))
+        expect(processedResponse.items).to(haveCount(users.count + commands.count))
     }
     
     func testThatItDeletesUnfollowedUsers() {
@@ -52,7 +52,7 @@ class MyFollowingResponseProcessorTests: UsersListResponseProcessorTests {
         let commands = users.map(UnfollowCommand.init)
         let usersToDelete = Array(users.prefix(2))
         
-        let response = UsersListResponse(users: users, cursor: nil, isFromCache: true)
+        let response = UsersListResponse(items: users, cursor: nil, isFromCache: true)
         
         cache.fetchOutgoing_with_ReturnValue = commands
         
@@ -60,9 +60,9 @@ class MyFollowingResponseProcessorTests: UsersListResponseProcessorTests {
         let processedResponse = sut.apply(commands: commands, to: response)
         
         // then
-        let userIDs = processedResponse.users.map { $0.uid }
+        let userIDs = processedResponse.items.map { $0.uid }
         let userIDsToDelete = usersToDelete.map { $0.uid }
         expect(userIDs).notTo(contain(userIDsToDelete))
-        expect(processedResponse.users).to(haveCount(users.count - commands.count))
+        expect(processedResponse.items).to(haveCount(users.count - commands.count))
     }
 }

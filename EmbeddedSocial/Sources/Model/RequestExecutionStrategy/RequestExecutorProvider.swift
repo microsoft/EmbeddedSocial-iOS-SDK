@@ -21,6 +21,8 @@ typealias SingleTopicRequestExecutor = CacheRequestExecutionStrategy<TopicView, 
 
 typealias PopularUsersRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserProfileView, UsersListResponse>
 
+typealias HashtagsRequestExecutor = CacheRequestExecutionStrategy<[String], PaginatedResponse<Hashtag>>
+
 protocol CacheRequestExecutorProviderType {
     static func makeUsersFeedExecutor(for service: BaseService) -> UsersFeedRequestExecutor
     
@@ -47,6 +49,8 @@ protocol CacheRequestExecutorProviderType {
     static func makeSearchTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor
     
     static func makePopularUsersExecutor(for service: BaseService) -> PopularUsersRequestExecutor
+    
+    static func makeHashtagsExecutor(for service: BaseService) -> HashtagsRequestExecutor
 }
 
 struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
@@ -139,6 +143,13 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
                                   responseType: UsersListResponse.self,
                                   service: service,
                                   responseProcessor: PopularUsersResponseProcessor())
+    }
+    
+    static func makeHashtagsExecutor(for service: BaseService) -> HashtagsRequestExecutor {
+        let executor = HashtagsRequestExecutionStrategy()
+        executor.cache = service.cache
+        executor.errorHandler = service.errorHandler
+        return executor
     }
     
     private static func makeCommonExecutor<T: Cacheable, U>(

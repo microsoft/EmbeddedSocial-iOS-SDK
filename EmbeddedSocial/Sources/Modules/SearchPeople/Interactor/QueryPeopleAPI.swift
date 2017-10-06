@@ -14,7 +14,7 @@ final class QueryPeopleAPI: UsersListAPI {
         self.searchService = searchService
     }
     
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+    override func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         searchService.queryUsers(query: query, cursor: cursor, limit: limit, completion: completion)
     }
 }
