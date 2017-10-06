@@ -18,7 +18,7 @@ class DataSourceBuilder {
                                                delegate: DataSourceDelegate,
                                                context: DataSourceContext) -> MyPendingRequests {
         let header = SectionHeader(name: L10n.Activity.Sections.Pending.title, identifier: "")
-        let section = Section(header: header, pages: [])
+        let section = ActivitySection(header: header, pages: [])
         
         return MyPendingRequests(interactor: interactor,
                                  section:section,
@@ -30,7 +30,7 @@ class DataSourceBuilder {
                                                     delegate: DataSourceDelegate,
                                                     context: DataSourceContext) -> MyActivities {
         let header = SectionHeader(name: L10n.Activity.Sections.My.title, identifier: "")
-        let section = Section(header: header, pages: [])
+        let section = ActivitySection(header: header, pages: [])
         
         return MyActivities(interactor: interactor,
                                     section: section,
@@ -42,7 +42,7 @@ class DataSourceBuilder {
                                                     delegate: DataSourceDelegate,
                                                     context: DataSourceContext) -> OthersActivties {
         let header = SectionHeader(name: L10n.Activity.Sections.Others.title, identifier: "")
-        let section = Section(header: header, pages: [])
+        let section = ActivitySection(header: header, pages: [])
         
         return OthersActivties(interactor: interactor,
                             section: section,
@@ -57,7 +57,7 @@ class DataSourceBuilder {
 class DataSource {
     
     weak var interactor: ActivityInteractorInput!
-    var section: Section
+    var section: ActivitySection
     var delegate: DataSourceDelegate?
     let context: DataSourceContext
     
@@ -65,7 +65,7 @@ class DataSource {
     func loadMore() { fatalError("No impl") }
     
     init(interactor: ActivityInteractorInput,
-         section: Section,
+         section: ActivitySection,
          delegate: DataSourceDelegate? = nil,
          context: DataSourceContext) {
         

@@ -503,6 +503,8 @@ enum L10n {
     enum Label {
       /// Based on who you follow
       static let basedOnWhoYouFollow = L10n.tr("Localizable", "search.label.based_on_who_you_follow")
+      /// Trending topics
+      static let trendingTopics = L10n.tr("Localizable", "search.label.trending_topics")
     }
 
     enum Placeholder {

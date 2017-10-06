@@ -7,7 +7,7 @@ protocol ActivityModuleInput: class {
     
 }
 
-typealias Section = PagesListModel<SectionHeader, ActivityItem>
+typealias ActivitySection = PagesListModel<SectionHeader, ActivityItem>
 
 class ActivityPresenter {
     

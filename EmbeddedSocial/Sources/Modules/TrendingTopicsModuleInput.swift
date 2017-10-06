@@ -5,8 +5,6 @@
 
 import Foundation
 
-protocol SearchTopicsModuleOutput: class {    
-    func didFailToLoadSearchQuery(_ error: Error)
-    
-    func didSelectHashtag(_ hashtag: Hashtag)
+protocol TrendingTopicsModuleInput: class {
+    var viewController: UIViewController { get }
 }

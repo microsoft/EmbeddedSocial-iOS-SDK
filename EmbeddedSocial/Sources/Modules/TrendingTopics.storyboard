@@ -11,7 +11,7 @@
         <!--Trending Topics View Controller-->
         <scene sceneID="VUK-bV-NjH">
             <objects>
-                <viewController storyboardIdentifier="TrendingTopicsViewController" id="fvP-rb-siv" customClass="TrendingTopicsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TrendingTopicsViewController" id="fvP-rb-siv" customClass="TrendingTopicsViewController" customModule="EmbeddedSocial" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NzO-Tg-wuR"/>
                         <viewControllerLayoutGuide type="bottom" id="Fis-je-B0e"/>

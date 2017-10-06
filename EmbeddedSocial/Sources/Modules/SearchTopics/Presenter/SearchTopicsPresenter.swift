@@ -10,6 +10,7 @@ final class SearchTopicsPresenter: NSObject {
     var feedModule: FeedModuleInput!
     var feedViewController: UIViewController!
     var interactor: SearchTopicsInteractorInput!
+    var trendingTopicsModule: TrendingTopicsModuleInput!
     weak var moduleOutput: SearchTopicsModuleOutput?
 }
 
@@ -24,7 +25,7 @@ extension SearchTopicsPresenter: SearchTopicsModuleInput {
     }
     
     func backgroundView() -> UIView? {
-        return nil
+        return trendingTopicsModule.viewController.view
     }
     
     func searchResultsController() -> UIViewController {
@@ -64,5 +65,12 @@ extension SearchTopicsPresenter: FeedModuleOutput {
     
     func didUpdateFeed() {
         view.setIsEmpty(feedModule.isEmpty)
+    }
+}
+
+extension SearchTopicsPresenter: TrendingTopicsModuleOutput {
+    
+    func didSelectHashtag(_ hashtag: Hashtag) {
+        moduleOutput?.didSelectHashtag(hashtag)
     }
 }

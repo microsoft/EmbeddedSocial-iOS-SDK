@@ -4,3 +4,24 @@
 //
 
 import Foundation
+
+struct TrendingTopicsConfigurator {
+    let viewController: TrendingTopicsViewController
+    var moduleInput: TrendingTopicsModuleInput!
+    
+    init() {
+        viewController = StoryboardScene.TrendingTopics.trendingTopicsViewController.instantiate()
+    }
+    
+    mutating func configure(output: TrendingTopicsModuleOutput?) {
+        let presenter = TrendingTopicsPresenter()
+        presenter.interactor = TrendingTopicsInteractor(hashtagsService: HashtagsService())
+        presenter.view = viewController
+        presenter.output = output
+        
+        viewController.output = presenter
+        viewController.dataManager = TrendingTopicsDataDisplayManager()
+        
+        moduleInput = presenter
+    }
+}

@@ -6,5 +6,11 @@
 import Foundation
 
 protocol TrendingTopicsViewInput: class {
+    func setupInitialState()
+    
     func setHashtags(_ hashtags: [Hashtag])
+    
+    func showError(_ error: Error)
+    
+    func setIsLoading(_ isLoading: Bool)
 }

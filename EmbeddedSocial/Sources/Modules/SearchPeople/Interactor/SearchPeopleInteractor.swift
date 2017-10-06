@@ -9,7 +9,7 @@ final class SearchPeopleInteractor: SearchPeopleInteractorInput {
     
     func makeBackgroundListHeaderView() -> UIView {
         let cell = GroupHeaderTableCell.fromNib()
-        cell.apply(style: .peopleSearch)
+        cell.apply(style: .search)
         cell.configure(title: L10n.Search.Label.basedOnWhoYouFollow.uppercased())
         return cell
     }

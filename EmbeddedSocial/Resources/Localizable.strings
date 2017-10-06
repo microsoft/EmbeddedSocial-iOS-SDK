@@ -111,6 +111,7 @@
 "search.screen_title" = "Search";
 "search.placeholder.search_people" = "Search people";
 "search.label.based_on_who_you_follow" = "Based on who you follow";
+"search.label.trending_topics" = "Trending topics";
 "search.placeholder.search_topics" = "Search topics";
 "search.filter.topics" = "Topics";
 "search.filter.people" = "People";
