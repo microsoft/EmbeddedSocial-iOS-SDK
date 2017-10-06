@@ -13,15 +13,13 @@ final class TrendingTopicsDataDisplayManager: NSObject, TableDataDisplayManager 
     var onItemSelected: ((TrendingTopicsListItem) -> Void)?
     
     weak var tableView: UITableView?
-    
-    private var hasRegisteredCells = false
-    
+        
     fileprivate var sections: [Section] = []
     
     func setHashtags(_ hashtags: [Hashtag]) {
         let items = hashtags.map(TrendingTopicsListItem.init)
         sections = [Section(model: (), items: items)]
-        if !hasRegisteredCells, let tableView = tableView {
+        if let tableView = tableView {
             registerCells(for: tableView)
         }
         tableView?.reloadData()
@@ -40,7 +38,6 @@ final class TrendingTopicsDataDisplayManager: NSObject, TableDataDisplayManager 
         for item in items {
             tableView.register(cellClass: item.cellClass)
         }
-        hasRegisteredCells = true
     }
     
     fileprivate func configuredCell(tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
