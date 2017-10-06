@@ -10,6 +10,7 @@ struct Constants {
     static let standardCellHeight: CGFloat = 44.0
     static let oauth1URLScheme = "embeddedsocial"
     static let imageCompressionQuality: CGFloat = 0.8
+    static let deviceTokenStorageKey = "com.deviceToken"
 }
 
 extension Constants {

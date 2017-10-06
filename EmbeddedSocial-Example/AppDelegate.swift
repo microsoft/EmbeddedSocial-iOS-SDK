@@ -5,6 +5,7 @@
 
 import UIKit
 import EmbeddedSocial
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +30,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                    menuConfiguration: .tab)
         SocialPlus.shared.start(launchArguments: args)
         
+        if #available(iOS 10.0, *) {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
+                // Enable or disable features based on authorization.
+            }
+            application.registerForRemoteNotifications()
+        } else {
+            // Fallback on earlier versions
+        }
+
+        
         return true
     }
     
@@ -46,4 +58,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return SocialPlus.shared.application(application, open: url as URL, options: options)
     }
+    
+    
+    /// push notifications
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+        print(deviceTokenString)
+        SocialPlus.shared.updateDeviceToken(devictToken: deviceTokenString)
+        
+        
+    }
+    
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register: \(error)")
+    }
+    
 }

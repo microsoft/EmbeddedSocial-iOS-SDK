@@ -63,6 +63,11 @@ public final class SocialPlus {
         return serviceProvider.getURLSchemeService().application(app, open: url, options: options)
     }
     
+    public func updateDeviceToken(devictToken: String) {
+        UserDefaults.standard.setValue(devictToken, forKey: Constants.deviceTokenStorageKey)
+        UserDefaults.standard.synchronize()
+    }
+    
     public func start(launchArguments args: LaunchArguments) {
         let startupCommands = serviceProvider.getStartupCommands(launchArgs: args)
         startupCommands.forEach { $0.execute() }
@@ -73,6 +78,10 @@ public final class SocialPlus {
         
         if sessionStore.isLoggedIn {
             startSession(with: sessionStore.info!)
+            if let deviceToken = UserDefaults.standard.string(forKey: Constants.deviceTokenStorageKey) {
+                let service = PushNotificationsService()
+                service.updateDeviceToken(deviceToken: deviceToken)
+            }
         } else {
             coordinator.openPopularScreen()
         }
