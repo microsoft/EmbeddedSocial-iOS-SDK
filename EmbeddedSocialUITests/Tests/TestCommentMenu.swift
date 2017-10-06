@@ -18,7 +18,6 @@ class TestCommentMenu: TestHome {
     
     override func openScreen() {
         feed.getRandomPost().1.teaser.tap()
-        sleep(1)
         
         var retryCount = 15
         
@@ -93,7 +92,7 @@ class TestCommentMenu: TestHome {
         for i in 0..<reportIssuesCells.count {
             // It's already opened for first item
             if i > 0 {
-                // Get new post and open report item
+                // Get new comment and open report item
                 commentInformation = comments.getRandomComment()
                 select(menuItem: .report, for: commentInformation.comment)
             }
@@ -104,13 +103,7 @@ class TestCommentMenu: TestHome {
             currentIssueCell.tap()
             submitReportButton.tap()
             
-            sleep(2)
-            
             let reportingCommentHandle = "commentHandle\(commentInformation.index)"
-            
-            print("selected handle: \(reportingCommentHandle)")
-            print("latest request: \(APIState.getLatestRequest())")
-            
             XCTAssertTrue(APIState.getLatestRequest().hasSuffix("comments/\(reportingCommentHandle)/reports"))
             
             doneButton.tap()
