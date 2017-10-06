@@ -63,7 +63,8 @@ class ActivityDataSourceTests: XCTestCase {
         XCTAssert(myActivityDS.section.pages.first!.count == activities.count)
         
         // then
-        if case let .insertion(items) = dataSourceDelegate.wasChanged.last! {
+        XCTAssert(dataSourceDelegate.wasChanged.count == 1)
+        if case let .insertion(items) = dataSourceDelegate.wasChanged.first! {
             XCTAssert(items.count == activities.count)
         } else {
             XCTFail()
@@ -126,6 +127,7 @@ class ActivityDataSourceTests: XCTestCase {
         // then
         XCTAssert(sut.section.items.count == fetchedActivities.count)
         
+        XCTAssert(dataSourceDelegate.wasChanged.count == 3)
         for change in dataSourceDelegate.wasChanged {
             switch change {
             case let .insertion(inserted):
