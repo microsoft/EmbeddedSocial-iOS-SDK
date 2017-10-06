@@ -8,12 +8,26 @@ import Foundation
 final class TrendingTopicsInteractor: TrendingTopicsInteractorInput {
     
     private let hashtagsService: HashtagsServiceType
+    private let networkTracker: NetworkStatusMulticast
     
-    init(hashtagsService: HashtagsServiceType) {
+    init(hashtagsService: HashtagsServiceType, networkTracker: NetworkStatusMulticast = SocialPlus.shared.networkTracker) {
         self.hashtagsService = hashtagsService
+        self.networkTracker = networkTracker
     }
     
     func getTrendingHashtags(completion: @escaping (Result<[Hashtag]>) -> Void) {
-        hashtagsService.getTrending(completion: completion)
+        hashtagsService.getTrending { result in
+            completion(result.map { $0.items })
+        }
+    }
+    
+    func reloadTrendingHashtags(completion: @escaping (Result<[Hashtag]>) -> Void) {
+        let skipCache = networkTracker.isReachable
+        hashtagsService.getTrending { response in
+            if skipCache && response.value?.isFromCache == true {
+                return
+            }
+            completion(response.map { $0.items })
+        }
     }
 }

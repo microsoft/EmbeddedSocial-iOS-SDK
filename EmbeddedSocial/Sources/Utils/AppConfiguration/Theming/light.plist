@@ -23,7 +23,7 @@
 	<key>textPlaceholder</key>
 	<string>#c7c7cd</string>
 	<key>loadingIndicator</key>
-	<string>#7a7a7a</string>
+	<string>#b0b0b0</string>
 	<key>topicBackground</key>
 	<string>#ffffff</string>
 	<key>topicsFeedBackground</key>

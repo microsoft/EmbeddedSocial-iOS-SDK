@@ -19,11 +19,21 @@ class TrendingTopicsViewController: UIViewController {
         return view
     }()
     
+    fileprivate lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(onPullToRefresh), for: .valueChanged)
+        return refreshControl
+    }()
+    
     @IBOutlet fileprivate weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
+    }
+    
+    @objc private func onPullToRefresh() {
+        output.onPullToRefresh()
     }
 }
 
@@ -33,7 +43,8 @@ extension TrendingTopicsViewController: TrendingTopicsViewInput {
         tableView.dataSource = dataManager
         tableView.delegate = dataManager
         tableView.tableFooterView = UIView()
-        
+        tableView.addSubview(refreshControl)
+
         let cell = GroupHeaderTableCell.fromNib()
         cell.apply(style: .search)
         cell.configure(title: L10n.Search.Label.trendingTopics.uppercased())
@@ -41,6 +52,8 @@ extension TrendingTopicsViewController: TrendingTopicsViewInput {
 
         dataManager.onItemSelected = { [weak self] item in self?.output.onItemSelected(item) }
         dataManager.tableView = tableView
+        
+        apply(theme: theme)
     }
     
     func setHashtags(_ hashtags: [Hashtag]) {
@@ -55,4 +68,51 @@ extension TrendingTopicsViewController: TrendingTopicsViewInput {
         loadingIndicatorView.isLoading = isLoading
         tableView.tableFooterView = isLoading ? loadingIndicatorView : UIView()
     }
+    
+    func endPullToRefreshAnimation() {
+        refreshControl.endRefreshing()
+    }
 }
+
+extension TrendingTopicsViewController: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        view.backgroundColor = palette.contentBackground
+        tableView.backgroundColor = palette.contentBackground
+        refreshControl.tintColor = palette.loadingIndicator
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

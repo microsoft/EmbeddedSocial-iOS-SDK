@@ -13,7 +13,9 @@ final class TrendingTopicsDataDisplayManager: NSObject, TableDataDisplayManager 
     var onItemSelected: ((TrendingTopicsListItem) -> Void)?
     
     weak var tableView: UITableView?
-        
+    
+    var theme: Theme?
+    
     fileprivate var sections: [Section] = []
     
     func setHashtags(_ hashtags: [Hashtag]) {
@@ -50,6 +52,8 @@ final class TrendingTopicsDataDisplayManager: NSObject, TableDataDisplayManager 
     private func configure(cell: UITableViewCell, with item: TrendingTopicsListItem) {
         cell.selectionStyle = .none
         cell.textLabel?.text = item.hashtag
+        cell.textLabel?.textColor = theme?.palette.textPrimary
+        cell.backgroundColor = .clear
     }
 }
 

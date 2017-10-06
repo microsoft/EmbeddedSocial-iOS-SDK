@@ -21,7 +21,7 @@ typealias SingleTopicRequestExecutor = CacheRequestExecutionStrategy<TopicView, 
 
 typealias PopularUsersRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserProfileView, UsersListResponse>
 
-typealias HashtagsRequestExecutor = CacheRequestExecutionStrategy<[String], [Hashtag]>
+typealias HashtagsRequestExecutor = CacheRequestExecutionStrategy<[String], PaginatedResponse<Hashtag>>
 
 protocol CacheRequestExecutorProviderType {
     static func makeUsersFeedExecutor(for service: BaseService) -> UsersFeedRequestExecutor

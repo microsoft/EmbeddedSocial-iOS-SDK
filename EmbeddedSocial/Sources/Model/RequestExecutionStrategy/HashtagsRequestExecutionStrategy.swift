@@ -5,7 +5,7 @@
 
 import Foundation
 
-class HashtagsRequestExecutionStrategy: CacheRequestExecutionStrategy<[String], [Hashtag]> {
+class HashtagsRequestExecutionStrategy: CacheRequestExecutionStrategy<[String], PaginatedResponse<Hashtag>> {
     
     override func execute(with builder: RequestBuilder<ResponseType>, completion: @escaping (Result<ResultType>) -> Void) {
         let predicate = PredicateBuilder().predicate(typeID: builder.URLString)
@@ -16,8 +16,9 @@ class HashtagsRequestExecutionStrategy: CacheRequestExecutionStrategy<[String], 
         
         cache?.fetchIncoming(with: cacheRequest) { hashtagAdapters in
             let hashtags = hashtagAdapters.map { $0.hashtag }
+            let response = PaginatedResponse<Hashtag>(items: hashtags, cursor: nil, isFromCache: true)
             DispatchQueue.main.async {
-                completion(.success(hashtags))
+                completion(.success(response))
             }
         }
         
@@ -26,12 +27,16 @@ class HashtagsRequestExecutionStrategy: CacheRequestExecutionStrategy<[String], 
                 self?.errorHandler?.handle(error: error, completion: completion)
                 return
             }
-            let hashtags = result?.body ?? []
             self?.cache?.deleteIncoming(with: predicate)
+
+            let hashtags = result?.body ?? []
             let hashtagAdapters = hashtags.map { HashtagCacheableAdapter(handle: UUID().uuidString, hashtag: $0) }
             hashtagAdapters.forEach { self?.cache?.cacheIncoming($0, for: builder.URLString) }
+            
+            let response = PaginatedResponse<Hashtag>(items: hashtags, cursor: nil, isFromCache: false)
+
             DispatchQueue.main.async {
-                completion(.success(hashtags))
+                completion(.success(response))
             }
         }
     }

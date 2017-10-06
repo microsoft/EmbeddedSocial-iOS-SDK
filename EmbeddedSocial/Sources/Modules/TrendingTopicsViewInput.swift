@@ -13,4 +13,6 @@ protocol TrendingTopicsViewInput: class {
     func showError(_ error: Error)
     
     func setIsLoading(_ isLoading: Bool)
+    
+    func endPullToRefreshAnimation()
 }

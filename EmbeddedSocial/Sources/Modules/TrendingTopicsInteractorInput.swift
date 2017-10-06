@@ -7,4 +7,6 @@ import Foundation
 
 protocol TrendingTopicsInteractorInput: class {
     func getTrendingHashtags(completion: @escaping (Result<[Hashtag]>) -> Void)
+    
+    func reloadTrendingHashtags(completion: @escaping (Result<[Hashtag]>) -> Void)
 }

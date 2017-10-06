@@ -9,4 +9,6 @@ protocol TrendingTopicsViewOutput: class {
     func viewIsReady()
     
     func onItemSelected(_ item: TrendingTopicsListItem)
+    
+    func onPullToRefresh()
 }

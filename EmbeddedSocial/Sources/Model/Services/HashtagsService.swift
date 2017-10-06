@@ -8,7 +8,7 @@ import Foundation
 typealias Hashtag = String
 
 protocol HashtagsServiceType {
-    func getTrending(completion: @escaping (Result<[Hashtag]>) -> Void)
+    func getTrending(completion: @escaping (Result<PaginatedResponse<Hashtag>>) -> Void)
 }
 
 final class HashtagsService: BaseService, HashtagsServiceType {
@@ -20,16 +20,8 @@ final class HashtagsService: BaseService, HashtagsServiceType {
         requestExecutor = executorProvider.makeHashtagsExecutor(for: self)
     }
     
-    func getTrending(completion: @escaping (Result<[Hashtag]>) -> Void) {
+    func getTrending(completion: @escaping (Result<PaginatedResponse<Hashtag>>) -> Void) {
         let builder = HashtagsAPI.hashtagsGetTrendingHashtagsWithRequestBuilder(authorization: authorization)
         requestExecutor.execute(with: builder, completion: completion)
-        
-//        HashtagsAPI.hashtagsGetTrendingHashtags(authorization: authorization) { hashtags, error in
-//            if let hashtags = hashtags {
-//                completion(.success(hashtags))
-//            } else {
-//                self.errorHandler.handle(error: error, completion: completion)
-//            }
-//        }
     }
 }
