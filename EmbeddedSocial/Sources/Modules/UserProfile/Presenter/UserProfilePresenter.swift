@@ -162,7 +162,6 @@ final class UserProfilePresenter: UserProfileViewOutput {
     private func updateFollowerStatus(_ status: FollowStatus) {
         view.setFollowStatus(status)
         followersCount = updatedFollowCount(followersCount, with: status)
-        var user = self.user
         user?.followerStatus = status
         moduleOutput?.didChangeUserFollowStatus(user!)
     }
