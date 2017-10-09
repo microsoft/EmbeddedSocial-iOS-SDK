@@ -114,6 +114,12 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        // disable prefetching so cells are configured as they come on screen
+        if #available(iOS 10.0, *) {
+            collectionView.isPrefetchingEnabled = false
+        }
+        
         // Table
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
@@ -158,28 +164,32 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
-        
-//        self.collectionView.collectionViewLayout.invalidateLayout()
-        Logger.log(type, event: .veryImportant)
-        self.collectionView.reloadSections([0])
-
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//
-//            // switch layout
-//            switch type {
-//            case .grid:
-//                self.layoutChangeButton.image = UIImage(asset: .iconList)
-//                //if collectionView.collectionViewLayout != gridLayout {
-//                self.collectionView.setCollectionViewLayout(self.gridLayout, animated: animated)
-//            //}
-//            case .list:
-//                self.layoutChangeButton.image = UIImage(asset: .iconGallery)
-//                //if collectionView.collectionViewLayout != listLayout {
-//                self.collectionView.setCollectionViewLayout(self.listLayout, animated: animated)
-//                //}
-//            }
-//
-//        }
+        assert(Thread.isMainThread)
+        Logger.log("reloading for",self.collectionView.numberOfItems(inSection: 0), type, event: .veryImportant)
+        for i in 0..<self.output.numberOfItems() {
+            print(self.output.item(for: IndexPath(row: i, section: 0)).cellType)
+        }
+    
+            self.collectionView.collectionViewLayout.invalidateLayout()
+            self.collectionView.reloadData()
+            self.collectionView.layoutIfNeeded()
+            self.collectionView.collectionViewLayout.invalidateLayout()
+            
+            // switch layout
+            switch type {
+            case .grid:
+                self.layoutChangeButton.image = UIImage(asset: .iconList)
+                if self.collectionView.collectionViewLayout != self.gridLayout {
+                    self.collectionView.setCollectionViewLayout(self.gridLayout, animated: animated)
+                    Logger.log("changed", type, event: .veryImportant)
+                }
+            case .list:
+                self.layoutChangeButton.image = UIImage(asset: .iconGallery)
+                if self.collectionView.collectionViewLayout != self.listLayout {
+                    self.collectionView.setCollectionViewLayout(self.listLayout, animated: animated)
+                    Logger.log("changed", type, event: .veryImportant)
+                }
+            }
         
         
     }
@@ -332,14 +342,11 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     func reloadVisible() {
-        
-        
+        assert(Thread.isMainThread)
         let paths = collectionView.indexPathsForVisibleItems
         Logger.log(paths, event: .veryImportant)
-        self.collectionView.performBatchUpdates({
-            self.collectionView.reloadItems(at: paths)
-        }, completion: nil)
         
+        self.collectionView.reloadItems(at: paths)
     }
     
     func insertNewItems(with paths:[IndexPath]) {
@@ -403,9 +410,14 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         if collectionViewLayout === listLayout {
             
             let item = output.item(for: indexPath)
-            return calculateCellSizeWith(viewModel: item)
+            let size = calculateCellSizeWith(viewModel: item)
+            
+//            Logger.log("sizing will be", size, event: .veryImportant)
+            
+            return size
             
         } else if collectionViewLayout === gridLayout {
+//            Logger.log("sizing will be", gridLayout.itemSize, event: .veryImportant)
             return gridLayout.itemSize
         } else {
            return CGSize.zero

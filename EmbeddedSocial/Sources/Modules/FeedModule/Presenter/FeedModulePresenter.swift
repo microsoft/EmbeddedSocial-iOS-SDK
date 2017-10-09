@@ -286,6 +286,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     // MARK: FeedModuleViewOutput
     func item(for path: IndexPath) -> PostViewModel {
+        
         let index = path.row
         let item = items[index]
         
@@ -457,7 +458,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
-        Logger.log("items arrived", event: .veryImportant)
+        Logger.log("items arrived", layout, event: .veryImportant)
         
         let cachedNumberOfItems = items.count
         
@@ -469,7 +470,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         
         cursor = feed.cursor
         
-        // show changes on UI
         let shouldAddItems = items.count - cachedNumberOfItems
         let shouldRemoveItems = cachedNumberOfItems - items.count
         
@@ -488,7 +488,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
                 view.removeItems(with: paths)
             }
             
-            // update data for rest of cells
+            // update data for rest of the cells
             view.reloadVisible()
         }
     
@@ -497,10 +497,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didFetch(feed: Feed) {
-        DispatchQueue.main.async {
-            self.processFetchResult(feed: feed, isMore: false)
-        }
-        
+        processFetchResult(feed: feed, isMore: false)
     }
     
     func didFetchMore(feed: Feed) {
