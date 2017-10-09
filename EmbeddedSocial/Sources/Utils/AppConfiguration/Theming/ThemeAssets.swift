@@ -5,37 +5,27 @@
 
 import Foundation
 
-//class ThemePalette: NSObject {
-//    
-//    var contentBackground: UIColor!
-//    var navigationBarBackground: UIColor!
-//    var navigationBarTint: UIColor!
-//    var navigationBarTitle: UIColor!
-//    var controlUnhighlighted: UIColor!
-//    var controlHighlightedTitle: UIColor!
-//    var textPrimary: UIColor!
-//    var textSecondary: UIColor!
-//    var topicBackground: UIColor!
-//    var separator: UIColor!
-//    var textPlaceholder: UIColor!
-//    var loadingIndicator: UIColor!
-//    var topicsFeedBackground: UIColor!
-//    var tableGroupHeaderBackground: UIColor!
-//    var topicSecondaryText: UIColor!
-//    let accent: UIColor
-//    
-//    init(config: [String: Any], accentColor: UIColor) {
-//        accent = accentColor
-//        super.init()
-//        setup(with: config)
-//    }
-//    
-//    private func setup(with config: [String: Any]) {
-//        for (keypath, value) in config {
-//            if let string = value as? String {
-//                let color = UIColor(hexString: string)
-//                setValue(color, forKey: keypath)
-//            }
-//        }
-//    }
-//}
+struct ThemeAssets {
+    let iconList: Asset
+    let iconGallery: Asset
+    let iconDots: Asset
+    let userPhotoPlaceholder: Asset
+}
+
+extension ThemeAssets {
+    
+    static let light = ThemeAssets(
+        iconList: .iconListLight,
+        iconGallery: .iconGalleryLight,
+        iconDots: .iconDotsLight,
+        userPhotoPlaceholder: .userPhotoPlaceholderLight
+    )
+    
+    static let dark = ThemeAssets(
+        iconList: .iconListDark,
+        iconGallery: .iconGalleryDark,
+        iconDots: .iconDotsDark,
+        userPhotoPlaceholder: .userPhotoPlaceholderDark
+    )
+    
+}

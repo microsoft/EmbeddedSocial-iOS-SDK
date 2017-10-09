@@ -96,7 +96,7 @@ class ProfileSummaryView: UIView {
     func configure(user: User) {
         nameLabel.text = user.fullName
         detailsLabel.text = user.bio ?? L10n.Common.Placeholder.notSpecified
-        imageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: .userPhotoPlaceholder))
+        imageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: SocialPlus.assets.userPhotoPlaceholder))
         
         followersCount = user.followersCount
         followingCount = user.followingCount

@@ -7,8 +7,10 @@ import Foundation
 
 class Theme {
     let palette: ThemePalette
+    let assets: ThemeAssets
     
-    init(palette: ThemePalette) {
+    init(palette: ThemePalette, assets: ThemeAssets) {
         self.palette = palette
+        self.assets = assets
     }
 }

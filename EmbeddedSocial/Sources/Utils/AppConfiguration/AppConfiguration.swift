@@ -37,6 +37,7 @@ class AppConfiguration: AppConfigurationType {
         }
         
         let palette = ThemePalette(config: themeConfig, accentColor: UIColor(hexString: accentColorHexString))
-        return Theme(palette: palette)
+        let assets: ThemeAssets = themeName == "dark" ? .dark : .light
+        return Theme(palette: palette, assets: assets)
     }
 }

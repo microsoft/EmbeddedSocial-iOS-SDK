@@ -41,6 +41,10 @@ public final class SocialPlus {
         return theme.palette
     }
     
+    static var assets: ThemeAssets {
+        return theme.assets
+    }
+    
     private init() {
         setupServices(with: SocialPlusServices())
     }

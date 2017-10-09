@@ -220,7 +220,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     }()
     
     private lazy var userImagePlaceholder: UIImage = {
-        return UIImage(asset: Asset.userPhotoPlaceholder)
+        return UIImage(asset: SocialPlus.assets.userPhotoPlaceholder)
     }()
     
     deinit {

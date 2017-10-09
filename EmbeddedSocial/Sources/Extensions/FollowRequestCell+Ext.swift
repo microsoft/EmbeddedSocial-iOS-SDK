@@ -8,7 +8,7 @@ import UIKit
 extension FollowRequestCell {
     
     func configure(item: FollowRequestItem, tableView: UITableView, theme: Theme? = SocialPlus.theme, onAction: ActivityCellBlock?) {
-        profileImage.setPhotoWithCaching(item.user.photo, placeholder: UIImage(asset: .userPhotoPlaceholder))
+        profileImage.setPhotoWithCaching(item.user.photo, placeholder: UIImage(asset: SocialPlus.assets.userPhotoPlaceholder))
         profileName.text = item.user.fullName
         indexPath = { [weak tableView] cell in
             return tableView?.indexPath(for: cell)
