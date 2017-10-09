@@ -60,6 +60,10 @@ class Templates {
                 values["text"] = "topic text" + String(i)
             }
             
+            if APIConfig.loadMyTopics {
+                values["user->userHandle"] = "me"
+            }
+            
             let topic = Templates.load(name: "topic",
                                        values: values)
             topics.append(topic)
