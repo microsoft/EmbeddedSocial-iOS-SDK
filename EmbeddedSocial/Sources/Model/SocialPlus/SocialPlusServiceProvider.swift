@@ -78,10 +78,12 @@ final class SocialPlusServices: SocialPlusServicesType {
     }
     
     func getAppConfiguration(configFilename: String) -> AppConfigurationType {
-        guard let config = AppConfiguration(filename: configFilename) else {
-            fatalError("Config file is wrong or missing.")
+        guard let config = PlistLoader.loadPlist(name: configFilename),
+            let themeConfig = config["theme"] as? [String: Any],
+            let theme = Theme(config: themeConfig) else {
+                fatalError("Config file is wrong or missing.")
         }
-        return config
+        return AppConfiguration(theme: theme)
     }
     
     func getStartupCommands(launchArgs: LaunchArguments) -> [Command] {

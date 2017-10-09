@@ -9,7 +9,7 @@ import XCTest
 
 class ThemePaletteTests: XCTestCase {
     
-    func testGivenConfig_thatItLoadsContentBackground() {
+    func testSingleFieldSetup() {
         let config = ["contentBackground": "#AABBCCDD"]
         let palette = ThemePalette(config: config, accentColor: UIColor())
         expect(palette.contentBackground.hexString()).to(equal("#AABBCCDD"))

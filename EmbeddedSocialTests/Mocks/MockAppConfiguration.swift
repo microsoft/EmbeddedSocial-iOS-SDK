@@ -8,8 +8,8 @@
 class MockAppConfiguration: AppConfigurationType {
     
     var theme: Theme = {
-        let palette = ThemePalette(config: [:], accentColor: UIColor())
-        return Theme(palette: palette)
+        let config = ["name": "dark", "accentColor": "#ffffff"]
+        return Theme(config: config)!
     }()
     
 }
