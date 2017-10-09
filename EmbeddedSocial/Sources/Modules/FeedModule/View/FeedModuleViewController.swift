@@ -73,7 +73,19 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     fileprivate var collectionViewAnimations = 0 {
         didSet {
             assert(collectionViewAnimations >= 0)
+            checkNeedsLayoutChange()
         }
+    }
+    
+    fileprivate var pendingLayout: FeedModuleLayoutType?
+    fileprivate func checkNeedsLayoutChange() {
+        
+        guard let layout = pendingLayout, canChangeLayout() == true else {
+            return
+        }
+        
+        onUpdateLayout(type: layout)
+        pendingLayout = nil
     }
     
     fileprivate func didStartCollectionViewAnimation() {
@@ -273,6 +285,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         
         // We do not change layout during collection animation.
         guard canChangeLayout() else {
+            print("cant change layout")
             return
         }
         
@@ -317,10 +330,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func getViewHeight() -> CGFloat {
         return collectionView.collectionViewLayout.collectionViewContentSize.height
     }
-    
+
     func setLayout(type: FeedModuleLayoutType) {
-        // Apply new layout
-        onUpdateLayout(type: type)
+        pendingLayout = type
+        checkNeedsLayoutChange()
     }
     
     func refreshLayout() {
