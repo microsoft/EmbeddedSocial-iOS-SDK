@@ -14,7 +14,7 @@ class CreatePostInteractor: CreatePostInteractorInput {
     }
     
     func postTopic(photo: Photo?, title: String?, body: String!) {
-        var uid = UUID().uuidString
+        let uid = UUID().uuidString
         
         guard let user = userHolder.me else {
             fatalError("Cant create topic with no user")
