@@ -351,7 +351,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     func insertNewItems(with paths:[IndexPath]) {
         Logger.log(paths, event: .veryImportant)
-        collectionView.insertItems(at: paths)
+       // collectionView.insertItems(at: paths)
     }
     
     func removeItems(with paths: [IndexPath]) {

@@ -459,16 +459,22 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     // MARK: FeedModuleInteractorOutput
     
     fileprivate func addPage(_ page: FeedPage) {
-        
-        if let index = pages.index(of: page) {
-            pages[index] = page
-        } else {
-            pages.append(page)
-        }
+        assert(pageExists(page) == false)
+        pages.append(page)
     }
     
+    fileprivate func updatePage(_ page: FeedPage) {
+        let index = pages.index(of: page)!
+        pages[index] = page
+    }
+
     fileprivate func pageExists(_ page: FeedPage) -> Bool {
         return pages.contains(page)
+    }
+    
+    fileprivate func removePage(_ page: FeedPage) {
+        let index = pages.index(of: page)!
+        pages.remove(at: index)
     }
     
     fileprivate func indexesForPage(_ page: FeedPage) -> [IndexPath] {
@@ -490,8 +496,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         guard fetchRequestsInProgress.contains(feed.fetchID), feedType == feed.feedType else {
             return
         }
+    
+        Logger.log(feed.fetchID, event: .veryImportant)
         
-        Logger.log("items arrived", layout, event: .veryImportant)
         let page = FeedPage(uid: feed.fetchID, response: feed)
         
         // its full reload
@@ -502,13 +509,24 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
-        if pageExists(page) == false {
-            // remove old items
-            view.removeItems(with: indexesForPage(page))
+        let isPageExist = pageExists(page)
+        
+        if isPageExist {
+            // remove old items for existing page
+            let indexes = indexesForPage(page)
+            removePage(page)
+            view.removeItems(with: indexes)
             // replace page
+            
+            // insert items for updated page
             addPage(page)
-            // add new pages
             view.insertNewItems(with: indexesForPage(page))
+        }
+        else {
+            
+            addPage(page)
+            let indexes = indexesForPage(page)
+            view.insertNewItems(with: indexes)
         }
         
         // update "No content"
