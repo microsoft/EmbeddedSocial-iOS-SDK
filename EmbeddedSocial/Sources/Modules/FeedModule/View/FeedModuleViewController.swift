@@ -66,6 +66,24 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         }
     }
     
+    fileprivate func canChangeLayout() -> Bool {
+        return collectionViewAnimations == 0
+    }
+    
+    fileprivate var collectionViewAnimations = 0 {
+        didSet {
+            assert(collectionViewAnimations >= 0)
+        }
+    }
+    
+    fileprivate func didStartCollectionViewAnimation() {
+        collectionViewAnimations += 1
+    }
+    
+    fileprivate func didFinishCollectionViewAnimation() {
+        collectionViewAnimations -= 1
+    }
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     lazy var bottomRefreshControl: UIActivityIndicatorView = {
@@ -161,11 +179,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
         
         collectionView.reloadData()
-        let visible = collectionView.indexPathsForVisibleItems
-        if visible.count > 0 {
-            Logger.log("reloading", visible, event: .veryImportant)
-            collectionView.reloadItems(at: visible)
-        }
         collectionView.collectionViewLayout.invalidateLayout()
     
         // switch layout
@@ -257,6 +270,12 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     @objc private func didTapChangeLayout() {
+        
+        // We do not change layout during collection animation.
+        guard canChangeLayout() else {
+            return
+        }
+        
         output.didTapChangeLayout()
     }
     
@@ -331,24 +350,35 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     func reloadVisible() {
-        Logger.log(event: .veryImportant)
         let paths = collectionView.indexPathsForVisibleItems
-        self.collectionView.reloadItems(at: paths)
+        self.didStartCollectionViewAnimation()
+        collectionView.performBatchUpdates({ 
+            self.collectionView.reloadItems(at: paths)
+        }) { (finished) in
+            self.didFinishCollectionViewAnimation()
+        }
     }
     
     func insertNewItems(with paths:[IndexPath]) {
-        Logger.log(paths, event: .veryImportant)
-        collectionView.insertItems(at: paths)
+        self.didStartCollectionViewAnimation()
+        collectionView.performBatchUpdates({
+            self.collectionView.insertItems(at: paths)
+        }) { (finished) in
+            self.didFinishCollectionViewAnimation()
+        }
     }
     
     func removeItems(with paths: [IndexPath]) {
-        Logger.log(paths, event: .veryImportant)
-        collectionView.deleteItems(at: paths)
+        self.didStartCollectionViewAnimation()
+        collectionView.performBatchUpdates({
+            self.collectionView.deleteItems(at: paths)
+        }) { (finished) in
+            self.didFinishCollectionViewAnimation()
+        }
     }
     
     func reload() {
-        Logger.log(event: .veryImportant)
-        collectionView.reloadData()
+        self.collectionView.reloadData()
     }
     
     func reload(with index: Int) {
