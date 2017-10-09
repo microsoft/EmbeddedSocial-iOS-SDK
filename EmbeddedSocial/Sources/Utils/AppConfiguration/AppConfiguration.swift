@@ -11,8 +11,10 @@ protocol AppConfigurationType {
 
 class AppConfiguration: AppConfigurationType {
     let theme: Theme
+    let settings: Settings
 
-    init(theme: Theme) {
+    init(theme: Theme, settings: Settings) {
         self.theme = theme
+        self.settings = settings
     }
 }

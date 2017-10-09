@@ -9,11 +9,4 @@ import XCTest
 
 class AppConfigurationTests: XCTestCase {
     
-    func testNormalSetup() {
-        guard let theme = Theme(config: ["name": "light"]) else {
-            XCTFail()
-            return
-        }
-        expect(AppConfiguration(theme: theme)).notTo(beNil())
-    }
 }

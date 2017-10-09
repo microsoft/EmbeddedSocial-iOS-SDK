@@ -293,6 +293,7 @@
 		883E1E531F5465FF004B4861 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 883E1E521F5465FF004B4861 /* Settings.storyboard */; };
 		883E1E561F546632004B4861 /* SettingsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883E1E551F546632004B4861 /* SettingsConfigurator.swift */; };
 		884499D21F8BBC8700838083 /* PlistLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884499D11F8BBC8700838083 /* PlistLoader.swift */; };
+		884499D41F8BC1F800838083 /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884499D31F8BC1F800838083 /* SettingsTests.swift */; };
 		8846CB491F30C98C00F11EC8 /* UserListModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846CB481F30C98C00F11EC8 /* UserListModuleInput.swift */; };
 		8846CB4A1F30CA0800F11EC8 /* UserListConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882F103E1F30C8A20068B6F2 /* UserListConfigurator.swift */; };
 		8846CB4B1F30CA0A00F11EC8 /* UserListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882F10401F30C8A20068B6F2 /* UserListPresenter.swift */; };
@@ -1427,6 +1428,7 @@
 		883E1E521F5465FF004B4861 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		883E1E551F546632004B4861 /* SettingsConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsConfigurator.swift; sourceTree = "<group>"; };
 		884499D11F8BBC8700838083 /* PlistLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistLoader.swift; sourceTree = "<group>"; };
+		884499D31F8BC1F800838083 /* SettingsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
 		8846CB481F30C98C00F11EC8 /* UserListModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListModuleInput.swift; sourceTree = "<group>"; };
 		884A834D1F87BDDE009C3FA0 /* MockTrendingTopicsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockTrendingTopicsInteractor.swift; sourceTree = "<group>"; };
 		884A834F1F87BE93009C3FA0 /* MockTrendingTopicsModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockTrendingTopicsModuleOutput.swift; sourceTree = "<group>"; };
@@ -5009,6 +5011,7 @@
 				88D35FBB1F839184008BB38C /* AppConfigurationTests.swift */,
 				88A9704B1F83A78D0047D591 /* ThemePaletteTests.swift */,
 				88A970491F83A7420047D591 /* ThemeTests.swift */,
+				884499D31F8BC1F800838083 /* SettingsTests.swift */,
 			);
 			path = AppConfiguration;
 			sourceTree = "<group>";
@@ -7470,6 +7473,7 @@
 				8811C8AC1F4441E500F7513D /* CreateAccountInteractorTests.swift in Sources */,
 				88B2D69C1F7CE5C600920E43 /* MyFollowersResponseProcessorTests.swift in Sources */,
 				880AFD5C1F7004AD00378710 /* PinTopicOperationTests.swift in Sources */,
+				884499D41F8BC1F800838083 /* SettingsTests.swift in Sources */,
 				8886AA5E1F6A912400734F3C /* FollowCommandTests.swift in Sources */,
 				88C682351F78EFE4004BD291 /* MockOutgoingCommandsUploadStrategyDelegate.swift in Sources */,
 				889119AC1F4AE0C8005B3B32 /* QueryPeopleAPITests.swift in Sources */,

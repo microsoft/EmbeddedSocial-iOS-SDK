@@ -16,8 +16,8 @@ struct Settings {
     init?(config: [String: Any]) {
         guard let serverURL = config["serverURL"] as? String,
             let appKey = config["appKey"] as? String,
-            let numberOfCommentsToShow = config["numberOfCommentsToShow"] as? NSNumber,
-            let numberOfRepliesToShow = config["numberOfRepliesToShow"] as? NSNumber,
+            let numberOfCommentsToShow = config["numberOfCommentsToShow"] as? Int,
+            let numberOfRepliesToShow = config["numberOfRepliesToShow"] as? Int,
             let showGalleryView = config["showGalleryView"] as? Bool,
             let userRelationsEnabled = config["userRelationsEnabled"] as? Bool else {
                 return nil
@@ -25,8 +25,8 @@ struct Settings {
         
         self.serverURL = serverURL
         self.appKey = appKey
-        self.numberOfCommentsToShow = numberOfCommentsToShow.intValue
-        self.numberOfRepliesToShow = numberOfRepliesToShow.intValue
+        self.numberOfCommentsToShow = numberOfCommentsToShow
+        self.numberOfRepliesToShow = numberOfRepliesToShow
         self.showGalleryView = showGalleryView
         self.userRelationsEnabled = userRelationsEnabled
     }
