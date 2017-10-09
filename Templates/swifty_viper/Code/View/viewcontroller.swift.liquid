@@ -1,0 +1,30 @@
+//
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+//
+
+import UIKit
+
+protocol {{ module_info.name }}ViewInput: class {
+    func setupInitialState()
+}
+
+protocol {{ module_info.name }}ViewOutput {
+    func viewIsReady()
+}
+
+class {{ module_info.name }}ViewController: UIViewController, {{module_info.name}}ViewInput {
+
+    var output: {{ module_info.name }}ViewOutput!
+
+    // MARK: Life cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        output.viewIsReady()
+    }
+
+    // MARK: {{module_info.name}}ViewInput
+    func setupInitialState() {
+        
+    }
+}

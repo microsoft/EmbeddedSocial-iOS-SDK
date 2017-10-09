@@ -1,0 +1,6 @@
+framework module EmbeddedSocial {
+    umbrella header "EmbeddedSocial.h"
+    
+    export *
+    module * { export * }
+}

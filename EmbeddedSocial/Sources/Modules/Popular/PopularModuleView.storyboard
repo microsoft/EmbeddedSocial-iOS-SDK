@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Popular Module View-->
+        <scene sceneID="Jzm-zv-MTN">
+            <objects>
+                <viewController storyboardIdentifier="PopularModuleView" automaticallyAdjustsScrollViewInsets="NO" id="z0g-WO-PH9" customClass="PopularModuleView" customModule="EmbeddedSocial" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YrU-rz-zye"/>
+                        <viewControllerLayoutGuide type="bottom" id="ceD-Fb-GLu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="h0b-qg-6nJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yO7-Kr-Lg6">
+                                <rect key="frame" x="0.0" y="58" width="375" height="609"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3lr-ZT-k10">
+                                <rect key="frame" x="127" y="25" width="121" height="29"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yO7-Kr-Lg6" firstAttribute="leading" secondItem="h0b-qg-6nJ" secondAttribute="leading" id="A1S-Ea-tem"/>
+                            <constraint firstItem="ceD-Fb-GLu" firstAttribute="top" secondItem="yO7-Kr-Lg6" secondAttribute="bottom" id="FdA-f9-Im5"/>
+                            <constraint firstItem="yO7-Kr-Lg6" firstAttribute="top" secondItem="3lr-ZT-k10" secondAttribute="bottom" constant="5" id="Iix-ll-58L"/>
+                            <constraint firstAttribute="trailing" secondItem="yO7-Kr-Lg6" secondAttribute="trailing" id="c9R-nb-pYW"/>
+                            <constraint firstItem="3lr-ZT-k10" firstAttribute="top" secondItem="YrU-rz-zye" secondAttribute="bottom" constant="5" id="cIr-1x-hTh"/>
+                            <constraint firstItem="3lr-ZT-k10" firstAttribute="centerX" secondItem="h0b-qg-6nJ" secondAttribute="centerX" id="z22-Xc-eCf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="container" destination="yO7-Kr-Lg6" id="YYA-gd-gdy"/>
+                        <outlet property="feedControl" destination="3lr-ZT-k10" id="XmV-q1-PJE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3mr-3T-ZUC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4" y="-490.70464767616198"/>
+        </scene>
+    </scenes>
+</document>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="hJE-7L-CFS" customClass="SegmentedControlView" customModule="EmbeddedSocial" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="t48-sa-ZI8">
+                    <rect key="frame" x="20" y="8" width="335" height="29"/>
+                    <segments>
+                        <segment title="First"/>
+                        <segment title="Second"/>
+                    </segments>
+                    <connections>
+                        <action selector="onSegmentSwitch:" destination="hJE-7L-CFS" eventType="valueChanged" id="mLZ-Jk-DM9"/>
+                    </connections>
+                </segmentedControl>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aFE-uG-2Qh">
+                    <rect key="frame" x="0.0" y="43" width="375" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="GuK-mP-Zw1"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="aFE-uG-2Qh" secondAttribute="bottom" id="INg-r7-FZh"/>
+                <constraint firstItem="aFE-uG-2Qh" firstAttribute="leading" secondItem="hJE-7L-CFS" secondAttribute="leading" id="LNp-Bc-iDh"/>
+                <constraint firstItem="t48-sa-ZI8" firstAttribute="centerY" secondItem="hJE-7L-CFS" secondAttribute="centerY" id="ZTD-Z8-Jqj"/>
+                <constraint firstAttribute="trailing" secondItem="t48-sa-ZI8" secondAttribute="trailing" constant="20" id="Zxm-Io-39R"/>
+                <constraint firstItem="t48-sa-ZI8" firstAttribute="leading" secondItem="hJE-7L-CFS" secondAttribute="leading" constant="20" id="nzV-f4-dBU"/>
+                <constraint firstAttribute="trailing" secondItem="aFE-uG-2Qh" secondAttribute="trailing" id="t1V-nQ-FR0"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="segmentedControl" destination="t48-sa-ZI8" id="kcT-wm-OUW"/>
+                <outlet property="separatorView" destination="aFE-uG-2Qh" id="rvi-Dt-sc6"/>
+            </connections>
+            <point key="canvasLocation" x="226" y="-220"/>
+        </view>
+    </objects>
+</document>

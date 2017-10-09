@@ -1,0 +1,56 @@
+included:
+  - EmbeddedSocial
+
+excluded:
+  - Carthage
+  - Pods
+  - EmbeddedSocial/Sources/Generated
+  - EmbeddedSocial/Vendor
+
+disabled_rules: # rule identifiers to exclude from running
+  - trailing_whitespace
+  - identifier_name
+  - operator_whitespace
+  
+opt_in_rules: # some rules are only opt-in
+  - empty_count
+  - closure_end_indentation
+  - closure_spacing
+  - conditional_returns_on_newline
+  - empty_enum_arguments
+  - first_where
+  - mark
+  
+force_cast: warning
+force_try: warning
+
+line_length:
+  warning: 130
+  error: 200
+  
+type_body_length:
+  warning: 300
+  error: 400
+  
+file_length:
+  warning: 500
+  error: 1200
+  
+function_body_length:
+  warning: 30
+  error: 50
+  
+large_tuple:
+  error: 3
+  
+nesting:
+  type_level:
+    warning: 2
+  statement_level:
+    warning: 10
+
+
+type_name:
+  max_length:
+    warning: 40
+    error: 50

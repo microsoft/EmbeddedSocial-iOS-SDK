@@ -1,0 +1,50 @@
+{
+    "data": [
+        {
+            "userHandle": "3vJYpeLwV7M",
+            "firstName": "Vadim",
+            "lastName": "Bulavin",
+            "photoHandle": "null",
+            "photoUrl": "https://sp-ppe.azureedge.net/images/null",
+            "visibility": "Public",
+            "followerStatus": "Blocked"
+        },
+        {
+            "userHandle": "3tL16aGdz0x",
+            "firstName": "Igor",
+            "lastName": "Popov",
+            "photoHandle": "----8mg3EZz-cca2af74-a15a-4dd0-846d-6a7e28083bbf",
+            "photoUrl": "https://sp-ppe.azureedge.net/images/----8mg3EZz-cca2af74-a15a-4dd0-846d-6a7e28083bbf",
+            "visibility": "Public",
+            "followerStatus": "None"
+        },
+        {
+            "userHandle": "3vEd2pIDdBb",
+            "firstName": "Igor",
+            "lastName": "Akvelon",
+            "photoHandle": "6C87AA48-099A-4053-B292-80A18810C99F",
+            "photoUrl": "https://sp-ppe.azureedge.net/images/6C87AA48-099A-4053-B292-80A18810C99F",
+            "visibility": "Public",
+            "followerStatus": "None"
+        },
+        {
+            "userHandle": "3tppo6dlyGH",
+            "firstName": "igor akvelon",
+            "lastName": "gimailovich",
+            "photoHandle": "----8nffcXO-4a20a501-b3a9-456d-8655-15ecb6d70d7c",
+            "photoUrl": "https://sp-ppe.azureedge.net/images/----8nffcXO-4a20a501-b3a9-456d-8655-15ecb6d70d7c",
+            "visibility": "Private",
+            "followerStatus": "None"
+        },
+        {
+            "userHandle": "3ui66fSIueT",
+            "firstName": "Alanxxx",
+            "lastName": "Poexxx",
+            "photoHandle": "----8los_c1-b85e4d20-734e-4880-b020-f6a0cbbec557",
+            "photoUrl": "https://sp-ppe.azureedge.net/images/----8los_c1-b85e4d20-734e-4880-b020-f6a0cbbec557",
+            "visibility": "Public",
+            "followerStatus": "Follow"
+        }
+    ],
+    "cursor": null
+}
