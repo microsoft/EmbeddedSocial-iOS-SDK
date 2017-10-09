@@ -81,7 +81,7 @@ class ActivityDataSourceTests: XCTestCase {
         let activityView = ActivityView()
         let header = SectionHeader(name: "", identifier: "")
         let page = [ActivityItem.myActivity(activityView)]
-        let section = Section(header: header, pages: [page])
+        let section = ActivitySection(header: header, pages: [page])
         
         let sut = MyActivities(interactor: interactor, section: section, context: ctx)
         
@@ -100,7 +100,7 @@ class ActivityDataSourceTests: XCTestCase {
         
         // given
         let header = SectionHeader(name: "", identifier: "")
-        let section = Section(header: header, pages: [])
+        let section = ActivitySection(header: header, pages: [])
         
         let sut = MyActivities(interactor: interactor, section: section, context: ctx)
         sut.delegate = dataSourceDelegate

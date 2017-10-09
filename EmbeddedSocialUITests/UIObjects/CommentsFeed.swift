@@ -15,6 +15,9 @@ class Comment {
     var likesButton: XCUIElement
     var repliesButton: XCUIElement
     
+    private var menuButton: XCUIElement
+    private var commentMenu: CommentMenu!
+    
     init(_ cell: XCUIElement, _ application: XCUIApplication) {
         self.app = application
         self.cell = cell
@@ -23,6 +26,9 @@ class Comment {
         self.replyButton = self.cell.buttons["Reply"]
         self.likesButton = self.cell.buttons.element(boundBy: 4)
         self.repliesButton = self.cell.buttons.element(boundBy: 5)
+        
+        menuButton = self.cell.buttons["Post Menu"]
+        commentMenu = CommentMenu(app, self)
     }
     
     //UILabel values cannot be read when element has an accessibility identifier
@@ -41,6 +47,15 @@ class Comment {
         self.likeButton.tap()
         sleep(1)
     }
+    
+    func menu() -> CommentMenu {
+        if !commentMenu.isOpened {
+            menuButton.tap()
+            commentMenu.isOpened = true
+        }
+        return commentMenu
+    }
+
 }
 
 class CommentsFeed {
@@ -58,12 +73,23 @@ class CommentsFeed {
         self.publishCommentButton = self.app.buttons["Post"]
     }
     
+    convenience init(_ application: XCUIApplication, containerView: XCUIElement) {
+        self.init(application)
+        feedContainer = containerView
+    }
+    
     func getCommentsCount() -> UInt {
         return UInt(self.feedContainer.cells.count)
     }
     
-    func getComment(_ index: UInt) -> Comment {
-        return Comment(self.feedContainer.children(matching: .cell).element(boundBy: index), self.app)
+    func getComment(_ index: UInt, withScroll scroll: Bool = true) -> Comment {
+        let cell = feedContainer.cells.element(boundBy: index)
+        
+        if scroll {
+            scrollToElement(cell, app)
+        }
+        
+        return Comment(cell, app)
     }
     
     func getRandomComment() -> (UInt, Comment) {

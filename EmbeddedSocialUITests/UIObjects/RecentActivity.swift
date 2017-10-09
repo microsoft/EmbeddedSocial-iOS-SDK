@@ -20,7 +20,7 @@ class RecentActivityItem {
     //https://forums.developer.apple.com/thread/10428
     
     func isExists(text: String) -> Bool {
-        return self.cell.staticTexts[text].exists
+        return self.cell.staticTexts.element.label.lowercased().contains(text.lowercased())
     }
     
     func getLabel(with text: String) -> XCUIElement {
