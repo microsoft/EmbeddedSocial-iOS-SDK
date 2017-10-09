@@ -52,31 +52,31 @@ class TestYourActivityFeed: BaseTestActivityFeed {
         XCTAssertTrue(APIState.getLatestRequest().contains("/images/"))
     }
     
-//    func testPendingRequestPaging() {
-//        openScreen()
-//        
-//        // move to the last item
-//        let _ = activityFollowRequests.getRequestItem(at: activityFollowRequests.getRequestsCount() - 1)
-//        app.swipeUp()
-//        
-//        let latestRequest = APIState.getLatestResponse(forService: "pendingUsers")
-//        XCTAssertNotNil(latestRequest)
-//        XCTAssertGreaterThan(latestRequest!["cursor"] as! String, String(pageSize))
-//    }
-//    
-//    func testRecentActivityPaging() {
-//        openScreen()
-//        
-//        recentActivities.offset = activityFollowRequests.getRequestsCount()
-//        
-//        // move to the last item
-//        let _ = recentActivities.getActivityItem(at: recentActivities.getActivitiesCount() - 1)
-//        app.swipeUp()
-//        
-//        let latestRequest = APIState.getLatestResponse(forService: "notifications")
-//        XCTAssertNotNil(latestRequest)
-//        XCTAssertGreaterThan(latestRequest!["cursor"] as! String, String(pageSize))
-//    }
+    func testPendingRequestPaging() {
+        openScreen()
+        
+        // move to the last item
+        let _ = activityFollowRequests.getRequestItem(at: activityFollowRequests.getRequestsCount() - 1)
+        app.swipeUp()
+        
+        let latestRequest = APIState.getLatestResponse(forService: "pendingUsers")
+        XCTAssertNotNil(latestRequest)
+        XCTAssertGreaterThan(latestRequest!["cursor"] as! String, String(pageSize))
+    }
+    
+    func testRecentActivityPaging() {
+        openScreen()
+        
+        recentActivities.offset = activityFollowRequests.getRequestsCount()
+        
+        // move to the last item
+        let _ = recentActivities.getActivityItem(at: recentActivities.getActivitiesCount() - 1)
+        app.swipeUp()
+        
+        let latestRequest = APIState.getLatestResponse(forService: "notifications")
+        XCTAssertNotNil(latestRequest)
+        XCTAssertGreaterThan(latestRequest!["cursor"] as! String, String(pageSize))
+    }
     
     override func testPaging() {
         openScreen()
