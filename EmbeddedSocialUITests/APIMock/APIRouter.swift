@@ -165,31 +165,7 @@ open class APIRouter: WebApp {
                 break
             }
         }
-        
-        self["/v0.7/users/me/topics"] = APIResponse(serviceName: "topics") { environ, sendJSON -> Void in
-            let query = URLParametersReader.parseURLParameters(environ: environ)
-            let captures = environ["ambassador.router_captures"] as! [String]
-            var interval = "meTopic"
-            
-            APIConfig.values = ["user->userHandle" : "JohnDoe",
-                                "user->firstName" : "John",
-                                "user->lastName" : "Doe"]
-            
-            if captures.count > 0 && captures[0] != "" {
-                interval = ""
-                for i in 0...captures.count - 1 {
-                    interval += captures[i]
-                }
-            }
-            print(query)
-            let cursor = query["cursor"] ?? "0"
-            if let limit = query["limit"] {
-                sendJSON(Templates.loadTopics(interval: interval, cursor: Int(cursor)!, limit: Int(limit)!))
-            } else {
-                sendJSON(Templates.loadTopics(interval: interval))
-            }
-        }
-        
+                
         self["/v0.7/images/(UserPhoto|ContentBlob|AppIcon)"] = APIResponse(serviceName: "images") { environ, sendJSON -> Void in
             let input = environ["swsgi.input"] as! SWSGIInput
             DataReader.read(input) { data in
@@ -240,7 +216,7 @@ open class APIRouter: WebApp {
             case "POST":
                 break
             default:
-                sendJSON(Templates.load(name: "user"))
+                sendJSON(Templates.load(name: "user", values: ["userHandle" : "JohnDoe"]))
             }
         }
         
