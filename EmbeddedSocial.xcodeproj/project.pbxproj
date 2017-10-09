@@ -607,6 +607,7 @@
 		889119C11F4AFA8E005B3B32 /* MockSearchResultsUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119C01F4AFA8E005B3B32 /* MockSearchResultsUpdating.swift */; };
 		889119C31F4AFBB1005B3B32 /* MockSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119C21F4AFBB1005B3B32 /* MockSearchView.swift */; };
 		889119C51F4AFC00005B3B32 /* SearchPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889119C41F4AFC00005B3B32 /* SearchPresenterTests.swift */; };
+		8892605D1F8B8D2E002B3707 /* UINavigationBar+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892605C1F8B8D2E002B3707 /* UINavigationBar+Ext.swift */; };
 		8892F24E1F7E2E5800A58D8B /* LinkedAccountsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892F24D1F7E2E5800A58D8B /* LinkedAccountsPresenter.swift */; };
 		8892F2501F7E2E6100A58D8B /* LinkedAccountsViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892F24F1F7E2E6100A58D8B /* LinkedAccountsViewOutput.swift */; };
 		8892F2521F7E2EA100A58D8B /* LinkedAccountsViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892F2511F7E2EA100A58D8B /* LinkedAccountsViewInput.swift */; };
@@ -1730,6 +1731,7 @@
 		889119C01F4AFA8E005B3B32 /* MockSearchResultsUpdating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSearchResultsUpdating.swift; sourceTree = "<group>"; };
 		889119C21F4AFBB1005B3B32 /* MockSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSearchView.swift; sourceTree = "<group>"; };
 		889119C41F4AFC00005B3B32 /* SearchPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPresenterTests.swift; sourceTree = "<group>"; };
+		8892605C1F8B8D2E002B3707 /* UINavigationBar+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Ext.swift"; sourceTree = "<group>"; };
 		8892F24D1F7E2E5800A58D8B /* LinkedAccountsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsPresenter.swift; sourceTree = "<group>"; };
 		8892F24F1F7E2E6100A58D8B /* LinkedAccountsViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsViewOutput.swift; sourceTree = "<group>"; };
 		8892F2511F7E2EA100A58D8B /* LinkedAccountsViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsViewInput.swift; sourceTree = "<group>"; };
@@ -3430,6 +3432,7 @@
 				8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */,
 				88580AAB1F2213AB00C1CBAF /* Dictionary+Ext.swift */,
 				889510821F3B1FCA001A53F5 /* ErrorResponse+Ext.swift */,
+				8892605C1F8B8D2E002B3707 /* UINavigationBar+Ext.swift */,
 				88E662051F7A7A6100C98526 /* FollowRequestCell+Ext.swift */,
 				8892F25A1F7E618500A58D8B /* LinkedAccountView+Ext.swift */,
 				88B94EF11F66A9F3002392F9 /* NSLock+Ext.swift */,
@@ -6825,6 +6828,7 @@
 				8875CCEA1F331CB3001F2474 /* UserFollowingAPI.swift in Sources */,
 				63E1DA291F7BF14500187E35 /* ReportReplyOperation.swift in Sources */,
 				882AD0D11F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift in Sources */,
+				8892605D1F8B8D2E002B3707 /* UINavigationBar+Ext.swift in Sources */,
 				88580BC51F2213AB00C1CBAF /* UIViewController+Alerts.swift in Sources */,
 				88303DD11F867EB900330E30 /* TrendingTopicsInteractor.swift in Sources */,
 				8811C8871F431B9A00F7513D /* EditProfileViewController.swift in Sources */,
