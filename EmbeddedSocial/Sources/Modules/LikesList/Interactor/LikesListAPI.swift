@@ -22,7 +22,7 @@ enum LikedObject {
     }
 }
 
-struct LikesListAPI: UsersListAPI {
+final class LikesListAPI: UsersListAPI {
     private let likesService: LikesServiceProtocol
     private let handle: String
     private let type: LikedObject
@@ -33,7 +33,7 @@ struct LikesListAPI: UsersListAPI {
         self.type = type
     }
     
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+    override func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         switch type {
         case .post:
             likesService.getPostLikes(postHandle: handle, cursor: cursor, limit: limit, completion: completion)

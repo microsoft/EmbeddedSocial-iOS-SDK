@@ -26,7 +26,7 @@ class MyBlockedUsersResponseProcessorTests: UsersListResponseProcessorTests {
         let commands = usersToAdd.map(BlockCommand.init)
         
         let initialUsers = [User(), User()]
-        let response = UsersListResponse(users: initialUsers, cursor: nil, isFromCache: true)
+        let response = UsersListResponse(items: initialUsers, cursor: nil, isFromCache: true)
         
         cache.fetchOutgoing_with_ReturnValue = commands
         
@@ -34,10 +34,10 @@ class MyBlockedUsersResponseProcessorTests: UsersListResponseProcessorTests {
         let processedResponse = sut.apply(commands: commands, to: response)
         
         // then
-        let userIDs = processedResponse.users.map { $0.uid }
+        let userIDs = processedResponse.items.map { $0.uid }
         let userIDsToAdd = usersToAdd.map { $0.uid }
         expect(userIDs).to(contain(userIDsToAdd))
-        expect(processedResponse.users).to(haveCount(usersToAdd.count + initialUsers.count))
+        expect(processedResponse.items).to(haveCount(usersToAdd.count + initialUsers.count))
     }
     
     func testThatItDoesNotAddDuplicatedUsers() {
@@ -47,7 +47,7 @@ class MyBlockedUsersResponseProcessorTests: UsersListResponseProcessorTests {
         let commands = usersToAdd.map(BlockCommand.init)
         
         let initialUsers = [commonUser, User()]
-        let response = UsersListResponse(users: initialUsers, cursor: nil, isFromCache: true)
+        let response = UsersListResponse(items: initialUsers, cursor: nil, isFromCache: true)
         
         cache.fetchOutgoing_with_ReturnValue = commands
         
@@ -55,9 +55,9 @@ class MyBlockedUsersResponseProcessorTests: UsersListResponseProcessorTests {
         let processedResponse = sut.apply(commands: commands, to: response)
         
         // then
-        let userIDs = processedResponse.users.map { $0.uid }
+        let userIDs = processedResponse.items.map { $0.uid }
         let userIDsToAdd = usersToAdd.map { $0.uid }
         expect(userIDs).to(contain(userIDsToAdd))
-        expect(processedResponse.users).to(haveCount(usersToAdd.count + initialUsers.count - 1))
+        expect(processedResponse.items).to(haveCount(usersToAdd.count + initialUsers.count - 1))
     }
 }

@@ -65,7 +65,7 @@ class UsersListResponseProcessorTests: XCTestCase {
         
         cache.fetchOutgoing_with_ReturnValue = [command1, command2]
         
-        let response = UsersListResponse(users: [user1, user2], cursor: nil, isFromCache: true)
+        let response = UsersListResponse(items: [user1, user2], cursor: nil, isFromCache: true)
         
         // when
         _ = sut.apply(commands: [command1, command2], to: response)

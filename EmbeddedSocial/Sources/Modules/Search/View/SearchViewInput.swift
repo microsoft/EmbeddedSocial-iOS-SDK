@@ -14,4 +14,6 @@ protocol SearchViewInput: class {
     func showError(_ error: Error)
     
     func setLayoutAsset(_ asset: Asset)
+    
+    func search(hashtag: Hashtag)
 }

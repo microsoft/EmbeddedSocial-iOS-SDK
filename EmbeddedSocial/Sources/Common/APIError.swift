@@ -16,6 +16,7 @@ enum APIError: LocalizedError {
     case invalidImage
     case invalidResponse
     case missingResponseData // Missing some data
+    case notImplemented // Missing some data
 
     public var errorDescription: String? {
         switch self {
@@ -29,6 +30,7 @@ enum APIError: LocalizedError {
         case let .custom(text): return text
         case .invalidResponse: return L10n.Error.invalidResponse
         case .missingResponseData: return L10n.Error.missingResponseData
+        case .notImplemented: return L10n.Error.notImplemented
         }
     }
     

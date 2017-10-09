@@ -21,6 +21,7 @@ extension JSONDecoderProtocol {
     
     static func setupDecoders() {
         addOutgoingCommandDecoder()
+        addHashtagsDecoder()
     }
     
     private static func addOutgoingCommandDecoder() {
@@ -28,6 +29,16 @@ extension JSONDecoderProtocol {
             guard let payload = source as? [String: Any],
                 let item = OutgoingCommand.command(from: payload) else {
                     return .failure(.typeMismatch(expected: "OutgoingCommand", actual: "\(source)"))
+            }
+            return .success(item)
+        }
+    }
+    
+    private static func addHashtagsDecoder() {
+        Decoders.addDecoder(clazz: HashtagCacheableAdapter.self) { source, instance in
+            guard let payload = source as? [String: Any],
+                let item = HashtagCacheableAdapter(json: payload) else {
+                    return .failure(.typeMismatch(expected: "HashtagCacheableAdapter", actual: "\(source)"))
             }
             return .success(item)
         }

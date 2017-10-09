@@ -69,7 +69,7 @@ class UsersListResponseProcessor: ResponseProcessor<FeedResponseUserCompactView,
         var updatedUsers: [User] = []
         var usersList = usersList
         
-        for var user in usersList.users {
+        for var user in usersList.items {
             let commandsToApply = commands.filter { $0.user.uid == user.uid }
             for command in commandsToApply {
                 command.apply(to: &user)
@@ -77,7 +77,7 @@ class UsersListResponseProcessor: ResponseProcessor<FeedResponseUserCompactView,
             updatedUsers.append(user)
         }
         
-        usersList.users = updatedUsers
+        usersList.items = updatedUsers
         
         return usersList
     }
