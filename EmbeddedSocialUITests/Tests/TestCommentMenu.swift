@@ -92,8 +92,7 @@ class TestCommentMenu: TestHome {
         for i in 0..<reportIssuesCells.count {
             // It's already opened for first item
             if i > 0 {
-                // Get new comment and open report item
-                commentInformation = comments.getRandomComment()
+                // Open report item
                 select(menuItem: .report, for: commentInformation.comment)
             }
             
