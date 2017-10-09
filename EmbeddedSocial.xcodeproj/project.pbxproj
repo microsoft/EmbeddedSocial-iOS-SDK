@@ -7359,7 +7359,7 @@
 				INFOPLIST_FILE = "EmbeddedSocial-Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.microsoft.embeddedsocial-df";
+				PRODUCT_BUNDLE_IDENTIFIER = "akvelon.EmbeddedSocial-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
@@ -7384,7 +7384,7 @@
 				INFOPLIST_FILE = "EmbeddedSocial-Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.microsoft.embeddedsocial-df";
+				PRODUCT_BUNDLE_IDENTIFIER = "akvelon.EmbeddedSocial-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
