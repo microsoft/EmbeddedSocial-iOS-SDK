@@ -39,7 +39,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     var output: FeedModuleViewOutput!
     
     var numberOfItems: Int {
-        return collectionView?.numberOfItems(inSection: 0) ?? 0
+        return collectionView.numberOfItems(inSection: 0)
     }
     
     var paddingEnabled: Bool = false {
@@ -124,7 +124,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         self.collectionView.delegate = self
-        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerReuseID)
+
         
         // Navigation
         navigationItem.rightBarButtonItem = layoutChangeButton
@@ -170,11 +170,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
             print(self.output.item(for: IndexPath(row: i, section: 0)).cellType)
         }
     
-            self.collectionView.collectionViewLayout.invalidateLayout()
             self.collectionView.reloadData()
-            self.collectionView.layoutIfNeeded()
             self.collectionView.collectionViewLayout.invalidateLayout()
-            
+        
+        
             // switch layout
             switch type {
             case .grid:
@@ -351,12 +350,20 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     func insertNewItems(with paths:[IndexPath]) {
         Logger.log(paths, event: .veryImportant)
-       // collectionView.insertItems(at: paths)
+        
+        self.collectionView.insertItems(at: paths)
+        
     }
     
     func removeItems(with paths: [IndexPath]) {
         Logger.log(paths, event: .veryImportant)
-        collectionView.deleteItems(at: paths)
+        
+        if self.collectionView.indexPathsForVisibleItems.count > 0 {
+            self.collectionView.deleteItems(at: paths)
+        } else {
+            Logger.log("trying to do bad thing", paths, event: .fire)
+        }
+ 
     }
     
     func reload() {
@@ -433,16 +440,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         return CGSize(width: containerWidth(), height: output.headerSize.height)
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        referenceSizeForFooterInSection section: Int) -> CGSize {
-        if collectionView.numberOfItems(inSection: 0) > 1 {
-            return CGSize(width: collectionView.frame.size.width, height: Constants.FeedModule.Collection.footerHeight)
-        } else {
-            return CGSize.zero
-        }
-    }
-    
+
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         if kind == UICollectionElementKindSectionFooter {

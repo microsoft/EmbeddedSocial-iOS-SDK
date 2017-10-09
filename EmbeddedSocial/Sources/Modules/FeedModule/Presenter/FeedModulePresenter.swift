@@ -286,7 +286,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     fileprivate func fetchAllItems() {
         pages = []
-        view.reload()
         fetchRequestsInProgress = Set()
         fetchItems()
     }
@@ -458,14 +457,22 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     // MARK: FeedModuleInteractorOutput
     
+    private let pageQueue = DispatchQueue(label: "PageSync-queue")
+    
     fileprivate func addPage(_ page: FeedPage) {
+        Logger.log(page, event: .veryImportant)
         assert(pageExists(page) == false)
-        pages.append(page)
+        pageQueue.sync {
+            pages.append(page)
+        }
     }
     
     fileprivate func updatePage(_ page: FeedPage) {
+        Logger.log(page, event: .veryImportant)
         let index = pages.index(of: page)!
-        pages[index] = page
+        pageQueue.sync {
+            pages[index] = page
+        }
     }
 
     fileprivate func pageExists(_ page: FeedPage) -> Bool {
@@ -473,8 +480,11 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     fileprivate func removePage(_ page: FeedPage) {
+        Logger.log(page, event: .veryImportant)
         let index = pages.index(of: page)!
-        pages.remove(at: index)
+        pageQueue.sync {
+            pages.remove(at: index)
+        }
     }
     
     fileprivate func indexesForPage(_ page: FeedPage) -> [IndexPath] {
@@ -502,7 +512,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         let page = FeedPage(uid: feed.fetchID, response: feed)
         
         // its full reload
-        guard isMore == false else {
+        if pages.count == 0  {
             addPage(page)
             view.reload()
             checkIfNoContent()
@@ -518,7 +528,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             view.removeItems(with: indexes)
             // replace page
             
-            // insert items for updated page
+//             insert items for updated page
             addPage(page)
             view.insertNewItems(with: indexesForPage(page))
         }
