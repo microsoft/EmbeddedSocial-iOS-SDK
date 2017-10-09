@@ -165,8 +165,15 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
         
+        UIView.setAnimationsEnabled(false)
         self.collectionView.reloadData()
         self.collectionView.collectionViewLayout.invalidateLayout()
+        
+        let visible = self.collectionView.indexPathsForVisibleItems
+        if visible.count > 0 {
+            self.collectionView.reloadItems(at: visible)
+        }
+        UIView.setAnimationsEnabled(true)
         
         // switch layout
         switch type {
@@ -345,8 +352,9 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func insertNewItems(with paths:[IndexPath]) {
         Logger.log(paths, event: .veryImportant)
         
+        UIView.setAnimationsEnabled(false)
         self.collectionView.insertItems(at: paths)
-        
+        UIView.setAnimationsEnabled(true)
     }
     
     func removeItems(with paths: [IndexPath]) {
