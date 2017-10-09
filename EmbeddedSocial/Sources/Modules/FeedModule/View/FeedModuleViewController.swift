@@ -66,6 +66,21 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         }
     }
     
+    fileprivate var collectionViewIsInAnimation = 0 {
+        didSet {
+            assert(collectionViewIsInAnimation >= 0)
+            layoutChangeButton.isEnabled = (collectionViewIsInAnimation == 0)
+        }
+    }
+    
+    fileprivate func didStartCollectionViewAnimation() {
+        collectionViewIsInAnimation += 1
+    }
+    
+    fileprivate func didFinishCollectionViewAnimation() {
+        collectionViewIsInAnimation -= 1
+    }
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     lazy var bottomRefreshControl: UIActivityIndicatorView = {
@@ -331,24 +346,35 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     func reloadVisible() {
-        Logger.log(event: .veryImportant)
         let paths = collectionView.indexPathsForVisibleItems
-        self.collectionView.reloadItems(at: paths)
+        self.didStartCollectionViewAnimation()
+        collectionView.performBatchUpdates({ 
+            self.collectionView.reloadItems(at: paths)
+        }) { (finished) in
+            self.didFinishCollectionViewAnimation()
+        }
     }
     
     func insertNewItems(with paths:[IndexPath]) {
-        Logger.log(paths, event: .veryImportant)
-        collectionView.insertItems(at: paths)
+        self.didStartCollectionViewAnimation()
+        collectionView.performBatchUpdates({
+            self.collectionView.insertItems(at: paths)
+        }) { (finished) in
+            self.didFinishCollectionViewAnimation()
+        }
     }
     
     func removeItems(with paths: [IndexPath]) {
-        Logger.log(paths, event: .veryImportant)
-        collectionView.deleteItems(at: paths)
+        self.didStartCollectionViewAnimation()
+        collectionView.performBatchUpdates({
+            self.collectionView.deleteItems(at: paths)
+        }) { (finished) in
+            self.didFinishCollectionViewAnimation()
+        }
     }
     
     func reload() {
-        Logger.log(event: .veryImportant)
-        collectionView.reloadData()
+        self.collectionView.reloadData()
     }
     
     func reload(with index: Int) {

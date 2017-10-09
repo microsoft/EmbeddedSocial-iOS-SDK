@@ -187,7 +187,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didTapChangeLayout() {
         layout = layout.flipped
-        view.setLayout(type: layout)
     }
     
     // MARK: FeedModuleInput
