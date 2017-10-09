@@ -18,7 +18,7 @@
 lane :build_app do
 gym(
 scheme: "EmbeddedSocial-Example",
-configuration: "Release",
+configuration: "Debug",
 export_method: "development",
 clean: true
 )
