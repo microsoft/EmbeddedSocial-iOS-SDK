@@ -199,6 +199,11 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     private func block(user: User) {
+        guard myProfileHolder?.me != nil else {
+            router.openLogin()
+            return
+        }
+        
         view.setIsLoadingUser(true)
 
         interactor.block(user: user) { [weak self] result in
