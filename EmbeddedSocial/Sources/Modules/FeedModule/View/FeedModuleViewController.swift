@@ -66,18 +66,22 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         }
     }
     
-    fileprivate var collectionViewIsInAnimation = 0 {
+    fileprivate func canChangeLayout() -> Bool {
+        return collectionViewAnimations == 0
+    }
+    
+    fileprivate var collectionViewAnimations = 0 {
         didSet {
-            assert(collectionViewIsInAnimation >= 0)
+            assert(collectionViewAnimations >= 0)
         }
     }
     
     fileprivate func didStartCollectionViewAnimation() {
-        collectionViewIsInAnimation += 1
+        collectionViewAnimations += 1
     }
     
     fileprivate func didFinishCollectionViewAnimation() {
-        collectionViewIsInAnimation -= 1
+        collectionViewAnimations -= 1
     }
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -273,7 +277,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     @objc private func didTapChangeLayout() {
         
         // We do not change layout during collection animation.
-        guard collectionViewIsInAnimation == false else {
+        guard canChangeLayout() else {
             return
         }
         
