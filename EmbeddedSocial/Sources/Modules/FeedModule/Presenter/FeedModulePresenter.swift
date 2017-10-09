@@ -471,6 +471,20 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         return pages.contains(page)
     }
     
+    fileprivate func indexesForPage(_ page: FeedPage) -> [IndexPath] {
+        let index = pages.index(of: page)!
+        
+        // get start index of first item in the page
+        let startIndex = pages[0..<index].reduce(0) { (res, p) -> Int in
+            return res + p.response.items.count
+        }
+
+        let range = startIndex..<startIndex + page.response.items.count
+        
+        let indexes = range.map { IndexPath(row: $0, section: 0) }
+        return indexes
+    }
+    
     private func processFetchResult(feed: Feed, isMore: Bool) {
         
         guard fetchRequestsInProgress.contains(feed.fetchID), feedType == feed.feedType else {
@@ -479,15 +493,22 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         
         Logger.log("items arrived", layout, event: .veryImportant)
         let page = FeedPage(uid: feed.fetchID, response: feed)
-        addPage(page)
-        
-        view.reload()
         
         // its full reload
-        if isMore == false {
+        guard isMore == false else {
+            addPage(page)
             view.reload()
             checkIfNoContent()
             return
+        }
+        
+        if pageExists(page) == false {
+            // remove old items
+            view.removeItems(with: indexesForPage(page))
+            // replace page
+            addPage(page)
+            // add new pages
+            view.insertNewItems(with: indexesForPage(page))
         }
         
         // update "No content"
