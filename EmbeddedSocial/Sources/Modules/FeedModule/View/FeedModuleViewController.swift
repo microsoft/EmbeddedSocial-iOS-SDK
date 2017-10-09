@@ -121,9 +121,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         }
     
         // Table
-        self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
-        self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
-        self.collectionView.delegate = self
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerReuseID)
+        collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
+        collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
+        collectionView.delegate = self
         
         
         // Navigation
@@ -365,9 +366,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func reload() {
         Logger.log(output.numberOfItems(), collectionView.indexPathsForVisibleItems.count , event: .veryImportant)
         
-        UIView.performWithoutAnimation {
-            self.collectionView.reloadSections([0])
-        }
+        self.collectionView.reloadData()
     }
     
     func reload(with index: Int) {
@@ -437,6 +436,16 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
         return CGSize(width: containerWidth(), height: output.headerSize.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForFooterInSection section: Int) -> CGSize {
+        if collectionView.numberOfItems(inSection: 0) > 1 {
+            return CGSize(width: collectionView.frame.size.width, height: Constants.FeedModule.Collection.footerHeight)
+        } else {
+            return CGSize.zero
+        }
     }
     
     
