@@ -32,7 +32,6 @@ protocol NavigationStackProtocol {
 public class NavigationStack: NavigationStackProtocol {
     
     private(set) var navigationController: UINavigationController
-    private var window: UIWindow
     private var menuStackController: MenuStackController!
     private var presentedModal: UIViewController?
     
@@ -76,10 +75,7 @@ public class NavigationStack: NavigationStackProtocol {
         navigationController.showErrorAlert(error)
     }
     
-    static let vc = UIViewController()
     init(window: UIWindow, menuViewController: UIViewController) {
-        
-        self.window = window
  
         navigationController = BaseNavigationController()
         

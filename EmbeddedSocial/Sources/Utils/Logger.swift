@@ -12,6 +12,7 @@ class Logger {
         case verbose = "💬"
         case important = "🔥"
         case veryImportant = "🔥🔥🔥"
+        case fire = "🔥🔥🔥🔥🔥🔥🔥🔥"
     }
     
     class func log(_ something: Any?...,

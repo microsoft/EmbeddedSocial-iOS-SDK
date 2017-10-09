@@ -175,9 +175,28 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     fileprivate var isViewReady = false
     fileprivate var formatter = DateFormatterTool()
-    fileprivate var cursor: String? = nil
+    fileprivate var cursor: String? {
+        return pages.last?.response.cursor
+    }
     fileprivate var limit: Int32 = Int32(Constants.Feed.pageSize)
-    fileprivate var items = [Post]()
+    fileprivate var items: [Post] {
+        return pages.flatMap{ $0.response.items }
+    }
+    
+    struct FeedPage: Hashable {
+        let uid: String
+        let response: Feed
+        
+        var hashValue: Int {
+            return uid.hashValue
+        }
+        
+        static func ==(lhs: FeedPage, rhs: FeedPage) -> Bool {
+            return lhs.hashValue == rhs.hashValue
+        }
+    }
+    
+    fileprivate var pages: [FeedPage] = []
     fileprivate var fetchRequestsInProgress: Set<String> = Set()
     fileprivate var header: SupplementaryItemModel?
     
@@ -187,7 +206,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didTapChangeLayout() {
         layout = layout.flipped
-        view.setLayout(type: layout)
     }
     
     // MARK: FeedModuleInput
@@ -267,9 +285,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     fileprivate func fetchAllItems() {
-        cursor = nil
-        items = []
-        view.reload()
+        pages = []
         fetchRequestsInProgress = Set()
         fetchItems()
     }
@@ -364,25 +380,13 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             
             let status = items[index].liked
             let action: PostSocialAction = status ? .unlike : .like
-            
-            items[index].liked = !status
-            
-            // change item locally
-            // TODO: remove this, since it's responsibility of outgoing cache 
-            if action == .like {
-                items[index].totalLikes += 1
-            } else if action == .unlike && items[index].totalLikes > 0 {
-                items[index].totalLikes -= 1
-            }
-            
+
             view.reload(with: index)
             interactor.postAction(post: items[index], action: action)
             
         case .pin:
             let status = items[index].pinned
             let action: PostSocialAction = status ? .unpin : .pin
-            
-            items[index].pinned = !status
             
             view.reload(with: index)
             interactor.postAction(post: items[index], action: action)
@@ -453,56 +457,88 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     // MARK: FeedModuleInteractorOutput
     
+    fileprivate func addPage(_ page: FeedPage) {
+        assert(pageExists(page) == false)
+        pages.append(page)
+    }
+    
+    fileprivate func updatePage(_ page: FeedPage) {
+        let index = pages.index(of: page)!
+        pages[index] = page
+    }
+
+    fileprivate func pageExists(_ page: FeedPage) -> Bool {
+        return pages.contains(page)
+    }
+    
+    fileprivate func removePage(_ page: FeedPage) {
+        let index = pages.index(of: page)!
+        pages.remove(at: index)
+
+    }
+    
+    fileprivate func indexesForPage(_ page: FeedPage) -> [IndexPath] {
+        let index = pages.index(of: page)!
+        
+        // get start index of first item in the page
+        let startIndex = pages[0..<index].reduce(0) { (res, p) -> Int in
+            return res + p.response.items.count
+        }
+
+        let range = startIndex..<startIndex + page.response.items.count
+        
+        let indexes = range.map { IndexPath(row: $0, section: 0) }
+        return indexes
+    }
+    
     private func processFetchResult(feed: Feed, isMore: Bool) {
         
         guard fetchRequestsInProgress.contains(feed.fetchID), feedType == feed.feedType else {
             return
         }
         
-        Logger.log("items arrived", event: .veryImportant)
+        defer {
+            checkIfNoContent()
+        }
+    
+        Logger.log(feed.fetchID, event: .veryImportant)
         
-        let cachedNumberOfItems = items.count
+        let page = FeedPage(uid: feed.fetchID, response: feed)
         
-        if isMore {
-            appendWithReplacing(original: &items, appending: feed.items)
-        } else {
-            items = feed.items
+        // its full reload
+        if pages.count == 0  {
+            addPage(page)
+            view.reload()
+            return
         }
         
-        cursor = feed.cursor
+        let isPageExist = pageExists(page)
         
-        // show changes on UI
-        let shouldAddItems = items.count - cachedNumberOfItems
-        let shouldRemoveItems = cachedNumberOfItems - items.count
-        
-        // insert/remove items
-        if cachedNumberOfItems == 0 {
-            view.reload()
+        if isPageExist {
+            // remove old items for existing page
+            let indexes = indexesForPage(page)
+            removePage(page)
+            view.removeItems(with: indexes)
+            
+            // insert items for updated page
+            addPage(page)
+            view.insertNewItems(with: indexesForPage(page))
         }
         else {
             
-            if shouldAddItems > 0 {
-                let paths = Array(cachedNumberOfItems..<items.count).map { IndexPath(row: $0, section: 0) }
-                view.insertNewItems(with: paths)
-            }
-            else if shouldRemoveItems > 0 {
-                let paths = Array(items.count..<cachedNumberOfItems).map { IndexPath(row: $0, section: 0) }
-                view.removeItems(with: paths)
-            }
-            
-            // update data for rest of cells
-            view.reloadVisible()
+            addPage(page)
+            let indexes = indexesForPage(page)
+            view.insertNewItems(with: indexes)
         }
-    
-        // update "No content"
-        checkIfNoContent()
     }
     
     func didFetch(feed: Feed) {
+        assert(Thread.isMainThread)
         processFetchResult(feed: feed, isMore: false)
     }
     
     func didFetchMore(feed: Feed) {
+        assert(Thread.isMainThread)
         processFetchResult(feed: feed, isMore: true)
     }
     
@@ -600,14 +636,6 @@ extension FeedModulePresenter: PostMenuModuleOutput {
             fetchAllItems()
             
         } else {
-            
-            // Update following status for current posts
-            for (index, item) in items.enumerated() {
-                if item.userHandle == user.uid {
-                    items[index].userStatus = .accepted
-                }
-            }
-            
             view.reloadVisible()
         }
     }
@@ -620,14 +648,6 @@ extension FeedModulePresenter: PostMenuModuleOutput {
             fetchAllItems()
             
         } else {
-            
-            // Update following status for current posts
-            for (index, item) in items.enumerated() {
-                if item.userHandle == user.uid && item.userStatus == .accepted {
-                    items[index].userStatus = .empty
-                }
-            }
-            
             view.reloadVisible()
         }
     }
@@ -671,7 +691,7 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     
     private func didRemoveItem(post: PostHandle) {
         if let index = items.index(where: { $0.topicHandle == post }) {
-            items.remove(at: index)
+            // TODO: watch this, should be in sync with cache
             view.removeItems(with: [IndexPath(row: index, section: 0)])
         }
     }
