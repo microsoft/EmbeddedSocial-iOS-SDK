@@ -231,10 +231,14 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     private func onLayoutTypeChange() {
+        
         // Invalidate subsequent responses
         fetchRequestsInProgress = Set()
+        pages = []
+        view.reload()
         view.setLayout(type: self.layout)
         view.paddingEnabled = collectionPaddingNeeded()
+        fetchAllItems()
     }
     
     private func onFeedTypeChange() {

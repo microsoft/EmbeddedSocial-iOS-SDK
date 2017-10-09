@@ -119,7 +119,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         if #available(iOS 10.0, *) {
             collectionView.isPrefetchingEnabled = false
         }
-        
+    
         // Table
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
@@ -167,7 +167,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         
         self.collectionView.reloadData()
         self.collectionView.collectionViewLayout.invalidateLayout()
-        
         
         // switch layout
         switch type {
@@ -352,18 +351,15 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     func removeItems(with paths: [IndexPath]) {
         Logger.log(paths, event: .veryImportant)
-        
-        if self.collectionView.indexPathsForVisibleItems.count > 0 {
-            self.collectionView.deleteItems(at: paths)
-        } else {
-            Logger.log("trying to do bad thing", paths, event: .fire)
-        }
-        
+        self.collectionView.deleteItems(at: paths)
     }
     
     func reload() {
         Logger.log(output.numberOfItems(), collectionView.indexPathsForVisibleItems.count , event: .veryImportant)
-        collectionView.reloadData()
+        
+        UIView.performWithoutAnimation {
+            self.collectionView.reloadSections([0])
+        }
     }
     
     func reload(with index: Int) {
