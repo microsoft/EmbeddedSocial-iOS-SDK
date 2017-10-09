@@ -929,6 +929,7 @@
 		8E536BC01F69DE83006AF7A8 /* TestReplies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E536BBF1F69DE83006AF7A8 /* TestReplies.swift */; };
 		8E536BC21F6BC0EA006AF7A8 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E536BC11F6BC0EA006AF7A8 /* Search.swift */; };
 		8E536BC51F6BC94A006AF7A8 /* TestSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E536BC41F6BC94A006AF7A8 /* TestSearch.swift */; };
+		8E5E3BE21F8B5E020045E75F /* comment_report_post.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E5E3BE11F8B5E020045E75F /* comment_report_post.json */; };
 		8E5E3BE41F8B74F00045E75F /* TestMyPostMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5E3BE31F8B74F00045E75F /* TestMyPostMenu.swift */; };
 		8E5E3BE61F8BA67C0045E75F /* EditPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5E3BE51F8BA67C0045E75F /* EditPost.swift */; };
 		8E5E3BE81F8BB4460045E75F /* topic_put.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E5E3BE71F8BB4460045E75F /* topic_put.json */; };
@@ -2076,6 +2077,7 @@
 		8E536BBF1F69DE83006AF7A8 /* TestReplies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestReplies.swift; sourceTree = "<group>"; };
 		8E536BC11F6BC0EA006AF7A8 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		8E536BC41F6BC94A006AF7A8 /* TestSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSearch.swift; sourceTree = "<group>"; };
+		8E5E3BE11F8B5E020045E75F /* comment_report_post.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = comment_report_post.json; sourceTree = "<group>"; };
 		8E5E3BE31F8B74F00045E75F /* TestMyPostMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMyPostMenu.swift; sourceTree = "<group>"; };
 		8E5E3BE51F8BA67C0045E75F /* EditPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPost.swift; sourceTree = "<group>"; };
 		8E5E3BE71F8BB4460045E75F /* topic_put.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = topic_put.json; sourceTree = "<group>"; };
@@ -5427,6 +5429,7 @@
 				8EF0E5C31F28B86100E88ED6 /* topic_post.json */,
 				8E6070651F3CB61F00110F4F /* user.json */,
 				8E5E3BE71F8BB4460045E75F /* topic_put.json */,
+				8E5E3BE11F8B5E020045E75F /* comment_report_post.json */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -5452,6 +5455,9 @@
 				8E26833E1F7CF6BF00A5B25B /* TestSettings.swift */,
 				8EE2C6C71F4594ED00CFFE21 /* TestUserProfile.swift */,
 				8E5E3BE31F8B74F00045E75F /* TestMyPostMenu.swift */,
+				8E5FCAB21F824BC100A81E2E /* TestActivityFeed.swift */,
+				8E1DC28F1F8666BB000F5066 /* TestBlockedUsers.swift */,
+				8E884CD71F87B036008C0F51 /* TestCommentMenu.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -5472,6 +5478,11 @@
 				8E6070511F34CE6900110F4F /* SideMenu.swift */,
 				8E6070611F3A2A3E00110F4F /* UserProfile.swift */,
 				8E5E3BE51F8BA67C0045E75F /* EditPost.swift */,
+				8E5FCABD1F82775600A81E2E /* ActivityFeedSegment.swift */,
+				8E5FCAC11F827D5400A81E2E /* ActivityFollowRequests.swift */,
+				8E5FCAC31F83918700A81E2E /* RecentActivity.swift */,
+				8E1DC2911F867881000F5066 /* BlockedFollowersFeed.swift */,
+				8E884CD51F87AE48008C0F51 /* CommentMenu.swift */,
 			);
 			path = UIObjects;
 			sourceTree = "<group>";
@@ -6283,7 +6294,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" storyboards --param module=\"EmbeddedSocial\" \"$PROJECT_DIR/EmbeddedSocial/Sources\" --output \"$PROJECT_DIR/EmbeddedSocial/Sources/Generated/SwiftGen/Storyboards.swift\" -t swift3\n\n\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" images \"$PROJECT_DIR/EmbeddedSocial/Resources/Images.xcassets\" --output \"$PROJECT_DIR/EmbeddedSocial/Sources/Generated/SwiftGen/Images.swift\" -t swift3\n";
+			shellScript = "#\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" storyboards --param module=\"EmbeddedSocial\" \"$PROJECT_DIR/EmbeddedSocial/Sources\" --output \"$PROJECT_DIR/EmbeddedSocial/Sources/Generated/SwiftGen/Storyboards.swift\" -t swift3\n\n#\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" images \"$PROJECT_DIR/EmbeddedSocial/Resources/Images.xcassets\" --output \"$PROJECT_DIR/EmbeddedSocial/Sources/Generated/SwiftGen/Images.swift\" -t swift3\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
