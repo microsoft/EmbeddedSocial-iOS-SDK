@@ -160,6 +160,12 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
         
+        collectionView.reloadData()
+        let visible = collectionView.indexPathsForVisibleItems
+        if visible.count > 0 {
+            Logger.log("reloading", visible, event: .veryImportant)
+            collectionView.reloadItems(at: visible)
+        }
         collectionView.collectionViewLayout.invalidateLayout()
     
         // switch layout
@@ -175,8 +181,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
                 collectionView.setCollectionViewLayout(listLayout, animated: animated)
             }
         }
-        
-        collectionView.reloadData()
     }
     
     private func onUpdateBounds() {
