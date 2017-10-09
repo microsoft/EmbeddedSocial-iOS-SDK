@@ -1096,7 +1096,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		886B3ADD1F13B92700BF1A8E /* PBXContainerItemProxy */ = {
+		63D604991F8BB12E0023F60D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9CD805201F0D012F00B9B0AC /* Project object */;
 			proxyType = 1;
@@ -6038,7 +6038,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				886B3ADE1F13B92700BF1A8E /* PBXTargetDependency */,
+				63D6049A1F8BB12E0023F60D /* PBXTargetDependency */,
 			);
 			name = "EmbeddedSocial-Example";
 			productName = "EmbeddedSocial-Example";
@@ -6284,7 +6284,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" storyboards --param module=\"EmbeddedSocial\" \"$PROJECT_DIR/EmbeddedSocial/Sources\" --output \"$PROJECT_DIR/EmbeddedSocial/Sources/Generated/SwiftGen/Storyboards.swift\" -t swift3\n\n\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" images \"$PROJECT_DIR/EmbeddedSocial/Resources/Images.xcassets\" --output \"$PROJECT_DIR/EmbeddedSocial/Sources/Generated/SwiftGen/Images.swift\" -t swift3\n";
+			shellScript = "#\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" storyboards --param module=\"EmbeddedSocial\" \"$PROJECT_DIR/EmbeddedSocial/Sources\" --output \"$PROJECT_DIR/EmbeddedSocial/Sources/Generated/SwiftGen/Storyboards.swift\" -t swift3\n\n#\"${PODS_ROOT}/SwiftGen/bin/swiftgen\" images \"$PROJECT_DIR/EmbeddedSocial/Resources/Images.xcassets\" --output \"$PROJECT_DIR/EmbeddedSocial/Sources/Generated/SwiftGen/Images.swift\" -t swift3\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -7325,10 +7325,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		886B3ADE1F13B92700BF1A8E /* PBXTargetDependency */ = {
+		63D6049A1F8BB12E0023F60D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9CD805281F0D012F00B9B0AC /* EmbeddedSocial */;
-			targetProxy = 886B3ADD1F13B92700BF1A8E /* PBXContainerItemProxy */;
+			targetProxy = 63D604991F8BB12E0023F60D /* PBXContainerItemProxy */;
 		};
 		8EF0E5981F1FA5CD00E88ED6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
