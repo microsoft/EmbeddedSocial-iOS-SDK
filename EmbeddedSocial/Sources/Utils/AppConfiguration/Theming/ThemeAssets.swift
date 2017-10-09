@@ -6,26 +6,11 @@
 import Foundation
 
 struct ThemeAssets {
-    let iconList: Asset
-    let iconGallery: Asset
-    let iconDots: Asset
     let userPhotoPlaceholder: Asset
 }
 
 extension ThemeAssets {
+    static let light = ThemeAssets(userPhotoPlaceholder: .userPhotoPlaceholderLight)
     
-    static let light = ThemeAssets(
-        iconList: .iconListLight,
-        iconGallery: .iconGalleryLight,
-        iconDots: .iconDotsLight,
-        userPhotoPlaceholder: .userPhotoPlaceholderLight
-    )
-    
-    static let dark = ThemeAssets(
-        iconList: .iconListDark,
-        iconGallery: .iconGalleryDark,
-        iconDots: .iconDotsDark,
-        userPhotoPlaceholder: .userPhotoPlaceholderDark
-    )
-    
+    static let dark = ThemeAssets(userPhotoPlaceholder: .userPhotoPlaceholderDark)
 }

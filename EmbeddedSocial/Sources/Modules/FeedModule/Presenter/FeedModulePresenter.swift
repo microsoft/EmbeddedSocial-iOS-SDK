@@ -133,9 +133,9 @@ enum FeedModuleLayoutType: Int {
     var nextLayoutAsset: Asset {
         switch self {
         case .list:
-            return SocialPlus.assets.iconGallery
+            return .iconGallery
         case .grid:
-            return SocialPlus.assets.iconList
+            return .iconList
         }
     }
     

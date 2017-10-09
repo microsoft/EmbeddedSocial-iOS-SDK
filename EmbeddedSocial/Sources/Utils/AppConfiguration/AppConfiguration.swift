@@ -30,14 +30,26 @@ class AppConfiguration: AppConfigurationType {
     
     private func makeTheme() -> Theme? {
         guard let themeName = self.config["theme"] as? String,
-            let accentColorHexString = self.config["accentColor"] as? String,
-            let themeConfigPath = Bundle(for: type(of: self)).path(forResource: themeName, ofType: "plist"),
-            let themeConfig = NSDictionary(contentsOfFile: themeConfigPath) as? [String: Any] else {
+            let themeConfig = loadThemeConfig(for: themeName) else {
                 return nil
         }
         
-        let palette = ThemePalette(config: themeConfig, accentColor: UIColor(hexString: accentColorHexString))
-        let assets: ThemeAssets = themeName == "dark" ? .dark : .light
-        return Theme(palette: palette, assets: assets)
+        let accentColorHexString = self.config["accentColor"] as? String
+        let accentColor = UIColor(hexString: accentColorHexString ?? "")
+        let palette = ThemePalette(config: themeConfig, accentColor: accentColor)
+        
+        return Theme(palette: palette, assets: themeAssets(for: themeName))
+    }
+    
+    private func loadThemeConfig(for themeName: String) -> [String: Any]? {
+        let bundle = Bundle(for: AppConfiguration.self)
+        guard let path = bundle.path(forResource: themeName, ofType: "plist") else {
+            return nil
+        }
+        return NSDictionary(contentsOfFile: path) as? [String: Any]
+    }
+    
+    private func themeAssets(for themeName: String) -> ThemeAssets {
+        return themeName == "dark" ? .dark : .light
     }
 }

@@ -11,7 +11,7 @@ class UserProfileViewController: UIViewController {
     var output: UserProfileViewOutput!
     
     fileprivate lazy var moreButton: UIBarButtonItem = { [unowned self] in
-        return UIBarButtonItem(asset: SocialPlus.assets.iconDots,
+        return UIBarButtonItem(asset: .iconDots,
                                color: self.theme?.palette.navigationBarTint ?? Palette.defaultTint,
                                action: self.output.onMore)
     }()
