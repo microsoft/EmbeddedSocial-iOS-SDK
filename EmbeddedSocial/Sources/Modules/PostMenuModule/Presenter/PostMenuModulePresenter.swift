@@ -230,6 +230,10 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     }
     
     func didTapFollow(user: User) {
+        guard myProfileHolder.me != nil else {
+            router.openLogin()
+            return
+        }
         self.output?.postMenuProcessDidStart()
         self.interactor.follow(user: user)
     }

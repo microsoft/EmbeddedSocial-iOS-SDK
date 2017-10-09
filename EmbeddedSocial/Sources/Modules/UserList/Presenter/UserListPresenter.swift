@@ -22,6 +22,11 @@ class UserListPresenter {
     }
     
     func loadNextPage() {
+        guard myProfileHolder.me != nil else {
+            router.openLogin()
+            return
+        }
+        
         view.setIsEmpty(false)
         
         interactor.getNextListPage { [weak self] result in

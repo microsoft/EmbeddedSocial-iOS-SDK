@@ -162,7 +162,6 @@ final class UserProfilePresenter: UserProfileViewOutput {
     private func updateFollowerStatus(_ status: FollowStatus) {
         view.setFollowStatus(status)
         followersCount = updatedFollowCount(followersCount, with: status)
-        var user = self.user
         user?.followerStatus = status
         moduleOutput?.didChangeUserFollowStatus(user!)
     }
@@ -199,6 +198,11 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     private func block(user: User) {
+        guard myProfileHolder?.me != nil else {
+            router.openLogin()
+            return
+        }
+        
         view.setIsLoadingUser(true)
 
         interactor.block(user: user) { [weak self] result in

@@ -78,6 +78,34 @@ class TestYourActivityFeed: BaseTestActivityFeed {
         XCTAssertGreaterThan(latestRequest!["cursor"] as! String, String(pageSize))
     }
     
+    override func testPaging() {
+        openScreen()
+        
+        let currentFollowRequestsCount = activityFollowRequests.getRequestsCount()
+        recentActivities.offset = currentFollowRequestsCount
+        let currentActivitiesCount = recentActivities.getActivitiesCount()
+        
+        for _ in 0...20 {
+            app.swipeUp()
+        }
+        
+        // get new list size
+        let newFollowRequestsCount = activityFollowRequests.getRequestsCount()
+        recentActivities.offset = newFollowRequestsCount
+        let newActivitiesCount = recentActivities.getActivitiesCount()
+        
+        XCTAssertGreaterThan(newFollowRequestsCount, currentFollowRequestsCount)
+        XCTAssertGreaterThan(newActivitiesCount, currentActivitiesCount)
+        
+        let latestFollowersRequest = APIState.getLatestResponse(forService: "pendingUsers")
+        XCTAssertNotNil(latestFollowersRequest)
+        XCTAssertGreaterThan(latestFollowersRequest!["cursor"] as! String, String(pageSize))
+        
+        let latestActivitiesRequest = APIState.getLatestResponse(forService: "notifications")
+        XCTAssertNotNil(latestActivitiesRequest)
+        XCTAssertGreaterThan(latestActivitiesRequest!["cursor"] as! String, String(pageSize))
+    }
+    
     override func testPullToRefresh() {
         openScreen()
         
@@ -97,8 +125,8 @@ class TestYourActivityFeed: BaseTestActivityFeed {
         XCTAssertNotNil(latestPendingUsersResponse)
         XCTAssertNotNil(latestRecentActivitiesResponse)
         
-        XCTAssertEqual(latestPendingUsersResponse!["cursor"] as! String, String(pageSize), "First page for pending users not loaded")
-        XCTAssertEqual(latestRecentActivitiesResponse!["cursor"] as! String, String(pageSize), "First page for recent activities not loaded")
+        XCTAssertGreaterThanOrEqual(latestPendingUsersResponse!["cursor"] as! String, String(pageSize), "First page for pending users not loaded")
+        XCTAssertGreaterThanOrEqual(latestRecentActivitiesResponse!["cursor"] as! String, String(pageSize), "First page for recent activities not loaded")
     }
     
     func testPendingRequestAttributes() {
@@ -147,6 +175,20 @@ class TestYourActivityFeed: BaseTestActivityFeed {
 }
 
 class TestFollowingActivityFeed: BaseTestActivityFeed {
+    private let contentTypes = ["Comment",
+                                "Topic",
+                                "Reply",
+                                "Comment"]
+    
+    private let activityTypes = ["Like",
+                                 "Like",
+                                 "Like",
+                                 "Following"]
+    
+    private let activityTypeResults = ["liked comment",
+                                       "liked topic",
+                                       "liked reply",
+                                       "started following"]
     
     private var recentActivities: RecentActivity!
     
@@ -162,7 +204,22 @@ class TestFollowingActivityFeed: BaseTestActivityFeed {
     }
     
     func testItemAttributes() {
+        openScreen()
         
+        for i in 0..<activityTypes.count {
+            let actedOnContent = contentTypes[i]
+            let activityType = activityTypes[i]
+            
+            APIConfig.values = ["activityType" : activityType,
+                                "actedOnContent->contentType" : actedOnContent]
+            reloadActivityItems()
+            
+            let index: UInt = 0
+            let activityItem = recentActivities.getActivityItem(at: index)
+            
+            let expectedResult = activityTypeResults[i]
+            XCTAssertTrue(activityItem.isExists(text: expectedResult))
+        }
     }
     
     func testImagesLoading() {
@@ -177,9 +234,15 @@ class TestFollowingActivityFeed: BaseTestActivityFeed {
     override func testPaging() {
         openScreen()
         
+        let currentActivitiesCount = recentActivities.getActivitiesCount()
+        
         // move to the last item
         let _ = recentActivities.getActivityItem(at: recentActivities.getActivitiesCount() - 1)
         app.swipeUp()
+        
+        // get new list size
+        let newActivitiesCount = recentActivities.getActivitiesCount()
+        XCTAssertGreaterThan(newActivitiesCount, currentActivitiesCount)
         
         let latestRequest = APIState.getLatestResponse(forService: "activities")
         XCTAssertNotNil(latestRequest)
@@ -201,7 +264,11 @@ class TestFollowingActivityFeed: BaseTestActivityFeed {
         
         let latestResponse = APIState.getLatestResponse(forService: "activities")
         XCTAssertNotNil(latestResponse)
-        XCTAssertEqual(latestResponse!["cursor"] as! String, String(pageSize), "First page not loaded")
+        XCTAssertGreaterThanOrEqual(latestResponse!["cursor"] as! String, String(pageSize), "First page not loaded")
+    }
+    
+    private func reloadActivityItems() {
+        makePullToRefresh(for: recentActivities.getActivityItem(at: 0).asUIElement())
     }
     
 }
