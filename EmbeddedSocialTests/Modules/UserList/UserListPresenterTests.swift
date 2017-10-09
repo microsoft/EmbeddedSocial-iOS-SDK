@@ -81,6 +81,23 @@ class UserListPresenterTests: XCTestCase {
         validateNextPageLoaded(with: users)
     }
     
+    func testPageLoadingWithAnonymousUser() {
+        // given
+        let users = [User(), User(), User()]
+        interactor.getNextListPageReturnValue = .success(users)
+        
+        myProfileHolder.me = nil
+        
+        // when
+        sut.loadNextPage()
+        
+        // then
+        XCTAssertEqual(router.openLoginCount, 1)
+        XCTAssertEqual(interactor.getNextListPageCount, 0)
+        XCTAssertFalse(view.setUsersCalled)
+        XCTAssertFalse(view.setIsEmptyCalled)
+    }
+    
     func testThatItHandlesLoadNextPageError() {
         // given
         interactor.getNextListPageReturnValue = .failure(APIError.unknown)
