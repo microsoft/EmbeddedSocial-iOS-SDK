@@ -69,7 +69,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     fileprivate var collectionViewIsInAnimation = 0 {
         didSet {
             assert(collectionViewIsInAnimation >= 0)
-            layoutChangeButton.isEnabled = (collectionViewIsInAnimation == 0)
         }
     }
     
@@ -272,6 +271,12 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     @objc private func didTapChangeLayout() {
+        
+        // We do not change layout during collection animation.
+        guard collectionViewIsInAnimation == false else {
+            return
+        }
+        
         output.didTapChangeLayout()
     }
     
