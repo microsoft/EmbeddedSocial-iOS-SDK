@@ -457,22 +457,16 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     // MARK: FeedModuleInteractorOutput
     
-    private let pageQueue = DispatchQueue(label: "PageSync-queue")
-    
     fileprivate func addPage(_ page: FeedPage) {
         Logger.log(page, event: .veryImportant)
         assert(pageExists(page) == false)
-        pageQueue.sync {
-            pages.append(page)
-        }
+        pages.append(page)
     }
     
     fileprivate func updatePage(_ page: FeedPage) {
         Logger.log(page, event: .veryImportant)
         let index = pages.index(of: page)!
-        pageQueue.sync {
-            pages[index] = page
-        }
+        pages[index] = page
     }
 
     fileprivate func pageExists(_ page: FeedPage) -> Bool {
@@ -482,9 +476,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     fileprivate func removePage(_ page: FeedPage) {
         Logger.log(page, event: .veryImportant)
         let index = pages.index(of: page)!
-        pageQueue.sync {
-            pages.remove(at: index)
-        }
+        pages.remove(at: index)
+
     }
     
     fileprivate func indexesForPage(_ page: FeedPage) -> [IndexPath] {
@@ -506,6 +499,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         guard fetchRequestsInProgress.contains(feed.fetchID), feedType == feed.feedType else {
             return
         }
+        
+        defer {
+            checkIfNoContent()
+        }
     
         Logger.log(feed.fetchID, event: .veryImportant)
         
@@ -515,7 +512,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         if pages.count == 0  {
             addPage(page)
             view.reload()
-            checkIfNoContent()
             return
         }
         
@@ -526,9 +522,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             let indexes = indexesForPage(page)
             removePage(page)
             view.removeItems(with: indexes)
-            // replace page
             
-//             insert items for updated page
+            // insert items for updated page
             addPage(page)
             view.insertNewItems(with: indexesForPage(page))
         }
@@ -538,16 +533,15 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             let indexes = indexesForPage(page)
             view.insertNewItems(with: indexes)
         }
-        
-        // update "No content"
-        checkIfNoContent()
     }
     
     func didFetch(feed: Feed) {
+        assert(Thread.isMainThread)
         processFetchResult(feed: feed, isMore: false)
     }
     
     func didFetchMore(feed: Feed) {
+        assert(Thread.isMainThread)
         processFetchResult(feed: feed, isMore: true)
     }
     

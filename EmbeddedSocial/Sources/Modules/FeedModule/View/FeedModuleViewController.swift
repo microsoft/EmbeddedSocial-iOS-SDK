@@ -124,7 +124,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         self.collectionView.delegate = self
-
+        
         
         // Navigation
         navigationItem.rightBarButtonItem = layoutChangeButton
@@ -164,31 +164,26 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
-        assert(Thread.isMainThread)
-        Logger.log("reloading for",self.collectionView.numberOfItems(inSection: 0), type, event: .veryImportant)
-        for i in 0..<self.output.numberOfItems() {
-            print(self.output.item(for: IndexPath(row: i, section: 0)).cellType)
-        }
-    
-            self.collectionView.reloadData()
-            self.collectionView.collectionViewLayout.invalidateLayout()
+        
+        self.collectionView.reloadData()
+        self.collectionView.collectionViewLayout.invalidateLayout()
         
         
-            // switch layout
-            switch type {
-            case .grid:
-                self.layoutChangeButton.image = UIImage(asset: .iconList)
-                if self.collectionView.collectionViewLayout != self.gridLayout {
-                    self.collectionView.setCollectionViewLayout(self.gridLayout, animated: animated)
-                    Logger.log("changed", type, event: .veryImportant)
-                }
-            case .list:
-                self.layoutChangeButton.image = UIImage(asset: .iconGallery)
-                if self.collectionView.collectionViewLayout != self.listLayout {
-                    self.collectionView.setCollectionViewLayout(self.listLayout, animated: animated)
-                    Logger.log("changed", type, event: .veryImportant)
-                }
+        // switch layout
+        switch type {
+        case .grid:
+            self.layoutChangeButton.image = UIImage(asset: .iconList)
+            if self.collectionView.collectionViewLayout != self.gridLayout {
+                self.collectionView.setCollectionViewLayout(self.gridLayout, animated: animated)
+                Logger.log("changed", type, event: .veryImportant)
             }
+        case .list:
+            self.layoutChangeButton.image = UIImage(asset: .iconGallery)
+            if self.collectionView.collectionViewLayout != self.listLayout {
+                self.collectionView.setCollectionViewLayout(self.listLayout, animated: animated)
+                Logger.log("changed", type, event: .veryImportant)
+            }
+        }
         
         
     }
@@ -363,7 +358,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         } else {
             Logger.log("trying to do bad thing", paths, event: .fire)
         }
- 
+        
     }
     
     func reload() {
@@ -404,7 +399,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         }
         
         (cell as? Themeable)?.apply(theme: theme)
-
+        
         cell.configure(with: item, collectionView: collectionView)
         
         return cell as! UICollectionViewCell
@@ -419,15 +414,15 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
             let item = output.item(for: indexPath)
             let size = calculateCellSizeWith(viewModel: item)
             
-//            Logger.log("sizing will be", size, event: .veryImportant)
+            //            Logger.log("sizing will be", size, event: .veryImportant)
             
             return size
             
         } else if collectionViewLayout === gridLayout {
-//            Logger.log("sizing will be", gridLayout.itemSize, event: .veryImportant)
+            //            Logger.log("sizing will be", gridLayout.itemSize, event: .veryImportant)
             return gridLayout.itemSize
         } else {
-           return CGSize.zero
+            return CGSize.zero
         }
     }
     
@@ -440,7 +435,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         return CGSize(width: containerWidth(), height: output.headerSize.height)
     }
     
-
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         if kind == UICollectionElementKindSectionFooter {
