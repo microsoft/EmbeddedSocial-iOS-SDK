@@ -8,5 +8,4 @@ import Foundation
 protocol UserListRouterInput: class {
     func openUserProfile(_ userID: String)
     func openMyProfile()
-    func openLogin()
 }
