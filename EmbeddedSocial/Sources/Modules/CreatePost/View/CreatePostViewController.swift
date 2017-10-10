@@ -35,10 +35,8 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     
     // MARK: CreatePostViewInput
     func setupInitialState() {
-        let backButton = UIBarButtonItem(asset: .iconBack, title: "", font: nil, color: .black) { [weak self] in
-            self?.back()
-        }
-        navigationItem.leftBarButtonItem = backButton
+        navigationItem.leftBarButtonItem =
+            UIBarButtonItem(image: UIImage(asset: .iconBack), style: .plain, target: self, action: #selector(back))
     }
     
     func configTitlesForExistingPost() {
@@ -114,7 +112,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         imagePicker.show(with: options)
     }
     
-    fileprivate func back() {
+    @objc fileprivate func back() {
         if postBodyTextView.text.isEmpty && (titleTextField.text?.isEmpty)! && photo == nil {
             output.back()
         }
@@ -201,6 +199,9 @@ extension CreatePostViewController: Themeable {
         let attrs: [String: Any] = [NSFontAttributeName: AppFonts.medium, NSForegroundColorAttributeName: palette.textPlaceholder]
         titleTextField.attributedPlaceholder = NSAttributedString(string: L10n.CreatePost.titlePlaceholder, attributes: attrs)
         postBodyTextView.attributedPlaceholder = NSAttributedString(string: L10n.CreatePost.bodyPlaceholder, attributes: attrs)
+        
+        mediaButton.backgroundColor = palette.topicsFeedBackground
+        mediaButton.setTitleColor(palette.textPrimary, for: .normal)
     }
 }
 
