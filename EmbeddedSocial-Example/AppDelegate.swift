@@ -68,12 +68,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(deviceTokenString)
         SocialPlus.shared.updateDeviceToken(devictToken: deviceTokenString)
         
-        
     }
     
     func application(_ application: UIApplication,
                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Failed to register: \(error)")
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification data: [AnyHashable : Any]) {
+        // Print notification payload data
+        print("Push notification received: \(data)")
+        SocialPlus.shared.didReceiveRemoteNotification(data: data)
+        
     }
     
 }

@@ -68,6 +68,10 @@ public final class SocialPlus {
         UserDefaults.standard.synchronize()
     }
     
+    public func didReceiveRemoteNotification(data: [AnyHashable : Any]) {
+        coordinator.openHomeScreen()
+    }
+    
     public func start(launchArguments args: LaunchArguments) {
         let startupCommands = serviceProvider.getStartupCommands(launchArgs: args)
         startupCommands.forEach { $0.execute() }

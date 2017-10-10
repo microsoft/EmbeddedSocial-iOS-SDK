@@ -114,6 +114,11 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         menuModule.openSocialItem(index: index)
     }
     
+    func openActivityScreen() {
+        let index = menuItemsProvider.getMenuItemIndex(for: .activity)!
+        menuModule.openSocialItem(index: index)
+    }
+    
     func openSearchPeople() {
         let index = menuItemsProvider.getMenuItemIndex(for: .search)!
         menuModule.openSocialItem(index: index)
