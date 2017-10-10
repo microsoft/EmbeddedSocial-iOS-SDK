@@ -13,6 +13,7 @@ enum SideMenuItem: String {
     case myPins       = "My pins"
     case activityFeed = "Activity Feed"
     case settings     = "Settings"
+    case userProfile  = "Profile"
 }
 
 class SideMenu {
@@ -28,29 +29,33 @@ class SideMenu {
         self.userProfileOption = app.children(matching: .window).element(boundBy: 2).children(matching: .other).element.children(matching: .other).element(boundBy: 1).staticTexts[TestConfig.fullUserName]
     }
     
-    func open() {
+    func navigate(to menuItem: SideMenuItem) {
+        if menuItem == .userProfile {
+            navigateToUserProfile()
+            return
+        }
+        navigateTo(menuItem.rawValue)
+    }
+    
+    private func open() {
         if !isOpened {
             self.menuButton.tap()
             self.isOpened = true
         }
     }
     
-    func close() {
+    private func close() {
         if isOpened {
             self.menuButton.tap()
             self.isOpened = false
         }
     }
     
-    func navigateTo(_ menuItem: String) {
+    private func navigateTo(_ menuItem: String) {
         self.open()
         self.app.tables.staticTexts[menuItem].tap()
         self.isOpened = false
         sleep(1) //Required for running without animations
-    }
-    
-    func navigate(to menuItem: SideMenuItem) {
-        navigateTo(menuItem.rawValue)
     }
     
     func navigateToUserProfile() {
