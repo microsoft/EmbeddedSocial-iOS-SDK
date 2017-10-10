@@ -73,7 +73,8 @@ protocol PostServiceProtocol {
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler)
     func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler)
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
-    func postTopic(_ topic: Post, success: @escaping TopicPosted, failure: @escaping Failure)
+    func postTopic(_ topic: Post, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure)
+    func updateTopic(topicHandle: String, request: PutTopicRequest, success: @escaping () ->(), failure: @escaping (Error) ->() )
     
 }
 
@@ -103,10 +104,10 @@ class TopicService: BaseService, PostServiceProtocol {
         singlePostFetchExecuter = CacheRequestExecutorProvider.makeSinglePostExecutor(for: self)
     }
     
-    func postTopic(_ topic: Post, success: @escaping TopicPosted, failure: @escaping Failure) {
+    func postTopic(_ topic: Post, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
         let topicCommand = CreateTopicCommand(topic: topic)
         
-        guard let image = topic.photo?.image else {
+        guard let image = photo?.image else {
             execute(command: topicCommand, success: success, failure: failure)
             return
         }

@@ -22,12 +22,13 @@ class PostDetailModuleConfigurator {
                    scrollType: CommentsScrollType,
                    myProfileHolder: UserHolder = SocialPlus.shared,
                    loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator,
-                   navigationController: UINavigationController? = nil) {
+                   navigationController: UINavigationController? = nil,
+                   pageSize: Int = SocialPlus.settings.numberOfCommentsToShow) {
         
         let router = PostDetailRouter()
         router.loginOpener = loginOpener
 
-        let presenter = PostDetailPresenter(myProfileHolder: myProfileHolder)
+        let presenter = PostDetailPresenter(myProfileHolder: myProfileHolder, pageSize: pageSize)
         presenter.view = viewController
         presenter.router = router
         presenter.topicHandle = topicHandle

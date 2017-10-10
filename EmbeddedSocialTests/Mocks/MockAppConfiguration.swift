@@ -8,8 +8,20 @@
 class MockAppConfiguration: AppConfigurationType {
     
     var theme: Theme = {
-        let palette = ThemePalette(config: [:], accentColor: UIColor())
-        return Theme(palette: palette)
+        let config = ["name": "dark", "accentColor": "#ffffff"]
+        return Theme(config: config)!
+    }()
+    
+    var settings: Settings = {
+        let config: [String : Any] = [
+            "serverURL": UUID().uuidString,
+            "appKey": UUID().uuidString,
+            "numberOfCommentsToShow": 20,
+            "numberOfRepliesToShow": 20,
+            "showGalleryView": true,
+            "searchEnabled": true
+        ]
+        return Settings(config: config)!
     }()
     
 }

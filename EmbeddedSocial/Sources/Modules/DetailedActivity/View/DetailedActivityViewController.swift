@@ -4,7 +4,6 @@
 //
 
 import UIKit
-import SVProgressHUD
 
 protocol DetailedActivityViewInput: class {
     func setupInitialState()
@@ -41,7 +40,7 @@ class DetailedActivityViewController: UIViewController, DetailedActivityViewInpu
         super.viewDidLoad()
         output.viewIsReady()
         configureCollectionView()
-        SVProgressHUD.show()
+        showHUD()
         output.loadContent()
     }
     
@@ -67,13 +66,13 @@ class DetailedActivityViewController: UIViewController, DetailedActivityViewInpu
     
     func reloadAllContent() {
         collectionView.reloadData()
-        SVProgressHUD.dismiss()
+        hideHUD()
     }
     
     func setErrorText(text: String) {
         errorLabel.isHidden = false
         errorLabel.text = text
-        SVProgressHUD.dismiss()
+        hideHUD()
     }
 }
 

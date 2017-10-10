@@ -8,25 +8,29 @@ import XCTest
 
 class CreatePostInteractorTests: XCTestCase {
 
-    let intercator = CreatePostInteractor()
+    var intercator: CreatePostInteractor!
     let presenter = MockCreatePostPresenter()
     var coreDataStack: CoreDataStack!
     var transactionsDatabase: MockTransactionsDatabaseFacade!
     var cache: CacheType!
     fileprivate var topicService: PostServiceMock!
+    var userHolder: UserHolder!
     
     override func setUp() {
         super.setUp()
+        userHolder = MyProfileHolder()
+        intercator = CreatePostInteractor(userHolder: userHolder)
         coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
         transactionsDatabase = MockTransactionsDatabaseFacade(incomingRepo:  CoreDataRepository(context: coreDataStack.backgroundContext), outgoingRepo:  CoreDataRepository(context: coreDataStack.backgroundContext))
         cache = Cache(database: transactionsDatabase)
         topicService = PostServiceMock()
-        intercator.topicService = PostServiceMock()
+        intercator.topicService = topicService
         intercator.output = presenter
     }
     
     override func tearDown() {
         super.tearDown()
+        userHolder = nil
         transactionsDatabase = nil
         coreDataStack = nil
         cache = nil
@@ -34,6 +38,7 @@ class CreatePostInteractorTests: XCTestCase {
     }
     
     func testThatPostUpdating() {
+        
         
         //when
         intercator.updateTopic(topicHandle: "handle", title: "title", body: "body")
@@ -46,10 +51,14 @@ class CreatePostInteractorTests: XCTestCase {
     
     func testThatTopicPosted() {
         //when
-        intercator.postTopic(photo: nil, title: "title", body: "body")
+        let photo = Photo(image: UIImage())
+        topicService.postTopicReturnTopic = Post.mock()
+        intercator.postTopic(photo: photo, title: "title", body: "body")
         
         //then
-        XCTAssertEqual(topicService.postTopicCount, 1)
+        XCTAssertEqual(topicService.postTopicCalledReceivedTopic.title, "title")
+        XCTAssertEqual(topicService.postTopicCalledReceivedPhoto, photo)
+        
         XCTAssertEqual(presenter.postCreatedCalledCount, 1)
     }
     

@@ -19,6 +19,19 @@ class CommentsProcessor: CommentsProcessorType {
     
     func proccess(_ fetchResult: inout CommentFetchResult) {
         let commands = fetchCreateDeleteCommentCommands() + fetchCommentActionCommands()
+        
+        for command in fetchCreateDeleteReplyCommands()  {
+            if let index = fetchResult.comments.index(where: { $0.commentHandle == command.reply.commentHandle }) {
+                if command is RemoveReplyCommand {
+                    if fetchResult.comments[index].totalReplies > 0 {
+                        fetchResult.comments[index].totalReplies -= 1
+                    }
+                } else if command is CreateReplyCommand {
+                    fetchResult.comments[index].totalReplies += 1
+                }
+            }
+        }
+        
         fetchCreateDeleteCommentCommands().filter( { $0.self is RemoveCommentCommand } ) .forEach { (commands) in
             fetchResult.comments = fetchResult.comments.filter({ $0.commentHandle != commands.comment.commentHandle })
         }
@@ -48,5 +61,13 @@ class CommentsProcessor: CommentsProcessorType {
                                         sortDescriptors: [Cache.createdAtSortDescriptor])
         
         return cache.fetchOutgoing(with: request) as? [CommentCommand] ?? []
+    }
+    
+    private func fetchCreateDeleteReplyCommands() -> [ReplyCommand] {
+        let request = CacheFetchRequest(resultType: OutgoingCommand.self,
+                                        predicate: PredicateBuilder().createDeleteReplyCommands(),
+                                        sortDescriptors: [Cache.createdAtSortDescriptor])
+        
+        return cache.fetchOutgoing(with: request) as? [ReplyCommand] ?? []
     }
 }

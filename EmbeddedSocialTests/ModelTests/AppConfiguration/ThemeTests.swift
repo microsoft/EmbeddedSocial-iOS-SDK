@@ -9,8 +9,27 @@ import XCTest
 
 class ThemeTests: XCTestCase {
     
-    func testThatLightThemeInitializes() {
-        let palette = ThemePalette(config: [:], accentColor: UIColor())
-        expect(Theme(palette: palette)).notTo(beNil())
+    func testNormalSetup() {
+        let config = ["name": "dark", "accentColor": "#ffffff"]
+        expect(Theme(config: config)).notTo(beNil())
+    }
+    
+    func testSetupWithoutAccent() {
+        let config = ["name": "dark"]
+        expect(Theme(config: config)).notTo(beNil())
+    }
+    
+    func testDefaultAccentColor() {
+        let config = ["name": "dark"]
+        let theme = Theme(config: config)
+        expect(theme?.palette.accent).to(equal(UIColor(hexString: "")))
+    }
+    
+    func testSetupWithInvalidConfig() {
+        let config1: [String: Any] = [:]
+        expect(Theme(config: config1)).to(beNil())
+        
+        let config2 = ["accentColor": "#ffffff"]
+        expect(Theme(config: config2)).to(beNil())
     }
 }

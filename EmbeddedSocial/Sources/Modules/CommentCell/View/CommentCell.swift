@@ -62,9 +62,10 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         postedTimeLabel.text = comment.createdTime == nil ? "" : formatter.shortStyle.string(from: comment.createdTime!, to: Date())!
         
         if comment.user?.photo?.url == nil {
-            userPhoto.image = UIImage(asset: Asset.userPhotoPlaceholder)
+            userPhoto.image = UIImage(asset: SocialPlus.assets.userPhotoPlaceholder)
         } else {
-            userPhoto.setPhotoWithCaching(Photo(url: comment.user?.photo?.url), placeholder: UIImage(asset: Asset.userPhotoPlaceholder))
+            userPhoto.setPhotoWithCaching(Photo(url: comment.user?.photo?.url),
+                                          placeholder: UIImage(asset: SocialPlus.assets.userPhotoPlaceholder))
         }
         
         likeButton.isSelected = comment.liked

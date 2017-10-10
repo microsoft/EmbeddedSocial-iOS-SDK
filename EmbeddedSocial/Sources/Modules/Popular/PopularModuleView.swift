@@ -4,9 +4,9 @@
 //
 
 import Foundation
-import SVProgressHUD
 
 protocol PopularModuleViewInput: class {
+    func setupInitialState(showGalleryView: Bool)
     func setCurrentFeedType(to index: Int)
     func setFeedTypesAvailable(types: [String])
     func lockFeedControl()
@@ -27,7 +27,11 @@ class PopularModuleView: UIViewController {
     
     var output: PopularModuleViewOutput!
     @IBOutlet var container: UIView!
-    @IBOutlet var feedControl: UISegmentedControl!
+    @IBOutlet var feedControl: UISegmentedControl! {
+        didSet {
+            feedControl.addTarget(self, action: #selector(onOptionChange), for: .valueChanged)
+        }
+    }
     
     // MARK: Private
     fileprivate lazy var layoutChangeButton: UIBarButtonItem = { [unowned self] in
@@ -51,10 +55,9 @@ class PopularModuleView: UIViewController {
             container.isUserInteractionEnabled = isLockedUI == 0
             
             if isLockedUI == 0 {
-                SVProgressHUD.dismiss()
+                hideHUD(in: container)
             } else {
-                SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.none)
-                SVProgressHUD.show()
+                showHUD(in: container)
             }
             
             Logger.log(isLockedUI, feedControl.isEnabled)
@@ -71,12 +74,6 @@ class PopularModuleView: UIViewController {
     
     // MARK: Life Cycle
     override func viewDidLoad() {
-        feedControl.addTarget(self,
-                              action: #selector(onOptionChange(_:)),
-                              for: .valueChanged)
-        
-        navigationItem.rightBarButtonItem = layoutChangeButton
-        apply(theme: theme)
         output.viewIsReady()
     }
     
@@ -94,17 +91,19 @@ class PopularModuleView: UIViewController {
 
 extension PopularModuleView: PopularModuleViewInput {
     
+    func setupInitialState(showGalleryView: Bool) {
+        if showGalleryView {
+            navigationItem.rightBarButtonItem = layoutChangeButton
+        }
+        apply(theme: theme)
+    }
+    
     func setFeedLayoutImage(_ image: UIImage) {
         layoutChangeButton.image = image
     }
     
     func embedFeedViewController(_ viewController: UIViewController) {
-        addChildController(viewController, containerView: container, pinToEdges: false)
-        
-        let padding = Constants.FeedModule.Collection.containerPadding
-        viewController.view.snp.makeConstraints {
-            $0.edges.equalTo(container).inset(UIEdgeInsetsMake(0, padding, 0, padding))
-        }
+        addChildController(viewController, containerView: container, pinToEdges: true)
     }
     
     func handleError(error: Error) {

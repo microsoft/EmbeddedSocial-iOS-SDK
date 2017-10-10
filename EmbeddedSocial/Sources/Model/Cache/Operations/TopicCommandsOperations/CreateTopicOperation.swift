@@ -30,7 +30,7 @@ final class CreateTopicOperation: OutgoingCommandOperation {
         
         let oldHandle = command.topic.topicHandle
         topicsService.postTopic(
-            command.topic,
+            command.topic, photo: command.topic.photo,
             success: { [weak self] topic in self?.updateRelatedCommandsHandle(from: oldHandle, to: topic.topicHandle) },
             failure: { [weak self] error in self?.completeOperation(with: error) }
         )

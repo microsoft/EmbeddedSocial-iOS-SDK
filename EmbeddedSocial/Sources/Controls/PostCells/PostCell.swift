@@ -144,7 +144,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
             postImageHeight.constant = 0
         }
         
-        let downloadablePostImage = Photo(url: data.postImageUrl)
+//        print(ImageCacheAdapter.shared.store(photo: Photo(uid: data.postImageHandle ?? "")))
+        let downloadablePostImage = Photo(uid: data.postImageHandle ?? "", url: data.postImageUrl)
         postImageButton.setPhotoWithCaching(downloadablePostImage, placeholder: postImagePlaceholder)
         
         let downloadableUserImage = Photo(url: data.userImageUrl)
@@ -220,7 +221,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     }()
     
     private lazy var userImagePlaceholder: UIImage = {
-        return UIImage(asset: Asset.userPhotoPlaceholder)
+        return UIImage(asset: SocialPlus.assets.userPhotoPlaceholder)
     }()
     
     deinit {

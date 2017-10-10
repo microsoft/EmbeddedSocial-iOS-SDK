@@ -4,11 +4,10 @@
 //
 
 import UIKit
-import SVProgressHUD
 
 protocol FeedModuleViewInput: class {
     
-    func setupInitialState()
+    func setupInitialState(showGalleryView: Bool)
     func setLayout(type: FeedModuleLayoutType)
     func resetFocus()
     func reload()
@@ -66,6 +65,36 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         }
     }
     
+    fileprivate func canChangeLayout() -> Bool {
+        return collectionViewAnimations == 0
+    }
+    
+    fileprivate var collectionViewAnimations = 0 {
+        didSet {
+            assert(collectionViewAnimations >= 0)
+            checkNeedsLayoutChange()
+        }
+    }
+    
+    fileprivate var pendingLayout: FeedModuleLayoutType?
+    fileprivate func checkNeedsLayoutChange() {
+        
+        guard let layout = pendingLayout, canChangeLayout() == true else {
+            return
+        }
+        
+        onUpdateLayout(type: layout)
+        pendingLayout = nil
+    }
+    
+    fileprivate func didStartCollectionViewAnimation() {
+        collectionViewAnimations += 1
+    }
+    
+    fileprivate func didFinishCollectionViewAnimation() {
+        collectionViewAnimations -= 1
+    }
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     lazy var bottomRefreshControl: UIActivityIndicatorView = {
@@ -120,12 +149,8 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.collectionView.delegate = self
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerReuseID)
         
-        // Navigation
-        navigationItem.rightBarButtonItem = layoutChangeButton
-        
-        
         // Subviews
-        view.addSubview(noContentLabel)
+        collectionView.addSubview(noContentLabel)
         
         noContentLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
@@ -161,11 +186,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
         
         collectionView.reloadData()
-        let visible = collectionView.indexPathsForVisibleItems
-        if visible.count > 0 {
-            Logger.log("reloading", visible, event: .veryImportant)
-            collectionView.reloadItems(at: visible)
-        }
         collectionView.collectionViewLayout.invalidateLayout()
     
         // switch layout
@@ -277,7 +297,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: Input
-    func setupInitialState() {
+    func setupInitialState(showGalleryView: Bool) {
+        if showGalleryView {
+            navigationItem.rightBarButtonItem = layoutChangeButton
+        }
         collectionView.alwaysBounceVertical = true
         collectionView.addSubview(refreshControl)
         apply(theme: theme)
@@ -298,10 +321,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func getViewHeight() -> CGFloat {
         return collectionView.collectionViewLayout.collectionViewContentSize.height
     }
-    
+
     func setLayout(type: FeedModuleLayoutType) {
-        // Apply new layout
-        onUpdateLayout(type: type)
+        pendingLayout = type
+        checkNeedsLayoutChange()
     }
     
     func refreshLayout() {
@@ -322,33 +345,43 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         Logger.log(state)
         if state {
             //            collectionView.isUserInteractionEnabled = false
-            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.none)
-            SVProgressHUD.show()
+            showHUD(in: view)
         } else {
             //            collectionView.isUserInteractionEnabled = true
-            SVProgressHUD.dismiss()
+            hideHUD(in: view)
         }
     }
     
     func reloadVisible() {
-        Logger.log(event: .veryImportant)
         let paths = collectionView.indexPathsForVisibleItems
-        self.collectionView.reloadItems(at: paths)
+        self.didStartCollectionViewAnimation()
+        collectionView.performBatchUpdates({ 
+            self.collectionView.reloadItems(at: paths)
+        }) { (finished) in
+            self.didFinishCollectionViewAnimation()
+        }
     }
     
     func insertNewItems(with paths:[IndexPath]) {
-        Logger.log(paths, event: .veryImportant)
-        collectionView.insertItems(at: paths)
+        self.didStartCollectionViewAnimation()
+        collectionView.performBatchUpdates({
+            self.collectionView.insertItems(at: paths)
+        }) { (finished) in
+            self.didFinishCollectionViewAnimation()
+        }
     }
     
     func removeItems(with paths: [IndexPath]) {
-        Logger.log(paths, event: .veryImportant)
-        collectionView.deleteItems(at: paths)
+        self.didStartCollectionViewAnimation()
+        collectionView.performBatchUpdates({
+            self.collectionView.deleteItems(at: paths)
+        }) { (finished) in
+            self.didFinishCollectionViewAnimation()
+        }
     }
     
     func reload() {
-        Logger.log(event: .veryImportant)
-        collectionView.reloadData()
+        self.collectionView.reloadData()
     }
     
     func reload(with index: Int) {
