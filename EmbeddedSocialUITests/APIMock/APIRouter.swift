@@ -413,7 +413,7 @@ open class APIRouter: WebApp {
         APIState.addRequest(searchPath)
         
         if !APIConfig.isReachable {
-            let error: WebApp = DataResponse(statusCode: 500, statusMessage: "Internal Server Error")
+            let error: WebApp = DataResponse(statusCode: 500, statusMessage: "Internal Server Error from UI Test")
             return (error, [])
         }
         
