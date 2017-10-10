@@ -285,7 +285,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         
         // We do not change layout during collection animation.
         guard canChangeLayout() else {
-            print("cant change layout")
+            Logger.log("cant change layout")
             return
         }
         
