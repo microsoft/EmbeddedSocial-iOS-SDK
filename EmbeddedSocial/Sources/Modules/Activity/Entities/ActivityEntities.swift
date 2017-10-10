@@ -86,7 +86,7 @@ enum Change<T> {
 
 class CellConfigurator {
     
-    var presenter: ActivityPresenter!
+    weak var presenter: ActivityPresenter!
     
     var theme: Theme?
     

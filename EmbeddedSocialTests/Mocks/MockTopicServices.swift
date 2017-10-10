@@ -164,7 +164,11 @@ class PostServiceMock: PostServiceProtocol {
         postTopicCalled = true
         postTopicCalledReceivedTopic = topic
         postTopicCalledReceivedPhoto = photo
-        success(postTopicReturnTopic!)
+        if let topic = postTopicReturnTopic {
+            success(topic)
+        } else if let error = postTopicError {
+            failure(error)
+        }
     }
     
     var updateTopicCount = 0
