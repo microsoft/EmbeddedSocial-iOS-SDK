@@ -177,7 +177,7 @@ enum StoryboardScene {
   enum TrendingTopics: StoryboardType {
     static let storyboardName = "TrendingTopics"
 
-    static let trendingTopicsViewController = SceneType<TrendingTopicsViewController>(storyboard: TrendingTopics.self, identifier: "TrendingTopicsViewController")
+    static let trendingTopicsViewController = SceneType<EmbeddedSocial.TrendingTopicsViewController>(storyboard: TrendingTopics.self, identifier: "TrendingTopicsViewController")
   }
   enum UserProfile: StoryboardType {
     static let storyboardName = "UserProfile"

@@ -8,7 +8,7 @@ import SVProgressHUD
 
 protocol FeedModuleViewInput: class {
     
-    func setupInitialState()
+    func setupInitialState(showGalleryView: Bool)
     func setLayout(type: FeedModuleLayoutType)
     func resetFocus()
     func reload()
@@ -73,7 +73,19 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     fileprivate var collectionViewAnimations = 0 {
         didSet {
             assert(collectionViewAnimations >= 0)
+            checkNeedsLayoutChange()
         }
+    }
+    
+    fileprivate var pendingLayout: FeedModuleLayoutType?
+    fileprivate func checkNeedsLayoutChange() {
+        
+        guard let layout = pendingLayout, canChangeLayout() == true else {
+            return
+        }
+        
+        onUpdateLayout(type: layout)
+        pendingLayout = nil
     }
     
     fileprivate func didStartCollectionViewAnimation() {
@@ -137,10 +149,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         self.collectionView.delegate = self
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerReuseID)
-        
-        // Navigation
-        navigationItem.rightBarButtonItem = layoutChangeButton
-        
         
         // Subviews
         view.addSubview(noContentLabel)
@@ -273,6 +281,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         
         // We do not change layout during collection animation.
         guard canChangeLayout() else {
+            Logger.log("cant change layout")
             return
         }
         
@@ -296,7 +305,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: Input
-    func setupInitialState() {
+    func setupInitialState(showGalleryView: Bool) {
+        if showGalleryView {
+            navigationItem.rightBarButtonItem = layoutChangeButton
+        }
         collectionView.alwaysBounceVertical = true
         collectionView.addSubview(refreshControl)
         apply(theme: theme)
@@ -317,10 +329,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func getViewHeight() -> CGFloat {
         return collectionView.collectionViewLayout.collectionViewContentSize.height
     }
-    
+
     func setLayout(type: FeedModuleLayoutType) {
-        // Apply new layout
-        onUpdateLayout(type: type)
+        pendingLayout = type
+        checkNeedsLayoutChange()
     }
     
     func refreshLayout() {

@@ -7,6 +7,7 @@ import Foundation
 import SVProgressHUD
 
 protocol PopularModuleViewInput: class {
+    func setupInitialState(showGalleryView: Bool)
     func setCurrentFeedType(to index: Int)
     func setFeedTypesAvailable(types: [String])
     func lockFeedControl()
@@ -27,7 +28,11 @@ class PopularModuleView: UIViewController {
     
     var output: PopularModuleViewOutput!
     @IBOutlet var container: UIView!
-    @IBOutlet var feedControl: UISegmentedControl!
+    @IBOutlet var feedControl: UISegmentedControl! {
+        didSet {
+            feedControl.addTarget(self, action: #selector(onOptionChange), for: .valueChanged)
+        }
+    }
     
     // MARK: Private
     fileprivate lazy var layoutChangeButton: UIBarButtonItem = { [unowned self] in
@@ -71,12 +76,6 @@ class PopularModuleView: UIViewController {
     
     // MARK: Life Cycle
     override func viewDidLoad() {
-        feedControl.addTarget(self,
-                              action: #selector(onOptionChange(_:)),
-                              for: .valueChanged)
-        
-        navigationItem.rightBarButtonItem = layoutChangeButton
-        apply(theme: theme)
         output.viewIsReady()
     }
     
@@ -93,6 +92,13 @@ class PopularModuleView: UIViewController {
 }
 
 extension PopularModuleView: PopularModuleViewInput {
+    
+    func setupInitialState(showGalleryView: Bool) {
+        if showGalleryView {
+            navigationItem.rightBarButtonItem = layoutChangeButton
+        }
+        apply(theme: theme)
+    }
     
     func setFeedLayoutImage(_ image: UIImage) {
         layoutChangeButton.image = image

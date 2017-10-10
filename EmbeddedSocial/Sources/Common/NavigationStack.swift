@@ -76,7 +76,6 @@ public class NavigationStack: NavigationStackProtocol {
         navigationController.showErrorAlert(error)
     }
     
-    static let vc = UIViewController()
     init(window: UIWindow, menuViewController: UIViewController) {
         
         self.window = window

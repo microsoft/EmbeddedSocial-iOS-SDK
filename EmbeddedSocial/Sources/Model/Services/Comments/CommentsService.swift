@@ -8,7 +8,7 @@ import Alamofire
 
 typealias CommentFetchResultHandler = ((CommentFetchResult) -> Void)
 typealias CommentHandler = ((Comment) -> Void)
-typealias CommentPostResultHandler = ((PostCommentResponse) -> Void)
+typealias CommentPostResultHandler = ((Comment) -> Void)
 
 enum CommentsServiceError: Error {
     case failedToFetch(message: String)
@@ -124,7 +124,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         var result = CommentFetchResult()
         
         let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                                     predicate: PredicateBuilder().allCreateCommentCommands(),
+                                                     predicate: PredicateBuilder().allCreateCommentCommands(for: topicHandle),
                                                      sortDescriptors: [Cache.createdAtSortDescriptor])
         
         let commands = cache.fetchOutgoing(with: fetchOutgoingRequest)
@@ -205,9 +205,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
                          failure: @escaping Failure) {
         
         guard isNetworkReachable else {
+            command.setRelatedHandle(command.comment.topicHandle)
             cache.cacheOutgoing(command)
-            let response = PostCommentResponse(comment: command.comment)
-            resultHandler(response)
+            resultHandler(command.comment)
             return
         }
         
@@ -216,7 +216,8 @@ class CommentsService: BaseService, CommentServiceProtocol {
             request: PostCommentRequest(comment: command.comment),
             authorization: authorization) { (response, error) in
                 if let response = response {
-                    resultHandler(response)
+                    command.comment.commentHandle = response.commentHandle
+                    resultHandler(command.comment)
                 } else if self.errorHandler.canHandle(error) {
                     self.errorHandler.handle(error)
                 } else {
