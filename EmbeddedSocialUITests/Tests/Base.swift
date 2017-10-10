@@ -86,3 +86,36 @@ class UITestBase: XCTestCase {
         stopServer()
     }
 }
+
+class BaseSideMenuTest: UITestBase {
+    
+    private var sideMenu: SideMenu!
+    
+    override func setUp() {
+        super.setUp()
+        sideMenu = SideMenu(app)
+    }
+    
+    func navigate(to menuItem: SideMenuItem) {
+        sideMenu.navigate(to: menuItem)
+    }
+    
+}
+
+protocol OfflineTest {
+    
+    func makePullToRefreshWithoutReachability(with element: XCUIElement)
+    
+}
+
+extension OfflineTest {
+    
+    func makePullToRefreshWithoutReachability(with element: XCUIElement) {
+        let startTouchPosition = element.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
+        let finishTouchPosition = element.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 6))
+        
+        APIConfig.isReachable = false
+        startTouchPosition.press(forDuration: 0, thenDragTo: finishTouchPosition)
+    }
+    
+}
