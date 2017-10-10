@@ -105,12 +105,7 @@ extension PopularModuleView: PopularModuleViewInput {
     }
     
     func embedFeedViewController(_ viewController: UIViewController) {
-        addChildController(viewController, containerView: container, pinToEdges: false)
-        
-        let padding = Constants.FeedModule.Collection.containerPadding
-        viewController.view.snp.makeConstraints {
-            $0.edges.equalTo(container).inset(UIEdgeInsetsMake(0, padding, 0, padding))
-        }
+        addChildController(viewController, containerView: container, pinToEdges: true)
     }
     
     func handleError(error: Error) {

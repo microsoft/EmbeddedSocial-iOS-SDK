@@ -151,7 +151,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerReuseID)
         
         // Subviews
-        view.addSubview(noContentLabel)
+        collectionView.addSubview(noContentLabel)
         
         noContentLabel.snp.makeConstraints {
             $0.center.equalToSuperview()

@@ -214,7 +214,14 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     // MARK: Private
     
     private func collectionPaddingNeeded() -> Bool {
-        return isHomeFeedType()
+        
+        guard let feedType = self.feedType else { return false }
+        
+        switch feedType {
+        default:
+            // All feeds use padding for cells
+            return true
+        }
     }
     
     private func onLayoutTypeChange() {
@@ -230,6 +237,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             view.resetFocus()
             fetchAllItems()
         }
+        
+        updatePadding()
     }
     
     fileprivate func shouldFetchOnViewAppear() -> Bool {
@@ -250,8 +259,21 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         return feedType == .home
     }
     
+    fileprivate func updatePadding() {
+        view.paddingEnabled = collectionPaddingNeeded()
+    }
+
+    fileprivate func shouldShowNoContent() -> Bool {
+        switch feedType! {
+            
+        // Show no data for all feeds
+        default:
+            return true
+        }
+    }
+    
     fileprivate func checkIfNoContent() {
-        if isHomeFeedType() {
+        if shouldShowNoContent() {
             view.needShowNoContent(state: items.count == 0)
         }
     }
@@ -431,7 +453,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func viewIsReady() {
         view.setupInitialState(showGalleryView: settings.showGalleryView)
-        view.paddingEnabled = collectionPaddingNeeded()
+        updatePadding()
         
         if let header = header {
             view.registerHeader(withType: header.type, configurator: header.configurator)
@@ -469,6 +491,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
+        defer {
+            checkIfNoContent()
+        }
+        
         Logger.log("items arrived", event: .veryImportant)
         
         let cachedNumberOfItems = items.count
@@ -503,9 +529,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             // update data for rest of cells
             view.reloadVisible()
         }
-    
-        // update "No content"
-        checkIfNoContent()
     }
     
     func didFetch(feed: Feed) {
