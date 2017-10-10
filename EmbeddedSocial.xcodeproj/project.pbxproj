@@ -64,6 +64,8 @@
 		63CB48BE1F821A7A002CE2E8 /* DetailedActivity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63CB48BD1F821A7A002CE2E8 /* DetailedActivity.storyboard */; };
 		63CB48C21F821EB4002CE2E8 /* ActivityButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB48C01F821EB4002CE2E8 /* ActivityButtonCell.swift */; };
 		63CB48C31F821EB4002CE2E8 /* ActivityButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63CB48C11F821EB4002CE2E8 /* ActivityButtonCell.xib */; };
+		63D6049B1F8BBD430023F60D /* CreatePostPresentorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC0B1F220BCD003AAF19 /* CreatePostPresentorTests.swift */; };
+		63D6049C1F8BBD470023F60D /* CreatePostInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AFC091F220BCD003AAF19 /* CreatePostInteractorTests.swift */; };
 		63DCE6C71F7D1E7F00F9F76B /* RemoveCommentCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCE6C61F7D1E7F00F9F76B /* RemoveCommentCommandTests.swift */; };
 		63DCE6C91F7D1E9000F9F76B /* ReportCommentCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCE6C81F7D1E9000F9F76B /* ReportCommentCommandTests.swift */; };
 		63DCE6CB1F7D1EA800F9F76B /* RemoveCommentOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCE6CA1F7D1EA800F9F76B /* RemoveCommentOperationTests.swift */; };
@@ -7259,6 +7261,7 @@
 				8834A76F1F53FE6600F1D383 /* MockLikesListView.swift in Sources */,
 				63DCE6C91F7D1E9000F9F76B /* ReportCommentCommandTests.swift in Sources */,
 				88F551D61F3AF8BE00F4AAB9 /* UserFollowersAPITests.swift in Sources */,
+				63D6049B1F8BBD430023F60D /* CreatePostPresentorTests.swift in Sources */,
 				8811C8AF1F44431B00F7513D /* CreateAccountPresenterTests.swift in Sources */,
 				88D1231C1F7521FC001523D1 /* MockOutgoingCommandsPredicateBuilder.swift in Sources */,
 				88B2D67D1F7BAB9100920E43 /* MockFollowRequestsInteractor.swift in Sources */,
@@ -7290,6 +7293,7 @@
 				884C9C341F4C3E940004907F /* UserListPresenterTests.swift in Sources */,
 				9C805F401F822E12006D4F79 /* FeedModulePresenterTests.swift in Sources */,
 				88D123241F753786001523D1 /* MockFetchOutgoingCommandsOperation.swift in Sources */,
+				63D6049C1F8BBD470023F60D /* CreatePostInteractorTests.swift in Sources */,
 				884A834E1F87BDDE009C3FA0 /* MockTrendingTopicsInteractor.swift in Sources */,
 				880AFD551F7002F400378710 /* UnfollowUserOperationTests.swift in Sources */,
 				88958F441F70088A00ADE411 /* LikeCommentOperationTests.swift in Sources */,

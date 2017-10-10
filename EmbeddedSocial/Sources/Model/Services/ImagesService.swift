@@ -81,6 +81,7 @@ class ImagesService: BaseService, ImagesServiceType {
             image: data,
             imageFileType: imageFileType) { [weak self] response, error in
                 if let handle = response?.blobHandle {
+                    self?.imageCache.store(photo: Photo(uid: handle, image: command.photo.image))
                     completion(.success(handle))
                 } else {
                     self?.errorHandler.handle(error: error, completion: completion)
