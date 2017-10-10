@@ -51,10 +51,10 @@ class PopularModuleView: UIViewController {
             container.isUserInteractionEnabled = isLockedUI == 0
             
             if isLockedUI == 0 {
-                SVProgressHUD.dismiss()
+                hideHUD()
             } else {
                 SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.none)
-                SVProgressHUD.show()
+                showHUD()
             }
             
             Logger.log(isLockedUI, feedControl.isEnabled)

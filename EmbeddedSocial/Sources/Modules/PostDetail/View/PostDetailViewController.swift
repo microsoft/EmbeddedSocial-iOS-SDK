@@ -58,7 +58,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         refreshControl.beginRefreshing()
         apply(theme: theme)
         output.viewIsReady()
-        SVProgressHUD.show()
+        showHUD()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,7 +82,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     func refreshPostCell() {
         collectionView.reloadData()
         if output.heightForFeed() > 0 {
-            SVProgressHUD.dismiss()
+            hideHUD()
         }
     }
     
@@ -166,7 +166,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         commentTextViewHeightConstraint.constant = commentViewHeight
         commentTextView.text = nil
         postButton.isHidden = true
-        SVProgressHUD.dismiss()
+        hideHUD()
         collectionView.insertItems(at: [IndexPath(item: output.numberOfItems() - 1 , section: CommentsSections.comments.rawValue)])
         view.layoutIfNeeded()
         scrollCollectionViewToBottom()
@@ -176,7 +176,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     func postCommentFailed(error: Error) {
         postButton.isHidden = false
         view.isUserInteractionEnabled = true
-        SVProgressHUD.dismiss()
+        hideHUD()
     }
     
     fileprivate func clearImage() {
@@ -201,7 +201,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     @IBAction func postComment(_ sender: Any) {
         view.isUserInteractionEnabled = false
         commentTextView.resignFirstResponder()
-        SVProgressHUD.show()
+        showHUD()
         postButton.isHidden = true
         output.postComment(photo: photo, comment: commentTextView.text)
     }

@@ -355,10 +355,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         if state {
             //            collectionView.isUserInteractionEnabled = false
             SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.none)
-            SVProgressHUD.show()
+            showHUD()
         } else {
             //            collectionView.isUserInteractionEnabled = true
-            SVProgressHUD.dismiss()
+            hideHUD()
         }
     }
     

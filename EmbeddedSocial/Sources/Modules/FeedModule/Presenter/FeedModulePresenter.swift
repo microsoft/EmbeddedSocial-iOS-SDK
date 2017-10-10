@@ -525,6 +525,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didFinishFetching() {
+        return
         Logger.log()
         view.setRefreshing(state: false)
         if let delegate = moduleOutput {

@@ -59,12 +59,12 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     
     func topicCreated() {
         unlockNavigationBar()
-        SVProgressHUD.dismiss()
+        hideHUD()
     }
     
     func topicUpdated() {
         unlockNavigationBar()
-        SVProgressHUD.dismiss()
+        hideHUD()
     }
     
     func show(user: User) {
@@ -85,7 +85,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     }
     
     func show(error: Error) {
-        SVProgressHUD.dismiss()
+        hideHUD()
         let alert = UIAlertController(title: error.localizedDescription, message: nil, preferredStyle: .alert)
         let action = UIAlertAction(title: L10n.Common.ok, style: .default, handler: nil)
         alert.addAction(action)
@@ -102,7 +102,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     
     // MARK: Actions
     @objc fileprivate func post() {
-        SVProgressHUD.show()
+        showHUD()
         lockNavigationBar()
         output.post(photo: photo, title: titleTextField.text, body: postBodyTextView.text)
     }
