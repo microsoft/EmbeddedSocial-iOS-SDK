@@ -165,4 +165,10 @@ class FeedModuleViewInputMock: FeedModuleViewInput {
         setScrolling_Called = true
     }
     
+    //MARK: - setupInitialState
+    var setupInitialStateCalled = false
+    func setupInitialState(showGalleryView: Bool) {
+        setupInitialStateCalled = true
+    }
+
 }

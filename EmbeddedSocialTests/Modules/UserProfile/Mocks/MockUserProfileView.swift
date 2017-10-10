@@ -31,7 +31,7 @@ class MockUserProfileView: UserProfileViewInput {
     
     var headerContentHeight: CGFloat = 0.0
 
-    func setupInitialState() {
+    func setupInitialState(showGalleryView: Bool) {
         setupInitialStateCount += 1
     }
     

@@ -185,6 +185,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         return header?.size ?? .zero
     }
     
+    fileprivate let settings: Settings
+    
+    init(settings: Settings = SocialPlus.settings) {
+        self.settings = settings
+    }
+    
     func didTapChangeLayout() {
         layout = layout.flipped
     }
@@ -424,7 +430,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func viewIsReady() {
-        view.setupInitialState()
+        view.setupInitialState(showGalleryView: settings.showGalleryView)
         view.paddingEnabled = collectionPaddingNeeded()
         
         if let header = header {

@@ -3,10 +3,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Nimble
-import XCTest
-@testable import EmbeddedSocial
+import Foundation
 
-class AppConfigurationTests: XCTestCase {
-    
+extension Authorization {
+    static func anonymous(appKey: String) -> String {
+        return "Anon AK=\(appKey)"
+    }
 }

@@ -8,6 +8,11 @@ import XCTest
 
 private class PopularModuleViewMock: PopularModuleViewInput {
     
+    var setupInitialStateCalled = false
+    func setupInitialState(showGalleryView: Bool) {
+        setupInitialStateCalled = true
+    }
+    
     var feedType: Int?
     func setCurrentFeedType(to index: Int) {
         feedType = index
