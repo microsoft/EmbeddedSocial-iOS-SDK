@@ -1,35 +1,34 @@
+##### Install pods ######
+desc "Install pod dependencies"
+lane :install_pods do
+  cocoapods
+end
 
-##### Setup ######
-  desc "Install pod dependencies"
-  lane :install_pods do
-    cocoapods
-  end
-
-# Test
-  desc "Runs unit tests"
-  lane :unit_tests do |params|
-    ENV['FASTLANE_XCODE_LIST_TIMEOUT'] = '1800'
-    ENV['FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT'] = '1800'
-    scan(
+##### Test ######
+desc "Runs unit tests"
+lane :unit_tests do |params|
+  ENV['FASTLANE_XCODE_LIST_TIMEOUT'] = '1800'
+  ENV['FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT'] = '1800'
+  scan(
 	scheme: "EmbeddedSocial",
 	device: "iPhone 7 (10.3)"
-    )
-  end
+  )
+end
 
-# Build
+##### Build ######
+desc "Builds the app"
 lane :build_app do
-gym(
-scheme: "EmbeddedSocial-Example",
-configuration: "Debug",
-export_method: "development",
-clean: true
-)
+  gym(
+    scheme: "EmbeddedSocial-Example",
+    configuration: "Debug",
+    export_method: "development",
+    clean: true
+  )
 end
 
-#Launch
+##### Launch ######
 lane :launch do
-install_pods
-unit_tests
-build_app
+  install_pods
+  unit_tests
+  build_app
 end
-
