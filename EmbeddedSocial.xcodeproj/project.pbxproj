@@ -7382,10 +7382,10 @@
 				INFOPLIST_FILE = "EmbeddedSocial-Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.microsoft.embeddedsocial.testapp;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.microsoft.embeddedsocial-df";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "aebe3f1b-385f-4942-9c82-17760172238a";
-				PROVISIONING_PROFILE_SPECIFIER = "Microsoft Dogfood Provisioning Profile";
+				PROVISIONING_PROFILE = "369c1331-48f6-48ab-908c-42ec1f7a638a";
+				PROVISIONING_PROFILE_SPECIFIER = "Microsoft Embedded Social Dogfood Distribution";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -7409,10 +7409,10 @@
 				INFOPLIST_FILE = "EmbeddedSocial-Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.microsoft.embeddedsocial.testapp;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.microsoft.embeddedsocial-df";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "aebe3f1b-385f-4942-9c82-17760172238a";
-				PROVISIONING_PROFILE_SPECIFIER = "Microsoft Dogfood Provisioning Profile";
+				PROVISIONING_PROFILE = "369c1331-48f6-48ab-908c-42ec1f7a638a";
+				PROVISIONING_PROFILE_SPECIFIER = "Microsoft Embedded Social Dogfood Distribution";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
