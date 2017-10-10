@@ -14,11 +14,16 @@ enum PostMenuItem: String {
     case hide     = "Hide"
     case cancel   = "Cancel"
     
+    // Items for an own post
+    
+    case edit     = "Edit post"
+    case remove   = "Remove post"
+    
     func index() -> UInt {
         switch self {
-        case .follow, .unfollow:
+        case .follow, .unfollow, .edit:
             return 0
-        case .block, .unblock:
+        case .block, .unblock, .remove:
             return 1
         case .report:
             return 2

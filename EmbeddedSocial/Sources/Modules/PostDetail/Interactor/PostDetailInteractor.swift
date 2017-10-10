@@ -78,9 +78,8 @@ class PostDetailInteractor: PostDetailInteractorInput {
         newComment.createdTime = Date()
         newComment.user = userHolder.me
 
-        commentsService?.postComment(comment: newComment, photo: photo, resultHandler: { (response) in
-            newComment.commentHandle = response.commentHandle
-            self.output?.commentDidPost(comment: newComment)
+        commentsService?.postComment(comment: newComment, photo: photo, resultHandler: { (postedComment) in
+            self.output?.commentDidPost(comment: postedComment)
         }, failure: { (error) in
             print("error posting comment")
         })

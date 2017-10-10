@@ -22,6 +22,15 @@ open class APIRouter: WebApp {
         })
         
         self["/v0.7/topics/(.*(?<!popular|comments)$)"] = APIResponse(serviceName: "topics") {environ, sendJSON -> Void in
+            let method = environ["REQUEST_METHOD"] as! String
+            if method == "PUT" {
+                let input = environ["swsgi.input"] as! SWSGIInput
+                JSONReader.read(input) { json in
+                    APIState.setLatestData(forService: "topicUpdate", data: json)
+                    sendJSON(Templates.load(name: "topic_put"))
+                }
+                return
+            }
             sendJSON(Templates.load(name: "topic"))
         }
         
@@ -176,7 +185,7 @@ open class APIRouter: WebApp {
                 break
             }
         }
-        
+                
         self["/v0.7/images/(UserPhoto|ContentBlob|AppIcon)"] = APIResponse(serviceName: "images") { environ, sendJSON -> Void in
             let input = environ["swsgi.input"] as! SWSGIInput
             DataReader.read(input) { data in
@@ -227,7 +236,8 @@ open class APIRouter: WebApp {
             case "POST":
                 break
             default:
-                sendJSON(Templates.load(name: "user"))
+                let values = APIConfig.loadMyTopics ? ["userHandle" : "me"] : ["userHandle" : "OtherUser"]
+                sendJSON(Templates.load(name: "user", values: values))
             }
         }
         

@@ -66,6 +66,36 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         }
     }
     
+    fileprivate func canChangeLayout() -> Bool {
+        return collectionViewAnimations == 0
+    }
+    
+    fileprivate var collectionViewAnimations = 0 {
+        didSet {
+            assert(collectionViewAnimations >= 0)
+            checkNeedsLayoutChange()
+        }
+    }
+    
+    fileprivate var pendingLayout: FeedModuleLayoutType?
+    fileprivate func checkNeedsLayoutChange() {
+        
+        guard let layout = pendingLayout, canChangeLayout() == true else {
+            return
+        }
+        
+        onUpdateLayout(type: layout)
+        pendingLayout = nil
+    }
+    
+    fileprivate func didStartCollectionViewAnimation() {
+        collectionViewAnimations += 1
+    }
+    
+    fileprivate func didFinishCollectionViewAnimation() {
+        collectionViewAnimations -= 1
+    }
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     lazy var bottomRefreshControl: UIActivityIndicatorView = {
@@ -156,6 +186,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
         
+        collectionView.reloadData()
         collectionView.collectionViewLayout.invalidateLayout()
     
         // switch layout
@@ -171,8 +202,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
                 collectionView.setCollectionViewLayout(listLayout, animated: animated)
             }
         }
-        
-        collectionView.reloadData()
     }
     
     private func onUpdateBounds() {
@@ -249,6 +278,13 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     @objc private func didTapChangeLayout() {
+        
+        // We do not change layout during collection animation.
+        guard canChangeLayout() else {
+            Logger.log("cant change layout")
+            return
+        }
+        
         output.didTapChangeLayout()
     }
     
@@ -293,10 +329,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     func getViewHeight() -> CGFloat {
         return collectionView.collectionViewLayout.collectionViewContentSize.height
     }
-    
+
     func setLayout(type: FeedModuleLayoutType) {
-        // Apply new layout
-        onUpdateLayout(type: type)
+        pendingLayout = type
+        checkNeedsLayoutChange()
     }
     
     func refreshLayout() {
@@ -326,24 +362,35 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     func reloadVisible() {
-        Logger.log(event: .veryImportant)
         let paths = collectionView.indexPathsForVisibleItems
-        self.collectionView.reloadItems(at: paths)
+        self.didStartCollectionViewAnimation()
+        collectionView.performBatchUpdates({ 
+            self.collectionView.reloadItems(at: paths)
+        }) { (finished) in
+            self.didFinishCollectionViewAnimation()
+        }
     }
     
     func insertNewItems(with paths:[IndexPath]) {
-        Logger.log(paths, event: .veryImportant)
-        collectionView.insertItems(at: paths)
+        self.didStartCollectionViewAnimation()
+        collectionView.performBatchUpdates({
+            self.collectionView.insertItems(at: paths)
+        }) { (finished) in
+            self.didFinishCollectionViewAnimation()
+        }
     }
     
     func removeItems(with paths: [IndexPath]) {
-        Logger.log(paths, event: .veryImportant)
-        collectionView.deleteItems(at: paths)
+        self.didStartCollectionViewAnimation()
+        collectionView.performBatchUpdates({
+            self.collectionView.deleteItems(at: paths)
+        }) { (finished) in
+            self.didFinishCollectionViewAnimation()
+        }
     }
     
     func reload() {
-        Logger.log(event: .veryImportant)
-        collectionView.reloadData()
+        self.collectionView.reloadData()
     }
     
     func reload(with index: Int) {

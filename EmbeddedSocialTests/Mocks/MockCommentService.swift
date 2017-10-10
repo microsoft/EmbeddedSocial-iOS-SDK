@@ -44,7 +44,7 @@ class MockCommentsService: CommentServiceProtocol {
         postCommentReceivedArguments = (comment, photo)
         
         if let response = postCommentReturnResponse {
-            resultHandler(response)
+            resultHandler(comment)
         } else if let error = postCommentReturnError {
             failure(error)
         }

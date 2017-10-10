@@ -93,13 +93,11 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     }
     
     func lockNavigationBar() {
-        navigationController?.navigationBar.isUserInteractionEnabled = false
-        navigationController?.navigationBar.tintColor = .lightGray
+        navigationController?.navigationBar.disableTopItemButtons()
     }
     
     func unlockNavigationBar() {
-        navigationController?.navigationBar.isUserInteractionEnabled = true
-        navigationController?.navigationBar.tintColor = .blue
+        navigationController?.navigationBar.enabledTopItemButtons()
     }
     
     // MARK: Actions
@@ -203,8 +201,6 @@ extension CreatePostViewController: Themeable {
         let attrs: [String: Any] = [NSFontAttributeName: AppFonts.medium, NSForegroundColorAttributeName: palette.textPlaceholder]
         titleTextField.attributedPlaceholder = NSAttributedString(string: L10n.CreatePost.titlePlaceholder, attributes: attrs)
         postBodyTextView.attributedPlaceholder = NSAttributedString(string: L10n.CreatePost.bodyPlaceholder, attributes: attrs)
-        
-        mediaButton.setTitleColor(palette.accent, for: .normal)
     }
 }
 

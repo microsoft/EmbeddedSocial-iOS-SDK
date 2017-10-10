@@ -157,16 +157,20 @@ class PostServiceMock: PostServiceProtocol {
     var postTopicCalled = false
     var postTopicCalledReceivedTopic: Post!
     var postTopicReturnTopic: Post?
+    var postTopicCalledReceivedPhoto: Photo?
     var postTopicError: Error?
 
-    func postTopic(_ topic: Post, success: @escaping TopicPosted, failure: @escaping Failure) {
+    func postTopic(_ topic: Post, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure) {
         postTopicCalled = true
         postTopicCalledReceivedTopic = topic
-        if let returnTopic = postTopicReturnTopic {
-            success(returnTopic)
-        } else if let error = postTopicError {
-            failure(error)
-        }
+        postTopicCalledReceivedPhoto = photo
+        success(postTopicReturnTopic!)
+    }
+    
+    var updateTopicCount = 0
+    func updateTopic(topicHandle: String, request: PutTopicRequest, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        updateTopicCount += 1
+        success()
     }
 
 }
