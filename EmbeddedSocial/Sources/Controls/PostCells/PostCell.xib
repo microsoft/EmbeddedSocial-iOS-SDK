@@ -16,12 +16,12 @@
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="OEZ-HU-KUq" userLabel="container">
-                    <rect key="frame" x="0.0" y="0.0" width="364" height="502"/>
+                    <rect key="frame" x="0.0" y="0.0" width="364" height="362"/>
                     <subviews>
                         <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="oqe-ch-5n3" userLabel="header">
                             <rect key="frame" x="0.0" y="0.0" width="364" height="50"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="500" image="user_photo_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="bYI-rM-xRs">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="500" image="user_photo_placeholder_light" translatesAutoresizingMaskIntoConstraints="NO" id="bYI-rM-xRs">
                                     <rect key="frame" x="20" y="10" width="30" height="30"/>
                                     <accessibility key="accessibilityConfiguration" identifier="Avatar" label="Avatar">
                                         <bool key="isElement" value="YES"/>
@@ -275,6 +275,6 @@
         <image name="icon_liked_active" width="48" height="48"/>
         <image name="icon_pin" width="48" height="48"/>
         <image name="icon_pin_active" width="48" height="48"/>
-        <image name="user_photo_placeholder" width="150" height="150"/>
+        <image name="user_photo_placeholder_light" width="150" height="150"/>
     </resources>
 </document>

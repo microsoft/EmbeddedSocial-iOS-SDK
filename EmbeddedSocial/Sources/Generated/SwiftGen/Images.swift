@@ -63,11 +63,12 @@ enum Asset: String {
   case iconSettings = "icon_settings"
   case logoWhite = "logo-white"
   case logo = "logo"
+  case placeholderPostNoimage = "placeholder_post_noimage"
   case placeholderPostImage = "placeholder_post_image"
   case placeholderPostImage2 = "placeholder_post_image2"
-  case placeholderPostNoimage = "placeholder_post_noimage"
   case placeholderPostUser1 = "placeholder_post_user_1"
-  case userPhotoPlaceholder = "user_photo_placeholder"
+  case userPhotoPlaceholderDark = "user_photo_placeholder_dark"
+  case userPhotoPlaceholderLight = "user_photo_placeholder_light"
 
   var image: Image {
     let bundle = Bundle(for: BundleToken.self)

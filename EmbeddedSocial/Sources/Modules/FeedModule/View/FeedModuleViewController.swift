@@ -8,7 +8,7 @@ import SVProgressHUD
 
 protocol FeedModuleViewInput: class {
     
-    func setupInitialState()
+    func setupInitialState(showGalleryView: Bool)
     func setLayout(type: FeedModuleLayoutType)
     func resetFocus()
     func reload()
@@ -150,12 +150,8 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         self.collectionView.delegate = self
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerReuseID)
         
-        // Navigation
-        navigationItem.rightBarButtonItem = layoutChangeButton
-        
-        
         // Subviews
-        view.addSubview(noContentLabel)
+        collectionView.addSubview(noContentLabel)
         
         noContentLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
@@ -309,7 +305,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     // MARK: Input
-    func setupInitialState() {
+    func setupInitialState(showGalleryView: Bool) {
+        if showGalleryView {
+            navigationItem.rightBarButtonItem = layoutChangeButton
+        }
         collectionView.alwaysBounceVertical = true
         collectionView.addSubview(refreshControl)
         apply(theme: theme)

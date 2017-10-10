@@ -2,9 +2,27 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>application</key>
+	<dict>
+		<key>serverURL</key>
+		<string>https://ppe.embeddedsocial.microsoft.com</string>
+		<key>appKey</key>
+		<string>ec1665a4-920d-4449-b8a0-49ed374d4290</string>
+		<key>numberOfCommentsToShow</key>
+		<integer>20</integer>
+		<key>numberOfRepliesToShow</key>
+		<integer>20</integer>
+		<key>showGalleryView</key>
+		<true/>
+		<key>searchEnabled</key>
+		<true/>
+	</dict>
 	<key>theme</key>
-	<string>light</string>
-	<key>accentColor</key>
-	<string>#5bbb7b</string>
+	<dict>
+		<key>accentColor</key>
+		<string>#5bbb7b</string>
+		<key>name</key>
+		<string>light</string>
+	</dict>
 </dict>
 </plist>

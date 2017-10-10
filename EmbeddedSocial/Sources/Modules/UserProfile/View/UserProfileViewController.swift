@@ -78,8 +78,12 @@ extension UserProfileViewController: UserProfileViewInput {
         return headerView.systemLayoutSizeFitting(size).height
     }
     
-    func setupInitialState() {
-        navigationItem.rightBarButtonItems = [moreButton, UIBarButtonItem(customView: self.feedLayoutButton)]
+    func setupInitialState(showGalleryView: Bool) {
+        if showGalleryView {
+            navigationItem.rightBarButtonItems = [moreButton, UIBarButtonItem(customView: self.feedLayoutButton)]
+        } else {
+            navigationItem.rightBarButtonItem = moreButton
+        }
         apply(theme: theme)
     }
     

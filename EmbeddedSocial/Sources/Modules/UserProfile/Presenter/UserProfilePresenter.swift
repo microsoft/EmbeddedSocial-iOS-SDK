@@ -24,7 +24,8 @@ final class UserProfilePresenter: UserProfileViewOutput {
         return myProfileHolder?.me
     }
     fileprivate var myProfileHolder: UserHolder?
-    
+    fileprivate let settings: Settings
+
     fileprivate var followersCount = 0 {
         didSet {
             view.setFollowersCount(followersCount)
@@ -37,7 +38,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
         }
     }
     
-    init(userID: String? = nil, myProfileHolder: UserHolder) {
+    init(userID: String? = nil, myProfileHolder: UserHolder, settings: Settings = SocialPlus.settings) {
         guard myProfileHolder.me != nil || userID != nil else {
             fatalError("Either userID or myProfileHolder must be supplied")
         }
@@ -46,10 +47,11 @@ final class UserProfilePresenter: UserProfileViewOutput {
         followersCount = 0
         followingCount = 0
         self.myProfileHolder = myProfileHolder
+        self.settings = settings
     }
     
     func viewIsReady() {
-        view.setupInitialState()
+        view.setupInitialState(showGalleryView: settings.showGalleryView)
         setupFeed()
         loadUser()
     }
@@ -227,8 +229,8 @@ final class UserProfilePresenter: UserProfileViewOutput {
     
     private func setFeedScope(_ scope: FeedType.UserFeedScope) {
         guard let uid = userID ?? me?.uid else { return }
-        feedModuleInput?.feedType = .user(user: uid, scope: scope)
         view.setFilterEnabled(false)
+        feedModuleInput?.feedType = .user(user: uid, scope: scope)
     }
     
     func onFlipFeedLayout() {

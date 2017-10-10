@@ -185,6 +185,12 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         return header?.size ?? .zero
     }
     
+    fileprivate let settings: Settings
+    
+    init(settings: Settings = SocialPlus.settings) {
+        self.settings = settings
+    }
+    
     func didTapChangeLayout() {
         layout = layout.flipped
     }
@@ -208,7 +214,14 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     // MARK: Private
     
     private func collectionPaddingNeeded() -> Bool {
-        return isHomeFeedType()
+        
+        guard let feedType = self.feedType else { return false }
+        
+        switch feedType {
+        default:
+            // All feeds use padding for cells
+            return true
+        }
     }
     
     private func onLayoutTypeChange() {
@@ -224,6 +237,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             view.resetFocus()
             fetchAllItems()
         }
+        
+        updatePadding()
     }
     
     fileprivate func shouldFetchOnViewAppear() -> Bool {
@@ -244,8 +259,21 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         return feedType == .home
     }
     
+    fileprivate func updatePadding() {
+        view.paddingEnabled = collectionPaddingNeeded()
+    }
+
+    fileprivate func shouldShowNoContent() -> Bool {
+        switch feedType! {
+            
+        // Show no data for all feeds
+        default:
+            return true
+        }
+    }
+    
     fileprivate func checkIfNoContent() {
-        if isHomeFeedType() {
+        if shouldShowNoContent() {
             view.needShowNoContent(state: items.count == 0)
         }
     }
@@ -325,8 +353,13 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
 
     func handle(action: FeedPostCellAction, path: IndexPath) {
         
+        guard let feedType = self.feedType else {
+            Logger.log("Trying to work with feed while it's unset", event: .veryImportant)
+            return
+        }
+        
         guard isUserAuthorizedToPerformAction(action) else {
-            router.open(route: .login, feedSource: feedType!)
+            router.open(route: .login, feedSource: feedType)
             return
         }
         
@@ -341,23 +374,23 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
                 return
             }
             
-            router.open(route: .postDetails(post: item(for: path)), feedSource: feedType!)
+            router.open(route: .postDetails(post: item(for: path)), feedSource: feedType)
         case .comment:
             if moduleOutput is PostDetailPresenter {
                 moduleOutput?.commentsPressed()
                 return
             }
             
-            router.open(route: .comments(post: item(for: path)), feedSource: feedType!)
+            router.open(route: .comments(post: item(for: path)), feedSource: feedType)
             moduleOutput?.commentsPressed()
         case .extra:
             
             let isMyPost = (userHolder?.me?.uid == userHandle)
             
             if isMyPost {
-                router.open(route: .myPost(post: post), feedSource: feedType!)
+                router.open(route: .myPost(post: post), feedSource: feedType)
             } else {
-                router.open(route: .othersPost(post: post), feedSource: feedType!)
+                router.open(route: .othersPost(post: post), feedSource: feedType)
             }
         case .like:
             
@@ -392,9 +425,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             let isMyProfile = userHolder?.me?.uid == userHandle
             
             if isMyProfile {
-                router.open(route: .myProfile, feedSource: feedType!)
+                router.open(route: .myProfile, feedSource: feedType)
             } else {
-                router.open(route: .profileDetailes(user: userHandle), feedSource: feedType!)
+                router.open(route: .profileDetailes(user: userHandle), feedSource: feedType)
             }
             
         case .photo:
@@ -402,10 +435,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
                 return
             }
             
-            router.open(route: .openImage(image: imageUrl), feedSource: feedType!)
+            router.open(route: .openImage(image: imageUrl), feedSource: feedType)
             
         case .likesList:
-            router.open(route: .likesList(postHandle: post.topicHandle), feedSource: feedType!)
+            router.open(route: .likesList(postHandle: post.topicHandle), feedSource: feedType)
         }
     }
     
@@ -419,8 +452,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func viewIsReady() {
-        view.setupInitialState()
-        view.paddingEnabled = collectionPaddingNeeded()
+        view.setupInitialState(showGalleryView: settings.showGalleryView)
+        updatePadding()
         
         if let header = header {
             view.registerHeader(withType: header.type, configurator: header.configurator)
@@ -458,6 +491,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
+        defer {
+            checkIfNoContent()
+        }
+        
         Logger.log("items arrived", event: .veryImportant)
         
         let cachedNumberOfItems = items.count
@@ -492,9 +529,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             // update data for rest of cells
             view.reloadVisible()
         }
-    
-        // update "No content"
-        checkIfNoContent()
     }
     
     func didFetch(feed: Feed) {

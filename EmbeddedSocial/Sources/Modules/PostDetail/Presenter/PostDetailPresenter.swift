@@ -25,15 +25,17 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     fileprivate var loadMoreCellViewModel = LoadMoreCellViewModel()
     
     var myProfileHolder: UserHolder!
+    
+    private let pageSize: Int
 
     
     func heightForFeed() -> CGFloat {
         return (feedModuleInput?.moduleHeight())!
     }
     
-
-    init(myProfileHolder: UserHolder) {
+    init(myProfileHolder: UserHolder, pageSize: Int) {
         self.myProfileHolder = myProfileHolder
+        self.pageSize = pageSize
     }
     
     // MARK: PostDetailInteractorOutput
@@ -132,13 +134,13 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
         loadMoreCellViewModel.startLoading()
         view.updateLoadingCell()
-        interactor.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
+        interactor.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: Int32(pageSize))
     }
     
     func viewIsReady() {
         view.setupInitialState()
         setupFeed()
-        interactor.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
+        interactor.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: Int32(pageSize))
     }
     
     func loadRestComments() {
@@ -158,7 +160,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         dataIsFetching = true
         loadMoreCellViewModel.startLoading()
         view.updateLoadingCell()
-        interactor.fetchMoreComments(topicHandle: topicHandle, cursor: cursor, limit: Int32(Constants.PostDetails.pageSize))
+        interactor.fetchMoreComments(topicHandle: topicHandle, cursor: cursor, limit: Int32(pageSize))
     }
     
     func comment(at index: Int) -> Comment {

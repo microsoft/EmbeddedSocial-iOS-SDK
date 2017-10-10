@@ -15,6 +15,13 @@ protocol SessionServiceType {
 
 class SessionService: BaseService, SessionServiceType {
     
+    private let appKey: String
+    
+    init(appKey: String = SocialPlus.settings.appKey) {
+        self.appKey = appKey
+        super.init()
+    }
+    
     func makeNewSession(with credentials: CredentialsList, userID: String, completion: @escaping (Result<String>) -> Void) {
         let request = PostSessionRequest()
         request.instanceId = UUID().uuidString
@@ -33,7 +40,7 @@ class SessionService: BaseService, SessionServiceType {
         let provider = authProvider.sessionServiceIdentityProvider
         SessionsAPI.requestTokensGetRequestToken(
             identityProvider: provider,
-            authorization: Constants.API.anonymousAuthorization) { response, error in
+            authorization: Authorization.anonymous(appKey: appKey)) { response, error in
                 if let token = response?.requestToken {
                     completion(.success(token))
                 } else {

@@ -84,7 +84,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
     weak var myProfileOpener: MyProfileOpener?
     weak var loginOpener: LoginModalOpener?
     
-    // Keeping ref to menu
+    // Keeping ref to menu module
     private var postMenuViewController: UIViewController?
     
     func open(route: FeedModuleRoutes, feedSource: FeedType) {
@@ -115,7 +115,8 @@ class FeedModuleRouter: FeedModuleRouterInput {
                                    navigationController: navigationController)
             postMenuViewController = configurator.viewController
             
-            if let parent = viewController {
+            
+            if let parent = navigationController?.topViewController {
                 postMenuViewController!.modalPresentationStyle = .overCurrentContext
                 parent.present(postMenuViewController!, animated: false, completion: nil)
             }
