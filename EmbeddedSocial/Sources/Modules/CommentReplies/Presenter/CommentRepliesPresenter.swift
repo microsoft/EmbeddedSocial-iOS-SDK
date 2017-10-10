@@ -211,7 +211,11 @@ extension CommentRepliesPresenter: ReplyCellModuleOutput {
             return
         }
         
+        if comment.totalReplies > 0 {
+            comment.totalReplies -= 1
+        }
         replies.remove(at: index)
+        commentCell.configure(comment: comment)
         router.backIfNeeded(from: view as! UIViewController)
         view?.removeReply(index: index)
     }

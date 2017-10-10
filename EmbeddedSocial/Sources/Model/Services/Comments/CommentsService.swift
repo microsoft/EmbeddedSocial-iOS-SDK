@@ -256,7 +256,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 success()
             }
         }
-        
+
     }
     
     private func convert(data: [CommentView]) -> [Comment] {
@@ -275,13 +275,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
         comment.totalLikes = commentView.totalLikes ?? 0
         comment.liked = commentView.liked ?? false
         comment.userStatus = FollowStatus(status: commentView.user?.followerStatus)
-        
-        let cacheRequestForComment = CacheFetchRequest(
-            resultType: PostReplyRequest.self,
-            predicate: PredicateBuilder().predicate(typeID: commentView.commentHandle!))
-        
-        let cachedRepliesCount = cache.fetchOutgoing(with: cacheRequestForComment).count
-        comment.totalReplies = (commentView.totalReplies ?? 0) + Int64(cachedRepliesCount)
         
         return comment
     }
