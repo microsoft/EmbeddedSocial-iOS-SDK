@@ -243,9 +243,18 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     fileprivate func isHomeFeedType() -> Bool {
         return feedType == .home
     }
+
+    fileprivate func shouldShowNoContent() -> Bool {
+        switch feedType! {
+            
+        // Show no data for all feeds
+        default:
+            return true
+        }
+    }
     
     fileprivate func checkIfNoContent() {
-        if isHomeFeedType() {
+        if shouldShowNoContent() {
             view.needShowNoContent(state: items.count == 0)
         }
     }

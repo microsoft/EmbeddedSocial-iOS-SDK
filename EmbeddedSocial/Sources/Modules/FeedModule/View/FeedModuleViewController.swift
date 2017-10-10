@@ -155,7 +155,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         
         
         // Subviews
-        view.addSubview(noContentLabel)
+        collectionView.addSubview(noContentLabel)
         
         noContentLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
