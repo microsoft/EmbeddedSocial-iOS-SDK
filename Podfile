@@ -13,7 +13,6 @@ abstract_target 'Group' do
 
     pod 'Alamofire', '4.5.0'
     pod 'SwiftLint', '0.20.1'
-    pod 'SVProgressHUD', '2.1.2'
     pod 'SnapKit', '3.2.0'
     pod 'SlideMenuControllerSwift', '3.0'
     pod 'TwitterKit', '2.8.0'
@@ -25,6 +24,7 @@ abstract_target 'Group' do
     pod 'OAuthSwift', :path => 'EmbeddedSocial/Vendor/OAuthSwift'
     pod 'LiveSDK', :path => 'EmbeddedSocial/Vendor/LiveSDK'
     pod 'SKPhotoBrowser', '4.0.1'
+    pod 'MBProgressHUD', '1.0'
     facebook
 
     target 'EmbeddedSocial' do

@@ -12,7 +12,7 @@ protocol PostDetailViewInput: class {
     func refreshPostCell()
     func setFeedViewController(_ feedViewController: UIViewController)
     func updateComments()
-    func showHUD()
+    func showLoadingHUD()
     func updateLoadingCell()
     func removeComment(index: Int)
     func scrollCollectionViewToBottom()

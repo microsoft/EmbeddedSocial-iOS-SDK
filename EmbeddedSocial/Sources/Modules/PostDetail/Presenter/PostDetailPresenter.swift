@@ -172,7 +172,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
             router.openLogin(from: view as! UIViewController)
             return
         }
-        view.showHUD()
+        view.showLoadingHUD()
         interactor.postComment(photo: photo, topicHandle: topicHandle, comment: comment)
     }
 }

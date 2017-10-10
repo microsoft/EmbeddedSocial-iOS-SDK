@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import SVProgressHUD
 
 protocol PopularModuleViewInput: class {
     func setupInitialState(showGalleryView: Bool)
@@ -56,10 +55,9 @@ class PopularModuleView: UIViewController {
             container.isUserInteractionEnabled = isLockedUI == 0
             
             if isLockedUI == 0 {
-                SVProgressHUD.dismiss()
+                hideHUD(in: container)
             } else {
-                SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.none)
-                SVProgressHUD.show()
+                showHUD(in: container)
             }
             
             Logger.log(isLockedUI, feedControl.isEnabled)

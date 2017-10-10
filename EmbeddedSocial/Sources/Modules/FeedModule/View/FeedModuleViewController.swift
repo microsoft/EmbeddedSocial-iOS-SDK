@@ -4,7 +4,6 @@
 //
 
 import UIKit
-import SVProgressHUD
 
 protocol FeedModuleViewInput: class {
     
@@ -353,11 +352,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         Logger.log(state)
         if state {
             //            collectionView.isUserInteractionEnabled = false
-            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.none)
-            SVProgressHUD.show()
+            showHUD(in: view)
         } else {
             //            collectionView.isUserInteractionEnabled = true
-            SVProgressHUD.dismiss()
+            hideHUD(in: view)
         }
     }
     
