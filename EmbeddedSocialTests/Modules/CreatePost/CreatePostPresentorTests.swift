@@ -9,12 +9,14 @@ import XCTest
 class CreatePostPresentorTests: XCTestCase {
     
     let presenter = CreatePostPresenter()
-    let interactor = MockCreatePostInteractor()
+    var interactor: MockCreatePostInteractor!
     let view = MockCreatePostViewController()
     let user =  User(uid: "test", firstName: "First name", lastName: "Last name", email: "email@test.com", bio: nil, photo: nil, credentials: CredentialsList(provider: AuthProvider(rawValue: 0)!, accessToken: "token", socialUID: "uid"))
     
     override func setUp() {
         super.setUp()
+        let userHolder = MyProfileHolder()
+        interactor = MockCreatePostInteractor(userHolder: userHolder)
         presenter.interactor = interactor
         presenter.user = user
         view.output = presenter
@@ -58,12 +60,14 @@ class CreatePostPresentorTests: XCTestCase {
     func testThatPostIsUpdating() {
         
         //given
-        var post = Post()
-        post.topicHandle = "handle"
+        
+        let post = Post.mock()
+        let photo = Photo(image: UIImage())
         presenter.post = post
         
+        
         //when
-        presenter.post(photo: nil, title: "title", body: "test")
+        presenter.post(photo: photo, title: post.title, body: post.text)
         
         //then
         XCTAssertEqual(interactor.updateTopicCount, 1)

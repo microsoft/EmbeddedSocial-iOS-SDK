@@ -6,7 +6,7 @@
 class CreatePostInteractor: CreatePostInteractorInput {
     
     weak var output: CreatePostInteractorOutput!
-    var topicService: TopicService?
+    var topicService: PostServiceProtocol?
     private let userHolder: UserHolder
     
     init(userHolder: UserHolder = SocialPlus.shared) {
@@ -34,6 +34,7 @@ class CreatePostInteractor: CreatePostInteractorInput {
              pinned: false)
         
         topicService?.postTopic(post,
+                                photo: photo,
                                 success: { [weak self] _ in self?.output.created() },
                                 failure: { [weak self] error in self?.output.postCreationFailed(error: error) })
     }
