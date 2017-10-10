@@ -28,16 +28,6 @@ class MockSocialPlusServices: SocialPlusServicesType {
         return getSessionStoreRepositoriesProviderReturnValue
     }
     
-    //MARK: - getThirdPartyConfigurator
-    
-    var getThirdPartyConfiguratorCalled = false
-    var getThirdPartyConfiguratorReturnValue: ThirdPartyConfiguratorType!
-    
-    func getThirdPartyConfigurator() -> ThirdPartyConfiguratorType {
-        getThirdPartyConfiguratorCalled = true
-        return getThirdPartyConfiguratorReturnValue
-    }
-    
     //MARK: - getCoreDataStack
     
     var getCoreDataStackCalled = false
@@ -72,12 +62,14 @@ class MockSocialPlusServices: SocialPlusServicesType {
     
     //MARK: - getAuthorizationMulticast
     
-    var getAuthorizationMulticastCalled = false
-    var getAuthorizationMulticastReturnValue: AuthorizationMulticastType!
+    var getAuthorizationMulticastAppKeyCalled = false
+    var getAuthorizationMulticastAppKeyReceivedAppKey: String?
+    var getAuthorizationMulticastAppKeyReturnValue: AuthorizationMulticastType!
     
-    func getAuthorizationMulticast() -> AuthorizationMulticastType {
-        getAuthorizationMulticastCalled = true
-        return getAuthorizationMulticastReturnValue
+    func getAuthorizationMulticast(appKey: String) -> AuthorizationMulticastType {
+        getAuthorizationMulticastAppKeyCalled = true
+        getAuthorizationMulticastAppKeyReceivedAppKey = appKey
+        return getAuthorizationMulticastAppKeyReturnValue
     }
     
     //MARK: - getDaemonsController
@@ -92,27 +84,28 @@ class MockSocialPlusServices: SocialPlusServicesType {
         return getDaemonsControllerCacheReturnValue
     }
     
-    //MARK: - getStartupCommands
-
-    var getStartupCommandsCalled = false
-    var getStartupCommandsReceivedLaunchArgs: LaunchArguments?
-    var getStartupCommandsReturnValue: [Command]!
-    
-    func getStartupCommands(launchArgs: LaunchArguments) -> [Command] {
-        getStartupCommandsCalled = true
-        getStartupCommandsReceivedLaunchArgs = launchArgs
-        return getStartupCommandsReturnValue
-    }
-    
     //MARK: - getAppConfiguration
     
-    var getAppConfigurationCalled = false
-    var getAppConfigurationReceivedConfigFilename: String?
-    var getAppConfigurationReturnValue: AppConfigurationType!
-
+    var getAppConfigurationConfigFilenameCalled = false
+    var getAppConfigurationConfigFilenameReceivedConfigFilename: String?
+    var getAppConfigurationConfigFilenameReturnValue: AppConfigurationType!
+    
     func getAppConfiguration(configFilename: String) -> AppConfigurationType {
-        getAppConfigurationCalled = true
-        getAppConfigurationReceivedConfigFilename = configFilename
-        return getAppConfigurationReturnValue
+        getAppConfigurationConfigFilenameCalled = true
+        getAppConfigurationConfigFilenameReceivedConfigFilename = configFilename
+        return getAppConfigurationConfigFilenameReturnValue
     }
+    
+    //MARK: - getStartupCommands
+    
+    var getStartupCommandsLaunchArgsSettingsCalled = false
+    var getStartupCommandsLaunchArgsSettingsReceivedArguments: (launchArgs: LaunchArguments, settings: Settings)?
+    var getStartupCommandsLaunchArgsSettingsReturnValue: [Command]!
+    
+    func getStartupCommands(launchArgs: LaunchArguments, settings: Settings) -> [Command] {
+        getStartupCommandsLaunchArgsSettingsCalled = true
+        getStartupCommandsLaunchArgsSettingsReceivedArguments = (launchArgs: launchArgs, settings: settings)
+        return getStartupCommandsLaunchArgsSettingsReturnValue
+    }
+    
 }

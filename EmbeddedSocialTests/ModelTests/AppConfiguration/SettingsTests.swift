@@ -32,7 +32,7 @@ class SettingsTests: XCTestCase {
         expect(settings?.numberOfCommentsToShow).to(equal(config["numberOfCommentsToShow"] as? Int))
         
         expect(settings?.showGalleryView).to(equal(config["showGalleryView"] as? Bool))
-        expect(settings?.showGalleryView).to(equal(config["userRelationsEnabled"] as? Bool))
+        expect(settings?.searchEnabled).to(equal(config["searchEnabled"] as? Bool))
     }
     
     private func intValue(from any: Any?) -> Int? {
@@ -46,7 +46,7 @@ class SettingsTests: XCTestCase {
             "numberOfCommentsToShow": 20,
             "numberOfRepliesToShow": 20,
             "showGalleryView": true,
-            "userRelationsEnabled": true
+            "searchEnabled": true
         ]
     }
 }

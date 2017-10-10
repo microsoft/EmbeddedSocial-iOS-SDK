@@ -12,4 +12,16 @@ class MockAppConfiguration: AppConfigurationType {
         return Theme(config: config)!
     }()
     
+    var settings: Settings = {
+        let config: [String : Any] = [
+            "serverURL": UUID().uuidString,
+            "appKey": UUID().uuidString,
+            "numberOfCommentsToShow": 20,
+            "numberOfRepliesToShow": 20,
+            "showGalleryView": true,
+            "searchEnabled": true
+        ]
+        return Settings(config: config)!
+    }()
+    
 }
