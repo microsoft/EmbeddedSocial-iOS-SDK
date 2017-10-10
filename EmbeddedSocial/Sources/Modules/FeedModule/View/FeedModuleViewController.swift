@@ -352,10 +352,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         Logger.log(state)
         if state {
             //            collectionView.isUserInteractionEnabled = false
-            showHUD()
+            showHUD(in: view)
         } else {
             //            collectionView.isUserInteractionEnabled = true
-            hideHUD()
+            hideHUD(in: view)
         }
     }
     
