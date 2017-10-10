@@ -44,9 +44,11 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     private var cursor: String?
     private let myProfileHolder: UserHolder
+    private let pageSize: Int
     
-    init(myProfileHolder: UserHolder) {
+    init(myProfileHolder: UserHolder, pageSize: Int) {
         self.myProfileHolder = myProfileHolder
+        self.pageSize = pageSize
     }
     
     // MARK: CommentRepliesViewOutput
@@ -64,7 +66,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         scrollType = .none
         loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
         loadMoreCellViewModel.startLoading()
-        interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
+        interactor.fetchReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: pageSize)
     }
     
     func reply(index: Int) -> Reply {
@@ -84,13 +86,13 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             return
         }
         
-        interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
+        interactor.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: pageSize)
     }
     
     func fetchMore() {
         loadMoreCellViewModel.startLoading()
         view?.updateLoadingCell()
-        interactor.fetchMoreReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: Constants.CommentReplies.pageSize)
+        interactor.fetchMoreReplies(commentHandle: comment.commentHandle, cursor: cursor, limit: pageSize)
     }
     
     func loadRestReplies() {

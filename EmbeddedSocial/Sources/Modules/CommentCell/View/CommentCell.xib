@@ -21,7 +21,7 @@
                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="xbj-W3-BRS" userLabel="header">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="500" image="user_photo_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="sda-gf-jxV">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="500" image="user_photo_placeholder_light" translatesAutoresizingMaskIntoConstraints="NO" id="sda-gf-jxV">
                                 <rect key="frame" x="20" y="10" width="30" height="30"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Avatar" label="Avatar">
                                     <bool key="isElement" value="YES"/>
@@ -233,6 +233,6 @@
         <image name="icon_dots" width="36" height="36"/>
         <image name="icon_liked" width="36" height="36"/>
         <image name="icon_liked_active" width="48" height="48"/>
-        <image name="user_photo_placeholder" width="150" height="150"/>
+        <image name="user_photo_placeholder_light" width="150" height="150"/>
     </resources>
 </document>

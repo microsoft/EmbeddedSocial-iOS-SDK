@@ -12,6 +12,7 @@ class PostDetailsPresenterTests: XCTestCase {
     let interactor = MockPostDetailsInteractor()
     let view = MockPostDetailViewController()
     let router = MockPostDetailRouter()
+    let pageSize = 100
     
     var post: PostViewModel!
     
@@ -35,7 +36,7 @@ class PostDetailsPresenterTests: XCTestCase {
             
         })
         myProfileHolder = MyProfileHolder()
-        presenter = PostDetailPresenter(myProfileHolder: myProfileHolder)
+        presenter = PostDetailPresenter(myProfileHolder: myProfileHolder, pageSize: pageSize)
         presenter.interactor = interactor
         presenter.view = view
         presenter.topicHandle = "topicHandle"

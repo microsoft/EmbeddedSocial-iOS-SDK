@@ -409,8 +409,13 @@ open class APIRouter: WebApp {
     }
     
     private func matchRoute(to searchPath: String) -> (WebApp, [String])? {
-        print("Request: " + searchPath)
+        print("Request: " + searchPath + " - \(APIConfig.isReachable ? "Online" : "Offline")")
         APIState.addRequest(searchPath)
+        
+        if !APIConfig.isReachable {
+            let error: WebApp = DataResponse(statusCode: 500, statusMessage: "Internal Server Error from UI Test")
+            return (error, [])
+        }
         
         if routes[searchPath] != nil {
             return (routes[searchPath]!, [])

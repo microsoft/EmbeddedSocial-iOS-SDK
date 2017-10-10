@@ -7,7 +7,13 @@ import Foundation
 
 struct APIBasePathSetupCommand: Command {
     
+    private let basePath: String
+    
+    init(basePath: String) {
+        self.basePath = basePath
+    }
+    
     func execute() {
-        EmbeddedSocialClientAPI.basePath = UITestsHelper.mockServerPath ?? Constants.API.ppeBasePath
+        EmbeddedSocialClientAPI.basePath = basePath
     }
 }

@@ -21,14 +21,15 @@ class CommentRepliesModuleConfigurator {
     func configure(commentModule: CommentCellModuleProtocol,
                    scrollType: RepliesScrollType,
                    myProfileHolder: UserHolder = SocialPlus.shared,
-                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
+                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator,
+                   pageSize: Int = SocialPlus.settings.numberOfRepliesToShow) {
         
         let router = CommentRepliesRouter()
         router.loginOpener = loginOpener
         
         let repliesService = RepliesService()
         
-        let presenter = CommentRepliesPresenter(myProfileHolder: myProfileHolder)
+        let presenter = CommentRepliesPresenter(myProfileHolder: myProfileHolder, pageSize: pageSize)
         presenter.comment = commentModule.mainComment()
         presenter.commentCell = commentModule.cell()
         presenter.commentCell.separator.isHidden = false
