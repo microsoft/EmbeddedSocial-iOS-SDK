@@ -8,6 +8,8 @@
 # Test
   desc "Runs unit tests"
   lane :unit_tests do |params|
+    ENV['FASTLANE_XCODE_LIST_TIMEOUT'] = '1800'
+    ENV['FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT'] = '1800'
     scan(
 	scheme: "EmbeddedSocial",
 	device: "iPhone 7 (10.3)"
