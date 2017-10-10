@@ -208,7 +208,14 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     // MARK: Private
     
     private func collectionPaddingNeeded() -> Bool {
-        return isHomeFeedType()
+        
+        guard let feedType = self.feedType else { return false }
+        
+        switch feedType {
+        default:
+            // All feeds use padding for cells
+            return true
+        }
     }
     
     private func onLayoutTypeChange() {
@@ -224,6 +231,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             view.resetFocus()
             fetchAllItems()
         }
+        
+        updatePadding()
     }
     
     fileprivate func shouldFetchOnViewAppear() -> Bool {
@@ -242,6 +251,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     fileprivate func isHomeFeedType() -> Bool {
         return feedType == .home
+    }
+    
+    fileprivate func updatePadding() {
+        view.paddingEnabled = collectionPaddingNeeded()
     }
 
     fileprivate func shouldShowNoContent() -> Bool {
@@ -429,7 +442,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func viewIsReady() {
         view.setupInitialState()
-        view.paddingEnabled = collectionPaddingNeeded()
+        updatePadding()
         
         if let header = header {
             view.registerHeader(withType: header.type, configurator: header.configurator)
@@ -467,6 +480,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
+        defer {
+            checkIfNoContent()
+        }
+        
         Logger.log("items arrived", event: .veryImportant)
         
         let cachedNumberOfItems = items.count
@@ -501,9 +518,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             // update data for rest of cells
             view.reloadVisible()
         }
-    
-        // update "No content"
-        checkIfNoContent()
     }
     
     func didFetch(feed: Feed) {
