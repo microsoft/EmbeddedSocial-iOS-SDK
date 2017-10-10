@@ -9,11 +9,12 @@ import MBProgressHUD
 
 extension UIViewController {
     
-    func showHUD() {
-        SVProgressHUD.show()
+    func showHUD(in view: UIView = UIApplication.shared.keyWindow!, isBlocking: Bool = false) {
+        let hud = MBProgressHUD.showAdded(to: view, animated: true)
+        hud.isUserInteractionEnabled = isBlocking
     }
     
-    func hideHUD() {
-        SVProgressHUD.dismiss()
+    func hideHUD(in view: UIView = UIApplication.shared.keyWindow!) {
+        MBProgressHUD.hide(for: view, animated: true)
     }
 }

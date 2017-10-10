@@ -15,7 +15,11 @@ fileprivate enum CommentsSections: Int {
 }
 
 class PostDetailViewController: BaseViewController, PostDetailViewInput {
-
+    
+    func showLoadingHUD() {
+        showHUD()
+    }
+    
     @IBOutlet weak var collectionView: UICollectionView!
     var output: PostDetailViewOutput!
     

@@ -354,7 +354,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         Logger.log(state)
         if state {
             //            collectionView.isUserInteractionEnabled = false
-            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.none)
             showHUD()
         } else {
             //            collectionView.isUserInteractionEnabled = true
