@@ -277,13 +277,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     @objc private func didTapChangeLayout() {
-        
-        // We do not change layout during collection animation.
-        guard canChangeLayout() else {
-            Logger.log("cant change layout")
-            return
-        }
-        
         output.didTapChangeLayout()
     }
     
