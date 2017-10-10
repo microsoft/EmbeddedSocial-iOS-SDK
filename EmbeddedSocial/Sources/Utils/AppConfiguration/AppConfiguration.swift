@@ -7,6 +7,7 @@ import Foundation
 
 protocol AppConfigurationType {
     var theme: Theme { get }
+    var settings: Settings { get }
 }
 
 class AppConfiguration: AppConfigurationType {

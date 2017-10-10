@@ -6,7 +6,7 @@
 import Foundation
 
 protocol UserProfileViewInput: class {
-    func setupInitialState()
+    func setupInitialState(showGalleryView: Bool)
     
     func setFeedViewController(_ feedViewController: UIViewController)
     

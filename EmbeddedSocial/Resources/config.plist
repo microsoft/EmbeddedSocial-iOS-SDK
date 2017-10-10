@@ -14,7 +14,7 @@
 		<integer>20</integer>
 		<key>showGalleryView</key>
 		<true/>
-		<key>userRelationsEnabled</key>
+		<key>searchEnabled</key>
 		<true/>
 	</dict>
 	<key>theme</key>

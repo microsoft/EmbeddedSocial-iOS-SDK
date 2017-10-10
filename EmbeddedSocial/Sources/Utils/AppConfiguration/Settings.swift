@@ -11,7 +11,7 @@ struct Settings {
     let numberOfCommentsToShow: Int
     let numberOfRepliesToShow: Int
     let showGalleryView: Bool
-    let userRelationsEnabled: Bool
+    let searchEnabled: Bool
     
     init?(config: [String: Any]) {
         guard let serverURL = config["serverURL"] as? String,
@@ -19,7 +19,7 @@ struct Settings {
             let numberOfCommentsToShow = config["numberOfCommentsToShow"] as? Int,
             let numberOfRepliesToShow = config["numberOfRepliesToShow"] as? Int,
             let showGalleryView = config["showGalleryView"] as? Bool,
-            let userRelationsEnabled = config["userRelationsEnabled"] as? Bool else {
+            let searchEnabled = config["searchEnabled"] as? Bool else {
                 return nil
         }
         
@@ -28,6 +28,6 @@ struct Settings {
         self.numberOfCommentsToShow = numberOfCommentsToShow
         self.numberOfRepliesToShow = numberOfRepliesToShow
         self.showGalleryView = showGalleryView
-        self.userRelationsEnabled = userRelationsEnabled
+        self.searchEnabled = searchEnabled
     }
 }
