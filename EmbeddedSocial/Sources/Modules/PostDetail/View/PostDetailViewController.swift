@@ -4,7 +4,6 @@
 //
 
 import UIKit
-import SVProgressHUD
 import SKPhotoBrowser
 
 fileprivate enum CommentsSections: Int {

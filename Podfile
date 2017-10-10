@@ -13,7 +13,6 @@ abstract_target 'Group' do
 
     pod 'Alamofire', '4.5.0'
     pod 'SwiftLint', '0.20.1'
-    pod 'SVProgressHUD', '2.1.2'
     pod 'SnapKit', '3.2.0'
     pod 'SlideMenuControllerSwift', '3.0'
     pod 'TwitterKit', '2.8.0'

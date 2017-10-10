@@ -4,7 +4,6 @@
 //
 
 import UIKit
-import SVProgressHUD
 import MBProgressHUD
 
 extension UIViewController {

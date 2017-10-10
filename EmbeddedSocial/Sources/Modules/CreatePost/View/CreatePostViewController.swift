@@ -5,7 +5,6 @@
 
 import UIKit
 import SDWebImage
-import SVProgressHUD
 
 class CreatePostViewController: BaseViewController, CreatePostViewInput {
 

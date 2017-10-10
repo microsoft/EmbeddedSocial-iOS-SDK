@@ -4,7 +4,6 @@
 //
 
 import UIKit
-import SVProgressHUD
 
 protocol DetailedActivityViewInput: class {
     func setupInitialState()

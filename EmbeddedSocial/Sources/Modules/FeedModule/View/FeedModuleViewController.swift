@@ -4,7 +4,6 @@
 //
 
 import UIKit
-import SVProgressHUD
 
 protocol FeedModuleViewInput: class {
     

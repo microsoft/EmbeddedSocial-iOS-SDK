@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import SVProgressHUD
 
 protocol PopularModuleViewInput: class {
     func setupInitialState(showGalleryView: Bool)
