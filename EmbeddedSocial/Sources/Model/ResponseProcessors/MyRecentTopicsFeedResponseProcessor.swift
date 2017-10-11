@@ -5,9 +5,9 @@
 
 import Foundation
 
-class OtherUserTopicsFeedResponseProcessor: TopicsFeedResponseProcessor {
+class MyRecentTopicsFeedResponseProcessor: TopicsFeedResponseProcessor {
     
     override var fetchTopicsPredicate: NSPredicate {
-        return predicateBuilder.allTopicActionCommands()
+        return predicateBuilder.allTopicCommands()
     }
 }

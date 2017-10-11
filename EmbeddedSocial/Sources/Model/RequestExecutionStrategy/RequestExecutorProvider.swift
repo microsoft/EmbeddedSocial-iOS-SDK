@@ -44,8 +44,8 @@ protocol CacheRequestExecutorProviderType {
     
     static func makeMyPendingRequestsExecutor(for service: BaseService) -> UsersFeedRequestExecutor
     
-    static func makeOtherUsersTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor
-    
+    static func makeMyRecentTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor
+
     static func makeSearchTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor
     
     static func makePopularUsersExecutor(for service: BaseService) -> PopularUsersRequestExecutor
@@ -83,11 +83,11 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
                                   responseProcessor: TopicsFeedResponseProcessor(cache: service.cache))
     }
     
-    static func makeOtherUsersTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor {
+    static func makeMyRecentTopicsFeedExecutor(for service: BaseService) -> TopicsFeedRequestExecutor {
         return makeCommonExecutor(requestType: FeedResponseTopicView.self,
                                   responseType: FeedFetchResult.self,
                                   service: service,
-                                  responseProcessor: OtherUserTopicsFeedResponseProcessor(cache: service.cache))
+                                  responseProcessor: MyRecentTopicsFeedResponseProcessor(cache: service.cache))
     }
     
     static func makeMyActivityExecutor(for service: BaseService) -> MyActivityRequestExecutor {
