@@ -29,7 +29,7 @@ class PopularModuleConfigurator {
         }
         
         popularViewController.output = presenter
-        popularViewController.theme = SocialPlus.theme
+        popularViewController.theme = AppConfiguration.shared.theme
 
         viewController = popularViewController
     }

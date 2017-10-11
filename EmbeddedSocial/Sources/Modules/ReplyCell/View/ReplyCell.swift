@@ -52,10 +52,10 @@ class ReplyCell: UICollectionViewCell, ReplyCellViewInput {
         postTimeLabel.text = reply.createdTime == nil ? "" : formatter.shortStyle.string(from: reply.createdTime!, to: Date())!
         
         if reply.user?.photo?.url == nil {
-            userPhoto.image = UIImage(asset: SocialPlus.assets.userPhotoPlaceholder)
+            userPhoto.image = UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder)
         } else {
             userPhoto.setPhotoWithCaching(Photo(url: reply.user?.photo?.url),
-                                          placeholder: UIImage(asset: SocialPlus.assets.userPhotoPlaceholder))
+                                          placeholder: UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder))
         }
         
         likeButton.isSelected = reply.liked

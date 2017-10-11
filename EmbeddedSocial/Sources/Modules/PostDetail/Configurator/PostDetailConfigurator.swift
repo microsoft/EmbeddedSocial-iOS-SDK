@@ -23,7 +23,7 @@ class PostDetailModuleConfigurator {
                    myProfileHolder: UserHolder = SocialPlus.shared,
                    loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator,
                    navigationController: UINavigationController? = nil,
-                   pageSize: Int = SocialPlus.settings.numberOfCommentsToShow) {
+                   pageSize: Int = AppConfiguration.shared.settings.numberOfCommentsToShow) {
         
         let router = PostDetailRouter()
         router.loginOpener = loginOpener
@@ -46,7 +46,7 @@ class PostDetailModuleConfigurator {
         
         presenter.interactor = interactor
         viewController.output = presenter
-        viewController.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
         
         let feedConfigurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache)
         feedConfigurator.configure(navigationController: navigationController, moduleOutput: presenter)

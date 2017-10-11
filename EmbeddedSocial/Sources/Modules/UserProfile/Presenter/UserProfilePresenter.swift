@@ -38,7 +38,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
         }
     }
     
-    init(userID: String? = nil, myProfileHolder: UserHolder, settings: Settings = SocialPlus.settings) {
+    init(userID: String? = nil, myProfileHolder: UserHolder, settings: Settings = AppConfiguration.shared.settings) {
         guard myProfileHolder.me != nil || userID != nil else {
             fatalError("Either userID or myProfileHolder must be supplied")
         }
