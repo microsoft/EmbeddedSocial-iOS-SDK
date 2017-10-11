@@ -275,6 +275,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         comment.totalLikes = commentView.totalLikes ?? 0
         comment.liked = commentView.liked ?? false
         comment.userStatus = FollowStatus(status: commentView.user?.followerStatus)
+        comment.totalReplies = commentView.totalReplies ?? 0 
         
         return comment
     }
