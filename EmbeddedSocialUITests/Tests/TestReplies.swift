@@ -20,7 +20,7 @@ class TestReplies: UITestBase {
         feed = Feed(app)
         comments = CommentsFeed(app)
         replies = RepliesFeed(app)
-        pageSize = EmbeddedSocial.Constants.CommentReplies.pageSize
+        pageSize = 5 //EmbeddedSocial.Constants.CommentReplies.pageSize
     }
     
     func openScreen() {

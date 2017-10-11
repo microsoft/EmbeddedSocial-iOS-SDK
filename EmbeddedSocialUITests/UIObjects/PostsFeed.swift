@@ -14,6 +14,8 @@ class Post {
     var likeButton: XCUIElement
     var pinButton: XCUIElement
     
+    var postImageButton: XCUIElement
+    
     private var titleLabel: XCUIElement
     
     private var menuButton: XCUIElement
@@ -28,6 +30,7 @@ class Post {
         self.menuButton = self.cell.buttons["Post Menu"]
         
         titleLabel = self.cell.staticTexts.element(boundBy: 2)
+        postImageButton = self.cell.buttons["Post Image"]
         
         postMenu = PostMenu(app, self)
     }
