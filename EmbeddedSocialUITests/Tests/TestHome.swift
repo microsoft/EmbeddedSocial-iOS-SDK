@@ -6,18 +6,16 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class TestHome: BaseFeedTest {
+class BaseTestHome: BaseFeedTest {
     
-    var details: PostDetails!
     var pageSize: Int!
-    
     var serviceName: String!
     
     override func setUp() {
         super.setUp()
         
-        details = PostDetails(app)
         pageSize = EmbeddedSocial.Constants.Feed.pageSize
+        
         feedName = "topics"
         serviceName = "topics"
     }
@@ -126,6 +124,7 @@ class TestHome: BaseFeedTest {
     }
 
     func testOpenPostDetails() {
+        let details = PostDetails(app)
         XCTAssertEqual(details.post.teaser.value as! String, "Post Details Screen", "Post details screen haven't been opened")
     }
     
@@ -154,12 +153,13 @@ class TestHome: BaseFeedTest {
     }
     
     func testOpenPostDetailsTileMode() {
+        let details = PostDetails(app)
         XCTAssertEqual(details.post.teaser.value as! String, "Post Details Screen", "Post details screen haven't been opened")
     }
     
 }
 
-class TestOnlineHome: TestHome, OnlineTest {
+class TestOnlineHome: BaseTestHome, OnlineTest {
     
     override func testFeedSource() {
         openScreen()
@@ -284,7 +284,7 @@ class TestOnlineHome: TestHome, OnlineTest {
     
 }
 
-class TestOfflineHome: TestHome, OfflineTest {
+class TestOfflineHome: BaseTestHome, OfflineTest {
     
     override func testFeedSource() {
         openScreen()
@@ -356,6 +356,7 @@ class TestOfflineHome: TestHome, OfflineTest {
         APIConfig.values = ["text": "Post Details Screen"]
         post.teaser.tap()
         
+        let details = PostDetails(app)
         makePullToRefreshWithoutReachability(with: details.post.cell)
         super.testOpenPostDetails()
     }
