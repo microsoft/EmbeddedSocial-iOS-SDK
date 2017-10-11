@@ -297,6 +297,7 @@
 		884499D41F8BC1F800838083 /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884499D31F8BC1F800838083 /* SettingsTests.swift */; };
 		884499D61F8BD01B00838083 /* Authorization+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884499D51F8BD01B00838083 /* Authorization+Ext.swift */; };
 		884499D81F8D10CC00838083 /* AuthorizedActionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884499D71F8D10CC00838083 /* AuthorizedActionStrategy.swift */; };
+		884499DC1F8E0B6500838083 /* MockLoginModalOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884499DB1F8E0B6500838083 /* MockLoginModalOpener.swift */; };
 		8846CB491F30C98C00F11EC8 /* UserListModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846CB481F30C98C00F11EC8 /* UserListModuleInput.swift */; };
 		8846CB4A1F30CA0800F11EC8 /* UserListConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882F103E1F30C8A20068B6F2 /* UserListConfigurator.swift */; };
 		8846CB4B1F30CA0A00F11EC8 /* UserListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882F10401F30C8A20068B6F2 /* UserListPresenter.swift */; };
@@ -1440,6 +1441,7 @@
 		884499D31F8BC1F800838083 /* SettingsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
 		884499D51F8BD01B00838083 /* Authorization+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Authorization+Ext.swift"; sourceTree = "<group>"; };
 		884499D71F8D10CC00838083 /* AuthorizedActionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizedActionStrategy.swift; sourceTree = "<group>"; };
+		884499DB1F8E0B6500838083 /* MockLoginModalOpener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLoginModalOpener.swift; sourceTree = "<group>"; };
 		8846CB481F30C98C00F11EC8 /* UserListModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListModuleInput.swift; sourceTree = "<group>"; };
 		884A834D1F87BDDE009C3FA0 /* MockTrendingTopicsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockTrendingTopicsInteractor.swift; sourceTree = "<group>"; };
 		884A834F1F87BE93009C3FA0 /* MockTrendingTopicsModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockTrendingTopicsModuleOutput.swift; sourceTree = "<group>"; };
@@ -4554,6 +4556,7 @@
 				9C3024381F55A5F600675FE9 /* FeedModule */,
 				88C665031F86620000A7763D /* MockAppConfiguration.swift */,
 				889AFC141F220BCD003AAF19 /* MockAuthAPI.swift */,
+				884499DB1F8E0B6500838083 /* MockLoginModalOpener.swift */,
 				889AFC151F220BCD003AAF19 /* MockAuthAPIProvider.swift */,
 				88F7A7881F27896B005FEC5F /* MockAuthService.swift */,
 				8886AA561F6A85B800734F3C /* MockAuthorizationMulticast.swift */,
@@ -7571,6 +7574,7 @@
 				88A970481F8397E50047D591 /* HexColor.swift in Sources */,
 				639A944C1F5D348D00EB0253 /* CommentCellPresenterTests.swift in Sources */,
 				884A83521F87BEBF009C3FA0 /* MockTrendingTopicsViewController.swift in Sources */,
+				884499DC1F8E0B6500838083 /* MockLoginModalOpener.swift in Sources */,
 				88204FBF1F584BF600E15F5A /* MockUserListRouter.swift in Sources */,
 				8868260D1F6A92E300F54731 /* UnfollowCommandTests.swift in Sources */,
 				639A943E1F5D2FD700EB0253 /* MockCommentCellPresenter.swift in Sources */,

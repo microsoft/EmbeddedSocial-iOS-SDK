@@ -13,6 +13,7 @@ class CommentCellPresenterTests: XCTestCase {
     var view: MockCommentCellViewInput!
     var router: MockCommentCellRouter!
     var myProfileHolder: MyProfileHolder!
+    var actionStrategy: CommonAuthorizedActionStrategy!
     
     override func setUp() {
         super.setUp()
@@ -21,8 +22,10 @@ class CommentCellPresenterTests: XCTestCase {
         view = MockCommentCellViewInput()
         router = MockCommentCellRouter()
         
-        presenter = CommentCellPresenter()
-        presenter.myProfileHolder = myProfileHolder
+        actionStrategy = CommonAuthorizedActionStrategy(myProfileHolder: myProfileHolder,
+                                                        loginParent: UIViewController(),
+                                                        loginOpener: MockLoginModalOpener())
+        presenter = CommentCellPresenter(actionStrategy: actionStrategy)
         presenter.router = router
         presenter.view = view
         presenter.interactor = interactor
@@ -42,6 +45,7 @@ class CommentCellPresenterTests: XCTestCase {
         view = nil
         router = nil
         myProfileHolder = nil
+        actionStrategy = nil
     }
     
     func testThatCommentLikedAndUnliked() {

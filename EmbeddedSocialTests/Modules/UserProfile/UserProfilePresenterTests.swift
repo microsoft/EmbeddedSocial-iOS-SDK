@@ -13,6 +13,9 @@ class UserProfilePresenterTests: XCTestCase {
     var myProfileHolder: MyProfileHolder!
     var feedInput: MockFeedModuleInput!
     var moduleOutput: MockUserProfileModuleOutput!
+    var actionStrategy: CommonAuthorizedActionStrategy!
+    var loginParent: UIViewController!
+    var loginOpener: MockLoginModalOpener!
     
     var randomValue: Int {
         return Int(arc4random() % 100)
@@ -26,6 +29,11 @@ class UserProfilePresenterTests: XCTestCase {
         interactor = MockUserProfileInteractor()
         feedInput = MockFeedModuleInput()
         moduleOutput = MockUserProfileModuleOutput()
+        loginParent = UIViewController()
+        loginOpener = MockLoginModalOpener()
+        actionStrategy = CommonAuthorizedActionStrategy(myProfileHolder: myProfileHolder,
+                                                        loginParent: loginParent,
+                                                        loginOpener: loginOpener)
     }
     
     override func tearDown() {
@@ -36,6 +44,9 @@ class UserProfilePresenterTests: XCTestCase {
         interactor = nil
         feedInput = nil
         moduleOutput = nil
+        loginParent = nil
+        loginOpener = nil
+        actionStrategy = nil
     }
     
     func testThatItSetsInitialStateWhenUserIsMe() {
@@ -378,7 +389,7 @@ class UserProfilePresenterTests: XCTestCase {
     }
     
     fileprivate func makeDefaultPresenter(userID: String? = nil) -> UserProfilePresenter {
-        let presenter = UserProfilePresenter(userID: userID, myProfileHolder: myProfileHolder)
+        let presenter = UserProfilePresenter(userID: userID, myProfileHolder: myProfileHolder, actionStrategy: actionStrategy)
         presenter.view = view
         presenter.router = router
         presenter.interactor = interactor
