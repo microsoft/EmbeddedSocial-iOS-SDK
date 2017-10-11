@@ -12,7 +12,7 @@ class SideMenuAccountInfoView: UIControl {
     @IBOutlet weak var accountImage: UIImageView!
     
     func configure(with model: SideMenuHeaderModel) {
-        accountImage.setPhotoWithCaching(model.image, placeholder: UIImage(asset: SocialPlus.assets.userPhotoPlaceholder))
+        accountImage.setPhotoWithCaching(model.image, placeholder: UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder))
         accountName.text = model.title
         isSelected = model.isSelected
     }

@@ -29,7 +29,7 @@ final class SearchConfigurator {
         presenter.interactor = SearchInteractor()
         
         viewController.output = presenter
-        viewController.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
         
         moduleInput = presenter
     }

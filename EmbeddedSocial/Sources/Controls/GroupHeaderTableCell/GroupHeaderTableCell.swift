@@ -60,17 +60,17 @@ extension GroupHeaderTableCell.Style {
     
     static var editProfile: Style {
         let insets = UIEdgeInsets(top: 0.0, left: Constants.CreateAccount.contentPadding, bottom: 0.0, right: 0.0)
-        return Style(titleColor: SocialPlus.palette.textPrimary,
+        return Style(titleColor: AppConfiguration.shared.theme.palette.textPrimary,
                      titleFont: AppFonts.regular,
-                     backgroundColor: SocialPlus.palette.tableGroupHeaderBackground,
+                     backgroundColor: AppConfiguration.shared.theme.palette.tableGroupHeaderBackground,
                      titleInsets: insets)
     }
     
     static var search: Style {
         let insets = UIEdgeInsets(top: 0.0, left: Constants.CreateAccount.contentPadding, bottom: 0.0, right: 0.0)
-        return Style(titleColor: SocialPlus.palette.textPrimary,
+        return Style(titleColor: AppConfiguration.shared.theme.palette.textPrimary,
                      titleFont: AppFonts.regular,
-                     backgroundColor: SocialPlus.palette.tableGroupHeaderBackground,
+                     backgroundColor: AppConfiguration.shared.theme.palette.tableGroupHeaderBackground,
                      titleInsets: insets)
     }
 }

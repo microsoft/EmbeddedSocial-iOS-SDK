@@ -218,7 +218,7 @@ extension ActivityBaseCell {
  
     struct Style {
         static let insets = UIEdgeInsets(top: 15, left: 25, bottom: -15, right: -25)
-        static var backgroundColor: UIColor { return SocialPlus.palette.contentBackground }
+        static var backgroundColor: UIColor { return AppConfiguration.shared.theme.palette.contentBackground }
         static let paddingVertical = 15
         static let paddingHorizontal = 15
         static let ItemInterval = 10
@@ -237,14 +237,14 @@ extension ActivityBaseCell {
                 static var time: [String: Any] {
                     return [
                         NSFontAttributeName: ActivityBaseCell.Style.Fonts.bold,
-                        NSForegroundColorAttributeName: SocialPlus.palette.textSecondary
+                        NSForegroundColorAttributeName: AppConfiguration.shared.theme.palette.textSecondary
                     ]
                 }
                 
                 static var normal: [String: Any] {
                     return [
                         NSFontAttributeName: ActivityBaseCell.Style.Fonts.bold,
-                        NSForegroundColorAttributeName: SocialPlus.palette.textPrimary
+                        NSForegroundColorAttributeName: AppConfiguration.shared.theme.palette.textPrimary
                     ]
                 }
             }

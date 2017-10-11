@@ -22,11 +22,11 @@ struct EmbeddedEditProfileConfigurator {
         presenter.interactor = EmbeddedEditProfileInteractor(userService: UserService(imagesService: ImagesService()))
         
         let dataManager = EmbeddedEditProfileDataDisplayManager()
-        dataManager.theme = SocialPlus.theme
+        dataManager.theme = AppConfiguration.shared.theme
         
         view.output = presenter
         view.dataManager = dataManager
-        view.theme = SocialPlus.theme
+        view.theme = AppConfiguration.shared.theme
         
         return presenter
     }

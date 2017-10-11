@@ -22,7 +22,7 @@ class CommentRepliesModuleConfigurator {
                    scrollType: RepliesScrollType,
                    myProfileHolder: UserHolder = SocialPlus.shared,
                    loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator,
-                   pageSize: Int = SocialPlus.settings.numberOfRepliesToShow) {
+                   pageSize: Int = AppConfiguration.shared.settings.numberOfRepliesToShow) {
         
         let router = CommentRepliesRouter()
         router.loginOpener = loginOpener
@@ -47,7 +47,7 @@ class CommentRepliesModuleConfigurator {
         interactor.repliesService = repliesService
         viewController.output = presenter
         
-        viewController.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
     }
 
 }

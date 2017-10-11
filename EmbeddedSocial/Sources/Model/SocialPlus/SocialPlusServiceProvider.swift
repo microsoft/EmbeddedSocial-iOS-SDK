@@ -20,13 +20,11 @@ protocol SocialPlusServicesType {
     
     func getNetworkTracker() -> NetworkTrackerType
     
-    func getAuthorizationMulticast(appKey: String) -> AuthorizationMulticastType
+    func getAuthorizationMulticast() -> AuthorizationMulticastType
     
     func getDaemonsController(cache: CacheType) -> Daemon
     
-    func getAppConfiguration(configFilename: String) -> AppConfigurationType
-    
-    func getStartupCommands(launchArgs: LaunchArguments, settings: Settings) -> [Command]
+    func getStartupCommands(launchArgs: LaunchArguments) -> [Command]
 }
 
 final class SocialPlusServices: SocialPlusServicesType {
@@ -65,40 +63,17 @@ final class SocialPlusServices: SocialPlusServicesType {
         return networkTracker
     }
 
-    func getAuthorizationMulticast(appKey: String) -> AuthorizationMulticastType {
-        return AuthorizationMulticast(authorization: Authorization.anonymous(appKey: appKey))
+    func getAuthorizationMulticast() -> AuthorizationMulticastType {
+        return AuthorizationMulticast(authorization: Authorization.anonymous)
     }
     
     func getDaemonsController(cache: CacheType) -> Daemon {
         return DaemonsController(networkTracker: networkTracker, cache: cache)
     }
     
-    func getAppConfiguration(configFilename: String) -> AppConfigurationType {
-        guard let config = PlistLoader.loadPlist(name: configFilename),
-            let theme = makeTheme(config: config),
-            let settings = makeSettings(config: config) else {
-                fatalError("Config file is wrong or missing.")
-        }
-        return AppConfiguration(theme: theme, settings: settings)
-    }
-    
-    private func makeTheme(config appConfig: [String: Any]) -> Theme? {
-        guard let config = appConfig["theme"] as? [String: Any] else {
-            return nil
-        }
-        return Theme(config: config)
-    }
-    
-    private func makeSettings(config appConfig: [String: Any]) -> Settings? {
-        guard let config = appConfig["application"] as? [String: Any] else {
-            return nil
-        }
-        return Settings(config: config)
-    }
-    
-    func getStartupCommands(launchArgs: LaunchArguments, settings: Settings) -> [Command] {
+    func getStartupCommands(launchArgs: LaunchArguments) -> [Command] {
         let command1 = ThirdPartiesConfigurationCommand(configurator: ThirdPartyConfigurator(), launchArgs: launchArgs)
-        let command2 = APIBasePathSetupCommand(basePath: UITestsHelper.mockServerPath ?? settings.serverURL)
+        let command2 = APIBasePathSetupCommand(basePath: UITestsHelper.mockServerPath ?? AppConfiguration.shared.settings.serverURL)
         let command3 = AppThemeConfigurationCommand()
         return [command1, command2, command3]
     }

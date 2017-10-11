@@ -37,7 +37,7 @@ struct UserProfileConfigurator {
         router.followRequestsModuleOutput = presenter
         
         viewController.output = presenter
-        viewController.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
         
         viewController.title = L10n.UserProfile.screenTitle
         

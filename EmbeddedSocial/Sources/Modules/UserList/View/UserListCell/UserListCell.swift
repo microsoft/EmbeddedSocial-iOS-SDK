@@ -56,7 +56,7 @@ extension UserListCell {
 
         let user = item.user
         
-        profileImageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: SocialPlus.assets.userPhotoPlaceholder))
+        profileImageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder))
         profileImageView.setNeedsUpdateConstraints()
         profileImageView.updateConstraints()
         profileImageView.makeCircular()

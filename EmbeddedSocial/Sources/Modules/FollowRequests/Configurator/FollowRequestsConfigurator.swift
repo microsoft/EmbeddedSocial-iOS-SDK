@@ -33,6 +33,6 @@ struct FollowRequestsConfigurator {
         
         viewController.output = presenter
         viewController.dataManager = FollowRequestsDataDisplayManager()
-        viewController.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
     }
 }

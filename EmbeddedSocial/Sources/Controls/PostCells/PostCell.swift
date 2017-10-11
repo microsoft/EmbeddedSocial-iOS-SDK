@@ -221,7 +221,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     }()
     
     private lazy var userImagePlaceholder: UIImage = {
-        return UIImage(asset: SocialPlus.assets.userPhotoPlaceholder)
+        return UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder)
     }()
     
     deinit {
