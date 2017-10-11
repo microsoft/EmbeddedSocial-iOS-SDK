@@ -38,6 +38,6 @@ extension UIViewController {
     }
     
     func showErrorAlert(_ error: Error) {
-//        showAlert(message: error.localizedDescription)
+        showAlert(message: error.localizedDescription)
     }
 }
