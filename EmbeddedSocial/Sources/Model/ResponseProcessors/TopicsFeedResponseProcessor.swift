@@ -19,7 +19,7 @@ class TopicsFeedResponseProcessor: ResponseProcessor<FeedResponseTopicView, Feed
     let predicateBuilder: TopicServicePredicateBuilder
     
     var fetchTopicsPredicate: NSPredicate {
-        return predicateBuilder.allTopicCommands()
+        return predicateBuilder.allTopicActionCommands()
     }
     
     init(cache: CacheType,

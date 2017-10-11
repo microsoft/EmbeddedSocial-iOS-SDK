@@ -187,7 +187,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     fileprivate let settings: Settings
     
-    init(settings: Settings = SocialPlus.settings) {
+    init(settings: Settings = AppConfiguration.shared.settings) {
         self.settings = settings
     }
     

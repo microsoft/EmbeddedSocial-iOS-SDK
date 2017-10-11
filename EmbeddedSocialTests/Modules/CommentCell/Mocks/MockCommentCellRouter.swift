@@ -28,11 +28,6 @@ class MockCommentCellRouter: CommentCellRouterInput {
         openLikesCount = 1
     }
     
-    var openLoginCount = 0
-    func openLogin() {
-        openLoginCount += 1
-    }
-    
     var openMyCommentOptionsCount = 0
     func openMyCommentOptions(comment: Comment) {
         openMyCommentOptionsCount += 1

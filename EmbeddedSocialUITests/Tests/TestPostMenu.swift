@@ -5,7 +5,7 @@
 
 import XCTest
 
-class TestPostMenu: TestHome {
+class TestPostMenu: TestOnlineHome, OnlineTest {
     
     private var randomFeedPostInformation: (index: UInt, post: Post)!
     

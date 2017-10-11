@@ -43,12 +43,12 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     fileprivate var loadMoreCellViewModel = LoadMoreCellViewModel()
     
     private var cursor: String?
-    private let myProfileHolder: UserHolder
     private let pageSize: Int
+    private let actionStrategy: AuthorizedActionStrategy
     
-    init(myProfileHolder: UserHolder, pageSize: Int) {
-        self.myProfileHolder = myProfileHolder
+    init(pageSize: Int, actionStrategy: AuthorizedActionStrategy) {
         self.pageSize = pageSize
+        self.actionStrategy = actionStrategy
     }
     
     // MARK: CommentRepliesViewOutput
@@ -111,10 +111,10 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func postReply(text: String) {
-        guard myProfileHolder.me != nil else {
-            router.openLogin(from: view as? UIViewController ?? UIViewController())
-            return
-        }
+        actionStrategy.executeOrPromptLogin { [weak self] in self?._postReply(text: text) }
+    }
+    
+    func _postReply(text: String) {
         view?.lockUI()
         interactor.postReply(commentHandle: comment.commentHandle, text: text)
     }

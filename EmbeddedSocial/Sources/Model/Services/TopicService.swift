@@ -88,7 +88,7 @@ class TopicService: BaseService, PostServiceProtocol {
     private let imagesService: ImagesServiceType
     fileprivate let executorProvider: CacheRequestExecutorProviderType.Type
     private var topicsFeedExecutor: TopicsFeedRequestExecutor!
-    private var otherUserTopicsFeedExecutor: TopicsFeedRequestExecutor!
+    private var myRecentTopicsFeedExecutor: TopicsFeedRequestExecutor!
     private var singlePostFetchExecuter: SingleTopicRequestExecutor!
 
     init(imagesService: ImagesServiceType,
@@ -100,7 +100,7 @@ class TopicService: BaseService, PostServiceProtocol {
         super.init()
         
         topicsFeedExecutor = executorProvider.makeTopicsFeedExecutor(for: self)
-        otherUserTopicsFeedExecutor = executorProvider.makeOtherUsersTopicsFeedExecutor(for: self)
+        myRecentTopicsFeedExecutor = executorProvider.makeMyRecentTopicsFeedExecutor(for: self)
         singlePostFetchExecuter = CacheRequestExecutorProvider.makeSinglePostExecutor(for: self)
     }
     
@@ -196,7 +196,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                   cursor: query.cursor,
                                                                   limit: query.limit)
         
-        execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
+        execute(builder: builder, executor: myRecentTopicsFeedExecutor, completion: completion)
     }
     
     func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
@@ -205,7 +205,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                      cursor: query.cursor,
                                                                      limit: query.limit)
         
-        execute(builder: builder, executor: otherUserTopicsFeedExecutor, completion: completion)
+        execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
     }
     
     func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
@@ -214,7 +214,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                             cursor: query.cursorInt(),
                                                                             limit: query.limit)
         
-        execute(builder: builder, executor: otherUserTopicsFeedExecutor, completion: completion)
+        execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
@@ -260,7 +260,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                    cursor: query.cursor,
                                                                    limit: query.limit)
         
-        execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
+        execute(builder: builder, executor: myRecentTopicsFeedExecutor, completion: completion)
     }
     
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {
@@ -294,62 +294,5 @@ class TopicService: BaseService, PostServiceProtocol {
         }
     }
     
-//    // MARK: Private
-//    private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
-//                                responseParser: FeedResponseParserType,
-//                                completion: @escaping FetchResultHandler) {
-//        
-//        let requestCacheKey = requestBuilder.URLString
-//        
-//        // Lookup in cache and return if hit
-//        if let result = fetchResultFromCache(by: requestCacheKey, responseParser: responseParser) {
-//            
-//            completion(result)
-//        }
-//        
-//        guard isNetworkReachable == true else { return }
-//        
-//        // Request execution
-//        requestBuilder.execute { [weak self] (response, error) in
-//            
-//            guard let strongSelf = self else { return }
-//            
-//            var result = FeedFetchResult()
-//            
-//            strongSelf.handleError(error, result: &result)
-//            strongSelf.cacheResponse(response?.body, forKey: requestCacheKey)
-//            responseParser.parse(response?.body, isCached: false, into: &result)
-//            
-//            completion(result)
-//        }
-//    }
-//    
-//    private func execute(builder: RequestBuilder<FeedResponseTopicView>,
-//                         executor: TopicsFeedRequestExecutor,
-//                         completion: @escaping FetchResultHandler) {
-//        
-//        executor.execute(with: builder) { result in
-//            completion(result.value ?? FeedFetchResult())
-//        }
-//    }
-//    
-//    private func cacheResponse(_ response: FeedResponseTopicView?, forKey key: String) {
-//        
-//        guard let response = response else { return }
-//        
-//        cache.cacheIncoming(response, for: key)
-//    }
-//    
-//    private func handleError(_ error: ErrorResponse?, result: inout FeedFetchResult) {
-//        
-//        guard let error = error else { return }
-//        
-//        if errorHandler.canHandle(error) {
-//            errorHandler.handle(error)
-//        } else {
-//            let message = error.localizedDescription
-//            result.error = FeedServiceError.failedToFetch(message: message)
-//        }
-//    }
 }
 

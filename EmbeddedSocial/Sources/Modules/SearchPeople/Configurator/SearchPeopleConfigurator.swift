@@ -34,7 +34,7 @@ final class SearchPeopleConfigurator {
         }
         
         viewController.output = presenter
-        viewController.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
         
         moduleInput = presenter
     }

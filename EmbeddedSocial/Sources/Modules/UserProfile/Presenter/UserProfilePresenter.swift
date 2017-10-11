@@ -38,7 +38,12 @@ final class UserProfilePresenter: UserProfileViewOutput {
         }
     }
     
-    init(userID: String? = nil, myProfileHolder: UserHolder, settings: Settings = SocialPlus.settings) {
+    fileprivate let actionStrategy: AuthorizedActionStrategy
+    
+    init(userID: String? = nil,
+         myProfileHolder: UserHolder,
+         actionStrategy: AuthorizedActionStrategy,
+         settings: Settings = AppConfiguration.shared.settings) {
         guard myProfileHolder.me != nil || userID != nil else {
             fatalError("Either userID or myProfileHolder must be supplied")
         }
@@ -47,6 +52,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
         followersCount = 0
         followingCount = 0
         self.myProfileHolder = myProfileHolder
+        self.actionStrategy = actionStrategy
         self.settings = settings
     }
     
@@ -137,17 +143,16 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     func onFollowRequest(currentStatus followStatus: FollowStatus) {
+        actionStrategy.executeOrPromptLogin { [weak self] in self?._onFollowRequest(currentStatus: followStatus) }
+    }
+    
+    private func _onFollowRequest(currentStatus followStatus: FollowStatus) {
         guard let user = user else { return }
-        
-        guard me != nil else {
-            router.openLogin()
-            return
-        }
-        
+
         view.setIsProcessingFollowRequest(true)
         
         interactor.processSocialRequest(to: user) { [weak self] response in
-           self?.processSocialResponse(response)
+            self?.processSocialResponse(response)
         }
     }
     
@@ -200,24 +205,20 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     private func block(user: User) {
-        guard myProfileHolder?.me != nil else {
-            router.openLogin()
-            return
-        }
-        
+        actionStrategy.executeOrPromptLogin { [weak self] in self?._block(user: user) }
+    }
+    
+    private func _block(user: User) {
         view.setIsLoadingUser(true)
-
+        
         interactor.block(user: user) { [weak self] result in
             self?.view.setIsLoadingUser(false)
-            
-            if result.isSuccess {
-                // FIXME: decide if full profile reload is needed
-                self?.loadUser()
-            } else {
+            if result.isFailure {
                 self?.view.showError(result.error ?? APIError.unknown)
             }
         }
     }
+
     
     func onRecent() {
         setFeedScope(.recent)

@@ -10,7 +10,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     private weak var coordinator: CrossModuleCoordinatorProtocol!
     private let settings: Settings
 
-    init(coordinator: CrossModuleCoordinatorProtocol, settings: Settings = SocialPlus.settings) {
+    init(coordinator: CrossModuleCoordinatorProtocol, settings: Settings = AppConfiguration.shared.settings) {
         self.coordinator = coordinator
         self.settings = settings
     }

@@ -13,16 +13,15 @@ class PostMenuModuleConfigurator {
     func configure(menuType: PostMenuType,
                    moduleOutput: PostMenuModuleOutput? = nil,
                    navigationController: UINavigationController? = nil,
-                   myProfileHolder: UserHolder = SocialPlus.shared,
-                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
+                   myProfileHolder: UserHolder = SocialPlus.shared) {
         
         viewController = PostMenuModuleViewController()
         
         let router = PostMenuModuleRouter()
         router.navigationController = navigationController
-        router.loginOpener = loginOpener
 
-        let presenter = PostMenuModulePresenter(myProfileHolder: myProfileHolder)
+        let strategy = CommonAuthorizedActionStrategy(loginParent: navigationController)
+        let presenter = PostMenuModulePresenter(actionStrategy: strategy)
         presenter.view = viewController
         presenter.router = router
         presenter.menuType = menuType

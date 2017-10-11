@@ -31,7 +31,7 @@ final class FollowersConfigurator {
         
         let noDataText = NSAttributedString(string: L10n.Followers.noDataText,
                                             attributes: [NSFontAttributeName: AppFonts.medium,
-                                                         NSForegroundColorAttributeName: SocialPlus.palette.textPrimary])
+                                                         NSForegroundColorAttributeName: AppConfiguration.shared.theme.palette.textPrimary])
         
         let settings = UserListConfigurator.Settings(api: api,
                                                      navigationController: navigationController,

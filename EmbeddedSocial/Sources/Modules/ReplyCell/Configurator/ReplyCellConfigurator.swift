@@ -12,14 +12,13 @@ class ReplyCellModuleConfigurator {
                                       reply: Reply,
                                       navigationController: UINavigationController?,
                                       moduleOutput: ReplyCellModuleOutput? = nil,
-                                      myProfileHolder: UserHolder? = SocialPlus.shared,
-                                      loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) -> ReplyCellModuleInput {
+                                      myProfileHolder: UserHolder? = SocialPlus.shared) -> ReplyCellModuleInput {
         
         let router = ReplyCellRouter()
         router.navigationController = navigationController
-        router.loginOpener = loginOpener
         
-        let presenter = ReplyCellPresenter()
+        let strategy = CommonAuthorizedActionStrategy(loginParent: navigationController)
+        let presenter = ReplyCellPresenter(actionStrategy: strategy)
         presenter.view = cell
         presenter.router = router
         presenter.reply = reply

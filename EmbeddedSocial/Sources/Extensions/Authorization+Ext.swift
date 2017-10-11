@@ -6,7 +6,7 @@
 import Foundation
 
 extension Authorization {
-    static func anonymous(appKey: String) -> String {
-        return "Anon AK=\(appKey)"
+    static var anonymous: String {
+        return "Anon AK=\(AppConfiguration.shared.settings.appKey)"
     }
 }

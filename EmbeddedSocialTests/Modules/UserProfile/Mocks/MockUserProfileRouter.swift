@@ -14,7 +14,6 @@ class MockUserProfileRouter: UserProfileRouterInput {
     private(set) var showUserMenuCount = 0
     private(set) var openReportCount = 0
     private(set) var popTopScreenCount = 0
-    private(set) var openLoginCount = 0
     private(set) var openFollowRequestsCount = 0
     
     func openFollowers(user: User) {
@@ -48,10 +47,6 @@ class MockUserProfileRouter: UserProfileRouterInput {
     
     func popTopScreen() {
         popTopScreenCount += 1
-    }
-    
-    func openLogin() {
-        openLoginCount += 1
     }
     
     func openFollowRequests() {

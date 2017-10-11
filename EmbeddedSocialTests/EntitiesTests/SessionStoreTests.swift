@@ -9,12 +9,11 @@ import XCTest
 class SessionStoreTests: XCTestCase {
     private var database: MockSessionStoreDatabase!
     private var sut: SessionStore!
-    let authorization = UUID().uuidString
     
     override func setUp() {
         super.setUp()
         database = MockSessionStoreDatabase()
-        sut = SessionStore(database: database, anonymousAuthorization: authorization)
+        sut = SessionStore(database: database)
     }
     
     override func tearDown() {
@@ -105,7 +104,7 @@ class SessionStoreTests: XCTestCase {
     }
     
     func testThatAuthorizationIsCorrectForAnonymousUser() {
-        XCTAssertEqual(sut.authorization, authorization)
+        XCTAssertEqual(sut.authorization, Authorization.anonymous)
     }
     
     func testThatAuthorizationIsCorrectForLoggedInUser() {

@@ -30,7 +30,7 @@ struct UITestsHelper {
                     lastName: "Doe",
                     email: "jonh.doe@contoso.com",
                     bio: "Lorem ipsum dolor",
-                    photo: Photo(image:(UIImage(asset: SocialPlus.assets.userPhotoPlaceholder))),
+                    photo: Photo(image:(UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder))),
                     credentials: creds,
                     visibility: ._public)
     }

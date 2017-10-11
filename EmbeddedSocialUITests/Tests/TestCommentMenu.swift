@@ -5,7 +5,7 @@
 
 import XCTest
 
-class TestCommentMenu: TestHome {
+class TestCommentMenu: TestOnlineHome, OnlineTest {
     
     private var comments: CommentsFeed!
     private var commentInformation: (index: UInt, comment: Comment)!

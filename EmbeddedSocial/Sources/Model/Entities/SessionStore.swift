@@ -8,7 +8,6 @@ import Foundation
 final class SessionStore {
     private(set) var user: User?
     private(set) var sessionToken: String?
-    private let anonymousAuthorization: Authorization
     
     private let database: SessionStoreDatabase
     
@@ -18,7 +17,7 @@ final class SessionStore {
     
     var authorization: Authorization {
         guard isLoggedIn else {
-            return anonymousAuthorization
+            return Authorization.anonymous
         }
         return Constants.API.authorization(sessionToken!)
     }
@@ -30,9 +29,8 @@ final class SessionStore {
         return SessionInfo(user: user!, token: sessionToken!, source: .menu)
     }
     
-    init(database: SessionStoreDatabase, anonymousAuthorization: Authorization) {
+    init(database: SessionStoreDatabase) {
         self.database = database
-        self.anonymousAuthorization = anonymousAuthorization
     }
     
     func createSession(withUser user: User, sessionToken: String) {

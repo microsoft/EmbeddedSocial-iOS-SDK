@@ -15,7 +15,7 @@ struct CredentialsList {
     let socialUID: String
     
     init(provider: AuthProvider, accessToken: String, requestToken: String? = nil,
-         socialUID: String, appKey: String = SocialPlus.settings.appKey) {
+         socialUID: String, appKey: String = AppConfiguration.shared.settings.appKey) {
         self.provider = provider
         self.accessToken = accessToken
         self.requestToken = requestToken

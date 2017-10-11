@@ -13,6 +13,9 @@ class PostDetailsPresenterTests: XCTestCase {
     let view = MockPostDetailViewController()
     let router = MockPostDetailRouter()
     let pageSize = 100
+    var loginOpener: MockLoginModalOpener!
+    var loginParent: UIViewController!
+    var actionStrategy: CommonAuthorizedActionStrategy!
     
     var post: PostViewModel!
     
@@ -36,7 +39,10 @@ class PostDetailsPresenterTests: XCTestCase {
             
         })
         myProfileHolder = MyProfileHolder()
-        presenter = PostDetailPresenter(myProfileHolder: myProfileHolder, pageSize: pageSize)
+        loginOpener = MockLoginModalOpener()
+        loginParent = UIViewController()
+        actionStrategy = CommonAuthorizedActionStrategy(myProfileHolder: myProfileHolder, loginParent: loginParent, loginOpener: loginOpener)
+        presenter = PostDetailPresenter(pageSize: pageSize, actionStrategy: actionStrategy)
         presenter.interactor = interactor
         presenter.view = view
         presenter.topicHandle = "topicHandle"
