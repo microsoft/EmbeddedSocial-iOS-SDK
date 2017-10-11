@@ -26,8 +26,15 @@ class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, Popul
         (feed: FeedType.TimeRange.alltime, title: L10n.PopularModule.FeedOption.allTime)
     ]
     
+    fileprivate let settings: Settings
+    
+    init(settings: Settings = SocialPlus.settings) {
+        self.settings = settings
+    }
+    
     // MARK: View Input
     func viewIsReady() {
+        view.setupInitialState(showGalleryView: settings.showGalleryView)
         view.setFeedTypesAvailable(types: feedMapping.map { $0.title })
         view.setCurrentFeedType(to: currentFeed.rawValue)
         
@@ -38,6 +45,7 @@ class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, Popul
         view.embedFeedViewController(feedModuleViewController)
         
         feedModule.feedType = .popular(type: currentFeed)
+        
         view.setFeedLayoutImage(layoutType.nextLayoutAsset.image)
     }
 

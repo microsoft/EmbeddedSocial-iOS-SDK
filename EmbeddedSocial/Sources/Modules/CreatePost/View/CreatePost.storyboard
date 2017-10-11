@@ -39,15 +39,13 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1s-Vy-Hc2">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1s-Vy-Hc2">
                                         <rect key="frame" x="0.0" y="90" width="375" height="201"/>
                                         <color key="backgroundColor" red="0.81296719448554078" green="0.81296719448554078" blue="0.81296719448554078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="999" constant="201" id="4XO-oG-yBA"/>
                                         </constraints>
-                                        <state key="normal" title="Tap here to add a picture">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
+                                        <state key="normal" title="Tap here to add a picture"/>
                                         <connections>
                                             <action selector="mediaButtonPressed:" destination="kxk-2v-FEl" eventType="touchUpInside" id="ozC-zf-9Wx"/>
                                         </connections>

@@ -5,10 +5,10 @@
 
 import Foundation
 
-struct EmptyUsersListAPI: UsersListAPI {
+final class EmptyUsersListAPI: UsersListAPI {
     
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        let response = UsersListResponse(users: [], cursor: nil, isFromCache: false)
+    override func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        let response = UsersListResponse(items: [], cursor: nil, isFromCache: false)
         completion(.success(response))
     }
 }

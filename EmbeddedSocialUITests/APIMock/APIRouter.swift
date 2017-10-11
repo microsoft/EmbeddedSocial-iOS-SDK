@@ -22,6 +22,15 @@ open class APIRouter: WebApp {
         })
         
         self["/v0.7/topics/(.*(?<!popular|comments)$)"] = APIResponse(serviceName: "topics") {environ, sendJSON -> Void in
+            let method = environ["REQUEST_METHOD"] as! String
+            if method == "PUT" {
+                let input = environ["swsgi.input"] as! SWSGIInput
+                JSONReader.read(input) { json in
+                    APIState.setLatestData(forService: "topicUpdate", data: json)
+                    sendJSON(Templates.load(name: "topic_put"))
+                }
+                return
+            }
             sendJSON(Templates.load(name: "topic"))
         }
         
@@ -100,6 +109,17 @@ open class APIRouter: WebApp {
             }
         }
         
+        self["/v0.7/comments/(.*)/reports"] = APIResponse(serviceName: "reports") {environ, sendJSON -> Void in
+            let input = environ["swsgi.input"] as! SWSGIInput
+            let method = environ["REQUEST_METHOD"] as! String
+            if method == "POST" {
+                JSONReader.read(input) { json in
+                    APIState.setLatestData(forService: "reports", data: json)
+                    sendJSON(Templates.load(name: "comment_report_post"))
+                }
+            }
+        }
+        
         self["/v0.7/topics/(.*)/likes"] = APIResponse(serviceName: "likes") { environ, sendJSON -> Void in
             let method = environ["REQUEST_METHOD"] as! String
             switch method {
@@ -165,7 +185,7 @@ open class APIRouter: WebApp {
                 break
             }
         }
-        
+                
         self["/v0.7/images/(UserPhoto|ContentBlob|AppIcon)"] = APIResponse(serviceName: "images") { environ, sendJSON -> Void in
             let input = environ["swsgi.input"] as! SWSGIInput
             DataReader.read(input) { data in
@@ -216,7 +236,8 @@ open class APIRouter: WebApp {
             case "POST":
                 break
             default:
-                sendJSON(Templates.load(name: "user"))
+                let values = APIConfig.loadMyTopics ? ["userHandle" : "me"] : ["userHandle" : "OtherUser"]
+                sendJSON(Templates.load(name: "user", values: values))
             }
         }
         
@@ -388,8 +409,13 @@ open class APIRouter: WebApp {
     }
     
     private func matchRoute(to searchPath: String) -> (WebApp, [String])? {
-        print("Request: " + searchPath)
+        print("Request: " + searchPath + " - \(APIConfig.isReachable ? "Online" : "Offline")")
         APIState.addRequest(searchPath)
+        
+        if !APIConfig.isReachable {
+            let error: WebApp = DataResponse(statusCode: 500, statusMessage: "Internal Server Error from UI Test")
+            return (error, [])
+        }
         
         if routes[searchPath] != nil {
             return (routes[searchPath]!, [])

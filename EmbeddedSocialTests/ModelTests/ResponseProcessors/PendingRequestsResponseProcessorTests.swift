@@ -34,19 +34,19 @@ class PendingRequestsResponseProcessorTests: UsersListResponseProcessorTests {
         
         cache.fetchOutgoing_with_ReturnValue = commands
         
-        let response = UsersListResponse(users: usersToRemain + usersToDelete, cursor: nil, isFromCache: true)
+        let response = UsersListResponse(items: usersToRemain + usersToDelete, cursor: nil, isFromCache: true)
         
         // when
         let processedResponse = sut.apply(commands: commands, to: response)
         
         // then
-        let userIDs = processedResponse.users.map { $0.uid }
+        let userIDs = processedResponse.items.map { $0.uid }
         let userIDsToDelete = usersToDelete.map { $0.uid }
         let userIDsToRemain = usersToRemain.map { $0.uid }
         
         expect(userIDs).notTo(contain(userIDsToDelete))
         expect(userIDs).to(contain(userIDsToRemain))
         
-        expect(processedResponse.users).to(haveCount(usersToRemain.count))
+        expect(processedResponse.items).to(haveCount(usersToRemain.count))
     }
 }

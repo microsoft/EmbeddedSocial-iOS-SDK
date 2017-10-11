@@ -37,6 +37,9 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     private(set) var user: User?
     fileprivate var cache: CacheType
     
+    fileprivate var screens: [SocialItem: UIViewController] = [:]
+    fileprivate var searchConfigurator: SearchConfigurator?
+    
     required init(cache: CacheType) {
         self.cache = cache
     }
@@ -128,8 +131,8 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     func logOut() {
         user = nil
         menuModule.user = nil
-        _configuredHome = nil
-        _configuredPopular = nil
+        searchConfigurator = nil
+        screens = [:]
         navigationStack.cleanStack()
         openLoginScreen()
     }
@@ -138,7 +141,6 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         navigationStack.showError(error)
     }
     
-    // MARK: Modules Builder
     var configuredLogin: UIViewController {
         let configurator = LoginConfigurator()
         configurator.configure(moduleOutput: loginHandler)
@@ -151,62 +153,30 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         return configurator.viewController
     }
     
-    private var _configuredHome: UIViewController?
     var configuredHome: UIViewController {
-        get {
-            if let vc = _configuredHome {
-                return vc
-            } else {
-                _configuredHome = homeBuilder(self)
-                return _configuredHome!
-            }
-        }
+        return screen(for: .home, maker: makeHome)
     }
     
-    private var _configuredPopular: UIViewController?
     var configuredPopular: UIViewController {
-        get {
-            if let vc = _configuredPopular {
-                return vc
-            } else {
-                _configuredPopular = popularBuilder(self)
-                return _configuredPopular!
-            }
+        return screen(for: .popular, maker: makePopular)
+    }
+    
+    var configuredMyPins: UIViewController {
+        return screen(for: .myPins, maker: makeMyPins)
+    }
+    
+    var configuredSettings: UIViewController {
+        return screen(for: .settings, maker: makeSettings)
+    }
+    
+    var configuredSearchModule: SearchConfigurator {
+        if searchConfigurator == nil {
+            searchConfigurator = SearchConfigurator()
+            searchConfigurator!.configure(isLoggedInUser: isUserAuthenticated(),
+                                          navigationController: navigationStack.navigationController)
         }
+        return searchConfigurator!
     }
-    
-    private let homeBuilder: (CrossModuleCoordinator) -> UIViewController = {
-        let configurator = FeedModuleConfigurator(cache: $0.cache)
-        configurator.configure(navigationController: $0.navigationStack.navigationController)
-        configurator.moduleInput.feedType = (.home)
-        configurator.viewController.title = L10n.Home.screenTitle
-        let vc = configurator.viewController!
-        return vc
-    }
-
-    private let popularBuilder: (CrossModuleCoordinator) -> UIViewController = {
-        let configurator = PopularModuleConfigurator()
-        configurator.configure(navigationController: $0.navigationStack.navigationController)
-        configurator.viewController.title = L10n.Popular.screenTitle
-        let vc = configurator.viewController!
-        return vc
-    }
-    
-    lazy var configuredMyPins: UIViewController = {
-        let configurator = FeedModuleConfigurator(cache: self.cache)
-        configurator.configure(navigationController: self.navigationStack.navigationController)
-        configurator.moduleInput.feedType = (.myPins)
-        configurator.viewController.title = L10n.MyPins.screenTitle
-        let vc = configurator.viewController!
-        return vc
-    }()
-    
-    lazy var configuredSearchModule: SearchConfigurator = { [unowned self] in
-        let configurator = SearchConfigurator()
-        configurator.configure(isLoggedInUser: self.isUserAuthenticated(),
-                               navigationController: self.navigationStack.navigationController)
-        return configurator
-    }()
     
     var configuredSearch: UIViewController {
         return configuredSearchModule.viewController
@@ -216,17 +186,58 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         return configuredSearchModule.moduleInput
     }
     
-    lazy var configuredSettings: UIViewController = {
-        let configurator = SettingsConfigurator()
-        configurator.configure(navigationController: self.navigationStack.navigationController)
-        return configurator.viewController
-    }()
+    var configuredActivity: UIViewController {
+        return screen(for: .activity, maker: makeActivity)
+    }
     
-    lazy var configuredActivity: UIViewController = {
-        let configurator = ActivityModuleConfigurator()
-        configurator.configure(navigationController: self.navigationStack.navigationController)
+    private func screen(for item: SocialItem, maker: () -> UIViewController) -> UIViewController {
+        if screens[item] == nil {
+            screens[item] = maker()
+        }
+        return screens[item]!
+    }
+    
+    private func makeHome() -> UIViewController {
+        let configurator = FeedModuleConfigurator(cache: cache)
+        configurator.configure(navigationController: navigationStack.navigationController)
+        configurator.moduleInput.feedType = .home
+        configurator.viewController.title = L10n.Home.screenTitle
         return configurator.viewController
-    }()
+    }
+    
+    private func makePopular() -> UIViewController {
+        let configurator = PopularModuleConfigurator()
+        configurator.configure(navigationController: navigationStack.navigationController)
+        configurator.viewController.title = L10n.Popular.screenTitle
+        return configurator.viewController
+    }
+    
+    private func makeMyPins() -> UIViewController {
+        let configurator = FeedModuleConfigurator(cache: cache)
+        configurator.configure(navigationController: navigationStack.navigationController)
+        configurator.moduleInput.feedType = (.myPins)
+        configurator.viewController.title = L10n.MyPins.screenTitle
+        return configurator.viewController
+    }
+    
+    private func makeConfiguredSearch() -> SearchConfigurator {
+        let configurator = SearchConfigurator()
+        configurator.configure(isLoggedInUser: isUserAuthenticated(),
+                               navigationController: navigationStack.navigationController)
+        return configurator
+    }
+    
+    private func makeSettings() -> UIViewController {
+        let configurator = SettingsConfigurator()
+        configurator.configure(navigationController: navigationStack.navigationController)
+        return configurator.viewController
+    }
+    
+    private func makeActivity() -> UIViewController {
+        let configurator = ActivityModuleConfigurator()
+        configurator.configure(navigationController: navigationStack.navigationController)
+        return configurator.viewController
+    }
 }
 
 extension CrossModuleCoordinator: MyProfileOpener { }

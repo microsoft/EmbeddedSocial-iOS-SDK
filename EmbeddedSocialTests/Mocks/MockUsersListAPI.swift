@@ -13,7 +13,7 @@ final class MockUsersListAPI: UsersListAPI {
     var getUsersListReceivedArguments: (cursor: String?, limit: Int)?
     var getUsersListReturnValue: Result<UsersListResponse>!
     
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+    override func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         getUsersListCalled = true
         getUsersListReceivedArguments = (cursor: cursor, limit: limit)
         completion(getUsersListReturnValue)

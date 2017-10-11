@@ -11,5 +11,7 @@ struct APIConfig {
     public static var showUserImages = false
     public static var numberedTopicTeasers = false
     public static var numberedCommentLikes = false
+    public static var loadMyTopics = false
+    public static var isReachable = true
     public static var values = [:] as [String: Any]
 }

@@ -6,7 +6,7 @@
 class CreatePostInteractor: CreatePostInteractorInput {
     
     weak var output: CreatePostInteractorOutput!
-    var topicService: TopicService?
+    var topicService: PostServiceProtocol?
     private let userHolder: UserHolder
     
     init(userHolder: UserHolder = SocialPlus.shared) {
@@ -14,7 +14,7 @@ class CreatePostInteractor: CreatePostInteractorInput {
     }
     
     func postTopic(photo: Photo?, title: String?, body: String!) {
-        var uid = UUID().uuidString
+        let uid = UUID().uuidString
         
         guard let user = userHolder.me else {
             fatalError("Cant create topic with no user")
@@ -34,6 +34,7 @@ class CreatePostInteractor: CreatePostInteractorInput {
              pinned: false)
         
         topicService?.postTopic(post,
+                                photo: photo,
                                 success: { [weak self] _ in self?.output.created() },
                                 failure: { [weak self] error in self?.output.postCreationFailed(error: error) })
     }

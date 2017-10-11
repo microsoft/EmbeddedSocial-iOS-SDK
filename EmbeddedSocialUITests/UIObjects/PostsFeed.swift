@@ -14,6 +14,8 @@ class Post {
     var likeButton: XCUIElement
     var pinButton: XCUIElement
     
+    private var titleLabel: XCUIElement
+    
     private var menuButton: XCUIElement
     private var postMenu: PostMenu!
     
@@ -24,6 +26,8 @@ class Post {
         self.likeButton = self.cell.buttons["Like"]
         self.pinButton = self.cell.buttons["Pin"]
         self.menuButton = self.cell.buttons["Post Menu"]
+        
+        titleLabel = self.cell.staticTexts.element(boundBy: 2)
         
         postMenu = PostMenu(app, self)
     }
@@ -37,6 +41,11 @@ class Post {
     
     func getLabelByText(_ text: String) -> XCUIElement {
         return self.cell.staticTexts[text]
+    }
+    
+    // Title value it's a "topicHandle" attribute
+    func getTitle() -> String {
+        return titleLabel.label
     }
     
     func like() {

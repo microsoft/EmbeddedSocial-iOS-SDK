@@ -149,6 +149,13 @@ class SearchPresenterTests: XCTestCase {
         XCTAssertEqual(view.setupInitialStateReceivedTab, peopleTab)
     }
     
+    func testThatItStartsSearchWithSelectedHashtag() {
+        let hashtag = UUID().uuidString
+        sut.didSelectHashtag(hashtag)
+        XCTAssertTrue(view.searchHashtagCalled)
+        XCTAssertEqual(view.searchHashtagInputHashtag, hashtag)
+    }
+    
     private func makePeopleTab() -> SearchTabInfo {
         return SearchTabInfo(searchResultsController: UIViewController(),
                              searchResultsHandler: MockSearchResultsUpdating(),

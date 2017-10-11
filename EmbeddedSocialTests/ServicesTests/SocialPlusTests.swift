@@ -34,14 +34,13 @@ class SocialPlusTests: XCTestCase {
         servicesProvider = MockSocialPlusServices()
         servicesProvider.getURLSchemeServiceReturnValue = urlSchemeService
         servicesProvider.getSessionStoreRepositoriesProviderReturnValue = sessionStoreRepositoryProvider
-        servicesProvider.getThirdPartyConfiguratorReturnValue = thirdPartyConfigurator
         servicesProvider.getDaemonsControllerCacheReturnValue = daemonsController
-        servicesProvider.getAuthorizationMulticastReturnValue = authorizationMulticast
+        servicesProvider.getAuthorizationMulticastAppKeyReturnValue = authorizationMulticast
         servicesProvider.getCoreDataStackReturnValue = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
         servicesProvider.getCacheCoreDataStackReturnValue = cache
         servicesProvider.getNetworkTrackerReturnValue = networkTracker
-        servicesProvider.getAppConfigurationReturnValue = appConfiguration
-        servicesProvider.getStartupCommandsReturnValue = []
+        servicesProvider.getAppConfigurationConfigFilenameReturnValue = appConfiguration
+        servicesProvider.getStartupCommandsLaunchArgsSettingsReturnValue = []
         
         urlSchemeService.openURLReturnValue = true
         
@@ -94,7 +93,7 @@ class SocialPlusTests: XCTestCase {
         
         XCTAssertTrue(daemonsController.startCalled)
         
-        XCTAssertTrue(servicesProvider.getAuthorizationMulticastCalled)
+        XCTAssertTrue(servicesProvider.getAuthorizationMulticastAppKeyCalled)
         XCTAssertEqual(sut.authorization, authorizationMulticast.authorization)
         
         XCTAssertTrue(servicesProvider.getCoreDataStackCalled)

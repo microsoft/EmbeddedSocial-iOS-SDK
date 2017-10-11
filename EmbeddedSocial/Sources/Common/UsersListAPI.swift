@@ -5,18 +5,13 @@
 
 import Foundation
 
-protocol UsersListAPI {
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void)
-}
-
-extension UsersListAPI {
+class UsersListAPI: ListAPI<User> {
     
-    func getUsersList(cursor: String?, limit: Int, skipCache: Bool, completion: @escaping (Result<UsersListResponse>) -> Void) {
-        getUsersList(cursor: cursor, limit: limit) { response in
-            if skipCache && response.value?.isFromCache == true {
-                return
-            }
-            completion(response)
-        }
+    override func getPage(cursor: String?, limit: Int, completion: @escaping (Result<PaginatedResponse<User>>) -> Void) {
+        getUsersList(cursor: cursor, limit: limit, completion: completion)
+    }
+    
+    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+        completion(.failure(APIError.notImplemented))
     }
 }

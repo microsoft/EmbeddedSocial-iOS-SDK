@@ -4,20 +4,22 @@
 //
 
 import XCTest
+import Nimble
 @testable import EmbeddedSocial
 
 class UsersListProcessorTests: XCTestCase {
     var usersAPI: MockUsersListAPI!
     var networkTracker: MockNetworkTracker!
-    var sut: UsersListProcessor!
+    var sut: PaginatedListProcessor<User>!
     
     private let timeout: TimeInterval = 5.0
+    private let pageSize = 10
     
     override func setUp() {
         super.setUp()
         usersAPI = MockUsersListAPI()
         networkTracker = MockNetworkTracker()
-        sut = UsersListProcessor(api: usersAPI, networkTracker: networkTracker)
+        sut = PaginatedListProcessor<User>(api: usersAPI, pageSize: pageSize, networkTracker: networkTracker)
     }
     
     override func tearDown() {
@@ -30,30 +32,25 @@ class UsersListProcessorTests: XCTestCase {
     func testThatItGetsUsersList() {
         // given
         let users = [User(), User(), User()]
-        usersAPI.getUsersListReturnValue = .success(UsersListResponse(users: users, cursor: nil, isFromCache: false))
+        usersAPI.getUsersListReturnValue = .success(UsersListResponse(items: users, cursor: nil, isFromCache: false))
         
         // when
-        let expectation = self.expectation(description: #function)
+        var result: Result<[User]>?
+        sut.getNextListPage { result = $0 }
         
-        sut.getNextListPage { receivedUsers in
-            expectation.fulfill()
-            
-            // then
-            XCTAssertEqual(receivedUsers.value ?? [], users)
-        }
-        
-        wait(for: [expectation], timeout: timeout)
-        
-        XCTAssertFalse(sut.isLoadingList)
+        // then
+        expect(result).toEventuallyNot(beNil())
+        expect(result?.value?.count).toEventually(equal(users.count))
+        expect(self.sut.isLoadingList).toEventually(beFalse())
     }
     
     func testThatItLoadsMultiplePages() {
         // given
         let page1 = [User(), User(), User()]
-        let response1 = UsersListResponse(users: page1, cursor: UUID().uuidString, isFromCache: false)
+        let response1 = UsersListResponse(items: page1, cursor: UUID().uuidString, isFromCache: false)
         
         let page2 = [User(), User(), User()]
-        let response2 = UsersListResponse(users: page2, cursor: nil, isFromCache: false)
+        let response2 = UsersListResponse(items: page2, cursor: nil, isFromCache: false)
         
         // when
         // page 1 is loaded
@@ -85,7 +82,7 @@ class UsersListProcessorTests: XCTestCase {
     
     func testThatItSetsCorrectLoadingState(cursor: String?, shouldHaveMoreItems: Bool) {
         // given
-        usersAPI.getUsersListReturnValue = .success(UsersListResponse(users: [], cursor: cursor, isFromCache: false))
+        usersAPI.getUsersListReturnValue = .success(UsersListResponse(items: [], cursor: cursor, isFromCache: false))
         
         // when
         let expectation = self.expectation(description: #function)
@@ -100,37 +97,31 @@ class UsersListProcessorTests: XCTestCase {
         XCTAssertEqual(sut.listHasMoreItems, shouldHaveMoreItems)
     }
     
-    func testThatItSkipsCacheWhenReloadsList() {
+    func testThatItSkipsCacheWhenReloadsListWithAvailableNetwork() {
         // given
         let shortTimeout: TimeInterval = 0.1
         let users = [User(), User(), User()]
-        usersAPI.getUsersListReturnValue = .success(UsersListResponse(users: users, cursor: nil, isFromCache: true))
+        usersAPI.getUsersListReturnValue = .success(UsersListResponse(items: users, cursor: nil, isFromCache: true))
+        networkTracker.isReachable = true
         
         // when
-        let expectation = self.expectation(description: #function)
-        expectation.isInverted = true
-        sut.reloadList { receivedUsers in
-            expectation.fulfill()
-            
-            // then
-            XCTAssertEqual(receivedUsers.value ?? [], users)
-        }
-        wait(for: [expectation], timeout: shortTimeout)
+        var result: Result<[User]>?
+        sut.reloadList { result = $0 }
+        
+        // then
+        expect(result).toEventually(beNil(), timeout: shortTimeout)
     }
     
     func testThatItReloadsList() {
         // given
         let users = [User(), User(), User()]
-        usersAPI.getUsersListReturnValue = .success(UsersListResponse(users: users, cursor: nil, isFromCache: false))
+        usersAPI.getUsersListReturnValue = .success(UsersListResponse(items: users, cursor: nil, isFromCache: false))
         
         // when
-        let expectation = self.expectation(description: #function)
-        sut.reloadList { receivedUsers in
-            expectation.fulfill()
-            
-            // then
-            XCTAssertEqual(receivedUsers.value ?? [], users)
-        }
-        wait(for: [expectation], timeout: timeout)
+        var result: Result<[User]>?
+        sut.reloadList { result = $0 }
+        
+        // then
+        expect(result?.value).toEventually(equal(users))
     }
 }

@@ -131,9 +131,7 @@ class PostDetailsInteractorTests: XCTestCase {
         comment.text = UUID().uuidString
         comment.topicHandle = UUID().uuidString
         
-        let response = PostCommentResponse()
-        response.commentHandle = comment.commentHandle
-        commentsService.postCommentReturnResponse = response
+        commentsService.postCommentReturnResponse = comment
         
         commentsService.getCommentReturnComment = comment
         

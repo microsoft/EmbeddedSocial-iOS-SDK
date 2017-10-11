@@ -5,14 +5,14 @@
 
 import Foundation
 
-struct PopularUsersAPI: UsersListAPI {
+final class PopularUsersAPI: UsersListAPI {
     private let socialService: SocialServiceType
     
     init(socialService: SocialServiceType) {
         self.socialService = socialService
     }
     
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+    override func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         socialService.getPopularUsers(cursor: cursor, limit: limit, completion: completion)
     }
 }

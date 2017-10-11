@@ -8,18 +8,11 @@ import Foundation
 class SocialMenuItemsProvider: SideMenuItemsProvider {
     
     private weak var coordinator: CrossModuleCoordinatorProtocol!
-    
-    init(coordinator: CrossModuleCoordinatorProtocol) {
+    private let settings: Settings
+
+    init(coordinator: CrossModuleCoordinatorProtocol, settings: Settings = SocialPlus.settings) {
         self.coordinator = coordinator
-    }
-    
-    enum SocialItem: Int {
-        case home
-        case search
-        case popular
-        case myPins
-        case activity
-        case settings
+        self.settings = settings
     }
     
     enum State: Int {
@@ -86,51 +79,85 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
     }
     
     lazy var items: [State: [MenuItem]] = { [unowned self] in
+        let home = self.makeSocialItem(.home, builder: self.builderForHome)
+        let search = self.makeSocialItem(.search, builder: self.builderForSearch)
+        let popular = self.makeSocialItem(.popular, builder: self.builderForPopular)
+        let myPins = self.makeSocialItem(.myPins, builder: self.builderForMyPins)
+        let activity = self.makeSocialItem(.activity, builder: self.builderForActivity)
+        let settings = self.makeSocialItem(.settings, builder: self.builderForSettings)
         
-        return [
-            State.authenticated: [
-                (key: .home,
-                 title: L10n.Home.screenTitle,
-                 image: UIImage(asset: Asset.iconHome),
-                 highlighted: UIImage(asset: Asset.iconHomeActive),
-                 builder: self.builderForHome),
-                (key: .search,
-                 title: L10n.Search.screenTitle,
-                 image: UIImage(asset: Asset.iconSearch),
-                 highlighted: UIImage(asset: Asset.iconSearchActive),
-                 builder: self.builderForSearch),
-                (key: .popular,
-                 title: L10n.Popular.screenTitle,
-                 image: UIImage(asset: Asset.iconPopular),
-                 highlighted: UIImage(asset: Asset.iconPopularActive),
-                 builder: self.builderForPopular),
-                (key: .myPins,
-                 title: L10n.MyPins.screenTitle,
-                 image: UIImage(asset: Asset.iconPins),
-                 highlighted: UIImage(asset: Asset.iconPinsActive),
-                 builder: self.builderForMyPins),
-                (key: .activity,
-                 title: L10n.ActivityFeed.screenTitle,
-                 image: UIImage(asset: Asset.iconActivity),
-                 highlighted: UIImage(asset: Asset.iconActivityActive),
-                 builder: self.builderForActivity),
-                (key: .settings,
-                 title: L10n.Settings.screenTitle,
-                 image: UIImage(asset: Asset.iconSettings),
-                 highlighted: UIImage(asset: Asset.iconSettingsActive),
-                 builder: self.builderForSettings)
-                
-            ],
-            State.unauthenticated: [
-                (key: .search, title: L10n.Search.screenTitle,
-                 image: UIImage(asset: Asset.iconSearch),
-                 highlighted: UIImage(asset: Asset.iconSearchActive),
-                 builder: self.builderForSearch),
-                (key: .popular, title: L10n.Popular.screenTitle,
-                 image: UIImage(asset: Asset.iconPopular),
-                 highlighted: UIImage(asset: Asset.iconPopularActive),
-                 builder: self.builderForPopular)
-            ]]
+        var authenticatedItems = [home, search, popular, myPins, activity, settings]
+        var unauthenticatedItems = [search, popular]
         
-        }()
+        if !self.settings.searchEnabled {
+            authenticatedItems.remove(at: 1)
+            unauthenticatedItems.remove(at: 0)
+        }
+        
+        return [.authenticated: authenticatedItems, .unauthenticated: unauthenticatedItems]
+    }()
+    
+    private func makeSocialItem(_ item: SocialItem, builder: @escaping ModuleBuilder) -> MenuItem {
+        return (key: item, title: item.title, image: item.image, highlighted: item.highlightedImage, builder: builder)
+    }
+}
+
+enum SocialItem: Int {
+    case home
+    case search
+    case popular
+    case myPins
+    case activity
+    case settings
+    
+    var title: String {
+        switch self {
+        case .home:
+            return L10n.Home.screenTitle
+        case .search:
+            return L10n.Search.screenTitle
+        case .popular:
+            return L10n.Popular.screenTitle
+        case .myPins:
+            return L10n.MyPins.screenTitle
+        case .activity:
+            return L10n.ActivityFeed.screenTitle
+        case .settings:
+            return L10n.Settings.screenTitle
+        }
+    }
+    
+    var image: UIImage {
+        switch self {
+        case .home:
+            return UIImage(asset: .iconHome)
+        case .search:
+            return UIImage(asset: .iconSearch)
+        case .popular:
+            return UIImage(asset: .iconPopular)
+        case .myPins:
+            return UIImage(asset: .iconPins)
+        case .activity:
+            return UIImage(asset: .iconActivity)
+        case .settings:
+            return UIImage(asset: .iconSettings)
+        }
+    }
+    
+    var highlightedImage: UIImage {
+        switch self {
+        case .home:
+            return UIImage(asset: .iconHomeActive)
+        case .search:
+            return UIImage(asset: .iconSearchActive)
+        case .popular:
+            return UIImage(asset: .iconPopularActive)
+        case .myPins:
+            return UIImage(asset: .iconPinsActive)
+        case .activity:
+            return UIImage(asset: .iconActivityActive)
+        case .settings:
+            return UIImage(asset: .iconSettingsActive)
+        }
+    }
 }

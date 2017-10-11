@@ -15,8 +15,6 @@ extension SocialUser: AutoEquatable { }
 
 extension User: AutoEquatable { }
 
-extension UsersListResponse: AutoEquatable { }
-
 extension APIError: AutoEquatable { }
 
 extension PostViewModel: AutoEquatable { }

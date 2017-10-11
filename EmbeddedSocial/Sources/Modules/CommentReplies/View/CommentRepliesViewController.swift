@@ -4,7 +4,6 @@
 //
 
 import UIKit
-import SVProgressHUD
 
 enum RepliesSections: Int {
     case comment = 0
@@ -94,13 +93,13 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     
     func lockUI() {
         view.isUserInteractionEnabled = false
-        SVProgressHUD.show()
+        showHUD()
     }
     
     func unlockUI() {
         refreshControl.endRefreshing()
         view.isUserInteractionEnabled = true
-        SVProgressHUD.dismiss()
+        hideHUD()
     }
  
     @IBAction func postReply(_ sender: Any) {

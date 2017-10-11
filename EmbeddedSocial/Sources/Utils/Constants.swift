@@ -6,7 +6,6 @@
 import UIKit
 
 struct Constants {
-    static let appKey = "ec1665a4-920d-4449-b8a0-49ed374d4290"
     static let standardCellHeight: CGFloat = 44.0
     static let oauth1URLScheme = "embeddedsocial"
     static let imageCompressionQuality: CGFloat = 0.8
@@ -74,14 +73,6 @@ extension Constants {
         }
     }
     
-    struct PostDetails {
-        static let pageSize = 5
-    }
-    
-    struct CommentReplies {
-        static let pageSize = 5
-    }
-    
     struct FollowRequests {
         static let pageSize = 30
     }
@@ -98,9 +89,6 @@ extension Constants {
     
     struct API {
         static let unauthorizedStatusCode = 401
-        static let anonymousAuthorization: Authorization = "Anon AK=\(Constants.appKey)"
         static func authorization(_ sessionToken: String) -> Authorization { return "SocialPlus TK=\(sessionToken)" }
-        static let ppeBasePath = "https://ppe.embeddedsocial.microsoft.com"
-        static let productionBasePath = "https://api.embeddedsocial.microsoft.com"
     }
 }

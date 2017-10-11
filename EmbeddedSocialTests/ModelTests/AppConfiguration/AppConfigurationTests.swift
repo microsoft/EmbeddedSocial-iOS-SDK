@@ -9,19 +9,4 @@ import XCTest
 
 class AppConfigurationTests: XCTestCase {
     
-    var sut: AppConfiguration!
-    
-    override func setUp() {
-        super.setUp()
-        sut = AppConfiguration(filename: "config")
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-        sut = nil
-    }
-    
-    func testThatItInitializesTheme() {
-        expect(self.sut.theme).notTo(beNil())
-    }
 }

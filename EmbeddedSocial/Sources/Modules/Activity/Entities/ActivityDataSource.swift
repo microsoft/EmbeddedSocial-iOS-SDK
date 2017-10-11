@@ -15,10 +15,10 @@ protocol DataSourceDelegate {
 class DataSourceBuilder {
     
     static func buildPendingRequestsDataSource(interactor: ActivityInteractorInput,
-                                               delegate: DataSourceDelegate,
+                                               delegate: DataSourceDelegate? = nil,
                                                context: DataSourceContext) -> MyPendingRequests {
         let header = SectionHeader(name: L10n.Activity.Sections.Pending.title, identifier: "")
-        let section = Section(header: header, pages: [])
+        let section = ActivitySection(header: header, pages: [])
         
         return MyPendingRequests(interactor: interactor,
                                  section:section,
@@ -27,10 +27,10 @@ class DataSourceBuilder {
     }
     
     static func buildMyActivitiesDataSource(interactor: ActivityInteractorInput,
-                                                    delegate: DataSourceDelegate,
+                                                    delegate: DataSourceDelegate? = nil,
                                                     context: DataSourceContext) -> MyActivities {
         let header = SectionHeader(name: L10n.Activity.Sections.My.title, identifier: "")
-        let section = Section(header: header, pages: [])
+        let section = ActivitySection(header: header, pages: [])
         
         return MyActivities(interactor: interactor,
                                     section: section,
@@ -39,10 +39,10 @@ class DataSourceBuilder {
     }
     
     static func buildOthersActivitiesDataSource(interactor: ActivityInteractorInput,
-                                                    delegate: DataSourceDelegate,
+                                                    delegate: DataSourceDelegate? = nil,
                                                     context: DataSourceContext) -> OthersActivties {
         let header = SectionHeader(name: L10n.Activity.Sections.Others.title, identifier: "")
-        let section = Section(header: header, pages: [])
+        let section = ActivitySection(header: header, pages: [])
         
         return OthersActivties(interactor: interactor,
                             section: section,
@@ -57,7 +57,7 @@ class DataSourceBuilder {
 class DataSource {
     
     weak var interactor: ActivityInteractorInput!
-    var section: Section
+    var section: ActivitySection
     var delegate: DataSourceDelegate?
     let context: DataSourceContext
     
@@ -65,7 +65,7 @@ class DataSource {
     func loadMore() { fatalError("No impl") }
     
     init(interactor: ActivityInteractorInput,
-         section: Section,
+         section: ActivitySection,
          delegate: DataSourceDelegate? = nil,
          context: DataSourceContext) {
         
@@ -92,21 +92,25 @@ class DataSource {
             let needRemoveItems = (cachedNumberOfItems - newItems.count)
             let needAddItems = (newItems.count - cachedNumberOfItems)
             
-            let paths = section.range(forPage: pageIdx).map { IndexPath(row: $0, section: context.index) }
+            let oldPaths = Set(section.range(forPage: pageIdx).map { IndexPath(row: $0, section: context.index) })
+            
             
             // replacing items for existing page
             section.pages[pageIdx] = newItems
             
+            let newPaths = Set(section.range(forPage: pageIdx).map { IndexPath(row: $0, section: context.index) })
+            let diffPaths = Array(oldPaths.symmetricDifference(newPaths))
+            let toUpdate = Array(oldPaths.intersection(newPaths))
+            
             // notify UI about changes
             if needAddItems > 0 {
-                delegate?.didChangeItems(change: .insertion(paths), context: context)
+                delegate?.didChangeItems(change: .insertion(diffPaths), context: context)
             }
             else if needRemoveItems > 0 {
-                delegate?.didChangeItems(change: .deletion(paths), context: context)
+                delegate?.didChangeItems(change: .deletion(diffPaths), context: context)
             }
             
-            // update visible
-            delegate?.didChangeItems(change: .updateVisible, context: context)
+            delegate?.didChangeItems(change: .update(toUpdate), context: context)
         }
     }
 }
@@ -120,7 +124,7 @@ class MyPendingRequests: DataSource {
         case let .failure(error):
             self.delegate?.didFail(error: error)
         case let .success(list):
-            let items = list.users.map { ActivityItem.pendingRequest($0) }
+            let items = list.items.map { ActivityItem.pendingRequest($0) }
             process(newItems: items, pageIdx: page)
         }
     }

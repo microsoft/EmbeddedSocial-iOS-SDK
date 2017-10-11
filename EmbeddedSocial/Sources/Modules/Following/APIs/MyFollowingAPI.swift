@@ -5,14 +5,14 @@
 
 import Foundation
 
-struct MyFollowingAPI: UsersListAPI {
+final class MyFollowingAPI: UsersListAPI {
     private let service: SocialServiceType
     
     init(service: SocialServiceType) {
         self.service = service
     }
     
-    func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
+    override func getUsersList(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         service.getMyFollowing(cursor: cursor, limit: limit, completion: completion)
     }
 }
