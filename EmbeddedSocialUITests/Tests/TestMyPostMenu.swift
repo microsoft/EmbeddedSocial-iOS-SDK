@@ -5,7 +5,7 @@
 
 import XCTest
 
-class TestMyPostMenu: TestHome {
+class TestMyPostMenu: TestOnlineHome, OnlineTest {
     
     override func setUp() {
         super.setUp()
