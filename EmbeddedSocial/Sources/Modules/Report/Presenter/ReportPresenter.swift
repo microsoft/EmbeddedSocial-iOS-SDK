@@ -27,10 +27,10 @@ final class ReportPresenter {
         return selectedIndexPath != nil
     }
     
-    fileprivate let myProfileHolder: UserHolder
+    fileprivate let actionStrategy: AuthorizedActionStrategy
     
-    init(myProfileHolder: UserHolder) {
-        self.myProfileHolder = myProfileHolder
+    init(actionStrategy: AuthorizedActionStrategy) {
+        self.actionStrategy = actionStrategy
     }
 }
 
@@ -51,11 +51,10 @@ extension ReportPresenter: ReportViewOutput {
             return
         }
         
-        guard myProfileHolder.me != nil else {
-            router.openLogin()
-            return
-        }
-        
+        actionStrategy.executeOrPromptLogin { [weak self] in self?.submit(reason: reason) }
+    }
+    
+    private func submit(reason: ReportReason) {
         view.setIsLoading(true)
         
         interactor.submitReport(with: reason) { [weak self] result in

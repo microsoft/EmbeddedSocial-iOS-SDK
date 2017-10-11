@@ -21,6 +21,12 @@ class ReplyCellPresenter: ReplyCellModuleInput, ReplyCellViewOutput, ReplyCellIn
     weak var moduleOutput: ReplyCellModuleOutput!
     
     var reply: Reply!
+    
+    private let actionStrategy: AuthorizedActionStrategy
+    
+    init(actionStrategy: AuthorizedActionStrategy) {
+        self.actionStrategy = actionStrategy
+    }
 
     func viewIsReady() {
 
@@ -32,10 +38,10 @@ class ReplyCellPresenter: ReplyCellModuleInput, ReplyCellViewOutput, ReplyCellIn
     
     
     func like() {
-        guard myProfileHolder?.me != nil else {
-            router?.openLogin()
-            return
-        }
+        actionStrategy.executeOrPromptLogin { [weak self] in self?._like() }
+    }
+    
+    private func _like() {
         let status = reply.liked
         let action: RepliesSocialAction = status ? .unlike : .like
         
