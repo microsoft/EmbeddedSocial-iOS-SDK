@@ -34,6 +34,8 @@ class SearchViewController: UIViewController {
         return searchBar
     }()
     
+    private let searchBarMulticastDelegate = MulticastDelegate<UISearchBarDelegate>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         apply(theme: theme)
