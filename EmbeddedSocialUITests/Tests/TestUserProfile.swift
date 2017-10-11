@@ -77,7 +77,7 @@ class TestUserProfile: UITestBase {
 }
 
 
-class TestUserProfileRecentPosts: TestHome {
+class TestUserProfileRecentPosts: TestOnlineHome, OnlineTest {
     var profile: UserProfile!
     var userName: String!
     
@@ -101,7 +101,7 @@ class TestUserProfileRecentPosts: TestHome {
     
 }
 
-class TestUserProfilePopularPosts: TestHome {
+class TestUserProfilePopularPosts: TestOnlineHome, OnlineTest {
     var profile: UserProfile!
     var userName: String!
     

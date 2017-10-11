@@ -12,6 +12,7 @@ class ReportPresenterTests: XCTestCase {
     var interactor: MockReportInteractor!
     var myProfileHolder: MyProfileHolder!
     var sut: ReportPresenter!
+    var actionStrategy: CommonAuthorizedActionStrategy!
     
     override func setUp() {
         super.setUp()
@@ -19,8 +20,12 @@ class ReportPresenterTests: XCTestCase {
         view = MockReportView()
         interactor = MockReportInteractor()
         myProfileHolder = MyProfileHolder()
-        
-        sut = ReportPresenter(myProfileHolder: myProfileHolder)
+        actionStrategy = CommonAuthorizedActionStrategy(
+            myProfileHolder: myProfileHolder,
+            loginParent: nil,
+            loginOpener: MockLoginModalOpener()
+        )
+        sut = ReportPresenter(actionStrategy: actionStrategy)
         sut.router = router
         sut.view = view
         sut.interactor = interactor
@@ -33,6 +38,7 @@ class ReportPresenterTests: XCTestCase {
         interactor = nil
         myProfileHolder = nil
         sut = nil
+        actionStrategy = nil
     }
     
     func testThatItSetsInitialState() {
@@ -93,7 +99,6 @@ class ReportPresenterTests: XCTestCase {
         
         XCTAssertFalse(view.setIsLoading_Called)
         
-        XCTAssertTrue(router.openLogin_Called)
         XCTAssertFalse(router.openReportSuccess_onDone_Called)
     }
     

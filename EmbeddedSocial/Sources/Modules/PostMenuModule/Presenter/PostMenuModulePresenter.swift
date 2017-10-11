@@ -86,10 +86,10 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     var router: PostMenuModuleRouterInput!
     var menuType: PostMenuType!
     
-    private let myProfileHolder: UserHolder
-    
-    init(myProfileHolder: UserHolder) {
-        self.myProfileHolder = myProfileHolder
+    private let actionStrategy: AuthorizedActionStrategy
+
+    init(actionStrategy: AuthorizedActionStrategy) {
+        self.actionStrategy = actionStrategy
     }
     
     func viewIsReady() {
@@ -211,12 +211,12 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     
     // MARK: Module Input
     func didTapBlock(user: User) {
-        guard myProfileHolder.me != nil else {
-            router.openLogin()
-            return
-        }
-        self.output?.didBlock(user: user)
-        self.interactor.block(user: user)
+        actionStrategy.executeOrPromptLogin { [weak self] in self?._didTapBlock(user: user) }
+    }
+    
+    private func _didTapBlock(user: User) {
+        output?.didBlock(user: user)
+        interactor.block(user: user)
     }
     
     func didTapUnblock(user: User) {
@@ -230,12 +230,12 @@ class PostMenuModulePresenter: PostMenuModuleViewOutput, PostMenuModuleInput, Po
     }
     
     func didTapFollow(user: User) {
-        guard myProfileHolder.me != nil else {
-            router.openLogin()
-            return
-        }
-        self.output?.postMenuProcessDidStart()
-        self.interactor.follow(user: user)
+        actionStrategy.executeOrPromptLogin { [weak self] in self?._didTapFollow(user: user) }
+    }
+    
+    private func _didTapFollow(user: User) {
+        output?.postMenuProcessDidStart()
+        interactor.follow(user: user)
     }
     
     func didTapUnfollow(user: User) {

@@ -13,6 +13,7 @@ class UserProfilePresenterTests: XCTestCase {
     var myProfileHolder: MyProfileHolder!
     var feedInput: MockFeedModuleInput!
     var moduleOutput: MockUserProfileModuleOutput!
+    var actionStrategy: CommonAuthorizedActionStrategy!
     
     var randomValue: Int {
         return Int(arc4random() % 100)
@@ -26,6 +27,7 @@ class UserProfilePresenterTests: XCTestCase {
         interactor = MockUserProfileInteractor()
         feedInput = MockFeedModuleInput()
         moduleOutput = MockUserProfileModuleOutput()
+        actionStrategy = CommonAuthorizedActionStrategy(myProfileHolder: myProfileHolder, loginParent: nil, loginOpener: MockLoginModalOpener())
     }
     
     override func tearDown() {
@@ -36,6 +38,7 @@ class UserProfilePresenterTests: XCTestCase {
         interactor = nil
         feedInput = nil
         moduleOutput = nil
+        actionStrategy = nil
     }
     
     func testThatItSetsInitialStateWhenUserIsMe() {
@@ -250,9 +253,7 @@ class UserProfilePresenterTests: XCTestCase {
         
         // then
         XCTAssertEqual(interactor.socialRequestCount, 0)
-        
-        XCTAssertEqual(router.openLoginCount, 1)
-        
+                
         XCTAssertNil(view.lastFollowStatus)
         XCTAssertNil(view.isProcessingFollowRequest)
         XCTAssertEqual(view.lastFollowersCount, user.followersCount)
@@ -378,7 +379,7 @@ class UserProfilePresenterTests: XCTestCase {
     }
     
     fileprivate func makeDefaultPresenter(userID: String? = nil) -> UserProfilePresenter {
-        let presenter = UserProfilePresenter(userID: userID, myProfileHolder: myProfileHolder)
+        let presenter = UserProfilePresenter(userID: userID, myProfileHolder: myProfileHolder, actionStrategy: actionStrategy)
         presenter.view = view
         presenter.router = router
         presenter.interactor = interactor

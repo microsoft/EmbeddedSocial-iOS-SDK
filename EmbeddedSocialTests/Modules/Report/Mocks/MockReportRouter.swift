@@ -24,12 +24,4 @@ class MockReportRouter: ReportRouterInput {
     func close() {
         close_Called = true
     }
-    
-    //MARK: - openLoginPopup
-
-    var openLogin_Called = false
-
-    func openLogin() {
-        openLogin_Called = true
-    }
 }

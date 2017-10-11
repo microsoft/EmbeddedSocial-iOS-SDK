@@ -18,7 +18,7 @@ class TestPostComments: UITestBase {
         sideMenu = SideMenu(app)
         feed = Feed(app)
         comments = CommentsFeed(app)
-        pageSize = EmbeddedSocial.Constants.CommentReplies.pageSize
+        pageSize = 5 //EmbeddedSocial.Constants.CommentReplies.pageSize
     }
     
     func openScreen() {
