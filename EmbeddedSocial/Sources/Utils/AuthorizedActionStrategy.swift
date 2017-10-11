@@ -12,7 +12,7 @@ protocol AuthorizedActionStrategy {
 class CommonAuthorizedActionStrategy: AuthorizedActionStrategy {
     private let myProfileHolder: UserHolder
     weak private(set) var loginParent: UIViewController?
-    weak private(set) var loginOpener: LoginModalOpener!
+    private let loginOpener: LoginModalOpener
 
     init(myProfileHolder: UserHolder = SocialPlus.shared,
          loginParent: UIViewController?,

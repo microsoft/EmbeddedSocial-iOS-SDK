@@ -14,8 +14,6 @@ class UserProfilePresenterTests: XCTestCase {
     var feedInput: MockFeedModuleInput!
     var moduleOutput: MockUserProfileModuleOutput!
     var actionStrategy: CommonAuthorizedActionStrategy!
-    var loginParent: UIViewController!
-    var loginOpener: MockLoginModalOpener!
     
     var randomValue: Int {
         return Int(arc4random() % 100)
@@ -29,11 +27,7 @@ class UserProfilePresenterTests: XCTestCase {
         interactor = MockUserProfileInteractor()
         feedInput = MockFeedModuleInput()
         moduleOutput = MockUserProfileModuleOutput()
-        loginParent = UIViewController()
-        loginOpener = MockLoginModalOpener()
-        actionStrategy = CommonAuthorizedActionStrategy(myProfileHolder: myProfileHolder,
-                                                        loginParent: loginParent,
-                                                        loginOpener: loginOpener)
+        actionStrategy = CommonAuthorizedActionStrategy(myProfileHolder: myProfileHolder, loginParent: nil, loginOpener: MockLoginModalOpener())
     }
     
     override func tearDown() {
@@ -44,8 +38,6 @@ class UserProfilePresenterTests: XCTestCase {
         interactor = nil
         feedInput = nil
         moduleOutput = nil
-        loginParent = nil
-        loginOpener = nil
         actionStrategy = nil
     }
     
@@ -261,9 +253,7 @@ class UserProfilePresenterTests: XCTestCase {
         
         // then
         XCTAssertEqual(interactor.socialRequestCount, 0)
-        
-        XCTAssertEqual(router.openLoginCount, 1)
-        
+                
         XCTAssertNil(view.lastFollowStatus)
         XCTAssertNil(view.isProcessingFollowRequest)
         XCTAssertEqual(view.lastFollowersCount, user.followersCount)
