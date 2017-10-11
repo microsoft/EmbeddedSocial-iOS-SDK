@@ -9,7 +9,7 @@ struct AppThemeConfigurationCommand: Command {
     
     private let theme: Theme?
     
-    init(theme: Theme? = SocialPlus.theme) {
+    init(theme: Theme? = AppConfiguration.shared.theme) {
         self.theme = theme
     }
     

@@ -5,7 +5,6 @@
 
 import UIKit
 import SDWebImage
-import SVProgressHUD
 
 class CreatePostViewController: BaseViewController, CreatePostViewInput {
 
@@ -35,10 +34,8 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     
     // MARK: CreatePostViewInput
     func setupInitialState() {
-        let backButton = UIBarButtonItem(asset: .iconBack, title: "", font: nil, color: .black) { [weak self] in
-            self?.back()
-        }
-        navigationItem.leftBarButtonItem = backButton
+        navigationItem.leftBarButtonItem =
+            UIBarButtonItem(image: UIImage(asset: .iconBack), style: .plain, target: self, action: #selector(back))
     }
     
     func configTitlesForExistingPost() {
@@ -59,18 +56,18 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     
     func topicCreated() {
         unlockNavigationBar()
-        SVProgressHUD.dismiss()
+        hideHUD()
     }
     
     func topicUpdated() {
         unlockNavigationBar()
-        SVProgressHUD.dismiss()
+        hideHUD()
     }
     
     func show(user: User) {
         userImageView.layer.cornerRadius = userImageView.bounds.size.height/2
         usernameLabel.text = "\(user.firstName!) \(user.lastName!)"
-        userImageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: SocialPlus.assets.userPhotoPlaceholder))
+        userImageView.setPhotoWithCaching(user.photo, placeholder: UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder))
     }
     
     func show(post: Post) {
@@ -85,7 +82,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     }
     
     func show(error: Error) {
-        SVProgressHUD.dismiss()
+        hideHUD()
         let alert = UIAlertController(title: error.localizedDescription, message: nil, preferredStyle: .alert)
         let action = UIAlertAction(title: L10n.Common.ok, style: .default, handler: nil)
         alert.addAction(action)
@@ -102,7 +99,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
     
     // MARK: Actions
     @objc fileprivate func post() {
-        SVProgressHUD.show()
+        showHUD()
         lockNavigationBar()
         output.post(photo: photo, title: titleTextField.text, body: postBodyTextView.text)
     }
@@ -114,7 +111,7 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         imagePicker.show(with: options)
     }
     
-    fileprivate func back() {
+    @objc fileprivate func back() {
         if postBodyTextView.text.isEmpty && (titleTextField.text?.isEmpty)! && photo == nil {
             output.back()
         }
@@ -201,6 +198,9 @@ extension CreatePostViewController: Themeable {
         let attrs: [String: Any] = [NSFontAttributeName: AppFonts.medium, NSForegroundColorAttributeName: palette.textPlaceholder]
         titleTextField.attributedPlaceholder = NSAttributedString(string: L10n.CreatePost.titlePlaceholder, attributes: attrs)
         postBodyTextView.attributedPlaceholder = NSAttributedString(string: L10n.CreatePost.bodyPlaceholder, attributes: attrs)
+        
+        mediaButton.backgroundColor = palette.topicsFeedBackground
+        mediaButton.setTitleColor(palette.textPrimary, for: .normal)
     }
 }
 

@@ -91,8 +91,8 @@ extension LoadingIndicatorView {
         
         static let standard = Style(backgroundColor: .clear,
                                     font: AppFonts.medium,
-                                    textColor: SocialPlus.palette.textPrimary,
-                                    spinnerColor: SocialPlus.palette.loadingIndicator,
+                                    textColor: AppConfiguration.shared.theme.palette.textPrimary,
+                                    spinnerColor: AppConfiguration.shared.theme.palette.loadingIndicator,
                                     spinnerStyle: .gray)
     }
 }

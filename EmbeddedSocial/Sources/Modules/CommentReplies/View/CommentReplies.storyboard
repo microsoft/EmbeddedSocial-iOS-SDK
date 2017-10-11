@@ -36,16 +36,14 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Type here to reply to this comment"/>
                                         </userDefinedRuntimeAttributes>
                                     </textView>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qut-uO-elp">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qut-uO-elp">
                                         <rect key="frame" x="324" y="14" width="31" height="30"/>
                                         <accessibility key="accessibilityConfiguration" identifier="Post" label="Post"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="CqH-qr-0yE"/>
                                             <constraint firstAttribute="width" constant="31" id="sqU-aF-vUK"/>
                                         </constraints>
-                                        <state key="normal" title="Post">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
+                                        <state key="normal" title="Post"/>
                                         <connections>
                                             <action selector="postReply:" destination="JFT-K0-9q4" eventType="touchUpInside" id="nr9-e3-F4K"/>
                                         </connections>

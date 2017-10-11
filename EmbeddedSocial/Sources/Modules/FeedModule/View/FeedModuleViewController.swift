@@ -4,7 +4,6 @@
 //
 
 import UIKit
-import SVProgressHUD
 
 protocol FeedModuleViewInput: class {
     
@@ -151,7 +150,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerReuseID)
         
         // Subviews
-        view.addSubview(noContentLabel)
+        collectionView.addSubview(noContentLabel)
         
         noContentLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
@@ -278,13 +277,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     }
     
     @objc private func didTapChangeLayout() {
-        
-        // We do not change layout during collection animation.
-        guard canChangeLayout() else {
-            Logger.log("cant change layout")
-            return
-        }
-        
         output.didTapChangeLayout()
     }
     
@@ -353,11 +345,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         Logger.log(state)
         if state {
             //            collectionView.isUserInteractionEnabled = false
-            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.none)
-            SVProgressHUD.show()
+            showHUD(in: view)
         } else {
             //            collectionView.isUserInteractionEnabled = true
-            SVProgressHUD.dismiss()
+            hideHUD(in: view)
         }
     }
     

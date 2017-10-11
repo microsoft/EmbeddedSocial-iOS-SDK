@@ -98,7 +98,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
             
             return SideMenuHeaderModel(title: accountName, image: user.photo!, isSelected: isSelected)
         } else {
-            let photo = Photo(image:(UIImage(asset: SocialPlus.assets.userPhotoPlaceholder)))
+            let photo = Photo(image:(UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder)))
             
             return SideMenuHeaderModel(title: L10n.SideMenu.signIn, image: photo, isSelected: isSelected)
         }

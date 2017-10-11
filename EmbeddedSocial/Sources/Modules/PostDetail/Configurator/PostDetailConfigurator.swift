@@ -22,7 +22,7 @@ class PostDetailModuleConfigurator {
                    scrollType: CommentsScrollType,
                    myProfileHolder: UserHolder = SocialPlus.shared,
                    navigationController: UINavigationController? = nil,
-                   pageSize: Int = SocialPlus.settings.numberOfCommentsToShow) {
+                   pageSize: Int = AppConfiguration.shared.settings.numberOfCommentsToShow) {
         
         let strategy = CommonAuthorizedActionStrategy(loginParent: navigationController)
         let presenter = PostDetailPresenter(pageSize: pageSize, actionStrategy: strategy)
@@ -43,7 +43,7 @@ class PostDetailModuleConfigurator {
         
         presenter.interactor = interactor
         viewController.output = presenter
-        viewController.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
         
         let feedConfigurator = FeedModuleConfigurator(cache: SocialPlus.shared.cache)
         feedConfigurator.configure(navigationController: navigationController, moduleOutput: presenter)

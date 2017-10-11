@@ -738,7 +738,6 @@
 		88BC87421F14FA1B00EAEFD7 /* EmbeddedSocial.h in Headers */ = {isa = PBXBuildFile; fileRef = 88BC873F1F14FA1B00EAEFD7 /* EmbeddedSocial.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		88BC87571F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
 		88BC87581F150BD700EAEFD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */; };
-		88C665041F86620000A7763D /* MockAppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C665031F86620000A7763D /* MockAppConfiguration.swift */; };
 		88C665061F866B0800A7763D /* PopularUsersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C665051F866B0800A7763D /* PopularUsersAPI.swift */; };
 		88C665081F866E8500A7763D /* PopularUsersResponseProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C665071F866E8500A7763D /* PopularUsersResponseProcessor.swift */; };
 		88C6650A1F8671B200A7763D /* PopularUsersAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C665091F8671B200A7763D /* PopularUsersAPITests.swift */; };
@@ -1884,7 +1883,6 @@
 		88BC873F1F14FA1B00EAEFD7 /* EmbeddedSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmbeddedSocial.h; sourceTree = "<group>"; };
 		88BC87401F14FA1B00EAEFD7 /* EmbeddedSocial.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = EmbeddedSocial.modulemap; sourceTree = "<group>"; };
 		88BC87561F150BD700EAEFD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		88C665031F86620000A7763D /* MockAppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAppConfiguration.swift; sourceTree = "<group>"; };
 		88C665051F866B0800A7763D /* PopularUsersAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularUsersAPI.swift; sourceTree = "<group>"; };
 		88C665071F866E8500A7763D /* PopularUsersResponseProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularUsersResponseProcessor.swift; sourceTree = "<group>"; };
 		88C665091F8671B200A7763D /* PopularUsersAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularUsersAPITests.swift; sourceTree = "<group>"; };
@@ -4517,7 +4515,6 @@
 			isa = PBXGroup;
 			children = (
 				9C3024381F55A5F600675FE9 /* FeedModule */,
-				88C665031F86620000A7763D /* MockAppConfiguration.swift */,
 				889AFC141F220BCD003AAF19 /* MockAuthAPI.swift */,
 				884499DB1F8E0B6500838083 /* MockLoginModalOpener.swift */,
 				88FEFC9D1F8E1B9100D81CAB /* MockAuthorizedActionStrategy.swift */,
@@ -7298,7 +7295,6 @@
 				88B2D67D1F7BAB9100920E43 /* MockFollowRequestsInteractor.swift in Sources */,
 				88087B4A1F2B4DD100A33E9A /* MockThirdPartyConfigurator.swift in Sources */,
 				88B2D68F1F7BE7CA00920E43 /* UsersListResponseProcessorTests.swift in Sources */,
-				88C665041F86620000A7763D /* MockAppConfiguration.swift in Sources */,
 				8811C89F1F44332B00F7513D /* EmbeddedEditProfilePresenterTests.swift in Sources */,
 				88FEFC9E1F8E1B9100D81CAB /* MockAuthorizedActionStrategy.swift in Sources */,
 				880AFD631F70064C00378710 /* UnlikeReplyOperationTests.swift in Sources */,

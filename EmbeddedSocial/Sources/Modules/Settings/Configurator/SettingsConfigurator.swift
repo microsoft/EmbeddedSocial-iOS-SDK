@@ -11,7 +11,7 @@ struct SettingsConfigurator {
     init() {
         viewController = StoryboardScene.Settings.settingsViewController.instantiate()
         viewController.title = L10n.Settings.screenTitle
-        viewController.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
     }
     
     func configure(myProfileHolder: UserHolder = SocialPlus.shared, logoutController: LogoutController = SocialPlus.shared, navigationController: UINavigationController?) {

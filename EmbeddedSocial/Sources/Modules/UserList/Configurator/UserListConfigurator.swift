@@ -34,8 +34,8 @@ struct UserListConfigurator {
         view.output = presenter
         view.dataManager = UserListDataDisplayManager(myProfileHolder: settings.myProfileHolder,
                                                       builder: settings.listItemsBuilder)
-        view.theme = SocialPlus.theme
-        view.dataManager.theme = SocialPlus.theme
+        view.theme = AppConfiguration.shared.theme
+        view.dataManager.theme = AppConfiguration.shared.theme
         
         return presenter
     }

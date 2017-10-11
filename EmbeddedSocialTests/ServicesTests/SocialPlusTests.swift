@@ -15,7 +15,6 @@ class SocialPlusTests: XCTestCase {
     var servicesProvider: MockSocialPlusServices!
     var cache: MockCache!
     var networkTracker: MockNetworkTracker!
-    var appConfiguration: MockAppConfiguration!
     
     var sut = SocialPlus.shared
     
@@ -29,18 +28,16 @@ class SocialPlusTests: XCTestCase {
         daemonsController = MockDaemon()
         cache = MockCache()
         networkTracker = MockNetworkTracker()
-        appConfiguration = MockAppConfiguration()
         
         servicesProvider = MockSocialPlusServices()
         servicesProvider.getURLSchemeServiceReturnValue = urlSchemeService
         servicesProvider.getSessionStoreRepositoriesProviderReturnValue = sessionStoreRepositoryProvider
         servicesProvider.getDaemonsControllerCacheReturnValue = daemonsController
-        servicesProvider.getAuthorizationMulticastAppKeyReturnValue = authorizationMulticast
+        servicesProvider.getAuthorizationMulticastReturnValue = authorizationMulticast
         servicesProvider.getCoreDataStackReturnValue = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
         servicesProvider.getCacheCoreDataStackReturnValue = cache
         servicesProvider.getNetworkTrackerReturnValue = networkTracker
-        servicesProvider.getAppConfigurationConfigFilenameReturnValue = appConfiguration
-        servicesProvider.getStartupCommandsLaunchArgsSettingsReturnValue = []
+        servicesProvider.getStartupCommandsLaunchArgsReturnValue = []
         
         urlSchemeService.openURLReturnValue = true
         
@@ -58,7 +55,6 @@ class SocialPlusTests: XCTestCase {
         servicesProvider = nil
         cache = nil
         networkTracker = nil
-        appConfiguration = nil
         
         sut.setupServices(with: SocialPlusServices())
     }
@@ -93,7 +89,7 @@ class SocialPlusTests: XCTestCase {
         
         XCTAssertTrue(daemonsController.startCalled)
         
-        XCTAssertTrue(servicesProvider.getAuthorizationMulticastAppKeyCalled)
+        XCTAssertTrue(servicesProvider.getAuthorizationMulticastCalled)
         XCTAssertEqual(sut.authorization, authorizationMulticast.authorization)
         
         XCTAssertTrue(servicesProvider.getCoreDataStackCalled)

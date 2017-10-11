@@ -21,7 +21,7 @@ class CommentRepliesModuleConfigurator {
     func configure(commentModule: CommentCellModuleProtocol,
                    scrollType: RepliesScrollType,
                    myProfileHolder: UserHolder = SocialPlus.shared,
-                   pageSize: Int = SocialPlus.settings.numberOfRepliesToShow,
+                   pageSize: Int = AppConfiguration.shared.settings.numberOfRepliesToShow,
                    navigationController: UINavigationController?) {
         
         let router = CommentRepliesRouter()
@@ -47,7 +47,7 @@ class CommentRepliesModuleConfigurator {
         interactor.repliesService = repliesService
         viewController.output = presenter
         
-        viewController.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
     }
 
 }

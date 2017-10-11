@@ -21,8 +21,8 @@ struct TrendingTopicsConfigurator {
         
         viewController.output = presenter
         viewController.dataManager = TrendingTopicsDataDisplayManager()
-        viewController.theme = SocialPlus.theme
-        viewController.dataManager.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
+        viewController.dataManager.theme = AppConfiguration.shared.theme
         
         moduleInput = presenter
     }

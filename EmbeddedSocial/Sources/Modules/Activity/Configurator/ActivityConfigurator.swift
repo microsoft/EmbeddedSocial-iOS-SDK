@@ -22,7 +22,7 @@ class ActivityModuleConfigurator {
         let presenter = ActivityPresenter(interactor: interactor)
         presenter.view = viewController
         presenter.router = router
-        presenter.theme = SocialPlus.theme
+        presenter.theme = AppConfiguration.shared.theme
         
         module = presenter
 
@@ -33,7 +33,7 @@ class ActivityModuleConfigurator {
         
         viewController.output = presenter
         
-        viewController.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
     }
 
 }

@@ -14,7 +14,7 @@ struct PendingRequestViewModel: ActivityItemViewModel {
     var cellID: String
     var cellClass: UITableViewCell.Type
     
-    let profileImagePlaceholder = SocialPlus.assets.userPhotoPlaceholder
+    let profileImagePlaceholder = AppConfiguration.shared.theme.assets.userPhotoPlaceholder
     let profileImage: String?
     let profileName: String?
 }
@@ -24,7 +24,7 @@ struct ActivityViewModel: ActivityItemViewModel {
     var cellClass: UITableViewCell.Type
     
     let iconImage: Asset?
-    let profileImagePlaceholder = SocialPlus.assets.userPhotoPlaceholder
+    let profileImagePlaceholder = AppConfiguration.shared.theme.assets.userPhotoPlaceholder
     let profileImage: String?
     let postImagePlaceholder: Asset?
     let postText: String
