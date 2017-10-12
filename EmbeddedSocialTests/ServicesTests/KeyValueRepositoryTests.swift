@@ -31,8 +31,9 @@ class KeyValueRepositoryTests: XCTestCase {
         
         // then
         _ = sut.load(forKey: className)
-        XCTAssertEqual(storage.setObjectCount, 1)
-        XCTAssertEqual(storage.getObjectCount, 1)
+        
+        XCTAssertTrue(storage.setForKeyCalled)
+        XCTAssertTrue(storage.objectForKeyCalled)
     }
     
     func testThatItPurgesStorage() {
@@ -42,7 +43,7 @@ class KeyValueRepositoryTests: XCTestCase {
         sut.purge(key: className)
         
         // then
-        XCTAssertEqual(storage.purgeObjectCount, 1)
+        XCTAssertTrue(storage.purgeKeyCalled)
     }
     
     func testThatItRemovesItem() {
@@ -54,7 +55,7 @@ class KeyValueRepositoryTests: XCTestCase {
         sut.remove(forKey: className)
         
         // then
-        XCTAssertEqual(storage.setObjectCount, 1)
-        XCTAssertEqual(storage.removeObjectCount, 1)
+        XCTAssertTrue(storage.setForKeyCalled)
+        XCTAssertTrue(storage.removeObjectForKeyCalled)
     }
 }

@@ -29,9 +29,25 @@ class SearchViewController: UIViewController {
     
     fileprivate lazy var searchBar: UISearchBar = { [unowned self] in
         let searchBar = UISearchBar(frame: CGRect(x: 0.0, y: 0.0, width: 320.0, height: 44.0))
-        searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
         return searchBar
+    }()
+    
+    fileprivate lazy var searchHistoryView: SearchHistoryView = { [unowned self] in
+        let shv = SearchHistoryView()
+        shv.backgroundColor = AppConfiguration.shared.theme.palette.contentBackground
+        shv.onSearchRequestSelected = { self.searchSelectedText($0) }
+        self.navigationController?.view.addSubview(shv)
+        return shv
+    }()
+    
+    fileprivate lazy var searchHistoryHandler: SearchHistoryMediator = { [unowned self] in
+        return SearchHistoryMediator(
+            searchBar: self.searchBar,
+            searchBarDelegate: self,
+            storage: SearchHistoryStorage(userID: SocialPlus.shared.me?.uid ?? "anon"),
+            searchHistoryView: self.searchHistoryView
+        )
     }()
     
     override func viewDidLoad() {
@@ -61,6 +77,8 @@ class SearchViewController: UIViewController {
         
         navigationItem.rightBarButtonItem =
             tab.tab.showsRightNavigationButton ? UIBarButtonItem(customView: feedLayoutButton) : nil
+        
+        searchHistoryHandler.activeTab = tab.tab
     }
     
     fileprivate func addBackgroundView(_ backgroundView: UIView) {
@@ -83,12 +101,19 @@ class SearchViewController: UIViewController {
         activeTab?.searchText = searchText
         activeTab?.searchResultsHandler.updateSearchResults(for: searchBar)
     }
+    
+    func searchSelectedText(_ text: String) {
+        searchBar.text = text
+        searchHistoryHandler.handleSearchedText(text)
+        search(text: text)
+    }
 }
 
 extension SearchViewController: SearchViewInput {
     
     func setupInitialState(_ tab: SearchTabInfo) {
         _ = filterView
+        _ = searchHistoryHandler
         navigationItem.titleView = searchBar
         makeTabActive(tab)
     }
@@ -108,8 +133,7 @@ extension SearchViewController: SearchViewInput {
     }
     
     func search(hashtag: Hashtag) {
-        searchBar.text = hashtag
-        search(text: hashtag)
+        searchSelectedText(hashtag)
     }
 }
 
