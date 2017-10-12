@@ -31,7 +31,7 @@ protocol ActivityViewOutput: class {
     func didSwitchToTab(to index: Int)
 }
 
-class ActivityViewController: UIViewController {
+class ActivityViewController: BaseViewController {
     struct Style {
         static let cellSize = CGFloat(80)
     }

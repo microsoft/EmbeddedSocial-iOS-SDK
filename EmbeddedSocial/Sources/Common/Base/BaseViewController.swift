@@ -8,6 +8,7 @@ import UIKit
 class BaseViewController: UIViewController {
     
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint?
+    let offlineView = OfflineView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,12 +16,14 @@ class BaseViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        SocialPlus.shared.networkTracker.addListener(self)
         configNotifications()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         view.endEditing(true)
+        SocialPlus.shared.networkTracker.removeListener(self)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     }
@@ -72,6 +75,16 @@ extension BaseViewController {
         bottomConstraint?.constant = CGFloat(0)
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.view.layoutIfNeeded()
+        }
+    }
+}
+
+extension BaseViewController: NetworkStatusListener {
+    func networkStatusDidChange(_ isReachable: Bool) {
+        if !isReachable {
+            offlineView.show(in: self)
+        } else {
+            offlineView.hide()
         }
     }
 }

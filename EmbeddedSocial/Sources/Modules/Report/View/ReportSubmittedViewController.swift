@@ -5,7 +5,7 @@
 
 import UIKit
 
-class ReportSubmittedViewController: UIViewController {
+class ReportSubmittedViewController: BaseViewController {
     
     var onDone: (() -> Void)?
     

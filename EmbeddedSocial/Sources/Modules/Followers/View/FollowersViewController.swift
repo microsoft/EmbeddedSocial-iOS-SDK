@@ -6,7 +6,7 @@
 import UIKit
 import SnapKit
 
-class FollowersViewController: UIViewController {
+class FollowersViewController: BaseViewController {
     
     var output: FollowersViewOutput!
     

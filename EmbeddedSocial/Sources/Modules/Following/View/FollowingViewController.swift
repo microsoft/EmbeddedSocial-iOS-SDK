@@ -6,7 +6,7 @@
 import UIKit
 import SnapKit
 
-class FollowingViewController: UIViewController {
+class FollowingViewController: BaseViewController {
     
     var output: FollowingViewOutput!
     

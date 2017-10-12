@@ -31,6 +31,7 @@
 		5CB177D38658E28CE370EB48 /* CommentCellRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61494E4B897730AE4E0BD7AB /* CommentCellRouter.swift */; };
 		6315CB341F791DD200F68087 /* RemoveCommentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB331F791DD200F68087 /* RemoveCommentOperation.swift */; };
 		6315CB361F791DDE00F68087 /* ReportCommentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB351F791DDE00F68087 /* ReportCommentOperation.swift */; };
+		6322E4151F8E421100B54F3F /* OfflineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E4141F8E421100B54F3F /* OfflineView.swift */; };
 		635641FF1F8503470074289D /* BaseNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635641FE1F8503470074289D /* BaseNavigationViewController.swift */; };
 		635642001F8509060074289D /* ReplyCellInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B62ED31F83CA34003DC885 /* ReplyCellInteractorTests.swift */; };
 		635B44841F8FA8D200D5ABAD /* CommentRepliesInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F848941F4ADD8700D434CF /* CommentRepliesInteractorTests.swift */; };
@@ -916,6 +917,13 @@
 		88F7A7971F278E24005FEC5F /* MockLoginModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F7A7961F278E24005FEC5F /* MockLoginModuleOutput.swift */; };
 		88FEFC9E1F8E1B9100D81CAB /* MockAuthorizedActionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEFC9D1F8E1B9100D81CAB /* MockAuthorizedActionStrategy.swift */; };
 		88FEFCA01F8E3F7F00D81CAB /* MyRecentTopicsFeedResponseProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEFC9F1F8E3F7F00D81CAB /* MyRecentTopicsFeedResponseProcessor.swift */; };
+		88FEFCA21F8E524B00D81CAB /* SearchHistoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEFCA11F8E524B00D81CAB /* SearchHistoryStorage.swift */; };
+		88FEFCA41F8E59BF00D81CAB /* SearchHistoryMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEFCA31F8E59BF00D81CAB /* SearchHistoryMediator.swift */; };
+		88FEFCA71F8E5A4400D81CAB /* SearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEFCA61F8E5A4400D81CAB /* SearchHistoryView.swift */; };
+		88FEFCA91F8E677D00D81CAB /* SearchBarMulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEFCA81F8E677D00D81CAB /* SearchBarMulticastDelegate.swift */; };
+		88FEFCAD1F8F93CF00D81CAB /* SearchHistoryViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEFCAC1F8F93CF00D81CAB /* SearchHistoryViewTests.swift */; };
+		88FEFCAF1F8F970D00D81CAB /* SearchHistoryStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEFCAE1F8F970D00D81CAB /* SearchHistoryStorageTests.swift */; };
+		88FEFCB11F8FA78000D81CAB /* SearchHistoryMediatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEFCB01F8FA78000D81CAB /* SearchHistoryMediatorTests.swift */; };
 		88FF23601F683C51005D4552 /* UnfollowCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF235F1F683C51005D4552 /* UnfollowCommand.swift */; };
 		88FF23621F683C86005D4552 /* UserCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF23611F683C86005D4552 /* UserCommand.swift */; };
 		88FF23641F683D49005D4552 /* CancelPendingCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF23631F683D49005D4552 /* CancelPendingCommand.swift */; };
@@ -1177,6 +1185,7 @@
 		61494E4B897730AE4E0BD7AB /* CommentCellRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentCellRouter.swift; sourceTree = "<group>"; };
 		6315CB331F791DD200F68087 /* RemoveCommentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveCommentOperation.swift; sourceTree = "<group>"; };
 		6315CB351F791DDE00F68087 /* ReportCommentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportCommentOperation.swift; sourceTree = "<group>"; };
+		6322E4141F8E421100B54F3F /* OfflineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineView.swift; sourceTree = "<group>"; };
 		635641FE1F8503470074289D /* BaseNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationViewController.swift; sourceTree = "<group>"; };
 		635642011F850F790074289D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		636474891F5FFD40000D7B3D /* LoadMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
@@ -2074,6 +2083,13 @@
 		88F7A7A41F287DDE005FEC5F /* MockCreateAccountModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreateAccountModuleOutput.swift; sourceTree = "<group>"; };
 		88FEFC9D1F8E1B9100D81CAB /* MockAuthorizedActionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAuthorizedActionStrategy.swift; sourceTree = "<group>"; };
 		88FEFC9F1F8E3F7F00D81CAB /* MyRecentTopicsFeedResponseProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRecentTopicsFeedResponseProcessor.swift; sourceTree = "<group>"; };
+		88FEFCA11F8E524B00D81CAB /* SearchHistoryStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryStorage.swift; sourceTree = "<group>"; };
+		88FEFCA31F8E59BF00D81CAB /* SearchHistoryMediator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryMediator.swift; sourceTree = "<group>"; };
+		88FEFCA61F8E5A4400D81CAB /* SearchHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryView.swift; sourceTree = "<group>"; };
+		88FEFCA81F8E677D00D81CAB /* SearchBarMulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBarMulticastDelegate.swift; path = SearchBarMulticastDelegate.swift; sourceTree = "<group>"; };
+		88FEFCAC1F8F93CF00D81CAB /* SearchHistoryViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewTests.swift; sourceTree = "<group>"; };
+		88FEFCAE1F8F970D00D81CAB /* SearchHistoryStorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryStorageTests.swift; sourceTree = "<group>"; };
+		88FEFCB01F8FA78000D81CAB /* SearchHistoryMediatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryMediatorTests.swift; sourceTree = "<group>"; };
 		88FF235F1F683C51005D4552 /* UnfollowCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnfollowCommand.swift; sourceTree = "<group>"; };
 		88FF23611F683C86005D4552 /* UserCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCommand.swift; sourceTree = "<group>"; };
 		88FF23631F683D49005D4552 /* CancelPendingCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelPendingCommand.swift; sourceTree = "<group>"; };
@@ -2886,13 +2902,13 @@
 				881355A01F682EFC009299D4 /* MyBlockedUsersResponseProcessor.swift */,
 				88B2D6861F7BC71F00920E43 /* MyFollowersResponseProcessor.swift */,
 				8813559E1F680DDE009299D4 /* MyFollowingResponseProcessor.swift */,
+				88FEFC9F1F8E3F7F00D81CAB /* MyRecentTopicsFeedResponseProcessor.swift */,
 				88B2D6881F7BC99B00920E43 /* PendingRequestsResponseProcessor.swift */,
 				88C665071F866E8500A7763D /* PopularUsersResponseProcessor.swift */,
 				881355951F6805AB009299D4 /* ResponseProcessor.swift */,
 				88B2D6A11F7CFF0500920E43 /* SearchTopicsFeedResponseProcessor.swift */,
 				846CF1241F7D592500C9DBB3 /* SinglePostResponseProcessor.swift */,
 				885E040E1F6FC43300D6EBD8 /* TopicsFeedResponseProcessor.swift */,
-				88FEFC9F1F8E3F7F00D81CAB /* MyRecentTopicsFeedResponseProcessor.swift */,
 				8813559A1F680DBD009299D4 /* UsersListResponseProcessor.swift */,
 			);
 			path = ResponseProcessors;
@@ -3446,6 +3462,7 @@
 				636474881F5FFD31000D7B3D /* LoadMoreCell */,
 				9C43EC8A1F25D60A00D0B59D /* PostCells */,
 				88BC5C581F2B6628001FBDD2 /* ProfileSummaryView */,
+				88FEFCA51F8E5A3000D81CAB /* SearchHistory */,
 				8875CCF61F33384D001F2474 /* SegmentedControlView */,
 				88580AA51F2213AB00C1CBAF /* TextViewCell */,
 				88FFFA601F306EC80066A1A0 /* BarButtonItemWithTarget.swift */,
@@ -3456,6 +3473,7 @@
 				88580AA41F2213AB00C1CBAF /* TextFieldCell.swift */,
 				88580B3D1F2213AB00C1CBAF /* UploadPhotoCell.swift */,
 				88580AA81F2213AB00C1CBAF /* WebViewController.swift */,
+				6322E4141F8E421100B54F3F /* OfflineView.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -3488,7 +3506,6 @@
 				8839B8851F84E7C500D97BE6 /* CommentRepliesViewController+Themeable.swift */,
 				88580AAB1F2213AB00C1CBAF /* Dictionary+Ext.swift */,
 				889510821F3B1FCA001A53F5 /* ErrorResponse+Ext.swift */,
-				8892605C1F8B8D2E002B3707 /* UINavigationBar+Ext.swift */,
 				88E662051F7A7A6100C98526 /* FollowRequestCell+Ext.swift */,
 				8892F25A1F7E618500A58D8B /* LinkedAccountView+Ext.swift */,
 				88B94EF11F66A9F3002392F9 /* NSLock+Ext.swift */,
@@ -3507,6 +3524,7 @@
 				8811C8281F3C83E300F7513D /* UIImage+Compress.swift */,
 				88580AB11F2213AB00C1CBAF /* UIImage+Resize.swift */,
 				88580AB21F2213AB00C1CBAF /* UIImageView+ImageCache.swift */,
+				8892605C1F8B8D2E002B3707 /* UINavigationBar+Ext.swift */,
 				88C682691F7A6B77004BD291 /* UIScrollView+Ext.swift */,
 				8839B87F1F84CC3200D97BE6 /* UISegmentedControl+Themeable.swift */,
 				88580AB31F2213AB00C1CBAF /* UITableView+Ext.swift */,
@@ -5346,6 +5364,38 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		88FEFCA51F8E5A3000D81CAB /* SearchHistory */ = {
+			isa = PBXGroup;
+			children = (
+				88FEFCA81F8E677D00D81CAB /* SearchBarMulticastDelegate.swift */,
+				88FEFCA31F8E59BF00D81CAB /* SearchHistoryMediator.swift */,
+				88FEFCA11F8E524B00D81CAB /* SearchHistoryStorage.swift */,
+				88FEFCA61F8E5A4400D81CAB /* SearchHistoryView.swift */,
+			);
+			name = SearchHistory;
+			path = SearchHistory;
+			sourceTree = "<group>";
+		};
+		88FEFCAA1F8F93B500D81CAB /* SearchHistory */ = {
+			isa = PBXGroup;
+			children = (
+				88FEFCB01F8FA78000D81CAB /* SearchHistoryMediatorTests.swift */,
+				88FEFCAE1F8F970D00D81CAB /* SearchHistoryStorageTests.swift */,
+				88FEFCAC1F8F93CF00D81CAB /* SearchHistoryViewTests.swift */,
+			);
+			name = SearchHistory;
+			path = SearchHistory;
+			sourceTree = "<group>";
+		};
+		88FEFCAB1F8F93BE00D81CAB /* ControlsTests */ = {
+			isa = PBXGroup;
+			children = (
+				88FEFCAA1F8F93B500D81CAB /* SearchHistory */,
+			);
+			name = ControlsTests;
+			path = ControlsTests;
+			sourceTree = "<group>";
+		};
 		88FFFA501F2F7F780066A1A0 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -5464,6 +5514,7 @@
 				8E5FCAAE1F821C3600A81E2E /* block_user_post.json */,
 				8EAF45A01F698A350046F704 /* comment.json */,
 				8EAF459F1F698A350046F704 /* comment_post.json */,
+				8E5E3BE11F8B5E020045E75F /* comment_report_post.json */,
 				8E6070691F3D9E4000110F4F /* follower.json */,
 				8E60706D1F3DC6D400110F4F /* follower_delete.json */,
 				8E60706B1F3DC07600110F4F /* follower_post.json */,
@@ -5477,9 +5528,8 @@
 				8EAF45A71F69989E0046F704 /* reply_post.json */,
 				8EF0E5A41F1FA5EF00E88ED6 /* topic.json */,
 				8EF0E5C31F28B86100E88ED6 /* topic_post.json */,
-				8E6070651F3CB61F00110F4F /* user.json */,
 				8E5E3BE71F8BB4460045E75F /* topic_put.json */,
-				8E5E3BE11F8B5E020045E75F /* comment_report_post.json */,
+				8E6070651F3CB61F00110F4F /* user.json */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -5489,12 +5539,16 @@
 			children = (
 				8EF0E59D1F1FA5EF00E88ED6 /* Base.swift */,
 				8EF0E5A11F1FA5EF00E88ED6 /* Loop.swift */,
+				8E5FCAB21F824BC100A81E2E /* TestActivityFeed.swift */,
+				8E1DC28F1F8666BB000F5066 /* TestBlockedUsers.swift */,
+				8E884CD71F87B036008C0F51 /* TestCommentMenu.swift */,
 				8EF0E5C71F2AA13E00E88ED6 /* TestCreatePost.swift */,
 				8EE2C6CB1F46D8DB00CFFE21 /* TestEditProfile.swift */,
 				8E60706F1F3DC9CF00110F4F /* TestFollowers.swift */,
 				8E6070731F41DD2000110F4F /* TestFollowing.swift */,
 				8E60704E1F34CE5500110F4F /* TestHome.swift */,
 				8E5FCAB51F82558800A81E2E /* TestMyPins.swift */,
+				8E5E3BE31F8B74F00045E75F /* TestMyPostMenu.swift */,
 				8E6070671F3CB63F00110F4F /* TestMyProfile.swift */,
 				8EAF45811F5ECDE70046F704 /* TestPopular.swift */,
 				8EAF45971F6989FF0046F704 /* TestPostComments.swift */,
@@ -5504,10 +5558,6 @@
 				8E536BC41F6BC94A006AF7A8 /* TestSearch.swift */,
 				8E26833E1F7CF6BF00A5B25B /* TestSettings.swift */,
 				8EE2C6C71F4594ED00CFFE21 /* TestUserProfile.swift */,
-				8E5E3BE31F8B74F00045E75F /* TestMyPostMenu.swift */,
-				8E5FCAB21F824BC100A81E2E /* TestActivityFeed.swift */,
-				8E1DC28F1F8666BB000F5066 /* TestBlockedUsers.swift */,
-				8E884CD71F87B036008C0F51 /* TestCommentMenu.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -5515,24 +5565,24 @@
 		8EF0E5C61F2AA06400E88ED6 /* UIObjects */ = {
 			isa = PBXGroup;
 			children = (
+				8E5FCABD1F82775600A81E2E /* ActivityFeedSegment.swift */,
+				8E5FCAC11F827D5400A81E2E /* ActivityFollowRequests.swift */,
+				8E1DC2911F867881000F5066 /* BlockedFollowersFeed.swift */,
+				8E884CD51F87AE48008C0F51 /* CommentMenu.swift */,
 				8EAF459B1F698A180046F704 /* CommentsFeed.swift */,
 				8EF0E5CD1F2AA66800E88ED6 /* CreatePost.swift */,
+				8E5E3BE51F8BA67C0045E75F /* EditPost.swift */,
 				8EE2C6CD1F46DB3000CFFE21 /* EditProfile.swift */,
 				8E6070711F3DCCEA00110F4F /* FollowersFeed.swift */,
 				8EAF457F1F5ECCBE0046F704 /* PopularTopics.swift */,
 				8EAF459C1F698A180046F704 /* PostDetails.swift */,
 				8E16EAE41F7D36F300AAF1DA /* PostMenu.swift */,
 				8E6070501F34CE6900110F4F /* PostsFeed.swift */,
+				8E5FCAC31F83918700A81E2E /* RecentActivity.swift */,
 				8E536BBD1F69DB2D006AF7A8 /* RepliesFeed.swift */,
 				8E536BC11F6BC0EA006AF7A8 /* Search.swift */,
 				8E6070511F34CE6900110F4F /* SideMenu.swift */,
 				8E6070611F3A2A3E00110F4F /* UserProfile.swift */,
-				8E5E3BE51F8BA67C0045E75F /* EditPost.swift */,
-				8E5FCABD1F82775600A81E2E /* ActivityFeedSegment.swift */,
-				8E5FCAC11F827D5400A81E2E /* ActivityFollowRequests.swift */,
-				8E5FCAC31F83918700A81E2E /* RecentActivity.swift */,
-				8E1DC2911F867881000F5066 /* BlockedFollowersFeed.swift */,
-				8E884CD51F87AE48008C0F51 /* CommentMenu.swift */,
 			);
 			path = UIObjects;
 			sourceTree = "<group>";
@@ -5882,6 +5932,7 @@
 		9CD805361F0D012F00B9B0AC /* EmbeddedSocialTests */ = {
 			isa = PBXGroup;
 			children = (
+				88FEFCAB1F8F93BE00D81CAB /* ControlsTests */,
 				88635D781F2241E500577140 /* CoreDataTests */,
 				889AFC011F220BCD003AAF19 /* EntitiesTests */,
 				889AFC051F220BCD003AAF19 /* Helpers */,
@@ -6618,6 +6669,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8811C8601F42FBD100F7513D /* EmbeddedEditProfileModuleOutput.swift in Sources */,
+				88FEFCA41F8E59BF00D81CAB /* SearchHistoryMediator.swift in Sources */,
 				885E040F1F6FC43300D6EBD8 /* TopicsFeedResponseProcessor.swift in Sources */,
 				88580C151F2213AB00C1CBAF /* SessionStore.swift in Sources */,
 				9CEA75241F2A0E61009FC89D /* Post.swift in Sources */,
@@ -6888,6 +6940,7 @@
 				88D45C1A1F4491F600DCB475 /* Strings.swift in Sources */,
 				9C21697A1F3C68350052FB90 /* PostMenuModuleInteractor.swift in Sources */,
 				8864C8361F46DB7D00ADCE13 /* SearchPeopleViewInput.swift in Sources */,
+				88FEFCA71F8E5A4400D81CAB /* SearchHistoryView.swift in Sources */,
 				88EBD21E1F6C003A00F9DDFC /* UnlikeTopicCommand.swift in Sources */,
 				88640D701F828B290004CDF9 /* Theme.swift in Sources */,
 				88635D751F223B6600577140 /* StoreType.swift in Sources */,
@@ -6909,6 +6962,7 @@
 				8834A7621F5066ED00F1D383 /* LikesListConfigurator.swift in Sources */,
 				8811C8551F42F88D00F7513D /* EmbeddedEditProfileViewInput.swift in Sources */,
 				63A1D6FB1F25E78D0090C67A /* TopicService.swift in Sources */,
+				88FEFCA91F8E677D00D81CAB /* SearchBarMulticastDelegate.swift in Sources */,
 				63EF32151F78EC7F00E8C28B /* RemoveCommentCommand.swift in Sources */,
 				883BFFDA1F71289200E1C4E3 /* CreateCommentCommand.swift in Sources */,
 				63CB48BB1F7E7744002CE2E8 /* ReplyCell.swift in Sources */,
@@ -7098,6 +7152,7 @@
 				88B94EF81F66B25C002392F9 /* OutgoingCommandsUploader.swift in Sources */,
 				8875CCEA1F331CB3001F2474 /* UserFollowingAPI.swift in Sources */,
 				63E1DA291F7BF14500187E35 /* ReportReplyOperation.swift in Sources */,
+				88FEFCA21F8E524B00D81CAB /* SearchHistoryStorage.swift in Sources */,
 				882AD0D11F222CD300FC20B7 /* NSManagedObjectContext+Convenience.swift in Sources */,
 				8892605D1F8B8D2E002B3707 /* UINavigationBar+Ext.swift in Sources */,
 				88580BC51F2213AB00C1CBAF /* UIViewController+Alerts.swift in Sources */,
@@ -7268,6 +7323,7 @@
 				2BC38A7E8F2E8F80BB5F6F10 /* ReplyCellInteractor.swift in Sources */,
 				A5A13B8998754BAD653B9292 /* ReplyCellRouter.swift in Sources */,
 				4E856DD80892367FF1DFF24A /* ReplyCellConfigurator.swift in Sources */,
+				6322E4151F8E421100B54F3F /* OfflineView.swift in Sources */,
 				43F9B10BACA73BA781BFA942 /* DetailedActivityViewController.swift in Sources */,
 				9226D07A95D8E87792AA7B98 /* DetailedActivityPresenter.swift in Sources */,
 				C1C327605519238896977954 /* DetailedActivityInteractor.swift in Sources */,
@@ -7325,6 +7381,7 @@
 				639A94421F5D2FF600EB0253 /* MockCommentCellRouter.swift in Sources */,
 				88C682371F78F240004BD291 /* MockRelatedHandleUpdater.swift in Sources */,
 				932898D21F65900F001F3BC2 /* ReportCommentAPITests.swift in Sources */,
+				88FEFCAF1F8F970D00D81CAB /* SearchHistoryStorageTests.swift in Sources */,
 				88E662101F7AA76500C98526 /* MockUsersListProcessor.swift in Sources */,
 				63B62ECE1F838C5F003DC885 /* DetailedActivityPresenterTests.swift in Sources */,
 				8886AA5C1F6A90E100734F3C /* UnblockCommandTests.swift in Sources */,
@@ -7381,6 +7438,7 @@
 				88635D881F224F3200577140 /* CoreDataRepositoryTests.swift in Sources */,
 				889119C51F4AFC00005B3B32 /* SearchPresenterTests.swift in Sources */,
 				88E3AC2F1F5590D90016357F /* MockSettingsInteractor.swift in Sources */,
+				88FEFCB11F8FA78000D81CAB /* SearchHistoryMediatorTests.swift in Sources */,
 				8834A7521F50367600F1D383 /* TransactionsDatabaseFacadeTests.swift in Sources */,
 				889AFC261F220BCD003AAF19 /* AuthAPIProviderTests.swift in Sources */,
 				9C805F411F822E85006D4F79 /* FeedModuleViewIntputMock.swift in Sources */,
@@ -7526,6 +7584,7 @@
 				635642001F8509060074289D /* ReplyCellInteractorTests.swift in Sources */,
 				88F7A7891F27896B005FEC5F /* MockAuthService.swift in Sources */,
 				88F551951F336DCB00F4AAB9 /* MockUserListInteractor.swift in Sources */,
+				88FEFCAD1F8F93CF00D81CAB /* SearchHistoryViewTests.swift in Sources */,
 				63DCE6D11F7D1F3A00F9F76B /* ReportReplyCommandTests.swift in Sources */,
 				88A9704A1F83A7420047D591 /* ThemeTests.swift in Sources */,
 				88FFFA5F1F2F81A70066A1A0 /* FollowStatusTests.swift in Sources */,

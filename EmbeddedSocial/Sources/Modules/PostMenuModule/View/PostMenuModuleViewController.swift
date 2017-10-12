@@ -19,7 +19,7 @@ protocol PostMenuModuleViewOutput {
     
 }
 
-class PostMenuModuleViewController: UIViewController, PostMenuModuleViewInput {
+class PostMenuModuleViewController: BaseViewController, PostMenuModuleViewInput {
     
     var output: PostMenuModuleViewOutput!
 

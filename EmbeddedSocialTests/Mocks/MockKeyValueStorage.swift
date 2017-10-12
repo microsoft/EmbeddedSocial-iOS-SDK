@@ -6,28 +6,45 @@
 @testable import EmbeddedSocial
 
 final class MockKeyValueStorage: KeyValueStorage {
-    private(set) var setObjectCount = 0
+    //MARK: - set
     
-    private(set) var getObjectCount = 0
-    
-    private(set) var removeObjectCount = 0
-    
-    private(set) var purgeObjectCount = 0
+    var setForKeyCalled = false
+    var setForKeyReceivedArguments: (value: Any?, defaultName: String)?
     
     func set(_ value: Any?, forKey defaultName: String) {
-        setObjectCount += 1
+        setForKeyCalled = true
+        setForKeyReceivedArguments = (value: value, defaultName: defaultName)
     }
+    
+    //MARK: - object
+    
+    var objectForKeyCalled = false
+    var objectForKeyReceivedDefaultName: String?
+    var objectForKeyReturnValue: Any?
     
     func object(forKey defaultName: String) -> Any? {
-        getObjectCount += 1
-        return nil
+        objectForKeyCalled = true
+        objectForKeyReceivedDefaultName = defaultName
+        return objectForKeyReturnValue
     }
+    
+    //MARK: - removeObject
+    
+    var removeObjectForKeyCalled = false
+    var removeObjectForKeyReceivedDefaultName: String?
     
     func removeObject(forKey defaultName: String) {
-        removeObjectCount += 1
+        removeObjectForKeyCalled = true
+        removeObjectForKeyReceivedDefaultName = defaultName
     }
     
+    //MARK: - purge
+    
+    var purgeKeyCalled = false
+    var purgeKeyReceivedKey: String?
+    
     func purge(key: String) {
-        purgeObjectCount += 1
+        purgeKeyCalled = true
+        purgeKeyReceivedKey = key
     }
 }
