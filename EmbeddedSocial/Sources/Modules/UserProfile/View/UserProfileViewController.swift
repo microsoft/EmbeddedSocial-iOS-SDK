@@ -88,14 +88,7 @@ extension UserProfileViewController: UserProfileViewInput {
     }
     
     func setFeedViewController(_ feedViewController: UIViewController) {
-        addChildController(feedViewController)
-        
-        feedViewController.view.snp.makeConstraints { make in
-            make.left.equalTo(self.view).offset(Constants.FeedModule.Collection.containerPadding)
-            make.right.equalTo(self.view).offset(-Constants.FeedModule.Collection.containerPadding)
-            make.top.equalTo(self.view)
-            make.bottom.equalTo(self.view)
-        }
+        addChildController(feedViewController, containerView: feedViewController.view, pinToEdges: true)
         
         feedView = feedViewController.view
         
