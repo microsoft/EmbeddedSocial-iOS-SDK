@@ -39,9 +39,9 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     private var formatter = DateFormatterTool()
     fileprivate var shouldFetchRestOfReplies = false
-    fileprivate var loadMoreCellViewModel = LoadMoreCellViewModel()
+    var loadMoreCellViewModel = LoadMoreCellViewModel()
     
-    private var cursor: String?
+    var cursor: String?
     private let pageSize: Int
     private let actionStrategy: AuthorizedActionStrategy
     

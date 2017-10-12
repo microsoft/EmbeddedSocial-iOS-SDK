@@ -59,4 +59,9 @@ class MockCommentRepliesViewController: UIViewController, CommentRepliesViewInpu
     func unlockUI() {
         unlockUICount += 1
     }
+    
+    var reloadCommentCellCount = 0
+    func reloadCommentCell() {
+        reloadCommentCellCount += 1
+    }
 }

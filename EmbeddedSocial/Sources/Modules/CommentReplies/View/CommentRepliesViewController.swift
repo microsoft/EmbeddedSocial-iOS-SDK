@@ -62,6 +62,11 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         postButton.isHidden = replyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        hideHUD()
+    }
+    
     // MARK: Internal
     func handleRefresh(_ refreshControl: UIRefreshControl) {
         output.refresh()
