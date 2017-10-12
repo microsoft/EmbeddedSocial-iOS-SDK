@@ -35,7 +35,7 @@ class SearchViewController: UIViewController {
     
     fileprivate lazy var searchHistoryView: SearchHistoryView = { [unowned self] in
         let shv = SearchHistoryView()
-        shv.backgroundColor = .clear
+        shv.backgroundColor = AppConfiguration.shared.theme.palette.contentBackground
         shv.onSearchRequestSelected = { self.searchSelectedText($0) }
         self.navigationController?.view.addSubview(shv)
         return shv

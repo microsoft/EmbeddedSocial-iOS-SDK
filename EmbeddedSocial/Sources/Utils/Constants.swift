@@ -84,7 +84,7 @@ extension Constants {
     }
     
     struct Search {
-        static let historyMaxHeight: CGFloat = 400
+        static let historyMaxHeight: CGFloat = 300
     }
 }
 

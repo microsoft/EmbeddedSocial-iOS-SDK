@@ -20,7 +20,13 @@ class SearchHistoryView: UIView {
         return tableView
     }()
     
-    var maxHeight = CGFloat.greatestFiniteMagnitude
+    var maxHeight = CGFloat.greatestFiniteMagnitude {
+        didSet {
+            if tableView.contentSize.height > maxHeight {
+                updateHeight()
+            }
+        }
+    }
     
     var searchRequests: [String] = [] {
         didSet {

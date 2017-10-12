@@ -57,8 +57,8 @@ class SearchHistoryMediator: NSObject {
         frame.origin = CGPoint(x: (parentView.bounds.width - frame.width) / 2.0, y: searchBarFrame.maxY)
         
         searchHistoryView.frame = frame
-        searchHistoryView.searchRequests = storage.searchRequests()
         searchHistoryView.maxHeight = Constants.Search.historyMaxHeight
+        searchHistoryView.searchRequests = storage.searchRequests()
 
         hasSetHistoryView = true
     }
