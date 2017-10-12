@@ -27,18 +27,17 @@ class SearchHistoryStorageTests: XCTestCase {
         sut = nil
     }
     
-    func testThatItSavesCorrectlyAndYses() {
+    func testThatItSavesAndUsesCorrectSavingKey() {
+        let scope = "123"
+        sut.scope = scope
         sut.save("1")
         expect(self.internalStorage.setForKeyCalled).to(beTrue())
-        expect(self.internalStorage.setForKeyReceivedArguments?.value as? String).to(equal("1"))
+        expect(self.internalStorage.setForKeyReceivedArguments?.value as? [String]).to(equal(["1"]))
+        expect(self.internalStorage.setForKeyReceivedArguments?.defaultName).to(equal("SearchHistoryRepository-\(scope)-\(userID!)"))
     }
     
-    func testThatItUsesCorrectSavingKey() {
-        let scope = "123"
-        sut.save("1")
-        sut.scope = scope
-        expect(self.internalStorage.setForKeyCalled).to(beTrue())
-        expect(self.internalStorage.setForKeyReceivedArguments?.value as? String).to(equal("1"))
-        expect(self.internalStorage.setForKeyReceivedArguments?.defaultName).to(equal("SearchHistoryRepository-\(scope)-\(userID)"))
+    func testThatItGetsSearchRequests() {
+        _ = sut.searchRequests()
+        expect(self.internalStorage.objectForKeyCalled).to(beTrue())
     }
 }

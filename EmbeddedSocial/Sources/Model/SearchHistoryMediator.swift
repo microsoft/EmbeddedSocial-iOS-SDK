@@ -53,7 +53,7 @@ class SearchHistoryMediator: NSObject {
         
         let searchBarFrame = parentView.convert(searchBar.frame, from: searchBar.superview)
         var frame = CGRect()
-        frame.width = searchBarFrame.size.width
+        frame.size.width = searchBarFrame.size.width
         frame.origin = CGPoint(x: (parentView.bounds.width - frame.width) / 2.0, y: searchBarFrame.maxY)
         
         searchHistoryView.frame = frame
