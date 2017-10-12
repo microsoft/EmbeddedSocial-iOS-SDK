@@ -188,8 +188,8 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         view?.reloadCommentCell()
     }
     
-    func replyFailPost(error: Error) {
-        
+    func replyFailPost(error: APIError) {
+        router.back()
     }
     
     func didPostAction(replyHandle: String, action: RepliesSocialAction, error: Error?) {

@@ -25,6 +25,7 @@ class CommentRepliesModuleConfigurator {
                    navigationController: UINavigationController?) {
         
         let router = CommentRepliesRouter()
+
         
         let repliesService = RepliesService()
         
@@ -44,7 +45,7 @@ class CommentRepliesModuleConfigurator {
         
         interactor.repliesService = repliesService
         viewController.output = presenter
-        
+        router.navigationController = viewController.navigationController
         viewController.theme = AppConfiguration.shared.theme
     }
 
