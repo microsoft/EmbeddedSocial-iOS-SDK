@@ -7,11 +7,17 @@ import Foundation
 
 class SearchHistoryStorage {
     private let ud: UserDefaults
-    private let storageKey: String
+    private let userID: String
+    
+    var scope: String?
+    
+    private var storageKey: String {
+        return "SearchHistoryRepository-\(scope ?? "")-\(userID)"
+    }
     
     init(userDefaults: UserDefaults = UserDefaults.standard, userID: String) {
         ud = userDefaults
-        storageKey = "SearchHistoryRepository-\(userID)"
+        self.userID = userID
     }
     
     func save(_ searchRequest: String) {
@@ -19,7 +25,7 @@ class SearchHistoryStorage {
         if let idx = requests.index(of: searchRequest) {
             requests.remove(at: idx)
         }
-        requests.append(searchRequest)
+        requests.insert(searchRequest, at: 0)
         ud.set(requests, forKey: storageKey)
     }
     

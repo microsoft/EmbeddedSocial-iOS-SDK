@@ -6,35 +6,89 @@
 import Foundation
 
 class SearchHistoryMediator: NSObject {
-    private let storage: SearchHistoryStorage
-    private let searchHistoryView: SearchHistoryView
+    private let searchBar: UISearchBar
+    fileprivate let storage: SearchHistoryStorage
+    fileprivate let searchHistoryView: SearchHistoryView
+    private let multicast: SearchBarMulticastDelegate
     
-    init(storage: SearchHistoryStorage, searchHistoryView: SearchHistoryView) {
+    fileprivate var hasSetHistoryView = false
+    
+    var activeTab: SearchTabInfo.Tab? {
+        didSet {
+            if let scope = activeTab?.rawValue {
+                storage.scope = String(scope)
+                searchHistoryView.searchRequests = storage.searchRequests()
+            }
+        }
+    }
+    
+    init(searchBar: UISearchBar,
+         searchBarDelegate: UISearchBarDelegate,
+         storage: SearchHistoryStorage,
+         searchHistoryView: SearchHistoryView) {
+        
+        multicast = SearchBarMulticastDelegate(searchBar: searchBar)
+        self.searchBar = searchBar
         self.storage = storage
         self.searchHistoryView = searchHistoryView
         super.init()
+        
+        multicast.addDelegate(self)
+        multicast.addDelegate(searchBarDelegate)
+        
+        searchHistoryView.isHidden = true
+    }
+    
+    func handleSearchedText(_ searchText: String) {
+        storage.save(searchText)
+        searchHistoryView.isHidden = true
+        searchHistoryView.searchRequests = storage.searchRequests()
+    }
+    
+    fileprivate func setupHistoryView() {
+        guard let parentView = searchHistoryView.superview else {
+            return
+        }
+        
+        let searchBarFrame = parentView.convert(searchBar.frame, from: searchBar.superview)
+        var frame = CGRect()
+        frame.size = CGSize(width: searchBarFrame.size.width, height: 400.0)
+        frame.origin = CGPoint(x: (parentView.bounds.width - frame.width) / 2.0, y: searchBarFrame.maxY)
+        
+        searchHistoryView.frame = frame
+        searchHistoryView.searchRequests = storage.searchRequests()
+        searchHistoryView.maxHeight = 400.0
+
+        hasSetHistoryView = true
     }
 }
 
 extension SearchHistoryMediator: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+        searchHistoryView.isHidden = true
+        if let searchText = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
+            handleSearchedText(searchText)
+        }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        searchHistoryView.isHidden = !searchText.isEmpty
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
+        searchHistoryView.isHidden = true
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        
+        if !hasSetHistoryView {
+            setupHistoryView()
+        }
+        let searchText = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        searchHistoryView.isHidden = !searchText.isEmpty
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        
+        searchHistoryView.isHidden = true
     }
 }

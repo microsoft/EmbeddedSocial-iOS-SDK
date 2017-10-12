@@ -5,43 +5,36 @@
 
 import Foundation
 
-private protocol SearchBarDelegateHandlerDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar)
-}
-
-final class SearchBarMulticastDelegate: MulticastDelegate<UISearchBarDelegate> {
+final class SearchBarMulticastDelegate: NSObject, UISearchBarDelegate {
     
-
-    
-    private class SearchBarDelegateHandler: NSObject, UISearchBarDelegate, SearchBarDelegateHandlerDelegate {
-        
-        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-            
-        }
-        
-        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            
-        }
-        
-        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-            
-        }
-        
-        func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-            
-        }
-        
-        func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-            
-        }
-    }
+    private let multicast = MulticastDelegate<UISearchBarDelegate>()
     
     init(searchBar: UISearchBar) {
-        searchBar.delegate = self
         super.init()
+        searchBar.delegate = self
+    }
+    
+    func addDelegate(_ delegate: UISearchBarDelegate) {
+        multicast.add(delegate)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        multicast.invoke { $0.searchBarSearchButtonClicked?(searchBar) }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        multicast.invoke { $0.searchBar?(searchBar, textDidChange: searchText) }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        multicast.invoke { $0.searchBarCancelButtonClicked?(searchBar) }
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        multicast.invoke { $0.searchBarTextDidBeginEditing?(searchBar) }
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        multicast.invoke { $0.searchBarTextDidEndEditing?(searchBar) }
     }
 }
