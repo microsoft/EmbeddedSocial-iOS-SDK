@@ -151,19 +151,16 @@ extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
         output.configure(cell, for: tableView, with: indexPath)
         
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
+        // check if its last item in section
         let index = indexPath.row
         let section = indexPath.section
         
         if index == output.numberOfItems(in: section) - 1 {
             output.loadMore(section: section)
         }
+        
+        return cell
     }
-    
 }
 
 extension ActivityViewController: Themeable {
