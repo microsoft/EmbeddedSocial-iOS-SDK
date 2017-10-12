@@ -120,10 +120,8 @@ class TestUserProfileRecentPostsOnline: TestOnlineHome {
     override func openScreen() {
         feed.getRandomPost().1.getLabelByText(userName).tapByCoordinate()
         UserProfile(app).recentPostsButton.tap()
-    }
-    
-    override func testLikePost() {
-        super.testLikePost()
+        
+        feed = Feed(app, switchViewModeButton: app.navigationBars.buttons.element(boundBy: 2))
     }
     
 }
@@ -140,30 +138,44 @@ class TestUserProfileRecentPostsOffline: TestOfflineHome {
     override func openScreen() {
         feed.getRandomPost().1.getLabelByText(userName).tapByCoordinate()
         UserProfile(app).recentPostsButton.tap()
+        
+        feed = Feed(app, switchViewModeButton: app.navigationBars.buttons.element(boundBy: 2))
     }
     
 }
 
-class TestUserProfilePopularPosts: TestOnlineHome {
-    var profile: UserProfile!
-    var userName: String!
+class TestUserProfilePopularPostsOnline: TestOnlineHome {
+    
+    private var userName: String!
     
     override func setUp() {
         super.setUp()
         userName = "John Doe"
-        feedName = "JohnDoepopular"
-        profile = UserProfile(app)
     }
     
     override func openScreen() {
-        sideMenu.navigate(to: .home)
-        let (_, post) = feed.getRandomPost()
-        if !post.getLabelByText(userName).exists {
-            userName = "Alan Poe"
-        }
-        post.getLabelByText(userName).tapByCoordinate()
-        profile.popularPostsButton.tap()
-        sleep(1)
+        feed.getRandomPost().1.getLabelByText(userName).tapByCoordinate()
+        UserProfile(app).popularPostsButton.tap()
+        
+        feed = Feed(app, switchViewModeButton: app.navigationBars.buttons.element(boundBy: 2))
+    }
+    
+}
+
+class TestUserProfilePopularPostsOffline: TestOfflineHome {
+    
+    private var userName: String!
+    
+    override func setUp() {
+        super.setUp()
+        userName = "John Doe"
+    }
+    
+    override func openScreen() {
+        feed.getRandomPost().1.getLabelByText(userName).tapByCoordinate()
+        UserProfile(app).popularPostsButton.tap()
+        
+        feed = Feed(app, switchViewModeButton: app.navigationBars.buttons.element(boundBy: 2))
     }
     
 }
