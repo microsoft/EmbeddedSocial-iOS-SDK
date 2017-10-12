@@ -35,7 +35,7 @@ class ActivityBaseCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        profileImage.setPhotoWithCaching(nil, placeholder: nil)
+        profileImage.releasePhoto()
         actionIcon.image = nil
         onAction = nil
     }
@@ -177,7 +177,7 @@ class ActivityCell: ActivityBaseCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        postImage.setPhotoWithCaching(nil, placeholder: nil)
+        postImage.releasePhoto()
         postText.text = nil
         onAction = nil
     }

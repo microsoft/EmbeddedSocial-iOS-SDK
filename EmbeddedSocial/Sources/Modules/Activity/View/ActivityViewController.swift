@@ -26,7 +26,7 @@ protocol ActivityViewOutput: class {
     func configure(_ cell: UITableViewCell, for tableView: UITableView, with indexPath: IndexPath)
     
     func loadAll()
-    func loadMore()
+    func loadMore(section: Int)
     
     func didSwitchToTab(to index: Int)
 }
@@ -151,23 +151,16 @@ extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
         output.configure(cell, for: tableView, with: indexPath)
         
+        // check if its last item in section
+        let index = indexPath.row
+        let section = indexPath.section
+        
+        if index == output.numberOfItems(in: section) - 1 {
+            output.loadMore(section: section)
+        }
+        
         return cell
     }
-    
-}
-
-extension ActivityViewController: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if isReachingEndOfContent(scrollView: scrollView) {
-            output.loadMore()
-        }
-    }
-    
-    func isReachingEndOfContent(scrollView: UIScrollView) -> Bool {
-        return scrollView.isReachingEndOfContent(cellHeight: Style.cellSize, cellsPerPage: 5)
-    }
-    
 }
 
 extension ActivityViewController: Themeable {

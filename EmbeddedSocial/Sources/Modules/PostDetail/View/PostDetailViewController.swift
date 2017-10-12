@@ -77,6 +77,11 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         view.isUserInteractionEnabled = true
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        hideHUD()
+    }
+    
     func handleRefresh(_ refreshControl: UIRefreshControl) {
         output.refresh()
     }
