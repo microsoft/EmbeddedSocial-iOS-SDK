@@ -26,7 +26,7 @@ protocol ActivityViewOutput: class {
     func configure(_ cell: UITableViewCell, for tableView: UITableView, with indexPath: IndexPath)
     
     func loadAll()
-    func loadMore()
+    func loadMore(section: Int)
     
     func didSwitchToTab(to index: Int)
 }
@@ -154,18 +154,14 @@ extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-}
-
-extension ActivityViewController: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if isReachingEndOfContent(scrollView: scrollView) {
-            output.loadMore()
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        let index = indexPath.row
+        let section = indexPath.section
+        
+        if index == output.numberOfItems(in: section) - 1 {
+            output.loadMore(section: section)
         }
-    }
-    
-    func isReachingEndOfContent(scrollView: UIScrollView) -> Bool {
-        return scrollView.isReachingEndOfContent(cellHeight: Style.cellSize, cellsPerPage: 5)
     }
     
 }
