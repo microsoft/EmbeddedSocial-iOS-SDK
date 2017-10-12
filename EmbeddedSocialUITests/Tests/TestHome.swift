@@ -206,7 +206,7 @@ class TestOnlineHome: BaseTestHome, OnlineTest {
     }
     
     override func checkIsUnpinned(_ post: Post, at index: UInt) {
-        XCTAssertNotNil(APIState.getLatestRequest().contains("users/me/pins/topics" + String(index)))
+        XCTAssertNotNil(APIState.getLatestRequest().contains("users/me/pins/\(feedName + String(index))"))
         super.checkIsUnpinned(post, at: index)
     }
     
