@@ -25,14 +25,13 @@ class CommentRepliesModuleConfigurator {
                    navigationController: UINavigationController?) {
         
         let router = CommentRepliesRouter()
+        router.navigationController = navigationController
         
         let repliesService = RepliesService()
         
         let strategy = CommonAuthorizedActionStrategy(loginParent: navigationController)
         let presenter = CommentRepliesPresenter(pageSize: pageSize, actionStrategy: strategy)
         presenter.comment = commentModule.mainComment()
-        presenter.commentCell = commentModule.cell()
-        presenter.commentCell.separator.isHidden = false
         presenter.view = viewController
         presenter.router = router
         presenter.scrollType = scrollType
@@ -46,7 +45,6 @@ class CommentRepliesModuleConfigurator {
         
         interactor.repliesService = repliesService
         viewController.output = presenter
-        
         viewController.theme = AppConfiguration.shared.theme
     }
 

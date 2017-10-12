@@ -81,7 +81,10 @@ extension Constants {
         static let privacyPolicyURL = URL(string: "http://go.microsoft.com/fwlink/?LinkId=521839")
         
         static let termsAndConditionsURL = URL(string: "http://go.microsoft.com/fwlink/?LinkID=206977")
-        
+    }
+    
+    struct Search {
+        static let historyMaxHeight: CGFloat = 300
     }
 }
 

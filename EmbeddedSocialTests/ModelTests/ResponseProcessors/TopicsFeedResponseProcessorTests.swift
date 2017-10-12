@@ -70,7 +70,7 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
         
         // when
         var result: Result<FeedFetchResult>?
-
+        
         sut.process(FeedResponseTopicView(), isFromCache: false) { result = $0 }
         
         // then

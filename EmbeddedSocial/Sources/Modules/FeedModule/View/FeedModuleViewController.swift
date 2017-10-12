@@ -33,7 +33,7 @@ protocol FeedModuleViewInput: class {
     var paddingEnabled: Bool { get set }
 }
 
-class FeedModuleViewController: UIViewController, FeedModuleViewInput {
+class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
     
     var output: FeedModuleViewOutput!
     
@@ -397,6 +397,8 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     deinit {
         Logger.log()
+        self.collectionView.delegate = nil
+        self.collectionView.dataSource = nil
     }
 }
 

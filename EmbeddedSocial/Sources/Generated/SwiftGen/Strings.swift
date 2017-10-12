@@ -302,12 +302,16 @@ enum L10n {
     static let noItemsReceived = L10n.tr("Localizable", "error.no_items_received")
     /// Not implemented.
     static let notImplemented = L10n.tr("Localizable", "error.not_implemented")
+    /// Not implemented.
+    static let commentNotFound = L10n.tr("Localizable", "error.comment_not_found")
     /// Unknown error occurred.
     static let unknown = L10n.tr("Localizable", "error.unknown")
     /// User list module configuration error: API not set.
     static let userListNoApi = L10n.tr("Localizable", "error.user_list_no_api")
     /// User is not logged in.
     static let userNotLoggedIn = L10n.tr("Localizable", "error.user_not_logged_in")
+    /// No internet connection. You can still post while offline.
+    static let noInternetConnection = L10n.tr("Localizable", "error.no_internet_connection")
   }
 
   enum FollowRequests {

@@ -31,6 +31,25 @@ open class APIRouter: WebApp {
                 }
                 return
             }
+            if method == "GET" {
+                let query = URLParametersReader.parseURLParameters(environ: environ)
+                let captures = environ["ambassador.router_captures"] as! [String]
+                var interval = "topics"
+                if captures.count > 0 && captures[0] != "" {
+                    interval = ""
+                    for i in 0...captures.count - 1 {
+                        interval += captures[i]
+                    }
+                }
+                print(query)
+                let cursor = query["cursor"] ?? "0"
+                if let limit = query["limit"] {
+                    sendJSON(Templates.loadTopics(interval: interval, cursor: Int(cursor)!, limit: Int(limit)!))
+                } else {
+                    sendJSON(Templates.loadTopics(interval: interval))
+                }
+                return
+            }
             sendJSON(Templates.load(name: "topic"))
         }
         

@@ -5,7 +5,7 @@
 
 import UIKit
 
-class EditProfileViewController: UIViewController {
+class EditProfileViewController: BaseViewController {
     
     var output: EditProfileViewOutput!
 

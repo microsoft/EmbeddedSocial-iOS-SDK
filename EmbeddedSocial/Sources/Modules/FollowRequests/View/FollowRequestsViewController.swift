@@ -8,7 +8,7 @@ import UIKit
 private let loadingIndicatorHeight: CGFloat = 44.0
 private let navBarAndStatusBarHeight: CGFloat = 64
 
-class FollowRequestsViewController: UIViewController {
+class FollowRequestsViewController: BaseViewController {
     
     var output: FollowRequestsViewOutput!
     

@@ -9,7 +9,7 @@ protocol LikesServiceProtocol {
 
     typealias CompletionHandler = (_ postHandle: PostHandle, _ error: Error?) -> Void
     typealias CommentCompletionHandler = (_ commentHandle: String, _ error: Error?) -> Void
-    typealias ReplyLikeCompletionHandler = (_ commentHandle: String, _ error: Error?) -> Void
+    typealias ReplyLikeCompletionHandler = (_ replyHandle: String, _ error: Error?) -> Void
 
     func postPin(post: Post, completion: @escaping CompletionHandler)
     func deletePin(post: Post, completion: @escaping CompletionHandler)

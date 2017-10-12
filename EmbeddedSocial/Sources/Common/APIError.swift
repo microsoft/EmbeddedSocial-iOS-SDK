@@ -17,6 +17,7 @@ enum APIError: LocalizedError {
     case invalidResponse
     case missingResponseData // Missing some data
     case notImplemented // Missing some data
+    case commentNotFound
 
     public var errorDescription: String? {
         switch self {
@@ -31,6 +32,7 @@ enum APIError: LocalizedError {
         case .invalidResponse: return L10n.Error.invalidResponse
         case .missingResponseData: return L10n.Error.missingResponseData
         case .notImplemented: return L10n.Error.notImplemented
+        case .commentNotFound: return L10n.Error.commentNotFound
         }
     }
     
