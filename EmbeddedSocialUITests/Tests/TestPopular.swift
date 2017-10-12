@@ -3,57 +3,118 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 
+// MARK: - Today section tests
 
-class TestPopularToday: TestOnlineHome {
-    var popular: PopularTopics!
+class TestPopularTodayOnline: TestOnlineHome {
+    
+    private var popularTopics: PopularTopics!
     
     override func setUp() {
         super.setUp()
+        
         feedName = "popular/Today"
-        popular = PopularTopics(app)
+        popularTopics = PopularTopics(app)
     }
     
     override func openScreen() {
-        sideMenu.navigate(to: .popular)
-        popular.todayButton.tap()
-        sleep(1)
+        navigate(to: .popular)
+        popularTopics.select(section: .today)
     }
     
 }
 
-class TestPopularThisWeek: TestOnlineHome {
-    var popular: PopularTopics!
+class TestPopularTodayOffline: TestOfflineHome {
+    
+    private var popularTopics: PopularTopics!
     
     override func setUp() {
         super.setUp()
+        
+        feedName = "popular/Today"
+        popularTopics = PopularTopics(app)
+    }
+    
+    override func openScreen() {
+        navigate(to: .popular)
+        popularTopics.select(section: .today)
+    }
+    
+}
+
+// MARK: - This Week section tests
+
+class TestPopularThisWeekOnline: TestOnlineHome {
+    
+    private var popularTopics: PopularTopics!
+    
+    override func setUp() {
+        super.setUp()
+        
         feedName = "popular/ThisWeek"
-        popular = PopularTopics(app)
+        popularTopics = PopularTopics(app)
     }
     
     override func openScreen() {
-        sideMenu.navigate(to: .popular)
-        popular.thisWeekButton.tap()
-        sleep(1)
+        navigate(to: .popular)
+        popularTopics.select(section: .thisWeek)
     }
     
 }
 
-class TestPopularAllTime: TestOnlineHome {
-    var popular: PopularTopics!
+class TestPopularThisWeekOffline: TestOfflineHome {
+    
+    private var popularTopics: PopularTopics!
     
     override func setUp() {
         super.setUp()
-        feedName = "popular/AllTime"
-        popular = PopularTopics(app)
+        
+        feedName = "popular/ThisWeek"
+        popularTopics = PopularTopics(app)
     }
     
     override func openScreen() {
-        sideMenu.navigate(to: .popular)
-        popular.allTimeButton.tap()
-        sleep(1)
+        navigate(to: .popular)
+        popularTopics.select(section: .thisWeek)
+    }
+    
+}
+
+// MARK: - All Time section tests
+
+class TestPopularAllTimeOnline: TestOnlineHome {
+    
+    private var popularTopics: PopularTopics!
+    
+    override func setUp() {
+        super.setUp()
+        
+        feedName = "popular/AllTime"
+        popularTopics = PopularTopics(app)
+    }
+    
+    override func openScreen() {
+        navigate(to: .popular)
+        popularTopics.select(section: .all)
+    }
+    
+}
+
+class TestPopularAllTimeOffline: TestOfflineHome {
+    
+    private var popularTopics: PopularTopics!
+    
+    override func setUp() {
+        super.setUp()
+        
+        feedName = "popular/AllTime"
+        popularTopics = PopularTopics(app)
+    }
+    
+    override func openScreen() {
+        navigate(to: .popular)
+        popularTopics.select(section: .all)
     }
     
 }

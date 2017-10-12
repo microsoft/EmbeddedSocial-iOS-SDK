@@ -3,20 +3,23 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 
+enum PopularTopicSection: String {
+    case today    = "Today"
+    case thisWeek = "This week"
+    case all      = "All time"
+}
 
 class PopularTopics {
-    var app: XCUIApplication!
-    var todayButton: XCUIElement!
-    var thisWeekButton: XCUIElement!
-    var allTimeButton: XCUIElement!
+    private var app: XCUIApplication!
     
     init(_ application: XCUIApplication) {
         self.app = application
-        self.todayButton = self.app.buttons["Today"]
-        self.thisWeekButton = self.app.buttons["This week"]
-        self.allTimeButton = self.app.buttons["All time"]
     }
+    
+    func select(section: PopularTopicSection) {
+        app.buttons[section.rawValue].tap()
+    }
+    
 }
