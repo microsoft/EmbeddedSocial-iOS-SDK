@@ -36,7 +36,7 @@ extension Constants {
     }
     
     struct ActivityList {
-        static let pageSize = 5
+        static let pageSize = 20
     }
     
     struct FeedModule {
