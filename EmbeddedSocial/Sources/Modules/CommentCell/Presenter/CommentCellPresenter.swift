@@ -4,7 +4,6 @@
 //
 
 protocol CommentCellModuleProtocol {
-    func cell() -> CommentCell
     func mainComment() -> Comment
 }
 

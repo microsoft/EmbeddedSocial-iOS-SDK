@@ -31,7 +31,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     var interactor: CommentRepliesInteractorInput!
     var router: CommentRepliesRouterInput!
     
-    var commentCell: CommentCell!
     var comment: Comment!
     
     var scrollType: RepliesScrollType = .none
@@ -57,8 +56,8 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         return loadMoreCellViewModel
     }
     
-    func mainCommentCell() -> CommentCell {
-        return commentCell
+    func mainComment() -> Comment {
+        return comment
     }
     
     func refresh() {
@@ -185,8 +184,8 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         reply.userHandle = SocialPlus.shared.me?.uid
         appendWithReplacing(original: &replies, appending: [reply])
         comment.totalReplies += 1
-        commentCell.configure(comment: comment)
         view?.replyPosted()
+        view?.reloadCommentCell()
     }
     
     func replyFailPost(error: Error) {
@@ -217,9 +216,15 @@ extension CommentRepliesPresenter: ReplyCellModuleOutput {
             comment.totalReplies -= 1
         }
         replies.remove(at: index)
-        commentCell.configure(comment: comment)
         router.backIfNeeded(from: view as! UIViewController)
         view?.removeReply(index: index)
+        view?.reloadCommentCell()
+    }
+}
+
+extension CommentRepliesPresenter: CommentCellModuleOutout {
+    func removed(comment: Comment) {
+        //todo: handle
     }
 }
 
@@ -248,8 +253,8 @@ extension CommentRepliesPresenter: PostMenuModuleOutput {
         
         replies.remove(at: index)
         comment.totalReplies -= 1
-        commentCell.configure(comment: comment)
         view?.removeReply(index: index)
+        view?.reloadCommentCell()
     }
     
     func didFollow(user: User) {
