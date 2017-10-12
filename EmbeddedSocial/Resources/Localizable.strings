@@ -19,6 +19,7 @@
 "error.invalid_response" = "Invalid server response.";
 "error.missing_response_data" = "Cant handle response, data is corrupted.";
 "error.not_implemented" = "Not implemented.";
+"error.comment_not_found" = "Comment not found";
 
 "common.ok" = "OK";
 "common.cancel" = "Cancel";
