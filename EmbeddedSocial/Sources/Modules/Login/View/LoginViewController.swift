@@ -5,7 +5,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, LoginViewInput {
+class LoginViewController: BaseViewController, LoginViewInput {
     
     @IBOutlet fileprivate weak var facebookButton: UIButton!
     @IBOutlet fileprivate weak var twitterButton: UIButton!

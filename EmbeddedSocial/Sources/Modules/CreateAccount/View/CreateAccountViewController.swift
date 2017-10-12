@@ -5,7 +5,7 @@
 
 import UIKit
 
-class CreateAccountViewController: UIViewController {
+class CreateAccountViewController: BaseViewController {
     
     var output: CreateAccountViewOutput!
 
