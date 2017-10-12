@@ -24,6 +24,8 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     fileprivate var prototypeCommentCell: CommentCell?
     
+    fileprivate var lastDetailedCommentPath: IndexPath?
+    
     //constants
     fileprivate let reloadDelay = 0.2
     fileprivate let commentViewHeight: CGFloat = 35
@@ -66,7 +68,11 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        collectionView.reloadSections([CommentsSections.comments.rawValue])
+        if let path = lastDetailedCommentPath {
+            collectionView.reloadItems(at: [path])
+            lastDetailedCommentPath = nil
+        }
+        
         postButton.isHidden = commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         view.isUserInteractionEnabled = true
     }
@@ -221,6 +227,7 @@ extension PostDetailViewController: UICollectionViewDelegate {
         case CommentsSections.comments.rawValue:
             let cell = collectionView.cellForItem(at: indexPath) as? CommentCell
             cell?.openReplies()
+            lastDetailedCommentPath = indexPath
         default: break
             
         }

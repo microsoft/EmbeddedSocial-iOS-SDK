@@ -126,6 +126,10 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         }
     }
     
+    func reloadCommentCell() {
+        collectionView.reloadItems(at: [IndexPath(item: 0, section: RepliesSections.comment.rawValue)])
+    }
+    
     func updateLoadingCell() {
         collectionView.reloadItems(at: [IndexPath(item: 0, section: RepliesSections.loadMore.rawValue)])
     }
@@ -191,7 +195,10 @@ extension CommentRepliesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case RepliesSections.comment.rawValue:
-            let cell = output.mainCommentCell()
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.reuseID, for: indexPath) as! CommentCell
+            let configurator = CommentCellModuleConfigurator()
+            configurator.configure(cell: cell, comment: output.mainComment(), navigationController: self.navigationController, moduleOutput: output as! CommentCellModuleOutout)
+            cell.configure(comment: output.mainComment())
             cell.repliesButton.isHidden = true
             cell.apply(theme: theme)
             return cell
@@ -242,7 +249,8 @@ extension CommentRepliesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case RepliesSections.comment.rawValue:
-            return output.mainCommentCell().frame.size
+            prototypeCommentCell.configure(comment: output.mainComment())
+            return prototypeCommentCell.cellSize()
         case RepliesSections.loadMore.rawValue:
             return CGSize(width: UIScreen.main.bounds.width, height: output.loadCellModel().cellHeight)
         case RepliesSections.replies.rawValue:

@@ -31,8 +31,6 @@ class CommentRepliesModuleConfigurator {
         let strategy = CommonAuthorizedActionStrategy(loginParent: navigationController)
         let presenter = CommentRepliesPresenter(pageSize: pageSize, actionStrategy: strategy)
         presenter.comment = commentModule.mainComment()
-        presenter.commentCell = commentModule.cell()
-        presenter.commentCell.separator.isHidden = false
         presenter.view = viewController
         presenter.router = router
         presenter.scrollType = scrollType

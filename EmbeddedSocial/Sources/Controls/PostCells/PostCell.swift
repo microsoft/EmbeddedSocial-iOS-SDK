@@ -127,8 +127,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         postText.readMoreTapHandle = nil
         collectionView = nil
         
-        postImageButton.setPhotoWithCaching(nil, placeholder: nil)
-        userPhoto.setPhotoWithCaching(nil, placeholder: nil)
+        postImageButton.releasePhoto()
+        userPhoto.releasePhoto()
         postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
         
         super.prepareForReuse()
