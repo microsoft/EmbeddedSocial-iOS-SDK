@@ -915,6 +915,7 @@
 		88FEFCA71F8E5A4400D81CAB /* SearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEFCA61F8E5A4400D81CAB /* SearchHistoryView.swift */; };
 		88FEFCA91F8E677D00D81CAB /* SearchBarMulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEFCA81F8E677D00D81CAB /* SearchBarMulticastDelegate.swift */; };
 		88FEFCAD1F8F93CF00D81CAB /* SearchHistoryViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEFCAC1F8F93CF00D81CAB /* SearchHistoryViewTests.swift */; };
+		88FEFCAF1F8F970D00D81CAB /* SearchHistoryStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEFCAE1F8F970D00D81CAB /* SearchHistoryStorageTests.swift */; };
 		88FF23601F683C51005D4552 /* UnfollowCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF235F1F683C51005D4552 /* UnfollowCommand.swift */; };
 		88FF23621F683C86005D4552 /* UserCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF23611F683C86005D4552 /* UserCommand.swift */; };
 		88FF23641F683D49005D4552 /* CancelPendingCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF23631F683D49005D4552 /* CancelPendingCommand.swift */; };
@@ -2076,6 +2077,7 @@
 		88FEFCA61F8E5A4400D81CAB /* SearchHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryView.swift; sourceTree = "<group>"; };
 		88FEFCA81F8E677D00D81CAB /* SearchBarMulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBarMulticastDelegate.swift; path = ../Utils/SearchBarMulticastDelegate.swift; sourceTree = "<group>"; };
 		88FEFCAC1F8F93CF00D81CAB /* SearchHistoryViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewTests.swift; sourceTree = "<group>"; };
+		88FEFCAE1F8F970D00D81CAB /* SearchHistoryStorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryStorageTests.swift; sourceTree = "<group>"; };
 		88FF235F1F683C51005D4552 /* UnfollowCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnfollowCommand.swift; sourceTree = "<group>"; };
 		88FF23611F683C86005D4552 /* UserCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCommand.swift; sourceTree = "<group>"; };
 		88FF23631F683D49005D4552 /* CancelPendingCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelPendingCommand.swift; sourceTree = "<group>"; };
@@ -5376,6 +5378,7 @@
 			isa = PBXGroup;
 			children = (
 				88FEFCAC1F8F93CF00D81CAB /* SearchHistoryViewTests.swift */,
+				88FEFCAE1F8F970D00D81CAB /* SearchHistoryStorageTests.swift */,
 			);
 			name = SearchHistory;
 			path = ModelTests;
@@ -7491,6 +7494,7 @@
 				639A94421F5D2FF600EB0253 /* MockCommentCellRouter.swift in Sources */,
 				88C682371F78F240004BD291 /* MockRelatedHandleUpdater.swift in Sources */,
 				932898D21F65900F001F3BC2 /* ReportCommentAPITests.swift in Sources */,
+				88FEFCAF1F8F970D00D81CAB /* SearchHistoryStorageTests.swift in Sources */,
 				88E662101F7AA76500C98526 /* MockUsersListProcessor.swift in Sources */,
 				63B62ECE1F838C5F003DC885 /* DetailedActivityPresenterTests.swift in Sources */,
 				8886AA5C1F6A90E100734F3C /* UnblockCommandTests.swift in Sources */,

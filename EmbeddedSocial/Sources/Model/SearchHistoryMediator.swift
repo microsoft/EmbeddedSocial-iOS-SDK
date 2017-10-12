@@ -18,6 +18,7 @@ class SearchHistoryMediator: NSObject {
             if let scope = activeTab?.rawValue {
                 storage.scope = String(scope)
                 searchHistoryView.searchRequests = storage.searchRequests()
+                updateSearchHistoryVisibility()
             }
         }
     }
@@ -52,14 +53,19 @@ class SearchHistoryMediator: NSObject {
         
         let searchBarFrame = parentView.convert(searchBar.frame, from: searchBar.superview)
         var frame = CGRect()
-        frame.size = CGSize(width: searchBarFrame.size.width, height: 400.0)
+        frame.width = searchBarFrame.size.width
         frame.origin = CGPoint(x: (parentView.bounds.width - frame.width) / 2.0, y: searchBarFrame.maxY)
         
         searchHistoryView.frame = frame
         searchHistoryView.searchRequests = storage.searchRequests()
-        searchHistoryView.maxHeight = 400.0
+        searchHistoryView.maxHeight = Constants.Search.historyMaxHeight
 
         hasSetHistoryView = true
+    }
+    
+    fileprivate func updateSearchHistoryVisibility() {
+        let searchText = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        searchHistoryView.isHidden = !searchText.isEmpty
     }
 }
 
@@ -73,7 +79,7 @@ extension SearchHistoryMediator: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchHistoryView.isHidden = !searchText.isEmpty
+       updateSearchHistoryVisibility()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -84,8 +90,7 @@ extension SearchHistoryMediator: UISearchBarDelegate {
         if !hasSetHistoryView {
             setupHistoryView()
         }
-        let searchText = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        searchHistoryView.isHidden = !searchText.isEmpty
+        updateSearchHistoryVisibility()
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
