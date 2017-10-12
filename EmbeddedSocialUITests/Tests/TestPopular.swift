@@ -7,7 +7,7 @@ import Foundation
 import XCTest
 
 
-class TestPopularToday: TestOnlineHome, OnlineTest {
+class TestPopularToday: TestOnlineHome {
     var popular: PopularTopics!
     
     override func setUp() {
@@ -24,7 +24,7 @@ class TestPopularToday: TestOnlineHome, OnlineTest {
     
 }
 
-class TestPopularThisWeek: TestOnlineHome, OnlineTest {
+class TestPopularThisWeek: TestOnlineHome {
     var popular: PopularTopics!
     
     override func setUp() {
@@ -41,7 +41,7 @@ class TestPopularThisWeek: TestOnlineHome, OnlineTest {
     
 }
 
-class TestPopularAllTime: TestOnlineHome, OnlineTest {
+class TestPopularAllTime: TestOnlineHome {
     var popular: PopularTopics!
     
     override func setUp() {
