@@ -27,6 +27,13 @@ extension UIButton {
         alpha = isEnabled ? 1.0 : 0.5
     }
     
+    // Sets image to nil and cancels download operations
+    
+    func releasePhoto() {
+        sd_cancelCurrentImageLoad()
+        setImage(nil, for: .normal)
+    }
+    
     /// Set the imageView `image` with a `photo` and a placeholder.
     /// If `photo` has image, it's set immediately.
     /// If it has only URL, it's downloaded and cached.
