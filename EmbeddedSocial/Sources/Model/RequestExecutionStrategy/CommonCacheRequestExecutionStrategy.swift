@@ -31,8 +31,10 @@ CacheRequestExecutionStrategy<ResponseType, ResultType> where ResponseType: Cach
             
             // Fix for server bug, clean cursor if there is zero data
             
-            if result?.body?.data?.count == 0 {
-                
+            if let feedResult = response as? FeedResponseTopicView {
+                if feedResult.data?.count == 0 {
+                    feedResult.cursor = nil
+                }
             }
             
             if let response = response {
