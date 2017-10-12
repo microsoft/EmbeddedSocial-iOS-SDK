@@ -397,6 +397,8 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     deinit {
         Logger.log()
+        self.collectionView.delegate = nil
+        self.collectionView.dataSource = nil
     }
 }
 
