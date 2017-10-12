@@ -8,13 +8,21 @@ import XCTest
 
 class CommentCellInteractorTests: XCTestCase {
     
-    var output = MockCommentCellPresenter()
-    var interactor = CommentCellInteractor()
+    var output: MockCommentCellPresenter!
+    var interactor: CommentCellInteractor!
+    var actionStrategy: CommonAuthorizedActionStrategy!
     
     var likeService: MockLikesService!
     
     override func setUp() {
         super.setUp()
+        actionStrategy = CommonAuthorizedActionStrategy(
+            myProfileHolder: MyProfileHolder(),
+            loginParent: UIViewController(),
+            loginOpener: MockLoginModalOpener()
+        )
+        interactor = CommentCellInteractor()
+        output = MockCommentCellPresenter(actionStrategy: actionStrategy)
         interactor.output = output
         likeService = MockLikesService()
         interactor.likeService = likeService
@@ -22,9 +30,10 @@ class CommentCellInteractorTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
-        interactor.output = nil
+        output = nil
+        actionStrategy = nil
+        interactor = nil
     }
-    
     
     func testThatCommentLiked() {
 

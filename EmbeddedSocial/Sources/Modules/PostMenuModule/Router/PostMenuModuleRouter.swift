@@ -9,13 +9,11 @@ protocol PostMenuModuleRouterInput {
     func openReport(postHandle: PostHandle)
     func openReport(comment: Comment)
     func openReport(reply: Reply)
-    func openLogin()
 }
 
 class PostMenuModuleRouter: PostMenuModuleRouterInput {
     
     weak var navigationController: UINavigationController?
-    weak var loginOpener: LoginModalOpener?
     
     func openEdit(post: Post) {
         Logger.log(post.topicHandle)
@@ -59,8 +57,4 @@ class PostMenuModuleRouter: PostMenuModuleRouterInput {
         navigationController?.present(navController, animated: true, completion: nil)
     }
     
-    func openLogin() {
-        loginOpener?.openLogin(parentViewController: navigationController)
-    }
-
 }

@@ -12,5 +12,4 @@ protocol CommentCellRouterInput {
     func openLikes(commentHandle: String)
     func openMyCommentOptions(comment: Comment)
     func openOtherCommentOptions(comment: Comment)
-    func openLogin()
 }

@@ -31,7 +31,6 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     var interactor: CommentRepliesInteractorInput!
     var router: CommentRepliesRouterInput!
     
-    var commentCell: CommentCell!
     var comment: Comment!
     
     var scrollType: RepliesScrollType = .none
@@ -40,15 +39,15 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     private var formatter = DateFormatterTool()
     fileprivate var shouldFetchRestOfReplies = false
-    fileprivate var loadMoreCellViewModel = LoadMoreCellViewModel()
+    var loadMoreCellViewModel = LoadMoreCellViewModel()
     
-    private var cursor: String?
-    private let myProfileHolder: UserHolder
+    var cursor: String?
     private let pageSize: Int
+    private let actionStrategy: AuthorizedActionStrategy
     
-    init(myProfileHolder: UserHolder, pageSize: Int) {
-        self.myProfileHolder = myProfileHolder
+    init(pageSize: Int, actionStrategy: AuthorizedActionStrategy) {
         self.pageSize = pageSize
+        self.actionStrategy = actionStrategy
     }
     
     // MARK: CommentRepliesViewOutput
@@ -57,8 +56,8 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         return loadMoreCellViewModel
     }
     
-    func mainCommentCell() -> CommentCell {
-        return commentCell
+    func mainComment() -> Comment {
+        return comment
     }
     
     func refresh() {
@@ -111,10 +110,10 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func postReply(text: String) {
-        guard myProfileHolder.me != nil else {
-            router.openLogin(from: view as? UIViewController ?? UIViewController())
-            return
-        }
+        actionStrategy.executeOrPromptLogin { [weak self] in self?._postReply(text: text) }
+    }
+    
+    func _postReply(text: String) {
         view?.lockUI()
         interactor.postReply(commentHandle: comment.commentHandle, text: text)
     }
@@ -185,12 +184,12 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         reply.userHandle = SocialPlus.shared.me?.uid
         appendWithReplacing(original: &replies, appending: [reply])
         comment.totalReplies += 1
-        commentCell.configure(comment: comment)
         view?.replyPosted()
+        view?.reloadCommentCell()
     }
     
     func replyFailPost(error: Error) {
-        
+        router.back()
     }
     
     func didPostAction(replyHandle: String, action: RepliesSocialAction, error: Error?) {
@@ -217,9 +216,15 @@ extension CommentRepliesPresenter: ReplyCellModuleOutput {
             comment.totalReplies -= 1
         }
         replies.remove(at: index)
-        commentCell.configure(comment: comment)
         router.backIfNeeded(from: view as! UIViewController)
         view?.removeReply(index: index)
+        view?.reloadCommentCell()
+    }
+}
+
+extension CommentRepliesPresenter: CommentCellModuleOutout {
+    func removed(comment: Comment) {
+        //todo: handle
     }
 }
 
@@ -248,8 +253,8 @@ extension CommentRepliesPresenter: PostMenuModuleOutput {
         
         replies.remove(at: index)
         comment.totalReplies -= 1
-        commentCell.configure(comment: comment)
         view?.removeReply(index: index)
+        view?.reloadCommentCell()
     }
     
     func didFollow(user: User) {

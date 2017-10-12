@@ -302,6 +302,8 @@ enum L10n {
     static let noItemsReceived = L10n.tr("Localizable", "error.no_items_received")
     /// Not implemented.
     static let notImplemented = L10n.tr("Localizable", "error.not_implemented")
+    /// Not implemented.
+    static let commentNotFound = L10n.tr("Localizable", "error.comment_not_found")
     /// Unknown error occurred.
     static let unknown = L10n.tr("Localizable", "error.unknown")
     /// User list module configuration error: API not set.

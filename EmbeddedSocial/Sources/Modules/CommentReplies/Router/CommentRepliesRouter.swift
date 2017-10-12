@@ -4,16 +4,16 @@
 //
 
 class CommentRepliesRouter: CommentRepliesRouterInput {
-
-    weak var loginOpener: LoginModalOpener?
     
-    func openLogin(from viewController: UIViewController) {
-        loginOpener?.openLogin(parentViewController: viewController.navigationController)
-    }
+    weak var navigationController: UINavigationController?
     
     func backIfNeeded(from view: UIViewController) {
         if !(view.navigationController?.viewControllers.last is CommentRepliesViewController) {
             view.navigationController?.popViewController(animated: true)
         }
+    }
+    
+    func back() {
+        navigationController?.popViewController(animated: true)
     }
 }
