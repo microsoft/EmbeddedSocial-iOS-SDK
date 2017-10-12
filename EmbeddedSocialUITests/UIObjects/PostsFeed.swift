@@ -54,13 +54,13 @@ class Post {
     func like() {
         scrollToElement(self.likeButton, self.app)
         self.likeButton.tap()
-        sleep(1)
+//        sleep(1)
     }
     
     func pin() {
         scrollToElement(self.pinButton, self.app)
         self.pinButton.tap()
-        sleep(1)
+//        sleep(1)
     }
     
     func menu() -> PostMenu {

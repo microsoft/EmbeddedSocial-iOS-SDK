@@ -46,10 +46,6 @@ class TestMyPinsOffline: TestOfflineHome {
         navigate(to: .myPins)
     }
     
-    override func testPostAttributes() {
-        super.testPostAttributes()
-    }
-    
     /*
      As all posts on this screen are already pinned:
      "Pin" and "Unpin" actions are reversed and v.v.
