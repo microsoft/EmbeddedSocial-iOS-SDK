@@ -55,7 +55,7 @@ class TestOfflineProfileDetails: BaseTestProfileDetails, OfflineTest {
     
 }
 
-class TestMyProfileRecentPosts: TestOnlineHome, OnlineTest {
+class TestMyProfileRecentPosts: TestOnlineHome {
     var profile: UserProfile!
     
     override func setUp() {
@@ -72,7 +72,7 @@ class TestMyProfileRecentPosts: TestOnlineHome, OnlineTest {
     
 }
 
-class TestMyProfilePopularPosts: TestOnlineHome, OnlineTest {
+class TestMyProfilePopularPosts: TestOnlineHome {
     var profile: UserProfile!
 
     override func setUp() {

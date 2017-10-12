@@ -5,7 +5,7 @@
 
 import XCTest
 
-class TestMyPins: TestOnlineHome, OnlineTest {
+class TestMyPins: TestOnlineHome {
     
     override func setUp() {
         super.setUp()

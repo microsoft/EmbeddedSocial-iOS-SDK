@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-class TestSearchTopics: TestOnlineHome, OnlineTest {
+class TestSearchTopics: TestOnlineHome {
     var search: Search!
     
     override func setUp() {
