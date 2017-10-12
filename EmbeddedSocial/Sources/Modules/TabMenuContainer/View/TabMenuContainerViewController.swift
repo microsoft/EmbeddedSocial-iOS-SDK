@@ -5,7 +5,7 @@
 
 import UIKit
 
-class TabMenuContainerViewController: UIViewController, TabMenuContainerViewInput {
+class TabMenuContainerViewController: BaseViewController, TabMenuContainerViewInput {
     
     func select(tab: TabMenuContainerTabs) {
         

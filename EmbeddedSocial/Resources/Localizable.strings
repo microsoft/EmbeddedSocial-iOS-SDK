@@ -12,6 +12,7 @@
 "error.no_items_received" = "No Items Received";
 "error.invalid_image" = "Image is invalid";
 "error.user_not_logged_in" = "User is not logged in.";
+"error.no_internet_connection" = "No internet connection. You can still post while offline.";
 "error.last_session_not_available" = "Last session is not available.";
 "error.no_item_for" = "No item for %@";
 "error.no_items_received" = "No Items Received";

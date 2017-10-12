@@ -26,7 +26,7 @@ enum DetailedActivityItem: Int {
     case buttonCell
 }
 
-class DetailedActivityViewController: UIViewController, DetailedActivityViewInput {
+class DetailedActivityViewController: BaseViewController, DetailedActivityViewInput {
     @IBOutlet weak var collectionView: UICollectionView!
 
     var output: DetailedActivityViewOutput!

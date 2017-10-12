@@ -6,7 +6,7 @@
 import UIKit
 import SnapKit
 
-class SearchTopicsViewController: UIViewController {
+class SearchTopicsViewController: BaseViewController {
     
     var output: SearchTopicsViewOutput!
     

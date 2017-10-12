@@ -6,7 +6,7 @@
 import UIKit
 import SnapKit
 
-class UserProfileViewController: UIViewController {
+class UserProfileViewController: BaseViewController {
     
     var output: UserProfileViewOutput!
     
