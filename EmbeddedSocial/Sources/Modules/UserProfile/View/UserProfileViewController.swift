@@ -88,7 +88,7 @@ extension UserProfileViewController: UserProfileViewInput {
     }
     
     func setFeedViewController(_ feedViewController: UIViewController) {
-        addChildController(feedViewController, containerView: feedViewController.view, pinToEdges: true)
+        addChildController(feedViewController, containerView: view, pinToEdges: true)
         
         feedView = feedViewController.view
         
