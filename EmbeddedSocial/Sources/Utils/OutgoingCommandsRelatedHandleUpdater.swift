@@ -7,6 +7,7 @@ import Foundation
 
 protocol RelatedHandleUpdater {
     func updateRelatedHandle(from oldHandle: String?, to newHandle: String?, predicate: NSPredicate)
+    func updateCommand(oldHandle: String, updatedCommand: OutgoingCommand)
 }
 
 struct OutgoingCommandsRelatedHandleUpdater: RelatedHandleUpdater {
@@ -28,5 +29,11 @@ struct OutgoingCommandsRelatedHandleUpdater: RelatedHandleUpdater {
         cache.deleteOutgoing(with: predicate)
         
         commands.forEach(cache.cacheOutgoing)
+    }
+    
+    func updateCommand(oldHandle: String, updatedCommand: OutgoingCommand) {
+        let p = PredicateBuilder().predicate(typeID: updatedCommand.typeIdentifier, handle: oldHandle)
+        cache.deleteOutgoing(with: p)
+        cache.cacheOutgoing(updatedCommand)
     }
 }

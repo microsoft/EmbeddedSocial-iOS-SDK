@@ -22,7 +22,11 @@ class UserListPresenter {
     }
     
     func loadNextPage() {
-        actionStrategy.executeOrPromptLogin { [weak self] in self?._loadNextPage() }
+        view.setIsEmpty(false)
+        
+        interactor.getNextListPage { [weak self] result in
+            self?.processUsersResult(result)
+        }
     }
     
     private func _loadNextPage() {

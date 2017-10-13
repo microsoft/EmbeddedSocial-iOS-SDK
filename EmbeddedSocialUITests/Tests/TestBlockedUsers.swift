@@ -6,18 +6,16 @@
 import XCTest
 @testable import EmbeddedSocial
 
-class TestBlockedUsers: UITestBase {
+class BaseTestBlockedUsers: BaseSideMenuTest {
     
-    private let pageSize: Int = Constants.UserList.pageSize
-    
-    private var sideMenu: SideMenu!
-    private var blockedUsers: BlockedUsersFeed!
+    var pageSize: Int!
+    var blockedUsersFeed: BlockedUsersFeed!
     
     override func setUp() {
         super.setUp()
         
-        sideMenu = SideMenu(app)
-        blockedUsers = BlockedUsersFeed(app)
+        pageSize = Constants.UserList.pageSize
+        blockedUsersFeed = BlockedUsersFeed(app)
     }
     
     override func tearDown() {
@@ -25,23 +23,15 @@ class TestBlockedUsers: UITestBase {
         APIConfig.showUserImages = false
     }
     
-    func openBlockedUsersScreen() {
-        sideMenu.navigate(to: .settings)
+    override func openScreen() {
+        navigate(to: .settings)
         app.cells["Blocked users"].tap()
     }
-        
-    func testImagesLoading() {
-        APIConfig.showUserImages = true
-        
-        openBlockedUsersScreen()
-        
-        XCTAssertTrue(APIState.getLatestRequest().contains("/images/"))
-    }
+    
+    func testImagesLoading() {}
     
     func testBlockedUsersAttributes() {
-        openBlockedUsersScreen()
-        
-        let (index, blockedUserItem) = blockedUsers.getRandomBlockedUserItem()
+        let (index, blockedUserItem) = blockedUsersFeed.getRandomBlockedUserItem()
         
         XCTAssertNotNil(blockedUserItem)
         XCTAssertTrue(blockedUserItem.isExists(text: "Blocked User\(index)"))
@@ -49,35 +39,85 @@ class TestBlockedUsers: UITestBase {
     }
     
     func testUnblockingUser() {
-        openBlockedUsersScreen()
+        let (index, blockedUserItem) = blockedUsersFeed.getRandomBlockedUserItem()
         
-        let (index, blockedUserItem) = blockedUsers.getRandomBlockedUserItem()
-        XCTAssertNotNil(blockedUserItem)
-        
-        let beforeUnblockingUsersCount = blockedUsers.getBlockedUsersCount()
+        let beforeUnblockingUsersCount = blockedUsersFeed.getBlockedUsersCount()
         blockedUserItem.unblock()
+        checkIsUnblocked(user: blockedUserItem, at: index, beforeUnblockingCount: beforeUnblockingUsersCount)
+    }
+    
+    func checkIsUnblocked(user: BlockedUserItem, at index: UInt, beforeUnblockingCount: UInt) {
+        XCTAssertTrue((beforeUnblockingCount - 1) == blockedUsersFeed.getBlockedUsersCount())
+    }
+    
+    func testPaging() {
+        let oldCount = blockedUsersFeed.getBlockedUsersCount()
+        for _ in 1...15 {
+            app.swipeUp()
+        }
+        let newCount = blockedUsersFeed.getBlockedUsersCount()
+        XCTAssertGreaterThanOrEqual(newCount, oldCount, "New users weren't loaded while feed up")
+    }
+    
+}
+
+class TestBlockedUsersOnline: BaseTestBlockedUsers, OnlineTest {
+    
+    override func testImagesLoading() {
+        APIConfig.showUserImages = true
         
-        XCTAssertTrue((beforeUnblockingUsersCount - 1) == blockedUsers.getBlockedUsersCount())
+        openScreen()
+        sleep(1)
+        
+        super.testImagesLoading()
+        
+        XCTAssertTrue(APIState.getLatestRequest().contains("/images/"), "Users images weren't loaded")
+    }
+    
+    override func testUnblockingUser() {
+        openScreen()
+        super.testUnblockingUser()
+    }
+    
+    override func checkIsUnblocked(user: BlockedUserItem, at index: UInt, beforeUnblockingCount: UInt) {
         XCTAssertTrue(APIState.getLatestRequest().hasSuffix("/me/blocked_users/BlockedUser\(index)"))
         XCTAssertEqual(APIState.latestRequstMethod, "DELETE")
     }
     
-    func testPaging() {
-        openBlockedUsersScreen()
+    override func testPaging() {
+        openScreen()
         
-        let currentBlockedUsersCount = blockedUsers.getBlockedUsersCount()
-        
-        // move to the last item
-        let _ = blockedUsers.getBlockedUserItem(at: currentBlockedUsersCount - 1)
-        app.swipeUp()
-        
-        // get new list size after loading
-        let newBlockedUsersCount = blockedUsers.getBlockedUsersCount()
-        XCTAssertGreaterThan(newBlockedUsersCount, currentBlockedUsersCount)
+        super.testPaging()
         
         let latestRequest = APIState.getLatestResponse(forService: "blockedUsers")
-        XCTAssertNotNil(latestRequest)
         XCTAssertGreaterThan(latestRequest!["cursor"] as! String, String(pageSize))
+    }
+    
+}
+
+class TestBlockedUsersOffline: BaseTestBlockedUsers, OfflineTest {
+    
+    override func testUnblockingUser() {
+        openScreen()
+        makePullToRefreshWithoutReachability(with: blockedUsersFeed.getBlockedUserItem(at: 0).asUIElement())
+        super.testUnblockingUser()
+    }
+    
+    override func testPaging() {
+        openScreen()
+        
+        // load items online
+        super.testPaging()
+        
+        // scroll to up
+        for _ in 1...16 {
+            app.swipeDown()
+        }
+        
+        makePullToRefreshWithoutReachability(with: blockedUsersFeed.getBlockedUserItem(at: 0, withScroll: false).asUIElement())
+        
+        // test offline pagination
+        super.testPaging()
     }
     
 }
