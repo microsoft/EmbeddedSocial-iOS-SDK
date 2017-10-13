@@ -154,10 +154,21 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         
         //        postText.isTrimmed = data.isTrimmed
         
-        postText.attributedTruncationToken = NSMutableAttributedString(
-            string: "... Show more",
-            attributes: [
-                NSForegroundColorAttributeName: UIColor.red])
+        if data.isTrimmed {
+            postText.attributedTruncationToken = NSMutableAttributedString(
+                string: "... Show more",
+                attributes: [NSForegroundColorAttributeName: UIColor.red])
+        }
+        
+        let text = postText.text!
+        let regex = try NSRegularExpression(pattern: "(?:\\s|^)(#(?:[a-zA-Z].*?|\\d+[a-zA-Z]+.*?))\\b", options: NSRegularExpression.MatchingOptions.anchored)
+        let results = regex.matchesInString(text,
+                                            options: NSRegularExpression.MatchingOptions.anchored
+                                            range: NSMakeRange(0, text.characters.count))
+        
+        //postText.enabledTextCheckingTypes = NSTextCheckingTypeLink
+        let r = NSRange()
+        postText.addLink(toTransitInformation: ["hashtag": 1], with: NSRange( ))
     }
     
     static func sizingCell() -> PostCell {
