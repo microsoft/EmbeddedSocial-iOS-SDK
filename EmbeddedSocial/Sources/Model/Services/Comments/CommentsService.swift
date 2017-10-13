@@ -216,8 +216,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
             request: PostCommentRequest(comment: command.comment),
             authorization: authorization) { (response, error) in
                 if let response = response {
-                    let p = PredicateBuilder().predicate(for: command)
-                    self.cache.deleteOutgoing(with: p)
                     command.comment.commentHandle = response.commentHandle
                     resultHandler(command.comment)
                 } else if self.errorHandler.canHandle(error) {
