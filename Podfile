@@ -25,7 +25,7 @@ abstract_target 'Group' do
     pod 'LiveSDK', :path => 'EmbeddedSocial/Vendor/LiveSDK'
     pod 'SKPhotoBrowser', '4.0.1'
     pod 'MBProgressHUD', '1.0'
-    pod 'HockeySDK', '~> 5.0.0'
+    pod 'HockeySDK', '~> 5.0.0', :subspecs => ['AllFeaturesLib']
     facebook
 
     target 'EmbeddedSocial' do
