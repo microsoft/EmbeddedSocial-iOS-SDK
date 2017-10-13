@@ -15,6 +15,7 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        
         cache = MockCache()
         operationsBuilder = MockOutgoingCommandOperationsBuilder()
         predicateBuilder = MockTopicServicePredicateBuilder()
@@ -62,10 +63,6 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
         
         expect(self.operationsBuilder.fetchCommandsOperationPredicateCalled).to(beTrue())
         expect(self.predicateBuilder.topicActionCommandsAndAllCreatedCommentsCalled).to(beTrue())
-    }
-    
-    func testProcessingWithMultipleCommandTypes() {
-        
     }
     
     func testThatItIgnoresResultsFromAPI() {
