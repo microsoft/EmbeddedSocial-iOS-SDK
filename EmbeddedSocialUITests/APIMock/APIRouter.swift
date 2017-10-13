@@ -33,6 +33,13 @@ open class APIRouter: WebApp {
             }
             if method == "GET" {
                 let query = URLParametersReader.parseURLParameters(environ: environ)
+                
+                // Load one topic
+                if query.isEmpty {
+                    sendJSON(Templates.load(name: "topic"))
+                    return
+                }
+                
                 let captures = environ["ambassador.router_captures"] as! [String]
                 var interval = "topics"
                 if captures.count > 0 && captures[0] != "" {

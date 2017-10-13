@@ -95,7 +95,8 @@ class Templates {
         
         for i in cursor...cursor + limit - 1 {
             var values: [String: Any]
-            values = ["commentHandle": "commentHandle" + String(i)]
+            values = ["commentHandle": "commentHandle" + String(i),
+                      "createdTime": Date().ISOString]
             
             if APIConfig.numberedCommentLikes {
                 values["totalLikes"] = i

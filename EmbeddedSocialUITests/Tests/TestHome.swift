@@ -40,7 +40,7 @@ class BaseTestHome: BaseFeedTest {
     func testPostAttributes() {
         let (_, post) = feed.getRandomPost()
         
-        XCTAssert(post.textExists("Alan Poe"), "Author name doesn't match")
+        XCTAssert(post.textExists("John Doe"), "Author name doesn't match")
         XCTAssert(post.textExists("5 likes"), "Number of likes doesn't match")
         XCTAssert(post.textExists("7 comments"), "Number of comments doesn't match")
         XCTAssertEqual(post.teaser.value as! String, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "Teaser text doesn't match")
@@ -87,14 +87,14 @@ class BaseTestHome: BaseFeedTest {
     }
 
     func testPaging() {
-        var seenPosts = Set<String>()
+        var seenPosts = Set<XCUIElement>()
         var retryCount = 25
         
         while seenPosts.count <= pageSize && retryCount != 0 {
             retryCount -= 1
             for i in 0...feed.getPostsCount() - 1 {
                 let post = feed.getPost(i)
-                seenPosts.insert(post.teaser.value as! String)
+                seenPosts.insert(post.cell)
             }
             app.swipeUp()
         }
@@ -149,7 +149,20 @@ class BaseTestHome: BaseFeedTest {
     }
     
     func testPullToRefreshTileMode() {
-        testPullToRefresh()
+        for _ in 0...5 {
+            app.swipeUp()
+        }
+        
+        for _ in 0...5 {
+            app.swipeDown()
+        }
+        
+        let post = feed.getPost(0)
+        let start = post.cell.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 0)))
+        let finish = post.cell.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
+        start.press(forDuration: 0, thenDragTo: finish)
+        
+        XCTAssertTrue(feed.getPostsCount() != 0)
     }
     
     func testOpenPostDetailsTileMode() {
@@ -167,8 +180,8 @@ class TestOnlineHome: BaseTestHome, OnlineTest {
     }
     
     override func testPostAttributes() {
-        APIConfig.values = ["user->firstName": "Alan",
-                            "user->lastName": "Poe",
+        APIConfig.values = ["user->firstName": "John",
+                            "user->lastName": "Doe",
                             "totalLikes": 5,
                             "totalComments": 7,
                             "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -222,14 +235,13 @@ class TestOnlineHome: BaseTestHome, OnlineTest {
         super.testPullToRefresh()
         
         let response = APIState.getLatestResponse(forService: serviceName)
-        XCTAssertEqual(Int(response?["cursor"] as! String), pageSize, "First page wasn't loaded on Pull to Refresh")
+        XCTAssertNotNil(Int(response?["cursor"] as! String), "First page wasn't loaded on Pull to Refresh")
     }
     
     override func testPostImagesLoaded() {
         APIConfig.showTopicImages = true
         
         openScreen()
-        sleep(2)
         
         XCTAssertTrue(APIState.getLatestRequest().contains("/images/"), "Post images weren't loaded")
         super.testPostImagesLoaded()
@@ -268,7 +280,7 @@ class TestOnlineHome: BaseTestHome, OnlineTest {
         super.testPullToRefreshTileMode()
         
         let response = APIState.getLatestResponse(forService: serviceName)
-        XCTAssertGreaterThanOrEqual(Int(response?["cursor"] as! String)!, pageSize, "Pages weren't loaded on Pull to Refresh")
+        XCTAssertNotNil(Int(response?["cursor"] as! String), "First page wasn't loaded on Pull to Refresh")
     }
     
     override func testOpenPostDetailsTileMode() {
@@ -293,8 +305,8 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
     }
     
     override func testPostAttributes() {
-        APIConfig.values = ["user->firstName": "Alan",
-                            "user->lastName": "Poe",
+        APIConfig.values = ["user->firstName": "John",
+                            "user->lastName": "Doe",
                             "totalLikes": 5,
                             "totalComments": 7,
                             "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -326,7 +338,7 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         super.testPaging()
         
         // scroll to up
-        for _ in 0...20 {
+        for _ in 1...7 {
             app.swipeDown()
         }
         makePullToRefreshWithoutReachability(with: feed.getPost(0).cell)
@@ -343,6 +355,7 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
     
     override func testPostImagesLoaded() {
         APIConfig.showTopicImages = true
+        
         openScreen()
         
         makePullToRefreshWithoutReachability(with: feed.getPost(0).cell)
@@ -369,7 +382,7 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         super.testPagingTileMode()
         
         // scroll to up
-        for _ in 0...5 {
+        for _ in 1...5 {
             app.swipeDown()
         }
         makePullToRefreshWithoutReachability(with: feed.getPost(0).cell)
