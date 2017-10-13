@@ -388,8 +388,8 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
     
     deinit {
         Logger.log()
-        self.collectionView.delegate = nil
-        self.collectionView.dataSource = nil
+        self.collectionView?.delegate = nil
+        self.collectionView?.dataSource = nil
     }
 }
 
