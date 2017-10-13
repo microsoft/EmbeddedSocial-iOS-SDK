@@ -27,4 +27,24 @@ class MockTopicServicePredicateBuilder: TopicServicePredicateBuilder {
         return allTopicCommandsReturnValue
     }
     
+    //MARK: - topicActionCommandsAndAllCreatedComments
+    
+    var topicActionCommandsAndAllCreatedCommentsCalled = false
+    var topicActionCommandsAndAllCreatedCommentsReturnValue: NSPredicate!
+    
+    func topicActionCommandsAndAllCreatedComments() -> NSPredicate {
+        topicActionCommandsAndAllCreatedCommentsCalled = true
+        return topicActionCommandsAndAllCreatedCommentsReturnValue
+    }
+    
+    //MARK: - allTopicCommandsAndAllCreatedComments
+    
+    var allTopicCommandsAndAllCreatedCommentsCalled = false
+    var allTopicCommandsAndAllCreatedCommentsReturnValue: NSPredicate!
+    
+    func allTopicCommandsAndAllCreatedComments() -> NSPredicate {
+        allTopicCommandsAndAllCreatedCommentsCalled = true
+        return allTopicCommandsAndAllCreatedCommentsReturnValue
+    }
+    
 }

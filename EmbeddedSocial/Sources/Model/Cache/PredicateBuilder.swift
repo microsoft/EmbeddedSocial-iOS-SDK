@@ -39,6 +39,10 @@ protocol TopicServicePredicateBuilder {
     func allTopicActionCommands() -> NSPredicate
     
     func allTopicCommands() -> NSPredicate
+    
+    func topicActionCommandsAndAllCreatedComments() -> NSPredicate
+    
+    func allTopicCommandsAndAllCreatedComments() -> NSPredicate
 }
 
 struct PredicateBuilder: CachePredicateBuilder {
@@ -177,6 +181,16 @@ extension PredicateBuilder: TopicServicePredicateBuilder {
     
     func allTopicCommands() -> NSPredicate {
         let typeIDs = TopicCommand.allTopicCommandTypes.map { $0.typeIdentifier }
+        return NSPredicate(format: "typeid IN %@", typeIDs)
+    }
+    
+    func topicActionCommandsAndAllCreatedComments() -> NSPredicate {
+        let typeIDs = (TopicCommand.topicActionCommandTypes + [CreateCommentCommand.self]).map { $0.typeIdentifier }
+        return NSPredicate(format: "typeid IN %@", typeIDs)
+    }
+    
+    func allTopicCommandsAndAllCreatedComments() -> NSPredicate {
+        let typeIDs = (TopicCommand.allTopicCommandTypes + [CreateCommentCommand.self]).map { $0.typeIdentifier }
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
 }
