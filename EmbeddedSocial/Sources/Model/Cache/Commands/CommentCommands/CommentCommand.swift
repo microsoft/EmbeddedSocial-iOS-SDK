@@ -69,14 +69,3 @@ class CommentCommand: OutgoingCommand {
         ]
     }
 }
-
-
-
-
-
-
-
-
-
-
-
