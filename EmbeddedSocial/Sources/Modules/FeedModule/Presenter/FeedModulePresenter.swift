@@ -176,7 +176,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     fileprivate var isViewReady = false
     fileprivate var formatter = DateFormatterTool()
     fileprivate var cursor: String? = nil
-    fileprivate var limit: Int32 = Int32(Constants.Feed.pageSize)
+    fileprivate let limit: Int32 = Int32(Constants.Feed.pageSize)
     fileprivate var items = [Post]()
     fileprivate var fetchRequestsInProgress: Set<String> = Set()
     fileprivate var header: SupplementaryItemModel?
@@ -464,7 +464,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func viewDidAppear() {
-        limit = Int32(view.itemsLimit)
         
         if shouldFetchOnViewAppear() {
             didAskFetchAll()

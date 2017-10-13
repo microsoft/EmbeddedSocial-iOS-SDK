@@ -27,9 +27,7 @@ protocol FeedModuleViewInput: class {
     
     func getViewHeight() -> CGFloat
     func needShowNoContent(state: Bool)
-    //func getItemSize() -> CGSize
-    
-    var itemsLimit: Int { get }
+
     var paddingEnabled: Bool { get set }
 }
 
@@ -45,11 +43,6 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
         didSet {
             refreshLayout()
         }
-    }
-    
-    fileprivate var cachedLimit: Int?
-    var itemsLimit: Int {
-        return cachedLimit ?? 0
     }
     
     fileprivate var listLayout = UICollectionViewFlowLayout()
@@ -207,12 +200,10 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
         updateFlowLayoutForList(layout: listLayout, containerWidth: containerWidth())
         updateFlowLayoutForGrid(layout: gridLayout, containerWidth: containerWidth())
         
-        let limits = [
-            numberOfItemsInList(listLayout, in: collectionView.frame),
-            numberOfItemsInGrid(gridLayout, in: collectionView.frame)
-        ]
-        
-        cachedLimit = limits.max()
+//        let limits = [
+//            numberOfItemsInList(listLayout, in: collectionView.frame),
+//            numberOfItemsInGrid(gridLayout, in: collectionView.frame)
+//        ]
     }
     
     private func updateFlowLayoutForGrid(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {

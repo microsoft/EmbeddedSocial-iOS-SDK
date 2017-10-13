@@ -58,10 +58,6 @@ class FeedModuleViewInputMock: FeedModuleViewInput {
         resetFocus_Called = true
     }
     
-    var itemsLimit: Int {
-        return Constants.Feed.pageSize
-    }
-    
     //MARK: - setLayout
     
     var setLayoutCalled = false
