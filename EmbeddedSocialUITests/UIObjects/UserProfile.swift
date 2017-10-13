@@ -24,12 +24,12 @@ class UserProfile {
         self.menuButton = app.navigationBars.children(matching: .button).element(boundBy: 2)
         self.menu = app.sheets
         self.feed = Feed(app)
-        self.details = app.collectionViews.children(matching: .other).element
+        self.details = app.collectionViews.children(matching: .other).element // app.collectionViews.element
         self.followersButton = details.buttons.element(boundBy: 0)
         self.followingButton = details.buttons.element(boundBy: 1)
         self.editProfileButton = details.buttons.element(boundBy: 2)
         // Edit profile in My Profile and Follow in other user profiles
-        self.followButton = self.editProfileButton
+        self.followButton = details.buttons.element(boundBy: 3)
         self.recentPostsButton = app.collectionViews.buttons["Recent posts"]
         self.popularPostsButton = app.collectionViews.buttons["Popular posts"]
         

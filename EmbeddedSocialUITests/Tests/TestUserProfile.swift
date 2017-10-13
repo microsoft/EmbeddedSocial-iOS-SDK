@@ -3,37 +3,59 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 
-class TestUserProfile: UITestBase {
-    var sideMenu: SideMenu!
-    var profile: UserProfile!
-    var feed: Feed!
-    var userName: String!
+class BaseTestUserProfile: BaseFeedTest {
+    
+    private var userName: String!
+    
     var userHandle: String!
+    var profile: UserProfile!
     
     override func setUp() {
         super.setUp()
-        sideMenu = SideMenu(app)
-        profile = UserProfile(app)
-        feed = Feed(app)
+        
         userName = "John Doe"
-        userHandle = "JohnDoe"
+        userHandle = "OtherUser"
+        
+        profile = UserProfile(app)
     }
     
-    override func tearDown() {
-        super.tearDown()
-    }
-    
-    func openScreen() {
-        sideMenu.navigate(to: .home)
-        let (_, post) = feed.getRandomPost()
-        post.getLabelByText(userName).tapByCoordinate()
-        sleep(1)
+    override func openScreen() {
+        feed.getRandomPost().1.getLabelByText(userName).tapByCoordinate()
     }
     
     func testProfileAttributes() {
+        XCTAssert(profile.textExists("Alan Poe"), "Username doesn't match")
+        XCTAssert(profile.textExists("Lorem ipsum dolor sit amet, consectetur adipiscing elit."), "User bio doesn't match")
+        XCTAssertEqual(profile.followersButton.label, "5 followers", "Number of followers doesn't match")
+        XCTAssertEqual(profile.followingButton.label, "7 following", "Number of following doesn't match")
+        XCTAssertEqual(profile.followButton.label, "FOLLOWING", "User is not marked as following")
+    }
+    
+    func testFollowUser() {
+        profile.follow()
+        checkIsUserFollowed()
+        
+        profile.follow()
+        checkIsUserUnfollowed()
+    }
+    
+    func checkIsUserFollowed() {
+        XCTAssertEqual(profile.followButton.label, "FOLLOWING", "User is not marked as following")
+        XCTAssertEqual(profile.followersButton.label, "1 followers")
+    }
+    
+    func checkIsUserUnfollowed() {
+        XCTAssertEqual(profile.followButton.label, "FOLLOW", "User is marked as following")
+        XCTAssertEqual(profile.followersButton.label, "0 followers")
+    }
+    
+}
+
+class TestUserProfileOnline: BaseTestUserProfile, OnlineTest {
+    
+    override func testProfileAttributes() {
         APIConfig.values = ["firstName": "Alan",
                             "lastName": "Poe",
                             "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -42,85 +64,118 @@ class TestUserProfile: UITestBase {
                             "followerStatus": "Follow"]
         
         openScreen()
-        
-        XCTAssert(profile.textExists("Alan Poe"), "Username doesn't match")
-        XCTAssert(profile.textExists("Lorem ipsum dolor sit amet, consectetur adipiscing elit."), "User bio doesn't match")
-        XCTAssertEqual(profile.followersButton.label, "5 followers", "Number of followers doesn't match")
-        XCTAssertEqual(profile.followingButton.label, "7 following", "Number of following doesn't match")
-        XCTAssertEqual(profile.followButton.label, "FOLLOWING", "User is not marked as following")
-        
-        APIConfig.values = ["followerStatus": "Blocked"]
-        
-        profile.back()
-        openScreen()
-        
-        XCTAssertEqual(profile.followButton.label, "BLOCKED", "User is not marked as blocked")
+        super.testProfileAttributes()
     }
     
-    func testFollowUser() {
+    override func testFollowUser() {
         openScreen()
-        
-        profile.followButton.tap()
-        
+        super.testFollowUser()
+    }
+    
+    override func checkIsUserFollowed() {
         let request = APIState.getLatestData(forService: "followers")
-        
         XCTAssertEqual(request?["userHandle"] as! String, userHandle)
-        XCTAssertEqual(profile.followButton.label, "FOLLOWING", "User is not marked as following")
-        XCTAssertEqual(profile.followersButton.label, "1 followers")
-        
-        profile.follow()
-        
-        XCTAssertNotNil(APIState.getLatestRequest().contains("users/me/following/users/" + userHandle))
-        XCTAssertEqual(profile.followButton.label, "FOLLOW", "User is marked as following")
-        XCTAssertEqual(profile.followersButton.label, "0 followers")
-    }
-}
-
-
-class TestUserProfileRecentPosts: TestOnlineHome {
-    var profile: UserProfile!
-    var userName: String!
-    
-    override func setUp() {
-        super.setUp()
-        userName = "John Doe"
-        feedName = "JohnDoe"
-        profile = UserProfile(app)
+        super.checkIsUserFollowed()
     }
     
-    override func openScreen() {
-        sideMenu.navigate(to: .home)
-        let (_, post) = feed.getRandomPost()
-        if !post.getLabelByText(userName).exists {
-            userName = "Alan Poe"
-        }
-        post.getLabelByText(userName).tapByCoordinate()
-        profile.recentPostsButton.tap()
-        sleep(1)
+    override func checkIsUserUnfollowed() {
+        XCTAssertTrue(APIState.getLatestRequest().contains("users/me/following/users/" + userHandle))
+        super.checkIsUserUnfollowed()
     }
     
 }
 
-class TestUserProfilePopularPosts: TestOnlineHome {
-    var profile: UserProfile!
-    var userName: String!
+class TestUserProfileOffline: BaseTestUserProfile, OfflineTest {
+    
+    override func testProfileAttributes() {
+        APIConfig.values = ["firstName": "Alan",
+                            "lastName": "Poe",
+                            "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                            "totalFollowers": 5,
+                            "totalFollowing": 7,
+                            "followerStatus": "Follow"]
+        
+        openScreen()
+        makePullToRefreshWithoutReachability(with: profile.details)
+        super.testProfileAttributes()
+    }
+    
+    override func testFollowUser() {
+        openScreen()
+        makePullToRefreshWithoutReachability(with: profile.details)
+        super.testFollowUser()
+    }
+    
+}
+
+class TestUserProfileRecentPostsOnline: TestOnlineHome {
+    
+    private var userName: String!
     
     override func setUp() {
         super.setUp()
         userName = "John Doe"
-        feedName = "JohnDoepopular"
-        profile = UserProfile(app)
     }
     
     override func openScreen() {
-        sideMenu.navigate(to: .home)
-        let (_, post) = feed.getRandomPost()
-        if !post.getLabelByText(userName).exists {
-            userName = "Alan Poe"
-        }
-        post.getLabelByText(userName).tapByCoordinate()
-        profile.popularPostsButton.tap()
-        sleep(1)
+        feed.getRandomPost().1.getLabelByText(userName).tapByCoordinate()
+        UserProfile(app).recentPostsButton.tap()
+        
+        feed = Feed(app, switchViewModeButton: app.navigationBars.buttons.element(boundBy: 2))
+    }
+    
+}
+
+class TestUserProfileRecentPostsOffline: TestOfflineHome {
+    
+    private var userName: String!
+    
+    override func setUp() {
+        super.setUp()
+        userName = "John Doe"
+    }
+    
+    override func openScreen() {
+        feed.getRandomPost().1.getLabelByText(userName).tapByCoordinate()
+        UserProfile(app).recentPostsButton.tap()
+        
+        feed = Feed(app, switchViewModeButton: app.navigationBars.buttons.element(boundBy: 2))
+    }
+    
+}
+
+class TestUserProfilePopularPostsOnline: TestOnlineHome {
+    
+    private var userName: String!
+    
+    override func setUp() {
+        super.setUp()
+        userName = "John Doe"
+    }
+    
+    override func openScreen() {
+        feed.getRandomPost().1.getLabelByText(userName).tapByCoordinate()
+        UserProfile(app).popularPostsButton.tap()
+        
+        feed = Feed(app, switchViewModeButton: app.navigationBars.buttons.element(boundBy: 2))
+    }
+    
+}
+
+class TestUserProfilePopularPostsOffline: TestOfflineHome {
+    
+    private var userName: String!
+    
+    override func setUp() {
+        super.setUp()
+        userName = "John Doe"
+    }
+    
+    override func openScreen() {
+        feed.getRandomPost().1.getLabelByText(userName).tapByCoordinate()
+        UserProfile(app).popularPostsButton.tap()
+        
+        feed = Feed(app, switchViewModeButton: app.navigationBars.buttons.element(boundBy: 2))
     }
     
 }
