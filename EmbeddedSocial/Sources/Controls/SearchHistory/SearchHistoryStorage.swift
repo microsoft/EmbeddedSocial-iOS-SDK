@@ -30,7 +30,6 @@ class SearchHistoryStorage {
     }
     
     func searchRequests() -> [String] {
-        return ["1", "2", "3", "4", "5", "6", "7", "8", "9", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-        //return storage.object(forKey: storageKey) as? [String] ?? []
+        return storage.object(forKey: storageKey) as? [String] ?? []
     }
 }
