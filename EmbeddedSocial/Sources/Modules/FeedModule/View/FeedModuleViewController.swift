@@ -261,7 +261,7 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
         sizingCell.configure(with: viewModel, collectionView: nil)
         
         var size = CGSize.zero
-        size.height = sizingCell.getHeight(with: 0)
+        size.height = sizingCell.getHeight(with: containerWidth())
         size.width = containerWidth()
         
         return size
