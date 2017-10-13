@@ -66,6 +66,10 @@ public final class SocialPlus {
         } else {
             coordinator.openPopularScreen()
         }
+        
+        let conf = UserProfileConfigurator()
+        conf.configure(userID: "3vJYpeLwV7M", navigationController: nil)
+        coordinator.navigationStack.show(conf.viewController)
     }
     
     fileprivate func startSession(with info: SessionInfo) {
