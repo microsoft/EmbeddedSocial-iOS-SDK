@@ -147,7 +147,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
             }
             
         case let .search(query):
-            searchService.queryTopics(query: query ?? "", cursor: cursor, limit: Constants.Feed.pageSize) { [weak self] result in
+            searchService.queryTopics(query: query ?? "", cursor: cursor, limit: Constants.Feed.searchPageSize) { [weak self] result in
                 let result = result.value ?? FeedFetchResult(error: result.error ?? APIError.unknown)
                 self?.handleFetch(result: result, request: request)
             }

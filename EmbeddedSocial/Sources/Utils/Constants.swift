@@ -67,6 +67,7 @@ extension Constants {
     
     struct Feed {
         static let pageSize = 10
+        static let searchPageSize = 10
         
         struct Popular {
             static let initialFeedScope = FeedType.TimeRange.alltime

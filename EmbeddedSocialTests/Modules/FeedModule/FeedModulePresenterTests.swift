@@ -31,10 +31,11 @@ class FeedModulePresenter_Tests: XCTestCase {
         super.setUp()
         
         sut = FeedModulePresenter()
-        sut.feedType = .home
-        
+
         view = FeedModuleViewInputMock()
         sut.view = view
+        
+        sut.feedType = .home
         
         interactor = FeedModuleInteractorInputMock()
         sut.interactor = interactor
