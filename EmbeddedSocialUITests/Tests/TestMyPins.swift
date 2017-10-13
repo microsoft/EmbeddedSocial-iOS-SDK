@@ -19,8 +19,8 @@ class TestMyPinsOnline: TestOnlineHome {
     }
     
     /*
-        As all posts on this screen are already pinned:
-        "Pin" and "Unpin" actions are reversed and v.v.
+     As all posts on this screen are already pinned:
+     "Pin" and "Unpin" actions are reversed and v.v.
      */
     
     override func checkIsPinned(_ post: Post, at index: UInt) {
@@ -44,10 +44,6 @@ class TestMyPinsOffline: TestOfflineHome {
     
     override func openScreen() {
         navigate(to: .myPins)
-    }
-    
-    override func testPostAttributes() {
-        super.testPostAttributes()
     }
     
     /*

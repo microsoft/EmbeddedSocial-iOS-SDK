@@ -33,6 +33,13 @@ open class APIRouter: WebApp {
             }
             if method == "GET" {
                 let query = URLParametersReader.parseURLParameters(environ: environ)
+                
+                // Load one topic
+                if query.isEmpty {
+                    sendJSON(Templates.load(name: "topic"))
+                    return
+                }
+                
                 let captures = environ["ambassador.router_captures"] as! [String]
                 var interval = "topics"
                 if captures.count > 0 && captures[0] != "" {
@@ -57,28 +64,28 @@ open class APIRouter: WebApp {
             let input = environ["swsgi.input"] as! SWSGIInput
             let method = environ["REQUEST_METHOD"] as! String
             switch method {
-                case "POST":
-                    JSONReader.read(input) { json in
-                        APIState.setLatestData(forService: "topics", data: json)
-                        sendJSON(Templates.load(name: "topic_post", values: ["topicHandle": UUID().uuidString]))
+            case "POST":
+                JSONReader.read(input) { json in
+                    APIState.setLatestData(forService: "topics", data: json)
+                    sendJSON(Templates.load(name: "topic_post", values: ["topicHandle": UUID().uuidString]))
+                }
+            default:
+                let query = URLParametersReader.parseURLParameters(environ: environ)
+                let captures = environ["ambassador.router_captures"] as! [String]
+                var interval = "topics"
+                if captures.count > 0 && captures[0] != "" {
+                    interval = ""
+                    for i in 0...captures.count - 1 {
+                        interval += captures[i]
                     }
-                default:
-                    let query = URLParametersReader.parseURLParameters(environ: environ)
-                    let captures = environ["ambassador.router_captures"] as! [String]
-                    var interval = "topics"
-                    if captures.count > 0 && captures[0] != "" {
-                        interval = ""
-                        for i in 0...captures.count - 1 {
-                            interval += captures[i]
-                        }
-                    }
-                    print(query)
-                    let cursor = query["cursor"] ?? "0"
-                    if let limit = query["limit"] {
-                        sendJSON(Templates.loadTopics(interval: interval, cursor: Int(cursor)!, limit: Int(limit)!))
-                    } else {
-                        sendJSON(Templates.loadTopics(interval: interval))
-                    }
+                }
+                print(query)
+                let cursor = query["cursor"] ?? "0"
+                if let limit = query["limit"] {
+                    sendJSON(Templates.loadTopics(interval: interval, cursor: Int(cursor)!, limit: Int(limit)!))
+                } else {
+                    sendJSON(Templates.loadTopics(interval: interval))
+                }
             }
         }
         
@@ -90,20 +97,20 @@ open class APIRouter: WebApp {
             let input = environ["swsgi.input"] as! SWSGIInput
             let method = environ["REQUEST_METHOD"] as! String
             switch method {
-                case "POST":
-                    JSONReader.read(input) { json in
-                        APIState.setLatestData(forService: "comments", data: json)
-                        sendJSON(Templates.load(name: "comment_post", values: ["commentHandle": UUID().uuidString]))
-                    }
-                default:
-                    let query = URLParametersReader.parseURLParameters(environ: environ)
-                    print(query)
-                    let cursor = query["cursor"] ?? "0"
-                    if let limit = query["limit"] {
-                        sendJSON(Templates.loadComments(cursor: Int(cursor)!, limit: Int(limit)!))
-                    } else {
-                        sendJSON(Templates.loadComments())
-                    }
+            case "POST":
+                JSONReader.read(input) { json in
+                    APIState.setLatestData(forService: "comments", data: json)
+                    sendJSON(Templates.load(name: "comment_post", values: ["commentHandle": UUID().uuidString]))
+                }
+            default:
+                let query = URLParametersReader.parseURLParameters(environ: environ)
+                print(query)
+                let cursor = query["cursor"] ?? "0"
+                if let limit = query["limit"] {
+                    sendJSON(Templates.loadComments(cursor: Int(cursor)!, limit: Int(limit)!))
+                } else {
+                    sendJSON(Templates.loadComments())
+                }
             }
         }
         
@@ -142,10 +149,10 @@ open class APIRouter: WebApp {
         self["/v0.7/topics/(.*)/likes"] = APIResponse(serviceName: "likes") { environ, sendJSON -> Void in
             let method = environ["REQUEST_METHOD"] as! String
             switch method {
-                case "POST":
-                    sendJSON(Templates.load(name: "likes_post"))
-                default:
-                    break
+            case "POST":
+                sendJSON(Templates.load(name: "likes_post"))
+            default:
+                break
             }
         }
         
@@ -204,7 +211,7 @@ open class APIRouter: WebApp {
                 break
             }
         }
-                
+        
         self["/v0.7/images/(UserPhoto|ContentBlob|AppIcon)"] = APIResponse(serviceName: "images") { environ, sendJSON -> Void in
             let input = environ["swsgi.input"] as! SWSGIInput
             DataReader.read(input) { data in
@@ -269,7 +276,7 @@ open class APIRouter: WebApp {
                     APIState.setLatestData(forService: "followers", data: json)
                     sendJSON(Templates.load(name: "follower_post"))
                 }
-            
+                
             default:
                 let query = URLParametersReader.parseURLParameters(environ: environ)
                 print(query)
@@ -355,7 +362,7 @@ open class APIRouter: WebApp {
             let query = URLParametersReader.parseURLParameters(environ: environ)
             
             print("PENDING USERS QUERY: \(query)")
-
+            
             let cursor = query["cursor"] ?? "0"
             if let limit = query["limit"] {
                 sendJSON(Templates.loadFollowers(firstName: "Pending", lastName: "Request", cursor: Int(cursor)!, limit: Int(limit)!))
@@ -439,7 +446,7 @@ open class APIRouter: WebApp {
         if routes[searchPath] != nil {
             return (routes[searchPath]!, [])
         }
-
+        
         for (path, route) in routes {
             
             if path.range(of: "(") == nil {
@@ -465,4 +472,3 @@ open class APIRouter: WebApp {
         return nil
     }
 }
-
