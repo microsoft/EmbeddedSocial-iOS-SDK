@@ -42,7 +42,6 @@ final class CreateReplyOperation: OutgoingCommandOperation {
         
         let predicate = predicateBuilder.commandsWithRelatedHandle(oldHandle, ignoredTypeID: CreateReplyCommand.typeIdentifier)
         handleUpdater.updateRelatedHandle(from: oldHandle, to: newHandle, predicate: predicate)
-//        handleUpdat
         completeOperation()
     }
 }
