@@ -203,6 +203,7 @@
 		88204FBB1F581F2A00E15F5A /* SuggestedUsersRequestExecutionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FBA1F581F2A00E15F5A /* SuggestedUsersRequestExecutionStrategy.swift */; };
 		88204FBD1F5823B600E15F5A /* SearchPeopleModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FBC1F5823B600E15F5A /* SearchPeopleModuleOutput.swift */; };
 		88204FBF1F584BF600E15F5A /* MockUserListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FBE1F584BF600E15F5A /* MockUserListRouter.swift */; };
+		88252E191F90F5E300A305A3 /* CreateCommentOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88ABC7A41F72946D00C83C82 /* CreateCommentOperationTests.swift */; };
 		882AD0BB1F221D4400FC20B7 /* CommonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */; };
 		882AD0BC1F221D4400FC20B7 /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */; };
 		882AD0BD1F221D4400FC20B7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */; };
@@ -2077,7 +2078,7 @@
 		88FEFCA11F8E524B00D81CAB /* SearchHistoryStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryStorage.swift; sourceTree = "<group>"; };
 		88FEFCA31F8E59BF00D81CAB /* SearchHistoryMediator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryMediator.swift; sourceTree = "<group>"; };
 		88FEFCA61F8E5A4400D81CAB /* SearchHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryView.swift; sourceTree = "<group>"; };
-		88FEFCA81F8E677D00D81CAB /* SearchBarMulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBarMulticastDelegate.swift; path = SearchBarMulticastDelegate.swift; sourceTree = "<group>"; };
+		88FEFCA81F8E677D00D81CAB /* SearchBarMulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarMulticastDelegate.swift; sourceTree = "<group>"; };
 		88FEFCAC1F8F93CF00D81CAB /* SearchHistoryViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewTests.swift; sourceTree = "<group>"; };
 		88FEFCAE1F8F970D00D81CAB /* SearchHistoryStorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryStorageTests.swift; sourceTree = "<group>"; };
 		88FEFCB01F8FA78000D81CAB /* SearchHistoryMediatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryMediatorTests.swift; sourceTree = "<group>"; };
@@ -5348,7 +5349,6 @@
 				88FEFCA11F8E524B00D81CAB /* SearchHistoryStorage.swift */,
 				88FEFCA61F8E5A4400D81CAB /* SearchHistoryView.swift */,
 			);
-			name = SearchHistory;
 			path = SearchHistory;
 			sourceTree = "<group>";
 		};
@@ -5359,7 +5359,6 @@
 				88FEFCAE1F8F970D00D81CAB /* SearchHistoryStorageTests.swift */,
 				88FEFCAC1F8F93CF00D81CAB /* SearchHistoryViewTests.swift */,
 			);
-			name = SearchHistory;
 			path = SearchHistory;
 			sourceTree = "<group>";
 		};
@@ -5368,7 +5367,6 @@
 			children = (
 				88FEFCAA1F8F93B500D81CAB /* SearchHistory */,
 			);
-			name = ControlsTests;
 			path = ControlsTests;
 			sourceTree = "<group>";
 		};
@@ -7278,6 +7276,7 @@
 				88D35FBC1F839184008BB38C /* AppConfigurationTests.swift in Sources */,
 				889AFC271F220BCD003AAF19 /* AuthServiceTests.swift in Sources */,
 				88F7A7951F278D90005FEC5F /* MockLoginRouter.swift in Sources */,
+				88252E191F90F5E300A305A3 /* CreateCommentOperationTests.swift in Sources */,
 				88D2F8ED1F56B8B80004A8BC /* ReportPresenterTests.swift in Sources */,
 				88F551991F336FB700F4AAB9 /* MockUserListModuleOutput.swift in Sources */,
 				93AC65B51F3E05DA00FE5A3A /* MockPostDetailPresenter.swift in Sources */,

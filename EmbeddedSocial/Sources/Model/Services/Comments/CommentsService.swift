@@ -216,6 +216,8 @@ class CommentsService: BaseService, CommentServiceProtocol {
             request: PostCommentRequest(comment: command.comment),
             authorization: authorization) { (response, error) in
                 if let response = response {
+                    let p = PredicateBuilder().predicate(for: command)
+                    self.cache.deleteOutgoing(with: p)
                     command.comment.commentHandle = response.commentHandle
                     resultHandler(command.comment)
                 } else if self.errorHandler.canHandle(error) {
@@ -231,14 +233,14 @@ class CommentsService: BaseService, CommentServiceProtocol {
                          failure: @escaping Failure) {
         guard isNetworkReachable else {
             
-            let predicate =  PredicateBuilder().createCommentCommand(commentHandle: command.comment.commentHandle)
+            let predicate = PredicateBuilder().createCommentCommand(commentHandle: command.comment.commentHandle)
             let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
                                                          predicate: predicate,
                                                          sortDescriptors: [Cache.createdAtSortDescriptor])
             
             
             if !self.cache.fetchOutgoing(with: fetchOutgoingRequest).isEmpty {
-                self.cache.deleteOutgoing(with:predicate)
+                self.cache.deleteOutgoing(with: predicate)
                 success()
                 return
             } else {
