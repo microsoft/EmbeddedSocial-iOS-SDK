@@ -218,7 +218,6 @@ final class UserProfilePresenter: UserProfileViewOutput {
             }
         }
     }
-
     
     func onRecent() {
         setFeedScope(.recent)

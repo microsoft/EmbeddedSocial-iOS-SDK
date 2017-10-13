@@ -72,7 +72,7 @@ extension UserProfileViewController: UserProfileViewInput {
     
     var headerContentHeight: CGFloat {
         let size = CGSize(width: headerView.bounds.width, height: .greatestFiniteMagnitude)
-        return headerView.systemLayoutSizeFitting(size).height
+        return headerView.systemLayoutSizeFitting(size).height + Constants.UserProfile.containerInset
     }
     
     func setupInitialState(showGalleryView: Bool) {
@@ -100,7 +100,7 @@ extension UserProfileViewController: UserProfileViewInput {
         headerView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(Constants.FeedModule.Collection.containerPadding)
             make.right.equalToSuperview().offset(-Constants.FeedModule.Collection.containerPadding)
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(Constants.FeedModule.Collection.containerPadding)
             make.bottom.equalToSuperview()
             make.height.equalTo(0).priority(.low)
         }
