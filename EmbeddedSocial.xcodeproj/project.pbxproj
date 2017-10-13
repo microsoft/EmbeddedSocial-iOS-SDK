@@ -28,6 +28,7 @@
 		5CB177D38658E28CE370EB48 /* CommentCellRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61494E4B897730AE4E0BD7AB /* CommentCellRouter.swift */; };
 		6315CB341F791DD200F68087 /* RemoveCommentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB331F791DD200F68087 /* RemoveCommentOperation.swift */; };
 		6315CB361F791DDE00F68087 /* ReportCommentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB351F791DDE00F68087 /* ReportCommentOperation.swift */; };
+		6322E4151F8E421100B54F3F /* OfflineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E4141F8E421100B54F3F /* OfflineView.swift */; };
 		635641FF1F8503470074289D /* BaseNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635641FE1F8503470074289D /* BaseNavigationViewController.swift */; };
 		635642001F8509060074289D /* ReplyCellInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B62ED31F83CA34003DC885 /* ReplyCellInteractorTests.swift */; };
 		635B44841F8FA8D200D5ABAD /* CommentRepliesInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F848941F4ADD8700D434CF /* CommentRepliesInteractorTests.swift */; };
@@ -1177,6 +1178,7 @@
 		61494E4B897730AE4E0BD7AB /* CommentCellRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentCellRouter.swift; sourceTree = "<group>"; };
 		6315CB331F791DD200F68087 /* RemoveCommentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveCommentOperation.swift; sourceTree = "<group>"; };
 		6315CB351F791DDE00F68087 /* ReportCommentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportCommentOperation.swift; sourceTree = "<group>"; };
+		6322E4141F8E421100B54F3F /* OfflineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineView.swift; sourceTree = "<group>"; };
 		635641FE1F8503470074289D /* BaseNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationViewController.swift; sourceTree = "<group>"; };
 		635642011F850F790074289D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		636474891F5FFD40000D7B3D /* LoadMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
@@ -3447,6 +3449,7 @@
 				88580AA41F2213AB00C1CBAF /* TextFieldCell.swift */,
 				88580B3D1F2213AB00C1CBAF /* UploadPhotoCell.swift */,
 				88580AA81F2213AB00C1CBAF /* WebViewController.swift */,
+				6322E4141F8E421100B54F3F /* OfflineView.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -7104,6 +7107,7 @@
 				2BC38A7E8F2E8F80BB5F6F10 /* ReplyCellInteractor.swift in Sources */,
 				A5A13B8998754BAD653B9292 /* ReplyCellRouter.swift in Sources */,
 				4E856DD80892367FF1DFF24A /* ReplyCellConfigurator.swift in Sources */,
+				6322E4151F8E421100B54F3F /* OfflineView.swift in Sources */,
 				43F9B10BACA73BA781BFA942 /* DetailedActivityViewController.swift in Sources */,
 				9226D07A95D8E87792AA7B98 /* DetailedActivityPresenter.swift in Sources */,
 				C1C327605519238896977954 /* DetailedActivityInteractor.swift in Sources */,

@@ -6,7 +6,7 @@
 import UIKit
 import SnapKit
 
-final class SearchPeopleViewController: UIViewController {
+final class SearchPeopleViewController: BaseViewController {
     
     weak var output: SearchPeopleViewOutput!
     
