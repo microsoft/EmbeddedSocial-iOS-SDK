@@ -113,7 +113,6 @@ class TestBlockedUsersOffline: BaseTestBlockedUsers, OfflineTest {
         for _ in 1...16 {
             app.swipeDown()
         }
-        sleep(1)
         
         makePullToRefreshWithoutReachability(with: blockedUsersFeed.getBlockedUserItem(at: 0, withScroll: false).asUIElement())
         
