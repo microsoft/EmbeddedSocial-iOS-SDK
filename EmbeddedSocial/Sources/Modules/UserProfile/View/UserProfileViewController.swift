@@ -30,9 +30,6 @@ class UserProfileViewController: BaseViewController {
         view.summaryView.onFollowing = self.output.onFollowing
         view.summaryView.onFollow = { self.output.onFollowRequest(currentStatus: $0) }
         view.summaryView.onFollowers = self.output.onFollowers
-        view.snp.makeConstraints { make in
-            make.width.equalTo(Constants.UserProfile.contentWidth)
-        }
         return view
     }()
     
@@ -88,17 +85,8 @@ extension UserProfileViewController: UserProfileViewInput {
     }
     
     func setFeedViewController(_ feedViewController: UIViewController) {
-        addChildController(feedViewController)
-        
-        feedViewController.view.snp.makeConstraints { make in
-            make.left.equalTo(self.view).offset(Constants.FeedModule.Collection.containerPadding)
-            make.right.equalTo(self.view).offset(-Constants.FeedModule.Collection.containerPadding)
-            make.top.equalTo(self.view)
-            make.bottom.equalTo(self.view)
-        }
-        
+        addChildController(feedViewController, containerView: view)
         feedView = feedViewController.view
-        
         view.bringSubview(toFront: stickyFilterView)
     }
     
@@ -110,7 +98,10 @@ extension UserProfileViewController: UserProfileViewInput {
         reusableView.backgroundColor = .clear
         reusableView.addSubview(headerView)
         headerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.left.equalToSuperview().offset(Constants.FeedModule.Collection.containerPadding)
+            make.right.equalToSuperview().offset(-Constants.FeedModule.Collection.containerPadding)
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
             make.height.equalTo(0).priority(.low)
         }
     }
