@@ -20,12 +20,18 @@ desc "Builds the app"
 lane :build_app do
   ENV['FASTLANE_XCODE_LIST_TIMEOUT'] = '1800'
   ENV['FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT'] = '1800'
-  gym(
+  gym({
+    workspace: "EmbeddedSocial.xcworkspace",
     scheme: "EmbeddedSocial-Example",
     configuration: "Debug",
-    export_method: "development",
+    export_method: "enterprise",
+    export_options: {
+        provisioningProfiles: {
+            "com.microsoft.embeddedsocial-df" => "Microsoft Embedded Social Dogfood Distribution"
+        }
+    },
     clean: true
-  )
+  })
 end
 
 ##### Launch ######
