@@ -481,11 +481,9 @@ extension APIRouter {
     
     private func makeDelayedIfNeeded(_ response: WebApp) -> WebApp {
         var resultResponse = response
-        
         if APIConfig.delayedResponses {
-            resultResponse = DelayResponse(response, delay: .delay(seconds: 30))
+            resultResponse = DelayResponse(response, delay: .delay(seconds: 10))
         }
-        
         return resultResponse
     }
     

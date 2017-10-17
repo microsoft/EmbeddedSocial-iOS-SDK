@@ -97,6 +97,8 @@ class BaseTestComments: BaseSideMenuTest {
         commentsFeed.commentText.typeText("New Comment Text")
         commentsFeed.publishCommentButton.tap()
         
+        sleep(15)
+        
         let lastComment = commentsFeed.getComment(commentsFeed.getCommentsCount() - 1)
         XCTAssertTrue(lastComment.textExists("New Comment Text"))
     }
@@ -201,7 +203,7 @@ class TestCommentsOffline: BaseTestComments, OfflineTest {
     
     override func testLikeComment() {
         openScreen()
-//        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).cell)
+        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).cell)
         super.testLikeComment()
     }
     
