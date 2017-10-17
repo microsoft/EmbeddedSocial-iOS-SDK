@@ -32,17 +32,19 @@ class FeedTextLabel: TTTAttributedLabel, TTTAttributedLabelDelegate, FeedTextLab
     ]
     
     var showMoreAttributes: [String: Any] = [
+        NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12),
         NSForegroundColorAttributeName: UIColor.blue,
         NSUnderlineStyleAttributeName: NSUnderlineStyle.styleNone.rawValue,
         NSLinkAttributeName: URL(string: "__showmore__")!
     ]
     
     var shouldTrim = false
-    var showMoreText = "...Show More"
+    var showMoreText = L10n.Post.readMore
     
     private var cachedText: String = ""
     
-    var maxLines = Constants.FeedModule.Collection.Cell.maxLines
+    var trimmedMaxLines = Constants.FeedModule.Collection.Cell.trimmedMaxLines
+    var defaultMaxLines = Constants.FeedModule.Collection.Cell.maxLines
     private static let pattern = "#+[A-Za-z0-9-_]+\\b"
     private static let regex: NSRegularExpression = {
         return try! NSRegularExpression(pattern: pattern)
@@ -58,7 +60,7 @@ class FeedTextLabel: TTTAttributedLabel, TTTAttributedLabelDelegate, FeedTextLab
         
         cachedText = text
         
-        numberOfLines = maxLines
+        numberOfLines = self.shouldTrim ? trimmedMaxLines : defaultMaxLines
         
         let attributedString = NSMutableAttributedString(string: text)
         
@@ -67,8 +69,6 @@ class FeedTextLabel: TTTAttributedLabel, TTTAttributedLabelDelegate, FeedTextLab
         let tags = processTags(cachedText)
         applyTags(tags, to: attributedString)
         
-        Logger.log(attributedString.string, event: .veryImportant)
-
         self.setupShowMore()
     }
     

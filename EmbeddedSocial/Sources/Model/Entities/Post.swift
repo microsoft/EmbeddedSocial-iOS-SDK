@@ -183,8 +183,8 @@ extension Post {
                 return nil
         }
         
-        var invalidCharacters = CharacterSet(charactersIn: ":/")
-        invalidCharacters.formUnion(.newlines)
+        // Workaround for bad strings
+        var invalidCharacters = CharacterSet()
         invalidCharacters.formUnion(.illegalCharacters)
         invalidCharacters.formUnion(.controlCharacters)
         

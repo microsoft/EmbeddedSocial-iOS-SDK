@@ -50,7 +50,8 @@ extension Constants {
             static let imageHeight = CGFloat(180)
             
             struct Cell {
-                static let maxLines = 10
+                static let trimmedMaxLines = 10
+                static let maxLines = 100
             }
         }
     }

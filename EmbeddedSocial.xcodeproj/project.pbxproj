@@ -16,6 +16,7 @@
 		2BC38A7E8F2E8F80BB5F6F10 /* ReplyCellInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8310026616DD565C3B28BD33 /* ReplyCellInteractor.swift */; };
 		2BDC5FD924EF52E9C9DBB2F8 /* CommentRepliesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACC3960A4435EA7729991E /* CommentRepliesViewController.swift */; };
 		3209330D1F2A50D300890218 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209330C1F2A50D300890218 /* Logger.swift */; };
+		3220965C1F96B2A700B89808 /* SearchScreenOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3220965B1F96B2A700B89808 /* SearchScreenOpener.swift */; };
 		3234AD1B1F2E70C3009C3327 /* PostCellCompact.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3234AD1A1F2E70C3009C3327 /* PostCellCompact.xib */; };
 		32C8E7BF1F77EFB600303D55 /* ActivityAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C8E7BE1F77EFB600303D55 /* ActivityAction.swift */; };
 		32FAB0511F2E6D3000C5B18D /* PostCellCompact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */; };
@@ -1174,8 +1175,8 @@
 		27D6E91D181C9772E5FD7B1B /* Pods-EmbeddedSocialTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmbeddedSocialTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmbeddedSocialTests/Pods-EmbeddedSocialTests.debug.xcconfig"; sourceTree = "<group>"; };
 		31F5C38DC3B411C39E5EB38C /* CommentRepliesInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesInteractor.swift; sourceTree = "<group>"; };
 		3209330C1F2A50D300890218 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		3220965B1F96B2A700B89808 /* SearchScreenOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenOpener.swift; sourceTree = "<group>"; };
 		3234AD1A1F2E70C3009C3327 /* PostCellCompact.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCellCompact.xib; sourceTree = "<group>"; };
-		325235371F96952200D5496B /* TTTAttributedLabel.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TTTAttributedLabel.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		32C8E7BE1F77EFB600303D55 /* ActivityAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAction.swift; sourceTree = "<group>"; };
 		32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellCompact.swift; sourceTree = "<group>"; };
 		32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellProtocol.swift; sourceTree = "<group>"; };
@@ -2429,14 +2430,6 @@
 				73008FEFC3E2A4F244AA330E /* DetailedActivityPresenter.swift */,
 			);
 			path = Presenter;
-			sourceTree = "<group>";
-		};
-		325235361F96952100D5496B /* Playgrounds */ = {
-			isa = PBXGroup;
-			children = (
-				325235371F96952200D5496B /* TTTAttributedLabel.playground */,
-			);
-			path = Playgrounds;
 			sourceTree = "<group>";
 		};
 		3FABE12631E8C50B0555930B /* View */ = {
@@ -4022,6 +4015,7 @@
 				88303DD71F8684B100330E30 /* ListPage.swift */,
 				3209330C1F2A50D300890218 /* Logger.swift */,
 				882CAF091F5EC4B1001D5F37 /* LoginModalOpener.swift */,
+				3220965B1F96B2A700B89808 /* SearchScreenOpener.swift */,
 				88204FAF1F56EA4F00E15F5A /* MulticastDelegate.swift */,
 				88580B971F2213AB00C1CBAF /* NameComponentsSplitter.swift */,
 				88204FAD1F56E60200E15F5A /* NetworkTracker.swift */,
@@ -5920,14 +5914,12 @@
 		9CD8051F1F0D012F00B9B0AC = {
 			isa = PBXGroup;
 			children = (
-				325235361F96952100D5496B /* Playgrounds */,
 				9CD8052B1F0D012F00B9B0AC /* EmbeddedSocial */,
 				886B39C61F138F5D00BF1A8E /* EmbeddedSocial-Example */,
 				9CD805361F0D012F00B9B0AC /* EmbeddedSocialTests */,
 				8EF0E5931F1FA5CC00E88ED6 /* EmbeddedSocialUITests */,
 				2C6B77FF4F1F2F71CA420D6B /* Frameworks */,
 				9CD8052A1F0D012F00B9B0AC /* Products */,
-				F8C8405F1F82BDA900F72635 /* Recovered References */,
 				0E336118C4E675C0D24C6DF8 /* Pods */,
 			);
 			sourceTree = "<group>";
@@ -6112,13 +6104,6 @@
 				8310026616DD565C3B28BD33 /* ReplyCellInteractor.swift */,
 			);
 			path = Interactor;
-			sourceTree = "<group>";
-		};
-		F8C8405F1F82BDA900F72635 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Recovered References";
 			sourceTree = "<group>";
 		};
 		F8EA613C5391120FE86A6ADC /* View */ = {
@@ -7232,6 +7217,7 @@
 				88580C191F2213AB00C1CBAF /* AuthAPIProvider.swift in Sources */,
 				880435CD1F67D07D00154ACD /* UserCommandOperation.swift in Sources */,
 				884AA97B1F3C563F00B85135 /* PostLinkedAccountRequest.swift in Sources */,
+				3220965C1F96B2A700B89808 /* SearchScreenOpener.swift in Sources */,
 				9CB3F1FE1F336B780099A22D /* MyFollowersAPI.swift in Sources */,
 				932898D01F658B34001F3BC2 /* ReportReplyAPI.swift in Sources */,
 				88580C441F2213AB00C1CBAF /* CreatePostInteractorInput.swift in Sources */,

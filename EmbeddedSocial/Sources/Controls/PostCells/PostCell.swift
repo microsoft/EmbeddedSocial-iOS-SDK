@@ -105,6 +105,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         userName.text = nil
         postTitle.text = nil
         postText.setFeedText("")
+        postText.eventHandler = nil
         postCreation.text = nil
         likedCount.text = nil
         commentedCount.text = nil
@@ -126,8 +127,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         if data.postImageUrl == nil {
             postImageHeight.constant = 0
         }
-        
-//        print(ImageCacheAdapter.shared.store(photo: Photo(uid: data.postImageHandle ?? "")))
+    
         let downloadablePostImage = Photo(uid: data.postImageHandle ?? "", url: data.postImageUrl)
         postImageButton.setPhotoWithCaching(downloadablePostImage, placeholder: postImagePlaceholder)
         
@@ -137,6 +137,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         userName.text = data.userName
         postTitle.text = data.title
         postText.setFeedText(data.text, shouldTrim: data.isTrimmed)
+        postText.eventHandler = self
         postCreation.text = data.timeCreated
         likedCount.text = data.totalLikes
         commentedCount.text = data.totalComments
@@ -145,15 +146,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         likeButton.isSelected = data.isLiked
         pinButton.isSelected = data.isPinned
         commentButton.isEnabled = !usedInThirdPartModule
-        
-        // Text View
-//        postText.readMoreTapHandle = { [weak self] in
-//            self?.handleAction(action: .postDetailed)
-//        }
-        
-        //        postText.isTrimmed = data.isTrimmed
-      
-        
+   
     }
     
     static func sizingCell() -> PostCell {
@@ -162,7 +155,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     }
     
     // calculates static and dynamic(TextView) items
-    func getHeight(with width: CGFloat) -> CGFloat {
+    func getHeight(with width: CGFloat, isTrimmed: Bool = false) -> CGFloat {
         
         // sum all static blocks
         var staticElementsHeight = staticHeigthElements.reduce(0) { result, view in
@@ -181,11 +174,12 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         // dynamic part of calculation:
         let bounds = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         
+        let maxLines = isTrimmed ? Constants.FeedModule.Collection.Cell.trimmedMaxLines : Constants.FeedModule.Collection.Cell.maxLines
         
         let dynamicHeight = TTTAttributedLabel.sizeThatFitsAttributedString(
             postText.attributedText,
             withConstraints: bounds,
-            limitedToNumberOfLines: UInt(Constants.FeedModule.Collection.Cell.maxLines)).height
+            limitedToNumberOfLines: UInt(maxLines)).height
         
 
         let result = [staticElementsHeight, dynamicHeight, staticConstraintsHeight].reduce(0.0, +)
@@ -196,7 +190,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     // MARK: Private
     
-    private func handleAction(action: FeedPostCellAction) {
+    fileprivate func handleAction(action: FeedPostCellAction) {
         guard let path = indexPath() else { return }
         viewModel.onAction?(action, path)
     }
@@ -211,5 +205,16 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     deinit {
         Logger.log()
+    }
+}
+
+extension PostCell: FeedTextLabelHandler {
+    
+    func didTapHashtag(string: String) {
+        handleAction(action: .hashtag(string))
+    }
+    
+    func didTapReadMore() {
+        handleAction(action: .postDetailed)
     }
 }
