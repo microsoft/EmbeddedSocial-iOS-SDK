@@ -112,6 +112,9 @@ final class UserProfilePresenter: UserProfileViewOutput {
         followingCount = user.followingCount
         view.setUser(user)
         feedModuleInput?.setHeaderHeight(view.headerContentHeight)
+        if !user.isMe && user.isPrivate {
+            view.setupPrivateAppearance()
+        }
     }
     
     private func setupFeed() {
@@ -218,7 +221,6 @@ final class UserProfilePresenter: UserProfileViewOutput {
             }
         }
     }
-
     
     func onRecent() {
         setFeedScope(.recent)

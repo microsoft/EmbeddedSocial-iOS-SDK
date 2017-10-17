@@ -99,6 +99,7 @@
 "user_profile.button.block_user" = "Block user";
 "user_profile.button.report_user" = "Report user";
 "user_profile.screen_title" = "Profile";
+"user_profile.private_feed" = "This user is private.";
 
 "side_menu.sign_in" = "Sign In";
 "side_menu.social" = "Social";

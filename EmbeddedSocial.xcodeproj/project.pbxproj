@@ -205,6 +205,7 @@
 		88204FBF1F584BF600E15F5A /* MockUserListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88204FBE1F584BF600E15F5A /* MockUserListRouter.swift */; };
 		88252E181F90A63D00A305A3 /* TopicsFeedApplicableCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88252E171F90A63D00A305A3 /* TopicsFeedApplicableCommand.swift */; };
 		88252E191F90F5E300A305A3 /* CreateCommentOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88ABC7A41F72946D00C83C82 /* CreateCommentOperationTests.swift */; };
+		88252E1B1F9116F400A305A3 /* PrivateUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88252E1A1F9116F400A305A3 /* PrivateUserProfileView.swift */; };
 		882AD0BB1F221D4400FC20B7 /* CommonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */; };
 		882AD0BC1F221D4400FC20B7 /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */; };
 		882AD0BD1F221D4400FC20B7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */; };
@@ -1347,6 +1348,7 @@
 		88204FBC1F5823B600E15F5A /* SearchPeopleModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPeopleModuleOutput.swift; sourceTree = "<group>"; };
 		88204FBE1F584BF600E15F5A /* MockUserListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListRouter.swift; sourceTree = "<group>"; };
 		88252E171F90A63D00A305A3 /* TopicsFeedApplicableCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicsFeedApplicableCommand.swift; sourceTree = "<group>"; };
+		88252E1A1F9116F400A305A3 /* PrivateUserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateUserProfileView.swift; sourceTree = "<group>"; };
 		882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonFunctions.swift; sourceTree = "<group>"; };
 		882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
 		882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -4811,6 +4813,7 @@
 				88BC5C4A1F2B65D0001FBDD2 /* UserProfile.storyboard */,
 				88F551A91F386F1300F4AAB9 /* UserProfileHeaderView.swift */,
 				88BC5C4B1F2B65D0001FBDD2 /* UserProfileViewController.swift */,
+				88252E1A1F9116F400A305A3 /* PrivateUserProfileView.swift */,
 				88BC5C4C1F2B65D0001FBDD2 /* UserProfileViewInput.swift */,
 				88BC5C4D1F2B65D0001FBDD2 /* UserProfileViewOutput.swift */,
 			);
@@ -7073,6 +7076,7 @@
 				88C682681F7A6854004BD291 /* FollowRequestsItemsBuilder.swift in Sources */,
 				26E0650FC7D4980EF0B71B4A /* CommentRepliesInteractorOutput.swift in Sources */,
 				8839B8741F83B60E00D97BE6 /* ThirdPartiesConfigurationCommand.swift in Sources */,
+				88252E1B1F9116F400A305A3 /* PrivateUserProfileView.swift in Sources */,
 				8E7C1EB5B841BD0D4A3D91DC /* CommentRepliesInteractor.swift in Sources */,
 				882CAF191F616CCB001D5F37 /* UIViewController+Ext.swift in Sources */,
 				D8AF057A0B27A37AF1438B4E /* CommentRepliesRouterInput.swift in Sources */,
