@@ -90,4 +90,10 @@ class MockUserProfileView: UserProfileViewInput {
         layoutAsset = asset
         setLayoutAssetCount += 1
     }
+    
+    
+    var setupPrivateAppearanceCalled = false
+    func setupPrivateAppearance() {
+        setupPrivateAppearanceCalled = true
+    }
 }

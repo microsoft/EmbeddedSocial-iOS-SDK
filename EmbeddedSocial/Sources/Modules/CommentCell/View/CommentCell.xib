@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="17A365" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -176,15 +176,6 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ip-II-AVb">
-                        <rect key="frame" x="60" y="61.5" width="248" height="46"/>
-                        <constraints>
-                            <constraint firstAttribute="height" priority="999" constant="46" id="8iH-7C-mW6"/>
-                        </constraints>
-                        <connections>
-                            <action selector="mediaPressed:" destination="eDS-mq-vOG" eventType="touchUpInside" id="0gg-Qc-c8u"/>
-                        </connections>
-                    </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="63r-Wp-bDR">
                         <rect key="frame" x="15" y="190" width="305" height="1"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -192,22 +183,29 @@
                             <constraint firstAttribute="height" constant="0.5" id="rIg-eD-rCy"/>
                         </constraints>
                     </view>
+                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eHt-Su-mNf">
+                        <rect key="frame" x="60" y="61.5" width="248" height="46"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="46" id="snV-aU-22k"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="7ip-II-AVb" firstAttribute="top" secondItem="xbj-W3-BRS" secondAttribute="bottom" constant="11.5" id="4g7-mD-YX9"/>
                 <constraint firstItem="63r-Wp-bDR" firstAttribute="leading" secondItem="eDS-mq-vOG" secondAttribute="leading" constant="15" id="6OQ-x0-8kV"/>
-                <constraint firstAttribute="trailing" secondItem="7ip-II-AVb" secondAttribute="trailing" constant="12" id="EZJ-6D-tjZ"/>
                 <constraint firstAttribute="trailing" secondItem="63r-Wp-bDR" secondAttribute="trailing" id="JEQ-I3-5Uw"/>
                 <constraint firstItem="tF5-wy-hbD" firstAttribute="leading" secondItem="eDS-mq-vOG" secondAttribute="leading" id="R5Q-d6-2KH"/>
                 <constraint firstItem="xbj-W3-BRS" firstAttribute="top" secondItem="eDS-mq-vOG" secondAttribute="top" id="RZb-Mf-i3j"/>
+                <constraint firstAttribute="trailing" secondItem="eHt-Su-mNf" secondAttribute="trailing" constant="12" id="Sov-sP-qGN"/>
                 <constraint firstItem="xbj-W3-BRS" firstAttribute="leading" secondItem="eDS-mq-vOG" secondAttribute="leading" id="U0Q-pb-KcU"/>
                 <constraint firstAttribute="trailing" secondItem="xbj-W3-BRS" secondAttribute="trailing" id="Yap-z9-vlD"/>
                 <constraint firstAttribute="bottom" secondItem="tF5-wy-hbD" secondAttribute="bottom" constant="1" id="bcW-KL-Pgj"/>
-                <constraint firstItem="Gc9-rb-mOt" firstAttribute="top" secondItem="7ip-II-AVb" secondAttribute="bottom" constant="10" id="hDX-Lk-VSD"/>
+                <constraint firstItem="eHt-Su-mNf" firstAttribute="top" secondItem="xbj-W3-BRS" secondAttribute="bottom" constant="11.5" id="iWV-SD-CNT"/>
                 <constraint firstItem="tF5-wy-hbD" firstAttribute="top" secondItem="Gc9-rb-mOt" secondAttribute="bottom" constant="5" id="jL8-aB-kte"/>
+                <constraint firstItem="eHt-Su-mNf" firstAttribute="leading" secondItem="eDS-mq-vOG" secondAttribute="leading" constant="60" id="oYh-9e-rEk"/>
+                <constraint firstItem="Gc9-rb-mOt" firstAttribute="top" secondItem="eHt-Su-mNf" secondAttribute="bottom" priority="250" constant="10" id="p8l-cf-956"/>
                 <constraint firstAttribute="trailing" secondItem="tF5-wy-hbD" secondAttribute="trailing" id="pBR-Rb-Mve"/>
-                <constraint firstItem="7ip-II-AVb" firstAttribute="leading" secondItem="eDS-mq-vOG" secondAttribute="leading" constant="60" id="tV9-Vk-RZG"/>
                 <constraint firstItem="Gc9-rb-mOt" firstAttribute="leading" secondItem="eDS-mq-vOG" secondAttribute="leading" constant="60" id="vX8-Ra-IXF"/>
                 <constraint firstAttribute="trailing" secondItem="Gc9-rb-mOt" secondAttribute="trailing" constant="12" id="yw3-51-Jg8"/>
                 <constraint firstAttribute="bottom" secondItem="63r-Wp-bDR" secondAttribute="bottom" id="z9D-3T-nff"/>
@@ -216,8 +214,8 @@
                 <outlet property="commentTextLabel" destination="Gc9-rb-mOt" id="lcc-pT-o8v"/>
                 <outlet property="likeButton" destination="DpI-cb-fNv" id="MkC-gZ-BKB"/>
                 <outlet property="likesCountButton" destination="6Tm-M8-YVC" id="vDU-92-IDG"/>
-                <outlet property="mediaButton" destination="7ip-II-AVb" id="QEQ-6H-RKm"/>
-                <outlet property="mediaButtonHeightConstraint" destination="8iH-7C-mW6" id="6Ky-R1-z4J"/>
+                <outlet property="mediaButtonHeightConstraint" destination="snV-aU-22k" id="aLy-Wz-ivv"/>
+                <outlet property="mediaImageView" destination="eHt-Su-mNf" id="VhJ-aa-dMJ"/>
                 <outlet property="postedTimeLabel" destination="vdj-ym-b7e" id="OjH-Ad-eLA"/>
                 <outlet property="repliesButton" destination="ffo-F5-hAE" id="HeS-z4-IrM"/>
                 <outlet property="repliesCountButton" destination="wPY-c7-XbV" id="alM-Kl-Okc"/>

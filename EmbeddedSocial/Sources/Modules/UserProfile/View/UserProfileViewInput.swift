@@ -33,4 +33,6 @@ protocol UserProfileViewInput: class {
     func setLayoutAsset(_ asset: Asset)
     
     var headerContentHeight: CGFloat { get }
+    
+    func setupPrivateAppearance()
 }

@@ -81,10 +81,16 @@ extension BaseViewController {
 
 extension BaseViewController: NetworkStatusListener {
     func networkStatusDidChange(_ isReachable: Bool) {
+            
+        guard let vc =  self.navigationController?.viewControllers.last else {
+            return
+        }
+        
         if !isReachable {
-            offlineView.show(in: self)
+            offlineView.show(in: vc)
         } else {
             offlineView.hide()
         }
+        
     }
 }
