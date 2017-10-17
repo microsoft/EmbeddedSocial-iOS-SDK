@@ -54,6 +54,11 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
     }
     
+    override func prepareForReuse() {
+        mediaImageView.releasePhoto()
+        userPhoto.releasePhoto()
+    }
+    
     func configure(comment: Comment) {
         userName.text = User.fullName(firstName: comment.user?.firstName, lastName: comment.user?.lastName)
         commentTextLabel.text = comment.text ?? ""
@@ -73,7 +78,13 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         
         if let photo = comment.mediaPhoto {
             mediaImageView.contentMode = .scaleAspectFill
-            mediaImageView.setPhotoWithCaching(photo, placeholder: postImagePlaceholder)
+            if let url = photo.url {
+                let resziedPhoto = Photo(uid: photo.uid, url: url + Constants.ImageResize.pixels250, image: photo.image)
+                mediaImageView.setPhotoWithCaching(resziedPhoto, placeholder: postImagePlaceholder)
+            } else {
+                mediaImageView.setPhotoWithCaching(photo, placeholder: postImagePlaceholder)
+            }
+
             mediaButtonHeightConstraint.constant = UIScreen.main.bounds.size.height/3
             
         } else {
