@@ -206,6 +206,7 @@
 		88252E181F90A63D00A305A3 /* TopicsFeedApplicableCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88252E171F90A63D00A305A3 /* TopicsFeedApplicableCommand.swift */; };
 		88252E191F90F5E300A305A3 /* CreateCommentOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88ABC7A41F72946D00C83C82 /* CreateCommentOperationTests.swift */; };
 		88252E1B1F9116F400A305A3 /* PrivateUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88252E1A1F9116F400A305A3 /* PrivateUserProfileView.swift */; };
+		88252E1D1F9642C500A305A3 /* APIErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88252E1C1F9642C500A305A3 /* APIErrorTests.swift */; };
 		882AD0BB1F221D4400FC20B7 /* CommonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */; };
 		882AD0BC1F221D4400FC20B7 /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */; };
 		882AD0BD1F221D4400FC20B7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */; };
@@ -1349,6 +1350,7 @@
 		88204FBE1F584BF600E15F5A /* MockUserListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserListRouter.swift; sourceTree = "<group>"; };
 		88252E171F90A63D00A305A3 /* TopicsFeedApplicableCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicsFeedApplicableCommand.swift; sourceTree = "<group>"; };
 		88252E1A1F9116F400A305A3 /* PrivateUserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateUserProfileView.swift; sourceTree = "<group>"; };
+		88252E1C1F9642C500A305A3 /* APIErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIErrorTests.swift; sourceTree = "<group>"; };
 		882AD0B51F221D4400FC20B7 /* CommonFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonFunctions.swift; sourceTree = "<group>"; };
 		882AD0B61F221D4400FC20B7 /* CoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
 		882AD0B71F221D4400FC20B7 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -4603,6 +4605,7 @@
 				884C9C3F1F4D911C0004907F /* CachePredicateBuilderTests.swift */,
 				88F163841F2745E500DAAF68 /* CreateAccountValidatorTests.swift */,
 				88A970471F8397E50047D591 /* HexColor.swift */,
+				88252E1C1F9642C500A305A3 /* APIErrorTests.swift */,
 				889AFC1C1F220BCD003AAF19 /* NameComponentsSplitterTests.swift */,
 				8811C8221F3C728E00F7513D /* UnauthorizedErrorHandlerTests.swift */,
 			);
@@ -7201,6 +7204,7 @@
 				88B2D69E1F7CE63500920E43 /* PendingRequestsResponseProcessorTests.swift in Sources */,
 				88E3AC251F5568FC0016357F /* MockSettingsRouter.swift in Sources */,
 				88D2F8E41F56B3880004A8BC /* MockReportingService.swift in Sources */,
+				88252E1D1F9642C500A305A3 /* APIErrorTests.swift in Sources */,
 				884C9C331F4C371B0004907F /* MyProfileHolder.swift in Sources */,
 				88B2D6761F7B9F5E00920E43 /* FollowRequestsInteractorTests.swift in Sources */,
 				886826191F6AADDD00F54731 /* MockOutgoingCommandOperationsBuilder.swift in Sources */,

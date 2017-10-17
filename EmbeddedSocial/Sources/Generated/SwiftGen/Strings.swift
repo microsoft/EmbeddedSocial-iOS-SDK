@@ -304,6 +304,8 @@ enum L10n {
     }
     /// No Items Received
     static let noItemsReceived = L10n.tr("Localizable", "error.no_items_received")
+    /// Internet connection is not available.
+    static let notConnectedToInternet = L10n.tr("Localizable", "error.not_connected_to_internet")
     /// Not implemented.
     static let notImplemented = L10n.tr("Localizable", "error.not_implemented")
     /// Unknown error occurred.
