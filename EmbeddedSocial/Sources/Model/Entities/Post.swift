@@ -124,6 +124,15 @@ extension Post: JSONEncodable {
             let pinned = json["pinned"] as? Bool else {
                 return nil
         }
+        
+        var invalidCharacters = CharacterSet(charactersIn: ":/")
+        invalidCharacters.formUnion(.newlines)
+        invalidCharacters.formUnion(.illegalCharacters)
+        invalidCharacters.formUnion(.controlCharacters)
+        
+        let newFilename = text
+            .components(separatedBy: invalidCharacters)
+            .joined(separator: "")
 
         self.init(topicHandle: handle,
                     createdTime: json["createdTime"] as? Date,
@@ -131,7 +140,7 @@ extension Post: JSONEncodable {
                     imageUrl: json["imageUrl"] as? String,
                     imageHandle: json["imageHandle"] as? String,
                     title: title,
-                    text: text,
+                    text: newFilename,
                     deepLink: json["deepLink"] as? String,
                     totalLikes: totalLikes,
                     totalComments: totalComments,

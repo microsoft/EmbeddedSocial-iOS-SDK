@@ -28,7 +28,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     @IBOutlet weak var postCreation: UILabel!
     @IBOutlet weak var postImageButton: UIButton!
     @IBOutlet weak var postTitle: UILabel!
-    @IBOutlet weak var postText: TTTAttributedLabel!
+    @IBOutlet weak var postText: FeedTextLabel!
     
     @IBOutlet weak var appName: UILabel!
     @IBOutlet weak var appImage: UIImageView!
@@ -93,7 +93,6 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         
         contentView.addSubview(container)
         postImageButton.imageView?.contentMode = .scaleAspectFill
-        postText.numberOfLines = Constants.FeedModule.Collection.Cell.maxLines
         postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
     }
     
@@ -105,7 +104,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         viewModel = nil
         userName.text = nil
         postTitle.text = nil
-        postText.setText("")
+        postText.setFeedText("")
         postCreation.text = nil
         likedCount.text = nil
         commentedCount.text = nil
@@ -137,7 +136,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         
         userName.text = data.userName
         postTitle.text = data.title
-        postText.setText(data.text)
+        postText.setFeedText(data.text, shouldTrim: data.isTrimmed)
         postCreation.text = data.timeCreated
         likedCount.text = data.totalLikes
         commentedCount.text = data.totalComments
@@ -153,22 +152,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
 //        }
         
         //        postText.isTrimmed = data.isTrimmed
+      
         
-        if data.isTrimmed {
-            postText.attributedTruncationToken = NSMutableAttributedString(
-                string: "... Show more",
-                attributes: [NSForegroundColorAttributeName: UIColor.red])
-        }
-        
-        let text = postText.text!
-        let regex = try NSRegularExpression(pattern: "(?:\\s|^)(#(?:[a-zA-Z].*?|\\d+[a-zA-Z]+.*?))\\b", options: NSRegularExpression.MatchingOptions.anchored)
-        let results = regex.matchesInString(text,
-                                            options: NSRegularExpression.MatchingOptions.anchored
-                                            range: NSMakeRange(0, text.characters.count))
-        
-        //postText.enabledTextCheckingTypes = NSTextCheckingTypeLink
-        let r = NSRange()
-        postText.addLink(toTransitInformation: ["hashtag": 1], with: NSRange( ))
     }
     
     static func sizingCell() -> PostCell {

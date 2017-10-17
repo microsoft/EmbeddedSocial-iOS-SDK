@@ -1047,6 +1047,7 @@
 		9C0963741F67CA6C00E70C30 /* ActivityRecentSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0963731F67CA6C00E70C30 /* ActivityRecentSection.xib */; };
 		9C0963761F67CA8900E70C30 /* ActivityUserRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0963751F67CA8900E70C30 /* ActivityUserRequestCell.xib */; };
 		9C0963781F67CAA600E70C30 /* ActivityUserActionsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0963771F67CAA600E70C30 /* ActivityUserActionsCell.xib */; };
+		9C0B1F631F9664000005287B /* PostFeedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0B1F621F9664000005287B /* PostFeedLabel.swift */; };
 		9C2169791F3C68350052FB90 /* PostMenuModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169701F3C68350052FB90 /* PostMenuModuleConfigurator.swift */; };
 		9C21697A1F3C68350052FB90 /* PostMenuModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169721F3C68350052FB90 /* PostMenuModuleInteractor.swift */; };
 		9C21697C1F3C68350052FB90 /* PostMenuModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2169761F3C68350052FB90 /* PostMenuModuleRouter.swift */; };
@@ -2088,7 +2089,7 @@
 		88FEFCA11F8E524B00D81CAB /* SearchHistoryStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryStorage.swift; sourceTree = "<group>"; };
 		88FEFCA31F8E59BF00D81CAB /* SearchHistoryMediator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryMediator.swift; sourceTree = "<group>"; };
 		88FEFCA61F8E5A4400D81CAB /* SearchHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryView.swift; sourceTree = "<group>"; };
-		88FEFCA81F8E677D00D81CAB /* SearchBarMulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBarMulticastDelegate.swift; path = SearchBarMulticastDelegate.swift; sourceTree = "<group>"; };
+		88FEFCA81F8E677D00D81CAB /* SearchBarMulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarMulticastDelegate.swift; sourceTree = "<group>"; };
 		88FEFCAC1F8F93CF00D81CAB /* SearchHistoryViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewTests.swift; sourceTree = "<group>"; };
 		88FEFCAE1F8F970D00D81CAB /* SearchHistoryStorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryStorageTests.swift; sourceTree = "<group>"; };
 		88FEFCB01F8FA78000D81CAB /* SearchHistoryMediatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryMediatorTests.swift; sourceTree = "<group>"; };
@@ -2226,6 +2227,7 @@
 		9C0963731F67CA6C00E70C30 /* ActivityRecentSection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityRecentSection.xib; sourceTree = "<group>"; };
 		9C0963751F67CA8900E70C30 /* ActivityUserRequestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityUserRequestCell.xib; sourceTree = "<group>"; };
 		9C0963771F67CAA600E70C30 /* ActivityUserActionsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityUserActionsCell.xib; sourceTree = "<group>"; };
+		9C0B1F621F9664000005287B /* PostFeedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostFeedLabel.swift; sourceTree = "<group>"; };
 		9C2169701F3C68350052FB90 /* PostMenuModuleConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleConfigurator.swift; sourceTree = "<group>"; };
 		9C2169721F3C68350052FB90 /* PostMenuModuleInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleInteractor.swift; sourceTree = "<group>"; };
 		9C2169741F3C68350052FB90 /* PostMenuModulePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenter.swift; sourceTree = "<group>"; };
@@ -3489,6 +3491,7 @@
 				88580B3D1F2213AB00C1CBAF /* UploadPhotoCell.swift */,
 				88580AA81F2213AB00C1CBAF /* WebViewController.swift */,
 				6322E4141F8E421100B54F3F /* OfflineView.swift */,
+				9C0B1F621F9664000005287B /* PostFeedLabel.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -5387,7 +5390,6 @@
 				88FEFCA11F8E524B00D81CAB /* SearchHistoryStorage.swift */,
 				88FEFCA61F8E5A4400D81CAB /* SearchHistoryView.swift */,
 			);
-			name = SearchHistory;
 			path = SearchHistory;
 			sourceTree = "<group>";
 		};
@@ -5398,7 +5400,6 @@
 				88FEFCAE1F8F970D00D81CAB /* SearchHistoryStorageTests.swift */,
 				88FEFCAC1F8F93CF00D81CAB /* SearchHistoryViewTests.swift */,
 			);
-			name = SearchHistory;
 			path = SearchHistory;
 			sourceTree = "<group>";
 		};
@@ -5407,7 +5408,6 @@
 			children = (
 				88FEFCAA1F8F93B500D81CAB /* SearchHistory */,
 			);
-			name = ControlsTests;
 			path = ControlsTests;
 			sourceTree = "<group>";
 		};
@@ -6983,6 +6983,7 @@
 				93AC65A71F3E057C00FE5A3A /* CommentCell.swift in Sources */,
 				88580C1A1F2213AB00C1CBAF /* AuthService.swift in Sources */,
 				884AA9631F3C563F00B85135 /* AppCompactView.swift in Sources */,
+				9C0B1F631F9664000005287B /* PostFeedLabel.swift in Sources */,
 				88580C281F2213AB00C1CBAF /* SessionStoreDatabase.swift in Sources */,
 				63E1DA211F7BE95800187E35 /* CommentsService.swift in Sources */,
 				88E3AC0D1F5556C10016357F /* SettingsViewInput.swift in Sources */,
