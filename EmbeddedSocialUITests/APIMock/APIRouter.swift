@@ -245,7 +245,7 @@ open class APIRouter: WebApp {
                 default:
                     let query = URLParametersReader.parseURLParameters(environ: environ)
                     let cursor = query["cursor"] ?? "0"
-                    
+                    print(query)
                     var sendedJSON: Any
                     if let limit = query["limit"] {
                         sendedJSON = Templates.loadFollowers(firstName: "Blocked", lastName: "User", cursor: Int(cursor)!, limit: Int(limit)!)

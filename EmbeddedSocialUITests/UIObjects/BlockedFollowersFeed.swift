@@ -27,6 +27,10 @@ class BlockedUserItem {
         unblockButton.tap()
     }
     
+    func asUIElement() -> XCUIElement {
+        return cell
+    }
+    
 }
 
 class BlockedUsersFeed {

@@ -170,7 +170,6 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     }
     
     private func _postComment(photo: Photo?, comment: String) {
-        view.showLoadingHUD()
         interactor.postComment(photo: photo, topicHandle: topicHandle, comment: comment)
     }
 }
