@@ -21,8 +21,13 @@ class FeedTextLabel: TTTAttributedLabel, TTTAttributedLabelDelegate, FeedTextLab
     
     weak var eventHandler: FeedTextLabelHandler?
     
+    var textAttributes: [String: Any] = [
+        NSFontAttributeName: UIFont.systemFont(ofSize: 12)
+    ]
+    
     var tagAttributes: [AnyHashable: Any] = [
-        NSBackgroundColorAttributeName: UIColor.yellow,
+        NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12),
+        NSForegroundColorAttributeName: Palette.green,
         NSUnderlineStyleAttributeName: NSUnderlineStyle.styleNone.rawValue
     ]
     
@@ -57,10 +62,13 @@ class FeedTextLabel: TTTAttributedLabel, TTTAttributedLabelDelegate, FeedTextLab
         
         let attributedString = NSMutableAttributedString(string: text)
         
+        attributedString.addAttributes(textAttributes, range: NSMakeRange(0, text.characters.count))
+        
         let tags = processTags(cachedText)
         applyTags(tags, to: attributedString)
         
-        self.setText(attributedText)
+        Logger.log(attributedString.string, event: .veryImportant)
+
         self.setupShowMore()
     }
     
@@ -76,7 +84,7 @@ class FeedTextLabel: TTTAttributedLabel, TTTAttributedLabelDelegate, FeedTextLab
         guard shouldTrim else {
             return
         }
-        
+    
         linkAttributes = nil
         activeLinkAttributes = nil
         attributedTruncationToken = NSMutableAttributedString(
@@ -85,6 +93,8 @@ class FeedTextLabel: TTTAttributedLabel, TTTAttributedLabelDelegate, FeedTextLab
     }
     
     private func applyTags(_ tags: [NSTextCheckingResult], to string: NSMutableAttributedString) {
+        
+        setText(string)
         
         tags.forEach {
             

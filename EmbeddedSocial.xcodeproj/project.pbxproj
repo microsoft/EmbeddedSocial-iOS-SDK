@@ -1175,6 +1175,7 @@
 		31F5C38DC3B411C39E5EB38C /* CommentRepliesInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesInteractor.swift; sourceTree = "<group>"; };
 		3209330C1F2A50D300890218 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		3234AD1A1F2E70C3009C3327 /* PostCellCompact.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCellCompact.xib; sourceTree = "<group>"; };
+		325235371F96952200D5496B /* TTTAttributedLabel.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TTTAttributedLabel.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		32C8E7BE1F77EFB600303D55 /* ActivityAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAction.swift; sourceTree = "<group>"; };
 		32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellCompact.swift; sourceTree = "<group>"; };
 		32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellProtocol.swift; sourceTree = "<group>"; };
@@ -2428,6 +2429,14 @@
 				73008FEFC3E2A4F244AA330E /* DetailedActivityPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		325235361F96952100D5496B /* Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				325235371F96952200D5496B /* TTTAttributedLabel.playground */,
+			);
+			path = Playgrounds;
 			sourceTree = "<group>";
 		};
 		3FABE12631E8C50B0555930B /* View */ = {
@@ -5911,6 +5920,7 @@
 		9CD8051F1F0D012F00B9B0AC = {
 			isa = PBXGroup;
 			children = (
+				325235361F96952100D5496B /* Playgrounds */,
 				9CD8052B1F0D012F00B9B0AC /* EmbeddedSocial */,
 				886B39C61F138F5D00BF1A8E /* EmbeddedSocial-Example */,
 				9CD805361F0D012F00B9B0AC /* EmbeddedSocialTests */,

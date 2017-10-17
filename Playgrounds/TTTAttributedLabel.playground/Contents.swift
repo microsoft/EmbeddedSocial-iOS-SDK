@@ -25,6 +25,7 @@ class FeedTextLabel: TTTAttributedLabel, TTTAttributedLabelDelegate, FeedTextLab
         NSUnderlineStyleAttributeName: NSUnderlineStyle.styleNone.rawValue
     ]
     
+    
     var showMoreAttributes: [String: Any] = [
         NSForegroundColorAttributeName: UIColor.blue,
         NSUnderlineStyleAttributeName: NSUnderlineStyle.styleNone.rawValue,
@@ -220,6 +221,15 @@ let textSize2 = TTTAttributedLabel.sizeThatFitsAttributedString(
     withConstraints: CGSize(width: size.width, height: .greatestFiniteMagnitude),
     limitedToNumberOfLines: 10)
 
+let test = "Well, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoat"
+
+let testText = NSAttributedString(string: test)
+let bounds = CGSize(width: 300, height: Double.greatestFiniteMagnitude)
+
+let dynamicHeight = TTTAttributedLabel.sizeThatFitsAttributedString(
+    testText,
+    withConstraints: bounds,
+    limitedToNumberOfLines: 5)
 
 
 PlaygroundPage.current.liveView = container

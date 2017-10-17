@@ -125,22 +125,13 @@ extension Post: JSONEncodable {
                 return nil
         }
         
-        var invalidCharacters = CharacterSet(charactersIn: ":/")
-        invalidCharacters.formUnion(.newlines)
-        invalidCharacters.formUnion(.illegalCharacters)
-        invalidCharacters.formUnion(.controlCharacters)
-        
-        let newFilename = text
-            .components(separatedBy: invalidCharacters)
-            .joined(separator: "")
-
         self.init(topicHandle: handle,
                     createdTime: json["createdTime"] as? Date,
                     user: user,
                     imageUrl: json["imageUrl"] as? String,
                     imageHandle: json["imageHandle"] as? String,
                     title: title,
-                    text: newFilename,
+                    text: text,
                     deepLink: json["deepLink"] as? String,
                     totalLikes: totalLikes,
                     totalComments: totalComments,
@@ -192,13 +183,22 @@ extension Post {
                 return nil
         }
         
+        var invalidCharacters = CharacterSet(charactersIn: ":/")
+        invalidCharacters.formUnion(.newlines)
+        invalidCharacters.formUnion(.illegalCharacters)
+        invalidCharacters.formUnion(.controlCharacters)
+        
+        let newFilename = text
+            .components(separatedBy: invalidCharacters)
+            .joined(separator: "")
+        
         self.init(topicHandle: handle,
                   createdTime: data.createdTime,
                   user: user,
                   imageUrl: data.blobUrl,
                   imageHandle: data.blobHandle,
                   title: title,
-                  text: text,
+                  text: newFilename,
                   deepLink: data.deepLink,
                   totalLikes: likesNumber,
                   totalComments: commentsNumber,
