@@ -35,12 +35,12 @@ protocol OutgoingCommandsPredicateBuilder {
     func allUserCommands() -> NSPredicate
 }
 
-protocol TopicServicePredicateBuilder {
+protocol TopicsFeedProcessorPredicateBuilder {
     func allTopicActionCommands() -> NSPredicate
     
     func allTopicCommands() -> NSPredicate
     
-    func topicActionCommandsAndAllCreatedComments() -> NSPredicate
+    func topicActionsRemovedTopicsCreatedComments() -> NSPredicate
     
     func allTopicCommandsAndAllCreatedComments() -> NSPredicate
 }
@@ -177,15 +177,16 @@ extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
     }
 }
 
-extension PredicateBuilder: TopicServicePredicateBuilder {
+extension PredicateBuilder: TopicsFeedProcessorPredicateBuilder {
     
     func allTopicCommands() -> NSPredicate {
         let typeIDs = TopicCommand.allTopicCommandTypes.map { $0.typeIdentifier }
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
-    func topicActionCommandsAndAllCreatedComments() -> NSPredicate {
-        let typeIDs = (TopicCommand.topicActionCommandTypes + [CreateCommentCommand.self]).map { $0.typeIdentifier }
+    func topicActionsRemovedTopicsCreatedComments() -> NSPredicate {
+        let typeIDs = (TopicCommand.topicActionCommandTypes + [RemoveTopicCommand.self] + [CreateCommentCommand.self])
+            .map { $0.typeIdentifier }
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
