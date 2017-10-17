@@ -21,6 +21,7 @@
 "error.missing_response_data" = "Cant handle response, data is corrupted.";
 "error.not_implemented" = "Not implemented.";
 "error.comment_not_found" = "Comment not found";
+"error.not_connected_to_internet" = "Internet connection is not available.";
 
 "common.ok" = "OK";
 "common.cancel" = "Cancel";
