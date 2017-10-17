@@ -97,7 +97,6 @@ class BaseTestComments: BaseSideMenuTest {
         commentsFeed.commentText.typeText("New Comment Text")
         commentsFeed.publishCommentButton.tap()
         
-        sleep(1)
         let lastComment = commentsFeed.getComment(commentsFeed.getCommentsCount() - 1)
         XCTAssertTrue(lastComment.textExists("New Comment Text"))
     }
@@ -186,7 +185,7 @@ class TestCommentsOnline: BaseTestComments, OnlineTest {
 }
 
 class TestCommentsOffline: BaseTestComments, OfflineTest {
-    
+
     override func testCommentAttributes() {
         APIConfig.values = ["user->firstName": "Alan",
                             "user->lastName": "Poe",
@@ -202,7 +201,7 @@ class TestCommentsOffline: BaseTestComments, OfflineTest {
     
     override func testLikeComment() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).cell)
+//        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).cell)
         super.testLikeComment()
     }
     
@@ -241,8 +240,6 @@ class TestCommentsOffline: BaseTestComments, OfflineTest {
         for _ in 1...5 {
             app.swipeDown()
         }
-        
-//        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).cell)
         
         APIConfig.delayedResponses = true
         

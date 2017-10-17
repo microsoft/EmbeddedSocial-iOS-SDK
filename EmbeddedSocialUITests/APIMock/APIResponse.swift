@@ -33,11 +33,10 @@ public struct APIResponse: WebApp {
         }
         
         if APIConfig.delayedResponses {
-            dataResponse = DelayResponse(response, delay: .delay(seconds: 180))
+            dataResponse = DelayResponse(response, delay: .delay(seconds: 30))
         } else {
             dataResponse = response
         }
-       
     }
     
     public init(
@@ -67,7 +66,7 @@ public struct APIResponse: WebApp {
         }
         
         if APIConfig.delayedResponses {
-            dataResponse = DelayResponse(response)
+            dataResponse = DelayResponse(response, delay: .delay(seconds: 30))
         } else {
             dataResponse = response
         }
@@ -78,6 +77,6 @@ public struct APIResponse: WebApp {
         startResponse: @escaping ((String, [(String, String)]) -> Void),
         sendBody: @escaping ((Data) -> Void)
         ) {
-        return dataResponse.app(environ, startResponse: startResponse, sendBody: sendBody)
+        dataResponse.app(environ, startResponse: startResponse, sendBody: sendBody)
     }
 }

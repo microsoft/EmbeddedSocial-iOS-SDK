@@ -434,7 +434,13 @@ open class APIRouter: WebApp {
         return notFoundResponse.app(environ, startResponse: startResponse, sendBody: sendBody)
     }
     
-    private func matchRoute(to searchPath: String) -> (WebApp, [String])? {
+}
+
+// MARK: - Private
+
+extension APIRouter {
+    
+    fileprivate func matchRoute(to searchPath: String) -> (WebApp, [String])? {
         print("Request: " + searchPath + " - \(APIConfig.isReachable ? "Online" : "Offline")")
         APIState.addRequest(searchPath)
         
@@ -443,8 +449,8 @@ open class APIRouter: WebApp {
             return (error, [])
         }
         
-        if routes[searchPath] != nil {
-            return (routes[searchPath]!, [])
+        if let route = routes[searchPath] {
+            return (makeDelayedIfNeeded(route), [])
         }
         
         for (path, route) in routes {
@@ -466,9 +472,21 @@ open class APIRouter: WebApp {
                 for rangeIdx in 1 ..< match.numberOfRanges {
                     captures.append(searchPath.substring(with: match.rangeAt(rangeIdx)))
                 }
-                return (route, captures)
+                
+                return (makeDelayedIfNeeded(route), captures)
             }
         }
         return nil
     }
+    
+    private func makeDelayedIfNeeded(_ response: WebApp) -> WebApp {
+        var resultResponse = response
+        
+        if APIConfig.delayedResponses {
+            resultResponse = DelayResponse(response, delay: .delay(seconds: 30))
+        }
+        
+        return resultResponse
+    }
+    
 }
