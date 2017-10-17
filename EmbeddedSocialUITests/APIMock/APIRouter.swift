@@ -472,7 +472,6 @@ extension APIRouter {
                 for rangeIdx in 1 ..< match.numberOfRanges {
                     captures.append(searchPath.substring(with: match.rangeAt(rangeIdx)))
                 }
-                
                 return (makeDelayedIfNeeded(route), captures)
             }
         }
@@ -482,7 +481,7 @@ extension APIRouter {
     private func makeDelayedIfNeeded(_ response: WebApp) -> WebApp {
         var resultResponse = response
         if APIConfig.delayedResponses {
-            resultResponse = DelayResponse(response, delay: .delay(seconds: 10))
+            resultResponse = DelayResponse(response, delay: .delay(seconds: APIConfig.responsesDelay))
         }
         return resultResponse
     }

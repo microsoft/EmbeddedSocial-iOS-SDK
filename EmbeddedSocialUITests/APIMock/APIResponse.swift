@@ -33,7 +33,7 @@ public struct APIResponse: WebApp {
         }
         
         if APIConfig.delayedResponses {
-            dataResponse = DelayResponse(response, delay: .delay(seconds: 30))
+            dataResponse = DelayResponse(response, delay: .delay(seconds: APIConfig.responsesDelay))
         } else {
             dataResponse = response
         }
@@ -66,7 +66,7 @@ public struct APIResponse: WebApp {
         }
         
         if APIConfig.delayedResponses {
-            dataResponse = DelayResponse(response, delay: .delay(seconds: 30))
+            dataResponse = DelayResponse(response, delay: .delay(seconds: APIConfig.responsesDelay))
         } else {
             dataResponse = response
         }

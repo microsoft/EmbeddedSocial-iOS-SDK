@@ -97,7 +97,7 @@ class BaseTestComments: BaseSideMenuTest {
         commentsFeed.commentText.typeText("New Comment Text")
         commentsFeed.publishCommentButton.tap()
         
-        sleep(15)
+        sleep(UInt32(APIConfig.responsesDelay + 2))
         
         let lastComment = commentsFeed.getComment(commentsFeed.getCommentsCount() - 1)
         XCTAssertTrue(lastComment.textExists("New Comment Text"))
@@ -243,7 +243,8 @@ class TestCommentsOffline: BaseTestComments, OfflineTest {
             app.swipeDown()
         }
         
-        APIConfig.delayedResponses = true
+        APIConfig.responsesDelay = 10
+//        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).cell)
         
         super.testCreateComment()
     }
