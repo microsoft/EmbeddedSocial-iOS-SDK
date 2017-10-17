@@ -63,6 +63,7 @@ extension Constants {
         static let summaryHeight = contentWidth / summaryAspectRatio
         static let recentSegment = 0
         static let popularSegment = 1
+        static let lockVerticalOffset: CGFloat = 80.0
     }
     
     struct Feed {
