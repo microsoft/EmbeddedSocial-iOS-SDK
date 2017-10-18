@@ -278,6 +278,8 @@ enum L10n {
   enum Error {
     /// The operation has been cancelled by user.
     static let cancelledByUser = L10n.tr("Localizable", "error.cancelled_by_user")
+    /// Comment not found
+    static let commentNotFound = L10n.tr("Localizable", "error.comment_not_found")
     /// The request has failed.
     static let failedRequest = L10n.tr("Localizable", "error.failed_request")
     /// Image compression has failed.
@@ -294,24 +296,24 @@ enum L10n {
     static let missingResponseData = L10n.tr("Localizable", "error.missing_response_data")
     /// User data is missing.
     static let missingUserData = L10n.tr("Localizable", "error.missing_user_data")
+    /// No internet connection. You can still post while offline.
+    static let noInternetConnection = L10n.tr("Localizable", "error.no_internet_connection")
     /// No item for %@
     static func noItemFor(_ p1: String) -> String {
       return L10n.tr("Localizable", "error.no_item_for", p1)
     }
     /// No Items Received
     static let noItemsReceived = L10n.tr("Localizable", "error.no_items_received")
+    /// Internet connection is not available.
+    static let notConnectedToInternet = L10n.tr("Localizable", "error.not_connected_to_internet")
     /// Not implemented.
     static let notImplemented = L10n.tr("Localizable", "error.not_implemented")
-    /// Not implemented.
-    static let commentNotFound = L10n.tr("Localizable", "error.comment_not_found")
     /// Unknown error occurred.
     static let unknown = L10n.tr("Localizable", "error.unknown")
     /// User list module configuration error: API not set.
     static let userListNoApi = L10n.tr("Localizable", "error.user_list_no_api")
     /// User is not logged in.
     static let userNotLoggedIn = L10n.tr("Localizable", "error.user_not_logged_in")
-    /// No internet connection. You can still post while offline.
-    static let noInternetConnection = L10n.tr("Localizable", "error.no_internet_connection")
   }
 
   enum FollowRequests {
@@ -546,6 +548,8 @@ enum L10n {
   }
 
   enum UserProfile {
+    /// This user is private.
+    static let privateFeed = L10n.tr("Localizable", "user_profile.private_feed")
     /// Profile
     static let screenTitle = L10n.tr("Localizable", "user_profile.screen_title")
 
