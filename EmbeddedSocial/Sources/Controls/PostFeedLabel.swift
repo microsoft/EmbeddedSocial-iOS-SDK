@@ -67,7 +67,7 @@ class FeedTextLabel: TTTAttributedLabel, TTTAttributedLabelDelegate, FeedTextLab
         attributedString.addAttributes(textAttributes, range: NSMakeRange(0, text.characters.count))
         
         let tags = processTags(cachedText)
-        applyTags(tags, to: attributedString)
+        applyTags(tags, with: attributedString)
         
         self.setupShowMore()
     }
@@ -92,7 +92,7 @@ class FeedTextLabel: TTTAttributedLabel, TTTAttributedLabelDelegate, FeedTextLab
             attributes: showMoreAttributes)
     }
     
-    private func applyTags(_ tags: [NSTextCheckingResult], to string: NSMutableAttributedString) {
+    private func applyTags(_ tags: [NSTextCheckingResult], with string: NSMutableAttributedString) {
         
         setText(string)
         

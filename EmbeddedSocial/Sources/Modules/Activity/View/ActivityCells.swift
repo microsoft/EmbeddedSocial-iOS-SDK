@@ -159,7 +159,7 @@ class ActivityCell: ActivityBaseCell {
     
     let postImage: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .center
+        view.contentMode = .scaleToFill
         return view
     }()
     

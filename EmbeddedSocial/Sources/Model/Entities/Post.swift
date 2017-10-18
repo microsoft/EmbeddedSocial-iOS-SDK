@@ -188,7 +188,7 @@ extension Post {
         invalidCharacters.formUnion(.illegalCharacters)
         invalidCharacters.formUnion(.controlCharacters)
         
-        let newFilename = text
+        let filteredText = text
             .components(separatedBy: invalidCharacters)
             .joined(separator: "")
         
@@ -198,7 +198,7 @@ extension Post {
                   imageUrl: data.blobUrl,
                   imageHandle: data.blobHandle,
                   title: title,
-                  text: newFilename,
+                  text: filteredText,
                   deepLink: data.deepLink,
                   totalLikes: likesNumber,
                   totalComments: commentsNumber,
