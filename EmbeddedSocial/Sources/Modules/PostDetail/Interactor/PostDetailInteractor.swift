@@ -22,6 +22,7 @@ class PostDetailInteractor: PostDetailInteractorInput {
     }
     
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32) {
+        if isLoading == false {
             self.isLoading = true
             self.commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
                 if !cachedResult.comments.isEmpty {
@@ -30,6 +31,8 @@ class PostDetailInteractor: PostDetailInteractorInput {
             }, resultHandler: { (webResult) in
                 self.fetchedItems(result: webResult)
             })
+        }
+
     }
 
     private func fetchedItems(result: CommentFetchResult) {

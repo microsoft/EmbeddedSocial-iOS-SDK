@@ -24,15 +24,12 @@ class UserProfileViewController: BaseViewController {
     
     fileprivate lazy var headerView: UserProfileHeaderView = { [unowned self] in
         let view = UserProfileHeaderView(frame: .zero)
-        view.onRecent = self.onRecent
-        view.onPopular = self.onPopular
-        view.summaryView.onEdit = self.output.onEdit
-        view.summaryView.onFollowing = self.output.onFollowing
-        view.summaryView.onFollow = { self.output.onFollowRequest(currentStatus: $0) }
-        view.summaryView.onFollowers = self.output.onFollowers
-        view.snp.makeConstraints { make in
-            make.width.equalTo(Constants.UserProfile.contentWidth)
-        }
+        view.onRecent = { [weak self] in self?.onRecent() }
+        view.onPopular = { [weak self] in self?.onPopular() }
+        view.summaryView.onEdit = { [weak self] in self?.output.onEdit() }
+        view.summaryView.onFollowing = { [weak self] in self?.output.onFollowing() }
+        view.summaryView.onFollow = { [weak self] in self?.output.onFollowRequest(currentStatus: $0) }
+        view.summaryView.onFollowers = { [weak self] in self?.output.onFollowers() }
         return view
     }()
     
@@ -52,6 +49,8 @@ class UserProfileViewController: BaseViewController {
     }
     
     fileprivate var feedView: UIView?
+    
+    @IBOutlet fileprivate var privateUserView: PrivateUserProfileView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +74,7 @@ extension UserProfileViewController: UserProfileViewInput {
     
     var headerContentHeight: CGFloat {
         let size = CGSize(width: headerView.bounds.width, height: .greatestFiniteMagnitude)
-        return headerView.systemLayoutSizeFitting(size).height
+        return headerView.systemLayoutSizeFitting(size).height + Constants.UserProfile.containerInset
     }
     
     func setupInitialState(showGalleryView: Bool) {
@@ -85,20 +84,12 @@ extension UserProfileViewController: UserProfileViewInput {
             navigationItem.rightBarButtonItem = moreButton
         }
         apply(theme: theme)
+        privateUserView.output = output
     }
     
     func setFeedViewController(_ feedViewController: UIViewController) {
-        addChildController(feedViewController)
-        
-        feedViewController.view.snp.makeConstraints { make in
-            make.left.equalTo(self.view).offset(Constants.FeedModule.Collection.containerPadding)
-            make.right.equalTo(self.view).offset(-Constants.FeedModule.Collection.containerPadding)
-            make.top.equalTo(self.view)
-            make.bottom.equalTo(self.view)
-        }
-        
+        addChildController(feedViewController, containerView: view)
         feedView = feedViewController.view
-        
         view.bringSubview(toFront: stickyFilterView)
     }
     
@@ -110,7 +101,10 @@ extension UserProfileViewController: UserProfileViewInput {
         reusableView.backgroundColor = .clear
         reusableView.addSubview(headerView)
         headerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.left.equalToSuperview().offset(Constants.FeedModule.Collection.containerPadding)
+            make.right.equalToSuperview().offset(-Constants.FeedModule.Collection.containerPadding)
+            make.top.equalToSuperview().offset(Constants.FeedModule.Collection.containerPadding)
+            make.bottom.equalToSuperview()
             make.height.equalTo(0).priority(.low)
         }
     }
@@ -123,6 +117,7 @@ extension UserProfileViewController: UserProfileViewInput {
     
     func setUser(_ user: User) {
         summaryView.configure(user: user)
+        privateUserView.user = user
     }
     
     func setFollowStatus(_ followStatus: FollowStatus) {
@@ -154,6 +149,15 @@ extension UserProfileViewController: UserProfileViewInput {
         feedLayoutButton.setImage(UIImage(asset: asset), for: .normal)
         feedLayoutButton.sizeToFit()
     }
+    
+    func setupPrivateAppearance() {
+        guard privateUserView.superview == nil else {
+            return
+        }
+        
+        view.addSubview(privateUserView)
+        privateUserView.snp.makeConstraints { $0.edges.equalToSuperview() }
+    }
 }
 
 extension UserProfileViewController: Themeable {
@@ -168,5 +172,6 @@ extension UserProfileViewController: Themeable {
         stickyFilterView.backgroundColor = theme?.palette.topicBackground
         stickyFilterView.separatorColor = theme?.palette.contentBackground
         headerView.apply(theme: theme)
+        privateUserView.apply(theme: theme)
     }
 }

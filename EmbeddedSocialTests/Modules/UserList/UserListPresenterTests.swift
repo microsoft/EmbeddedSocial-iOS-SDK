@@ -99,9 +99,7 @@ class UserListPresenterTests: XCTestCase {
         sut.loadNextPage()
         
         // then
-        XCTAssertEqual(interactor.getNextListPageCount, 0)
-        XCTAssertFalse(view.setUsersCalled)
-        XCTAssertFalse(view.setIsEmptyCalled)
+        validateNextPageLoaded(with: users)
     }
     
     func testThatItHandlesLoadNextPageError() {

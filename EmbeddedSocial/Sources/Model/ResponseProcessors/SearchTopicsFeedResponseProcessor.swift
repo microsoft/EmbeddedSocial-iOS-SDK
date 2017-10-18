@@ -7,7 +7,7 @@ import Foundation
 
 class SearchTopicsFeedResponseProcessor: TopicsFeedResponseProcessor {
     
-    override var fetchTopicsPredicate: NSPredicate {
-        return predicateBuilder.allTopicActionCommands()
+    override var commandsPredicate: NSPredicate {
+        return predicateBuilder.topicActionCommandsAndAllCreatedComments()
     }
 }

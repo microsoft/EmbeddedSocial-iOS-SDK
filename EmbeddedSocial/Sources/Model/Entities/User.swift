@@ -31,6 +31,10 @@ struct User {
         return uid == handle
     }
     
+    var isPrivate: Bool {
+        return visibility == ._private
+    }
+    
     static func fullName(firstName: String?, lastName: String?) -> String {
         if firstName == nil {
             return lastName ?? L10n.Common.Placeholder.unknown

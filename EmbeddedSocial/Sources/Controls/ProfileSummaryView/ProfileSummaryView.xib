@@ -97,6 +97,7 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="zWD-uM-2Ex" secondAttribute="trailing" id="9cf-1L-FQV"/>
                         <constraint firstItem="kK5-h4-mtW" firstAttribute="top" secondItem="1SZ-rN-eXN" secondAttribute="top" id="IlY-au-lU0"/>
+                        <constraint firstItem="zWD-uM-2Ex" firstAttribute="top" relation="greaterThanOrEqual" secondItem="kK5-h4-mtW" secondAttribute="bottom" id="JHx-x1-00R"/>
                         <constraint firstAttribute="bottom" secondItem="zWD-uM-2Ex" secondAttribute="bottom" id="O28-s0-0Z4"/>
                         <constraint firstItem="zWD-uM-2Ex" firstAttribute="leading" secondItem="1SZ-rN-eXN" secondAttribute="leading" id="SHq-Cs-szQ"/>
                         <constraint firstItem="kK5-h4-mtW" firstAttribute="leading" secondItem="1SZ-rN-eXN" secondAttribute="leading" id="YFW-6t-BYO"/>

@@ -29,10 +29,16 @@ final class CreateCommentOperation: OutgoingCommandOperation {
         
         let oldHandle = command.comment.commentHandle
         
-        commentsService.postComment(comment: command.comment,
-                                    photo: command.comment.mediaPhoto,
-                                    resultHandler: { [weak self] comment in self?.updateRelatedCommandsHandle(from: oldHandle, to: comment.commentHandle) },
-                                    failure: { [weak self] error in self?.completeOperation(with: error) })
+        commentsService.postComment(
+            comment: command.comment,
+            photo: command.comment.mediaPhoto,
+            resultHandler: { [weak self] comment in
+                self?.updateRelatedCommandsHandle(from: oldHandle, to: comment.commentHandle)
+            },
+            failure: { [weak self] error in
+                self?.completeOperation(with: error)
+            }
+        )
     }
     
     private func updateRelatedCommandsHandle(from oldHandle: String?, to newHandle: String?) {
@@ -42,6 +48,7 @@ final class CreateCommentOperation: OutgoingCommandOperation {
         }
         let predicate = predicateBuilder.commandsWithRelatedHandle(oldHandle, ignoredTypeID: CreateCommentCommand.typeIdentifier)
         handleUpdater.updateRelatedHandle(from: oldHandle, to: newHandle, predicate: predicate)
+        handleUpdater.updateCommand(oldHandle: oldHandle, updatedCommand: command)
         completeOperation()
     }
 }

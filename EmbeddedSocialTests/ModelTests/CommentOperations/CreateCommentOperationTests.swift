@@ -27,23 +27,21 @@ class CreateCommentOperationTests: XCTestCase {
         // given
         let oldComment = Comment(commentHandle: UUID().uuidString)
         oldComment.topicHandle = UUID().uuidString
-        
-        let createdComment = Comment(commentHandle: UUID().uuidString)
-        createdComment.topicHandle = UUID().uuidString
-
         let command = CreateCommentCommand(comment: oldComment)
-        
+
+        let createdComment = Comment(commentHandle: UUID().uuidString)
+        createdComment.topicHandle = oldComment.topicHandle
+
         let response = PostCommentResponse()
         response.commentHandle = createdComment.commentHandle
         
-        
         let service = MockCommentsService()
-        service.postCommentReturnResponse = response
+        service.postCommentReturnComment = createdComment
         
         let sut = CreateCommentOperation(command: command, commentsService: service,
                                          predicateBuilder: predicateBuilder, handleUpdater: handleUpdater)
         
-        let predicate = NSPredicate(value: true)
+        let predicate = NSPredicate()
         predicateBuilder.commandsWithRelatedHandleIgnoredTypeIDReturnValue = predicate
         
         // when
@@ -68,6 +66,10 @@ class CreateCommentOperationTests: XCTestCase {
         XCTAssertEqual(handleUpdaterArgs?.oldHandle, oldComment.commentHandle)
         XCTAssertEqual(handleUpdaterArgs?.newHandle, createdComment.commentHandle)
         XCTAssertEqual(handleUpdaterArgs?.predicate, predicate)
+        
+        // command updated
+        XCTAssertTrue(handleUpdater.updateCommandOldHandleUpdatedCommandCalled)
+        XCTAssertEqual(handleUpdater.updateCommandOldHandleUpdatedCommandReceivedArguments?.oldHandle, oldComment.commentHandle)
     }
     
     func testThatItFinishesWithErrorWhenServiceFailsToCreateComment() {

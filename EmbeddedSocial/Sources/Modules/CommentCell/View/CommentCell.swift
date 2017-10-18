@@ -18,7 +18,7 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     @IBOutlet weak var repliesCountButton: UIButton!
     @IBOutlet weak var commentTextLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var mediaButton: UIButton!
+    @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var mediaButtonHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var repliesButton: UIButton!
 
@@ -35,9 +35,10 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     override func awakeFromNib() {
         super.awakeFromNib()
         userPhoto.contentMode = .scaleAspectFill
-        layer.shouldRasterize = true
-        layer.drawsAsynchronously = true
-        layer.rasterizationScale = UIScreen.main.scale
+        mediaImageView.layer.drawsAsynchronously = true
+        mediaImageView.layer.shouldRasterize = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(mediaPressed))
+        mediaImageView.addGestureRecognizer(tap)
         apply(theme: theme)
     }
     
@@ -53,6 +54,11 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
     }
     
+    override func prepareForReuse() {
+        mediaImageView.releasePhoto()
+        userPhoto.releasePhoto()
+    }
+    
     func configure(comment: Comment) {
         userName.text = User.fullName(firstName: comment.user?.firstName, lastName: comment.user?.lastName)
         commentTextLabel.text = comment.text ?? ""
@@ -62,17 +68,23 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         postedTimeLabel.text = comment.createdTime == nil ? "" : formatter.shortStyle.string(from: comment.createdTime!, to: Date())!
         
         if comment.user?.photo?.url == nil {
-            userPhoto.image = UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder)
+            userPhoto.image = userImagePlaceholder
         } else {
             userPhoto.setPhotoWithCaching(Photo(url: comment.user?.photo?.url),
-                                          placeholder: UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder))
+                                          placeholder: userImagePlaceholder)
         }
         
         likeButton.isSelected = comment.liked
         
         if let photo = comment.mediaPhoto {
-            mediaButton.imageView?.contentMode = .scaleAspectFill
-            mediaButton.setPhotoWithCaching(photo, placeholder: UIImage(asset: .placeholderPostNoimage))
+            mediaImageView.contentMode = .scaleAspectFill
+            if let url = photo.url {
+                let resziedPhoto = Photo(uid: photo.uid, url: url + Constants.ImageResize.pixels250, image: photo.image)
+                mediaImageView.setPhotoWithCaching(resziedPhoto, placeholder: postImagePlaceholder)
+            } else {
+                mediaImageView.setPhotoWithCaching(photo, placeholder: postImagePlaceholder)
+            }
+
             mediaButtonHeightConstraint.constant = UIScreen.main.bounds.size.height/3
             
         } else {
@@ -111,4 +123,12 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     func openReplies() {
         output.toReplies(scrollType: .none)
     }
+    
+    private lazy var postImagePlaceholder: UIImage = {
+        return UIImage(asset: Asset.placeholderPostNoimage)
+    }()
+    
+    private lazy var userImagePlaceholder: UIImage = {
+        return UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder)
+    }()
 }

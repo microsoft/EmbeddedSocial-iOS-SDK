@@ -14,3 +14,16 @@ final class CreateCommentCommand: CommentCommand {
         return comment.topicHandle
     }
 }
+
+
+extension CreateCommentCommand: TopicsFeedApplicableCommand {
+    
+    func apply(to feed: inout FeedFetchResult) {
+        guard let index = feed.posts.index(where: { $0.topicHandle == self.comment.topicHandle }) else {
+            return
+        }
+        var topic = feed.posts[index]
+        topic.totalComments += 1
+        feed.posts[index] = topic
+    }
+}

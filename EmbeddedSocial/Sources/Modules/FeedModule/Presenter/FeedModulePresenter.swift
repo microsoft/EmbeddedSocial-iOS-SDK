@@ -215,6 +215,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         guard let feedType = self.feedType else { return false }
         
         switch feedType {
+        case .single(post: _):
+            return false
         default:
             // All feeds use padding for cells
             return true

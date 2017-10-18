@@ -64,9 +64,9 @@ class UserProfilePresenterTests: XCTestCase {
         validateFeedInitialState(with: user, userIsCached: true)
     }
     
-    func testThatItSetsInitialStateWithOtherUser() {
+    func testThatItSetsInitialStateWithOtherPublicUser() {
         // given
-        let user = User(uid: UUID().uuidString, followersCount: randomValue, followingCount: randomValue)
+        let user = User(uid: UUID().uuidString, followersCount: randomValue, followingCount: randomValue, visibility: ._public)
         interactor.userToReturn = user
         
         let presenter = makeDefaultPresenter(userID: user.uid)
@@ -78,6 +78,7 @@ class UserProfilePresenterTests: XCTestCase {
         validateInitialState(with: user)
         
         XCTAssertEqual(view.layoutAsset, feedInput.layout.nextLayoutAsset)
+        XCTAssertFalse(view.setupPrivateAppearanceCalled)
 
         XCTAssertEqual(interactor.getUserCount, 1)
         XCTAssertEqual(interactor.cachedUserCount, 1)
@@ -469,6 +470,19 @@ extension UserProfilePresenterTests {
         XCTAssertFalse(presenter.shouldOpenProfile(for: myProfileHolder.me!.uid))
         XCTAssertFalse(presenter.shouldOpenProfile(for: userID))
         XCTAssertTrue(presenter.shouldOpenProfile(for: UUID().uuidString))
+    }
+    
+    func testThatPrivateUserViewisShown() {
+        // given
+        let user = User(uid: UUID().uuidString, visibility: ._private)
+        interactor.userToReturn = user
+        let presenter = makeDefaultPresenter(userID: user.uid)
+        
+        // when
+        presenter.viewIsReady()
+        
+        // then
+        XCTAssertTrue(view.setupPrivateAppearanceCalled)
     }
 }
 

@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import Alamofire
 
 extension UIViewController {
     typealias AlertActionHandler = ((UIAlertAction) -> Void)
@@ -37,7 +38,11 @@ extension UIViewController {
         }
     }
     
-    func showErrorAlert(_ error: Error) {
+    func showErrorAlert(_ error: Error, ignoreNoConnectionErrors: Bool = true) {
+        if ignoreNoConnectionErrors, let error = error as? APIError, case .notConnectedToInternet = error {
+            return
+        }
+        
         showAlert(message: error.localizedDescription)
     }
 }
