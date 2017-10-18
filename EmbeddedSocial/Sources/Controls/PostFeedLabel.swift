@@ -17,7 +17,7 @@ protocol FeedTextLabelProtocol {
     var eventHandler: FeedTextLabelHandler? { get set }
 }
 
-open class FeedTextLabel: TTTAttributedLabel, TTTAttributedLabelDelegate, FeedTextLabelProtocol {
+class FeedTextLabel: TTTAttributedLabel, TTTAttributedLabelDelegate, FeedTextLabelProtocol {
     
     weak var eventHandler: FeedTextLabelHandler?
     
