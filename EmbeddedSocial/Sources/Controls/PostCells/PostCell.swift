@@ -184,7 +184,6 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
 
         let result = [staticElementsHeight, dynamicHeight, staticConstraintsHeight].reduce(0.0, +)
         
-        Logger.log(postText.text, event: .veryImportant)
         return result
     }
     
