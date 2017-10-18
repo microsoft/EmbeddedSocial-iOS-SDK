@@ -33,7 +33,7 @@ class FeedTextLabel: TTTAttributedLabel, TTTAttributedLabelDelegate, FeedTextLab
     
     var showMoreAttributes: [String: Any] = [
         NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12),
-        NSForegroundColorAttributeName: UIColor.blue,
+        NSForegroundColorAttributeName: Palette.defaultTint,
         NSUnderlineStyleAttributeName: NSUnderlineStyle.styleNone.rawValue,
         NSLinkAttributeName: URL(string: "__showmore__")!
     ]
@@ -133,4 +133,15 @@ class FeedTextLabel: TTTAttributedLabel, TTTAttributedLabelDelegate, FeedTextLab
         eventHandler?.didTapReadMore()
     }
     
+}
+
+extension FeedTextLabel: Themeable {
+    
+    func apply(theme: Theme?) {
+        guard let palette = theme?.palette else {
+            return
+        }
+        
+        tagAttributes[NSForegroundColorAttributeName] = palette.accent
+    }
 }
