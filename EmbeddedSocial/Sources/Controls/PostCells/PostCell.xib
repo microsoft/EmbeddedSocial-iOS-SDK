@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="OEZ-HU-KUq" userLabel="container">
-                    <rect key="frame" x="0.0" y="0.0" width="364" height="362"/>
+                    <rect key="frame" x="0.0" y="0.0" width="364" height="356"/>
                     <subviews>
                         <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="oqe-ch-5n3" userLabel="header">
                             <rect key="frame" x="0.0" y="0.0" width="364" height="50"/>
@@ -80,38 +80,38 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="iJH-I2-d58" userLabel="postcontent">
-                            <rect key="frame" x="15" y="230" width="334" height="72"/>
+                            <rect key="frame" x="15" y="230" width="334" height="66"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="998" text="Smooth Sailing Over Calm Waters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYk-wD-2lQ">
-                                    <rect key="frame" x="0.0" y="15" width="334" height="17"/>
+                                    <rect key="frame" x="0.0" y="15" width="334" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="20" id="A86-HM-2l9"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="249" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhP-eN-hI9" customClass="ReadMoreTextView" customModule="EmbeddedSocial" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="52" width="334" height="10"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="Teaser" label="Teaser"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="10" id="dq9-Gp-GoY"/>
-                                    </constraints>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3qM-EK-j0l" userLabel="Post Text" customClass="FeedTextLabel" customModule="EmbeddedSocial" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="40" width="334" height="21"/>
                                     <string key="text">Well, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoatWell, if i had a boat... what do you all think of my painting though? #DreaBoat</string>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                </textView>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="WYk-wD-2lQ" firstAttribute="leading" secondItem="iJH-I2-d58" secondAttribute="leading" id="6vq-lL-fQu"/>
                                 <constraint firstAttribute="trailing" secondItem="WYk-wD-2lQ" secondAttribute="trailing" id="8GG-yZ-KDO"/>
-                                <constraint firstAttribute="bottom" secondItem="bhP-eN-hI9" secondAttribute="bottom" constant="10" id="I4q-Hm-V23"/>
-                                <constraint firstItem="bhP-eN-hI9" firstAttribute="leading" secondItem="iJH-I2-d58" secondAttribute="leading" id="Ti4-xa-hNA"/>
-                                <constraint firstAttribute="trailing" secondItem="bhP-eN-hI9" secondAttribute="trailing" id="dF4-ux-pkW"/>
-                                <constraint firstItem="bhP-eN-hI9" firstAttribute="top" secondItem="WYk-wD-2lQ" secondAttribute="bottom" constant="20" id="fJ4-uc-xJ2"/>
+                                <constraint firstItem="3qM-EK-j0l" firstAttribute="leading" secondItem="iJH-I2-d58" secondAttribute="leading" id="8Ia-Bl-eGp"/>
+                                <constraint firstAttribute="bottom" secondItem="3qM-EK-j0l" secondAttribute="bottom" constant="5" id="P8U-cr-FR1"/>
+                                <constraint firstItem="3qM-EK-j0l" firstAttribute="top" secondItem="WYk-wD-2lQ" secondAttribute="bottom" constant="5" id="YqP-Cy-iZu"/>
+                                <constraint firstAttribute="trailing" secondItem="3qM-EK-j0l" secondAttribute="trailing" id="gji-qU-Y5W"/>
                                 <constraint firstItem="WYk-wD-2lQ" firstAttribute="top" secondItem="iJH-I2-d58" secondAttribute="top" constant="15" id="iYV-1c-E4e"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ugb-5x-70X" userLabel="footer">
-                            <rect key="frame" x="0.0" y="302" width="364" height="60"/>
+                            <rect key="frame" x="0.0" y="296" width="364" height="60"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2C6-WJ-LvS" userLabel="like">
                                     <rect key="frame" x="15" y="8" width="44" height="44"/>
@@ -250,21 +250,23 @@
                 <outlet property="commentButton" destination="6te-RD-RH1" id="xkP-Ou-RAJ"/>
                 <outlet property="commentedCount" destination="G0a-2Y-w6G" id="esK-Sf-Tqv"/>
                 <outlet property="container" destination="OEZ-HU-KUq" id="x2e-LX-oXB"/>
-                <outlet property="dynamicElement" destination="iJH-I2-d58" id="No9-pb-vRV"/>
                 <outlet property="likeButton" destination="2C6-WJ-LvS" id="wCV-ro-zLw"/>
                 <outlet property="likedCount" destination="YLh-Pw-0g4" id="gWy-99-c0x"/>
                 <outlet property="pinButton" destination="LTY-SJ-7jo" id="uwC-Md-bG8"/>
                 <outlet property="postCreation" destination="hIe-cI-XjE" id="V3T-0h-0wD"/>
                 <outlet property="postImageButton" destination="3kI-kt-ADv" id="hxL-BH-Mlo"/>
                 <outlet property="postImageHeight" destination="IKi-3a-VjQ" id="ZKi-T8-dfn"/>
-                <outlet property="postText" destination="bhP-eN-hI9" id="2me-8O-h5I"/>
+                <outlet property="postText" destination="3qM-EK-j0l" id="Fch-HX-3sr"/>
                 <outlet property="postTitle" destination="WYk-wD-2lQ" id="OJU-HT-vgq"/>
-                <outlet property="textHeight" destination="dq9-Gp-GoY" id="B3z-3m-9Bq"/>
                 <outlet property="userName" destination="xH5-qG-Dco" id="hja-Z9-zzS"/>
                 <outlet property="userPhoto" destination="bYI-rM-xRs" id="QLN-qh-MaP"/>
                 <outletCollection property="staticHeigthElements" destination="tng-AR-z1W" collectionClass="NSMutableArray" id="T9L-U5-wfi"/>
                 <outletCollection property="staticHeigthElements" destination="3kI-kt-ADv" collectionClass="NSMutableArray" id="8NC-73-82r"/>
                 <outletCollection property="staticHeigthElements" destination="Ugb-5x-70X" collectionClass="NSMutableArray" id="4NW-ak-g0T"/>
+                <outletCollection property="staticConstaints" destination="A86-HM-2l9" collectionClass="NSMutableArray" id="2ML-XG-s1j"/>
+                <outletCollection property="staticConstaints" destination="iYV-1c-E4e" collectionClass="NSMutableArray" id="xDV-M1-18x"/>
+                <outletCollection property="staticConstaints" destination="P8U-cr-FR1" collectionClass="NSMutableArray" id="hb4-9n-dWH"/>
+                <outletCollection property="staticConstaints" destination="YqP-Cy-iZu" collectionClass="NSMutableArray" id="U46-O4-37c"/>
             </connections>
             <point key="canvasLocation" x="100" y="-110"/>
         </view>

@@ -50,7 +50,8 @@ extension Constants {
             static let imageHeight = CGFloat(180)
             
             struct Cell {
-                static let maxLines = 10
+                static let trimmedMaxLines = 10
+                static let maxLines = 100
             }
         }
     }
@@ -88,10 +89,33 @@ extension Constants {
     struct Search {
         static let historyMaxHeight: CGFloat = 300
     }
+    
+    struct ImageResize {
+/*
+ - d is 25 pixels wide
+ - h is 50 pixels wide
+ - l is 100 pixels wide
+ - p is 250 pixels wide
+ - t is 500 pixels wide
+ - x is 1000 pixels wide
+ 
+ - ImageType.UserPhoto supports d,h,l,p,t,x
+ - ImageType.ContentBlob supports d,h,l,p,t,x
+ - ImageType.AppIcon supports l
+ 
+ All resized images will maintain their aspect ratio. Any orientation specified in the EXIF headers will be honored.
+*/
+        static let pixels25 = "d"
+        static let pixels50 = "h"
+        static let pixels100 = "l"
+        static let pixels250 = "p"
+        static let pixels500 = "t"
+        static let pixels1000 = "x"
+    }
 }
 
 extension Constants {
-    
+ 
     struct API {
         static let unauthorizedStatusCode = 401
         static func authorization(_ sessionToken: String) -> Authorization { return "SocialPlus TK=\(sessionToken)" }
