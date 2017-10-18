@@ -1009,8 +1009,7 @@
 		8EAF45A61F6993730046F704 /* reply.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EAF45A51F6993730046F704 /* reply.json */; };
 		8EAF45A81F69989E0046F704 /* reply_post.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EAF45A71F69989E0046F704 /* reply_post.json */; };
 		8EAF45A91F6998C20046F704 /* Loop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E5A11F1FA5EF00E88ED6 /* Loop.swift */; };
-		8EE2C6C31F4594C500CFFE21 /* XCUIElementClearText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2C6C11F4594C500CFFE21 /* XCUIElementClearText.swift */; };
-		8EE2C6C41F4594C500CFFE21 /* XCUIElementTapByCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2C6C21F4594C500CFFE21 /* XCUIElementTapByCoordinate.swift */; };
+		8EE2C6C41F4594C500CFFE21 /* XCUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2C6C21F4594C500CFFE21 /* XCUIElement.swift */; };
 		8EE2C6C61F4594DF00CFFE21 /* ScrollToElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2C6C51F4594DF00CFFE21 /* ScrollToElement.swift */; };
 		8EE2C6C81F4594ED00CFFE21 /* TestUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2C6C71F4594ED00CFFE21 /* TestUserProfile.swift */; };
 		8EE2C6CA1F46D04A00CFFE21 /* info.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE2C6C91F46D04A00CFFE21 /* info.json */; };
@@ -2191,8 +2190,7 @@
 		8EAF45A01F698A350046F704 /* comment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = comment.json; sourceTree = "<group>"; };
 		8EAF45A51F6993730046F704 /* reply.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = reply.json; sourceTree = "<group>"; };
 		8EAF45A71F69989E0046F704 /* reply_post.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = reply_post.json; sourceTree = "<group>"; };
-		8EE2C6C11F4594C500CFFE21 /* XCUIElementClearText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCUIElementClearText.swift; sourceTree = "<group>"; };
-		8EE2C6C21F4594C500CFFE21 /* XCUIElementTapByCoordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCUIElementTapByCoordinate.swift; sourceTree = "<group>"; };
+		8EE2C6C21F4594C500CFFE21 /* XCUIElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCUIElement.swift; sourceTree = "<group>"; };
 		8EE2C6C51F4594DF00CFFE21 /* ScrollToElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollToElement.swift; sourceTree = "<group>"; };
 		8EE2C6C71F4594ED00CFFE21 /* TestUserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUserProfile.swift; sourceTree = "<group>"; };
 		8EE2C6C91F46D04A00CFFE21 /* info.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = info.json; sourceTree = "<group>"; };
@@ -5533,8 +5531,7 @@
 				8EF0E59F1F1FA5EF00E88ED6 /* DictionaryMerge.swift */,
 				8EF0E5A01F1FA5EF00E88ED6 /* ISODate.swift */,
 				8E60704B1F34CDFB00110F4F /* ParseURLParametersToDict.swift */,
-				8EE2C6C11F4594C500CFFE21 /* XCUIElementClearText.swift */,
-				8EE2C6C21F4594C500CFFE21 /* XCUIElementTapByCoordinate.swift */,
+				8EE2C6C21F4594C500CFFE21 /* XCUIElement.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -6780,7 +6777,7 @@
 				8E60704F1F34CE5500110F4F /* TestHome.swift in Sources */,
 				8E536BC01F69DE83006AF7A8 /* TestReplies.swift in Sources */,
 				8E1DC2901F8666BB000F5066 /* TestBlockedUsers.swift in Sources */,
-				8EE2C6C41F4594C500CFFE21 /* XCUIElementTapByCoordinate.swift in Sources */,
+				8EE2C6C41F4594C500CFFE21 /* XCUIElement.swift in Sources */,
 				8E6070741F41DD2000110F4F /* TestFollowing.swift in Sources */,
 				8E884CD61F87AE48008C0F51 /* CommentMenu.swift in Sources */,
 				8E26833F1F7CF6BF00A5B25B /* TestSettings.swift in Sources */,
@@ -6792,7 +6789,6 @@
 				8EF0E5AB1F1FA5EF00E88ED6 /* APIRouter.swift in Sources */,
 				8EE2C6C61F4594DF00CFFE21 /* ScrollToElement.swift in Sources */,
 				8EF0E5A61F1FA5EF00E88ED6 /* Base.swift in Sources */,
-				8EE2C6C31F4594C500CFFE21 /* XCUIElementClearText.swift in Sources */,
 				8E5FCAC41F83918700A81E2E /* RecentActivity.swift in Sources */,
 				8EF0E5C81F2AA13E00E88ED6 /* TestCreatePost.swift in Sources */,
 				8EAF45A91F6998C20046F704 /* Loop.swift in Sources */,
