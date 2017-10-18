@@ -11,8 +11,8 @@ extension PostCell: Themeable {
         guard let palette = theme?.palette else {
             return
         }
-//        postText.theme = theme
-//        postText.apply(theme: theme)
+        postText.theme = theme
+        postText.apply(theme: theme)
         
         postTitle.textColor = palette.textPrimary
         likedCount.textColor = palette.topicSecondaryText
