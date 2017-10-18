@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import SnapKit
 
 enum RepliesSections: Int {
     case comment = 0
@@ -17,13 +18,17 @@ fileprivate let indicatorViewHeight: CGFloat = 44
 class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput {
 
     @IBOutlet weak var postButton: UIButton!
-    @IBOutlet weak var replyTextView: UITextView!
-    @IBOutlet weak var replyTextViewHeightConstraint: NSLayoutConstraint!
+    var replyTextView = UITextView()
+    var replyTextViewHeightConstraint: Constraint!
     
     var output: CommentRepliesViewOutput!
 
     fileprivate var isNewDataLoading = false
     fileprivate let reloadDelay = 0.2
+    fileprivate let replyViewHeight: CGFloat = 35
+    fileprivate let leftTextViewOffset: CGFloat = 20
+    fileprivate let rightTextViewOffset: CGFloat = 20
+    fileprivate let topTextViewOffset: CGFloat = 10
     
     fileprivate var prototypeCommentCell: CommentCell!
     fileprivate var prototypeReplyCell: ReplyCell!
@@ -48,6 +53,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         refreshControl.beginRefreshing()
         view.isUserInteractionEnabled = false
         configCollecionView()
+        replyTextView.delegate = self
         configTextView()
         apply(theme: theme)
         output.viewIsReady()
@@ -60,6 +66,22 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
             self.collectionView.reloadData()
         }
         postButton.isHidden = replyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if replyTextView.superview == nil {
+            replyInputContainer.addSubview(replyTextView)
+            
+            replyTextView.snp.makeConstraints { (make) in
+                self.replyTextViewHeightConstraint = make.height.equalTo(replyViewHeight).constraint
+                make.left.equalTo(replyInputContainer).offset(leftTextViewOffset)
+                make.right.equalTo(postButton).inset(rightTextViewOffset + postButton.frame.size.width)
+                make.top.equalTo(replyInputContainer).offset(topTextViewOffset)
+                make.bottom.equalTo(replyInputContainer).offset(-topTextViewOffset)
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -88,6 +110,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         replyTextView.layer.borderWidth = 1
         replyTextView.layer.borderColor = UIColor.lightGray.cgColor
         replyTextView.layer.cornerRadius = 1
+        replyTextView.autocorrectionType = .no
     }
     
     fileprivate func scrollTableToBottom() {
@@ -172,6 +195,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         scrollTableToBottom()
         replyTextView.text = ""
         postButton.isHidden = true
+        replyTextViewHeightConstraint.update(offset: replyViewHeight)
         unlockUI()
     }
     
@@ -269,7 +293,7 @@ extension CommentRepliesViewController: UICollectionViewDelegateFlowLayout {
 
 extension CommentRepliesViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        replyTextViewHeightConstraint.constant = replyTextView.contentSize.height
+        replyTextViewHeightConstraint.update(offset: replyTextView.contentSize.height)
         view.layoutIfNeeded()
         postButton.isHidden = textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
