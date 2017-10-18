@@ -46,7 +46,7 @@ final class OutgoingCommandsUploadStrategy: OutgoingCommandsUploadStrategyType {
     }
     
     private func executePendingCommands() {
-        executeStep(.images)
+        executeStep(.removeTopics)
     }
     
     private func executeStep(_ step: Step) {
@@ -121,12 +121,16 @@ extension OutgoingCommandsUploadStrategy {
 extension OutgoingCommandsUploadStrategy.Step {
     typealias Step = OutgoingCommandsUploadStrategy.Step
     
+    static var removeTopics: Step {
+        return Step(predicate: PredicateBuilder().removeTopicCommands(), next: images)
+    }
+    
     static var images: Step {
         return Step(predicate: PredicateBuilder().allImageCommands(), next: createTopics)
     }
     
     static var createTopics: Step {
-        return Step(predicate: PredicateBuilder().createDeleteTopicCommands(), next: topicActions)
+        return Step(predicate: PredicateBuilder().createTopicCommands(), next: topicActions)
     }
     
     static var topicActions: Step {

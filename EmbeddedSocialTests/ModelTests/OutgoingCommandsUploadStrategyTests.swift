@@ -46,7 +46,7 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
     
     func testThatItRestartsSubmission() {
         // given
-        let submissionStepsCount = 8
+        let submissionStepsCount = 9
         let predicate = NSPredicate()
         var createdFetchOperations: [MockFetchOutgoingCommandsOperation] = []
         let commands = [MockOutgoingCommand(uid: UUID().uuidString), MockOutgoingCommand(uid: UUID().uuidString)]
@@ -108,9 +108,11 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
     }
     
     func testSubmissionSteps() {
+        validateSubmissionStep(.removeTopics, predicate: PredicateBuilder().removeTopicCommands(), nextStep: .images)
+
         validateSubmissionStep(.images, predicate: PredicateBuilder().allImageCommands(), nextStep: .createTopics)
         
-        validateSubmissionStep(.createTopics, predicate: PredicateBuilder().createDeleteTopicCommands(), nextStep: .topicActions)
+        validateSubmissionStep(.createTopics, predicate: PredicateBuilder().createTopicCommands(), nextStep: .topicActions)
         
         validateSubmissionStep(.topicActions, predicate: PredicateBuilder().allTopicActionCommands(), nextStep: .createDeleteComments)
         

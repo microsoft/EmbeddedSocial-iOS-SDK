@@ -41,7 +41,9 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         } else if let command = command as? CreateTopicCommand {
             return CreateTopicOperation(command: command, topicsService: TopicService(imagesService: ImagesService()))
         } else if let command = command as? RemoveTopicCommand {
-            return RemoveTopicOperation(command: command, topicsService: TopicService(imagesService: ImagesService()))
+            return RemoveTopicOperation(command: command,
+                                        topicsService: TopicService(imagesService: ImagesService()),
+                                        cleanupStrategy: CacheCleanupStrategyImpl(cache: SocialPlus.shared.cache))
         }
         
         // reply commands
@@ -52,7 +54,9 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         } else if let command = command as? CreateReplyCommand {
             return CreateReplyOperation(command: command, repliesService: RepliesService())
         } else if let command = command as? RemoveReplyCommand {
-            return RemoveReplyOperation(command: command, repliesService: RepliesService())
+            return RemoveReplyOperation(command: command,
+                                        repliesService: RepliesService(),
+                                        cleanupStrategy: CacheCleanupStrategyImpl(cache: SocialPlus.shared.cache))
         } else if let command = command as? ReportReplyCommand {
             return ReportReplyOperation(command: command, reportService: ReportingService())
         }
@@ -65,7 +69,9 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         } else if let command = command as? CreateCommentCommand {
             return CreateCommentOperation(command: command, commentsService: CommentsService(imagesService: ImagesService()))
         } else if let command = command as? RemoveCommentCommand {
-            return RemoveCommentOperation(command: command, commentService: CommentsService(imagesService: ImagesService()))
+            return RemoveCommentOperation(command: command,
+                                          commentService: CommentsService(imagesService: ImagesService()),
+                                          cleanupStrategy: CacheCleanupStrategyImpl(cache: SocialPlus.shared.cache))
         } else if let command = command as? ReportCommentCommand {
             return ReportCommentOperation(command: command, reportService: ReportingService())
         }

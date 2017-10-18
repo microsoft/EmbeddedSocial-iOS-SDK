@@ -21,12 +21,9 @@ struct CacheCleanupStrategyImpl: CacheCleanupStrategy {
     }
     
     func cleanupRelatedCommands(_ command: TopicCommand) {
-        deleteTopicComments(command.topic)
-    }
-    
-    private func deleteTopicComments(_ topic: Post) {
-        topicComments(topic).forEach(cleanupRelatedCommands)
-        let p = predicateBuilder.commandsWithRelatedHandle(topic.topicHandle, ignoredTypeID: CreateTopicCommand.typeIdentifier)
+        topicComments(command.topic).forEach(cleanupRelatedCommands)
+        
+        let p = predicateBuilder.predicate(relatedHandle: command.topic.topicHandle)
         cache.deleteOutgoing(with: p)
     }
     
@@ -37,6 +34,7 @@ struct CacheCleanupStrategyImpl: CacheCleanupStrategy {
     
     func cleanupRelatedCommands(_ command: CommentCommand) {
         commentReplies(command.comment).forEach(cleanupRelatedCommands)
+        
         let p = predicateBuilder.predicate(relatedHandle: command.comment.commentHandle)
         cache.deleteOutgoing(with: p)
     }

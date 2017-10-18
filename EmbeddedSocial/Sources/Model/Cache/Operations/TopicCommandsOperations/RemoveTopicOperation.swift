@@ -5,24 +5,15 @@
 
 import Foundation
 
-final class RemoveTopicOperation: OutgoingCommandOperation {
+final class RemoveTopicOperation: TopicCommandOperation {
     
-    let command: TopicCommand
     private let topicsService: PostServiceProtocol
-    private let predicateBuilder: OutgoingCommandsPredicateBuilder
-    private let cache: CacheType
     private let cleanupStrategy: CacheCleanupStrategy
     
-    init(command: TopicCommand,
-         topicsService: PostServiceProtocol,
-         cache: CacheType = SocialPlus.shared.cache,
-         predicateBuilder: OutgoingCommandsPredicateBuilder = PredicateBuilder()) {
-        
-        self.command = command
+    init(command: TopicCommand, topicsService: PostServiceProtocol, cleanupStrategy: CacheCleanupStrategy) {
         self.topicsService = topicsService
-        self.cache = cache
-        self.predicateBuilder = predicateBuilder
-        self.cleanupStrategy = CacheCleanupStrategyImpl(cache: cache, predicateBuilder: predicateBuilder)
+        self.cleanupStrategy = cleanupStrategy
+        super.init(command: command)
     }
     
     override func main() {
@@ -30,14 +21,17 @@ final class RemoveTopicOperation: OutgoingCommandOperation {
             return
         }
         
-        topicsService.deletePost(post: command.topic.topicHandle) { [weak self, command] result in
-            guard result.isSuccess else {
+        topicsService.deletePost(post: command.topic.topicHandle) { [weak self] result in
+            if result.isSuccess {
+                self?.cleanupAndComplete()
+            } else {
                 self?.completeOperation(with: result.error)
-                return
             }
-//            Dispatch.async
-            self?.cleanupStrategy.cleanupRelatedCommands(command)
-            self?.completeOperation()
         }
+    }
+    
+    private func cleanupAndComplete() {
+        cleanupStrategy.cleanupRelatedCommands(command)
+        completeOperation()
     }
 }

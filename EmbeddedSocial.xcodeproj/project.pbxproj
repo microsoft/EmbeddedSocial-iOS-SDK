@@ -247,6 +247,8 @@
 		8831EDE41F9756EC0013C8B8 /* RemoveTopicCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8831EDE31F9756EC0013C8B8 /* RemoveTopicCommandTests.swift */; };
 		8831EDE61F975A350013C8B8 /* RemoveTopicOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8831EDE51F975A350013C8B8 /* RemoveTopicOperationTests.swift */; };
 		8831EDE81F975CF10013C8B8 /* CacheCleanupStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8831EDE71F975CF10013C8B8 /* CacheCleanupStrategy.swift */; };
+		8831EDEC1F977B560013C8B8 /* MockCacheCleanupStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8831EDEB1F977B560013C8B8 /* MockCacheCleanupStrategy.swift */; };
+		8831EDEE1F97832E0013C8B8 /* CacheCleanupStrategyImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8831EDED1F97832E0013C8B8 /* CacheCleanupStrategyImplTests.swift */; };
 		8834A7491F50071300F1D383 /* QueryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A7481F50071300F1D383 /* QueryPage.swift */; };
 		8834A74B1F50095B00F1D383 /* CacheFetchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */; };
 		8834A74D1F5011B600F1D383 /* CacheQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A74C1F5011B600F1D383 /* CacheQueries.swift */; };
@@ -1408,6 +1410,8 @@
 		8831EDE31F9756EC0013C8B8 /* RemoveTopicCommandTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveTopicCommandTests.swift; sourceTree = "<group>"; };
 		8831EDE51F975A350013C8B8 /* RemoveTopicOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveTopicOperationTests.swift; sourceTree = "<group>"; };
 		8831EDE71F975CF10013C8B8 /* CacheCleanupStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheCleanupStrategy.swift; sourceTree = "<group>"; };
+		8831EDEB1F977B560013C8B8 /* MockCacheCleanupStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCacheCleanupStrategy.swift; sourceTree = "<group>"; };
+		8831EDED1F97832E0013C8B8 /* CacheCleanupStrategyImplTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheCleanupStrategyImplTests.swift; sourceTree = "<group>"; };
 		8834A7481F50071300F1D383 /* QueryPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryPage.swift; sourceTree = "<group>"; };
 		8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheFetchRequest.swift; sourceTree = "<group>"; };
 		8834A74C1F5011B600F1D383 /* CacheQueries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheQueries.swift; sourceTree = "<group>"; };
@@ -4367,6 +4371,7 @@
 				88D1231D1F7531EE001523D1 /* OutgoingCommandsUploadStrategyTests.swift */,
 				886826141F6AA16700F54731 /* OutgoingCommandsUploaderTests.swift */,
 				88E662091F7AA18400C98526 /* UsersListProcessorTests.swift */,
+				8831EDED1F97832E0013C8B8 /* CacheCleanupStrategyImplTests.swift */,
 			);
 			path = ModelTests;
 			sourceTree = "<group>";
@@ -4601,6 +4606,7 @@
 				889AFC151F220BCD003AAF19 /* MockAuthAPIProvider.swift */,
 				88F7A7881F27896B005FEC5F /* MockAuthService.swift */,
 				8886AA561F6A85B800734F3C /* MockAuthorizationMulticast.swift */,
+				8831EDEB1F977B560013C8B8 /* MockCacheCleanupStrategy.swift */,
 				8811C8391F41F30B00F7513D /* MockCache.swift */,
 				93AC65AD1F3E05DA00FE5A3A /* MockCommentService.swift */,
 				8881E4E61F697D7200AA6DF2 /* MockDaemon.swift */,
@@ -7560,6 +7566,7 @@
 				88F1637D1F264B0F00DAAF68 /* SessionStoreTests.swift in Sources */,
 				88D2F8FA1F56D42F0004A8BC /* ReportPostAPITests.swift in Sources */,
 				63DCE6D51F7D1FD800F9F76B /* ReportReplyOperationTests.swift in Sources */,
+				8831EDEE1F97832E0013C8B8 /* CacheCleanupStrategyImplTests.swift in Sources */,
 				889AFC291F220BCD003AAF19 /* MockAuthAPI.swift in Sources */,
 				880AFD471F6FE89A00378710 /* UnlikeReplyCommandTests.swift in Sources */,
 				88EBD2191F6BF55100F9DDFC /* SuggestedUsersPresenterTests.swift in Sources */,
@@ -7792,6 +7799,7 @@
 				88ABC7B91F72A46100C83C82 /* CreateTopicImageOperationTests.swift in Sources */,
 				8811C82B1F3D998300F7513D /* MockImageCache.swift in Sources */,
 				88B2D6961F7BEF3900920E43 /* MockUserCommand.swift in Sources */,
+				8831EDEC1F977B560013C8B8 /* MockCacheCleanupStrategy.swift in Sources */,
 				883B9B661F277BE800D1E66E /* CoreDataStackTests.swift in Sources */,
 				88635D771F223F1600577140 /* CoreDataStackBuilderTests.swift in Sources */,
 				63B62ED21F83CA17003DC885 /* ReplyCellPresenterTests.swift in Sources */,

@@ -6,6 +6,12 @@
 import Foundation
 
 final class UnlikeCommentOperation: CommentCommandOperation {
+    private let likesService: LikesServiceProtocol
+    
+    init(command: CommentCommand, likesService: LikesServiceProtocol) {
+        self.likesService = likesService
+        super.init(command: command)
+    }
     
     override func main() {
         guard !isCancelled else {

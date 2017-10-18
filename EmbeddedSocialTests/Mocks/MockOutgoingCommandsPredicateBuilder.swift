@@ -17,16 +17,6 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
         return allImageCommandsReturnValue
     }
     
-    //MARK: - createDeleteTopicCommands
-    
-    var createDeleteTopicCommandsCalled = false
-    var createDeleteTopicCommandsReturnValue: NSPredicate!
-    
-    func createDeleteTopicCommands() -> NSPredicate {
-        createDeleteTopicCommandsCalled = true
-        return createDeleteTopicCommandsReturnValue
-    }
-    
     //MARK: - createTopicCommand
     
     var createTopicCommandTopicHandleCalled = false
@@ -63,14 +53,16 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
         return commandsWithRelatedHandleIgnoredTypeIDReturnValue
     }
     
-    //MARK: - createDeleteCommentCommands
+    //MARK: - predicate
     
-    var createDeleteCommentCommandsCalled = false
-    var createDeleteCommentCommandsReturnValue: NSPredicate!
+    var predicateRelatedHandleCalled = false
+    var predicateRelatedHandleReceivedRelatedHandle: String?
+    var predicateRelatedHandleReturnValue: NSPredicate!
     
-    func createDeleteCommentCommands() -> NSPredicate {
-        createDeleteCommentCommandsCalled = true
-        return createDeleteCommentCommandsReturnValue
+    func predicate(relatedHandle: String) -> NSPredicate {
+        predicateRelatedHandleCalled = true
+        predicateRelatedHandleReceivedRelatedHandle = relatedHandle
+        return predicateRelatedHandleReturnValue
     }
     
     //MARK: - allTopicActionCommands
@@ -124,5 +116,59 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
         allUserCommandsCalled = true
         return allUserCommandsReturnValue
     }
-
+    
+    //MARK: - predicate
+    
+    var predicateTypeIDRelatedHandleCalled = false
+    var predicateTypeIDRelatedHandleReceivedArguments: (typeID: String, relatedHandle: String)?
+    var predicateTypeIDRelatedHandleReturnValue: NSPredicate!
+    
+    func predicate(typeID: String, relatedHandle: String) -> NSPredicate {
+        predicateTypeIDRelatedHandleCalled = true
+        predicateTypeIDRelatedHandleReceivedArguments = (typeID: typeID, relatedHandle: relatedHandle)
+        return predicateTypeIDRelatedHandleReturnValue
+    }
+    
+    //MARK: - replyActionCommands
+    
+    var replyActionCommandsForCalled = false
+    var replyActionCommandsForReceivedReplyHandle: String?
+    var replyActionCommandsForReturnValue: NSPredicate!
+    
+    func replyActionCommands(for replyHandle: String) -> NSPredicate {
+        replyActionCommandsForCalled = true
+        replyActionCommandsForReceivedReplyHandle = replyHandle
+        return replyActionCommandsForReturnValue
+    }
+    
+    //MARK: - createTopicCommands
+    
+    var createTopicCommandsCalled = false
+    var createTopicCommandsReturnValue: NSPredicate!
+    
+    func createTopicCommands() -> NSPredicate {
+        createTopicCommandsCalled = true
+        return createTopicCommandsReturnValue
+    }
+    
+    //MARK: - removeTopicCommands
+    
+    var removeTopicCommandsCalled = false
+    var removeTopicCommandsReturnValue: NSPredicate!
+    
+    func removeTopicCommands() -> NSPredicate {
+        removeTopicCommandsCalled = true
+        return removeTopicCommandsReturnValue
+    }
+    
+    //MARK: - createDeleteCommentCommands
+    
+    var createDeleteCommentCommandsCalled = false
+    var createDeleteCommentCommandsReturnValue: NSPredicate!
+    
+    func createDeleteCommentCommands() -> NSPredicate {
+        createDeleteCommentCommandsCalled = true
+        return createDeleteCommentCommandsReturnValue
+    }
+    
 }
