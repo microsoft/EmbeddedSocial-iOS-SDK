@@ -13,7 +13,8 @@ class RemoveReplyOperationTests: XCTestCase {
         let reply = Reply(replyHandle: UUID().uuidString)
         let command = ReplyCommand(reply: reply)
         let service = MockRepliesService()
-        let sut = RemoveReplyOperation(command: command, repliesService: service)
+        let cleanupStrategy = MockCacheCleanupStrategy()
+        let sut = RemoveReplyOperation(command: command, repliesService: service, cleanupStrategy: cleanupStrategy)
         
         // when
         let queue = OperationQueue()
@@ -22,6 +23,9 @@ class RemoveReplyOperationTests: XCTestCase {
         
         // then
         XCTAssertTrue(service.deleteReplyCalled)
+        XCTAssertTrue(cleanupStrategy.cleanupRelatedCommandsWithReplyCommandCalled)
+        let receivedReplyHandle = cleanupStrategy.cleanupRelatedCommandsWithReplyCommandReceivedCommand?.reply.replyHandle
+        XCTAssertEqual(receivedReplyHandle, reply.replyHandle)
     }
     
 }

@@ -5,7 +5,7 @@
 
 @testable import EmbeddedSocial
 
-class MockTopicServicePredicateBuilder: TopicServicePredicateBuilder {
+class MockTopicServicePredicateBuilder: TopicsFeedProcessorPredicateBuilder {
     
     //MARK: - allTopicActionCommands
     
@@ -27,14 +27,14 @@ class MockTopicServicePredicateBuilder: TopicServicePredicateBuilder {
         return allTopicCommandsReturnValue
     }
     
-    //MARK: - topicActionCommandsAndAllCreatedComments
+    //MARK: - topicActionsRemovedTopicsCreatedComments
     
-    var topicActionCommandsAndAllCreatedCommentsCalled = false
-    var topicActionCommandsAndAllCreatedCommentsReturnValue: NSPredicate!
+    var topicActionsRemovedTopicsCreatedCommentsCalled = false
+    var topicActionsRemovedTopicsCreatedCommentsReturnValue: NSPredicate!
     
-    func topicActionCommandsAndAllCreatedComments() -> NSPredicate {
-        topicActionCommandsAndAllCreatedCommentsCalled = true
-        return topicActionCommandsAndAllCreatedCommentsReturnValue
+    func topicActionsRemovedTopicsCreatedComments() -> NSPredicate {
+        topicActionsRemovedTopicsCreatedCommentsCalled = true
+        return topicActionsRemovedTopicsCreatedCommentsReturnValue
     }
     
     //MARK: - allTopicCommandsAndAllCreatedComments

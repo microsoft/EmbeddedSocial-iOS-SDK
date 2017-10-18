@@ -7,11 +7,9 @@ import Foundation
 
 class CommentCommandOperation: OutgoingCommandOperation {
     let command: CommentCommand
-    let likesService: LikesServiceProtocol
     
-    init(command: CommentCommand, likesService: LikesServiceProtocol) {
+    init(command: CommentCommand) {
         self.command = command
-        self.likesService = likesService
         super.init()
     }
     

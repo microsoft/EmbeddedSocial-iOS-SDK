@@ -96,47 +96,30 @@ extension Post {
 extension Post: JSONEncodable {
     
      init?(json: [String: Any]) {
-        
-//        guard let topicView: TopicView = Decoders.decode(type: TopicView.self, payload: json) else {
-//            return nil
-//        }
-//
-//        self.init(data: topicView)
-        
-//
         guard let handle = json["topicHandle"] as? String else {
             return nil
         }
+        
+        var user: User
 
-        guard let userJSON = json["user"] as? [String: Any] else {
-            return nil
-        }
-
-        guard let user = User(memento: userJSON) else {
-            return nil
-        }
-
-        guard let title = json["title"] as? String,
-            let text = json["text"] as? String,
-            let totalLikes = json["totalLikes"] as? Int,
-            let totalComments = json["totalComments"] as? Int,
-            let liked = json["liked"] as? Bool,
-            let pinned = json["pinned"] as? Bool else {
-                return nil
+        if let userJSON = json["user"] as? [String: Any] {
+            user = User(memento: userJSON) ?? User()
+        } else {
+            user = User()
         }
         
         self.init(topicHandle: handle,
-                    createdTime: json["createdTime"] as? Date,
-                    user: user,
-                    imageUrl: json["imageUrl"] as? String,
-                    imageHandle: json["imageHandle"] as? String,
-                    title: title,
-                    text: text,
-                    deepLink: json["deepLink"] as? String,
-                    totalLikes: totalLikes,
-                    totalComments: totalComments,
-                    liked: liked,
-                    pinned: pinned)
+                  createdTime: json["createdTime"] as? Date,
+                  user: user,
+                  imageUrl: json["imageUrl"] as? String,
+                  imageHandle: json["imageHandle"] as? String,
+                  title: json["title"] as? String,
+                  text: json["text"] as? String,
+                  deepLink: json["deepLink"] as? String,
+                  totalLikes: json["totalLikes"] as? Int ?? 0,
+                  totalComments: json["totalComments"] as? Int ?? 0,
+                  liked: json["liked"] as? Bool ?? false,
+                  pinned: json["pinned"] as? Bool ?? false)
     }
     
     func encodeToJSON() -> Any {
@@ -257,3 +240,10 @@ extension FeedFetchResult {
     }
 }
 
+extension Post {
+    
+    init(topicHandle: String) {
+        self.topicHandle = topicHandle
+        user = User()
+    }
+}

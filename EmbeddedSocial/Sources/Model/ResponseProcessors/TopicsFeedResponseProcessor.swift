@@ -16,15 +16,15 @@ class TopicsFeedResponseProcessor: ResponseProcessor<FeedResponseTopicView, Feed
     
     let cache: CacheType
     let operationsBuilder: OutgoingCommandOperationsBuilderType
-    let predicateBuilder: TopicServicePredicateBuilder
+    let predicateBuilder: TopicsFeedProcessorPredicateBuilder
     
     var commandsPredicate: NSPredicate {
-        return predicateBuilder.topicActionCommandsAndAllCreatedComments()
+        return predicateBuilder.topicActionsRemovedTopicsCreatedComments()
     }
     
     init(cache: CacheType,
          operationsBuilder: OutgoingCommandOperationsBuilderType = OutgoingCommandOperationsBuilder(),
-         predicateBuilder: TopicServicePredicateBuilder = PredicateBuilder()) {
+         predicateBuilder: TopicsFeedProcessorPredicateBuilder = PredicateBuilder()) {
         
         self.cache = cache
         self.operationsBuilder = operationsBuilder
