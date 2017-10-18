@@ -99,8 +99,9 @@ extension FeedType: Equatable {
     }
 }
 
-enum FeedPostCellAction: Int {
+enum FeedPostCellAction {
     case like, pin, comment, extra, profile, photo, likesList, postDetailed
+    case hashtag(String)
     
     var requiresAuthorization: Bool {
         switch self {
@@ -110,10 +111,6 @@ enum FeedPostCellAction: Int {
             return false
         }
     }
-}
-
-extension FeedPostCellAction {
-    static let allCases: [FeedPostCellAction] = [.like, .pin, .comment, .extra, .profile, .photo, .likesList]
 }
 
 enum FeedModuleLayoutType: Int {
@@ -441,6 +438,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             
         case .likesList:
             router.open(route: .likesList(postHandle: post.topicHandle), feedSource: feedType)
+            
+        case .hashtag(let value):
+            router.open(route: .search(hashtag: value), feedSource: feedType)
         }
     }
     
