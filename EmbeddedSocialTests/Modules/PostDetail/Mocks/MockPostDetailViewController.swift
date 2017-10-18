@@ -78,4 +78,8 @@ class MockPostDetailViewController: UIViewController, PostDetailViewInput {
     func showLoadingHUD() {
         
     }
+    
+    func hideLoadingHUD() {
+        
+    }
 }

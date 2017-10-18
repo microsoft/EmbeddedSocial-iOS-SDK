@@ -25,7 +25,7 @@ class Comment {
         self.likeButton = self.cell.buttons["Like"]
         self.replyButton = self.cell.buttons["Reply"]
         self.likesButton = self.cell.buttons.element(boundBy: 4)
-        self.repliesButton = self.cell.buttons.element(boundBy: 5)
+        self.repliesButton = self.cell.otherElements.element.otherElements.element.buttons["Replies Button"]
         
         menuButton = self.cell.buttons["Post Menu"]
         commentMenu = CommentMenu(app, self)
