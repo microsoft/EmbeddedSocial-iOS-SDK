@@ -124,7 +124,7 @@ extension Post: JSONEncodable {
             let pinned = json["pinned"] as? Bool else {
                 return nil
         }
-
+        
         self.init(topicHandle: handle,
                     createdTime: json["createdTime"] as? Date,
                     user: user,
@@ -183,13 +183,22 @@ extension Post {
                 return nil
         }
         
+        // Workaround for bad strings
+        var invalidCharacters = CharacterSet()
+        invalidCharacters.formUnion(.illegalCharacters)
+        invalidCharacters.formUnion(.controlCharacters)
+        
+        let filteredText = text
+            .components(separatedBy: invalidCharacters)
+            .joined(separator: "")
+        
         self.init(topicHandle: handle,
                   createdTime: data.createdTime,
                   user: user,
                   imageUrl: data.blobUrl,
                   imageHandle: data.blobHandle,
                   title: title,
-                  text: text,
+                  text: filteredText,
                   deepLink: data.deepLink,
                   totalLikes: likesNumber,
                   totalComments: commentsNumber,
