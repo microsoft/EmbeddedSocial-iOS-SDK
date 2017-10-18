@@ -3,20 +3,26 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 
-class TestFollowing: TestFollowers {
+class TestFollowingOnline: TestFollowersOnline {
     
     override func setUp() {
         super.setUp()
+        
         feedName = "User Following"
         feedHandle = "UserFollowing"
     }
     
-    override func openScreen() {
-        menu.navigateToUserProfile()
-        profile.followingButton.tap()
-        sleep(1)
+}
+
+class TestFollowingOffline: TestFollowersOffline {
+    
+    override func setUp() {
+        super.setUp()
+        
+        feedName = "User Following"
+        feedHandle = "UserFollowing"
     }
+    
 }
