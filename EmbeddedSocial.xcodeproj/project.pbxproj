@@ -2629,8 +2629,8 @@
 				88ABC7AC1F72A19200C83C82 /* CreateTopicCommandTests.swift */,
 				880AFD391F6FE38D00378710 /* LikeTopicCommandTests.swift */,
 				880AFD3F1F6FE67500378710 /* PinTopicCommandTests.swift */,
-				88C682381F7939D6004BD291 /* TopicCommandTests.swift */,
 				8831EDE31F9756EC0013C8B8 /* RemoveTopicCommandTests.swift */,
+				88C682381F7939D6004BD291 /* TopicCommandTests.swift */,
 				880AFD3D1F6FE5E400378710 /* UnlikeTopicCommandTests.swift */,
 				880AFD411F6FE6CD00378710 /* UnpinTopicCommandTests.swift */,
 			);
@@ -2679,9 +2679,9 @@
 				88ABC7AE1F72A1C900C83C82 /* CreateTopicOperationTests.swift */,
 				880AFD571F70035F00378710 /* LikeTopicOperationTests.swift */,
 				880AFD5B1F7004AD00378710 /* PinTopicOperationTests.swift */,
+				8831EDE51F975A350013C8B8 /* RemoveTopicOperationTests.swift */,
 				880AFD591F70042E00378710 /* UnlikeTopicOperationTests.swift */,
 				880AFD5D1F70057100378710 /* UnpinTopicOperationTests.swift */,
-				8831EDE51F975A350013C8B8 /* RemoveTopicOperationTests.swift */,
 			);
 			path = TopicOperations;
 			sourceTree = "<group>";
@@ -3413,8 +3413,8 @@
 				88580A8B1F2213AB00C1CBAF /* APIError.swift */,
 				88580A8C1F2213AB00C1CBAF /* AppFonts.swift */,
 				880435CB1F67D04500154ACD /* AsyncOperation.swift */,
-				88580A8A1F2213AB00C1CBAF /* CellModel.swift */,
 				8831EDE71F975CF10013C8B8 /* CacheCleanupStrategy.swift */,
+				88580A8A1F2213AB00C1CBAF /* CellModel.swift */,
 				88B94EF91F66B278002392F9 /* Daemon.swift */,
 				9CDDB2021F38866000C46785 /* DateFormatter.swift */,
 				88580A8D1F2213AB00C1CBAF /* Identifiable.swift */,
@@ -3468,12 +3468,12 @@
 				88FFFA601F306EC80066A1A0 /* BarButtonItemWithTarget.swift */,
 				88580A891F2213AB00C1CBAF /* ButtonWithTarget.swift */,
 				88580AA01F2213AB00C1CBAF /* LoadingIndicatorView.swift */,
+				6322E4141F8E421100B54F3F /* OfflineView.swift */,
 				9CEF6E031F616B23001FA000 /* ReadMoreTextView.swift */,
 				9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */,
 				88580AA41F2213AB00C1CBAF /* TextFieldCell.swift */,
 				88580B3D1F2213AB00C1CBAF /* UploadPhotoCell.swift */,
 				88580AA81F2213AB00C1CBAF /* WebViewController.swift */,
-				6322E4141F8E421100B54F3F /* OfflineView.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -3980,9 +3980,9 @@
 				8839B8721F83B5CE00D97BE6 /* StartupCommands */,
 				88580B9A1F2213AB00C1CBAF /* Validators */,
 				889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */,
-				884499D71F8D10CC00838083 /* AuthorizedActionStrategy.swift */,
 				8811C8331F3DE8A500F7513D /* AssociatedValue.swift */,
 				882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */,
+				884499D71F8D10CC00838083 /* AuthorizedActionStrategy.swift */,
 				88087B451F2A431E00A33E9A /* ButtonDecorator.swift */,
 				8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */,
 				88580B931F2213AB00C1CBAF /* Constants.swift */,
@@ -4327,12 +4327,12 @@
 				880AFD561F70034700378710 /* TopicOperations */,
 				880AFD3B1F6FE57E00378710 /* UserCommands */,
 				880AFD4D1F6FEDF000378710 /* UserOperations */,
+				8831EDED1F97832E0013C8B8 /* CacheCleanupStrategyImplTests.swift */,
 				886826121F6AA04900F54731 /* OutgoingCommandOperationsBuilderTests.swift */,
 				886826101F6A948700F54731 /* OutgoingCommandTests.swift */,
 				88D1231D1F7531EE001523D1 /* OutgoingCommandsUploadStrategyTests.swift */,
 				886826141F6AA16700F54731 /* OutgoingCommandsUploaderTests.swift */,
 				88E662091F7AA18400C98526 /* UsersListProcessorTests.swift */,
-				8831EDED1F97832E0013C8B8 /* CacheCleanupStrategyImplTests.swift */,
 			);
 			path = ModelTests;
 			sourceTree = "<group>";
@@ -4562,13 +4562,12 @@
 			children = (
 				9C3024381F55A5F600675FE9 /* FeedModule */,
 				889AFC141F220BCD003AAF19 /* MockAuthAPI.swift */,
-				884499DB1F8E0B6500838083 /* MockLoginModalOpener.swift */,
-				88FEFC9D1F8E1B9100D81CAB /* MockAuthorizedActionStrategy.swift */,
 				889AFC151F220BCD003AAF19 /* MockAuthAPIProvider.swift */,
 				88F7A7881F27896B005FEC5F /* MockAuthService.swift */,
 				8886AA561F6A85B800734F3C /* MockAuthorizationMulticast.swift */,
-				8831EDEB1F977B560013C8B8 /* MockCacheCleanupStrategy.swift */,
+				88FEFC9D1F8E1B9100D81CAB /* MockAuthorizedActionStrategy.swift */,
 				8811C8391F41F30B00F7513D /* MockCache.swift */,
+				8831EDEB1F977B560013C8B8 /* MockCacheCleanupStrategy.swift */,
 				93AC65AD1F3E05DA00FE5A3A /* MockCommentService.swift */,
 				8881E4E61F697D7200AA6DF2 /* MockDaemon.swift */,
 				88D123231F753786001523D1 /* MockFetchOutgoingCommandsOperation.swift */,
@@ -4580,6 +4579,7 @@
 				88F163821F273CEB00DAAF68 /* MockKeyValueRepository.swift */,
 				881F7E611F263888003EB37A /* MockKeyValueStorage.swift */,
 				88E3AC201F5565200016357F /* MockLikesService.swift */,
+				884499DB1F8E0B6500838083 /* MockLoginModalOpener.swift */,
 				8811C8241F3C72CD00F7513D /* MockLogoutController.swift */,
 				8881E4E81F69819100AA6DF2 /* MockNetworkTracker.swift */,
 				88D1231F1F7533C3001523D1 /* MockOperationQueue.swift */,
@@ -4621,10 +4621,10 @@
 		889AFC1B1F220BCD003AAF19 /* UtilsTest */ = {
 			isa = PBXGroup;
 			children = (
+				88252E1C1F9642C500A305A3 /* APIErrorTests.swift */,
 				884C9C3F1F4D911C0004907F /* CachePredicateBuilderTests.swift */,
 				88F163841F2745E500DAAF68 /* CreateAccountValidatorTests.swift */,
 				88A970471F8397E50047D591 /* HexColor.swift */,
-				88252E1C1F9642C500A305A3 /* APIErrorTests.swift */,
 				889AFC1C1F220BCD003AAF19 /* NameComponentsSplitterTests.swift */,
 				8811C8221F3C728E00F7513D /* UnauthorizedErrorHandlerTests.swift */,
 			);
@@ -4832,10 +4832,10 @@
 		88BC5C491F2B65D0001FBDD2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				88252E1A1F9116F400A305A3 /* PrivateUserProfileView.swift */,
 				88BC5C4A1F2B65D0001FBDD2 /* UserProfile.storyboard */,
 				88F551A91F386F1300F4AAB9 /* UserProfileHeaderView.swift */,
 				88BC5C4B1F2B65D0001FBDD2 /* UserProfileViewController.swift */,
-				88252E1A1F9116F400A305A3 /* PrivateUserProfileView.swift */,
 				88BC5C4C1F2B65D0001FBDD2 /* UserProfileViewInput.swift */,
 				88BC5C4D1F2B65D0001FBDD2 /* UserProfileViewOutput.swift */,
 			);
@@ -5232,8 +5232,8 @@
 				883BFFDB1F713AC600E1C4E3 /* CreateTopicCommand.swift */,
 				88EBD21F1F6C004600F9DDFC /* LikeTopicCommand.swift */,
 				88EBD2211F6C005200F9DDFC /* PinTopicCommand.swift */,
-				88EBD21A1F6BFDC100F9DDFC /* TopicCommand.swift */,
 				885994DE1F96586300947544 /* RemoveTopicCommand.swift */,
+				88EBD21A1F6BFDC100F9DDFC /* TopicCommand.swift */,
 				88EBD21D1F6C003A00F9DDFC /* UnlikeTopicCommand.swift */,
 				88EBD2231F6C005900F9DDFC /* UnpinTopicCommand.swift */,
 			);
