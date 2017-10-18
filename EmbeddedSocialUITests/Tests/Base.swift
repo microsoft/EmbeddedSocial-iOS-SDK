@@ -48,6 +48,7 @@ class UITestBase: XCTestCase {
     
     func setUpProperties() {
         APIConfig.isReachable = true
+        APIConfig.responsesDelay = 0
     }
     
     func startServer() {
