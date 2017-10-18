@@ -290,7 +290,8 @@ class FeedModulePresenter_Tests: XCTestCase {
     }
     
     func testThatItProducesCorrectRoutesForCellActionsWithMyUser() {
-        // setup
+        
+        // given
         
         let myUserHandle = UUID().uuidString
         let userHolder = UserHolderMock()
@@ -321,27 +322,16 @@ class FeedModulePresenter_Tests: XCTestCase {
         
         let path = IndexPath(row: 0, section: 0)
         
-        var expectedResults = [FeedPostCellAction: FeedModuleRoutes]()
-        expectedResults[.extra] = .myPost(post: post)
-        expectedResults[.profile] = .myProfile
-        
-        for (action, expectedResult) in expectedResults {
-            
-            // given
-            router.open_route_feedSource_ReceivedArguments = nil
-            
-            // when
-            sut.handle(action: action, path: path)
-            
-            // then
-            XCTAssertEqual(router.open_route_feedSource_ReceivedArguments?.route, expectedResult)
-        }
-       
-        
-//        expect(<#T##expression: T?##T?#>)
+        // extra event testing
+        router.open_route_feedSource_ReceivedArguments = nil
+        sut.handle(action: .extra, path: path)
+        XCTAssertEqual(router.open_route_feedSource_ReceivedArguments?.route, .myPost(post: post))
         
         
-    
+        // profile event testing
+        router.open_route_feedSource_ReceivedArguments = nil
+        sut.handle(action: .profile, path: path)
+        XCTAssertEqual(router.open_route_feedSource_ReceivedArguments?.route, .myProfile)
     }
     
     func testThatItOpensLoginWhenAnonymousUserAttemptsToPerformLikeOrPin() {

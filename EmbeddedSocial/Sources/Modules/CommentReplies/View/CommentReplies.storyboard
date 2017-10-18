@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17A365" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -21,23 +21,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eas-GA-d1r">
-                                <rect key="frame" x="0.0" y="613" width="375" height="54"/>
+                                <rect key="frame" x="0.0" y="616" width="375" height="51"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4yC-A1-pmT">
-                                        <rect key="frame" x="20" y="11" width="284" height="33"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <accessibility key="accessibilityConfiguration" identifier="ReplyText" label="ReplyText"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="33" id="NFE-vQ-A56"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Type here to reply to this comment"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </textView>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qut-uO-elp">
-                                        <rect key="frame" x="324" y="14" width="31" height="30"/>
+                                        <rect key="frame" x="324" y="11" width="31" height="30"/>
                                         <accessibility key="accessibilityConfiguration" identifier="Post" label="Post"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="CqH-qr-0yE"/>
@@ -59,19 +46,16 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Qut-uO-elp" secondAttribute="trailing" constant="20" id="Etg-5N-olm"/>
+                                    <constraint firstItem="Qut-uO-elp" firstAttribute="top" secondItem="bQk-Ps-pv3" secondAttribute="bottom" priority="250" constant="10" id="IRm-n0-DvW"/>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="J29-Ml-JG1"/>
                                     <constraint firstItem="bQk-Ps-pv3" firstAttribute="top" secondItem="Eas-GA-d1r" secondAttribute="top" id="MO0-pr-swm"/>
                                     <constraint firstAttribute="trailing" secondItem="bQk-Ps-pv3" secondAttribute="trailing" id="V5N-Dg-2K9"/>
                                     <constraint firstItem="bQk-Ps-pv3" firstAttribute="leading" secondItem="Eas-GA-d1r" secondAttribute="leading" id="VMn-qq-5yR"/>
-                                    <constraint firstAttribute="bottom" secondItem="4yC-A1-pmT" secondAttribute="bottom" constant="10" id="VtO-Ze-vQA"/>
-                                    <constraint firstItem="4yC-A1-pmT" firstAttribute="top" secondItem="Eas-GA-d1r" secondAttribute="top" constant="11" id="dtw-Xl-OC5"/>
-                                    <constraint firstItem="Qut-uO-elp" firstAttribute="leading" secondItem="4yC-A1-pmT" secondAttribute="trailing" constant="20" id="hpt-u9-T37"/>
                                     <constraint firstAttribute="bottom" secondItem="Qut-uO-elp" secondAttribute="bottom" constant="10" id="kEV-pu-xCV"/>
-                                    <constraint firstItem="4yC-A1-pmT" firstAttribute="leading" secondItem="Eas-GA-d1r" secondAttribute="leading" constant="20" id="yvs-qQ-xWK"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0jy-Cl-akw">
-                                <rect key="frame" x="0.0" y="20" width="375" height="593"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="596"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pC3-1x-AdZ">
                                     <size key="itemSize" width="50" height="50"/>
@@ -107,8 +91,6 @@
                         <outlet property="collectionView" destination="0jy-Cl-akw" id="T3t-PN-dod"/>
                         <outlet property="postButton" destination="Qut-uO-elp" id="oTp-EQ-JK1"/>
                         <outlet property="replyInputContainer" destination="Eas-GA-d1r" id="YMo-Mo-0Hm"/>
-                        <outlet property="replyTextView" destination="4yC-A1-pmT" id="bbB-M1-mcR"/>
-                        <outlet property="replyTextViewHeightConstraint" destination="NFE-vQ-A56" id="mtd-f6-8Nd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GPr-1Z-jvf" userLabel="First Responder" sceneMemberID="firstResponder"/>
