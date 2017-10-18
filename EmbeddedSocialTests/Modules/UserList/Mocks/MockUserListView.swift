@@ -111,4 +111,6 @@ final class MockUserListView: UIView, UserListViewInput {
         setIsEmptyCalled = true
         setIsEmptyReceivedIsEmpty = isEmpty
     }
+    
+    var anyItemsShown = false
 }
