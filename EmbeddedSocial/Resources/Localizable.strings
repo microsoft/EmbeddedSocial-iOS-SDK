@@ -194,3 +194,5 @@
 "linked_accounts.screen_title" = "Linked accounts";
 
 "post_details.comment_placeholder" = "Type here to comment on this post";
+"comment_replies.reply_placeholder" = "Type here to reply on this comment";
+
