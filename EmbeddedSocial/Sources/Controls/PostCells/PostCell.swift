@@ -3,6 +3,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+import TTTAttributedLabel
+
 class PostCell: UICollectionViewCell, PostCellProtocol {
  
     weak var collectionView: UICollectionView!
@@ -10,8 +12,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     @IBOutlet weak var postImageHeight: NSLayoutConstraint!
     @IBOutlet var staticHeigthElements: [UIView]!
-    @IBOutlet var dynamicElement: UIView!
-    @IBOutlet var textHeight: NSLayoutConstraint!
+    @IBOutlet var staticConstaints: [NSLayoutConstraint]!
     
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var pinButton: UIButton!
@@ -27,13 +28,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     @IBOutlet weak var postCreation: UILabel!
     @IBOutlet weak var postImageButton: UIButton!
     @IBOutlet weak var postTitle: UILabel!
-    @IBOutlet weak var postText: ReadMoreTextView! {
-        didSet {
-            postText.textContainerInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 5)
-            postText.textContainer.lineFragmentPadding = 0
-            postText.backgroundColor = .clear
-        }
-    }
+    @IBOutlet weak var postText: FeedTextLabel!
     
     @IBOutlet weak var appName: UILabel!
     @IBOutlet weak var appImage: UIImageView!
@@ -87,14 +82,6 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     }
     
     override func layoutSubviews() {
-        
-        // Workaround to textview height:
-        // 1. Calculate text size
-        // 2. Bound textview to this size
-        let size = CGSize(width: postText.frame.width, height: CGFloat.greatestFiniteMagnitude)
-        let height = postText.sizeThatFits(size).height
-        textHeight.constant = ceil(height)
-        
         super.layoutSubviews()
         userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
     }
@@ -106,9 +93,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         
         contentView.addSubview(container)
         postImageButton.imageView?.contentMode = .scaleAspectFill
-        postText.maximumNumberOfLines = Constants.FeedModule.Collection.Cell.maxLines
         postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
-        postText.isScrollEnabled = false
     }
     
     func setup() {
@@ -119,12 +104,11 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         viewModel = nil
         userName.text = nil
         postTitle.text = nil
-        postText.text = ""
-        textHeight.constant = 0
+        postText.setFeedText("")
+        postText.eventHandler = nil
         postCreation.text = nil
         likedCount.text = nil
         commentedCount.text = nil
-        postText.readMoreTapHandle = nil
         collectionView = nil
         
         postImageButton.releasePhoto()
@@ -143,8 +127,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         if data.postImageUrl == nil {
             postImageHeight.constant = 0
         }
-        
-//        print(ImageCacheAdapter.shared.store(photo: Photo(uid: data.postImageHandle ?? "")))
+    
         let downloadablePostImage = Photo(uid: data.postImageHandle ?? "", url: data.postImageUrl)
         postImageButton.setPhotoWithCaching(downloadablePostImage, placeholder: postImagePlaceholder)
         
@@ -153,7 +136,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         
         userName.text = data.userName
         postTitle.text = data.title
-        postText.text = data.text
+        postText.setFeedText(data.text, shouldTrim: data.isTrimmed)
+        postText.eventHandler = self
         postCreation.text = data.timeCreated
         likedCount.text = data.totalLikes
         commentedCount.text = data.totalComments
@@ -162,13 +146,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         likeButton.isSelected = data.isLiked
         pinButton.isSelected = data.isPinned
         commentButton.isEnabled = !usedInThirdPartModule
-        
-        // Text View
-        postText.readMoreTapHandle = { [weak self] in
-            self?.handleAction(action: .postDetailed)
-        }
-        
-        postText.isTrimmed = data.isTrimmed
+   
     }
     
     static func sizingCell() -> PostCell {
@@ -177,11 +155,15 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     }
     
     // calculates static and dynamic(TextView) items
-    func getHeight(with width: CGFloat) -> CGFloat {
+    func getHeight(with width: CGFloat, isTrimmed: Bool = false) -> CGFloat {
         
-        // sum all statuic blocks
+        // sum all static blocks
         var staticElementsHeight = staticHeigthElements.reduce(0) { result, view in
             return result + view.frame.size.height
+        }
+        
+        let staticConstraintsHeight = staticConstaints.reduce(0) { result, constraint in
+            return result + constraint.constant
         }
         
         // ignore image height if none
@@ -190,28 +172,25 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         }
         
         // dynamic part of calculation:
+        let bounds = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         
-        // Workaround to textview height:
-        // 1. Calculate text size
-        // 2. Bound textview to this size
-        let size = CGSize(width: postText.frame.width, height: CGFloat.greatestFiniteMagnitude)
-        let height = postText.sizeThatFits(size).height
+        let maxLines = isTrimmed ? Constants.FeedModule.Collection.Cell.trimmedMaxLines : Constants.FeedModule.Collection.Cell.maxLines
         
-        textHeight.constant = ceil(height)
+        let dynamicHeight = TTTAttributedLabel.sizeThatFitsAttributedString(
+            postText.attributedText,
+            withConstraints: bounds,
+            limitedToNumberOfLines: UInt(maxLines)).height
         
-        dynamicElement.setNeedsLayout()
-        dynamicElement.layoutIfNeeded()
- 
-        let dynamicHeight = dynamicElement.frame.height
-    
-        var result = [staticElementsHeight, dynamicHeight].reduce(0.0, +)
+
+        let result = [staticElementsHeight, dynamicHeight, staticConstraintsHeight].reduce(0.0, +)
         
-        return [staticElementsHeight, dynamicHeight].reduce(0.0, +)
+        Logger.log(postText.text, event: .veryImportant)
+        return result
     }
     
     // MARK: Private
     
-    private func handleAction(action: FeedPostCellAction) {
+    fileprivate func handleAction(action: FeedPostCellAction) {
         guard let path = indexPath() else { return }
         viewModel.onAction?(action, path)
     }
@@ -226,5 +205,16 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     deinit {
         Logger.log()
+    }
+}
+
+extension PostCell: FeedTextLabelHandler {
+    
+    func didTapHashtag(string: String) {
+        handleAction(action: .hashtag(string))
+    }
+    
+    func didTapReadMore() {
+        handleAction(action: .postDetailed)
     }
 }

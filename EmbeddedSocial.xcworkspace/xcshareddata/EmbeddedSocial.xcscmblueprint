@@ -9,8 +9,8 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7C04AB75-6D3F-44DB-BAA0-E6CC26F02C90",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "7E84D4CE1C969CD4BD141B4358E60035D4FE14A0" : "GitHub\/",
-    "34148ECDE3FF41D3B690D6B41F909BF00B89528C" : "GitHub\/EmbeddedSocial\/Vendor\/MSR-EmbeddedSocial-Swift-API-Library\/"
+    "7E84D4CE1C969CD4BD141B4358E60035D4FE14A0" : "MSR-SocialPlus-iOS-SDK\/",
+    "34148ECDE3FF41D3B690D6B41F909BF00B89528C" : "MSR-SocialPlus-iOS-SDK\/EmbeddedSocial\/Vendor\/MSR-EmbeddedSocial-Swift-API-Library\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "EmbeddedSocial",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
