@@ -43,8 +43,17 @@ abstract_target 'Group' do
     end
 
     target 'EmbeddedSocialUITests' do
-        pod 'Embassy', '3.1’
-        pod 'EnvoyAmbassador', '3.0’
+        pod 'Embassy', ‘4.0’
+        pod 'EnvoyAmbassador', ‘4.0’
     end
+end
 
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == 'Embassy' || target.name == 'EnvoyAmbassador'
+      target.build_configurations.each do |config|
+        config.build_settings['SWIFT_VERSION'] = ‘4.0’
+      end
+    end
+  end
 end
