@@ -49,7 +49,6 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     
         menuItemsProvider = SocialMenuItemsProvider(coordinator: self)
     
-        
         let configurator = SideMenuModuleConfigurator()
         
         configurator.configure(coordinator: self,
