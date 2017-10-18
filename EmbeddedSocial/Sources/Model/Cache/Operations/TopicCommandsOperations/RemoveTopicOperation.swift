@@ -11,6 +11,7 @@ final class RemoveTopicOperation: OutgoingCommandOperation {
     private let topicsService: PostServiceProtocol
     private let predicateBuilder: OutgoingCommandsPredicateBuilder
     private let cache: CacheType
+    private let cleanupStrategy: CacheCleanupStrategy
     
     init(command: TopicCommand,
          topicsService: PostServiceProtocol,
@@ -21,6 +22,7 @@ final class RemoveTopicOperation: OutgoingCommandOperation {
         self.topicsService = topicsService
         self.cache = cache
         self.predicateBuilder = predicateBuilder
+        self.cleanupStrategy = CacheCleanupStrategyImpl(cache: cache, predicateBuilder: predicateBuilder)
     }
     
     override func main() {
@@ -28,14 +30,13 @@ final class RemoveTopicOperation: OutgoingCommandOperation {
             return
         }
         
-        let predicate = predicateBuilder.commandsWithRelatedHandle(command.topic.topicHandle, ignoredTypeID: command.typeIdentifier)
-        topicsService.deletePost(post: command.topic.topicHandle) { [weak self] result in
+        topicsService.deletePost(post: command.topic.topicHandle) { [weak self, command] result in
             guard result.isSuccess else {
                 self?.completeOperation(with: result.error)
                 return
             }
-            
-            self?.cache.deleteOutgoing(with: predicate)
+//            Dispatch.async
+            self?.cleanupStrategy.cleanupRelatedCommands(command)
             self?.completeOperation()
         }
     }

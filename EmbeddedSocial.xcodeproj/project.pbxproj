@@ -244,6 +244,9 @@
 		88303DEF1F878EDA00330E30 /* TrendingTopicsModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88303DEE1F878EDA00330E30 /* TrendingTopicsModuleInput.swift */; };
 		88303DF31F87A08000330E30 /* HashtagsRequestExecutionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88303DF21F87A08000330E30 /* HashtagsRequestExecutionStrategy.swift */; };
 		88303DF51F87A0E600330E30 /* HashtagCacheableAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88303DF41F87A0E600330E30 /* HashtagCacheableAdapter.swift */; };
+		8831EDE41F9756EC0013C8B8 /* RemoveTopicCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8831EDE31F9756EC0013C8B8 /* RemoveTopicCommandTests.swift */; };
+		8831EDE61F975A350013C8B8 /* RemoveTopicOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8831EDE51F975A350013C8B8 /* RemoveTopicOperationTests.swift */; };
+		8831EDE81F975CF10013C8B8 /* CacheCleanupStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8831EDE71F975CF10013C8B8 /* CacheCleanupStrategy.swift */; };
 		8834A7491F50071300F1D383 /* QueryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A7481F50071300F1D383 /* QueryPage.swift */; };
 		8834A74B1F50095B00F1D383 /* CacheFetchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */; };
 		8834A74D1F5011B600F1D383 /* CacheQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A74C1F5011B600F1D383 /* CacheQueries.swift */; };
@@ -1402,6 +1405,9 @@
 		88303DEE1F878EDA00330E30 /* TrendingTopicsModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingTopicsModuleInput.swift; sourceTree = "<group>"; };
 		88303DF21F87A08000330E30 /* HashtagsRequestExecutionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashtagsRequestExecutionStrategy.swift; sourceTree = "<group>"; };
 		88303DF41F87A0E600330E30 /* HashtagCacheableAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashtagCacheableAdapter.swift; sourceTree = "<group>"; };
+		8831EDE31F9756EC0013C8B8 /* RemoveTopicCommandTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveTopicCommandTests.swift; sourceTree = "<group>"; };
+		8831EDE51F975A350013C8B8 /* RemoveTopicOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveTopicOperationTests.swift; sourceTree = "<group>"; };
+		8831EDE71F975CF10013C8B8 /* CacheCleanupStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheCleanupStrategy.swift; sourceTree = "<group>"; };
 		8834A7481F50071300F1D383 /* QueryPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryPage.swift; sourceTree = "<group>"; };
 		8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheFetchRequest.swift; sourceTree = "<group>"; };
 		8834A74C1F5011B600F1D383 /* CacheQueries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheQueries.swift; sourceTree = "<group>"; };
@@ -2659,6 +2665,7 @@
 				880AFD391F6FE38D00378710 /* LikeTopicCommandTests.swift */,
 				880AFD3F1F6FE67500378710 /* PinTopicCommandTests.swift */,
 				88C682381F7939D6004BD291 /* TopicCommandTests.swift */,
+				8831EDE31F9756EC0013C8B8 /* RemoveTopicCommandTests.swift */,
 				880AFD3D1F6FE5E400378710 /* UnlikeTopicCommandTests.swift */,
 				880AFD411F6FE6CD00378710 /* UnpinTopicCommandTests.swift */,
 			);
@@ -2709,6 +2716,7 @@
 				880AFD5B1F7004AD00378710 /* PinTopicOperationTests.swift */,
 				880AFD591F70042E00378710 /* UnlikeTopicOperationTests.swift */,
 				880AFD5D1F70057100378710 /* UnpinTopicOperationTests.swift */,
+				8831EDE51F975A350013C8B8 /* RemoveTopicOperationTests.swift */,
 			);
 			path = TopicOperations;
 			sourceTree = "<group>";
@@ -3441,6 +3449,7 @@
 				88580A8C1F2213AB00C1CBAF /* AppFonts.swift */,
 				880435CB1F67D04500154ACD /* AsyncOperation.swift */,
 				88580A8A1F2213AB00C1CBAF /* CellModel.swift */,
+				8831EDE71F975CF10013C8B8 /* CacheCleanupStrategy.swift */,
 				88B94EF91F66B278002392F9 /* Daemon.swift */,
 				9CDDB2021F38866000C46785 /* DateFormatter.swift */,
 				88580A8D1F2213AB00C1CBAF /* Identifiable.swift */,
@@ -7404,6 +7413,7 @@
 				8839B8711F83B5CC00D97BE6 /* Command.swift in Sources */,
 				88EBD2351F6C145000F9DDFC /* UnlikeTopicOperation.swift in Sources */,
 				88BC5C4E1F2B65D0001FBDD2 /* UserProfileConfigurator.swift in Sources */,
+				8831EDE81F975CF10013C8B8 /* CacheCleanupStrategy.swift in Sources */,
 				883BFFCC1F710A5D00E1C4E3 /* ImageCommand.swift in Sources */,
 				88580BAD1F2213AB00C1CBAF /* SideMenuModels.swift in Sources */,
 				93AC659A1F3E056F00FE5A3A /* PostDetailInteractorInput.swift in Sources */,
@@ -7566,6 +7576,7 @@
 				88252E1D1F9642C500A305A3 /* APIErrorTests.swift in Sources */,
 				884C9C331F4C371B0004907F /* MyProfileHolder.swift in Sources */,
 				88B2D6761F7B9F5E00920E43 /* FollowRequestsInteractorTests.swift in Sources */,
+				8831EDE41F9756EC0013C8B8 /* RemoveTopicCommandTests.swift in Sources */,
 				886826191F6AADDD00F54731 /* MockOutgoingCommandOperationsBuilder.swift in Sources */,
 				880AFD401F6FE67500378710 /* PinTopicCommandTests.swift in Sources */,
 				889AFC201F220BCD003AAF19 /* UIImage+Ext.swift in Sources */,
@@ -7698,6 +7709,7 @@
 				88D123261F753BF6001523D1 /* MockOutgoingCommand.swift in Sources */,
 				889119B71F4AE873005B3B32 /* SearchPeoplePresenterTests.swift in Sources */,
 				889AFC2E1F220BCD003AAF19 /* SocialPlusTests.swift in Sources */,
+				8831EDE61F975A350013C8B8 /* RemoveTopicOperationTests.swift in Sources */,
 				88ABC7A91F729C3B00C83C82 /* CreateReplyOperationTests.swift in Sources */,
 				63B62ED71F83CACF003DC885 /* MockReplyCell.swift in Sources */,
 				8892F2751F8237E300A58D8B /* LinkedAccountsPresenterTests.swift in Sources */,

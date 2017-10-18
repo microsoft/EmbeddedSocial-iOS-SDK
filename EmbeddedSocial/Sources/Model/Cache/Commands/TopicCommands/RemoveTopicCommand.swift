@@ -7,10 +7,6 @@ import Foundation
 
 final class RemoveTopicCommand: TopicCommand {
     
-    override var inverseCommand: OutgoingCommand? {
-        return CreateTopicCommand(topic: topic)
-    }
-    
     override func apply(to feed: inout FeedFetchResult) {
         var topics = feed.posts
         if let index = topics.index(where: { $0.topicHandle == self.topic.topicHandle }) {

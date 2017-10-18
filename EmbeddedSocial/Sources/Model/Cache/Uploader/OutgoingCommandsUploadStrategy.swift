@@ -126,7 +126,7 @@ extension OutgoingCommandsUploadStrategy.Step {
     }
     
     static var createTopics: Step {
-        return Step(predicate: PredicateBuilder().createTopicCommands(), next: topicActions)
+        return Step(predicate: PredicateBuilder().createDeleteTopicCommands(), next: topicActions)
     }
     
     static var topicActions: Step {

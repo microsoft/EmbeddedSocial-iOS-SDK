@@ -17,14 +17,14 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
         return allImageCommandsReturnValue
     }
     
-    //MARK: - createTopicCommands
+    //MARK: - createDeleteTopicCommands
     
-    var createTopicCommandsCalled = false
-    var createTopicCommandsReturnValue: NSPredicate!
+    var createDeleteTopicCommandsCalled = false
+    var createDeleteTopicCommandsReturnValue: NSPredicate!
     
-    func createTopicCommands() -> NSPredicate {
-        createTopicCommandsCalled = true
-        return createTopicCommandsReturnValue
+    func createDeleteTopicCommands() -> NSPredicate {
+        createDeleteTopicCommandsCalled = true
+        return createDeleteTopicCommandsReturnValue
     }
     
     //MARK: - createTopicCommand
@@ -51,26 +51,6 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
         return createCommentCommandCommentHandleReturnValue
     }
     
-    //MARK: - createDeleteCommentCommands
-    
-    var createDeleteCommentCommandsCalled = false
-    var createDeleteCommentCommandsReturnValue: NSPredicate!
-    
-    func createDeleteCommentCommands() -> NSPredicate {
-        createDeleteCommentCommandsCalled = true
-        return createDeleteCommentCommandsReturnValue
-    }
-    
-    //MARK: - createDeleteReplyCommands
-    
-    var createDeleteReplyCommandsCalled = false
-    var createDeleteReplyCommandsReturnValue: NSPredicate!
-    
-    func createDeleteReplyCommands() -> NSPredicate {
-        createDeleteReplyCommandsCalled = true
-        return createDeleteReplyCommandsReturnValue
-    }
-    
     //MARK: - commandsWithRelatedHandle
     
     var commandsWithRelatedHandleIgnoredTypeIDCalled = false
@@ -83,14 +63,14 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
         return commandsWithRelatedHandleIgnoredTypeIDReturnValue
     }
     
-    //MARK: - createCommentCommands
+    //MARK: - createDeleteCommentCommands
     
-    var createCommentCommandsCalled = false
-    var createCommentCommandsReturnValue: NSPredicate!
+    var createDeleteCommentCommandsCalled = false
+    var createDeleteCommentCommandsReturnValue: NSPredicate!
     
-    func createCommentCommands() -> NSPredicate {
-        createCommentCommandsCalled = true
-        return createCommentCommandsReturnValue
+    func createDeleteCommentCommands() -> NSPredicate {
+        createDeleteCommentCommandsCalled = true
+        return createDeleteCommentCommandsReturnValue
     }
     
     //MARK: - allTopicActionCommands
@@ -113,25 +93,25 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
         return replyActionCommandsReturnValue
     }
     
-    //MARK: - createReplyCommands
+    //MARK: - createDeleteReplyCommands
     
-    var createReplyCommandsCalled = false
-    var createReplyCommandsReturnValue: NSPredicate!
+    var createDeleteReplyCommandsCalled = false
+    var createDeleteReplyCommandsReturnValue: NSPredicate!
     
-    func createReplyCommands() -> NSPredicate {
-        createReplyCommandsCalled = true
-        return createReplyCommandsReturnValue
+    func createDeleteReplyCommands() -> NSPredicate {
+        createDeleteReplyCommandsCalled = true
+        return createDeleteReplyCommandsReturnValue
     }
     
     //MARK: - predicate
     
     var predicateForCalled = false
-    var predicateForCalledInputCommand: OutgoingCommand?
+    var predicateForReceivedCommand: OutgoingCommand?
     var predicateForReturnValue: NSPredicate!
     
     func predicate(for command: OutgoingCommand) -> NSPredicate {
         predicateForCalled = true
-        predicateForCalledInputCommand = command
+        predicateForReceivedCommand = command
         return predicateForReturnValue
     }
     
@@ -144,4 +124,5 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
         allUserCommandsCalled = true
         return allUserCommandsReturnValue
     }
+
 }

@@ -110,7 +110,7 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
     func testSubmissionSteps() {
         validateSubmissionStep(.images, predicate: PredicateBuilder().allImageCommands(), nextStep: .createTopics)
         
-        validateSubmissionStep(.createTopics, predicate: PredicateBuilder().createTopicCommands(), nextStep: .topicActions)
+        validateSubmissionStep(.createTopics, predicate: PredicateBuilder().createDeleteTopicCommands(), nextStep: .topicActions)
         
         validateSubmissionStep(.topicActions, predicate: PredicateBuilder().allTopicActionCommands(), nextStep: .createDeleteComments)
         

@@ -40,6 +40,8 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
             return UnpinTopicOperation(command: command, likesService: LikesService())
         } else if let command = command as? CreateTopicCommand {
             return CreateTopicOperation(command: command, topicsService: TopicService(imagesService: ImagesService()))
+        } else if let command = command as? RemoveTopicCommand {
+            return RemoveTopicOperation(command: command, topicsService: TopicService(imagesService: ImagesService()))
         }
         
         // reply commands
