@@ -25,6 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = UIViewController()
         window?.makeKeyAndVisible()
         
+        if TARGET_OS_SIMULATOR != 0 {
+            BITHockeyManager.shared().isUpdateManagerDisabled = true
+        }
+        
         if (ProcessInfo.processInfo.environment["EmbeddedSocial_MOCK_SERVER"] != nil) {
             UIView.setAnimationsEnabled(false)
         }
