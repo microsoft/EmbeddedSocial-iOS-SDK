@@ -50,6 +50,7 @@ class ActivityNotificationLabel: UIView {
         
         counterLabel.snp.makeConstraints {
             
+            $0.center.equalToSuperview()
             $0.edges.equalToSuperview().inset(UIEdgeInsetsMake(padding,
                                                                padding,
                                                                padding,

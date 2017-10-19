@@ -297,8 +297,8 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         if count >= 1 && count <= 99 {
             return "\(count)"
         }
-        else if count > 99{
-            return "99+"
+        else if count > 99 {
+            return " 99+"
         }
         else {
             return nil

@@ -41,7 +41,7 @@ class SideMenuCellView: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setup() {
+    func setup() {
         
         self.selectionStyle = .none
         contentView.backgroundColor = Palette.lightGrey
@@ -79,6 +79,17 @@ class SideMenuCellViewWithNotification: SideMenuCellView {
             fatalError("wrong model")
         }
         notificationLabel.setCountText(notificationModel.countText)
+    }
+    
+    override func setup() {
+        super.setup()
+        contentView.addSubview(notificationLabel)
+        notificationLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.right.equalToSuperview().offset(-20)
+            $0.height.equalToSuperview().multipliedBy(0.8)
+            $0.width.equalTo(notificationLabel.snp.height)
+        }
     }
     
 }
