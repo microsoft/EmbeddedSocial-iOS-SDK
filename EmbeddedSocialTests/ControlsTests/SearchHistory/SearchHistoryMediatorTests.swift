@@ -5,33 +5,40 @@
 
 import XCTest
 import Nimble
+import UIKit
 @testable import EmbeddedSocial
 
 class SearchHistoryMediatorTests: XCTestCase {
     
     private class SearchBarDelegate: NSObject, UISearchBarDelegate { }
     
-    var searchBar: UISearchBar!
+    class FirstResponderSearchBar: UISearchBar {
+        private var _isFirstResponder = false
+        
+        override func becomeFirstResponder() -> Bool {
+            _isFirstResponder = true
+            return true
+        }
+        
+        override var isFirstResponder: Bool {
+            return _isFirstResponder
+        }
+    }
+    
+    var searchBar: FirstResponderSearchBar!
     var storage: MockKeyValueStorage!
     var historyView: SearchHistoryView!
     var sut: SearchHistoryMediator!
-    var window: UIWindow!
 
     override func setUp() {
         super.setUp()
-        searchBar = UISearchBar()
+        searchBar = FirstResponderSearchBar()
         historyView = SearchHistoryView()
         storage = MockKeyValueStorage()
         sut = SearchHistoryMediator(searchBar: searchBar,
                                     searchBarDelegate: SearchBarDelegate(),
                                     storage: SearchHistoryStorage(storage: storage, userID: UUID().uuidString),
                                     searchHistoryView: historyView)
-        
-        let vc = UIViewController()
-        vc.view.addSubview(searchBar)
-        
-        window = UIWindow()
-        window.rootViewController = vc
     }
     
     override func tearDown() {
@@ -40,7 +47,6 @@ class SearchHistoryMediatorTests: XCTestCase {
         storage = nil
         historyView = nil
         sut = nil
-        window = nil
     }
     
     func testInit() {
