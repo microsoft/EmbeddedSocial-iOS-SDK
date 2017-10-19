@@ -86,7 +86,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
     weak var moduleInput: FeedModulePresenter!
     weak var myProfileOpener: MyProfileOpener?
     weak var loginOpener: LoginModalOpener?
-    weak var searchOpener: SearchScreenOpener? = MockSearchOpener.shared
+    weak var searchOpener: SearchHashtagOpener?
     
     // Keeping ref to menu module
     private var postMenuViewController: UIViewController?

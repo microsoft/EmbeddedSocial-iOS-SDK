@@ -14,6 +14,7 @@ final class SearchPresenter: NSObject {
     
     fileprivate var isViewReady = false
     fileprivate var initialTab = SearchTabInfo.Tab.topics
+    fileprivate var initialHashtag: Hashtag?
     
     fileprivate var topicsTab: SearchTabInfo!
     fileprivate var peopleTab: SearchTabInfo!
@@ -40,6 +41,10 @@ extension SearchPresenter: SearchViewOutput {
         
         view.setupInitialState(selectedTab!)
         view.setLayoutAsset(topicsSearchModule.layoutAsset)
+        
+        if let hashtag = initialHashtag {
+            view.search(hashtag: hashtag)
+        }
         
         isViewReady = true
     }
@@ -75,5 +80,14 @@ extension SearchPresenter: SearchModuleInput {
     
     func selectPeopleTab() {
         isViewReady ? (selectedTab = peopleTab) : (initialTab = .people)
+    }
+    
+    func search(hashtag: Hashtag) {
+        selectTopicsTab()
+        isViewReady ? (view.search(hashtag: hashtag)) : (initialHashtag = hashtag)
+    }
+    
+    private func selectTopicsTab() {
+        isViewReady ? (selectedTab = topicsTab) : (initialTab = .topics)
     }
 }

@@ -33,6 +33,7 @@ class FeedModuleConfigurator {
         router.navigationController = navigationController
         router.myProfileOpener = myProfileOpener
         router.loginOpener = loginOpener
+        router.searchOpener = SocialPlus.shared.coordinator
         
         /*
          let feed = .single(post: "3vErWk4EMrF"))
