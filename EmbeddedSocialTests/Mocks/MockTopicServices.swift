@@ -145,12 +145,13 @@ class PostServiceMock: PostServiceProtocol {
     //MARK: - deletePost
     
     var deletePostPostCompletionCalled = false
-    var deletePostPostCompletionReceivedArguments: (post: PostHandle, completion: (Result<Void>) -> Void)?
+    var deletePostPostCompletionReceivedPost: PostHandle?
+    var deletePostPostCompletionReturnValue: Result<Void>!
     
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
         deletePostPostCompletionCalled = true
-        deletePostPostCompletionReceivedArguments = (post: post, completion: completion)
-        
+        deletePostPostCompletionReceivedPost = post
+        completion(deletePostPostCompletionReturnValue)
     }
     
     //MARK: - postTopic

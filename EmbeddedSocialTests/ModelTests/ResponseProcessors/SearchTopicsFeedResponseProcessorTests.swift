@@ -24,7 +24,7 @@ class SearchTopicsFeedResponseProcessorTests: TopicsFeedResponseProcessorTests {
     
     func testThatItUsesCorrectPredicateForCommandsFetching() {
         // given
-        predicateBuilder.topicActionCommandsAndAllCreatedCommentsReturnValue = NSPredicate()
+        predicateBuilder.topicActionsRemovedTopicsCreatedCommentsReturnValue = NSPredicate()
         
         let operation = MockFetchOutgoingCommandsOperation(cache: cache, predicate: NSPredicate())
         operationsBuilder.fetchCommandsOperationPredicateReturnValueMaker = { operation }
@@ -36,6 +36,6 @@ class SearchTopicsFeedResponseProcessorTests: TopicsFeedResponseProcessorTests {
         
         // then
         expect(result).toEventuallyNot(beNil())
-        expect(self.predicateBuilder.topicActionCommandsAndAllCreatedCommentsCalled).toEventually(beTrue())
+        expect(self.predicateBuilder.topicActionsRemovedTopicsCreatedCommentsCalled).toEventually(beTrue())
     }
 }

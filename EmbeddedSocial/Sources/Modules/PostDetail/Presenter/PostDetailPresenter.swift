@@ -93,6 +93,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         loadMoreCellViewModel.stopLoading()
         view.updateLoadingCell()
         view.endRefreshing()
+        view.hideLoadingHUD()
     }
     
     func commentDidPost(comment: Comment) {

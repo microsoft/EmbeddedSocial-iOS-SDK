@@ -35,7 +35,7 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
    
         var result: Result<FeedFetchResult>?
         
-        predicateBuilder.topicActionCommandsAndAllCreatedCommentsReturnValue = NSPredicate()
+        predicateBuilder.topicActionsRemovedTopicsCreatedCommentsReturnValue = NSPredicate()
         
         let postView = response.data!.first!
         let post = Post(data: postView)!
@@ -62,7 +62,7 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
         expect(command.applyToFeedCalled).toEventually(beTrue())
         
         expect(self.operationsBuilder.fetchCommandsOperationPredicateCalled).to(beTrue())
-        expect(self.predicateBuilder.topicActionCommandsAndAllCreatedCommentsCalled).to(beTrue())
+        expect(self.predicateBuilder.topicActionsRemovedTopicsCreatedCommentsCalled).to(beTrue())
     }
     
     func testThatItIgnoresResultsFromAPI() {

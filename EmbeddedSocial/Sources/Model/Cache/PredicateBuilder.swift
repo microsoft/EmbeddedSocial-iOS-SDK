@@ -14,15 +14,13 @@ protocol CachePredicateBuilder {
 protocol OutgoingCommandsPredicateBuilder {
     func allImageCommands() -> NSPredicate
     
-    func createTopicCommands() -> NSPredicate
-    
     func createTopicCommand(topicHandle: String) -> NSPredicate
     
     func createCommentCommand(commentHandle: String) -> NSPredicate
     
     func commandsWithRelatedHandle(_ relatedHandle: String, ignoredTypeID: String) -> NSPredicate
     
-    func createDeleteCommentCommands() -> NSPredicate
+    func predicate(relatedHandle: String) -> NSPredicate
     
     func allTopicActionCommands() -> NSPredicate
     
@@ -33,14 +31,24 @@ protocol OutgoingCommandsPredicateBuilder {
     func predicate(for command: OutgoingCommand) -> NSPredicate
     
     func allUserCommands() -> NSPredicate
+    
+    func predicate(typeID: String, relatedHandle: String) -> NSPredicate
+    
+    func replyActionCommands(for replyHandle: String) -> NSPredicate
+    
+    func createTopicCommands() -> NSPredicate
+    
+    func removeTopicCommands() -> NSPredicate
+    
+    func createDeleteCommentCommands() -> NSPredicate
 }
 
-protocol TopicServicePredicateBuilder {
+protocol TopicsFeedProcessorPredicateBuilder {
     func allTopicActionCommands() -> NSPredicate
     
     func allTopicCommands() -> NSPredicate
     
-    func topicActionCommandsAndAllCreatedComments() -> NSPredicate
+    func topicActionsRemovedTopicsCreatedComments() -> NSPredicate
     
     func allTopicCommandsAndAllCreatedComments() -> NSPredicate
 }
@@ -49,6 +57,10 @@ struct PredicateBuilder: CachePredicateBuilder {
     
     func predicate(typeID: String) -> NSPredicate {
         return NSPredicate(format: "typeid = %@", typeID)
+    }
+    
+    func predicate(relatedHandle: String) -> NSPredicate {
+        return NSPredicate(format: "relatedHandle = %@", relatedHandle)
     }
     
     func allOutgoingCommandsPredicate() -> NSPredicate {
@@ -81,10 +93,6 @@ struct PredicateBuilder: CachePredicateBuilder {
     
     func allCreateReplyCommands() -> NSPredicate {
         return predicate(typeID: CreateReplyCommand.typeIdentifier)
-    }
-    
-    func allCreateTopicCommands() -> NSPredicate {
-        return predicate(typeID: CreateTopicCommand.typeIdentifier)
     }
     
     func createReplyCommand(replyHandle: String) -> NSPredicate {
@@ -158,34 +166,31 @@ extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
         return NSPredicate(format: "typeid = %@", CreateTopicCommand.typeIdentifier)
     }
     
+    func removeTopicCommands() -> NSPredicate {
+        return NSPredicate(format: "typeid = %@", RemoveTopicCommand.typeIdentifier)
+    }
+    
     func createDeleteCommentCommands() -> NSPredicate {
-        let commands: [CommentCommand.Type] = [
-            CreateCommentCommand.self,
-            RemoveCommentCommand.self
-        ]
-        let typeIDs = commands.map { $0.typeIdentifier }
+        let typeIDs = [CreateCommentCommand.self, RemoveCommentCommand.self].map { $0.typeIdentifier }
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
     func createDeleteReplyCommands() -> NSPredicate {
-        let commands: [ReplyCommand.Type] = [
-            CreateReplyCommand.self,
-            RemoveReplyCommand.self
-        ]
-        let typeIDs = commands.map { $0.typeIdentifier }
+        let typeIDs = [CreateReplyCommand.self, RemoveReplyCommand.self].map { $0.typeIdentifier }
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
 }
 
-extension PredicateBuilder: TopicServicePredicateBuilder {
+extension PredicateBuilder: TopicsFeedProcessorPredicateBuilder {
     
     func allTopicCommands() -> NSPredicate {
         let typeIDs = TopicCommand.allTopicCommandTypes.map { $0.typeIdentifier }
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     
-    func topicActionCommandsAndAllCreatedComments() -> NSPredicate {
-        let typeIDs = (TopicCommand.topicActionCommandTypes + [CreateCommentCommand.self]).map { $0.typeIdentifier }
+    func topicActionsRemovedTopicsCreatedComments() -> NSPredicate {
+        let typeIDs = (TopicCommand.topicActionCommandTypes + [RemoveTopicCommand.self] + [CreateCommentCommand.self])
+            .map { $0.typeIdentifier }
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
     

@@ -242,6 +242,11 @@
 		88303DEF1F878EDA00330E30 /* TrendingTopicsModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88303DEE1F878EDA00330E30 /* TrendingTopicsModuleInput.swift */; };
 		88303DF31F87A08000330E30 /* HashtagsRequestExecutionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88303DF21F87A08000330E30 /* HashtagsRequestExecutionStrategy.swift */; };
 		88303DF51F87A0E600330E30 /* HashtagCacheableAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88303DF41F87A0E600330E30 /* HashtagCacheableAdapter.swift */; };
+		8831EDE41F9756EC0013C8B8 /* RemoveTopicCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8831EDE31F9756EC0013C8B8 /* RemoveTopicCommandTests.swift */; };
+		8831EDE61F975A350013C8B8 /* RemoveTopicOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8831EDE51F975A350013C8B8 /* RemoveTopicOperationTests.swift */; };
+		8831EDE81F975CF10013C8B8 /* CacheCleanupStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8831EDE71F975CF10013C8B8 /* CacheCleanupStrategy.swift */; };
+		8831EDEC1F977B560013C8B8 /* MockCacheCleanupStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8831EDEB1F977B560013C8B8 /* MockCacheCleanupStrategy.swift */; };
+		8831EDEE1F97832E0013C8B8 /* CacheCleanupStrategyImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8831EDED1F97832E0013C8B8 /* CacheCleanupStrategyImplTests.swift */; };
 		8834A7491F50071300F1D383 /* QueryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A7481F50071300F1D383 /* QueryPage.swift */; };
 		8834A74B1F50095B00F1D383 /* CacheFetchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */; };
 		8834A74D1F5011B600F1D383 /* CacheQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834A74C1F5011B600F1D383 /* CacheQueries.swift */; };
@@ -531,6 +536,8 @@
 		88580C7A1F2213AB00C1CBAF /* CreateAccountValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580B9B1F2213AB00C1CBAF /* CreateAccountValidator.swift */; };
 		88580C7B1F2213AB00C1CBAF /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580B9C1F2213AB00C1CBAF /* Validator.swift */; };
 		88580C7D1F2213EF00C1CBAF /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580C7C1F2213EF00C1CBAF /* Repository.swift */; };
+		885994DF1F96586300947544 /* RemoveTopicCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885994DE1F96586300947544 /* RemoveTopicCommand.swift */; };
+		885994E11F96617000947544 /* RemoveTopicOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885994E01F96617000947544 /* RemoveTopicOperation.swift */; };
 		885E03F41F6C2A1D00D6EBD8 /* ReplyCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885E03F31F6C2A1D00D6EBD8 /* ReplyCommand.swift */; };
 		885E03F61F6C2A6700D6EBD8 /* LikeReplyCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885E03F51F6C2A6700D6EBD8 /* LikeReplyCommand.swift */; };
 		885E03F81F6C2A7C00D6EBD8 /* UnlikeReplyCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885E03F71F6C2A7C00D6EBD8 /* UnlikeReplyCommand.swift */; };
@@ -1002,8 +1009,7 @@
 		8EAF45A61F6993730046F704 /* reply.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EAF45A51F6993730046F704 /* reply.json */; };
 		8EAF45A81F69989E0046F704 /* reply_post.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EAF45A71F69989E0046F704 /* reply_post.json */; };
 		8EAF45A91F6998C20046F704 /* Loop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0E5A11F1FA5EF00E88ED6 /* Loop.swift */; };
-		8EE2C6C31F4594C500CFFE21 /* XCUIElementClearText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2C6C11F4594C500CFFE21 /* XCUIElementClearText.swift */; };
-		8EE2C6C41F4594C500CFFE21 /* XCUIElementTapByCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2C6C21F4594C500CFFE21 /* XCUIElementTapByCoordinate.swift */; };
+		8EE2C6C41F4594C500CFFE21 /* XCUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2C6C21F4594C500CFFE21 /* XCUIElement.swift */; };
 		8EE2C6C61F4594DF00CFFE21 /* ScrollToElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2C6C51F4594DF00CFFE21 /* ScrollToElement.swift */; };
 		8EE2C6C81F4594ED00CFFE21 /* TestUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2C6C71F4594ED00CFFE21 /* TestUserProfile.swift */; };
 		8EE2C6CA1F46D04A00CFFE21 /* info.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE2C6C91F46D04A00CFFE21 /* info.json */; };
@@ -1392,6 +1398,11 @@
 		88303DEE1F878EDA00330E30 /* TrendingTopicsModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingTopicsModuleInput.swift; sourceTree = "<group>"; };
 		88303DF21F87A08000330E30 /* HashtagsRequestExecutionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashtagsRequestExecutionStrategy.swift; sourceTree = "<group>"; };
 		88303DF41F87A0E600330E30 /* HashtagCacheableAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashtagCacheableAdapter.swift; sourceTree = "<group>"; };
+		8831EDE31F9756EC0013C8B8 /* RemoveTopicCommandTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveTopicCommandTests.swift; sourceTree = "<group>"; };
+		8831EDE51F975A350013C8B8 /* RemoveTopicOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveTopicOperationTests.swift; sourceTree = "<group>"; };
+		8831EDE71F975CF10013C8B8 /* CacheCleanupStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheCleanupStrategy.swift; sourceTree = "<group>"; };
+		8831EDEB1F977B560013C8B8 /* MockCacheCleanupStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCacheCleanupStrategy.swift; sourceTree = "<group>"; };
+		8831EDED1F97832E0013C8B8 /* CacheCleanupStrategyImplTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheCleanupStrategyImplTests.swift; sourceTree = "<group>"; };
 		8834A7481F50071300F1D383 /* QueryPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryPage.swift; sourceTree = "<group>"; };
 		8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheFetchRequest.swift; sourceTree = "<group>"; };
 		8834A74C1F5011B600F1D383 /* CacheQueries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheQueries.swift; sourceTree = "<group>"; };
@@ -1670,6 +1681,8 @@
 		88580B9B1F2213AB00C1CBAF /* CreateAccountValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountValidator.swift; sourceTree = "<group>"; };
 		88580B9C1F2213AB00C1CBAF /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		88580C7C1F2213EF00C1CBAF /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		885994DE1F96586300947544 /* RemoveTopicCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveTopicCommand.swift; sourceTree = "<group>"; };
+		885994E01F96617000947544 /* RemoveTopicOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveTopicOperation.swift; sourceTree = "<group>"; };
 		885E03F31F6C2A1D00D6EBD8 /* ReplyCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyCommand.swift; sourceTree = "<group>"; };
 		885E03F51F6C2A6700D6EBD8 /* LikeReplyCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeReplyCommand.swift; sourceTree = "<group>"; };
 		885E03F71F6C2A7C00D6EBD8 /* UnlikeReplyCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnlikeReplyCommand.swift; sourceTree = "<group>"; };
@@ -2166,8 +2179,7 @@
 		8EAF45A01F698A350046F704 /* comment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = comment.json; sourceTree = "<group>"; };
 		8EAF45A51F6993730046F704 /* reply.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = reply.json; sourceTree = "<group>"; };
 		8EAF45A71F69989E0046F704 /* reply_post.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = reply_post.json; sourceTree = "<group>"; };
-		8EE2C6C11F4594C500CFFE21 /* XCUIElementClearText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCUIElementClearText.swift; sourceTree = "<group>"; };
-		8EE2C6C21F4594C500CFFE21 /* XCUIElementTapByCoordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCUIElementTapByCoordinate.swift; sourceTree = "<group>"; };
+		8EE2C6C21F4594C500CFFE21 /* XCUIElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCUIElement.swift; sourceTree = "<group>"; };
 		8EE2C6C51F4594DF00CFFE21 /* ScrollToElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollToElement.swift; sourceTree = "<group>"; };
 		8EE2C6C71F4594ED00CFFE21 /* TestUserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUserProfile.swift; sourceTree = "<group>"; };
 		8EE2C6C91F46D04A00CFFE21 /* info.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = info.json; sourceTree = "<group>"; };
@@ -2617,6 +2629,7 @@
 				88ABC7AC1F72A19200C83C82 /* CreateTopicCommandTests.swift */,
 				880AFD391F6FE38D00378710 /* LikeTopicCommandTests.swift */,
 				880AFD3F1F6FE67500378710 /* PinTopicCommandTests.swift */,
+				8831EDE31F9756EC0013C8B8 /* RemoveTopicCommandTests.swift */,
 				88C682381F7939D6004BD291 /* TopicCommandTests.swift */,
 				880AFD3D1F6FE5E400378710 /* UnlikeTopicCommandTests.swift */,
 				880AFD411F6FE6CD00378710 /* UnpinTopicCommandTests.swift */,
@@ -2666,6 +2679,7 @@
 				88ABC7AE1F72A1C900C83C82 /* CreateTopicOperationTests.swift */,
 				880AFD571F70035F00378710 /* LikeTopicOperationTests.swift */,
 				880AFD5B1F7004AD00378710 /* PinTopicOperationTests.swift */,
+				8831EDE51F975A350013C8B8 /* RemoveTopicOperationTests.swift */,
 				880AFD591F70042E00378710 /* UnlikeTopicOperationTests.swift */,
 				880AFD5D1F70057100378710 /* UnpinTopicOperationTests.swift */,
 			);
@@ -3399,6 +3413,7 @@
 				88580A8B1F2213AB00C1CBAF /* APIError.swift */,
 				88580A8C1F2213AB00C1CBAF /* AppFonts.swift */,
 				880435CB1F67D04500154ACD /* AsyncOperation.swift */,
+				8831EDE71F975CF10013C8B8 /* CacheCleanupStrategy.swift */,
 				88580A8A1F2213AB00C1CBAF /* CellModel.swift */,
 				88B94EF91F66B278002392F9 /* Daemon.swift */,
 				9CDDB2021F38866000C46785 /* DateFormatter.swift */,
@@ -3965,9 +3980,9 @@
 				8839B8721F83B5CE00D97BE6 /* StartupCommands */,
 				88580B9A1F2213AB00C1CBAF /* Validators */,
 				889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */,
-				884499D71F8D10CC00838083 /* AuthorizedActionStrategy.swift */,
 				8811C8331F3DE8A500F7513D /* AssociatedValue.swift */,
 				882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */,
+				884499D71F8D10CC00838083 /* AuthorizedActionStrategy.swift */,
 				88087B451F2A431E00A33E9A /* ButtonDecorator.swift */,
 				8834A74A1F50095B00F1D383 /* CacheFetchRequest.swift */,
 				88580B931F2213AB00C1CBAF /* Constants.swift */,
@@ -4313,6 +4328,7 @@
 				880AFD561F70034700378710 /* TopicOperations */,
 				880AFD3B1F6FE57E00378710 /* UserCommands */,
 				880AFD4D1F6FEDF000378710 /* UserOperations */,
+				8831EDED1F97832E0013C8B8 /* CacheCleanupStrategyImplTests.swift */,
 				886826121F6AA04900F54731 /* OutgoingCommandOperationsBuilderTests.swift */,
 				886826101F6A948700F54731 /* OutgoingCommandTests.swift */,
 				88D1231D1F7531EE001523D1 /* OutgoingCommandsUploadStrategyTests.swift */,
@@ -4547,12 +4563,12 @@
 			children = (
 				9C3024381F55A5F600675FE9 /* FeedModule */,
 				889AFC141F220BCD003AAF19 /* MockAuthAPI.swift */,
-				884499DB1F8E0B6500838083 /* MockLoginModalOpener.swift */,
-				88FEFC9D1F8E1B9100D81CAB /* MockAuthorizedActionStrategy.swift */,
 				889AFC151F220BCD003AAF19 /* MockAuthAPIProvider.swift */,
 				88F7A7881F27896B005FEC5F /* MockAuthService.swift */,
 				8886AA561F6A85B800734F3C /* MockAuthorizationMulticast.swift */,
+				88FEFC9D1F8E1B9100D81CAB /* MockAuthorizedActionStrategy.swift */,
 				8811C8391F41F30B00F7513D /* MockCache.swift */,
+				8831EDEB1F977B560013C8B8 /* MockCacheCleanupStrategy.swift */,
 				93AC65AD1F3E05DA00FE5A3A /* MockCommentService.swift */,
 				8881E4E61F697D7200AA6DF2 /* MockDaemon.swift */,
 				88D123231F753786001523D1 /* MockFetchOutgoingCommandsOperation.swift */,
@@ -4564,6 +4580,7 @@
 				88F163821F273CEB00DAAF68 /* MockKeyValueRepository.swift */,
 				881F7E611F263888003EB37A /* MockKeyValueStorage.swift */,
 				88E3AC201F5565200016357F /* MockLikesService.swift */,
+				884499DB1F8E0B6500838083 /* MockLoginModalOpener.swift */,
 				8811C8241F3C72CD00F7513D /* MockLogoutController.swift */,
 				8881E4E81F69819100AA6DF2 /* MockNetworkTracker.swift */,
 				88D1231F1F7533C3001523D1 /* MockOperationQueue.swift */,
@@ -4605,10 +4622,10 @@
 		889AFC1B1F220BCD003AAF19 /* UtilsTest */ = {
 			isa = PBXGroup;
 			children = (
+				88252E1C1F9642C500A305A3 /* APIErrorTests.swift */,
 				884C9C3F1F4D911C0004907F /* CachePredicateBuilderTests.swift */,
 				88F163841F2745E500DAAF68 /* CreateAccountValidatorTests.swift */,
 				88A970471F8397E50047D591 /* HexColor.swift */,
-				88252E1C1F9642C500A305A3 /* APIErrorTests.swift */,
 				889AFC1C1F220BCD003AAF19 /* NameComponentsSplitterTests.swift */,
 				8811C8221F3C728E00F7513D /* UnauthorizedErrorHandlerTests.swift */,
 			);
@@ -4816,10 +4833,10 @@
 		88BC5C491F2B65D0001FBDD2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				88252E1A1F9116F400A305A3 /* PrivateUserProfileView.swift */,
 				88BC5C4A1F2B65D0001FBDD2 /* UserProfile.storyboard */,
 				88F551A91F386F1300F4AAB9 /* UserProfileHeaderView.swift */,
 				88BC5C4B1F2B65D0001FBDD2 /* UserProfileViewController.swift */,
-				88252E1A1F9116F400A305A3 /* PrivateUserProfileView.swift */,
 				88BC5C4C1F2B65D0001FBDD2 /* UserProfileViewInput.swift */,
 				88BC5C4D1F2B65D0001FBDD2 /* UserProfileViewOutput.swift */,
 			);
@@ -5216,6 +5233,7 @@
 				883BFFDB1F713AC600E1C4E3 /* CreateTopicCommand.swift */,
 				88EBD21F1F6C004600F9DDFC /* LikeTopicCommand.swift */,
 				88EBD2211F6C005200F9DDFC /* PinTopicCommand.swift */,
+				885994DE1F96586300947544 /* RemoveTopicCommand.swift */,
 				88EBD21A1F6BFDC100F9DDFC /* TopicCommand.swift */,
 				88EBD21D1F6C003A00F9DDFC /* UnlikeTopicCommand.swift */,
 				88EBD2231F6C005900F9DDFC /* UnpinTopicCommand.swift */,
@@ -5229,6 +5247,7 @@
 				88ABC7A01F72753A00C83C82 /* CreateTopicOperation.swift */,
 				88EBD2321F6C13FD00F9DDFC /* LikeTopicOperation.swift */,
 				88EBD22E1F6C138200F9DDFC /* PinTopicOperation.swift */,
+				885994E01F96617000947544 /* RemoveTopicOperation.swift */,
 				88EBD22C1F6C135B00F9DDFC /* TopicCommandOperation.swift */,
 				88EBD2341F6C144F00F9DDFC /* UnlikeTopicOperation.swift */,
 				88EBD2301F6C13E900F9DDFC /* UnpinTopicOperation.swift */,
@@ -5473,8 +5492,7 @@
 				8EF0E59F1F1FA5EF00E88ED6 /* DictionaryMerge.swift */,
 				8EF0E5A01F1FA5EF00E88ED6 /* ISODate.swift */,
 				8E60704B1F34CDFB00110F4F /* ParseURLParametersToDict.swift */,
-				8EE2C6C11F4594C500CFFE21 /* XCUIElementClearText.swift */,
-				8EE2C6C21F4594C500CFFE21 /* XCUIElementTapByCoordinate.swift */,
+				8EE2C6C21F4594C500CFFE21 /* XCUIElement.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -6122,6 +6140,7 @@
 				886B39C21F138F5D00BF1A8E /* Frameworks */,
 				886B39C31F138F5D00BF1A8E /* Resources */,
 				881F7E5B1F263538003EB37A /* CopyFiles */,
+				6FC20DBB1F8EBA8F00B31C43 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -6197,11 +6216,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
-				ORGANIZATIONNAME = Akvelon;
+				ORGANIZATIONNAME = Microsoft;
 				TargetAttributes = {
 					886B39C41F138F5D00BF1A8E = {
 						CreatedOnToolsVersion = 8.3.3;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					8EF0E5911F1FA5CC00E88ED6 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -6349,6 +6368,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6FC20DBB1F8EBA8F00B31C43 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FILE=\"${SRCROOT}/HockeySDK-iOS/BuildAgent\"\nif [ -f \"$FILE\" ]; then\n\"$FILE\"\nfi";
+		};
 		886B39E51F1392D800BF1A8E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -6402,7 +6434,7 @@
 				8E60704F1F34CE5500110F4F /* TestHome.swift in Sources */,
 				8E536BC01F69DE83006AF7A8 /* TestReplies.swift in Sources */,
 				8E1DC2901F8666BB000F5066 /* TestBlockedUsers.swift in Sources */,
-				8EE2C6C41F4594C500CFFE21 /* XCUIElementTapByCoordinate.swift in Sources */,
+				8EE2C6C41F4594C500CFFE21 /* XCUIElement.swift in Sources */,
 				8E6070741F41DD2000110F4F /* TestFollowing.swift in Sources */,
 				8E884CD61F87AE48008C0F51 /* CommentMenu.swift in Sources */,
 				8E26833F1F7CF6BF00A5B25B /* TestSettings.swift in Sources */,
@@ -6414,7 +6446,6 @@
 				8EF0E5AB1F1FA5EF00E88ED6 /* APIRouter.swift in Sources */,
 				8EE2C6C61F4594DF00CFFE21 /* ScrollToElement.swift in Sources */,
 				8EF0E5A61F1FA5EF00E88ED6 /* Base.swift in Sources */,
-				8EE2C6C31F4594C500CFFE21 /* XCUIElementClearText.swift in Sources */,
 				8E5FCAC41F83918700A81E2E /* RecentActivity.swift in Sources */,
 				8EF0E5C81F2AA13E00E88ED6 /* TestCreatePost.swift in Sources */,
 				8EAF45A91F6998C20046F704 /* Loop.swift in Sources */,
@@ -6662,6 +6693,7 @@
 				885E04021F6FBFB600D6EBD8 /* CommentCommand.swift in Sources */,
 				88B94EFA1F66B278002392F9 /* Daemon.swift in Sources */,
 				88E3AC0B1F55567F0016357F /* SettingsViewOutput.swift in Sources */,
+				885994DF1F96586300947544 /* RemoveTopicCommand.swift in Sources */,
 				8864C8221F45BA6000ADCE13 /* SearchViewController.swift in Sources */,
 				8811C8881F431B9A00F7513D /* EditProfileViewInput.swift in Sources */,
 				8864C83D1F46DBF700ADCE13 /* SearchPeopleConfigurator.swift in Sources */,
@@ -7042,6 +7074,7 @@
 				8839B8711F83B5CC00D97BE6 /* Command.swift in Sources */,
 				88EBD2351F6C145000F9DDFC /* UnlikeTopicOperation.swift in Sources */,
 				88BC5C4E1F2B65D0001FBDD2 /* UserProfileConfigurator.swift in Sources */,
+				8831EDE81F975CF10013C8B8 /* CacheCleanupStrategy.swift in Sources */,
 				883BFFCC1F710A5D00E1C4E3 /* ImageCommand.swift in Sources */,
 				88580BAD1F2213AB00C1CBAF /* SideMenuModels.swift in Sources */,
 				93AC659A1F3E056F00FE5A3A /* PostDetailInteractorInput.swift in Sources */,
@@ -7072,6 +7105,7 @@
 				88FF23621F683C86005D4552 /* UserCommand.swift in Sources */,
 				8C84040B1FBC9516BE309630 /* CommentRepliesInteractorInput.swift in Sources */,
 				63DCE6DA1F7D3C4600F9F76B /* RepliesProcessor.swift in Sources */,
+				885994E11F96617000947544 /* RemoveTopicOperation.swift in Sources */,
 				88C682681F7A6854004BD291 /* FollowRequestsItemsBuilder.swift in Sources */,
 				26E0650FC7D4980EF0B71B4A /* CommentRepliesInteractorOutput.swift in Sources */,
 				8839B8741F83B60E00D97BE6 /* ThirdPartiesConfigurationCommand.swift in Sources */,
@@ -7187,6 +7221,7 @@
 				88F1637D1F264B0F00DAAF68 /* SessionStoreTests.swift in Sources */,
 				88D2F8FA1F56D42F0004A8BC /* ReportPostAPITests.swift in Sources */,
 				63DCE6D51F7D1FD800F9F76B /* ReportReplyOperationTests.swift in Sources */,
+				8831EDEE1F97832E0013C8B8 /* CacheCleanupStrategyImplTests.swift in Sources */,
 				889AFC291F220BCD003AAF19 /* MockAuthAPI.swift in Sources */,
 				880AFD471F6FE89A00378710 /* UnlikeReplyCommandTests.swift in Sources */,
 				88EBD2191F6BF55100F9DDFC /* SuggestedUsersPresenterTests.swift in Sources */,
@@ -7203,6 +7238,7 @@
 				88252E1D1F9642C500A305A3 /* APIErrorTests.swift in Sources */,
 				884C9C331F4C371B0004907F /* MyProfileHolder.swift in Sources */,
 				88B2D6761F7B9F5E00920E43 /* FollowRequestsInteractorTests.swift in Sources */,
+				8831EDE41F9756EC0013C8B8 /* RemoveTopicCommandTests.swift in Sources */,
 				886826191F6AADDD00F54731 /* MockOutgoingCommandOperationsBuilder.swift in Sources */,
 				880AFD401F6FE67500378710 /* PinTopicCommandTests.swift in Sources */,
 				889AFC201F220BCD003AAF19 /* UIImage+Ext.swift in Sources */,
@@ -7335,6 +7371,7 @@
 				88D123261F753BF6001523D1 /* MockOutgoingCommand.swift in Sources */,
 				889119B71F4AE873005B3B32 /* SearchPeoplePresenterTests.swift in Sources */,
 				889AFC2E1F220BCD003AAF19 /* SocialPlusTests.swift in Sources */,
+				8831EDE61F975A350013C8B8 /* RemoveTopicOperationTests.swift in Sources */,
 				88ABC7A91F729C3B00C83C82 /* CreateReplyOperationTests.swift in Sources */,
 				63B62ED71F83CACF003DC885 /* MockReplyCell.swift in Sources */,
 				8892F2751F8237E300A58D8B /* LinkedAccountsPresenterTests.swift in Sources */,
@@ -7417,6 +7454,7 @@
 				88ABC7B91F72A46100C83C82 /* CreateTopicImageOperationTests.swift in Sources */,
 				8811C82B1F3D998300F7513D /* MockImageCache.swift in Sources */,
 				88B2D6961F7BEF3900920E43 /* MockUserCommand.swift in Sources */,
+				8831EDEC1F977B560013C8B8 /* MockCacheCleanupStrategy.swift in Sources */,
 				883B9B661F277BE800D1E66E /* CoreDataStackTests.swift in Sources */,
 				88635D771F223F1600577140 /* CoreDataStackBuilderTests.swift in Sources */,
 				63B62ED21F83CA17003DC885 /* ReplyCellPresenterTests.swift in Sources */,
@@ -7486,8 +7524,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 285W24646W;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EmbeddedSocial/Vendor",
@@ -7497,9 +7536,10 @@
 				INFOPLIST_FILE = "EmbeddedSocial-Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "akvelon.EmbeddedSocial-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.microsoft.embeddedsocial-df";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "369c1331-48f6-48ab-908c-42ec1f7a638a";
+				PROVISIONING_PROFILE_SPECIFIER = "Microsoft Embedded Social Dogfood Distribution";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -7511,8 +7551,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 285W24646W;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EmbeddedSocial/Vendor",
@@ -7522,9 +7563,10 @@
 				INFOPLIST_FILE = "EmbeddedSocial-Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "akvelon.EmbeddedSocial-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.microsoft.embeddedsocial-df";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "369c1331-48f6-48ab-908c-42ec1f7a638a";
+				PROVISIONING_PROFILE_SPECIFIER = "Microsoft Embedded Social Dogfood Distribution";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -7535,7 +7577,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 285W24646W;
+				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = EmbeddedSocialUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -7552,7 +7594,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 285W24646W;
+				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = EmbeddedSocialUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -7664,7 +7706,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -7682,7 +7724,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -7713,7 +7755,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -7741,7 +7783,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = 285W24646W;
+				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				INFOPLIST_FILE = EmbeddedSocialTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -7756,7 +7798,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = 285W24646W;
+				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				INFOPLIST_FILE = EmbeddedSocialTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
