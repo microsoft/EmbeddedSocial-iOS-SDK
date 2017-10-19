@@ -7,7 +7,7 @@ import Foundation
 
 final class ReportReplyCommand: ReplyCommand {
     
-    var reportReason: ReportReason
+    let reportReason: ReportReason
     
     required init?(json: [String: Any]) {
         guard let reportReason = json["reportReason"] as? String else {
@@ -30,13 +30,5 @@ final class ReportReplyCommand: ReplyCommand {
             "type": typeIdentifier,
             "reportReason": reportReason.rawValue
         ]
-    }
-    
-    override func setRelatedHandle(_ relatedHandle: String?) {
-        reply.commentHandle = relatedHandle
-    }
-    
-    override func getRelatedHandle() -> String? {
-        return reply.commentHandle
     }
 }

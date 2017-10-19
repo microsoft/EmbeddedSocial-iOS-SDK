@@ -31,12 +31,4 @@ final class ReportCommentCommand: CommentCommand {
             "reportReason": reportReason.rawValue
         ]
     }
-    
-    override func setRelatedHandle(_ relatedHandle: String?) {
-        comment.topicHandle = relatedHandle
-    }
-    
-    override func getRelatedHandle() -> String? {
-        return comment.topicHandle
-    }
 }

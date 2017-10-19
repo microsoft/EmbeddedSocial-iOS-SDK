@@ -81,7 +81,8 @@ class TopicCommand: OutgoingCommand, TopicsFeedApplicableCommand {
             LikeTopicCommand.self,
             PinTopicCommand.self,
             UnpinTopicCommand.self,
-            CreateTopicCommand.self
+            CreateTopicCommand.self,
+            RemoveTopicCommand.self
         ]
     }
 }

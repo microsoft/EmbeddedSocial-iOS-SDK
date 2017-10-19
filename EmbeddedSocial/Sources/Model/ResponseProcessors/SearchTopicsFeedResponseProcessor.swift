@@ -8,6 +8,6 @@ import Foundation
 class SearchTopicsFeedResponseProcessor: TopicsFeedResponseProcessor {
     
     override var commandsPredicate: NSPredicate {
-        return predicateBuilder.topicActionCommandsAndAllCreatedComments()
+        return predicateBuilder.topicActionsRemovedTopicsCreatedComments()
     }
 }

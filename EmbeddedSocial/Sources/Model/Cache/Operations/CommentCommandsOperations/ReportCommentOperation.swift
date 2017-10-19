@@ -5,13 +5,12 @@
 
 import Foundation
 
-final class ReportCommentOperation: OutgoingCommandOperation {
+final class ReportCommentOperation: CommentCommandOperation {
     let reportService: ReportingServiceType
-    let command: ReportCommentCommand
     
     required init(command: ReportCommentCommand, reportService: ReportingServiceType) {
-        self.command = command
         self.reportService = reportService
+        super.init(command: command)
     }
     
     override func main() {
@@ -19,8 +18,13 @@ final class ReportCommentOperation: OutgoingCommandOperation {
             return
         }
         
-        reportService.report(comment: command.comment, reason: command.reportReason) { (result) in
-            self.completeOperation(with: result.error)
+        guard let command = command as? ReportCommentCommand else {
+            completeOperation()
+            return
+        }
+        
+        reportService.report(comment: command.comment, reason: command.reportReason) { [weak self] result in
+            self?.completeOperation(with: result.error)
         }
     }
 }

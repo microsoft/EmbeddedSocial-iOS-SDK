@@ -6,7 +6,13 @@
 import Foundation
 
 struct APIConfig {
-    public static var delayedResponses = false
+    public static var delayedResponses: Bool {
+        return responsesDelay != 0
+    }
+    
+    // Delay for responses (in seconds)
+    public static var responsesDelay: TimeInterval = 0
+    
     public static var showTopicImages = false
     public static var showUserImages = false
     public static var numberedTopicTeasers = false

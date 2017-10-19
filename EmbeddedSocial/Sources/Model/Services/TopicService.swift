@@ -90,12 +90,15 @@ class TopicService: BaseService, PostServiceProtocol {
     private var topicsFeedExecutor: TopicsFeedRequestExecutor!
     private var myRecentTopicsFeedExecutor: TopicsFeedRequestExecutor!
     private var singlePostFetchExecuter: SingleTopicRequestExecutor!
+    private let predicateBuilder: PredicateBuilder
 
     init(imagesService: ImagesServiceType,
-         executorProvider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
+         executorProvider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self,
+         predicateBuilder: PredicateBuilder = PredicateBuilder()) {
         
         self.imagesService = imagesService
         self.executorProvider = executorProvider
+        self.predicateBuilder = predicateBuilder
 
         super.init()
         
@@ -123,7 +126,7 @@ class TopicService: BaseService, PostServiceProtocol {
             }
         }
     }
-    
+
     private func execute(command: CreateTopicCommand,
                          success: @escaping TopicPosted,
                          failure: @escaping Failure) {
@@ -271,16 +274,6 @@ class TopicService: BaseService, PostServiceProtocol {
         execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
     }
     
-    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
-        TopicsAPI.topicsDeleteTopic(topicHandle: post, authorization: authorization) { (object, errorResponse) in
-            if let error = errorResponse {
-                self.errorHandler.handle(error: error, completion: completion)
-            } else {
-                completion(.success())
-            }
-        }
-    }
-    
     private func execute(builder: RequestBuilder<FeedResponseTopicView>,
                          executor: TopicsFeedRequestExecutor,
                          completion: @escaping FetchResultHandler) {
@@ -292,6 +285,46 @@ class TopicService: BaseService, PostServiceProtocol {
             }
             completion(feed)
         }
+    }
+    
+    func deletePost(post topicHandle: PostHandle, completion: @escaping (Result<Void>) -> Void) {
+        guard !isTopicCached(topicHandle: topicHandle) else {
+            deleteCachedTopic(topicHandle: topicHandle)
+            return
+        }
+        
+        let command = RemoveTopicCommand(topic: Post(topicHandle: topicHandle))
+        deleteTopic(command: command, completion: completion)
+    }
+    
+    private func deleteTopic(command: RemoveTopicCommand, completion: @escaping (Result<Void>) -> Void) {
+        guard isNetworkReachable else {
+            cache.cacheOutgoing(command)
+            completion(.success())
+            return
+        }
+        
+        TopicsAPI.topicsDeleteTopic(topicHandle: command.topic.topicHandle, authorization: authorization) { (_, error) in
+            if let error = error {
+                self.errorHandler.handle(error: error, completion: completion)
+            } else {
+                completion(.success())
+            }
+        }
+    }
+    
+    private func isTopicCached(topicHandle: String) -> Bool {
+        let p = cachedTopicPredicate(topicHandle: topicHandle)
+        return cache.firstOutgoing(ofType: OutgoingCommand.self, predicate: p, sortDescriptors: nil) != nil
+    }
+    
+    private func deleteCachedTopic(topicHandle: String) {
+        let p = cachedTopicPredicate(topicHandle: topicHandle)
+        cache.deleteOutgoing(with: p)
+    }
+    
+    private func cachedTopicPredicate(topicHandle: String) -> NSPredicate {
+        return predicateBuilder.predicate(typeID: CreateTopicCommand.typeIdentifier, handle: topicHandle)
     }
     
 }

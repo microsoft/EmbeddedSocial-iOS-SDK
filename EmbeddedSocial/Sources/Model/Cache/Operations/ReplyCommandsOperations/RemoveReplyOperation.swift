@@ -5,13 +5,14 @@
 
 import Foundation
 
-final class RemoveReplyOperation: OutgoingCommandOperation {
-    let repliesService: RepliesServiceProtcol
-    let command: ReplyCommand
+final class RemoveReplyOperation: ReplyCommandOperation {
+    private let repliesService: RepliesServiceProtcol
+    private let cleanupStrategy: CacheCleanupStrategy
     
-    required init(command: ReplyCommand, repliesService: RepliesServiceProtcol) {
-        self.command = command
+    required init(command: ReplyCommand, repliesService: RepliesServiceProtcol, cleanupStrategy: CacheCleanupStrategy) {
         self.repliesService = repliesService
+        self.cleanupStrategy = cleanupStrategy
+        super.init(command: command)
     }
     
     override func main() {
@@ -19,8 +20,9 @@ final class RemoveReplyOperation: OutgoingCommandOperation {
             return
         }
         
-        repliesService.delete(reply: command.reply) { (result) in
-            self.completeOperation(with: result.error)
+        repliesService.delete(reply: command.reply) { [weak self, command] result in
+            self?.cleanupStrategy.cleanupRelatedCommands(command)
+            self?.completeOperation(with: result.error)
         }
     }
 }
