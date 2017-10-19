@@ -5,6 +5,7 @@
 
 protocol CommentCellModuleProtocol {
     func mainComment() -> Comment
+    func didRemove(comment: Comment)
 }
 
 protocol CommentCellModuleOutout: class {
@@ -97,10 +98,6 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
 }
 
 extension CommentCellPresenter: CommentCellModuleProtocol {
-    func cell() -> CommentCell {
-        return view as! CommentCell
-    }
-    
     func mainComment() -> Comment {
         return comment
     }
