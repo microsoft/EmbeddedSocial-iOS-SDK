@@ -43,7 +43,7 @@ Runs unit tests
 ```
 fastlane build_app
 ```
-
+Builds the app
 ### launch
 ```
 fastlane launch
