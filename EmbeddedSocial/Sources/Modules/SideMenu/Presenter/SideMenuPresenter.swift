@@ -16,6 +16,9 @@ protocol SideMenuModuleInput: class {
     func openSocialItem(index: Int)
     func openMyProfile()
     func openLogin()
+    
+    /* Notifications */
+    func updateNotificationsCount()
 }
 
 class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuInteractorOutput {
@@ -106,6 +109,12 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     
     private var items = MenuItems()
     
+    // MARK: View Output
+    
+    func viewDidAppear() {
+        updateNotificationsCount()
+    }
+    
     func viewIsReady() {
         view.setupInitialState()
         buildItems()
@@ -129,7 +138,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         return items[index]
     }
     
-    func item(at index: IndexPath) -> SideMenuItemModel {
+    func item(at index: IndexPath) -> SideMenuItemModelProtocol {
         return items[index.section].items[index.row]
     }
     
@@ -271,13 +280,60 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         let viewController = interactor.targetForSocialMenuItem(with: index)
         router.open(viewController)
         
-        let socItemIndexPath = getSocialItemIndexPath(index: index, configuation: configuration)
+        let itemPath = getSocialItemIndexPath(index: index, configuation: configuration)
         
-        selectedMenuItem = .item(socItemIndexPath, tab)
+        selectedMenuItem = .item(itemPath, tab)
         view.reload()
     }
     
     func close() {
         router.close()
+    }
+    
+    // MARK: Notifications
+    
+    private func stringFromNotificationsCount(_ count: UInt32) -> String? {
+       
+        if count >= 1 && count <= 99 {
+            return "\(count)"
+        }
+        else if count > 99{
+            return "99+"
+        }
+        else {
+            return nil
+        }
+    }
+    
+    private func updateNotification(count: UInt32) {
+        
+        // due to menu state activity activity item can be unavailable
+        guard let itemIndex = interactor.getSocialItemIndex(for: .activity) else {
+            return
+        }
+        
+        let itemPath = getSocialItemIndexPath(index: itemIndex, configuation: configuration)
+        let item = items[itemPath.section].items[itemPath.row]
+        guard let notificationItem = item  as? SideMenuItemModelWithNotification else {
+            fatalError("Model mismatch")
+        }
+        
+        // update model
+        notificationItem.countText = stringFromNotificationsCount(count)
+        
+        // update UI
+        view.reload(item: itemPath)
+    }
+    
+    func updateNotificationsCount() {
+        interactor.getNotificationsCount { [weak self] (result) in
+ 
+            switch result {
+            case .success(let count):
+                self?.updateNotification(count: count)
+            case .failure(let error):
+                Logger.log(error, event: .veryImportant)
+            }
+        }
     }
 }

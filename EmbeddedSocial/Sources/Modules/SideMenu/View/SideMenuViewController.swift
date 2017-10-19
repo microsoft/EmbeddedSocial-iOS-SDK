@@ -10,6 +10,7 @@ protocol SideMenuViewInput: class {
     func setupInitialState()
     func reload()
     func reload(section: Int)
+    func reload(item: IndexPath)
     func showTabBar(visible: Bool)
     func selectBar(with index: Int)
     func showAccountInfo(visible: Bool)
@@ -26,9 +27,10 @@ protocol SideMenuViewOutput {
     func itemsCount(in section: Int) -> Int
     func sectionsCount() -> Int
     func section(with index: Int) -> SideMenuSectionModel
-    func item(at index: IndexPath) -> SideMenuItemModel
+    func item(at index: IndexPath) -> SideMenuItemModelProtocol
     func headerTitle(for section: Int) -> String
     func accountInfo() -> SideMenuHeaderModel
+    func viewDidAppear()
 }
 
 
@@ -38,7 +40,7 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     
     @IBOutlet var tabbarShownConstraint: NSLayoutConstraint?
     @IBOutlet var accountInfoShownConstraint: NSLayoutConstraint?
-    @IBOutlet weak var tableView: UITableView?
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var accountInfoView: SideMenuAccountInfoView?
     @IBOutlet weak var socialButton: SideMenuButton?
     @IBOutlet weak var clientButton: SideMenuButton?
@@ -51,11 +53,18 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     
     // MARK: SideMenuViewInput
     func setupInitialState() {
-        tableView?.register(SideMenuSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+        tableView.register(SideMenuSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+        tableView.register(SideMenuCellView.self, forCellReuseIdentifier: SideMenuCellView.reuseID)
+        tableView.register(SideMenuCellViewWithNotification.self, forCellReuseIdentifier: SideMenuCellViewWithNotification.reuseID)
     }
     
     func reload() {
         tableView?.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        output.viewDidAppear()
     }
     
     func reload(section: Int) {
@@ -117,19 +126,32 @@ extension SideMenuViewController: UITableViewDataSource, UITableViewDelegate {
         return header
     }
     
+    private func dequeCell(for item: SideMenuItemModelProtocol, tableView: UITableView, indexPath: IndexPath) -> SideMenuCellView {
+        switch item {
+        case is SideMenuItemModelWithNotification:
+            let cell: SideMenuCellViewWithNotification = tableView.dequeueReusableCell(forIndexPath: indexPath)
+            return cell
+        default:
+            let cell: SideMenuCellView = tableView.dequeueReusableCell(forIndexPath: indexPath)
+            return cell
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? SideMenuCellView else {
-            return UITableViewCell()
-        }
-        
         let item = output.item(at: indexPath)
+        let cell = dequeCell(for: item, tableView: tableView, indexPath: indexPath)
+            
         cell.configure(withModel: item)
         return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return output.sectionsCount()
+    }
+    
+    func reload(item: IndexPath) {
+        tableView.reloadRows(at: [item], with: .none)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
