@@ -42,6 +42,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     var loadMoreCellViewModel = LoadMoreCellViewModel()
     
     var cursor: String?
+    var commentModuleOutput: CommentCellModuleProtocol!
     private let pageSize: Int
     private let actionStrategy: AuthorizedActionStrategy
     
@@ -225,6 +226,8 @@ extension CommentRepliesPresenter: ReplyCellModuleOutput {
 extension CommentRepliesPresenter: CommentCellModuleOutout {
     func removed(comment: Comment) {
         //todo: handle
+        commentModuleOutput.didRemove(comment: comment)
+        router.back()
     }
 }
 

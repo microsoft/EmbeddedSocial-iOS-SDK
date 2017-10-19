@@ -71,9 +71,9 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let path = lastDetailedCommentPath {
-            collectionView.reloadItems(at: [path])
-            lastDetailedCommentPath = nil
+        if let path = lastDetailedCommentPath, collectionView.cellForItem(at: path) != nil {
+                collectionView.reloadItems(at: [path])
+                lastDetailedCommentPath = nil
         }
         
         postButton.isHidden = commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
