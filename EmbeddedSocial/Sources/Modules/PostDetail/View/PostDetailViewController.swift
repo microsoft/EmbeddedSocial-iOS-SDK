@@ -124,6 +124,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     func hideLoadingHUD() {
         hideHUD()
+        view.isUserInteractionEnabled = true
     }
     
     func endRefreshing() {

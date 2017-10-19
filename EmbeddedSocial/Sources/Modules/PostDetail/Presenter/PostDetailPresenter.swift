@@ -103,7 +103,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     }
     
     func commentPostFailed(error: Error) {
-        
+        view.hideLoadingHUD()
     }
     
     private func setupFeed() {
