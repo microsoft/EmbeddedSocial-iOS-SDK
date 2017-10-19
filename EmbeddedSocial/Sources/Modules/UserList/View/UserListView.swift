@@ -22,6 +22,10 @@ class UserListView: UIView {
         }
     }
     
+    var anyItemsShown: Bool {
+        return !tableView.visibleCells.isEmpty
+    }
+    
     fileprivate lazy var tableView: UITableView = { [unowned self] in
         let tableView = UITableView()
         tableView.delegate = self.dataManager.tableDelegate

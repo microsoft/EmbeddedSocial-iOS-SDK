@@ -65,7 +65,8 @@ class SearchHistoryMediator: NSObject {
     
     fileprivate func updateSearchHistoryVisibility() {
         let searchText = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        searchHistoryView.isHidden = !searchText.isEmpty
+        let shouldShowHistory = searchBar.isFirstResponder && searchText.isEmpty
+        searchHistoryView.isHidden = !shouldShowHistory
     }
 }
 

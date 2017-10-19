@@ -4,6 +4,7 @@
 //
 
 import XCTest
+import Nimble
 @testable import EmbeddedSocial
 
 class UserListPresenterTests: XCTestCase {
@@ -342,5 +343,22 @@ class UserListPresenterTests: XCTestCase {
         XCTAssertEqual(view.setUsersReceivedUsers ?? [], users)
         XCTAssertTrue(view.setIsEmptyCalled)
         XCTAssertEqual(view.setIsEmptyReceivedIsEmpty, users.isEmpty)
+    }
+    
+    func testPullToRefreshErrorWithNotEmptyList() {
+        let users = [User(), User()]
+        interactor.getNextListPageReturnValue = .success(users)
+        sut.setupInitialState()
+        expect(self.view.setUsersReceivedUsers).toEventually(equal(users))
+    
+        interactor.reloadListReturnValue = .failure(APIError.unknown)
+        view.anyItemsShown = true
+        sut.onPullToRefresh()
+        expect(self.view.setUsersReceivedUsers).toEventually(equal(users))
+        expect(self.view.setIsEmptyCalled).toEventually(beTrue())
+        expect(self.view.setIsEmptyReceivedIsEmpty).toEventually(beFalse())
+        
+        expect(self.moduleOutput.didFailToLoadListListViewErrorCalled).toEventually(beTrue())
+        expect(self.moduleOutput.didFailToLoadListListViewErrorReceivedArguments?.error).toEventually(matchError(APIError.unknown))
     }
 }

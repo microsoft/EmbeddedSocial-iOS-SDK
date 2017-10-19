@@ -5,20 +5,34 @@
 
 import XCTest
 import Nimble
+import UIKit
 @testable import EmbeddedSocial
 
 class SearchHistoryMediatorTests: XCTestCase {
     
     private class SearchBarDelegate: NSObject, UISearchBarDelegate { }
     
-    var searchBar: UISearchBar!
+    class FirstResponderSearchBar: UISearchBar {
+        private var _isFirstResponder = false
+        
+        override func becomeFirstResponder() -> Bool {
+            _isFirstResponder = true
+            return true
+        }
+        
+        override var isFirstResponder: Bool {
+            return _isFirstResponder
+        }
+    }
+    
+    var searchBar: FirstResponderSearchBar!
     var storage: MockKeyValueStorage!
     var historyView: SearchHistoryView!
     var sut: SearchHistoryMediator!
-    
+
     override func setUp() {
         super.setUp()
-        searchBar = UISearchBar()
+        searchBar = FirstResponderSearchBar()
         historyView = SearchHistoryView()
         storage = MockKeyValueStorage()
         sut = SearchHistoryMediator(searchBar: searchBar,
@@ -54,9 +68,19 @@ class SearchHistoryMediatorTests: XCTestCase {
         expect(self.historyView.searchRequests).to(equal([searchText]))
     }
     
-    func testTabChangeWhenSearchTextIsEmpty() {
+    func testTabChangeWhenSearchTextIsEmptyAndSearchBarIsInactive() {
         storage.objectForKeyReturnValue = ["1"]
 
+        sut.activeTab = .people
+        
+        expect(self.historyView.searchRequests).to(equal(["1"]))
+        expect(self.historyView.isHidden).to(beTrue())
+    }
+    
+    func testTabChangeWhenSearchTextIsEmptyAndSearchBarIsActive() {
+        storage.objectForKeyReturnValue = ["1"]
+        searchBar.becomeFirstResponder()
+        
         sut.activeTab = .people
         
         expect(self.historyView.searchRequests).to(equal(["1"]))
@@ -73,7 +97,13 @@ class SearchHistoryMediatorTests: XCTestCase {
         expect(self.historyView.isHidden).to(beTrue())
     }
     
-    func testThatItConfiguresHistoryViewWhenSearchBarEditingBeginsAndSearchTextIsEmpty() {
+    func testInitWithEmptyText() {
+        setupAndValidateHistoryViewInitialState()
+        expect(self.historyView.isHidden).to(beTrue())
+    }
+    
+    func testInitWithEmptyTextAndActiveSearchBar() {
+        searchBar.becomeFirstResponder()
         setupAndValidateHistoryViewInitialState()
         expect(self.historyView.isHidden).to(beFalse())
     }
@@ -85,6 +115,7 @@ class SearchHistoryMediatorTests: XCTestCase {
     }
     
     private func setupAndValidateHistoryViewInitialState() {
+        
         storage.objectForKeyReturnValue = ["1"]
         
         let superview = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
@@ -122,6 +153,7 @@ class SearchHistoryMediatorTests: XCTestCase {
     
     func testSearchTextChangeWithoutText() {
         searchBar.text = ""
+        searchBar.becomeFirstResponder()
         sut.searchBar(searchBar, textDidChange: "")
         expect(self.historyView.isHidden).to(beFalse())
     }
