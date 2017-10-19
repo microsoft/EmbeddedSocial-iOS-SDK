@@ -23,7 +23,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1503468403051551</string>
+				<string>fb143359739619521</string>
 			</array>
 		</dict>
 		<dict>
@@ -71,9 +71,9 @@
 	<key>CFBundleVersion</key>
 	<string>4</string>
 	<key>FacebookAppID</key>
-	<string>1503468403051551</string>
+	<string>143359739619521</string>
 	<key>FacebookDisplayName</key>
-	<string>Social Plus</string>
+	<string>Embedded Social</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
