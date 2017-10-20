@@ -10,14 +10,16 @@ class ActivityNotificationLabel: UIView {
     
     struct Style {
         static let valuePadding = CGFloat(3)
+        static let font = UIFont.boldSystemFont(ofSize: 12)
     }
     
     let counterLabel: UILabel = {
         let view = UILabel()
+        view.font = ActivityNotificationLabel.Style.font
         view.textAlignment = NSTextAlignment.center
         view.textColor = UIColor.white
-        view.adjustsFontSizeToFitWidth = true
         view.baselineAdjustment = UIBaselineAdjustment.alignCenters
+        view.adjustsFontSizeToFitWidth = true
         return view
     }()
     
@@ -38,11 +40,10 @@ class ActivityNotificationLabel: UIView {
     func setCountText(_ text: String?) {
         counterLabel.isHidden = (text == nil)
         counterLabel.text = text
-        counterLabel.sizeToFit()
     }
     
     private func setup() {
-        backgroundColor = UIColor.darkGray
+        backgroundColor = Palette.green
         counterLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(counterLabel)
         

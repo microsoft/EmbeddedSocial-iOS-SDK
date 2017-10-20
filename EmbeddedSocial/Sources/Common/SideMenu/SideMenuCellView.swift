@@ -70,7 +70,7 @@ class SideMenuCellView: UITableViewCell {
 
 class SideMenuCellViewWithNotification: SideMenuCellView {
     
-    var notificationLabel = ActivityNotificationLabel()
+    let notificationLabel = ActivityNotificationLabel()
     
     override func configure(withModel model: SideMenuItemModelProtocol) {
         super.configure(withModel: model)
