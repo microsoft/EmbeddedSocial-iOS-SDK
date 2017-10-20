@@ -77,7 +77,7 @@ public final class SocialPlus {
     }
     
     public func didReceiveRemoteNotification(data: [AnyHashable : Any]) {
-        coordinator.openHomeScreen()
+        coordinator.openActivityScreen()
     }
     
     public func start(launchArguments args: LaunchArguments) {
