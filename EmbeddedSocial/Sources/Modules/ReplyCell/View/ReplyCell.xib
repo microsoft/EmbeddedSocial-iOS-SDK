@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="17A365" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -91,6 +92,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uur-6E-HBf">
                                 <rect key="frame" x="283" y="17" width="37" height="15"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Likes Reply"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="AkX-EW-H0c"/>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="70" id="OSb-mR-YRs"/>
@@ -105,7 +107,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9g-p9-9jH" userLabel="comment">
                                 <rect key="frame" x="50" y="10" width="30" height="30"/>
-                                <accessibility key="accessibilityConfiguration" identifier="Like" label="Like"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Like Reply" label="Like"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="26s-6M-Ukq"/>
                                     <constraint firstAttribute="width" constant="30" id="IIV-oo-V9u"/>
@@ -174,7 +176,7 @@
     </objects>
     <resources>
         <image name="icon_dots" width="36" height="36"/>
-        <image name="icon_liked" width="36" height="36"/>
+        <image name="icon_liked" width="48" height="48"/>
         <image name="icon_liked_active" width="48" height="48"/>
         <image name="user_photo_placeholder_light" width="150" height="150"/>
     </resources>

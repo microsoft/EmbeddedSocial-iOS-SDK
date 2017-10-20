@@ -43,7 +43,7 @@ class BaseTestHome: BaseFeedTest {
         XCTAssert(post.textExists("John Doe"), "Author name doesn't match")
         XCTAssert(post.textExists("5 likes"), "Number of likes doesn't match")
         XCTAssert(post.textExists("7 comments"), "Number of comments doesn't match")
-        XCTAssertEqual(post.teaser.value as! String, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "Teaser text doesn't match")
+        XCTAssertEqual(post.getTitle().value as! String, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "Teaser text doesn't match")
         XCTAssert(post.likeButton.isSelected, "Post is not marked as liked")
         XCTAssert(post.pinButton.isSelected, "Post is not marked as pinned")
     }
@@ -94,7 +94,7 @@ class BaseTestHome: BaseFeedTest {
             retryCount -= 1
             for i in 0...feed.getPostsCount() - 1 {
                 let post = feed.getPost(i)
-                seenPosts.insert(post.cell)
+                seenPosts.insert(post.asUIElement())
             }
             app.swipeUp()
         }
@@ -112,8 +112,8 @@ class BaseTestHome: BaseFeedTest {
         }
         
         let post = feed.getPost(0)
-        let start = post.cell.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 0)))
-        let finish = post.cell.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
+        let start = post.asUIElement().coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 0)))
+        let finish = post.asUIElement().coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
         start.press(forDuration: 0, thenDragTo: finish)
         
         XCTAssertTrue(feed.getPostsCount() != 0)
@@ -125,7 +125,7 @@ class BaseTestHome: BaseFeedTest {
     
     func testOpenPostDetails() {
         let details = PostDetails(app)
-        XCTAssertEqual(details.post.teaser.value as! String, "Post Details Screen", "Post details screen haven't been opened")
+        XCTAssertEqual(details.post.getTitle().label, "Post Details Screen", "Post details screen haven't been opened")
     }
     
     func testPagingTileMode() {
@@ -136,7 +136,7 @@ class BaseTestHome: BaseFeedTest {
             retryCount -= 1
             for i in 0...feed.getPostsCount() - 1 {
                 let post = feed.getPost(i)
-                seenPosts.insert(post.cell)
+                seenPosts.insert(post.asUIElement())
             }
             app.swipeUp()
         }
@@ -158,8 +158,8 @@ class BaseTestHome: BaseFeedTest {
         }
         
         let post = feed.getPost(0)
-        let start = post.cell.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 0)))
-        let finish = post.cell.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
+        let start = post.asUIElement().coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 0)))
+        let finish = post.asUIElement().coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
         start.press(forDuration: 0, thenDragTo: finish)
         
         XCTAssertTrue(feed.getPostsCount() != 0)
@@ -167,7 +167,7 @@ class BaseTestHome: BaseFeedTest {
     
     func testOpenPostDetailsTileMode() {
         let details = PostDetails(app)
-        XCTAssertEqual(details.post.teaser.value as! String, "Post Details Screen", "Post details screen haven't been opened")
+        XCTAssertEqual(details.post.getTitle().label, "Post Details Screen", "Post details screen haven't been opened")
     }
     
 }
@@ -252,7 +252,7 @@ class TestOnlineHome: BaseTestHome, OnlineTest {
         
         let (_, post) = feed.getRandomPost()
         APIConfig.values = ["text": "Post Details Screen"]
-        post.teaser.tap()
+        post.getTitle().tap()
         
         super.testOpenPostDetails()
     }
@@ -289,7 +289,7 @@ class TestOnlineHome: BaseTestHome, OnlineTest {
         
         let (_, post) = feed.getRandomPost()
         APIConfig.values = ["text": "Post Details Screen"]
-        post.cell.tap()
+        post.asUIElement().tap()
         
         super.testOpenPostDetailsTileMode()
     }
@@ -300,7 +300,7 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
     
     override func testFeedSource() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).cell)
+        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
         super.testFeedSource()
     }
     
@@ -314,19 +314,19 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
                             "pinned": true]
         
         openScreen()
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).cell)
+        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
         super.testPostAttributes()
     }
     
     override func testLikePost() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).cell)
+        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
         super.testLikePost()
     }
     
     override func testPinPostButton() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).cell)
+        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
         super.testPinPostButton()
     }
     
@@ -341,7 +341,7 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         for _ in 1...7 {
             app.swipeDown()
         }
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).cell)
+        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
         
         // test offline pagination
         super.testPaging()
@@ -349,7 +349,7 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
     
     override func testPullToRefresh() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).cell)
+        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
         super.testPullToRefresh()
     }
     
@@ -358,7 +358,7 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         
         openScreen()
         
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).cell)
+        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
         super.testPostImagesLoaded()
     }
     
@@ -367,10 +367,10 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         
         let (_, post) = feed.getRandomPost()
         APIConfig.values = ["text": "Post Details Screen"]
-        post.teaser.tap()
+        post.getTitle().tap()
         
         let details = PostDetails(app)
-        makePullToRefreshWithoutReachability(with: details.post.cell)
+        makePullToRefreshWithoutReachability(with: details.post.asUIElement())
         super.testOpenPostDetails()
     }
     
@@ -385,7 +385,7 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         for _ in 1...5 {
             app.swipeDown()
         }
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).cell)
+        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
         
         // test offline pagination
         super.testPagingTileMode()
@@ -395,7 +395,7 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         openScreen()
         feed.switchViewMode()
         
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).cell)
+        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
         super.testPullToRefreshTileMode()
     }
     
@@ -405,9 +405,9 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         
         let (_, post) = feed.getRandomPost()
         APIConfig.values = ["text": "Post Details Screen"]
-        post.cell.tap()
+        post.asUIElement().tap()
         
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).cell)
+        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
         super.testOpenPostDetailsTileMode()
     }
     

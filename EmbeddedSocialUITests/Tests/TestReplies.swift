@@ -7,26 +7,22 @@ import Foundation
 import XCTest
 @testable import EmbeddedSocial
 
-class TestReplies: UITestBase {
-    var sideMenu: SideMenu!
-    var feed: Feed!
+class TestReplies: BaseSideMenuTest {
+    
     var comments: CommentsFeed!
     var replies: RepliesFeed!
     var pageSize: Int!
     
     override func setUp() {
         super.setUp()
-        sideMenu = SideMenu(app)
-        feed = Feed(app)
+        
         comments = CommentsFeed(app)
         replies = RepliesFeed(app)
         pageSize = 5 //EmbeddedSocial.Constants.CommentReplies.pageSize
     }
     
-    func openScreen() {
-        sideMenu.navigate(to: .home)
-        let (_, post) = feed.getRandomPost()
-        post.teaser.tap()
+    override func openScreen() {
+        Feed(app).getRandomPost().1.getTitle().tap()
         
         var retryCount = 15
         

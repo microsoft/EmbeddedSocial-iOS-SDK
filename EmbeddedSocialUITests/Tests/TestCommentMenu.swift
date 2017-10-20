@@ -17,7 +17,7 @@ class TestCommentMenu: TestOnlineHome {
     }
     
     override func openScreen() {
-        feed.getRandomPost().1.teaser.tap()
+        feed.getRandomPost().1.getTitle().tap()
         
         var retryCount = 15
         

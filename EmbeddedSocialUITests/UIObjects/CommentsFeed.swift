@@ -3,17 +3,20 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 
 class Comment {
-    var app: XCUIApplication
-    var cell: XCUIElement
-    var teaser: XCUIElement
+    
     var likeButton: XCUIElement
     var replyButton: XCUIElement
     var likesButton: XCUIElement
     var repliesButton: XCUIElement
+    
+    private var app: XCUIApplication
+    private var cell: XCUIElement
+    
+    private var authorLabeL: XCUIElement
+    private var titleLabel: XCUIElement
     
     private var menuButton: XCUIElement
     private var commentMenu: CommentMenu!
@@ -21,13 +24,16 @@ class Comment {
     init(_ cell: XCUIElement, _ application: XCUIApplication) {
         self.app = application
         self.cell = cell
-        self.teaser = self.cell.textViews["Teaser"]
-        self.likeButton = self.cell.buttons["Like"]
-        self.replyButton = self.cell.buttons["Reply"]
-        self.likesButton = self.cell.buttons.element(boundBy: 4)
-        self.repliesButton = self.cell.otherElements.element.otherElements.element.buttons["Replies Button"]
         
-        menuButton = self.cell.buttons["Post Menu"]
+        self.likeButton = self.cell.buttons["Like Comment"].firstMatch
+        self.replyButton = self.cell.buttons["Reply Comment"].firstMatch
+        self.likesButton = self.cell.buttons["Likes Comment"].firstMatch
+        self.repliesButton = self.cell.buttons["Replies Comment"].firstMatch
+        
+        self.authorLabeL = self.cell.staticTexts.firstMatch
+        self.titleLabel = self.cell.staticTexts.element(boundBy: 1)
+        
+        menuButton = self.cell.buttons["Menu Comment"]
         commentMenu = CommentMenu(app, self)
     }
     
@@ -42,10 +48,32 @@ class Comment {
         return self.cell.staticTexts[text]
     }
     
+    func getAuthor() -> XCUIElement {
+        return authorLabeL
+    }
+    
+    func getTitle() -> XCUIElement {
+        return titleLabel
+    }
+    
     func like() {
-        scrollToElement(self.likeButton, self.app)
-        self.likeButton.tap()
-        sleep(1)
+        scrollToElement(likeButton, app)
+        likeButton.tap()
+    }
+    
+    func reply() {
+        scrollToElement(replyButton, app)
+        replyButton.tap()
+    }
+    
+    func openLikes() {
+        scrollToElement(likesButton, app)
+        likesButton.tap()
+    }
+    
+    func openReplies() {
+        scrollToElement(repliesButton, app)
+        repliesButton.tap()
     }
     
     func menu() -> CommentMenu {
@@ -55,22 +83,29 @@ class Comment {
         }
         return commentMenu
     }
+    
+    func asUIElement() -> XCUIElement {
+        return cell
+    }
 
 }
 
 class CommentsFeed {
-    var app: XCUIApplication
-    var feedContainer: XCUIElement
+    
     var loadMoreButton: XCUIElement
-    var commentText: XCUIElement
-    var publishCommentButton: XCUIElement
+
+    private var app: XCUIApplication
+    private var feedContainer: XCUIElement
+    
+    private var commentText: XCUIElement
+    private var publishCommentButton: XCUIElement
     
     init(_ application: XCUIApplication) {
         self.app = application
         self.feedContainer = self.app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element(boundBy: 1).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .collectionView).element
-        self.loadMoreButton = self.app.buttons["Load more"]
-        self.commentText = self.app.textViews["CommentText"]
-        self.publishCommentButton = self.app.buttons["Post"]
+        self.loadMoreButton = self.app.buttons["Load more"].firstMatch
+        self.commentText = self.app.textViews.firstMatch
+        self.publishCommentButton = self.app.buttons["Post"].firstMatch
     }
     
     convenience init(_ application: XCUIApplication, containerView: XCUIElement) {
@@ -93,7 +128,20 @@ class CommentsFeed {
     }
     
     func getRandomComment() -> (UInt, Comment) {
-        let index = Random.randomUInt(self.getCommentsCount())
-        return (index, self.getComment(index))
+        let index = Random.randomUInt(getCommentsCount())
+        return (index, getComment(index))
     }
+    
+    func postNewComment(with text: String) {
+        commentText.tap()
+        commentText.clearText()
+        commentText.typeText(text)
+        
+        publishCommentButton.tap()
+    }
+    
+    func asUIElement() -> XCUIElement {
+        return feedContainer
+    }
+    
 }
