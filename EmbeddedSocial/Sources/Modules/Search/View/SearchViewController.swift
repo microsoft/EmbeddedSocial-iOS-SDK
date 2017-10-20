@@ -115,6 +115,9 @@ extension SearchViewController: SearchViewInput {
         _ = filterView
         _ = searchHistoryHandler
         navigationItem.titleView = searchBar
+        if #available(iOS 11.0, *) {
+            searchBar.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        }
         makeTabActive(tab)
     }
     
