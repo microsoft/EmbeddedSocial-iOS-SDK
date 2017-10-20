@@ -169,4 +169,37 @@ class SearchPresenterTests: XCTestCase {
                              backgroundView: nil,
                              tab: .topics)
     }
+    
+    func testSearchHashtagBeforeViewIsReady() {
+        let topicsTab = makeTopicsTab()
+        interactor.makeTopicsTabWithReturnValue = topicsTab
+        interactor.makePeopleTabWithReturnValue = makePeopleTab()
+
+        sut.search(hashtag: "1")
+        sut.viewIsReady()
+        
+        XCTAssertEqual(view.setupInitialStateReceivedTab, topicsTab)
+        XCTAssertTrue(view.searchHashtagCalled)
+        XCTAssertEqual(view.searchHashtagInputHashtag, "1")
+    }
+    
+    func testSearchHashtagAfterViewIsReadyAndPeopleTabSelected() {
+        let topicsTab = makeTopicsTab()
+        let peopleTab = makePeopleTab()
+        interactor.makeTopicsTabWithReturnValue = topicsTab
+        interactor.makePeopleTabWithReturnValue = peopleTab
+        
+        sut.selectPeopleTab()
+        sut.viewIsReady()
+        sut.search(hashtag: "1")
+
+        XCTAssertEqual(view.setupInitialStateReceivedTab, peopleTab)
+        
+        XCTAssertTrue(view.switchTabsToFromCalled)
+        XCTAssertEqual(view.switchTabsToFromReceivedArguments?.previousTab, peopleTab)
+        XCTAssertEqual(view.switchTabsToFromReceivedArguments?.tab, topicsTab)
+        
+        XCTAssertTrue(view.searchHashtagCalled)
+        XCTAssertEqual(view.searchHashtagInputHashtag, "1")
+    }
 }

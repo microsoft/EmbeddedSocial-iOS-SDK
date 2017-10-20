@@ -27,4 +27,6 @@ protocol UserListViewInput: class {
     func setNoDataView(_ view: UIView?)
     
     func setIsEmpty(_ isEmpty: Bool)
+    
+    var anyItemsShown: Bool { get }
 }

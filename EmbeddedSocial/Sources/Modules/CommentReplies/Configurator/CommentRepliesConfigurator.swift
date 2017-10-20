@@ -35,6 +35,7 @@ class CommentRepliesModuleConfigurator {
         presenter.view = viewController
         presenter.router = router
         presenter.scrollType = scrollType
+        presenter.commentModuleOutput = commentModule
         let interactor = CommentRepliesInteractor()
         interactor.output = presenter
         

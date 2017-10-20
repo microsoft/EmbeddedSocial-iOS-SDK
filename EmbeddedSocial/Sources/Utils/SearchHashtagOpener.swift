@@ -5,8 +5,6 @@
 
 import Foundation
 
-protocol SearchModuleInput: class {
-    func selectPeopleTab()
-        
-    func search(hashtag: Hashtag)
+protocol SearchHashtagOpener: class {
+    func openSearch(with hashtag: Hashtag)
 }

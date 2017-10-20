@@ -45,7 +45,8 @@ class UserListPresenter {
             moduleOutput?.didFailToLoadList(listView: listView, error: result.error ?? APIError.unknown)
         }
         
-        view.setIsEmpty(result.value?.isEmpty ?? true)
+        let isEmptyResponse = result.value?.isEmpty ?? true
+        view.setIsEmpty(isEmptyResponse && !view.anyItemsShown)
     }
 }
 

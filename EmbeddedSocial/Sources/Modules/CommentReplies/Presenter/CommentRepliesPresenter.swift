@@ -42,6 +42,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     var loadMoreCellViewModel = LoadMoreCellViewModel()
     
     var cursor: String?
+    var commentModuleOutput: CommentCellModuleProtocol!
     private let pageSize: Int
     private let actionStrategy: AuthorizedActionStrategy
     
@@ -188,8 +189,12 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         view?.reloadCommentCell()
     }
     
-    func replyFailPost(error: Error) {
-        router.back()
+    func replyFailPost(error: APIError) {
+        if error == .replyNotFound {
+            router.back()
+        }
+        
+        view?.unlockUI()
     }
     
     func didPostAction(replyHandle: String, action: RepliesSocialAction, error: Error?) {
@@ -225,6 +230,8 @@ extension CommentRepliesPresenter: ReplyCellModuleOutput {
 extension CommentRepliesPresenter: CommentCellModuleOutout {
     func removed(comment: Comment) {
         //todo: handle
+        commentModuleOutput.didRemove(comment: comment)
+        router.back()
     }
 }
 

@@ -255,3 +255,12 @@ extension CrossModuleCoordinator: NotificationsUpdater {
     }
     
 }
+
+extension CrossModuleCoordinator: SearchHashtagOpener {
+    
+    func openSearch(with hashtag: Hashtag) {
+        let index = menuItemsProvider.getMenuItemIndex(for: .search)!
+        menuModule.openSocialItem(index: index)
+        searchModule.search(hashtag: hashtag)
+    }
+}

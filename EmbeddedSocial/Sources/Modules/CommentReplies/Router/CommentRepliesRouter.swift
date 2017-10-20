@@ -14,6 +14,8 @@ class CommentRepliesRouter: CommentRepliesRouterInput {
     }
     
     func back() {
-        navigationController?.popViewController(animated: true)
+        if navigationController?.viewControllers.last is CommentRepliesViewController {
+             navigationController?.popViewController(animated: true)
+        }
     }
 }

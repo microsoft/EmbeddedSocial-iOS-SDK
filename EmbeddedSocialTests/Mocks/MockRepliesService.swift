@@ -25,7 +25,7 @@ class MockRepliesService: RepliesServiceProtcol {
     var postReplyReceivedReply: Reply?
     var postReplyReturnResponse: PostReplyResponse!
 
-    func postReply(reply: Reply, success: @escaping PostReplyResultHandler, failure: @escaping Failure) {
+    func postReply(reply: Reply, success: @escaping PostReplyResultHandler, failure: @escaping (APIError) -> (Void)) {
         postReplyCalled = true
         postReplyReceivedReply = reply
         success(postReplyReturnResponse)

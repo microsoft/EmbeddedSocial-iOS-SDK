@@ -57,11 +57,10 @@ extension Constants {
     }
     
     struct UserProfile {
-        static let summaryAspectRatio: CGFloat = 2.25
         static let containerInset: CGFloat = 10.0
         static let filterHeight: CGFloat = 44.0
         static let contentWidth = UIScreen.main.bounds.width - containerInset * 2
-        static let summaryHeight = contentWidth / summaryAspectRatio
+        static let summaryHeight: CGFloat = 160.0
         static let recentSegment = 0
         static let popularSegment = 1
         static let lockVerticalOffset: CGFloat = 80.0
