@@ -6,7 +6,7 @@
 import UIKit
 import SnapKit
 
-class LikesListViewController: UIViewController {
+class LikesListViewController: BaseViewController {
     
     var output: LikesListViewOutput!
     

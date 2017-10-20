@@ -21,8 +21,6 @@ protocol UserProfileRouterInput {
     func openReport(user: User)
     
     func popTopScreen()
-    
-    func openLogin()
-    
+        
     func openFollowRequests()
 }

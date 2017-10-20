@@ -27,12 +27,13 @@ class FeedModuleConfigurator {
                    loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
         
         let viewController = StoryboardScene.FeedModule.feedModuleViewController.instantiate()
-        viewController.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
         
         let router = FeedModuleRouter()
         router.navigationController = navigationController
         router.myProfileOpener = myProfileOpener
         router.loginOpener = loginOpener
+        router.searchOpener = SocialPlus.shared.coordinator
         
         /*
          let feed = .single(post: "3vErWk4EMrF"))

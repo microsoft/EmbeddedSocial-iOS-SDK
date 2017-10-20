@@ -16,15 +16,15 @@ class TopicsFeedResponseProcessor: ResponseProcessor<FeedResponseTopicView, Feed
     
     let cache: CacheType
     let operationsBuilder: OutgoingCommandOperationsBuilderType
-    let predicateBuilder: TopicServicePredicateBuilder
+    let predicateBuilder: TopicsFeedProcessorPredicateBuilder
     
-    var fetchTopicsPredicate: NSPredicate {
-        return predicateBuilder.allTopicCommands()
+    var commandsPredicate: NSPredicate {
+        return predicateBuilder.topicActionsRemovedTopicsCreatedComments()
     }
     
     init(cache: CacheType,
          operationsBuilder: OutgoingCommandOperationsBuilderType = OutgoingCommandOperationsBuilder(),
-         predicateBuilder: TopicServicePredicateBuilder = PredicateBuilder()) {
+         predicateBuilder: TopicsFeedProcessorPredicateBuilder = PredicateBuilder()) {
         
         self.cache = cache
         self.operationsBuilder = operationsBuilder
@@ -50,7 +50,7 @@ class TopicsFeedResponseProcessor: ResponseProcessor<FeedResponseTopicView, Feed
     }
     
     private func applyTopicFeedCommands(to feed: FeedFetchResult, completion: @escaping (FeedFetchResult) -> Void) {
-        let fetchCommands = operationsBuilder.fetchCommandsOperation(cache: cache, predicate: fetchTopicsPredicate)
+        let fetchCommands = operationsBuilder.fetchCommandsOperation(cache: cache, predicate: commandsPredicate)
         
         fetchCommands.completionBlock = { [weak self] in
             guard let strongSelf = self, !fetchCommands.isCancelled else {
@@ -59,7 +59,7 @@ class TopicsFeedResponseProcessor: ResponseProcessor<FeedResponseTopicView, Feed
             }
             
             strongSelf.queue.addOperation {
-                let commands = fetchCommands.commands as? [TopicCommand] ?? []
+                let commands = fetchCommands.commands as? [TopicsFeedApplicableCommand] ?? []
                 let list = strongSelf.apply(commands: commands, to: feed)
                 completion(list)
             }
@@ -68,7 +68,7 @@ class TopicsFeedResponseProcessor: ResponseProcessor<FeedResponseTopicView, Feed
         queue.addOperation(fetchCommands)
     }
     
-    func apply(commands: [TopicCommand], to feed: FeedFetchResult) -> FeedFetchResult {
+    func apply(commands: [TopicsFeedApplicableCommand], to feed: FeedFetchResult) -> FeedFetchResult {
         var feed = feed
         
         for command in commands {

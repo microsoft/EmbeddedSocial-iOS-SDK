@@ -88,19 +88,22 @@ class TopicService: BaseService, PostServiceProtocol {
     private let imagesService: ImagesServiceType
     fileprivate let executorProvider: CacheRequestExecutorProviderType.Type
     private var topicsFeedExecutor: TopicsFeedRequestExecutor!
-    private var otherUserTopicsFeedExecutor: TopicsFeedRequestExecutor!
+    private var myRecentTopicsFeedExecutor: TopicsFeedRequestExecutor!
     private var singlePostFetchExecuter: SingleTopicRequestExecutor!
+    private let predicateBuilder: PredicateBuilder
 
     init(imagesService: ImagesServiceType,
-         executorProvider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
+         executorProvider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self,
+         predicateBuilder: PredicateBuilder = PredicateBuilder()) {
         
         self.imagesService = imagesService
         self.executorProvider = executorProvider
+        self.predicateBuilder = predicateBuilder
 
         super.init()
         
         topicsFeedExecutor = executorProvider.makeTopicsFeedExecutor(for: self)
-        otherUserTopicsFeedExecutor = executorProvider.makeOtherUsersTopicsFeedExecutor(for: self)
+        myRecentTopicsFeedExecutor = executorProvider.makeMyRecentTopicsFeedExecutor(for: self)
         singlePostFetchExecuter = CacheRequestExecutorProvider.makeSinglePostExecutor(for: self)
     }
     
@@ -123,7 +126,7 @@ class TopicService: BaseService, PostServiceProtocol {
             }
         }
     }
-    
+
     private func execute(command: CreateTopicCommand,
                          success: @escaping TopicPosted,
                          failure: @escaping Failure) {
@@ -196,7 +199,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                   cursor: query.cursor,
                                                                   limit: query.limit)
         
-        execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
+        execute(builder: builder, executor: myRecentTopicsFeedExecutor, completion: completion)
     }
     
     func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
@@ -205,7 +208,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                      cursor: query.cursor,
                                                                      limit: query.limit)
         
-        execute(builder: builder, executor: otherUserTopicsFeedExecutor, completion: completion)
+        execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
     }
     
     func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
@@ -214,7 +217,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                             cursor: query.cursorInt(),
                                                                             limit: query.limit)
         
-        execute(builder: builder, executor: otherUserTopicsFeedExecutor, completion: completion)
+        execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
@@ -260,7 +263,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                    cursor: query.cursor,
                                                                    limit: query.limit)
         
-        execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
+        execute(builder: builder, executor: myRecentTopicsFeedExecutor, completion: completion)
     }
     
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {
@@ -269,16 +272,6 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                           limit: query.limit)
         
         execute(builder: builder, executor: topicsFeedExecutor, completion: completion)
-    }
-    
-    func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void)) {
-        TopicsAPI.topicsDeleteTopic(topicHandle: post, authorization: authorization) { (object, errorResponse) in
-            if let error = errorResponse {
-                self.errorHandler.handle(error: error, completion: completion)
-            } else {
-                completion(.success())
-            }
-        }
     }
     
     private func execute(builder: RequestBuilder<FeedResponseTopicView>,
@@ -294,62 +287,45 @@ class TopicService: BaseService, PostServiceProtocol {
         }
     }
     
-//    // MARK: Private
-//    private func processRequest(_ requestBuilder:RequestBuilder<FeedResponseTopicView>,
-//                                responseParser: FeedResponseParserType,
-//                                completion: @escaping FetchResultHandler) {
-//        
-//        let requestCacheKey = requestBuilder.URLString
-//        
-//        // Lookup in cache and return if hit
-//        if let result = fetchResultFromCache(by: requestCacheKey, responseParser: responseParser) {
-//            
-//            completion(result)
-//        }
-//        
-//        guard isNetworkReachable == true else { return }
-//        
-//        // Request execution
-//        requestBuilder.execute { [weak self] (response, error) in
-//            
-//            guard let strongSelf = self else { return }
-//            
-//            var result = FeedFetchResult()
-//            
-//            strongSelf.handleError(error, result: &result)
-//            strongSelf.cacheResponse(response?.body, forKey: requestCacheKey)
-//            responseParser.parse(response?.body, isCached: false, into: &result)
-//            
-//            completion(result)
-//        }
-//    }
-//    
-//    private func execute(builder: RequestBuilder<FeedResponseTopicView>,
-//                         executor: TopicsFeedRequestExecutor,
-//                         completion: @escaping FetchResultHandler) {
-//        
-//        executor.execute(with: builder) { result in
-//            completion(result.value ?? FeedFetchResult())
-//        }
-//    }
-//    
-//    private func cacheResponse(_ response: FeedResponseTopicView?, forKey key: String) {
-//        
-//        guard let response = response else { return }
-//        
-//        cache.cacheIncoming(response, for: key)
-//    }
-//    
-//    private func handleError(_ error: ErrorResponse?, result: inout FeedFetchResult) {
-//        
-//        guard let error = error else { return }
-//        
-//        if errorHandler.canHandle(error) {
-//            errorHandler.handle(error)
-//        } else {
-//            let message = error.localizedDescription
-//            result.error = FeedServiceError.failedToFetch(message: message)
-//        }
-//    }
+    func deletePost(post topicHandle: PostHandle, completion: @escaping (Result<Void>) -> Void) {
+        guard !isTopicCached(topicHandle: topicHandle) else {
+            deleteCachedTopic(topicHandle: topicHandle)
+            return
+        }
+        
+        let command = RemoveTopicCommand(topic: Post(topicHandle: topicHandle))
+        deleteTopic(command: command, completion: completion)
+    }
+    
+    private func deleteTopic(command: RemoveTopicCommand, completion: @escaping (Result<Void>) -> Void) {
+        guard isNetworkReachable else {
+            cache.cacheOutgoing(command)
+            completion(.success())
+            return
+        }
+        
+        TopicsAPI.topicsDeleteTopic(topicHandle: command.topic.topicHandle, authorization: authorization) { (_, error) in
+            if let error = error {
+                self.errorHandler.handle(error: error, completion: completion)
+            } else {
+                completion(.success())
+            }
+        }
+    }
+    
+    private func isTopicCached(topicHandle: String) -> Bool {
+        let p = cachedTopicPredicate(topicHandle: topicHandle)
+        return cache.firstOutgoing(ofType: OutgoingCommand.self, predicate: p, sortDescriptors: nil) != nil
+    }
+    
+    private func deleteCachedTopic(topicHandle: String) {
+        let p = cachedTopicPredicate(topicHandle: topicHandle)
+        cache.deleteOutgoing(with: p)
+    }
+    
+    private func cachedTopicPredicate(topicHandle: String) -> NSPredicate {
+        return predicateBuilder.predicate(typeID: CreateTopicCommand.typeIdentifier, handle: topicHandle)
+    }
+    
 }
 

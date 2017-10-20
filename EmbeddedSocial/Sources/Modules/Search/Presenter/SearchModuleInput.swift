@@ -7,4 +7,6 @@ import Foundation
 
 protocol SearchModuleInput: class {
     func selectPeopleTab()
+        
+    func search(hashtag: Hashtag)
 }

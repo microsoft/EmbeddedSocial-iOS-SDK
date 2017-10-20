@@ -13,6 +13,7 @@ class UserProfilePresenterTests: XCTestCase {
     var myProfileHolder: MyProfileHolder!
     var feedInput: MockFeedModuleInput!
     var moduleOutput: MockUserProfileModuleOutput!
+    var actionStrategy: CommonAuthorizedActionStrategy!
     
     var randomValue: Int {
         return Int(arc4random() % 100)
@@ -26,6 +27,7 @@ class UserProfilePresenterTests: XCTestCase {
         interactor = MockUserProfileInteractor()
         feedInput = MockFeedModuleInput()
         moduleOutput = MockUserProfileModuleOutput()
+        actionStrategy = CommonAuthorizedActionStrategy(myProfileHolder: myProfileHolder, loginParent: nil, loginOpener: MockLoginModalOpener())
     }
     
     override func tearDown() {
@@ -36,6 +38,7 @@ class UserProfilePresenterTests: XCTestCase {
         interactor = nil
         feedInput = nil
         moduleOutput = nil
+        actionStrategy = nil
     }
     
     func testThatItSetsInitialStateWhenUserIsMe() {
@@ -61,9 +64,9 @@ class UserProfilePresenterTests: XCTestCase {
         validateFeedInitialState(with: user, userIsCached: true)
     }
     
-    func testThatItSetsInitialStateWithOtherUser() {
+    func testThatItSetsInitialStateWithOtherPublicUser() {
         // given
-        let user = User(uid: UUID().uuidString, followersCount: randomValue, followingCount: randomValue)
+        let user = User(uid: UUID().uuidString, followersCount: randomValue, followingCount: randomValue, visibility: ._public)
         interactor.userToReturn = user
         
         let presenter = makeDefaultPresenter(userID: user.uid)
@@ -75,6 +78,7 @@ class UserProfilePresenterTests: XCTestCase {
         validateInitialState(with: user)
         
         XCTAssertEqual(view.layoutAsset, feedInput.layout.nextLayoutAsset)
+        XCTAssertFalse(view.setupPrivateAppearanceCalled)
 
         XCTAssertEqual(interactor.getUserCount, 1)
         XCTAssertEqual(interactor.cachedUserCount, 1)
@@ -250,9 +254,7 @@ class UserProfilePresenterTests: XCTestCase {
         
         // then
         XCTAssertEqual(interactor.socialRequestCount, 0)
-        
-        XCTAssertEqual(router.openLoginCount, 1)
-        
+                
         XCTAssertNil(view.lastFollowStatus)
         XCTAssertNil(view.isProcessingFollowRequest)
         XCTAssertEqual(view.lastFollowersCount, user.followersCount)
@@ -378,7 +380,7 @@ class UserProfilePresenterTests: XCTestCase {
     }
     
     fileprivate func makeDefaultPresenter(userID: String? = nil) -> UserProfilePresenter {
-        let presenter = UserProfilePresenter(userID: userID, myProfileHolder: myProfileHolder)
+        let presenter = UserProfilePresenter(userID: userID, myProfileHolder: myProfileHolder, actionStrategy: actionStrategy)
         presenter.view = view
         presenter.router = router
         presenter.interactor = interactor
@@ -468,6 +470,19 @@ extension UserProfilePresenterTests {
         XCTAssertFalse(presenter.shouldOpenProfile(for: myProfileHolder.me!.uid))
         XCTAssertFalse(presenter.shouldOpenProfile(for: userID))
         XCTAssertTrue(presenter.shouldOpenProfile(for: UUID().uuidString))
+    }
+    
+    func testThatPrivateUserViewisShown() {
+        // given
+        let user = User(uid: UUID().uuidString, visibility: ._private)
+        interactor.userToReturn = user
+        let presenter = makeDefaultPresenter(userID: user.uid)
+        
+        // when
+        presenter.viewIsReady()
+        
+        // then
+        XCTAssertTrue(view.setupPrivateAppearanceCalled)
     }
 }
 

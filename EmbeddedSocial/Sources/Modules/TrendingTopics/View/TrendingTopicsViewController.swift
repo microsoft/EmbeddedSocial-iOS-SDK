@@ -7,7 +7,7 @@ import Foundation
 
 private let loadingIndicatorHeight: CGFloat = 44.0
 
-class TrendingTopicsViewController: UIViewController {
+class TrendingTopicsViewController: BaseViewController {
     
     weak var output: TrendingTopicsViewOutput!
     var dataManager: TrendingTopicsDataDisplayManager!

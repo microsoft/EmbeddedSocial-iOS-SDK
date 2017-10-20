@@ -5,6 +5,7 @@
 
 import UIKit
 import SKPhotoBrowser
+import SnapKit
 
 fileprivate enum CommentsSections: Int {
     case post = 0
@@ -15,24 +16,26 @@ fileprivate enum CommentsSections: Int {
 
 class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
-    func showLoadingHUD() {
-        showHUD()
-    }
-    
     @IBOutlet weak var collectionView: UICollectionView!
     var output: PostDetailViewOutput!
     
     fileprivate var prototypeCommentCell: CommentCell?
     
+    fileprivate var lastDetailedCommentPath: IndexPath?
+    
     //constants
     fileprivate let reloadDelay = 0.2
     fileprivate let commentViewHeight: CGFloat = 35
+    fileprivate let leftTextViewOffset: CGFloat = 50
+    fileprivate let rightTextViewOffset: CGFloat = 20
+    fileprivate let topTextViewOffset: CGFloat = 10
+    
     
     fileprivate var isNewDataLoading = false
 
     @IBOutlet weak var postButton: UIButton!
-    @IBOutlet weak var commentTextView: UITextView!
-    @IBOutlet weak var commentTextViewHeightConstraint: NSLayoutConstraint!
+    var commentTextView = UITextView()
+    var commentTextViewHeightConstraint: Constraint!
     @IBOutlet weak var mediaButton: UIButton!
     
     @IBOutlet weak var commentInputContainer: UIView!
@@ -59,16 +62,43 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         collectionView.addSubview(self.refreshControl)
         collectionView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
         refreshControl.beginRefreshing()
-        apply(theme: theme)
         output.viewIsReady()
+        commentTextView.delegate = self
+        configTextView()
+        apply(theme: theme)
         showHUD()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        collectionView.reloadSections([CommentsSections.comments.rawValue])
+        if let path = lastDetailedCommentPath, collectionView.cellForItem(at: path) != nil {
+                collectionView.reloadItems(at: [path])
+                lastDetailedCommentPath = nil
+        }
+        
         postButton.isHidden = commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         view.isUserInteractionEnabled = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if commentTextView.superview == nil {
+            commentInputContainer.addSubview(commentTextView)
+            
+            commentTextView.snp.makeConstraints { (make) in
+                self.commentTextViewHeightConstraint = make.height.equalTo(commentViewHeight).constraint
+                make.left.equalTo(mediaButton).offset(leftTextViewOffset)
+                make.right.equalTo(postButton).inset(rightTextViewOffset + postButton.frame.size.width)
+                make.top.equalTo(commentInputContainer).offset(topTextViewOffset)
+                make.bottom.equalTo(commentInputContainer).offset(-topTextViewOffset)
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        hideHUD()
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
@@ -79,7 +109,6 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     func setupInitialState() {
         imagePikcer.delegate = self
         configCollectionView()
-        configTextView()
     }
     
     func refreshPostCell() {
@@ -87,6 +116,15 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         if output.heightForFeed() > 0 {
             hideHUD()
         }
+    }
+    
+    func showLoadingHUD() {
+        showHUD()
+    }
+    
+    func hideLoadingHUD() {
+        hideHUD()
+        view.isUserInteractionEnabled = true
     }
     
     func endRefreshing() {
@@ -166,7 +204,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     func postCommentSuccess() {
         clearImage()
-        commentTextViewHeightConstraint.constant = commentViewHeight
+        commentTextViewHeightConstraint.update(offset: commentViewHeight)
         commentTextView.text = nil
         postButton.isHidden = true
         hideHUD()
@@ -192,6 +230,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         commentTextView.layer.borderWidth = 1
         commentTextView.layer.borderColor = UIColor.lightGray.cgColor
         commentTextView.layer.cornerRadius = 1
+        commentTextView.autocorrectionType = .no
     }
     
     @IBAction func mediaButtonPressed(_ sender: Any) {
@@ -216,6 +255,7 @@ extension PostDetailViewController: UICollectionViewDelegate {
         case CommentsSections.comments.rawValue:
             let cell = collectionView.cellForItem(at: indexPath) as? CommentCell
             cell?.openReplies()
+            lastDetailedCommentPath = indexPath
         default: break
             
         }
@@ -315,7 +355,7 @@ extension PostDetailViewController: UICollectionViewDelegateFlowLayout {
 
 extension PostDetailViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        commentTextViewHeightConstraint.constant = commentTextView.contentSize.height
+        commentTextViewHeightConstraint.update(offset: commentTextView.contentSize.height)
         view.layoutIfNeeded()
         postButton.isHidden = textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }

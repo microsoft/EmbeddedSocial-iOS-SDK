@@ -16,18 +16,18 @@ struct ReportConfigurator {
     func configure(api: ReportAPI,
                    navigationController: UINavigationController?,
                    reportListTitle: String?,
-                   myProfileHolder: UserHolder = SocialPlus.shared,
-                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) {
+                   myProfileHolder: UserHolder = SocialPlus.shared) {
         
         navigationController?.navigationBar.isTranslucent = false
         
-        let presenter = ReportPresenter(myProfileHolder: myProfileHolder)
+        let strategy = CommonAuthorizedActionStrategy(loginParent: navigationController)
+        let presenter = ReportPresenter(actionStrategy: strategy)
         presenter.view = viewController
         presenter.interactor = ReportInteractor(api: api)
-        presenter.router = ReportRouter(navigationController: navigationController, loginOpener: loginOpener)
+        presenter.router = ReportRouter(navigationController: navigationController)
         
         viewController.output = presenter
         viewController.headerTitleLabel.text = reportListTitle
-        viewController.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
     }
 }

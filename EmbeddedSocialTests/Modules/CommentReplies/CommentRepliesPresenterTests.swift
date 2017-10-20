@@ -20,12 +20,10 @@ class CommentRepliesPresenterTests: XCTestCase {
         super.setUp()
         let comment = Comment()
         comment.commentHandle = "test"
-        comment.firstName = "first name"
-        comment.lastName = "last name"
+        comment.user = MyProfileHolder().me
         myProfileHolder = MyProfileHolder()
-        presenter = CommentRepliesPresenter(myProfileHolder: myProfileHolder)
+        presenter = CommentRepliesPresenter(pageSize: 10, actionStrategy: MockAuthorizedActionStrategy())
         presenter.comment = comment
-        presenter.commentCell = CommentCell.nib.instantiate(withOwner: nil, options: nil).first as! CommentCell
         presenter.interactor = interactor
         presenter.view = view
         interactor.output = presenter
@@ -61,20 +59,6 @@ class CommentRepliesPresenterTests: XCTestCase {
         XCTAssertEqual(view.replyPostedCount, 1)
     }
     
-    func testThatLoginIsOpenedWhenAnonymousUserAttemptsToReply() {
-        
-        //given
-        let reply = Reply()
-        reply.text = "Text"
-        
-        myProfileHolder.me = nil
-        
-        //when
-        presenter.postReply(text: reply.text!)
-        
-        //then
-        XCTAssertTrue(router.openLoginFromCalled)
-    }
     
     func testThatNumberOfItemsIsCorrect() {
         

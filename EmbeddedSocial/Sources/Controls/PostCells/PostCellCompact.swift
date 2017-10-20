@@ -10,7 +10,7 @@ class PostCellCompact: UICollectionViewCell, PostCellProtocol {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        postImage.setPhotoWithCaching(nil, placeholder: nil)
+        postImage.releasePhoto()
     }
     
     func configure(with data: PostViewModel, collectionView: UICollectionView?) {

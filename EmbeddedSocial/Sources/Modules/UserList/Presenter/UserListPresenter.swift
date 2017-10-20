@@ -14,19 +14,22 @@ class UserListPresenter {
     var noDataText: NSAttributedString?
     var noDataView: UIView?
     
-    fileprivate let myProfileHolder: UserHolder
     fileprivate var isAnimatingPullToRefresh = false
+    fileprivate let actionStrategy: AuthorizedActionStrategy
     
-    init(myProfileHolder: UserHolder) {
-        self.myProfileHolder = myProfileHolder
+    init(actionStrategy: AuthorizedActionStrategy) {
+        self.actionStrategy = actionStrategy
     }
     
     func loadNextPage() {
-        guard myProfileHolder.me != nil else {
-            router.openLogin()
-            return
-        }
+        view.setIsEmpty(false)
         
+        interactor.getNextListPage { [weak self] result in
+            self?.processUsersResult(result)
+        }
+    }
+    
+    private func _loadNextPage() {
         view.setIsEmpty(false)
         
         interactor.getNextListPage { [weak self] result in
@@ -42,7 +45,8 @@ class UserListPresenter {
             moduleOutput?.didFailToLoadList(listView: listView, error: result.error ?? APIError.unknown)
         }
         
-        view.setIsEmpty(result.value?.isEmpty ?? true)
+        let isEmptyResponse = result.value?.isEmpty ?? true
+        view.setIsEmpty(isEmptyResponse && !view.anyItemsShown)
     }
 }
 
@@ -57,11 +61,10 @@ extension UserListPresenter: UserListInteractorOutput {
 extension UserListPresenter: UserListViewOutput {
     
     func onItemAction(item: UserListItem) {
-        guard myProfileHolder.me != nil else {
-            router.openLogin()
-            return
-        }
-        
+        actionStrategy.executeOrPromptLogin { [weak self] in self?._onItemAction(item: item) }
+    }
+    
+    private func _onItemAction(item: UserListItem) {
         view.setIsLoading(true, item: item)
         
         interactor.processSocialRequest(to: item.user) { [weak self] result in

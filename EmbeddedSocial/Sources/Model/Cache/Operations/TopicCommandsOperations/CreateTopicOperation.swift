@@ -5,9 +5,8 @@
 
 import Foundation
 
-final class CreateTopicOperation: OutgoingCommandOperation {
+final class CreateTopicOperation: TopicCommandOperation {
     
-    let command: TopicCommand
     private let topicsService: PostServiceProtocol
     private let predicateBuilder: OutgoingCommandsPredicateBuilder
     private let handleUpdater: RelatedHandleUpdater
@@ -17,10 +16,11 @@ final class CreateTopicOperation: OutgoingCommandOperation {
          predicateBuilder: OutgoingCommandsPredicateBuilder = PredicateBuilder(),
          handleUpdater: RelatedHandleUpdater = OutgoingCommandsRelatedHandleUpdater()) {
         
-        self.command = command
         self.topicsService = topicsService
         self.predicateBuilder = predicateBuilder
         self.handleUpdater = handleUpdater
+        
+        super.init(command: command)
     }
     
     override func main() {

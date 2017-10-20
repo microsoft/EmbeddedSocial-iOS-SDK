@@ -7,6 +7,13 @@ import Foundation
 
 final class UnpinTopicOperation: TopicCommandOperation {
     
+    private let likesService: LikesServiceProtocol
+    
+    init(command: TopicCommand, likesService: LikesServiceProtocol) {
+        self.likesService = likesService
+        super.init(command: command)
+    }
+    
     override func main() {
         guard !isCancelled else {
             return

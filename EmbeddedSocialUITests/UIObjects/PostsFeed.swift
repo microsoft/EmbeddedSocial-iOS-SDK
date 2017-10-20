@@ -14,6 +14,8 @@ class Post {
     var likeButton: XCUIElement
     var pinButton: XCUIElement
     
+    var postImageButton: XCUIElement
+    
     private var titleLabel: XCUIElement
     
     private var menuButton: XCUIElement
@@ -28,6 +30,7 @@ class Post {
         self.menuButton = self.cell.buttons["Post Menu"]
         
         titleLabel = self.cell.staticTexts.element(boundBy: 2)
+        postImageButton = self.cell.buttons["Post Image"]
         
         postMenu = PostMenu(app, self)
     }
@@ -51,13 +54,11 @@ class Post {
     func like() {
         scrollToElement(self.likeButton, self.app)
         self.likeButton.tap()
-        sleep(1)
     }
     
     func pin() {
         scrollToElement(self.pinButton, self.app)
         self.pinButton.tap()
-        sleep(1)
     }
     
     func menu() -> PostMenu {
@@ -74,19 +75,17 @@ class Feed {
     var app: XCUIApplication
     var feedContainer: XCUIElementQuery
     
-    init(_ application: XCUIApplication) {
+    private var switchViewModeButton: XCUIElement
+    
+    init(_ application: XCUIApplication, switchViewModeButton: XCUIElement? = nil) {
         self.app = application
         self.feedContainer = self.app.collectionViews
+        
+        self.switchViewModeButton = switchViewModeButton ?? application.navigationBars.buttons.element(boundBy: 1)
     }
     
     func switchViewMode() {
-        var viewModeButton: XCUIElement
-        if app.navigationBars.children(matching: .button).element(boundBy: 1).exists {
-            viewModeButton = app.navigationBars.children(matching: .button).element(boundBy: 1)
-        } else {
-            viewModeButton = app.navigationBars.children(matching: .button).element(boundBy: 2)
-        }
-        viewModeButton.tap()
+        switchViewModeButton.tap()
     }
     
     func getPostsCount() -> UInt {

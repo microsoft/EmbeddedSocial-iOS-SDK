@@ -10,12 +10,10 @@ protocol ReplyCellRouterInput {
     func openLikes(replyHandle: String)
     func openMyReplyOptions(reply: Reply)
     func openOtherReplyOptions(reply: Reply)
-    func openLogin()
 }
 
 class ReplyCellRouter: ReplyCellRouterInput {
     
-    var loginOpener: LoginModalOpener?
     var navigationController: UINavigationController?
     weak var postMenuModuleOutput: PostMenuModuleOutput!
     weak var moduleInput: ReplyCellPresenter!
@@ -38,11 +36,7 @@ class ReplyCellRouter: ReplyCellRouterInput {
     func openMyReplyOptions(reply: Reply) {
         configureOptions(type: .myReply(reply: reply))
     }
-    
-    func openLogin() {
-        loginOpener?.openLogin(parentViewController: navigationController)
-    }
-    
+
     func openOtherReplyOptions(reply: Reply) {
         configureOptions(type: .otherReply(reply: reply))
     }

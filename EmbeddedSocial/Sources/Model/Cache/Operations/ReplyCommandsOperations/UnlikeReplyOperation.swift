@@ -7,6 +7,13 @@ import Foundation
 
 final class UnlikeReplyOperation: ReplyCommandOperation {
     
+    private let likesService: LikesServiceProtocol
+    
+    init(command: ReplyCommand, likesService: LikesServiceProtocol) {
+        self.likesService = likesService
+        super.init(command: command)
+    }
+    
     override func main() {
         guard !isCancelled else {
             return

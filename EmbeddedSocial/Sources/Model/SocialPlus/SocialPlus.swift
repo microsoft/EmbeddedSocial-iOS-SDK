@@ -19,7 +19,6 @@ public final class SocialPlus {
     private(set) var cache: CacheType!
     fileprivate(set) var authorizationMulticast: AuthorizationMulticastType!
     private(set) var daemonsController: Daemon!
-    private(set) var config: AppConfigurationType!
     
     var networkTracker: NetworkTrackerType {
         return serviceProvider.getNetworkTracker()
@@ -33,37 +32,20 @@ public final class SocialPlus {
         return sessionStore.sessionToken
     }
     
-    static var theme: Theme {
-        return shared.config.theme
-    }
-    
-    static var palette: ThemePalette {
-        return theme.palette
-    }
-    
-    static var assets: ThemeAssets {
-        return theme.assets
-    }
-    
-    static var settings: Settings {
-        return shared.config.settings
-    }
-    
     private init() {
         setupServices(with: SocialPlusServices())
     }
     
     func setupServices(with serviceProvider: SocialPlusServicesType) {
         self.serviceProvider = serviceProvider
-        config = serviceProvider.getAppConfiguration(configFilename: "config")
-
+        
         let database = SessionStoreDatabaseFacade(services: serviceProvider.getSessionStoreRepositoriesProvider())
-        sessionStore = SessionStore(database: database, anonymousAuthorization: Authorization.anonymous(appKey: config.settings.appKey))
+        sessionStore = SessionStore(database: database)
         try? sessionStore.loadLastSession()
         
         coreDataStack = serviceProvider.getCoreDataStack()
         cache = serviceProvider.getCache(coreDataStack: coreDataStack)
-        authorizationMulticast = serviceProvider.getAuthorizationMulticast(appKey: config.settings.appKey)
+        authorizationMulticast = serviceProvider.getAuthorizationMulticast()
         daemonsController = serviceProvider.getDaemonsController(cache: cache)
     }
     
@@ -81,7 +63,7 @@ public final class SocialPlus {
     }
     
     public func start(launchArguments args: LaunchArguments) {
-        let startupCommands = serviceProvider.getStartupCommands(launchArgs: args, settings: config.settings)
+        let startupCommands = serviceProvider.getStartupCommands(launchArgs: args)
         startupCommands.forEach { $0.execute() }
         networkTracker.startTracking()
         

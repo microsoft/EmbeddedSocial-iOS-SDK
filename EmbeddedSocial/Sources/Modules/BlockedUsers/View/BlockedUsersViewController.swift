@@ -6,7 +6,7 @@
 import UIKit
 import SnapKit
 
-class BlockedUsersViewController: UIViewController {
+class BlockedUsersViewController: BaseViewController {
     
     var output: BlockedUsersViewOutput!
     

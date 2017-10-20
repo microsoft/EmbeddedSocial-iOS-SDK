@@ -5,7 +5,7 @@
 
 import Foundation
 
-class TopicCommand: OutgoingCommand {
+class TopicCommand: OutgoingCommand, TopicsFeedApplicableCommand {
     private(set) var topic: Post
     
     required init?(json: [String: Any]) {
@@ -81,7 +81,8 @@ class TopicCommand: OutgoingCommand {
             LikeTopicCommand.self,
             PinTopicCommand.self,
             UnpinTopicCommand.self,
-            CreateTopicCommand.self
+            CreateTopicCommand.self,
+            RemoveTopicCommand.self
         ]
     }
 }

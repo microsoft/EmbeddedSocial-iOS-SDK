@@ -99,8 +99,9 @@ extension FeedType: Equatable {
     }
 }
 
-enum FeedPostCellAction: Int {
+enum FeedPostCellAction {
     case like, pin, comment, extra, profile, photo, likesList, postDetailed
+    case hashtag(String)
     
     var requiresAuthorization: Bool {
         switch self {
@@ -110,10 +111,6 @@ enum FeedPostCellAction: Int {
             return false
         }
     }
-}
-
-extension FeedPostCellAction {
-    static let allCases: [FeedPostCellAction] = [.like, .pin, .comment, .extra, .profile, .photo, .likesList]
 }
 
 enum FeedModuleLayoutType: Int {
@@ -176,7 +173,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     fileprivate var isViewReady = false
     fileprivate var formatter = DateFormatterTool()
     fileprivate var cursor: String? = nil
-    fileprivate var limit: Int32 = Int32(Constants.Feed.pageSize)
+    fileprivate let limit: Int32 = Int32(Constants.Feed.pageSize)
     fileprivate var items = [Post]()
     fileprivate var fetchRequestsInProgress: Set<String> = Set()
     fileprivate var header: SupplementaryItemModel?
@@ -187,7 +184,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     fileprivate let settings: Settings
     
-    init(settings: Settings = SocialPlus.settings) {
+    init(settings: Settings = AppConfiguration.shared.settings) {
         self.settings = settings
     }
     
@@ -218,6 +215,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         guard let feedType = self.feedType else { return false }
         
         switch feedType {
+        case .single(post: _):
+            return false
         default:
             // All feeds use padding for cells
             return true
@@ -439,6 +438,9 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             
         case .likesList:
             router.open(route: .likesList(postHandle: post.topicHandle), feedSource: feedType)
+            
+        case .hashtag(let value):
+            router.open(route: .search(hashtag: value), feedSource: feedType)
         }
     }
     
@@ -464,7 +466,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func viewDidAppear() {
-        limit = Int32(view.itemsLimit)
         
         if shouldFetchOnViewAppear() {
             didAskFetchAll()

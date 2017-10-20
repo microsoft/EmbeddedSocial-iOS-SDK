@@ -59,7 +59,7 @@ final class UploadPhotoCell: UITableViewCell {
 
 extension UploadPhotoCell {
     func configure(photo: Photo?) {
-        photoImageView.setPhotoWithCaching(photo, placeholder: UIImage(asset: SocialPlus.assets.userPhotoPlaceholder))
+        photoImageView.setPhotoWithCaching(photo, placeholder: UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder))
     }
 }
 

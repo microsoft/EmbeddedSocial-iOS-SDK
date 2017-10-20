@@ -47,7 +47,8 @@ class UITestBase: XCTestCase {
     }
     
     func setUpProperties() {
-        
+        APIConfig.isReachable = true
+        APIConfig.responsesDelay = 0
     }
     
     func startServer() {
@@ -89,18 +90,34 @@ class UITestBase: XCTestCase {
 
 class BaseSideMenuTest: UITestBase {
     
-    private var sideMenu: SideMenu!
+    var sideMenu: SideMenu!
     
     override func setUp() {
         super.setUp()
         sideMenu = SideMenu(app)
     }
     
+    func openScreen() {}
+    
     func navigate(to menuItem: SideMenuItem) {
         sideMenu.navigate(to: menuItem)
     }
     
 }
+
+class BaseFeedTest: BaseSideMenuTest {
+    
+    var feed: Feed!
+    var feedName: String!
+    
+    override func setUp() {
+        super.setUp()
+        feed = Feed(app)
+    }
+    
+}
+
+protocol OnlineTest {}
 
 protocol OfflineTest {
     

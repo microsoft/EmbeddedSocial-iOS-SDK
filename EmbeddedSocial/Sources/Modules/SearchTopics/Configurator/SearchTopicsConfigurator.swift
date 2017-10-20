@@ -30,7 +30,7 @@ final class SearchTopicsConfigurator {
         presenter.trendingTopicsModule = trendingTopicsConfigurator.moduleInput
         
         viewController.output = presenter
-        viewController.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
         
         moduleInput = presenter
     }

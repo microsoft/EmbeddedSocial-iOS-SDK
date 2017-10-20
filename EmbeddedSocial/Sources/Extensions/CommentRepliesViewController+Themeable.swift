@@ -18,7 +18,7 @@ extension CommentRepliesViewController: Themeable {
         
         let attrs: [String: Any] = [NSForegroundColorAttributeName: palette.textPlaceholder, NSFontAttributeName: AppFonts.medium]
         replyTextView.textColor = palette.textPrimary
-        replyTextView.attributedPlaceholder = NSAttributedString(string: L10n.PostDetails.commentPlaceholder, attributes: attrs)
+        replyTextView.attributedPlaceholder = NSAttributedString(string: L10n.CommentReplies.replyPlaceholder, attributes: attrs)
         replyTextView.font = AppFonts.medium
         replyTextView.backgroundColor = palette.contentBackground
         

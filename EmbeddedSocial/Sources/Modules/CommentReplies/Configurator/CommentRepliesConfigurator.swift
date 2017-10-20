@@ -21,21 +21,21 @@ class CommentRepliesModuleConfigurator {
     func configure(commentModule: CommentCellModuleProtocol,
                    scrollType: RepliesScrollType,
                    myProfileHolder: UserHolder = SocialPlus.shared,
-                   loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator,
-                   pageSize: Int = SocialPlus.settings.numberOfRepliesToShow) {
+                   pageSize: Int = AppConfiguration.shared.settings.numberOfRepliesToShow,
+                   navigationController: UINavigationController?) {
         
         let router = CommentRepliesRouter()
-        router.loginOpener = loginOpener
+        router.navigationController = navigationController
         
         let repliesService = RepliesService()
         
-        let presenter = CommentRepliesPresenter(myProfileHolder: myProfileHolder, pageSize: pageSize)
+        let strategy = CommonAuthorizedActionStrategy(loginParent: navigationController)
+        let presenter = CommentRepliesPresenter(pageSize: pageSize, actionStrategy: strategy)
         presenter.comment = commentModule.mainComment()
-        presenter.commentCell = commentModule.cell()
-        presenter.commentCell.separator.isHidden = false
         presenter.view = viewController
         presenter.router = router
         presenter.scrollType = scrollType
+        presenter.commentModuleOutput = commentModule
         let interactor = CommentRepliesInteractor()
         interactor.output = presenter
         
@@ -46,8 +46,7 @@ class CommentRepliesModuleConfigurator {
         
         interactor.repliesService = repliesService
         viewController.output = presenter
-        
-        viewController.theme = SocialPlus.theme
+        viewController.theme = AppConfiguration.shared.theme
     }
 
 }

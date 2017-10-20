@@ -19,12 +19,12 @@ class Templates {
     
     class func load(name: String, values: [String: Any] = [:]) -> [String: Any] {
         let path = Templates.bundle.path(forResource: name, ofType: "json")!
-
+        
         let content = try! NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) as String
         
         var mergedValues = APIConfig.values
         mergedValues.update(other: values)
-
+        
         var json = try! JSONSerialization.jsonObject(with: content.data(using: .utf8)!, options: []) as! [String: Any]
         
         for (key, value) in mergedValues {
@@ -35,7 +35,7 @@ class Templates {
                     tempDict[parts[1]] = value
                     json[parts[0]] = tempDict
                 }
-//                var temp = json[parts[0]] as! [String: Any]
+                //                var temp = json[parts[0]] as! [String: Any]
             } else {
                 json[parts[0]] = value
             }
@@ -95,7 +95,8 @@ class Templates {
         
         for i in cursor...cursor + limit - 1 {
             var values: [String: Any]
-            values = ["commentHandle": "commentHandle" + String(i)]
+            values = ["commentHandle": "commentHandle" + String(i),
+                      "createdTime": Date().ISOString]
             
             if APIConfig.numberedCommentLikes {
                 values["totalLikes"] = i
@@ -139,8 +140,8 @@ class Templates {
                           "actorUsers"     : followers,
                           "actedOnUser"    : followers[i],
                           "actedOnContent" : [
-                                "text"          : "TextExample",
-                                "blobHandle"    : UUID().uuidString]]
+                            "text"          : "TextExample",
+                            "blobHandle"    : UUID().uuidString]]
             
             activities.append(load(name: "activity", values: values))
         }

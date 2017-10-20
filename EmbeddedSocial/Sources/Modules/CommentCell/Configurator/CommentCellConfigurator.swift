@@ -11,19 +11,17 @@ class CommentCellModuleConfigurator {
                                       comment: Comment,
                                       navigationController: UINavigationController?,
                                       moduleOutput: CommentCellModuleOutout ,
-                                      myProfileHolder: UserHolder? = SocialPlus.shared,
-                                      loginOpener: LoginModalOpener? = SocialPlus.shared.coordinator) -> CommentCellModuleInput {
+                                      myProfileHolder: UserHolder? = SocialPlus.shared) -> CommentCellModuleInput {
 
         let router = CommentCellRouter()
         router.navigationController = navigationController
-        router.loginOpener = loginOpener
 
-        let presenter = CommentCellPresenter()
+        let strategy = CommonAuthorizedActionStrategy(loginParent: navigationController)
+        let presenter = CommentCellPresenter(actionStrategy: strategy)
         presenter.view = cell
         presenter.router = router
         presenter.comment = comment
         presenter.moduleOutput = moduleOutput
-        presenter.myProfileHolder = myProfileHolder
 
         let interactor = CommentCellInteractor()
         interactor.output = presenter
@@ -36,7 +34,7 @@ class CommentCellModuleConfigurator {
         
         cell?.configure(comment: comment)
         
-        cell?.theme = SocialPlus.theme
+        cell?.theme = AppConfiguration.shared.theme
         
         return presenter
     }

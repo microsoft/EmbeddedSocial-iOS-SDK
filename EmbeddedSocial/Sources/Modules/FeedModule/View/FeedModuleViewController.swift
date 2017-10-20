@@ -27,13 +27,11 @@ protocol FeedModuleViewInput: class {
     
     func getViewHeight() -> CGFloat
     func needShowNoContent(state: Bool)
-    //func getItemSize() -> CGSize
-    
-    var itemsLimit: Int { get }
+
     var paddingEnabled: Bool { get set }
 }
 
-class FeedModuleViewController: UIViewController, FeedModuleViewInput {
+class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
     
     var output: FeedModuleViewOutput!
     
@@ -45,11 +43,6 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         didSet {
             refreshLayout()
         }
-    }
-    
-    fileprivate var cachedLimit: Int?
-    var itemsLimit: Int {
-        return cachedLimit ?? 0
     }
     
     fileprivate var listLayout = UICollectionViewFlowLayout()
@@ -207,12 +200,10 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         updateFlowLayoutForList(layout: listLayout, containerWidth: containerWidth())
         updateFlowLayoutForGrid(layout: gridLayout, containerWidth: containerWidth())
         
-        let limits = [
-            numberOfItemsInList(listLayout, in: collectionView.frame),
-            numberOfItemsInGrid(gridLayout, in: collectionView.frame)
-        ]
-        
-        cachedLimit = limits.max()
+//        let limits = [
+//            numberOfItemsInList(listLayout, in: collectionView.frame),
+//            numberOfItemsInGrid(gridLayout, in: collectionView.frame)
+//        ]
     }
     
     private func updateFlowLayoutForGrid(layout: UICollectionViewFlowLayout, containerWidth: CGFloat) {
@@ -270,7 +261,7 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
         sizingCell.configure(with: viewModel, collectionView: nil)
         
         var size = CGSize.zero
-        size.height = sizingCell.getHeight(with: 0)
+        size.height = sizingCell.getHeight(with: containerWidth(), isTrimmed: viewModel.isTrimmed)
         size.width = containerWidth()
         
         return size
@@ -397,6 +388,8 @@ class FeedModuleViewController: UIViewController, FeedModuleViewInput {
     
     deinit {
         Logger.log()
+        self.collectionView?.delegate = nil
+        self.collectionView?.dataSource = nil
     }
 }
 

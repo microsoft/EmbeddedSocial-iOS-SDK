@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-class TestSearchTopics: TestHome {
+class TestSearchTopics: TestOnlineHome {
     var search: Search!
     
     override func setUp() {
@@ -16,7 +16,7 @@ class TestSearchTopics: TestHome {
     }
     
     override func openScreen() {
-        sideMenu.navigate(to: .search)
+        navigate(to: .search)
         search.topicsButton.tap()
         search.topicsQuery.tap()
         search.topicsQuery.typeText(feedName)
@@ -24,19 +24,18 @@ class TestSearchTopics: TestHome {
     }
 }
 
-class TestSearchPeople: TestFollowers {
+class TestSearchPeople: TestFollowersOnline {
     var search: Search!
-    var sideMenu: SideMenu!
     
     override func setUp() {
         super.setUp()
         feedName = "SearchPeople "
         search = Search(app)
-        sideMenu = SideMenu(app)
     }
     
     override func openScreen() {
-        sideMenu.navigate(to: .search)
+        navigate(to: .search)
+        
         search.peopleButton.tap()
         search.peopleQuery.tap()
         search.peopleQuery.typeText(feedName)

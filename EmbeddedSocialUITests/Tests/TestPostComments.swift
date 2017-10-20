@@ -3,68 +3,33 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 @testable import EmbeddedSocial
 
-class TestPostComments: UITestBase {
-    var sideMenu: SideMenu!
-    var feed: Feed!
-    var comments: CommentsFeed!
+class BaseTestComments: BaseSideMenuTest {
+    
     var pageSize: Int!
+    var commentsFeed: CommentsFeed!
     
     override func setUp() {
         super.setUp()
-        sideMenu = SideMenu(app)
-        feed = Feed(app)
-        comments = CommentsFeed(app)
-        pageSize = EmbeddedSocial.Constants.CommentReplies.pageSize
+        
+        pageSize = 5
+        commentsFeed = CommentsFeed(app)
     }
     
-    func openScreen() {
-        sideMenu.navigate(to: .home)
-        let (_, post) = feed.getRandomPost()
-        post.teaser.tap()
-        sleep(1)
+    override func openScreen() {
+        Feed(app).getRandomPost().1.teaser.tap()
         
         var retryCount = 15
-        
-        while comments.loadMoreButton.exists && retryCount != 0 {
+        while commentsFeed.loadMoreButton.exists && retryCount != 0 {
             retryCount -= 1
             app.swipeUp()
         }
     }
     
-    func tapLoadMore() {
-        var retryCount = 15
-        
-        while !comments.loadMoreButton.exists && retryCount != 0 {
-            retryCount -= 1
-            app.swipeDown()
-        }
-        
-        comments.loadMoreButton.tap()
-        
-        retryCount = 15
-        
-        while comments.loadMoreButton.exists && retryCount != 0 {
-            retryCount -= 1
-            app.swipeUp()
-        }
-    }
-
-
     func testCommentAttributes() {
-        APIConfig.values = ["user->firstName": "Alan",
-                            "user->lastName": "Poe",
-                            "totalLikes": 5,
-                            "totalReplies": 7,
-                            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                            "liked": true]
-        
-        openScreen()
-        
-        let (_, comment) = comments.getRandomComment()
+        let (_, comment) = commentsFeed.getRandomComment()
         
         XCTAssert(comment.textExists("Alan Poe"), "Author name doesn't match")
         XCTAssertEqual(comment.likesButton.label, "5 likes", "Number of likes doesn't match")
@@ -74,28 +39,26 @@ class TestPostComments: UITestBase {
     }
     
     func testLikeComment() {
-        openScreen()
-        
-        let (_, comment) = comments.getRandomComment()
+        let (index, comment) = commentsFeed.getRandomComment()
         
         comment.like()
+        checkIsLiked(comment, at: index)
         
-        XCTAssertNotNil(APIState.getLatestRequest().contains("/likes"))
+        comment.like()
+        checkIsUnliked(comment, at: index)
+    }
+    
+    func checkIsLiked(_ comment: Comment, at index: UInt) {
         XCTAssert(comment.likeButton.isSelected, "Comment is not marked as liked")
         XCTAssertEqual(comment.likesButton.label, "1 like", "Likes counter wasn't incremented")
-        
-        comment.like()
-        
-        XCTAssertNotNil(APIState.getLatestRequest().contains("/likes/me"))
+    }
+    
+    func checkIsUnliked(_ comment: Comment, at index: UInt) {
         XCTAssert(!comment.likeButton.isSelected, "Comment is marked as liked")
         XCTAssertEqual(comment.likesButton.label, "0 likes", "Likes counter wasn't decremented")
     }
     
     func testPaging() {
-        APIConfig.numberedCommentLikes = true
-        
-        openScreen()
-        
         tapLoadMore()
         
         var seenComments = Set<String>()
@@ -103,8 +66,8 @@ class TestPostComments: UITestBase {
         
         while seenComments.count <= pageSize && retryCount != 0 {
             retryCount -= 1
-            for i in 0...comments.getCommentsCount() - 2 {
-                let comment = comments.getComment(i)
+            for i in 0...commentsFeed.getCommentsCount() - 2 {
+                let comment = commentsFeed.getComment(i)
                 seenComments.insert(comment.likesButton.label)
             }
             app.swipeUp()
@@ -114,48 +77,182 @@ class TestPostComments: UITestBase {
     }
     
     func testPullToRefresh() {
-        openScreen()
-        
         tapLoadMore()
         
         for _ in 0...2 {
             app.swipeDown()
         }
         
-        let start = comments.feedContainer.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 0)))
-        let finish = comments.feedContainer.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
+        let start = commentsFeed.feedContainer.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 0)))
+        let finish = commentsFeed.feedContainer.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
         start.press(forDuration: 0, thenDragTo: finish)
         
-        let response = APIState.getLatestResponse(forService: "comments")
-        
-        XCTAssertEqual(Int(response?["cursor"] as! String), pageSize, "First page wasn't loaded on Pull to Refresh")
+        XCTAssertTrue(commentsFeed.getCommentsCount() != 0)
     }
     
     func testCreateComment() {
-        openScreen()
+        commentsFeed.commentText.tap()
+        commentsFeed.commentText.clearText()
+        commentsFeed.commentText.tap()
+        commentsFeed.commentText.typeText("New Comment Text")
+        commentsFeed.publishCommentButton.tap()
         
-        comments.commentText.tap()
-        comments.commentText.clearText()
-        comments.commentText.tap()
-        comments.commentText.typeText("Comment Text")
-        comments.publishCommentButton.tap()
+        sleep(UInt32(APIConfig.responsesDelay + 2))
         
-        let request = APIState.getLatestData(forService: "comments")
-        
-        XCTAssertEqual(request?["text"] as! String, "Comment Text")
+        let lastComment = commentsFeed.getComment(commentsFeed.getCommentsCount() - 1)
+        XCTAssertTrue(lastComment.textExists("New Comment Text"))
     }
     
     func testOpenReplies() {
-        openScreen()
-        
         APIConfig.values = ["text": "Replies screen"]
-        
-        let (_, comment) = comments.getRandomComment()
-        
-        comment.repliesButton.tap()
-        
+        commentsFeed.getComment(0).repliesButton.tap()
         XCTAssert(app.staticTexts["Replies screen"].exists, "Replies screen is not opened")
     }
+
+    private func tapLoadMore() {
+        var retryCount = 15
+        
+        while !commentsFeed.loadMoreButton.exists && retryCount != 0 {
+            retryCount -= 1
+            app.swipeDown()
+        }
+        
+        commentsFeed.loadMoreButton.tap()
+        
+        retryCount = 15
+        while commentsFeed.loadMoreButton.exists && retryCount != 0 {
+            retryCount -= 1
+            app.swipeUp()
+        }
+    }
+    
 }
 
+class TestCommentsOnline: BaseTestComments, OnlineTest {
+    
+    override func testCommentAttributes() {
+        APIConfig.values = ["user->firstName": "Alan",
+                            "user->lastName": "Poe",
+                            "totalLikes": 5,
+                            "totalReplies": 7,
+                            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                            "liked": true]
+        
+        openScreen()
+        super.testCommentAttributes()
+    }
+    
+    override func testLikeComment() {
+        openScreen()
+        super.testLikeComment()
+    }
+    
+    override func checkIsLiked(_ comment: Comment, at index: UInt) {
+        XCTAssertNotNil(APIState.getLatestRequest().contains("/likes"))
+    }
+    
+    override func checkIsUnliked(_ comment: Comment, at index: UInt) {
+        XCTAssertNotNil(APIState.getLatestRequest().contains("/likes/me"))
+    }
+    
+    override func testPaging() {
+        APIConfig.numberedCommentLikes = true
+        openScreen()
+        super.testPaging()
+    }
+ 
+    override func testPullToRefresh() {
+        openScreen()
+        
+        super.testPullToRefresh()
+        
+        let response = APIState.getLatestResponse(forService: "comments")
+        XCTAssertEqual(Int(response?["cursor"] as! String), pageSize, "First page wasn't loaded on Pull to Refresh")
+    }
+    
+    override func testCreateComment() {
+        openScreen()
+        
+        super.testCreateComment()
+        
+        let request = APIState.getLatestData(forService: "comments")
+        XCTAssertEqual(request?["text"] as! String, "New Comment Text")
+    }
+    
+    override func testOpenReplies() {
+        openScreen()
+        super.testOpenReplies()
+    }
+    
+}
 
+class TestCommentsOffline: BaseTestComments, OfflineTest {
+
+    override func testCommentAttributes() {
+        APIConfig.values = ["user->firstName": "Alan",
+                            "user->lastName": "Poe",
+                            "totalLikes": 5,
+                            "totalReplies": 7,
+                            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                            "liked": true]
+        
+        openScreen()
+        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).cell)
+        super.testCommentAttributes()
+    }
+    
+    override func testLikeComment() {
+        openScreen()
+        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).cell)
+        super.testLikeComment()
+    }
+    
+    override func checkIsLiked(_ comment: Comment, at index: UInt) {
+        XCTAssertNotNil(APIState.getLatestRequest().contains("/likes"))
+    }
+    
+    override func checkIsUnliked(_ comment: Comment, at index: UInt) {
+        XCTAssertNotNil(APIState.getLatestRequest().contains("/likes/me"))
+    }
+    
+    override func testPaging() {
+        APIConfig.numberedCommentLikes = true
+        openScreen()
+        
+        super.testPaging()
+        
+        for _ in 1...14 {
+            app.swipeDown()
+        }
+        
+        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).cell)
+        
+        super.testPaging()
+    }
+    
+    override func testPullToRefresh() {
+        openScreen()
+        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).cell)
+        super.testPullToRefresh()
+    }
+    
+    override func testCreateComment() {
+        openScreen()
+        
+        for _ in 1...5 {
+            app.swipeDown()
+        }
+        
+        APIConfig.responsesDelay = 10
+//        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).cell)
+        
+        super.testCreateComment()
+    }
+    
+    override func testOpenReplies() {
+        openScreen()
+        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).cell)
+        super.testOpenReplies()
+    }
+    
+}

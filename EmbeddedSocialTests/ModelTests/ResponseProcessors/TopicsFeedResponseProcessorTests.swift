@@ -15,6 +15,7 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        
         cache = MockCache()
         operationsBuilder = MockOutgoingCommandOperationsBuilder()
         predicateBuilder = MockTopicServicePredicateBuilder()
@@ -29,13 +30,12 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
     }
     
     func testThatItProcessesFeedResponse() {
-        
         // given
         let response: FeedResponseTopicView = loadResponse(from: "topics&limit20")!
    
         var result: Result<FeedFetchResult>?
         
-        predicateBuilder.allTopicCommandsReturnValue = NSPredicate()
+        predicateBuilder.topicActionsRemovedTopicsCreatedCommentsReturnValue = NSPredicate()
         
         let postView = response.data!.first!
         let post = Post(data: postView)!
@@ -62,7 +62,7 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
         expect(command.applyToFeedCalled).toEventually(beTrue())
         
         expect(self.operationsBuilder.fetchCommandsOperationPredicateCalled).to(beTrue())
-        expect(self.predicateBuilder.allTopicCommandsCalled).to(beTrue())
+        expect(self.predicateBuilder.topicActionsRemovedTopicsCreatedCommentsCalled).to(beTrue())
     }
     
     func testThatItIgnoresResultsFromAPI() {
@@ -70,7 +70,7 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
         
         // when
         var result: Result<FeedFetchResult>?
-
+        
         sut.process(FeedResponseTopicView(), isFromCache: false) { result = $0 }
         
         // then

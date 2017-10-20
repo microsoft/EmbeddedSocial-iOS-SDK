@@ -12,6 +12,10 @@ class ReplyCellPresenterTests: XCTestCase {
     var interactor: MockReplyCellInteractor!
     var view: MockReplyCell!
     var router: MockReplyCellRouter!
+    var loginOpener: MockLoginModalOpener!
+    var loginParent: UIViewController!
+    var actionStrategy: CommonAuthorizedActionStrategy!
+    var userHolder: MyProfileHolder!
     
     override func setUp() {
         super.setUp()
@@ -21,7 +25,12 @@ class ReplyCellPresenterTests: XCTestCase {
         router = MockReplyCellRouter()
         interactor.output = presenter
         
-        presenter = ReplyCellPresenter()
+        loginOpener = MockLoginModalOpener()
+        loginParent = UIViewController()
+        userHolder = MyProfileHolder()
+        actionStrategy = CommonAuthorizedActionStrategy(myProfileHolder: userHolder, loginParent: loginParent, loginOpener: loginOpener)
+        
+        presenter = ReplyCellPresenter(actionStrategy: actionStrategy)
         presenter.router = router
         presenter.view = view
         presenter.interactor = interactor
@@ -40,6 +49,10 @@ class ReplyCellPresenterTests: XCTestCase {
         interactor = nil
         view = nil
         router = nil
+        loginOpener = nil
+        loginParent = nil
+        userHolder = nil
+        actionStrategy = nil
     }
     
     func testThatLiked() {

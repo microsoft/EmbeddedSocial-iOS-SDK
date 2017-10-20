@@ -5,7 +5,7 @@
 
 import XCTest
 
-class BaseTestActivityFeed: TestHome {
+class BaseTestActivityFeed: TestOnlineHome {
     
     private var activitySegment: ActivityFeedSegment!
     

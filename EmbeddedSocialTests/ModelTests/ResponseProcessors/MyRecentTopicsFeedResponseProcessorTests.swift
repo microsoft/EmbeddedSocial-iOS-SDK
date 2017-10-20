@@ -7,14 +7,14 @@ import Nimble
 import XCTest
 @testable import EmbeddedSocial
 
-class OtherUserTopicsFeedResponseProcessorTests: TopicsFeedResponseProcessorTests {
-    private var sut: OtherUserTopicsFeedResponseProcessor!
+class MyRecentTopicsFeedResponseProcessorTests: TopicsFeedResponseProcessorTests {
+    private var sut: MyRecentTopicsFeedResponseProcessor!
     
     override func setUp() {
         super.setUp()
-        sut = OtherUserTopicsFeedResponseProcessor(cache: cache,
-                                                   operationsBuilder: operationsBuilder,
-                                                   predicateBuilder: predicateBuilder)
+        sut = MyRecentTopicsFeedResponseProcessor(cache: cache,
+                                                  operationsBuilder: operationsBuilder,
+                                                  predicateBuilder: predicateBuilder)
     }
     
     override func tearDown() {
@@ -24,7 +24,7 @@ class OtherUserTopicsFeedResponseProcessorTests: TopicsFeedResponseProcessorTest
     
     func testThatItUsesCorrectPredicateForCommandsFetching() {
         // given
-        predicateBuilder.allTopicActionCommandsReturnValue = NSPredicate()
+        predicateBuilder.allTopicCommandsAndAllCreatedCommentsReturnValue = NSPredicate()
         
         let operation = MockFetchOutgoingCommandsOperation(cache: cache, predicate: NSPredicate())
         operationsBuilder.fetchCommandsOperationPredicateReturnValueMaker = { operation }
@@ -36,6 +36,6 @@ class OtherUserTopicsFeedResponseProcessorTests: TopicsFeedResponseProcessorTest
         
         // then
         expect(result).toEventuallyNot(beNil())
-        expect(self.predicateBuilder.allTopicActionCommandsCalled).toEventually(beTrue())
+        expect(self.predicateBuilder.allTopicCommandsAndAllCreatedCommentsCalled).toEventually(beTrue())
     }
 }

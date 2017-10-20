@@ -7,5 +7,5 @@ import Foundation
 
 protocol CommentRepliesRouterInput {
     func backIfNeeded(from view: UIViewController)
-    func openLogin(from viewController: UIViewController)
+    func back()
 }

@@ -12,6 +12,7 @@
 "error.no_items_received" = "No Items Received";
 "error.invalid_image" = "Image is invalid";
 "error.user_not_logged_in" = "User is not logged in.";
+"error.no_internet_connection" = "No internet connection. You can still post while offline.";
 "error.last_session_not_available" = "Last session is not available.";
 "error.no_item_for" = "No item for %@";
 "error.no_items_received" = "No Items Received";
@@ -19,6 +20,9 @@
 "error.invalid_response" = "Invalid server response.";
 "error.missing_response_data" = "Cant handle response, data is corrupted.";
 "error.not_implemented" = "Not implemented.";
+"error.comment_not_found" = "Comment not found";
+"error.reply_not_found" = "Reply not found";
+"error.not_connected_to_internet" = "Internet connection is not available.";
 
 "common.ok" = "OK";
 "common.cancel" = "Cancel";
@@ -97,6 +101,7 @@
 "user_profile.button.block_user" = "Block user";
 "user_profile.button.report_user" = "Report user";
 "user_profile.screen_title" = "Profile";
+"user_profile.private_feed" = "This user is private.";
 
 "side_menu.sign_in" = "Sign In";
 "side_menu.social" = "Social";
@@ -190,3 +195,5 @@
 "linked_accounts.screen_title" = "Linked accounts";
 
 "post_details.comment_placeholder" = "Type here to comment on this post";
+"comment_replies.reply_placeholder" = "Type here to reply on this comment";
+

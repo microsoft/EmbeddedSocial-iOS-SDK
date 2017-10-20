@@ -5,7 +5,7 @@
 
 import XCTest
 
-class TestMyPins: TestHome {
+class TestMyPinsOnline: TestOnlineHome {
     
     override func setUp() {
         super.setUp()
@@ -15,69 +15,48 @@ class TestMyPins: TestHome {
     }
     
     override func openScreen() {
-        sideMenu.navigate(to: .myPins)
+        navigate(to: .myPins)
     }
     
-    override func testFeedSource() {
-        super.testFeedSource()
+    /*
+     As all posts on this screen are already pinned:
+     "Pin" and "Unpin" actions are reversed and v.v.
+     */
+    
+    override func checkIsPinned(_ post: Post, at index: UInt) {
+        super.checkIsUnpinned(post, at: index)
     }
     
-    override func testPostAttributes() {
-        super.testPostAttributes()
+    override func checkIsUnpinned(_ post: Post, at index: UInt) {
+        super.checkIsPinned(post, at: index)
     }
     
-    override func testLikePost() {
-        super.testLikePost()
-    }
+}
+
+class TestMyPinsOffline: TestOfflineHome {
     
-    override func testPinPostButton() {
-        openScreen()
+    override func setUp() {
+        super.setUp()
         
-        let (index, post) = feed.getRandomPost()
-        
-        post.pin()
-        
-        XCTAssertNotNil(APIState.getLatestRequest().hasSuffix("users/me/pins/\(feedName + String(index))"))
-        XCTAssert(!post.pinButton.isSelected, "Post is marking as pinned yet")
-        
-        post.pin()
-        
-        let request = APIState.getLatestData(forService: serviceName)
-        
-        XCTAssertEqual(request?["topicHandle"] as! String, feedName + String(index))
-        XCTAssert(post.pinButton.isSelected, "Post is marking as unpinned yet")
+        feedName = "pins"
+        serviceName = "pins"
     }
     
-    override func testPaging() {
-        super.testPaging()
+    override func openScreen() {
+        navigate(to: .myPins)
     }
     
-    override func testPullToRefresh() {
-        super.testPullToRefresh()
+    /*
+     As all posts on this screen are already pinned:
+     "Pin" and "Unpin" actions are reversed and v.v.
+     */
+    
+    override func checkIsPinned(_ post: Post, at index: UInt) {
+        super.checkIsUnpinned(post, at: index)
     }
     
-    override func testPostImagesLoaded() {
-        super.testPostImagesLoaded()
-    }
-    
-    override func testOpenPostDetails() {
-        super.testOpenPostDetails()
-    }
-    
-    override func testPagingTileMode() {
-        super.testPagingTileMode()
-    }
-    
-    override func testPostImagesLoadedTileMode() {
-        super.testPostImagesLoadedTileMode()
-    }
-    
-    override func testPullToRefreshTileMode() {
-        super.testPullToRefreshTileMode()
-    }
-    
-    override func testOpenPostDetailsTileMode() {
-        super.testOpenPostDetailsTileMode()
+    override func checkIsUnpinned(_ post: Post, at index: UInt) {
+        super.checkIsPinned(post, at: index)
     }
     
 }

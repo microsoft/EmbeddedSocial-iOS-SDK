@@ -17,4 +17,14 @@ class MockRelatedHandleUpdater: RelatedHandleUpdater {
         updateRelatedHandleFromToPredicateReceivedArguments = (oldHandle: oldHandle, newHandle: newHandle, predicate: predicate)
     }
     
+    //MARK: - updateCommand
+    
+    var updateCommandOldHandleUpdatedCommandCalled = false
+    var updateCommandOldHandleUpdatedCommandReceivedArguments: (oldHandle: String, updatedCommand: OutgoingCommand)?
+    
+    func updateCommand(oldHandle: String, updatedCommand: OutgoingCommand) {
+        updateCommandOldHandleUpdatedCommandCalled = true
+        updateCommandOldHandleUpdatedCommandReceivedArguments = (oldHandle: oldHandle, updatedCommand: updatedCommand)
+    }
+    
 }

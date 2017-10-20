@@ -24,18 +24,16 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     fileprivate var dataIsFetching = false
     fileprivate var loadMoreCellViewModel = LoadMoreCellViewModel()
     
-    var myProfileHolder: UserHolder!
-    
     private let pageSize: Int
-
+    private let actionStrategy: AuthorizedActionStrategy
     
     func heightForFeed() -> CGFloat {
         return (feedModuleInput?.moduleHeight())!
     }
     
-    init(myProfileHolder: UserHolder, pageSize: Int) {
-        self.myProfileHolder = myProfileHolder
+    init(pageSize: Int, actionStrategy: AuthorizedActionStrategy) {
         self.pageSize = pageSize
+        self.actionStrategy = actionStrategy
     }
     
     // MARK: PostDetailInteractorOutput
@@ -95,6 +93,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         loadMoreCellViewModel.stopLoading()
         view.updateLoadingCell()
         view.endRefreshing()
+        view.hideLoadingHUD()
     }
     
     func commentDidPost(comment: Comment) {
@@ -104,7 +103,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     }
     
     func commentPostFailed(error: Error) {
-        
+        view.hideLoadingHUD()
     }
     
     private func setupFeed() {
@@ -168,11 +167,10 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     }
     
     func postComment(photo: Photo?, comment: String) {
-        guard myProfileHolder.me != nil else {
-            router.openLogin(from: view as! UIViewController)
-            return
-        }
-        view.showLoadingHUD()
+        actionStrategy.executeOrPromptLogin { [weak self] in self?._postComment(photo: photo, comment: comment) }
+    }
+    
+    private func _postComment(photo: Photo?, comment: String) {
         interactor.postComment(photo: photo, topicHandle: topicHandle, comment: comment)
     }
 }

@@ -16,6 +16,7 @@ enum FeedModuleRoutes {
     case myProfile
     case likesList(postHandle: String)
     case login
+    case search(hashtag: String)
 }
 
 extension FeedModuleRoutes: CustomStringConvertible {
@@ -41,6 +42,8 @@ extension FeedModuleRoutes: CustomStringConvertible {
             return "Likes List"
         case .login:
             return "Sign in"
+        case .search:
+            return "Search"
         }
     }
 }
@@ -83,6 +86,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
     weak var moduleInput: FeedModulePresenter!
     weak var myProfileOpener: MyProfileOpener?
     weak var loginOpener: LoginModalOpener?
+    weak var searchOpener: SearchHashtagOpener?
     
     // Keeping ref to menu module
     private var postMenuViewController: UIViewController?
@@ -157,6 +161,8 @@ class FeedModuleRouter: FeedModuleRouterInput {
         case .login:
             loginOpener?.openLogin(parentViewController: navigationController)
             
+        case .search(let hashtag):
+            searchOpener?.openSearch(with: hashtag)
         }
     }
 }

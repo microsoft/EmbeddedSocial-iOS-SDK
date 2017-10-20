@@ -5,8 +5,7 @@
 
 import Foundation
 
-final class CreateReplyOperation: OutgoingCommandOperation {
-    let command: ReplyCommand
+final class CreateReplyOperation: ReplyCommandOperation {
     private let repliesService: RepliesServiceProtcol
     private let predicateBuilder: OutgoingCommandsPredicateBuilder
     private let handleUpdater: RelatedHandleUpdater
@@ -16,10 +15,11 @@ final class CreateReplyOperation: OutgoingCommandOperation {
          predicateBuilder: OutgoingCommandsPredicateBuilder = PredicateBuilder(),
          handleUpdater: RelatedHandleUpdater = OutgoingCommandsRelatedHandleUpdater()) {
         
-        self.command = command
         self.repliesService = repliesService
         self.predicateBuilder = predicateBuilder
         self.handleUpdater = handleUpdater
+        
+        super.init(command: command)
     }
     
     override func main() {

@@ -146,8 +146,8 @@ extension ActivityPresenter: ActivityViewOutput {
         self.state = state
     }
     
-    func loadMore() {
-        dataSources[state]?.forEach { $0.loadMore() }
+    func loadMore(section: Int) {
+        dataSources[state]?[section].loadMore()
     }
     
     func loadAll() {

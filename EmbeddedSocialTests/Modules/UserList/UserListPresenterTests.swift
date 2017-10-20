@@ -4,6 +4,7 @@
 //
 
 import XCTest
+import Nimble
 @testable import EmbeddedSocial
 
 class UserListPresenterTests: XCTestCase {
@@ -15,6 +16,7 @@ class UserListPresenterTests: XCTestCase {
     var sut: UserListPresenter!
     var noDataText: NSAttributedString!
     var noDataView: UIView!
+    var actionStrategy: CommonAuthorizedActionStrategy!
 
     private let timeout: TimeInterval = 5.0
     
@@ -27,8 +29,13 @@ class UserListPresenterTests: XCTestCase {
         myProfileHolder = MyProfileHolder()
         noDataText = NSAttributedString(string: "No data text")
         noDataView = UIView()
+        actionStrategy = CommonAuthorizedActionStrategy(
+            myProfileHolder: myProfileHolder,
+            loginParent: nil,
+            loginOpener: MockLoginModalOpener()
+        )
         
-        sut = UserListPresenter(myProfileHolder: myProfileHolder)
+        sut = UserListPresenter(actionStrategy: actionStrategy)
         sut.interactor = interactor
         sut.view = view
         sut.moduleOutput = moduleOutput
@@ -47,6 +54,7 @@ class UserListPresenterTests: XCTestCase {
         myProfileHolder = nil
         noDataText = nil
         noDataView = nil
+        actionStrategy = nil
     }
     
     func testThatItSetsInitialState() {
@@ -92,10 +100,7 @@ class UserListPresenterTests: XCTestCase {
         sut.loadNextPage()
         
         // then
-        XCTAssertEqual(router.openLoginCount, 1)
-        XCTAssertEqual(interactor.getNextListPageCount, 0)
-        XCTAssertFalse(view.setUsersCalled)
-        XCTAssertFalse(view.setIsEmptyCalled)
+        validateNextPageLoaded(with: users)
     }
     
     func testThatItHandlesLoadNextPageError() {
@@ -159,9 +164,7 @@ class UserListPresenterTests: XCTestCase {
         // when
         sut.onItemAction(item: listItem)
         
-        // then
-        XCTAssertEqual(router.openLoginCount, 1)
-        
+        // then        
         XCTAssertEqual(interactor.processSocialRequestCount, 0)
         
         XCTAssertFalse(view.setIsLoadingCalled)
@@ -340,5 +343,22 @@ class UserListPresenterTests: XCTestCase {
         XCTAssertEqual(view.setUsersReceivedUsers ?? [], users)
         XCTAssertTrue(view.setIsEmptyCalled)
         XCTAssertEqual(view.setIsEmptyReceivedIsEmpty, users.isEmpty)
+    }
+    
+    func testPullToRefreshErrorWithNotEmptyList() {
+        let users = [User(), User()]
+        interactor.getNextListPageReturnValue = .success(users)
+        sut.setupInitialState()
+        expect(self.view.setUsersReceivedUsers).toEventually(equal(users))
+    
+        interactor.reloadListReturnValue = .failure(APIError.unknown)
+        view.anyItemsShown = true
+        sut.onPullToRefresh()
+        expect(self.view.setUsersReceivedUsers).toEventually(equal(users))
+        expect(self.view.setIsEmptyCalled).toEventually(beTrue())
+        expect(self.view.setIsEmptyReceivedIsEmpty).toEventually(beFalse())
+        
+        expect(self.moduleOutput.didFailToLoadListListViewErrorCalled).toEventually(beTrue())
+        expect(self.moduleOutput.didFailToLoadListListViewErrorReceivedArguments?.error).toEventually(matchError(APIError.unknown))
     }
 }

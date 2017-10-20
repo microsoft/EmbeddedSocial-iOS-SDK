@@ -17,7 +17,7 @@ class SessionService: BaseService, SessionServiceType {
     
     private let appKey: String
     
-    init(appKey: String = SocialPlus.settings.appKey) {
+    init(appKey: String = AppConfiguration.shared.settings.appKey) {
         self.appKey = appKey
         super.init()
     }
@@ -40,7 +40,7 @@ class SessionService: BaseService, SessionServiceType {
         let provider = authProvider.sessionServiceIdentityProvider
         SessionsAPI.requestTokensGetRequestToken(
             identityProvider: provider,
-            authorization: Authorization.anonymous(appKey: appKey)) { response, error in
+            authorization: Authorization.anonymous) { response, error in
                 if let token = response?.requestToken {
                     completion(.success(token))
                 } else {

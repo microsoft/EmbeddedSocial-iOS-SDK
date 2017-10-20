@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>Embedded Social Test App</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,13 +17,13 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>0.7.4</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1503468403051551</string>
+				<string>fb143359739619521</string>
 			</array>
 		</dict>
 		<dict>
@@ -35,7 +37,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.725637580373-0ssr452m7o5bg1aeomsts88ci6tvmp83</string>
+				<string>com.googleusercontent.apps.348861152334-5hdrnh6qal3trt8m2ukv26due7fn20k0</string>
 			</array>
 		</dict>
 		<dict>
@@ -67,11 +69,11 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>4</string>
 	<key>FacebookAppID</key>
-	<string>1503468403051551</string>
+	<string>143359739619521</string>
 	<key>FacebookDisplayName</key>
-	<string>Social Plus</string>
+	<string>Embedded Social</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>

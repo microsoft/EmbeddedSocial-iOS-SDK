@@ -4,12 +4,7 @@
 //
 
 import Foundation
-import XCTest
 
-extension XCUIElement {
-    
-    func tapByCoordinate() {
-        self.coordinate(withNormalizedOffset: CGVector(dx: 1, dy: 1)).tap()
-    }
-    
+protocol TopicsFeedApplicableCommand {
+    func apply(to feed: inout FeedFetchResult)
 }

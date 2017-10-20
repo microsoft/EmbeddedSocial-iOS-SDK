@@ -6,52 +6,23 @@
 import XCTest
 @testable import EmbeddedSocial
 
-private class MockLikeSerivce: LikesServiceProtocol {
-    func likeComment(commentHandle: String, completion: @escaping LikesServiceProtocol.CommentCompletionHandler) {
-        
-    }
-    
-    func unlikeComment(commentHandle: String, completion: @escaping LikesServiceProtocol.CompletionHandler) {
-        
-    }
-    
-    func deleteLike(postHandle: PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
-        
-    }
-    
-    func postLike(postHandle: PostHandle, completion: @escaping LikesServiceProtocol.CompletionHandler) {
-        
-    }
-    
-    func likeReply(replyHandle: String, completion: @escaping LikesServiceProtocol.ReplyLikeCompletionHandler) {
-        completion("replyHandle", nil)
-    }
-    
-    func unlikeReply(replyHandle: String, completion: @escaping LikesServiceProtocol.ReplyLikeCompletionHandler) {
-        completion("replyHandle", nil)
-    }
-    
-    func postPin(postHandle: PostHandle, completion: @escaping CompletionHandler) {}
-    func deletePin(postHandle: PostHandle, completion: @escaping CompletionHandler) {}
-}
-
 class CommentRepliesInteractorTests: XCTestCase {
     
     var output: MockCommentRepliesPresenter!
     var interactor = CommentRepliesInteractor()
     var myProfileHolder: MyProfileHolder!
     
-    var likeService: LikesServiceProtocol?
+    var likeService: MockLikesService?
     var repliesService: MockRepliesService!
     
     override func setUp() {
         super.setUp()
         myProfileHolder = MyProfileHolder()
-        output = MockCommentRepliesPresenter(myProfileHolder: myProfileHolder)
+        output = MockCommentRepliesPresenter(pageSize: 10, actionStrategy: MockAuthorizedActionStrategy())
         output.interactor = interactor
         interactor.output = output
         
-        likeService = MockLikeSerivce()
+        likeService = MockLikesService()
         interactor.likeService = likeService
         
         repliesService = MockRepliesService()
@@ -93,7 +64,7 @@ class CommentRepliesInteractorTests: XCTestCase {
         //given
         //default in MockRepliesService fetching 1 item
         var result = RepliesFetchResult()
-        result.replies = [Reply()]
+        result.replies = [Reply(replyHandle: UUID().uuidString)]
         repliesService.fetchRepliesReturnResult = result
         
         //when
@@ -116,6 +87,7 @@ class CommentRepliesInteractorTests: XCTestCase {
         output.replies = [reply]
         
         //when
+        likeService?.likeReplyReplyHandleCompletionReturnValue = (reply.replyHandle, nil)
         interactor.replyAction(replyHandle: reply.replyHandle!, action: .like)
         
         //then
@@ -134,6 +106,7 @@ class CommentRepliesInteractorTests: XCTestCase {
         output.replies = [reply]
         
         //when
+        likeService?.unlikeReplyReplyHandleCompletionReturnValue = (reply.replyHandle, nil)
         interactor.replyAction(replyHandle: reply.replyHandle!, action: .unlike)
         
         //then

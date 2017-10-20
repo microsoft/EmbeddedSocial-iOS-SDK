@@ -231,14 +231,14 @@ class CommentsService: BaseService, CommentServiceProtocol {
                          failure: @escaping Failure) {
         guard isNetworkReachable else {
             
-            let predicate =  PredicateBuilder().createCommentCommand(commentHandle: command.comment.commentHandle)
+            let predicate = PredicateBuilder().createCommentCommand(commentHandle: command.comment.commentHandle)
             let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
                                                          predicate: predicate,
                                                          sortDescriptors: [Cache.createdAtSortDescriptor])
             
             
             if !self.cache.fetchOutgoing(with: fetchOutgoingRequest).isEmpty {
-                self.cache.deleteOutgoing(with:predicate)
+                self.cache.deleteOutgoing(with: predicate)
                 success()
                 return
             } else {
@@ -275,6 +275,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         comment.totalLikes = commentView.totalLikes ?? 0
         comment.liked = commentView.liked ?? false
         comment.userStatus = FollowStatus(status: commentView.user?.followerStatus)
+        comment.totalReplies = commentView.totalReplies ?? 0 
         
         return comment
     }

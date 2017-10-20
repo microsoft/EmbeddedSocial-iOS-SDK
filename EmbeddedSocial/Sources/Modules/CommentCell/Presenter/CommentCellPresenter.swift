@@ -4,8 +4,8 @@
 //
 
 protocol CommentCellModuleProtocol {
-    func cell() -> CommentCell
     func mainComment() -> Comment
+    func didRemove(comment: Comment)
 }
 
 protocol CommentCellModuleOutout: class {
@@ -17,11 +17,16 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     var view: CommentCellViewInput?
     var interactor: CommentCellInteractorInput?
     var router: CommentCellRouterInput?
-    var myProfileHolder: UserHolder?
     
     weak var moduleOutput: CommentCellModuleOutout?
     
     var comment: Comment!
+    
+    private let actionStrategy: AuthorizedActionStrategy
+    
+    init(actionStrategy: AuthorizedActionStrategy) {
+        self.actionStrategy = actionStrategy
+    }
     
     // MARK: CommentCellViewOutput
     func viewIsReady() {
@@ -30,21 +35,21 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     }
     
     func like() {
-        guard myProfileHolder?.me != nil else {
-            router?.openLogin()
-            return
-        }
+        actionStrategy.executeOrPromptLogin { [weak self] in self?._like() }
+    }
+    
+    private func _like() {
         let status = comment.liked
         let action: CommentSocialAction = status ? .unlike : .like
-
+        
         comment.liked = !status
-
+        
         if action == .like {
             comment.totalLikes += 1
         } else if action == .unlike && comment.totalLikes > 0 {
             comment.totalLikes -= 1
         }
-
+        
         view?.configure(comment: comment)
         interactor?.commentAction(commentHandle: comment.commentHandle, action: action)
     }
@@ -93,10 +98,6 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
 }
 
 extension CommentCellPresenter: CommentCellModuleProtocol {
-    func cell() -> CommentCell {
-        return view as! CommentCell
-    }
-    
     func mainComment() -> Comment {
         return comment
     }

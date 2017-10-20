@@ -7,19 +7,29 @@ import Foundation
 import XCTest
 @testable import EmbeddedSocial
 
-class TestFollowers: UITestBase {
-    var menu: SideMenu!
-    var profile: UserProfile!
-    var followers: FollowersFeed!
+class BaseTestFollowers: BaseSideMenuTest {
+    
     var feedName: String!
     var feedHandle: String!
     var pageSize: Int!
     
+    var profile: UserProfile!
+    var followersFeed: FollowersFeed!
+    
+    /*
+     Expected button title
+     
+     Depending on user status, for example:
+     Status: "Follow", Expected title: "FOLLOWING"
+     */
+    var followerAction: String!
+    
     override func setUp() {
         super.setUp()
-        menu = SideMenu(app)
+        
         profile = UserProfile(app)
-        followers = FollowersFeed(app)
+        followersFeed = FollowersFeed(app)
+        
         feedName = "User Follower"
         feedHandle = "UserFollower"
         pageSize = EmbeddedSocial.Constants.UserList.pageSize
@@ -30,79 +40,138 @@ class TestFollowers: UITestBase {
         APIConfig.showUserImages = false
     }
     
-    func openScreen() {
-        menu.navigateToUserProfile()
+    override func openScreen() {
+        navigate(to: .userProfile)
         profile.followersButton.tap()
-        sleep(1)
     }
     
     func testFeedSource() {
-        openScreen()
-        
-        let (index, follower) = followers.getRandomFollower()
-        
+        let (index, follower) = followersFeed.getRandomFollower()
         XCTAssert(follower.textExists(feedName + String(index)), "Incorrect feed source")
     }
     
     func testUserListAttributes() {
-        APIConfig.values = ["followerStatus": "Follow"]
-        
-        openScreen()
-        
-        let (index, follower) = followers.getRandomFollower()
-        
-        XCTAssert(follower.textExists(feedName + String(index)), "User names don't match")
-        XCTAssertEqual(follower.followButton.label, "FOLLOWING", "Users are not marked as following")
-        
-        APIConfig.values = ["followerStatus": "Blocked"]
-        
-        followers.back()
-        openScreen()
-
-        XCTAssertEqual(follower.followButton.label, "UNBLOCK", "Users are not marked as blocked")
+        let (_, follower) = followersFeed.getRandomFollower()
+        XCTAssertEqual(follower.followButton.label, followerAction, "Users are not marked as expected")
     }
     
-    func testFollowUser() {
-        openScreen()
-        
-        let (index, follower) = followers.getRandomFollower()
+    func testUserFollowing() {
+        let (index, follower) = followersFeed.getRandomFollower()
         
         follower.follow()
+        checkIsFollowed(follower, at: index)
         
-        let request = APIState.getLatestData(forService: "followers")
-        
-        XCTAssertEqual(request?["userHandle"] as! String, feedHandle + String(index))
-//        XCTAssert(follower.followButton.isSelected, "User is not marked as following")
+        follower.follow()
+        checkIsUnfollowed(follower, at: index)
+    }
+    
+    func checkIsFollowed(_ follower: Follower, at index: UInt) {
         XCTAssertEqual(follower.followButton.label, "FOLLOWING", "User is not marked as following")
-        
-        follower.follow()
-        
-        XCTAssertNotNil(APIState.getLatestRequest().contains("users/me/following/users/" + feedHandle + String(index)))
-//        XCTAssert(follower.followButton.isSelected, "User is marked as following")
+    }
+    
+    func checkIsUnfollowed(_ follower: Follower, at index: UInt) {
         XCTAssertEqual(follower.followButton.label, "FOLLOW", "User is marked as following")
     }
     
     func testPaging() {
-        openScreen()
-        
         var retryCount = 10
         
-        while followers.getFollowersCount() <= UInt(pageSize) && retryCount != 0 {
+        while followersFeed.getFollowersCount() <= UInt(pageSize) && retryCount != 0 {
             retryCount -= 1
             app.swipeUp()
         }
         
-        XCTAssertGreaterThan(followers.getFollowersCount(), UInt(pageSize), "New users weren't loaded while swiping feed up")
+        XCTAssertGreaterThan(followersFeed.getFollowersCount(), UInt(pageSize), "New users weren't loaded while swiping feed up")
     }
     
-    func testUserImagesLoaded() {
+    func testUserImagesLoaded() {}
+    
+}
+
+class TestFollowersOnline: BaseTestFollowers, OnlineTest {
+    
+    override func testFeedSource() {
+        openScreen()
+        super.testFeedSource()
+    }
+    
+    override func testUserListAttributes() {
+        APIConfig.values = ["followerStatus": "Follow"]
+        
+        openScreen()
+        followerAction = "FOLLOWING"
+        super.testUserListAttributes()
+    }
+    
+    override func testUserFollowing() {
+        openScreen()
+        super.testUserFollowing()
+    }
+    
+    override func checkIsFollowed(_ follower: Follower, at index: UInt) {
+        let request = APIState.getLatestData(forService: "followers")
+        XCTAssertEqual(request?["userHandle"] as! String, feedHandle + String(index))
+        super.checkIsFollowed(follower, at: index)
+    }
+    
+    override func checkIsUnfollowed(_ follower: Follower, at index: UInt) {
+        XCTAssertNotNil(APIState.getLatestRequest().contains("users/me/following/users/" + feedHandle + String(index)))
+        super.checkIsUnfollowed(follower, at: index)
+    }
+    
+    override func testPaging() {
+        openScreen()
+        super.testPaging()
+    }
+    
+    override func testUserImagesLoaded() {
         APIConfig.showUserImages = true
         
         openScreen()
         
-        sleep(2) //Wait until images loaded
-        
         XCTAssertNotNil(XCTAssertNotNil(APIState.getLatestRequest().contains("/images/")), "Post images weren't loaded")
+    }
+    
+}
+
+class TestFollowersOffline: BaseTestFollowers, OfflineTest {
+    
+    override func testFeedSource() {
+        openScreen()
+        makePullToRefreshWithoutReachability(with: followersFeed.getFollower(0).cell)
+        super.testFeedSource()
+    }
+    
+    override func testUserListAttributes() {
+        APIConfig.values = ["followerStatus": "Follow"]
+        
+        openScreen()
+        makePullToRefreshWithoutReachability(with: followersFeed.getFollower(0).cell)
+
+        followerAction = "FOLLOWING"
+        super.testUserListAttributes()
+    }
+    
+    override func testUserFollowing() {
+        openScreen()
+        makePullToRefreshWithoutReachability(with: followersFeed.getFollower(0).cell)
+        super.testUserFollowing()
+    }
+    
+    override func testPaging() {
+        openScreen()
+        
+        // load next page in online
+        super.testPaging()
+        
+        // scroll to up
+        for _ in 1...11 {
+            app.swipeDown()
+        }
+        makePullToRefreshWithoutReachability(with: followersFeed.getFollower(0).cell)
+        
+        // test offline pagination
+        super.testPaging()
     }
     
 }

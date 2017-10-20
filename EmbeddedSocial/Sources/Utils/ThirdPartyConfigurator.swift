@@ -30,7 +30,7 @@ struct ThirdPartyConfigurator: ThirdPartyConfiguratorType {
     }
     
     private func setupGoogle() {
-        GIDSignIn.sharedInstance().clientID = "725637580373-0ssr452m7o5bg1aeomsts88ci6tvmp83.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().clientID = "348861152334-5hdrnh6qal3trt8m2ukv26due7fn20k0.apps.googleusercontent.com"
     }
 }
 

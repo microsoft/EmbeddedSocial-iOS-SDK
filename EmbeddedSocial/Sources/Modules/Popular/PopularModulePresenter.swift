@@ -28,7 +28,7 @@ class PopularModulePresenter: PopularModuleViewOutput, PopularModuleInput, Popul
     
     fileprivate let settings: Settings
     
-    init(settings: Settings = SocialPlus.settings) {
+    init(settings: Settings = AppConfiguration.shared.settings) {
         self.settings = settings
     }
     

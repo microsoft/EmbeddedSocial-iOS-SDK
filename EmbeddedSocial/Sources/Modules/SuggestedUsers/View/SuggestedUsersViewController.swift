@@ -6,7 +6,7 @@
 import UIKit
 import SnapKit
 
-class SuggestedUsersViewController: UIViewController {
+class SuggestedUsersViewController: BaseViewController {
     
     var output: SuggestedUsersViewOutput!
     

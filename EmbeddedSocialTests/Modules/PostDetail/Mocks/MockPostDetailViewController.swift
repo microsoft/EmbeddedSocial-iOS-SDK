@@ -74,4 +74,12 @@ class MockPostDetailViewController: UIViewController, PostDetailViewInput {
     func endRefreshing() {
         endRefreshingCount += 1
     }
+    
+    func showLoadingHUD() {
+        
+    }
+    
+    func hideLoadingHUD() {
+        
+    }
 }
