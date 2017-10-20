@@ -66,6 +66,10 @@ public final class SocialPlus {
         } else {
             coordinator.openPopularScreen()
         }
+        
+        let c = UpdateNotificationsStatusCommand(handle: UUID().uuidString)
+        cache.cacheOutgoing(c)
+        
     }
     
     fileprivate func startSession(with info: SessionInfo) {

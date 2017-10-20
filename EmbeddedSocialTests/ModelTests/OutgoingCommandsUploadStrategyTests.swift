@@ -4,6 +4,7 @@
 //
 
 import XCTest
+import Nimble
 @testable import EmbeddedSocial
 
 class OutgoingCommandsUploadStrategyTests: XCTestCase {
@@ -124,7 +125,9 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
         
         validateSubmissionStep(.replyActions, predicate: PredicateBuilder().replyActionCommands(), nextStep: .userActions)
         
-        validateSubmissionStep(.userActions, predicate: PredicateBuilder().allUserCommands(), nextStep: nil)
+        validateSubmissionStep(.userActions, predicate: PredicateBuilder().allUserCommands(), nextStep: .notificationActions)
+        
+        validateSubmissionStep(.notificationActions, predicate: PredicateBuilder().allNotificationCommands(), nextStep: nil)
     }
     
     private func validateSubmissionStep(_ step: Step, predicate: NSPredicate, nextStep: Step?) {

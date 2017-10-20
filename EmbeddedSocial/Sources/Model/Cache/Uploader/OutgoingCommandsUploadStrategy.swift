@@ -154,11 +154,11 @@ extension OutgoingCommandsUploadStrategy.Step {
     }
     
     static var userActions: Step {
-        return Step(predicate: PredicateBuilder().allUserCommands(), next: nil)
+        return Step(predicate: PredicateBuilder().allUserCommands(), next: .notificationActions)
     }
     
     static var notificationActions: Step {
-        return Step(predicate: PredicateBuilder().allUserCommands(), next: nil)
+        return Step(predicate: PredicateBuilder().allNotificationCommands(), next: nil)
     }
 }
 
