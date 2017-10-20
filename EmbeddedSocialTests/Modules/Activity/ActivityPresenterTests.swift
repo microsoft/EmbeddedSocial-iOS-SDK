@@ -9,6 +9,11 @@ import XCTest
 
 class MockActivityInteractor: ActivityInteractorInput {
     
+    var sentActivityHandle: String?
+    func sendActivityStateAsRead(with handle: String) {
+        sentActivityHandle = handle
+    }
+
     //MARK: - loadMyActivities
     
     var loadMyActivitiesCompletionCalled = false

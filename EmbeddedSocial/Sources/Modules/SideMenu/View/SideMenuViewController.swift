@@ -31,6 +31,7 @@ protocol SideMenuViewOutput {
     func headerTitle(for section: Int) -> String
     func accountInfo() -> SideMenuHeaderModel
     func viewDidAppear()
+    func viewWillAppear()
 }
 
 
@@ -65,9 +66,9 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
         tableView.reloadData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        output.viewDidAppear()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        output.viewWillAppear()
     }
     
     func reload(section: Int) {
