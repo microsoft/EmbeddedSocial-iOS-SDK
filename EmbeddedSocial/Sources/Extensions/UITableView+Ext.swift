@@ -7,7 +7,7 @@ import UIKit
 
 extension UITableView {
     
-    func register<T: UITableViewCell>(cellClass: T.Type = T.self) where T: Reusable {
+    func register<T: UITableViewCell>(cellClass: T.Type = T.self) {
         let bundle = Bundle(for: cellClass.self)
         if bundle.path(forResource: cellClass.reuseID, ofType: "nib") != nil {
             let nib = UINib(nibName: cellClass.reuseID, bundle: bundle)
@@ -18,7 +18,7 @@ extension UITableView {
     }
     
     func indexPath(for view: UIView) -> IndexPath? {
-        let location = view.convert(CGPoint.zero, to: self)
+        let location = view.convert(.zero, to: self)
         return indexPathForRow(at: location)
     }
 }

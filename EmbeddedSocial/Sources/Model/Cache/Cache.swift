@@ -40,7 +40,7 @@ class Cache: CacheType {
         updateTransaction(for: item, typeID: typeID, queries: outgoingQueries)
     }
     
-    private func updateTransaction<T: Transaction>(for item: Cacheable, typeID: String, queries: Queries<T>) {
+    private func updateTransaction<T>(for item: Cacheable, typeID: String, queries: Queries<T>) {
         var transaction = self.transaction(handle: item.getHandle(), typeID: typeID, queries: queries)
         transaction.typeid = typeID
         transaction.payload = item.encodeToJSON()
@@ -49,7 +49,7 @@ class Cache: CacheType {
         database.save(transaction: transaction)
     }
     
-    private func transaction<T: Transaction>(handle: String?, typeID: String, queries: Queries<T>) -> T {
+    private func transaction<T>(handle: String?, typeID: String, queries: Queries<T>) -> T {
         let p = handle == nil ? predicateBuilder.predicate(typeID: typeID) : predicateBuilder.predicate(typeID: typeID, handle: handle!)
         return queries.fetch(p, nil, nil).first ?? queries.make()
     }
@@ -72,40 +72,40 @@ class Cache: CacheType {
         return first(predicate: predicate, sortDescriptors: sortDescriptors, queries: outgoingQueries)
     }
     
-    private func first<T: Transaction, Item: Cacheable>(predicate: NSPredicate?,
-                       sortDescriptors: [NSSortDescriptor]?,
-                       queries: Queries<T>) -> Item? {
+    private func first<T, Item: Cacheable>(predicate: NSPredicate?,
+                                           sortDescriptors: [NSSortDescriptor]?,
+                                           queries: Queries<T>) -> Item? {
         
         return queries.fetch(predicate, nil, sortDescriptors)
             .flatMap { self.decoder.decode(type: Item.self, payload: $0.payload) }
             .first
     }
     
-    func fetchIncoming<Item: Cacheable>(with request: CacheFetchRequest<Item>) -> [Item] {
+    func fetchIncoming<Item>(with request: CacheFetchRequest<Item>) -> [Item] {
         return fetch(request: request, queries: incomingQueries)
     }
     
-    func fetchIncoming<Item: Cacheable>(with request: CacheFetchRequest<Item>, result: @escaping FetchResult<Item>) {
+    func fetchIncoming<Item>(with request: CacheFetchRequest<Item>, result: @escaping FetchResult<Item>) {
         fetchAsync(request: request, queries: incomingQueries, result: result)
     }
-
-    func fetchOutgoing<Item: Cacheable>(with request: CacheFetchRequest<Item>) -> [Item] {
+    
+    func fetchOutgoing<Item>(with request: CacheFetchRequest<Item>) -> [Item] {
         return fetch(request: request, queries: outgoingQueries)
     }
     
-    func fetchOutgoing<Item: Cacheable>(with request: CacheFetchRequest<Item>, result: @escaping FetchResult<Item>) {
+    func fetchOutgoing<Item>(with request: CacheFetchRequest<Item>, result: @escaping FetchResult<Item>) {
         fetchAsync(request: request, queries: outgoingQueries, result: result)
     }
-
-    private func fetch<T: Transaction, Item: Cacheable>(request: CacheFetchRequest<Item>, queries: Queries<T>) -> [Item] {
+    
+    private func fetch<T, Item>(request: CacheFetchRequest<Item>, queries: Queries<T>) -> [Item] {
         return queries.fetch(request.predicate, request.page, request.sortDescriptors).flatMap { [weak self] tr in
             self?.decodeTransaction(tr, itemType: request.resultType)
         }
     }
-
-    private func fetchAsync<T: Transaction, Item: Cacheable>(request: CacheFetchRequest<Item>,
-                            queries: Queries<T>,
-                            result: @escaping FetchResult<Item>) {
+    
+    private func fetchAsync<T, Item>(request: CacheFetchRequest<Item>,
+                                     queries: Queries<T>,
+                                     result: @escaping FetchResult<Item>) {
         
         queries.fetchAsync(request.predicate, request.page, request.sortDescriptors) { [weak self] trs in
             let items = trs.flatMap { self?.decodeTransaction($0, itemType: request.resultType) }

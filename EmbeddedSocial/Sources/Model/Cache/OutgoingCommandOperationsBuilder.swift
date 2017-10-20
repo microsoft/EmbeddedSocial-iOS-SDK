@@ -85,6 +85,11 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
             return UpdateUserImageOperation(command: command, imagesService: ImagesService())
         }
         
+        // notification commands
+        else if let command = command as? UpdateNotificationsStatusCommand {
+            return UpdateNotificationsStatusOperation(command: command, notificationsService: ActivityNotificationsService())
+        }
+        
         return nil
     }
     

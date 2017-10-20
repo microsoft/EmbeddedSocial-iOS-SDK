@@ -156,6 +156,10 @@ extension OutgoingCommandsUploadStrategy.Step {
     static var userActions: Step {
         return Step(predicate: PredicateBuilder().allUserCommands(), next: nil)
     }
+    
+    static var notificationActions: Step {
+        return Step(predicate: PredicateBuilder().allUserCommands(), next: nil)
+    }
 }
 
 extension OutgoingCommandsUploadStrategy.Step: Equatable {

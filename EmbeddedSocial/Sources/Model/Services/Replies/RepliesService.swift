@@ -206,7 +206,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
     
     
     private func execute(command: RemoveReplyCommand,
-                         success: @escaping ((Void) -> Void),
+                         success: @escaping (() -> Void),
                          failure: @escaping Failure) {
         guard isNetworkReachable else {
             
