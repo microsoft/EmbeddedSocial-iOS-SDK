@@ -280,6 +280,8 @@ enum L10n {
     static let cancelledByUser = L10n.tr("Localizable", "error.cancelled_by_user")
     /// Comment not found
     static let commentNotFound = L10n.tr("Localizable", "error.comment_not_found")
+    /// Reply not found
+    static let replyNotFound = L10n.tr("Localizable", "error.reply_not_found")
     /// The request has failed.
     static let failedRequest = L10n.tr("Localizable", "error.failed_request")
     /// Image compression has failed.

@@ -189,8 +189,12 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
         view?.reloadCommentCell()
     }
     
-    func replyFailPost(error: Error) {
-        router.back()
+    func replyFailPost(error: APIError) {
+        if error == .replyNotFound {
+            router.back()
+        }
+        
+        view?.unlockUI()
     }
     
     func didPostAction(replyHandle: String, action: RepliesSocialAction, error: Error?) {

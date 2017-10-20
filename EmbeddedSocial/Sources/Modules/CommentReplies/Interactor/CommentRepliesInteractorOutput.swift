@@ -10,6 +10,6 @@ protocol CommentRepliesInteractorOutput: class {
     func fetchedMore(replies: [Reply], cursor: String?)
     func fetchedFailed(error: Error)
     func replyPosted(reply: Reply)
-    func replyFailPost(error: Error)
+    func replyFailPost(error: APIError)
     func didPostAction(replyHandle: String, action: RepliesSocialAction, error: Error?)
 }
