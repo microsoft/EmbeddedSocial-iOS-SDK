@@ -130,6 +130,10 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     // MARK: View Output
     
     func viewDidAppear() {
+        
+    }
+    
+    func viewWillAppear() {
         updateNotificationsCount()
     }
     
