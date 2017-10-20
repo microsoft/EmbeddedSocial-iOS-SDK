@@ -134,7 +134,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     func showError(_ error: Error) {
         navigationStack.showError(error)
     }
-    
+
     var configuredLogin: UIViewController {
         let configurator = LoginConfigurator()
         configurator.configure(moduleOutput: loginHandler)
@@ -246,4 +246,12 @@ extension CrossModuleCoordinator: LoginModalOpener {
         let navController = BaseNavigationController(rootViewController: configurator.viewController)
         navigationStack.presentModal(navController, parentViewController: parentViewController)
     }
+}
+
+extension CrossModuleCoordinator: NotificationsUpdater {
+    
+    func updateNotifications() {
+        menuModule.updateNotificationsCount()
+    }
+    
 }

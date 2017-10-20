@@ -38,7 +38,7 @@ class ActivityNotificationLabel: UIView {
     }
     
     func setCountText(_ text: String?) {
-        counterLabel.isHidden = (text == nil)
+        isHidden = (text == nil)
         counterLabel.text = text
     }
     

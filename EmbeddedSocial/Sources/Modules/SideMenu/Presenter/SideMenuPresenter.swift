@@ -29,9 +29,15 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     
     var user: User? {
         didSet {
-            selectedMenuItem = .none
+           onUserChanged()
+        }
+    }
+    
+    private func onUserChanged() {
+        selectedMenuItem = .none
+        buildItems()
+        if isViewIsReady {
             view.showAccountInfo(visible: accountViewAvailable)
-            buildItems()
             view.reload()
         }
     }
@@ -57,7 +63,13 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     
     private var selectedMenuItem: SelectedMenuItem = .none {
         didSet {
-            buildItems()
+            onSelectedMenuItem()
+        }
+    }
+    
+    private func onSelectedMenuItem() {
+        buildItems()
+        if isViewIsReady {
             view.reload()
             view.showAccountInfo(visible: accountViewAvailable)
         }
@@ -78,7 +90,13 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     // Current Tab
     private var tab: SideMenuTabs = .none {
         didSet {
-            buildItems()
+            onTabChanged()
+        }
+    }
+    
+    private func onTabChanged() {
+        buildItems()
+        if isViewIsReady {
             view.reload()
         }
     }
@@ -115,6 +133,8 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         updateNotificationsCount()
     }
     
+    private var isViewIsReady = false
+    
     func viewIsReady() {
         view.setupInitialState()
         buildItems()
@@ -124,6 +144,8 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         if self.tab != .none {
             view.selectBar(with: tab.rawValue)
         }
+        
+        isViewIsReady = true
     }
     
     func itemsCount(in section: Int) -> Int {
@@ -211,7 +233,6 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         }
         
         // Mark item as selected
-        
         if case let .item(path, tab) = selectedMenuItem {
             if self.tab == tab {
                 items[path.section].items[path.row].isSelected = true
@@ -276,7 +297,6 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     }
     
     func openSocialItem(index: Int) {
-        
         let viewController = interactor.targetForSocialMenuItem(with: index)
         router.open(viewController)
         
@@ -291,49 +311,20 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     }
     
     // MARK: Notifications
-    
-    private func stringFromNotificationsCount(_ count: UInt32) -> String? {
-       
-        if count >= 1 && count <= 99 {
-            return "\(count)"
-        }
-        else if count > 99 {
-            return " 99+"
-        }
-        else {
-            return nil
-        }
-    }
-    
-    private func updateNotification(count: UInt32) {
-        
-        // due to menu state activity activity item can be unavailable
-        guard let itemIndex = interactor.getSocialItemIndex(for: .activity) else {
-            return
-        }
-        
-        let itemPath = getSocialItemIndexPath(index: itemIndex, configuation: configuration)
-        let item = items[itemPath.section].items[itemPath.row]
-        guard let notificationItem = item  as? SideMenuItemModelWithNotification else {
-            fatalError("Model mismatch")
-        }
-        
-        // update model
-        notificationItem.countText = stringFromNotificationsCount(count)
-        
-        // update UI
-        view.reload(item: itemPath)
-    }
-    
+
     func updateNotificationsCount() {
-        interactor.getNotificationsCount { [weak self] (result) in
- 
-            switch result {
-            case .success(let count):
-                self?.updateNotification(count: count)
-            case .failure(let error):
-                Logger.log(error, event: .veryImportant)
+        
+        interactor.getNotificationsCount { [weak self] in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.buildItems()
+            if strongSelf.isViewIsReady {
+                strongSelf.view.reload()
             }
         }
     }
+
 }

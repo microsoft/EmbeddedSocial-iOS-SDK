@@ -78,6 +78,7 @@ class ActivityNotificationsService: BaseService, ActivityNotificationsServicePro
         
         builder.execute { [weak self] (response, error) in
             
+            Logger.log(response, error, event: .development)
             guard let strongSelf = self else {
                 return
             }

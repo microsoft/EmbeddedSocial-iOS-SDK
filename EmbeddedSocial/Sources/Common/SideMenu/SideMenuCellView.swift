@@ -44,7 +44,7 @@ class SideMenuCellView: UITableViewCell {
     func setup() {
         
         self.selectionStyle = .none
-        contentView.backgroundColor = Palette.lightGrey
+        contentView.backgroundColor = Palette.darkGrey
         
         contentView.addSubview(title)
         contentView.addSubview(picture)
@@ -87,7 +87,7 @@ class SideMenuCellViewWithNotification: SideMenuCellView {
         notificationLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.right.equalToSuperview().offset(-20)
-            $0.height.equalToSuperview().multipliedBy(0.8)
+            $0.height.equalToSuperview().multipliedBy(0.6)
             $0.width.equalTo(notificationLabel.snp.height)
         }
     }

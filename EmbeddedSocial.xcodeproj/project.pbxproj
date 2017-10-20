@@ -1089,6 +1089,7 @@
 		9C6D35A11F31D1C1005893DB /* FeedModule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CC531421F31CCF2004CE94F /* FeedModule.storyboard */; };
 		9C6D35A21F31D1C1005893DB /* FeedModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531431F31CCF2004CE94F /* FeedModuleViewController.swift */; };
 		9C6D35A41F31D1C1005893DB /* FeedModuleViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531451F31CCF2004CE94F /* FeedModuleViewOutput.swift */; };
+		9C70FCD41F9A3DEE00BEB047 /* NotificationsUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70FCD31F9A3DEE00BEB047 /* NotificationsUpdater.swift */; };
 		9C7975BA1F87538B00FB4FFC /* ActivityPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ED92AD1F72DF3E0026AC3E /* ActivityPresenterTests.swift */; };
 		9C7975BC1F87553000FB4FFC /* ActivityDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7975BB1F87553000FB4FFC /* ActivityDataSourceTests.swift */; };
 		9C7D9B341F2F430B005928F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B331F2F430B005928F4 /* Localizable.strings */; };
@@ -2277,6 +2278,7 @@
 		9C5BE9021F67D04C00F0E20E /* ActivityCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCells.swift; sourceTree = "<group>"; };
 		9C6244F11F457DED004814BB /* PostMenuModuleInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleInteractorTests.swift; sourceTree = "<group>"; };
 		9C6244F31F4580FC004814BB /* PostMenuModulePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenterTests.swift; sourceTree = "<group>"; };
+		9C70FCD31F9A3DEE00BEB047 /* NotificationsUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsUpdater.swift; sourceTree = "<group>"; };
 		9C7975BB1F87553000FB4FFC /* ActivityDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDataSourceTests.swift; sourceTree = "<group>"; };
 		9C7D9B331F2F430B005928F4 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 1; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
@@ -3452,6 +3454,7 @@
 				88580A8F1F2213AB00C1CBAF /* LaunchArguments.swift */,
 				636474921F628715000D7B3D /* MenuViewModelBuilder.swift */,
 				8814291F1F4B19F400FC9F1E /* MyProfileOpener.swift */,
+				9C70FCD31F9A3DEE00BEB047 /* NotificationsUpdater.swift */,
 				88580A901F2213AB00C1CBAF /* NavigationStack.swift */,
 				88580A921F2213AB00C1CBAF /* Palette.swift */,
 				88EBD1F91F6BDC0200F9DDFC /* SearchPeopleOpener.swift */,
@@ -7095,6 +7098,7 @@
 				8846CB4D1F30CA1000F11EC8 /* UserListView.swift in Sources */,
 				88580C6E1F2213AB00C1CBAF /* TabMenuContainerRouter.swift in Sources */,
 				8811C8911F4334F800F7513D /* Cache.swift in Sources */,
+				9C70FCD41F9A3DEE00BEB047 /* NotificationsUpdater.swift in Sources */,
 				88EBD22F1F6C138200F9DDFC /* PinTopicOperation.swift in Sources */,
 				881060FB1F28F3E4008CA2FB /* FollowStatus.swift in Sources */,
 				883E1E4C1F546517004B4861 /* BlockedUsersViewOutput.swift in Sources */,

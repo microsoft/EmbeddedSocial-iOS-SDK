@@ -38,28 +38,31 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     
     var output: SideMenuViewOutput!
     
-    @IBOutlet var tabbarShownConstraint: NSLayoutConstraint?
-    @IBOutlet var accountInfoShownConstraint: NSLayoutConstraint?
+    @IBOutlet var tabbarShownConstraint: NSLayoutConstraint!
+    @IBOutlet var accountInfoShownConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var accountInfoView: SideMenuAccountInfoView?
-    @IBOutlet weak var socialButton: SideMenuButton?
-    @IBOutlet weak var clientButton: SideMenuButton?
+    @IBOutlet weak var accountInfoView: SideMenuAccountInfoView!
+    @IBOutlet weak var socialButton: SideMenuButton!
+    @IBOutlet weak var clientButton: SideMenuButton!
     
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.separatorStyle = .none
+        tableView.register(SideMenuSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+        tableView.register(SideMenuCellView.self, forCellReuseIdentifier: SideMenuCellView.reuseID)
+        tableView.register(SideMenuCellViewWithNotification.self, forCellReuseIdentifier: SideMenuCellViewWithNotification.reuseID)
+        
+        
         output.viewIsReady()
     }
     
     // MARK: SideMenuViewInput
     func setupInitialState() {
-        tableView.register(SideMenuSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
-        tableView.register(SideMenuCellView.self, forCellReuseIdentifier: SideMenuCellView.reuseID)
-        tableView.register(SideMenuCellViewWithNotification.self, forCellReuseIdentifier: SideMenuCellViewWithNotification.reuseID)
     }
     
     func reload() {
-        tableView?.reloadData()
+        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -68,14 +71,14 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     }
     
     func reload(section: Int) {
-        tableView?.beginUpdates()
-        tableView?.reloadSections([section], with: .fade)
-        tableView?.endUpdates()
+        tableView.beginUpdates()
+        tableView.reloadSections([section], with: .fade)
+        tableView.endUpdates()
     }
     
     func selectBar(with index: Int) {
-        socialButton?.isSelected = socialButton?.tag == index
-        clientButton?.isSelected = clientButton?.tag == index
+        socialButton.isSelected = socialButton.tag == index
+        clientButton.isSelected = clientButton.tag == index
     }
     
     func selectItem(with index: Int) {
@@ -92,7 +95,7 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     }
     
     func showTabBar(visible: Bool) {
-        tabbarShownConstraint!.isActive = visible
+        tabbarShownConstraint.isActive = visible
         view.setNeedsLayout()
         view.layoutIfNeeded()
     }
@@ -100,8 +103,8 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     func showAccountInfo(visible: Bool) {
         
         let accountInfoModel = output.accountInfo()
-        accountInfoView?.configure(with: accountInfoModel)
-        accountInfoShownConstraint?.isActive = visible
+        accountInfoView.configure(with: accountInfoModel)
+        accountInfoShownConstraint.isActive = visible
         view.setNeedsLayout()
         view.layoutIfNeeded()
     }
