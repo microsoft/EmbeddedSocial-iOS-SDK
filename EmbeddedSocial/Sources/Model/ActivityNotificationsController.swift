@@ -58,10 +58,9 @@ class ActivityNotificationsService: BaseService, ActivityNotificationsServicePro
             guard let result64 = response?.body?.count, let result32 = UInt32(exactly: result64) else {
                 
                 // handle errors
-                if strongSelf.errorHandler.canHandle(error) {
-                    strongSelf.errorHandler.handle(error)
-                } else {
+                guard error == nil else {
                     completion(.failure(APIError(error: error)))
+                    return
                 }
                 
                 return
@@ -84,10 +83,9 @@ class ActivityNotificationsService: BaseService, ActivityNotificationsServicePro
             }
             
             // handle errors
-            if strongSelf.errorHandler.canHandle(error) {
-                strongSelf.errorHandler.handle(error)
-            } else {
+            guard error == nil else {
                 completion?(.failure(APIError(error: error)))
+                return
             }
             
             completion?(.success())
