@@ -52,5 +52,8 @@ class OutgoingCommandOperationsBuilderTests: XCTestCase {
         XCTAssertTrue(makeOperation(CreateTopicImageCommand(photo: photo, relatedHandle: relatedHandle)) is CreateTopicImageOperation)
         XCTAssertTrue(makeOperation(CreateCommentImageCommand(photo: photo, relatedHandle: relatedHandle)) is CreateCommentImageOperation)
         XCTAssertTrue(makeOperation(UpdateUserImageCommand(photo: photo, relatedHandle: relatedHandle)) is UpdateUserImageOperation)
+        
+        // notification commands
+        XCTAssertTrue(makeOperation(UpdateNotificationsStatusCommand(handle: "")) is UpdateNotificationsStatusOperation)
     }
 }

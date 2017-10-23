@@ -7,7 +7,7 @@ import UIKit
 
 extension UITableView {
     
-    func register<T: UITableViewCell>(cellClass: T.Type = T.self) where T: Reusable {
+    func register<T: UITableViewCell>(cellClass: T.Type = T.self) {
         let bundle = Bundle(for: cellClass.self)
         if bundle.path(forResource: cellClass.reuseID, ofType: "nib") != nil {
             let nib = UINib(nibName: cellClass.reuseID, bundle: bundle)

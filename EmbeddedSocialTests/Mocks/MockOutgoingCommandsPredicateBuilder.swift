@@ -171,4 +171,14 @@ class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
         return createDeleteCommentCommandsReturnValue
     }
     
+    //MARK: - allNotificationCommands
+    
+    var allNotificationCommandsCalled = false
+    var allNotificationCommandsReturnValue: NSPredicate!
+    
+    func allNotificationCommands() -> NSPredicate {
+        allNotificationCommandsCalled = true
+        return allNotificationCommandsReturnValue
+    }
+    
 }

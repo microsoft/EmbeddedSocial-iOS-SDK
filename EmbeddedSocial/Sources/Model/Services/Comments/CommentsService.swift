@@ -227,7 +227,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
     }
     
     private func execute(command: RemoveCommentCommand,
-                         success: @escaping ((Void) -> Void),
+                         success: @escaping (() -> Void),
                          failure: @escaping Failure) {
         guard isNetworkReachable else {
             
