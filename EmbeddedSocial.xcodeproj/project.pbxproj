@@ -1079,6 +1079,7 @@
 		9C30243A1F55AB0700675FE9 /* FeedModuleInteractorInputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3024391F55AB0700675FE9 /* FeedModuleInteractorInputMock.swift */; };
 		9C30243C1F55AB2100675FE9 /* FeedModuleRouterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C30243B1F55AB2100675FE9 /* FeedModuleRouterMock.swift */; };
 		9C391D2A1F7E36B900B9314E /* FeedModuleInteractor-FetchQuery-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531341F31CCD1004CE94F /* FeedModuleInteractor-FetchQuery-Tests.swift */; };
+		9C3F07581F98D3950071B9C4 /* ActivityNotificationLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F07571F98D3950071B9C4 /* ActivityNotificationLabel.swift */; };
 		9C43EC8C1F25D60A00D0B59D /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C43EC8B1F25D60A00D0B59D /* PostCell.xib */; };
 		9C43EC901F25DBEE00D0B59D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */; };
 		9C43EC921F263A6F00D0B59D /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */; };
@@ -1093,6 +1094,7 @@
 		9C6D35A11F31D1C1005893DB /* FeedModule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CC531421F31CCF2004CE94F /* FeedModule.storyboard */; };
 		9C6D35A21F31D1C1005893DB /* FeedModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531431F31CCF2004CE94F /* FeedModuleViewController.swift */; };
 		9C6D35A41F31D1C1005893DB /* FeedModuleViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC531451F31CCF2004CE94F /* FeedModuleViewOutput.swift */; };
+		9C70FCD41F9A3DEE00BEB047 /* NotificationsUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70FCD31F9A3DEE00BEB047 /* NotificationsUpdater.swift */; };
 		9C7975BA1F87538B00FB4FFC /* ActivityPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ED92AD1F72DF3E0026AC3E /* ActivityPresenterTests.swift */; };
 		9C7975BC1F87553000FB4FFC /* ActivityDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7975BB1F87553000FB4FFC /* ActivityDataSourceTests.swift */; };
 		9C7D9B341F2F430B005928F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C7D9B331F2F430B005928F4 /* Localizable.strings */; };
@@ -1103,6 +1105,8 @@
 		9C8F68961F3485CA00AF4A7F /* topics&limit20.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CD760FE1F33158200ABBB2A /* topics&limit20.json */; };
 		9C985E531F505BDF00514F85 /* FeedCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C985E521F505BDF00514F85 /* FeedCacheTests.swift */; };
 		9C9D0A0A1F57ED250000174B /* FeedResponseTopicView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9D0A091F57ED250000174B /* FeedResponseTopicView+Ext.swift */; };
+		9CB26BF51F989B54005B9797 /* ActivityNotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB26BF41F989B54005B9797 /* ActivityNotificationsController.swift */; };
+		9CB26BF71F989BA5005B9797 /* ActivityNotificationsControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB26BF61F989BA5005B9797 /* ActivityNotificationsControllerTests.swift */; };
 		9CB3F1FB1F3367F00099A22D /* TopicServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */; };
 		9CB3F1FE1F336B780099A22D /* MyFollowersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F385801F30CF9A0048B04C /* MyFollowersAPI.swift */; };
 		9CBA39ED1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA39EC1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift */; };
@@ -2268,6 +2272,7 @@
 		9C30243B1F55AB2100675FE9 /* FeedModuleRouterMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedModuleRouterMock.swift; sourceTree = "<group>"; };
 		9C30243D1F55AB3E00675FE9 /* FeedModuleViewIntputMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedModuleViewIntputMock.swift; sourceTree = "<group>"; };
 		9C316E101F31E3CB00B90089 /* FeedModuleInteractor-Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedModuleInteractor-Tests.swift"; sourceTree = "<group>"; };
+		9C3F07571F98D3950071B9C4 /* ActivityNotificationLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityNotificationLabel.swift; sourceTree = "<group>"; };
 		9C43EC8B1F25D60A00D0B59D /* PostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		9C43EC8F1F25DBEE00D0B59D /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		9C43EC911F263A6F00D0B59D /* SideMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuButton.swift; sourceTree = "<group>"; };
@@ -2277,6 +2282,7 @@
 		9C5BE9021F67D04C00F0E20E /* ActivityCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCells.swift; sourceTree = "<group>"; };
 		9C6244F11F457DED004814BB /* PostMenuModuleInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModuleInteractorTests.swift; sourceTree = "<group>"; };
 		9C6244F31F4580FC004814BB /* PostMenuModulePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMenuModulePresenterTests.swift; sourceTree = "<group>"; };
+		9C70FCD31F9A3DEE00BEB047 /* NotificationsUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsUpdater.swift; sourceTree = "<group>"; };
 		9C7975BB1F87553000FB4FFC /* ActivityDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDataSourceTests.swift; sourceTree = "<group>"; };
 		9C7D9B331F2F430B005928F4 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9C7D9B351F2F4372005928F4 /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 1; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
@@ -2284,6 +2290,8 @@
 		9C9D0A071F55B8DD0000174B /* MockTopicServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockTopicServices.swift; sourceTree = "<group>"; };
 		9C9D0A091F57ED250000174B /* FeedResponseTopicView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeedResponseTopicView+Ext.swift"; sourceTree = "<group>"; };
 		9CA8646E1F46C98C00199E29 /* SocialMenuItemsProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialMenuItemsProviderTests.swift; sourceTree = "<group>"; };
+		9CB26BF41F989B54005B9797 /* ActivityNotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityNotificationsController.swift; sourceTree = "<group>"; };
+		9CB26BF61F989BA5005B9797 /* ActivityNotificationsControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityNotificationsControllerTests.swift; sourceTree = "<group>"; };
 		9CB3F1FA1F3367F00099A22D /* TopicServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicServiceTests.swift; sourceTree = "<group>"; };
 		9CBA39EC1F1F7E88007EB52C /* EmbeddedSocial-Example-MenuHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EmbeddedSocial-Example-MenuHandler.swift"; sourceTree = "<group>"; };
 		9CC531341F31CCD1004CE94F /* FeedModuleInteractor-FetchQuery-Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedModuleInteractor-FetchQuery-Tests.swift"; sourceTree = "<group>"; };
@@ -3439,6 +3447,7 @@
 				88580A8F1F2213AB00C1CBAF /* LaunchArguments.swift */,
 				636474921F628715000D7B3D /* MenuViewModelBuilder.swift */,
 				8814291F1F4B19F400FC9F1E /* MyProfileOpener.swift */,
+				9C70FCD31F9A3DEE00BEB047 /* NotificationsUpdater.swift */,
 				88580A901F2213AB00C1CBAF /* NavigationStack.swift */,
 				88580A921F2213AB00C1CBAF /* Palette.swift */,
 				88EBD1F91F6BDC0200F9DDFC /* SearchPeopleOpener.swift */,
@@ -3464,6 +3473,7 @@
 			children = (
 				88580A961F2213AB00C1CBAF /* SideMenuAccountInfoView.swift */,
 				88580A971F2213AB00C1CBAF /* SideMenuCellView.swift */,
+				9C3F07571F98D3950071B9C4 /* ActivityNotificationLabel.swift */,
 				88580A981F2213AB00C1CBAF /* SideMenuModels.swift */,
 				88580A991F2213AB00C1CBAF /* SideMenuSectionHeader.swift */,
 				88580A9A1F2213AB00C1CBAF /* SideMenuStackController.swift */,
@@ -3583,6 +3593,7 @@
 				88580B031F2213AB00C1CBAF /* CrossModuleCoordinator.swift */,
 				882AD0C21F2225FF00FC20B7 /* QueriableRepository.swift */,
 				88580C7C1F2213EF00C1CBAF /* Repository.swift */,
+				9CB26BF41F989B54005B9797 /* ActivityNotificationsController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4357,6 +4368,7 @@
 				88D1231D1F7531EE001523D1 /* OutgoingCommandsUploadStrategyTests.swift */,
 				886826141F6AA16700F54731 /* OutgoingCommandsUploaderTests.swift */,
 				88E662091F7AA18400C98526 /* UsersListProcessorTests.swift */,
+				9CB26BF61F989BA5005B9797 /* ActivityNotificationsControllerTests.swift */,
 			);
 			path = ModelTests;
 			sourceTree = "<group>";
@@ -6784,6 +6796,7 @@
 				8846CB4D1F30CA1000F11EC8 /* UserListView.swift in Sources */,
 				88580C6E1F2213AB00C1CBAF /* TabMenuContainerRouter.swift in Sources */,
 				8811C8911F4334F800F7513D /* Cache.swift in Sources */,
+				9C70FCD41F9A3DEE00BEB047 /* NotificationsUpdater.swift in Sources */,
 				88EBD22F1F6C138200F9DDFC /* PinTopicOperation.swift in Sources */,
 				881060FB1F28F3E4008CA2FB /* FollowStatus.swift in Sources */,
 				883E1E4C1F546517004B4861 /* BlockedUsersViewOutput.swift in Sources */,
@@ -6837,6 +6850,7 @@
 				8864C8381F46DBA700ADCE13 /* SearchPeopleViewOutput.swift in Sources */,
 				88D123131F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift in Sources */,
 				88580C5B1F2213AB00C1CBAF /* SideMenuInteractor.swift in Sources */,
+				9C3F07581F98D3950071B9C4 /* ActivityNotificationLabel.swift in Sources */,
 				884AA98B1F3C563F00B85135 /* PutUserInfoRequest.swift in Sources */,
 				8834A7621F5066ED00F1D383 /* LikesListConfigurator.swift in Sources */,
 				8811C8551F42F88D00F7513D /* EmbeddedEditProfileViewInput.swift in Sources */,
@@ -6994,6 +7008,7 @@
 				8811C8921F4334F800F7513D /* Cacheable.swift in Sources */,
 				8892F2501F7E2E6100A58D8B /* LinkedAccountsViewOutput.swift in Sources */,
 				88C682551F7A4D82004BD291 /* FollowRequestsInteractorInput.swift in Sources */,
+				9CB26BF51F989B54005B9797 /* ActivityNotificationsController.swift in Sources */,
 				8864C8501F4709D300ADCE13 /* SearchTabInfo.swift in Sources */,
 				883BFFCF1F71124000E1C4E3 /* CreateTopicImageCommand.swift in Sources */,
 				88E3AC461F55B7570016357F /* ReportViewInput.swift in Sources */,
@@ -7244,6 +7259,7 @@
 				880AFD611F7005A900378710 /* LikeReplyOperationTests.swift in Sources */,
 				8892F2711F7EA1BC00A58D8B /* MockLinkedAccountsView.swift in Sources */,
 				88A9704C1F83A78D0047D591 /* ThemePaletteTests.swift in Sources */,
+				9CB26BF71F989BA5005B9797 /* ActivityNotificationsControllerTests.swift in Sources */,
 				63B62EDD1F83CB14003DC885 /* MockReplyCellInteractor.swift in Sources */,
 				63B62ECF1F838C61003DC885 /* DetailedActivityInteractorTests.swift in Sources */,
 				88B2D6981F7BF14200920E43 /* MyFollowingResponseProcessorTests.swift in Sources */,

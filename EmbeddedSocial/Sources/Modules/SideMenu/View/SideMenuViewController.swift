@@ -10,6 +10,7 @@ protocol SideMenuViewInput: class {
     func setupInitialState()
     func reload()
     func reload(section: Int)
+    func reload(item: IndexPath)
     func showTabBar(visible: Bool)
     func selectBar(with index: Int)
     func showAccountInfo(visible: Bool)
@@ -26,9 +27,11 @@ protocol SideMenuViewOutput {
     func itemsCount(in section: Int) -> Int
     func sectionsCount() -> Int
     func section(with index: Int) -> SideMenuSectionModel
-    func item(at index: IndexPath) -> SideMenuItemModel
+    func item(at index: IndexPath) -> SideMenuItemModelProtocol
     func headerTitle(for section: Int) -> String
     func accountInfo() -> SideMenuHeaderModel
+    func viewDidAppear()
+    func viewWillAppear()
 }
 
 
@@ -36,37 +39,47 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     
     var output: SideMenuViewOutput!
     
-    @IBOutlet var tabbarShownConstraint: NSLayoutConstraint?
-    @IBOutlet var accountInfoShownConstraint: NSLayoutConstraint?
-    @IBOutlet weak var tableView: UITableView?
-    @IBOutlet weak var accountInfoView: SideMenuAccountInfoView?
-    @IBOutlet weak var socialButton: SideMenuButton?
-    @IBOutlet weak var clientButton: SideMenuButton?
+    @IBOutlet var tabbarShownConstraint: NSLayoutConstraint!
+    @IBOutlet var accountInfoShownConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var accountInfoView: SideMenuAccountInfoView!
+    @IBOutlet weak var socialButton: SideMenuButton!
+    @IBOutlet weak var clientButton: SideMenuButton!
     
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.separatorStyle = .none
+        tableView.register(SideMenuSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+        tableView.register(SideMenuCellView.self, forCellReuseIdentifier: SideMenuCellView.reuseID)
+        tableView.register(SideMenuCellViewWithNotification.self, forCellReuseIdentifier: SideMenuCellViewWithNotification.reuseID)
+        
+        
         output.viewIsReady()
     }
     
     // MARK: SideMenuViewInput
     func setupInitialState() {
-        tableView?.register(SideMenuSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
     }
     
     func reload() {
-        tableView?.reloadData()
+        tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        output.viewWillAppear()
     }
     
     func reload(section: Int) {
-        tableView?.beginUpdates()
-        tableView?.reloadSections([section], with: .fade)
-        tableView?.endUpdates()
+        tableView.beginUpdates()
+        tableView.reloadSections([section], with: .fade)
+        tableView.endUpdates()
     }
     
     func selectBar(with index: Int) {
-        socialButton?.isSelected = socialButton?.tag == index
-        clientButton?.isSelected = clientButton?.tag == index
+        socialButton.isSelected = socialButton.tag == index
+        clientButton.isSelected = clientButton.tag == index
     }
     
     func selectItem(with index: Int) {
@@ -83,7 +96,7 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     }
     
     func showTabBar(visible: Bool) {
-        tabbarShownConstraint!.isActive = visible
+        tabbarShownConstraint.isActive = visible
         view.setNeedsLayout()
         view.layoutIfNeeded()
     }
@@ -91,8 +104,8 @@ class SideMenuViewController: UIViewController, SideMenuViewInput, SideMenuSecti
     func showAccountInfo(visible: Bool) {
         
         let accountInfoModel = output.accountInfo()
-        accountInfoView?.configure(with: accountInfoModel)
-        accountInfoShownConstraint?.isActive = visible
+        accountInfoView.configure(with: accountInfoModel)
+        accountInfoShownConstraint.isActive = visible
         view.setNeedsLayout()
         view.layoutIfNeeded()
     }
@@ -117,19 +130,32 @@ extension SideMenuViewController: UITableViewDataSource, UITableViewDelegate {
         return header
     }
     
+    private func dequeCell(for item: SideMenuItemModelProtocol, tableView: UITableView, indexPath: IndexPath) -> SideMenuCellView {
+        switch item {
+        case is SideMenuItemModelWithNotification:
+            let cell: SideMenuCellViewWithNotification = tableView.dequeueReusableCell(forIndexPath: indexPath)
+            return cell
+        default:
+            let cell: SideMenuCellView = tableView.dequeueReusableCell(forIndexPath: indexPath)
+            return cell
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? SideMenuCellView else {
-            return UITableViewCell()
-        }
-        
         let item = output.item(at: indexPath)
+        let cell = dequeCell(for: item, tableView: tableView, indexPath: indexPath)
+            
         cell.configure(withModel: item)
         return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return output.sectionsCount()
+    }
+    
+    func reload(item: IndexPath) {
+        tableView.reloadRows(at: [item], with: .none)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
