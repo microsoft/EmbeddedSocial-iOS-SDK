@@ -27,9 +27,13 @@ class MockActivityNotificationsService: ActivityNotificationsServiceProtocol {
     //MARK: - updateStatus
     
     var updateStatusForCompletionCalled = false
+    var updateStatusForCompletionInputHandle: String?
+    var updateStatusForCompletionResult: Result<Void>!
     
     func updateStatus(for handle: String, completion: ((Result<Void>) -> Void)?) {
         updateStatusForCompletionCalled = true
+        updateStatusForCompletionInputHandle = handle
+        completion?(updateStatusForCompletionResult)
     }
     
 }
