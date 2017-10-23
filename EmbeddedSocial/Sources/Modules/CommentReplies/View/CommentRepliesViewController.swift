@@ -26,6 +26,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     fileprivate var isNewDataLoading = false
     fileprivate let reloadDelay = 0.2
     fileprivate let replyViewHeight: CGFloat = 35
+    fileprivate let replyViewHeightForIPhone5: CGFloat = 45
     fileprivate let leftTextViewOffset: CGFloat = 20
     fileprivate let rightTextViewOffset: CGFloat = 20
     fileprivate let topTextViewOffset: CGFloat = 10
@@ -75,7 +76,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
             replyInputContainer.addSubview(replyTextView)
             
             replyTextView.snp.makeConstraints { (make) in
-                self.replyTextViewHeightConstraint = make.height.equalTo(replyViewHeight).constraint
+                self.replyTextViewHeightConstraint = make.height.equalTo( self.heightForTextView()).constraint
                 make.left.equalTo(replyInputContainer).offset(leftTextViewOffset)
                 make.right.equalTo(postButton).inset(rightTextViewOffset + postButton.frame.size.width)
                 make.top.equalTo(replyInputContainer).offset(topTextViewOffset)
@@ -86,6 +87,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        replyTextView.resignFirstResponder()
         hideHUD()
     }
     
@@ -111,6 +113,10 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         replyTextView.layer.borderColor = UIColor.lightGray.cgColor
         replyTextView.layer.cornerRadius = 1
         replyTextView.autocorrectionType = .no
+    }
+    
+    func heightForTextView() -> CGFloat {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? replyViewHeightForIPhone5 : replyViewHeight
     }
     
     fileprivate func scrollTableToBottom() {
@@ -195,7 +201,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         scrollTableToBottom()
         replyTextView.text = ""
         postButton.isHidden = true
-        replyTextViewHeightConstraint.update(offset: replyViewHeight)
+        replyTextViewHeightConstraint.update(offset:  self.heightForTextView())
         unlockUI()
     }
     
@@ -293,7 +299,7 @@ extension CommentRepliesViewController: UICollectionViewDelegateFlowLayout {
 
 extension CommentRepliesViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        replyTextViewHeightConstraint.update(offset: replyTextView.contentSize.height)
+        replyTextViewHeightConstraint.update(offset: textView.text.count > 0 ? replyTextView.contentSize.height : self.heightForTextView())
         view.layoutIfNeeded()
         postButton.isHidden = textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }

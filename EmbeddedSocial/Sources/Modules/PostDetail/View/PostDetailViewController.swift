@@ -26,6 +26,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     //constants
     fileprivate let reloadDelay = 0.2
     fileprivate let commentViewHeight: CGFloat = 35
+    fileprivate let commentViewHeightForIPhone5: CGFloat = 45
     fileprivate let leftTextViewOffset: CGFloat = 50
     fileprivate let rightTextViewOffset: CGFloat = 20
     fileprivate let topTextViewOffset: CGFloat = 10
@@ -85,9 +86,9 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         
         if commentTextView.superview == nil {
             commentInputContainer.addSubview(commentTextView)
-            
+
             commentTextView.snp.makeConstraints { (make) in
-                self.commentTextViewHeightConstraint = make.height.equalTo(commentViewHeight).constraint
+                self.commentTextViewHeightConstraint = make.height.equalTo(self.heightForTextView()).constraint
                 make.left.equalTo(mediaButton).offset(leftTextViewOffset)
                 make.right.equalTo(postButton).inset(rightTextViewOffset + postButton.frame.size.width)
                 make.top.equalTo(commentInputContainer).offset(topTextViewOffset)
@@ -103,6 +104,10 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
         output.refresh()
+    }
+    
+    func heightForTextView() -> CGFloat {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? commentViewHeightForIPhone5 : commentViewHeight
     }
     
     // MARK: PostDetailViewInput
@@ -204,7 +209,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     func postCommentSuccess() {
         clearImage()
-        commentTextViewHeightConstraint.update(offset: commentViewHeight)
+        commentTextViewHeightConstraint.update(offset: self.heightForTextView())
         commentTextView.text = nil
         postButton.isHidden = true
         hideHUD()
@@ -355,7 +360,7 @@ extension PostDetailViewController: UICollectionViewDelegateFlowLayout {
 
 extension PostDetailViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        commentTextViewHeightConstraint.update(offset: commentTextView.contentSize.height)
+        commentTextViewHeightConstraint.update(offset: textView.text.count > 0 ? commentTextView.contentSize.height : self.heightForTextView())
         view.layoutIfNeeded()
         postButton.isHidden = textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
