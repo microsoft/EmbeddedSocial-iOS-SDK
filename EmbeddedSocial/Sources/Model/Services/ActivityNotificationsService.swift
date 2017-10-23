@@ -10,41 +10,7 @@ protocol ActivityNotificationsServiceProtocol {
     func updateStatus(for handle: String, completion: ((Result<Void>) -> Void)?)
 }
 
-class MockActivityNotificationsService: ActivityNotificationsServiceProtocol {
-    
-    //MARK: - updateState
-    
-    var updateStateCompletionCalled = false
-    
-    func updateState(completion: @escaping ((Result<UInt32>) -> Void)) {
-        updateStateCompletionCalled = true
-        
-        let count = arc4random()
-        let result: Result<UInt32> = .success(count)
-        completion(result)
-    }
-    
-    //MARK: - updateStatus
-    
-    var updateStatusForCompletionCalled = false
-    var updateStatusForCompletionInputHandle: String?
-    var updateStatusForCompletionResult: Result<Void>!
-    
-    func updateStatus(for handle: String, completion: ((Result<Void>) -> Void)?) {
-        updateStatusForCompletionCalled = true
-        updateStatusForCompletionInputHandle = handle
-        completion?(updateStatusForCompletionResult)
-    }
-    
-}
 class ActivityNotificationsService: BaseService, ActivityNotificationsServiceProtocol {
-    
-    private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
-
-    init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
-        super.init()
-        outgoingActionsExecutor = provider.makeOutgoingActionRequestExecutor(for: self)
-    }
     
     func updateState(completion: @escaping ((Result<UInt32>) -> Void)) {
         
@@ -60,10 +26,9 @@ class ActivityNotificationsService: BaseService, ActivityNotificationsServicePro
             guard let result64 = response?.body?.count, let result32 = UInt32(exactly: result64) else {
                 
                 // handle errors
-                if strongSelf.errorHandler.canHandle(error) {
-                    strongSelf.errorHandler.handle(error)
-                } else {
+                guard error == nil else {
                     completion(.failure(APIError(error: error)))
+                    return
                 }
                 
                 return
@@ -78,9 +43,19 @@ class ActivityNotificationsService: BaseService, ActivityNotificationsServicePro
         request.readActivityHandle = handle
         let builder = NotificationsAPI.myNotificationsPutNotificationsStatusWithRequestBuilder(request: request, authorization: authorization)
         
-        let command = UpdateNotificationsStatusCommand(handle: handle)
-        outgoingActionsExecutor.execute(command: command, builder: builder) {
-            completion?($0)
+        builder.execute { [weak self] (response, error) in
+        
+            guard let strongSelf = self else {
+                return
+            }
+            
+            // handle errors
+            guard error == nil else {
+                completion?(.failure(APIError(error: error)))
+                return
+            }
+            
+            completion?(.success())
         }
     }
 }
