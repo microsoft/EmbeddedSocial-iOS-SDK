@@ -31,13 +31,14 @@ class ActivityNotificationsControllerTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
+        sut?.finish()
+        sut = nil
+        updater = nil
     }
     
     func testNotificationUpdaterWorks() {
-        
         sut.start()
-        expect(self.updater.didCallUpdateNotifications).toEventually(beTrue(), timeout: 1.001)
-        
+        expect(self.updater.didCallUpdateNotifications).toEventually(beTrue(), timeout: 1.1)
     }
     
     func testNotificationUpdaterDoNotUpdatesAfterRelease() {
@@ -58,7 +59,7 @@ class ActivityNotificationsControllerTests: XCTestCase {
             e.fulfill()
         }
         
-        wait(for: [e], timeout: 1.001)
+        wait(for: [e], timeout: 1.1)
     }
     
 }
