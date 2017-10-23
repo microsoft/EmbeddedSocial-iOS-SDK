@@ -11,7 +11,9 @@ class Logger {
         case error = "⚠️"
         case verbose = "💬"
         case important = "🔥"
-        case veryImportant = "🔥🔥🔥"
+        case veryImportant = "🔥🔥"
+        case critical = "🔥🔥🔥"
+        case development = "d"
     }
     
     class func log(_ something: Any?...,
@@ -32,7 +34,7 @@ class Logger {
         return components.isEmpty ? "" : components.last!
     }
     
-    static var logLevel: LogEvent? = .veryImportant
+    static var logLevel: LogEvent? = .development
     static var dateFormat = "HH:mm:ss"
     static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()

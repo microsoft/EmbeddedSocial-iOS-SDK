@@ -13,7 +13,7 @@ class SideMenuModuleConfigurator {
     
     func configure(coordinator: CrossModuleCoordinator,
                    configuration: SideMenuType,
-                   socialMenuItemsProvider: SideMenuItemsProvider,
+                   socialMenuItemsProvider: SocialMenuItemsProvider,
                    clientMenuItemsProvider: SideMenuItemsProvider?) {
         
         viewController = StoryboardScene.MenuStack.sideMenuViewController.instantiate()

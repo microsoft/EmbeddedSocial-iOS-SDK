@@ -7,8 +7,9 @@ class SideMenuButton: UIButton {
     
     override var isSelected: Bool {
         didSet {
-            backgroundColor = (isSelected) ? UIColor.white.withAlphaComponent(0.4) : UIColor.darkGray
+            backgroundColor = (isSelected) ? UIColor.white.withAlphaComponent(0.4) : Palette.darkGrey
         }
     }
     
 }
+

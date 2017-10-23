@@ -19,7 +19,7 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         case authenticated, unauthenticated
     }
     
-    var state: State {
+    private var state: State {
         return coordinator.isUserAuthenticated() ? .authenticated : .unauthenticated
     }
     
@@ -43,28 +43,29 @@ class SocialMenuItemsProvider: SideMenuItemsProvider {
         return items[state]![index].builder(self.coordinator)
     }
     
+    func getType(by index: Int) -> SocialItem {
+        return items[state]![index].key
+    }
+    
     // MARK: Items
     
     typealias ModuleBuilder = (_ delegate: CrossModuleCoordinatorProtocol) -> (UIViewController)
     
-    var builderForDummy: ModuleBuilder = { coordinator in
+    #if DEBUG
+    private var builderForDummy: ModuleBuilder = { coordinator in
         let vc = UIViewController()
         vc.view.backgroundColor = UIColor.blue
         vc.title = "Dummy"
         return vc
     }
+    #endif
     
-    var builderForHome: ModuleBuilder = { $0.configuredHome }
-    
-    var builderForActivity: ModuleBuilder = { $0.configuredActivity }
-    
-    var builderForPopular: ModuleBuilder = { $0.configuredPopular }
-    
-    var builderForSearch: ModuleBuilder = { $0.configuredSearch }
-    
-    var builderForSettings: ModuleBuilder = { $0.configuredSettings }
-    
-    var builderForMyPins: ModuleBuilder = { $0.configuredMyPins }
+    private var builderForHome: ModuleBuilder = { $0.configuredHome }
+    private var builderForActivity: ModuleBuilder = { $0.configuredActivity }
+    private var builderForPopular: ModuleBuilder = { $0.configuredPopular }
+    private var builderForSearch: ModuleBuilder = { $0.configuredSearch }
+    private var builderForSettings: ModuleBuilder = { $0.configuredSettings }
+    private var builderForMyPins: ModuleBuilder = { $0.configuredMyPins }
     
     typealias MenuItem = (
         key: SocialItem,
