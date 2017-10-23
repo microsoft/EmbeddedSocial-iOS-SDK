@@ -84,7 +84,7 @@ class PostDetailInteractor: PostDetailInteractorInput {
         commentsService?.postComment(comment: newComment, photo: photo, resultHandler: { (postedComment) in
             self.output?.commentDidPost(comment: postedComment)
         }, failure: { (error) in
-            print("error posting comment")
+            self.output?.commentPostFailed(error: error)
         })
         
     }

@@ -89,6 +89,7 @@
 		63E1DA251F7BF0E300187E35 /* ReportReplyCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1DA241F7BF0E300187E35 /* ReportReplyCommand.swift */; };
 		63E1DA271F7BF13300187E35 /* RemoveReplyOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1DA261F7BF13300187E35 /* RemoveReplyOperation.swift */; };
 		63E1DA291F7BF14500187E35 /* ReportReplyOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1DA281F7BF14500187E35 /* ReportReplyOperation.swift */; };
+		63E1FBCB1F9DDC1500FA0229 /* UIDevice+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1FBCA1F9DDC1500FA0229 /* UIDevice+Ext.swift */; };
 		63EF32151F78EC7F00E8C28B /* RemoveCommentCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EF32141F78EC7F00E8C28B /* RemoveCommentCommand.swift */; };
 		63EF32171F78EC8E00E8C28B /* ReportCommentCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EF32161F78EC8E00E8C28B /* ReportCommentCommand.swift */; };
 		63F848971F4ADF3500D434CF /* MockCommentRepliesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F848961F4ADF3500D434CF /* MockCommentRepliesPresenter.swift */; };
@@ -1253,6 +1254,7 @@
 		63E1DA241F7BF0E300187E35 /* ReportReplyCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportReplyCommand.swift; sourceTree = "<group>"; };
 		63E1DA261F7BF13300187E35 /* RemoveReplyOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveReplyOperation.swift; sourceTree = "<group>"; };
 		63E1DA281F7BF14500187E35 /* ReportReplyOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportReplyOperation.swift; sourceTree = "<group>"; };
+		63E1FBCA1F9DDC1500FA0229 /* UIDevice+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Ext.swift"; sourceTree = "<group>"; };
 		63EF32141F78EC7F00E8C28B /* RemoveCommentCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveCommentCommand.swift; sourceTree = "<group>"; };
 		63EF32161F78EC8E00E8C28B /* ReportCommentCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportCommentCommand.swift; sourceTree = "<group>"; };
 		63F848921F4ADD6F00D434CF /* CommentRepliesPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentRepliesPresenterTests.swift; sourceTree = "<group>"; };
@@ -3547,6 +3549,7 @@
 				88580AB51F2213AB00C1CBAF /* UIViewController+Alerts.swift */,
 				882CAF181F616CCB001D5F37 /* UIViewController+Ext.swift */,
 				88E3AC4D1F55C0E10016357F /* UIViewController+HUD.swift */,
+				63E1FBCA1F9DDC1500FA0229 /* UIDevice+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -7126,6 +7129,7 @@
 				9C2D9C081F4ADEE6001514C3 /* PopularModulePresenter.swift in Sources */,
 				88580BC01F2213AB00C1CBAF /* UIColor+Hex.swift in Sources */,
 				88FFFA631F3080340066A1A0 /* UserProfileActionSheetBuilder.swift in Sources */,
+				63E1FBCB1F9DDC1500FA0229 /* UIDevice+Ext.swift in Sources */,
 				88EBD1F81F6BDB0D00F9DDFC /* FollowingRouterInput.swift in Sources */,
 				88580BA21F2213AB00C1CBAF /* AppFonts.swift in Sources */,
 				88580C6D1F2213AB00C1CBAF /* TabMenuContainerPresenter.swift in Sources */,
