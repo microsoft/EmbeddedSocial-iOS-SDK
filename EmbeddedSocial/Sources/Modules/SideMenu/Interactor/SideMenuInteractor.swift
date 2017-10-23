@@ -13,7 +13,7 @@ protocol SideMenuInteractorInput {
     func getSocialItemIndex(for item: SocialItem) -> Int?
     
     /* Notifications  */
-    func getNotificationsCount(onUpdated: @escaping (Void) -> Void)
+    func getNotificationsCount(onUpdated: @escaping () -> Void)
 }
 
 protocol SideMenuInteractorOutput: class {
