@@ -136,6 +136,10 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         viewModel = data
         self.collectionView = collectionView
         let containerHeight = collectionView?.bounds.height
+        
+        // Narrow views above 340px should use short strings
+        let shouldUseShortStrings = collectionView == nil ? false : (bounds.width <= 340)
+        
         postImageHeight.constant = getImageHeight(containerHeight: containerHeight)
         
         // showing post image if url is available, else - hiding
@@ -154,8 +158,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         postText.setFeedText(data.text, shouldTrim: data.isTrimmed)
         postText.eventHandler = self
         postCreation.text = data.timeCreated
-        likedCount.text = data.totalLikes
-        commentedCount.text = data.totalComments
+        likedCount.text = shouldUseShortStrings ? data.totalLikesShort : data.totalLikes
+        commentedCount.text = shouldUseShortStrings ? data.totalCommentsShort : data.totalComments
         
         // Buttons
         likeButton.isSelected = data.isLiked
