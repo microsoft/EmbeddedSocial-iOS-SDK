@@ -122,6 +122,7 @@ extension SocialPlus: LogoutController {
     }
     
     func logOut() {
+        UIApplication.shared.unregisterForRemoteNotifications()
         daemonsController.stop()
         try? sessionStore.deleteCurrentSession()
         setupServices(with: SocialPlusServices())
