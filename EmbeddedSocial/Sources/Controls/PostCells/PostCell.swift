@@ -26,7 +26,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var postCreation: UILabel!
-    @IBOutlet weak var postImageButton: UIButton!
+    @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var postTitle: UILabel!
     @IBOutlet weak var postText: FeedTextLabel!
     
@@ -35,6 +35,14 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     @IBOutlet weak var likedList: UILabel!
     
     var usedInThirdPartModule = false
+    
+    private var parentHeight: CGFloat?
+    
+    func getImageHeight() -> CGFloat {
+        let defaultHeight = Constants.FeedModule.Collection.imageHeight
+        let ratio = Constants.FeedModule.Collection.imageRatio
+        return parentHeight == nil ? defaultHeight : parentHeight! * ratio
+    }
     
     func indexPath() -> IndexPath? {
         return collectionView.indexPath(for: self)
@@ -92,8 +100,10 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         container.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(container)
-        postImageButton.imageView?.contentMode = .scaleAspectFill
         postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
+        
+        postImage.clipsToBounds = true
+        postImage.contentMode = .scaleAspectFill
     }
     
     func setup() {
@@ -111,9 +121,11 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         commentedCount.text = nil
         collectionView = nil
         
-        postImageButton.releasePhoto()
+        postImage.releasePhoto()
         userPhoto.releasePhoto()
-        postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
+        
+        parentHeight = nil
+        postImageHeight.constant = getImageHeight()
         
         super.prepareForReuse()
     }
@@ -122,6 +134,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         
         viewModel = data
         self.collectionView = collectionView
+        parentHeight = collectionView?.bounds.height
+        postImageHeight.constant = getImageHeight()
         
         // showing post image if url is available, else - hiding
         if data.postImageUrl == nil {
@@ -129,7 +143,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         }
     
         let downloadablePostImage = Photo(uid: data.postImageHandle ?? "", url: data.postImageUrl)
-        postImageButton.setPhotoWithCaching(downloadablePostImage, placeholder: postImagePlaceholder)
+        postImage.setPhotoWithCaching(downloadablePostImage, placeholder: postImagePlaceholder)
         
         let downloadableUserImage = Photo(url: data.userImageUrl)
         userPhoto.setPhotoWithCaching(downloadableUserImage, placeholder: userImagePlaceholder)
@@ -154,11 +168,11 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         return cell
     }
     
-    // calculates static and dynamic(TextView) items
-    func getHeight(with width: CGFloat, isTrimmed: Bool = false) -> CGFloat {
+    // calculates static and dynamic items
+    func getHeight(containerHeight: CGFloat, with width: CGFloat, isTrimmed: Bool = false) -> CGFloat {
         
         // sum all static blocks
-        var staticElementsHeight = staticHeigthElements.reduce(0) { result, view in
+        let staticElementsHeight = staticHeigthElements.reduce(0) { result, view in
             return result + view.frame.size.height
         }
         
@@ -166,10 +180,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
             return result + constraint.constant
         }
         
-        // ignore image height if none
-        if viewModel.postImageUrl == nil {
-            staticElementsHeight -= Constants.FeedModule.Collection.imageHeight
-        }
+        let imageHeight = viewModel.postImageUrl == nil ? 0 : getImageHeight()
         
         // dynamic part of calculation:
         let bounds = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
@@ -182,7 +193,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
             limitedToNumberOfLines: UInt(maxLines)).height
         
 
-        let result = [staticElementsHeight, dynamicHeight, staticConstraintsHeight].reduce(0.0, +)
+        let result = [staticElementsHeight, dynamicHeight, imageHeight, staticConstraintsHeight].reduce(0.0, +)
         
         return result
     }
@@ -190,7 +201,12 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     // MARK: Private
     
     fileprivate func handleAction(action: FeedPostCellAction) {
-        guard let path = indexPath() else { return }
+        
+        guard let path = indexPath() else {
+            Logger.log("Trying to handle event out of collection view", event: .error)
+            return
+        }
+        
         viewModel.onAction?(action, path)
     }
 
