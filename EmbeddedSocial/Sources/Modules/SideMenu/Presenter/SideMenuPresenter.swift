@@ -36,10 +36,20 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     private func onUserChanged() {
         selectedMenuItem = .none
         buildItems()
+        
+        setupNotificationUpdateScheduler()
+        
         if isViewIsReady {
             view.showAccountInfo(visible: accountViewAvailable)
             view.reload()
         }
+    }
+    
+    private func setupNotificationUpdateScheduler() {
+        notificationsUpdateScheduler?.finish()
+        notificationsUpdateScheduler = ActivityNotificationsController()
+        notificationsUpdateScheduler?.notificationUpdater = self
+        notificationsUpdateScheduler?.start()
     }
     
     enum SelectedMenuItem: Equatable {
@@ -75,6 +85,8 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         }
     }
     
+    private var notificationsUpdateScheduler: ActivityNotificationsController?
+    
     weak var view: SideMenuViewInput!
     var interactor: SideMenuInteractorInput!
     var router: SideMenuRouterInput!
@@ -88,7 +100,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     }
     
     // Current Tab
-    private var tab: SideMenuTabs = .none {
+    private(set) var tab: SideMenuTabs = .none {
         didSet {
             onTabChanged()
         }
@@ -330,5 +342,18 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
             }
         }
     }
+    
+    deinit {
+        notificationsUpdateScheduler?.finish()
+        notificationsUpdateScheduler = nil
+    }
 
+}
+
+extension SideMenuPresenter: NotificationsUpdater {
+    
+    func updateNotifications() {
+        updateNotificationsCount()
+    }
+    
 }

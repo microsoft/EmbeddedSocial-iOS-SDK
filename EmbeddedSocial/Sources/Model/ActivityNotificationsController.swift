@@ -119,6 +119,7 @@ final class ActivityNotificationsController {
         timer = buildTimer()
     }
     
+    // Must be called because Timer retains object
     func finish() {
         timer?.invalidate()
         timer = nil
