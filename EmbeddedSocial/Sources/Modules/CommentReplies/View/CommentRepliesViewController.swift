@@ -85,8 +85,9 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+        replyTextView.resignFirstResponder()
         hideHUD()
+        super.viewWillDisappear(animated)
     }
     
     // MARK: Internal
