@@ -4,6 +4,7 @@
 //
 
 import XCTest
+import Nimble
 @testable import EmbeddedSocial
 
 class OutgoingCommandsUploadStrategyTests: XCTestCase {
@@ -46,7 +47,7 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
     
     func testThatItRestartsSubmission() {
         // given
-        let submissionStepsCount = 9
+        let submissionStepsCount = 10
         let predicate = NSPredicate()
         var createdFetchOperations: [MockFetchOutgoingCommandsOperation] = []
         let commands = [MockOutgoingCommand(uid: UUID().uuidString), MockOutgoingCommand(uid: UUID().uuidString)]
@@ -77,7 +78,7 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
         XCTAssertTrue(operationsBuilder.fetchCommandsOperationPredicateCalled)
         XCTAssertTrue(operationsBuilder.operationForCommandCalled)
     }
-    
+ 
     func testThatItRestartsSubmissionWhenOperationFails() {
         // given
         let predicate = NSPredicate()
@@ -124,7 +125,9 @@ class OutgoingCommandsUploadStrategyTests: XCTestCase {
         
         validateSubmissionStep(.replyActions, predicate: PredicateBuilder().replyActionCommands(), nextStep: .userActions)
         
-        validateSubmissionStep(.userActions, predicate: PredicateBuilder().allUserCommands(), nextStep: nil)
+        validateSubmissionStep(.userActions, predicate: PredicateBuilder().allUserCommands(), nextStep: .notificationActions)
+        
+        validateSubmissionStep(.notificationActions, predicate: PredicateBuilder().allNotificationCommands(), nextStep: nil)
     }
     
     private func validateSubmissionStep(_ step: Step, predicate: NSPredicate, nextStep: Step?) {

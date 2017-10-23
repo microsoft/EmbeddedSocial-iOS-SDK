@@ -6,7 +6,7 @@
 import UIKit
 
 extension UICollectionView {
-    func register<T: UICollectionReusableView>(itemClass: T.Type = T.self) where T: Reusable {
+    func register<T: UICollectionReusableView>(itemClass: T.Type = T.self) {
         let className = String(describing: itemClass.self)
         let bundle = Bundle(for: itemClass.self)
         if bundle.path(forResource: className, ofType: "nib") != nil {

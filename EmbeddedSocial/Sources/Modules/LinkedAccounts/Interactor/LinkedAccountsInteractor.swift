@@ -10,6 +10,8 @@ final class LinkedAccountsInteractor: LinkedAccountsInteractorInput {
     private let usersService: UserServiceType
     private let authService: AuthServiceType
     private let sessionToken: String
+    
+    private var linkedProviders = Set<AuthProvider>()
 
     init(usersService: UserServiceType, authService: AuthServiceType, sessionToken: String) {
         self.usersService = usersService
@@ -18,7 +20,11 @@ final class LinkedAccountsInteractor: LinkedAccountsInteractorInput {
     }
     
     func getLinkedAccounts(completion: @escaping (Result<[LinkedAccountView]>) -> Void) {
-        usersService.getLinkedAccounts(completion: completion)
+        usersService.getLinkedAccounts { [weak self] result in
+            let providers = result.value?.flatMap { $0.identityProvider?.authProvider } ?? []
+            self?.linkedProviders = Set(providers)
+            completion(result)
+        }
     }
     
     func login(with provider: AuthProvider,
@@ -30,11 +36,26 @@ final class LinkedAccountsInteractor: LinkedAccountsInteractorInput {
         }
     }
     
-    func linkAccount(authorization: Authorization, completion: @escaping (Result<Void>) -> Void) {
-        usersService.linkAccount(authorization: authorization, sessionToken: sessionToken, completion: completion)
+    func linkAccount(provider: AuthProvider, authorization: Authorization, completion: @escaping (Result<Void>) -> Void) {
+        usersService.linkAccount(authorization: authorization, sessionToken: sessionToken) { [weak self] result in
+            if result.isSuccess {
+                self?.linkedProviders.insert(provider)
+            }
+            completion(result)
+        }
     }
     
     func deleteLinkedAccount(provider: AuthProvider, completion: @escaping (Result<Void>) -> Void) {
-        usersService.deleteLinkedAccount(for: provider, completion: completion)
+        guard linkedProviders.count > 1 else {
+            completion(.failure(APIError.lastLinkedAccount))
+            return
+        }
+        
+        usersService.deleteLinkedAccount(for: provider) { [weak self] result in
+            if result.isSuccess {
+                self?.linkedProviders.remove(provider)
+            }
+            completion(result)
+        }
     }
 }

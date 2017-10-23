@@ -75,7 +75,7 @@ extension LinkedAccountsPresenter: LinkedAccountsViewOutput {
                 return
             }
             
-            self?.interactor.linkAccount(authorization: authorization) { result in
+            self?.interactor.linkAccount(provider: provider, authorization: authorization) { result in
                 self?.view.setSwitchesEnabled(true)
                 
                 if let error = result.error {

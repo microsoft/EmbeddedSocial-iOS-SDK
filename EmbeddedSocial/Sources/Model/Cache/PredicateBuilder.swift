@@ -41,6 +41,8 @@ protocol OutgoingCommandsPredicateBuilder {
     func removeTopicCommands() -> NSPredicate
     
     func createDeleteCommentCommands() -> NSPredicate
+    
+    func allNotificationCommands() -> NSPredicate
 }
 
 protocol TopicsFeedProcessorPredicateBuilder {
@@ -178,6 +180,10 @@ extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
     func createDeleteReplyCommands() -> NSPredicate {
         let typeIDs = [CreateReplyCommand.self, RemoveReplyCommand.self].map { $0.typeIdentifier }
         return NSPredicate(format: "typeid IN %@", typeIDs)
+    }
+    
+    func allNotificationCommands() -> NSPredicate {
+        return NSPredicate(format: "typeid = %@", UpdateNotificationsStatusCommand.typeIdentifier)
     }
 }
 

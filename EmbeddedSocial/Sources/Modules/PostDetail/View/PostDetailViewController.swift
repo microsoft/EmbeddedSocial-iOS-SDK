@@ -98,8 +98,9 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+        commentTextView.resignFirstResponder()
         hideHUD()
+        super.viewWillDisappear(animated)
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
