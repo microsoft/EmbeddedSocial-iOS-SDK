@@ -20,8 +20,9 @@ class UpdateNotificationsStatusOperation: OutgoingCommandOperation {
             return
         }
         
-        notificationsService.updateStatus(for: command.handle) { [weak self] result in
-            self?.completeOperation(with: result.error)
+        notificationsService.updateStatus(for: command.handle) { [weak self] _ in
+            // ignore errors
+            self?.completeOperation()
         }
     }
 }

@@ -38,6 +38,7 @@ class UpdateNotificationsStatusOperationTests: XCTestCase {
         
         expect(service.updateStatusForCompletionCalled).to(beTrue())
         expect(service.updateStatusForCompletionInputHandle).to(equal("1"))
-        expect(operation.error).to(matchError(APIError.unknown))
+        // service errors must be ignored
+        expect(operation.error).to(beNil())
     }
 }
