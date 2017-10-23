@@ -234,7 +234,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     
     private func makeActivity() -> UIViewController {
         let configurator = ActivityModuleConfigurator()
-        configurator.configure(navigationController: navigationStack.navigationController)
+        configurator.configure(navigationController: navigationStack.navigationController, notificationsUpdater: self)
         return configurator.viewController
     }
 }
