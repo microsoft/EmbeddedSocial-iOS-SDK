@@ -173,6 +173,11 @@ enum L10n {
     static let screenTitle = L10n.tr("Localizable", "blocked_users.screen_title")
   }
 
+  enum CommentReplies {
+    /// Type here to reply on this comment
+    static let replyPlaceholder = L10n.tr("Localizable", "comment_replies.reply_placeholder")
+  }
+
   enum Common {
     /// Blocked
     static let blocked = L10n.tr("Localizable", "common.blocked")
@@ -280,8 +285,6 @@ enum L10n {
     static let cancelledByUser = L10n.tr("Localizable", "error.cancelled_by_user")
     /// Comment not found
     static let commentNotFound = L10n.tr("Localizable", "error.comment_not_found")
-    /// Reply not found
-    static let replyNotFound = L10n.tr("Localizable", "error.reply_not_found")
     /// The request has failed.
     static let failedRequest = L10n.tr("Localizable", "error.failed_request")
     /// Image compression has failed.
@@ -290,6 +293,8 @@ enum L10n {
     static let invalidImage = L10n.tr("Localizable", "error.invalid_image")
     /// Invalid server response.
     static let invalidResponse = L10n.tr("Localizable", "error.invalid_response")
+    /// You must have at least one account linked to your profile.
+    static let lastLinkedAccount = L10n.tr("Localizable", "error.last_linked_account")
     /// Last session is not available.
     static let lastSessionNotAvailable = L10n.tr("Localizable", "error.last_session_not_available")
     /// User credentials are missing.
@@ -310,6 +315,8 @@ enum L10n {
     static let notConnectedToInternet = L10n.tr("Localizable", "error.not_connected_to_internet")
     /// Not implemented.
     static let notImplemented = L10n.tr("Localizable", "error.not_implemented")
+    /// Reply not found
+    static let replyNotFound = L10n.tr("Localizable", "error.reply_not_found")
     /// Unknown error occurred.
     static let unknown = L10n.tr("Localizable", "error.unknown")
     /// User list module configuration error: API not set.
@@ -432,12 +439,7 @@ enum L10n {
     /// Type here to comment on this post
     static let commentPlaceholder = L10n.tr("Localizable", "post_details.comment_placeholder")
   }
-    
-  enum CommentReplies {
-    /// Type here to reply on this comment
-    static let replyPlaceholder = L10n.tr("Localizable", "comment_replies.reply_placeholder")
-  }
-    
+
   enum PostMenu {
     /// Block
     static let block = L10n.tr("Localizable", "post_menu.block")
