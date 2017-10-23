@@ -30,5 +30,5 @@ class MockActivityNotificationsService: ActivityNotificationsServiceProtocol {
         updateStatusForCompletionInputHandle = handle
         completion?(updateStatusForCompletionResult)
     }
-    
+
 }
