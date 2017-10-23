@@ -60,6 +60,7 @@ public final class SocialPlus {
     
     public func didReceiveRemoteNotification(data: [AnyHashable : Any]) {
         coordinator.openActivityScreen()
+        coordinator.updateNotifications()
     }
     
     public func start(launchArguments args: LaunchArguments) {

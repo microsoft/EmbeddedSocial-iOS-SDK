@@ -4,22 +4,31 @@
 //
 
 import XCTest
+import Nimble
 @testable import EmbeddedSocial
 
-class ActivityiNotificationsController: XCTestCase {
-    
-    var sut: ActivityiNotificationsController!
+class MockNotificationUpdater: NotificationsUpdater {
+    var didCallUpdateNotifications = false
+    func updateNotifications() {
+        didCallUpdateNotifications = true
+    }
+}
+
+class ActivityNotificationsControllerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
-        sut = ActivityiNotificationsController()
-        
     }
     
     override func tearDown() {
         super.tearDown()
     }
     
+    func testTimerFires() {
+        let sut = ActivityNotificationsController(interval: TimeInterval(1))
+        let updater = MockNotificationUpdater()
+        sut.notificationUpdater = updater
     
+        expect(updater.didCallUpdateNotifications).toEventually(beTrue(), timeout: 1.001)
+    }
 }

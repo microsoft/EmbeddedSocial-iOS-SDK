@@ -42,6 +42,7 @@ class MockActivityNotificationsService: ActivityNotificationsServiceProtocol {
     }
     
 }
+
 class ActivityNotificationsService: BaseService, ActivityNotificationsServiceProtocol {
     
     func updateState(completion: @escaping ((Result<UInt32>) -> Void)) {
@@ -93,22 +94,29 @@ class ActivityNotificationsService: BaseService, ActivityNotificationsServicePro
     }
 }
 
-class ActivityNotificationsController {
-    var state: ActivityNotificationState!
-    var service: ActivityNotificationsServiceProtocol!
+final class ActivityNotificationsController {
+    weak var notificationUpdater: NotificationsUpdater?
+    let interval: TimeInterval
+    private var timer: Timer?
+    
+    @objc private func handleTimerTick() {
+        notificationUpdater?.updateNotifications()
+    }
 
-    func update() {
-        service.updateState { [weak self] result in
-            switch result {
-            case .success(let count):
-                self?.state.count = count
-            case .failure(let error):
-                Logger.log(error, event: .veryImportant)
-            }
-        }
+    private func buildTimer() -> Timer {
+        return Timer.scheduledTimer(timeInterval: interval,
+                             target: self,
+                             selector: #selector(handleTimerTick),
+                             userInfo: nil,
+                             repeats: true)
     }
     
-    func updateStatus(for handle: String) {
-        service.updateStatus(for: handle, completion: nil)
+    init(interval: TimeInterval = Constants.Notifications.pollInterval) {
+        self.interval = interval
+        timer = buildTimer()
+    }
+    
+    deinit {
+        timer?.invalidate()
     }
 }

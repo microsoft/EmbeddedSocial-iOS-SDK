@@ -112,6 +112,11 @@ extension Constants {
         static let pixels500 = "t"
         static let pixels1000 = "x"
     }
+    
+    struct Notifications {
+        static let pollInterval = TimeInterval(60 * 15)
+    }
+    
 }
 
 extension Constants {
