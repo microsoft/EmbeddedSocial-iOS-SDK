@@ -38,7 +38,8 @@ class OutgoingCommand: Cacheable {
             UserCommand.allUserCommandTypes +
             ReplyCommand.allReplyCommandTypes +
             CommentCommand.allCommentCommandTypes +
-            ImageCommand.allImageCommandTypes
+            ImageCommand.allImageCommandTypes +
+            [UpdateNotificationsStatusCommand.self]
     }
     
     //MARK: Cacheable

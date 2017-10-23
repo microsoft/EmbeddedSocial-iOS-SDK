@@ -80,6 +80,10 @@ public final class SocialPlus {
         } else {
             coordinator.openPopularScreen()
         }
+        
+        let c = UpdateNotificationsStatusCommand(handle: UUID().uuidString)
+        cache.cacheOutgoing(c)
+        
     }
     
     fileprivate func startSession(with info: SessionInfo) {
@@ -123,6 +127,9 @@ extension SocialPlus: LogoutController {
     }
     
     func logOut() {
+        UIApplication.shared.unregisterForRemoteNotifications()
+        UserDefaults.standard.set(nil, forKey: Constants.deviceTokenStorageKey)
+        UserDefaults.standard.synchronize()
         daemonsController.stop()
         try? sessionStore.deleteCurrentSession()
         setupServices(with: SocialPlusServices())

@@ -201,7 +201,7 @@ class LinkedAccountsPresenterTests: XCTestCase {
         expect(self.interactor.loginWithFromCompletionReceivedArguments?.provider).toEventually(equal(provider))
         
         expect(self.interactor.linkAccountAuthorizationCompletionCalled).toEventually(beTrue())
-        expect(self.interactor.linkAccountAuthorizationCompletionReceivedAuthorization).toEventually(equal(auth))
+        expect(self.interactor.linkAccountAuthorizationCompletionReceivedArguments?.authorization).toEventually(equal(auth))
         
         expect(self.view.setSwitchesEnabledCalled).toEventually(beTrue())
         expect(self.view.setSwitchesEnabledReceivedIsEnabled).toEventually(beTrue())
@@ -246,7 +246,7 @@ class LinkedAccountsPresenterTests: XCTestCase {
         expect(self.interactor.loginWithFromCompletionReceivedArguments?.provider).toEventually(equal(provider))
         
         expect(self.interactor.linkAccountAuthorizationCompletionCalled).toEventually(beTrue())
-        expect(self.interactor.linkAccountAuthorizationCompletionReceivedAuthorization).toEventually(equal(auth))
+        expect(self.interactor.linkAccountAuthorizationCompletionReceivedArguments?.authorization).toEventually(equal(auth))
         
         expect(self.view.setSwitchesEnabledCalled).toEventually(beTrue())
         expect(self.view.setSwitchesEnabledReceivedIsEnabled).toEventually(beTrue())
