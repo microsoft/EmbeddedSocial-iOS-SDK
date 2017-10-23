@@ -16,19 +16,49 @@ class MockNotificationUpdater: NotificationsUpdater {
 
 class ActivityNotificationsControllerTests: XCTestCase {
     
+    var sut: ActivityNotificationsController!
+    var updater: MockNotificationUpdater!
+    
     override func setUp() {
         super.setUp()
+        
+        sut = ActivityNotificationsController(interval: TimeInterval(1))
+        
+        updater = MockNotificationUpdater()
+        
+        sut.notificationUpdater = updater
     }
     
     override func tearDown() {
         super.tearDown()
     }
     
-    func testTimerFires() {
-        let sut = ActivityNotificationsController(interval: TimeInterval(1))
-        let updater = MockNotificationUpdater()
-        sut.notificationUpdater = updater
-    
-        expect(updater.didCallUpdateNotifications).toEventually(beTrue(), timeout: 1.001)
+    func testNotificationUpdaterWorks() {
+        
+        sut.start()
+        expect(self.updater.didCallUpdateNotifications).toEventually(beTrue(), timeout: 1.001)
+        
     }
+    
+    func testNotificationUpdaterDoNotUpdatesAfterRelease() {
+        
+        // given
+        weak var weakSut = sut
+        sut.start()
+    
+        sut.finish()
+        sut = nil
+        
+        let e = self.expectation(description: "deinit")
+        
+        DispatchQueue.main.async {
+            
+            XCTAssertNil(weakSut)
+            XCTAssertFalse(self.updater.didCallUpdateNotifications)
+            e.fulfill()
+        }
+        
+        wait(for: [e], timeout: 1.001)
+    }
+    
 }

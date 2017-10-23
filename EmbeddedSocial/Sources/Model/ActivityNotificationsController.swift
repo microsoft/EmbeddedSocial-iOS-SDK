@@ -113,10 +113,14 @@ final class ActivityNotificationsController {
     
     init(interval: TimeInterval = Constants.Notifications.pollInterval) {
         self.interval = interval
+    }
+    
+    func start() {
         timer = buildTimer()
     }
     
-    deinit {
+    func finish() {
         timer?.invalidate()
+        timer = nil
     }
 }
