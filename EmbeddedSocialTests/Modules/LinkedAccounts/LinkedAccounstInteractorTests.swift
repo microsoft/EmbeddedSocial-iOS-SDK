@@ -97,7 +97,7 @@ class LinkedAccountsInteractorTests: XCTestCase {
         var result: Result<Void>?
         
         // when
-        sut.linkAccount(authorization: authorization) { result = $0 }
+        sut.linkAccount(provider: .facebook, authorization: authorization) { result = $0 }
         
         // then
         expect(result).toEventuallyNot(beNil(), timeout: timeout)
@@ -113,7 +113,7 @@ class LinkedAccountsInteractorTests: XCTestCase {
         var result: Result<Void>?
         
         // when
-        sut.linkAccount(authorization: authorization) { result = $0 }
+        sut.linkAccount(provider: .facebook, authorization: authorization) { result = $0 }
         
         // then
         expect(result).toEventuallyNot(beNil(), timeout: timeout)
@@ -124,33 +124,40 @@ class LinkedAccountsInteractorTests: XCTestCase {
     }
     
     func testThatItDeletesLinkedAccount() {
-        // given
-        let provider = AuthProvider.facebook
-        usersService.deleteLinkedAccountReturnValue = .success()
+        let acc1 = LinkedAccountView()
+        acc1.identityProvider = .facebook
+        
+        let acc2 = LinkedAccountView()
+        acc2.identityProvider = .twitter
+        
+        usersService.getLinkedAccountsReturnValue = .success([acc1, acc2])
+        sut.getLinkedAccounts { _ in () }
+        expect(self.usersService.getLinkedAccountsCalled).toEventually(beTrue())
+        
+        // 1st deleted
         var result: Result<Void>?
+        usersService.deleteLinkedAccountReturnValue = .success()
+        sut.deleteLinkedAccount(provider: .facebook) { result = $0 }
         
-        // when
-        sut.deleteLinkedAccount(provider: provider) { result = $0 }
+        expect(self.usersService.deleteLinkedAccountCalled).toEventually(beTrue())
+        expect(self.usersService.deleteLinkedAccountInputProvider).to(equal(.facebook))
+        expect(result?.isSuccess).to(beTrue())
         
-        // then
-        expect(result).toEventuallyNot(beNil(), timeout: timeout)
-        expect(self.usersService.deleteLinkedAccountCalled).toEventually(beTrue(), timeout: timeout)
-        expect(self.usersService.deleteLinkedAccountInputProvider).toEventually(equal(provider), timeout: timeout)
+        // 2nd deleted
+        result = nil
+        usersService.deleteLinkedAccountCalled = false
+        sut.deleteLinkedAccount(provider: .twitter) { result = $0 }
+        expect(result?.isFailure).toEventually(beTrue(), timeout: timeout)
+        expect(result?.error).to(matchError(APIError.lastLinkedAccount))
+        expect(self.usersService.deleteLinkedAccountCalled).to(beFalse())
     }
     
-    func testThatItReturnsDeleteLinkedAccountError() {
-        // given
-        let provider = AuthProvider.facebook
-        usersService.deleteLinkedAccountReturnValue = .failure(APIError.unknown)
+    func testDeleteAccountWhenNoAccountsLoaded() {
         var result: Result<Void>?
+        sut.deleteLinkedAccount(provider: .facebook) { result = $0 }
         
-        // when
-        sut.deleteLinkedAccount(provider: provider) { result = $0 }
-        
-        // then
-        expect(result).toEventuallyNot(beNil(), timeout: timeout)
-        expect(result?.error).toEventually(matchError(APIError.unknown), timeout: timeout)
-        expect(self.usersService.deleteLinkedAccountCalled).toEventually(beTrue(), timeout: timeout)
-        expect(self.usersService.deleteLinkedAccountInputProvider).toEventually(equal(provider), timeout: timeout)
+        expect(result?.isFailure).toEventually(beTrue(), timeout: timeout)
+        expect(result?.error).to(matchError(APIError.lastLinkedAccount))
+        expect(self.usersService.deleteLinkedAccountCalled).to(beFalse())
     }
 }

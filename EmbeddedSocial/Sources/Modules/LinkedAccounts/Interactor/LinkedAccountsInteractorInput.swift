@@ -12,7 +12,7 @@ protocol LinkedAccountsInteractorInput: class {
                from viewController: UIViewController?,
                completion: @escaping (Result<Authorization>) -> Void)
     
-    func linkAccount(authorization: Authorization, completion: @escaping (Result<Void>) -> Void)
+    func linkAccount(provider: AuthProvider, authorization: Authorization, completion: @escaping (Result<Void>) -> Void)
     
     func deleteLinkedAccount(provider: AuthProvider, completion: @escaping (Result<Void>) -> Void)
 }

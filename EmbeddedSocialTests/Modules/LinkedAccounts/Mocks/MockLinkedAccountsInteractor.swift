@@ -6,7 +6,7 @@
 @testable import EmbeddedSocial
 
 class MockLinkedAccountsInteractor: LinkedAccountsInteractorInput {
-    
+
     //MARK: - getLinkedAccounts
     
     var getLinkedAccountsCompletionCalled = false
@@ -33,12 +33,12 @@ class MockLinkedAccountsInteractor: LinkedAccountsInteractorInput {
     //MARK: - linkAccount
     
     var linkAccountAuthorizationCompletionCalled = false
-    var linkAccountAuthorizationCompletionReceivedAuthorization: Authorization?
+    var linkAccountAuthorizationCompletionReceivedArguments: (provider: AuthProvider, authorization: Authorization)?
     var linkAccountAuthorizationCompletionReturnValue: Result<Void>!
     
-    func linkAccount(authorization: Authorization, completion: @escaping (Result<Void>) -> Void) {
+    func linkAccount(provider: AuthProvider, authorization: Authorization, completion: @escaping (Result<Void>) -> Void) {
         linkAccountAuthorizationCompletionCalled = true
-        linkAccountAuthorizationCompletionReceivedAuthorization = authorization
+        linkAccountAuthorizationCompletionReceivedArguments = (provider, authorization)
         completion(linkAccountAuthorizationCompletionReturnValue)
     }
     

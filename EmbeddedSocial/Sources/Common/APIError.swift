@@ -20,6 +20,7 @@ enum APIError: LocalizedError {
     case commentNotFound
     case replyNotFound
     case notConnectedToInternet
+    case lastLinkedAccount
 
     public var errorDescription: String? {
         switch self {
@@ -37,6 +38,7 @@ enum APIError: LocalizedError {
         case .commentNotFound: return L10n.Error.commentNotFound
         case .replyNotFound: return L10n.Error.replyNotFound
         case .notConnectedToInternet: return L10n.Error.notConnectedToInternet
+        case .lastLinkedAccount: return L10n.Error.lastLinkedAccount
         }
     }
     
