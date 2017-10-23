@@ -35,13 +35,15 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     @IBOutlet weak var likedList: UILabel!
     
     var usedInThirdPartModule = false
-    
-    private var parentHeight: CGFloat?
-    
-    func getImageHeight() -> CGFloat {
-        let defaultHeight = Constants.FeedModule.Collection.imageHeight
+
+    func getImageHeight(containerHeight: CGFloat?) -> CGFloat {
+        
+        guard let height = containerHeight else {
+            return Constants.FeedModule.Collection.imageHeight
+        }
+        
         let ratio = Constants.FeedModule.Collection.imageRatio
-        return parentHeight == nil ? defaultHeight : parentHeight! * ratio
+        return height * ratio
     }
     
     func indexPath() -> IndexPath? {
@@ -124,8 +126,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         postImage.releasePhoto()
         userPhoto.releasePhoto()
         
-        parentHeight = nil
-        postImageHeight.constant = getImageHeight()
+        postImageHeight.constant = getImageHeight(containerHeight: nil)
         
         super.prepareForReuse()
     }
@@ -134,8 +135,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         
         viewModel = data
         self.collectionView = collectionView
-        parentHeight = collectionView?.bounds.height
-        postImageHeight.constant = getImageHeight()
+        let containerHeight = collectionView?.bounds.height
+        postImageHeight.constant = getImageHeight(containerHeight: containerHeight)
         
         // showing post image if url is available, else - hiding
         if data.postImageUrl == nil {
@@ -180,7 +181,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
             return result + constraint.constant
         }
         
-        let imageHeight = viewModel.postImageUrl == nil ? 0 : getImageHeight()
+        let imageHeight = viewModel.postImageUrl == nil ? 0 : getImageHeight(containerHeight: containerHeight)
         
         // dynamic part of calculation:
         let bounds = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
