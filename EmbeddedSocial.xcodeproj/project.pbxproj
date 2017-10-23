@@ -1126,6 +1126,7 @@
 		9CE7D4C21F5EFED8008DA2BA /* MockTopicServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9D0A071F55B8DD0000174B /* MockTopicServices.swift */; };
 		9CEA75241F2A0E61009FC89D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75231F2A0E61009FC89D /* Post.swift */; };
 		9CEA75281F2A1FA0009FC89D /* LikesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA75271F2A1FA0009FC89D /* LikesService.swift */; };
+		9CF045061F9E296A00CDA666 /* MockActivityNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF045051F9E296A00CDA666 /* MockActivityNotificationsService.swift */; };
 		9FCA74B90B4330F6AA55D489 /* CommentRepliesViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C62BB243EDEFCA43C5601F8 /* CommentRepliesViewInput.swift */; };
 		A0085564D72F1BAC0C676EE8 /* CommentRepliesModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E537C9BF30C28352B846B1 /* CommentRepliesModuleInput.swift */; };
 		A269F23D916E66EC4A3C3421 /* ActivityConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524E91B1805A386EC77F7691 /* ActivityConfigurator.swift */; };
@@ -2320,6 +2321,7 @@
 		9CDDB2041F38870400C46785 /* DateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterTests.swift; sourceTree = "<group>"; };
 		9CEA75231F2A0E61009FC89D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		9CEA75271F2A1FA0009FC89D /* LikesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesService.swift; sourceTree = "<group>"; };
+		9CF045051F9E296A00CDA666 /* MockActivityNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockActivityNotificationsService.swift; sourceTree = "<group>"; };
 		B472242204255C8123541FC8 /* DetailedActivityRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DetailedActivityRouter.swift; sourceTree = "<group>"; };
 		BE7D29B032CB7147FB81C41A /* ActivityInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ActivityInteractor.swift; sourceTree = "<group>"; };
 		C6C4DAB7B7C701C7965A0F35 /* ReplyCellPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReplyCellPresenter.swift; sourceTree = "<group>"; };
@@ -4605,6 +4607,7 @@
 				9C0F36A51F9E106C002C65B0 /* MockSideMenuInteractor.swift */,
 				9C0F36A71F9E1821002C65B0 /* MockCrossModuleCoordinator.swift */,
 				889AFC151F220BCD003AAF19 /* MockAuthAPIProvider.swift */,
+				9CF045051F9E296A00CDA666 /* MockActivityNotificationsService.swift */,
 				88F7A7881F27896B005FEC5F /* MockAuthService.swift */,
 				8886AA561F6A85B800734F3C /* MockAuthorizationMulticast.swift */,
 				88FEFC9D1F8E1B9100D81CAB /* MockAuthorizedActionStrategy.swift */,
@@ -7553,6 +7556,7 @@
 				8811C8A81F4435E800F7513D /* MockEmbeddedEditProfileModuleOutput.swift in Sources */,
 				636474821F5EDD2F000D7B3D /* CommentCellInteractorTests.swift in Sources */,
 				9CDDB2051F38870400C46785 /* DateFormatterTests.swift in Sources */,
+				9CF045061F9E296A00CDA666 /* MockActivityNotificationsService.swift in Sources */,
 				63F8489B1F4AE81F00D434CF /* MockCommentRepliesInteractor.swift in Sources */,
 				88C6650A1F8671B200A7763D /* PopularUsersAPITests.swift in Sources */,
 				889AFC301F220BCD003AAF19 /* NameComponentsSplitterTests.swift in Sources */,
