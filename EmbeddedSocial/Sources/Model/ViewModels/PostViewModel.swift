@@ -58,7 +58,13 @@ struct PostViewModel {
             timeCreated = ""
         }
         userImageUrl = post.photoUrl
-        postImageUrl = post.imageUrl
+        
+        if let imageUrl = post.imageUrl {
+            postImageUrl = imageUrl + Constants.ImageResize.pixels500
+        } else {
+            postImageUrl = nil
+        }
+        
         postImageHandle = post.imageHandle
         
         isLiked = post.liked
