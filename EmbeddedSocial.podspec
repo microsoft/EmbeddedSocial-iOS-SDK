@@ -6,9 +6,7 @@ Pod::Spec.new do |s|
   s.summary = 'SDK for interacting with the Microsoft Embedded Social service from inside your iOS app.'
   s.requires_arc = true
 
-  s.description = <<-DESC
-                  This is an SDK that works with the Microsoft Embedded Social service to provide social networking functionality inside your iOS application.
-                  DESC
+  s.description = 'This is an SDK that works with the Microsoft Embedded Social service to provide social networking functionality inside your iOS application.'
 
   s.homepage = 'https://github.com/Microsoft/EmbeddedSocial-iOS-SDK'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -25,6 +23,8 @@ Pod::Spec.new do |s|
     'EmbeddedSocialThemes' => ['EmbeddedSocial/Sources/**/*.plist']
   }
 
+  s.static_framework = true
+
   # ――― Dependencies ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.dependency 'Alamofire', '~> 4.5.0'
   s.dependency 'SwiftLint', '~> 0.20.1'
@@ -36,10 +36,6 @@ Pod::Spec.new do |s|
   s.dependency 'SwiftGen', '~> 4.2.1'
   s.dependency 'Sourcery', '~> 0.7.2'
   s.dependency 'UITextView+Placeholder', '~> 1.2.0'
-  #s.dependency 'OAuthSwift-Local'
-  #s.dependency 'EmbeddedSocial/Vendor/OAuthSwift'
-  #s.dependency 'OAuthSwift', :local => 'EmbeddedSocial/Vendor/OAuthSwift'
-  # s.dependency 'LiveSDK', :local => 'EmbeddedSocial/Vendor/LiveSDK'
   s.dependency 'SKPhotoBrowser', '~> 4.0.1'
   s.dependency 'MBProgressHUD', '~> 1.0'
   s.dependency 'TTTAttributedLabel', '~> 2.0'
@@ -47,9 +43,5 @@ Pod::Spec.new do |s|
   s.dependency 'FBSDKCoreKit', '~> 4.24.0'
   s.dependency 'FBSDKLoginKit', '~> 4.24.0'
   s.dependency 'FBSDKShareKit', '~> 4.24.0'
-
-  s.subspec 'OAuthSwift-Local' do |ss|
-    ss.source_files = 'EmbeddedSocial/Vendor/OAuthSwift/Sources/*.swift'
-  end
 
 end

@@ -7,7 +7,6 @@ import Foundation
 import FBSDKCoreKit
 import TwitterKit
 import GoogleSignIn
-import OAuthSwift
 
 struct FacebookURLScheme: URLScheme {
     
