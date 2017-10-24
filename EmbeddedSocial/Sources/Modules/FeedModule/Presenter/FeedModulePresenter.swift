@@ -551,20 +551,18 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didStartFetching() {
         Logger.log()
+        view.setRefreshing(state: true)
         if let delegate = moduleOutput {
             delegate.didStartRefreshingData()
-        } else {
-            view.setRefreshing(state: true)
         }
     }
     
     func didFinishFetching() {
         Logger.log()
+        view.setRefreshing(state: false)
         if let delegate = moduleOutput {
             delegate.didFinishRefreshingData(nil)
-        } else {
-            view.setRefreshing(state: false)
-        }
+        } 
     }
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
