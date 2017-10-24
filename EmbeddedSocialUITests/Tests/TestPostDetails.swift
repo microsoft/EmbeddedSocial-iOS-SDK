@@ -3,25 +3,20 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 
-class TestPostDetails: UITestBase {
-    var sideMenu: SideMenu!
-    var feed: Feed!
+class TestPostDetails: BaseSideMenuTest {
+    
     var details: PostDetails!
     
     override func setUp() {
         super.setUp()
-        sideMenu = SideMenu(app)
-        feed = Feed(app)
+        
         details = PostDetails(app)
     }
     
-    func openScreen() {
-        sideMenu.navigate(to: .home)
-        let (_, post) = feed.getRandomPost()
-        post.teaser.tap()
+    override func openScreen() {
+        Feed(app).getPost(0).asUIElement().tap()
     }
     
     func testPostAttributes() {
@@ -39,7 +34,7 @@ class TestPostDetails: UITestBase {
         XCTAssert(details.post.textExists("Alan Poe"), "Author name doesn't match")
         XCTAssert(details.post.textExists("5 likes"), "Number of likes doesn't match")
         XCTAssert(details.post.textExists("7 comments"), "Number of comments doesn't match")
-        XCTAssertEqual(details.post.teaser.value as! String, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "Teaser text doesn't match")
+        XCTAssert(details.post.textExists("Lorem ipsum dolor sit amet, consectetur adipiscing elit."), "Teaser text doesn't match")
         XCTAssert(details.post.likeButton.isSelected, "Post is not marked as liked")
         XCTAssert(details.post.pinButton.isSelected, "Post is not marked as pinned")
         
@@ -48,7 +43,7 @@ class TestPostDetails: UITestBase {
     func testLikePost() {
         openScreen()
         
-        details.post.like()
+        details.post.likeButton.tap()
         
         XCTAssertNotNil(APIState.getLatestRequest().contains("/likes"))
         XCTAssert(details.post.likeButton.isSelected, "Post is not marked as liked")
@@ -67,8 +62,8 @@ class TestPostDetails: UITestBase {
         details.post.pin()
         
         let request = APIState.getLatestData(forService: "pins")
-
         XCTAssertEqual(request?["topicHandle"] as! String, "topicHandle")
+        
         XCTAssert(details.post.pinButton.isSelected, "Post is not marked as pinned")
         
         details.post.pin()

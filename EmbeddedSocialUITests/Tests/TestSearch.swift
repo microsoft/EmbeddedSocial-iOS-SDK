@@ -3,33 +3,67 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 
-class TestSearchTopics: TestOnlineHome {
-    var search: Search!
+class TestSearchTopicsOnline: TestOnlineHome {
+
+    private var search: Search!
+
+    override func setUp() {
+        super.setUp()
+        feedName = "SearchTopics"
+        search = Search(app)
+    }
+
+    override func openScreen() {
+        navigate(to: .search)
+
+        search.topicsButton.tap()
+        search.topicsQuery.tap()
+        search.topicsQuery.typeText(feedName)
+
+        app.keyboards.buttons["Search"].tap()
+
+        sleep(1)
+    }
+
+}
+
+class TestSearchTopicsOffline: TestOfflineHome {
+    
+    private var search: Search!
     
     override func setUp() {
         super.setUp()
+        
         feedName = "SearchTopics"
         search = Search(app)
     }
     
     override func openScreen() {
         navigate(to: .search)
+        
         search.topicsButton.tap()
         search.topicsQuery.tap()
         search.topicsQuery.typeText(feedName)
+        
+        app.keyboards.buttons["Search"].tap()
+        
         sleep(1)
     }
+    
 }
 
-class TestSearchPeople: TestFollowersOnline {
-    var search: Search!
+class TestSearchPeopleOnline: TestFollowersOnline {
+    
+    private var search: Search!
     
     override func setUp() {
         super.setUp()
+        
         feedName = "SearchPeople "
+        feedHandle = "SearchPeople"
+        
         search = Search(app)
     }
     
@@ -39,6 +73,37 @@ class TestSearchPeople: TestFollowersOnline {
         search.peopleButton.tap()
         search.peopleQuery.tap()
         search.peopleQuery.typeText(feedName)
+        
+        app.keyboards.buttons["Search"].tap()
+        
         sleep(1)
     }
+    
+}
+
+class TestSearchPeopleOffline: TestFollowersOffline {
+    
+    private var search: Search!
+    
+    override func setUp() {
+        super.setUp()
+        
+        feedName = "SearchPeople "
+        feedHandle = "SearchPeople"
+        
+        search = Search(app)
+    }
+    
+    override func openScreen() {
+        navigate(to: .search)
+        
+        search.peopleButton.tap()
+        search.peopleQuery.tap()
+        search.peopleQuery.typeText(feedName)
+        
+        app.keyboards.buttons["Search"].tap()
+        
+        sleep(1)
+    }
+    
 }

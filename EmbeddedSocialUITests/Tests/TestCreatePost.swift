@@ -5,33 +5,28 @@
 
 import XCTest
 
-class TestCreatePost: UITestBase {
-    var sideMenu: SideMenu!
+class TestCreatePost: BaseSideMenuTest {
+    
     var userProfile: UserProfile!
     var createPost: CreatePost!
         
     override func setUp() {
         super.setUp()
-        sideMenu = SideMenu(app)
+        
         userProfile = UserProfile(app)
         createPost = CreatePost(app)
     }
     
-    override func tearDown() {
-        super.tearDown()
+    override func openScreen() {
+        navigate(to: .userProfile)
     }
     
     func testCreatePostWithoutImage() {
-        sideMenu.navigateToUserProfile()
+        openScreen()
         
         userProfile.openMenu()
         userProfile.selectMenuOption("Add post")
-
-        createPost.postTitle.tap()
-        createPost.postTitle.typeText("Post Title")
-        createPost.postText.tap()
-        createPost.postText.typeText("Post Text")
-        createPost.publish()
+        createPost.publishWith(title: "Post Title", text: "Post Text")
         
         let request = APIState.getLatestData(forService: "topics")
         

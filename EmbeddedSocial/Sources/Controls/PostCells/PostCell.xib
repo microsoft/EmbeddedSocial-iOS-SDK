@@ -45,7 +45,7 @@
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="500" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cAQ-A1-E3u">
                                     <rect key="frame" x="324" y="15" width="20" height="20"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="Post Menu" label="Post Menu"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="Menu Post"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="20" id="hAk-Bk-rdF"/>
                                         <constraint firstAttribute="height" constant="20" id="pcX-EK-n4I"/>
@@ -116,7 +116,7 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2C6-WJ-LvS" userLabel="like">
                                     <rect key="frame" x="15" y="8" width="44" height="44"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="Like" label="Like"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="Like Post" label="Like"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="0Ik-Pf-Erf"/>
                                         <constraint firstAttribute="width" secondItem="2C6-WJ-LvS" secondAttribute="height" multiplier="1:1" id="UWY-IC-GIQ"/>
@@ -130,7 +130,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6te-RD-RH1" userLabel="comment">
                                     <rect key="frame" x="64" y="8" width="44" height="44"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="Comment" label="Comment"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="Comment Post" label="Comment"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="6te-RD-RH1" secondAttribute="height" multiplier="1:1" id="Hmb-9k-gGT"/>
                                         <constraint firstAttribute="width" constant="44" id="sBl-2I-8wq"/>
@@ -143,7 +143,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTY-SJ-7jo" userLabel="pin">
                                     <rect key="frame" x="113" y="8" width="44" height="44"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="Pin" label="Pin"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="Pin Post" label="Pin"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="fE7-L5-biC"/>
                                         <constraint firstAttribute="width" secondItem="LTY-SJ-7jo" secondAttribute="height" multiplier="1:1" id="tNw-rJ-dRs"/>
@@ -170,6 +170,7 @@
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xB4-f1-3t5">
                                     <rect key="frame" x="197" y="8" width="51" height="44"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="Likes Post"/>
                                     <connections>
                                         <action selector="onLikesList:" destination="iN0-l3-epB" eventType="touchUpInside" id="wrF-va-9lf"/>
                                     </connections>

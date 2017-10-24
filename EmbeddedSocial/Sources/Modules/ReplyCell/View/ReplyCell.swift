@@ -49,7 +49,7 @@ class ReplyCell: UICollectionViewCell, ReplyCellViewInput {
         replyLabel.text = reply.text ?? ""
         totalLikesButton.setTitle(L10n.Post.likesCount(Int(reply.totalLikes)), for: .normal)
         
-        postTimeLabel.text = reply.createdTime == nil ? "" : formatter.shortStyle.string(from: reply.createdTime!, to: Date())!
+        postTimeLabel.text = reply.createdTime == nil ? "" : formatter.shortStyle.string(from: reply.createdTime!, to: Date())
         
         if reply.user?.photo?.url == nil {
             userPhoto.image = UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder)

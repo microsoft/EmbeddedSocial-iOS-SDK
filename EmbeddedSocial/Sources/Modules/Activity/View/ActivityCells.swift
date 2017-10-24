@@ -85,6 +85,8 @@ class FollowRequestCell: ActivityBaseCell {
     override func setup() {
         super.setup()
         
+        accessibilityIdentifier = "FollowRequestCell"
+        
         addSubview(profileName)
         addSubview(acceptButton)
         addSubview(rejectButton)
@@ -119,6 +121,7 @@ class FollowRequestCell: ActivityBaseCell {
         let button = UIButton(type: .custom)
         button.setImage(ActivityBaseCell.Style.Images.accept, for: UIControlState.normal)
         button.addTarget(self, action: #selector(onAccept), for: .touchUpInside)
+        button.accessibilityIdentifier = "Accept"
         return button
     }()
     
@@ -126,6 +129,7 @@ class FollowRequestCell: ActivityBaseCell {
         let button = UIButton(type: .custom)
         button.setImage(Style.Images.reject, for: UIControlState.normal)
         button.addTarget(self, action: #selector(onReject), for: .touchUpInside)
+        button.accessibilityIdentifier = "Reject"
         return button
     }()
     
@@ -186,6 +190,8 @@ class ActivityCell: ActivityBaseCell {
     override func setup() {
         super.setup()
         
+        accessibilityIdentifier = "ActivityCell"
+
         addSubview(postImage)
         addSubview(postText)
         addSubview(touchItem)

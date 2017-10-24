@@ -18,9 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // HockeyApp configuration to enable analytics
-        BITHockeyManager.shared().configure(withIdentifier: "46cc5ba83a8043b9a4b67cc0f9c6c9a2")
-        BITHockeyManager.shared().start()
-        BITHockeyManager.shared().authenticator.authenticateInstallation()
+        #if !(arch(i386) || arch(x86_64))
+            BITHockeyManager.shared().configure(withIdentifier: "46cc5ba83a8043b9a4b67cc0f9c6c9a2")
+            BITHockeyManager.shared().start()
+            BITHockeyManager.shared().authenticator.authenticateInstallation()
+        #endif
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = UIViewController()

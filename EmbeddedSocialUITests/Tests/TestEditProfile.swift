@@ -3,38 +3,30 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 
-class TestEditProfile: UITestBase {
-    var sideMenu: SideMenu!
-    var profile: UserProfile!
-    var editProfile: EditProfile!
+class TestEditProfile: BaseSideMenuTest {
+    
+    private var profile: UserProfile!
+    private var editProfile: EditProfile!
     
     override func setUp() {
         super.setUp()
-        sideMenu = SideMenu(app)
+        
         profile = UserProfile(app)
         editProfile = EditProfile(app)
     }
     
-    func openScreen() {
-        sideMenu.navigateToUserProfile()
+    override func openScreen() {
+        navigate(to: .userProfile)
         profile.editProfileButton.tap()
-        
     }
     
     func testUpdateProfileDetails() {
         openScreen()
         
-        editProfile.firstNameInput.clearText()
-        editProfile.firstNameInput.typeText("Alan")
-        editProfile.lastNameInput.clearText()
-        editProfile.lastNameInput.typeText("Poe")
-        editProfile.bioInput.clearText()
-        editProfile.bioInput.typeText("Lorem ipsum dolor")
-        
-        editProfile.saveButton.tap()
+        editProfile.updateProfileWith(firstName: "Alan", lastName: "Poe", bio: "Lorem ipsum dolor")
+        sleep(1)
         
         let request = APIState.getLatestData(forService: "me")
         

@@ -36,7 +36,7 @@ class BaseTestProfileDetails: BaseSideMenuTest {
     
 }
 
-class TestOnlineProfileDetails: BaseTestProfileDetails {
+class TestOnlineProfileDetails: BaseTestProfileDetails, OnlineTest {
     
     override func testProfileAttributes() {
         openProfileScreen()
