@@ -49,6 +49,7 @@ extension Constants {
             static let containerPadding = CGFloat(10)
             static let containerColor = UIColor.white
             static let imageHeight = CGFloat(180)
+            static let imageRatio = CGFloat(1.0 / 3.0)
             
             struct Cell {
                 static let trimmedMaxLines = 10

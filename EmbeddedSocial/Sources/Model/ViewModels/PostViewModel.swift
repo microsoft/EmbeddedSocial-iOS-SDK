@@ -21,7 +21,9 @@ struct PostViewModel {
     let isPinned: Bool
     let likedBy: String
     let totalLikes: String
+    let totalLikesShort: String
     let totalComments: String
+    let totalCommentsShort: String
     let timeCreated: String
     let userImageUrl: String?
     let postImageUrl: String?
@@ -47,6 +49,8 @@ struct PostViewModel {
         
         totalLikes = L10n.Post.likesCount(post.totalLikes)
         totalComments = L10n.Post.commentsCount(post.totalComments)
+        totalLikesShort = "\(post.totalLikes)"
+        totalCommentsShort = "\(post.totalComments)"
         
         if let createdTime = post.createdTime {
             timeCreated =  formatter.shortStyle.string(from: createdTime, to: Date()) ?? ""

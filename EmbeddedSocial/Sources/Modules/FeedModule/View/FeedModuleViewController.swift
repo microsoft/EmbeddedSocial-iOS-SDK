@@ -130,7 +130,7 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
         let height = cell.frame.height
         cell.frame = CGRect(x: 0, y: 0, width: width, height: height)
         return cell
-        }()
+    }()
     
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -260,8 +260,10 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
         
         sizingCell.configure(with: viewModel, collectionView: nil)
         
+        let containerHeight = collectionView.bounds.height
+        
         var size = CGSize.zero
-        size.height = sizingCell.getHeight(with: containerWidth(), isTrimmed: viewModel.isTrimmed)
+        size.height = sizingCell.getHeight(containerHeight:containerHeight, with: containerWidth(), isTrimmed: viewModel.isTrimmed)
         size.width = containerWidth()
         
         return size
