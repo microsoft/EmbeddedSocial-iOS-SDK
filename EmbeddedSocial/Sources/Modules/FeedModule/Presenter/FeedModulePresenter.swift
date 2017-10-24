@@ -496,7 +496,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             checkIfNoContent()
         }
         
-        Logger.log("items arrived", event: .veryImportant)
+        Logger.log("items arrived \(feed.items.count)")
         
         let cachedNumberOfItems = items.count
         
