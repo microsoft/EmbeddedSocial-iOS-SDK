@@ -82,4 +82,8 @@ class ActivityFollowRequests {
         return (randomIndex, getRequestItem(at: randomIndex))
     }
     
+    func asUIElement() -> XCUIElement {
+        return requestsTable
+    }
+    
 }

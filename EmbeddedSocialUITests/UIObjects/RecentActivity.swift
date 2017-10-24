@@ -48,7 +48,7 @@ class RecentActivity {
     }
     
     func getActivityItem(at index: UInt, withScroll scroll: Bool = true) -> RecentActivityItem {
-        let cell = recentActivityTable.cells.element(boundBy: index) /*.matching(identifier: "ActivityCell").element(boundBy: index) */
+        let cell = recentActivityTable.cells.matching(identifier: "ActivityCell").element(boundBy: index)
         
         if scroll {
             scrollToElement(cell, application)
@@ -61,6 +61,10 @@ class RecentActivity {
     func getRandomActivityItem() -> (index: UInt, activityItem: RecentActivityItem) {
         let randomIndex = Random.randomUInt(getActivitiesCount())
         return (randomIndex, getActivityItem(at: randomIndex))
+    }
+    
+    func asUIElement() -> XCUIElement {
+        return recentActivityTable
     }
     
 }

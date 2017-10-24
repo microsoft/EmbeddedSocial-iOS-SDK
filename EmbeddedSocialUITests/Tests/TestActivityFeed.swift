@@ -113,7 +113,7 @@ class TestYourActivityFeed: BaseTestActivityFeed {
             app.swipeDown()
         }
         
-        makePullToRefresh(for: activityFollowRequests.getRequestItem(at: 0).asUIElement())
+        makePullToRefresh(for: activityFollowRequests.asUIElement())
         
         let latestPendingUsersResponse = APIState.getLatestResponse(forService: "pendingUsers")
         let latestRecentActivitiesResponse = APIState.getLatestResponse(forService: "notifications")
@@ -174,7 +174,7 @@ class TestFollowingActivityFeed: BaseTestActivityFeed {
     private let contentTypes = ["Comment",
                                 "Topic",
                                 "Reply",
-                                "Comment"]
+                                "User"]
     
     private let activityTypes = ["Like",
                                  "Like",
@@ -207,10 +207,10 @@ class TestFollowingActivityFeed: BaseTestActivityFeed {
             
             APIConfig.values = ["activityType" : activityType,
                                 "actedOnContent->contentType" : actedOnContent]
-            reloadActivityItems()
+            makePullToRefresh(for: recentActivities.asUIElement())
             
             let index: UInt = 0
-            let activityItem = recentActivities.getActivityItem(at: index)
+            let activityItem = recentActivities.getActivityItem(at: index, withScroll: false)
             
             let expectedResult = activityTypeResults[i]
             XCTAssertTrue(activityItem.isExists(text: expectedResult))
@@ -259,10 +259,6 @@ class TestFollowingActivityFeed: BaseTestActivityFeed {
         let latestResponse = APIState.getLatestResponse(forService: "activities")
         XCTAssertNotNil(latestResponse)
         XCTAssertGreaterThanOrEqual(latestResponse!["cursor"] as! String, String(pageSize), "First page not loaded")
-    }
-    
-    private func reloadActivityItems() {
-        makePullToRefresh(for: recentActivities.getActivityItem(at: 0).asUIElement())
     }
     
 }
