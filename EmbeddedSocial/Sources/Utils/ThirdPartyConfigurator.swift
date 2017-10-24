@@ -7,6 +7,7 @@ import Foundation
 import FBSDKCoreKit
 import TwitterKit
 import GoogleSignIn
+import HockeySDK
 
 protocol ThirdPartyConfiguratorType {
     func setup(application: UIApplication, launchOptions: [AnyHashable: Any])
@@ -31,6 +32,16 @@ struct ThirdPartyConfigurator: ThirdPartyConfiguratorType {
     
     private func setupGoogle() {
         GIDSignIn.sharedInstance().clientID = "348861152334-5hdrnh6qal3trt8m2ukv26due7fn20k0.apps.googleusercontent.com"
+    }
+    
+    private func setupHockeyApp() {
+        BITHockeyManager.shared().configure(withIdentifier: "46cc5ba83a8043b9a4b67cc0f9c6c9a2")
+        BITHockeyManager.shared().start()
+        BITHockeyManager.shared().authenticator.authenticateInstallation()
+        
+        if TARGET_OS_SIMULATOR != 0 {
+            BITHockeyManager.shared().isUpdateManagerDisabled = true
+        }
     }
 }
 

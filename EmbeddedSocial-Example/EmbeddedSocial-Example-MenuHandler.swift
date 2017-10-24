@@ -3,7 +3,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
+/*import Foundation
+import UIKit
 import EmbeddedSocial
 
 class MyAppMenu: SideMenuItemsProvider {
@@ -56,5 +57,5 @@ class MyAppMenu: SideMenuItemsProvider {
         return false
     }
     
-}
+}*/
 
