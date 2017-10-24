@@ -496,7 +496,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             checkIfNoContent()
         }
         
-        Logger.log("items arrived", event: .veryImportant)
+        Logger.log("items arrived \(feed.items.count)")
         
         let cachedNumberOfItems = items.count
         
@@ -554,8 +554,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         view.setRefreshing(state: true)
         if let delegate = moduleOutput {
             delegate.didStartRefreshingData()
-        } else {
-            view.setRefreshing(state: true)
         }
     }
     
@@ -564,9 +562,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         view.setRefreshing(state: false)
         if let delegate = moduleOutput {
             delegate.didFinishRefreshingData(nil)
-        } else {
-            view.setRefreshing(state: false)
-        }
+        } 
     }
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
