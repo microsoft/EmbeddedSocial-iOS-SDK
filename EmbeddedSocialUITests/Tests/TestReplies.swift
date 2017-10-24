@@ -3,26 +3,23 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 @testable import EmbeddedSocial
 
 class TestReplies: BaseSideMenuTest {
     
-    var comments: CommentsFeed!
     var replies: RepliesFeed!
     var pageSize: Int!
     
     override func setUp() {
         super.setUp()
-        
-        comments = CommentsFeed(app)
-        replies = RepliesFeed(app)
         pageSize = 5 //EmbeddedSocial.Constants.CommentReplies.pageSize
     }
     
     override func openScreen() {
-        Feed(app).getRandomPost().1.getTitle().tap()
+        Feed(app).getRandomPost().1.asUIElement().tap()
+        
+        let comments = PostDetails(app).comments!
         
         var retryCount = 15
         
@@ -34,6 +31,8 @@ class TestReplies: BaseSideMenuTest {
         let comment = comments.getComment(0)
         comment.replyButton.tap()
         sleep(1)
+        
+        replies = RepliesFeed(app, containerView: app.collectionViews.firstMatch)
     }
     
     func tapLoadMore() {
@@ -120,8 +119,8 @@ class TestReplies: BaseSideMenuTest {
             app.swipeDown()
         }
         
-        let start = replies.feedContainer.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 0)))
-        let finish = replies.feedContainer.coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
+        let start = replies.asUIElement().coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 0)))
+        let finish = replies.asUIElement().coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
         start.press(forDuration: 0, thenDragTo: finish)
         
         let response = APIState.getLatestResponse(forService: "replies")
@@ -143,5 +142,3 @@ class TestReplies: BaseSideMenuTest {
         XCTAssertEqual(request?["text"] as! String, "Reply Text")
     }
 }
-
-

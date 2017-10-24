@@ -102,7 +102,11 @@ class Templates {
                 values["totalLikes"] = i
             }
             
-            let comment = Templates.load(name: "comment", values: values)
+            var comment = Templates.load(name: "comment", values: values)
+            
+            if APIConfig.showCommentHandleInTeaser {
+                comment["text"] = comment["commentHandle"]
+            }
             
             comments.append(comment)
         }
@@ -139,7 +143,9 @@ class Templates {
                           "createdTime"    : Date().ISOString,
                           "actorUsers"     : followers,
                           "actedOnUser"    : followers[i],
+                          "activityType"   : "Like",
                           "actedOnContent" : [
+                            "contentType"   : "Comment",
                             "text"          : "TextExample",
                             "blobHandle"    : UUID().uuidString]]
             

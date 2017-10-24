@@ -13,26 +13,18 @@ class BaseTestComments: BaseSideMenuTest {
     
     override func setUp() {
         super.setUp()
-        
         pageSize = 20
-        
-        APIConfig.values = ["user->firstName": "Alan",
-                            "user->lastName": "Poe",
-                            "totalLikes": 5,
-                            "totalReplies": 7,
-                            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                            "liked": false]
     }
     
     override func openScreen() {
         Feed(app).getRandomPost().1.getTitle().tap()
-        commentsFeed = CommentsFeed(app, containerView: app.collectionViews.firstMatch)
-//
-//        var retryCount = 15
-//        while commentsFeed.loadMoreButton.exists && retryCount != 0 {
-//            retryCount -= 1
-//            app.swipeUp()
-//        }
+        commentsFeed = PostDetails(app).comments
+
+        var retryCount = 15
+        while commentsFeed.loadMoreButton.exists && retryCount != 0 {
+            retryCount -= 1
+            app.swipeUp()
+        }
     }
     
     func testCommentAttributes() {
@@ -68,15 +60,14 @@ class BaseTestComments: BaseSideMenuTest {
     func testPaging() {
         tapLoadMore()
         
-        var seenComments = Set<String>()
+        var seenComments = Set<XCUIElement>()
         var retryCount = 15
         
         while seenComments.count <= pageSize && retryCount != 0 {
             retryCount -= 1
             for i in 0...commentsFeed.getCommentsCount() - 2 {
                 let comment = commentsFeed.getComment(i, withScroll: false)
-                print("Title: \(comment.likesButton.label)")
-                seenComments.insert(comment.likesButton.label)
+                seenComments.insert(comment.asUIElement())
             }
             app.swipeUp()
         }
@@ -114,23 +105,23 @@ class BaseTestComments: BaseSideMenuTest {
     }
 
     private func tapLoadMore() {
-//        var retryCount = 15
-//
-//        while !commentsFeed.loadMoreButton.exists && retryCount != 0 {
-//            retryCount -= 1
-//            app.swipeDown()
-//        }
+        var retryCount = 15
+
+        while !commentsFeed.loadMoreButton.exists && retryCount != 0 {
+            retryCount -= 1
+            app.swipeDown()
+        }
         
         let loadMoreButton = commentsFeed.loadMoreButton
         if loadMoreButton.exists {
             loadMoreButton.tap()
         }
-//
-//        retryCount = 15
-//        while commentsFeed.loadMoreButton.exists && retryCount != 0 {
-//            retryCount -= 1
-//            app.swipeUp()
-//        }
+
+        retryCount = 15
+        while commentsFeed.loadMoreButton.exists && retryCount != 0 {
+            retryCount -= 1
+            app.swipeUp()
+        }
     }
     
 }
@@ -138,6 +129,13 @@ class BaseTestComments: BaseSideMenuTest {
 class TestCommentsOnline: BaseTestComments, OnlineTest {
     
     override func testCommentAttributes() {
+        APIConfig.values = ["user->firstName": "Alan",
+                            "user->lastName": "Poe",
+                            "totalLikes": 5,
+                            "totalReplies": 7,
+                            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                            "liked": false]
+        
         openScreen()
         super.testCommentAttributes()
     }

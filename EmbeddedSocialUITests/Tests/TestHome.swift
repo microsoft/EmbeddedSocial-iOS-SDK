@@ -43,7 +43,7 @@ class BaseTestHome: BaseFeedTest {
         XCTAssert(post.textExists("John Doe"), "Author name doesn't match")
         XCTAssert(post.textExists("5 likes"), "Number of likes doesn't match")
         XCTAssert(post.textExists("7 comments"), "Number of comments doesn't match")
-        XCTAssertEqual(post.getTitle().value as! String, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "Teaser text doesn't match")
+        XCTAssertEqual(post.getText().label, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "Teaser text doesn't match")
         XCTAssert(post.likeButton.isSelected, "Post is not marked as liked")
         XCTAssert(post.pinButton.isSelected, "Post is not marked as pinned")
     }
@@ -125,7 +125,7 @@ class BaseTestHome: BaseFeedTest {
     
     func testOpenPostDetails() {
         let details = PostDetails(app)
-        XCTAssertEqual(details.post.getTitle().label, "Post Details Screen", "Post details screen haven't been opened")
+        XCTAssertEqual(details.post.getText().label, "Post Details Screen", "Post details screen haven't been opened")
     }
     
     func testPagingTileMode() {
@@ -167,7 +167,7 @@ class BaseTestHome: BaseFeedTest {
     
     func testOpenPostDetailsTileMode() {
         let details = PostDetails(app)
-        XCTAssertEqual(details.post.getTitle().label, "Post Details Screen", "Post details screen haven't been opened")
+        XCTAssertEqual(details.post.getText().label, "Post Details Screen", "Post details screen haven't been opened")
     }
     
 }
@@ -188,7 +188,10 @@ class TestOnlineHome: BaseTestHome, OnlineTest {
                             "liked": true,
                             "pinned": true]
         
+        navigate(to: .popular)
+        navigate(to: .home)
         openScreen()
+        
         super.testPostAttributes()
     }
     
@@ -313,7 +316,10 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
                             "liked": true,
                             "pinned": true]
         
+        navigate(to: .popular)
+        navigate(to: .home)
         openScreen()
+        
         makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
         super.testPostAttributes()
     }
@@ -367,10 +373,9 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         
         let (_, post) = feed.getRandomPost()
         APIConfig.values = ["text": "Post Details Screen"]
-        post.getTitle().tap()
+        post.asUIElement().tap()
         
-        let details = PostDetails(app)
-        makePullToRefreshWithoutReachability(with: details.post.asUIElement())
+        makePullToRefreshWithoutReachability(with: post.asUIElement())
         super.testOpenPostDetails()
     }
     

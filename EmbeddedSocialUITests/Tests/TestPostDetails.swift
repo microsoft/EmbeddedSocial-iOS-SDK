@@ -9,14 +9,10 @@ class TestPostDetails: BaseSideMenuTest {
     
     var details: PostDetails!
     
-    var post: Post!
-    
     override func setUp() {
         super.setUp()
         
         details = PostDetails(app)
-        
-        post = Post(app.collectionViews.firstMatch.cells.firstMatch, app)
     }
     
     override func openScreen() {
@@ -35,7 +31,7 @@ class TestPostDetails: BaseSideMenuTest {
         openScreen()
         
 //        XCTAssert(details.post.textExists("1m"), "Posted time doesn't match")
-        XCTAssert(post.textExists("Alan Poe"), "Author name doesn't match")
+        XCTAssert(details.post.textExists("Alan Poe"), "Author name doesn't match")
         XCTAssert(details.post.textExists("5 likes"), "Number of likes doesn't match")
         XCTAssert(details.post.textExists("7 comments"), "Number of comments doesn't match")
         XCTAssert(details.post.textExists("Lorem ipsum dolor sit amet, consectetur adipiscing elit."), "Teaser text doesn't match")

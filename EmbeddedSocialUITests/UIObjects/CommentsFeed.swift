@@ -30,8 +30,8 @@ class Comment {
         self.likesButton = self.cell.buttons["Likes Comment"].firstMatch
         self.repliesButton = self.cell.buttons["Replies Comment"].firstMatch
         
-        self.authorLabeL = self.cell.staticTexts.firstMatch
-        self.titleLabel = self.cell.staticTexts.element(boundBy: 1)
+        self.authorLabeL = self.cell.staticTexts.element(boundBy: 1)
+        self.titleLabel = self.cell.staticTexts.element(boundBy: 0)
         
         menuButton = self.cell.buttons["Menu Comment"]
         commentMenu = CommentMenu(app, self)
@@ -129,7 +129,7 @@ class CommentsFeed {
     
     func getRandomComment() -> (UInt, Comment) {
         let index = Random.randomUInt(getCommentsCount())
-        return (index, getComment(index))
+        return (index, getComment(index, withScroll: false))
     }
     
     func postNewComment(with text: String) {

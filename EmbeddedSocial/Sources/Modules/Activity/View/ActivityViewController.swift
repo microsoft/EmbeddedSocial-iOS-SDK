@@ -59,6 +59,7 @@ class ActivityViewController: BaseViewController {
         tableView.tableFooterView = UIView()
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
+        tableView.accessibilityIdentifier = "ActivityFeed"
         tableView.delegate = self
         
         tableView.addSubview(self.refreshControl)

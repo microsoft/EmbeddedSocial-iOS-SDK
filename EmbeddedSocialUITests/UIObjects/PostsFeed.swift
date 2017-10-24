@@ -15,6 +15,7 @@ class Post {
     private var cell: XCUIElement
     
     private var titleLabel: XCUIElement
+    private var textLabeL: XCUIElement
     
     private var menuButton: XCUIElement
     private var postMenu: PostMenu!
@@ -27,6 +28,8 @@ class Post {
         self.menuButton = self.cell.buttons["Menu Post"].firstMatch
         
         titleLabel = self.cell.staticTexts.element(boundBy: 2)
+        textLabeL = self.cell.staticTexts.element(boundBy: 3)
+        
         postImageButton = self.cell.buttons["Post Image"].firstMatch
         
         postMenu = PostMenu(app, self)
@@ -46,6 +49,10 @@ class Post {
     // Title value it's a "topicHandle" attribute
     func getTitle() -> XCUIElement {
         return titleLabel
+    }
+    
+    func getText() -> XCUIElement {
+        return textLabeL
     }
     
     func like() {

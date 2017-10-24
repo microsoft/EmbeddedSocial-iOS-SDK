@@ -19,8 +19,8 @@ class FollowRequestItem {
         self.cell = cell
         
         profileImage = self.cell.images.element
-        acceptButton = self.cell.buttons.element(boundBy: 0)
-        declineButton = self.cell.buttons.element(boundBy: 1)
+        acceptButton = self.cell.buttons["Accept"].firstMatch
+        declineButton = self.cell.buttons["Reject"].firstMatch
     }
     
     func accept() {
@@ -52,22 +52,22 @@ class ActivityFollowRequests {
     
     init(_ application: XCUIApplication) {
         self.application = application
-        requestsTable = self.application.tables.element(boundBy: 1)
+        requestsTable = self.application.tables["ActivityFeed"].firstMatch
     }
     
     func getRequestsCount() -> UInt {
-        var count: UInt = 0
-        for i in 0..<requestsTable.cells.count {
-            guard requestsTable.cells.element(boundBy: i).buttons.count == 2 else {
-                break
-            }
-            count += 1
-        }
-        return count
+//        var count: UInt = 0
+//        for _ in 0..<requestsTable.cells.count {
+//            guard requestsTable.cells["FollowRequestCell"].exists else {
+//                break
+//            }
+//            count += 1
+//        }
+        return requestsTable.cells.matching(identifier: "FollowRequestCell").count
     }
     
     func getRequestItem(at index: UInt, withScroll scroll: Bool = true) -> FollowRequestItem {
-        let cell = requestsTable.cells.element(boundBy: index)
+        let cell = requestsTable.cells.matching(identifier: "FollowRequestCell").element(boundBy: index)
         
         if scroll {
             scrollToElement(cell, application)

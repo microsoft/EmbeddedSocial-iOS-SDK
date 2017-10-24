@@ -7,16 +7,19 @@ import Foundation
 import XCTest
 
 class Reply {
-    var app: XCUIApplication
-    var cell: XCUIElement
+    
     var likeButton: XCUIElement
     var likesButton: XCUIElement
+    
+    private var app: XCUIApplication
+    private var cell: XCUIElement
     
     init(_ cell: XCUIElement, _ application: XCUIApplication) {
         self.app = application
         self.cell = cell
-        self.likeButton = self.cell.buttons["Like"]
-        self.likesButton = self.cell.buttons.element(boundBy: 3)
+        
+        self.likeButton = self.cell.buttons["Like Reply"].firstMatch
+        self.likesButton = self.cell.buttons["Likes Reply"].firstMatch
     }
     
     //UILabel values cannot be read when element has an accessibility identifier
@@ -35,14 +38,21 @@ class Reply {
         self.likeButton.tap()
         sleep(1)
     }
+    
+    func asUIElement() -> XCUIElement {
+        return cell
+    }
+    
 }
 
 class RepliesFeed {
-    var app: XCUIApplication
-    var feedContainer: XCUIElement
+    
     var loadMoreButton: XCUIElement
     var replyText: XCUIElement
     var publishReplyButton: XCUIElement
+    
+    private var app: XCUIApplication
+    private var feedContainer: XCUIElement
     
     init(_ application: XCUIApplication) {
         self.app = application
@@ -50,6 +60,11 @@ class RepliesFeed {
         self.loadMoreButton = self.app.buttons["Load more"]
         self.replyText = self.app.textViews["ReplyText"]
         self.publishReplyButton = self.app.buttons["Post"]
+    }
+    
+    convenience init(_ application: XCUIApplication, containerView: XCUIElement) {
+        self.init(application)
+        feedContainer = containerView
     }
     
     func getRepliesCount() -> UInt {
@@ -64,4 +79,9 @@ class RepliesFeed {
         let index = Random.randomUInt(self.getRepliesCount())
         return (index, self.getReply(index))
     }
+    
+    func asUIElement() -> XCUIElement {
+        return feedContainer
+    }
+    
 }

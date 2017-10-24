@@ -38,20 +38,17 @@ class RecentActivity {
     private var application: XCUIApplication
     private var recentActivityTable: XCUIElement
     
-    var offset: UInt = 0
-    
-    init(_ application: XCUIApplication, followRequestsCount: UInt = 0) {
+    init(_ application: XCUIApplication) {
         self.application = application
-        recentActivityTable = self.application.tables.element(boundBy: 1)
-        offset = followRequestsCount
+        recentActivityTable = self.application.tables["ActivityFeed"].firstMatch
     }
     
     func getActivitiesCount() -> UInt {
-        return recentActivityTable.cells.count - offset
+        return recentActivityTable.cells.matching(identifier: "ActivityCell").count
     }
     
     func getActivityItem(at index: UInt, withScroll scroll: Bool = true) -> RecentActivityItem {
-        let cell = recentActivityTable.cells.element(boundBy: index + offset)
+        let cell = recentActivityTable.cells.element(boundBy: index) /*.matching(identifier: "ActivityCell").element(boundBy: index) */
         
         if scroll {
             scrollToElement(cell, application)
@@ -62,7 +59,7 @@ class RecentActivity {
     }
     
     func getRandomActivityItem() -> (index: UInt, activityItem: RecentActivityItem) {
-        let randomIndex = Random.randomUInt(getActivitiesCount()) + offset
+        let randomIndex = Random.randomUInt(getActivitiesCount())
         return (randomIndex, getActivityItem(at: randomIndex))
     }
     
