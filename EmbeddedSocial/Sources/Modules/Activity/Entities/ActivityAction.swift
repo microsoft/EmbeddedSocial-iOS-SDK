@@ -94,9 +94,21 @@ class RejectFollowingRequestAction: Action {
 class TransitionAction: Action {
     
     override func execute() {
-        presenter?.router.open(with: activityItem)
+        
+        switch activityItem {
+        case let .myActivity(activity), let .othersActivity(activity):
+            
+            // according to API server may return activity with no handle
+            guard let handle = activity.activityHandle else {
+                return
+            }
+            
+            presenter?.interactor.sendActivityStateAsRead(with: handle)
+            presenter?.router.open(with: activityItem)
+        default:
+            fatalError()
+        }
     }
-    
 }
 
 

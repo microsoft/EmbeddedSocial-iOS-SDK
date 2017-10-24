@@ -18,7 +18,9 @@ enum APIError: LocalizedError {
     case missingResponseData // Missing some data
     case notImplemented // Missing some data
     case commentNotFound
+    case replyNotFound
     case notConnectedToInternet
+    case lastLinkedAccount
 
     public var errorDescription: String? {
         switch self {
@@ -34,7 +36,9 @@ enum APIError: LocalizedError {
         case .missingResponseData: return L10n.Error.missingResponseData
         case .notImplemented: return L10n.Error.notImplemented
         case .commentNotFound: return L10n.Error.commentNotFound
+        case .replyNotFound: return L10n.Error.replyNotFound
         case .notConnectedToInternet: return L10n.Error.notConnectedToInternet
+        case .lastLinkedAccount: return L10n.Error.lastLinkedAccount
         }
     }
     

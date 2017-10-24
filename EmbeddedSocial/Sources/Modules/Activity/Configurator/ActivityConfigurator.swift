@@ -10,7 +10,7 @@ class ActivityModuleConfigurator {
     private(set) var viewController: ActivityViewController!
     private(set) var module: ActivityModuleInput!
 
-    func configure(navigationController: UINavigationController) {
+    func configure(navigationController: UINavigationController, notificationsUpdater: NotificationsUpdater) {
 
         let router = ActivityRouter()
         router.navigationController = navigationController
@@ -18,6 +18,7 @@ class ActivityModuleConfigurator {
         viewController = StoryboardScene.Activity.activityViewController.instantiate()
 
         let interactor = ActivityInteractor()
+        interactor.notificationsUpdater = notificationsUpdater
         
         let presenter = ActivityPresenter(interactor: interactor)
         presenter.view = viewController

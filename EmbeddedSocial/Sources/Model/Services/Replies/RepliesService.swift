@@ -27,7 +27,7 @@ enum RepliesServiceError: Error {
 
 protocol RepliesServiceProtcol {
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int,cachedResult:  @escaping RepliesFetchResultHandler,resultHandler: @escaping RepliesFetchResultHandler)
-    func postReply(reply: Reply, success: @escaping PostReplyResultHandler, failure: @escaping Failure)
+    func postReply(reply: Reply, success: @escaping PostReplyResultHandler, failure: @escaping (APIError) -> (Void))
     func reply(replyHandle: String, cachedResult: @escaping ReplyHandler , success: @escaping ReplyHandler, failure: @escaping Failure)
     func delete(reply: Reply, completion: @escaping ((Result<Void>) -> Void))
 }
@@ -175,7 +175,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         return cachedReplyView != nil ? convert(replyView: cachedReplyView!) : nil
     }
     
-    func postReply(reply: Reply, success: @escaping PostReplyResultHandler, failure: @escaping Failure) {
+    func postReply(reply: Reply, success: @escaping PostReplyResultHandler, failure: @escaping (APIError) -> (Void)) {
         let replyCommand = CreateReplyCommand(reply: reply)
         
         guard isNetworkReachable else {
@@ -206,7 +206,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
     
     
     private func execute(command: RemoveReplyCommand,
-                         success: @escaping ((Void) -> Void),
+                         success: @escaping (() -> Void),
                          failure: @escaping Failure) {
         guard isNetworkReachable else {
             

@@ -53,6 +53,16 @@ public final class SocialPlus {
         return serviceProvider.getURLSchemeService().application(app, open: url, options: options)
     }
     
+    public func updateDeviceToken(devictToken: String) {
+        UserDefaults.standard.setValue(devictToken, forKey: Constants.deviceTokenStorageKey)
+        UserDefaults.standard.synchronize()
+    }
+    
+    public func didReceiveRemoteNotification(data: [AnyHashable : Any]) {
+        coordinator.openActivityScreen()
+        coordinator.updateNotifications()
+    }
+    
     public func start(launchArguments args: LaunchArguments) {
         let startupCommands = serviceProvider.getStartupCommands(launchArgs: args)
         startupCommands.forEach { $0.execute() }
@@ -63,9 +73,17 @@ public final class SocialPlus {
         
         if sessionStore.isLoggedIn {
             startSession(with: sessionStore.info!)
+            if let deviceToken = UserDefaults.standard.string(forKey: Constants.deviceTokenStorageKey) {
+                let service = PushNotificationsService()
+                service.updateDeviceToken(deviceToken: deviceToken)
+            }
         } else {
             coordinator.openPopularScreen()
         }
+        
+        let c = UpdateNotificationsStatusCommand(handle: UUID().uuidString)
+        cache.cacheOutgoing(c)
+        
     }
     
     fileprivate func startSession(with info: SessionInfo) {
@@ -109,6 +127,9 @@ extension SocialPlus: LogoutController {
     }
     
     func logOut() {
+        UIApplication.shared.unregisterForRemoteNotifications()
+        UserDefaults.standard.set(nil, forKey: Constants.deviceTokenStorageKey)
+        UserDefaults.standard.synchronize()
         daemonsController.stop()
         try? sessionStore.deleteCurrentSession()
         setupServices(with: SocialPlusServices())

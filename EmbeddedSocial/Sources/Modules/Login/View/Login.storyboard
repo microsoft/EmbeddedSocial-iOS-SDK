@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17A365" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5vd-0T-hlO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5vd-0T-hlO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -99,11 +100,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="NmD-qd-Om3" firstAttribute="centerY" secondItem="dRv-Xb-c5c" secondAttribute="centerY" id="Aby-hm-8Rm"/>
+                            <constraint firstItem="NmD-qd-Om3" firstAttribute="centerY" secondItem="dRv-Xb-c5c" secondAttribute="centerY" priority="750" id="Aby-hm-8Rm"/>
                             <constraint firstItem="Y5e-gU-uZH" firstAttribute="leading" secondItem="dRv-Xb-c5c" secondAttribute="leadingMargin" constant="20" id="RcM-pR-8qa"/>
                             <constraint firstItem="Y5e-gU-uZH" firstAttribute="centerX" secondItem="dRv-Xb-c5c" secondAttribute="centerX" id="Um1-lL-XfT"/>
                             <constraint firstItem="gWL-r1-2Jn" firstAttribute="centerX" secondItem="dRv-Xb-c5c" secondAttribute="centerX" id="Ylx-HT-wFc"/>
                             <constraint firstItem="Y5e-gU-uZH" firstAttribute="centerY" secondItem="dRv-Xb-c5c" secondAttribute="centerY" id="ZwG-Fw-f53"/>
+                            <constraint firstItem="NmD-qd-Om3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gWL-r1-2Jn" secondAttribute="bottom" constant="50" id="djj-kY-SMK"/>
                             <constraint firstItem="gWL-r1-2Jn" firstAttribute="top" secondItem="eWk-tQ-yt2" secondAttribute="bottom" constant="44" id="qH5-PA-pW5"/>
                             <constraint firstItem="NmD-qd-Om3" firstAttribute="centerX" secondItem="dRv-Xb-c5c" secondAttribute="centerX" id="utw-cm-I98"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Y5e-gU-uZH" secondAttribute="trailing" constant="20" id="yMT-SL-f4C"/>

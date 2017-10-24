@@ -21,7 +21,9 @@
 "error.missing_response_data" = "Cant handle response, data is corrupted.";
 "error.not_implemented" = "Not implemented.";
 "error.comment_not_found" = "Comment not found";
+"error.reply_not_found" = "Reply not found";
 "error.not_connected_to_internet" = "Internet connection is not available.";
+"error.last_linked_account" = "You must have at least one account linked to your profile.";
 
 "common.ok" = "OK";
 "common.cancel" = "Cancel";

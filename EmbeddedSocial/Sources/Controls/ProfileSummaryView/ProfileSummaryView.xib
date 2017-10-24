@@ -21,7 +21,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWD-uM-2Ex">
                             <rect key="frame" x="0.0" y="132" width="310" height="34"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hQ-du-u9k">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hQ-du-u9k">
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="34"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <accessibility key="accessibilityConfiguration" identifier="Followers"/>
@@ -30,7 +30,7 @@
                                         <action selector="onFollowers:" destination="oKC-QY-Inf" eventType="touchUpInside" id="IK8-mu-YYy"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kSk-KB-Rjn">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kSk-KB-Rjn">
                                     <rect key="frame" x="104" y="0.0" width="103.5" height="34"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <accessibility key="accessibilityConfiguration" identifier="Following"/>
@@ -60,7 +60,23 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstItem="QzS-nE-skK" firstAttribute="width" secondItem="zWD-uM-2Ex" secondAttribute="width" multiplier="1:3" id="7R3-EF-x1b"/>
+                                <constraint firstItem="kSk-KB-Rjn" firstAttribute="top" secondItem="zWD-uM-2Ex" secondAttribute="top" id="9xQ-q0-QfE"/>
+                                <constraint firstItem="QzS-nE-skK" firstAttribute="top" secondItem="zWD-uM-2Ex" secondAttribute="top" id="I0j-h4-nWh"/>
+                                <constraint firstAttribute="bottom" secondItem="bHc-Vo-4xu" secondAttribute="bottom" id="MCl-Dv-kNz"/>
+                                <constraint firstAttribute="bottom" secondItem="7hQ-du-u9k" secondAttribute="bottom" id="VbY-rY-kbv"/>
+                                <constraint firstItem="bHc-Vo-4xu" firstAttribute="top" secondItem="zWD-uM-2Ex" secondAttribute="top" id="ZQ4-Ad-seo"/>
+                                <constraint firstItem="7hQ-du-u9k" firstAttribute="top" secondItem="zWD-uM-2Ex" secondAttribute="top" id="dby-6d-5wt"/>
+                                <constraint firstItem="kSk-KB-Rjn" firstAttribute="width" secondItem="zWD-uM-2Ex" secondAttribute="width" multiplier="1:3" id="eak-Nf-j4J"/>
+                                <constraint firstAttribute="bottom" secondItem="QzS-nE-skK" secondAttribute="bottom" id="et6-Or-PXk"/>
+                                <constraint firstAttribute="trailing" secondItem="bHc-Vo-4xu" secondAttribute="trailing" id="fCq-Ko-szU"/>
+                                <constraint firstItem="7hQ-du-u9k" firstAttribute="leading" secondItem="zWD-uM-2Ex" secondAttribute="leading" id="jFP-In-Ea9"/>
+                                <constraint firstItem="7hQ-du-u9k" firstAttribute="width" secondItem="zWD-uM-2Ex" secondAttribute="width" multiplier="1:3" id="n0a-5D-o22"/>
                                 <constraint firstAttribute="height" constant="34" id="rX2-01-tGI"/>
+                                <constraint firstAttribute="trailing" secondItem="QzS-nE-skK" secondAttribute="trailing" id="sa0-f5-1fW"/>
+                                <constraint firstAttribute="bottom" secondItem="kSk-KB-Rjn" secondAttribute="bottom" id="wVj-pD-RW9"/>
+                                <constraint firstItem="kSk-KB-Rjn" firstAttribute="leading" secondItem="7hQ-du-u9k" secondAttribute="trailing" id="x4t-Xz-OKw"/>
+                                <constraint firstItem="bHc-Vo-4xu" firstAttribute="width" secondItem="zWD-uM-2Ex" secondAttribute="width" multiplier="1:3" id="yVO-mE-aw8"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uh7-TT-gEq">

@@ -11,10 +11,22 @@ class SideMenuAccountInfoView: UIControl {
     @IBOutlet weak var accountName: UILabel!
     @IBOutlet weak var accountImage: UIImageView!
     
+    fileprivate var selectedTextColor: UIColor = Palette.green
+    fileprivate var defaultTextColor: UIColor = Palette.white
+    
     func configure(with model: SideMenuHeaderModel) {
         accountImage.setPhotoWithCaching(model.image, placeholder: UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder))
         accountName.text = model.title
         isSelected = model.isSelected
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    private func setup() {
+        backgroundColor = Palette.darkGrey
     }
     
     override func layoutSubviews() {
@@ -25,8 +37,21 @@ class SideMenuAccountInfoView: UIControl {
     
     override var isSelected: Bool {
         didSet {
-            accountName?.textColor = isSelected ? Constants.Menu.selectedItemColor : Constants.Menu.defaultItemColor
+            accountName?.textColor = isSelected ? selectedTextColor : defaultTextColor
         }
     }
     
 }
+
+extension SideMenuAccountInfoView: Themeable {
+    func apply(theme: Theme?) {
+        
+        guard let palette = theme?.palette else {
+            return
+        }
+        
+        selectedTextColor = palette.accent
+        defaultTextColor = palette.textPrimary
+    }
+}
+

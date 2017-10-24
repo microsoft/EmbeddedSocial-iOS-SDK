@@ -9,14 +9,15 @@ struct Constants {
     static let standardCellHeight: CGFloat = 44.0
     static let oauth1URLScheme = "embeddedsocial"
     static let imageCompressionQuality: CGFloat = 0.8
+    static let deviceTokenStorageKey = "com.deviceToken"
     static let configurationFilename = "config"
 }
 
 extension Constants {
     
     struct Menu {
-        static let defaultItemColor = UIColor.white
-        static let selectedItemColor = UIColor(r: 80, g: 173, b: 85)
+        static let defaultItemColor = Palette.white
+        static let selectedItemColor = Palette.green
     }
     
     struct CreateAccount {
@@ -48,6 +49,7 @@ extension Constants {
             static let containerPadding = CGFloat(10)
             static let containerColor = UIColor.white
             static let imageHeight = CGFloat(180)
+            static let imageRatio = CGFloat(1.0 / 3.0)
             
             struct Cell {
                 static let trimmedMaxLines = 10
@@ -57,11 +59,10 @@ extension Constants {
     }
     
     struct UserProfile {
-        static let summaryAspectRatio: CGFloat = 2.25
         static let containerInset: CGFloat = 10.0
         static let filterHeight: CGFloat = 44.0
         static let contentWidth = UIScreen.main.bounds.width - containerInset * 2
-        static let summaryHeight = contentWidth / summaryAspectRatio
+        static let summaryHeight: CGFloat = 160.0
         static let recentSegment = 0
         static let popularSegment = 1
         static let lockVerticalOffset: CGFloat = 80.0
@@ -112,6 +113,11 @@ extension Constants {
         static let pixels500 = "t"
         static let pixels1000 = "x"
     }
+    
+    struct Notifications {
+        static let pollInterval = TimeInterval(60 * 15)
+    }
+    
 }
 
 extension Constants {

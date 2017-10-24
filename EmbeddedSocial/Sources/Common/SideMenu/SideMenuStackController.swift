@@ -6,20 +6,39 @@
 import SlideMenuControllerSwift
 
 protocol SideMenuStackControllerProtocol {
-    
     func closeSideMenu()
     func openSideMenu()
-    
 }
 
-@objc class MenuStackController: SlideMenuController, SideMenuStackControllerProtocol {
+protocol MenuStackControllerDelegate {
+    func menuWillOpen()
+    func menuDidOpen()
+}
+
+class MenuStackController: SideMenuStackControllerProtocol, SlideMenuControllerDelegate {
+    
+    private(set) var slideMenuVC: SlideMenuController
+    var delegate: MenuStackControllerDelegate?
+    
+    init(containerVC: UIViewController, menuVC: UIViewController, delegate: MenuStackControllerDelegate? = nil) {
+        self.slideMenuVC = SlideMenuController(mainViewController: containerVC, leftMenuViewController: menuVC)
+    }
     
     func closeSideMenu() {
-        closeLeft()
+        slideMenuVC.closeLeft()
     }
     
     func openSideMenu() {
-        openLeft()
+        slideMenuVC.openLeft()
     }
     
+    // MARK: SlideMenuController Delegate
+    
+    @objc func leftWillOpen() {
+        delegate?.menuWillOpen()
+    }
+    
+    @objc func leftDidOpen() {
+        delegate?.menuDidOpen()
+    }
 }

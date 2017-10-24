@@ -67,6 +67,7 @@
                         <constraints>
                             <constraint firstItem="sda-gf-jxV" firstAttribute="leading" secondItem="xbj-W3-BRS" secondAttribute="leading" constant="20" id="1gI-Np-dXK"/>
                             <constraint firstItem="E7x-Gh-haX" firstAttribute="top" secondItem="xbj-W3-BRS" secondAttribute="top" id="87j-UZ-xYw"/>
+                            <constraint firstItem="vdj-ym-b7e" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OUZ-GN-Jg2" secondAttribute="trailing" constant="5" id="FFr-IS-zTz"/>
                             <constraint firstAttribute="height" constant="50" id="GYe-mb-iJS"/>
                             <constraint firstItem="Rzh-Mj-yCQ" firstAttribute="leading" secondItem="vdj-ym-b7e" secondAttribute="trailing" constant="15" id="Jbr-vp-TgB"/>
                             <constraint firstAttribute="trailing" secondItem="Rzh-Mj-yCQ" secondAttribute="trailing" constant="10" id="Myw-DO-Q0x"/>
