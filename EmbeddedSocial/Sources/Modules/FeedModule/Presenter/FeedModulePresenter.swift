@@ -551,7 +551,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didStartFetching() {
         Logger.log()
-        view.setRefreshing(state: true)
         if let delegate = moduleOutput {
             delegate.didStartRefreshingData()
         } else {
@@ -561,7 +560,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didFinishFetching() {
         Logger.log()
-        view.setRefreshing(state: false)
         if let delegate = moduleOutput {
             delegate.didFinishRefreshingData(nil)
         } else {
