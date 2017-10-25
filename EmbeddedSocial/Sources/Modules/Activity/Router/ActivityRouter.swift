@@ -28,7 +28,7 @@ class ActivityRouter: ActivityRouterInput {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    // TODO: migrate business logic from router
+    // TODO: move out business logic from router to its consumer
     private func processContentActivity(type: ContentCompactView.ContentType, handle: String) {
     
         switch type {
@@ -60,7 +60,7 @@ class ActivityRouter: ActivityRouterInput {
         if let contentType = model.actedOnContent?.contentType, let contentHandle = model.actedOnContent?.contentHandle {
             processContentActivity(type: contentType, handle: contentHandle)
         }
-        else if let userHandle = model.actedOnUser?.userHandle {
+        else if let userHandle = model.actorUsers?.first?.userHandle {
             processUserActivity(handle: userHandle)
         }
         else {
