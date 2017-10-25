@@ -3371,13 +3371,6 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		8832348F1FA07CE40008DAD2 /* CCommonCrypto */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CCommonCrypto;
-			sourceTree = "<group>";
-		};
 		8834A7541F5063B800F1D383 /* LikesList */ = {
 			isa = PBXGroup;
 			children = (
@@ -5318,7 +5311,6 @@
 		88CF242B1F16305300CC406F /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				8832348F1FA07CE40008DAD2 /* CCommonCrypto */,
 				883233B91F9F7E040008DAD2 /* LiveSDK */,
 				883233FA1F9F7E050008DAD2 /* OAuthSwift */,
 			);
@@ -8455,7 +8447,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/EmbeddedSocial/SupportingFiles ${SRCROOT}/EmbeddedSocial/Vendor/CCommonCrypto ${SRCROOT}/EmbeddedSocial/Vendor/LiveSDK";
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/EmbeddedSocial/SupportingFiles ${SRCROOT}/EmbeddedSocial/Vendor/LiveSDK";
 				SWIFT_VERSION = 3.0;
 				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -8500,7 +8492,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/EmbeddedSocial/SupportingFiles ${SRCROOT}/EmbeddedSocial/Vendor/CCommonCrypto ${SRCROOT}/EmbeddedSocial/Vendor/LiveSDK";
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/EmbeddedSocial/SupportingFiles ${SRCROOT}/EmbeddedSocial/Vendor/LiveSDK";
 				SWIFT_VERSION = 3.0;
 				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";

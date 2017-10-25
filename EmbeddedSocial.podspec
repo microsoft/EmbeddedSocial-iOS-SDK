@@ -16,13 +16,14 @@ Pod::Spec.new do |s|
       :tag => s.version.to_s,
       :submodules => true
   }
-  s.source_files = 'EmbeddedSocial/Sources/**/*.swift'
+  s.source_files = 'EmbeddedSocial/Sources/**/*.swift', 'EmbeddedSocial/Vendor/LiveSDK/**/*.{h,m}', 'EmbeddedSocial/Vendor/OAuthSwift/**/*.swift'
   s.resource_bundles = {
     'EmbeddedSocialResources' => ['EmbeddedSocial/Resources/*.{xcassets,plist}'],
     'EmbeddedSocialStoryboards' => ['EmbeddedSocial/Sources/**/*.storyboard'],
     'EmbeddedSocialThemes' => ['EmbeddedSocial/Sources/**/*.plist']
   }
-
+  s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(PODS_TARGET_SRCROOT)/EmbeddedSocial/Vendor/LiveSDK' }
+  s.preserve_paths = 'EmbeddedSocial/Vendor/LiveSDK/module.modulemap'
   s.static_framework = true
 
   # ――― Dependencies ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
