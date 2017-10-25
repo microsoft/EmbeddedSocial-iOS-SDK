@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="17A365" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77O-LY-MDz">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jgo-la-I8r">
                                     <size key="itemSize" width="50" height="50"/>
@@ -40,7 +41,7 @@
                         <constraints>
                             <constraint firstItem="77O-LY-MDz" firstAttribute="leading" secondItem="Vrb-ac-Gvh" secondAttribute="leading" id="6DK-xx-X55"/>
                             <constraint firstAttribute="bottom" secondItem="77O-LY-MDz" secondAttribute="bottom" id="OMf-IR-ee2"/>
-                            <constraint firstItem="77O-LY-MDz" firstAttribute="top" secondItem="qKF-xA-dpz" secondAttribute="bottom" id="gFG-RH-EMv"/>
+                            <constraint firstItem="77O-LY-MDz" firstAttribute="top" secondItem="Vrb-ac-Gvh" secondAttribute="top" id="gFG-RH-EMv"/>
                             <constraint firstAttribute="trailing" secondItem="77O-LY-MDz" secondAttribute="trailing" id="yq2-TG-ThH"/>
                         </constraints>
                     </view>
