@@ -76,9 +76,6 @@ class ActivityPresenter {
     }
     
     var dataSources: [State: [DataSource]] = [:]
-    func numberOfSectionsInState(state: State) -> Int {
-        return dataSources[state]!.count
-    }
     
     fileprivate func pendingDataSource(sectionIndex: Int) -> DataSource {
         let context = DataSourceContext(state: .my, index: sectionIndex)
@@ -101,30 +98,23 @@ class ActivityPresenter {
     fileprivate func makeDataSources() -> [State: [DataSource]] {
         
         var sources: [State: [DataSource]] = [:]
-    
-        sources[.my] = []
-        
         var myActivityDataSources: [DataSource] = []
+        var othersActivityDataSources: [DataSource] = []
         
         if needsToShowMyPendingInvintationsSection {
-            let dataSourceState: State = .my
-            let index = numberOfSectionsInState(state: dataSourceState)
+            let index = myActivityDataSources.count
             let dataSource = pendingDataSource(sectionIndex: index)
             myActivityDataSources.append(dataSource)
         }
         
         if needsToShowMyActivitySection {
-            let dataSourceState: State = .my
-            let index = numberOfSectionsInState(state: dataSourceState)
+            let index = myActivityDataSources.count
             let dataSource = myActivityDataSource(sectionIndex: index)
             myActivityDataSources.append(dataSource)
         }
-        
-        var othersActivityDataSources: [DataSource] = []
-        
+
         if needsToShowOthersActivitySection {
-            let dataSourceState: State = .others
-            let index = numberOfSectionsInState(state: dataSourceState)
+            let index = othersActivityDataSources.count
             let dataSource = othersActivityDataSource(sectionIndex: index)
             othersActivityDataSources.append(dataSource)
         }
