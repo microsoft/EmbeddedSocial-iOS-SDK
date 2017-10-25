@@ -21,4 +21,8 @@ class PostDetails {
         self.comments = CommentsFeed(app, containerView: detailsContainer)
         self.post = Post(self.detailsContainer.cells.element, self.app)
     }
+    
+    func asUIElement() -> XCUIElement {
+        return detailsContainer
+    }
 }
