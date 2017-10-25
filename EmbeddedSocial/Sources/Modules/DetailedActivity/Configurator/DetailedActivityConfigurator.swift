@@ -24,7 +24,7 @@ class DetailedActivityModuleConfigurator {
         presenter.router = router
         presenter.state = state
 
-        let interactor = DetailedActivityInteractor()
+        let interactor = DetailedActivityInteractor(replyService: RepliesService(), commentService: CommentsService(imagesService: ImagesService()))
         interactor.output = presenter
         interactor.commentHandle = commentHandle
         interactor.replyHandle = replyHandle

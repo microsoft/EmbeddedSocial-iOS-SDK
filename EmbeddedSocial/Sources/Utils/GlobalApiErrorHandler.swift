@@ -12,7 +12,7 @@ struct GlobalApiErrorHandler: APIErrorHandler {
     let unauthorizedErrorHandler: UnauthorizedErrorHandler
     weak var navigationController: UINavigationController?
     
-    init(unauthorizedErrorHandler: UnauthorizedErrorHandler, navigationController: UINavigationController? = SocialPlus.shared.coordinator.navigationStack.navigationController) {
+    init(unauthorizedErrorHandler: UnauthorizedErrorHandler, navigationController: UINavigationController? = SocialPlus.shared.rootController()) {
         self.unauthorizedErrorHandler = unauthorizedErrorHandler
         self.navigationController = navigationController
     }
