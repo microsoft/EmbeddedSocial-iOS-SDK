@@ -175,6 +175,10 @@ extension ActivityPresenter: ActivityInteractorOutput {
 
 extension ActivityPresenter: ActivityViewOutput {
  
+    func viewWillAppear() {
+        loadAll()
+    }
+    
     func didSwitchToTab(to index: Int) {
         guard let state = State(rawValue: index) else { fatalError("Wrong index") }
         self.state = state
