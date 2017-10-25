@@ -49,7 +49,7 @@ class TestOfflineProfileDetails: BaseTestProfileDetails, OfflineTest {
     
     override func testProfileAttributes() {
         openProfileScreen()
-        makePullToRefreshWithoutReachability(with: profile.details)
+        makePullToRefreshWithoutReachability(with: profile.asUIElement())
         super.testProfileAttributes()
     }
     
