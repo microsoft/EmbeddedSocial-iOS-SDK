@@ -3,6 +3,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+import UIKit
+
 final class CreateAccountInteractor: CreateAccountInteractorInput {
     private let userService: UserServiceType
     private let imagesService: ImagesServiceType

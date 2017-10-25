@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Dongri Jin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 let kHTTPHeaderContentType = "Content-Type"
 

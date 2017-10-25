@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
+import UIKit
 
 protocol URLScheme {
     func application(_ application: UIApplication, open url: URL, options: [AnyHashable: Any]) -> Bool
