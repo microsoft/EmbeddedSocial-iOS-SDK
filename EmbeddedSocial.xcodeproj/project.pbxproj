@@ -489,6 +489,7 @@
 		884C9C421F4D91BD0004907F /* CacheableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884C9C411F4D91BD0004907F /* CacheableItem.swift */; };
 		884C9C441F4D91CF0004907F /* CacheableItemDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884C9C431F4D91CF0004907F /* CacheableItemDecoder.swift */; };
 		884C9C461F4D9D860004907F /* PredicateTestableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884C9C451F4D9D860004907F /* PredicateTestableItem.swift */; };
+		885715AA1FA0BAB20047B1D9 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885715A91FA0BAB20047B1D9 /* DateUtils.swift */; };
 		88580B9E1F2213AB00C1CBAF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580A881F2213AB00C1CBAF /* BaseViewController.swift */; };
 		88580B9F1F2213AB00C1CBAF /* ButtonWithTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580A891F2213AB00C1CBAF /* ButtonWithTarget.swift */; };
 		88580BA01F2213AB00C1CBAF /* CellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88580A8A1F2213AB00C1CBAF /* CellModel.swift */; };
@@ -1710,6 +1711,7 @@
 		884C9C411F4D91BD0004907F /* CacheableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheableItem.swift; sourceTree = "<group>"; };
 		884C9C431F4D91CF0004907F /* CacheableItemDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheableItemDecoder.swift; sourceTree = "<group>"; };
 		884C9C451F4D9D860004907F /* PredicateTestableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredicateTestableItem.swift; sourceTree = "<group>"; };
+		885715A91FA0BAB20047B1D9 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		88580A881F2213AB00C1CBAF /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		88580A891F2213AB00C1CBAF /* ButtonWithTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonWithTarget.swift; sourceTree = "<group>"; };
 		88580A8A1F2213AB00C1CBAF /* CellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellModel.swift; sourceTree = "<group>"; };
@@ -4321,6 +4323,7 @@
 				8839B8721F83B5CE00D97BE6 /* StartupCommands */,
 				88580B9A1F2213AB00C1CBAF /* Validators */,
 				889510801F3B1CB4001A53F5 /* APIErrorHandler.swift */,
+				885715A91FA0BAB20047B1D9 /* DateUtils.swift */,
 				8811C8331F3DE8A500F7513D /* AssociatedValue.swift */,
 				882CAF0B1F5ECF7C001D5F37 /* AuthorizationMulticast.swift */,
 				884499D71F8D10CC00838083 /* AuthorizedActionStrategy.swift */,
@@ -7326,6 +7329,7 @@
 				9C0B1F631F9664000005287B /* PostFeedLabel.swift in Sources */,
 				88580C281F2213AB00C1CBAF /* SessionStoreDatabase.swift in Sources */,
 				63E1DA211F7BE95800187E35 /* CommentsService.swift in Sources */,
+				885715AA1FA0BAB20047B1D9 /* DateUtils.swift in Sources */,
 				88E3AC0D1F5556C10016357F /* SettingsViewInput.swift in Sources */,
 				88EBD21B1F6BFDC100F9DDFC /* TopicCommand.swift in Sources */,
 				884C9C3E1F4D83020004907F /* PredicateBuilder.swift in Sources */,
