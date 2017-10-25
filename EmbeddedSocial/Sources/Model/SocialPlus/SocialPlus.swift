@@ -5,7 +5,6 @@
 
 import Foundation
 import SnapKit
-import FBSDKLoginKit
 
 public final class SocialPlus {
     public static let shared = SocialPlus()
@@ -83,16 +82,6 @@ public final class SocialPlus {
         
         let c = UpdateNotificationsStatusCommand(handle: UUID().uuidString)
         cache.cacheOutgoing(c)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            let mgr = FBSDKLoginManager()
-            mgr.logIn(withReadPermissions: ["user_about_me"], from: self.coordinator.navigationStack.navigationController) { p1, p2 in
-                withExtendedLifetime(mgr) {
-                    print(p1, p2)
-                }
-            }
-        }
-
     }
     
     fileprivate func startSession(with info: SessionInfo) {
