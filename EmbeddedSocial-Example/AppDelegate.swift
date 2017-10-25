@@ -4,14 +4,14 @@
 //
 
 import UIKit
-//import EmbeddedSocial
+import EmbeddedSocial
 import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-//    let menu = MyAppMenu()
+    let menu = MyAppMenu()
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -24,12 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIView.setAnimationsEnabled(false)
         }
         
-//        let args = LaunchArguments(app: application,
-//                                   window: window!,
-//                                   launchOptions: launchOptions ?? [:],
-//                                   menuHandler: menu,
-//                                   menuConfiguration: .tab)
-//        SocialPlus.shared.start(launchArguments: args)
+        let args = LaunchArguments(app: application,
+                                   window: window!,
+                                   launchOptions: launchOptions ?? [:],
+                                   menuHandler: menu,
+                                   menuConfiguration: .tab)
+        SocialPlus.shared.start(launchArguments: args)
         
         if #available(iOS 10.0, *) {
             let center = UNUserNotificationCenter.current()
@@ -45,20 +45,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-//    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
-//        return SocialPlus.shared.application(app, open: url, options: options)
-//    }
-//
-//    /// iOS 8 support
-//    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-//        var options: [String: Any] = ["UIApplicationOpenURLOptionsAnnotationKey": annotation]
-//
-//        if let sourceApplication = sourceApplication {
-//            options["UIApplicationOpenURLOptionsSourceApplicationKey"] = sourceApplication
-//        }
-//
-//        return SocialPlus.shared.application(application, open: url as URL, options: options)
-//    }
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
+        return SocialPlus.shared.application(app, open: url, options: options)
+    }
+
+    /// iOS 8 support
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        var options: [String: Any] = ["UIApplicationOpenURLOptionsAnnotationKey": annotation]
+
+        if let sourceApplication = sourceApplication {
+            options["UIApplicationOpenURLOptionsSourceApplicationKey"] = sourceApplication
+        }
+
+        return SocialPlus.shared.application(application, open: url as URL, options: options)
+    }
     
     
     /// push notifications
@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
         print(deviceTokenString)
-//        SocialPlus.shared.updateDeviceToken(devictToken: deviceTokenString)
+        SocialPlus.shared.updateDeviceToken(devictToken: deviceTokenString)
         
     }
     
@@ -79,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification data: [AnyHashable : Any]) {
         // Print notification payload data
         print("Push notification received: \(data)")
-//        SocialPlus.shared.didReceiveRemoteNotification(data: data)
+        SocialPlus.shared.didReceiveRemoteNotification(data: data)
         
     }
     

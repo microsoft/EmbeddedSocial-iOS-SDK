@@ -25,11 +25,7 @@ Pod::Spec.new do |s|
   s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(PODS_TARGET_SRCROOT)/EmbeddedSocial/Vendor/LiveSDK' }
   s.preserve_paths = 'EmbeddedSocial/Vendor/LiveSDK/module.modulemap'
   s.static_framework = true
-  s.ios.frameworks = [
-    'UIKit',
-    'AVFoundation',
-    'CoreMedia'
-  ]
+  s.ios.frameworks = 'UIKit'
 
   s.subspec 'no-arc' do |ss|
     ss.source_files = 'EmbeddedSocial/Vendor/LiveSDK/**/*.{h,m}'
