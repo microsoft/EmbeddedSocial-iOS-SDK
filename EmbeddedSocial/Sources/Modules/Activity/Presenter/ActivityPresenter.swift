@@ -14,6 +14,16 @@ class ActivityPresenter {
     weak var view: ActivityViewInput!
     var interactor: ActivityInteractorInput
     var router: ActivityRouterInput!
+    let userHolder: UserHolder
+    
+    fileprivate var needsToShowMyPendingInvintationsSection: Bool {
+        get {
+            return userHolder.me?.isPrivate ?? false
+        }
+    }
+    
+    fileprivate let needsToShowMyActivitySection = true
+    fileprivate let needsToShowOthersActivitySection = true
     
     var theme: Theme?
     
@@ -55,8 +65,9 @@ class ActivityPresenter {
         cellTypes.forEach{ view.registerCell(cell: $0.value, id: $0.key) }
     }
     
-    init(interactor: ActivityInteractorInput) {
+    init(interactor: ActivityInteractorInput, userProvider: UserHolder) {
         self.interactor = interactor
+        self.userHolder = userProvider
         setup()
     }
     
@@ -65,28 +76,61 @@ class ActivityPresenter {
     }
     
     var dataSources: [State: [DataSource]] = [:]
+    func numberOfSectionsInState(state: State) -> Int {
+        return dataSources[state]!.count
+    }
+    
+    fileprivate func pendingDataSource(sectionIndex: Int) -> DataSource {
+        let context = DataSourceContext(state: .my, index: sectionIndex)
+        let ds = DataSourceBuilder.build(with: .pending, delegate: self, interactor: interactor, context: context)
+        return ds
+    }
+    
+    fileprivate func myActivityDataSource(sectionIndex: Int) -> DataSource {
+        let context = DataSourceContext(state: .my, index: sectionIndex)
+        let ds = DataSourceBuilder.build(with: .myActivity, delegate: self, interactor: interactor, context: context)
+        return ds
+    }
+    
+    fileprivate func othersActivityDataSource(sectionIndex: Int) -> DataSource {
+        let context = DataSourceContext(state: .others, index: sectionIndex)
+        let ds = DataSourceBuilder.build(with: .othersActivity, delegate: self, interactor: interactor, context: context)
+        return ds
+    }
     
     fileprivate func makeDataSources() -> [State: [DataSource]] {
         
         var sources: [State: [DataSource]] = [:]
+    
+        sources[.my] = []
         
-        let pendingDataSource = DataSourceBuilder.buildPendingRequestsDataSource(
-            interactor: interactor,
-            delegate: self,
-            context: DataSourceContext(state: self.state, index:0))
+        var myActivityDataSources: [DataSource] = []
         
-        let myActivityDataSource = DataSourceBuilder.buildMyActivitiesDataSource(
-            interactor: interactor,
-            delegate: self,
-            context: DataSourceContext(state: self.state, index: 1))
+        if needsToShowMyPendingInvintationsSection {
+            let dataSourceState: State = .my
+            let index = numberOfSectionsInState(state: dataSourceState)
+            let dataSource = pendingDataSource(sectionIndex: index)
+            myActivityDataSources.append(dataSource)
+        }
         
-        let othersActivityDataSource = DataSourceBuilder.buildOthersActivitiesDataSource(
-            interactor: interactor,
-            delegate: self,
-            context: DataSourceContext(state: self.state, index: 0))
+        if needsToShowMyActivitySection {
+            let dataSourceState: State = .my
+            let index = numberOfSectionsInState(state: dataSourceState)
+            let dataSource = myActivityDataSource(sectionIndex: index)
+            myActivityDataSources.append(dataSource)
+        }
         
-        sources[.my] = [pendingDataSource, myActivityDataSource]
-        sources[.others] = [othersActivityDataSource]
+        var othersActivityDataSources: [DataSource] = []
+        
+        if needsToShowOthersActivitySection {
+            let dataSourceState: State = .others
+            let index = numberOfSectionsInState(state: dataSourceState)
+            let dataSource = othersActivityDataSource(sectionIndex: index)
+            othersActivityDataSources.append(dataSource)
+        }
+
+        sources[.my] = myActivityDataSources
+        sources[.others] = othersActivityDataSources
         return sources
     }
     
