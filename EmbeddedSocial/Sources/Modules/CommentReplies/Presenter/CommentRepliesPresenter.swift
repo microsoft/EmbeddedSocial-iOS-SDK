@@ -190,7 +190,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     }
     
     func replyFailPost(error: APIError) {
-        if error == .replyNotFound {
+        if error == .commentNotFound {
             router.back()
         }
         
