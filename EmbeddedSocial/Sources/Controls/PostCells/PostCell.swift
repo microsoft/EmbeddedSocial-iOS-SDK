@@ -43,7 +43,9 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         }
         
         let ratio = Constants.FeedModule.Collection.imageRatio
-        return height * ratio
+        let result = height * ratio
+        
+        return max(result, Constants.FeedModule.Collection.imageHeight)
     }
     
     func indexPath() -> IndexPath? {
