@@ -96,13 +96,13 @@ class TestUserProfileOffline: BaseTestUserProfile, OfflineTest {
                             "followerStatus": "Follow"]
         
         openScreen()
-        makePullToRefreshWithoutReachability(with: profile.details)
+        makePullToRefreshWithoutReachability(with: profile.asUIElement())
         super.testProfileAttributes()
     }
     
     override func testFollowUser() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: profile.details)
+        makePullToRefreshWithoutReachability(with: profile.asUIElement())
         super.testFollowUser()
     }
     

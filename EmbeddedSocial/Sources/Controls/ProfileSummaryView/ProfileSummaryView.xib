@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,6 +24,7 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hQ-du-u9k">
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="34"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="Followers"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
                                         <action selector="onFollowers:" destination="oKC-QY-Inf" eventType="touchUpInside" id="IK8-mu-YYy"/>
@@ -31,6 +32,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kSk-KB-Rjn">
                                     <rect key="frame" x="104" y="0.0" width="103.5" height="34"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="Following"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
                                         <action selector="onFollowing:" destination="oKC-QY-Inf" eventType="touchUpInside" id="s7s-tz-ZmS"/>
@@ -38,6 +40,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QzS-nE-skK">
                                     <rect key="frame" x="206.5" y="0.0" width="103.5" height="34"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="Edit"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
                                         <action selector="onEdit:" destination="oKC-QY-Inf" eventType="touchUpInside" id="RMv-jg-Krq"/>
@@ -45,6 +48,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHc-Vo-4xu">
                                     <rect key="frame" x="206.5" y="0.0" width="103.5" height="34"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="Follow"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
                                         <action selector="onFollow:" destination="oKC-QY-Inf" eventType="touchUpInside" id="abh-Fo-Gaa"/>
