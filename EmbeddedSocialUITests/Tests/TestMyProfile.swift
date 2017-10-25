@@ -49,34 +49,82 @@ class TestOfflineProfileDetails: BaseTestProfileDetails, OfflineTest {
     
     override func testProfileAttributes() {
         openProfileScreen()
-        makePullToRefreshWithoutReachability(with: profile.details)
+        makePullToRefreshWithoutReachability(with: profile.asUIElement())
         super.testProfileAttributes()
     }
     
 }
 
-class TestMyProfileRecentPosts: TestOnlineHome {
-    var profile: UserProfile!
+class TestMyProfileRecentPostsOnline: TestOnlineHome {
+    
+    private var profile: UserProfile!
     
     override func setUp() {
         super.setUp()
+        
         feedName = "me"
         profile = UserProfile(app)
     }
     
     override func openScreen() {
         sideMenu.navigateToUserProfile()
+        
+        profile.popularPostsButton.tap()
         profile.recentPostsButton.tap()
+        
         sleep(1)
     }
     
 }
 
-class TestMyProfilePopularPosts: TestOnlineHome {
-    var profile: UserProfile!
+class TestMyProfileRecentPostsOffline: TestOfflineHome {
+    
+    private var profile: UserProfile!
+    
+    override func setUp() {
+        super.setUp()
+        
+        feedName = "me"
+        profile = UserProfile(app)
+    }
+    
+    override func openScreen() {
+        sideMenu.navigateToUserProfile()
+        
+        profile.popularPostsButton.tap()
+        profile.recentPostsButton.tap()
+        
+        sleep(1)
+    }
+    
+}
+
+class TestMyProfilePopularPostsOnline: TestOnlineHome {
+    
+    private var profile: UserProfile!
 
     override func setUp() {
         super.setUp()
+        
+        feedName = "mepopular"
+        profile = UserProfile(app)
+    }
+    
+    override func openScreen() {
+        sideMenu.navigateToUserProfile()
+        profile.popularPostsButton.tap()
+        sleep(1)
+    }
+    
+}
+
+class TestMyProfilePopularPostsOffline: TestOfflineHome {
+    
+    private var profile: UserProfile!
+    
+    override func setUp() {
+        super.setUp()
+        
         feedName = "mepopular"
         profile = UserProfile(app)
     }

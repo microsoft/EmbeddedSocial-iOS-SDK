@@ -3,21 +3,24 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 
 class UserProfile {
-    var app: XCUIApplication!
+    
     var feed: Feed!
-    var details: XCUIElement!
+    
+    var menu: XCUIElementQuery!
+
     var followersButton: XCUIElement!
     var followingButton: XCUIElement!
     var editProfileButton: XCUIElement!
     var followButton: XCUIElement!
     var recentPostsButton: XCUIElement!
     var popularPostsButton: XCUIElement!
-    var menuButton: XCUIElement!
-    var menu: XCUIElementQuery!
+    
+    private var app: XCUIApplication!
+    private var details: XCUIElement!
+    private var menuButton: XCUIElement!
     
     init(_ application: XCUIApplication) {
         self.app = application
@@ -55,4 +58,9 @@ class UserProfile {
     func back() {
         app.navigationBars.children(matching: .button).matching(identifier: "Back").element(boundBy: 0).tap()
     }
+    
+    func asUIElement() -> XCUIElement {
+        return details
+    }
+    
 }
