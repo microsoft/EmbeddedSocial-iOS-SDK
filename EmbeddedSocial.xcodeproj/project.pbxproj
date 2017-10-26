@@ -49,6 +49,7 @@
 		63981E091F8377AF004CE176 /* MockDetailedActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63981E081F8377AF004CE176 /* MockDetailedActivityViewController.swift */; };
 		63981E0B1F8377EE004CE176 /* MockDetailedActivityInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63981E0A1F8377EE004CE176 /* MockDetailedActivityInteractor.swift */; };
 		63981E0D1F8377FD004CE176 /* MockDetailedActivityPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63981E0C1F8377FD004CE176 /* MockDetailedActivityPresenter.swift */; };
+		639866BD1FA233540058F8FB /* UpdateTopicCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639866BC1FA233540058F8FB /* UpdateTopicCommandTests.swift */; };
 		639A943E1F5D2FD700EB0253 /* MockCommentCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A943D1F5D2FD700EB0253 /* MockCommentCellPresenter.swift */; };
 		639A94401F5D2FE800EB0253 /* MockCommentCellInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A943F1F5D2FE800EB0253 /* MockCommentCellInteractor.swift */; };
 		639A94421F5D2FF600EB0253 /* MockCommentCellRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A94411F5D2FF600EB0253 /* MockCommentCellRouter.swift */; };
@@ -61,6 +62,8 @@
 		63A1D7221F2A03150090C67A /* MockCreatePostInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7211F2A03150090C67A /* MockCreatePostInteractor.swift */; };
 		63A1D7251F2A04EB0090C67A /* MockCreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7241F2A04EB0090C67A /* MockCreatePostViewController.swift */; };
 		63A1D7281F2A24900090C67A /* MockCreatePostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1D7271F2A24900090C67A /* MockCreatePostPresenter.swift */; };
+		63ABB3A41FA1E4F200E3E8BA /* UpdateTopicCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ABB3A31FA1E4F200E3E8BA /* UpdateTopicCommand.swift */; };
+		63ABB3A61FA2097C00E3E8BA /* UpdateTopicOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ABB3A51FA2097C00E3E8BA /* UpdateTopicOperation.swift */; };
 		63B62ECE1F838C5F003DC885 /* DetailedActivityPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3EAB21F82952B00E8E7ED /* DetailedActivityPresenterTests.swift */; };
 		63B62ECF1F838C61003DC885 /* DetailedActivityInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3EAB41F82954F00E8E7ED /* DetailedActivityInteractorTests.swift */; };
 		63B62ED21F83CA17003DC885 /* ReplyCellPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B62ED11F83CA17003DC885 /* ReplyCellPresenterTests.swift */; };
@@ -1224,6 +1227,7 @@
 		63981E081F8377AF004CE176 /* MockDetailedActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDetailedActivityViewController.swift; sourceTree = "<group>"; };
 		63981E0A1F8377EE004CE176 /* MockDetailedActivityInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDetailedActivityInteractor.swift; sourceTree = "<group>"; };
 		63981E0C1F8377FD004CE176 /* MockDetailedActivityPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDetailedActivityPresenter.swift; sourceTree = "<group>"; };
+		639866BC1FA233540058F8FB /* UpdateTopicCommandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTopicCommandTests.swift; sourceTree = "<group>"; };
 		639A943D1F5D2FD700EB0253 /* MockCommentCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentCellPresenter.swift; sourceTree = "<group>"; };
 		639A943F1F5D2FE800EB0253 /* MockCommentCellInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentCellInteractor.swift; sourceTree = "<group>"; };
 		639A94411F5D2FF600EB0253 /* MockCommentCellRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentCellRouter.swift; sourceTree = "<group>"; };
@@ -1238,6 +1242,8 @@
 		63A1D7211F2A03150090C67A /* MockCreatePostInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostInteractor.swift; sourceTree = "<group>"; };
 		63A1D7241F2A04EB0090C67A /* MockCreatePostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostViewController.swift; sourceTree = "<group>"; };
 		63A1D7271F2A24900090C67A /* MockCreatePostPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCreatePostPresenter.swift; sourceTree = "<group>"; };
+		63ABB3A31FA1E4F200E3E8BA /* UpdateTopicCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTopicCommand.swift; sourceTree = "<group>"; };
+		63ABB3A51FA2097C00E3E8BA /* UpdateTopicOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTopicOperation.swift; sourceTree = "<group>"; };
 		63B62ED11F83CA17003DC885 /* ReplyCellPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyCellPresenterTests.swift; sourceTree = "<group>"; };
 		63B62ED31F83CA34003DC885 /* ReplyCellInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyCellInteractorTests.swift; sourceTree = "<group>"; };
 		63B62ED61F83CACF003DC885 /* MockReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockReplyCell.swift; sourceTree = "<group>"; };
@@ -2671,6 +2677,7 @@
 				88C682381F7939D6004BD291 /* TopicCommandTests.swift */,
 				880AFD3D1F6FE5E400378710 /* UnlikeTopicCommandTests.swift */,
 				880AFD411F6FE6CD00378710 /* UnpinTopicCommandTests.swift */,
+				639866BC1FA233540058F8FB /* UpdateTopicCommandTests.swift */,
 			);
 			path = TopicCommands;
 			sourceTree = "<group>";
@@ -5325,6 +5332,7 @@
 				88EBD21A1F6BFDC100F9DDFC /* TopicCommand.swift */,
 				88EBD21D1F6C003A00F9DDFC /* UnlikeTopicCommand.swift */,
 				88EBD2231F6C005900F9DDFC /* UnpinTopicCommand.swift */,
+				63ABB3A31FA1E4F200E3E8BA /* UpdateTopicCommand.swift */,
 			);
 			path = TopicCommands;
 			sourceTree = "<group>";
@@ -5339,6 +5347,7 @@
 				88EBD22C1F6C135B00F9DDFC /* TopicCommandOperation.swift */,
 				88EBD2341F6C144F00F9DDFC /* UnlikeTopicOperation.swift */,
 				88EBD2301F6C13E900F9DDFC /* UnpinTopicOperation.swift */,
+				63ABB3A51FA2097C00E3E8BA /* UpdateTopicOperation.swift */,
 			);
 			path = TopicCommandsOperations;
 			sourceTree = "<group>";
@@ -6764,6 +6773,7 @@
 				8875CCE91F331CB3001F2474 /* FollowingPresenter.swift in Sources */,
 				88B94EF41F66ACA7002392F9 /* AtomicOutgoingCommandsExecutor.swift in Sources */,
 				88F551AC1F38717A00F4AAB9 /* UICollectionView+Ext.swift in Sources */,
+				63ABB3A61FA2097C00E3E8BA /* UpdateTopicOperation.swift in Sources */,
 				8864C8401F46DC6800ADCE13 /* SearchPeopleModuleInput.swift in Sources */,
 				88204FBB1F581F2A00E15F5A /* SuggestedUsersRequestExecutionStrategy.swift in Sources */,
 				88F385861F30D1080048B04C /* UserListInteractorInput.swift in Sources */,
@@ -6796,6 +6806,7 @@
 				88C665081F866E8500A7763D /* PopularUsersResponseProcessor.swift in Sources */,
 				93AC659E1F3E056F00FE5A3A /* PostDetailRouter.swift in Sources */,
 				88580C1B1F2213AB00C1CBAF /* AuthServiceImplementation.swift in Sources */,
+				63ABB3A41FA1E4F200E3E8BA /* UpdateTopicCommand.swift in Sources */,
 				8834A7601F50669800F1D383 /* LikesListViewInput.swift in Sources */,
 				8802F21A1F596BBA00FD0A15 /* RequestExecutorProvider.swift in Sources */,
 				88D8C2A81F9A35E7002148C3 /* UpdateNotificationsStatusOperation.swift in Sources */,
@@ -7568,6 +7579,7 @@
 				88B94ED61F62C450002392F9 /* MockSearchTopicsModuleOutput.swift in Sources */,
 				9C0F36A41F9E101E002C65B0 /* MockSideMenuView.swift in Sources */,
 				88E6620A1F7AA18400C98526 /* UsersListProcessorTests.swift in Sources */,
+				639866BD1FA233540058F8FB /* UpdateTopicCommandTests.swift in Sources */,
 				63DCE6C71F7D1E7F00F9F76B /* RemoveCommentCommandTests.swift in Sources */,
 				8811C8A81F4435E800F7513D /* MockEmbeddedEditProfileModuleOutput.swift in Sources */,
 				636474821F5EDD2F000D7B3D /* CommentCellInteractorTests.swift in Sources */,
