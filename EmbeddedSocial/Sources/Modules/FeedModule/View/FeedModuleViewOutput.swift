@@ -21,4 +21,7 @@ protocol FeedModuleViewOutput {
     
     func configureHeader(_ headerView: UICollectionReusableView)
     var headerSize: CGSize { get }
+    
+    
+    var currentItems: [Post] { get set }
 }
