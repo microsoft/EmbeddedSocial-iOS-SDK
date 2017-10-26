@@ -71,13 +71,28 @@ class RepliesFeed {
         return UInt(self.feedContainer.cells.count)
     }
     
-    func getReply(_ index: UInt) -> Reply {
-        return Reply(self.feedContainer.children(matching: .cell).element(boundBy: index), self.app)
+    func getReply(_ index: UInt, withScroll scroll: Bool = true) -> Reply {
+        let cell = feedContainer.cells.element(boundBy: index)
+        
+        if scroll {
+            scrollToElement(cell, app)
+        }
+
+        return Reply(cell, self.app)
     }
     
     func getRandomReply() -> (UInt, Reply) {
         let index = Random.randomUInt(self.getRepliesCount())
         return (index, self.getReply(index))
+    }
+    
+    func publishWith(text: String) {
+        replyText.tap()
+        replyText.clearText()
+        replyText.tap()
+        replyText.typeText(text)
+        
+        publishReplyButton.tap()
     }
     
     func asUIElement() -> XCUIElement {
