@@ -16,6 +16,7 @@ struct APIConfig {
     public static var showTopicImages = false
     public static var showUserImages = false
     public static var numberedTopicTeasers = false
+    public static var showCommentHandleInTeaser = false
     public static var numberedCommentLikes = false
     public static var loadMyTopics = false
     public static var isReachable = true

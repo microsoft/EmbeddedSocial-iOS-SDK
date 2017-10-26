@@ -7,8 +7,6 @@ import XCTest
 
 class TestPostMenu: TestOnlineHome {
     
-    private var randomFeedPostInformation: (index: UInt, post: Post)!
-    
     override func openScreen() {
         sideMenu.navigateToUserProfile()
     }
@@ -16,12 +14,12 @@ class TestPostMenu: TestOnlineHome {
     func testFollowAndUnfollow() {
         openScreen()
         
-        randomFeedPostInformation = feed.getRandomPost()
+        let (_, post) = feed.getRandomPost()
         
         // Follow test
         
-        clearRequestsHistory()
-        select(menuItem: .follow, for: randomFeedPostInformation.post)
+        select(menuItem: .follow, for: post)
+        sleep(1)
         
         XCTAssertTrue(APIState.getLatestRequest().contains("me/following/users"))
         XCTAssertTrue(APIState.latestRequstMethod == "POST")
@@ -31,8 +29,8 @@ class TestPostMenu: TestOnlineHome {
         
         // Unfollow test
         
-        clearRequestsHistory()
-        select(menuItem: .unfollow, for: randomFeedPostInformation.post)
+        select(menuItem: .unfollow, for: post)
+        sleep(1)
         
         XCTAssertTrue(APIState.getLatestRequest().contains("me/following/users/\(followingUser!)"))
         XCTAssertTrue(APIState.latestRequstMethod == "DELETE")
@@ -41,12 +39,12 @@ class TestPostMenu: TestOnlineHome {
     func testBlockAndUnblock() {
         openScreen()
         
-        randomFeedPostInformation = feed.getRandomPost()
+        let (_, post) = feed.getRandomPost()
         
         // Block test
         
-        clearRequestsHistory()
-        select(menuItem: .block, for: randomFeedPostInformation.post)
+        select(menuItem: .block, for: post)
+        sleep(1)
         
         XCTAssertTrue(APIState.getLatestRequest().contains("me/blocked_users"))
         XCTAssertTrue(APIState.latestRequstMethod == "POST")
@@ -56,22 +54,22 @@ class TestPostMenu: TestOnlineHome {
         
         // unblock test
         
-        clearRequestsHistory()
-        select(menuItem: .unblock, for: randomFeedPostInformation.post)
+        select(menuItem: .unblock, for: post)
+        sleep(1)
         
         XCTAssertTrue(APIState.getLatestRequest().contains("me/blocked_users/\(blockedUser!)"))
         XCTAssertTrue(APIState.latestRequstMethod == "DELETE")
     }
     
     func testReports() {
-        feedName = "me"
-
         openScreen()
         
         // Initialize values
         
-        randomFeedPostInformation = feed.getRandomPost()
-        select(menuItem: .report, for: randomFeedPostInformation.post)
+        var (_, post) = feed.getRandomPost()
+        let reportingPostTitle = post.getTitle().label
+        
+        select(menuItem: .report, for: post)
 
         let reportIssuesCells = app.tables.element.cells
         let submitReportButton = app.navigationBars.element.buttons.element(boundBy: 1)
@@ -80,9 +78,8 @@ class TestPostMenu: TestOnlineHome {
         for i in 0..<reportIssuesCells.count {
             // It's already opened for first item
             if i > 0 {
-                // Get new post and open report item                
-                randomFeedPostInformation = feed.getRandomPost()
-                select(menuItem: .report, for: randomFeedPostInformation.post)
+                // Get new post and open report item
+                select(menuItem: .report, for: post)
             }
             
             // Select issue cell
@@ -91,7 +88,6 @@ class TestPostMenu: TestOnlineHome {
             currentIssueCell.tap()
             submitReportButton.tap()
             
-            let reportingPostTitle = feedName + "\(randomFeedPostInformation.index)"
             XCTAssertTrue(APIState.getLatestRequest().hasSuffix("/\(reportingPostTitle)/reports"))
             
             doneButton.tap()
@@ -101,10 +97,6 @@ class TestPostMenu: TestOnlineHome {
 }
 
 extension TestPostMenu {
-    
-    fileprivate func clearRequestsHistory() {
-        APIState.requestHistory.removeAll()
-    }
     
     fileprivate func select(menuItem: PostMenuItem, for post: Post) {
         XCTAssert(post.menu().isExists(item: menuItem), "Menu item - \"\(menuItem.rawValue)\" does not exists!")

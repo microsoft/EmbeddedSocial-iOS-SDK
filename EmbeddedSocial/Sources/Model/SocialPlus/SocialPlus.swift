@@ -143,3 +143,13 @@ extension SocialPlus: LogoutController {
         }
     }
 }
+
+extension SocialPlus {
+    func rootController() -> UINavigationController? {
+        guard let rootController = coordinator?.navigationStack?.navigationController else {
+            return nil
+        }
+        
+        return rootController
+    }
+}

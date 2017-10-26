@@ -51,17 +51,24 @@ class BaseTestBlockedUsers: BaseSideMenuTest {
     }
     
     func testPaging() {
-        let oldCount = blockedUsersFeed.getBlockedUsersCount()
-        for _ in 1...15 {
+        var retryCount = 10
+        
+        while blockedUsersFeed.getBlockedUsersCount() <= UInt(pageSize) && retryCount != 0 {
+            retryCount -= 1
             app.swipeUp()
         }
-        let newCount = blockedUsersFeed.getBlockedUsersCount()
-        XCTAssertGreaterThanOrEqual(newCount, oldCount, "New users weren't loaded while feed up")
+        
+        XCTAssertGreaterThan(blockedUsersFeed.getBlockedUsersCount(), UInt(pageSize), "New users weren't loaded while swiping feed up")
     }
     
 }
 
 class TestBlockedUsersOnline: BaseTestBlockedUsers, OnlineTest {
+    
+    override func testBlockedUsersAttributes() {
+        openScreen()
+        super.testBlockedUsersAttributes()
+    }
     
     override func testImagesLoading() {
         APIConfig.showUserImages = true
@@ -96,6 +103,12 @@ class TestBlockedUsersOnline: BaseTestBlockedUsers, OnlineTest {
 }
 
 class TestBlockedUsersOffline: BaseTestBlockedUsers, OfflineTest {
+    
+    override func testBlockedUsersAttributes() {
+        openScreen()
+        makePullToRefreshWithoutReachability(with: blockedUsersFeed.getBlockedUserItem(at: 0).asUIElement())
+        super.testBlockedUsersAttributes()
+    }
     
     override func testUnblockingUser() {
         openScreen()

@@ -8,5 +8,4 @@ import XCTest
 @testable import EmbeddedSocial
 
 class AppConfigurationTests: XCTestCase {
-    
 }

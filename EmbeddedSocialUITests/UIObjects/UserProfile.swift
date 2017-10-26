@@ -3,33 +3,37 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 
 class UserProfile {
-    var app: XCUIApplication!
+    
     var feed: Feed!
-    var details: XCUIElement!
+    
+    var menu: XCUIElementQuery!
+
     var followersButton: XCUIElement!
     var followingButton: XCUIElement!
     var editProfileButton: XCUIElement!
     var followButton: XCUIElement!
     var recentPostsButton: XCUIElement!
     var popularPostsButton: XCUIElement!
-    var menuButton: XCUIElement!
-    var menu: XCUIElementQuery!
+    
+    private var app: XCUIApplication!
+    private var details: XCUIElement!
+    private var menuButton: XCUIElement!
     
     init(_ application: XCUIApplication) {
         self.app = application
         self.menuButton = app.navigationBars.children(matching: .button).element(boundBy: 2)
         self.menu = app.sheets
         self.feed = Feed(app)
+        
         self.details = app.collectionViews.children(matching: .other).element // app.collectionViews.element
-        self.followersButton = details.buttons.element(boundBy: 0)
-        self.followingButton = details.buttons.element(boundBy: 1)
-        self.editProfileButton = details.buttons.element(boundBy: 2)
-        // Edit profile in My Profile and Follow in other user profiles
-        self.followButton = details.buttons.element(boundBy: 3)
+        self.followersButton = details.buttons["Followers"].firstMatch
+        self.followingButton = details.buttons["Following"].firstMatch
+        self.editProfileButton = details.buttons["Edit"].firstMatch
+        self.followButton = details.buttons["Follow"].firstMatch
+        
         self.recentPostsButton = app.collectionViews.buttons["Recent posts"]
         self.popularPostsButton = app.collectionViews.buttons["Popular posts"]
         
@@ -54,4 +58,9 @@ class UserProfile {
     func back() {
         app.navigationBars.children(matching: .button).matching(identifier: "Back").element(boundBy: 0).tap()
     }
+    
+    func asUIElement() -> XCUIElement {
+        return details
+    }
+    
 }

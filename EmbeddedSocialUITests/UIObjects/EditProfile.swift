@@ -7,12 +7,13 @@ import Foundation
 import XCTest
 
 class EditProfile {
-    var app: XCUIApplication!
-    var editContainer: XCUIElementQuery!
-    var firstNameInput: XCUIElement!
-    var lastNameInput: XCUIElement
-    var bioInput: XCUIElement!
-    var saveButton: XCUIElement!
+    
+    private var app: XCUIApplication!
+    private var editContainer: XCUIElementQuery!
+    private var firstNameInput: XCUIElement!
+    private var lastNameInput: XCUIElement
+    private var bioInput: XCUIElement!
+    private var saveButton: XCUIElement!
     
     init(_ application: XCUIApplication) {
         self.app = application
@@ -22,4 +23,16 @@ class EditProfile {
         self.bioInput = self.editContainer.cells["Bio"].children(matching: .textView).element
         self.saveButton = self.app.navigationBars.buttons["Save"]
     }
+    
+    func updateProfileWith(firstName: String, lastName: String, bio: String) {
+        firstNameInput.clearText()
+        firstNameInput.typeText(firstName)
+        lastNameInput.clearText()
+        lastNameInput.typeText(lastName)
+        bioInput.clearText()
+        bioInput.typeText(bio)
+        
+        saveButton.tap()
+    }
+    
 }

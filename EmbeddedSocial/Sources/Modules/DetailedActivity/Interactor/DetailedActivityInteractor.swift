@@ -22,8 +22,13 @@ class DetailedActivityInteractor: DetailedActivityInteractorInput {
     var commentHandle: String?
     var replyHandle: String?
     
-    var replyService: RepliesServiceProtcol = RepliesService()
-    var commentService: CommentServiceProtocol = CommentsService(imagesService: ImagesService())
+    var replyService: RepliesServiceProtcol
+    var commentService: CommentServiceProtocol
+    
+    init(replyService: RepliesServiceProtcol, commentService: CommentServiceProtocol) {
+        self.replyService = replyService
+        self.commentService = commentService
+    }
     
     func loadComment() {
         commentService.comment(commentHandle: commentHandle!, cachedResult: { (cachedComment) in

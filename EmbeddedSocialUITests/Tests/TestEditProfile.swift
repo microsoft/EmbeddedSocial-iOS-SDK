@@ -3,46 +3,57 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 
-class TestEditProfile: UITestBase {
-    var sideMenu: SideMenu!
+class BaseTestEditProfile: BaseSideMenuTest {
+    
     var profile: UserProfile!
-    var editProfile: EditProfile!
+    
+    private var editProfile: EditProfile!
     
     override func setUp() {
         super.setUp()
-        sideMenu = SideMenu(app)
+        
         profile = UserProfile(app)
         editProfile = EditProfile(app)
     }
     
-    func openScreen() {
-        sideMenu.navigateToUserProfile()
-        profile.editProfileButton.tap()
-        
+    override func openScreen() {
+        navigate(to: .userProfile)
     }
     
     func testUpdateProfileDetails() {
-        openScreen()
+        profile.editProfileButton.tap()
         
-        editProfile.firstNameInput.clearText()
-        editProfile.firstNameInput.typeText("Alan")
-        editProfile.lastNameInput.clearText()
-        editProfile.lastNameInput.typeText("Poe")
-        editProfile.bioInput.clearText()
-        editProfile.bioInput.typeText("Lorem ipsum dolor")
-        
-        editProfile.saveButton.tap()
-        
-        let request = APIState.getLatestData(forService: "me")
-        
-        XCTAssertEqual(request?["firstName"] as! String, "Alan", "First name doesn't match")
-        XCTAssertEqual(request?["lastName"] as! String, "Poe", "Last name doesn't match")
-        XCTAssertEqual(request?["bio"] as! String, "Lorem ipsum dolor", "First name doesn't match")
+        editProfile.updateProfileWith(firstName: "Alan", lastName: "Poe", bio: "Lorem ipsum dolor")
+        sleep(1)
         
         XCTAssert(profile.textExists("Alan Poe"), "First and last name is not updated in the UI")
         XCTAssert(profile.textExists("Lorem ipsum dolor"), "Bio is not updated in the UI")
     }
+}
+
+class TestEditProfileOnline: BaseTestEditProfile, OnlineTest {
+    
+    override func testUpdateProfileDetails() {
+        openScreen()
+        
+        super.testUpdateProfileDetails()
+        
+        let request = APIState.getLatestData(forService: "me")
+        XCTAssertEqual(request?["firstName"] as! String, "Alan", "First name doesn't match")
+        XCTAssertEqual(request?["lastName"] as! String, "Poe", "Last name doesn't match")
+        XCTAssertEqual(request?["bio"] as! String, "Lorem ipsum dolor", "First name doesn't match")
+    }
+    
+}
+
+class TestEditProfileOffline: BaseTestEditProfile, OfflineTest {
+    
+    override func testUpdateProfileDetails() {
+        openScreen()
+        makePullToRefreshWithoutReachability(with: profile.asUIElement())
+        super.testUpdateProfileDetails()
+    }
+    
 }

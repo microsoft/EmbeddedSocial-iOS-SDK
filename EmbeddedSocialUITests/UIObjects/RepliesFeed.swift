@@ -7,16 +7,19 @@ import Foundation
 import XCTest
 
 class Reply {
-    var app: XCUIApplication
-    var cell: XCUIElement
+    
     var likeButton: XCUIElement
     var likesButton: XCUIElement
+    
+    private var app: XCUIApplication
+    private var cell: XCUIElement
     
     init(_ cell: XCUIElement, _ application: XCUIApplication) {
         self.app = application
         self.cell = cell
-        self.likeButton = self.cell.buttons["Like"]
-        self.likesButton = self.cell.buttons.element(boundBy: 3)
+        
+        self.likeButton = self.cell.buttons["Like Reply"].firstMatch
+        self.likesButton = self.cell.buttons["Likes Reply"].firstMatch
     }
     
     //UILabel values cannot be read when element has an accessibility identifier
@@ -35,14 +38,21 @@ class Reply {
         self.likeButton.tap()
         sleep(1)
     }
+    
+    func asUIElement() -> XCUIElement {
+        return cell
+    }
+    
 }
 
 class RepliesFeed {
-    var app: XCUIApplication
-    var feedContainer: XCUIElement
+    
     var loadMoreButton: XCUIElement
     var replyText: XCUIElement
     var publishReplyButton: XCUIElement
+    
+    private var app: XCUIApplication
+    private var feedContainer: XCUIElement
     
     init(_ application: XCUIApplication) {
         self.app = application
@@ -52,16 +62,41 @@ class RepliesFeed {
         self.publishReplyButton = self.app.buttons["Post"]
     }
     
+    convenience init(_ application: XCUIApplication, containerView: XCUIElement) {
+        self.init(application)
+        feedContainer = containerView
+    }
+    
     func getRepliesCount() -> UInt {
         return UInt(self.feedContainer.cells.count)
     }
     
-    func getReply(_ index: UInt) -> Reply {
-        return Reply(self.feedContainer.children(matching: .cell).element(boundBy: index), self.app)
+    func getReply(_ index: UInt, withScroll scroll: Bool = true) -> Reply {
+        let cell = feedContainer.cells.element(boundBy: index)
+        
+        if scroll {
+            scrollToElement(cell, app)
+        }
+
+        return Reply(cell, self.app)
     }
     
     func getRandomReply() -> (UInt, Reply) {
         let index = Random.randomUInt(self.getRepliesCount())
         return (index, self.getReply(index))
     }
+    
+    func publishWith(text: String) {
+        replyText.tap()
+        replyText.clearText()
+        replyText.tap()
+        replyText.typeText(text)
+        
+        publishReplyButton.tap()
+    }
+    
+    func asUIElement() -> XCUIElement {
+        return feedContainer
+    }
+    
 }

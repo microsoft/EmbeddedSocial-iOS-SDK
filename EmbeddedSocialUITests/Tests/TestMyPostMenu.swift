@@ -5,7 +5,7 @@
 
 import XCTest
 
-class TestMyPostMenu: TestOnlineHome {
+class TestMyPostMenuOnline: TestOnlineHome {
     
     override func setUp() {
         super.setUp()
@@ -25,10 +25,11 @@ class TestMyPostMenu: TestOnlineHome {
         openScreen()
         
         let (_, postItem) = feed.getRandomPost()
-        let postItemHandle = postItem.getTitle()
+        let postItemHandle = postItem.getTitle().label
         
         XCTAssertTrue(postItem.menu().isExists(item: .remove))
         postItem.menu().select(item: .remove)
+        sleep(1)
         
         XCTAssertEqual(APIState.latestRequstMethod, "DELETE")
         XCTAssertTrue(APIState.getLatestRequest().hasSuffix("/topics/\(postItemHandle)"))
@@ -38,7 +39,7 @@ class TestMyPostMenu: TestOnlineHome {
         openScreen()
         
         let (_, postItem) = feed.getRandomPost()
-        let postItemHandle = postItem.getTitle()
+        let postItemHandle = postItem.getTitle().label
         
         XCTAssertTrue(postItem.menu().isExists(item: .edit))
         postItem.menu().select(item: .edit)
@@ -50,7 +51,7 @@ class TestMyPostMenu: TestOnlineHome {
         editPostView.updatePostWith(title: newPostTitle, text: newPostText)
         editPostView.save()
         
-        let postUpdateRequest = APIState.requestHistory[APIState.requestHistory.count - 1]
+        let postUpdateRequest = APIState.requestHistory[APIState.requestHistory.count - 2]
         XCTAssertTrue(postUpdateRequest.hasSuffix("/topics/\(postItemHandle)"))
         
         let latestRequestData = APIState.getLatestData(forService: "topicUpdate")
