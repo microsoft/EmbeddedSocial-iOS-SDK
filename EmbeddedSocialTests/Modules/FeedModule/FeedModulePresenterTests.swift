@@ -79,7 +79,7 @@ class FeedModulePresenter_Tests: XCTestCase {
                         items: posts,
                         cursor: nil)
         
-        sut.didFetch(feed: feedResponse)
+        sut.currentItems = feedResponse.items
         let path = IndexPath(row: 0, section: 0)
         
         // when
@@ -132,33 +132,6 @@ class FeedModulePresenter_Tests: XCTestCase {
 //        XCTAssertTrue(sut.item(for: IndexPath(row: 0, section: 0)).title == "Title 10")
 //        XCTAssertTrue(sut.numberOfItems() == 1)
 //    }
-    
-    func testThatReFetchFeedProducesCorrectItems() {
-        
-        // given
-        let path = IndexPath(row: 0, section: 0)
-        let feedType = FeedType.home
-        
-        let feedPosts1 = [Post.mock(seed: 1), Post.mock(seed: 2)]
-        let fetchID1 = uniqueString()
-        
-        _ = sut.makeFetchRequest(requestID: fetchID1, cursor: nil, feedType: feedType)
-        let feedResponse1 = Feed(fetchID: fetchID1, feedType: .home, items: feedPosts1, cursor: nil)
-        
-        let feedPosts2 = [Post.mock(seed: 3), Post.mock(seed: 4), Post.mock(seed: 5)]
-        let fetchID2 = uniqueString()
-        _ = sut.makeFetchRequest(requestID: fetchID2, cursor: nil, feedType: feedType)
-        let feedResponse2 = Feed(fetchID: fetchID2, feedType: .home, items: feedPosts2, cursor: nil)
-        
-        // when
-        sut.didFetch(feed: feedResponse1)
-        sut.didFetch(feed: feedResponse2)
-        
-        // then
-        XCTAssert(sut.numberOfItems() == 3)
-        XCTAssertTrue(sut.item(for: path).title == "Title 3")
-    }
-    
     
 //    func testThatFetchMoreHandlesFeedCorrectly() {
 //
@@ -247,6 +220,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         
         // stub response
         sut.didFetch(feed: feedResponse)
+        sut.currentItems = feedResponse.items
         
         let path = IndexPath(row: 0, section: 0)
         let postViewModel = PostViewModel(with: post, cellType: "")
@@ -318,7 +292,7 @@ class FeedModulePresenter_Tests: XCTestCase {
                         items: [post],
                         cursor: "cursor")
         // stub response
-        sut.didFetch(feed: feedResponse)
+        sut.currentItems = feedResponse.items
         
         let path = IndexPath(row: 0, section: 0)
         

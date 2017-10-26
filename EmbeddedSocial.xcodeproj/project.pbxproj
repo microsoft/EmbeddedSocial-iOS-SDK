@@ -15,9 +15,11 @@
 		2BC38A7E8F2E8F80BB5F6F10 /* ReplyCellInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8310026616DD565C3B28BD33 /* ReplyCellInteractor.swift */; };
 		2BDC5FD924EF52E9C9DBB2F8 /* CommentRepliesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACC3960A4435EA7729991E /* CommentRepliesViewController.swift */; };
 		3209330D1F2A50D300890218 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209330C1F2A50D300890218 /* Logger.swift */; };
+		321C2DFC1F9FE43F00BFDD84 /* AutoHashable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EBE77B1F9FDF3F0007EF53 /* AutoHashable.generated.swift */; };
 		3220965C1F96B2A700B89808 /* SearchHashtagOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3220965B1F96B2A700B89808 /* SearchHashtagOpener.swift */; };
 		3234AD1B1F2E70C3009C3327 /* PostCellCompact.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3234AD1A1F2E70C3009C3327 /* PostCellCompact.xib */; };
 		32C8E7BF1F77EFB600303D55 /* ActivityAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C8E7BE1F77EFB600303D55 /* ActivityAction.swift */; };
+		32EBE77A1F9FD7920007EF53 /* FeedPresentBatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EBE7791F9FD7920007EF53 /* FeedPresentBatchModel.swift */; };
 		32FAB0511F2E6D3000C5B18D /* PostCellCompact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */; };
 		32FAB0531F2E6D4700C5B18D /* PostCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */; };
 		3FED379D7A0000A8961BD478 /* CommentRepliesViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222D29CB76E365F11BA0B3F0 /* CommentRepliesViewOutput.swift */; };
@@ -1196,6 +1198,8 @@
 		3220965B1F96B2A700B89808 /* SearchHashtagOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHashtagOpener.swift; sourceTree = "<group>"; };
 		3234AD1A1F2E70C3009C3327 /* PostCellCompact.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCellCompact.xib; sourceTree = "<group>"; };
 		32C8E7BE1F77EFB600303D55 /* ActivityAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAction.swift; sourceTree = "<group>"; };
+		32EBE7791F9FD7920007EF53 /* FeedPresentBatchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresentBatchModel.swift; sourceTree = "<group>"; };
+		32EBE77B1F9FDF3F0007EF53 /* AutoHashable.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoHashable.generated.swift; sourceTree = "<group>"; };
 		32FAB0501F2E6D3000C5B18D /* PostCellCompact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellCompact.swift; sourceTree = "<group>"; };
 		32FAB0521F2E6D4700C5B18D /* PostCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellProtocol.swift; sourceTree = "<group>"; };
 		33AA90FDAE2627B036CBE5CC /* CommentRepliesInteractorInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentRepliesInteractorInput.swift; sourceTree = "<group>"; };
@@ -2758,6 +2762,7 @@
 		8811C8431F42F83000F7513D /* Sourcery */ = {
 			isa = PBXGroup;
 			children = (
+				32EBE77B1F9FDF3F0007EF53 /* AutoHashable.generated.swift */,
 				8811C8441F42F83000F7513D /* AutoEquatable.generated.swift */,
 			);
 			path = Sourcery;
@@ -3600,6 +3605,7 @@
 				88580B271F2213AB00C1CBAF /* URLSchemeService */,
 				639E62281F54335C0030C1F2 /* ViewModels */,
 				88F551CA1F39E7F700F4AAB9 /* AutoEquatable.swift */,
+				32EBE7791F9FD7920007EF53 /* FeedPresentBatchModel.swift */,
 				88580B031F2213AB00C1CBAF /* CrossModuleCoordinator.swift */,
 				882AD0C21F2225FF00FC20B7 /* QueriableRepository.swift */,
 				88580C7C1F2213EF00C1CBAF /* Repository.swift */,
@@ -6312,7 +6318,7 @@
 					};
 					9CD805281F0D012F00B9B0AC = {
 						CreatedOnToolsVersion = 9.0;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					9CD805311F0D012F00B9B0AC = {
 						CreatedOnToolsVersion = 9.0;
@@ -6811,6 +6817,7 @@
 				8846CB4D1F30CA1000F11EC8 /* UserListView.swift in Sources */,
 				88580C6E1F2213AB00C1CBAF /* TabMenuContainerRouter.swift in Sources */,
 				8811C8911F4334F800F7513D /* Cache.swift in Sources */,
+				321C2DFC1F9FE43F00BFDD84 /* AutoHashable.generated.swift in Sources */,
 				9C70FCD41F9A3DEE00BEB047 /* NotificationsUpdater.swift in Sources */,
 				88EBD22F1F6C138200F9DDFC /* PinTopicOperation.swift in Sources */,
 				881060FB1F28F3E4008CA2FB /* FollowStatus.swift in Sources */,
@@ -6883,6 +6890,7 @@
 				881355941F680323009299D4 /* CacheRequestExecutionStrategy.swift in Sources */,
 				88580BB91F2213AB00C1CBAF /* WebViewController.swift in Sources */,
 				88B94EB21F62A840002392F9 /* SearchTopicsViewController.swift in Sources */,
+				32EBE77A1F9FD7920007EF53 /* FeedPresentBatchModel.swift in Sources */,
 				88580C481F2213AB00C1CBAF /* CreatePostRouter.swift in Sources */,
 				88580B9F1F2213AB00C1CBAF /* ButtonWithTarget.swift in Sources */,
 				9C2169791F3C68350052FB90 /* PostMenuModuleConfigurator.swift in Sources */,

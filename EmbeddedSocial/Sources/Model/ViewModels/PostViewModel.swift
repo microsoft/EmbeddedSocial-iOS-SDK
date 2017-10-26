@@ -44,8 +44,22 @@ struct PostViewModel {
         topicHandle = post.topicHandle
         userName = User.fullName(firstName: post.firstName, lastName: post.lastName)
         title = post.title ?? ""
-        text = post.text ?? ""
+        
         likedBy = ""
+        
+        //
+        // To avoid hang on calculating very long texts - we trancute it.
+        //
+        let limit = 5000
+        if let postText = post.text {
+            if postText.count > limit {
+            text = String(postText.characters.prefix(limit))
+            } else {
+                text = postText
+            }
+        } else {
+            text = ""
+        }
         
         totalLikes = L10n.Post.likesCount(post.totalLikes)
         totalComments = L10n.Post.commentsCount(post.totalComments)
@@ -58,7 +72,7 @@ struct PostViewModel {
             timeCreated = ""
         }
         userImageUrl = post.photoUrl
-        
+      
         if let imageUrl = post.imageUrl {
             postImageUrl = imageUrl + Constants.ImageResize.pixels500
         } else {

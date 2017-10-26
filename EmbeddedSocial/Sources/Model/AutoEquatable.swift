@@ -5,8 +5,6 @@
 
 protocol AutoEquatable { }
 
-extension Post: AutoEquatable { }
-
 extension Photo: AutoEquatable { }
 
 extension CredentialsList: AutoEquatable { }
@@ -16,7 +14,5 @@ extension SocialUser: AutoEquatable { }
 extension User: AutoEquatable { }
 
 extension APIError: AutoEquatable { }
-
-extension PostViewModel: AutoEquatable { }
 
 extension FeedModuleRoutes: AutoEquatable { }
