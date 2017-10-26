@@ -27,6 +27,7 @@ abstract_target 'Group' do
     pod 'MBProgressHUD', '1.0'
     pod 'TTTAttributedLabel', '2.0'
     pod 'HockeySDK', '~> 5.0.0', :subspecs => ['AllFeaturesLib']
+    pod 'BMACollectionBatchUpdates', '~> 1.1'
     facebook
 
     target 'EmbeddedSocial' do
