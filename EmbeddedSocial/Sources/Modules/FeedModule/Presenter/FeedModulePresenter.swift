@@ -684,12 +684,9 @@ extension FeedModulePresenter: PostMenuModuleOutput {
     }
     
     // MARK: Private
-    
-    private func didChangeItem(user: UserHandle) {
-        // TODO: need check offline mode
-    }
-    
+
     private func didChangeItem(post: PostHandle) {
+       
         // TODO: need check offline mode
     }
     
