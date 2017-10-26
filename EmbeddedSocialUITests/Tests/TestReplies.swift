@@ -18,18 +18,9 @@ class BaseTestReplies: BaseSideMenuTest {
     
     override func openScreen() {
         Feed(app).getPost(0).asUIElement().tap()
-        let comments = PostDetails(app).comments!
         
-//        var retryCount = 15
-//
-//        while comments.loadMoreButton.exists && retryCount != 0 {
-//            retryCount -= 1
-//            app.swipeUp()
-//        }
-        
-        let comment = comments.getComment(0)
+        let comment = PostDetails(app).comments!.getComment(0)
         comment.replyButton.tap()
-        sleep(1)
         
         replies = RepliesFeed(app, containerView: app.collectionViews.firstMatch)
     }
