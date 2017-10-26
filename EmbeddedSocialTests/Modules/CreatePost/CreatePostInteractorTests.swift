@@ -41,7 +41,7 @@ class CreatePostInteractorTests: XCTestCase {
         
         
         //when
-        intercator.updateTopic(topicHandle: "handle", title: "title", body: "body")
+        intercator.update(topic: Post.mock(), title: "title", body: "body")
         
         //then
         XCTAssertEqual(topicService.updateTopicCount, 1)

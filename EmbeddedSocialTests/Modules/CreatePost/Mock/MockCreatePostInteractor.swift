@@ -36,7 +36,7 @@ class MockCreatePostInteractor: CreatePostInteractorInput {
     }
     
     var updateTopicCount = 0
-    func updateTopic(topicHandle: String, title: String?, body: String) {
+    func update(topic: Post, title: String?, body: String) {
         
         if userHolder == nil {
             fatalError("need a user")
