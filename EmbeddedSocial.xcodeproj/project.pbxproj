@@ -47,6 +47,7 @@
 		63981E091F8377AF004CE176 /* MockDetailedActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63981E081F8377AF004CE176 /* MockDetailedActivityViewController.swift */; };
 		63981E0B1F8377EE004CE176 /* MockDetailedActivityInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63981E0A1F8377EE004CE176 /* MockDetailedActivityInteractor.swift */; };
 		63981E0D1F8377FD004CE176 /* MockDetailedActivityPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63981E0C1F8377FD004CE176 /* MockDetailedActivityPresenter.swift */; };
+		639866BD1FA233540058F8FB /* UpdateTopicCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639866BC1FA233540058F8FB /* UpdateTopicCommandTests.swift */; };
 		639A943E1F5D2FD700EB0253 /* MockCommentCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A943D1F5D2FD700EB0253 /* MockCommentCellPresenter.swift */; };
 		639A94401F5D2FE800EB0253 /* MockCommentCellInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A943F1F5D2FE800EB0253 /* MockCommentCellInteractor.swift */; };
 		639A94421F5D2FF600EB0253 /* MockCommentCellRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A94411F5D2FF600EB0253 /* MockCommentCellRouter.swift */; };
@@ -1221,6 +1222,7 @@
 		63981E081F8377AF004CE176 /* MockDetailedActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDetailedActivityViewController.swift; sourceTree = "<group>"; };
 		63981E0A1F8377EE004CE176 /* MockDetailedActivityInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDetailedActivityInteractor.swift; sourceTree = "<group>"; };
 		63981E0C1F8377FD004CE176 /* MockDetailedActivityPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDetailedActivityPresenter.swift; sourceTree = "<group>"; };
+		639866BC1FA233540058F8FB /* UpdateTopicCommandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTopicCommandTests.swift; sourceTree = "<group>"; };
 		639A943D1F5D2FD700EB0253 /* MockCommentCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentCellPresenter.swift; sourceTree = "<group>"; };
 		639A943F1F5D2FE800EB0253 /* MockCommentCellInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentCellInteractor.swift; sourceTree = "<group>"; };
 		639A94411F5D2FF600EB0253 /* MockCommentCellRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentCellRouter.swift; sourceTree = "<group>"; };
@@ -2669,6 +2671,7 @@
 				88C682381F7939D6004BD291 /* TopicCommandTests.swift */,
 				880AFD3D1F6FE5E400378710 /* UnlikeTopicCommandTests.swift */,
 				880AFD411F6FE6CD00378710 /* UnpinTopicCommandTests.swift */,
+				639866BC1FA233540058F8FB /* UpdateTopicCommandTests.swift */,
 			);
 			path = TopicCommands;
 			sourceTree = "<group>";
@@ -7564,6 +7567,7 @@
 				88B94ED61F62C450002392F9 /* MockSearchTopicsModuleOutput.swift in Sources */,
 				9C0F36A41F9E101E002C65B0 /* MockSideMenuView.swift in Sources */,
 				88E6620A1F7AA18400C98526 /* UsersListProcessorTests.swift in Sources */,
+				639866BD1FA233540058F8FB /* UpdateTopicCommandTests.swift in Sources */,
 				63DCE6C71F7D1E7F00F9F76B /* RemoveCommentCommandTests.swift in Sources */,
 				8811C8A81F4435E800F7513D /* MockEmbeddedEditProfileModuleOutput.swift in Sources */,
 				636474821F5EDD2F000D7B3D /* CommentCellInteractorTests.swift in Sources */,

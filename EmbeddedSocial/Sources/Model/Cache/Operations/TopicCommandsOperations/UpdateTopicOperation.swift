@@ -18,7 +18,11 @@ final class UpdateTopicOperation: TopicCommandOperation {
             return
         }
         
-        topicsService.update(topic: command.topic, request: (command as! UpdateTopicCommand).request , success: {
+        let request = PutTopicRequest()
+        request.title = command.topic.title
+        request.text = command.topic.text
+        
+        topicsService.update(topic: command.topic, request: request , success: {
             self.completeOperation()
         }) { (error) in
             self.completeOperation(with: error)

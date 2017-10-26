@@ -163,7 +163,7 @@ class TopicService: BaseService, PostServiceProtocol {
         var updatedTopic = topic
         updatedTopic.title = request.title
         updatedTopic.text = request.text
-        let topicCommand = UpdateTopicCommand(topic: updatedTopic, request: request)
+        let topicCommand = UpdateTopicCommand(topic: updatedTopic)
         execute(command: topicCommand, request: request, success: success, failure: failure)
     }
     
