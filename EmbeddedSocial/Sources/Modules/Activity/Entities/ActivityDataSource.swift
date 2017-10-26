@@ -14,6 +14,25 @@ protocol DataSourceDelegate {
 
 class DataSourceBuilder {
     
+    enum DataSourceType {
+        case pending, myActivity, othersActivity
+    }
+    
+    static func build(with type: DataSourceType,
+                      delegate: DataSourceDelegate? = nil,
+                      interactor: ActivityInteractorInput,
+                      context: DataSourceContext) -> DataSource {
+        switch type {
+        case .pending:
+            return self.buildPendingRequestsDataSource(interactor: interactor, delegate: delegate, context: context)
+        case .myActivity:
+            return self.buildMyActivitiesDataSource(interactor: interactor, delegate: delegate, context: context)
+        case .othersActivity:
+            return self.buildOthersActivitiesDataSource(interactor: interactor, delegate: delegate, context: context)
+        }
+    }
+    
+    
     static func buildPendingRequestsDataSource(interactor: ActivityInteractorInput,
                                                delegate: DataSourceDelegate? = nil,
                                                context: DataSourceContext) -> MyPendingRequests {

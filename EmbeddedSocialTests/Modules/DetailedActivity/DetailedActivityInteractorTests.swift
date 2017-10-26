@@ -10,7 +10,7 @@ import XCTest
 
 class DetailedActivityInteractorTests: XCTestCase {
     var output: MockDetailedActivityPresenter!
-    var interactor = DetailedActivityInteractor()
+    var interactor: DetailedActivityInteractor!
     var repliesService: MockRepliesService!
     var commentService: MockCommentsService!
     
@@ -18,6 +18,7 @@ class DetailedActivityInteractorTests: XCTestCase {
     override func setUp() {
         repliesService = MockRepliesService()
         commentService = MockCommentsService()
+        interactor = DetailedActivityInteractor(replyService: repliesService, commentService: commentService)
         
         output = MockDetailedActivityPresenter()
         

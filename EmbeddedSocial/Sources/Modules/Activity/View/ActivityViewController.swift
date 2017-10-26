@@ -29,6 +29,8 @@ protocol ActivityViewOutput: class {
     func loadMore(section: Int)
     
     func didSwitchToTab(to index: Int)
+    
+    func viewWillAppear()
 }
 
 class ActivityViewController: BaseViewController {
@@ -49,6 +51,11 @@ class ActivityViewController: BaseViewController {
         apply(theme: theme)
 
         output.viewIsReady()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        output.viewWillAppear()
     }
     
     private func setup() {

@@ -15,9 +15,9 @@ class BaseService: NetworkStatusListener {
 
     init(authorizationMulticast: AuthorizationMulticastType = SocialPlus.shared.authorizationMulticast,
          cache: CacheType = SocialPlus.shared.cache,
-         errorHandler: APIErrorHandler = UnauthorizedErrorHandler(),
+         errorHandler: APIErrorHandler = GlobalApiErrorHandler(unauthorizedErrorHandler: UnauthorizedErrorHandler()),
          networkStatusMulticast: NetworkStatusMulticast = SocialPlus.shared.networkTracker) {
-        
+
         self.errorHandler = errorHandler
         self.cache = cache
         self.networkStatusMulticast = networkStatusMulticast

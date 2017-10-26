@@ -75,6 +75,8 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         if replyTextView.superview == nil {
             replyInputContainer.addSubview(replyTextView)
             
+            replyTextView.accessibilityIdentifier = "ReplyText"
+            
             replyTextView.snp.makeConstraints { (make) in
                 self.replyTextViewHeightConstraint = make.height.equalTo( self.heightForTextView()).constraint
                 make.left.equalTo(replyInputContainer).offset(leftTextViewOffset)
