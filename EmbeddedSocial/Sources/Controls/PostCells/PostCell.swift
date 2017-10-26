@@ -193,7 +193,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         let bounds = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         
         let maxLines = isTrimmed ? Constants.FeedModule.Collection.Cell.trimmedMaxLines : Constants.FeedModule.Collection.Cell.maxLines
-        
+    
         let dynamicHeight = TTTAttributedLabel.sizeThatFitsAttributedString(
             postText.attributedText,
             withConstraints: bounds,

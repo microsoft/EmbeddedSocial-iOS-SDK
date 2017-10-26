@@ -134,6 +134,10 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 10.0, *) {
+            self.collectionView.isPrefetchingEnabled = false
+        }
+        
         // Table
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
