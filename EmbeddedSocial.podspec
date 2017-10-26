@@ -16,18 +16,27 @@ Pod::Spec.new do |s|
       :tag => s.version.to_s,
       :submodules => true
   }
-  s.source_files = 'EmbeddedSocial/Sources/**/*.swift', 'EmbeddedSocial/Vendor/OAuthSwift/**/*.swift', 'EmbeddedSocial/Vendor/MSR-EmbeddedSocial-Swift-API-Library/EmbeddedSocialClient/Classes/**/*.swift'
-  s.resource_bundles = {
-    'EmbeddedSocialResources' => ['EmbeddedSocial/Resources/*.{xcassets,plist}'],
-    'EmbeddedSocialStoryboards' => ['EmbeddedSocial/Sources/**/*.storyboard'],
-    'EmbeddedSocialThemes' => ['EmbeddedSocial/Sources/**/*.plist']
-  }
+  s.source_files = [
+    'EmbeddedSocial/Sources/**/*.swift',
+    'EmbeddedSocial/Vendor/OAuthSwift/**/*.swift',
+    'EmbeddedSocial/Vendor/MSR-EmbeddedSocial-Swift-API-Library/EmbeddedSocialClient/Classes/**/*.swift'
+  ]
+  # s.resource_bundles = {
+  #   'EmbeddedSocialBundle' => [
+  #     'EmbeddedSocial/Resources/*.{xcassets,plist}',
+  #     'EmbeddedSocial/Sources/**/*.{storyboard,plist,xcdatamodeld,xcdatamodel}'
+  #   ]
+  # }
+  s.resources =  [
+      'EmbeddedSocial/Resources/*.{xcassets,plist,strings,stringsdict}',
+      'EmbeddedSocial/Sources/**/*.{storyboard,plist,xcdatamodeld,xcdatamodel,xib}'
+    ]
   s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(PODS_TARGET_SRCROOT)/EmbeddedSocial/Vendor/LiveSDK' }
   s.preserve_paths = 'EmbeddedSocial/Vendor/LiveSDK/module.modulemap'
   s.static_framework = true
   s.ios.frameworks = 'UIKit'
 
-  s.subspec 'no-arc' do |ss|
+  s.subspec 'LiveSDK' do |ss|
     ss.source_files = 'EmbeddedSocial/Vendor/LiveSDK/**/*.{h,m}'
     ss.requires_arc = false
     ss.compiler_flags = '-fno-objc-arc'

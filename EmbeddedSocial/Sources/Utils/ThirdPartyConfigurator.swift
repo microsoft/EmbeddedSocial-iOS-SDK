@@ -27,6 +27,8 @@ struct ThirdPartyConfigurator: ThirdPartyConfiguratorType {
     }
     
     private func setupFacebook(application: UIApplication, launchOptions: [AnyHashable: Any]) {
+        FBSDKSettings.setAppID("143359739619521")
+        FBSDKSettings.setDisplayName("Embedded Social")
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
