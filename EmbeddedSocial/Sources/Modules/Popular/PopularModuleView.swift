@@ -50,23 +50,14 @@ class PopularModuleView: UIViewController {
                 isLockedUI = 0
                 return
             }
-
-            // postpone locking till cache gets loaded
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-                
-                guard let strongSelf = self else {
-                    return
-                }
-                
-                Logger.log(strongSelf.isLockedUI, event: .critical)
-                strongSelf.feedControl.isEnabled = strongSelf.isLockedUI == 0
-                strongSelf.container.isUserInteractionEnabled = strongSelf.isLockedUI == 0
-                
-                if strongSelf.isLockedUI == 0 {
-                    strongSelf.hideHUD(in: strongSelf.container)
-                } else {
-                    strongSelf.showHUD(in: strongSelf.container)
-                }
+            
+            feedControl.isEnabled = isLockedUI == 0
+            container.isUserInteractionEnabled = isLockedUI == 0
+            
+            if isLockedUI == 0 {
+                hideHUD(in: container)
+            } else {
+                showHUD(in: container)
             }
         }
     }
