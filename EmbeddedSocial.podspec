@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.platform = :ios
   s.ios.deployment_target = '9.0'
   s.name = 'EmbeddedSocial'
-  s.version = '0.7.4'
+  s.version = '0.7.5'
   s.summary = 'SDK for interacting with the Microsoft Embedded Social service from inside your iOS app.'
   s.description = 'This is an SDK that works with the Microsoft Embedded Social service to provide social networking functionality inside your iOS application.'
   s.homepage = 'https://github.com/Microsoft/EmbeddedSocial-iOS-SDK'
