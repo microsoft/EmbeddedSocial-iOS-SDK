@@ -5,7 +5,6 @@
 
 import Foundation
 import Alamofire
-import MBProgressHUD
 
 struct GlobalApiErrorHandler: APIErrorHandler {
     
