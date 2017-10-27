@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
+import UIKit
 
 protocol UserListModuleOutput: class {
     func didFailToLoadList(listView: UIView, error: Error)

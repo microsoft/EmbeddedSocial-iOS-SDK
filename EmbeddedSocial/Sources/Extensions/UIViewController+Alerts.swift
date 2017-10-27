@@ -3,8 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
-import Alamofire
+import UIKit
 
 extension UIViewController {
     typealias AlertActionHandler = ((UIAlertAction) -> Void)

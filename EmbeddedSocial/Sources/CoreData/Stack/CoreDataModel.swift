@@ -35,7 +35,10 @@ final class CoreDataModel {
         return model
     }
     
-    init(name: String, bundle: Bundle = .main, storeType: StoreType = .sqlite(CoreDataModel.defaultDirectoryURL)) {
+    init(name: String,
+         bundle: Bundle = Bundle(for: CoreDataModel.self),
+         storeType: StoreType = .sqlite(CoreDataModel.defaultDirectoryURL)) {
+        
         self.name = name
         self.bundle = bundle
         self.storeType = storeType
