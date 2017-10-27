@@ -178,6 +178,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
                      photo: Photo?,
                      resultHandler: @escaping CommentPostResultHandler,
                      failure: @escaping Failure) {
+        
         let commentCommand = CreateCommentCommand(comment: comment)
         
         guard let image = photo?.image else {
@@ -191,11 +192,10 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 self?.execute(command: commentCommand, resultHandler: resultHandler, failure: failure)
             } else if self?.errorHandler.canHandle(result.error) == true {
                 self?.errorHandler.handle(result.error)
+            } else {
+                failure(result.error ?? APIError.unknown)
             }
-            
-             failure(result.error ?? APIError.unknown)
         }
-        
     }
     
     private func execute(command: CreateCommentCommand,
@@ -203,7 +203,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
                          failure: @escaping Failure) {
         
         guard isNetworkReachable else {
-            command.setRelatedHandle(command.comment.topicHandle)
             cache.cacheOutgoing(command)
             resultHandler(command.comment)
             return
@@ -218,8 +217,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
                     resultHandler(command.comment)
                 } else if self.errorHandler.canHandle(error) {
                     self.errorHandler.handle(error)
+                } else {
+                    failure(APIError(error: error))
                 }
-                failure(APIError(error: error))
         }
     }
     
