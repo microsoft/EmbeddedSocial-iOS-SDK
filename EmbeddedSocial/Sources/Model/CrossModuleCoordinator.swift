@@ -51,7 +51,6 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     
         menuItemsProvider = SocialMenuItemsProvider(coordinator: self)
     
-        
         let configurator = SideMenuModuleConfigurator()
         
         configurator.configure(coordinator: self,
@@ -142,7 +141,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     func showError(_ error: Error) {
         navigationStack.showError(error)
     }
-    
+
     var configuredLogin: UIViewController {
         let configurator = LoginConfigurator()
         configurator.configure(moduleOutput: loginHandler)
@@ -237,7 +236,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     
     private func makeActivity() -> UIViewController {
         let configurator = ActivityModuleConfigurator()
-        configurator.configure(navigationController: navigationStack.navigationController)
+        configurator.configure(navigationController: navigationStack.navigationController, notificationsUpdater: self)
         return configurator.viewController
     }
 }
@@ -254,6 +253,14 @@ extension CrossModuleCoordinator: LoginModalOpener {
         let navController = BaseNavigationController(rootViewController: configurator.viewController)
         navigationStack.presentModal(navController, parentViewController: parentViewController)
     }
+}
+
+extension CrossModuleCoordinator: NotificationsUpdater {
+    
+    func updateNotifications() {
+        menuModule.updateNotificationsCount()
+    }
+    
 }
 
 extension CrossModuleCoordinator: SearchHashtagOpener {

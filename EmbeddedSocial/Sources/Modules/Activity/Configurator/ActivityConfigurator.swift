@@ -10,7 +10,9 @@ class ActivityModuleConfigurator {
     private(set) var viewController: ActivityViewController!
     private(set) var module: ActivityModuleInput!
 
-    func configure(navigationController: UINavigationController) {
+    func configure(navigationController: UINavigationController,
+                   notificationsUpdater: NotificationsUpdater,
+                   userHolder: UserHolder = SocialPlus.shared) {
 
         let router = ActivityRouter()
         router.navigationController = navigationController
@@ -18,8 +20,9 @@ class ActivityModuleConfigurator {
         viewController = StoryboardScene.Activity.activityViewController.instantiate()
 
         let interactor = ActivityInteractor()
+        interactor.notificationsUpdater = notificationsUpdater
         
-        let presenter = ActivityPresenter(interactor: interactor)
+        let presenter = ActivityPresenter(interactor: interactor, userProvider: userHolder)
         presenter.view = viewController
         presenter.router = router
         presenter.theme = AppConfiguration.shared.theme

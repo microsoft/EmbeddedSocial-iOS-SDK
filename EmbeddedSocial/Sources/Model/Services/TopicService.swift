@@ -74,7 +74,7 @@ protocol PostServiceProtocol {
     func fetchMyPins(query: FeedQuery, completion: @escaping FetchResultHandler)
     func deletePost(post: PostHandle, completion: @escaping ((Result<Void>) -> Void))
     func postTopic(_ topic: Post, photo: Photo?, success: @escaping TopicPosted, failure: @escaping Failure)
-    func updateTopic(topicHandle: String, request: PutTopicRequest, success: @escaping () ->(), failure: @escaping (Error) ->() )
+    func update(topic: Post, request: PutTopicRequest, success: @escaping () ->(), failure: @escaping (Error) ->())
     
 }
 
@@ -159,9 +159,30 @@ class TopicService: BaseService, PostServiceProtocol {
         }
     }
     
-    func updateTopic(topicHandle: String, request: PutTopicRequest, success: @escaping () ->(), failure: @escaping (Error) ->() ) {
-        TopicsAPI.topicsPutTopic(topicHandle: topicHandle, request: request, authorization: authorization) { (object, error) in
+    func update(topic: Post, request: PutTopicRequest, success: @escaping () -> (), failure: @escaping Failure) {
+        var updatedTopic = topic
+        updatedTopic.title = request.title
+        updatedTopic.text = request.text
+        let topicCommand = UpdateTopicCommand(topic: updatedTopic)
+        execute(command: topicCommand, request: request, success: success, failure: failure)
+    }
+    
+    private func execute(command: UpdateTopicCommand,
+                         request: PutTopicRequest,
+                         success: @escaping () -> (),
+                         failure: @escaping Failure) {
+        
+        guard isNetworkReachable else {
+            cache.cacheOutgoing(command)
+            success()
+            return
+        }
+        
+        TopicsAPI.topicsPutTopic(topicHandle: command.topic.topicHandle, request: request, authorization: authorization) { (object, error) in
             if error != nil {
+                if self.errorHandler.canHandle(error) {
+                    self.errorHandler.handle(error)
+                }
                 failure(error!)
             } else {
                 success()

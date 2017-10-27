@@ -41,12 +41,12 @@ class CreatePostInteractor: CreatePostInteractorInput {
                                 failure: { [weak self] error in self?.output.postCreationFailed(error: error) })
     }
     
-    func updateTopic(topicHandle: String, title: String?, body: String) {
-        let topic = PutTopicRequest()
-        topic.title = title
-        topic.text = body
+    func update(topic: Post, title: String?, body: String) {
+        let request = PutTopicRequest()
+        request.title = title
+        request.text = body
         
-        topicService?.updateTopic(topicHandle: topicHandle, request: topic, success: { (object) in
+        topicService?.update(topic: topic, request: request, success: { (object) in
             self.output.postUpdated()
         }, failure: { (error) in
             self.output.postUpdateFailed(error: error)

@@ -29,6 +29,7 @@ class OutgoingCommandOperationsBuilderTests: XCTestCase {
         XCTAssertTrue(makeOperation(UnpinTopicCommand(topic: topic)) is UnpinTopicOperation)
         XCTAssertTrue(makeOperation(CreateTopicCommand(topic: topic)) is CreateTopicOperation)
         XCTAssertTrue(makeOperation(RemoveTopicCommand(topic: topic)) is RemoveTopicOperation)
+        XCTAssertTrue(makeOperation(UpdateTopicCommand(topic: topic)) is UpdateTopicOperation)
         
         // reply commands
         let reply = Reply(replyHandle: UUID().uuidString)

@@ -85,7 +85,12 @@ class MyActivityItemViewModelBuilder {
         let cellID = ActivityCell.reuseID
         let cellClass = ActivityCell.self
         let profileImage = model.actorUsers?.first?.photoUrl
-        let postImage = model.actedOnContent?.blobUrl
+        var postImage = model.actedOnContent?.blobUrl
+        
+        if postImage != nil {
+            postImage! += Constants.ImageResize.pixels100
+        }
+        
         let postImagePlaceholder: Asset? = (model.actedOnContent?.contentType == .topic) ? Asset.placeholderPostNoimage : nil
         let postText = ActivityTextRender.shared.renderMyActivity(model: model) ?? ""
         let timeAgoText = model.createdTimeAgo() ??  ""
@@ -108,7 +113,14 @@ class OthersActivityItemViewModelBuilder {
         let cellID = ActivityCell.reuseID
         let cellClass = ActivityCell.self
         let profileImage = model.actorUsers?.first?.photoUrl
-        let postImage = model.actedOnContent?.blobUrl
+        
+    
+        var postImage = model.actedOnContent?.blobUrl
+        
+        if postImage != nil {
+             postImage! += Constants.ImageResize.pixels100
+        }
+        
         let postImagePlaceholder: Asset? = (model.actedOnContent?.contentType == .topic) ? Asset.placeholderPostNoimage : nil
         let postText = ActivityTextRender.shared.renderOthersActivity(model: model) ?? ""
         let timeAgoText = model.createdTimeAgo() ?? ""

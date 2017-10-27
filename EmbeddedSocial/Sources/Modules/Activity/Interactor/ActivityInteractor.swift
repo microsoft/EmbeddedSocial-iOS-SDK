@@ -24,6 +24,10 @@ protocol ActivityInteractorInput: class {
     
     func acceptPendingRequest(user: User, completion: @escaping (Result<Void>) -> Void)
     func rejectPendingRequest(user: User, completion: @escaping (Result<Void>) -> Void)
+    
+//    func notify
+    func sendActivityStateAsRead(with handle: String)
+    
 }
 
 protocol ActivityService: class {
@@ -51,6 +55,8 @@ class ActivityInteractor {
     weak var output: ActivityInteractorOutput!
     
     var service: ActivityService!
+    var notificationsService: ActivityNotificationsServiceProtocol! = ActivityNotificationsService()
+    weak var notificationsUpdater: NotificationsUpdater!
     
     fileprivate var myActivitiesList: ActivitiesList = ActivitiesList()
     fileprivate var othersActivitiesList: ActivitiesList = ActivitiesList()
@@ -127,6 +133,16 @@ extension ActivityInteractor: ActivityInteractorInput {
         service.loadOthersActivities(cursor: cursor, limit: othersActivitiesList.limit) { [weak list = othersActivitiesList] (result) in
             list?.cursor = result.value?.cursor
             completion?(result)
+        }
+    }
+    
+    // MARK: Misc
+    func sendActivityStateAsRead(with handle: String) {
+        let updater = self.notificationsUpdater
+        notificationsService.updateStatus(for: handle) { result in
+            if result.isSuccess {
+                updater?.updateNotifications()
+            }
         }
     }
 }

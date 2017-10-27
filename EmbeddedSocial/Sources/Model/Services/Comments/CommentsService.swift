@@ -83,9 +83,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 success(strongSelf.convert(commentView: commentView))
             } else if strongSelf.errorHandler.canHandle(error) {
                 strongSelf.errorHandler.handle(error)
-            } else {
-                failure(APIError(error: error))
             }
+            
+            failure(APIError(error: error))
         }
     }
     
@@ -159,7 +159,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 strongSelf.cache.deleteIncoming(with: PredicateBuilder().predicate(typeID: typeID))
             }
             
-            
             if let body = response?.body, let data = body.data {
                 body.handle = builder.URLString
                 strongSelf.cache.cacheIncoming(body, for: typeID)
@@ -167,10 +166,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 result.cursor = body.cursor
             } else if strongSelf.errorHandler.canHandle(error) {
                 strongSelf.errorHandler.handle(error)
-                return
-            } else {
-                result.error = CommentsServiceError.failedToFetch(message: error?.localizedDescription ?? L10n.Error.noItemsReceived)
             }
+            
+            result.error = CommentsServiceError.failedToFetch(message: error?.localizedDescription ?? L10n.Error.noItemsReceived)
             
             resultHandler(result)
         }
@@ -193,9 +191,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 self?.execute(command: commentCommand, resultHandler: resultHandler, failure: failure)
             } else if self?.errorHandler.canHandle(result.error) == true {
                 self?.errorHandler.handle(result.error)
-            } else {
-                failure(result.error ?? APIError.unknown)
             }
+            
+             failure(result.error ?? APIError.unknown)
         }
         
     }
@@ -220,9 +218,8 @@ class CommentsService: BaseService, CommentServiceProtocol {
                     resultHandler(command.comment)
                 } else if self.errorHandler.canHandle(error) {
                     self.errorHandler.handle(error)
-                } else {
-                    failure(APIError(error: error))
                 }
+                failure(APIError(error: error))
         }
     }
     

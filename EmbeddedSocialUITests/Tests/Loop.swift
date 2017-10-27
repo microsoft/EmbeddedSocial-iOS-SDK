@@ -8,9 +8,9 @@ import XCTest
 //Uncomment and run to test and debug API Mock
 //
 //class Loop: UITestBase {
-//    
+//
 //    func testAPIMock() {
 //        while true {}
 //    }
-//    
+//
 //}

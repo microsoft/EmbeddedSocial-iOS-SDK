@@ -4,17 +4,29 @@
 //
 
 import UIKit
+import BMACollectionBatchUpdates
+
+protocol StatusBarActivityControlProtocol {
+    func start()
+    func finish()
+}
+
+class StatusBarActivityControl: StatusBarActivityControlProtocol {
+    func start() {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func finish() {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+}
 
 protocol FeedModuleViewInput: class {
     
     func setupInitialState(showGalleryView: Bool)
     func setLayout(type: FeedModuleLayoutType)
     func resetFocus()
-    func reload()
-    func reload(with index: Int)
-    func reloadVisible()
-    func insertNewItems(with paths: [IndexPath])
-    func removeItems(with paths: [IndexPath])
+    
     // Turns off "pull to refresh"
     func setRefreshing(state: Bool)
     // Turns on/off loading indicator
@@ -29,6 +41,7 @@ protocol FeedModuleViewInput: class {
     func needShowNoContent(state: Bool)
 
     var paddingEnabled: Bool { get set }
+    func performBatches(updates: [BMACollectionUpdate]?, withSections: [BMAUpdatableCollectionSection])
 }
 
 class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
@@ -106,6 +119,8 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
         return view
         }()
     
+    var statusBarActivityControl: StatusBarActivityControlProtocol! = StatusBarActivityControl()
+    
     lazy var refreshControl: UIRefreshControl = {
         let control = UIRefreshControl()
         control.addTarget(
@@ -130,11 +145,15 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
         let height = cell.frame.height
         cell.frame = CGRect(x: 0, y: 0, width: width, height: height)
         return cell
-        }()
+    }()
     
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 10.0, *) {
+            self.collectionView.isPrefetchingEnabled = false
+        }
         
         // Table
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
@@ -260,8 +279,10 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
         
         sizingCell.configure(with: viewModel, collectionView: nil)
         
+        let containerHeight = collectionView.bounds.height
+        
         var size = CGSize.zero
-        size.height = sizingCell.getHeight(with: containerWidth(), isTrimmed: viewModel.isTrimmed)
+        size.height = sizingCell.getHeight(containerHeight:containerHeight, with: containerWidth(), isTrimmed: viewModel.isTrimmed)
         size.width = containerWidth()
         
         return size
@@ -328,55 +349,42 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
     
     func setRefreshing(state: Bool) {
         if state == false {
+            statusBarActivityControl.finish()
             refreshControl.endRefreshing()
+        } else {
+            statusBarActivityControl.start()
         }
     }
     
     func setRefreshingWithBlocking(state: Bool) {
         Logger.log(state)
         if state {
-            //            collectionView.isUserInteractionEnabled = false
             showHUD(in: view)
         } else {
-            //            collectionView.isUserInteractionEnabled = true
             hideHUD(in: view)
         }
     }
     
-    func reloadVisible() {
-        let paths = collectionView.indexPathsForVisibleItems
-        self.didStartCollectionViewAnimation()
-        collectionView.performBatchUpdates({ 
-            self.collectionView.reloadItems(at: paths)
-        }) { (finished) in
-            self.didFinishCollectionViewAnimation()
+    func performBatches(updates: [BMACollectionUpdate]?, withSections: [BMAUpdatableCollectionSection]) {
+        self.collectionView.bma_performBatchUpdates(updates, applyChangesToModelBlock: {
+            
+            guard let section = withSections.first as? BatchCollection, let batchItems = section.items as? [BatchCollectionItem] else {
+                fatalError()
+            }
+            
+            self.output.currentItems = batchItems.map { $0.post }
+        }, reloadCellBlock: { (cell, path) in
+            
+            guard let cell = cell as? PostCellProtocol else {
+                fatalError("Wrong cell")
+            }
+            
+            let item = self.output.item(for: path)
+            cell.configure(with: item, collectionView: self.collectionView)
+            
+        }) { (completed) in
+            
         }
-    }
-    
-    func insertNewItems(with paths:[IndexPath]) {
-        self.didStartCollectionViewAnimation()
-        collectionView.performBatchUpdates({
-            self.collectionView.insertItems(at: paths)
-        }) { (finished) in
-            self.didFinishCollectionViewAnimation()
-        }
-    }
-    
-    func removeItems(with paths: [IndexPath]) {
-        self.didStartCollectionViewAnimation()
-        collectionView.performBatchUpdates({
-            self.collectionView.deleteItems(at: paths)
-        }) { (finished) in
-            self.didFinishCollectionViewAnimation()
-        }
-    }
-    
-    func reload() {
-        self.collectionView.reloadData()
-    }
-    
-    func reload(with index: Int) {
-        collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void) {
@@ -438,17 +446,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
         
         return CGSize(width: containerWidth(), height: output.headerSize.height)
     }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        referenceSizeForFooterInSection section: Int) -> CGSize {
-        if collectionView.numberOfItems(inSection: 0) > 1 {
-            return CGSize(width: collectionView.frame.size.width, height: Constants.FeedModule.Collection.footerHeight)
-        } else {
-            return CGSize.zero
-        }
-    }
-    
+  
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         if kind == UICollectionElementKindSectionFooter {

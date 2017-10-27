@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -45,7 +45,7 @@
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="500" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cAQ-A1-E3u">
                                     <rect key="frame" x="324" y="15" width="20" height="20"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="Post Menu" label="Post Menu"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="Menu Post"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="20" id="hAk-Bk-rdF"/>
                                         <constraint firstAttribute="height" constant="20" id="pcX-EK-n4I"/>
@@ -116,7 +116,7 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2C6-WJ-LvS" userLabel="like">
                                     <rect key="frame" x="15" y="8" width="44" height="44"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="Like" label="Like"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="Like Post" label="Like"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="0Ik-Pf-Erf"/>
                                         <constraint firstAttribute="width" secondItem="2C6-WJ-LvS" secondAttribute="height" multiplier="1:1" id="UWY-IC-GIQ"/>
@@ -130,7 +130,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6te-RD-RH1" userLabel="comment">
                                     <rect key="frame" x="64" y="8" width="44" height="44"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="Comment" label="Comment"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="Comment Post" label="Comment"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="6te-RD-RH1" secondAttribute="height" multiplier="1:1" id="Hmb-9k-gGT"/>
                                         <constraint firstAttribute="width" constant="44" id="sBl-2I-8wq"/>
@@ -143,7 +143,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTY-SJ-7jo" userLabel="pin">
                                     <rect key="frame" x="113" y="8" width="44" height="44"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="Pin" label="Pin"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="Pin Post" label="Pin"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="fE7-L5-biC"/>
                                         <constraint firstAttribute="width" secondItem="LTY-SJ-7jo" secondAttribute="height" multiplier="1:1" id="tNw-rJ-dRs"/>
@@ -170,6 +170,7 @@
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xB4-f1-3t5">
                                     <rect key="frame" x="197" y="8" width="51" height="44"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="Likes Post"/>
                                     <connections>
                                         <action selector="onLikesList:" destination="iN0-l3-epB" eventType="touchUpInside" id="wrF-va-9lf"/>
                                     </connections>
@@ -212,31 +213,38 @@
                                 <constraint firstItem="LTY-SJ-7jo" firstAttribute="leading" secondItem="6te-RD-RH1" secondAttribute="trailing" constant="5" id="wcC-iB-S6i"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3kI-kt-ADv">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3kI-kt-ADv" userLabel="Post Image Button">
                             <rect key="frame" x="0.0" y="50" width="364" height="180"/>
                             <accessibility key="accessibilityConfiguration" identifier="Post Image"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="180" id="IKi-3a-VjQ"/>
-                            </constraints>
                             <connections>
                                 <action selector="onTapPhoto:" destination="iN0-l3-epB" eventType="touchUpInside" id="B2r-fc-sOk"/>
                             </connections>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yT6-qf-owZ" userLabel="Post Image">
+                            <rect key="frame" x="0.0" y="50" width="364" height="180"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="180" id="x9G-KA-E2z"/>
+                            </constraints>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="3kI-kt-ADv" firstAttribute="leading" secondItem="OEZ-HU-KUq" secondAttribute="leading" id="6mF-Md-SgL"/>
+                        <constraint firstItem="yT6-qf-owZ" firstAttribute="leading" secondItem="OEZ-HU-KUq" secondAttribute="leading" id="7V1-N0-xex"/>
                         <constraint firstItem="Ugb-5x-70X" firstAttribute="top" secondItem="iJH-I2-d58" secondAttribute="bottom" id="BKX-Sv-a61"/>
                         <constraint firstItem="oqe-ch-5n3" firstAttribute="top" secondItem="OEZ-HU-KUq" secondAttribute="top" id="DCk-be-WSU"/>
+                        <constraint firstItem="yT6-qf-owZ" firstAttribute="top" secondItem="oqe-ch-5n3" secondAttribute="bottom" id="DQA-4U-LJe"/>
+                        <constraint firstItem="3kI-kt-ADv" firstAttribute="bottom" secondItem="yT6-qf-owZ" secondAttribute="bottom" id="MTI-JL-cxc"/>
                         <constraint firstItem="Ugb-5x-70X" firstAttribute="left" secondItem="OEZ-HU-KUq" secondAttribute="left" id="MgW-dl-a4i"/>
                         <constraint firstAttribute="trailing" secondItem="oqe-ch-5n3" secondAttribute="trailing" id="OXB-yI-2as"/>
-                        <constraint firstItem="3kI-kt-ADv" firstAttribute="top" secondItem="oqe-ch-5n3" secondAttribute="bottom" id="TfN-yV-UrG"/>
+                        <constraint firstItem="3kI-kt-ADv" firstAttribute="trailing" secondItem="yT6-qf-owZ" secondAttribute="trailing" id="Rvo-qk-oWT"/>
                         <constraint firstItem="oqe-ch-5n3" firstAttribute="leading" secondItem="OEZ-HU-KUq" secondAttribute="leading" id="Ujk-CD-tye"/>
-                        <constraint firstItem="iJH-I2-d58" firstAttribute="top" secondItem="3kI-kt-ADv" secondAttribute="bottom" id="ZAp-05-Pv0"/>
-                        <constraint firstAttribute="trailing" secondItem="3kI-kt-ADv" secondAttribute="trailing" id="k2U-Wn-6UZ"/>
+                        <constraint firstItem="3kI-kt-ADv" firstAttribute="top" secondItem="yT6-qf-owZ" secondAttribute="top" id="XEp-Wc-n7U"/>
+                        <constraint firstItem="3kI-kt-ADv" firstAttribute="leading" secondItem="yT6-qf-owZ" secondAttribute="leading" id="io2-w9-TnV"/>
                         <constraint firstAttribute="trailing" secondItem="iJH-I2-d58" secondAttribute="trailing" constant="15" id="oLt-mS-jOt"/>
                         <constraint firstAttribute="bottom" secondItem="Ugb-5x-70X" secondAttribute="bottom" id="qa8-yC-g9j"/>
+                        <constraint firstAttribute="trailing" secondItem="yT6-qf-owZ" secondAttribute="trailing" id="s7H-LL-bMU"/>
                         <constraint firstAttribute="trailing" secondItem="Ugb-5x-70X" secondAttribute="trailing" id="soU-zi-fAV"/>
+                        <constraint firstItem="iJH-I2-d58" firstAttribute="top" secondItem="yT6-qf-owZ" secondAttribute="bottom" id="uJp-cT-u4e"/>
                         <constraint firstItem="iJH-I2-d58" firstAttribute="leading" secondItem="OEZ-HU-KUq" secondAttribute="leading" constant="15" id="zD3-kk-f6j"/>
                     </constraints>
                 </view>
@@ -255,14 +263,13 @@
                 <outlet property="likedCount" destination="YLh-Pw-0g4" id="gWy-99-c0x"/>
                 <outlet property="pinButton" destination="LTY-SJ-7jo" id="uwC-Md-bG8"/>
                 <outlet property="postCreation" destination="hIe-cI-XjE" id="V3T-0h-0wD"/>
-                <outlet property="postImageButton" destination="3kI-kt-ADv" id="hxL-BH-Mlo"/>
-                <outlet property="postImageHeight" destination="IKi-3a-VjQ" id="ZKi-T8-dfn"/>
+                <outlet property="postImage" destination="yT6-qf-owZ" id="wtG-1K-n8n"/>
+                <outlet property="postImageHeight" destination="x9G-KA-E2z" id="YJV-ix-jgd"/>
                 <outlet property="postText" destination="3qM-EK-j0l" id="Fch-HX-3sr"/>
                 <outlet property="postTitle" destination="WYk-wD-2lQ" id="OJU-HT-vgq"/>
                 <outlet property="userName" destination="xH5-qG-Dco" id="hja-Z9-zzS"/>
                 <outlet property="userPhoto" destination="bYI-rM-xRs" id="QLN-qh-MaP"/>
                 <outletCollection property="staticHeigthElements" destination="tng-AR-z1W" collectionClass="NSMutableArray" id="T9L-U5-wfi"/>
-                <outletCollection property="staticHeigthElements" destination="3kI-kt-ADv" collectionClass="NSMutableArray" id="8NC-73-82r"/>
                 <outletCollection property="staticHeigthElements" destination="Ugb-5x-70X" collectionClass="NSMutableArray" id="4NW-ak-g0T"/>
                 <outletCollection property="staticConstaints" destination="A86-HM-2l9" collectionClass="NSMutableArray" id="2ML-XG-s1j"/>
                 <outletCollection property="staticConstaints" destination="iYV-1c-E4e" collectionClass="NSMutableArray" id="xDV-M1-18x"/>

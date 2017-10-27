@@ -194,13 +194,14 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                 guard let strongSelf = self else {
                     return
                 }
+                
                 if let response = response {
                     success(response)
                 } else if strongSelf.errorHandler.canHandle(error) {
                     strongSelf.errorHandler.handle(error)
-                } else {
-                    failure(APIError(error: error))
                 }
+                
+                failure(APIError(error: error))
         }
     }
     

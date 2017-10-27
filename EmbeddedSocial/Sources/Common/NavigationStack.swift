@@ -82,9 +82,9 @@ public class NavigationStack: NavigationStackProtocol {
  
         navigationController = BaseNavigationController()
         
-        menuStackController = MenuStackController(mainViewController: navigationController,
-                                            leftMenuViewController: menuViewController)
+        menuStackController = MenuStackController(containerVC: navigationController,
+                                                  menuVC: menuViewController)
         
-        window.rootViewController = menuStackController
+        window.rootViewController = menuStackController.slideMenuVC
     }
 }

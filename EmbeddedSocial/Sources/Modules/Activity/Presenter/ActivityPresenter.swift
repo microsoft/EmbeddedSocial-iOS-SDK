@@ -16,6 +16,16 @@ class ActivityPresenter {
     weak var view: ActivityViewInput!
     var interactor: ActivityInteractorInput
     var router: ActivityRouterInput!
+    let userHolder: UserHolder
+    
+    fileprivate var needsToShowMyPendingInvintationsSection: Bool {
+        get {
+            return userHolder.me?.isPrivate ?? false
+        }
+    }
+    
+    fileprivate let needsToShowMyActivitySection = true
+    fileprivate let needsToShowOthersActivitySection = true
     
     var theme: Theme?
     
@@ -57,8 +67,9 @@ class ActivityPresenter {
         cellTypes.forEach{ view.registerCell(cell: $0.value, id: $0.key) }
     }
     
-    init(interactor: ActivityInteractorInput) {
+    init(interactor: ActivityInteractorInput, userProvider: UserHolder) {
         self.interactor = interactor
+        self.userHolder = userProvider
         setup()
     }
     
@@ -68,27 +79,50 @@ class ActivityPresenter {
     
     var dataSources: [State: [DataSource]] = [:]
     
+    fileprivate func pendingDataSource(sectionIndex: Int) -> DataSource {
+        let context = DataSourceContext(state: .my, index: sectionIndex)
+        let ds = DataSourceBuilder.build(with: .pending, delegate: self, interactor: interactor, context: context)
+        return ds
+    }
+    
+    fileprivate func myActivityDataSource(sectionIndex: Int) -> DataSource {
+        let context = DataSourceContext(state: .my, index: sectionIndex)
+        let ds = DataSourceBuilder.build(with: .myActivity, delegate: self, interactor: interactor, context: context)
+        return ds
+    }
+    
+    fileprivate func othersActivityDataSource(sectionIndex: Int) -> DataSource {
+        let context = DataSourceContext(state: .others, index: sectionIndex)
+        let ds = DataSourceBuilder.build(with: .othersActivity, delegate: self, interactor: interactor, context: context)
+        return ds
+    }
+    
     fileprivate func makeDataSources() -> [State: [DataSource]] {
         
         var sources: [State: [DataSource]] = [:]
+        var myActivityDataSources: [DataSource] = []
+        var othersActivityDataSources: [DataSource] = []
         
-        let pendingDataSource = DataSourceBuilder.buildPendingRequestsDataSource(
-            interactor: interactor,
-            delegate: self,
-            context: DataSourceContext(state: self.state, index:0))
+        if needsToShowMyPendingInvintationsSection {
+            let index = myActivityDataSources.count
+            let dataSource = pendingDataSource(sectionIndex: index)
+            myActivityDataSources.append(dataSource)
+        }
         
-        let myActivityDataSource = DataSourceBuilder.buildMyActivitiesDataSource(
-            interactor: interactor,
-            delegate: self,
-            context: DataSourceContext(state: self.state, index: 1))
-        
-        let othersActivityDataSource = DataSourceBuilder.buildOthersActivitiesDataSource(
-            interactor: interactor,
-            delegate: self,
-            context: DataSourceContext(state: self.state, index: 0))
-        
-        sources[.my] = [pendingDataSource, myActivityDataSource]
-        sources[.others] = [othersActivityDataSource]
+        if needsToShowMyActivitySection {
+            let index = myActivityDataSources.count
+            let dataSource = myActivityDataSource(sectionIndex: index)
+            myActivityDataSources.append(dataSource)
+        }
+
+        if needsToShowOthersActivitySection {
+            let index = othersActivityDataSources.count
+            let dataSource = othersActivityDataSource(sectionIndex: index)
+            othersActivityDataSources.append(dataSource)
+        }
+
+        sources[.my] = myActivityDataSources
+        sources[.others] = othersActivityDataSources
         return sources
     }
     
@@ -143,6 +177,10 @@ extension ActivityPresenter: ActivityInteractorOutput {
 
 extension ActivityPresenter: ActivityViewOutput {
  
+    func viewWillAppear() {
+        loadAll()
+    }
+    
     func didSwitchToTab(to index: Int) {
         guard let state = State(rawValue: index) else { fatalError("Wrong index") }
         self.state = state

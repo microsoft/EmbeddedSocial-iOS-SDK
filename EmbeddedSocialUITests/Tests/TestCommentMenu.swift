@@ -8,16 +8,21 @@ import XCTest
 class TestCommentMenu: TestOnlineHome {
     
     private var comments: CommentsFeed!
-    private var commentInformation: (index: UInt, comment: Comment)!
     
     override func setUp() {
         super.setUp()
+        APIConfig.showCommentHandleInTeaser = true
+    }
     
-        comments = CommentsFeed(app)
+    override func tearDown() {
+        super.tearDown()
+        APIConfig.showCommentHandleInTeaser = false
     }
     
     override func openScreen() {
-        feed.getRandomPost().1.teaser.tap()
+        feed.getRandomPost().1.getTitle().tap()
+        
+        comments = PostDetails(app).comments
         
         var retryCount = 15
         
@@ -30,12 +35,12 @@ class TestCommentMenu: TestOnlineHome {
     func testFollowAndUnfollow() {
         openScreen()
         
-        commentInformation = comments.getRandomComment()
+        let (_, comment) = comments.getRandomComment()
         
         // Follow test
         
-        clearRequestsHistory()
-        select(menuItem: .follow, for: commentInformation.comment)
+        select(menuItem: .follow, for: comment)
+        sleep(1)
         
         XCTAssertTrue(APIState.getLatestRequest().contains("me/following/users"))
         XCTAssertTrue(APIState.latestRequstMethod == "POST")
@@ -45,8 +50,8 @@ class TestCommentMenu: TestOnlineHome {
         
         // Unfollow test
         
-        clearRequestsHistory()
-        select(menuItem: .unfollow, for: commentInformation.comment)
+        select(menuItem: .unfollow, for: comment)
+        sleep(1)
         
         XCTAssertTrue(APIState.getLatestRequest().contains("me/following/users/\(followingUser!)"))
         XCTAssertTrue(APIState.latestRequstMethod == "DELETE")
@@ -55,12 +60,12 @@ class TestCommentMenu: TestOnlineHome {
     func testBlockAndUnblock() {
         openScreen()
         
-        commentInformation = comments.getRandomComment()
+        let (_, comment) = comments.getRandomComment()
         
         // Block test
         
-        clearRequestsHistory()
-        select(menuItem: .block, for: commentInformation.comment)
+        select(menuItem: .block, for: comment)
+        sleep(1)
         
         XCTAssertTrue(APIState.getLatestRequest().contains("me/blocked_users"))
         XCTAssertTrue(APIState.latestRequstMethod == "POST")
@@ -70,8 +75,8 @@ class TestCommentMenu: TestOnlineHome {
         
         // unblock test
         
-        clearRequestsHistory()
-        select(menuItem: .unblock, for: commentInformation.comment)
+        select(menuItem: .unblock, for: comment)
+        sleep(1)
         
         XCTAssertTrue(APIState.getLatestRequest().contains("me/blocked_users/\(blockedUser!)"))
         XCTAssertTrue(APIState.latestRequstMethod == "DELETE")
@@ -82,8 +87,9 @@ class TestCommentMenu: TestOnlineHome {
         
         // Initialize values
         
-        commentInformation = comments.getRandomComment()
-        select(menuItem: .report, for: commentInformation.comment)
+        let (_, comment) = comments.getRandomComment()
+        let reportingCommentHandle = comment.getTitle().label
+        select(menuItem: .report, for: comment)
         
         let reportIssuesCells = app.tables.element.cells
         let submitReportButton = app.navigationBars.element.buttons.element(boundBy: 1)
@@ -93,7 +99,7 @@ class TestCommentMenu: TestOnlineHome {
             // It's already opened for first item
             if i > 0 {
                 // Open report item
-                select(menuItem: .report, for: commentInformation.comment)
+                select(menuItem: .report, for: comment)
             }
             
             // Select issue cell
@@ -102,7 +108,6 @@ class TestCommentMenu: TestOnlineHome {
             currentIssueCell.tap()
             submitReportButton.tap()
             
-            let reportingCommentHandle = "commentHandle\(commentInformation.index)"
             XCTAssertTrue(APIState.getLatestRequest().hasSuffix("comments/\(reportingCommentHandle)/reports"))
             
             doneButton.tap()
@@ -112,10 +117,6 @@ class TestCommentMenu: TestOnlineHome {
 }
 
 extension TestCommentMenu {
-    
-    fileprivate func clearRequestsHistory() {
-        APIState.requestHistory.removeAll()
-    }
     
     fileprivate func select(menuItem: CommentMenuItem, for comment: Comment) {
         XCTAssert(comment.menu().isExists(item: menuItem), "Menu item - \"\(menuItem.rawValue)\" does not exists!")

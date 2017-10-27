@@ -45,7 +45,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="500" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rzh-Mj-yCQ">
                                 <rect key="frame" x="266" y="3" width="44" height="44"/>
-                                <accessibility key="accessibilityConfiguration" identifier="Post Menu" label="Post Menu"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Menu Comment"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="dNh-V6-QP1"/>
                                     <constraint firstAttribute="width" constant="44" id="hqW-8f-pfJ"/>
@@ -87,7 +87,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DpI-cb-fNv" userLabel="like">
                                 <rect key="frame" x="50" y="10" width="30" height="30"/>
-                                <accessibility key="accessibilityConfiguration" label="Like"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Like Comment"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="CFU-Yo-LHe"/>
                                     <constraint firstAttribute="height" constant="30" id="Ing-Zz-qtE"/>
@@ -101,7 +101,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffo-F5-hAE" userLabel="comment">
                                 <rect key="frame" x="95" y="10" width="30" height="30"/>
-                                <accessibility key="accessibilityConfiguration" identifier="Reply" label="Reply"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Reply Comment" label="Reply"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="6j8-pm-uOv"/>
                                     <constraint firstAttribute="height" constant="30" id="FD8-py-z7g"/>
@@ -128,7 +128,7 @@
                             </imageView>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPY-c7-XbV">
                                 <rect key="frame" x="250" y="17" width="65" height="15"/>
-                                <accessibility key="accessibilityConfiguration" identifier="Replies Button"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Replies Comment"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="65" id="2UP-Ox-TTz"/>
                                     <constraint firstAttribute="height" constant="15" id="BIG-n0-B3Z"/>
@@ -140,6 +140,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Tm-M8-YVC">
                                 <rect key="frame" x="168" y="17" width="60" height="15"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Likes Comment"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="nLr-Q5-br7"/>
                                     <constraint firstAttribute="width" constant="60" id="wj0-bO-PlF"/>

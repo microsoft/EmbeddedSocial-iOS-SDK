@@ -29,6 +29,8 @@ protocol ActivityViewOutput: class {
     func loadMore(section: Int)
     
     func didSwitchToTab(to index: Int)
+    
+    func viewWillAppear()
 }
 
 class ActivityViewController: BaseViewController {
@@ -51,6 +53,11 @@ class ActivityViewController: BaseViewController {
         output.viewIsReady()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        output.viewWillAppear()
+    }
+    
     private func setup() {
         
         title = "Activity Feed"
@@ -59,6 +66,7 @@ class ActivityViewController: BaseViewController {
         tableView.tableFooterView = UIView()
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
+        tableView.accessibilityIdentifier = "ActivityFeed"
         tableView.delegate = self
         
         tableView.addSubview(self.refreshControl)

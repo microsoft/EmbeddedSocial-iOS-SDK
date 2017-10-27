@@ -9,7 +9,7 @@ struct SideMenuSectionModel {
     var title: String
     var collapsible: Bool
     var isCollapsed: Bool
-    var items: [SideMenuItemModel]
+    var items: [SideMenuItemModelProtocol]
     
     mutating func setCollapsed(collapsed: Bool) {
         if collapsible {
@@ -18,7 +18,14 @@ struct SideMenuSectionModel {
     }
 }
 
-struct SideMenuItemModel {
+protocol SideMenuItemModelProtocol {
+    var title: String { get set }
+    var image: UIImage { get set }
+    var imageHighlighted: UIImage { get set }
+    var isSelected: Bool { get set }
+}
+
+class SideMenuItemModel: SideMenuItemModelProtocol {
     var title: String
     var image: UIImage
     var imageHighlighted: UIImage
@@ -31,6 +38,17 @@ struct SideMenuItemModel {
         self.isSelected = isSelected
     }
 }
+
+class SideMenuItemModelWithNotification: SideMenuItemModel {
+    var countText: String?
+    
+    init(title: String, image: UIImage, imageHighlighted: UIImage, isSelected: Bool = false, countText: String? = nil) {
+        self.countText = countText
+        super.init(title: title, image: image, imageHighlighted: imageHighlighted, isSelected: isSelected)
+    }
+    
+}
+
 
 struct SideMenuHeaderModel {
     var title: String

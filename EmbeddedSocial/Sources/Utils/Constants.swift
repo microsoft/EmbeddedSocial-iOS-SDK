@@ -16,8 +16,8 @@ struct Constants {
 extension Constants {
     
     struct Menu {
-        static let defaultItemColor = UIColor.white
-        static let selectedItemColor = UIColor(r: 80, g: 173, b: 85)
+        static let defaultItemColor = Palette.white
+        static let selectedItemColor = Palette.green
     }
     
     struct CreateAccount {
@@ -49,6 +49,7 @@ extension Constants {
             static let containerPadding = CGFloat(10)
             static let containerColor = UIColor.white
             static let imageHeight = CGFloat(180)
+            static let imageRatio = CGFloat(1.0 / 3.0)
             
             struct Cell {
                 static let trimmedMaxLines = 10
@@ -112,6 +113,11 @@ extension Constants {
         static let pixels500 = "t"
         static let pixels1000 = "x"
     }
+    
+    struct Notifications {
+        static let pollInterval = TimeInterval(60 * 15)
+    }
+    
 }
 
 extension Constants {
@@ -119,5 +125,74 @@ extension Constants {
     struct API {
         static let unauthorizedStatusCode = 401
         static func authorization(_ sessionToken: String) -> Authorization { return "SocialPlus TK=\(sessionToken)" }
+    }
+    
+    enum HTTPStatusCodes: Int {
+        // 100 Informational
+        case Continue = 100
+        case SwitchingProtocols
+        case Processing
+        // 200 Success
+        case OK = 200
+        case Created
+        case Accepted
+        case NonAuthoritativeInformation
+        case NoContent
+        case ResetContent
+        case PartialContent
+        case MultiStatus
+        case AlreadyReported
+        case IMUsed = 226
+        // 300 Redirection
+        case MultipleChoices = 300
+        case MovedPermanently
+        case Found
+        case SeeOther
+        case NotModified
+        case UseProxy
+        case SwitchProxy
+        case TemporaryRedirect
+        case PermanentRedirect
+        // 400 Client Error
+        case BadRequest = 400
+        case Unauthorized
+        case PaymentRequired
+        case Forbidden
+        case NotFound
+        case MethodNotAllowed
+        case NotAcceptable
+        case ProxyAuthenticationRequired
+        case RequestTimeout
+        case Conflict
+        case Gone
+        case LengthRequired
+        case PreconditionFailed
+        case PayloadTooLarge
+        case URITooLong
+        case UnsupportedMediaType
+        case RangeNotSatisfiable
+        case ExpectationFailed
+        case ImATeapot
+        case MisdirectedRequest = 421
+        case UnprocessableEntity
+        case Locked
+        case FailedDependency
+        case UpgradeRequired = 426
+        case PreconditionRequired = 428
+        case TooManyRequests
+        case RequestHeaderFieldsTooLarge = 431
+        case UnavailableForLegalReasons = 451
+        // 500 Server Error
+        case InternalServerError = 500
+        case NotImplemented
+        case BadGateway
+        case ServiceUnavailable
+        case GatewayTimeout
+        case HTTPVersionNotSupported
+        case VariantAlsoNegotiates
+        case InsufficientStorage
+        case LoopDetected
+        case NotExtended = 510
+        case NetworkAuthenticationRequired
     }
 }

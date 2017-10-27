@@ -18,6 +18,9 @@ protocol SideMenuModuleInput: class {
     func openSocialItem(index: Int)
     func openMyProfile()
     func openLogin()
+    
+    /* Notifications */
+    func updateNotificationsCount()
 }
 
 class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuInteractorOutput {
@@ -28,11 +31,27 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     
     var user: User? {
         didSet {
-            selectedMenuItem = .none
+           onUserChanged()
+        }
+    }
+    
+    private func onUserChanged() {
+        selectedMenuItem = .none
+        buildItems()
+        
+        setupNotificationUpdateScheduler()
+        
+        if isViewIsReady {
             view.showAccountInfo(visible: accountViewAvailable)
-            buildItems()
             view.reload()
         }
+    }
+    
+    private func setupNotificationUpdateScheduler() {
+        notificationsUpdateScheduler?.finish()
+        notificationsUpdateScheduler = ActivityNotificationsController()
+        notificationsUpdateScheduler?.notificationUpdater = self
+        notificationsUpdateScheduler?.start()
     }
     
     enum SelectedMenuItem: Equatable {
@@ -56,11 +75,19 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     
     private var selectedMenuItem: SelectedMenuItem = .none {
         didSet {
-            buildItems()
+            onSelectedMenuItem()
+        }
+    }
+    
+    private func onSelectedMenuItem() {
+        buildItems()
+        if isViewIsReady {
             view.reload()
             view.showAccountInfo(visible: accountViewAvailable)
         }
     }
+    
+    private var notificationsUpdateScheduler: ActivityNotificationsController?
     
     weak var view: SideMenuViewInput!
     var interactor: SideMenuInteractorInput!
@@ -75,9 +102,15 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     }
     
     // Current Tab
-    private var tab: SideMenuTabs = .none {
+    private(set) var tab: SideMenuTabs = .none {
         didSet {
-            buildItems()
+            onTabChanged()
+        }
+    }
+    
+    private func onTabChanged() {
+        buildItems()
+        if isViewIsReady {
             view.reload()
         }
     }
@@ -108,6 +141,18 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     
     private var items = MenuItems()
     
+    // MARK: View Output
+    
+    func viewDidAppear() {
+        
+    }
+    
+    func viewWillAppear() {
+        updateNotificationsCount()
+    }
+    
+    private var isViewIsReady = false
+    
     func viewIsReady() {
         view.setupInitialState()
         buildItems()
@@ -117,6 +162,8 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         if self.tab != .none {
             view.selectBar(with: tab.rawValue)
         }
+        
+        isViewIsReady = true
     }
     
     func itemsCount(in section: Int) -> Int {
@@ -131,7 +178,7 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         return items[index]
     }
     
-    func item(at index: IndexPath) -> SideMenuItemModel {
+    func item(at index: IndexPath) -> SideMenuItemModelProtocol {
         return items[index.section].items[index.row]
     }
     
@@ -204,7 +251,6 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
         }
         
         // Mark item as selected
-        
         if case let .item(path, tab) = selectedMenuItem {
             if self.tab == tab {
                 items[path.section].items[path.row].isSelected = true
@@ -269,17 +315,47 @@ class SideMenuPresenter: SideMenuModuleInput, SideMenuViewOutput, SideMenuIntera
     }
     
     func openSocialItem(index: Int) {
-        
         let viewController = interactor.targetForSocialMenuItem(with: index)
         router.open(viewController)
         
-        let socItemIndexPath = getSocialItemIndexPath(index: index, configuation: configuration)
+        let itemPath = getSocialItemIndexPath(index: index, configuation: configuration)
         
-        selectedMenuItem = .item(socItemIndexPath, tab)
+        selectedMenuItem = .item(itemPath, tab)
         view.reload()
     }
     
     func close() {
         router.close()
     }
+    
+    // MARK: Notifications
+
+    func updateNotificationsCount() {
+        
+        interactor.getNotificationsCount { [weak self] in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.buildItems()
+            if strongSelf.isViewIsReady {
+                strongSelf.view.reload()
+            }
+        }
+    }
+    
+    deinit {
+        notificationsUpdateScheduler?.finish()
+        notificationsUpdateScheduler = nil
+    }
+
+}
+
+extension SideMenuPresenter: NotificationsUpdater {
+    
+    func updateNotifications() {
+        updateNotificationsCount()
+    }
+    
 }

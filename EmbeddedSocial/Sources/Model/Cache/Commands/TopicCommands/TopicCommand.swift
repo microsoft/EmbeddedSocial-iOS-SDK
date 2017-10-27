@@ -71,7 +71,8 @@ class TopicCommand: OutgoingCommand, TopicsFeedApplicableCommand {
             UnlikeTopicCommand.self,
             LikeTopicCommand.self,
             PinTopicCommand.self,
-            UnpinTopicCommand.self
+            UnpinTopicCommand.self,
+            UpdateTopicCommand.self
         ]
     }
     
@@ -82,7 +83,8 @@ class TopicCommand: OutgoingCommand, TopicsFeedApplicableCommand {
             PinTopicCommand.self,
             UnpinTopicCommand.self,
             CreateTopicCommand.self,
-            RemoveTopicCommand.self
+            RemoveTopicCommand.self,
+            UpdateTopicCommand.self
         ]
     }
 }

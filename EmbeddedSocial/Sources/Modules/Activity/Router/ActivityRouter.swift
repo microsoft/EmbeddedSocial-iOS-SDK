@@ -16,9 +16,9 @@ class ActivityRouter: ActivityRouterInput {
     func open(with item: ActivityItem) {
         switch item {
         case let .myActivity(model):
-            processActivityContent(model)
+            processActivity(model)
         case let .othersActivity(model):
-            processActivityContent(model)
+            processActivity(model)
         default:
             return
         }
@@ -28,51 +28,43 @@ class ActivityRouter: ActivityRouterInput {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    private func processActivityContent(_ model: ActivityView) {
-        
-        guard let contentType = model.actedOnContent?.contentType, let contentHandle = model.actedOnContent?.contentHandle else {
-            return
-        }
-        
-        switch contentType {
+    // TODO: move out business logic from router to its consumer
+    private func processContentActivity(type: ContentCompactView.ContentType, handle: String) {
+    
+        switch type {
         case .comment:
-            let configureator = DetailedActivityModuleConfigurator()
-            configureator.configure(state: .comment, commentHandle: contentHandle, navigationController: navigationController)
-            openViewController(configureator.viewController)
+            let configurator = DetailedActivityModuleConfigurator()
+            configurator.configure(state: .comment, commentHandle: handle, navigationController: navigationController)
+            openViewController(configurator.viewController)
         case .reply:
-            let configureator = DetailedActivityModuleConfigurator()
-            configureator.configure(state: .reply, replyHandle: contentHandle, navigationController: navigationController)
-            openViewController(configureator.viewController)
+            let configurator = DetailedActivityModuleConfigurator()
+            configurator.configure(state: .reply, replyHandle: handle, navigationController: navigationController)
+            openViewController(configurator.viewController)
         case .topic:
-            let configureator = PostDetailModuleConfigurator()
-            configureator.configure(topicHandle: contentHandle, scrollType: .none, myProfileHolder: SocialPlus.shared, navigationController: navigationController)
-            openViewController(configureator.viewController)
+            let configurator = PostDetailModuleConfigurator()
+            configurator.configure(topicHandle: handle, scrollType: .none, myProfileHolder: SocialPlus.shared, navigationController: navigationController)
+            openViewController(configurator.viewController)
         default:
-            Logger.log("Cant process", contentType, event: .veryImportant)
+            Logger.log("Cant process", type, event: .veryImportant)
             return
         }
     }
     
-    private func buildReplyVC(with handle: String) -> UIViewController {
-        let vc = UIViewController()
-        vc.title = "reply \(handle)"
-        return vc
-    }
-    
-    private func buildCommentVC(with handle: String) -> UIViewController {
-//        let configurator = PostDetailModuleConfigurator()
-//        return configurator.viewController
-        let vc = UIViewController()
-        vc.title = "comment \(handle)"
-        return vc
-    }
-    
-    private func buildPostVC(with handle: String) -> UIViewController {
-//        let configurator = PostDetailModuleConfigurator()
-//        return configurator.viewController
-        let vc = UIViewController()
-        vc.title = "post \(handle)"
-        return vc
+    private func processUserActivity(handle: String) {
+        let configurator = UserProfileConfigurator()
+        configurator.configure(userID: handle, navigationController: navigationController)
+        navigationController.pushViewController(configurator.viewController, animated: true)
     }
 
+    private func processActivity(_ model: ActivityView) {
+        if let contentType = model.actedOnContent?.contentType, let contentHandle = model.actedOnContent?.contentHandle {
+            processContentActivity(type: contentType, handle: contentHandle)
+        }
+        else if let userHandle = model.actorUsers?.first?.userHandle {
+            processUserActivity(handle: userHandle)
+        }
+        else {
+            Logger.log(model, "Handle for this case is not implemented", event: .error)
+        }
+    }
 }

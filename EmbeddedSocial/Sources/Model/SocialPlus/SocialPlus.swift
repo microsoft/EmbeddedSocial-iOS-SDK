@@ -60,6 +60,7 @@ public final class SocialPlus {
     
     public func didReceiveRemoteNotification(data: [AnyHashable : Any]) {
         coordinator.openActivityScreen()
+        coordinator.updateNotifications()
     }
     
     public func start(launchArguments args: LaunchArguments) {
@@ -136,5 +137,15 @@ extension SocialPlus: LogoutController {
             
             self?.coordinator.showError(error)
         }
+    }
+}
+
+extension SocialPlus {
+    func rootController() -> UINavigationController? {
+        guard let rootController = coordinator?.navigationStack?.navigationController else {
+            return nil
+        }
+        
+        return rootController
     }
 }

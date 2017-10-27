@@ -3,20 +3,19 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 
 class Post {
     
-    var app: XCUIApplication
-    var cell: XCUIElement
-    var teaser: XCUIElement
     var likeButton: XCUIElement
     var pinButton: XCUIElement
-    
     var postImageButton: XCUIElement
+
+    private var app: XCUIApplication
+    private var cell: XCUIElement
     
     private var titleLabel: XCUIElement
+    private var textLabeL: XCUIElement
     
     private var menuButton: XCUIElement
     private var postMenu: PostMenu!
@@ -24,13 +23,14 @@ class Post {
     init(_ cell: XCUIElement, _ application: XCUIApplication) {
         self.app = application
         self.cell = cell
-        self.teaser = self.cell.textViews["Teaser"]
-        self.likeButton = self.cell.buttons["Like"]
-        self.pinButton = self.cell.buttons["Pin"]
-        self.menuButton = self.cell.buttons["Post Menu"]
+        self.likeButton = self.cell.buttons["Like Post"].firstMatch
+        self.pinButton = self.cell.buttons["Pin Post"].firstMatch
+        self.menuButton = self.cell.buttons["Menu Post"].firstMatch
         
         titleLabel = self.cell.staticTexts.element(boundBy: 2)
-        postImageButton = self.cell.buttons["Post Image"]
+        textLabeL = self.cell.staticTexts.element(boundBy: 3)
+        
+        postImageButton = self.cell.buttons["Post Image"].firstMatch
         
         postMenu = PostMenu(app, self)
     }
@@ -47,18 +47,22 @@ class Post {
     }
     
     // Title value it's a "topicHandle" attribute
-    func getTitle() -> String {
-        return titleLabel.label
+    func getTitle() -> XCUIElement {
+        return titleLabel
+    }
+    
+    func getText() -> XCUIElement {
+        return textLabeL
     }
     
     func like() {
-        scrollToElement(self.likeButton, self.app)
+        scrollToElement(likeButton, app)
         self.likeButton.tap()
     }
     
     func pin() {
-        scrollToElement(self.pinButton, self.app)
-        self.pinButton.tap()
+        scrollToElement(pinButton, app)
+        pinButton.tap()
     }
     
     func menu() -> PostMenu {
@@ -67,6 +71,10 @@ class Post {
             postMenu.isOpened = true
         }
         return postMenu
+    }
+    
+    func asUIElement() -> XCUIElement {
+        return cell
     }
     
 }
@@ -89,15 +97,15 @@ class Feed {
     }
     
     func getPostsCount() -> UInt {
-        return UInt(self.feedContainer.cells.count)
+        return UInt(feedContainer.cells.count)
     }
     
     func getPost(_ index: UInt) -> Post {
-        return Post(self.feedContainer.children(matching: .cell).element(boundBy: index), self.app)
+        return Post(feedContainer.children(matching: .cell).element(boundBy: index), app)
     }
     
     func getRandomPost() -> (UInt, Post) {
-        let index = Random.randomUInt(self.getPostsCount())
-        return (index, self.getPost(index))
+        let index = Random.randomUInt(getPostsCount())
+        return (index, getPost(index))
     }
 }
