@@ -3,6 +3,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+import UIKit
+
 class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePostInteractorOutput {
     
     weak var view: CreatePostViewInput!
@@ -28,11 +30,12 @@ class CreatePostPresenter: CreatePostModuleInput, CreatePostViewOutput, CreatePo
     }
     
     func post(photo: Photo?, title: String?, body: String!) {
-        if post != nil {
-            interactor.updateTopic(topicHandle: (post?.topicHandle)!, title: title, body: body)
-        } else {
+        guard let post = post else {
             interactor.postTopic(photo: photo, title: title, body: body)
+            return
         }
+        
+        interactor.update(topic: post, title: title, body: body)
     }
     
     func back() {

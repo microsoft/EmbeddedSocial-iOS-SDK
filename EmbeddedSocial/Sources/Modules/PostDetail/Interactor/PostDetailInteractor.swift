@@ -3,6 +3,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+import UIKit
+
 enum CommentSocialAction: Int {
     case like, unlike
 }

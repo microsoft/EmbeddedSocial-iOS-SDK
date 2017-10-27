@@ -3,6 +3,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+import UIKit
+
 protocol FeedModuleViewOutput {
 
     func viewIsReady()
@@ -21,4 +23,7 @@ protocol FeedModuleViewOutput {
     
     func configureHeader(_ headerView: UICollectionReusableView)
     var headerSize: CGSize { get }
+    
+    
+    var currentItems: [Post] { get set }
 }

@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
+import UIKit
 
 protocol PopularModuleViewInput: class {
     func setupInitialState(showGalleryView: Bool)
@@ -59,8 +59,6 @@ class PopularModuleView: UIViewController {
             } else {
                 showHUD(in: container)
             }
-            
-            Logger.log(isLockedUI, feedControl.isEnabled)
         }
     }
     

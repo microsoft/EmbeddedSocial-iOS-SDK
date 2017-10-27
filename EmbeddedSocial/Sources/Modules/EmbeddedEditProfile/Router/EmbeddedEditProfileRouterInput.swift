@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
+import UIKit
 
 protocol EmbeddedEditProfileRouterInput: class {
     func openImagePicker(from vc: UIViewController, isImageSelected: Bool, completion: @escaping (UIImage?) -> Void)

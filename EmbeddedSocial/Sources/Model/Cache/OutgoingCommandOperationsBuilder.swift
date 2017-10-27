@@ -44,6 +44,8 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
             return RemoveTopicOperation(command: command,
                                         topicsService: TopicService(imagesService: ImagesService()),
                                         cleanupStrategy: CacheCleanupStrategyImpl(cache: SocialPlus.shared.cache))
+        } else if let command = command as? UpdateTopicCommand {
+            return UpdateTopicOperation(command: command, topicsService: TopicService(imagesService: ImagesService()))
         }
         
         // reply commands

@@ -21,25 +21,22 @@ abstract_target 'Group' do
     pod 'SwiftGen', '4.2.1'
     pod 'Sourcery', '0.7.2'
     pod 'UITextView+Placeholder', '1.2.0'
-    pod 'OAuthSwift', :path => 'EmbeddedSocial/Vendor/OAuthSwift'
-    pod 'LiveSDK', :path => 'EmbeddedSocial/Vendor/LiveSDK'
     pod 'SKPhotoBrowser', '4.0.1'
     pod 'MBProgressHUD', '1.0'
     pod 'TTTAttributedLabel', '2.0'
     pod 'HockeySDK', '~> 5.0.0', :subspecs => ['AllFeaturesLib']
+    pod 'BMACollectionBatchUpdates', '~> 1.1'
     facebook
+
+    target 'EmbeddedSocial-Example' do
+    end
 
     target 'EmbeddedSocial' do
       target 'EmbeddedSocialTests' do
         inherit! :search_paths
         pod 'Quick'
         pod 'Nimble'
-
         end
-    end
-
-    target 'EmbeddedSocial-Example' do
-
     end
 
     target 'EmbeddedSocialUITests' do

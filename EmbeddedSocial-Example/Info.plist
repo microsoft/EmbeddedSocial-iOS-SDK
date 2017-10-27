@@ -70,10 +70,6 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>4</string>
-	<key>FacebookAppID</key>
-	<string>143359739619521</string>
-	<key>FacebookDisplayName</key>
-	<string>Embedded Social</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>

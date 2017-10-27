@@ -1,0 +1,15 @@
+module LiveSDK {
+  header "src/LiveSDK/Library/Public/LiveAuthDelegate.h"
+  header "src/LiveSDK/Library/Public/LiveConnectClient.h"
+  header "src/LiveSDK/Library/Public/LiveConnectSession.h"
+  header "src/LiveSDK/Library/Public/LiveConnectSessionStatus.h"
+  header "src/LiveSDK/Library/Public/LiveDownloadOperation.h"
+  header "src/LiveSDK/Library/Public/LiveDownloadOperationDelegate.h"
+  header "src/LiveSDK/Library/Public/LiveOperation.h"
+  header "src/LiveSDK/Library/Public/LiveOperationDelegate.h"
+  header "src/LiveSDK/Library/Public/LiveOperationProgress.h"
+  header "src/LiveSDK/Library/Public/LiveUploadOperationDelegate.h"
+  header "src/LiveSDK/Library/Public/LiveUploadOverwriteOption.h"
+
+  export *
+}

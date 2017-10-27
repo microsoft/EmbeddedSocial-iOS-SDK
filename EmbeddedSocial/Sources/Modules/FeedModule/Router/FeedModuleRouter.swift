@@ -122,7 +122,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
             
             if let parent = navigationController?.topViewController {
                 postMenuViewController!.modalPresentationStyle = .overCurrentContext
-                parent.present(postMenuViewController!, animated: false, completion: nil)
+                parent.present(postMenuViewController!, animated: true, completion: nil)
             }
             
         case .myPost(let post):

@@ -4,10 +4,15 @@
 //
 
 import Foundation
+import BMACollectionBatchUpdates
 @testable import EmbeddedSocial
 
 class FeedModuleViewInputMock: FeedModuleViewInput {
     
+    func performBatches(updates: [BMACollectionUpdate]?, withSections: [BMAUpdatableCollectionSection]) {
+        
+    }
+
     //MARK: - needShowNoContent
     var needShowNoContentStateCalled = false
     var needShowNoContentStateReceivedState: Bool?

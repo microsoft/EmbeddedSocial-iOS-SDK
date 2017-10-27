@@ -195,7 +195,7 @@ extension PredicateBuilder: TopicsFeedProcessorPredicateBuilder {
     }
     
     func topicActionsRemovedTopicsCreatedComments() -> NSPredicate {
-        let typeIDs = (TopicCommand.topicActionCommandTypes + [RemoveTopicCommand.self] + [CreateCommentCommand.self])
+        let typeIDs = (TopicCommand.topicActionCommandTypes + [RemoveTopicCommand.self] + [CreateCommentCommand.self] + [UpdateTopicCommand.self])
             .map { $0.typeIdentifier }
         return NSPredicate(format: "typeid IN %@", typeIDs)
     }
