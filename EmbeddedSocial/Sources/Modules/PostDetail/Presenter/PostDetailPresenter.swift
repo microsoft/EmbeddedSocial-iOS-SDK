@@ -130,6 +130,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     func refresh() {
         cursor = nil
         scrollType = .none
+        feedModuleInput?.refreshData()
         loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
         loadMoreCellViewModel.startLoading()
         view.updateLoadingCell()
