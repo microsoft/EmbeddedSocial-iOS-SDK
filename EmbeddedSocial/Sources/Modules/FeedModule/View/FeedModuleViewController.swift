@@ -6,6 +6,21 @@
 import UIKit
 import BMACollectionBatchUpdates
 
+protocol StatusBarActivityControlProtocol {
+    func start()
+    func finish()
+}
+
+class StatusBarActivityControl: StatusBarActivityControlProtocol {
+    func start() {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func finish() {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+}
+
 protocol FeedModuleViewInput: class {
     
     func setupInitialState(showGalleryView: Bool)
@@ -103,6 +118,8 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
         
         return view
         }()
+    
+    var statusBarActivityControl: StatusBarActivityControlProtocol! = StatusBarActivityControl()
     
     lazy var refreshControl: UIRefreshControl = {
         let control = UIRefreshControl()
@@ -332,17 +349,18 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
     
     func setRefreshing(state: Bool) {
         if state == false {
+            statusBarActivityControl.finish()
             refreshControl.endRefreshing()
+        } else {
+            statusBarActivityControl.start()
         }
     }
     
     func setRefreshingWithBlocking(state: Bool) {
         Logger.log(state)
         if state {
-            //            collectionView.isUserInteractionEnabled = false
             showHUD(in: view)
         } else {
-            //            collectionView.isUserInteractionEnabled = true
             hideHUD(in: view)
         }
     }

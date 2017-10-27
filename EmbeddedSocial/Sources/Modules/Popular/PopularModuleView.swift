@@ -59,8 +59,6 @@ class PopularModuleView: UIViewController {
             } else {
                 showHUD(in: container)
             }
-            
-            Logger.log(isLockedUI, feedControl.isEnabled)
         }
     }
     

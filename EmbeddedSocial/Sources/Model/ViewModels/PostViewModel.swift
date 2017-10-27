@@ -72,8 +72,9 @@ struct PostViewModel {
             timeCreated = ""
         }
         userImageUrl = post.photoUrl
-        if let imageURL = post.imageUrl {
-            postImageUrl = imageURL + Constants.ImageResize.pixels500
+      
+        if let imageUrl = post.imageUrl {
+            postImageUrl = imageUrl + Constants.ImageResize.pixels500
         } else {
             postImageUrl = nil
         }
