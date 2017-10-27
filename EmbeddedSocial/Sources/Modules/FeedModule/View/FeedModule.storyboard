@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77O-LY-MDz">
+                            <collectionView autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77O-LY-MDz">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jgo-la-I8r">
@@ -41,12 +41,15 @@
                         <constraints>
                             <constraint firstItem="77O-LY-MDz" firstAttribute="leading" secondItem="Vrb-ac-Gvh" secondAttribute="leading" id="6DK-xx-X55"/>
                             <constraint firstAttribute="bottom" secondItem="77O-LY-MDz" secondAttribute="bottom" id="OMf-IR-ee2"/>
+                            <constraint firstItem="77O-LY-MDz" firstAttribute="top" secondItem="qKF-xA-dpz" secondAttribute="bottom" priority="999" id="UxO-50-0yK"/>
                             <constraint firstItem="77O-LY-MDz" firstAttribute="top" secondItem="Vrb-ac-Gvh" secondAttribute="top" id="gFG-RH-EMv"/>
                             <constraint firstAttribute="trailing" secondItem="77O-LY-MDz" secondAttribute="trailing" id="yq2-TG-ThH"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="77O-LY-MDz" id="LWK-qn-Zte"/>
+                        <outlet property="topConstraint" destination="gFG-RH-EMv" id="OeW-Q1-QFP"/>
+                        <outlet property="topGuideConstraint" destination="UxO-50-0yK" id="JiH-Ja-U8Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vne-Xw-jCx" userLabel="First Responder" sceneMemberID="firstResponder"/>
