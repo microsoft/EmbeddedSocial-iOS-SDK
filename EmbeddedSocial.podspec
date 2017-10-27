@@ -4,10 +4,7 @@ Pod::Spec.new do |s|
   s.name = 'EmbeddedSocial'
   s.version = '0.7.4'
   s.summary = 'SDK for interacting with the Microsoft Embedded Social service from inside your iOS app.'
-  s.requires_arc = true
-
   s.description = 'This is an SDK that works with the Microsoft Embedded Social service to provide social networking functionality inside your iOS application.'
-
   s.homepage = 'https://github.com/Microsoft/EmbeddedSocial-iOS-SDK'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
   s.author = { 'Microsoft' => 'opencode@microsoft.com' }
@@ -16,21 +13,18 @@ Pod::Spec.new do |s|
       :tag => s.version.to_s,
       :submodules => true
   }
+
+  s.requires_arc = true
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
   s.source_files = [
     'EmbeddedSocial/Sources/**/*.swift',
     'EmbeddedSocial/Vendor/OAuthSwift/**/*.swift',
     'EmbeddedSocial/Vendor/MSR-EmbeddedSocial-Swift-API-Library/EmbeddedSocialClient/Classes/**/*.swift'
   ]
-  # s.resource_bundles = {
-  #   'EmbeddedSocialBundle' => [
-  #     'EmbeddedSocial/Resources/*.{xcassets,plist}',
-  #     'EmbeddedSocial/Sources/**/*.{storyboard,plist,xcdatamodeld,xcdatamodel}'
-  #   ]
-  # }
   s.resources =  [
-      'EmbeddedSocial/Resources/*.{xcassets,plist,strings,stringsdict}',
-      'EmbeddedSocial/Sources/**/*.{storyboard,plist,xcdatamodeld,xcdatamodel,xib}'
-    ]
+    'EmbeddedSocial/Resources/*.{xcassets,plist,strings,stringsdict}',
+    'EmbeddedSocial/Sources/**/*.{storyboard,plist,xcdatamodeld,xcdatamodel,xib}'
+  ]
   s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(PODS_TARGET_SRCROOT)/EmbeddedSocial/Vendor/LiveSDK' }
   s.preserve_paths = 'EmbeddedSocial/Vendor/LiveSDK/module.modulemap'
   s.static_framework = true
