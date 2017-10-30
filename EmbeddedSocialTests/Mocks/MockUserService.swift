@@ -78,4 +78,15 @@ final class MockUserService: UserServiceType {
         deleteLinkedAccountInputProvider = provider
         completion(deleteLinkedAccountReturnValue)
     }
+    
+    // MARK: - deleteAccount
+
+    var deleteAccountCalled = false
+    var deleteAccountResult: Result<Void>!
+    
+    func deleteAccount(completion: @escaping (Result<Void>) -> Void) {
+        deleteAccountCalled = true
+        completion(deleteAccountResult)
+    }
+
 }

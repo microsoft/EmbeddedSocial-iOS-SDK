@@ -16,7 +16,6 @@ final class SettingsInteractor: SettingsInteractorInput {
     }
     
     func signOut() {
-        OperationQueue().cancelAllOperations()
         logoutController.logOut()
     }
     
@@ -25,6 +24,15 @@ final class SettingsInteractor: SettingsInteractorInput {
         userService.updateVisibility(to: switchedVisibility) { result in
             let transformedResult = result.map { _ in switchedVisibility }
             completion(transformedResult)
+        }
+    }
+    
+    func deleteAccount(completion: @escaping (Result<Void>) -> Void) {
+        userService.deleteAccount { [weak self] result in
+            if result.isSuccess {
+                self?.logoutController.logOut()
+            }
+            completion(result)
         }
     }
 }

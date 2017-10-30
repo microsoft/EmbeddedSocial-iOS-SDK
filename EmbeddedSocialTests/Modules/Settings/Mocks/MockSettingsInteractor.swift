@@ -21,4 +21,13 @@ final class MockSettingsInteractor: SettingsInteractorInput {
     func signOut() {
         signOutCount += 1
     }
+    
+    
+    var deleteAccountCalled = false
+    var deleteAccountResult: Result<Void>!
+    
+    func deleteAccount(completion: @escaping (Result<Void>) -> Void) {
+        deleteAccountCalled = true
+        completion(deleteAccountResult)
+    }
 }

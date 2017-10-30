@@ -6,23 +6,35 @@
 import Foundation
 import Alamofire
 
-struct GlobalApiErrorHandler: APIErrorHandler {
+class GlobalApiErrorHandler: APIErrorHandler {
     
     let unauthorizedErrorHandler: UnauthorizedErrorHandler
     weak var navigationController: UINavigationController?
     
-    init(unauthorizedErrorHandler: UnauthorizedErrorHandler, navigationController: UINavigationController? = SocialPlus.shared.rootController()) {
+    init(unauthorizedErrorHandler: UnauthorizedErrorHandler = UnauthorizedErrorHandler(),
+         navigationController: UINavigationController? = SocialPlus.shared.rootController()) {
         self.unauthorizedErrorHandler = unauthorizedErrorHandler
         self.navigationController = navigationController
     }
     
     func canHandle(_ error: Error?) -> Bool {
-        if let _ = error as? StatusCodeble {
+        if let statusCode = (error as? StatusCodeble)?.httpStatusCode(),
+            handledStatusCodes.contains(statusCode) {
             return true
         }
         
         return false
     }
+    
+    private lazy var handledStatusCodes: [Int] = {
+        let errors400 =
+            Array(Constants.HTTPStatusCodes.PaymentRequired.rawValue...Constants.HTTPStatusCodes.UnavailableForLegalReasons.rawValue)
+        let otherCodes = [
+            Constants.HTTPStatusCodes.Unauthorized.rawValue,
+            Constants.HTTPStatusCodes.BadRequest.rawValue
+        ]
+        return otherCodes + errors400
+    }()
     
     func handle(_ error: Error?) {
         guard let statusCode = (error as? StatusCodeble)?.httpStatusCode() else {

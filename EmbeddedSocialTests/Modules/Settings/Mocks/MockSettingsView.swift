@@ -10,32 +10,42 @@ class MockSettingsView: SettingsViewInput {
     
     //MARK: - setSwitchIsOn
     
-    var setSwitchIsOn_Called = false
-    var setSwitchIsOn_ReceivedIsOn: Bool?
+    var setSwitchIsOnCalled = false
+    var setSwitchIsOnReceivedIsOn: Bool?
     
     func setSwitchIsOn(_ isOn: Bool) {
-        setSwitchIsOn_Called = true
-        setSwitchIsOn_ReceivedIsOn = isOn
+        setSwitchIsOnCalled = true
+        setSwitchIsOnReceivedIsOn = isOn
     }
     
     //MARK: - showError
     
-    var showError_Called = false
-    var showError_ReceivedError: Error?
+    var showErrorCalled = false
+    var showErrorReceivedError: Error?
     
     func showError(_ error: Error) {
-        showError_Called = true
-        showError_ReceivedError = error
+        showErrorCalled = true
+        showErrorReceivedError = error
     }
     
     //MARK: - setPrivacySwitchEnabled
     
-    var setPrivacySwitchEnabled_Called = false
-    var setPrivacySwitchEnabled_ReceivedIsEnabled: Bool?
+    var setPrivacySwitchEnabledCalled = false
+    var setPrivacySwitchEnabledReceivedIsEnabled: Bool?
     
     func setPrivacySwitchEnabled(_ isEnabled: Bool) {
-        setPrivacySwitchEnabled_Called = true
-        setPrivacySwitchEnabled_ReceivedIsEnabled = isEnabled
+        setPrivacySwitchEnabledCalled = true
+        setPrivacySwitchEnabledReceivedIsEnabled = isEnabled
+    }
+    
+    //MARK: - setIsLoading
+    
+    var setIsLoadingCalled = false
+    var setIsLoadingReceivedIsLoading: Bool?
+    
+    func setIsLoading(_ isLoading: Bool) {
+        setIsLoadingCalled = true
+        setIsLoadingReceivedIsLoading = isLoading
     }
     
 }
