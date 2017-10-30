@@ -13,12 +13,18 @@ final class SuggestedUsersConfigurator {
         viewController.title = L10n.SuggestedUsers.screenTitle
     }
     
-    func configure(authorization: Authorization, navigationController: UINavigationController?) {
-        let presenter = SuggestedUsersPresenter()
+    func configure(authorization: Authorization,
+                   navigationController: UINavigationController?,
+                   userHolder: UserHolder = SocialPlus.shared) {
+        
+        let interactor = SuggestedUsersInteractor(facebookAPI: FacebookAPIImpl(permissions: .friends))
+        
+        let presenter = SuggestedUsersPresenter(userHolder: userHolder)
         presenter.view = viewController
         presenter.usersList = makeUserListModule(authorization: authorization,
                                                  navigationController: navigationController,
                                                  output: presenter)
+        presenter.interactor = interactor
         
         viewController.output = presenter
     }
