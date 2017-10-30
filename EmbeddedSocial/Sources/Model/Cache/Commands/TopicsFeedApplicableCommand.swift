@@ -8,3 +8,7 @@ import Foundation
 protocol TopicsFeedApplicableCommand {
     func apply(to feed: inout FeedFetchResult)
 }
+
+protocol SingleTopicApplicableCommand {
+    func apply(to topic: inout Post)
+}

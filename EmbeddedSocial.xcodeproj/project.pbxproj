@@ -50,6 +50,7 @@
 		63981E0B1F8377EE004CE176 /* MockDetailedActivityInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63981E0A1F8377EE004CE176 /* MockDetailedActivityInteractor.swift */; };
 		63981E0D1F8377FD004CE176 /* MockDetailedActivityPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63981E0C1F8377FD004CE176 /* MockDetailedActivityPresenter.swift */; };
 		639866BD1FA233540058F8FB /* UpdateTopicCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639866BC1FA233540058F8FB /* UpdateTopicCommandTests.swift */; };
+		639866BF1FA35D2A0058F8FB /* SinglePostResponseProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639866BE1FA35D2A0058F8FB /* SinglePostResponseProcessorTests.swift */; };
 		639A943E1F5D2FD700EB0253 /* MockCommentCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A943D1F5D2FD700EB0253 /* MockCommentCellPresenter.swift */; };
 		639A94401F5D2FE800EB0253 /* MockCommentCellInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A943F1F5D2FE800EB0253 /* MockCommentCellInteractor.swift */; };
 		639A94421F5D2FF600EB0253 /* MockCommentCellRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A94411F5D2FF600EB0253 /* MockCommentCellRouter.swift */; };
@@ -1312,6 +1313,7 @@
 		63981E0A1F8377EE004CE176 /* MockDetailedActivityInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDetailedActivityInteractor.swift; sourceTree = "<group>"; };
 		63981E0C1F8377FD004CE176 /* MockDetailedActivityPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDetailedActivityPresenter.swift; sourceTree = "<group>"; };
 		639866BC1FA233540058F8FB /* UpdateTopicCommandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTopicCommandTests.swift; sourceTree = "<group>"; };
+		639866BE1FA35D2A0058F8FB /* SinglePostResponseProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePostResponseProcessorTests.swift; sourceTree = "<group>"; };
 		639A943D1F5D2FD700EB0253 /* MockCommentCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentCellPresenter.swift; sourceTree = "<group>"; };
 		639A943F1F5D2FE800EB0253 /* MockCommentCellInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentCellInteractor.swift; sourceTree = "<group>"; };
 		639A94411F5D2FF600EB0253 /* MockCommentCellRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCommentCellRouter.swift; sourceTree = "<group>"; };
@@ -5091,6 +5093,7 @@
 				8837201D1F7D331200694A2E /* SearchTopicsFeedResponseProcessorTests.swift */,
 				88B2D6A31F7D138700920E43 /* TopicsFeedResponseProcessorTests.swift */,
 				88B2D68E1F7BE7CA00920E43 /* UsersListResponseProcessorTests.swift */,
+				639866BE1FA35D2A0058F8FB /* SinglePostResponseProcessorTests.swift */,
 			);
 			path = ResponseProcessors;
 			sourceTree = "<group>";
@@ -7963,6 +7966,7 @@
 				88D123151F740028001523D1 /* MockOutgoingCommandsUploadStrategy.swift in Sources */,
 				9C985E531F505BDF00514F85 /* FeedCacheTests.swift in Sources */,
 				F859C6631F82BF120030A0F0 /* FeedModuleInteractor-SocialActions-Tests.swift in Sources */,
+				639866BF1FA35D2A0058F8FB /* SinglePostResponseProcessorTests.swift in Sources */,
 				884C9C341F4C3E940004907F /* UserListPresenterTests.swift in Sources */,
 				9C805F401F822E12006D4F79 /* FeedModulePresenterTests.swift in Sources */,
 				88D123241F753786001523D1 /* MockFetchOutgoingCommandsOperation.swift in Sources */,
