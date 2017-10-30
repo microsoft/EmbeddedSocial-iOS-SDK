@@ -149,6 +149,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                 success(strongSelf.convert(replyView: replyView))
             } else if strongSelf.errorHandler.canHandle(error) {
                 strongSelf.errorHandler.handle(error)
+                failure(APIError(error: error))
             } else {
                 failure(APIError(error: error))
             }
@@ -233,6 +234,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         request.execute { (response, error) in
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
+                failure(error)
             } else if let error = error {
                 failure(error)
             } else {

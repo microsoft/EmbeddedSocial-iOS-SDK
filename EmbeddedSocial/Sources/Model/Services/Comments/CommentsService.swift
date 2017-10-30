@@ -51,6 +51,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         }) { (error) in
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
+                completion(.failure(error))
             } else {
                 completion(.failure(error))
             }
@@ -78,14 +79,17 @@ class CommentsService: BaseService, CommentServiceProtocol {
             guard let strongSelf = self else {
                 return
             }
+            
             if let commentView = result?.body {
                 strongSelf.cache.cacheIncoming(commentView, for: builder.URLString)
                 success(strongSelf.convert(commentView: commentView))
             } else if strongSelf.errorHandler.canHandle(error) {
                 strongSelf.errorHandler.handle(error)
+                failure(APIError(error: error))
+            } else {
+                failure(APIError(error: error))
             }
             
-            failure(APIError(error: error))
         }
     }
     
@@ -218,6 +222,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
                     resultHandler(command.comment)
                 } else if self.errorHandler.canHandle(error) {
                     self.errorHandler.handle(error)
+                    failure(APIError(error: error))
                 } else {
                     failure(APIError(error: error))
                 }
