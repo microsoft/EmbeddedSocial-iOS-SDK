@@ -35,10 +35,10 @@ class SuggestedUsersPresenter: SuggestedUsersViewOutput {
                 var user = self?.userHolder.me
                 user?.credentials = creds
                 self?.userHolder.me = user
-                self?.setupInitialState()
             } else {
                 self?.view.showError(result.error ?? APIError.unknown)
             }
+            self?.setupInitialState()
         }
     }
 }

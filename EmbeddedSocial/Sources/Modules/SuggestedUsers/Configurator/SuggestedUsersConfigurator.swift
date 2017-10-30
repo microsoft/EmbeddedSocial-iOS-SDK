@@ -17,11 +17,14 @@ final class SuggestedUsersConfigurator {
                    navigationController: UINavigationController?,
                    userHolder: UserHolder = SocialPlus.shared) {
         
+        let interactor = SuggestedUsersInteractor(facebookAPI: FacebookAPIImpl(permissions: .friends))
+        
         let presenter = SuggestedUsersPresenter(userHolder: userHolder)
         presenter.view = viewController
         presenter.usersList = makeUserListModule(authorization: authorization,
                                                  navigationController: navigationController,
                                                  output: presenter)
+        presenter.interactor = interactor
         
         viewController.output = presenter
     }

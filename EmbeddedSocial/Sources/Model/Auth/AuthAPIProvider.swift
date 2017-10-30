@@ -20,13 +20,3 @@ class AuthAPIProvider: AuthAPIProviderType {
         }
     }
 }
-
-final class SuggestedUsersAuthAPIProvider: AuthAPIProvider {
-    
-    override func api(for provider: AuthProvider) -> AuthAPI {
-        if provider == .facebook {
-            return FacebookAPIImpl(permissions: .friends)
-        }
-        return super.api(for: provider)
-    }
-}
