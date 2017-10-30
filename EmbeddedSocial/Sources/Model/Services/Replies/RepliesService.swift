@@ -199,6 +199,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                     success(response)
                 } else if strongSelf.errorHandler.canHandle(error) {
                     strongSelf.errorHandler.handle(error)
+                    failure(APIError(error: error))
                 } else {
                     failure(APIError(error: error))
                 }

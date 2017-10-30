@@ -192,6 +192,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 self?.execute(command: commentCommand, resultHandler: resultHandler, failure: failure)
             } else if self?.errorHandler.canHandle(result.error) == true {
                 self?.errorHandler.handle(result.error)
+                failure(result.error ?? APIError.unknown)
             } else {
                 failure(result.error ?? APIError.unknown)
             }
