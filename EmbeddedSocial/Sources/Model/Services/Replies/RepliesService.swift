@@ -234,7 +234,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         request.execute { (response, error) in
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
-                failure(error)
+                failure(APIError(error: error))
             } else if let error = error {
                 failure(error)
             } else {

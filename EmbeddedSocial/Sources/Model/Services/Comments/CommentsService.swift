@@ -153,6 +153,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
         }
         
         builder.execute { [weak self] (response, error) in
+            
+            result = CommentFetchResult()
+            
             guard let strongSelf = self else {
                 return
             }
@@ -162,7 +165,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
             if cursor == nil {
                 strongSelf.cache.deleteIncoming(with: PredicateBuilder().predicate(typeID: typeID))
             }
-            
+           
             if let body = response?.body, let data = body.data {
                 body.handle = builder.URLString
                 strongSelf.cache.cacheIncoming(body, for: typeID)
@@ -170,9 +173,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 result.cursor = body.cursor
             } else if strongSelf.errorHandler.canHandle(error) {
                 strongSelf.errorHandler.handle(error)
+            } else  if let error = error {
+                result.error = CommentsServiceError.failedToFetch(message: error.localizedDescription)
             }
-            
-            result.error = CommentsServiceError.failedToFetch(message: error?.localizedDescription ?? L10n.Error.noItemsReceived)
             
             resultHandler(result)
         }

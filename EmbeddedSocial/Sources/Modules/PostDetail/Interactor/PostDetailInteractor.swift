@@ -38,12 +38,13 @@ class PostDetailInteractor: PostDetailInteractorInput {
     }
 
     private func fetchedItems(result: CommentFetchResult) {
+        self.isLoading = false
+        
         guard result.error == nil else {
             output?.didFail(error: result.error!)
             return
         }
         
-        self.isLoading = false
         self.output?.didFetch(comments: result.comments, cursor: result.cursor)
     }
     
@@ -65,12 +66,13 @@ class PostDetailInteractor: PostDetailInteractorInput {
     }
     
     private func fetchedMoreItems(result: CommentFetchResult) {
+        self.isLoading = false
+        
         guard result.error == nil else {
             output?.didFail(error: result.error!)
             return
         }
         
-        self.isLoading = false
         self.output?.didFetchMore(comments: result.comments, cursor: result.cursor)
     }
     
