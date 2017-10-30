@@ -66,4 +66,14 @@ extension SettingsPresenter: SettingsViewOutput {
         }
         router.openLinkedAccounts(sessionToken: token)
     }
+    
+    func onDeleteAccount() {
+        view.setIsLoading(true)
+        interactor.deleteAccount { [weak self] result in
+            self?.view.setIsLoading(false)
+            if let error = result.error {
+                self?.view.showError(error)
+            }
+        }
+    }
 }

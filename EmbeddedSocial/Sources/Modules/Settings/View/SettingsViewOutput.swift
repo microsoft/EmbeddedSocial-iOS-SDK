@@ -19,4 +19,6 @@ protocol SettingsViewOutput: class {
     func onPrivacyPolicy()
     
     func onTermsAndConditions()
+    
+    func onDeleteAccount()
 }

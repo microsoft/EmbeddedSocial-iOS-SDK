@@ -57,8 +57,8 @@ class SettingsPresenterTests: XCTestCase {
         sut.viewIsReady()
         
         // then
-        XCTAssertTrue(view.setSwitchIsOn_Called)
-        XCTAssertEqual(view.setSwitchIsOn_ReceivedIsOn, switchIsOn)
+        XCTAssertTrue(view.setSwitchIsOnCalled)
+        XCTAssertEqual(view.setSwitchIsOnReceivedIsOn, switchIsOn)
     }
     
     func testThatItUpdatesPrivacy() {
@@ -72,8 +72,8 @@ class SettingsPresenterTests: XCTestCase {
         sut.onPrivacySwitch()
         
         // then
-        XCTAssertTrue(view.setPrivacySwitchEnabled_Called)
-        XCTAssertEqual(view.setPrivacySwitchEnabled_ReceivedIsEnabled, true)
+        XCTAssertTrue(view.setPrivacySwitchEnabledCalled)
+        XCTAssertEqual(view.setPrivacySwitchEnabledReceivedIsEnabled, true)
         
         XCTAssertEqual(profileHolder.setMeCount, 2)
     }
@@ -88,15 +88,36 @@ class SettingsPresenterTests: XCTestCase {
         sut.onPrivacySwitch()
         
         // then
-        XCTAssertTrue(view.setPrivacySwitchEnabled_Called)
-        XCTAssertEqual(view.setPrivacySwitchEnabled_ReceivedIsEnabled, true)
+        XCTAssertTrue(view.setPrivacySwitchEnabledCalled)
+        XCTAssertEqual(view.setPrivacySwitchEnabledReceivedIsEnabled, true)
         
-        XCTAssertTrue(view.showError_Called)
-        guard let shownError = view.showError_ReceivedError as? APIError, case .unknown = shownError else {
+        XCTAssertTrue(view.showErrorCalled)
+        guard let shownError = view.showErrorReceivedError as? APIError, case .unknown = shownError else {
             XCTFail("Error must be shown")
             return
         }
-        
         XCTAssertEqual(profileHolder.setMeCount, 1)
+    }
+    
+    func testDeleteAccount() {
+        interactor.deleteAccountResult = .success()
+        sut.onDeleteAccount()
+        XCTAssertTrue(view.setIsLoadingCalled)
+        XCTAssertEqual(view.setIsLoadingReceivedIsLoading, false)
+        XCTAssertFalse(view.showErrorCalled)
+        XCTAssertTrue(interactor.deleteAccountCalled)
+    }
+    
+    func testDeleteAccountError() {
+        interactor.deleteAccountResult = .failure(APIError.unknown)
+        sut.onDeleteAccount()
+        XCTAssertTrue(interactor.deleteAccountCalled)
+        XCTAssertTrue(view.setIsLoadingCalled)
+        XCTAssertEqual(view.setIsLoadingReceivedIsLoading, false)
+        XCTAssertTrue(view.showErrorCalled)
+        guard let shownError = view.showErrorReceivedError as? APIError, case .unknown = shownError else {
+            XCTFail("Error must be shown")
+            return
+        }
     }
 }
