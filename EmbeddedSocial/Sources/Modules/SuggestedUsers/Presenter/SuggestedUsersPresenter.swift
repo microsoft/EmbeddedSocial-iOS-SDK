@@ -37,7 +37,7 @@ class SuggestedUsersPresenter: SuggestedUsersViewOutput {
                 self?.userHolder.me = user
                 self?.setupInitialState()
             } else {
-                strongSelf.view.showError(result.error ?? APIError.unknown)
+                self?.view.showError(result.error ?? APIError.unknown)
             }
         }
     }
