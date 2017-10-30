@@ -41,18 +41,23 @@ class PostMenuModuleViewController: BaseViewController, PostMenuModuleViewInput 
         
     }
     
+    private var actions: [UIAlertAction] = [UIAlertAction]()
+    
     func showItems(items: [ActionViewModel]) {
         
+        actions = []
+        
         for item in items {
-            addAction(title: item.title, action: item.action)
+            let action = makeAction(title: item.title, action: item.action)
+            actions.append(action)
         }
         
         // Default item
-        addAction(title: L10n.Common.cancel, style: .cancel, action: nil)
+        actions.append(makeAction(title: L10n.Common.cancel, style: .cancel, action: nil))
     }
     
     // MARK: Private
-    private func addAction(title: String, style: UIAlertActionStyle = .default, action: (() -> ())?) {
+    private func makeAction(title: String, style: UIAlertActionStyle = .default, action: (() -> ())?) -> UIAlertAction {
         
         let alertAction = UIAlertAction(title: title, style: style) { [weak self] (alertAction) in
             
@@ -60,7 +65,7 @@ class PostMenuModuleViewController: BaseViewController, PostMenuModuleViewInput 
             self?.onActionControllerDismiss()
         }
         
-        actionController.addAction(alertAction)
+        return alertAction
     }
     
     private func onActionControllerDismiss() {
@@ -74,6 +79,11 @@ class PostMenuModuleViewController: BaseViewController, PostMenuModuleViewInput 
     }()
     
     private func presentActionController() {
+        
+        actions.forEach {
+            actionController.addAction($0)
+        }
+        
         self.present(actionController, animated: true)
     }
     
