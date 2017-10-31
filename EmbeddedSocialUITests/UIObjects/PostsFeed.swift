@@ -108,4 +108,9 @@ class Feed {
         let index = Random.randomUInt(getPostsCount())
         return (index, getPost(index))
     }
+    
+    func asUIElement() -> XCUIElement {
+        return feedContainer.element
+    }
+    
 }

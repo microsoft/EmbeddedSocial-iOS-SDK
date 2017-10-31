@@ -396,6 +396,15 @@ open class APIRouter: WebApp {
                 sendJSON(Templates.loadActivities(cursor: cursor))
             }
         }
+        
+        self["/v0.7/hashtags/trending"] = APIResponse(serviceName: "hashtags") { _, sendJSON -> Void in
+            sendJSON(Templates.loadHashtags())
+        }
+        
+        self["/v0.7/users/popular"] = APIResponse(serviceName: "") { _, sendJSON -> Void in
+            sendJSON(Templates.loadFollowers(firstName: "Suggested", lastName: "User"))
+        }
+        
     }
     
     open subscript(path: String) -> WebApp? {

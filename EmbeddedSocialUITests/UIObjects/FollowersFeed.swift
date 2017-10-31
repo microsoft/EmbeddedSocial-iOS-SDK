@@ -52,4 +52,8 @@ class FollowersFeed {
         app.navigationBars.children(matching: .button).matching(identifier: "Back").element(boundBy: 0).tap()
     }
     
+    func asUIElement() -> XCUIElement {
+        return feedContainer
+    }
+    
 }
