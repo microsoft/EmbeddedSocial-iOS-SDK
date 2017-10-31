@@ -227,7 +227,12 @@ class CommentsService: BaseService, CommentServiceProtocol {
                     self.errorHandler.handle(error)
                     failure(APIError(error: error))
                 } else {
-                    failure(APIError(error: error))
+                    if error!.statusCode > Constants.HTTPStatusCodes.InternalServerError.rawValue {
+                        self.cache.cacheOutgoing(command)
+                        resultHandler(command.comment)
+                    } else {
+                        failure(APIError(error: error))
+                    }
                 }
         }
     }
