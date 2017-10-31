@@ -146,7 +146,6 @@ class TestSearchTopicsOffline: TestOfflineHome {
                 search.clear()
                 navigate(to: .home)
                 navigate(to: .search)
-                
                 continue
             }
             
