@@ -5,12 +5,12 @@
 
 import Foundation
 
-struct AuthAPIProvider: AuthAPIProviderType {
+class AuthAPIProvider: AuthAPIProviderType {
     
     func api(for provider: AuthProvider) -> AuthAPI {
         switch provider {
         case .facebook:
-            return FacebookAPI()
+            return FacebookAPIImpl(permissions: .basic)
         case .twitter:
             return TwitterServerBasedAPI()
         case .google:

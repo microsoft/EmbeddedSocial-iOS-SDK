@@ -18,7 +18,8 @@ extension UIViewController {
         }
     }
     
-    func showYesNoAlert(message: String?,
+    func showYesNoAlert(title: String? = nil,
+                        message: String?,
                         yesTitle: String = L10n.Common.ok,
                         noTitle: String = L10n.Common.cancel,
                         noHandler: AlertActionHandler? = nil,

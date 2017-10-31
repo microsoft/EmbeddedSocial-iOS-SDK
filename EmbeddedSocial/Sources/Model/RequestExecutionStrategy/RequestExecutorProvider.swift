@@ -101,7 +101,7 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
         return makeCommonExecutor(requestType: TopicView.self,
                                   responseType: Post.self,
                                   service: service,
-                                  responseProcessor: SinglePostResponseProcessor())
+                                  responseProcessor: SinglePostResponseProcessor(cache: service.cache))
     }
     
     static func makeSuggestedUsersExecutor(for service: BaseService) -> SuggestedUsersRequestExecutor {

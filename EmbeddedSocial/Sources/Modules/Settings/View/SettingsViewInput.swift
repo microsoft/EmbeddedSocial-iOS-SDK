@@ -11,4 +11,6 @@ protocol SettingsViewInput: class {
     func showError(_ error: Error)
     
     func setPrivacySwitchEnabled(_ isEnabled: Bool)
+    
+    func setIsLoading(_ isLoading: Bool)
 }

@@ -27,3 +27,9 @@ extension CreateCommentCommand: TopicsFeedApplicableCommand {
         feed.posts[index] = topic
     }
 }
+
+extension CreateCommentCommand: SingleTopicApplicableCommand {
+    func apply(to topic: inout Post) {
+        topic.totalComments += 1
+    }
+}

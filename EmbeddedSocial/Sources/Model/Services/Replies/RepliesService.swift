@@ -149,6 +149,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                 success(strongSelf.convert(replyView: replyView))
             } else if strongSelf.errorHandler.canHandle(error) {
                 strongSelf.errorHandler.handle(error)
+                failure(APIError(error: error))
             } else {
                 failure(APIError(error: error))
             }
@@ -199,9 +200,10 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                     success(response)
                 } else if strongSelf.errorHandler.canHandle(error) {
                     strongSelf.errorHandler.handle(error)
+                    failure(APIError(error: error))
+                } else {
+                    failure(APIError(error: error))
                 }
-                
-                failure(APIError(error: error))
         }
     }
     
@@ -228,10 +230,12 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             }
         }
         
-        
         let request = RepliesAPI.repliesDeleteReplyWithRequestBuilder(replyHandle: command.reply.replyHandle, authorization: authorization)
         request.execute { (response, error) in
-            if let error = error {
+            if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+                failure(APIError(error: error))
+            } else if let error = error {
                 failure(error)
             } else {
                 success()

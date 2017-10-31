@@ -13,6 +13,7 @@ final class DaemonsController: Daemon {
         let queue = OperationQueue()
         queue.name = "OutgoingCommandsUploader-executionQueue"
         queue.qualityOfService = .background
+        queue.maxConcurrentOperationCount = 1
         
         let strategy = OutgoingCommandsUploadStrategy(cache: self.cache,
                                                       operationsBuilderType: OutgoingCommandOperationsBuilder(),

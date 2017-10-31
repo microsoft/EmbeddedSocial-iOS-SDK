@@ -185,6 +185,8 @@ enum L10n {
     static let cancel = L10n.tr("Localizable", "common.cancel")
     /// Close
     static let close = L10n.tr("Localizable", "common.close")
+    /// Delete
+    static let delete = L10n.tr("Localizable", "common.delete")
     /// Done
     static let done = L10n.tr("Localizable", "common.done")
     /// Follow
@@ -533,6 +535,15 @@ enum L10n {
   enum Settings {
     /// Settings
     static let screenTitle = L10n.tr("Localizable", "settings.screen_title")
+
+    enum Alert {
+      /// This action will permanently delete your account and all associated information. The account deletion cannot be undone.\n\nDo you really want to do it?
+      static let deleteAccountMessage = L10n.tr("Localizable", "settings.alert.delete_account_message")
+      /// Delete account
+      static let deleteAccountTitle = L10n.tr("Localizable", "settings.alert.delete_account_title")
+      /// Search history deleted
+      static let searchHistoryDeleted = L10n.tr("Localizable", "settings.alert.search_history_deleted")
+    }
   }
 
   enum SideMenu {
