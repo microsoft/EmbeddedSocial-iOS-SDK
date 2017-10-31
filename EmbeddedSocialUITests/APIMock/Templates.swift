@@ -155,4 +155,10 @@ class Templates {
         return ["data": activities, "cursor": String(cursor + limit)]
     }
     
+    class func loadHashtags(_ limit: Int = 10) -> [String] {
+        return (0..<limit).map { i in
+            "#hashtag\(i)"
+        }
+    }
+    
 }

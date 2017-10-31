@@ -40,6 +40,7 @@ class TrendingTopicsViewController: BaseViewController {
 extension TrendingTopicsViewController: TrendingTopicsViewInput {
     
     func setupInitialState() {
+        tableView.accessibilityIdentifier = "TrendingTopics"
         tableView.dataSource = dataManager
         tableView.delegate = dataManager
         tableView.tableFooterView = UIView()

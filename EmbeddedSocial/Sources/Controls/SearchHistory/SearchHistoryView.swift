@@ -10,6 +10,7 @@ class SearchHistoryView: UIView {
     
     private lazy var tableView: UITableView = { [unowned self] in
         let tableView = UITableView()
+        tableView.accessibilityIdentifier = "Search History"
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
