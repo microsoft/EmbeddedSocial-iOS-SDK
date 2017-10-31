@@ -6,13 +6,13 @@
 import Foundation
 
 extension Date {
-    var ISOString: String {
+    public var ISOString: String {
         return Formatter.ISOString.string(from: self)
     }
 }
 
 extension Formatter {
-    static let ISOString: DateFormatter = {
+    public static let ISOString: DateFormatter = {
         let formatter = DateFormatter()
         formatter.calendar = Calendar(identifier: .iso8601)
         formatter.locale = Locale(identifier: "en_US_POSIX")
