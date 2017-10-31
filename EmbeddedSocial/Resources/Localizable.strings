@@ -38,6 +38,7 @@
 "common.done" = "Done";
 "common.unblock" = "Unblock";
 "common.no_content" = "No content";
+"common.delete" = "Delete";
 
 "image_picker.take_photo" = "Take photo";
 "image_picker.choose_existing" = "Choose existing";
@@ -127,6 +128,8 @@
 "activity_feed.screen_title" = "Activity Feed";
 
 "settings.screen_title" = "Settings";
+"settings.alert.delete_account_message" = "This action will permanently delete your account and all associated information. The account deletion cannot be undone.\n\nDo you really want to do it?";
+"settings.alert.delete_account_title" = "Delete account";
 
 "upload_photo_cell.upload_photo" = "Upload photo";
 

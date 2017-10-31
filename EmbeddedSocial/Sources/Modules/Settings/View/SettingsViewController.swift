@@ -7,21 +7,22 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
     
-    enum ActionSectionItems: Int {
+    enum SettingsSections: Int {
+        case about
+        case privacy
+        case account
+    }
+    
+    enum AccountActionsSectionItems: Int {
         case blockList
         case linkedAccounts
         case signOut
+        case deleteAccount
     }
     
     enum AboutSectionItems: Int {
         case privacyPolicy
         case termsAndConditions
-    }
-    
-    enum SettingsSections: Int {
-        case about
-        case privacy
-        case account
     }
     
     var output: SettingsViewOutput!
@@ -39,33 +40,28 @@ class SettingsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        actionsMapping[indexPath.section]?[indexPath.row]?()
+    }
+    
+    typealias ActionsMapping = [Int: () -> Void]
+
+    private var actionsMapping: [Int: ActionsMapping] {
+        let aboutActions: ActionsMapping = [
+            AboutSectionItems.privacyPolicy.rawValue: output.onPrivacyPolicy,
+            AboutSectionItems.termsAndConditions.rawValue: output.onTermsAndConditions
+        ]
         
-        switch indexPath.section {
-        case SettingsSections.about.rawValue:
-            switch indexPath.row {
-            case AboutSectionItems.privacyPolicy.rawValue:
-                output.onPrivacyPolicy()
-            case AboutSectionItems.termsAndConditions.rawValue:
-                output.onTermsAndConditions()
-            default:
-                break
-            }
-        case SettingsSections.privacy.rawValue:
-            break
-        case SettingsSections.account.rawValue:
-            switch indexPath.row {
-            case ActionSectionItems.blockList.rawValue:
-                output.onBlockedList()
-            case ActionSectionItems.linkedAccounts.rawValue:
-                output.onLinkedAccounts()
-            case ActionSectionItems.signOut.rawValue:
-                output.signOut()
-            default:
-                break
-            }
-        default:
-            break
-        }
+        let accountActions: ActionsMapping = [
+            AccountActionsSectionItems.blockList.rawValue: output.onBlockedList,
+            AccountActionsSectionItems.linkedAccounts.rawValue: output.onLinkedAccounts,
+            AccountActionsSectionItems.signOut.rawValue: output.signOut,
+            AccountActionsSectionItems.deleteAccount.rawValue: showDeleteAccountDialogue
+        ]
+        
+        return [
+            SettingsSections.about.rawValue: aboutActions,
+            SettingsSections.account.rawValue: accountActions
+        ]
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -80,6 +76,17 @@ class SettingsViewController: UITableViewController {
         let header = view as? UITableViewHeaderFooterView
         header?.textLabel?.textColor = theme?.palette.textSecondary
     }
+    
+    private func showDeleteAccountDialogue() {
+        showYesNoAlert(
+            title: L10n.Settings.Alert.deleteAccountTitle,
+            message: L10n.Settings.Alert.deleteAccountMessage,
+            yesTitle: L10n.Common.delete,
+            noTitle: L10n.Common.cancel,
+            noHandler: { _ in () },
+            yesHandler: { [weak self] _ in self?.output.onDeleteAccount() }
+        )
+    }
 }
 
 extension SettingsViewController: SettingsViewInput {
@@ -93,6 +100,14 @@ extension SettingsViewController: SettingsViewInput {
     
     func setSwitchIsOn(_ isOn: Bool) {
         privacySwitch.setOn(isOn, animated: false)
+    }
+    
+    func setIsLoading(_ isLoading: Bool) {
+        if isLoading {
+            showHUD(isBlocking: true)
+        } else {
+            hideHUD()
+        }
     }
 }
 
