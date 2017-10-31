@@ -120,4 +120,9 @@ class SettingsPresenterTests: XCTestCase {
             return
         }
     }
+    
+    func testDeleteSearchHistory() {
+        sut.onDeleteSearchHistory()
+        XCTAssertTrue(self.interactor.deleteSearchHistoryCalled)
+    }
 }

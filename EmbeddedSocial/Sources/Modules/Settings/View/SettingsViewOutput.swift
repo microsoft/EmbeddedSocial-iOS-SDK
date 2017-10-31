@@ -21,4 +21,6 @@ protocol SettingsViewOutput: class {
     func onTermsAndConditions()
     
     func onDeleteAccount()
+    
+    func onDeleteSearchHistory()
 }
