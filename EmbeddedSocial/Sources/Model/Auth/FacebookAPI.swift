@@ -7,12 +7,39 @@ import Foundation
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-final class FacebookAPI: AuthAPI {
+protocol FacebookAPI: AuthAPI {
+    var hasGrantedFriendsListPermission: Bool { get }
+}
+
+final class FacebookAPIImpl: FacebookAPI {
+    
+    enum Permissions {
+        case basic
+        case friends
+        
+        var scopes: [String] {
+            switch self {
+            case .basic:
+                return ["public_profile", "email"]
+            case .friends:
+                return ["user_friends"]
+            }
+        }
+    }
+    
     private let loginManager = FBSDKLoginManager()
     
-    private let readPermissions = ["public_profile", "email", "user_friends"]
+    private let readPermissions: [String]
     
     private let userInfoParams = ["fields": "first_name, last_name, email, picture"]
+    
+    var hasGrantedFriendsListPermission: Bool {
+        return FBSDKAccessToken.current().hasGranted("user_friends")
+    }
+    
+    init(permissions: Permissions) {
+        readPermissions = permissions.scopes
+    }
     
     func login(from viewController: UIViewController?, handler: @escaping (Result<SocialUser>) -> Void) {
         

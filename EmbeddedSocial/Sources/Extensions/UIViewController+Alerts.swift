@@ -3,8 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
-import Alamofire
+import UIKit
 
 extension UIViewController {
     typealias AlertActionHandler = ((UIAlertAction) -> Void)
@@ -19,7 +18,8 @@ extension UIViewController {
         }
     }
     
-    func showYesNoAlert(message: String?,
+    func showYesNoAlert(title: String? = nil,
+                        message: String?,
                         yesTitle: String = L10n.Common.ok,
                         noTitle: String = L10n.Common.cancel,
                         noHandler: AlertActionHandler? = nil,

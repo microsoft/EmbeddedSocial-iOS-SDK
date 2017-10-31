@@ -3,6 +3,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+import UIKit
+
 class LoginInteractor: LoginInteractorInput {
     private let authService: AuthServiceType
     private let userService: UserServiceType

@@ -51,6 +51,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         }) { (error) in
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
+                completion(.failure(error))
             } else {
                 completion(.failure(error))
             }
@@ -78,14 +79,17 @@ class CommentsService: BaseService, CommentServiceProtocol {
             guard let strongSelf = self else {
                 return
             }
+            
             if let commentView = result?.body {
                 strongSelf.cache.cacheIncoming(commentView, for: builder.URLString)
                 success(strongSelf.convert(commentView: commentView))
             } else if strongSelf.errorHandler.canHandle(error) {
                 strongSelf.errorHandler.handle(error)
+                failure(APIError(error: error))
+            } else {
+                failure(APIError(error: error))
             }
             
-            failure(APIError(error: error))
         }
     }
     
@@ -149,6 +153,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
         }
         
         builder.execute { [weak self] (response, error) in
+            
+            result = CommentFetchResult()
+            
             guard let strongSelf = self else {
                 return
             }
@@ -158,7 +165,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
             if cursor == nil {
                 strongSelf.cache.deleteIncoming(with: PredicateBuilder().predicate(typeID: typeID))
             }
-            
+           
             if let body = response?.body, let data = body.data {
                 body.handle = builder.URLString
                 strongSelf.cache.cacheIncoming(body, for: typeID)
@@ -166,9 +173,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 result.cursor = body.cursor
             } else if strongSelf.errorHandler.canHandle(error) {
                 strongSelf.errorHandler.handle(error)
+            } else  if let error = error {
+                result.error = CommentsServiceError.failedToFetch(message: error.localizedDescription)
             }
-            
-            result.error = CommentsServiceError.failedToFetch(message: error?.localizedDescription ?? L10n.Error.noItemsReceived)
             
             resultHandler(result)
         }
@@ -178,6 +185,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
                      photo: Photo?,
                      resultHandler: @escaping CommentPostResultHandler,
                      failure: @escaping Failure) {
+        
         let commentCommand = CreateCommentCommand(comment: comment)
         
         guard let image = photo?.image else {
@@ -191,11 +199,11 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 self?.execute(command: commentCommand, resultHandler: resultHandler, failure: failure)
             } else if self?.errorHandler.canHandle(result.error) == true {
                 self?.errorHandler.handle(result.error)
+                failure(result.error ?? APIError.unknown)
+            } else {
+                failure(result.error ?? APIError.unknown)
             }
-            
-             failure(result.error ?? APIError.unknown)
         }
-        
     }
     
     private func execute(command: CreateCommentCommand,
@@ -203,7 +211,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
                          failure: @escaping Failure) {
         
         guard isNetworkReachable else {
-            command.setRelatedHandle(command.comment.topicHandle)
             cache.cacheOutgoing(command)
             resultHandler(command.comment)
             return
@@ -218,8 +225,10 @@ class CommentsService: BaseService, CommentServiceProtocol {
                     resultHandler(command.comment)
                 } else if self.errorHandler.canHandle(error) {
                     self.errorHandler.handle(error)
+                    failure(APIError(error: error))
+                } else {
+                    failure(APIError(error: error))
                 }
-                failure(APIError(error: error))
         }
     }
     

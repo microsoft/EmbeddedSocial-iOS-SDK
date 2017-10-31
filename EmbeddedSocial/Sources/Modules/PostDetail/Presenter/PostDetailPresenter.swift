@@ -3,6 +3,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+import UIKit
+
 class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, PostDetailModuleInput {
 
     weak var view: PostDetailViewInput!
@@ -130,6 +132,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     func refresh() {
         cursor = nil
         scrollType = .none
+        feedModuleInput?.refreshData()
         loadMoreCellViewModel.cellHeight = LoadMoreCell.cellHeight
         loadMoreCellViewModel.startLoading()
         view.updateLoadingCell()

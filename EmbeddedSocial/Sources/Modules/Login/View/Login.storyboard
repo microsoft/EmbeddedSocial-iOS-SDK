@@ -42,11 +42,11 @@
                                             <action selector="onFacebookSignIn:" destination="5vd-0T-hlO" eventType="touchUpInside" id="XdL-Tr-ThP"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pU1-Pc-bfK">
-                                        <rect key="frame" x="0.0" y="82" width="119" height="40"/>
-                                        <state key="normal" title="Twitter" image="icon_twitter"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7W-KD-wfX">
+                                        <rect key="frame" x="0.0" y="81.5" width="119" height="40"/>
+                                        <state key="normal" title="Google" image="icon_gplus"/>
                                         <connections>
-                                            <action selector="onTwitterSignIn:" destination="5vd-0T-hlO" eventType="touchUpInside" id="pEB-r2-N0A"/>
+                                            <action selector="onGooglePlusSignIn:" destination="5vd-0T-hlO" eventType="touchUpInside" id="kWG-ll-6LD"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvV-ix-pQ9">
@@ -56,11 +56,11 @@
                                             <action selector="onMicrosoftSignIn:" destination="5vd-0T-hlO" eventType="touchUpInside" id="6hv-iJ-gP0"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7W-KD-wfX">
-                                        <rect key="frame" x="0.0" y="178" width="119" height="40"/>
-                                        <state key="normal" title="Google" image="icon_gplus"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pU1-Pc-bfK">
+                                        <rect key="frame" x="0.0" y="177.5" width="119" height="40"/>
+                                        <state key="normal" title="Twitter" image="icon_twitter"/>
                                         <connections>
-                                            <action selector="onGooglePlusSignIn:" destination="5vd-0T-hlO" eventType="touchUpInside" id="kWG-ll-6LD"/>
+                                            <action selector="onTwitterSignIn:" destination="5vd-0T-hlO" eventType="touchUpInside" id="pEB-r2-N0A"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0wE-Kp-Fxe">
@@ -72,22 +72,22 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="D7W-KD-wfX" secondAttribute="bottom" id="1jl-oU-hyx"/>
                                     <constraint firstItem="fGc-5b-h96" firstAttribute="top" secondItem="0wE-Kp-Fxe" secondAttribute="bottom" constant="16" id="4It-Hp-Tgd"/>
-                                    <constraint firstAttribute="trailing" secondItem="pU1-Pc-bfK" secondAttribute="trailing" id="513-Bt-9oQ"/>
+                                    <constraint firstItem="D7W-KD-wfX" firstAttribute="top" secondItem="fGc-5b-h96" secondAttribute="bottom" constant="8" id="7I0-Cm-VUo"/>
                                     <constraint firstAttribute="trailing" secondItem="dvV-ix-pQ9" secondAttribute="trailing" id="8pE-cc-jzg"/>
-                                    <constraint firstItem="pU1-Pc-bfK" firstAttribute="leading" secondItem="NmD-qd-Om3" secondAttribute="leading" id="CLq-x6-fkS"/>
-                                    <constraint firstItem="pU1-Pc-bfK" firstAttribute="top" secondItem="fGc-5b-h96" secondAttribute="bottom" constant="8" id="CPd-0f-8cq"/>
-                                    <constraint firstItem="dvV-ix-pQ9" firstAttribute="top" secondItem="pU1-Pc-bfK" secondAttribute="bottom" constant="8" id="Pml-Df-7bi"/>
-                                    <constraint firstItem="D7W-KD-wfX" firstAttribute="top" secondItem="dvV-ix-pQ9" secondAttribute="bottom" constant="8" id="W7A-6k-ko4"/>
+                                    <constraint firstAttribute="bottom" secondItem="pU1-Pc-bfK" secondAttribute="bottom" id="DuY-5e-W2w"/>
+                                    <constraint firstItem="pU1-Pc-bfK" firstAttribute="leading" secondItem="NmD-qd-Om3" secondAttribute="leading" id="JEI-Qf-CLa"/>
+                                    <constraint firstItem="pU1-Pc-bfK" firstAttribute="top" secondItem="dvV-ix-pQ9" secondAttribute="bottom" constant="8" id="Qxc-FZ-mfe"/>
+                                    <constraint firstItem="dvV-ix-pQ9" firstAttribute="top" secondItem="D7W-KD-wfX" secondAttribute="bottom" constant="8" id="T9l-3v-4cv"/>
                                     <constraint firstItem="dvV-ix-pQ9" firstAttribute="leading" secondItem="NmD-qd-Om3" secondAttribute="leading" id="Wkm-ec-nnd"/>
                                     <constraint firstAttribute="trailing" secondItem="fGc-5b-h96" secondAttribute="trailing" id="XPp-zz-v5F"/>
                                     <constraint firstItem="0wE-Kp-Fxe" firstAttribute="top" secondItem="NmD-qd-Om3" secondAttribute="top" id="aan-Xp-J6h"/>
-                                    <constraint firstItem="D7W-KD-wfX" firstAttribute="leading" secondItem="NmD-qd-Om3" secondAttribute="leading" id="c90-FA-kIU"/>
+                                    <constraint firstAttribute="trailing" secondItem="D7W-KD-wfX" secondAttribute="trailing" id="d9i-mm-1Pa"/>
                                     <constraint firstItem="0wE-Kp-Fxe" firstAttribute="leading" secondItem="NmD-qd-Om3" secondAttribute="leading" id="fbr-OI-dA9"/>
                                     <constraint firstAttribute="trailing" secondItem="0wE-Kp-Fxe" secondAttribute="trailing" id="fwd-P9-sew"/>
-                                    <constraint firstAttribute="trailing" secondItem="D7W-KD-wfX" secondAttribute="trailing" id="hxo-DS-O81"/>
                                     <constraint firstItem="fGc-5b-h96" firstAttribute="leading" secondItem="NmD-qd-Om3" secondAttribute="leading" id="kDt-vu-n2L"/>
+                                    <constraint firstItem="D7W-KD-wfX" firstAttribute="leading" secondItem="NmD-qd-Om3" secondAttribute="leading" id="l26-14-LKg"/>
+                                    <constraint firstAttribute="trailing" secondItem="pU1-Pc-bfK" secondAttribute="trailing" id="tWT-v0-nnb"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y5e-gU-uZH" customClass="LoadingIndicatorView" customModule="EmbeddedSocial" customModuleProvider="target">

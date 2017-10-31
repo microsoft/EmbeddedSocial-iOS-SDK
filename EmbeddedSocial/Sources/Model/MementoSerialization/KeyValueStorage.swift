@@ -13,4 +13,6 @@ protocol KeyValueStorage {
     func removeObject(forKey defaultName: String)
     
     func purge(key: String)
+    
+    func dictionaryRepresentation() -> [String: Any]
 }

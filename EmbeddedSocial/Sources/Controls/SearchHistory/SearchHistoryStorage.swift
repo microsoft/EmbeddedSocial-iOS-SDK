@@ -12,7 +12,7 @@ class SearchHistoryStorage {
     var scope: String?
     
     private var storageKey: String {
-        return "SearchHistoryRepository-\(scope ?? "")-\(userID)"
+        return "SearchHistoryRepository-\(userID)-\(scope ?? "")"
     }
     
     init(storage: KeyValueStorage = UserDefaults.standard, userID: String) {
@@ -31,5 +31,11 @@ class SearchHistoryStorage {
     
     func searchRequests() -> [String] {
         return storage.object(forKey: storageKey) as? [String] ?? []
+    }
+    
+    func cleanup() {
+        for key in storage.dictionaryRepresentation().keys where key.hasPrefix("SearchHistoryRepository-\(userID)") {
+            storage.removeObject(forKey: key)
+        }
     }
 }

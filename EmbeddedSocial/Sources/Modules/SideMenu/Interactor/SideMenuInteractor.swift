@@ -3,6 +3,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
+import UIKit
+
 protocol SideMenuInteractorInput {
     func socialMenuItems() -> [SideMenuItemModelProtocol]
     func clientMenuItems() -> [SideMenuItemModelProtocol]

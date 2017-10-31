@@ -132,7 +132,7 @@ class FeedModuleRouter: FeedModuleRouterInput {
             configurator.configure(menuType: .myPost(post: post), moduleOutput: moduleInput, navigationController: navigationController)
             postMenuViewController = configurator.viewController
             
-            if let parent = viewController {
+            if let parent = navigationController?.topViewController {
                 postMenuViewController!.modalPresentationStyle = .overCurrentContext
                 parent.present(postMenuViewController!, animated: false, completion: nil)
             }

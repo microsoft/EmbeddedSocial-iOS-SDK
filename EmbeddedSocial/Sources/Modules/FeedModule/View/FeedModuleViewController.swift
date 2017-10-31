@@ -58,6 +58,9 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
         }
     }
     
+    @IBOutlet weak var topConstraint: NSLayoutConstraint?
+    @IBOutlet weak var topGuideConstraint: NSLayoutConstraint?
+    
     fileprivate var listLayout = UICollectionViewFlowLayout()
     fileprivate var gridLayout = UICollectionViewFlowLayout()
     fileprivate var headerReuseID: String?
@@ -176,6 +179,17 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         output.viewDidAppear()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let navigationBarExists: Bool = self.navigationController == nil ? false : true
+        
+        self.topConstraint?.isActive = !navigationBarExists
+        self.topGuideConstraint?.isActive = navigationBarExists
+        self.view.setNeedsLayout()
+    
     }
     
     override func viewWillDisappear(_ animated: Bool) {

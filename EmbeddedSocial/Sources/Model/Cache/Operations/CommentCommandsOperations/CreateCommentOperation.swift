@@ -50,4 +50,8 @@ final class CreateCommentOperation: CommentCommandOperation {
         handleUpdater.updateCommand(oldHandle: oldHandle, updatedCommand: command)
         completeOperation()
     }
+    
+    deinit {
+        print("deinit \(command.comment)")
+    }
 }

@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
+import UIKit
 
 class SearchHistoryMediator: NSObject {
     private let searchBar: UISearchBar
@@ -90,6 +90,8 @@ extension SearchHistoryMediator: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         if !hasSetHistoryView {
             setupHistoryView()
+        } else {
+            searchHistoryView.searchRequests = storage.searchRequests()
         }
         updateSearchHistoryVisibility()
     }
@@ -97,4 +99,5 @@ extension SearchHistoryMediator: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchHistoryView.isHidden = true
     }
+    
 }

@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
+import UIKit
 
 struct SettingsConfigurator {
     let viewController: SettingsViewController
@@ -14,14 +14,19 @@ struct SettingsConfigurator {
         viewController.theme = AppConfiguration.shared.theme
     }
     
-    func configure(myProfileHolder: UserHolder = SocialPlus.shared, logoutController: LogoutController = SocialPlus.shared, navigationController: UINavigationController?) {
-        let router = SettingsRouter(navigationController: navigationController)
+    func configure(myProfileHolder: UserHolder = SocialPlus.shared,
+                   logoutController: LogoutController = SocialPlus.shared,
+                   navigationController: UINavigationController?) {
         
         let presenter = SettingsPresenter(myProfileHolder: myProfileHolder)
-        presenter.router = router
+        presenter.router = SettingsRouter(navigationController: navigationController)
         presenter.view = viewController
-        let userService = UserService(imagesService: ImagesService())
-        presenter.interactor = SettingsInteractor(userService: userService, logoutController: logoutController)
+        
+        let storage = SearchHistoryStorage(userID: myProfileHolder.me?.uid ?? "")
+        presenter.interactor = SettingsInteractor(userService: UserService(imagesService: ImagesService()),
+                                                  logoutController: logoutController,
+                                                  searchHistoryStorage: storage)
+        
         viewController.output = presenter
     }
 }

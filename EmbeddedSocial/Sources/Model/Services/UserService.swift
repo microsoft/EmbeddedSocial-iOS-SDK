@@ -25,14 +25,17 @@ protocol UserServiceType {
     func linkAccount(authorization: Authorization, sessionToken: String, completion: @escaping (Result<Void>) -> Void)
     
     func deleteLinkedAccount(for provider: AuthProvider, completion: @escaping (Result<Void>) -> Void)
+    
+    func deleteAccount(completion: @escaping (Result<Void>) -> Void)
 }
 
 class UserService: BaseService, UserServiceType {
     
     private let imagesService: ImagesServiceType
     
-    init(imagesService: ImagesServiceType) {
+    init(imagesService: ImagesServiceType, errorHandler: APIErrorHandler = GlobalApiErrorHandler()) {
         self.imagesService = imagesService
+        super.init(errorHandler: errorHandler)
     }
     
     func getMyProfile(authorization: Authorization, credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
@@ -155,16 +158,6 @@ class UserService: BaseService, UserServiceType {
         }
     }
     
-    private func processResult(_ data: Object?, _ error: ErrorResponse?, _ completion: @escaping (Result<Void>) -> Void) {
-        DispatchQueue.main.async {
-            if error == nil {
-                completion(.success())
-            } else {
-                self.errorHandler.handle(error: error, completion: completion)
-            }
-        }
-    }
-    
     func getLinkedAccounts(completion: @escaping (Result<[LinkedAccountView]>) -> Void) {
         UsersAPI.myLinkedAccountsGetLinkedAccounts(authorization: authorization) { accounts, error in
             if let accounts = accounts {
@@ -198,40 +191,20 @@ class UserService: BaseService, UserServiceType {
                 self.processResult(response, error, completion)
         }
     }
+    
+    func deleteAccount(completion: @escaping (Result<Void>) -> Void) {
+        UsersAPI.usersDeleteUser(authorization: authorization) { response, error in
+            self.processResult(response, error, completion)
+        }
+    }
+    
+    private func processResult(_ data: Object?, _ error: ErrorResponse?, _ completion: @escaping (Result<Void>) -> Void) {
+        DispatchQueue.main.async {
+            if error == nil {
+                completion(.success())
+            } else {
+                self.errorHandler.handle(error: error, completion: completion)
+            }
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
