@@ -258,25 +258,6 @@ class TopicService: BaseService, PostServiceProtocol {
             completion(feedFetchResult)
         }
         
-        TopicsAPI.topicsGetTopic(topicHandle: post, authorization: authorization) { (topic, error) in
-            
-            var result = FeedFetchResult()
-            
-            guard let data = topic else {
-                if self.errorHandler.canHandle(error) {
-                    self.errorHandler.handle(error)
-                } else {
-                    let message = error?.localizedDescription ?? L10n.Error.noItemFor("\(post)")
-                    result.error = FeedServiceError.failedToFetch(message: message)
-                    completion(result)
-                }
-                return
-            }
-            
-            // get rid of nills
-            result.posts = [Post(data: data)].flatMap { $0 }
-            completion(result)
-        }
     }
     
     func fetchMyPosts(query: FeedQuery, completion: @escaping FetchResultHandler) {
