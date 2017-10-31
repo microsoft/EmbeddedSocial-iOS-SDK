@@ -15,6 +15,7 @@ class SettingsViewController: UITableViewController {
     
     enum AccountActionsSectionItems: Int {
         case blockList
+        case deleteSearchHistory
         case linkedAccounts
         case signOut
         case deleteAccount
@@ -53,6 +54,7 @@ class SettingsViewController: UITableViewController {
         
         let accountActions: ActionsMapping = [
             AccountActionsSectionItems.blockList.rawValue: output.onBlockedList,
+            AccountActionsSectionItems.deleteSearchHistory.rawValue: deleteSearchHistoryAndShowSuccessAlert,
             AccountActionsSectionItems.linkedAccounts.rawValue: output.onLinkedAccounts,
             AccountActionsSectionItems.signOut.rawValue: output.signOut,
             AccountActionsSectionItems.deleteAccount.rawValue: showDeleteAccountDialogue
@@ -86,6 +88,11 @@ class SettingsViewController: UITableViewController {
             noHandler: { _ in () },
             yesHandler: { [weak self] _ in self?.output.onDeleteAccount() }
         )
+    }
+    
+    private func deleteSearchHistoryAndShowSuccessAlert() {
+        output.onDeleteSearchHistory()
+        showAlert(message: L10n.Settings.Alert.searchHistoryDeleted, closeTitle: L10n.Common.ok)
     }
 }
 

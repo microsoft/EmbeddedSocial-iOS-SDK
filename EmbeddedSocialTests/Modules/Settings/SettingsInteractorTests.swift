@@ -12,12 +12,14 @@ class SettingsInteractorTests: XCTestCase {
     var logoutController: MockLogoutController!
     var usersService: MockUserService!
     var sut: SettingsInteractor!
+    var storage: SearchHistoryStorage!
     
     override func setUp() {
         super.setUp()
         logoutController = MockLogoutController()
         usersService = MockUserService()
-        sut = SettingsInteractor(userService: usersService, logoutController: logoutController)
+        storage = SearchHistoryStorage(storage: UserDefaults.standard, userID: "123")
+        sut = SettingsInteractor(userService: usersService, logoutController: logoutController, searchHistoryStorage: storage)
     }
     
     override func tearDown() {
@@ -25,6 +27,7 @@ class SettingsInteractorTests: XCTestCase {
         logoutController = nil
         usersService = nil
         sut = nil
+        storage = nil
     }
     
     func testSignOut() {
@@ -60,5 +63,15 @@ class SettingsInteractorTests: XCTestCase {
         expect(result?.error).toEventually(matchError(APIError.unknown))
         expect(self.usersService.deleteAccountCalled).toEventually(beTrue())
         expect(self.logoutController.logOutCount).to(equal(0))
+    }
+    
+    func testDeleteSearchHistory() {
+        storage.save("1")
+        storage.save("2")
+        storage.save("3")
+        expect(self.storage.searchRequests().count).to(equal(3))
+        
+        sut.deleteSearchHistory()
+        expect(self.storage.searchRequests().count).to(equal(0))
     }
 }

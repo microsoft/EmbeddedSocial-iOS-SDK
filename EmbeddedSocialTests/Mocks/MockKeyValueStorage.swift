@@ -6,6 +6,7 @@
 @testable import EmbeddedSocial
 
 final class MockKeyValueStorage: KeyValueStorage {
+    
     //MARK: - set
     
     var setForKeyCalled = false
@@ -20,7 +21,7 @@ final class MockKeyValueStorage: KeyValueStorage {
     
     var objectForKeyCalled = false
     var objectForKeyReceivedDefaultName: String?
-    var objectForKeyReturnValue: Any?
+    var objectForKeyReturnValue: Any?!
     
     func object(forKey defaultName: String) -> Any? {
         objectForKeyCalled = true
@@ -47,4 +48,15 @@ final class MockKeyValueStorage: KeyValueStorage {
         purgeKeyCalled = true
         purgeKeyReceivedKey = key
     }
+    
+    //MARK: - dictionaryRepresentation
+    
+    var dictionaryRepresentationCalled = false
+    var dictionaryRepresentationReturnValue: [String: Any]!
+    
+    func dictionaryRepresentation() -> [String: Any] {
+        dictionaryRepresentationCalled = true
+        return dictionaryRepresentationReturnValue
+    }
+
 }
