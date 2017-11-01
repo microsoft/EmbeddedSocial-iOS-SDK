@@ -35,6 +35,38 @@ class TestSettings: BaseSideMenuTest {
         XCTAssertTrue((privacySettingOptionSwitch.value as! String) == "0") // off
     }
     
+    func testSearchHistoryDeleted() {
+        navigate(to: .search)
+        
+        let search = Search(app)
+        search.search("Search Something", for: .topics)
+        
+        var searchHistory = search.getHistory()
+        XCTAssertEqual(searchHistory.getHistoryItem(at: 0).getQuery(), "Search Something")
+        
+        openScreen()
+        app.cells["Delete History"].tap()
+        app.alerts.buttons.element.tap()
+        
+        navigate(to: .search)
+        searchHistory = search.getHistory()
+        XCTAssertEqual(searchHistory.getHistoryItemsCount(), 0)
+    }
+    
+    func testAccountDeleted() {
+        openScreen()
+        app.cells["Delete Account"].tap()
+        
+        let confirmationAlert = app.alerts.element
+        XCTAssertTrue(confirmationAlert.exists)
+        XCTAssertTrue(confirmationAlert.buttons["Cancel"].exists)
+        XCTAssertTrue(confirmationAlert.buttons["Delete"].exists)
+        
+        confirmationAlert.buttons["Delete"].tap()
+        XCTAssertEqual(APIState.latestRequstMethod, "DELETE")
+        XCTAssertTrue(APIState.getLatestRequest().contains("/users/me"))
+    }
+    
 }
 
 extension TestSettings {
