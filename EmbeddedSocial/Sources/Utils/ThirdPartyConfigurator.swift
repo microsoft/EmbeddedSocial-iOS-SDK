@@ -16,6 +16,7 @@ protocol ThirdPartyConfiguratorType {
 struct ThirdPartyConfigurator: ThirdPartyConfiguratorType {
 
     func setup(application: UIApplication, launchOptions: [AnyHashable: Any]) {
+        setupHockeyApp()
         setupTwitter()
         setupFacebook(application: application, launchOptions: launchOptions)
         setupGoogle()
@@ -27,17 +28,17 @@ struct ThirdPartyConfigurator: ThirdPartyConfiguratorType {
     }
     
     private func setupFacebook(application: UIApplication, launchOptions: [AnyHashable: Any]) {
-        FBSDKSettings.setAppID("143359739619521")
-        FBSDKSettings.setDisplayName("Embedded Social")
+        FBSDKSettings.setAppID(Keys.facebookAppID)
+        FBSDKSettings.setDisplayName(Keys.facebookDisplayName)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
     private func setupGoogle() {
-        GIDSignIn.sharedInstance().clientID = "348861152334-5hdrnh6qal3trt8m2ukv26due7fn20k0.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().clientID = Keys.googleClientID
     }
     
     private func setupHockeyApp() {
-        BITHockeyManager.shared().configure(withIdentifier: "46cc5ba83a8043b9a4b67cc0f9c6c9a2")
+        BITHockeyManager.shared().configure(withIdentifier: Keys.hockeyClientID)
         BITHockeyManager.shared().start()
         BITHockeyManager.shared().authenticator.authenticateInstallation()
         
@@ -49,9 +50,12 @@ struct ThirdPartyConfigurator: ThirdPartyConfiguratorType {
 
 extension ThirdPartyConfigurator {
     struct Keys {
+        static let facebookAppID = "143359739619521"
+        static let facebookDisplayName = "Embedded Social"
+        static let hockeyClientID = "46cc5ba83a8043b9a4b67cc0f9c6c9a2"
+        static let googleClientID = "348861152334-5hdrnh6qal3trt8m2ukv26due7fn20k0.apps.googleusercontent.com"
+        static let microsoftClientID = "5e4ecf55-0958-4324-b32a-332e42064697"
         static let twitterConsumerKey = "2dw07dxA952U3QmEcT3TruHbd"
         static let twitterConsumerSecret = "c1eoCNGZP0hJ3UHiB50qIh9Y0TMSDq8LOYZ3gJO8blsql9sRB5"
-        
-        static let microsoftClientID = "5e4ecf55-0958-4324-b32a-332e42064697"
     }
 }

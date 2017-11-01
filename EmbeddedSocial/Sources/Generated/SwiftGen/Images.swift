@@ -61,8 +61,6 @@ enum Asset: String {
   case iconSearch = "icon_search"
   case iconSettingsActive = "icon_settings_active"
   case iconSettings = "icon_settings"
-  case logoWhite = "logo-white"
-  case logo = "logo"
   case placeholderPostNoimage = "placeholder_post_noimage"
   case placeholderPostImage = "placeholder_post_image"
   case placeholderPostImage2 = "placeholder_post_image2"
