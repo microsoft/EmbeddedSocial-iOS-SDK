@@ -282,9 +282,7 @@ class TopicService: BaseService, PostServiceProtocol {
         
         executor.execute(with: builder) { result in
             var feed = result.value ?? FeedFetchResult()
-            if let error = result.error {
-                feed.error = FeedServiceError.failedToFetch(message: error.localizedDescription)
-            }
+            feed.error = result.error
             completion(feed)
         }
     }
