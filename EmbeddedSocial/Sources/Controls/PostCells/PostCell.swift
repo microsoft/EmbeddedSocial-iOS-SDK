@@ -96,6 +96,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     override func layoutSubviews() {
         super.layoutSubviews()
         userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
+        print(commentedCount.frame, commentedCount.text)
     }
     
     override func awakeFromNib() {
@@ -140,7 +141,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         let containerHeight = collectionView?.bounds.height
         
         // Narrow views above 340px should use short strings
-        let shouldUseShortStrings = collectionView == nil ? false : (bounds.width <= 340)
+        let shouldUseShortStrings = collectionView == nil ? false : (UIScreen.main.bounds.width <= 340)
         
         postImageHeight.constant = getImageHeight(containerHeight: containerHeight)
         
