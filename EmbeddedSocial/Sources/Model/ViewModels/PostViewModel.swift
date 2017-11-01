@@ -33,6 +33,10 @@ struct PostViewModel {
     
     // sourcery: skipEquality
     let onAction: ActionHandler?
+    
+    var postPhoto: Photo? {
+        return postImageHandle != nil ? Photo(uid: postImageHandle!, url: postImageUrl) : nil
+    }
   
     init(with post: Post,
          isTrimmed: Bool = false,

@@ -9,6 +9,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
  
     weak var collectionView: UICollectionView!
     var viewModel: PostViewModel!
+    var cache: ImageCache = ImageCacheAdapter.shared
     
     @IBOutlet weak var postImageHeight: NSLayoutConstraint!
     @IBOutlet var staticHeigthElements: [UIView]!
@@ -50,6 +51,13 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     func indexPath() -> IndexPath? {
         return collectionView.indexPath(for: self)
+    }
+    
+    private var imageIsAvailable: Bool {
+        guard viewModel != nil, let photo = viewModel.postPhoto else {
+            return false
+        }
+        return cache.image(for: photo) != nil || photo.url != nil
     }
     
     @IBAction private func onTapPhoto(_ sender: Any) {
@@ -144,13 +152,11 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         
         postImageHeight.constant = getImageHeight(containerHeight: containerHeight)
         
-        // showing post image if url is available, else - hiding
-        if data.postImageUrl == nil {
+        if !imageIsAvailable {
             postImageHeight.constant = 0
         }
-    
-        let downloadablePostImage = Photo(uid: data.postImageHandle ?? "", url: data.postImageUrl)
-        postImage.setPhotoWithCaching(downloadablePostImage, placeholder: postImagePlaceholder)
+        
+        postImage.setPhotoWithCaching(data.postPhoto, placeholder: postImagePlaceholder)
         
         let downloadableUserImage = Photo(url: data.userImageUrl)
         userPhoto.setPhotoWithCaching(downloadableUserImage, placeholder: userImagePlaceholder)
@@ -187,7 +193,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
             return result + constraint.constant
         }
         
-        let imageHeight = viewModel.postImageUrl == nil ? 0 : getImageHeight(containerHeight: containerHeight)
+        let imageHeight = imageIsAvailable ? getImageHeight(containerHeight: containerHeight) : 0
         
         // dynamic part of calculation:
         let bounds = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
