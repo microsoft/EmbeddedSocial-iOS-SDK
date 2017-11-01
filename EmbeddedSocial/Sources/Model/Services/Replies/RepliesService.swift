@@ -118,7 +118,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                 if error!.statusCode > Constants.HTTPStatusCodes.InternalServerError.rawValue {
                     resultHandler(result)
                 } else {
-                result.error = RepliesServiceError.failedToFetch(message: error?.localizedDescription ?? L10n.Error.noItemsReceived)
+                    result.error = RepliesServiceError.failedToFetch(message: error?.localizedDescription ?? L10n.Error.noItemsReceived)
                 }
             }
             
@@ -247,6 +247,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             } else if let error = error {
                 failure(error)
             } else {
+                self.cache.cacheOutgoing(command)
                 success()
             }
         }
