@@ -131,12 +131,6 @@ class TopicService: BaseService, PostServiceProtocol {
                          success: @escaping TopicPosted,
                          failure: @escaping Failure) {
         
-        guard isNetworkReachable else {
-            cache.cacheOutgoing(command)
-            success(command.topic)
-            return
-        }
-        
         let request = PostTopicRequest()
         request.text = command.topic.text
         request.title = command.topic.title
@@ -147,14 +141,15 @@ class TopicService: BaseService, PostServiceProtocol {
         }
         
         TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { response, error in
-            if let handle = response?.topicHandle {
+            if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else if let handle = response?.topicHandle {
                 var topic = command.topic
                 topic.topicHandle = handle
                 success(topic)
-            } else if self.errorHandler.canHandle(error) {
-                self.errorHandler.handle(error)
             } else {
-                failure(error ?? APIError.unknown)
+                self.cache.cacheOutgoing(command)
+                success(command.topic)
             }
         }
     }
@@ -171,22 +166,21 @@ class TopicService: BaseService, PostServiceProtocol {
                          request: PutTopicRequest,
                          success: @escaping () -> (),
                          failure: @escaping Failure) {
-        
-        guard isNetworkReachable else {
-            cache.cacheOutgoing(command)
-            success()
-            return
-        }
-        
-        TopicsAPI.topicsPutTopic(topicHandle: command.topic.topicHandle, request: request, authorization: authorization) { (object, error) in
-            if error != nil {
+
+        TopicsAPI.topicsPutTopic(
+            topicHandle: command.topic.topicHandle,
+            request: request,
+            authorization: authorization) { object, error in
+                
                 if self.errorHandler.canHandle(error) {
                     self.errorHandler.handle(error)
+                    failure(error ?? APIError.unknown)
+                } else if error == nil {
+                    success()
+                } else {
+                    self.cache.cacheOutgoing(command)
+                    success()
                 }
-                failure(error!)
-            } else {
-                success()
-            }
         }
     }
     
@@ -298,16 +292,13 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     private func deleteTopic(command: RemoveTopicCommand, completion: @escaping (Result<Void>) -> Void) {
-        guard isNetworkReachable else {
-            cache.cacheOutgoing(command)
-            completion(.success())
-            return
-        }
-        
         TopicsAPI.topicsDeleteTopic(topicHandle: command.topic.topicHandle, authorization: authorization) { (_, error) in
-            if let error = error {
-                self.errorHandler.handle(error: error, completion: completion)
+            if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            } else if error == nil {
+                completion(.success())
             } else {
+                self.cache.cacheOutgoing(command)
                 completion(.success())
             }
         }

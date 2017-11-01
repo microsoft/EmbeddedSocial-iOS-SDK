@@ -115,7 +115,16 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                 strongSelf.errorHandler.handle(error)
                 return
             } else {
-                result.error = RepliesServiceError.failedToFetch(message: error?.localizedDescription ?? L10n.Error.noItemsReceived)
+                guard let unwrappedError = error else {
+                    resultHandler(result)
+                    return
+                }
+                
+                if unwrappedError.statusCode >= Constants.HTTPStatusCodes.InternalServerError.rawValue {
+                    resultHandler(result)
+                } else {
+                    result.error = RepliesServiceError.failedToFetch(message: error?.localizedDescription ?? L10n.Error.noItemsReceived)
+                }
             }
             
             resultHandler(result)
@@ -202,7 +211,17 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                     strongSelf.errorHandler.handle(error)
                     failure(APIError(error: error))
                 } else {
-                    failure(APIError(error: error))
+                    guard let unwrappedError = error else {
+                        failure(APIError(error: error))
+                        return
+                    }
+                    
+                    if unwrappedError.statusCode >= Constants.HTTPStatusCodes.InternalServerError.rawValue {
+                        strongSelf.cache.cacheOutgoing(replyCommand)
+                        success(PostReplyResponse(reply: reply))
+                    } else {
+                        failure(APIError(error: error))
+                    }
                 }
         }
     }
@@ -236,6 +255,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                 self.errorHandler.handle(error)
                 failure(APIError(error: error))
             } else if let error = error {
+                self.cache.cacheOutgoing(command)
                 failure(error)
             } else {
                 success()
