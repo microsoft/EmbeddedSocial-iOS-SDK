@@ -7,28 +7,32 @@ import Foundation
 
 class AtomicOutgoingCommandsExecutor<ResponseType> {
     
-    private let networkTracker: NetworkStatusMulticast
     var cache: CacheType?
     var errorHandler: APIErrorHandler?
-
-    init(networkTracker: NetworkStatusMulticast = SocialPlus.shared.networkTracker) {
-        self.networkTracker = networkTracker
-    }
+    private var commandBeingExecuted: OutgoingCommand?
     
     func execute(command: OutgoingCommand,
                  builder: RequestBuilder<ResponseType>,
                  completion: @escaping (Result<Void>) -> Void) {
         
-        if networkTracker.isReachable {
-            builder.execute { [weak self] response, error in
+        commandBeingExecuted = command
+        builder.execute { [weak self] response, error in
+            DispatchQueue.main.async {
                 self?.processResponse(response?.body, error, completion)
             }
-        } else {
-            cacheCommand(command)
-            DispatchQueue.main.async {
-                completion(.success())
-            }
         }
+    }
+    
+    private func processResponse(_ data: ResponseType?, _ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
+        if let errorHandler = errorHandler, errorHandler.canHandle(error) {
+            errorHandler.handle(error)
+        } else {
+            if error != nil && commandBeingExecuted != nil {
+                cacheCommand(commandBeingExecuted!)
+            }
+            completion(.success())
+        }
+        commandBeingExecuted = nil
     }
     
     private func cacheCommand(_ command: OutgoingCommand) {
@@ -47,14 +51,5 @@ class AtomicOutgoingCommandsExecutor<ResponseType> {
                                     predicate: PredicateBuilder().predicate(for: inverseCommand),
                                     sortDescriptors: nil)
     }
-    
-    private func processResponse(_ data: ResponseType?, _ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
-        DispatchQueue.main.async {
-            if error == nil {
-                completion(.success())
-            } else {
-                self.errorHandler?.handle(error: error, completion: completion)
-            }
-        }
-    }
+
 }

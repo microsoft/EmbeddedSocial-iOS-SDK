@@ -90,6 +90,8 @@ extension SearchHistoryMediator: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         if !hasSetHistoryView {
             setupHistoryView()
+        } else {
+            searchHistoryView.searchRequests = storage.searchRequests()
         }
         updateSearchHistoryVisibility()
     }
@@ -97,4 +99,5 @@ extension SearchHistoryMediator: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchHistoryView.isHidden = true
     }
+    
 }

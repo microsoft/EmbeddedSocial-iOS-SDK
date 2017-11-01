@@ -11,4 +11,6 @@ protocol SettingsInteractorInput: class {
     func signOut()
     
     func deleteAccount(completion: @escaping (Result<Void>) -> Void)
+    
+    func deleteSearchHistory()
 }

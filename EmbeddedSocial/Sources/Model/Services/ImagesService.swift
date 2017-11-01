@@ -63,13 +63,6 @@ class ImagesService: BaseService, ImagesServiceType {
                          imageType: ImagesAPI.ImageType_imagesPostImage,
                          completion: @escaping (Result<String>) -> Void) {
         
-        guard isNetworkReachable else {
-            imageCache.store(photo: command.photo)
-            cache.cacheOutgoing(command)
-            completion(.success(command.photo.uid))
-            return
-        }
-        
         guard let data = command.photo.image?.compressed() else {
             completion(.failure(APIError.invalidImage))
             return
@@ -79,12 +72,20 @@ class ImagesService: BaseService, ImagesServiceType {
             imageType: imageType,
             authorization: authorization,
             image: data,
-            imageFileType: imageFileType) { [weak self] response, error in
-                if let handle = response?.blobHandle {
-                    self?.imageCache.store(photo: Photo(uid: handle, image: command.photo.image))
-                    completion(.success(handle))
+            imageFileType: imageFileType) { response, error in
+                if self.errorHandler.canHandle(error) {
+                    self.errorHandler.handle(error)
                 } else {
-                    self?.errorHandler.handle(error: error, completion: completion)
+                    var photo = command.photo
+                    
+                    if let handle = response?.blobHandle {
+                        photo = Photo(uid: handle, image: command.photo.image)
+                    } else {
+                        self.cache.cacheOutgoing(command)
+                    }
+                    
+                    self.imageCache.store(photo: photo)
+                    completion(.success(photo.uid))
                 }
         }
     }
@@ -92,14 +93,6 @@ class ImagesService: BaseService, ImagesServiceType {
     func updateUserPhoto(_ photo: Photo, completion: @escaping (Result<Photo>) -> Void) {
         guard let image = photo.image else {
             completion(.failure(APIError.invalidImage))
-            return
-        }
-        
-        guard isNetworkReachable else {
-            let command = UpdateUserImageCommand(photo: photo, relatedHandle: nil)
-            imageCache.store(photo: command.photo)
-            cache.cacheOutgoing(command)
-            completion(.success(photo))
             return
         }
         

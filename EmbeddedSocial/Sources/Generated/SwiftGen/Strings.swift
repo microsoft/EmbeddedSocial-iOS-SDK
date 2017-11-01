@@ -541,6 +541,8 @@ enum L10n {
       static let deleteAccountMessage = L10n.tr("Localizable", "settings.alert.delete_account_message")
       /// Delete account
       static let deleteAccountTitle = L10n.tr("Localizable", "settings.alert.delete_account_title")
+      /// Search history deleted
+      static let searchHistoryDeleted = L10n.tr("Localizable", "settings.alert.search_history_deleted")
     }
   }
 

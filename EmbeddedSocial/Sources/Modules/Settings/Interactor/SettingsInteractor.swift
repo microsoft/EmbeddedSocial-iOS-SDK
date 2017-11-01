@@ -9,10 +9,12 @@ final class SettingsInteractor: SettingsInteractorInput {
 
     private let userService: UserServiceType
     private let logoutController: LogoutController
-    
-    init(userService: UserServiceType, logoutController: LogoutController) {
+    private let searchHistoryStorage: SearchHistoryStorage
+
+    init(userService: UserServiceType, logoutController: LogoutController, searchHistoryStorage: SearchHistoryStorage) {
         self.userService = userService
         self.logoutController = logoutController
+        self.searchHistoryStorage = searchHistoryStorage
     }
     
     func signOut() {
@@ -34,5 +36,9 @@ final class SettingsInteractor: SettingsInteractorInput {
             }
             completion(result)
         }
+    }
+    
+    func deleteSearchHistory() {
+        searchHistoryStorage.cleanup()
     }
 }

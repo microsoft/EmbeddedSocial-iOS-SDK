@@ -76,4 +76,8 @@ extension SettingsPresenter: SettingsViewOutput {
             }
         }
     }
+    
+    func onDeleteSearchHistory() {
+        interactor.deleteSearchHistory()
+    }
 }

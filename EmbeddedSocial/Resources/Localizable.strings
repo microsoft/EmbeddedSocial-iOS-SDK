@@ -130,6 +130,7 @@
 "settings.screen_title" = "Settings";
 "settings.alert.delete_account_message" = "This action will permanently delete your account and all associated information. The account deletion cannot be undone.\n\nDo you really want to do it?";
 "settings.alert.delete_account_title" = "Delete account";
+"settings.alert.search_history_deleted" = "Search history deleted";
 
 "upload_photo_cell.upload_photo" = "Upload photo";
 
