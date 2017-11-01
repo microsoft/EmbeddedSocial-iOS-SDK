@@ -227,7 +227,12 @@ class CommentsService: BaseService, CommentServiceProtocol {
                     self.errorHandler.handle(error)
                     failure(APIError(error: error))
                 } else {
-                    if error!.statusCode > Constants.HTTPStatusCodes.InternalServerError.rawValue {
+                    guard let unwrappedError = error else {
+                        failure(APIError(error: error))
+                        return
+                    }
+                    
+                    if unwrappedError.statusCode >= Constants.HTTPStatusCodes.InternalServerError.rawValue {
                         self.cache.cacheOutgoing(command)
                         resultHandler(command.comment)
                     } else {
@@ -270,7 +275,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
                 self.errorHandler.handle(error)
                 failure(APIError(error: error))
             } else {
-                if error.statusCode > Constants.HTTPStatusCodes.InternalServerError.rawValue {
+                if error.statusCode >= Constants.HTTPStatusCodes.InternalServerError.rawValue {
                     self.cache.cacheOutgoing(command)
                     failure(APIError(error: error))
                 } else {

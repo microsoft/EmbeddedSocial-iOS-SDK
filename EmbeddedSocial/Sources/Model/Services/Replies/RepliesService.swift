@@ -115,7 +115,12 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                 strongSelf.errorHandler.handle(error)
                 return
             } else {
-                if error!.statusCode > Constants.HTTPStatusCodes.InternalServerError.rawValue {
+                guard let unwrappedError = error else {
+                    resultHandler(result)
+                    return
+                }
+                
+                if unwrappedError.statusCode >= Constants.HTTPStatusCodes.InternalServerError.rawValue {
                     resultHandler(result)
                 } else {
                     result.error = RepliesServiceError.failedToFetch(message: error?.localizedDescription ?? L10n.Error.noItemsReceived)
@@ -206,7 +211,12 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                     strongSelf.errorHandler.handle(error)
                     failure(APIError(error: error))
                 } else {
-                    if error!.statusCode > Constants.HTTPStatusCodes.InternalServerError.rawValue {
+                    guard let unwrappedError = error else {
+                        failure(APIError(error: error))
+                        return
+                    }
+                    
+                    if unwrappedError.statusCode >= Constants.HTTPStatusCodes.InternalServerError.rawValue {
                         strongSelf.cache.cacheOutgoing(replyCommand)
                         success(PostReplyResponse(reply: reply))
                     } else {
