@@ -58,9 +58,9 @@ extension LoadMoreCell {
         guard let palette = theme?.palette else {
             return
         }
-        backgroundColor = palette.contentBackground
+        backgroundColor = palette.topicsFeedBackground
         activityIndicator.color = palette.loadingIndicator
-        loadButton.backgroundColor = palette.contentBackground
+        loadButton.backgroundColor = palette.topicsFeedBackground
         loadButton.setTitleColor(palette.topicSecondaryText, for: .normal)
         loadButton.titleLabel?.font = AppFonts.regular
     }
