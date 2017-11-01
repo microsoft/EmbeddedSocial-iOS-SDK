@@ -9,7 +9,11 @@ class BaseNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBar.isTranslucent = true
+        if #available(iOS 11.0, *) {
+            navigationBar.isTranslucent = true
+        } else {
+            navigationBar.isTranslucent = false
+        }
     }
 
 }
