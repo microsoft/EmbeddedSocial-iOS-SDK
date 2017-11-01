@@ -34,7 +34,8 @@ CacheRequestExecutionStrategy<ResponseType, ResultType> where ResponseType: Cach
                 self?.cache?.cacheIncoming(response)
             }
             DispatchQueue.main.async {
-                self?.processResponse(response, isFromCache: false, error: APIError(error: error), completion: completion)
+                let error = (error == nil) ? nil : APIError(error: error)
+                self?.processResponse(response, isFromCache: false, error: error, completion: completion)
             }
         }
     }
