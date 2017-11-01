@@ -538,7 +538,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didFail(error: Error) {
-        view.showError(error: error)
+        Logger.log(error, event: .error)
     }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {

@@ -18,13 +18,6 @@ CacheRequestExecutionStrategy<ResponseType, ResultType> where ResponseType: Cach
             }
         }
         
-        if let networkTracker = networkTracker, !networkTracker.isReachable {
-            if cachedResponse == nil {
-                processResponse(nil, isFromCache: false, error: nil, completion: completion)
-            }
-            return
-        }
-        
         builder.execute { [weak self] result, error in
             let response = result?.body
             response?.setHandle(builder.URLString)
@@ -41,7 +34,7 @@ CacheRequestExecutionStrategy<ResponseType, ResultType> where ResponseType: Cach
                 self?.cache?.cacheIncoming(response)
             }
             DispatchQueue.main.async {
-                self?.processResponse(response, isFromCache: false, error: error, completion: completion)
+                self?.processResponse(response, isFromCache: false, error: APIError(error: error), completion: completion)
             }
         }
     }
