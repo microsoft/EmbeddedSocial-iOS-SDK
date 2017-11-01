@@ -96,7 +96,6 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     override func layoutSubviews() {
         super.layoutSubviews()
         userPhoto.layer.cornerRadius = userPhoto.layer.bounds.height / 2
-        print(commentedCount.frame, commentedCount.text)
     }
     
     override func awakeFromNib() {
