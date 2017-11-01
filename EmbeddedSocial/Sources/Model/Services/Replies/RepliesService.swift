@@ -245,9 +245,9 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                 self.errorHandler.handle(error)
                 failure(APIError(error: error))
             } else if let error = error {
+                self.cache.cacheOutgoing(command)
                 failure(error)
             } else {
-                self.cache.cacheOutgoing(command)
                 success()
             }
         }

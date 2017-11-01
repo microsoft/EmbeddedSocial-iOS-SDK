@@ -261,21 +261,24 @@ class CommentsService: BaseService, CommentServiceProtocol {
         
         let request = CommentsAPI.commentsDeleteCommentWithRequestBuilder(commentHandle: command.comment.commentHandle, authorization: authorization)
         request.execute { (response, error) in
-            if let response = response {
+            guard let error = error else {
                 success()
-            } else if self.errorHandler.canHandle(error) {
+                return
+            }
+            
+            if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
                 failure(APIError(error: error))
             } else {
-                if error!.statusCode > Constants.HTTPStatusCodes.InternalServerError.rawValue {
+                if error.statusCode > Constants.HTTPStatusCodes.InternalServerError.rawValue {
                     self.cache.cacheOutgoing(command)
                     failure(APIError(error: error))
                 } else {
-                     success()
+                    success()
                 }
             }
+            
         }
-
     }
     
     private func convert(data: [CommentView]) -> [Comment] {
