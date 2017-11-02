@@ -15,4 +15,6 @@ protocol UserListModuleInput: class {
     func setListHeaderView(_ view: UIView?)
     
     func removeUser(_ user: User)
+    
+    var isListEmpty: Bool { get }
 }

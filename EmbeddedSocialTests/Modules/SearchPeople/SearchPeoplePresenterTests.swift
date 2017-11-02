@@ -12,6 +12,7 @@ class SearchPeoplePresenterTests: XCTestCase {
     var usersListModule: MockUserListModuleInput!
     var backgroundUsersListModule: MockUserListModuleInput!
     var sut: SearchPeoplePresenter!
+    var moduleOutput: MockSearchPeopleModuleOutput!
     
     override func setUp() {
         super.setUp()
@@ -19,12 +20,14 @@ class SearchPeoplePresenterTests: XCTestCase {
         interactor = MockSearchPeopleInteractor()
         usersListModule = MockUserListModuleInput()
         backgroundUsersListModule = MockUserListModuleInput()
+        moduleOutput = MockSearchPeopleModuleOutput()
         sut = SearchPeoplePresenter()
         
         sut.view = view
         sut.interactor = interactor
         sut.usersListModule = usersListModule
         sut.backgroundUsersListModule = backgroundUsersListModule
+        sut.moduleOutput = moduleOutput
     }
     
     override func tearDown() {
@@ -34,6 +37,50 @@ class SearchPeoplePresenterTests: XCTestCase {
         usersListModule = nil
         backgroundUsersListModule = nil
         sut = nil
+        moduleOutput = nil
+    }
+    
+    func testSearchErrorHandlingWhenListIsEmpty() {
+        testSearchErrorHandling(listIsEmpty: true)
+        
+        resetModuleOutput()
+        resetView()
+        
+        testSearchErrorHandling(listIsEmpty: false)
+    }
+    
+    func testSearchErrorHandling(listIsEmpty: Bool) {
+        usersListModule.isListEmpty = listIsEmpty
+        
+        sut.didFailToLoadList(listView: usersListModule.listView, error: APIError.unknown)
+        
+        XCTAssertTrue(moduleOutput.didFailToLoadSearchQueryCalled)
+        guard let e = moduleOutput.didFailToLoadSearchQueryReceivedError as? APIError, case .unknown = e else {
+            XCTFail()
+            return
+        }
+        
+        XCTAssertTrue(view.setIsEmptyCalled)
+        XCTAssertEqual(view.setIsEmptyInputIsEmpty, listIsEmpty)
+    }
+    
+    func resetView() {
+        view = MockSearchPeopleView()
+        sut.view = view
+    }
+    
+    func resetModuleOutput() {
+        moduleOutput = MockSearchPeopleModuleOutput()
+        sut.moduleOutput = moduleOutput
+    }
+    
+    func testBackgroundListErrorHandling() {
+        sut.didFailToLoadList(listView: backgroundUsersListModule.listView, error: APIError.unknown)
+        XCTAssertTrue(moduleOutput.didFailToLoadSuggestedUsersCalled)
+        guard let e = moduleOutput.didFailToLoadSuggestedUsersReceivedError as? APIError, case .unknown = e else {
+            XCTFail()
+            return
+        }
     }
 }
 

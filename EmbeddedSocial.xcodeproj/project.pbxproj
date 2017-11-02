@@ -882,6 +882,7 @@
 		88C6826E1F7A6E64004BD291 /* PaginatedListProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C6826D1F7A6E64004BD291 /* PaginatedListProcessor.swift */; };
 		88C682711F7A71EE004BD291 /* FollowRequestsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C682701F7A71EE004BD291 /* FollowRequestsAPI.swift */; };
 		88CEDD861FA76C110015B122 /* SettingsInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEDD851FA76C110015B122 /* SettingsInteractorTests.swift */; };
+		88CF3A831FAB432500F607F8 /* MockSearchPeopleModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF3A821FAB432500F607F8 /* MockSearchPeopleModuleOutput.swift */; };
 		88D1230C1F73AA9F001523D1 /* OutgoingCommandsUploadStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D1230B1F73AA9F001523D1 /* OutgoingCommandsUploadStrategy.swift */; };
 		88D1230E1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D1230D1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift */; };
 		88D123131F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D123121F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift */; };
@@ -2164,6 +2165,7 @@
 		88C6826D1F7A6E64004BD291 /* PaginatedListProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedListProcessor.swift; sourceTree = "<group>"; };
 		88C682701F7A71EE004BD291 /* FollowRequestsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowRequestsAPI.swift; sourceTree = "<group>"; };
 		88CEDD851FA76C110015B122 /* SettingsInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractorTests.swift; sourceTree = "<group>"; };
+		88CF3A821FAB432500F607F8 /* MockSearchPeopleModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchPeopleModuleOutput.swift; sourceTree = "<group>"; };
 		88D1230B1F73AA9F001523D1 /* OutgoingCommandsUploadStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingCommandsUploadStrategy.swift; sourceTree = "<group>"; };
 		88D1230D1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchOutgoingCommandsOperation.swift; sourceTree = "<group>"; };
 		88D123121F73F566001523D1 /* OutgoingCommandsRelatedHandleUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingCommandsRelatedHandleUpdater.swift; sourceTree = "<group>"; };
@@ -4775,6 +4777,7 @@
 			children = (
 				889119B21F4AE771005B3B32 /* MockSearchPeopleInteractor.swift */,
 				889119B41F4AE7F5005B3B32 /* MockSearchPeopleView.swift */,
+				88CF3A821FAB432500F607F8 /* MockSearchPeopleModuleOutput.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -8029,6 +8032,7 @@
 				9C30243C1F55AB2100675FE9 /* FeedModuleRouterMock.swift in Sources */,
 				88C682411F794D6B004BD291 /* MockTopicServicePredicateBuilder.swift in Sources */,
 				88F7A7861F2788DE005FEC5F /* LoginInteractorTests.swift in Sources */,
+				88CF3A831FAB432500F607F8 /* MockSearchPeopleModuleOutput.swift in Sources */,
 				639A94401F5D2FE800EB0253 /* MockCommentCellInteractor.swift in Sources */,
 				886826111F6A948700F54731 /* OutgoingCommandTests.swift in Sources */,
 				889119C31F4AFBB1005B3B32 /* MockSearchView.swift in Sources */,

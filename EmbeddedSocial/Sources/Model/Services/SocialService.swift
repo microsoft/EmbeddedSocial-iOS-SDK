@@ -103,16 +103,6 @@ class SocialService: BaseService, SocialServiceType {
         outgoingActionsExecutor.execute(command: command, builder: builder, completion: completion)
     }
     
-    private func processResponse(_ data: Object?, _ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
-        DispatchQueue.main.async {
-            if error == nil {
-                completion(.success())
-            } else {
-                self.errorHandler.handle(error: error, completion: completion)
-            }
-        }
-    }
-    
     func getMyFollowing(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {
         let builder = SocialAPI.myFollowingGetFollowingUsersWithRequestBuilder(
             authorization: authorization,
