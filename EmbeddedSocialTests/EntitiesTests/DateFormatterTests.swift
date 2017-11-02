@@ -8,7 +8,7 @@ import XCTest
 
 class DateFormatterTests: XCTestCase {
     
-    var sut: DateFormatterProtocol!
+    var sut: DateFormatterTool!
 
     override func setUp() {
         super.setUp()

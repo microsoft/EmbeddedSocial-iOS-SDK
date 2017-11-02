@@ -11,7 +11,7 @@ protocol DateFormatterProtocol {
 
 class DateFormatterTool: DateFormatterProtocol {
     
-    static let shared: DateFormatterProtocol = DateFormatterTool()
+    static let shared: DateFormatterTool = DateFormatterTool()
     
     func timeAgo(since then: Date) -> String? {
         let now = Date()
