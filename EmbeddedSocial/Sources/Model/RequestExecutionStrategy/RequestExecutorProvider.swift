@@ -13,9 +13,9 @@ typealias SuggestedUsersRequestExecutor = CacheRequestExecutionStrategy<[UserCom
 
 typealias OutgoingActionRequestExecutor = AtomicOutgoingCommandsExecutor<Object>
 
-typealias MyActivityRequestExecutor = CacheRequestExecutionStrategy<FeedResponseActivityView, ListResponse<ActivityView> >
+typealias MyActivityRequestExecutor = CacheRequestExecutionStrategy<FeedResponseActivityView, PaginatedResponse<ActivityView> >
 
-typealias OthersActivityRequestExecutor = CacheRequestExecutionStrategy<FeedResponseActivityView, ListResponse<ActivityView> >
+typealias OthersActivityRequestExecutor = CacheRequestExecutionStrategy<FeedResponseActivityView, PaginatedResponse<ActivityView> >
 
 typealias SingleTopicRequestExecutor = CacheRequestExecutionStrategy<TopicView, Post>
 
@@ -92,7 +92,7 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
     
     static func makeMyActivityExecutor(for service: BaseService) -> MyActivityRequestExecutor {
         return makeCommonExecutor(requestType: FeedResponseActivityView.self,
-                                  responseType: ListResponse<ActivityView>.self,
+                                  responseType: PaginatedResponse<ActivityView>.self,
                                   service: service,
                                   responseProcessor: ActivityFeedProcessor())
     }

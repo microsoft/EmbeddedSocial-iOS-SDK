@@ -211,7 +211,7 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
     
     private func onUpdateLayout(type: FeedModuleLayoutType, animated: Bool = false) {
         
-        collectionView.reloadData()
+        
         collectionView.collectionViewLayout.invalidateLayout()
     
         // switch layout
@@ -227,6 +227,8 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
                 collectionView.setCollectionViewLayout(listLayout, animated: animated)
             }
         }
+        
+        collectionView.reloadData()
     }
     
     private func onUpdateBounds() {

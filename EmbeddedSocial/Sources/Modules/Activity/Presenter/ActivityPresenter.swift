@@ -127,13 +127,22 @@ class ActivityPresenter {
     }
     
     private func onStateDidChange() {
-        // load/update feed
+        view.resetLoading()
         view.reloadItems()
         loadAll()
     }
 }
 
 extension ActivityPresenter: DataSourceDelegate {
+    
+    func didStartLoading() {
+        view.loadingDidStart()
+    }
+    
+    func didFinishLoading() {
+        view.loadingDidFinish()
+    }
+    
     func didChangeItems(change: Change<IndexPath>, context: DataSourceContext) {
         guard state == context.state else {
             return

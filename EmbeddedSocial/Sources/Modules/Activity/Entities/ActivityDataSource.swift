@@ -8,6 +8,8 @@ import Foundation
 typealias DataSourceContext = (state: ActivityPresenter.State, index: Int)
 
 protocol DataSourceDelegate {
+    func didStartLoading()
+    func didFinishLoading()
     func didFail(error: Error)
     func didChangeItems(change: Change<IndexPath>, context: DataSourceContext)
 }
@@ -71,17 +73,40 @@ class DataSourceBuilder {
     
 }
 
+protocol DataSourceProtocol {
+    func load()
+}
 
 // TODO: remake via generics
-class DataSource {
+class DataSource<T> {
     
     weak var interactor: ActivityInteractorInput!
     var section: ActivitySection
     var delegate: DataSourceDelegate?
     let context: DataSourceContext
     
-    func load() { fatalError("No impl") }
-    func loadMore() { fatalError("No impl") }
+    func fetch(completion: @escaping (Result<PaginatedResponse<T>>) -> Void) { fatalError("No Impl") }
+    func fetchMore(completion: @escaping (Result<PaginatedResponse<T>>) -> Void) { fatalError("No Impl") }
+    
+    func load() {
+        self.delegate?.didStartLoading()
+        self.section.pages = []
+        
+        fetch { [weak self] result in
+            self?.genericResultHandler(result, 0)
+            self?.delegate?.didFinishLoading()
+        }
+        
+    }
+    
+    func loadMore() {
+        self.delegate?.didStartLoading()
+        let nextPage = section.pages.count
+        fetchMore { [weak self] result in
+                self?.genericResultHandler(result, nextPage)
+                self?.delegate?.didFinishLoading()
+            }
+        }
     
     init(interactor: ActivityInteractorInput,
          section: ActivitySection,
@@ -94,11 +119,25 @@ class DataSource {
         self.context = context
     }
     
+    func map(_ data: T) -> ActivityItem { fatalError("No impl") }
+    
+    private func genericResultHandler<T>(_ result: Result<PaginatedResponse<T>>, _ page: Int) {
+        switch result {
+        case let .failure(error):
+            self.delegate?.didFail(error: error)
+        case let .success(list):
+            let items = list.items.map { self.map($0) }
+            process(newItems: items, pageIdx: page)
+        }
+    }
+    
     func process(newItems: [ActivityItem], pageIdx: Int) {
-        // replace page with new data, probaby from cache
-        let isNewData = (section.pages.count == 0 || section.pages.indices.contains(pageIdx) == false)
+        // replace page with new data, probalby from cache
+        let noPages = section.pages.count == 0
+        let pageExists = section.pages.indices.contains(pageIdx)
+        let shouldInsertNewPage = (noPages || !pageExists)
         
-        if isNewData {
+        if shouldInsertNewPage {
             // inserting new page
             section.pages.insert(newItems, at: pageIdx)
             
@@ -134,90 +173,38 @@ class DataSource {
     }
 }
 
-// TODO: remake via generic
-class MyPendingRequests: DataSource {
-    
-    private func processResponse(_ result: UserRequestListResult, _ page: Int) {
-    
-        switch result {
-        case let .failure(error):
-            self.delegate?.didFail(error: error)
-        case let .success(list):
-            let items = list.items.map { ActivityItem.pendingRequest($0) }
-            process(newItems: items, pageIdx: page)
-        }
+class MyPendingRequests: DataSource<User> {
+    override func map(_ data: User) -> ActivityItem {
+        return ActivityItem.pendingRequest(data)
     }
     
-    override func load() {
-        section.pages = []
-        interactor.loadPendingRequestItems { [weak self] (result) in
-            self?.processResponse(result, 0)
-        }
+    override func fetch(completion: @escaping (Result<PaginatedResponse<UserRequestListResult>>) -> Void) {
+        interactor.loadPendingRequestItems(completion: completion)
     }
     
-    override func loadMore() {
-        let nextPage = section.pages.count
-        interactor.loadNextPagePendigRequestItems { [weak self] (result) in
-            self?.processResponse(result, nextPage)
-        }
+    override func fetchMore(completion: @escaping (Result<PaginatedResponse<User>>) -> Void) {
+        interactor.loadNextPagePendigRequestItems(completion: completion)
     }
+    
 }
 
-// TODO: remake via generic
-class MyActivities: DataSource {
-    
-    private func processResponse(_ result: ActivityItemListResult, _ page: Int) {
-        
-        switch result {
-        case let .failure(error):
-            self.delegate?.didFail(error: error)
-        case let .success(models):
-            let items = models.items.map { ActivityItem.myActivity($0) }
-            process(newItems: items, pageIdx: page)
-        }
+class MyActivities: DataSource<ActivityView> {
+    override func map(_ data: ActivityView) -> ActivityItem {
+        return ActivityItem.myActivity(data)
     }
     
-    override func load() {
-        section.pages = []
-        interactor.loadMyActivities { [weak self] (result) in
-            self?.processResponse(result, 0)
-        }
+    override func fetch(completion: @escaping (Result<PaginatedResponse<ActivityView>>) -> Void) {
+        interactor.loadP
     }
     
-    override func loadMore() {
-        let nextPage = section.pages.count
-        interactor.loadNextPageMyActivities { [weak self] (result) in
-            self?.processResponse(result, nextPage)
-        }
-    }
 }
 
-// TODO: remake via generic
 class OthersActivties: DataSource {
     
-    private func processResponse(_ result: ActivityItemListResult, _ page: Int) {
-        
-        switch result {
-        case let .failure(error):
-            self.delegate?.didFail(error: error)
-        case let .success(models):
-            let items = models.items.map { ActivityItem.othersActivity($0) }
-            
-            process(newItems: items, pageIdx: page)
+    override func map(_ data: Any) -> ActivityItem {
+        guard let view = data as? ActivityView else {
+            fatalError()
         }
-    }
-    
-    override func load() {
-        section.pages = []
-        interactor.loadOthersActivities { [weak self] (result) in
-            self?.processResponse(result, 0)
-        }
-    }
-    
-    override func loadMore() {
-        let nextPage = section.pages.count
-        interactor.loadNextPageOthersActivities { [weak self] (result) in
-            self?.processResponse(result, nextPage)
-        }
+        return ActivityItem.othersActivity(view)
     }
 }

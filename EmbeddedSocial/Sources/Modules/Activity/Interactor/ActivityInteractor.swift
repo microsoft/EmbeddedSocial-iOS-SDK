@@ -9,8 +9,8 @@ protocol ActivityInteractorOutput: class {
     
 }
 
-typealias ActivityItemListResult = Result<ListResponse<ActivityView>>
-typealias UserRequestListResult = Result<UsersListResponse>
+typealias ActivityItemListResult = Result<PaginatedResponse<ActivityView>>
+typealias UserRequestListResult = Result<PagingatedResponse<User>>
 
 protocol ActivityInteractorInput: class {
     func loadMyActivities(completion: ((ActivityItemListResult) -> Void)?)
@@ -31,8 +31,7 @@ protocol ActivityInteractorInput: class {
 }
 
 protocol ActivityService: class {
-    typealias ActivityResponse = ListResponse<ActivityView>
-    
+
     func loadMyActivities(cursor: String?, limit: Int, completion: @escaping (ActivityItemListResult) -> Void)
     func loadOthersActivities(cursor: String?, limit: Int, completion: @escaping (ActivityItemListResult) -> Void)
     func loadPendingsRequests(cursor: String?, limit: Int, completion: @escaping (UserRequestListResult) -> Void)
