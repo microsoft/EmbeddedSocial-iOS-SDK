@@ -7,12 +7,19 @@ import UIKit
 
 class OfflineView: UILabel {
     
+    private let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
+    private let oldOSVersion = 10
+    private let labelHeight: CGFloat = 30
+    private let fontSize: CGFloat = 13
+    
     func show(in controller: UIViewController) {
+        
         if self.superview == nil {
-            self.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 30)
+            let offsetY = ProcessInfo().operatingSystemVersion.majorVersion > oldOSVersion ?  (controller.navigationController?.navigationBar.frame.height ?? 0) + statusBarHeight : 0
+            self.frame = CGRect(x: 0, y: offsetY, width: UIScreen.main.bounds.size.width, height: labelHeight)
             self.textAlignment = .center
             self.text = L10n.Error.noInternetConnection
-            self.font = UIFont.systemFont(ofSize: 13)
+            self.font = UIFont.systemFont(ofSize: fontSize)
             self.backgroundColor = UIColor(red: 34/255 , green: 139/255, blue: 34/255, alpha: 1)
             self.textColor = .white
             controller.view.addSubview(self)
