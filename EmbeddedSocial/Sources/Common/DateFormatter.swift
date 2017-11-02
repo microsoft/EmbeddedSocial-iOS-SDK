@@ -5,9 +5,22 @@
 
 import Foundation
 
-class DateFormatterTool {
+protocol DateFormatterProtocol {
+    func timeAgo(since: Date) -> String?
+}
+
+class DateFormatterTool: DateFormatterProtocol {
     
-    lazy var shortStyle: DateComponentsFormatter = {
+    static let shared: DateFormatterProtocol = DateFormatterTool()
+    
+    func timeAgo(since then: Date) -> String? {
+        let now = Date()
+        let interval: TimeInterval = now.timeIntervalSince(then)
+        return DateFormatterTool.short.string(from: interval)
+    }
+    
+    static let short: DateComponentsFormatter = {
+        
         let formatter = DateComponentsFormatter()
         
         formatter.unitsStyle = .abbreviated
@@ -18,22 +31,5 @@ class DateFormatterTool {
         
         return formatter
     }()
-    
-    static func timeAgo(since: Date) -> String? {
-        return short.string(from: since, to: Date())
-    }
-    
-    static var short:DateComponentsFormatter {
-        
-        let formatter = DateComponentsFormatter()
-        
-        formatter.unitsStyle = .abbreviated
-        formatter.includesApproximationPhrase = false
-        formatter.zeroFormattingBehavior = .dropAll
-        formatter.maximumUnitCount = 1
-        formatter.allowsFractionalUnits = false
-        
-        return formatter
-    }
     
 }

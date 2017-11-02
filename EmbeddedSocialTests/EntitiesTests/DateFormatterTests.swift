@@ -8,13 +8,12 @@ import XCTest
 
 class DateFormatterTests: XCTestCase {
     
-    var sut: DateFormatterTool!
+    var sut: DateFormatterProtocol!
 
     override func setUp() {
         super.setUp()
         
-        sut = DateFormatterTool()
-        
+        sut = DateFormatterTool.shared
     }
     
     func testThatFormattingIsCorrect() {
@@ -24,11 +23,12 @@ class DateFormatterTests: XCTestCase {
         var comps = DateComponents()
         comps.calendar = cal
         comps.day = -14
-        let to = Date()
-        let from = cal.date(byAdding: comps, to: to)
-
+        
+        let now: Date = Date()
+        let then: Date = cal.date(byAdding: comps, to: now)!
+        
         // when
-        let result = sut.shortStyle.string(from: from!, to: to)
+        let result = sut.timeAgo(since: then)
         
         // then
         XCTAssert(result == "2w")
