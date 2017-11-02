@@ -39,7 +39,7 @@ extension EditProfileViewController: EditProfileViewInput {
     }
     
     func showError(_ error: Error) {
-        showErrorAlert(error)
+        showErrorAlert(error, ignoreNoConnectionErrors: false)
     }
     
     func setSaveButtonEnabled(_ isEnabled: Bool) {
