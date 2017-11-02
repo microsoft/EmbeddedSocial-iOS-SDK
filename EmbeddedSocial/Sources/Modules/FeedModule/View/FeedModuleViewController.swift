@@ -382,6 +382,8 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
     func performBatches(updates: [BMACollectionUpdate]?, withSections: [BMAUpdatableCollectionSection]) {
         self.collectionView.bma_performBatchUpdates(updates, applyChangesToModelBlock: {
             
+            self.didStartCollectionViewAnimation()
+            
             guard let section = withSections.first as? BatchCollection, let batchItems = section.items as? [BatchCollectionItem] else {
                 fatalError()
             }
@@ -397,7 +399,7 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
             cell.configure(with: item, collectionView: self.collectionView)
             
         }) { (completed) in
-            
+            self.didFinishCollectionViewAnimation()
         }
     }
     
