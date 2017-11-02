@@ -9,4 +9,8 @@ protocol SearchTopicsModuleOutput: class {
     func didFailToLoadSearchQuery(_ error: Error)
     
     func didSelectHashtag(_ hashtag: Hashtag)
+    
+    func didStartLoadingSearchTopicsQuery()
+    
+    func didLoadSearchTopicsQuery()
 }
