@@ -166,7 +166,7 @@ enum ActivityError: Int, Error {
 extension ActivityView {
     func createdTimeAgo() -> String? {
         guard let date = self.createdTime else { return nil }
-        return DateFormatterTool.timeAgo(since: date)
+        return DateFormatterTool.shared.timeAgo(since: date)
     }
 }
 

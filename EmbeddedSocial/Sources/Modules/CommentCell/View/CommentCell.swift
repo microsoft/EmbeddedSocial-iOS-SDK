@@ -65,7 +65,7 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
         likesCountButton.setTitle(L10n.Post.likesCount(Int(comment.totalLikes)), for: .normal)
         repliesCountButton.setTitle(L10n.Post.repliesCount(Int(comment.totalReplies)), for: .normal)
         
-        postedTimeLabel.text = comment.createdTime == nil ? "" : formatter.shortStyle.string(from: comment.createdTime!, to: Date())
+        postedTimeLabel.text = comment.createdTime == nil ? "" : formatter.timeAgo(since: comment.createdTime!)
         
         if comment.user?.photo?.url == nil {
             userPhoto.image = userImagePlaceholder
