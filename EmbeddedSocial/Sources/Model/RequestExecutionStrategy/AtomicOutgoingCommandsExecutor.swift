@@ -11,36 +11,22 @@ class AtomicOutgoingCommandsExecutor<ResponseType> {
     var errorHandler: APIErrorHandler?
     private var commandBeingExecuted: OutgoingCommand?
     
-    func execute(command: OutgoingCommand,
-                 builder: RequestBuilder<ResponseType>,
-                 completion: @escaping (Result<Void>) -> Void) {
-        
-        commandBeingExecuted = command
-        builder.execute { [weak self] response, error in
-            DispatchQueue.main.async {
-                self?.processResponse(response?.body, error, completion)
-            }
-        }
-    }
-    
-    private func processResponse(_ data: ResponseType?, _ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
-        if let errorHandler = errorHandler, errorHandler.canHandle(error) {
-            errorHandler.handle(error)
-        } else {
-            if error != nil && commandBeingExecuted != nil {
-                cacheCommand(commandBeingExecuted!)
-            }
-            completion(.success())
-        }
-        commandBeingExecuted = nil
+    func execute(command: OutgoingCommand, builder: RequestBuilder<ResponseType>, completion: @escaping (Result<Void>) -> Void) {
+        cacheCommand(command)
+        completion(.success())
+        runCommand(command, with: builder)
     }
     
     private func cacheCommand(_ command: OutgoingCommand) {
         if let cachedInverseCommand = self.cachedInverseCommand(for: command) {
-            cache?.deleteOutgoing(with: PredicateBuilder().predicate(for: cachedInverseCommand))
+            deleteCommand(cachedInverseCommand)
         } else {
             cache?.cacheOutgoing(command)
         }
+    }
+    
+    private func deleteCommand(_ command: OutgoingCommand) {
+        cache?.deleteOutgoing(with: PredicateBuilder().predicate(for: command))
     }
     
     private func cachedInverseCommand(for command: OutgoingCommand) -> OutgoingCommand? {
@@ -50,6 +36,25 @@ class AtomicOutgoingCommandsExecutor<ResponseType> {
         return cache?.firstOutgoing(ofType: type(of: inverseCommand),
                                     predicate: PredicateBuilder().predicate(for: inverseCommand),
                                     sortDescriptors: nil)
+    }
+    
+    private func runCommand(_ command: OutgoingCommand, with builder: RequestBuilder<ResponseType>) {
+        commandBeingExecuted = command
+        
+        builder.execute { [weak self] response, error in
+            DispatchQueue.main.async {
+                self?.processResponse(response?.body, error)
+            }
+        }
+    }
+    
+    private func processResponse(_ data: ResponseType?, _ error: Error?) {
+        if let errorHandler = errorHandler, errorHandler.canHandle(error) {
+            errorHandler.handle(error)
+        } else if error == nil && commandBeingExecuted != nil {
+            deleteCommand(commandBeingExecuted!)
+        }
+        commandBeingExecuted = nil
     }
 
 }
