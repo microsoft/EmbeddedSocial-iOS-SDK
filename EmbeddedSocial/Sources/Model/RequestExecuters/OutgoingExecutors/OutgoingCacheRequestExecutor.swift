@@ -7,4 +7,13 @@ import Foundation
 
 class OutgoingCacheRequestExecutor<ResponseType, ResultType> {
     
+    var cache: CacheType?
+    var errorHandler: APIErrorHandler?
+    
+    func execute(command: OutgoingCommand,
+                 builder: RequestBuilder<ResponseType>,
+                 completion: @escaping (Result<Void>) -> Void) {
+        fatalError("Abstract method")
+    }
+    
 }

@@ -9,8 +9,6 @@ typealias UsersFeedRequestExecutor = IncomingCacheRequestExecutor<FeedResponseUs
 
 typealias TopicsFeedRequestExecutor = IncomingCacheRequestExecutor<FeedResponseTopicView, FeedFetchResult>
 
-typealias OutgoingActionRequestExecutor = AtomicOutgoingCommandsExecutor<Object>
-
 typealias MyActivityRequestExecutor = IncomingCacheRequestExecutor<FeedResponseActivityView, ListResponse<ActivityView> >
 
 typealias OthersActivityRequestExecutor = IncomingCacheRequestExecutor<FeedResponseActivityView, ListResponse<ActivityView> >
@@ -26,7 +24,7 @@ protocol CacheRequestExecutorProviderType {
     
     static func makeSuggestedUsersExecutor(for service: BaseService) -> SuggestedUsersRequestExecutor
     
-    static func makeOutgoingActionRequestExecutor(for service: BaseService) -> OutgoingActionRequestExecutor
+    static func makeOutgoingActionRequestExecutor(for service: BaseService) -> AtomicOutgoingCommandsExecutor
     
     static func makeMyFollowingExecutor(for service: BaseService) -> UsersFeedRequestExecutor
     
@@ -106,8 +104,8 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
         return executor
     }
     
-    static func makeOutgoingActionRequestExecutor(for service: BaseService) -> OutgoingActionRequestExecutor {
-        let executor = OutgoingActionRequestExecutor()
+    static func makeOutgoingActionRequestExecutor(for service: BaseService) -> AtomicOutgoingCommandsExecutor {
+        let executor = AtomicOutgoingCommandsExecutorImpl()
         executor.cache = service.cache
         executor.errorHandler = service.errorHandler
         return executor

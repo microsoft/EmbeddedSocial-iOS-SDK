@@ -210,34 +210,17 @@ class CommentsService: BaseService, CommentServiceProtocol {
                          resultHandler: @escaping CommentPostResultHandler,
                          failure: @escaping Failure) {
         
-        guard isNetworkReachable else {
-            cache.cacheOutgoing(command)
-            resultHandler(command.comment)
-            return
-        }
+        cache.cacheOutgoing(command)
+        resultHandler(command.comment)
         
         CommentsAPI.topicCommentsPostComment(
             topicHandle: command.comment.topicHandle,
             request: PostCommentRequest(comment: command.comment),
             authorization: authorization) { (response, error) in
-                if let response = response {
-                    command.comment.commentHandle = response.commentHandle
-                    resultHandler(command.comment)
+                if response != nil {
+                    self.cache.deleteOutgoing(with: PredicateBuilder().predicate(for: command))
                 } else if self.errorHandler.canHandle(error) {
                     self.errorHandler.handle(error)
-                    failure(APIError(error: error))
-                } else {
-                    guard let unwrappedError = error else {
-                        failure(APIError(error: error))
-                        return
-                    }
-                    
-                    if unwrappedError.statusCode >= Constants.HTTPStatusCodes.InternalServerError.rawValue {
-                        self.cache.cacheOutgoing(command)
-                        resultHandler(command.comment)
-                    } else {
-                        failure(APIError(error: error))
-                    }
                 }
         }
     }

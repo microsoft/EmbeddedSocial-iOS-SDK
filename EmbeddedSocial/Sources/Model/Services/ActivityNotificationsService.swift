@@ -13,7 +13,7 @@ protocol ActivityNotificationsServiceProtocol {
 
 class ActivityNotificationsService: BaseService, ActivityNotificationsServiceProtocol {
     
-    private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
+    private var outgoingActionsExecutor: AtomicOutgoingCommandsExecutor!
 
     init(ExecutorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self, errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
         super.init(errorHandler: errorHandler)

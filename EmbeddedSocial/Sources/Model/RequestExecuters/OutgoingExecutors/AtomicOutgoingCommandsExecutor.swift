@@ -5,13 +5,16 @@
 
 import Foundation
 
-class AtomicOutgoingCommandsExecutor<ResponseType> {
+typealias AtomicOutgoingCommandsExecutor = OutgoingCacheRequestExecutor<Object, Void>
+
+class AtomicOutgoingCommandsExecutorImpl: OutgoingCacheRequestExecutor<Object, Void> {
     
-    var cache: CacheType?
-    var errorHandler: APIErrorHandler?
     private var commandBeingExecuted: OutgoingCommand?
     
-    func execute(command: OutgoingCommand, builder: RequestBuilder<ResponseType>, completion: @escaping (Result<Void>) -> Void) {
+    override func execute(command: OutgoingCommand,
+                          builder: RequestBuilder<Object>,
+                          completion: @escaping (Result<Void>) -> Void) {
+        
         cacheCommand(command)
         completion(.success())
         runCommand(command, with: builder)
@@ -38,7 +41,7 @@ class AtomicOutgoingCommandsExecutor<ResponseType> {
                                     sortDescriptors: nil)
     }
     
-    private func runCommand(_ command: OutgoingCommand, with builder: RequestBuilder<ResponseType>) {
+    private func runCommand(_ command: OutgoingCommand, with builder: RequestBuilder<Object>) {
         commandBeingExecuted = command
         
         builder.execute { [weak self] response, error in
@@ -48,7 +51,7 @@ class AtomicOutgoingCommandsExecutor<ResponseType> {
         }
     }
     
-    private func processResponse(_ data: ResponseType?, _ error: Error?) {
+    private func processResponse(_ data: Object?, _ error: Error?) {
         if let errorHandler = errorHandler, errorHandler.canHandle(error) {
             errorHandler.handle(error)
         } else if error == nil && commandBeingExecuted != nil {

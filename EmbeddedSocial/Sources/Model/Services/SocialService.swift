@@ -43,7 +43,7 @@ class SocialService: BaseService, SocialServiceType {
     
     fileprivate var usersFeedExecutor: UsersFeedRequestExecutor!
     private var suggestedUsersExecutor: SuggestedUsersRequestExecutor!
-    private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
+    private var outgoingActionsExecutor: AtomicOutgoingCommandsExecutor!
     fileprivate var activitiesExecutor: MyActivityRequestExecutor!
     
     fileprivate let ExecutorProvider: CacheRequestExecutorProviderType.Type
