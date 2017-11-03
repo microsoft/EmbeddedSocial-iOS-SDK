@@ -63,8 +63,13 @@ extension SearchTopicsPresenter: FeedModuleOutput {
         return true
     }
     
-    func didUpdateFeed() {
+    func didStartRefreshingData() {
+        moduleOutput?.didStartLoadingSearchTopicsQuery()
+    }
+    
+    func didFinishRefreshingData(_ error: Error?) {
         view.setIsEmpty(feedModule.isEmpty)
+        moduleOutput?.didLoadSearchTopicsQuery()
     }
 }
 

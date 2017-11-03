@@ -74,6 +74,14 @@ extension SearchPresenter: SearchPeopleModuleOutput, SearchTopicsModuleOutput {
     func didSelectHashtag(_ hashtag: Hashtag) {
         view.search(hashtag: hashtag)
     }
+    
+    func didStartLoadingSearchTopicsQuery() {
+        view.setTopicsLayoutFlipEnabled(false)
+    }
+    
+    func didLoadSearchTopicsQuery() {
+        view.setTopicsLayoutFlipEnabled(true)
+    }
 }
 
 extension SearchPresenter: SearchModuleInput {

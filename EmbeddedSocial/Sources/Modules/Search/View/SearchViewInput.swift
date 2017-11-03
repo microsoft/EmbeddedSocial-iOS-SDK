@@ -16,4 +16,6 @@ protocol SearchViewInput: class {
     func setLayoutAsset(_ asset: Asset)
     
     func search(hashtag: Hashtag)
+    
+    func setTopicsLayoutFlipEnabled(_ isEnabled: Bool)
 }
