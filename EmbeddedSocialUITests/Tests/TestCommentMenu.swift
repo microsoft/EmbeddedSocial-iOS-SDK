@@ -5,7 +5,7 @@
 
 import XCTest
 
-class TestCommentMenu: TestOnlineHome {
+class TestCommentMenu: BaseSideMenuTest {
     
     private var comments: CommentsFeed!
     
@@ -20,7 +20,7 @@ class TestCommentMenu: TestOnlineHome {
     }
     
     override func openScreen() {
-        feed.getRandomPost().1.getTitle().tap()
+        Feed(app).getRandomPost().1.getTitle().tap()
         
         comments = PostDetails(app).comments
         

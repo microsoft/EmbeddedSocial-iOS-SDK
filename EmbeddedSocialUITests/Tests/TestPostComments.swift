@@ -20,11 +20,11 @@ class BaseTestComments: BaseSideMenuTest {
         Feed(app).getRandomPost().1.getTitle().tap()
         commentsFeed = PostDetails(app).comments
 
-        var retryCount = 15
-        while commentsFeed.loadMoreButton.exists && retryCount != 0 {
-            retryCount -= 1
-            app.swipeUp()
-        }
+//        var retryCount = 15
+//        while commentsFeed.loadMoreButton.exists && retryCount != 0 {
+//            retryCount -= 1
+//            app.swipeUp()
+//        }
     }
     
     func testCommentAttributes() {
@@ -192,7 +192,7 @@ class TestCommentsOffline: BaseTestComments, OfflineTest {
                             "totalLikes": 5,
                             "totalReplies": 7,
                             "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                            "liked": true]
+                            "liked": false]
         
         openScreen()
         makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).asUIElement())
@@ -247,6 +247,10 @@ class TestCommentsOffline: BaseTestComments, OfflineTest {
     
     override func testOpenReplies() {
         openScreen()
+        
+        super.testOpenReplies()
+        app.navigationBars.element.buttons["Back"].tap()
+        
         makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).asUIElement())
         super.testOpenReplies()
     }
