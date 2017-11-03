@@ -15,7 +15,7 @@ class ActivityNotificationsService: BaseService, ActivityNotificationsServicePro
     
     private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
 
-    init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self, errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
+    init(ExecutorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self, errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
         super.init(errorHandler: errorHandler)
         outgoingActionsExecutor = provider.makeOutgoingActionRequestExecutor(for: self)
     }

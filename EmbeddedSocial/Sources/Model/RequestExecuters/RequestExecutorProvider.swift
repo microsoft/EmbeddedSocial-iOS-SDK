@@ -5,23 +5,19 @@
 
 import Foundation
 
-typealias UsersFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserCompactView, UsersListResponse>
+typealias UsersFeedRequestExecutor = IncomingCacheRequestExecutor<FeedResponseUserCompactView, UsersListResponse>
 
-typealias TopicsFeedRequestExecutor = CacheRequestExecutionStrategy<FeedResponseTopicView, FeedFetchResult>
-
-typealias SuggestedUsersRequestExecutor = CacheRequestExecutionStrategy<[UserCompactView], UsersListResponse>
+typealias TopicsFeedRequestExecutor = IncomingCacheRequestExecutor<FeedResponseTopicView, FeedFetchResult>
 
 typealias OutgoingActionRequestExecutor = AtomicOutgoingCommandsExecutor<Object>
 
-typealias MyActivityRequestExecutor = CacheRequestExecutionStrategy<FeedResponseActivityView, ListResponse<ActivityView> >
+typealias MyActivityRequestExecutor = IncomingCacheRequestExecutor<FeedResponseActivityView, ListResponse<ActivityView> >
 
-typealias OthersActivityRequestExecutor = CacheRequestExecutionStrategy<FeedResponseActivityView, ListResponse<ActivityView> >
+typealias OthersActivityRequestExecutor = IncomingCacheRequestExecutor<FeedResponseActivityView, ListResponse<ActivityView> >
 
-typealias SingleTopicRequestExecutor = CacheRequestExecutionStrategy<TopicView, Post>
+typealias SingleTopicRequestExecutor = IncomingCacheRequestExecutor<TopicView, Post>
 
-typealias PopularUsersRequestExecutor = CacheRequestExecutionStrategy<FeedResponseUserProfileView, UsersListResponse>
-
-typealias HashtagsRequestExecutor = CacheRequestExecutionStrategy<[String], PaginatedResponse<Hashtag>>
+typealias PopularUsersRequestExecutor = IncomingCacheRequestExecutor<FeedResponseUserProfileView, UsersListResponse>
 
 protocol CacheRequestExecutorProviderType {
     static func makeUsersFeedExecutor(for service: BaseService) -> UsersFeedRequestExecutor
@@ -105,7 +101,7 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
     }
     
     static func makeSuggestedUsersExecutor(for service: BaseService) -> SuggestedUsersRequestExecutor {
-        let executor = SuggestedUsersRequestExecutionStrategy()
+        let executor = SuggestedUsersRequestExecutorImpl()
         bind(service: service, to: executor)
         return executor
     }
@@ -146,7 +142,7 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
     }
     
     static func makeHashtagsExecutor(for service: BaseService) -> HashtagsRequestExecutor {
-        let executor = HashtagsRequestExecutionStrategy()
+        let executor = HashtagsRequestExecutorImpl()
         executor.cache = service.cache
         executor.errorHandler = service.errorHandler
         return executor
@@ -156,15 +152,15 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
         requestType: T.Type,
         responseType: U.Type,
         service: BaseService,
-        responseProcessor: ResponseProcessor<T, U>) -> CommonCacheRequestExecutionStrategy<T, U> {
+        responseProcessor: ResponseProcessor<T, U>) -> IncomingCacheRequestExecutor<T, U> {
         
-        let executor = CommonCacheRequestExecutionStrategy<T, U>()
+        let executor = IncomingCacheRequestExecutorImpl<T, U>()
         bind(service: service, to: executor)
         executor.responseProcessor = responseProcessor
         return executor
     }
     
-    private static func bind<T, U>(service: BaseService, to executor: CacheRequestExecutionStrategy<T, U>) {
+    private static func bind<T, U>(service: BaseService, to executor: IncomingCacheRequestExecutor<T, U>) {
         executor.cache = service.cache
         executor.errorHandler = service.errorHandler
         executor.networkTracker = service.networkStatusMulticast
