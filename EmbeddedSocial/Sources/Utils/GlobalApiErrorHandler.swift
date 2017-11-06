@@ -27,8 +27,11 @@ class GlobalApiErrorHandler: APIErrorHandler {
     }
     
     private lazy var handledStatusCodes: [Int] = {
-        let errors400 =
+        var errors400 =
             Array(Constants.HTTPStatusCodes.PaymentRequired.rawValue...Constants.HTTPStatusCodes.UnavailableForLegalReasons.rawValue)
+        if let err404Idx = errors400.index(of: Constants.HTTPStatusCodes.NotFound.rawValue) {
+            errors400.remove(at: err404Idx)
+        }
         let otherCodes = [
             Constants.HTTPStatusCodes.Unauthorized.rawValue,
             Constants.HTTPStatusCodes.BadRequest.rawValue
