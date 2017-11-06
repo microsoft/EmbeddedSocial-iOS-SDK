@@ -7,6 +7,10 @@ import Foundation
 
 final class CreateReplyCommand: ReplyCommand {
     
+    override var inverseCommand: OutgoingCommand? {
+        return RemoveReplyCommand(reply: reply)
+    }
+    
     override func getRelatedHandle() -> String? {
         return reply.commentHandle
     }

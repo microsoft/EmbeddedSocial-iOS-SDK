@@ -220,7 +220,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         completion(.success())
 
         let command = RemoveCommentCommand(comment: comment)
-        let hasDeletedInverseCommand = deleteInverseCommand(command)
+        let hasDeletedInverseCommand = cache.deleteInverseCommand(for: command)
         
         guard !hasDeletedInverseCommand else {
             return
@@ -239,18 +239,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
                     self.cache.deleteOutgoing(with: p)
                 }
         }
-    }
-    
-    private func deleteInverseCommand(_ cmd: RemoveCommentCommand) -> Bool {
-        guard let inverseCmd = cmd.inverseCommand else {
-            return false
-        }
-        let p = predicateBuilder.predicate(for: inverseCmd)
-        let inverseCmdFound = cache.firstOutgoing(ofType: OutgoingCommand.self, predicate: p, sortDescriptors: nil) != nil
-        if inverseCmdFound {
-            cache.deleteOutgoing(with: p)
-        }
-        return inverseCmdFound
     }
     
     private func convert(data: [CommentView]) -> [Comment] {
