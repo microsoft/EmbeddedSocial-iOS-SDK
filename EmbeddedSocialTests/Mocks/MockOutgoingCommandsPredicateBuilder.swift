@@ -7,6 +7,14 @@
 
 class MockOutgoingCommandsPredicateBuilder: OutgoingCommandsPredicateBuilder {
     
+    //MARK: - updateRelatedHandleCommands
+
+    var updateRelatedHandleCommandsReturnValue: NSPredicate!
+    
+    func updateRelatedHandleCommands() -> NSPredicate {
+        return updateRelatedHandleCommandsReturnValue
+    }
+    
     //MARK: - allImageCommands
     
     var allImageCommandsCalled = false

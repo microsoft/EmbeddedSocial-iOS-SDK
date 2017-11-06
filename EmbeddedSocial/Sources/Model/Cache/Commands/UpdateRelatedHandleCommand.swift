@@ -6,30 +6,35 @@
 import Foundation
 
 class UpdateRelatedHandleCommand: OutgoingCommand {
-    let handle: String
+    let oldHandle: String
+    let newHandle: String
     
     required init?(json: [String: Any]) {
-        guard let handle = json["handle"] as? String else {
+        guard let oldHandle = json["oldHandle"] as? String,
+        let newHandle = json["newHandle"] as? String else {
             return nil
         }
-        self.handle = handle
+        self.oldHandle = oldHandle
+        self.newHandle = newHandle
         super.init(json: json)
     }
     
-    required init(handle: String) {
-        self.handle = handle
+    required init(oldHandle: String, newHandle: String) {
+        self.oldHandle = oldHandle
+        self.newHandle = newHandle
         super.init(json: [:])!
     }
     
     override func encodeToJSON() -> Any {
         let json: [String: Any?] = [
             "type": typeIdentifier,
-            "handle": handle
+            "oldHandle": oldHandle,
+            "newHandle": newHandle
         ]
         return json.flatMap { $0 }
     }
     
     override func getHandle() -> String? {
-        return handle
+        return oldHandle + "-" + newHandle
     }
 }

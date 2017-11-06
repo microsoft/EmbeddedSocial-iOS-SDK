@@ -51,7 +51,6 @@ class OperationQueueTests: XCTestCase {
         var ops: [Operation] = []
         
         for _ in 1..<opsCount {
-            let cmd = CommentCommand(comment: comment)
             let op = CreateCommentOperation(command: CommentCommand(comment: comment), commentsService: service)
             ops.append(op)
         }

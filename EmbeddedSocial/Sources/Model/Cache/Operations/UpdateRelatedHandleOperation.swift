@@ -7,10 +7,10 @@ import Foundation
 
 class UpdateRelatedHandleOperation: OutgoingCommandOperation {
     let command: UpdateRelatedHandleCommand
-    private let handleUpdater: RelatedHandleUpdater
+    private let handleUpdater: HandleUpdater
     
     init(command: UpdateRelatedHandleCommand,
-         handleUpdater: RelatedHandleUpdater = OutgoingCommandsRelatedHandleUpdater()) {
+         handleUpdater: HandleUpdater = OutgoingCommandsHandleUpdater()) {
         self.command = command
         self.handleUpdater = handleUpdater
         super.init()
@@ -21,8 +21,8 @@ class UpdateRelatedHandleOperation: OutgoingCommandOperation {
             return
         }
         
-        let p = PredicateBuilder().predicate(relatedHandle: handle)
-        handleUpdater.updateRelatedHandle(from: nil, to: handle, predicate: p)
+        let p = PredicateBuilder().predicate(handle: command.oldHandle)
+        handleUpdater.updateHandle(to: command.newHandle, predicate: p)
         completeOperation()
     }
 }

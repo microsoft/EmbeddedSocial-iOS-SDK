@@ -200,12 +200,16 @@ class CommentsService: BaseService, CommentServiceProtocol {
         cache.cacheOutgoing(command)
         resultHandler(command.comment)
         
+        let oldHandle = command.comment.commentHandle
+        
         CommentsAPI.topicCommentsPostComment(
             topicHandle: command.comment.topicHandle,
             request: PostCommentRequest(comment: command.comment),
             authorization: authorization) { (response, error) in
-                if response != nil {
+                if let newHandle = response?.commentHandle {
                     self.cache.deleteOutgoing(with: self.predicateBuilder.predicate(for: command))
+                    let cmd = UpdateRelatedHandleCommand(oldHandle: oldHandle ?? "", newHandle: newHandle)
+                    self.cache.cacheOutgoing(cmd)
                 } else if self.errorHandler.canHandle(error) {
                     self.errorHandler.handle(error)
                 }
@@ -222,7 +226,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
             return
         }
         
-//        let update
         cache.cacheOutgoing(command)
         
         CommentsAPI.commentsDeleteComment(

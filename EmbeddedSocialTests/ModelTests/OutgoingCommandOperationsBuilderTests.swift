@@ -58,6 +58,6 @@ class OutgoingCommandOperationsBuilderTests: XCTestCase {
         XCTAssertTrue(makeOperation(UpdateNotificationsStatusCommand(handle: "")) is UpdateNotificationsStatusOperation)
         
         // update related handle command
-        XCTAssertTrue(makeOperation(UpdateRelatedHandleCommand(handle: "")) is UpdateRelatedHandleOperation)
+        XCTAssertTrue(makeOperation(UpdateRelatedHandleCommand(oldHandle: "", newHandle: "")) is UpdateRelatedHandleOperation)
     }
 }
