@@ -153,7 +153,7 @@ class SearchPresenterTests: XCTestCase {
         let hashtag = UUID().uuidString
         sut.didSelectHashtag(hashtag)
         XCTAssertTrue(view.searchHashtagCalled)
-        XCTAssertEqual(view.searchHashtagInputHashtag, hashtag)
+        XCTAssertEqual(view.searchHashtagReceivedHashtag, hashtag)
     }
     
     private func makePeopleTab() -> SearchTabInfo {
@@ -180,7 +180,7 @@ class SearchPresenterTests: XCTestCase {
         
         XCTAssertEqual(view.setupInitialStateReceivedTab, topicsTab)
         XCTAssertTrue(view.searchHashtagCalled)
-        XCTAssertEqual(view.searchHashtagInputHashtag, "1")
+        XCTAssertEqual(view.searchHashtagReceivedHashtag, "1")
     }
     
     func testSearchHashtagAfterViewIsReadyAndPeopleTabSelected() {
@@ -200,6 +200,18 @@ class SearchPresenterTests: XCTestCase {
         XCTAssertEqual(view.switchTabsToFromReceivedArguments?.tab, topicsTab)
         
         XCTAssertTrue(view.searchHashtagCalled)
-        XCTAssertEqual(view.searchHashtagInputHashtag, "1")
+        XCTAssertEqual(view.searchHashtagReceivedHashtag, "1")
+    }
+    
+    func testStartLoadingTopicsQuery() {
+        sut.didStartLoadingSearchTopicsQuery()
+        XCTAssertTrue(view.setTopicsLayoutFlipEnabledCalled)
+        XCTAssertEqual(view.setTopicsLayoutFlipEnabledReceivedIsEnabled, false)
+    }
+    
+    func testFinishLoadingTopicsQuery() {
+        sut.didLoadSearchTopicsQuery()
+        XCTAssertTrue(view.setTopicsLayoutFlipEnabledCalled)
+        XCTAssertEqual(view.setTopicsLayoutFlipEnabledReceivedIsEnabled, true)
     }
 }

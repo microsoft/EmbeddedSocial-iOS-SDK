@@ -66,7 +66,7 @@ class SearchTopicsPresenterTests: XCTestCase {
         XCTAssertEqual(view.setupInitialStateWithReceivedFeedViewController, feedViewController)
     }
     
-    func testThatItSetsViewIsEmptyWhenFeedIsUpdated() {
+    func testThatItSetsViewIsEmptyWhenFeedFinishesRefreshing() {
         testThatItSetsViewIsEmptyWhenFeedIsUpdated(feedIsEmpty: true, isViewExpectedToBeEmpty: true)
         
         testThatItSetsViewIsEmptyWhenFeedIsUpdated(feedIsEmpty: false, isViewExpectedToBeEmpty: false)
@@ -77,7 +77,7 @@ class SearchTopicsPresenterTests: XCTestCase {
         feedModule.isEmpty = feedIsEmpty
         
         // when
-        sut.didUpdateFeed()
+        sut.didFinishRefreshingData(APIError.unknown)
         
         // then
         XCTAssertTrue(view.setIsEmptyCalled)
