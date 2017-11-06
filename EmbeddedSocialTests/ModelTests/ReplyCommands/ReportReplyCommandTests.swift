@@ -8,11 +8,16 @@ import XCTest
 
 class ReportReplyCommandTests: XCTestCase {
     
-    func testThatItReturnsCorrectInverseCommand() {
-        // given
-        let reply = Reply(replyHandle: UUID().uuidString)
-        let sut = RemoveReplyCommand(reply: reply)
-        XCTAssertNil(sut.inverseCommand)
+    func testInitJSON() {
+        let reply = Reply(replyHandle: "1")
+        let json: [String: Any] = [
+            "reply": reply.encodeToJSON(),
+            "type": "ReportReplyCommand",
+            "reportReason": ReportReason.childEndangermentExploitation.rawValue
+        ]
+        let cmd = ReportReplyCommand(json: json)
+        XCTAssertEqual(cmd?.reply, reply)
+        XCTAssertEqual(cmd?.reportReason.rawValue, ReportReason.childEndangermentExploitation.rawValue)
     }
     
 }
