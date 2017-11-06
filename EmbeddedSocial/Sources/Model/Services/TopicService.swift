@@ -131,6 +131,9 @@ class TopicService: BaseService, PostServiceProtocol {
                          success: @escaping TopicPosted,
                          failure: @escaping Failure) {
         
+        cache.cacheOutgoing(command)
+        success(command.topic)
+        
         let request = PostTopicRequest()
         request.text = command.topic.text
         request.title = command.topic.title
@@ -140,16 +143,15 @@ class TopicService: BaseService, PostServiceProtocol {
             request.blobType = .image
         }
         
+        let oldHandle = command.topic.topicHandle
+
         TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { response, error in
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
             } else if let handle = response?.topicHandle {
-                var topic = command.topic
-                topic.topicHandle = handle
-                success(topic)
-            } else {
-                self.cache.cacheOutgoing(command)
-                success(command.topic)
+                self.cache.deleteOutgoing(with: self.predicateBuilder.predicate(for: command))
+                let cmd = UpdateRelatedHandleCommand(oldHandle: oldHandle, newHandle: handle)
+                self.cache.cacheOutgoing(cmd)
             }
         }
     }
@@ -292,13 +294,14 @@ class TopicService: BaseService, PostServiceProtocol {
     }
     
     private func deleteTopic(command: RemoveTopicCommand, completion: @escaping (Result<Void>) -> Void) {
+        cache.cacheOutgoing(command)
+        
         TopicsAPI.topicsDeleteTopic(topicHandle: command.topic.topicHandle, authorization: authorization) { (_, error) in
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
             } else if error == nil {
-                completion(.success())
-            } else {
-                self.cache.cacheOutgoing(command)
+                let p = self.predicateBuilder.predicate(for: command)
+                self.cache.deleteOutgoing(with: p)
                 completion(.success())
             }
         }
