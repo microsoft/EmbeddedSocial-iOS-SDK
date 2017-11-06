@@ -31,34 +31,34 @@ class BaseTestBlockedUsers: BaseSideMenuTest {
     func testImagesLoading() {}
     
     func testBlockedUsersAttributes() {
-        let (index, blockedUserItem) = blockedUsersFeed.getRandomBlockedUserItem()
+        let (index, blockedUserItem) = blockedUsersFeed.getRandomItem()
         
         XCTAssertNotNil(blockedUserItem)
-        XCTAssertTrue(blockedUserItem.isExists(text: "Blocked User\(index)"))
+        XCTAssertTrue(blockedUserItem.isExists("Blocked User\(index)"))
         XCTAssertTrue(blockedUserItem.isValidAction(), "Wrong button text")
     }
     
     func testUnblockingUser() {
-        let (index, blockedUserItem) = blockedUsersFeed.getRandomBlockedUserItem()
+        let (index, blockedUserItem) = blockedUsersFeed.getRandomItem()
         
-        let beforeUnblockingUsersCount = blockedUsersFeed.getBlockedUsersCount()
+        let beforeUnblockingUsersCount = blockedUsersFeed.getItemsCount()
         blockedUserItem.unblock()
         checkIsUnblocked(user: blockedUserItem, at: index, beforeUnblockingCount: beforeUnblockingUsersCount)
     }
     
     func checkIsUnblocked(user: BlockedUserItem, at index: UInt, beforeUnblockingCount: UInt) {
-        XCTAssertTrue((beforeUnblockingCount - 1) == blockedUsersFeed.getBlockedUsersCount())
+        XCTAssertTrue((beforeUnblockingCount - 1) == blockedUsersFeed.getItemsCount())
     }
     
     func testPaging() {
         var retryCount = 10
         
-        while blockedUsersFeed.getBlockedUsersCount() <= UInt(pageSize) && retryCount != 0 {
+        while blockedUsersFeed.getItemsCount() <= UInt(pageSize) && retryCount != 0 {
             retryCount -= 1
             app.swipeUp()
         }
         
-        XCTAssertGreaterThan(blockedUsersFeed.getBlockedUsersCount(), UInt(pageSize), "New users weren't loaded while swiping feed up")
+        XCTAssertGreaterThan(blockedUsersFeed.getItemsCount(), UInt(pageSize), "New users weren't loaded while swiping feed up")
     }
     
 }
@@ -106,13 +106,13 @@ class TestBlockedUsersOffline: BaseTestBlockedUsers, OfflineTest {
     
     override func testBlockedUsersAttributes() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: blockedUsersFeed.getBlockedUserItem(at: 0).asUIElement())
+        makePullToRefreshWithoutReachability(with: blockedUsersFeed.getItem(at: 0).asUIElement())
         super.testBlockedUsersAttributes()
     }
     
     override func testUnblockingUser() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: blockedUsersFeed.getBlockedUserItem(at: 0).asUIElement())
+        makePullToRefreshWithoutReachability(with: blockedUsersFeed.getItem(at: 0).asUIElement())
         super.testUnblockingUser()
     }
     
@@ -127,7 +127,7 @@ class TestBlockedUsersOffline: BaseTestBlockedUsers, OfflineTest {
             app.swipeDown()
         }
         
-        makePullToRefreshWithoutReachability(with: blockedUsersFeed.getBlockedUserItem(at: 0, withScroll: false).asUIElement())
+        makePullToRefreshWithoutReachability(with: blockedUsersFeed.getItem(at: 0, withScroll: false).asUIElement())
         
         // test offline pagination
         super.testPaging()

@@ -33,23 +33,23 @@ class BaseTestHome: BaseFeedTest {
     //Post titles and handles depend on feed source
     
     func testFeedSource() {
-        let (index, post) = feed.getRandomPost()
-        XCTAssert(post.textExists(feedName + String(index)), "Incorrect feed source")
+        let (index, post) = feed.getRandomItem()
+        XCTAssert(post.isExists(feedName + String(index)), "Incorrect feed source")
     }
     
     func testPostAttributes() {
-        let (_, post) = feed.getRandomPost()
+        let (_, post) = feed.getRandomItem()
         
-        XCTAssert(post.textExists("John Doe"), "Author name doesn't match")
-        XCTAssert(post.textExists("5 likes"), "Number of likes doesn't match")
-        XCTAssert(post.textExists("7 comments"), "Number of comments doesn't match")
+        XCTAssert(post.isExists("John Doe"), "Author name doesn't match")
+        XCTAssert(post.isExists("5 likes"), "Number of likes doesn't match")
+        XCTAssert(post.isExists("7 comments"), "Number of comments doesn't match")
         XCTAssertEqual(post.getText().label, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "Teaser text doesn't match")
         XCTAssert(post.likeButton.isSelected, "Post is not marked as liked")
         XCTAssert(post.pinButton.isSelected, "Post is not marked as pinned")
     }
     
     func testLikePost() {
-        let (index, post) = feed.getRandomPost()
+        let (index, post) = feed.getRandomItem()
         
         post.like()
         checkIsLiked(post, at: index)
@@ -58,18 +58,18 @@ class BaseTestHome: BaseFeedTest {
         checkIsDisliked(post, at: index)
     }
     
-    func checkIsLiked(_ post: Post, at index: UInt) {
+    func checkIsLiked(_ post: PostItem, at index: UInt) {
         XCTAssert(post.likeButton.isSelected, "Post is not marked as liked")
-        XCTAssert(post.textExists("1 like"), "Likes counter wasn't incremented")
+        XCTAssert(post.isExists("1 like"), "Likes counter wasn't incremented")
     }
     
-    func checkIsDisliked(_ post: Post, at index: UInt) {
+    func checkIsDisliked(_ post: PostItem, at index: UInt) {
         XCTAssert(!post.likeButton.isSelected, "Post is marked as liked")
-        XCTAssert(post.textExists("0 likes"), "Likes counter wasn't decremented")
+        XCTAssert(post.isExists("0 likes"), "Likes counter wasn't decremented")
     }
     
     func testPinPostButton() {
-        let (index, post) = feed.getRandomPost()
+        let (index, post) = feed.getRandomItem()
         
         post.pin()
         checkIsPinned(post, at: index)
@@ -78,11 +78,11 @@ class BaseTestHome: BaseFeedTest {
         checkIsUnpinned(post, at: index)
     }
     
-    func checkIsPinned(_ post: Post, at index: UInt) {
+    func checkIsPinned(_ post: PostItem, at index: UInt) {
         XCTAssert(post.pinButton.isSelected, "Post is not marked as pinned")
     }
     
-    func checkIsUnpinned(_ post: Post, at index: UInt) {
+    func checkIsUnpinned(_ post: PostItem, at index: UInt) {
         XCTAssert(!post.pinButton.isSelected, "Post is marked as pinned")
     }
     
@@ -92,8 +92,8 @@ class BaseTestHome: BaseFeedTest {
         
         while seenPosts.count <= pageSize && retryCount != 0 {
             retryCount -= 1
-            for i in 0...feed.getPostsCount() - 1 {
-                let post = feed.getPost(i)
+            for i in 0...feed.getItemsCount() - 1 {
+                let post = feed.getItem(at: i)
                 seenPosts.insert(post.asUIElement())
             }
             app.swipeUp()
@@ -111,16 +111,16 @@ class BaseTestHome: BaseFeedTest {
             app.swipeDown()
         }
         
-        let post = feed.getPost(0)
+        let post = feed.getItem(at: 0)
         let start = post.asUIElement().coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 0)))
         let finish = post.asUIElement().coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
         start.press(forDuration: 0, thenDragTo: finish)
         
-        XCTAssertTrue(feed.getPostsCount() != 0)
+        XCTAssertTrue(feed.getItemsCount() != 0)
     }
     
     func testPostImagesLoaded() {
-        XCTAssertTrue(feed.getRandomPost().1.postImageButton.exists, "Post images weren't loaded")
+        XCTAssertTrue(feed.getRandomItem().1.postImageButton.exists, "Post images weren't loaded")
     }
     
     func testOpenPostDetails() {
@@ -134,8 +134,8 @@ class BaseTestHome: BaseFeedTest {
         
         while seenPosts.count <= pageSize && retryCount != 0 {
             retryCount -= 1
-            for i in 0...feed.getPostsCount() - 1 {
-                let post = feed.getPost(i)
+            for i in 0...feed.getItemsCount() - 1 {
+                let post = feed.getItem(at: i)
                 seenPosts.insert(post.asUIElement())
             }
             app.swipeUp()
@@ -157,12 +157,12 @@ class BaseTestHome: BaseFeedTest {
             app.swipeDown()
         }
         
-        let post = feed.getPost(0)
+        let post = feed.getItem(at: 0)
         let start = post.asUIElement().coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 0)))
         let finish = post.asUIElement().coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
         start.press(forDuration: 0, thenDragTo: finish)
         
-        XCTAssertTrue(feed.getPostsCount() != 0)
+        XCTAssertTrue(feed.getItemsCount() != 0)
     }
     
     func testOpenPostDetailsTileMode() {
@@ -200,12 +200,12 @@ class TestOnlineHome: BaseTestHome, OnlineTest {
         super.testLikePost()
     }
     
-    override func checkIsLiked(_ post: Post, at index: UInt) {
+    override func checkIsLiked(_ post: PostItem, at index: UInt) {
         XCTAssertNotNil(APIState.getLatestRequest().contains(feedName + String(index) + "/likes"))
         super.checkIsLiked(post, at: index)
     }
     
-    override func checkIsDisliked(_ post: Post, at index: UInt) {
+    override func checkIsDisliked(_ post: PostItem, at index: UInt) {
         XCTAssertNotNil(APIState.getLatestRequest().contains("topics" + String(index) + "/likes/me"))
         super.checkIsDisliked(post, at: index)
     }
@@ -215,13 +215,13 @@ class TestOnlineHome: BaseTestHome, OnlineTest {
         super.testPinPostButton()
     }
     
-    override func checkIsPinned(_ post: Post, at index: UInt) {
+    override func checkIsPinned(_ post: PostItem, at index: UInt) {
         let request = APIState.getLatestData(forService: "pins")
         XCTAssertEqual(request?["topicHandle"] as! String, feedName + String(index))
         super.checkIsPinned(post, at: index)
     }
     
-    override func checkIsUnpinned(_ post: Post, at index: UInt) {
+    override func checkIsUnpinned(_ post: PostItem, at index: UInt) {
         XCTAssertNotNil(APIState.getLatestRequest().contains("users/me/pins/\(feedName + String(index))"))
         super.checkIsUnpinned(post, at: index)
     }
@@ -253,7 +253,7 @@ class TestOnlineHome: BaseTestHome, OnlineTest {
     override func testOpenPostDetails() {
         openScreen()
         
-        let (_, post) = feed.getRandomPost()
+        let (_, post) = feed.getRandomItem()
         APIConfig.values = ["text": "Post Details Screen"]
         post.getTitle().tap()
         
@@ -290,7 +290,7 @@ class TestOnlineHome: BaseTestHome, OnlineTest {
         openScreen()
         feed.switchViewMode()
         
-        let (_, post) = feed.getRandomPost()
+        let (_, post) = feed.getRandomItem()
         APIConfig.values = ["text": "Post Details Screen"]
         post.asUIElement().tap()
         
@@ -303,7 +303,7 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
     
     override func testFeedSource() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: feed.getItem(at: 0).asUIElement())
         super.testFeedSource()
     }
     
@@ -320,19 +320,19 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         navigate(to: .home)
         openScreen()
         
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: feed.getItem(at: 0).asUIElement())
         super.testPostAttributes()
     }
     
     override func testLikePost() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: feed.getItem(at: 0).asUIElement())
         super.testLikePost()
     }
     
     override func testPinPostButton() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: feed.getItem(at: 0).asUIElement())
         super.testPinPostButton()
     }
     
@@ -347,7 +347,7 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         for _ in 1...7 {
             app.swipeDown()
         }
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: feed.getItem(at: 0).asUIElement())
         
         // test offline pagination
         super.testPaging()
@@ -355,7 +355,7 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
     
     override func testPullToRefresh() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: feed.getItem(at: 0).asUIElement())
         super.testPullToRefresh()
     }
     
@@ -364,14 +364,14 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         
         openScreen()
         
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: feed.getItem(at: 0).asUIElement())
         super.testPostImagesLoaded()
     }
     
     override func testOpenPostDetails() {
         openScreen()
         
-        let (_, post) = feed.getRandomPost()
+        let (_, post) = feed.getRandomItem()
         APIConfig.values = ["text": "Post Details Screen"]
         post.asUIElement().tap()
         
@@ -390,7 +390,7 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         for _ in 1...5 {
             app.swipeDown()
         }
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: feed.getItem(at: 0).asUIElement())
         
         // test offline pagination
         super.testPagingTileMode()
@@ -400,7 +400,7 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         openScreen()
         feed.switchViewMode()
         
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: feed.getItem(at: 0).asUIElement())
         super.testPullToRefreshTileMode()
     }
     
@@ -408,11 +408,11 @@ class TestOfflineHome: BaseTestHome, OfflineTest {
         openScreen()
         feed.switchViewMode()
         
-        let (_, post) = feed.getRandomPost()
+        let (_, post) = feed.getRandomItem()
         APIConfig.values = ["text": "Post Details Screen"]
         post.asUIElement().tap()
         
-        makePullToRefreshWithoutReachability(with: feed.getPost(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: feed.getItem(at: 0).asUIElement())
         super.testOpenPostDetailsTileMode()
     }
     

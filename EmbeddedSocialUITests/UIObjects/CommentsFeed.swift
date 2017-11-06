@@ -5,15 +5,12 @@
 
 import XCTest
 
-class Comment {
+class CommentItem: UICellObject {
     
     var likeButton: XCUIElement
     var replyButton: XCUIElement
     var likesButton: XCUIElement
     var repliesButton: XCUIElement
-    
-    private var app: XCUIApplication
-    private var cell: XCUIElement
     
     private var authorLabeL: XCUIElement
     private var titleLabel: XCUIElement
@@ -21,31 +18,19 @@ class Comment {
     private var menuButton: XCUIElement
     private var commentMenu: CommentMenu!
     
-    init(_ cell: XCUIElement, _ application: XCUIApplication) {
-        self.app = application
-        self.cell = cell
+    required init(_ application: XCUIApplication, cell: XCUIElement) {
+        likeButton = cell.buttons["Like Comment"].firstMatch
+        replyButton = cell.buttons["Reply Comment"].firstMatch
+        likesButton = cell.buttons["Likes Comment"].firstMatch
+        repliesButton = cell.buttons["Replies Comment"].firstMatch
         
-        self.likeButton = self.cell.buttons["Like Comment"].firstMatch
-        self.replyButton = self.cell.buttons["Reply Comment"].firstMatch
-        self.likesButton = self.cell.buttons["Likes Comment"].firstMatch
-        self.repliesButton = self.cell.buttons["Replies Comment"].firstMatch
+        authorLabeL = cell.staticTexts.element(boundBy: 1)
+        titleLabel = cell.staticTexts.element(boundBy: 0)
+        menuButton = cell.buttons["Menu Comment"]
         
-        self.authorLabeL = self.cell.staticTexts.element(boundBy: 1)
-        self.titleLabel = self.cell.staticTexts.element(boundBy: 0)
+        super.init(application, cell: cell)
         
-        menuButton = self.cell.buttons["Menu Comment"]
-        commentMenu = CommentMenu(app, self)
-    }
-    
-    //UILabel values cannot be read when element has an accessibility identifier
-    //and should be verified by searching of static texts inside cells
-    //https://forums.developer.apple.com/thread/10428
-    func textExists(_ text: String) -> Bool {
-        return self.cell.staticTexts[text].exists
-    }
-    
-    func getLabelByText(_ text: String) -> XCUIElement {
-        return self.cell.staticTexts[text]
+        commentMenu = CommentMenu(application, item: self)
     }
     
     func getAuthor() -> XCUIElement {
@@ -57,22 +42,22 @@ class Comment {
     }
     
     func like() {
-        scrollToElement(likeButton, app)
+        scrollToElement(likeButton, application)
         likeButton.tap()
     }
     
     func reply() {
-        scrollToElement(replyButton, app)
+        scrollToElement(replyButton, application)
         replyButton.tap()
     }
     
     func openLikes() {
-        scrollToElement(likesButton, app)
+        scrollToElement(likesButton, application)
         likesButton.tap()
     }
     
     func openReplies() {
-        scrollToElement(repliesButton, app)
+        scrollToElement(repliesButton, application)
         repliesButton.tap()
     }
     
@@ -83,65 +68,34 @@ class Comment {
         }
         return commentMenu
     }
-    
-    func asUIElement() -> XCUIElement {
-        return cell
-    }
 
 }
 
-class CommentsFeed {
+class CommentsFeed: UIFeedObject <CommentItem> {
     
     var loadMoreButton: XCUIElement
-
-    private var app: XCUIApplication
-    private var feedContainer: XCUIElement
     
     private var commentText: XCUIElement
     private var publishCommentButton: XCUIElement
     
-    init(_ application: XCUIApplication) {
-        self.app = application
-        self.feedContainer = self.app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element(boundBy: 1).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .collectionView).element
-        self.loadMoreButton = self.app.buttons["Load more"].firstMatch
-        self.commentText = self.app.textViews.firstMatch
-        self.publishCommentButton = self.app.buttons["Post"].firstMatch
+    convenience init(_ application: XCUIApplication) {
+        self.init(application, feedContainer: application.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element(boundBy: 1).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .collectionView).element)
     }
     
-    convenience init(_ application: XCUIApplication, containerView: XCUIElement) {
-        self.init(application)
-        feedContainer = containerView
-    }
-    
-    func getCommentsCount() -> UInt {
-        return UInt(self.feedContainer.cells.count)
-    }
-    
-    func getComment(_ index: UInt, withScroll scroll: Bool = true) -> Comment {
-        let cell = feedContainer.cells.element(boundBy: index)
+    override init(_ application: XCUIApplication, feedContainer: XCUIElement) {
+        loadMoreButton = application.buttons["Load more"].firstMatch
+        commentText = application.textViews.firstMatch
+        publishCommentButton = application.buttons["Post"].firstMatch
         
-        if scroll {
-            scrollToElement(cell, app)
-        }
-        
-        return Comment(cell, app)
+        super.init(application, feedContainer: feedContainer)
     }
-    
-    func getRandomComment() -> (UInt, Comment) {
-        let index = Random.randomUInt(getCommentsCount())
-        return (index, getComment(index, withScroll: false))
-    }
-    
+
     func postNewComment(with text: String) {
         commentText.tap()
         commentText.clearText()
         commentText.typeText(text)
         
         publishCommentButton.tap()
-    }
-    
-    func asUIElement() -> XCUIElement {
-        return feedContainer
     }
     
 }

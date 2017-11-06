@@ -5,7 +5,7 @@
 
 import XCTest
 
-enum CommentMenuItem: String {
+enum CommentMenuItem: String, Indexable {
     case follow   = "Follow"
     case unfollow = "Unfollow"
     case block    = "Block"
@@ -24,28 +24,10 @@ enum CommentMenuItem: String {
     }
 }
 
-class CommentMenu {
+class CommentMenu: UIMenuObject <CommentItem, CommentMenuItem> {
     
-    var isOpened = false
-    
-    private var application: XCUIApplication
-    private var actionSheet: XCUIElement
-    
-    private var comment: Comment
-    
-    init(_ application: XCUIApplication, _ comment: Comment) {
-        self.application = application
-        self.comment = comment
-        self.actionSheet = self.application.sheets.element(boundBy: 0)
-    }
-    
-    func isExists(item: CommentMenuItem) -> Bool {
-        return actionSheet.buttons[item.rawValue].exists
-    }
-    
-    func select(item: CommentMenuItem) {
-        actionSheet.buttons.element(boundBy: item.index()).tap()
-        isOpened = false
+    override init(_ application: XCUIApplication, item: CommentItem) {
+        super.init(application, item: item)
     }
     
 }

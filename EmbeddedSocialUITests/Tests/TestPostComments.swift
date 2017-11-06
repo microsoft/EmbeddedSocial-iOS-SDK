@@ -17,7 +17,7 @@ class BaseTestComments: BaseSideMenuTest {
     }
     
     override func openScreen() {
-        Feed(app).getRandomPost().1.getTitle().tap()
+        Feed(app).getRandomItem().1.getTitle().tap()
         commentsFeed = PostDetails(app).comments
 
 //        var retryCount = 15
@@ -28,17 +28,17 @@ class BaseTestComments: BaseSideMenuTest {
     }
     
     func testCommentAttributes() {
-        let (_, comment) = commentsFeed.getRandomComment()
+        let (_, comment) = commentsFeed.getRandomItem()
         
-        XCTAssert(comment.textExists("Alan Poe"), "Author name doesn't match")
+        XCTAssert(comment.isExists("Alan Poe"), "Author name doesn't match")
         XCTAssertEqual(comment.likesButton.label, "5 likes", "Number of likes doesn't match")
         XCTAssertEqual(comment.repliesButton.label, "7 replies", "Number of comments doesn't match")
-        XCTAssert(comment.textExists("Lorem ipsum dolor sit amet, consectetur adipiscing elit."), "Comment text doesn't match")
+        XCTAssert(comment.isExists("Lorem ipsum dolor sit amet, consectetur adipiscing elit."), "Comment text doesn't match")
         XCTAssert(!comment.likeButton.isSelected, "Post is marked as liked")
     }
     
     func testLikeComment() {
-        let (index, comment) = commentsFeed.getRandomComment()
+        let (index, comment) = commentsFeed.getRandomItem()
         
         comment.like()
         checkIsLiked(comment, at: index)
@@ -47,12 +47,12 @@ class BaseTestComments: BaseSideMenuTest {
         checkIsUnliked(comment, at: index)
     }
     
-    func checkIsLiked(_ comment: Comment, at index: UInt) {
+    func checkIsLiked(_ comment: CommentItem, at index: UInt) {
         XCTAssert(comment.likeButton.isSelected, "Comment is not marked as liked")
         XCTAssertEqual(comment.likesButton.label, "1 like", "Likes counter wasn't incremented")
     }
     
-    func checkIsUnliked(_ comment: Comment, at index: UInt) {
+    func checkIsUnliked(_ comment: CommentItem, at index: UInt) {
         XCTAssert(!comment.likeButton.isSelected, "Comment is marked as liked")
         XCTAssertEqual(comment.likesButton.label, "0 likes", "Likes counter wasn't decremented")
     }
@@ -65,8 +65,8 @@ class BaseTestComments: BaseSideMenuTest {
         
         while seenComments.count <= pageSize && retryCount != 0 {
             retryCount -= 1
-            for i in 0...commentsFeed.getCommentsCount() - 2 {
-                let comment = commentsFeed.getComment(i, withScroll: false)
+            for i in 0...commentsFeed.getItemsCount() - 2 {
+                let comment = commentsFeed.getItem(at: i, withScroll: false)
                 seenComments.insert(comment.asUIElement())
             }
             app.swipeUp()
@@ -86,7 +86,7 @@ class BaseTestComments: BaseSideMenuTest {
         let finish = commentsFeed.asUIElement().coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
         start.press(forDuration: 0, thenDragTo: finish)
         
-        XCTAssertTrue(commentsFeed.getCommentsCount() != 0)
+        XCTAssertTrue(commentsFeed.getItemsCount() != 0)
     }
     
     func testCreateComment() {
@@ -94,13 +94,13 @@ class BaseTestComments: BaseSideMenuTest {
         
         sleep(UInt32(APIConfig.responsesDelay + 2))
         
-        let lastComment = commentsFeed.getComment(commentsFeed.getCommentsCount() - 1, withScroll: false)
-        XCTAssertTrue(lastComment.textExists("New Comment Text"))
+        let lastComment = commentsFeed.getItem(at: commentsFeed.getItemsCount() - 1, withScroll: false)
+        XCTAssertTrue(lastComment.isExists("New Comment Text"))
     }
     
     func testOpenReplies() {
         APIConfig.values = ["text": "Replies screen"]
-        commentsFeed.getComment(0).openReplies()
+        commentsFeed.getItem(at: 0).openReplies()
         XCTAssert(app.staticTexts["Replies screen"].exists, "Replies screen is not opened")
     }
 
@@ -145,11 +145,11 @@ class TestCommentsOnline: BaseTestComments, OnlineTest {
         super.testLikeComment()
     }
     
-    override func checkIsLiked(_ comment: Comment, at index: UInt) {
+    override func checkIsLiked(_ comment: CommentItem, at index: UInt) {
         XCTAssertNotNil(APIState.getLatestRequest().contains("/likes"))
     }
     
-    override func checkIsUnliked(_ comment: Comment, at index: UInt) {
+    override func checkIsUnliked(_ comment: CommentItem, at index: UInt) {
         XCTAssertNotNil(APIState.getLatestRequest().contains("/likes/me"))
     }
     
@@ -195,21 +195,21 @@ class TestCommentsOffline: BaseTestComments, OfflineTest {
                             "liked": false]
         
         openScreen()
-        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: commentsFeed.getItem(at: 0).asUIElement())
         super.testCommentAttributes()
     }
     
     override func testLikeComment() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: commentsFeed.getItem(at: 0).asUIElement())
         super.testLikeComment()
     }
     
-    override func checkIsLiked(_ comment: Comment, at index: UInt) {
+    override func checkIsLiked(_ comment: CommentItem, at index: UInt) {
         XCTAssertNotNil(APIState.getLatestRequest().contains("/likes"))
     }
     
-    override func checkIsUnliked(_ comment: Comment, at index: UInt) {
+    override func checkIsUnliked(_ comment: CommentItem, at index: UInt) {
         XCTAssertNotNil(APIState.getLatestRequest().contains("/likes/me"))
     }
     
@@ -223,14 +223,14 @@ class TestCommentsOffline: BaseTestComments, OfflineTest {
             app.swipeDown()
         }
         
-        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: commentsFeed.getItem(at: 0).asUIElement())
         
         super.testPaging()
     }
     
     override func testPullToRefresh() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: commentsFeed.getItem(at: 0).asUIElement())
         super.testPullToRefresh()
     }
     
@@ -241,7 +241,7 @@ class TestCommentsOffline: BaseTestComments, OfflineTest {
             app.swipeDown()
         }
         
-        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: commentsFeed.getItem(at: 0).asUIElement())
         super.testCreateComment()
     }
     
@@ -251,7 +251,7 @@ class TestCommentsOffline: BaseTestComments, OfflineTest {
         super.testOpenReplies()
         app.navigationBars.element.buttons["Back"].tap()
         
-        makePullToRefreshWithoutReachability(with: commentsFeed.getComment(0).asUIElement())
+        makePullToRefreshWithoutReachability(with: commentsFeed.getItem(at: 0).asUIElement())
         super.testOpenReplies()
     }
     

@@ -14,6 +14,11 @@ class TestFollowingOnline: TestFollowersOnline {
         feedHandle = "UserFollowing"
     }
     
+    override func openScreen() {
+        navigate(to: .userProfile)
+        profile.followingButton.tap()
+    }
+    
 }
 
 class TestFollowingOffline: TestFollowersOffline {
@@ -23,6 +28,11 @@ class TestFollowingOffline: TestFollowersOffline {
         
         feedName = "User Following"
         feedHandle = "UserFollowing"
+    }
+    
+    override func openScreen() {
+        navigate(to: .userProfile)
+        profile.followingButton.tap()
     }
     
 }

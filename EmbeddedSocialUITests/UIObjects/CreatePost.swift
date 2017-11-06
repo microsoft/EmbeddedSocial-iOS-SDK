@@ -5,19 +5,17 @@
 
 import XCTest
 
-class CreatePost {
+class CreatePost: UIObject {
 
-    private var app: XCUIApplication
     private var postTitle: XCUIElement
     private var postText: XCUIElement
     private var publishButton: XCUIElement
     
-    init(_ application: XCUIApplication) {
-        app = application
-        
-        postTitle = app.textFields["Post Title"]
-        postText = app.textViews["Post Text"]
-        publishButton = app.navigationBars["Add new post"].buttons["Post"]
+    override init(_ application: XCUIApplication) {
+        postTitle = application.textFields["Post Title"]
+        postText = application.textViews["Post Text"]
+        publishButton = application.navigationBars["Add new post"].buttons["Post"]
+        super.init(application)
     }
     
     func publishWith(title: String, text: String) {

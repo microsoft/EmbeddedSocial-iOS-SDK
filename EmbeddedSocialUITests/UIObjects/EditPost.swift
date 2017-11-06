@@ -5,18 +5,17 @@
 
 import XCTest
 
-class EditPost {
+class EditPost: UIObject {
     
-    private var application: XCUIApplication
     private var postTitle: XCUIElement
     private var postText: XCUIElement
     private var saveButton: XCUIElement
     
-    init(_ application: XCUIApplication) {
-        self.application = application
-        postTitle = self.application.scrollViews.textFields["Post Title"]
-        postText = self.application.scrollViews.textViews["Post Text"]
-        saveButton = self.application.navigationBars.element.buttons.element(boundBy: 1)
+    override init(_ application: XCUIApplication) {
+        postTitle = application.scrollViews.textFields["Post Title"]
+        postText = application.scrollViews.textViews["Post Text"]
+        saveButton = application.navigationBars.element.buttons.element(boundBy: 1)
+        super.init(application)
     }
     
     func updatePostWith(title: String, text: String) {

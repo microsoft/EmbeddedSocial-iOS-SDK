@@ -42,7 +42,7 @@ class TestSettings: BaseSideMenuTest {
         search.search("Search Something", for: .topics)
         
         var searchHistory = search.getHistory()
-        XCTAssertEqual(searchHistory.getHistoryItem(at: 0).getQuery(), "Search Something")
+        XCTAssertEqual(searchHistory.getItem(at: 0).getQuery(), "Search Something")
         
         openScreen()
         app.cells["Delete History"].tap()
@@ -50,7 +50,7 @@ class TestSettings: BaseSideMenuTest {
         
         navigate(to: .search)
         searchHistory = search.getHistory()
-        XCTAssertEqual(searchHistory.getHistoryItemsCount(), 0)
+        XCTAssertEqual(searchHistory.getItemsCount(), 0)
     }
     
     func testAccountDeleted() {

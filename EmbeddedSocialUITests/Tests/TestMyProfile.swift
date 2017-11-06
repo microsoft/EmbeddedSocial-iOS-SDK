@@ -67,7 +67,7 @@ class TestMyProfileRecentPostsOnline: TestOnlineHome {
     }
     
     override func openScreen() {
-        sideMenu.navigateToUserProfile()
+        sideMenu.navigate(to: .userProfile)
         
         profile.popularPostsButton.tap()
         profile.recentPostsButton.tap()
@@ -89,7 +89,7 @@ class TestMyProfileRecentPostsOffline: TestOfflineHome {
     }
     
     override func openScreen() {
-        sideMenu.navigateToUserProfile()
+        sideMenu.navigate(to: .userProfile)
         
         profile.popularPostsButton.tap()
         profile.recentPostsButton.tap()
@@ -111,7 +111,7 @@ class TestMyProfilePopularPostsOnline: TestOnlineHome {
     }
     
     override func openScreen() {
-        sideMenu.navigateToUserProfile()
+        sideMenu.navigate(to: .userProfile)
         profile.popularPostsButton.tap()
         sleep(1)
     }
@@ -130,7 +130,7 @@ class TestMyProfilePopularPostsOffline: TestOfflineHome {
     }
     
     override func openScreen() {
-        sideMenu.navigateToUserProfile()
+        sideMenu.navigate(to: .userProfile)
         profile.popularPostsButton.tap()
         sleep(1)
     }

@@ -23,11 +23,11 @@ class TestMyPinsOnline: TestOnlineHome {
      "Pin" and "Unpin" actions are reversed and v.v.
      */
     
-    override func checkIsPinned(_ post: Post, at index: UInt) {
+    override func checkIsPinned(_ post: PostItem, at index: UInt) {
         super.checkIsUnpinned(post, at: index)
     }
     
-    override func checkIsUnpinned(_ post: Post, at index: UInt) {
+    override func checkIsUnpinned(_ post: PostItem, at index: UInt) {
         super.checkIsPinned(post, at: index)
     }
     
@@ -51,11 +51,11 @@ class TestMyPinsOffline: TestOfflineHome {
      "Pin" and "Unpin" actions are reversed and v.v.
      */
     
-    override func checkIsPinned(_ post: Post, at index: UInt) {
+    override func checkIsPinned(_ post: PostItem, at index: UInt) {
         super.checkIsUnpinned(post, at: index)
     }
     
-    override func checkIsUnpinned(_ post: Post, at index: UInt) {
+    override func checkIsUnpinned(_ post: PostItem, at index: UInt) {
         super.checkIsPinned(post, at: index)
     }
     

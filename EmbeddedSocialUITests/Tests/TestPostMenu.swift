@@ -5,16 +5,16 @@
 
 import XCTest
 
-class TestPostMenu: TestOnlineHome {
+class TestPostMenu: BaseFeedTest {
     
     override func openScreen() {
-        sideMenu.navigateToUserProfile()
+        sideMenu.navigate(to: .userProfile)
     }
     
     func testFollowAndUnfollow() {
         openScreen()
         
-        let (_, post) = feed.getRandomPost()
+        let (_, post) = feed.getRandomItem()
         
         // Follow test
         
@@ -39,7 +39,7 @@ class TestPostMenu: TestOnlineHome {
     func testBlockAndUnblock() {
         openScreen()
         
-        let (_, post) = feed.getRandomPost()
+        let (_, post) = feed.getRandomItem()
         
         // Block test
         
@@ -66,7 +66,7 @@ class TestPostMenu: TestOnlineHome {
         
         // Initialize values
         
-        var (_, post) = feed.getRandomPost()
+        var (_, post) = feed.getRandomItem()
         let reportingPostTitle = post.getTitle().label
         
         select(menuItem: .report, for: post)
@@ -98,7 +98,7 @@ class TestPostMenu: TestOnlineHome {
 
 extension TestPostMenu {
     
-    fileprivate func select(menuItem: PostMenuItem, for post: Post) {
+    fileprivate func select(menuItem: PostMenuItem, for post: PostItem) {
         XCTAssert(post.menu().isExists(item: menuItem), "Menu item - \"\(menuItem.rawValue)\" does not exists!")
         post.menu().select(item: menuItem)
     }

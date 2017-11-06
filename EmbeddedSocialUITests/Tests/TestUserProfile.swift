@@ -22,7 +22,7 @@ class BaseTestUserProfile: BaseFeedTest {
     }
     
     override func openScreen() {
-        feed.getRandomPost().1.getLabelByText(userName).tapByCoordinate()
+        feed.getRandomItem().1.getLabelByText(userName).tapByCoordinate()
     }
     
     func testProfileAttributes() {
@@ -118,7 +118,7 @@ class TestUserProfileRecentPostsOnline: TestOnlineHome {
     }
     
     override func openScreen() {
-        feed.getRandomPost().1.getLabelByText(userName).tapByCoordinate()
+        feed.getRandomItem().1.getLabelByText(userName).tapByCoordinate()
         UserProfile(app).recentPostsButton.tap()
         
         feed = Feed(app, switchViewModeButton: app.navigationBars.buttons.element(boundBy: 2))
@@ -136,7 +136,7 @@ class TestUserProfileRecentPostsOffline: TestOfflineHome {
     }
     
     override func openScreen() {
-        feed.getRandomPost().1.getLabelByText(userName).tapByCoordinate()
+        feed.getRandomItem().1.getLabelByText(userName).tapByCoordinate()
         UserProfile(app).recentPostsButton.tap()
         
         feed = Feed(app, switchViewModeButton: app.navigationBars.buttons.element(boundBy: 2))
@@ -154,7 +154,7 @@ class TestUserProfilePopularPostsOnline: TestOnlineHome {
     }
     
     override func openScreen() {
-        feed.getRandomPost().1.getLabelByText(userName).tapByCoordinate()
+        feed.getRandomItem().1.getLabelByText(userName).tapByCoordinate()
         UserProfile(app).popularPostsButton.tap()
         
         feed = Feed(app, switchViewModeButton: app.navigationBars.buttons.element(boundBy: 2))
@@ -172,7 +172,7 @@ class TestUserProfilePopularPostsOffline: TestOfflineHome {
     }
     
     override func openScreen() {
-        feed.getRandomPost().1.getLabelByText(userName).tapByCoordinate()
+        feed.getRandomItem().1.getLabelByText(userName).tapByCoordinate()
         UserProfile(app).popularPostsButton.tap()
         
         feed = Feed(app, switchViewModeButton: app.navigationBars.buttons.element(boundBy: 2))

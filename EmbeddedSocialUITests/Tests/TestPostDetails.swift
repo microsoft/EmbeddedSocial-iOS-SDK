@@ -15,14 +15,14 @@ class BaseTestPostDetails: BaseSideMenuTest {
     }
     
     override func openScreen() {
-        Feed(app).getPost(0).asUIElement().tap()
+        Feed(app).getItem(at: 0).asUIElement().tap()
     }
     
     func testPostAttributes() {
-        XCTAssert(details.post.textExists("Alan Poe"), "Author name doesn't match")
-        XCTAssert(details.post.textExists("5 likes"), "Number of likes doesn't match")
-        XCTAssert(details.post.textExists("7 comments"), "Number of comments doesn't match")
-        XCTAssert(details.post.textExists("Lorem ipsum dolor sit amet, consectetur adipiscing elit."), "Teaser text doesn't match")
+        XCTAssert(details.post.isExists("Alan Poe"), "Author name doesn't match")
+        XCTAssert(details.post.isExists("5 likes"), "Number of likes doesn't match")
+        XCTAssert(details.post.isExists("7 comments"), "Number of comments doesn't match")
+        XCTAssert(details.post.isExists("Lorem ipsum dolor sit amet, consectetur adipiscing elit."), "Teaser text doesn't match")
         XCTAssert(details.post.likeButton.isSelected, "Post is not marked as liked")
         XCTAssert(details.post.pinButton.isSelected, "Post is not marked as pinned")
     }
@@ -37,14 +37,14 @@ class BaseTestPostDetails: BaseSideMenuTest {
         checkIsDisliked(post)
     }
     
-    func checkIsLiked(_ post: Post) {
+    func checkIsLiked(_ post: PostItem) {
         XCTAssert(post.likeButton.isSelected, "Post is not marked as liked")
-        XCTAssert(post.textExists("1 like"), "Likes counter wasn't incremented")
+        XCTAssert(post.isExists("1 like"), "Likes counter wasn't incremented")
     }
     
-    func checkIsDisliked(_ post: Post) {
+    func checkIsDisliked(_ post: PostItem) {
         XCTAssert(!post.likeButton.isSelected, "Post is marked as liked")
-        XCTAssert(post.textExists("0 likes"), "Likes counter wasn't decremented")
+        XCTAssert(post.isExists("0 likes"), "Likes counter wasn't decremented")
     }
     
     func testPinPost() {
@@ -57,11 +57,11 @@ class BaseTestPostDetails: BaseSideMenuTest {
         checkIsUnpinned(post)
     }
     
-    func checkIsPinned(_ post: Post) {
+    func checkIsPinned(_ post: PostItem) {
         XCTAssert(post.pinButton.isSelected, "Post is not marked as pinned")
     }
     
-    func checkIsUnpinned(_ post: Post) {
+    func checkIsUnpinned(_ post: PostItem) {
         XCTAssert(!post.pinButton.isSelected, "Post is marked as pinned")
     }
     
@@ -87,12 +87,12 @@ class TestPostDetailsOnline: BaseTestPostDetails, OnlineTest {
         super.testLikePost()
     }
     
-    override func checkIsLiked(_ post: Post) {
+    override func checkIsLiked(_ post: PostItem) {
         XCTAssertNotNil(APIState.getLatestRequest().contains("/likes"))
         super.checkIsLiked(post)
     }
     
-    override func checkIsDisliked(_ post: Post) {
+    override func checkIsDisliked(_ post: PostItem) {
         XCTAssertNotNil(APIState.getLatestRequest().contains("/likes/me"))
         super.checkIsDisliked(post)
     }
@@ -102,13 +102,13 @@ class TestPostDetailsOnline: BaseTestPostDetails, OnlineTest {
         super.testPinPost()
     }
     
-    override func checkIsPinned(_ post: Post) {
+    override func checkIsPinned(_ post: PostItem) {
         let request = APIState.getLatestData(forService: "pins")
         XCTAssertEqual(request?["topicHandle"] as! String, "topicHandle")
         super.checkIsPinned(post)
     }
     
-    override func checkIsUnpinned(_ post: Post) {
+    override func checkIsUnpinned(_ post: PostItem) {
         XCTAssertNotNil(APIState.getLatestRequest().contains("users/me/pins/topics"))
         super.checkIsUnpinned(post)
     }

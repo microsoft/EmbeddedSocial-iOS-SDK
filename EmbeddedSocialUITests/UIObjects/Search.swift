@@ -10,16 +10,15 @@ enum SearchSegmentItem: String {
     case people = "People"
 }
 
-class Search {
+class Search: UIObject, UIElementConvertible {
     
-    private var application: XCUIApplication
     private var searchField: XCUIElement
     private var history: SearchHistory
 
-    init(_ application: XCUIApplication) {
-        self.application = application
-        searchField = self.application.searchFields.element
-        history = SearchHistory(self.application)
+    override init(_ application: XCUIApplication) {
+        searchField = application.searchFields.element
+        history = SearchHistory(application)
+        super.init(application)
     }
     
     func select(item: SearchSegmentItem) {
@@ -45,7 +44,7 @@ class Search {
     }
     
     func asUIElement() -> XCUIElement {
-        return application.searchFields.element
+        return searchField
     }
     
 }
