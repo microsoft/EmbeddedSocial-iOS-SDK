@@ -5,7 +5,9 @@
 
 import XCTest
 
-class BaseTestActivityFeed: TestOnlineHome {
+class BaseTestActivityFeed: BaseSideMenuTest {
+    
+    var pageSize: Int!
     
     private var activitySegment: ActivityFeedSegment!
     
@@ -18,10 +20,12 @@ class BaseTestActivityFeed: TestOnlineHome {
     
     override func openScreen() {
         sideMenu.navigate(to: .activityFeed)
+        sleep(1)
     }
     
     func selectSegment(item: ActivityFeedSegmentItem) {
         activitySegment.select(item: item)
+        sleep(1)
     }
     
     func makePullToRefresh(for element: XCUIElement) {
@@ -56,7 +60,7 @@ class TestYourActivityFeed: BaseTestActivityFeed {
         openScreen()
         
         // move to the last item
-        let _ = activityFollowRequests.getRequestItem(at: activityFollowRequests.getRequestsCount() - 1)
+        let _ = activityFollowRequests.getItem(at: activityFollowRequests.getItemsCount() - 1)
         app.swipeUp()
         
         let latestRequest = APIState.getLatestResponse(forService: "pendingUsers")
@@ -68,7 +72,7 @@ class TestYourActivityFeed: BaseTestActivityFeed {
         openScreen()
         
         // move to the last item
-        let _ = recentActivities.getActivityItem(at: recentActivities.getActivitiesCount() - 1)
+        let _ = recentActivities.getItem(at: recentActivities.getItemsCount() - 1)
         app.swipeUp()
         
         let latestRequest = APIState.getLatestResponse(forService: "notifications")
@@ -76,19 +80,19 @@ class TestYourActivityFeed: BaseTestActivityFeed {
         XCTAssertGreaterThan(latestRequest!["cursor"] as! String, String(pageSize))
     }
     
-    override func testPaging() {
+    func testPaging() {
         openScreen()
         
-        let currentFollowRequestsCount = activityFollowRequests.getRequestsCount()
-        let currentActivitiesCount = recentActivities.getActivitiesCount()
+        let currentFollowRequestsCount = activityFollowRequests.getItemsCount()
+        let currentActivitiesCount = recentActivities.getItemsCount()
         
         for _ in 0...20 {
             app.swipeUp()
         }
         
         // get new list size
-        let newFollowRequestsCount = activityFollowRequests.getRequestsCount()
-        let newActivitiesCount = recentActivities.getActivitiesCount()
+        let newFollowRequestsCount = activityFollowRequests.getItemsCount()
+        let newActivitiesCount = recentActivities.getItemsCount()
         
         XCTAssertGreaterThan(newFollowRequestsCount, currentFollowRequestsCount)
         XCTAssertGreaterThan(newActivitiesCount, currentActivitiesCount)
@@ -102,7 +106,7 @@ class TestYourActivityFeed: BaseTestActivityFeed {
         XCTAssertGreaterThan(latestActivitiesRequest!["cursor"] as! String, String(pageSize))
     }
     
-    override func testPullToRefresh() {
+    func testPullToRefresh() {
         openScreen()
         
         for _ in 0...5 {
@@ -128,44 +132,44 @@ class TestYourActivityFeed: BaseTestActivityFeed {
     func testPendingRequestAttributes() {
         openScreen()
         
-        let (requestIndex, requestItem) = activityFollowRequests.getRandomRequestItem()
+        let (requestIndex, requestItem) = activityFollowRequests.getRandomItem()
         
         XCTAssertNotNil(requestItem)
-        XCTAssertTrue(requestItem.isExists(text: "Pending Request\(requestIndex)"))
+        XCTAssertTrue(requestItem.isExists("Pending Request\(requestIndex)"))
     }
     
     func testPendingRequestAccepting() {
         openScreen()
         
-        let (requestIndex, requestItem) = activityFollowRequests.getRandomRequestItem()
+        let (requestIndex, requestItem) = activityFollowRequests.getRandomItem()
         
         XCTAssertNotNil(requestItem)
-        XCTAssertTrue(requestItem.isExists(text: "Pending Request\(requestIndex)"))
+        XCTAssertTrue(requestItem.isExists("Pending Request\(requestIndex)"))
         
-        let beforeAcceptingRequestsCount = activityFollowRequests.getRequestsCount()
+        let beforeAcceptingRequestsCount = activityFollowRequests.getItemsCount()
         requestItem.accept()
         
         let acceptUserHandleResponse = APIState.getLatestData(forService: "followers")?["userHandle"] as? String
         XCTAssertTrue(APIState.getLatestRequest().contains("/me/followers"))
         XCTAssertTrue(APIState.latestRequstMethod == "POST")
         XCTAssertEqual(acceptUserHandleResponse, "PendingRequest\(requestIndex)")
-        XCTAssertTrue((beforeAcceptingRequestsCount - 1) == activityFollowRequests.getRequestsCount())
+        XCTAssertTrue((beforeAcceptingRequestsCount - 1) == activityFollowRequests.getItemsCount())
     }
     
     func testPendingRequestDeclining() {
         openScreen()
         
-        let (requestIndex, requestItem) = activityFollowRequests.getRandomRequestItem()
+        let (requestIndex, requestItem) = activityFollowRequests.getRandomItem()
         
         XCTAssertNotNil(requestItem)
-        XCTAssertTrue(requestItem.isExists(text: "Pending Request\(requestIndex)"))
+        XCTAssertTrue(requestItem.isExists("Pending Request\(requestIndex)"))
         
-        let beforeDecliningRequestsCount = activityFollowRequests.getRequestsCount()
+        let beforeDecliningRequestsCount = activityFollowRequests.getItemsCount()
         requestItem.decline()
         
         XCTAssertTrue(APIState.getLatestRequest().contains("/me/pending_users/PendingRequest\(requestIndex)"))
         XCTAssertTrue(APIState.latestRequstMethod == "DELETE")
-        XCTAssertTrue((beforeDecliningRequestsCount - 1) == activityFollowRequests.getRequestsCount())
+        XCTAssertTrue((beforeDecliningRequestsCount - 1) == activityFollowRequests.getItemsCount())
     }
     
 }
@@ -210,10 +214,10 @@ class TestFollowingActivityFeed: BaseTestActivityFeed {
             makePullToRefresh(for: recentActivities.asUIElement())
             
             let index: UInt = 0
-            let activityItem = recentActivities.getActivityItem(at: index, withScroll: false)
+            let activityItem = recentActivities.getItem(at: index, withScroll: false)
             
             let expectedResult = activityTypeResults[i]
-            XCTAssertTrue(activityItem.isExists(text: expectedResult))
+            XCTAssertTrue(activityItem.isExists(expectedResult))
         }
     }
     
@@ -225,25 +229,22 @@ class TestFollowingActivityFeed: BaseTestActivityFeed {
         XCTAssertTrue(APIState.getLatestRequest().contains("/images/"))
     }
     
-    override func testPaging() {
+    func testPaging() {
         openScreen()
+
+        var retryCount = 10
         
-        let currentActivitiesCount = recentActivities.getActivitiesCount()
-        
-        // move to the last item
-        let _ = recentActivities.getActivityItem(at: recentActivities.getActivitiesCount() - 1)
-        app.swipeUp()
-        
-        // get new list size
-        let newActivitiesCount = recentActivities.getActivitiesCount()
-        XCTAssertGreaterThan(newActivitiesCount, currentActivitiesCount)
+        while recentActivities.getItemsCount() <= UInt(pageSize) && retryCount != 0 {
+            retryCount -= 1
+            app.swipeUp()
+        }
         
         let latestRequest = APIState.getLatestResponse(forService: "activities")
         XCTAssertNotNil(latestRequest)
         XCTAssertGreaterThan(latestRequest!["cursor"] as! String, String(pageSize))
     }
     
-    override func testPullToRefresh() {
+    func testPullToRefresh() {
         openScreen()
         
         for _ in 0...5 {
@@ -254,7 +255,7 @@ class TestFollowingActivityFeed: BaseTestActivityFeed {
             app.swipeDown()
         }
         
-        makePullToRefresh(for: recentActivities.getActivityItem(at: 0).asUIElement())
+        makePullToRefresh(for: recentActivities.getItem(at: 0).asUIElement())
         
         let latestResponse = APIState.getLatestResponse(forService: "activities")
         XCTAssertNotNil(latestResponse)

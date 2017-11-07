@@ -10,18 +10,21 @@ enum ActivityFeedSegmentItem: UInt {
     case following
 }
 
-class ActivityFeedSegment {
+class ActivityFeedSegment: UIObject, UIElementConvertible {
     
-    private var application: XCUIApplication
     private var feedSegment: XCUIElement
     
-    init(_ application: XCUIApplication) {
-        self.application = application
-        feedSegment = self.application.segmentedControls.element
+    override init(_ application: XCUIApplication) {
+        feedSegment = application.segmentedControls.element
+        super.init(application)
     }
     
     func select(item: ActivityFeedSegmentItem) {
         feedSegment.buttons.element(boundBy: item.rawValue).tap()
+    }
+    
+    func asUIElement() -> XCUIElement {
+        return feedSegment
     }
     
 }

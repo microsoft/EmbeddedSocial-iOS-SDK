@@ -5,22 +5,18 @@
 
 import XCTest
 
-class FollowRequestItem {
-    
-    private var application: XCUIApplication
-    private var cell: XCUIElement
+class FollowRequestItem: UICellObject {
     
     private var profileImage: XCUIElement
     private var acceptButton: XCUIElement
     private var declineButton: XCUIElement
     
-    init(_ application: XCUIApplication, cell: XCUIElement) {
-        self.application = application
-        self.cell = cell
+    required init(_ application: XCUIApplication, cell: XCUIElement) {
+        profileImage = cell.images.element
+        acceptButton = cell.buttons["Accept"].firstMatch
+        declineButton = cell.buttons["Reject"].firstMatch
         
-        profileImage = self.cell.images.element
-        acceptButton = self.cell.buttons["Accept"].firstMatch
-        declineButton = self.cell.buttons["Reject"].firstMatch
+        super.init(application, cell: cell)
     }
     
     func accept() {
@@ -31,59 +27,12 @@ class FollowRequestItem {
         declineButton.tap()
     }
     
-    //UILabel values cannot be read when element has an accessibility identifier
-    //and should be verified by searching of static texts inside cells
-    //https://forums.developer.apple.com/thread/10428
-    
-    func isExists(text: String) -> Bool {
-        return self.cell.staticTexts[text].exists
-    }
-    
-    func asUIElement() -> XCUIElement {
-        return cell
-    }
-    
 }
 
-class ActivityFollowRequests {
+class ActivityFollowRequests: UIFeedObject <FollowRequestItem> {
     
-    private var application: XCUIApplication
-    private var requestsTable: XCUIElement
-    
-    init(_ application: XCUIApplication) {
-        self.application = application
-        requestsTable = self.application.tables["ActivityFeed"].firstMatch
-    }
-    
-    func getRequestsCount() -> UInt {
-//        var count: UInt = 0
-//        for _ in 0..<requestsTable.cells.count {
-//            guard requestsTable.cells["FollowRequestCell"].exists else {
-//                break
-//            }
-//            count += 1
-//        }
-        return requestsTable.cells.matching(identifier: "FollowRequestCell").count
-    }
-    
-    func getRequestItem(at index: UInt, withScroll scroll: Bool = true) -> FollowRequestItem {
-        let cell = requestsTable.cells.matching(identifier: "FollowRequestCell").element(boundBy: index)
-        
-        if scroll {
-            scrollToElement(cell, application)
-        }
-        
-        let requestItem = FollowRequestItem(application, cell: cell)
-        return requestItem
-    }
-    
-    func getRandomRequestItem() -> (index: UInt, requestItem: FollowRequestItem) {
-        let randomIndex = Random.randomUInt(getRequestsCount())
-        return (randomIndex, getRequestItem(at: randomIndex))
-    }
-    
-    func asUIElement() -> XCUIElement {
-        return requestsTable
+    convenience init(_ application: XCUIApplication) {
+        self.init(application, feedContainer: application.tables["ActivityFeed"].firstMatch)
     }
     
 }

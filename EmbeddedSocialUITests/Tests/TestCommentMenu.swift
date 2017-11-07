@@ -5,7 +5,7 @@
 
 import XCTest
 
-class TestCommentMenu: TestOnlineHome {
+class TestCommentMenu: BaseSideMenuTest {
     
     private var comments: CommentsFeed!
     
@@ -20,7 +20,7 @@ class TestCommentMenu: TestOnlineHome {
     }
     
     override func openScreen() {
-        feed.getRandomPost().1.getTitle().tap()
+        Feed(app).getRandomItem().1.getTitle().tap()
         
         comments = PostDetails(app).comments
         
@@ -35,7 +35,7 @@ class TestCommentMenu: TestOnlineHome {
     func testFollowAndUnfollow() {
         openScreen()
         
-        let (_, comment) = comments.getRandomComment()
+        let (_, comment) = comments.getRandomItem()
         
         // Follow test
         
@@ -60,7 +60,7 @@ class TestCommentMenu: TestOnlineHome {
     func testBlockAndUnblock() {
         openScreen()
         
-        let (_, comment) = comments.getRandomComment()
+        let (_, comment) = comments.getRandomItem()
         
         // Block test
         
@@ -87,7 +87,7 @@ class TestCommentMenu: TestOnlineHome {
         
         // Initialize values
         
-        let (_, comment) = comments.getRandomComment()
+        let (_, comment) = comments.getRandomItem()
         let reportingCommentHandle = comment.getTitle().label
         select(menuItem: .report, for: comment)
         
@@ -118,7 +118,7 @@ class TestCommentMenu: TestOnlineHome {
 
 extension TestCommentMenu {
     
-    fileprivate func select(menuItem: CommentMenuItem, for comment: Comment) {
+    fileprivate func select(menuItem: CommentMenuItem, for comment: CommentItem) {
         XCTAssert(comment.menu().isExists(item: menuItem), "Menu item - \"\(menuItem.rawValue)\" does not exists!")
         comment.menu().select(item: menuItem)
     }

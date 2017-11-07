@@ -3,7 +3,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 
 enum SideMenuItem: String {
@@ -16,17 +15,15 @@ enum SideMenuItem: String {
     case userProfile  = "Profile"
 }
 
-class SideMenu {
+class SideMenu: UIObject {
     
-    var app: XCUIApplication
-    var menuButton: XCUIElement
-    var isOpened = false
-    var userProfileOption: XCUIElement!
+    fileprivate var menuButton: XCUIElement
+    fileprivate var userProfileOption: XCUIElement!
     
-    init(_ app: XCUIApplication) {
-        self.app = app
-        self.menuButton = app.navigationBars.children(matching: .button).element(boundBy: 0)
-        self.userProfileOption = app.children(matching: .window).element(boundBy: 2).children(matching: .other).element.children(matching: .other).element(boundBy: 1).staticTexts[TestConfig.fullUserName]
+    override init(_ application: XCUIApplication) {
+        menuButton = application.navigationBars.children(matching: .button).element(boundBy: 0)
+        userProfileOption = application.children(matching: .window).element(boundBy: 2).children(matching: .other).element.children(matching: .other).element(boundBy: 1).staticTexts[TestConfig.fullUserName]
+        super.init(application)
     }
     
     func navigate(to menuItem: SideMenuItem) {
@@ -37,31 +34,24 @@ class SideMenu {
         navigateTo(menuItem.rawValue)
     }
     
-    private func open() {
-        if !isOpened {
-            self.menuButton.tap()
-            self.isOpened = true
-        }
-    }
+}
+
+extension SideMenu {
     
-    private func close() {
-        if isOpened {
-            self.menuButton.tap()
-            self.isOpened = false
-        }
-    }
-    
-    private func navigateTo(_ menuItem: String) {
-        self.open()
-        self.app.tables.staticTexts[menuItem].tap()
-        self.isOpened = false
+    fileprivate func navigateTo(_ menuItem: String) {
+        open()
+        application.tables.staticTexts[menuItem].tap()
         sleep(1) //Required for running without animations
     }
     
-    func navigateToUserProfile() {
-        self.open()
-        self.userProfileOption.tap()
-        self.isOpened = false
+    fileprivate func navigateToUserProfile() {
+        open()
+        userProfileOption.tap()
         sleep(1)
     }
+    
+    private func open() {
+        menuButton.tap()
+    }
+    
 }

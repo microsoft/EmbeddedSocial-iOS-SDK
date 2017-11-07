@@ -5,7 +5,7 @@
 
 import XCTest
 
-class TestMyPostMenuOnline: TestOnlineHome {
+class TestMyPostMenuOnline: BaseFeedTest {
     
     override func setUp() {
         super.setUp()
@@ -18,13 +18,13 @@ class TestMyPostMenuOnline: TestOnlineHome {
     }
     
     override func openScreen() {
-        sideMenu.navigateToUserProfile()
+        sideMenu.navigate(to: .userProfile)
     }
     
     func testPostRemoving() {
         openScreen()
         
-        let (_, postItem) = feed.getRandomPost()
+        let (_, postItem) = feed.getRandomItem()
         let postItemHandle = postItem.getTitle().label
         
         XCTAssertTrue(postItem.menu().isExists(item: .remove))
@@ -38,7 +38,7 @@ class TestMyPostMenuOnline: TestOnlineHome {
     func testPostEditing() {
         openScreen()
         
-        let (_, postItem) = feed.getRandomPost()
+        let (_, postItem) = feed.getRandomItem()
         let postItemHandle = postItem.getTitle().label
         
         XCTAssertTrue(postItem.menu().isExists(item: .edit))

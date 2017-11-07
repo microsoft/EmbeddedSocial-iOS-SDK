@@ -5,14 +5,11 @@
 
 import XCTest
 
-class Post {
+class PostItem: UICellObject {
     
     var likeButton: XCUIElement
     var pinButton: XCUIElement
     var postImageButton: XCUIElement
-
-    private var app: XCUIApplication
-    private var cell: XCUIElement
     
     private var titleLabel: XCUIElement
     private var textLabeL: XCUIElement
@@ -20,30 +17,17 @@ class Post {
     private var menuButton: XCUIElement
     private var postMenu: PostMenu!
     
-    init(_ cell: XCUIElement, _ application: XCUIApplication) {
-        self.app = application
-        self.cell = cell
-        self.likeButton = self.cell.buttons["Like Post"].firstMatch
-        self.pinButton = self.cell.buttons["Pin Post"].firstMatch
-        self.menuButton = self.cell.buttons["Menu Post"].firstMatch
+    required init(_ application: XCUIApplication, cell: XCUIElement) {
+        likeButton = cell.buttons["Like Post"].firstMatch
+        pinButton = cell.buttons["Pin Post"].firstMatch
+        menuButton = cell.buttons["Menu Post"].firstMatch
         
-        titleLabel = self.cell.staticTexts.element(boundBy: 2)
-        textLabeL = self.cell.staticTexts.element(boundBy: 3)
+        titleLabel = cell.staticTexts.element(boundBy: 2)
+        textLabeL = cell.staticTexts.element(boundBy: 3)
+        postImageButton = cell.buttons["Post Image"].firstMatch
         
-        postImageButton = self.cell.buttons["Post Image"].firstMatch
-        
-        postMenu = PostMenu(app, self)
-    }
-    
-    //UILabel values cannot be read when element has an accessibility identifier
-    //and should be verified by searching of static texts inside cells
-    //https://forums.developer.apple.com/thread/10428
-    func textExists(_ text: String) -> Bool {
-        return self.cell.staticTexts[text].exists
-    }
-    
-    func getLabelByText(_ text: String) -> XCUIElement {
-        return self.cell.staticTexts[text]
+        super.init(application, cell: cell)
+        postMenu = PostMenu(application, item: self)
     }
     
     // Title value it's a "topicHandle" attribute
@@ -56,12 +40,12 @@ class Post {
     }
     
     func like() {
-        scrollToElement(likeButton, app)
-        self.likeButton.tap()
+        scrollToElement(likeButton, application)
+        likeButton.tap()
     }
     
     func pin() {
-        scrollToElement(pinButton, app)
+        scrollToElement(pinButton, application)
         pinButton.tap()
     }
     
@@ -73,44 +57,19 @@ class Post {
         return postMenu
     }
     
-    func asUIElement() -> XCUIElement {
-        return cell
-    }
-    
 }
 
-class Feed {
-    var app: XCUIApplication
-    var feedContainer: XCUIElementQuery
-    
+class Feed: UIFeedObject <PostItem> {
+
     private var switchViewModeButton: XCUIElement
     
     init(_ application: XCUIApplication, switchViewModeButton: XCUIElement? = nil) {
-        self.app = application
-        self.feedContainer = self.app.collectionViews
-        
         self.switchViewModeButton = switchViewModeButton ?? application.navigationBars.buttons.element(boundBy: 1)
+        super.init(application, feedContainer: application.collectionViews.element)
     }
     
     func switchViewMode() {
         switchViewModeButton.tap()
-    }
-    
-    func getPostsCount() -> UInt {
-        return UInt(feedContainer.cells.count)
-    }
-    
-    func getPost(_ index: UInt) -> Post {
-        return Post(feedContainer.children(matching: .cell).element(boundBy: index), app)
-    }
-    
-    func getRandomPost() -> (UInt, Post) {
-        let index = Random.randomUInt(getPostsCount())
-        return (index, getPost(index))
-    }
-    
-    func asUIElement() -> XCUIElement {
-        return feedContainer.element
     }
     
 }

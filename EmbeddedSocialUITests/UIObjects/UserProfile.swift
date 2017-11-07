@@ -5,7 +5,7 @@
 
 import XCTest
 
-class UserProfile {
+class UserProfile: UIObject, UIElementConvertible {
     
     var feed: Feed!
     
@@ -18,45 +18,44 @@ class UserProfile {
     var recentPostsButton: XCUIElement!
     var popularPostsButton: XCUIElement!
     
-    private var app: XCUIApplication!
     private var details: XCUIElement!
     private var menuButton: XCUIElement!
     
-    init(_ application: XCUIApplication) {
-        self.app = application
-        self.menuButton = app.navigationBars.children(matching: .button).element(boundBy: 2)
-        self.menu = app.sheets
-        self.feed = Feed(app)
+    override init(_ application: XCUIApplication) {
+        menuButton = application.navigationBars.children(matching: .button).element(boundBy: 2)
+        menu = application.sheets
+        feed = Feed(application)
         
-        self.details = app.collectionViews.children(matching: .other).element // app.collectionViews.element
-        self.followersButton = details.buttons["Followers"].firstMatch
-        self.followingButton = details.buttons["Following"].firstMatch
-        self.editProfileButton = details.buttons["Edit"].firstMatch
-        self.followButton = details.buttons["Follow"].firstMatch
+        details = application.collectionViews.children(matching: .other).element // application.collectionViews.element
+        followersButton = details.buttons["Followers"].firstMatch
+        followingButton = details.buttons["Following"].firstMatch
+        editProfileButton = details.buttons["Edit"].firstMatch
+        followButton = details.buttons["Follow"].firstMatch
         
-        self.recentPostsButton = app.collectionViews.buttons["Recent posts"]
-        self.popularPostsButton = app.collectionViews.buttons["Popular posts"]
+        recentPostsButton = application.collectionViews.buttons["Recent posts"]
+        popularPostsButton = application.collectionViews.buttons["Popular posts"]
         
+        super.init(application)
     }
     
     func openMenu() {
-        self.menuButton.tap()
+        menuButton.tap()
     }
     
     func selectMenuOption(_ option: String) {
-        self.menu.buttons[option].tap()
+        menu.buttons[option].tap()
     }
     
     func textExists(_ text: String) -> Bool {
-        return self.details.staticTexts[text].exists
+        return details.staticTexts[text].exists
     }
     
     func follow() {
-        self.followButton.tap()
+        followButton.tap()
     }
     
     func back() {
-        app.navigationBars.children(matching: .button).matching(identifier: "Back").element(boundBy: 0).tap()
+        application.navigationBars.children(matching: .button).matching(identifier: "Back").element(boundBy: 0).tap()
     }
     
     func asUIElement() -> XCUIElement {
