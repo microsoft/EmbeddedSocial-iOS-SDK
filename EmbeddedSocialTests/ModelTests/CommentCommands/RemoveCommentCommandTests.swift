@@ -13,7 +13,11 @@ class RemoveCommentCommandTests: XCTestCase {
         // given
         let comment = Comment(commentHandle: UUID().uuidString)
         let sut = RemoveCommentCommand(comment: comment)
-        XCTAssertNil(sut.inverseCommand)
+        guard let inverse = sut.inverseCommand as? CreateCommentCommand else {
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(sut.comment, inverse.comment)
     }
     
 }

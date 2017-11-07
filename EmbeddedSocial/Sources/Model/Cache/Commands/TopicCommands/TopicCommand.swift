@@ -19,7 +19,7 @@ class TopicCommand: OutgoingCommand, TopicsFeedApplicableCommand, SingleTopicApp
         super.init(json: json)
     }
     
-    required init(topic: Post) {
+    init(topic: Post) {
         self.topic = topic
         super.init(json: [:])!
     }
@@ -72,7 +72,8 @@ class TopicCommand: OutgoingCommand, TopicsFeedApplicableCommand, SingleTopicApp
             LikeTopicCommand.self,
             PinTopicCommand.self,
             UnpinTopicCommand.self,
-            UpdateTopicCommand.self
+            UpdateTopicCommand.self,
+            ReportTopicCommand.self
         ]
     }
     
@@ -84,7 +85,8 @@ class TopicCommand: OutgoingCommand, TopicsFeedApplicableCommand, SingleTopicApp
             UnpinTopicCommand.self,
             CreateTopicCommand.self,
             RemoveTopicCommand.self,
-            UpdateTopicCommand.self
+            UpdateTopicCommand.self,
+            ReportTopicCommand.self
         ]
     }
 }

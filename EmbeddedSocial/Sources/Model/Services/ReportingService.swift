@@ -17,95 +17,71 @@ protocol ReportingServiceType {
 
 final class ReportingService: BaseService, ReportingServiceType {
     
+    private var executor: AtomicOutgoingCommandsExecutor!
+    
+    init(provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
+        super.init()
+        executor = provider.makeAtomicOutgoingCommandsExecutor(for: self)
+    }
+    
     func reportUser(userID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
         let request = PostReportRequest()
         request.reason = PostReportRequest.Reason(rawValue: reason.rawValue)
         
-        ReportingAPI.userReportsPostReport(
+        let builder = ReportingAPI.userReportsPostReportWithRequestBuilder(
             userHandle: userID,
             postReportRequest: request,
-            authorization: authorization) { response, error in
-                self.processResponse(response: response, error: error, completion: completion)
-        }
+            authorization: authorization
+        )
+        
+        let command = ReportUserCommand(user: User(uid: userID), reason: reason)
+        
+        executor.execute(command: command, builder: builder, completion: completion)
+    }
+    
+    func report(comment: Comment, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
+        let request = PostReportRequest()
+        request.reason = PostReportRequest.Reason(rawValue: reason.rawValue)
+        
+        let builder = ReportingAPI.commentReportsPostReportWithRequestBuilder(
+            commentHandle: comment.commentHandle,
+            postReportRequest: request,
+            authorization: authorization
+        )
+        
+        let command = ReportCommentCommand(comment: comment, reportReason: reason)
+
+        executor.execute(command: command, builder: builder, completion: completion)
+    }
+    
+    func report(reply: Reply, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
+        let request = PostReportRequest()
+        request.reason = PostReportRequest.Reason(rawValue: reason.rawValue)
+        
+        let builder = ReportingAPI.replyReportsPostReportWithRequestBuilder(
+            replyHandle: reply.replyHandle,
+            postReportRequest: request,
+            authorization: authorization
+        )
+        
+        let command = ReportReplyCommand(reply: reply, reportReason: reason)
+        
+        executor.execute(command: command, builder: builder, completion: completion)
     }
     
     func reportPost(postID: String, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
         let request = PostReportRequest()
         request.reason = PostReportRequest.Reason(rawValue: reason.rawValue)
         
-        ReportingAPI.topicReportsPostReport(
+        let builder = ReportingAPI.topicReportsPostReportWithRequestBuilder(
             topicHandle: postID,
             postReportRequest: request,
-            authorization: authorization) { response, error in
-                self.processResponse(response: response, error: error, completion: completion)
-        }
-    }
-    
-    func report(comment: Comment, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
-        let command = ReportCommentCommand(comment: comment, reportReason: reason)
+            authorization: authorization
+        )
         
-        guard isNetworkReachable else {
-            cache.cacheOutgoing(command)
-            completion(.success())
-            return
-        }
+        let command = ReportTopicCommand(topic: Post(topicHandle: postID), reason: reason)
         
-        execute(command: command, completion: completion)
+        executor.execute(command: command, builder: builder, completion: completion)
     }
-    
-    func report(reply: Reply, reason: ReportReason, completion: @escaping (Result<Void>) -> Void) {
-        let command = ReportReplyCommand(reply: reply, reportReason: reason)
-        
-        guard isNetworkReachable else {
-            cache.cacheOutgoing(command)
-            completion(.success())
-            return
-        }
-        
-        execute(command: command, completion: completion)
-    }
-    
-    private func processResponse(response: Object?, error: ErrorResponse?, completion: @escaping (Result<Void>) -> Void) {
-        if error == nil {
-            completion(.success())
-        } else {
-            completion(.failure(APIError(error: error)))
-            self.errorHandler.handle(error: error, completion: completion)
-        }
-    }
-    
-    private func execute(command: ReportCommentCommand,
-                         completion: @escaping (Result<Void>) -> Void) {
-        let request = PostReportRequest()
-        request.reason = PostReportRequest.Reason(rawValue: command.reportReason.rawValue)
-        
-        ReportingAPI.commentReportsPostReport(commentHandle: command.comment.commentHandle, postReportRequest: request, authorization: authorization) { (response, error) in
-            if error == nil {
-                completion(.success())
-            } else {
-                completion(.failure(APIError(error: error)))
-                self.errorHandler.handle(error: error, completion: completion)
-            }
-        }
-    }
-    
-    private func execute(command: ReportReplyCommand,
-                         completion: @escaping (Result<Void>) -> Void) {
-        let request = PostReportRequest()
-        request.reason = PostReportRequest.Reason(rawValue: command.reportReason.rawValue)
-        
-        ReportingAPI.replyReportsPostReport(replyHandle: command.reply.replyHandle, postReportRequest: request, authorization: authorization) { (response, error) in
-            if error == nil {
-                completion(.success())
-            } else {
-                completion(.failure(APIError(error: error)))
-                self.errorHandler.handle(error: error, completion: completion)
-            }
-        }
-    }
+
 }
-
-
-
-
-

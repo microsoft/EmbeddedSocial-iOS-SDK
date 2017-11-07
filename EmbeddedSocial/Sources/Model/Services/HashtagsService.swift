@@ -15,9 +15,9 @@ final class HashtagsService: BaseService, HashtagsServiceType {
     
     private var requestExecutor: HashtagsRequestExecutor!
 
-    init(executorProvider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
+    init(ExecutorProvider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
         super.init()
-        requestExecutor = executorProvider.makeHashtagsExecutor(for: self)
+        requestExecutor = ExecutorProvider.makeHashtagsExecutor(for: self)
     }
     
     func getTrending(completion: @escaping (Result<PaginatedResponse<Hashtag>>) -> Void) {

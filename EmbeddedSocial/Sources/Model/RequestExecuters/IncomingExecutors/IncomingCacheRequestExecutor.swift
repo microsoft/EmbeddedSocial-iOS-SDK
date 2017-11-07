@@ -5,11 +5,11 @@
 
 import Foundation
 
-class CommonCacheRequestExecutionStrategy<ResponseType, ResultType>:
-CacheRequestExecutionStrategy<ResponseType, ResultType> where ResponseType: Cacheable {
+class IncomingCacheRequestExecutorImpl<ResponseType, ResultType>:
+IncomingCacheRequestExecutor<ResponseType, ResultType> where ResponseType: Cacheable {
     
     var responseProcessor: ResponseProcessor<ResponseType, ResultType>!
-    
+
     override func execute(with builder: RequestBuilder<ResponseType>, completion: @escaping (Result<ResultType>) -> Void) {
         let cachedResponse = cache?.firstIncoming(ofType: ResponseType.self, handle: builder.URLString)
         if cachedResponse != nil {
