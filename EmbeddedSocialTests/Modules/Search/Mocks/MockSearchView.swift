@@ -47,14 +47,24 @@ class MockSearchView: SearchViewInput {
         setLayoutAssetReceivedAsset = asset
     }
     
-    // MARK: - search
+    //MARK: - search
     
     var searchHashtagCalled = false
-    var searchHashtagInputHashtag: Hashtag?
-
+    var searchHashtagReceivedHashtag: Hashtag?
+    
     func search(hashtag: Hashtag) {
         searchHashtagCalled = true
-        searchHashtagInputHashtag = hashtag
+        searchHashtagReceivedHashtag = hashtag
+    }
+    
+    //MARK: - setTopicsLayoutFlipEnabled
+    
+    var setTopicsLayoutFlipEnabledCalled = false
+    var setTopicsLayoutFlipEnabledReceivedIsEnabled: Bool?
+    
+    func setTopicsLayoutFlipEnabled(_ isEnabled: Bool) {
+        setTopicsLayoutFlipEnabledCalled = true
+        setTopicsLayoutFlipEnabledReceivedIsEnabled = isEnabled
     }
     
 }

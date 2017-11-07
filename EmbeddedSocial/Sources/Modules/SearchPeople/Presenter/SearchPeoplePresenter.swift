@@ -60,6 +60,7 @@ extension SearchPeoplePresenter: UserListModuleOutput {
             moduleOutput?.didFailToLoadSuggestedUsers(error)
         } else if listView == usersListModule.listView {
             moduleOutput?.didFailToLoadSearchQuery(error)
+            view.setIsEmpty(usersListModule.isListEmpty)
         }
     }
     

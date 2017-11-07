@@ -8,6 +8,8 @@
 class MockUserListModuleInput: UserListModuleInput {
     var listView = UIView()
     
+    var isListEmpty = false
+    
     //MARK: - setupInitialState
     
     var setupInitialStateCalled = false
@@ -45,4 +47,5 @@ class MockUserListModuleInput: UserListModuleInput {
         removeUserCalled = true
         removeUserReceivedUser = user
     }
+    
 }

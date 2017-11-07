@@ -43,7 +43,7 @@ struct PostViewModel {
          cellType: String,
          actionHandler: ActionHandler? = nil) {
         
-        let formatter = DateFormatterTool()
+        let formatter = DateFormatterTool.shared
         self.isTrimmed = isTrimmed
         topicHandle = post.topicHandle
         userName = User.fullName(firstName: post.firstName, lastName: post.lastName)
@@ -71,7 +71,7 @@ struct PostViewModel {
         totalCommentsShort = "\(post.totalComments)"
         
         if let createdTime = post.createdTime {
-            timeCreated =  formatter.shortStyle.string(from: createdTime, to: Date()) ?? ""
+            timeCreated =  formatter.timeAgo(since: createdTime) ?? ""
         } else {
             timeCreated = ""
         }

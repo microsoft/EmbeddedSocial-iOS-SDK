@@ -138,6 +138,10 @@ extension SearchViewController: SearchViewInput {
     func search(hashtag: Hashtag) {
         searchSelectedText(hashtag)
     }
+    
+    func setTopicsLayoutFlipEnabled(_ isEnabled: Bool) {
+        feedLayoutButton.isEnabled = isEnabled
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
