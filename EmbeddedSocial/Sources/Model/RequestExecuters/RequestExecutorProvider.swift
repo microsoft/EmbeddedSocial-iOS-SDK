@@ -24,7 +24,7 @@ protocol CacheRequestExecutorProviderType {
     
     static func makeSuggestedUsersExecutor(for service: BaseService) -> SuggestedUsersRequestExecutor
     
-    static func makeOutgoingActionRequestExecutor(for service: BaseService) -> AtomicOutgoingCommandsExecutor
+    static func makeAtomicOutgoingCommandsExecutor(for service: BaseService) -> AtomicOutgoingCommandsExecutor
     
     static func makeMyFollowingExecutor(for service: BaseService) -> UsersFeedRequestExecutor
     
@@ -104,7 +104,7 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
         return executor
     }
     
-    static func makeOutgoingActionRequestExecutor(for service: BaseService) -> AtomicOutgoingCommandsExecutor {
+    static func makeAtomicOutgoingCommandsExecutor(for service: BaseService) -> AtomicOutgoingCommandsExecutor {
         let executor = AtomicOutgoingCommandsExecutorImpl()
         executor.cache = service.cache
         executor.errorHandler = service.errorHandler

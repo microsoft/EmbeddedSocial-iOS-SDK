@@ -17,7 +17,7 @@ class ActivityNotificationsService: BaseService, ActivityNotificationsServicePro
 
     init(ExecutorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self, errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
         super.init(errorHandler: errorHandler)
-        outgoingActionsExecutor = provider.makeOutgoingActionRequestExecutor(for: self)
+        outgoingActionsExecutor = provider.makeAtomicOutgoingCommandsExecutor(for: self)
     }
     
     func updateState(completion: @escaping ((Result<UInt32>) -> Void)) {

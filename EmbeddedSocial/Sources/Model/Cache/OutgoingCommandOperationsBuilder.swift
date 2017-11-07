@@ -27,6 +27,8 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
             return CancelPendingUserOperation(command: command, socialService: SocialService())
         } else if let command = command as? AcceptPendingCommand {
             return AcceptPendingUserOperation(command: command, socialService: SocialService())
+        } else if let command = command as? ReportUserCommand {
+            return ReportUserOperation(command: command, service: ReportingService())
         }
         
         // topic commands
@@ -46,6 +48,8 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
                                         cleanupStrategy: CacheCleanupStrategyImpl(cache: SocialPlus.shared.cache))
         } else if let command = command as? UpdateTopicCommand {
             return UpdateTopicOperation(command: command, topicsService: TopicService(imagesService: ImagesService()))
+        } else if let command = command as? ReportTopicCommand {
+            return ReportTopicOperation(command: command, service: ReportingService())
         }
         
         // reply commands
