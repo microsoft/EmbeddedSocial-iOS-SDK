@@ -92,6 +92,11 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
             return UpdateNotificationsStatusOperation(command: command, notificationsService: ActivityNotificationsService())
         }
         
+        // update related handle command
+        else if let command = command as? UpdateRelatedHandleCommand {
+            return UpdateRelatedHandleOperation(command: command)
+        }
+        
         return nil
     }
     

@@ -6,6 +6,7 @@
 @testable import EmbeddedSocial
 
 final class MockImageCache: ImageCache {
+    
     //MARK: - store
     
     var storePhotoCalled = false
@@ -70,5 +71,15 @@ final class MockImageCache: ImageCache {
         keyForCalled = true
         keyForReceivedPhoto = photo
         return keyForReturnValue
+    }
+    
+    //MARK: - remove
+    
+    var removeCalled = false
+    var removeInputPhoto: Photo?
+
+    func remove(photo: Photo) {
+        removeCalled = true
+        removeInputPhoto = photo
     }
 }

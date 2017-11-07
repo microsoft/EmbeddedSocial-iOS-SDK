@@ -6,6 +6,11 @@
 import Foundation
 
 final class RemoveCommentCommand: CommentCommand {
+    
+    override var inverseCommand: OutgoingCommand? {
+        return CreateCommentCommand(comment: comment)
+    }
+    
     override func setRelatedHandle(_ relatedHandle: String?) {
         comment.topicHandle = relatedHandle
     }

@@ -13,9 +13,9 @@ protocol ActivityNotificationsServiceProtocol {
 
 class ActivityNotificationsService: BaseService, ActivityNotificationsServiceProtocol {
     
-    private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
+    private var outgoingActionsExecutor: AtomicOutgoingCommandsExecutor!
 
-    init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self, errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
+    init(ExecutorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self, errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
         super.init(errorHandler: errorHandler)
         outgoingActionsExecutor = provider.makeOutgoingActionRequestExecutor(for: self)
     }

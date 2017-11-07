@@ -16,6 +16,9 @@ class CacheTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        
+        Decoders.setupDecoders()
+        
         coreDataStack = CoreDataHelper.makeEmbeddedSocialInMemoryStack()
         database = MockTransactionsDatabaseFacade(incomingRepo: CoreDataRepository(context: coreDataStack.mainContext),
                                                   outgoingRepo: CoreDataRepository(context: coreDataStack.mainContext))
@@ -219,4 +222,5 @@ class CacheTests: XCTestCase {
             CacheableItem(handle: UUID().uuidString, name: "E", relatedHandle: UUID().uuidString)
         ]
     }
+    
 }

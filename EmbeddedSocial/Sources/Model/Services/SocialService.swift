@@ -43,13 +43,13 @@ class SocialService: BaseService, SocialServiceType {
     
     fileprivate var usersFeedExecutor: UsersFeedRequestExecutor!
     private var suggestedUsersExecutor: SuggestedUsersRequestExecutor!
-    private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
+    private var outgoingActionsExecutor: AtomicOutgoingCommandsExecutor!
     fileprivate var activitiesExecutor: MyActivityRequestExecutor!
     
-    fileprivate let executorProvider: CacheRequestExecutorProviderType.Type
+    fileprivate let ExecutorProvider: CacheRequestExecutorProviderType.Type
     
-    init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
-        self.executorProvider = provider
+    init(ExecutorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
+        self.ExecutorProvider = provider
         super.init()
         usersFeedExecutor = provider.makeUsersFeedExecutor(for: self)
         suggestedUsersExecutor = provider.makeSuggestedUsersExecutor(for: self)
@@ -110,10 +110,10 @@ class SocialService: BaseService, SocialServiceType {
             limit: Int32(limit)
         )
         
-        let executor = executorProvider.makeMyFollowingExecutor(for: self)
+        let Executor = ExecutorProvider.makeMyFollowingExecutor(for: self)
         
-        executor.execute(with: builder) { result in
-            withExtendedLifetime(executor) {
+        Executor.execute(with: builder) { result in
+            withExtendedLifetime(Executor) {
                 completion(result)
             }
         }
@@ -126,10 +126,10 @@ class SocialService: BaseService, SocialServiceType {
             limit: Int32(limit)
         )
         
-        let executor = executorProvider.makeMyFollowersExecutor(for: self)
+        let Executor = ExecutorProvider.makeMyFollowersExecutor(for: self)
         
-        executor.execute(with: builder) { result in
-            withExtendedLifetime(executor) {
+        Executor.execute(with: builder) { result in
+            withExtendedLifetime(Executor) {
                 completion(result)
             }
         }
@@ -174,10 +174,10 @@ class SocialService: BaseService, SocialServiceType {
             limit: Int32(limit)
         )
         
-        let executor = executorProvider.makeMyBlockedUsersExecutor(for: self)
+        let Executor = ExecutorProvider.makeMyBlockedUsersExecutor(for: self)
         
-        executor.execute(with: builder) { result in
-            withExtendedLifetime(executor) {
+        Executor.execute(with: builder) { result in
+            withExtendedLifetime(Executor) {
                 completion(result)
             }
         }
@@ -213,10 +213,10 @@ class SocialService: BaseService, SocialServiceType {
             limit: Int32(limit)
         )
         
-        let executor = executorProvider.makeMyPendingRequestsExecutor(for: self)
+        let Executor = ExecutorProvider.makeMyPendingRequestsExecutor(for: self)
         
-        executor.execute(with: builder) { result in
-            withExtendedLifetime(executor) {
+        Executor.execute(with: builder) { result in
+            withExtendedLifetime(Executor) {
                 completion(result)
             }
         }
@@ -229,10 +229,10 @@ class SocialService: BaseService, SocialServiceType {
             limit: Int32(limit)
         )
         
-        let executor = executorProvider.makePopularUsersExecutor(for: self)
+        let Executor = ExecutorProvider.makePopularUsersExecutor(for: self)
         
-        executor.execute(with: builder) { result in
-            withExtendedLifetime(executor) {
+        Executor.execute(with: builder) { result in
+            withExtendedLifetime(Executor) {
                 completion(result)
             }
         }

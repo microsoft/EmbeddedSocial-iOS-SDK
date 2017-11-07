@@ -54,9 +54,9 @@ extension LikesServiceProtocol {
 class LikesService: BaseService, LikesServiceProtocol {
     
     private var requestExecutor: UsersFeedRequestExecutor!
-    private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
+    private var outgoingActionsExecutor: AtomicOutgoingCommandsExecutor!
 
-    init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
+    init(ExecutorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
         super.init()
         requestExecutor = provider.makeUsersFeedExecutor(for: self)
         outgoingActionsExecutor = provider.makeOutgoingActionRequestExecutor(for: self)

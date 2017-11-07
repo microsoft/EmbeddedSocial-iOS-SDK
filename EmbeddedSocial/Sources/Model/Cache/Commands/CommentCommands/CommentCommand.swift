@@ -51,6 +51,12 @@ class CommentCommand: OutgoingCommand {
         return comment.commentHandle
     }
     
+    override func setHandle(_ handle: String?) {
+        if let handle = handle {
+            comment.commentHandle = handle
+        }
+    }
+    
     static var allCommentCommandTypes: [OutgoingCommand.Type] {
         return [
             LikeCommentCommand.self,
