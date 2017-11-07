@@ -458,6 +458,11 @@ extension APIRouter {
             return (error, [])
         }
         
+        if APIConfig.wrongResponses {
+            let wrongResponse = generateWrongResponse()
+            return (wrongResponse, [])
+        }
+        
         if let route = routes[searchPath] {
             return (makeDelayedIfNeeded(route), [])
         }
@@ -493,6 +498,15 @@ extension APIRouter {
             resultResponse = DelayResponse(response, delay: .delay(seconds: APIConfig.responsesDelay))
         }
         return resultResponse
+    }
+    
+    private func generateWrongResponse() -> WebApp {
+        let response: WebApp = WrongAPIResponse { (environment, sendJSON) in
+            let randomResponse = Templates.loadWrongResponse()
+            NSLog("Random response: \(randomResponse)")
+            sendJSON(randomResponse)
+        }
+        return response
     }
     
 }

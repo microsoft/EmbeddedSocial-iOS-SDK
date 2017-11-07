@@ -11,4 +11,9 @@ class Random {
     class func randomUInt(_ seed: UInt) -> UInt {
         return UInt(arc4random_uniform(UInt32(seed)))
     }
+    
+    class func randomInt(max: Int, min: Int = 0) -> Int {
+        return Int(arc4random_uniform(UInt32(max - min))) + min
+    }
+    
 }
