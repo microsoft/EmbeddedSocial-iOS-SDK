@@ -63,10 +63,17 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
         
         configurator.router.output = navigationStack
     }
+    
+    func onSessionCreated(user: User, sessionToken: String) {
+        let info = SessionInfo(user: user, token: sessionToken, source: .menu)
+        onSessionCreated(with: info)
+    }
 
     func onSessionCreated(with info: SessionInfo) {
         
         Logger.log(info.user.credentials?.authorization, event: .important)
+        
+        cleanupCachedScreens()
         
         self.user = info.user
         menuModule.user = info.user
@@ -79,12 +86,7 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
             navigationStack.dismissModal()
         }
     }
-    
-    func onSessionCreated(user: User, sessionToken: String) {
-        let info = SessionInfo(user: user, token: sessionToken, source: .menu)
-        onSessionCreated(with: info)
-    }
-    
+
     func updateUser(_ user: User) {
         self.user = user
         menuModule.user = user
@@ -132,10 +134,14 @@ class CrossModuleCoordinator: CrossModuleCoordinatorProtocol, LoginModuleOutput 
     func logOut() {
         user = nil
         menuModule.user = nil
-        searchConfigurator = nil
-        screens = [:]
+        cleanupCachedScreens()
         navigationStack.cleanStack()
         openLoginScreen()
+    }
+    
+    private func cleanupCachedScreens() {
+        searchConfigurator = nil
+        screens = [:]
     }
     
     func showError(_ error: Error) {
