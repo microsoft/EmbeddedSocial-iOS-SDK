@@ -26,7 +26,7 @@ private class FeedModulePresenterMock: FeedModuleInteractorOutput {
         startedFetching = true
     }
     
-    func didFinishFetching() {
+    func didFinishFetching(with error: Error?) {
         finishedFetching = true
     }
     
