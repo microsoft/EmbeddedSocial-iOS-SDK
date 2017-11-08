@@ -18,15 +18,14 @@ class MockUserProfileInteractor: UserProfileInteractorInput {
     
     var processSocialRequestResult: Result<FollowStatus>?
     
-    var userToReturn: User?
     var meToReturn: User?
     var cachedUserToReturn: User?
-
+    
+    var getUserResult: Result<User>!
+    
     func getUser(userID: String, completion: @escaping (Result<User>) -> Void) {
         getUserCount += 1
-        if let user = userToReturn {
-            completion(.success(user))
-        }
+        completion(getUserResult)
     }
     
     func getMe(credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
