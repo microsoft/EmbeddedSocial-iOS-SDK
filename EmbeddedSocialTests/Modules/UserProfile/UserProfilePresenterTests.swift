@@ -67,7 +67,7 @@ class UserProfilePresenterTests: XCTestCase {
     func testThatItSetsInitialStateWithOtherPublicUser() {
         // given
         let user = User(uid: UUID().uuidString, followersCount: randomValue, followingCount: randomValue, visibility: ._public)
-        interactor.userToReturn = user
+        interactor.getUserResult = .success(user)
         
         let presenter = makeDefaultPresenter(userID: user.uid)
         
@@ -88,8 +88,8 @@ class UserProfilePresenterTests: XCTestCase {
         // given
         myProfileHolder.me = nil
         let user = User(uid: UUID().uuidString, followersCount: randomValue, followingCount: randomValue)
-        interactor.userToReturn = user
-        
+        interactor.getUserResult = .success(user)
+
         let presenter = makeDefaultPresenter(userID: user.uid)
         
         // when
@@ -107,8 +107,8 @@ class UserProfilePresenterTests: XCTestCase {
     func testThatItFailsToSetFeedWithoutFeedViewController() {
         // given
         let user = User(uid: UUID().uuidString)
-        interactor.userToReturn = user
-        
+        interactor.getUserResult = .success(user)
+
         let presenter = makeDefaultPresenter(userID: user.uid)
         presenter.feedViewController = nil
         
@@ -127,8 +127,8 @@ class UserProfilePresenterTests: XCTestCase {
     func testThatItFailsToSetFeedViewControllerWithoutFeedModuleInput() {
         // given
         let user = User(uid: UUID().uuidString)
-        interactor.userToReturn = user
-        
+        interactor.getUserResult = .success(user)
+
         let presenter = makeDefaultPresenter(userID: user.uid)
         presenter.feedModuleInput = nil
         
@@ -225,7 +225,7 @@ class UserProfilePresenterTests: XCTestCase {
     func testThatItChangesFollowingStatus(to newStatus: FollowStatus, from oldStatus: FollowStatus, visibility: Visibility) {
         // given
         let user = User(uid: UUID().uuidString, visibility: visibility, followingStatus: oldStatus)
-        interactor.userToReturn = user
+        interactor.getUserResult = .success(user)
         interactor.processSocialRequestResult = .success(newStatus)
         
         let presenter = makeDefaultPresenter(userID: user.uid)
@@ -242,8 +242,8 @@ class UserProfilePresenterTests: XCTestCase {
         // given
         let followStatus = FollowStatus.empty
         let user = User(uid: UUID().uuidString, visibility: ._public, followingStatus: followStatus)
-        interactor.userToReturn = user
-        
+        interactor.getUserResult = .success(user)
+
         myProfileHolder.me = nil
 
         let presenter = makeDefaultPresenter(userID: user.uid)
@@ -276,8 +276,8 @@ class UserProfilePresenterTests: XCTestCase {
     func testThatUserMoreMenuIsShown() {
         // given
         let user = User(uid: UUID().uuidString)
-        interactor.userToReturn = user
-        
+        interactor.getUserResult = .success(user)
+
         let presenter = makeDefaultPresenter(userID: user.uid)
         
         // when
@@ -287,6 +287,16 @@ class UserProfilePresenterTests: XCTestCase {
         // then
         XCTAssertEqual(router.showUserMenuCount, 1)
         XCTAssertEqual(router.showMyMenuCount, 0)
+    }
+    
+    func testOtherUserMoreMenuWhenUserNotLoaded() {
+        interactor.getUserResult = .failure(APIError.unknown)
+        
+        let presenter = makeDefaultPresenter(userID: "1")
+        presenter.viewIsReady()
+        presenter.onMore()
+        
+        XCTAssertEqual(router.showUserMenuCount, 1)
     }
     
     func testThatRecentFeedIsSetWhenUserIsMe() {
@@ -316,8 +326,8 @@ class UserProfilePresenterTests: XCTestCase {
     func testThatRecentFeedIsSetForUser() {
         // given
         let user = User(uid: UUID().uuidString)
-        interactor.userToReturn = user
-        
+        interactor.getUserResult = .success(user)
+
         let presenter = makeDefaultPresenter(userID: user.uid)
         
         // when
@@ -331,8 +341,8 @@ class UserProfilePresenterTests: XCTestCase {
     func testThatPopularFeedIsSetForUser() {
         // given
         let user = User(uid: UUID().uuidString)
-        interactor.userToReturn = user
-        
+        interactor.getUserResult = .success(user)
+
         let presenter = makeDefaultPresenter(userID: user.uid)
         
         // when
@@ -475,7 +485,7 @@ extension UserProfilePresenterTests {
     func testThatPrivateUserViewisShown() {
         // given
         let user = User(uid: UUID().uuidString, visibility: ._private)
-        interactor.userToReturn = user
+        interactor.getUserResult = .success(user)
         let presenter = makeDefaultPresenter(userID: user.uid)
         
         // when
@@ -498,8 +508,8 @@ extension UserProfilePresenterTests {
     
     func testThatFollowersModuleDoesNotUpdateFollowingStatusWhenUserIsNotMe() {
         let user = User(uid: UUID().uuidString, followingCount: randomValue)
-        interactor.userToReturn = user
-        
+        interactor.getUserResult = .success(user)
+
         testThatItUpdateFollowingStatus(with: user, expectedFollowingCount: user.followingCount) {
             $0.didUpdateFollowersStatus(newStatus: .accepted)
         }
@@ -531,8 +541,8 @@ extension UserProfilePresenterTests {
     
     func testThatFollowingModuleDoesNotUpdateFollowingStatusWhenUserIsNotMe() {
         let user = User(uid: UUID().uuidString, followingCount: randomValue)
-        interactor.userToReturn = user
-        
+        interactor.getUserResult = .success(user)
+
         testThatItUpdateFollowingStatus(with: user, expectedFollowingCount: user.followingCount) {
             $0.didUpdateFollowingStatus(newStatus: .accepted)
         }

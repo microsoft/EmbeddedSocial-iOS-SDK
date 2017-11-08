@@ -193,7 +193,8 @@ final class UserProfilePresenter: UserProfileViewOutput {
     }
     
     func onMore() {
-        if let user = user {
+        if userID != nil {
+            let user = User(uid: userID!)
             router.showUserMenu(
                 user,
                 blockHandler: { [weak self] in self?.block(user: user) },
