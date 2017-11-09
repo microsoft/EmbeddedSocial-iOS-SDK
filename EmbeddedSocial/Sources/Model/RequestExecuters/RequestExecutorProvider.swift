@@ -9,9 +9,9 @@ typealias UsersFeedRequestExecutor = IncomingCacheRequestExecutor<FeedResponseUs
 
 typealias TopicsFeedRequestExecutor = IncomingCacheRequestExecutor<FeedResponseTopicView, FeedFetchResult>
 
-typealias MyActivityRequestExecutor = IncomingCacheRequestExecutor<FeedResponseActivityView, ListResponse<ActivityView> >
+typealias MyActivityRequestExecutor = IncomingCacheRequestExecutor<FeedResponseActivityView, PaginatedResponse<ActivityView> >
 
-typealias OthersActivityRequestExecutor = IncomingCacheRequestExecutor<FeedResponseActivityView, ListResponse<ActivityView> >
+typealias OthersActivityRequestExecutor = IncomingCacheRequestExecutor<FeedResponseActivityView, PaginatedResponse<ActivityView> >
 
 typealias SingleTopicRequestExecutor = IncomingCacheRequestExecutor<TopicView, Post>
 
@@ -86,7 +86,7 @@ struct CacheRequestExecutorProvider: CacheRequestExecutorProviderType {
     
     static func makeMyActivityExecutor(for service: BaseService) -> MyActivityRequestExecutor {
         return makeCommonExecutor(requestType: FeedResponseActivityView.self,
-                                  responseType: ListResponse<ActivityView>.self,
+                                  responseType: PaginatedResponse<ActivityView>.self,
                                   service: service,
                                   responseProcessor: ActivityFeedProcessor())
     }
