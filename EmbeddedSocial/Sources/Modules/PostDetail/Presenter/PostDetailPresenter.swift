@@ -201,6 +201,7 @@ extension PostDetailPresenter: Subscriber {
         if let hint = hint as? CommentUpdateHint {
             updateCommentHandle(from: hint.oldHandle, to: hint.newHandle)
         } else if let hint = hint as? TopicUpdateHint, canHandle(hint) {
+            topicHandle = hint.newHandle
             feedModuleInput?.feedType = .single(post: hint.newHandle)
             feedModuleInput?.refreshData()
         }

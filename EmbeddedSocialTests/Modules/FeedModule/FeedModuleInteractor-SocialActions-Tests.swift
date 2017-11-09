@@ -57,6 +57,10 @@ private class FeedModulePresenterMock: FeedModuleInteractorOutput {
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
         didPostAction = (post, action, error)
     }
+    
+    func didUpdateTopicHandle(from oldHandle: String, to newHandle: String) {
+        
+    }
 }
 
 class FeedModuleInteractor_SocialActions_Tests: XCTestCase {

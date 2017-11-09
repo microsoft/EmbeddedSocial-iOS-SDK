@@ -33,7 +33,11 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     var interactor: CommentRepliesInteractorInput!
     var router: CommentRepliesRouterInput!
     
-    var comment: Comment!
+    var comment: Comment! {
+        didSet {
+            print(comment)
+        }
+    }
     
     var scrollType: RepliesScrollType = .none
     
@@ -217,9 +221,10 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
 }
 
 extension CommentRepliesPresenter: Subscriber {
+    
     func update(_ hint: Hint) {
-        if let hint = hint as? CommentUpdateHint {
-            
+        if let hint = hint as? CommentUpdateHint, comment.commentHandle == hint.oldHandle {
+            comment.commentHandle = hint.newHandle
         } else if let hint = hint as? ReplyUpdateHint {
             updateReplyHandle(from: hint.oldHandle, to: hint.newHandle)
         }
