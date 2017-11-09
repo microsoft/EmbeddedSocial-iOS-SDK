@@ -11,7 +11,13 @@ final class SearchPeopleInteractor: SearchPeopleInteractorInput {
         let cell = GroupHeaderTableCell.fromNib()
         cell.apply(style: .search)
         cell.configure(title: L10n.Search.Label.basedOnWhoYouFollow.uppercased())
-        return cell
+        
+        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: Constants.standardCellHeight)
+        cell.frame = frame
+        
+        let tableHeaderView = UITableViewHeaderFooterView(frame: frame)
+        tableHeaderView.contentView.addSubview(cell)
+        return tableHeaderView
     }
     
     func runSearchQuery(for searchBar: UISearchBar, usersListModule: UserListModuleInput) {
