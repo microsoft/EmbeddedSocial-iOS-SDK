@@ -12,6 +12,7 @@ protocol ActivityRouterInput {
 class ActivityRouter: ActivityRouterInput {
     
     var navigationController: UINavigationController!
+    weak var userHolder: UserHolder? = SocialPlus.shared
     
     func open(with item: ActivityItem) {
         switch item {
@@ -51,8 +52,9 @@ class ActivityRouter: ActivityRouterInput {
     }
     
     private func processUserActivity(handle: String) {
+        let isMyHandle = userHolder?.me?.isMyHandle(handle)
         let configurator = UserProfileConfigurator()
-        configurator.configure(userID: handle, navigationController: navigationController)
+        configurator.configure(userID: isMyHandle ? nil : handle, navigationController: navigationController)
         navigationController.pushViewController(configurator.viewController, animated: true)
     }
 
