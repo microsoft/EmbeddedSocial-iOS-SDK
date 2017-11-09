@@ -195,6 +195,8 @@ enum L10n {
     static let following = L10n.tr("Localizable", "common.following")
     /// No content
     static let noContent = L10n.tr("Localizable", "common.no_content")
+    /// Failed to load data
+    static let failedToLoadData = L10n.tr("Localizable", "common.failed_to_load_data")
     /// OK
     static let ok = L10n.tr("Localizable", "common.ok")
     /// Pending
