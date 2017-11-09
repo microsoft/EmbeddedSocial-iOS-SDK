@@ -39,6 +39,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     }
     
     // MARK: PostDetailInteractorOutput
+    
     func didFetch(comments: [Comment], cursor: String?) {
         self.cursor = cursor
         self.comments = comments
@@ -117,6 +118,16 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         feedModuleInput?.refreshData()
         
         view.setFeedViewController(vc)
+    }
+    
+    func didUpdateCommentHandle(from oldHandle: String, to newHandle: String) {
+        guard let idx = comments.index(where: { $0.commentHandle == oldHandle }) else { return }
+        
+        let commentToUpdate = comments[idx]
+        commentToUpdate.commentHandle = newHandle
+        comments[idx] = commentToUpdate
+        
+        view.updateComments()
     }
     
     // MAKR: PostDetailViewOutput
