@@ -15,6 +15,7 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     private var isLoading = false
     
     var repliesService: RepliesServiceProtcol?
+    
     var likeService: LikesServiceProtocol?
     
     private let userHolder: UserHolder
@@ -41,15 +42,18 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
     }
     
     func fetchReplies(commentHandle: String, cursor: String?, limit: Int) {
-        self.isLoading = true
-        self.repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-            if !cachedResult.replies.isEmpty {
-                self.handleRepliesResult(result: cachedResult)
-            }
-        }, resultHandler: { (webResult) in
-            self.handleRepliesResult(result: webResult)
-        })
-
+        isLoading = true
+        repliesService?.fetchReplies(
+            commentHandle: commentHandle,
+            cursor: cursor,
+            limit: limit,
+            cachedResult: { [weak self] cachedResult in
+                if !cachedResult.replies.isEmpty {
+                    self?.handleRepliesResult(result: cachedResult)
+                }
+            },
+            resultHandler: { [weak self] in self?.handleRepliesResult(result: $0) }
+        )
     }
     
     private func handleRepliesResult(result: RepliesFetchResult) {
@@ -58,23 +62,25 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
             return
         }
         
-        self.isLoading = false
-        self.output?.fetched(replies: result.replies,  cursor: result.cursor)
+        isLoading = false
+        output?.fetched(replies: result.replies,  cursor: result.cursor)
     }
     
     func fetchMoreReplies(commentHandle: String, cursor: String?, limit: Int) {
-        if cursor == "" || cursor == nil || self.isLoading == true {
-            return
-        }
+        guard cursor == "" || cursor == nil || self.isLoading == true else { return }
         
-        self.isLoading = true
-        self.repliesService?.fetchReplies(commentHandle: commentHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-            if !cachedResult.replies.isEmpty {
-                self.handleMoreRepliesResult(result: cachedResult)
-            }
-        }, resultHandler: { (webResult) in
-            self.handleMoreRepliesResult(result: webResult)
-        })
+        isLoading = true
+        repliesService?.fetchReplies(
+            commentHandle: commentHandle,
+            cursor: cursor,
+            limit: limit,
+            cachedResult: { [weak self] cachedResult in
+                if !cachedResult.replies.isEmpty {
+                    self?.handleMoreRepliesResult(result: cachedResult)
+                }
+            },
+            resultHandler: { [weak self] in self?.handleMoreRepliesResult(result: $0) }
+        )
     }
     
     private func handleMoreRepliesResult(result: RepliesFetchResult) {
@@ -83,8 +89,8 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
             return
         }
         
-        self.isLoading = false
-        self.output?.fetchedMore(replies: result.replies, cursor: result.cursor)
+        isLoading = false
+        output?.fetchedMore(replies: result.replies, cursor: result.cursor)
     }
     
     func postReply(commentHandle: String, text: String) {
@@ -98,13 +104,15 @@ class CommentRepliesInteractor: CommentRepliesInteractorInput {
         reply.userPhotoUrl = userHolder.me?.photo?.url
         reply.createdTime = Date()
         
-        repliesService?.postReply(reply: reply, success: { (response) in
-            reply.replyHandle = response.replyHandle
-            self.output?.replyPosted(reply: reply)
-        }, failure: { (error) in
-            self.output?.replyFailPost(error: error)
+        repliesService?.postReply(
+            reply: reply,
+            success: { [weak self] (response) in
+                reply.replyHandle = response.replyHandle
+                self?.output?.replyPosted(reply: reply)
+            },
+            failure: { [weak self] (error) in
+                self?.output?.replyFailPost(error: error)
         })
     }
 
-    
 }

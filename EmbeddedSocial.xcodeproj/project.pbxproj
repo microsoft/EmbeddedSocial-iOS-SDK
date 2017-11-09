@@ -869,6 +869,12 @@
 		88BC5C5C1F2B6628001FBDD2 /* ProfileSummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88BC5C5A1F2B6628001FBDD2 /* ProfileSummaryView.xib */; };
 		88BC5C621F2F5EFE001FBDD2 /* TwitterServerBasedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BC5C611F2F5EFE001FBDD2 /* TwitterServerBasedAPI.swift */; };
 		88BC87421F14FA1B00EAEFD7 /* EmbeddedSocial.h in Headers */ = {isa = PBXBuildFile; fileRef = 88BC873F1F14FA1B00EAEFD7 /* EmbeddedSocial.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		88C6612D1FB44F2E0096B776 /* Publisher-Subscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C6612C1FB44F2E0096B776 /* Publisher-Subscriber.swift */; };
+		88C6612F1FB455B40096B776 /* CommentUpdateHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C6612E1FB455B40096B776 /* CommentUpdateHint.swift */; };
+		88C661311FB46D4C0096B776 /* ReplyUpdateHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C661301FB46D4C0096B776 /* ReplyUpdateHint.swift */; };
+		88C661331FB4708E0096B776 /* Reply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C661321FB4708E0096B776 /* Reply.swift */; };
+		88C661351FB478690096B776 /* TopicUpdateHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C661341FB478690096B776 /* TopicUpdateHint.swift */; };
+		88C661371FB481FF0096B776 /* HandleChangesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C661361FB481FF0096B776 /* HandleChangesManager.swift */; };
 		88C665061F866B0800A7763D /* PopularUsersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C665051F866B0800A7763D /* PopularUsersAPI.swift */; };
 		88C665081F866E8500A7763D /* PopularUsersResponseProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C665071F866E8500A7763D /* PopularUsersResponseProcessor.swift */; };
 		88C6650A1F8671B200A7763D /* PopularUsersAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C665091F8671B200A7763D /* PopularUsersAPITests.swift */; };
@@ -2164,6 +2170,12 @@
 		88BC873E1F14FA1B00EAEFD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88BC873F1F14FA1B00EAEFD7 /* EmbeddedSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmbeddedSocial.h; sourceTree = "<group>"; };
 		88BC87401F14FA1B00EAEFD7 /* EmbeddedSocial.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = EmbeddedSocial.modulemap; sourceTree = "<group>"; };
+		88C6612C1FB44F2E0096B776 /* Publisher-Subscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher-Subscriber.swift"; sourceTree = "<group>"; };
+		88C6612E1FB455B40096B776 /* CommentUpdateHint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentUpdateHint.swift; sourceTree = "<group>"; };
+		88C661301FB46D4C0096B776 /* ReplyUpdateHint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyUpdateHint.swift; sourceTree = "<group>"; };
+		88C661321FB4708E0096B776 /* Reply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reply.swift; sourceTree = "<group>"; };
+		88C661341FB478690096B776 /* TopicUpdateHint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicUpdateHint.swift; sourceTree = "<group>"; };
+		88C661361FB481FF0096B776 /* HandleChangesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleChangesManager.swift; sourceTree = "<group>"; };
 		88C665051F866B0800A7763D /* PopularUsersAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularUsersAPI.swift; sourceTree = "<group>"; };
 		88C665071F866E8500A7763D /* PopularUsersResponseProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularUsersResponseProcessor.swift; sourceTree = "<group>"; };
 		88C665091F8671B200A7763D /* PopularUsersAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularUsersAPITests.swift; sourceTree = "<group>"; };
@@ -3867,6 +3879,7 @@
 				880435CB1F67D04500154ACD /* AsyncOperation.swift */,
 				8831EDE71F975CF10013C8B8 /* CacheCleanupStrategy.swift */,
 				88580A8A1F2213AB00C1CBAF /* CellModel.swift */,
+				88C6612C1FB44F2E0096B776 /* Publisher-Subscriber.swift */,
 				88B94EF91F66B278002392F9 /* Daemon.swift */,
 				9CDDB2021F38866000C46785 /* DateFormatter.swift */,
 				88580A8D1F2213AB00C1CBAF /* Identifiable.swift */,
@@ -3874,6 +3887,9 @@
 				88580A8F1F2213AB00C1CBAF /* LaunchArguments.swift */,
 				636474921F628715000D7B3D /* MenuViewModelBuilder.swift */,
 				8814291F1F4B19F400FC9F1E /* MyProfileOpener.swift */,
+				88C6612E1FB455B40096B776 /* CommentUpdateHint.swift */,
+				88C661341FB478690096B776 /* TopicUpdateHint.swift */,
+				88C661301FB46D4C0096B776 /* ReplyUpdateHint.swift */,
 				9C70FCD31F9A3DEE00BEB047 /* NotificationsUpdater.swift */,
 				88580A901F2213AB00C1CBAF /* NavigationStack.swift */,
 				88580A921F2213AB00C1CBAF /* Palette.swift */,
@@ -4019,6 +4035,7 @@
 				88F551CA1F39E7F700F4AAB9 /* AutoEquatable.swift */,
 				32EBE7791F9FD7920007EF53 /* FeedPresentBatchModel.swift */,
 				88580B031F2213AB00C1CBAF /* CrossModuleCoordinator.swift */,
+				88C661361FB481FF0096B776 /* HandleChangesManager.swift */,
 				882AD0C21F2225FF00FC20B7 /* QueriableRepository.swift */,
 				88580C7C1F2213EF00C1CBAF /* Repository.swift */,
 				9CB26BF41F989B54005B9797 /* ActivityNotificationsController.swift */,
@@ -4034,6 +4051,7 @@
 				883BFFD71F7118D100E1C4E3 /* Comment.swift */,
 				88580B061F2213AB00C1CBAF /* CredentialsList.swift */,
 				881060FA1F28F3E4008CA2FB /* FollowStatus.swift */,
+				88C661321FB4708E0096B776 /* Reply.swift */,
 				88580B0B1F2213AB00C1CBAF /* Photo.swift */,
 				9CEA75231F2A0E61009FC89D /* Post.swift */,
 				88E3AC341F55A5710016357F /* ReportReason.swift */,
@@ -7109,6 +7127,7 @@
 				8811C85D1F42FB6B00F7513D /* EmbeddedEditProfileInteractor.swift in Sources */,
 				88E3AC331F55A01D0016357F /* RelatedHandleMixin.swift in Sources */,
 				88EBD2131F6BECC700F9DDFC /* SuggestedUsersViewInput.swift in Sources */,
+				88C6612D1FB44F2E0096B776 /* Publisher-Subscriber.swift in Sources */,
 				884AA9821F3C563F00B85135 /* PostTopicNameRequest.swift in Sources */,
 				88D8C2A21F9A345E002148C3 /* ActivityNotificationsService.swift in Sources */,
 				88C6826A1F7A6B77004BD291 /* UIScrollView+Ext.swift in Sources */,
@@ -7244,6 +7263,7 @@
 				88580C501F2213AB00C1CBAF /* LoginInteractorInput.swift in Sources */,
 				8811C85E1F42FB6B00F7513D /* EmbeddedEditProfileInteractorInput.swift in Sources */,
 				9C6D35A41F31D1C1005893DB /* FeedModuleViewOutput.swift in Sources */,
+				88C661371FB481FF0096B776 /* HandleChangesManager.swift in Sources */,
 				88580BBC1F2213AB00C1CBAF /* String+Encoding.swift in Sources */,
 				88580C4D1F2213AB00C1CBAF /* CreatePostViewOutput.swift in Sources */,
 				8846CB491F30C98C00F11EC8 /* UserListModuleInput.swift in Sources */,
@@ -7453,6 +7473,7 @@
 				88580C411F2213AB00C1CBAF /* CreatePostConfigurator.swift in Sources */,
 				882CAF171F615DF3001D5F37 /* SearchResultsUpdating.swift in Sources */,
 				884AA9591F3C563F00B85135 /* ReportingAPI.swift in Sources */,
+				88C6612F1FB455B40096B776 /* CommentUpdateHint.swift in Sources */,
 				88580C671F2213AB00C1CBAF /* TabMenuContainerConfigurator.swift in Sources */,
 				884AA95D1F3C563F00B85135 /* TopicsAPI.swift in Sources */,
 				88580C201F2213AB00C1CBAF /* TwitterWebBasedAPI.swift in Sources */,
@@ -7471,6 +7492,7 @@
 				8811C8561F42F88D00F7513D /* EmbeddedEditProfileViewOutput.swift in Sources */,
 				88D8CCB21F31CA680032FB2B /* UserListItemsBuilder.swift in Sources */,
 				63E1DA251F7BF0E300187E35 /* ReportReplyCommand.swift in Sources */,
+				88C661311FB46D4C0096B776 /* ReplyUpdateHint.swift in Sources */,
 				88D1230E1F73AB6F001523D1 /* FetchOutgoingCommandsOperation.swift in Sources */,
 				88D35FB81F83903E008BB38C /* ThemePalette.swift in Sources */,
 				88C682631F7A6468004BD291 /* ActivityFeedProcessor.swift in Sources */,
@@ -7541,6 +7563,7 @@
 				88E3AC4E1F55C0E10016357F /* UIViewController+HUD.swift in Sources */,
 				8811C8481F42F83000F7513D /* AutoEquatable.generated.swift in Sources */,
 				88D8C2A51F9A34AE002148C3 /* UpdateNotificationsStatusCommand.swift in Sources */,
+				88C661331FB4708E0096B776 /* Reply.swift in Sources */,
 				88580C561F2213AB00C1CBAF /* LoginViewController.swift in Sources */,
 				8802F2181F5968C800FD0A15 /* IncomingCacheRequestExecutor.swift in Sources */,
 				884AA9801F3C563F00B85135 /* PostSessionRequest.swift in Sources */,
@@ -7583,6 +7606,7 @@
 				88303DD41F867ED100330E30 /* TrendingTopicsConfigurator.swift in Sources */,
 				884AA98D1F3C563F00B85135 /* PutUserVisibilityRequest.swift in Sources */,
 				88FFFA7A1F30BAFE0066A1A0 /* FollowersViewOutput.swift in Sources */,
+				88C661351FB478690096B776 /* TopicUpdateHint.swift in Sources */,
 				88F551A11F34712700F4AAB9 /* FollowingViewInput.swift in Sources */,
 				3209330D1F2A50D300890218 /* Logger.swift in Sources */,
 				88580C341F2213AB00C1CBAF /* CreateAccountInteractorInput.swift in Sources */,

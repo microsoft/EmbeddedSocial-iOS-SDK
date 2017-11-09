@@ -35,13 +35,15 @@ protocol CommentServiceProtocol {
 class CommentsService: BaseService, CommentServiceProtocol {
     
     // MARK: Public
-    private var imagesService: ImagesServiceType!
+    private let imagesService: ImagesServiceType
     private var processor: CommentsProcessorType!
     private let predicateBuilder = PredicateBuilder()
-    
-    init(imagesService: ImagesServiceType) {
-        super.init()
+    private let changesPublisher: Publisher
+
+    init(imagesService: ImagesServiceType, changesPublisher: Publisher = HandleChangesManager.shared) {
+        self.changesPublisher = changesPublisher
         self.imagesService = imagesService
+        super.init()
         processor = CommentsProcessor(cache: cache)
     }
     
@@ -200,20 +202,26 @@ class CommentsService: BaseService, CommentServiceProtocol {
         cache.cacheOutgoing(command)
         resultHandler(command.comment)
         
-        let oldHandle = command.comment.commentHandle
-        
         CommentsAPI.topicCommentsPostComment(
             topicHandle: command.comment.topicHandle,
             request: PostCommentRequest(comment: command.comment),
-            authorization: authorization) { (response, error) in
-                if let newHandle = response?.commentHandle {
-                    self.cache.deleteOutgoing(with: self.predicateBuilder.predicate(for: command))
-                    let cmd = UpdateRelatedHandleCommand(oldHandle: oldHandle ?? "", newHandle: newHandle)
-                    self.cache.cacheOutgoing(cmd)
-                } else if self.errorHandler.canHandle(error) {
-                    self.errorHandler.handle(error)
-                }
+            authorization: authorization
+        ) { response, error in
+            if let newHandle = response?.commentHandle {
+                self.onCommentPosted(oldCommand: command, newHandle: newHandle)
+            } else if self.errorHandler.canHandle(error) {
+                self.errorHandler.handle(error)
+            }
         }
+    }
+    
+    private func onCommentPosted(oldCommand cmd: CreateCommentCommand, newHandle: String) {
+        cache.deleteOutgoing(with: predicateBuilder.predicate(for: cmd))
+        
+        let oldHandle: String = cmd.comment.commentHandle
+        cache.cacheOutgoing(UpdateRelatedHandleCommand(oldHandle: oldHandle, newHandle: newHandle))
+        
+        changesPublisher.notify(CommentUpdateHint(oldHandle: oldHandle, newHandle: newHandle))
     }
     
     func delete(comment: Comment, completion: @escaping (Result<Void>) -> Void) {
@@ -242,24 +250,11 @@ class CommentsService: BaseService, CommentServiceProtocol {
     }
     
     private func convert(data: [CommentView]) -> [Comment] {
-        return data.map(convert(commentView:))
+        return data.map(Comment.init(commentView:))
     }
     
     private func convert(commentView: CommentView) -> Comment {
-        let comment = Comment()
-        comment.commentHandle = commentView.commentHandle!
-        comment.user = User(compactView: commentView.user!)
-        comment.createdTime = commentView.createdTime
-        comment.text = commentView.text
-        comment.mediaUrl = commentView.blobUrl
-        comment.mediaHandle = commentView.blobHandle
-        comment.topicHandle = commentView.topicHandle
-        comment.totalLikes = commentView.totalLikes ?? 0
-        comment.liked = commentView.liked ?? false
-        comment.userStatus = FollowStatus(status: commentView.user?.followerStatus)
-        comment.totalReplies = commentView.totalReplies ?? 0 
-        
-        return comment
+        return Comment(commentView: commentView)
     }
 }
 

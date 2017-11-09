@@ -39,14 +39,29 @@ extension Comment {
         self.commentHandle = commentHandle
     }
     
-    convenience init(request: PostCommentRequest, photo: Photo?, topicHandle: String) {
+    convenience init(text: String, photo: Photo?, topicHandle: String) {
         self.init()
         commentHandle = UUID().uuidString
-        text = request.text
+        self.text = text
         mediaHandle = photo?.uid
         mediaUrl = photo?.url
         self.topicHandle = topicHandle
         createdTime = Date()
+    }
+    
+    convenience init(commentView: CommentView) {
+        self.init()
+        commentHandle = commentView.commentHandle!
+        user = User(compactView: commentView.user!)
+        createdTime = commentView.createdTime
+        text = commentView.text
+        mediaUrl = commentView.blobUrl
+        mediaHandle = commentView.blobHandle
+        topicHandle = commentView.topicHandle
+        totalLikes = commentView.totalLikes ?? 0
+        liked = commentView.liked ?? false
+        userStatus = FollowStatus(status: commentView.user?.followerStatus)
+        totalReplies = commentView.totalReplies ?? 0
     }
 }
 

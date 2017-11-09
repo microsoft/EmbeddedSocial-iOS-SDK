@@ -61,4 +61,12 @@ class MockCommentsService: CommentServiceProtocol {
         deleteCommentCompletionReceivedCommentHandle = comment.commentHandle
         completion(.success())
     }
+    
+    func subscribe(_ subscriber: Subscriber) {
+        
+    }
+    
+    func notify(_ hint: Hint) {
+        
+    }
 }

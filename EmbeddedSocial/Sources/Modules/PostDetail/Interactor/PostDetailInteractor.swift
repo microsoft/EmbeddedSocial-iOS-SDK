@@ -12,7 +12,6 @@ enum CommentSocialAction: Int {
 class PostDetailInteractor: PostDetailInteractorInput {
 
     weak var output: PostDetailInteractorOutput?
-    
     var commentsService: CommentServiceProtocol?
     var topicService: PostServiceProtocol?
     var isLoading = false
@@ -24,72 +23,72 @@ class PostDetailInteractor: PostDetailInteractorInput {
     }
     
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32) {
-        if isLoading == false {
-            self.isLoading = true
-            self.commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
+        guard !isLoading else { return }
+        
+        isLoading = true
+        
+        commentsService?.fetchComments(
+            topicHandle: topicHandle,
+            cursor: cursor, limit: limit,
+            cachedResult: { [weak self] (cachedResult) in
                 if !cachedResult.comments.isEmpty {
-                    self.fetchedItems(result: cachedResult)
+                    self?.fetchedItems(result: cachedResult)
                 }
-            }, resultHandler: { (webResult) in
-                self.fetchedItems(result: webResult)
-            })
-        }
-
+            },
+            resultHandler: { [weak self] in self?.fetchedItems(result: $0) }
+        )
     }
 
     private func fetchedItems(result: CommentFetchResult) {
-        self.isLoading = false
+        isLoading = false
         
         guard result.error == nil else {
             output?.didFail(error: result.error!)
             return
         }
         
-        self.output?.didFetch(comments: result.comments, cursor: result.cursor)
+        output?.didFetch(comments: result.comments, cursor: result.cursor)
     }
     
     func fetchMoreComments(topicHandle: String, cursor: String?, limit: Int32) {
+        let shouldIgnoreResponse = cursor == "" || cursor == nil || isLoading == true
+        guard !shouldIgnoreResponse else { return }
         
-        if cursor == "" || cursor == nil || self.isLoading == true {
-                return
-        }
+        isLoading = true
         
-        self.isLoading = true
-        self.commentsService?.fetchComments(topicHandle: topicHandle, cursor: cursor, limit: limit, cachedResult: { (cachedResult) in
-            if !cachedResult.comments.isEmpty {
-                self.fetchedMoreItems(result: cachedResult)
-            }
-        }, resultHandler: { (webResult) in
-            self.fetchedMoreItems(result: webResult)
-        })
-
+        commentsService?.fetchComments(
+            topicHandle: topicHandle,
+            cursor: cursor, limit: limit,
+            cachedResult: { [weak self] (cachedResult) in
+                if !cachedResult.comments.isEmpty {
+                    self?.fetchedMoreItems(result: cachedResult)
+                }
+            },
+            resultHandler: { [weak self] in self?.fetchedMoreItems(result: $0) }
+        )
     }
     
     private func fetchedMoreItems(result: CommentFetchResult) {
-        self.isLoading = false
+        isLoading = false
         
         guard result.error == nil else {
             output?.didFail(error: result.error!)
             return
         }
         
-        self.output?.didFetchMore(comments: result.comments, cursor: result.cursor)
+        output?.didFetchMore(comments: result.comments, cursor: result.cursor)
     }
     
     func postComment(photo: Photo?, topicHandle: String, comment: String) {
-        
-        let request = PostCommentRequest()
-        request.text = comment
-
-        let newComment = Comment(request: request, photo: photo, topicHandle: topicHandle)
-        newComment.createdTime = Date()
+        let newComment = Comment(text: comment, photo: photo, topicHandle: topicHandle)
         newComment.user = userHolder.me
 
-        commentsService?.postComment(comment: newComment, photo: photo, resultHandler: { (postedComment) in
-            self.output?.commentDidPost(comment: postedComment)
-        }, failure: { (error) in
-            self.output?.commentPostFailed(error: error)
-        })
-        
+        commentsService?.postComment(
+            comment: newComment,
+            photo: photo,
+            resultHandler: { [weak self] in self?.output?.commentDidPost(comment: $0) },
+            failure: { [weak self] in self?.output?.commentPostFailed(error: $0) }
+        )
     }
+    
 }
