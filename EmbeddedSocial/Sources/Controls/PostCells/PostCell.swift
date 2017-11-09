@@ -156,6 +156,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
             postImageHeight.constant = 0
         }
         
+        postImage.isHidden = (postImageHeight.constant == 0)
+        
         postImage.setPhotoWithCaching(data.postPhoto, placeholder: postImagePlaceholder)
         
         let downloadableUserImage = Photo(url: data.userImageUrl)
