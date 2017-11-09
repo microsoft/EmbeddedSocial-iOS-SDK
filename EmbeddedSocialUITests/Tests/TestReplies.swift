@@ -17,25 +17,26 @@ class BaseTestReplies: BaseSideMenuTest {
     }
     
     override func openScreen() {
-        Feed(app).getPost(0).asUIElement().tap()
+        Feed(app).getItem(at: 0).asUIElement().tap()
         
-        let comment = PostDetails(app).comments!.getComment(0)
+        let comment = PostDetails(app).comments!.getItem(at: 0)
         comment.replyButton.tap()
         
-        replies = RepliesFeed(app, containerView: app.collectionViews.firstMatch)
+        replies = RepliesFeed(app, feedContainer: app.collectionViews.firstMatch)
+        sleep(1)
     }
     
     func testReplyAttributes() {
-        let (_, reply) = replies.getRandomReply()
+        let (_, reply) = replies.getRandomItem()
         
-        XCTAssert(reply.textExists("Alan Poe"), "Author name doesn't match")
+        XCTAssert(reply.isExists("Alan Poe"), "Author name doesn't match")
         XCTAssertEqual(reply.likesButton.label, "5 likes", "Number of likes doesn't match")
-        XCTAssert(reply.textExists("Lorem ipsum dolor sit amet, consectetur adipiscing elit."), "Reply text doesn't match")
+        XCTAssert(reply.isExists("Lorem ipsum dolor sit amet, consectetur adipiscing elit."), "Reply text doesn't match")
         XCTAssert(reply.likeButton.isSelected, "Reply is not marked as liked")
     }
     
     func testLikeReply() {
-        let (_, reply) = replies.getRandomReply()
+        let (_, reply) = replies.getRandomItem()
         
         reply.like()
         checkIsLiked(reply)
@@ -44,12 +45,12 @@ class BaseTestReplies: BaseSideMenuTest {
         checkIsDisliked(reply)
     }
     
-    func checkIsLiked(_ reply: Reply) {
+    func checkIsLiked(_ reply: ReplyItem) {
         XCTAssert(reply.likeButton.isSelected, "Reply is not marked as liked")
         XCTAssertEqual(reply.likesButton.label, "1 like", "Likes counter wasn't incremented")
     }
     
-    func checkIsDisliked(_ reply: Reply) {
+    func checkIsDisliked(_ reply: ReplyItem) {
         XCTAssert(!reply.likeButton.isSelected, "Reply is marked as liked")
         XCTAssertEqual(reply.likesButton.label, "0 likes", "Likes counter wasn't decremented")
     }
@@ -62,8 +63,8 @@ class BaseTestReplies: BaseSideMenuTest {
         
         while seenReplies.count <= pageSize && retryCount != 0 {
             retryCount -= 1
-            for i in 0...replies.getRepliesCount() - 1 {
-                let reply = replies.getReply(i)
+            for i in 0...replies.getItemsCount() - 1 {
+                let reply = replies.getItem(at: i)
                 seenReplies.insert(reply.asUIElement())
             }
             app.swipeUp()
@@ -83,15 +84,15 @@ class BaseTestReplies: BaseSideMenuTest {
         let finish = replies.asUIElement().coordinate(withNormalizedOffset: (CGVector(dx: 0, dy: 6)))
         start.press(forDuration: 0, thenDragTo: finish)
         
-        XCTAssertTrue(replies.getRepliesCount() != 0)
+        XCTAssertTrue(replies.getItemsCount() != 0)
     }
     
     func testCreateReply() {
         replies.publishWith(text: "New Reply Text")
         sleep(1)
         
-        let lastReply = replies.getReply(replies.getRepliesCount() - 1)
-        XCTAssertTrue(lastReply.textExists("New Reply Text"))
+        let lastReply = replies.getItem(at: replies.getItemsCount() - 1)
+        XCTAssertTrue(lastReply.isExists("New Reply Text"))
     }
     
     private func tapLoadMore() {
@@ -108,7 +109,7 @@ class BaseTestReplies: BaseSideMenuTest {
         
         while replies.loadMoreButton.exists && retryCount != 0 {
             retryCount -= 1
-            app.swipeUp()
+            app.swipeDown()
         }
     }
     
@@ -132,12 +133,12 @@ class TestRepliesOnline: BaseTestReplies, OnlineTest {
         super.testLikeReply()
     }
     
-    override func checkIsLiked(_ reply: Reply) {
+    override func checkIsLiked(_ reply: ReplyItem) {
         XCTAssertNotNil(APIState.getLatestRequest().contains("/likes"))
         super.checkIsLiked(reply)
     }
     
-    override func checkIsDisliked(_ reply: Reply) {
+    override func checkIsDisliked(_ reply: ReplyItem) {
         XCTAssertNotNil(APIState.getLatestRequest().contains("/likes/me"))
         super.checkIsDisliked(reply)
     }

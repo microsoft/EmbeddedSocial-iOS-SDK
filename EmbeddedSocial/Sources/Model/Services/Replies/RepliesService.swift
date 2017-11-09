@@ -41,19 +41,6 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         processor = RepliesProcessor(cache: cache)
     }
     
-    func delete(reply: Reply, completion: @escaping ((Result<Void>) -> Void)) {
-        let command = RemoveReplyCommand(reply: reply)
-        execute(command: command, success: { _ in
-            completion(.success())
-        }) { (error) in
-            if self.errorHandler.canHandle(error) {
-                self.errorHandler.handle(error)
-            } else {
-                completion(.failure(error))
-            }
-        }
-    }
-    
     func fetchReplies(commentHandle: String,
                       cursor: String?,
                       limit: Int,
@@ -187,81 +174,54 @@ class RepliesService: BaseService, RepliesServiceProtcol {
     
     func postReply(reply: Reply, success: @escaping PostReplyResultHandler, failure: @escaping (APIError) -> (Void)) {
         let replyCommand = CreateReplyCommand(reply: reply)
-        
-        guard isNetworkReachable else {
-            cache.cacheOutgoing(replyCommand)
-            success(PostReplyResponse(reply: reply))
-            return
-        }
-        
+        cache.cacheOutgoing(replyCommand)
+        success(PostReplyResponse(reply: reply))
+
         let request = PostReplyRequest()
         request.text = reply.text
+        
+        let oldHandle = replyCommand.reply.replyHandle
         
         RepliesAPI.commentRepliesPostReply(
             commentHandle: reply.commentHandle,
             request: request,
-            authorization: authorization) { [weak self] response, error in
-                guard let strongSelf = self else {
-                    return
-                }
-                
-                if let response = response {
-                    success(response)
-                } else if strongSelf.errorHandler.canHandle(error) {
-                    strongSelf.errorHandler.handle(error)
+            authorization: authorization) { [errorHandler, cache] response, error in
+                if errorHandler.canHandle(error) {
+                    errorHandler.handle(error)
                     failure(APIError(error: error))
-                } else {
-                    guard let unwrappedError = error else {
-                        failure(APIError(error: error))
-                        return
+                } else if let response = response {
+                    cache.deleteOutgoing(with: PredicateBuilder().predicate(for: replyCommand))
+                    if let oldHandle = oldHandle, let newHandle = response.replyHandle {
+                        self.cache.cacheOutgoing(UpdateRelatedHandleCommand(oldHandle: oldHandle, newHandle: newHandle))
                     }
-                    
-                    if unwrappedError.statusCode >= Constants.HTTPStatusCodes.InternalServerError.rawValue {
-                        strongSelf.cache.cacheOutgoing(replyCommand)
-                        success(PostReplyResponse(reply: reply))
-                    } else {
-                        failure(APIError(error: error))
-                    }
+                    success(response)
                 }
         }
     }
     
-    
-    private func execute(command: RemoveReplyCommand,
-                         success: @escaping (() -> Void),
-                         failure: @escaping Failure) {
-        guard isNetworkReachable else {
-            
-            let predicate =  PredicateBuilder().createReplyCommand(replyHandle: command.reply.replyHandle)
-            let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                                         predicate: predicate,
-                                                         sortDescriptors: [Cache.createdAtSortDescriptor])
-            
-            
-            if !self.cache.fetchOutgoing(with: fetchOutgoingRequest).isEmpty {
-                self.cache.deleteOutgoing(with:predicate)
-                success()
-                return
-            } else {
-                cache.cacheOutgoing(command)
-                success()
-                return
-            }
+    func delete(reply: Reply, completion: @escaping ((Result<Void>) -> Void)) {
+        let command = RemoveReplyCommand(reply: reply)
+        
+        let hasDeletedInverseCommand = cache.deleteInverseCommand(for: command)
+        
+        guard !hasDeletedInverseCommand else {
+            return
         }
         
-        let request = RepliesAPI.repliesDeleteReplyWithRequestBuilder(replyHandle: command.reply.replyHandle, authorization: authorization)
-        request.execute { (response, error) in
-            if self.errorHandler.canHandle(error) {
-                self.errorHandler.handle(error)
-                failure(APIError(error: error))
-            } else if let error = error {
-                self.cache.cacheOutgoing(command)
-                failure(error)
-            } else {
-                success()
-            }
-        }
+        cache.cacheOutgoing(command)
         
+        RepliesAPI.repliesDeleteReply(
+            replyHandle: command.reply.replyHandle,
+            authorization: authorization) { response, error in
+                if self.errorHandler.canHandle(error) {
+                    self.errorHandler.handle(error)
+                    completion(.failure(APIError(error: error)))
+                } else if error == nil {
+                    let p = PredicateBuilder().predicate(for: command)
+                    self.cache.deleteOutgoing(with: p)
+                    completion(.success())
+                }
+        }
     }
     
     private func convert(data: [ReplyView]) -> [Reply] {

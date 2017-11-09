@@ -123,6 +123,10 @@ extension UserListPresenter: UserListModuleInput {
         return view
     }
     
+    var isListEmpty: Bool {
+        return !view.anyItemsShown
+    }
+    
     func setupInitialState() {
         view.setupInitialState()
         view.setNoDataText(noDataText)

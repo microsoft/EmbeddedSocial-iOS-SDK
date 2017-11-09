@@ -192,18 +192,6 @@ extension PostDetailPresenter: CommentCellModuleOutout {
 }
 
 extension PostDetailPresenter: FeedModuleOutput {
-    func didFinishRefreshingData() {
-        view.refreshPostCell()
-        feedModuleInput?.lockScrolling()
-    }
-    
-    func didScrollFeed(_ feedView: UIScrollView) {
-        print("feed did scroll in PostDetailPresenter")
-    }
-    
-    func didStartRefreshingData() {
-        print("didStartRefreshingData in PostDetailPresenter")
-    }
     
     func didFinishRefreshingData(_ error: Error?) {
         view.refreshPostCell()

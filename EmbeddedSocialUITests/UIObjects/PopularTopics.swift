@@ -11,15 +11,10 @@ enum PopularTopicSection: String {
     case all      = "All time"
 }
 
-class PopularTopics {
-    private var app: XCUIApplication!
-    
-    init(_ application: XCUIApplication) {
-        self.app = application
-    }
+class PopularTopics: UIObject {
     
     func select(section: PopularTopicSection) {
-        app.buttons[section.rawValue].tap()
+        application.buttons[section.rawValue].tap()
     }
     
 }

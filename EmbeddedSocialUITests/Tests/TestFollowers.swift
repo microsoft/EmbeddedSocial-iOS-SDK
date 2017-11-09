@@ -3,7 +3,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-import Foundation
 import XCTest
 @testable import EmbeddedSocial
 
@@ -46,17 +45,17 @@ class BaseTestFollowers: BaseSideMenuTest {
     }
     
     func testFeedSource() {
-        let (index, follower) = followersFeed.getRandomFollower()
-        XCTAssert(follower.textExists(feedName + String(index)), "Incorrect feed source")
+        let (index, follower) = followersFeed.getRandomItem()
+        XCTAssert(follower.isExists(feedName + String(index)), "Incorrect feed source")
     }
     
     func testUserListAttributes() {
-        let (_, follower) = followersFeed.getRandomFollower()
+        let (_, follower) = followersFeed.getRandomItem()
         XCTAssertEqual(follower.followButton.label, followerAction, "Users are not marked as expected")
     }
     
     func testUserFollowing() {
-        let (index, follower) = followersFeed.getRandomFollower()
+        let (index, follower) = followersFeed.getRandomItem()
         
         follower.follow()
         checkIsFollowed(follower, at: index)
@@ -65,23 +64,23 @@ class BaseTestFollowers: BaseSideMenuTest {
         checkIsUnfollowed(follower, at: index)
     }
     
-    func checkIsFollowed(_ follower: Follower, at index: UInt) {
+    func checkIsFollowed(_ follower: FollowerItem, at index: UInt) {
         XCTAssertEqual(follower.followButton.label, "FOLLOWING", "User is not marked as following")
     }
     
-    func checkIsUnfollowed(_ follower: Follower, at index: UInt) {
+    func checkIsUnfollowed(_ follower: FollowerItem, at index: UInt) {
         XCTAssertEqual(follower.followButton.label, "FOLLOW", "User is marked as following")
     }
     
     func testPaging() {
         var retryCount = 10
         
-        while followersFeed.getFollowersCount() <= UInt(pageSize) && retryCount != 0 {
+        while followersFeed.getItemsCount() <= UInt(pageSize) && retryCount != 0 {
             retryCount -= 1
             app.swipeUp()
         }
         
-        XCTAssertGreaterThan(followersFeed.getFollowersCount(), UInt(pageSize), "New users weren't loaded while swiping feed up")
+        XCTAssertGreaterThan(followersFeed.getItemsCount(), UInt(pageSize), "New users weren't loaded while swiping feed up")
     }
     
     func testUserImagesLoaded() {}
@@ -108,13 +107,13 @@ class TestFollowersOnline: BaseTestFollowers, OnlineTest {
         super.testUserFollowing()
     }
     
-    override func checkIsFollowed(_ follower: Follower, at index: UInt) {
+    override func checkIsFollowed(_ follower: FollowerItem, at index: UInt) {
         let request = APIState.getLatestData(forService: "followers")
         XCTAssertEqual(request?["userHandle"] as! String, feedHandle + String(index))
         super.checkIsFollowed(follower, at: index)
     }
     
-    override func checkIsUnfollowed(_ follower: Follower, at index: UInt) {
+    override func checkIsUnfollowed(_ follower: FollowerItem, at index: UInt) {
         XCTAssertNotNil(APIState.getLatestRequest().contains("users/me/following/users/" + feedHandle + String(index)))
         super.checkIsUnfollowed(follower, at: index)
     }
@@ -138,7 +137,7 @@ class TestFollowersOffline: BaseTestFollowers, OfflineTest {
     
     override func testFeedSource() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: followersFeed.getFollower(0).cell)
+        makePullToRefreshWithoutReachability(with: followersFeed.getItem(at: 0).cell)
         super.testFeedSource()
     }
     
@@ -146,7 +145,7 @@ class TestFollowersOffline: BaseTestFollowers, OfflineTest {
         APIConfig.values = ["followerStatus": "Follow"]
         
         openScreen()
-        makePullToRefreshWithoutReachability(with: followersFeed.getFollower(0).cell)
+        makePullToRefreshWithoutReachability(with: followersFeed.getItem(at: 0).cell)
 
         followerAction = "FOLLOWING"
         super.testUserListAttributes()
@@ -154,7 +153,7 @@ class TestFollowersOffline: BaseTestFollowers, OfflineTest {
     
     override func testUserFollowing() {
         openScreen()
-        makePullToRefreshWithoutReachability(with: followersFeed.getFollower(0).cell)
+        makePullToRefreshWithoutReachability(with: followersFeed.getItem(at: 0).cell)
         super.testUserFollowing()
     }
     
@@ -168,7 +167,7 @@ class TestFollowersOffline: BaseTestFollowers, OfflineTest {
         for _ in 1...11 {
             app.swipeDown()
         }
-        makePullToRefreshWithoutReachability(with: followersFeed.getFollower(0).cell)
+        makePullToRefreshWithoutReachability(with: followersFeed.getItem(at: 0).cell)
         
         // test offline pagination
         super.testPaging()

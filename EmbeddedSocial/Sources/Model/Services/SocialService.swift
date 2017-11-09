@@ -43,17 +43,17 @@ class SocialService: BaseService, SocialServiceType {
     
     fileprivate var usersFeedExecutor: UsersFeedRequestExecutor!
     private var suggestedUsersExecutor: SuggestedUsersRequestExecutor!
-    private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
+    private var outgoingActionsExecutor: AtomicOutgoingCommandsExecutor!
     fileprivate var activitiesExecutor: MyActivityRequestExecutor!
     
     fileprivate let executorProvider: CacheRequestExecutorProviderType.Type
     
-    init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
+    init(ExecutorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
         self.executorProvider = provider
         super.init()
         usersFeedExecutor = provider.makeUsersFeedExecutor(for: self)
         suggestedUsersExecutor = provider.makeSuggestedUsersExecutor(for: self)
-        outgoingActionsExecutor = provider.makeOutgoingActionRequestExecutor(for: self)
+        outgoingActionsExecutor = provider.makeAtomicOutgoingCommandsExecutor(for: self)
         activitiesExecutor = provider.makeMyActivityExecutor(for: self)
     }
     
@@ -101,16 +101,6 @@ class SocialService: BaseService, SocialServiceType {
         let builder = SocialAPI.myBlockedUsersPostBlockedUserWithRequestBuilder(request: request, authorization: authorization)
         let command = BlockCommand(user: user)
         outgoingActionsExecutor.execute(command: command, builder: builder, completion: completion)
-    }
-    
-    private func processResponse(_ data: Object?, _ error: Error?, _ completion: @escaping (Result<Void>) -> Void) {
-        DispatchQueue.main.async {
-            if error == nil {
-                completion(.success())
-            } else {
-                self.errorHandler.handle(error: error, completion: completion)
-            }
-        }
     }
     
     func getMyFollowing(cursor: String?, limit: Int, completion: @escaping (Result<UsersListResponse>) -> Void) {

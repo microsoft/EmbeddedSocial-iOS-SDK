@@ -24,6 +24,8 @@ protocol ImageCache {
     func image(for photo: Photo) -> UIImage?
     
     func key(for photo: Photo) -> String
+    
+    func remove(photo: Photo)
 }
 
 final class ImageCacheAdapter: ImageCache {
@@ -61,5 +63,9 @@ final class ImageCacheAdapter: ImageCache {
     
     func key(for photo: Photo) -> String {
         return photo.url ?? photo.uid
+    }
+    
+    func remove(photo: Photo) {
+        SDImageCache.shared().removeImage(forKey: key(for: photo), withCompletion: nil)
     }
 }

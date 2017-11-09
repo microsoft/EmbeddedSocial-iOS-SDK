@@ -19,7 +19,7 @@ class UserCommand: OutgoingCommand {
         super.init(json: json)
     }
     
-    required init(user: User) {
+    init(user: User) {
         self.user = user
         super.init(json: [:])!
     }
@@ -46,7 +46,8 @@ class UserCommand: OutgoingCommand {
             CancelPendingCommand.self,
             BlockCommand.self,
             UnblockCommand.self,
-            AcceptPendingCommand.self
+            AcceptPendingCommand.self,
+            ReportUserCommand.self
         ]
     }
 }

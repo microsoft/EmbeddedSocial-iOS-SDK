@@ -5,9 +5,13 @@
 
 import Foundation
 
-class SuggestedUsersRequestExecutionStrategy: CacheRequestExecutionStrategy<[UserCompactView], UsersListResponse> {
+typealias SuggestedUsersRequestExecutor = IncomingCacheRequestExecutor<[UserCompactView], UsersListResponse>
+
+class SuggestedUsersRequestExecutorImpl: IncomingCacheRequestExecutor<[UserCompactView], UsersListResponse> {
     
-    override func execute(with builder: RequestBuilder<ResponseType>, completion: @escaping (Result<ResultType>) -> Void) {
+    override func execute(with builder: RequestBuilder<[UserCompactView]>,
+                          completion: @escaping (Result<UsersListResponse>) -> Void) {
+        
         let p = PredicateBuilder().predicate(typeID: builder.URLString)
         let cacheRequest = CacheFetchRequest(resultType: UserCompactView.self, predicate: p, sortDescriptors: [Cache.createdAtSortDescriptor])
         

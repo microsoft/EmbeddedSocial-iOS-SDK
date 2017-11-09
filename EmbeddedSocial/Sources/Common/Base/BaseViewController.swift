@@ -8,7 +8,6 @@ import UIKit
 class BaseViewController: UIViewController {
     
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint?
-    let offlineView = OfflineView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,9 +86,9 @@ extension BaseViewController: NetworkStatusListener {
         }
         
         if !isReachable {
-            offlineView.show(in: vc)
+            OfflineView.show(in: vc)
         } else {
-            offlineView.hide()
+            OfflineView.hide()
         }
         
     }

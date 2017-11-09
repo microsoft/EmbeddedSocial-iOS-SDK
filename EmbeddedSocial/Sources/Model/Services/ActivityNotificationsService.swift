@@ -13,11 +13,11 @@ protocol ActivityNotificationsServiceProtocol {
 
 class ActivityNotificationsService: BaseService, ActivityNotificationsServiceProtocol {
     
-    private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
+    private var outgoingActionsExecutor: AtomicOutgoingCommandsExecutor!
 
-    init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self, errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
+    init(ExecutorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self, errorHandler: APIErrorHandler = UnauthorizedErrorHandler()) {
         super.init(errorHandler: errorHandler)
-        outgoingActionsExecutor = provider.makeOutgoingActionRequestExecutor(for: self)
+        outgoingActionsExecutor = provider.makeAtomicOutgoingCommandsExecutor(for: self)
     }
     
     func updateState(completion: @escaping ((Result<UInt32>) -> Void)) {

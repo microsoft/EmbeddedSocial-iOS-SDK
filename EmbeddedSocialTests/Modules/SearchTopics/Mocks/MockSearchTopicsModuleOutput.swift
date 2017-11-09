@@ -26,4 +26,20 @@ class MockSearchTopicsModuleOutput: SearchTopicsModuleOutput {
         didSelectHashtagCalled = true
         didSelectHashtagReceivedHashtag = hashtag
     }
+    
+    //MARK: - didStartLoadingSearchTopicsQuery
+    
+    var didStartLoadingSearchTopicsQueryCalled = false
+    
+    func didStartLoadingSearchTopicsQuery() {
+        didStartLoadingSearchTopicsQueryCalled = true
+    }
+    
+    //MARK: - didLoadSearchTopicsQuery
+    
+    var didLoadSearchTopicsQueryCalled = false
+    
+    func didLoadSearchTopicsQuery() {
+        didLoadSearchTopicsQueryCalled = true
+    }
 }

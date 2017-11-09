@@ -31,38 +31,38 @@ class TestSearchTopicsOnline: TestOnlineHome {
         // we should already have at least one item in search
         
         let searchHistory = search.getHistory()
-        XCTAssertTrue(searchHistory.getHistoryItemsCount() != 0)
+        XCTAssertTrue(searchHistory.getItemsCount() != 0)
         
-        let lastSearchQuery = searchHistory.getHistoryItem(at: 0).getQuery()
+        let lastSearchQuery = searchHistory.getItem(at: 0).getQuery()
         XCTAssertEqual(feedName, lastSearchQuery)
     }
     
     func testSearchFromSearchHistory() {
         openScreen()
         
-        let searchHistoryItem = search.getHistory().getHistoryItem(at: 0)
+        let searchHistoryItem = search.getHistory().getItem(at: 0)
         let searchQuery = searchHistoryItem.getQuery()
         searchHistoryItem.asUIElement().tap()
         
-        let (index, post) = feed.getRandomPost()
+        let (index, post) = feed.getRandomItem()
         XCTAssertEqual(post.getTitle().label, "\(searchQuery)\(index)")
     }
     
     func testTrendingTopicsSource() {
         navigate(to: .search)
         
-        let (index, topic) = trendingTopics.getRandomTopic()
+        let (index, topic) = trendingTopics.getRandomItem()
         XCTAssertEqual("#hashtag\(index)", topic.getName())
     }
     
     func testSearchByTrendingTopic() {
         navigate(to: .search)
         
-        let (_, topic) = trendingTopics.getRandomTopic()
+        let (_, topic) = trendingTopics.getRandomItem()
         let topicName = topic.getName()
         topic.asUIElement().tap()
         
-        let (index, post) = feed.getRandomPost()
+        let (index, post) = feed.getRandomItem()
         XCTAssertEqual(post.getTitle().label, "\(topicName)\(index)")
     }
     
@@ -96,7 +96,7 @@ class TestSearchTopicsOffline: TestOfflineHome {
         search.search("OfflineSearch", for: .topics)
         
         let history = search.getHistory()
-        XCTAssertEqual("OfflineSearch", history.getHistoryItem(at: 0).getQuery())
+        XCTAssertEqual("OfflineSearch", history.getItem(at: 0).getQuery())
     }
     
     func testSearchFromSearchHistory() {
@@ -106,7 +106,7 @@ class TestSearchTopicsOffline: TestOfflineHome {
         for _ in 1...2 {
             // load topics online on first iteration
             
-            let searchHistoryItem = search.getHistory().getHistoryItem(at: 0)
+            let searchHistoryItem = search.getHistory().getItem(at: 0)
             let searchQuery = searchHistoryItem.getQuery()
             searchHistoryItem.asUIElement().tap()
             
@@ -116,7 +116,7 @@ class TestSearchTopicsOffline: TestOfflineHome {
                 continue
             }
             
-            let (index, post) = feed.getRandomPost()
+            let (index, post) = feed.getRandomItem()
             XCTAssertEqual(post.getTitle().label, "\(searchQuery)\(index)")
         }
     }
@@ -126,7 +126,7 @@ class TestSearchTopicsOffline: TestOfflineHome {
         
         makePullToRefreshWithoutReachability(with: trendingTopics.asUIElement())
         
-        let (index, topic) = trendingTopics.getRandomTopic()
+        let (index, topic) = trendingTopics.getRandomItem()
         XCTAssertEqual("#hashtag\(index)", topic.getName())
     }
     
@@ -135,7 +135,7 @@ class TestSearchTopicsOffline: TestOfflineHome {
         
         var needReachabilityDisabling = true
         for _ in 1...2 {
-            let topic = trendingTopics.getTopic(at: 0)
+            let topic = trendingTopics.getItem(at: 0)
             let topicName = topic.getName()
             topic.asUIElement().tap()
             
@@ -149,7 +149,7 @@ class TestSearchTopicsOffline: TestOfflineHome {
                 continue
             }
             
-            let (index, post) = feed.getRandomPost()
+            let (index, post) = feed.getRandomItem()
             XCTAssertEqual(post.getTitle().label, "\(topicName)\(index)")
         }
     }
@@ -179,8 +179,8 @@ class TestSearchPeopleOnline: TestFollowersOnline {
         navigate(to: .search)
         search.select(item: .people)
         
-        let (index, follower) = followersFeed.getRandomFollower()
-        XCTAssertTrue(follower.textExists("Suggested User\(index)"))
+        let (index, follower) = followersFeed.getRandomItem()
+        XCTAssertTrue(follower.isExists("Suggested User\(index)"))
     }
     
     func testSuggestedUserFollowing() {
@@ -189,7 +189,7 @@ class TestSearchPeopleOnline: TestFollowersOnline {
         
         feedHandle = "SuggestedUser"
         
-        let (index, follower) = followersFeed.getRandomFollower()
+        let (index, follower) = followersFeed.getRandomItem()
         
         follower.follow()
         checkIsFollowed(follower, at: index)
@@ -225,8 +225,8 @@ class TestSearchPeopleOffline: TestFollowersOffline {
         
         makePullToRefreshWithoutReachability(with: followersFeed.asUIElement())
 
-        let (index, follower) = followersFeed.getRandomFollower()
-        XCTAssertTrue(follower.textExists("Suggested User\(index)"))
+        let (index, follower) = followersFeed.getRandomItem()
+        XCTAssertTrue(follower.isExists("Suggested User\(index)"))
     }
     
     func testSuggestedUserFollowing() {
@@ -237,7 +237,7 @@ class TestSearchPeopleOffline: TestFollowersOffline {
         makePullToRefreshWithoutReachability(with: followersFeed.asUIElement())
         sleep(1)
         
-        let (index, follower) = followersFeed.getRandomFollower()
+        let (index, follower) = followersFeed.getRandomItem()
         
         follower.follow()
         checkIsFollowed(follower, at: index)

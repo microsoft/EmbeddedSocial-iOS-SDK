@@ -27,7 +27,7 @@ protocol FeedModuleInteractorOutput: class {
     func didFetchMore(feed: Feed)
     func didFail(error: Error)
     func didStartFetching()
-    func didFinishFetching()
+    func didFinishFetching(with error: Error?)
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?)
 }
 
@@ -42,7 +42,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     func handleFetch(result: FeedFetchResult, request: FeedFetchRequest) {
         
         defer {
-            output.didFinishFetching()
+            output.didFinishFetching(with: result.error)
         }
         
         let isLoadingMore = request.cursor != nil

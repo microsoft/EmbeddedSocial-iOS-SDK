@@ -5,22 +5,28 @@
 
 import UIKit
 
-class OfflineView: UILabel {
+class OfflineView {
     
-    func show(in controller: UIViewController) {
-        if self.superview == nil {
-            self.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 30)
-            self.textAlignment = .center
-            self.text = L10n.Error.noInternetConnection
-            self.font = UIFont.systemFont(ofSize: 13)
-            self.backgroundColor = UIColor(red: 34/255 , green: 139/255, blue: 34/255, alpha: 1)
-            self.textColor = .white
-            controller.view.addSubview(self)
+    private static let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
+    private static let oldOSVersion = 10
+    private static let labelHeight: CGFloat = 30
+    private static let fontSize: CGFloat = 13
+    private static var offlineLabel = UILabel()
+    
+    static func show(in controller: UIViewController) {
+        if offlineLabel.superview == nil {
+            let offsetY = ProcessInfo().operatingSystemVersion.majorVersion > oldOSVersion ?  (controller.navigationController?.navigationBar.frame.height ?? 0) + statusBarHeight : 0
+            offlineLabel.frame = CGRect(x: 0, y: offsetY, width: UIScreen.main.bounds.size.width, height: labelHeight)
+            offlineLabel.textAlignment = .center
+            offlineLabel.text = L10n.Error.noInternetConnection
+            offlineLabel.font = UIFont.systemFont(ofSize: fontSize)
+            offlineLabel.backgroundColor = UIColor(red: 34/255 , green: 139/255, blue: 34/255, alpha: 1)
+            offlineLabel.textColor = .white
+            controller.view.addSubview(offlineLabel)
         }
-
     }
     
-    func hide() {
-        self.removeFromSuperview()
+    static func hide() {
+        offlineLabel.removeFromSuperview()
     }
 }
