@@ -7,8 +7,12 @@ EmbeddesSocial is an SDK that works with the Microsoft Embedded Social service t
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
+	- [Cocoa Pods](#cocoapods)
 - [Usage](#usage)
 - [Advanced Usage](#advanced-usage)
+	- [Menu](#menu)
+		- [Menu Types](#menu-types)
+		- [Menu Handler](#menu-handler)
 - [License](#license)
 
 ## Features
