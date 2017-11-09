@@ -8,6 +8,7 @@ EmbeddesSocial is an SDK that works with the Microsoft Embedded Social service t
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Advanced Usage](#advanced-usage)
 - [License](#license)
 
 ## Features
@@ -137,7 +138,11 @@ After your Application registered, you will receive API keys. You should insert 
 </array>
 ```
 
-### AppDelegate
+### AppDelegate.swift
+
+Please, insert the following lines to your `AppDelegate.swift` file.
+
+For SDK initialization:
 
 ```swift
 func application(_ application: UIApplication,
@@ -174,6 +179,43 @@ func application(_ application: UIApplication, didReceiveRemoteNotification data
     SocialPlus.shared.didReceiveRemoteNotification(data: data)
 }
 ```
+
+## Advanced Usage
+
+### Menu
+
+#### Menu Types
+
+You can implement on of three menu types provided by `SideMenuType`:
+
+```swift
+public enum SideMenuType {
+    case tab, dual, single
+}
+```
+> You can specify this in `AppDelegate.swift` with `menuConfiguration` parameter in `LaunchArguments`. For example:
+> ```swift
+>let args = LaunchArguments(..., menuConfiguration: .tab | .dual | .single)
+>```
+
+#### Menu Handler
+
+You can implement your own menu items. You should make implementation for `SideMenuItemsProvider`:
+
+```swift
+public protocol SideMenuItemsProvider: class {
+    func numberOfItems() -> Int
+    func image(forItem index: Int) -> UIImage
+    func imageHighlighted(forItem index: Int) -> UIImage
+    func title(forItem index: Int) -> String
+    func destination(forItem index: Int) -> UIViewController
+}
+```
+> You can handle this in `AppDelegate.swift` with `menuHandler` parameter in `LaunchArguments`. For example:
+> ```swift
+>let menu: SideMenuItemsProvider = MyMenuImplementation()
+>let args = LaunchArguments(..., menuHandler: menu , ...)
+>```
 
 ## License
 
