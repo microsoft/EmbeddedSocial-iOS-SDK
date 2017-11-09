@@ -77,31 +77,31 @@ class ActivityPresenter {
         dataSources = makeDataSources()
     }
     
-    var dataSources: [State: [DataSource]] = [:]
+    var dataSources: [State: [DataSourceProtocol]] = [:]
     
-    fileprivate func pendingDataSource(sectionIndex: Int) -> DataSource {
+    fileprivate func pendingDataSource(sectionIndex: Int) -> DataSourceProtocol {
         let context = DataSourceContext(state: .my, index: sectionIndex)
         let ds = DataSourceBuilder.build(with: .pending, delegate: self, interactor: interactor, context: context)
         return ds
     }
     
-    fileprivate func myActivityDataSource(sectionIndex: Int) -> DataSource {
+    fileprivate func myActivityDataSource(sectionIndex: Int) -> DataSourceProtocol {
         let context = DataSourceContext(state: .my, index: sectionIndex)
         let ds = DataSourceBuilder.build(with: .myActivity, delegate: self, interactor: interactor, context: context)
         return ds
     }
     
-    fileprivate func othersActivityDataSource(sectionIndex: Int) -> DataSource {
+    fileprivate func othersActivityDataSource(sectionIndex: Int) -> DataSourceProtocol {
         let context = DataSourceContext(state: .others, index: sectionIndex)
         let ds = DataSourceBuilder.build(with: .othersActivity, delegate: self, interactor: interactor, context: context)
         return ds
     }
     
-    fileprivate func makeDataSources() -> [State: [DataSource]] {
+    fileprivate func makeDataSources() -> [State: [DataSourceProtocol]] {
         
-        var sources: [State: [DataSource]] = [:]
-        var myActivityDataSources: [DataSource] = []
-        var othersActivityDataSources: [DataSource] = []
+        var sources: [State: [DataSourceProtocol]] = [:]
+        var myActivityDataSources: [DataSourceProtocol] = []
+        var othersActivityDataSources: [DataSourceProtocol] = []
         
         if needsToShowMyPendingInvintationsSection {
             let index = myActivityDataSources.count
@@ -127,13 +127,22 @@ class ActivityPresenter {
     }
     
     private func onStateDidChange() {
-        // load/update feed
+        view.resetLoading()
         view.reloadItems()
         loadAll()
     }
 }
 
 extension ActivityPresenter: DataSourceDelegate {
+    
+    func didStartLoading() {
+        view.loadingDidStart()
+    }
+    
+    func didFinishLoading() {
+        view.loadingDidFinish()
+    }
+    
     func didChangeItems(change: Change<IndexPath>, context: DataSourceContext) {
         guard state == context.state else {
             return

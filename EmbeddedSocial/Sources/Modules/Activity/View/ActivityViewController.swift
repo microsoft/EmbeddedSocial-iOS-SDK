@@ -15,6 +15,10 @@ protocol ActivityViewInput: class {
     func reloadItems()
     func updateVisible()
     func switchTab(to index: Int)
+    
+    func resetLoading()
+    func loadingDidStart()
+    func loadingDidFinish()
 }
 
 protocol ActivityViewOutput: class {
@@ -93,6 +97,24 @@ class ActivityViewController: BaseViewController {
 }
 
 extension ActivityViewController: ActivityViewInput {
+    
+    func resetLoading() {
+        Logger.log()
+        if refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
+    }
+    
+    func loadingDidStart() {
+        Logger.log()
+    }
+    
+    func loadingDidFinish() {
+        Logger.log()
+        if refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
+    }
     
     func switchTab(to index: Int) {
         segmentControl.selectedSegmentIndex = index
