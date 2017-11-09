@@ -140,7 +140,7 @@ After your Application registered, you will receive API keys. You should insert 
 
 ### AppDelegate.swift
 
-Please, insert the following lines to your `AppDelegate.swift` file.
+Please, insert the following lines in your `AppDelegate.swift` file.
 
 For SDK initialization:
 
