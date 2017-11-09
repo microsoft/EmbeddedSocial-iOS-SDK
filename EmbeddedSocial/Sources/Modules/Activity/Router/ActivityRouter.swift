@@ -52,7 +52,7 @@ class ActivityRouter: ActivityRouterInput {
     }
     
     private func processUserActivity(handle: String) {
-        let isMyHandle = userHolder?.me?.isMyHandle(handle)
+        let isMyHandle = userHolder?.me?.isMyHandle(handle) ?? false
         let configurator = UserProfileConfigurator()
         configurator.configure(userID: isMyHandle ? nil : handle, navigationController: navigationController)
         navigationController.pushViewController(configurator.viewController, animated: true)
