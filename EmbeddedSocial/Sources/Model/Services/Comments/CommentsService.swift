@@ -25,7 +25,7 @@ enum CommentsServiceError: Error {
     }
 }
 
-protocol CommentServiceProtocol: Publisher {
+protocol CommentServiceProtocol {
     func fetchComments(topicHandle: String, cursor: String?, limit: Int32?, cachedResult: @escaping CommentFetchResultHandler, resultHandler: @escaping CommentFetchResultHandler)
     func comment(commentHandle: String, cachedResult: @escaping CommentHandler, success: @escaping CommentHandler, failure: @escaping Failure)
     func postComment(comment: Comment, photo: Photo?, resultHandler: @escaping CommentPostResultHandler, failure: @escaping Failure)
@@ -34,16 +34,16 @@ protocol CommentServiceProtocol: Publisher {
 
 class CommentsService: BaseService, CommentServiceProtocol {
     
-    
     // MARK: Public
-    private var imagesService: ImagesServiceType!
+    private let imagesService: ImagesServiceType
     private var processor: CommentsProcessorType!
     private let predicateBuilder = PredicateBuilder()
-    private let multicast = MulticastDelegate<Subscriber>()
+    private let changesPublisher: Publisher
 
-    init(imagesService: ImagesServiceType) {
-        super.init()
+    init(imagesService: ImagesServiceType, changesPublisher: Publisher = HandleChangesManager.shared) {
+        self.changesPublisher = changesPublisher
         self.imagesService = imagesService
+        super.init()
         processor = CommentsProcessor(cache: cache)
     }
     
@@ -221,7 +221,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         let oldHandle: String = cmd.comment.commentHandle
         cache.cacheOutgoing(UpdateRelatedHandleCommand(oldHandle: oldHandle, newHandle: newHandle))
         
-        notify(CommentUpdateHint(oldHandle: oldHandle, newHandle: newHandle))
+        changesPublisher.notify(CommentUpdateHint(oldHandle: oldHandle, newHandle: newHandle))
     }
     
     func delete(comment: Comment, completion: @escaping (Result<Void>) -> Void) {
@@ -255,14 +255,6 @@ class CommentsService: BaseService, CommentServiceProtocol {
     
     private func convert(commentView: CommentView) -> Comment {
         return Comment(commentView: commentView)
-    }
-    
-    func subscribe(_ subscriber: Subscriber) {
-        multicast.add(subscriber)
-    }
-    
-    func notify(_ hint: Hint) {
-        multicast.invoke { $0.update(hint) }
     }
 }
 

@@ -33,9 +33,12 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         return (feedModuleInput?.moduleHeight())!
     }
     
-    init(pageSize: Int, actionStrategy: AuthorizedActionStrategy) {
+    init(pageSize: Int,
+         actionStrategy: AuthorizedActionStrategy,
+         handleChangesPublisher: Publisher = HandleChangesManager.shared) {
         self.pageSize = pageSize
         self.actionStrategy = actionStrategy
+        handleChangesPublisher.subscribe(self)
     }
     
     // MARK: PostDetailInteractorOutput
@@ -120,16 +123,6 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         view.setFeedViewController(vc)
     }
     
-    func didUpdateCommentHandle(from oldHandle: String, to newHandle: String) {
-        guard let idx = comments.index(where: { $0.commentHandle == oldHandle }) else { return }
-        
-        let commentToUpdate = comments[idx]
-        commentToUpdate.commentHandle = newHandle
-        comments[idx] = commentToUpdate
-        
-        view.updateComments()
-    }
-    
     // MAKR: PostDetailViewOutput
     
     func loadCellModel() -> LoadMoreCellViewModel {
@@ -199,6 +192,36 @@ extension PostDetailPresenter: CommentCellModuleOutout {
         router.backIfNeeded(from: view as! UIViewController)
         view.removeComment(index: index)
         feedModuleInput?.refreshData()
+    }
+}
+
+extension PostDetailPresenter: Subscriber {
+    
+    func update(_ hint: Hint) {
+        if let hint = hint as? CommentUpdateHint {
+            updateCommentHandle(from: hint.oldHandle, to: hint.newHandle)
+        } else if let hint = hint as? TopicUpdateHint, canHandle(hint) {
+            feedModuleInput?.feedType = .single(post: hint.newHandle)
+            feedModuleInput?.refreshData()
+        }
+    }
+    
+    private func canHandle(_ hint: TopicUpdateHint) -> Bool {
+        if let feedType = feedModuleInput?.feedType,
+            case let FeedType.single(topicHandle) = feedType,
+            topicHandle == hint.oldHandle {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    private func updateCommentHandle(from oldHandle: String, to newHandle: String) {
+        guard let idx = comments.index(where: { $0.commentHandle == oldHandle }) else { return }
+        
+        let commentToUpdate = comments[idx]
+        commentToUpdate.commentHandle = newHandle
+        comments[idx] = commentToUpdate
     }
 }
 

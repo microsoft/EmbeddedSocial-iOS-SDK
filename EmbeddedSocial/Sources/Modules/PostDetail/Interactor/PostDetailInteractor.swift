@@ -12,15 +12,8 @@ enum CommentSocialAction: Int {
 class PostDetailInteractor: PostDetailInteractorInput {
 
     weak var output: PostDetailInteractorOutput?
-    
-    var commentsService: CommentServiceProtocol? {
-        didSet {
-            commentsService?.subscribe(self)
-        }
-    }
-    
+    var commentsService: CommentServiceProtocol?
     var topicService: PostServiceProtocol?
-    
     var isLoading = false
     
     private let userHolder: UserHolder
@@ -98,13 +91,4 @@ class PostDetailInteractor: PostDetailInteractorInput {
         )
     }
     
-}
-
-extension PostDetailInteractor: Subscriber {
-    
-    func update(_ hint: Hint) {
-        if let h = hint as? CommentUpdateHint {
-            output?.didUpdateCommentHandle(from: h.oldHandle, to: h.newHandle)
-        }
-    }
 }

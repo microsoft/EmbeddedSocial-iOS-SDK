@@ -86,19 +86,22 @@ protocol PostServiceDelegate: class {
 class TopicService: BaseService, PostServiceProtocol {
 
     private let imagesService: ImagesServiceType
-    fileprivate let ExecutorProvider: CacheRequestExecutorProviderType.Type
+    fileprivate let executorProvider: CacheRequestExecutorProviderType.Type
     private var topicsFeedExecutor: TopicsFeedRequestExecutor!
     private var myRecentTopicsFeedExecutor: TopicsFeedRequestExecutor!
     private var singlePostFetchExecutor: SingleTopicRequestExecutor!
     private let predicateBuilder: PredicateBuilder
+    private let changesPublisher: Publisher
 
     init(imagesService: ImagesServiceType,
          ExecutorProvider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self,
-         predicateBuilder: PredicateBuilder = PredicateBuilder()) {
+         predicateBuilder: PredicateBuilder = PredicateBuilder(),
+         changesPublisher: Publisher = HandleChangesManager.shared) {
         
         self.imagesService = imagesService
-        self.ExecutorProvider = ExecutorProvider
+        self.executorProvider = ExecutorProvider
         self.predicateBuilder = predicateBuilder
+        self.changesPublisher = changesPublisher
 
         super.init()
         
@@ -143,17 +146,22 @@ class TopicService: BaseService, PostServiceProtocol {
             request.blobType = .image
         }
         
-        let oldHandle = command.topic.topicHandle
-
         TopicsAPI.topicsPostTopic(request: request, authorization: authorization) { response, error in
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
             } else if let handle = response?.topicHandle {
-                self.cache.deleteOutgoing(with: self.predicateBuilder.predicate(for: command))
-                let cmd = UpdateRelatedHandleCommand(oldHandle: oldHandle, newHandle: handle)
-                self.cache.cacheOutgoing(cmd)
+                self.onTopicPosted(oldCommand: command, newHandle: handle)
             }
         }
+    }
+    
+    private func onTopicPosted(oldCommand cmd: CreateTopicCommand, newHandle: String) {
+        cache.deleteOutgoing(with: predicateBuilder.predicate(for: cmd))
+        
+        let oldHandle: String = cmd.topic.topicHandle
+        cache.cacheOutgoing(UpdateRelatedHandleCommand(oldHandle: oldHandle, newHandle: newHandle))
+        
+        changesPublisher.notify(TopicUpdateHint(oldHandle: oldHandle, newHandle: newHandle))
     }
     
     func update(topic: Post, request: PutTopicRequest, success: @escaping () -> (), failure: @escaping Failure) {

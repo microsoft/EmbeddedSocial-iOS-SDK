@@ -48,9 +48,12 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     private let pageSize: Int
     private let actionStrategy: AuthorizedActionStrategy
     
-    init(pageSize: Int, actionStrategy: AuthorizedActionStrategy) {
+    init(pageSize: Int,
+         actionStrategy: AuthorizedActionStrategy,
+         handlePublisher: Publisher = HandleChangesManager.shared) {
         self.pageSize = pageSize
         self.actionStrategy = actionStrategy
+        handlePublisher.subscribe(self)
     }
     
     // MARK: CommentRepliesViewOutput
@@ -210,6 +213,24 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
             view?.refreshReplyCell(index: index)
         }
         
+    }
+}
+
+extension CommentRepliesPresenter: Subscriber {
+    func update(_ hint: Hint) {
+        if let hint = hint as? CommentUpdateHint {
+            
+        } else if let hint = hint as? ReplyUpdateHint {
+            updateReplyHandle(from: hint.oldHandle, to: hint.newHandle)
+        }
+    }
+    
+    private func updateReplyHandle(from oldHandle: String, to newHandle: String) {
+        guard let idx = replies.index(where: { $0.replyHandle == oldHandle }) else { return }
+        
+        let replyToUpdate = replies[idx]
+        replyToUpdate.replyHandle = newHandle
+        replies[idx] = replyToUpdate
     }
 }
 

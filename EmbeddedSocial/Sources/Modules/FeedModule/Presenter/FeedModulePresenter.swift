@@ -586,6 +586,14 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         moduleOutput?.didScrollFeed(feedView)
     }
     
+    func didUpdateTopicHandle(from oldHandle: String, to newHandle: String) {
+        guard let idx = currentItems.index(where: { $0.topicHandle == oldHandle }) else { return }
+        
+        var itemToUpdate = currentItems[idx]
+        itemToUpdate.topicHandle = newHandle
+        currentItems[idx] = itemToUpdate
+    }
+    
     deinit {
         Logger.log()
     }
