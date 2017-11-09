@@ -38,6 +38,7 @@
 "common.done" = "Done";
 "common.unblock" = "Unblock";
 "common.no_content" = "No content";
+"common.failed_to_load_data" = "Failed to load data";
 "common.delete" = "Delete";
 
 "image_picker.take_photo" = "Take photo";
