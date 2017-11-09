@@ -213,12 +213,11 @@ class OthersActivties: DataSource<ActivityView> {
         return ActivityItem.othersActivity(data)
     }
     
-    override func fetchMore(completion: @escaping (Result<PaginatedResponse<ActivityView>>) -> Void) {
+    override func fetch(completion: @escaping (Result<PaginatedResponse<ActivityView>>) -> Void) {
         interactor.loadOthersActivities(completion: completion)
     }
-    
-    override func fetch(completion: @escaping (Result<PaginatedResponse<ActivityView>>) -> Void) {
+
+    override func fetchMore(completion: @escaping (Result<PaginatedResponse<ActivityView>>) -> Void) {
         interactor.loadNextPageOthersActivities(completion: completion)
     }
-
 }
