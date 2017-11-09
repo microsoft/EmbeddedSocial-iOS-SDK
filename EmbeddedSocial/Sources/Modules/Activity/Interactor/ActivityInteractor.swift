@@ -10,7 +10,7 @@ protocol ActivityInteractorOutput: class {
 }
 
 typealias ActivityItemListResult = Result<PaginatedResponse<ActivityView>>
-typealias UserRequestListResult = Result<PagingatedResponse<User>>
+typealias UserRequestListResult = Result<PaginatedResponse<User>>
 
 protocol ActivityInteractorInput: class {
     func loadMyActivities(completion: ((ActivityItemListResult) -> Void)?)

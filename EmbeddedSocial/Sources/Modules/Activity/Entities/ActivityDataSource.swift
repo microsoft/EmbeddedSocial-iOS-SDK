@@ -23,7 +23,7 @@ class DataSourceBuilder {
     static func build(with type: DataSourceType,
                       delegate: DataSourceDelegate? = nil,
                       interactor: ActivityInteractorInput,
-                      context: DataSourceContext) -> DataSource {
+                      context: DataSourceContext) -> DataSourceProtocol {
         switch type {
         case .pending:
             return self.buildPendingRequestsDataSource(interactor: interactor, delegate: delegate, context: context)
@@ -73,37 +73,42 @@ class DataSourceBuilder {
     
 }
 
-protocol DataSourceProtocol {
+protocol DataSourceProtocol: class {
     func load()
+    func loadMore()
+    var section: ActivitySection { get set}
+    var delegate: DataSourceDelegate? { get set}
+    var context: DataSourceContext { get }
 }
 
-// TODO: remake via generics
-class DataSource<T> {
+class DataSource<T>: DataSourceProtocol {
+    
+    typealias Page = PaginatedResponse<T>
     
     weak var interactor: ActivityInteractorInput!
     var section: ActivitySection
     var delegate: DataSourceDelegate?
     let context: DataSourceContext
     
-    func fetch(completion: @escaping (Result<PaginatedResponse<T>>) -> Void) { fatalError("No Impl") }
-    func fetchMore(completion: @escaping (Result<PaginatedResponse<T>>) -> Void) { fatalError("No Impl") }
+    fileprivate func fetch(completion: @escaping (Result<Page>) -> Void) { fatalError("Abstract") }
+    fileprivate func fetchMore(completion: @escaping (Result<Page>) -> Void) { fatalError("Abstract") }
+    fileprivate func convert(_ data: T) -> ActivityItem { fatalError("Abstract") }
     
     func load() {
         self.delegate?.didStartLoading()
         self.section.pages = []
         
         fetch { [weak self] result in
-            self?.genericResultHandler(result, 0)
+            self?.resultHandler(result, 0)
             self?.delegate?.didFinishLoading()
         }
-        
     }
     
     func loadMore() {
         self.delegate?.didStartLoading()
         let nextPage = section.pages.count
         fetchMore { [weak self] result in
-                self?.genericResultHandler(result, nextPage)
+                self?.resultHandler(result, nextPage)
                 self?.delegate?.didFinishLoading()
             }
         }
@@ -119,19 +124,19 @@ class DataSource<T> {
         self.context = context
     }
     
-    func map(_ data: T) -> ActivityItem { fatalError("No impl") }
-    
-    private func genericResultHandler<T>(_ result: Result<PaginatedResponse<T>>, _ page: Int) {
+    fileprivate func resultHandler(_ result: Result<Page>, _ page: Int) {
         switch result {
         case let .failure(error):
             self.delegate?.didFail(error: error)
         case let .success(list):
-            let items = list.items.map { self.map($0) }
+
+            let items = list.items.map { self.convert($0) }
+            
             process(newItems: items, pageIdx: page)
         }
     }
     
-    func process(newItems: [ActivityItem], pageIdx: Int) {
+    fileprivate func process(newItems: [ActivityItem], pageIdx: Int) {
         // replace page with new data, probalby from cache
         let noPages = section.pages.count == 0
         let pageExists = section.pages.indices.contains(pageIdx)
@@ -151,7 +156,6 @@ class DataSource<T> {
             let needAddItems = (newItems.count - cachedNumberOfItems)
             
             let oldPaths = Set(section.range(forPage: pageIdx).map { IndexPath(row: $0, section: context.index) })
-            
             
             // replacing items for existing page
             section.pages[pageIdx] = newItems
@@ -174,11 +178,11 @@ class DataSource<T> {
 }
 
 class MyPendingRequests: DataSource<User> {
-    override func map(_ data: User) -> ActivityItem {
+    override func convert(_ data: User) -> ActivityItem {
         return ActivityItem.pendingRequest(data)
     }
     
-    override func fetch(completion: @escaping (Result<PaginatedResponse<UserRequestListResult>>) -> Void) {
+    override func fetch(completion: @escaping (Result<PaginatedResponse<User>>) -> Void) {
         interactor.loadPendingRequestItems(completion: completion)
     }
     
@@ -189,22 +193,32 @@ class MyPendingRequests: DataSource<User> {
 }
 
 class MyActivities: DataSource<ActivityView> {
-    override func map(_ data: ActivityView) -> ActivityItem {
+    override func convert(_ data: ActivityView) -> ActivityItem {
         return ActivityItem.myActivity(data)
     }
     
     override func fetch(completion: @escaping (Result<PaginatedResponse<ActivityView>>) -> Void) {
-        interactor.loadP
+        interactor.loadMyActivities(completion: completion)
+    }
+    
+    override func fetchMore(completion: @escaping (Result<PaginatedResponse<ActivityView>>) -> Void) {
+        interactor.loadNextPageMyActivities(completion: completion)
     }
     
 }
 
-class OthersActivties: DataSource {
+class OthersActivties: DataSource<ActivityView> {
     
-    override func map(_ data: Any) -> ActivityItem {
-        guard let view = data as? ActivityView else {
-            fatalError()
-        }
-        return ActivityItem.othersActivity(view)
+    override func convert(_ data: ActivityView) -> ActivityItem {
+        return ActivityItem.othersActivity(data)
     }
+    
+    override func fetchMore(completion: @escaping (Result<PaginatedResponse<ActivityView>>) -> Void) {
+        interactor.loadOthersActivities(completion: completion)
+    }
+    
+    override func fetch(completion: @escaping (Result<PaginatedResponse<ActivityView>>) -> Void) {
+        interactor.loadNextPageOthersActivities(completion: completion)
+    }
+
 }

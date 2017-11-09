@@ -15,9 +15,9 @@ enum ActivityActionType: Int {
 class Action {
     weak var presenter: ActivityPresenter?
     var activityItem: ActivityItem
-    weak var dataSource: DataSource?
+    weak var dataSource: DataSourceProtocol?
     
-    init(item: ActivityItem, presenter: ActivityPresenter, dataSource: DataSource) {
+    init(item: ActivityItem, presenter: ActivityPresenter, dataSource: DataSourceProtocol) {
         self.activityItem = item
         self.presenter = presenter
         self.dataSource = dataSource
@@ -116,7 +116,7 @@ class ActivityActionBuilder {
     
     weak var presenter: ActivityPresenter!
     
-    func build(from item: ActivityItem, with action: ActivityCellEvent, dataSource: DataSource) -> Action {
+    func build(from item: ActivityItem, with action: ActivityCellEvent, dataSource: DataSourceProtocol) -> Action {
         
         switch item {
         case .pendingRequest(_ ):
