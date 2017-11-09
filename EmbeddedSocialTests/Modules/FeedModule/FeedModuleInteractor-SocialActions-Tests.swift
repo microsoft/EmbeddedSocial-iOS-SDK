@@ -52,7 +52,7 @@ private class FeedModulePresenterMock: FeedModuleInteractorOutput {
     
     func didStartFetching() { }
     
-    func didFinishFetching() { }
+    func didFinishFetching(with error: Error?) { }
     
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?) {
         didPostAction = (post, action, error)

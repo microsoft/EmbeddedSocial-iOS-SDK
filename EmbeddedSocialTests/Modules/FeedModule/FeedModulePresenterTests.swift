@@ -100,7 +100,7 @@ class FeedModulePresenter_Tests: XCTestCase {
         view.setRefreshing_state_ReceivedState = true
         
         // when
-        sut.didFinishFetching()
+        sut.didFinishFetching(with: nil)
         
         // then
         XCTAssertTrue(view.setRefreshing_state_ReceivedState == false)
