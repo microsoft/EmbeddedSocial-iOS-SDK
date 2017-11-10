@@ -7,6 +7,15 @@
 
 class MockCommentRepliesRouter: CommentRepliesRouterInput {
     
+    func openMyReplyOptions(reply: Reply) {
+        
+    }
+    
+    func openOtherReplyOptions(reply: Reply) {
+        
+    }
+    
+    
     var backIfNeededCount = 0
     func backIfNeeded(from view: UIViewController) {
         backIfNeededCount += 1

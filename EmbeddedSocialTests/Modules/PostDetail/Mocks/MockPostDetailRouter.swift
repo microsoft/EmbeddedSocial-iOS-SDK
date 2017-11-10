@@ -7,6 +7,14 @@ import Foundation
 @testable import EmbeddedSocial
 
 class MockPostDetailRouter: PostDetailRouterInput {
+    func openMyCommentOptions(comment: Comment) {
+        
+    }
+    
+    func openOtherCommentOptions(comment: Comment) {
+        
+    }
+    
     
     var backIfNeededCount = 0
     func backIfNeeded(from view: UIViewController) {

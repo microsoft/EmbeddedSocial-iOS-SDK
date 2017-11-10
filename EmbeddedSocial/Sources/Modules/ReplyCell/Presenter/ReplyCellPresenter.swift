@@ -19,7 +19,7 @@ class ReplyCellPresenter: ReplyCellModuleInput, ReplyCellViewOutput, ReplyCellIn
     var router: ReplyCellRouterInput?
     
     var myProfileHolder: UserHolder?
-    weak var moduleOutput: ReplyCellModuleOutput!
+    weak var moduleOutput: ReplyCellModuleOutput?
     
     var reply: Reply!
     
@@ -71,7 +71,7 @@ class ReplyCellPresenter: ReplyCellModuleInput, ReplyCellViewOutput, ReplyCellIn
     }
     
     func optionsPressed() {
-        moduleOutput.showMenu(reply: reply)
+        moduleOutput?.showMenu(reply: reply)
     }
 }
 
@@ -104,7 +104,7 @@ extension ReplyCellPresenter: PostMenuModuleOutput {
     }
     
     func didRemove(reply: Reply) {
-        moduleOutput.removed(reply: reply)
+        moduleOutput?.removed(reply: reply)
     }
     
     func didReport(post: PostHandle) {

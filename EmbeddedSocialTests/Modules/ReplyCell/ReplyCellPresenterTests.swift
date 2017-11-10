@@ -6,6 +6,20 @@
 import XCTest
 @testable import EmbeddedSocial
 
+class MockReplyCellModuleOutput: ReplyCellModuleOutput {
+    var showMenuCalled = false
+    
+    func showMenu(reply: Reply) {
+        showMenuCalled = true
+    }
+    
+    var removedCalled = false
+    
+    func removed(reply: Reply) {
+        removedCalled = true
+    }
+}
+
 class ReplyCellPresenterTests: XCTestCase {
     
     var presenter: ReplyCellPresenter!
@@ -16,6 +30,7 @@ class ReplyCellPresenterTests: XCTestCase {
     var loginParent: UIViewController!
     var actionStrategy: CommonAuthorizedActionStrategy!
     var userHolder: MyProfileHolder!
+    var moduleOutput: MockReplyCellModuleOutput!
     
     override func setUp() {
         super.setUp()
@@ -30,12 +45,15 @@ class ReplyCellPresenterTests: XCTestCase {
         userHolder = MyProfileHolder()
         actionStrategy = CommonAuthorizedActionStrategy(myProfileHolder: userHolder, loginParent: loginParent, loginOpener: loginOpener)
         
+        moduleOutput = MockReplyCellModuleOutput()
+        
         presenter = ReplyCellPresenter(actionStrategy: actionStrategy)
         presenter.router = router
         presenter.view = view
         presenter.interactor = interactor
         let mockUserHolder = MyProfileHolder()
         presenter.myProfileHolder = mockUserHolder
+        presenter.moduleOutput = moduleOutput
 
         presenter.reply = Reply(replyHandle: UUID().uuidString)
         presenter.reply.userHandle = mockUserHolder.me?.uid
@@ -53,6 +71,7 @@ class ReplyCellPresenterTests: XCTestCase {
         loginParent = nil
         userHolder = nil
         actionStrategy = nil
+        moduleOutput = nil
     }
     
     func testThatLiked() {
@@ -73,14 +92,7 @@ class ReplyCellPresenterTests: XCTestCase {
     
     func testThatOpenOptions() {
         presenter.optionsPressed()
-        
-        XCTAssertEqual(router.openMyReplyOptionsCount, 1)
-        
-        presenter.myProfileHolder?.me?.uid = UUID().uuidString
-        
-        presenter.optionsPressed()
-        
-        XCTAssertEqual(router.openOtherReplyOptionsCount, 1)
+        XCTAssertTrue(moduleOutput.showMenuCalled)
     }
     
     func testThatOpenUser() {
