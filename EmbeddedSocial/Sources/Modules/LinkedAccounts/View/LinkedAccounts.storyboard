@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17A365" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -29,7 +30,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gEH-Ew-hPh">
                                                     <rect key="frame" x="318" y="6" width="51" height="31"/>
                                                     <connections>
-                                                        <action selector="onFacebookSwitch:" destination="xCa-sh-OsW" eventType="valueChanged" id="zcB-e7-uQQ"/>
+                                                        <action selector="onFacebookSwitch:" destination="xCa-sh-OsW" eventType="touchUpInside" id="M7d-DB-psb"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Facebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5xC-9B-HEf">
@@ -59,7 +60,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1xw-uv-s3b">
                                                     <rect key="frame" x="318" y="6" width="51" height="31"/>
                                                     <connections>
-                                                        <action selector="onGoogleSwitch:" destination="xCa-sh-OsW" eventType="valueChanged" id="iVV-Nn-eMY"/>
+                                                        <action selector="onGoogleSwitch:" destination="xCa-sh-OsW" eventType="touchUpInside" id="B6x-eK-V1O"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Google" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lYC-4n-irY">
@@ -89,7 +90,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0Ak-Ke-Wlv">
                                                     <rect key="frame" x="318" y="6" width="51" height="31"/>
                                                     <connections>
-                                                        <action selector="onMicrosoftSwitch:" destination="xCa-sh-OsW" eventType="valueChanged" id="dcu-ob-Bfu"/>
+                                                        <action selector="onMicrosoftSwitch:" destination="xCa-sh-OsW" eventType="touchUpInside" id="3w7-sY-Lvh"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Microsoft" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H5b-ew-gwh">
@@ -119,7 +120,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xhG-fe-wIN">
                                                     <rect key="frame" x="318" y="6" width="51" height="31"/>
                                                     <connections>
-                                                        <action selector="onTwitterSwitch:" destination="xCa-sh-OsW" eventType="valueChanged" id="Piq-By-Fb6"/>
+                                                        <action selector="onTwitterSwitch:" destination="xCa-sh-OsW" eventType="touchUpInside" id="ech-Bz-gVA"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Twitter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QBS-pv-6R0">
