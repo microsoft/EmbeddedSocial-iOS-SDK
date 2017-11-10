@@ -107,12 +107,7 @@ class TransitionAction: Action {
             presenter?.router.open(with: activityItem)
             
         case let .othersActivity(activity):
-            
-            // according to API server may return activity with no handle
-            guard let handle = activity.activityHandle else {
-                return
-            }
-            
+
             presenter?.router.open(with: activityItem)
             
         default:
