@@ -91,10 +91,11 @@ extension User {
         followingStatus = nil
     }
     
-    init(profileView: UserProfileView, credentials: CredentialsList? = nil) {
+    init?(profileView: UserProfileView, credentials: CredentialsList? = nil) {
+        guard let uid = profileView.userHandle else { return nil }
+        
+        self.uid = uid
         self.credentials = credentials
-
-        uid = profileView.userHandle!
         firstName = profileView.firstName
         lastName = profileView.lastName
         email = nil
