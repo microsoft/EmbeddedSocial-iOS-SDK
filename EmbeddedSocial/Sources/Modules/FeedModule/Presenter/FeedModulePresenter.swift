@@ -499,13 +499,22 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
 
     // MARK: FeedModuleInteractorOutput
     
+    private func shouldFullFillFeed(feed: FeedType) -> Bool {
+        switch feed {
+        case .single(post: _ ):
+            return false
+        default:
+            return true
+        }
+    }
+    
     private func processFetchResult(feed: Feed, isMore: Bool) {
         
         guard fetchRequestsInProgress.contains(feed.fetchID), feedType == feed.feedType else {
             return
         }
         
-        Logger.log("items arrived \(feed.items.count)")
+//        print("items got \(feed.items.count) for limit \(feed.query?.limit) with cursor \(feed.query?.cursor)")
         
         cursor = feed.cursor
         
@@ -515,7 +524,8 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         updateUI(with: newItems)
         
         // re-fetch missing items
-        if !feed.isFullfilled() {
+        if !feed.isFullfilled() && shouldFullFillFeed(feed: feed.feedType) {
+//            print("requesting cursor \(feed.cursor), with limit\(feed.missingItems())")
             fetchMoreItems(with: feed.cursor, limit: feed.missingItems())
         }
     }

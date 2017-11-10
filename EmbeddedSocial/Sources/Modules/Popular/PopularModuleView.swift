@@ -43,23 +43,40 @@ class PopularModuleView: UIViewController {
         return button
         }()
     
-    fileprivate var isLockedUI = 0 {
+    fileprivate var _isLockedUI = 0 {
         didSet {
+            print(_isLockedUI)
+        }
+    }
+    fileprivate var isLockedUI: Int {
+        set {
             
-            guard isLockedUI >= 0 else {
-                isLockedUI = 0
-                return
+            let oldValue = _isLockedUI
+            
+            if newValue < 0 {
+                _isLockedUI = 0
+            } else {
+                _isLockedUI = newValue
             }
             
-            feedControl.isEnabled = isLockedUI == 0
-            container.isUserInteractionEnabled = isLockedUI == 0
+            feedControl.isEnabled = _isLockedUI == 0
+            container.isUserInteractionEnabled = _isLockedUI == 0
             
-            if isLockedUI == 0 {
-                hideHUD(in: container)
-            } else {
-                showHUD(in: container)
+            let shouldHide = oldValue == 1 && _isLockedUI == 0
+            let shouldShow = oldValue == 0 && _isLockedUI == 1
+            
+            if shouldHide {
+                hideHUD(in: view)
+            }
+            else if shouldShow {
+                showHUD(in: view)
             }
         }
+        
+        get {
+            return _isLockedUI
+        }
+        
     }
     
     @objc private func didTapChangeLayout() {

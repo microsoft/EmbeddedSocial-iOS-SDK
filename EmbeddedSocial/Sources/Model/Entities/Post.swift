@@ -210,7 +210,7 @@ extension Feed {
             return 0
         }
         
-        return limit - Int32(items.count)
+        return max(limit - Int32(items.count), 0)
     }
 }
 
