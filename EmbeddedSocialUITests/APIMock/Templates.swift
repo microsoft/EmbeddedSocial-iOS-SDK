@@ -47,7 +47,9 @@ class Templates {
     class func loadTopics(interval: String, cursor: Int = 0, limit: Int = 10) -> Any {
         var topics: Array<[String: Any]> = []
         
-        for i in cursor...cursor + limit - 1 {
+        let fetchingLimit = APIConfig.wrongFeedFetching ? Random.randomInt(max: limit) : limit
+        
+        for i in cursor...cursor + fetchingLimit - 1 {
             var values = ["title": interval + String(i),
                           "topicHandle": interval + String(i),
                           "lastUpdatedTime": Date().ISOString,
@@ -68,8 +70,7 @@ class Templates {
                                        values: values)
             topics.append(topic)
         }
-        
-        return ["data": topics, "cursor": String(cursor + limit)]
+        return ["data": topics, "cursor": String(cursor + fetchingLimit)]
     }
     
     class func loadFollowers(firstName: String, lastName: String, cursor: Int = 0, limit: Int = 10) -> Any {

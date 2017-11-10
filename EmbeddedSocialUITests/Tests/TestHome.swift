@@ -26,6 +26,7 @@ class BaseTestHome: BaseFeedTest {
         APIConfig.numberedTopicTeasers = false
         APIConfig.showTopicImages = false
         APIConfig.showUserImages = false
+        APIConfig.wrongFeedFetching = false
     }
     
     override func openScreen() {}
@@ -85,6 +86,8 @@ class BaseTestHome: BaseFeedTest {
     func checkIsUnpinned(_ post: PostItem, at index: UInt) {
         XCTAssert(!post.pinButton.isSelected, "Post is marked as pinned")
     }
+    
+    func testIsFullPageLoaded() {}
     
     func testPaging() {
         var seenPosts = Set<XCUIElement>()
@@ -179,22 +182,6 @@ class TestOnlineHome: BaseTestHome, OnlineTest {
         super.testFeedSource()
     }
     
-    override func testPostAttributes() {
-        APIConfig.values = ["user->firstName": "John",
-                            "user->lastName": "Doe",
-                            "totalLikes": 5,
-                            "totalComments": 7,
-                            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                            "liked": true,
-                            "pinned": true]
-        
-        navigate(to: .popular)
-        navigate(to: .home)
-        openScreen()
-        
-        super.testPostAttributes()
-    }
-    
     override func testLikePost() {
         openScreen()
         super.testLikePost()
@@ -224,6 +211,35 @@ class TestOnlineHome: BaseTestHome, OnlineTest {
     override func checkIsUnpinned(_ post: PostItem, at index: UInt) {
         XCTAssertNotNil(APIState.getLatestRequest().contains("users/me/pins/\(feedName + String(index))"))
         super.checkIsUnpinned(post, at: index)
+    }
+    
+    override func testPostAttributes() {
+        APIConfig.values = ["user->firstName": "John",
+                            "user->lastName": "Doe",
+                            "totalLikes": 5,
+                            "totalComments": 7,
+                            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                            "liked": true,
+                            "pinned": true]
+        
+        navigate(to: .popular)
+        navigate(to: .home)
+        openScreen()
+        
+        super.testPostAttributes()
+    }
+    
+    override func testIsFullPageLoaded() {
+        APIConfig.wrongFeedFetching = true
+        
+        navigate(to: .popular)
+        navigate(to: .home)
+        sleep(2)
+        
+        super.testIsFullPageLoaded()
+        
+        let response = APIState.getLatestResponse(forService: serviceName)
+        XCTAssertEqual(String(pageSize), response?["cursor"] as! String)
     }
     
     override func testPaging() {
