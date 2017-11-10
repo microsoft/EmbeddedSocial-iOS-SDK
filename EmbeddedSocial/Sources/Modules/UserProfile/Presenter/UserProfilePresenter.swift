@@ -112,7 +112,7 @@ final class UserProfilePresenter: UserProfileViewOutput {
         followingCount = user.followingCount
         view.setUser(user)
         feedModuleInput?.setHeaderHeight(view.headerContentHeight)
-        if !user.isMe && user.isPrivate {
+        if !user.isMe && user.isPrivate && user.followerStatus != .accepted {
             view.setupPrivateAppearance()
         }
     }

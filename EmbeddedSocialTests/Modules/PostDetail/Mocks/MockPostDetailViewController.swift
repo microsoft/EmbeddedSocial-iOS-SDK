@@ -8,6 +8,10 @@ import Foundation
 
 class MockPostDetailViewController: UIViewController, PostDetailViewInput {
     
+    func showMenu(_ vc: UIViewController) {
+        
+    }
+    
     var output: PostDetailViewOutput!
     
     var setupCount = 0
