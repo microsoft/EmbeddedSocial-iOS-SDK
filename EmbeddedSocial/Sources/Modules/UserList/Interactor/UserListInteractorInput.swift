@@ -17,6 +17,8 @@ protocol UserListInteractorInput {
     func setAPI(_ api: UsersListAPI)
     
     func reloadList(completion: @escaping (Result<[User]>) -> Void)
+    
+    func clearList()
 }
 
 protocol UserListInteractorOutput: class {

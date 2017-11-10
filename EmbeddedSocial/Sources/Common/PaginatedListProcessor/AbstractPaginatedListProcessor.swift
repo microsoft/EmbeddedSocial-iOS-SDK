@@ -25,4 +25,8 @@ class AbstractPaginatedListProcessor<ListItem> {
     func reloadList(completion: @escaping (Result<[ListItem]>) -> Void) {
         
     }
+    
+    func resetLoadingState() {
+        
+    }
 }

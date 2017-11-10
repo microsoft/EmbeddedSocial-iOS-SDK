@@ -54,6 +54,10 @@ class UserListInteractor: UserListInteractorInput {
     func getNextListPage(completion: @escaping (Result<[User]>) -> Void) {
         listProcessor.getNextListPage(completion: completion)
     }
+    
+    func clearList() {
+        listProcessor.resetLoadingState()
+    }
 }
 
 extension UserListInteractor: PaginatedListProcessorDelegate {

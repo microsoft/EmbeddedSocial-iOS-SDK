@@ -48,4 +48,10 @@ final class MockUserListInteractor: UserListInteractorInput {
             completion(result)
         }
     }
+    
+    var clearListCalled = false
+    
+    func clearList() {
+        clearListCalled = true
+    }
 }

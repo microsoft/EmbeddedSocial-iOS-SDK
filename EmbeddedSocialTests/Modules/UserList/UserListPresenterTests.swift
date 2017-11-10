@@ -361,4 +361,9 @@ class UserListPresenterTests: XCTestCase {
         expect(self.moduleOutput.didFailToLoadListListViewErrorCalled).toEventually(beTrue())
         expect(self.moduleOutput.didFailToLoadListListViewErrorReceivedArguments?.error).toEventually(matchError(APIError.unknown))
     }
+    
+    func testClearList() {
+        sut.clearList()
+        expect(self.interactor.clearListCalled).to(beTrue())
+    }
 }

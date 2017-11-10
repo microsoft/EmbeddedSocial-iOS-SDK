@@ -79,7 +79,7 @@ class PaginatedListProcessor<ListItem>: AbstractPaginatedListProcessor<ListItem>
         getNextListPage(skipCache: networkTracker.isReachable, completion: completion)
     }
     
-    private func resetLoadingState() {
+    override func resetLoadingState() {
         pages = []
         isLoadingList = false
         pendingPages = Set()
