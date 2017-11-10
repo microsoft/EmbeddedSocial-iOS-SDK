@@ -63,6 +63,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     fileprivate var collectionViewIsUpdateing = false
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        replyTextView.resignFirstResponder()
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
