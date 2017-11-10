@@ -275,6 +275,10 @@ extension CommentRepliesPresenter: CommentCellModuleOutout {
     func showMenu(comment: Comment) {
         
     }
+    
+    var shouldOpenMenu: Bool {
+        return false
+    }
 }
 
 extension CommentRepliesPresenter: PostMenuModuleOutput {
