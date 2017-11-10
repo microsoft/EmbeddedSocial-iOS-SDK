@@ -103,6 +103,11 @@ extension DetailedActivityPresenter: ReplyCellModuleOutput {
 }
 
 extension DetailedActivityPresenter: CommentCellModuleOutout {
+    
+    func show(menuController: UIViewController) {
+        (view as? UIViewController)?.navigationController?.present(menuController, animated: true)
+    }
+    
     func removed(comment: Comment) {
         self.comment = nil
         router.back()

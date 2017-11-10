@@ -238,6 +238,9 @@ class CommentsService: BaseService, CommentServiceProtocol {
         CommentsAPI.commentsDeleteComment(
             commentHandle: comment.commentHandle,
             authorization: authorization) { response, error in
+                
+                print("*********** [service] deleted", comment.commentHandle, error)
+                
                 if self.errorHandler.canHandle(error) {
                     self.errorHandler.handle(error)
                     completion(.failure(APIError(error: error)))

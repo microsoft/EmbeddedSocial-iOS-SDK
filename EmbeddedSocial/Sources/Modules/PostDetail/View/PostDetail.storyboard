@@ -18,7 +18,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Ils-g4-Q3D"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="VVP-Hm-Qai">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="599"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hky-KE-Hsj">

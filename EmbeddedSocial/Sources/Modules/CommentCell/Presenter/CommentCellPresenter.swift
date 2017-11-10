@@ -10,6 +10,8 @@ protocol CommentCellModuleProtocol {
 
 protocol CommentCellModuleOutout: class {
     func removed(comment: Comment)
+    
+    func show(menuController: UIViewController)
 }
 
 class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, CommentCellInteractorOutput {
@@ -80,12 +82,17 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     
     func optionsPressed() {
         let isMyComment = (SocialPlus.shared.me?.uid == comment.user?.uid)
+        let menuType: PostMenuType = isMyComment ? .myComment(comment: comment) : .otherComment(comment: comment)
         
-        if isMyComment {
-            router?.openMyCommentOptions(comment: comment)
-        } else {
-            router?.openOtherCommentOptions(comment: comment)
-        }
+        let configurator = PostMenuModuleConfigurator()
+        
+        configurator.configure(menuType: menuType,
+                               moduleOutput: self,
+                               navigationController: (view as? UIViewController)?.navigationController)
+        
+        let menuController: UIViewController = configurator.viewController
+        menuController.modalPresentationStyle = .overCurrentContext
+        moduleOutput?.show(menuController: menuController)
     }
     
     // MARK: CommentCellInteractorOutput

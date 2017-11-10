@@ -246,16 +246,16 @@ extension CommentRepliesViewController: UICollectionViewDataSource {
             cell.apply(theme: theme)
             cell.delegate = self
             return cell
-            case RepliesSections.replies.rawValue:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
-                let config = ReplyCellModuleConfigurator()
-                config.configure(cell: cell, reply: output.reply(index: indexPath.row), navigationController: self.navigationController, moduleOutput: self.output as? ReplyCellModuleOutput)
-                cell.tag = indexPath.row
-                cell.apply(theme: theme)
-                return cell
-            default:
-                return UICollectionViewCell()
-            }
+        case RepliesSections.replies.rawValue:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReplyCell.reuseID, for: indexPath) as! ReplyCell
+            let config = ReplyCellModuleConfigurator()
+            config.configure(cell: cell, reply: output.reply(index: indexPath.row), navigationController: self.navigationController, moduleOutput: self.output as? ReplyCellModuleOutput)
+            cell.tag = indexPath.row
+            cell.apply(theme: theme)
+            return cell
+        default:
+            return UICollectionViewCell()
+        }
     }
 }
 
