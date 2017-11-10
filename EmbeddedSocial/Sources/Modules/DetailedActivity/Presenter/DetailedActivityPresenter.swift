@@ -104,6 +104,10 @@ extension DetailedActivityPresenter: ReplyCellModuleOutput {
     func showMenu(reply: Reply) {
         
     }
+    
+    var shouldOpenMenu: Bool {
+        return false
+    }
 }
 
 extension DetailedActivityPresenter: CommentCellModuleOutout {
@@ -115,4 +119,5 @@ extension DetailedActivityPresenter: CommentCellModuleOutout {
     func showMenu(comment: Comment) {
         
     }
+    
 }
