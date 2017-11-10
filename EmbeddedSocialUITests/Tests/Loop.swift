@@ -10,6 +10,8 @@ import XCTest
 //class Loop: UITestBase {
 //
 //    func testAPIMock() {
+//        // Uncomment for wrong API responses
+////        APIConfig.wrongResponses = true
 //        while true {}
 //    }
 //
