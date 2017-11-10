@@ -30,8 +30,7 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     var output: CommentCellViewOutput!
     
     private var formatter = DateFormatterTool()
-    
-    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         userPhoto.contentMode = .scaleAspectFill
@@ -55,6 +54,7 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         mediaImageView.releasePhoto()
         userPhoto.releasePhoto()
     }
@@ -95,13 +95,13 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     func cellSize() -> CGSize {
         return CGSize(width: UIScreen.main.bounds.size.width, height: self.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)
     }
-    
 
     @IBAction func likesButtonPressed(_ sender: Any) {
         output.likesPressed()
     }
     
     @IBAction private func commentOptionsPressed(_ sender: Any) {
+        print("*********** commentOptionsPressed TAG \(tag)")
         output.optionsPressed()
     }
     
@@ -131,4 +131,5 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     private lazy var userImagePlaceholder: UIImage = {
         return UIImage(asset: AppConfiguration.shared.theme.assets.userPhotoPlaceholder)
     }()
+    
 }

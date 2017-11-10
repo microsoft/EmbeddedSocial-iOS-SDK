@@ -29,13 +29,18 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     private let pageSize: Int
     private let actionStrategy: AuthorizedActionStrategy
     
+    private let userHolder: UserHolder
+    
     func heightForFeed() -> CGFloat {
         return (feedModuleInput?.moduleHeight())!
     }
     
     init(pageSize: Int,
          actionStrategy: AuthorizedActionStrategy,
+         userHolder: UserHolder = SocialPlus.shared,
          handleChangesPublisher: Publisher = HandleChangesMulticast.shared) {
+        
+        self.userHolder = userHolder
         self.pageSize = pageSize
         self.actionStrategy = actionStrategy
         handleChangesPublisher.subscribe(self)
@@ -180,13 +185,26 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     private func _postComment(photo: Photo?, comment: String) {
         interactor.postComment(photo: photo, topicHandle: topicHandle, comment: comment)
     }
+    
 }
 
 extension PostDetailPresenter: CommentCellModuleOutout {
+    
+    func show(menuController: UIViewController) {
+        view.showMenu(menuController)
+    }
+    
     func removed(comment: Comment) {
+        assert(Thread.isMainThread)
+        
+        let handles = comments.flatMap { $0.commentHandle }
+        print("*********** [presenter] attempt to delete \(handles)")
+
         guard let index = comments.index(where: { $0.commentHandle == comment.commentHandle }) else {
             return
         }
+        
+        print("*********** [presenter] deleted success")
         
         comments.remove(at: index)
         router.backIfNeeded(from: view as! UIViewController)
@@ -220,6 +238,8 @@ extension PostDetailPresenter: Subscriber {
     private func updateCommentHandle(from oldHandle: String, to newHandle: String) {
         guard let idx = comments.index(where: { $0.commentHandle == oldHandle }) else { return }
         
+        print("*********** Update at \(index) from \(oldHandle) to \(newHandle) comment \(comments[idx].text)", idx)
+
         let commentToUpdate = comments[idx]
         commentToUpdate.commentHandle = newHandle
         comments[idx] = commentToUpdate
@@ -256,5 +276,43 @@ extension PostDetailPresenter: FeedModuleOutput {
         router.backToFeed(from: vc)
     }
 
+}
+
+extension PostDetailPresenter: PostMenuModuleOutput {
+    
+    func postMenuProcessDidStart() { }
+    
+    func postMenuProcessDidFinish() { }
+    
+    func didBlock(user: User) { }
+    
+    func didUnblock(user: User) { }
+    
+    func didFollow(user: User) {
+        for comment in comments where comment.user?.uid == user.uid {
+            comment.userStatus = .accepted
+        }
+        view.reloadTable(scrollType: .none)
+    }
+    
+    func didUnfollow(user: User) {
+        for comment in comments where comment.user?.uid == user.uid {
+            comment.userStatus = .empty
+        }
+        view.reloadTable(scrollType: .none)
+    }
+    
+    func didRemove(comment: Comment) {
+        removed(comment: comment)
+    }
+    
+    func didReport(post: PostHandle) {
+        Logger.log("Not implemented")
+    }
+    
+    func didRequestFail(error: Error) {
+        Logger.log("Reloading feed", error, event: .error)
+    }
+    
 }
 

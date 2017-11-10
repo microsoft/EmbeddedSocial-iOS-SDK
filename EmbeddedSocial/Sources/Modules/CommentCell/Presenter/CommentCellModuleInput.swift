@@ -7,3 +7,7 @@ protocol CommentCellModuleInput: class {
     var comment: Comment! {get set}
     var view: CommentCellViewInput? {get set}
 }
+
+protocol CommentCellModuleOutput: class {
+    func showMenu(_ menuController: UIViewController)
+}

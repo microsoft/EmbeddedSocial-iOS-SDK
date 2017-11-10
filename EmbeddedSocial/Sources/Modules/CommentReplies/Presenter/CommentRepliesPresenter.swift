@@ -256,6 +256,11 @@ extension CommentRepliesPresenter: ReplyCellModuleOutput {
 }
 
 extension CommentRepliesPresenter: CommentCellModuleOutout {
+    
+    func show(menuController: UIViewController) {
+        
+    }
+    
     func removed(comment: Comment) {
         //todo: handle
         commentModuleOutput.didRemove(comment: comment)

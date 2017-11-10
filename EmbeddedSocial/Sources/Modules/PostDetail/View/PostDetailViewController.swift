@@ -18,6 +18,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     @IBOutlet weak var collectionView: UICollectionView!
     var output: PostDetailViewOutput!
+    var postMenuViewController: UIViewController?
     
     fileprivate var prototypeCommentCell: CommentCell?
     
@@ -283,6 +284,11 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         showHUD()
         postButton.isHidden = true
         output.postComment(photo: photo, comment: commentTextView.text)
+    }
+    
+    func showMenu(_ vc: UIViewController) {
+        postMenuViewController = vc
+        navigationController?.present(vc, animated: true)
     }
 }
 

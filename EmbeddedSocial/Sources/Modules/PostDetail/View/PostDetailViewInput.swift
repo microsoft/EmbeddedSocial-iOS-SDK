@@ -20,4 +20,5 @@ protocol PostDetailViewInput: class {
     func removeComment(index: Int)
     func scrollCollectionViewToBottom()
     func endRefreshing()
+    func showMenu(_ vc: UIViewController)
 }

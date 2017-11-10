@@ -58,6 +58,7 @@ class CommentCellRouter: CommentCellRouterInput {
         configurator.configure(menuType: type,
                                moduleOutput: moduleInput,
                                navigationController: navigationController)
+        
         postMenuViewController = configurator.viewController
         
         if let parent = navigationController?.viewControllers.last {
@@ -66,3 +67,4 @@ class CommentCellRouter: CommentCellRouterInput {
         }
     }
 }
+
