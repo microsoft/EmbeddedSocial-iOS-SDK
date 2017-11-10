@@ -56,11 +56,12 @@ class LikesService: BaseService, LikesServiceProtocol {
     private var requestExecutor: UsersFeedRequestExecutor!
     private var outgoingActionsExecutor: AtomicOutgoingCommandsExecutor!
 
-    init(ExecutorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
+    init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
         super.init()
         requestExecutor = provider.makeUsersFeedExecutor(for: self)
         outgoingActionsExecutor = provider.makeAtomicOutgoingCommandsExecutor(for: self)
     }
+    
     func postLike(post: Post, completion: @escaping CompletionHandler) {
         let builder = LikesAPI.topicLikesPostLikeWithRequestBuilder(topicHandle: post.topicHandle, authorization: authorization)
         let command = LikeTopicCommand(topic: post)

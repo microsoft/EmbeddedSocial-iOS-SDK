@@ -40,7 +40,7 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     var searchService: SearchServiceType!
     weak var userHolder: UserHolder? = SocialPlus.shared
     
-    init(handleChangesPublisher: Publisher = HandleChangesManager.shared) {
+    init(handleChangesPublisher: Publisher = HandleChangesMulticast.shared) {
         handleChangesPublisher.subscribe(self)
     }
     

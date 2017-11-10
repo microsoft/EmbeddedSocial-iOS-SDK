@@ -35,7 +35,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     
     init(pageSize: Int,
          actionStrategy: AuthorizedActionStrategy,
-         handleChangesPublisher: Publisher = HandleChangesManager.shared) {
+         handleChangesPublisher: Publisher = HandleChangesMulticast.shared) {
         self.pageSize = pageSize
         self.actionStrategy = actionStrategy
         handleChangesPublisher.subscribe(self)
@@ -94,7 +94,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         }
     }
     
-    func didFail(error: CommentsServiceError) {
+    func didFail(error: Error) {
         loadMoreCellViewModel.cellHeight = 0.1
         loadMoreCellViewModel.stopLoading()
         view.updateLoadingCell()

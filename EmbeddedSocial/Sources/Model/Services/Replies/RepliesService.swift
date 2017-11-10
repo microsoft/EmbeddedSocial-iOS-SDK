@@ -28,7 +28,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
     private var processor: RepliesProcessorType!
     private let changesPublisher: Publisher
 
-    init(changesPublisher: Publisher = HandleChangesManager.shared) {
+    init(changesPublisher: Publisher = HandleChangesMulticast.shared) {
         self.changesPublisher = changesPublisher
         super.init()
         processor = RepliesProcessor(cache: cache)
@@ -47,68 +47,57 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             limit: Int32(limit)
         )
         
-        var result = RepliesFetchResult()
-        
-        let fetchOutgoingRequest = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                                     predicate: PredicateBuilder().allCreateReplyCommands(),
-                                                     sortDescriptors: [Cache.createdAtSortDescriptor])
-        
-        let commands = cache.fetchOutgoing(with: fetchOutgoingRequest)
-        let outgoingReplies = commands.flatMap { ($0 as? CreateReplyCommand)?.reply }
-        let incomingFeed = self.cache.firstIncoming(ofType: FeedResponseReplyView.self,
-                                                    predicate: PredicateBuilder().predicate(handle: builder.URLString),
-                                                    sortDescriptors: nil)
-        
-        let incomingReplies = incomingFeed?.data?.map(self.convert(replyView:)) ?? []
-        
-        
-        result.replies = outgoingReplies + incomingReplies
-        result.cursor = incomingFeed?.cursor
-        
-        processor.proccess(&result)
-        cachedResult(result)
-        
-        
-        guard isNetworkReachable else {
-            result.error = APIError.unknown
-            resultHandler(result)
-            return
-        }
-        
-        builder.execute { [weak self] (response, error) in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            let typeID = "fetch_replies-\(commentHandle)"
-            
-            if cursor == nil {
-                strongSelf.cache.deleteIncoming(with: PredicateBuilder().predicate(typeID: typeID))
-            }
+        fetchCachedFeed(commentHandle: commentHandle, url: builder.URLString, cachedResult: cachedResult)
 
-            if let body = response?.body, let data = body.data {
-                body.handle = builder.URLString
-                strongSelf.cache.cacheIncoming(body, for: typeID)
-                result.replies = strongSelf.convert(data: data)
-                result.cursor = body.cursor
-            } else if strongSelf.errorHandler.canHandle(error) {
-                strongSelf.errorHandler.handle(error)
-                return
-            } else {
-                guard let unwrappedError = error else {
-                    resultHandler(result)
-                    return
-                }
-                
-                if unwrappedError.statusCode >= Constants.HTTPStatusCodes.InternalServerError.rawValue {
-                    resultHandler(result)
-                } else {
-                    result.error = APIError(error: error)
-                }
-            }
-            
-            resultHandler(result)
+        builder.execute { response, error in
+            let feed = self.onRepliesFetched(commentHandle: commentHandle,
+                                             cursor: cursor,
+                                             url: builder.URLString,
+                                             response: response?.body,
+                                             error: error)
+            resultHandler(feed)
         }
+    }
+    
+    func onRepliesFetched(commentHandle: String,
+                          cursor: String?,
+                          url: String,
+                          response: FeedResponseReplyView?,
+                          error: ErrorResponse?) -> RepliesFetchResult {
+        
+        let typeID = "fetch_replies-\(commentHandle)"
+
+        if cursor == nil {
+            cache.deleteIncoming(with: PredicateBuilder().predicate(typeID: typeID))
+        }
+        
+        var feed = RepliesFetchResult()
+        
+        if let response = response, let data = response.data {
+            response.handle = url
+            cache.cacheIncoming(response, for: typeID)
+            feed.replies = data.map(Reply.init)
+            feed.cursor = response.cursor
+        } else if errorHandler.canHandle(error) {
+            errorHandler.handle(error)
+        } else if let error = error {
+            feed.error = APIError(error: error)
+        }
+        
+        processor.proccess(&feed, commentHandle: commentHandle)
+        
+        return feed
+    }
+    
+    private func fetchCachedFeed(commentHandle: String, url: String, cachedResult: @escaping RepliesFetchResultHandler) {
+        let incomingFeed = cache.firstIncoming(ofType: FeedResponseReplyView.self,
+                                               predicate: PredicateBuilder().predicate(handle: url),
+                                               sortDescriptors: nil)
+        
+        var feed = RepliesFetchResult()
+        feed.replies = incomingFeed?.data?.map(Reply.init) ?? []
+        processor.proccess(&feed, commentHandle: commentHandle)
+        cachedResult(feed)
     }
     
     func reply(replyHandle: String,
@@ -166,9 +155,13 @@ class RepliesService: BaseService, RepliesServiceProtcol {
     }
     
     func postReply(reply: Reply, success: @escaping PostReplyResultHandler, failure: @escaping (APIError) -> (Void)) {
-        let replyCommand = CreateReplyCommand(reply: reply)
-        cache.cacheOutgoing(replyCommand)
-        success(PostReplyResponse(reply: reply))
+        let command = CreateReplyCommand(reply: reply)
+        
+        let isCached = cache.isCached(command)
+        if !isCached {
+            cache.cacheOutgoing(command)
+            success(PostReplyResponse(reply: reply))
+        }
         
         let request = PostReplyRequest()
         request.text = reply.text
@@ -181,8 +174,13 @@ class RepliesService: BaseService, RepliesServiceProtcol {
             if self.errorHandler.canHandle(error) {
                 self.errorHandler.handle(error)
                 failure(APIError(error: error))
-            } else if let response = response {
-                self.onReplyPosted(oldCommand: replyCommand, response: response)
+            } else if let response = response, let newHandle = response.replyHandle {
+                if !isCached {
+                    self.onReplyPosted(oldCommand: command, response: response)
+                } else {
+                    command.reply.replyHandle = newHandle
+                    success(PostReplyResponse(reply: reply))
+                }
             }
         }
     }
@@ -197,8 +195,14 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         changesPublisher.notify(ReplyUpdateHint(oldHandle: oldHandle, newHandle: newHandle))
     }
     
-    func delete(reply: Reply, completion: @escaping ((Result<Void>) -> Void)) {
+    func delete(reply: Reply, completion: @escaping (Result<Void>) -> Void) {
         let command = RemoveReplyCommand(reply: reply)
+        
+        let isCached = cache.isCached(command)
+        
+        if !isCached {
+            completion(.success())
+        }
         
         let hasDeletedInverseCommand = cache.deleteInverseCommand(for: command)
         
@@ -215,11 +219,17 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                     self.errorHandler.handle(error)
                     completion(.failure(APIError(error: error)))
                 } else if error == nil {
-                    let p = PredicateBuilder().predicate(for: command)
-                    self.cache.deleteOutgoing(with: p)
-                    completion(.success())
+                    if !isCached {
+                        self.onReplyDeleted(command: command)
+                    } else {
+                        completion(.success())
+                    }
                 }
         }
+    }
+    
+    private func onReplyDeleted(command: RemoveReplyCommand) {
+        self.cache.deleteOutgoing(with: PredicateBuilder().predicate(for: command))
     }
     
     private func convert(data: [ReplyView]) -> [Reply] {

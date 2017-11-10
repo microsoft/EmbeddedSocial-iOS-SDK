@@ -44,23 +44,33 @@ class ImagesService: BaseService, ImagesServiceType {
                          imageType: ImagesAPI.ImageType_imagesPostImage,
                          completion: @escaping (Result<String>) -> Void) {
         
-        cacheCommand(command)
-        completion(.success(command.photo.uid))
+        cacheCommandAndComplete(command, completion: completion)
 
-        uploadImageData(command.photo.image?.compressed(), imageType: imageType) { result in
-            if let handle = result.value {
-                let photo = Photo(uid: handle, image: command.photo.image)
-                self.imageCache.store(photo: photo)
-                self.deleteCommand(command)
-            } else if self.errorHandler.canHandle(result.error) {
-                self.errorHandler.handle(result.error)
-            }
+        uploadImageData(command.photo.image?.compressed(), imageType: imageType) { [weak self] result in
+            self?.onImageDataUploaded(command: command, result: result, completion: completion)
         }
     }
     
-    private func cacheCommand(_ command: ImageCommand) {
+    func cacheCommandAndComplete(_ command: ImageCommand, completion: @escaping (Result<String>) -> Void) {
         cache.cacheOutgoing(command)
         imageCache.store(photo: command.photo)
+    }
+    
+    private func onImageDataUploaded(command: ImageCommand, result: Result<String>, completion: @escaping (Result<String>) -> Void) {
+        if let handle = result.value {
+            let photo = Photo(uid: handle, image: command.photo.image)
+            self.imageCache.store(photo: photo)
+            self.deleteCommand(command)
+            onImageDataUploadSuccess(newHandle: handle, completion: completion)
+        } else if self.errorHandler.canHandle(result.error) {
+            self.errorHandler.handle(result.error)
+        } else {
+            completion(result)
+        }
+    }
+    
+    func onImageDataUploadSuccess(newHandle: String, completion: @escaping (Result<String>) -> Void) {
+        
     }
     
     private func deleteCommand(_ command: ImageCommand) {
@@ -100,9 +110,9 @@ class ImagesService: BaseService, ImagesServiceType {
         }
     }
     
-    private func uploadImageData(_ data: Data?,
-                                 imageType: ImagesAPI.ImageType_imagesPostImage,
-                                 completion: @escaping (Result<String>) -> Void) {
+    func uploadImageData(_ data: Data?,
+                         imageType: ImagesAPI.ImageType_imagesPostImage,
+                         completion: @escaping (Result<String>) -> Void) {
         uploadImageData(data, imageType: imageType, authorization: authorization, completion: completion)
     }
     

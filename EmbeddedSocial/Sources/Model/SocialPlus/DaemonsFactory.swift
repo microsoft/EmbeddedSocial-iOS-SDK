@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct TopicUpdateHint: Hint {
-    let oldHandle: String
-    let newHandle: String
+protocol DaemonsFactory {
+    func makeOutgoingCacheDaemon() -> Daemon
+    func makeHandleUpdaterDaemon() -> Daemon
 }

@@ -13,6 +13,12 @@ final class CreateCommentCommand: CommentCommand {
     override func getRelatedHandle() -> String? {
         return comment.topicHandle
     }
+    
+    override func apply(to feed: inout CommentFetchResult) {
+        var comments = feed.comments
+        comments.insert(comment, at: 0)
+        feed.comments = comments
+    }
 }
 
 

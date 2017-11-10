@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct CommentUpdateHint: Hint {
+struct CommentUpdateHint: HandleUpdateHint {
     let oldHandle: String
     let newHandle: String
 }

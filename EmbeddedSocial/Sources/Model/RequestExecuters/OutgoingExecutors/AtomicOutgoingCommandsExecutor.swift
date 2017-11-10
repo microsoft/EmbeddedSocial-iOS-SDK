@@ -15,9 +15,13 @@ class AtomicOutgoingCommandsExecutorImpl: OutgoingCacheRequestExecutor<Object, V
                           builder: RequestBuilder<Object>,
                           completion: @escaping (Result<Void>) -> Void) {
         
+        cacheAndComplete(command: command, completion: completion)
+        runCommand(command, with: builder)
+    }
+    
+    func cacheAndComplete(command: OutgoingCommand, completion: @escaping (Result<Void>) -> Void) {
         cacheCommand(command)
         completion(.success())
-        runCommand(command, with: builder)
     }
     
     private func cacheCommand(_ command: OutgoingCommand) {
@@ -59,5 +63,4 @@ class AtomicOutgoingCommandsExecutorImpl: OutgoingCacheRequestExecutor<Object, V
         }
         commandBeingExecuted = nil
     }
-
 }

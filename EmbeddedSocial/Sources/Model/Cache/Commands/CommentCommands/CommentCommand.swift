@@ -32,6 +32,19 @@ class CommentCommand: OutgoingCommand {
         
     }
     
+    func apply(to feed: inout CommentFetchResult) {
+        var comments = feed.comments
+    
+        for (index, var comment) in comments.enumerated() {
+            if comment.commentHandle == self.comment.commentHandle {
+                apply(to: &comment)
+                comments[index] = comment
+            }
+        }
+        
+        feed.comments = comments
+    }
+    
     override func encodeToJSON() -> Any {
         return [
             "comment": comment.encodeToJSON(),
@@ -73,5 +86,9 @@ class CommentCommand: OutgoingCommand {
             UnlikeCommentCommand.self,
             ReportCommentCommand.self
         ]
+    }
+    
+    var isActionCommand: Bool {
+        return CommentCommand.commentActionCommandTypes.contains(where: { $0 == type(of: self) })
     }
 }

@@ -96,7 +96,7 @@ class TopicService: BaseService, PostServiceProtocol {
     init(imagesService: ImagesServiceType,
          ExecutorProvider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self,
          predicateBuilder: PredicateBuilder = PredicateBuilder(),
-         changesPublisher: Publisher = HandleChangesManager.shared) {
+         changesPublisher: Publisher = HandleChangesMulticast.shared) {
         
         self.imagesService = imagesService
         self.executorProvider = ExecutorProvider
