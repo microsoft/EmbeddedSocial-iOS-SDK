@@ -8,6 +8,7 @@ protocol ReplyCellModuleInput: class {
 }
 
 protocol ReplyCellModuleOutput: class {
+    func showMenu(reply: Reply)
     func removed(reply: Reply)
 }
 
@@ -70,13 +71,7 @@ class ReplyCellPresenter: ReplyCellModuleInput, ReplyCellViewOutput, ReplyCellIn
     }
     
     func optionsPressed() {
-        let isMyComment = (myProfileHolder?.me?.uid == reply.user?.uid)
-        
-        if isMyComment {
-            router?.openMyReplyOptions(reply: reply)
-        } else {
-            router?.openOtherReplyOptions(reply: reply)
-        }
+        moduleOutput.showMenu(reply: reply)
     }
 }
 

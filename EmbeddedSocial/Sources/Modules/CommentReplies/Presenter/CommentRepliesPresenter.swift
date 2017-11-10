@@ -253,6 +253,16 @@ extension CommentRepliesPresenter: ReplyCellModuleOutput {
         view?.removeReply(index: index)
         view?.reloadCommentCell()
     }
+    
+    func showMenu(reply: Reply) {
+        let isMyComment = (SocialPlus.shared.me?.uid == reply.user?.uid)
+        
+        if isMyComment {
+            router?.openMyReplyOptions(reply: reply)
+        } else {
+            router?.openOtherReplyOptions(reply: reply)
+        }
+    }
 }
 
 extension CommentRepliesPresenter: CommentCellModuleOutout {
@@ -260,6 +270,10 @@ extension CommentRepliesPresenter: CommentCellModuleOutout {
         //todo: handle
         commentModuleOutput.didRemove(comment: comment)
         router.back()
+    }
+    
+    func showMenu(comment: Comment) {
+        
     }
 }
 

@@ -193,6 +193,16 @@ extension PostDetailPresenter: CommentCellModuleOutout {
         view.removeComment(index: index)
         feedModuleInput?.refreshData()
     }
+    
+    func showMenu(comment: Comment) {
+        let isMyComment = (SocialPlus.shared.me?.uid == comment.user?.uid)
+        
+        if isMyComment {
+            router?.openMyCommentOptions(comment: comment)
+        } else {
+            router?.openOtherCommentOptions(comment: comment)
+        }
+    }
 }
 
 extension PostDetailPresenter: Subscriber {
@@ -256,5 +266,57 @@ extension PostDetailPresenter: FeedModuleOutput {
         router.backToFeed(from: vc)
     }
 
+}
+
+extension PostDetailPresenter: PostMenuModuleOutput {
+    
+    func postMenuProcessDidStart() {
+        //        view.setRefreshingWithBlocking(state: true)
+    }
+    
+    func postMenuProcessDidFinish() {
+        //        view.setRefreshingWithBlocking(state: false)
+    }
+    
+    func didBlock(user: User) {
+        Logger.log("Success")
+    }
+    
+    func didUnblock(user: User) {
+        Logger.log("Success")
+    }
+    
+    func didFollow(user: User) {
+        guard let index = comments.index(where: { $0.user?.uid == user.uid }) else {
+            return
+        }
+        
+        comments[index].userStatus = .accepted
+        view.refreshCell(index: index)
+    }
+    
+    func didUnfollow(user: User) {
+        guard let index = comments.index(where: { $0.user?.uid == user.uid }) else {
+            return
+        }
+        
+        comments[index].userStatus = .empty
+        view.refreshCell(index: index)
+    }
+    
+    func didRemove(comment: Comment) {
+        removed(comment: comment)
+    }
+    
+    func didReport(post: PostHandle) {
+        Logger.log("Not implemented")
+    }
+    
+    func didRequestFail(error: Error) {
+        Logger.log("Reloading feed", error, event: .error)
+        //        view.showError(error: error)
+        //        fetchAllItems()
+    }
+    
 }
 

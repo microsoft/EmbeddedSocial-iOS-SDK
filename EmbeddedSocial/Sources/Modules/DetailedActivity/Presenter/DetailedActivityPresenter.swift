@@ -100,11 +100,19 @@ extension DetailedActivityPresenter: ReplyCellModuleOutput {
         self.reply = nil
         router.back()
     }
+    
+    func showMenu(reply: Reply) {
+        
+    }
 }
 
 extension DetailedActivityPresenter: CommentCellModuleOutout {
     func removed(comment: Comment) {
         self.comment = nil
         router.back()
+    }
+    
+    func showMenu(comment: Comment) {
+        
     }
 }

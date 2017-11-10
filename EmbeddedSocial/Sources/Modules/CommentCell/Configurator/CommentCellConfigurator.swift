@@ -10,7 +10,7 @@ class CommentCellModuleConfigurator {
     @discardableResult func configure(cell: CommentCell?,
                                       comment: Comment,
                                       navigationController: UINavigationController?,
-                                      moduleOutput: CommentCellModuleOutout ,
+                                      moduleOutput: CommentCellModuleOutout,
                                       myProfileHolder: UserHolder? = SocialPlus.shared) -> CommentCellModuleInput {
 
         let router = CommentCellRouter()

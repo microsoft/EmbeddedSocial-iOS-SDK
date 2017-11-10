@@ -8,4 +8,6 @@ import UIKit
 protocol PostDetailRouterInput {
     func backIfNeeded(from view: UIViewController)
     func backToFeed(from view: UIViewController)
+    func openMyCommentOptions(comment: Comment)
+    func openOtherCommentOptions(comment: Comment)
 }

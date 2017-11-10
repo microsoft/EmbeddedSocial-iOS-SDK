@@ -9,6 +9,7 @@ protocol CommentCellModuleProtocol {
 }
 
 protocol CommentCellModuleOutout: class {
+    func showMenu(comment: Comment)
     func removed(comment: Comment)
 }
 
@@ -79,13 +80,7 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     }
     
     func optionsPressed() {
-        let isMyComment = (SocialPlus.shared.me?.uid == comment.user?.uid)
-        
-        if isMyComment {
-            router?.openMyCommentOptions(comment: comment)
-        } else {
-            router?.openOtherCommentOptions(comment: comment)
-        }
+        moduleOutput?.showMenu(comment: comment)
     }
     
     // MARK: CommentCellInteractorOutput

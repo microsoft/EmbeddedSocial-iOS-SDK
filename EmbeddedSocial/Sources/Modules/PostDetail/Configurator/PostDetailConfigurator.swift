@@ -27,7 +27,11 @@ class PostDetailModuleConfigurator {
         let strategy = CommonAuthorizedActionStrategy(loginParent: navigationController)
         let presenter = PostDetailPresenter(pageSize: pageSize, actionStrategy: strategy)
         presenter.view = viewController
-        presenter.router = PostDetailRouter()
+        let router = PostDetailRouter()
+        router.navigationController = navigationController
+        router.moduleInput = presenter
+        router.postMenuModuleOutput = presenter
+        presenter.router = router
         presenter.topicHandle = topicHandle
         
         let interactor = PostDetailInteractor()
