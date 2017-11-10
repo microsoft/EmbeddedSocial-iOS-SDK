@@ -49,7 +49,7 @@ class Templates {
         
         let fetchingLimit = APIConfig.wrongFeedFetching ? Random.randomInt(max: limit) : limit
         
-        for i in cursor...cursor + fetchingLimit - 1 {
+        for i in cursor...cursor + fetchingLimit {
             var values = ["title": interval + String(i),
                           "topicHandle": interval + String(i),
                           "lastUpdatedTime": Date().ISOString,

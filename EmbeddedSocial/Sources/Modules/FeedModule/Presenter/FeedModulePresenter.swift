@@ -175,10 +175,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     fileprivate var isViewReady = false
     fileprivate var formatter = DateFormatterTool()
     fileprivate var cursor: String? = nil
-    fileprivate let limit: Int32 = Int32(Constants.Feed.pageSize)
+    fileprivate let defaultLimit: Int32 = Int32(Constants.Feed.pageSize)
     var currentItems: [Post] = [Post]() {
         didSet {
-            //Logger.log("\(oldValue.count) -> \(currentItems.count)", event: .development)
+            checkIfNoContent()
         }
     }
     fileprivate var fetchRequestsInProgress: Set<String> = Set()
@@ -288,29 +288,32 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
     }
     
-    func makeFetchRequest(requestID: String = UUID().uuidString, cursor: String? = nil, feedType: FeedType) -> FeedFetchRequest {
+    func makeFetchRequest(requestID: String = UUID().uuidString,
+                          cursor: String? = nil,
+                          limit: Int32,
+                          feedType: FeedType) -> FeedFetchRequest {
         fetchRequestsInProgress.insert(requestID)
         return FeedFetchRequest(uid: requestID, cursor: cursor, limit: limit, feedType: feedType)
     }
  
-    private func fetchItems(with cursor: String? = nil) {
+    private func fetchItems(with cursor: String? = nil, limit: Int32) {
+        
         guard let feedType = self.feedType else {
             Logger.log("feed type is not set")
             return
         }
 
-        let request = makeFetchRequest(cursor: cursor, feedType: feedType)
+        let request = makeFetchRequest(cursor: cursor, limit: limit, feedType: feedType)
         interactor.fetchPosts(request: request)
     }
     
     fileprivate func fetchAllItems() {
         cursor = nil
-//        updateUI(with: [])
         fetchRequestsInProgress = Set()
-        fetchItems()
+        fetchItems(limit: defaultLimit)
     }
     
-    fileprivate func fetchMoreItems(with cursor: String?) {
+    fileprivate func fetchMoreItems(with cursor: String?, limit: Int32) {
         
         guard let cursor = cursor else {
             Logger.log("cant fetch, no cursor")
@@ -318,7 +321,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
         
         fetchRequestsInProgress = Set()
-        fetchItems(with: cursor)
+        fetchItems(with: cursor, limit: limit)
     }
     
     // MARK: FeedModuleViewOutput
@@ -487,7 +490,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     }
     
     func didAskFetchMore() {
-       fetchMoreItems(with: cursor)
+       fetchMoreItems(with: cursor, limit: defaultLimit)
     }
     
     func didTapItem(path: IndexPath) {
@@ -502,10 +505,6 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
-        defer {
-            checkIfNoContent()
-        }
-        
         Logger.log("items arrived \(feed.items.count)")
         
         cursor = feed.cursor
@@ -514,6 +513,11 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         let newItems = initialItems + feed.items
         
         updateUI(with: newItems)
+        
+        // re-fetch missing items
+        if !feed.isFullfilled() {
+            fetchMoreItems(with: feed.cursor, limit: feed.missingItems())
+        }
     }
     
     func updateUI(with newItems: [Post]) {

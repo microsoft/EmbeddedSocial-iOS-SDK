@@ -193,14 +193,31 @@ extension Post {
 
 // MARK: Feed
 struct Feed {
+    var query: FeedQueryType? = nil
     var fetchID: String
     var feedType: FeedType
     var items: [Post]
     var cursor: String? = nil
 }
 
+extension Feed {
+    func isFullfilled() -> Bool {
+        return missingItems() == 0
+    }
+    
+    func missingItems() -> Int32 {
+        guard let limit = query?.limit else {
+            return 0
+        }
+        
+        return limit - Int32(items.count)
+    }
+}
+
+
 // MARK: Service Query Result
 struct FeedFetchResult {
+    var query: FeedQueryType?
     var posts: [Post] = []
     var error: Error?
     var cursor: String?
