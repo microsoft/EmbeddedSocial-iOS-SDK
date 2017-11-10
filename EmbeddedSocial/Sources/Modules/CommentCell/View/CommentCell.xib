@@ -171,7 +171,7 @@
                             <constraint firstItem="DZH-Du-aM6" firstAttribute="centerY" secondItem="tF5-wy-hbD" secondAttribute="centerY" id="vzC-CY-3Yw"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="252" translatesAutoresizingMaskIntoConstraints="NO" id="Gc9-rb-mOt">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="252" translatesAutoresizingMaskIntoConstraints="NO" id="Gc9-rb-mOt" customClass="CopyableLabel" customModule="EmbeddedSocial" customModuleProvider="target">
                         <rect key="frame" x="60" y="117.5" width="248" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" id="aGU-O1-WTi"/>
