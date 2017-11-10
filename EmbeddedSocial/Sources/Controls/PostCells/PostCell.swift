@@ -125,7 +125,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     override func prepareForReuse() {
         viewModel = nil
         userName.text = nil
-        postTitle.text = nil
+        postTitle.setFeedText("")
         postText.setFeedText("")
         postText.eventHandler = nil
         postCreation.text = nil

@@ -109,7 +109,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        commentTextView.resignFirstResponder()
         if commentTextView.superview == nil {
             commentInputContainer.addSubview(commentTextView)
 
