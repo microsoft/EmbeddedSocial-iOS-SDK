@@ -13,6 +13,7 @@ EmbeddesSocial is an SDK that works with the Microsoft Embedded Social service t
 	- [Menu](#menu)
 		- [Menu Types](#menu-types)
 		- [Menu Handler](#menu-handler)
+- [Example](#example)
 - [License](#license)
 
 ## Features
@@ -220,6 +221,10 @@ public protocol SideMenuItemsProvider: class {
 >let menu: SideMenuItemsProvider = MyMenuImplementation()
 >let args = LaunchArguments(..., menuHandler: menu , ...)
 >```
+
+## Example
+
+If you will have problems with SDK implementation, please, follow the [Example Application](https://github.com/Microsoft/EmbeddedSocial-iOS-SDK/tree/develop/EmbeddedSocial-Example).
 
 ## License
 
