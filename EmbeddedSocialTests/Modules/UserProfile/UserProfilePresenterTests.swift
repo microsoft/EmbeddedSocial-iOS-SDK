@@ -482,7 +482,7 @@ extension UserProfilePresenterTests {
         XCTAssertTrue(presenter.shouldOpenProfile(for: UUID().uuidString))
     }
     
-    func testThatPrivateUserViewisShown() {
+    func testThatPrivateUserViewIsShown() {
         // given
         let user = User(uid: UUID().uuidString, visibility: ._private)
         interactor.getUserResult = .success(user)
@@ -493,6 +493,19 @@ extension UserProfilePresenterTests {
         
         // then
         XCTAssertTrue(view.setupPrivateAppearanceCalled)
+    }
+    
+    func testFollowedPrivateUser() {
+        // given
+        let user = User(uid: UUID().uuidString, visibility: ._private, followerStatus: .accepted)
+        interactor.getUserResult = .success(user)
+        let presenter = makeDefaultPresenter(userID: user.uid)
+        
+        // when
+        presenter.viewIsReady()
+        
+        // then
+        XCTAssertFalse(view.setupPrivateAppearanceCalled)
     }
 }
 
