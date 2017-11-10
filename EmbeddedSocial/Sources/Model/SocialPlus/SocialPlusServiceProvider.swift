@@ -68,7 +68,8 @@ final class SocialPlusServices: SocialPlusServicesType {
     }
     
     func getDaemonsController(cache: CacheType) -> Daemon {
-        return DaemonsController(networkTracker: networkTracker, cache: cache)
+        let factory = DaemonsFactoryImpl(cache: cache, networkTracker: networkTracker)
+        return DaemonsController(factory: factory)
     }
     
     func getStartupCommands(launchArgs: LaunchArguments) -> [Command] {

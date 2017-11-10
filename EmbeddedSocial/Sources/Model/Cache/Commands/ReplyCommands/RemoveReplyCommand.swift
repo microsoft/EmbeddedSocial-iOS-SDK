@@ -18,4 +18,12 @@ final class RemoveReplyCommand: ReplyCommand {
     override func getRelatedHandle() -> String? {
         return reply.commentHandle
     }
+    
+    override func apply(to feed: inout RepliesFetchResult) {
+        var replies = feed.replies
+        if let index = replies.index(where: { $0.replyHandle == self.reply.replyHandle }) {
+            replies.remove(at: index)
+        }
+        feed.replies = replies
+    }
 }

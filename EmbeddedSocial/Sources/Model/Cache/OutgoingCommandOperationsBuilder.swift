@@ -16,30 +16,30 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
     func operation(for command: OutgoingCommand) -> OutgoingCommandOperation? {
         // user commands
         if let command = command as? FollowCommand {
-            return FollowUserOperation(command: command, socialService: SocialService())
+            return FollowUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? UnfollowCommand {
-            return UnfollowUserOperation(command: command, socialService: SocialService())
+            return UnfollowUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? BlockCommand {
-            return BlockUserOperation(command: command, socialService: SocialService())
+            return BlockUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? UnblockCommand {
-            return UnblockUserOperation(command: command, socialService: SocialService())
+            return UnblockUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? CancelPendingCommand {
-            return CancelPendingUserOperation(command: command, socialService: SocialService())
+            return CancelPendingUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? AcceptPendingCommand {
-            return AcceptPendingUserOperation(command: command, socialService: SocialService())
+            return AcceptPendingUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? ReportUserCommand {
             return ReportUserOperation(command: command, service: ReportingService())
         }
         
         // topic commands
         else if let command = command as? LikeTopicCommand {
-            return LikeTopicOperation(command: command, likesService: LikesService())
+            return LikeTopicOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? UnlikeTopicCommand {
-            return UnlikeTopicOperation(command: command, likesService: LikesService())
+            return UnlikeTopicOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? PinTopicCommand {
-            return PinTopicOperation(command: command, likesService: LikesService())
+            return PinTopicOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? UnpinTopicCommand {
-            return UnpinTopicOperation(command: command, likesService: LikesService())
+            return UnpinTopicOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? CreateTopicCommand {
             return CreateTopicOperation(command: command, topicsService: TopicService(imagesService: ImagesService()))
         } else if let command = command as? RemoveTopicCommand {
@@ -54,9 +54,9 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         
         // reply commands
         else if let command = command as? LikeReplyCommand {
-            return LikeReplyOperation(command: command, likesService: LikesService())
+            return LikeReplyOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? UnlikeReplyCommand {
-            return UnlikeReplyOperation(command: command, likesService: LikesService())
+            return UnlikeReplyOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? CreateReplyCommand {
             return CreateReplyOperation(command: command, repliesService: RepliesService())
         } else if let command = command as? RemoveReplyCommand {
@@ -69,9 +69,9 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         
         // comment commands
         else if let command = command as? LikeCommentCommand {
-            return LikeCommentOperation(command: command, likesService: LikesService())
+            return LikeCommentOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? UnlikeCommentCommand {
-            return UnlikeCommentOperation(command: command, likesService: LikesService())
+            return UnlikeCommentOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? CreateCommentCommand {
             return CreateCommentOperation(command: command, commentsService: CommentsService(imagesService: ImagesService()))
         } else if let command = command as? RemoveCommentCommand {
@@ -102,6 +102,14 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         }
         
         return nil
+    }
+    
+    private func makeLikesService() -> LikesServiceProtocol {
+        return LikesService()
+    }
+    
+    private func makeSocialService() -> SocialServiceType {
+        return SocialService()
     }
     
     func fetchCommandsOperation(cache: CacheType, predicate: NSPredicate) -> FetchOutgoingCommandsOperation {

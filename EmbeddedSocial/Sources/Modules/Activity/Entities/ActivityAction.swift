@@ -105,8 +105,13 @@ class TransitionAction: Action {
             
             presenter?.interactor.sendActivityStateAsRead(with: handle)
             presenter?.router.open(with: activityItem)
+            
+        case let .othersActivity(activity):
+
+            presenter?.router.open(with: activityItem)
+            
         default:
-            Logger.log()
+            Logger.log(activityItem)
         }
     }
 }

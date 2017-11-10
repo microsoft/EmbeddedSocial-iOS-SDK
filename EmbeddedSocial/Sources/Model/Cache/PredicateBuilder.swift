@@ -191,6 +191,20 @@ extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
     func allNotificationCommands() -> NSPredicate {
         return NSPredicate(format: "typeid = %@", UpdateNotificationsStatusCommand.typeIdentifier)
     }
+    
+    func allCommentCommands() -> NSPredicate {
+        let typeIDs = CommentCommand.allCommentCommandTypes.map { $0.typeIdentifier }
+        return NSPredicate(format: "typeid IN %@", typeIDs)
+    }
+    
+    func allReplyCommands() -> NSPredicate {
+        let typeIDs = ReplyCommand.allReplyCommandTypes.map { $0.typeIdentifier }
+        return NSPredicate(format: "typeid IN %@", typeIDs)
+    }
+    
+    func createReplyCommands() -> NSPredicate {
+        return NSPredicate(format: "typeid = %@", CreateReplyCommand.typeIdentifier)
+    }
 }
 
 extension PredicateBuilder: TopicsFeedProcessorPredicateBuilder {

@@ -48,7 +48,7 @@ class SocialService: BaseService, SocialServiceType {
     
     fileprivate let executorProvider: CacheRequestExecutorProviderType.Type
     
-    init(ExecutorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
+    init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
         self.executorProvider = provider
         super.init()
         usersFeedExecutor = provider.makeUsersFeedExecutor(for: self)

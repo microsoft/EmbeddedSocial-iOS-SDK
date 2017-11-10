@@ -7,47 +7,45 @@
 import Foundation
 
 protocol RepliesProcessorType {
-    func proccess(_ fetchResult: inout RepliesFetchResult)
+    func proccess(_ fetchResult: inout RepliesFetchResult, commentHandle: String)
 }
 
 class RepliesProcessor: RepliesProcessorType {
     
-    let cache: CacheType
+    private let cache: CacheType
+    private let predicateBuilder = PredicateBuilder()
+    private var commands: [ReplyCommand] = []
     
-    required init(cache: CacheType) {
+    init(cache: CacheType) {
         self.cache = cache
     }
     
-    func proccess(_ fetchResult: inout RepliesFetchResult) {
-        let commands = fetchCreateDeleteReplyCommands() + fetchReplyActionCommands()
-        fetchCreateDeleteReplyCommands().filter( { $0.self is RemoveReplyCommand } ) .forEach { (commands) in
-            fetchResult.replies = fetchResult.replies.filter({ $0.replyHandle != commands.reply.replyHandle })
+    func proccess(_ feed: inout RepliesFetchResult, commentHandle: String) {
+        commands = fetchAllReplyCommands()
+        applyCreateDeleteCommands(to: &feed, commentHandle: commentHandle)
+        applyReplyActionCommands(to: &feed)
+    }
+    
+    private func fetchAllReplyCommands() -> [ReplyCommand] {
+        let request = CacheFetchRequest(
+            resultType: OutgoingCommand.self,
+            predicate: predicateBuilder.allReplyCommands(),
+            sortDescriptors: [Cache.createdAtSortDescriptor]
+        )
+        
+        return cache.fetchOutgoing(with: request) as? [ReplyCommand] ?? []
+    }
+    
+    private func applyCreateDeleteCommands(to feed: inout RepliesFetchResult, commentHandle: String) {
+        for command in commands where !command.isActionCommand && command.reply.commentHandle == commentHandle {
+            command.apply(to: &feed)
         }
-        
-        fetchResult.replies = fetchResult.replies.map({ (reply) -> Reply in
-            var reply = reply
-            let commandsToApply = commands.filter { $0.reply.replyHandle == reply.commentHandle }
-            for command in commandsToApply {
-                command.apply(to: &reply)
-            }
-            return reply
-        })
-        
     }
     
-    private func fetchReplyActionCommands() -> [ReplyCommand] {
-        let request = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                        predicate: PredicateBuilder().replyActionCommands(),
-                                        sortDescriptors: [Cache.createdAtSortDescriptor])
-        
-        return cache.fetchOutgoing(with: request) as? [ReplyCommand] ?? []
+    private func applyReplyActionCommands(to feed: inout RepliesFetchResult) {
+        for command in commands where command.isActionCommand {
+            command.apply(to: &feed)
+        }
     }
-    
-    private func fetchCreateDeleteReplyCommands() -> [ReplyCommand] {
-        let request = CacheFetchRequest(resultType: OutgoingCommand.self,
-                                        predicate: PredicateBuilder().createDeleteReplyCommands(),
-                                        sortDescriptors: [Cache.createdAtSortDescriptor])
-        
-        return cache.fetchOutgoing(with: request) as? [ReplyCommand] ?? []
-    }
+
 }
