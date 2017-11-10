@@ -20,6 +20,7 @@ struct APIConfig {
     public static var numberedCommentLikes = false
     public static var loadMyTopics = false
     public static var isReachable = true
+    public static var wrongResponses = false
     public static var wrongFeedFetching = false
     public static var values = [:] as [String: Any]
 }

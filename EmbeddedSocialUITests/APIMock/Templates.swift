@@ -47,7 +47,7 @@ class Templates {
     class func loadTopics(interval: String, cursor: Int = 0, limit: Int = 10) -> Any {
         var topics: Array<[String: Any]> = []
         
-        let fetchingLimit = APIConfig.wrongFeedFetching ? Int(Random.randomUInt(UInt(limit))) : limit
+        let fetchingLimit = APIConfig.wrongFeedFetching ? Random.randomInt(max: limit) : limit
         
         for i in cursor...cursor + fetchingLimit - 1 {
             var values = ["title": interval + String(i),
@@ -70,7 +70,6 @@ class Templates {
                                        values: values)
             topics.append(topic)
         }
-        print("Response cursor: \(cursor + fetchingLimit)")
         return ["data": topics, "cursor": String(cursor + fetchingLimit)]
     }
     
