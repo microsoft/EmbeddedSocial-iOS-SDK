@@ -17,3 +17,8 @@ protocol Subscriber: class {
 protocol Hint {
     
 }
+
+protocol HandleUpdateHint: Hint {
+    var oldHandle: String { get }
+    var newHandle: String { get }
+}

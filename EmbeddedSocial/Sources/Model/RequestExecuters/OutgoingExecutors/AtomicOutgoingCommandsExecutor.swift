@@ -16,7 +16,7 @@ class AtomicOutgoingCommandsExecutorImpl: OutgoingCacheRequestExecutor<Object, V
                           completion: @escaping (Result<Void>) -> Void) {
         
         cacheAndComplete(command: command, completion: completion)
-        runCommand(command, with: builder, completion: completion)
+        runCommand(command, with: builder)
     }
     
     func cacheAndComplete(command: OutgoingCommand, completion: @escaping (Result<Void>) -> Void) {
@@ -45,27 +45,22 @@ class AtomicOutgoingCommandsExecutorImpl: OutgoingCacheRequestExecutor<Object, V
                                     sortDescriptors: nil)
     }
     
-    private func runCommand(_ command: OutgoingCommand, with builder: RequestBuilder<Object>, completion: @escaping (Result<Void>) -> Void) {
+    private func runCommand(_ command: OutgoingCommand, with builder: RequestBuilder<Object>) {
         commandBeingExecuted = command
         
         builder.execute { [weak self] response, error in
             DispatchQueue.main.async {
-                self?.processResponse(response?.body, error, completion: completion)
+                self?.processResponse(response?.body, error)
             }
         }
     }
     
-    private func processResponse(_ data: Object?, _ error: Error?, completion: @escaping (Result<Void>) -> Void) {
+    private func processResponse(_ data: Object?, _ error: Error?) {
         if let errorHandler = errorHandler, errorHandler.canHandle(error) {
             errorHandler.handle(error)
         } else if error == nil && commandBeingExecuted != nil {
             deleteCommand(commandBeingExecuted!)
-            onSuccess(completion: completion)
         }
         commandBeingExecuted = nil
-    }
-    
-    func onSuccess(completion: @escaping (Result<Void>) -> Void) {
-        
     }
 }

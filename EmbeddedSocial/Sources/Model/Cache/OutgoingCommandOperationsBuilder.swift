@@ -18,19 +18,14 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         if let command = command as? FollowCommand {
             return FollowUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? UnfollowCommand {
-            let sc = SocialService(executorProvider: NonCachingRequestExecutorProvider.self)
             return UnfollowUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? BlockCommand {
-            let sc = SocialService(executorProvider: NonCachingRequestExecutorProvider.self)
             return BlockUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? UnblockCommand {
-            let sc = SocialService(executorProvider: NonCachingRequestExecutorProvider.self)
             return UnblockUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? CancelPendingCommand {
-            let sc = SocialService(executorProvider: NonCachingRequestExecutorProvider.self)
             return CancelPendingUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? AcceptPendingCommand {
-            let sc = SocialService(executorProvider: NonCachingRequestExecutorProvider.self)
             return AcceptPendingUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? ReportUserCommand {
             return ReportUserOperation(command: command, service: ReportingService())
@@ -46,13 +41,13 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         } else if let command = command as? UnpinTopicCommand {
             return UnpinTopicOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? CreateTopicCommand {
-            return CreateTopicOperation(command: command, topicsService: TopicService(imagesService: NonCachingImagesService()))
+            return CreateTopicOperation(command: command, topicsService: TopicService(imagesService: ImagesService()))
         } else if let command = command as? RemoveTopicCommand {
             return RemoveTopicOperation(command: command,
-                                        topicsService: TopicService(imagesService: NonCachingImagesService()),
+                                        topicsService: TopicService(imagesService: ImagesService()),
                                         cleanupStrategy: CacheCleanupStrategyImpl(cache: SocialPlus.shared.cache))
         } else if let command = command as? UpdateTopicCommand {
-            return UpdateTopicOperation(command: command, topicsService: TopicService(imagesService: NonCachingImagesService()))
+            return UpdateTopicOperation(command: command, topicsService: TopicService(imagesService: ImagesService()))
         } else if let command = command as? ReportTopicCommand {
             return ReportTopicOperation(command: command, service: ReportingService())
         }
@@ -78,11 +73,10 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         } else if let command = command as? UnlikeCommentCommand {
             return UnlikeCommentOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? CreateCommentCommand {
-            let cs = NonCachingCommentsService(imagesService: NonCachingImagesService())
-            return CreateCommentOperation(command: command, commentsService: cs)
+            return CreateCommentOperation(command: command, commentsService: CommentsService(imagesService: ImagesService()))
         } else if let command = command as? RemoveCommentCommand {
             return RemoveCommentOperation(command: command,
-                                          commentService: NonCachingCommentsService(imagesService: NonCachingImagesService()),
+                                          commentService: CommentsService(imagesService: ImagesService()),
                                           cleanupStrategy: CacheCleanupStrategyImpl(cache: SocialPlus.shared.cache))
         } else if let command = command as? ReportCommentCommand {
             return ReportCommentOperation(command: command, reportService: ReportingService())
@@ -90,11 +84,11 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         
         // image commands
         else if let command = command as? CreateTopicImageCommand {
-            return CreateTopicImageOperation(command: command, imagesService: NonCachingImagesService())
+            return CreateTopicImageOperation(command: command, imagesService: ImagesService())
         } else if let command = command as? CreateCommentImageCommand {
-            return CreateCommentImageOperation(command: command, imagesService: NonCachingImagesService())
+            return CreateCommentImageOperation(command: command, imagesService: ImagesService())
         } else if let command = command as? UpdateUserImageCommand {
-            return UpdateUserImageOperation(command: command, imagesService: NonCachingImagesService())
+            return UpdateUserImageOperation(command: command, imagesService: ImagesService())
         }
         
         // notification commands

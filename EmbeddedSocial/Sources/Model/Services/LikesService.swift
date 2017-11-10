@@ -61,6 +61,7 @@ class LikesService: BaseService, LikesServiceProtocol {
         requestExecutor = provider.makeUsersFeedExecutor(for: self)
         outgoingActionsExecutor = provider.makeAtomicOutgoingCommandsExecutor(for: self)
     }
+    
     func postLike(post: Post, completion: @escaping CompletionHandler) {
         let builder = LikesAPI.topicLikesPostLikeWithRequestBuilder(topicHandle: post.topicHandle, authorization: authorization)
         let command = LikeTopicCommand(topic: post)

@@ -28,7 +28,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
     private var processor: RepliesProcessorType!
     private let changesPublisher: Publisher
 
-    init(changesPublisher: Publisher = HandleChangesManager.shared) {
+    init(changesPublisher: Publisher = HandleChangesMulticast.shared) {
         self.changesPublisher = changesPublisher
         super.init()
         processor = RepliesProcessor(cache: cache)

@@ -5,9 +5,9 @@
 
 import Foundation
 
-class HandleChangesManager: Publisher {
+class HandleChangesMulticast: Publisher {
     
-    static let shared = HandleChangesManager()
+    static let shared = HandleChangesMulticast()
     
     private let multicast = MulticastDelegate<Subscriber>()
     

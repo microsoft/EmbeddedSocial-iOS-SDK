@@ -54,7 +54,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     init(pageSize: Int,
          actionStrategy: AuthorizedActionStrategy,
-         handlePublisher: Publisher = HandleChangesManager.shared) {
+         handlePublisher: Publisher = HandleChangesMulticast.shared) {
         self.pageSize = pageSize
         self.actionStrategy = actionStrategy
         handlePublisher.subscribe(self)

@@ -35,7 +35,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     
     init(pageSize: Int,
          actionStrategy: AuthorizedActionStrategy,
-         handleChangesPublisher: Publisher = HandleChangesManager.shared) {
+         handleChangesPublisher: Publisher = HandleChangesMulticast.shared) {
         self.pageSize = pageSize
         self.actionStrategy = actionStrategy
         handleChangesPublisher.subscribe(self)

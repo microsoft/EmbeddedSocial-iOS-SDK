@@ -25,7 +25,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
     private let predicateBuilder = PredicateBuilder()
     private let changesPublisher: Publisher
 
-    init(imagesService: ImagesServiceType, changesPublisher: Publisher = HandleChangesManager.shared) {
+    init(imagesService: ImagesServiceType, changesPublisher: Publisher = HandleChangesMulticast.shared) {
         self.changesPublisher = changesPublisher
         self.imagesService = imagesService
         super.init()

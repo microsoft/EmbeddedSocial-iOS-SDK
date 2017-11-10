@@ -6,31 +6,15 @@
 import Foundation
 
 final class DaemonsController: Daemon {
-    private let networkTracker: NetworkStatusMulticast
-    private let cache: CacheType
-    
-    private lazy var outgoingCacheDaemon: OutgoingCommandsUploader = { [unowned self] in
-        let queue = OperationQueue()
-        queue.name = "OutgoingCommandsUploader-executionQueue"
-        queue.qualityOfService = .background
-        queue.maxConcurrentOperationCount = 1
-        
-        let strategy = OutgoingCommandsUploadStrategy(cache: self.cache,
-                                                      operationsBuilderType: OutgoingCommandOperationsBuilder(),
-                                                      executionQueue: queue)
-        
-        return OutgoingCommandsUploader(networkTracker: self.networkTracker,
-                                        uploadStrategy: strategy,
-                                        jsonDecoderType: Decoders.self)
-    }()
     
     private lazy var daemons: [Daemon] = { [unowned self] in
-        return [self.outgoingCacheDaemon]
+        return [self.factory.makeOutgoingCacheDaemon(), self.factory.makeHandleUpdaterDaemon()]
     }()
     
-    init(networkTracker: NetworkStatusMulticast, cache: CacheType) {
-        self.networkTracker = networkTracker
-        self.cache = cache
+    private let factory: DaemonsFactory
+    
+    init(factory: DaemonsFactory) {
+        self.factory = factory
     }
     
     func start() {
