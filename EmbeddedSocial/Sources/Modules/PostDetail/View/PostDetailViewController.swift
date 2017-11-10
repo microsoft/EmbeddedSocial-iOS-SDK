@@ -127,6 +127,8 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         commentTextView.resignFirstResponder()
         hideHUD()
         super.viewWillDisappear(animated)
+        bottomConstraint?.constant = 0
+        view.layoutIfNeeded()
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
