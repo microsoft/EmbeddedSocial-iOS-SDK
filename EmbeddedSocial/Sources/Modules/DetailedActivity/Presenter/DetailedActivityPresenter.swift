@@ -100,6 +100,14 @@ extension DetailedActivityPresenter: ReplyCellModuleOutput {
         self.reply = nil
         router.back()
     }
+    
+    func showMenu(reply: Reply) {
+        
+    }
+    
+    var shouldOpenMenu: Bool {
+        return false
+    }
 }
 
 extension DetailedActivityPresenter: CommentCellModuleOutout {
@@ -107,4 +115,9 @@ extension DetailedActivityPresenter: CommentCellModuleOutout {
         self.comment = nil
         router.back()
     }
+    
+    func showMenu(comment: Comment) {
+        
+    }
+    
 }

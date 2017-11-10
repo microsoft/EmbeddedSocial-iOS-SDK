@@ -9,7 +9,15 @@ protocol CommentCellModuleProtocol {
 }
 
 protocol CommentCellModuleOutout: class {
+    func showMenu(comment: Comment)
+    var shouldOpenMenu: Bool { get }
     func removed(comment: Comment)
+}
+
+extension CommentCellModuleOutout {
+    var shouldOpenMenu: Bool {
+        return true
+    }
 }
 
 class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, CommentCellInteractorOutput {
@@ -79,12 +87,16 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     }
     
     func optionsPressed() {
-        let isMyComment = (SocialPlus.shared.me?.uid == comment.user?.uid)
-        
-        if isMyComment {
-            router?.openMyCommentOptions(comment: comment)
+        if moduleOutput?.shouldOpenMenu == true {
+            moduleOutput?.showMenu(comment: comment)
         } else {
-            router?.openOtherCommentOptions(comment: comment)
+            let isMyComment = (SocialPlus.shared.me?.uid == comment.user?.uid)
+            
+            if isMyComment {
+                router?.openMyCommentOptions(comment: comment)
+            } else {
+                router?.openOtherCommentOptions(comment: comment)
+            }
         }
     }
     

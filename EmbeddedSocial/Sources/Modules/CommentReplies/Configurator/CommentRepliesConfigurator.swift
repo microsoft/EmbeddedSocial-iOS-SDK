@@ -33,6 +33,9 @@ class CommentRepliesModuleConfigurator {
         let presenter = CommentRepliesPresenter(pageSize: pageSize, actionStrategy: strategy)
         presenter.comment = commentModule.mainComment()
         presenter.view = viewController
+        router.moduleInput = presenter
+        router.navigationController = navigationController
+        router.postMenuModuleOutput = presenter
         presenter.router = router
         presenter.scrollType = scrollType
         presenter.commentModuleOutput = commentModule
