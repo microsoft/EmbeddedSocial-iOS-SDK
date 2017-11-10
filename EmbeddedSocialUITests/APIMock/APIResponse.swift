@@ -80,3 +80,28 @@ public struct APIResponse: WebApp {
         dataResponse.app(environ, startResponse: startResponse, sendBody: sendBody)
     }
 }
+
+struct WrongAPIResponse: WebApp {
+    
+    private let contentTypes = ["text/plain", "text/html", "multipart/form-data",
+                                "text/javascript", "application/xml", "application/json"]
+    
+    private let response: WebApp
+    
+    init(_ handler: @escaping (_ environ: [String: Any], _ sendJSON: @escaping (Any) -> Void) -> Void) {
+        let contentType = contentTypes[Random.randomInt(max: contentTypes.count)]
+        
+        response = DataResponse(statusCode: 200, statusMessage: "OK", contentType: contentType, headers: []) { (environment, sendData) in
+            handler(environment) { json in
+                let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+                APIState.setLatestResponseAsString(forService: "dummy", data: String(data: data, encoding: .utf8) as String!)
+                sendData(data)
+            }
+        }
+    }
+    
+    func app(_ environ: [String : Any], startResponse: @escaping ((String, [(String, String)]) -> Void), sendBody: @escaping ((Data) -> Void)) {
+        response.app(environ, startResponse: startResponse, sendBody: sendBody)
+    }
+    
+}

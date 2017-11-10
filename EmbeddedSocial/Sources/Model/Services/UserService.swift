@@ -40,8 +40,7 @@ class UserService: BaseService, UserServiceType {
     
     func getMyProfile(authorization: Authorization, credentials: CredentialsList, completion: @escaping (Result<User>) -> Void) {
         UsersAPI.usersGetMyProfile(authorization: authorization) { profile, error in
-            if let profile = profile {
-                let user = User(profileView: profile, credentials: credentials)
+            if let profile = profile, let user = User(profileView: profile, credentials: credentials) {
                 completion(.success(user))
             } else {
                 self.errorHandler.handle(error: error, completion: completion)
@@ -98,8 +97,7 @@ class UserService: BaseService, UserServiceType {
     
     func getUserProfile(userID: String, completion: @escaping (Result<User>) -> Void) {
         UsersAPI.usersGetUser(userHandle: userID, authorization: authorization) { profile, error in
-            if let profile = profile {
-                let user = User(profileView: profile)
+            if let profile = profile, let user = User(profileView: profile) {
                 self.cache.cacheIncoming(profile)
                 completion(.success(user))
             } else {

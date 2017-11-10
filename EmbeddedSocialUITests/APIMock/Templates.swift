@@ -163,4 +163,10 @@ class Templates {
         }
     }
     
+    class func loadWrongResponse() -> Any {
+        let jsonFileContent = load(name: "wrong")
+        let responses: [[String : Any]] = jsonFileContent["responses"] as! [[String : Any]]
+        return responses[Random.randomInt(max: responses.count)]
+    }
+    
 }
