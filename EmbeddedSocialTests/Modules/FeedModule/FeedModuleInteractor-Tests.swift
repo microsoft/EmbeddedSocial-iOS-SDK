@@ -26,7 +26,7 @@ private class FeedModulePresenterMock: FeedModuleInteractorOutput {
         startedFetching = true
     }
     
-    func didFinishFetching() {
+    func didFinishFetching(with error: Error?) {
         finishedFetching = true
     }
     
@@ -40,6 +40,10 @@ private class FeedModulePresenterMock: FeedModuleInteractorOutput {
     
     func didFetchMore(feed: Feed) {
         fetchedMoreFeed = feed
+    }
+    
+    func didUpdateTopicHandle(from oldHandle: String, to newHandle: String) {
+        
     }
 }
 

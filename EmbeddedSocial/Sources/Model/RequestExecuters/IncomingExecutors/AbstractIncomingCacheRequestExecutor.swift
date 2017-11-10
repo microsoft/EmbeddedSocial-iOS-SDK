@@ -5,10 +5,7 @@
 
 import Foundation
 
-class CacheRequestExecutionStrategy<T, U>: RequestExecutionStrategy {
-    typealias ResponseType = T
-    typealias ResultType = U
-    
+class IncomingCacheRequestExecutor<ResponseType, ResultType> {
     var cache: CacheType?
     var errorHandler: APIErrorHandler?
     var networkTracker: NetworkStatusMulticast?
@@ -17,4 +14,3 @@ class CacheRequestExecutionStrategy<T, U>: RequestExecutionStrategy {
         fatalError("Abstract method")
     }
 }
-

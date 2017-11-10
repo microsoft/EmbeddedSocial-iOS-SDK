@@ -11,7 +11,11 @@ class CreateReplyCommandTests: XCTestCase {
     func testThatItReturnsCorrectInverseCommand() {
         // given
         let reply = Reply(replyHandle: UUID().uuidString)
-        let sut = CreateReplyCommand(reply: reply)
-        XCTAssertNil(sut.inverseCommand)
+        let cmd = CreateReplyCommand(reply: reply)
+        guard let inverseCmd = cmd.inverseCommand as? RemoveReplyCommand else {
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(cmd.reply, inverseCmd.reply)
     }
 }

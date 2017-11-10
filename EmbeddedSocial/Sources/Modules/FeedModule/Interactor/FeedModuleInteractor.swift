@@ -27,8 +27,9 @@ protocol FeedModuleInteractorOutput: class {
     func didFetchMore(feed: Feed)
     func didFail(error: Error)
     func didStartFetching()
-    func didFinishFetching()
+    func didFinishFetching(with error: Error?)
     func didPostAction(post: PostHandle, action: PostSocialAction, error: Error?)
+    func didUpdateTopicHandle(from oldHandle: String, to newHandle: String)
 }
 
 class FeedModuleInteractor: FeedModuleInteractorInput {
@@ -39,10 +40,14 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     var searchService: SearchServiceType!
     weak var userHolder: UserHolder? = SocialPlus.shared
     
+    init(handleChangesPublisher: Publisher = HandleChangesManager.shared) {
+        handleChangesPublisher.subscribe(self)
+    }
+    
     func handleFetch(result: FeedFetchResult, request: FeedFetchRequest) {
         
         defer {
-            output.didFinishFetching()
+            output.didFinishFetching(with: result.error)
         }
         
         let isLoadingMore = request.cursor != nil
@@ -183,5 +188,14 @@ class FeedModuleInteractor: FeedModuleInteractorInput {
     
     deinit {
         Logger.log()
+    }
+
+}
+
+extension FeedModuleInteractor: Subscriber {
+    func update(_ hint: Hint) {
+        if let hint = hint as? TopicUpdateHint {
+            output.didUpdateTopicHandle(from: hint.oldHandle, to: hint.newHandle)
+        }
     }
 }

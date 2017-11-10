@@ -33,4 +33,20 @@ extension CacheType {
     func cacheIncoming(_ item: Cacheable) {
         cacheIncoming(item, for: item.typeIdentifier)
     }
+    
+    func deleteInverseCommand(for command: OutgoingCommand) -> Bool {
+        
+        guard let inverseCommand = command.inverseCommand else {
+            return false
+        }
+        
+        let p = PredicateBuilder().predicate(for: inverseCommand)
+        
+        if firstOutgoing(ofType: OutgoingCommand.self, predicate: p, sortDescriptors: nil) != nil {
+            deleteOutgoing(with: p)
+            return true
+        }
+        
+        return false
+    }
 }

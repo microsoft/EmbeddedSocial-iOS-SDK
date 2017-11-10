@@ -55,5 +55,11 @@ class MockRepliesService: RepliesServiceProtcol {
         completion(.success())
     }
     
+    func subscribe(_ subscriber: Subscriber) {
+        
+    }
     
+    func notify(_ hint: Hint) {
+        
+    }
 }

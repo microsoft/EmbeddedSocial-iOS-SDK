@@ -33,12 +33,16 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         return (feedModuleInput?.moduleHeight())!
     }
     
-    init(pageSize: Int, actionStrategy: AuthorizedActionStrategy) {
+    init(pageSize: Int,
+         actionStrategy: AuthorizedActionStrategy,
+         handleChangesPublisher: Publisher = HandleChangesManager.shared) {
         self.pageSize = pageSize
         self.actionStrategy = actionStrategy
+        handleChangesPublisher.subscribe(self)
     }
     
     // MARK: PostDetailInteractorOutput
+    
     func didFetch(comments: [Comment], cursor: String?) {
         self.cursor = cursor
         self.comments = comments
@@ -191,12 +195,39 @@ extension PostDetailPresenter: CommentCellModuleOutout {
     }
 }
 
-extension PostDetailPresenter: FeedModuleOutput {
-    func didFinishRefreshingData() {
-        view.refreshPostCell()
-        feedModuleInput?.lockScrolling()
+extension PostDetailPresenter: Subscriber {
+    
+    func update(_ hint: Hint) {
+        if let hint = hint as? CommentUpdateHint {
+            updateCommentHandle(from: hint.oldHandle, to: hint.newHandle)
+        } else if let hint = hint as? TopicUpdateHint, canHandle(hint) {
+            topicHandle = hint.newHandle
+            feedModuleInput?.feedType = .single(post: hint.newHandle)
+            feedModuleInput?.refreshData()
+        }
     }
     
+    private func canHandle(_ hint: TopicUpdateHint) -> Bool {
+        if let feedType = feedModuleInput?.feedType,
+            case let FeedType.single(topicHandle) = feedType,
+            topicHandle == hint.oldHandle {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    private func updateCommentHandle(from oldHandle: String, to newHandle: String) {
+        guard let idx = comments.index(where: { $0.commentHandle == oldHandle }) else { return }
+        
+        let commentToUpdate = comments[idx]
+        commentToUpdate.commentHandle = newHandle
+        comments[idx] = commentToUpdate
+    }
+}
+
+extension PostDetailPresenter: FeedModuleOutput {
+
     func didScrollFeed(_ feedView: UIScrollView) {
         print("feed did scroll in PostDetailPresenter")
     }

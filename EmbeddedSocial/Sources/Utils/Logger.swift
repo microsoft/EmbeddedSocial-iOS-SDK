@@ -34,7 +34,7 @@ class Logger {
         return components.isEmpty ? "" : components.last!
     }
     
-    static var logLevel: LogEvent? = .development
+    static var logLevel: LogEvent?
     static var dateFormat = "HH:mm:ss"
     static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()

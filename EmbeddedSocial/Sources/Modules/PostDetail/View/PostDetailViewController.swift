@@ -56,6 +56,15 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         return refreshControl
     }()
     
+    lazy var failedToLoadLabel: UILabel = { [unowned self] in
+        let view = UILabel()
+        view.text = L10n.Common.failedToLoadData
+        view.sizeToFit()
+        view.isHidden = true
+        
+        return view
+    }()
+    
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,8 +75,25 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         output.viewIsReady()
         commentTextView.delegate = self
         configTextView()
+        
+        collectionView.addSubview(failedToLoadLabel)
+        
+        failedToLoadLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+        
         apply(theme: theme)
         showHUD()
+    }
+    
+    private func showFailedToLoadLabel() {
+        failedToLoadLabel.isHidden = false
+        commentInputContainer.isHidden = true
+    }
+    
+    private func hideFailedToLoadLabel() {
+        failedToLoadLabel.isHidden = true
+        commentInputContainer.isHidden = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,8 +145,11 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
     
     func refreshPostCell() {
         collectionView.reloadData()
+        hideHUD()
         if output.heightForFeed() > 0 {
-            hideHUD()
+            hideFailedToLoadLabel()
+        } else {
+            showFailedToLoadLabel()
         }
     }
     
@@ -401,7 +430,7 @@ extension PostDetailViewController: Themeable {
         commentTextView.backgroundColor = palette.contentBackground
         
         commentInputContainer.backgroundColor = palette.contentBackground
-        
+        failedToLoadLabel.textColor = palette.textPrimary
         refreshControl.tintColor = palette.loadingIndicator
     }
 }

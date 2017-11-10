@@ -42,7 +42,6 @@ extension FeedModuleOutput {
     func didScrollFeed(_ feedView: UIScrollView) { }
     
     func didStartRefreshingData() { }
-    func didFinishRefreshingData(_ error: Error?) { }
     func didUpdateFeed() { }
     func commentsPressed() { }
     func postRemoved() { }
@@ -149,6 +148,7 @@ enum FeedModuleLayoutType: Int {
 
 class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInteractorOutput, PostViewModelActionsProtocol {
     
+    
     weak var view: FeedModuleViewInput!
     var interactor: FeedModuleInteractorInput!
     var router: FeedModuleRouterInput!
@@ -238,6 +238,11 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     private func onFeedTypeChange() {
         Logger.log(self.feedType)
+        
+        if let feedType = feedType, case .search = feedType {
+            updateUI(with: [])
+        }
+        
         if isViewReady {
             view.resetFocus()
             fetchAllItems()
@@ -547,17 +552,13 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     func didStartFetching() {
         Logger.log()
         view.setRefreshing(state: true)
-        if let delegate = moduleOutput {
-            delegate.didStartRefreshingData()
-        }
+        moduleOutput?.didStartRefreshingData()
     }
     
-    func didFinishFetching() {
+    func didFinishFetching(with error: Error?) {
         Logger.log()
         view.setRefreshing(state: false)
-        if let delegate = moduleOutput {
-            delegate.didFinishRefreshingData(nil)
-        } 
+        moduleOutput?.didFinishRefreshingData(error)
     }
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type,
@@ -584,6 +585,14 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
     
     func didScrollFeed(_ feedView: UIScrollView) {
         moduleOutput?.didScrollFeed(feedView)
+    }
+    
+    func didUpdateTopicHandle(from oldHandle: String, to newHandle: String) {
+        guard let idx = currentItems.index(where: { $0.topicHandle == oldHandle }) else { return }
+        
+        var itemToUpdate = currentItems[idx]
+        itemToUpdate.topicHandle = newHandle
+        currentItems[idx] = itemToUpdate
     }
     
     deinit {

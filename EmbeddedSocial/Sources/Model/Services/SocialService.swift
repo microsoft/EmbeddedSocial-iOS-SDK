@@ -43,17 +43,17 @@ class SocialService: BaseService, SocialServiceType {
     
     fileprivate var usersFeedExecutor: UsersFeedRequestExecutor!
     private var suggestedUsersExecutor: SuggestedUsersRequestExecutor!
-    private var outgoingActionsExecutor: OutgoingActionRequestExecutor!
+    private var outgoingActionsExecutor: AtomicOutgoingCommandsExecutor!
     fileprivate var activitiesExecutor: MyActivityRequestExecutor!
     
     fileprivate let executorProvider: CacheRequestExecutorProviderType.Type
     
-    init(executorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
+    init(ExecutorProvider provider: CacheRequestExecutorProviderType.Type = CacheRequestExecutorProvider.self) {
         self.executorProvider = provider
         super.init()
         usersFeedExecutor = provider.makeUsersFeedExecutor(for: self)
         suggestedUsersExecutor = provider.makeSuggestedUsersExecutor(for: self)
-        outgoingActionsExecutor = provider.makeOutgoingActionRequestExecutor(for: self)
+        outgoingActionsExecutor = provider.makeAtomicOutgoingCommandsExecutor(for: self)
         activitiesExecutor = provider.makeMyActivityExecutor(for: self)
     }
     

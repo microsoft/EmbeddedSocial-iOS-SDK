@@ -40,63 +40,46 @@ class ImagesService: BaseService, ImagesServiceType {
         execute(command: command, imageType: .contentBlob, completion: completion)
     }
     
-    func uploadUserImage(_ image: UIImage, authorization: Authorization, completion: @escaping (Result<String>) -> Void) {
-        guard let data = image.compressed() else {
-            completion(.failure(APIError.invalidImage))
-            return
-        }
-        
-        ImagesAPI.imagesPostImage(
-            imageType: .userPhoto,
-            authorization: authorization,
-            image: data,
-            imageFileType: imageFileType) { [weak self] response, error in
-                if let handle = response?.blobHandle {
-                    completion(.success(handle))
-                } else {
-                    self?.errorHandler.handle(error: error, completion: completion)
-                }
-        }
-    }
-    
     private func execute(command: ImageCommand,
                          imageType: ImagesAPI.ImageType_imagesPostImage,
                          completion: @escaping (Result<String>) -> Void) {
         
-        guard let data = command.photo.image?.compressed() else {
-            completion(.failure(APIError.invalidImage))
-            return
+        cacheCommand(command)
+        completion(.success(command.photo.uid))
+
+        uploadImageData(command.photo.image?.compressed(), imageType: imageType) { result in
+            if let handle = result.value {
+                let photo = Photo(uid: handle, image: command.photo.image)
+                self.imageCache.store(photo: photo)
+                self.deleteCommand(command)
+            } else if self.errorHandler.canHandle(result.error) {
+                self.errorHandler.handle(result.error)
+            }
         }
-        
-        ImagesAPI.imagesPostImage(
-            imageType: imageType,
-            authorization: authorization,
-            image: data,
-            imageFileType: imageFileType) { response, error in
-                if self.errorHandler.canHandle(error) {
-                    self.errorHandler.handle(error)
-                } else {
-                    var photo = command.photo
-                    
-                    if let handle = response?.blobHandle {
-                        photo = Photo(uid: handle, image: command.photo.image)
-                    } else {
-                        self.cache.cacheOutgoing(command)
-                    }
-                    
-                    self.imageCache.store(photo: photo)
-                    completion(.success(photo.uid))
-                }
+    }
+    
+    private func cacheCommand(_ command: ImageCommand) {
+        cache.cacheOutgoing(command)
+        imageCache.store(photo: command.photo)
+    }
+    
+    private func deleteCommand(_ command: ImageCommand) {
+        cache.deleteOutgoing(with: PredicateBuilder().predicate(for: command))
+        imageCache.remove(photo: command.photo)
+    }
+    
+    func uploadUserImage(_ image: UIImage, authorization: Authorization, completion: @escaping (Result<String>) -> Void) {
+        uploadImageData(image.compressed(), imageType: .userPhoto, authorization: authorization) { [weak self] result in
+            if let handle = result.value {
+                completion(.success(handle))
+            } else {
+                self?.errorHandler.handle(error: result.error, completion: completion)
+            }
         }
     }
     
     func updateUserPhoto(_ photo: Photo, completion: @escaping (Result<Photo>) -> Void) {
-        guard let image = photo.image else {
-            completion(.failure(APIError.invalidImage))
-            return
-        }
-        
-        uploadImageData(image.compressed(), imageType: .userPhoto, authorization: authorization) { result in
+        uploadImageData(photo.image?.compressed(), imageType: .userPhoto, authorization: authorization) { result in
             guard let handle = result.value else {
                 completion(.failure(result.error ?? APIError.unknown))
                 return
@@ -107,13 +90,20 @@ class ImagesService: BaseService, ImagesServiceType {
             
             UsersAPI.usersPutUserPhoto(request: request, authorization: self.authorization) { response, error in
                 if error == nil {
-                    let photo = Photo(uid: handle, url: photo.url, image: image)
+                    var photo = photo
+                    photo.uid = handle
                     completion(.success(photo))
                 } else {
                     self.errorHandler.handle(error: error, completion: completion)
                 }
             }
         }
+    }
+    
+    private func uploadImageData(_ data: Data?,
+                                 imageType: ImagesAPI.ImageType_imagesPostImage,
+                                 completion: @escaping (Result<String>) -> Void) {
+        uploadImageData(data, imageType: imageType, authorization: authorization, completion: completion)
     }
     
     private func uploadImageData(_ data: Data?,

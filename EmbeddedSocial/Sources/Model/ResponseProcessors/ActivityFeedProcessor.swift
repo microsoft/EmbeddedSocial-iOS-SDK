@@ -5,20 +5,15 @@
 
 import Foundation
 
-class ActivityFeedProcessor: ResponseProcessor<FeedResponseActivityView, ListResponse<ActivityView> > {
+class ActivityFeedProcessor: ResponseProcessor<FeedResponseActivityView, PaginatedResponse<ActivityView> > {
     
     override func process(_ response: FeedResponseActivityView?,
                           isFromCache: Bool,
-                          completion: @escaping (Result<ListResponse<ActivityView> >) -> Void) {
+                          completion: @escaping (Result<PaginatedResponse<ActivityView> >) -> Void) {
         
-        var result: ListResponse<ActivityView> = ListResponse()
-        
-        if let items = response?.data {
-            result.items = items
-        }
-        
-        result.isFromCache = isFromCache
-        result.cursor = response?.cursor
+        var result: PaginatedResponse<ActivityView> = PaginatedResponse(items: response?.data ?? [],
+                                                                        cursor: response?.cursor,
+                                                                        isFromCache: isFromCache)
         
         DispatchQueue.main.async {
             completion(.success(result))

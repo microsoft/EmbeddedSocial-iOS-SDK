@@ -8,6 +8,16 @@ import XCTest
 
 class MockDataSourceDelegate: DataSourceDelegate {
     
+    var _didStartLoading = false
+    func didStartLoading() {
+        _didStartLoading = true
+    }
+    
+    var _didFinishLoading = false
+    func didFinishLoading() {
+        _didFinishLoading = true
+    }
+    
     var wasFailed: Error?
     func didFail(error: Error) {
         wasFailed = error
@@ -51,7 +61,8 @@ class ActivityDataSourceTests: XCTestCase {
     func testPageGetsLoaded() {
         
         // given
-        let result: ActivityItemListResult = .success(ListResponse(items: activities, cursor: nil, isFromCache: false))
+        let response = PaginatedResponse(items: activities, cursor: nil, isFromCache: false)
+        let result: ActivityItemListResult = .success(response)
         
         interactor.loadMyActivitiesResult = result
         
@@ -74,7 +85,8 @@ class ActivityDataSourceTests: XCTestCase {
     func testPageGetsLoadedMore() {
         
         // given
-        let result: ActivityItemListResult = .success(ListResponse(items: activities, cursor: nil, isFromCache: false))
+        let response = PaginatedResponse(items: activities, cursor: nil, isFromCache: false)
+        let result: ActivityItemListResult = .success(response)
         interactor.loadNextPageMyActivitiesResult = result
         
         let initialItemsSize = 1
@@ -112,12 +124,12 @@ class ActivityDataSourceTests: XCTestCase {
         let shouldRemovedItems = cachedActivities.count - fetchedActivities.count
         let shouldUpdateItems = fetchedActivities.count
         
-        let cachedResult: ActivityItemListResult = .success(ListResponse(items: cachedActivities,
-                                                                         cursor: nil,
-                                                                         isFromCache: true))
-        let fetchResult: ActivityItemListResult = .success(ListResponse(items: fetchedActivities,
-                                                                        cursor: nil,
-                                                                        isFromCache: false))
+        let cachedResponse = PaginatedResponse(items: cachedActivities, cursor: nil, isFromCache: true)
+        let cachedResult: ActivityItemListResult = .success(cachedResponse)
+        
+        let fetchedResponse = PaginatedResponse(items: fetchedActivities, cursor: nil, isFromCache: false)
+        let fetchResult: ActivityItemListResult = .success(fetchedResponse)
+        
         interactor.loadMyActivitiesResult = fetchResult
         interactor.loadMyActivitiesResultCached = cachedResult
         

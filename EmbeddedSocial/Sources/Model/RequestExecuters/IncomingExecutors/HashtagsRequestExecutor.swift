@@ -5,9 +5,13 @@
 
 import Foundation
 
-class HashtagsRequestExecutionStrategy: CacheRequestExecutionStrategy<[String], PaginatedResponse<Hashtag>> {
+typealias HashtagsRequestExecutor = IncomingCacheRequestExecutor<[String], PaginatedResponse<Hashtag>>
+
+class HashtagsRequestExecutorImpl: IncomingCacheRequestExecutor<[String], PaginatedResponse<Hashtag>> {
     
-    override func execute(with builder: RequestBuilder<ResponseType>, completion: @escaping (Result<ResultType>) -> Void) {
+    override func execute(with builder: RequestBuilder<[String]>,
+                          completion: @escaping (Result<PaginatedResponse<Hashtag>>) -> Void) {
+        
         let predicate = PredicateBuilder().predicate(typeID: builder.URLString)
         
         let cacheRequest = CacheFetchRequest(resultType: HashtagCacheableAdapter.self,
@@ -28,16 +32,17 @@ class HashtagsRequestExecutionStrategy: CacheRequestExecutionStrategy<[String], 
                 return
             }
             self?.cache?.deleteIncoming(with: predicate)
-
+            
             let hashtags = result?.body ?? []
             let hashtagAdapters = hashtags.map { HashtagCacheableAdapter(handle: UUID().uuidString, hashtag: $0) }
             hashtagAdapters.forEach { self?.cache?.cacheIncoming($0, for: builder.URLString) }
             
             let response = PaginatedResponse<Hashtag>(items: hashtags, cursor: nil, isFromCache: false)
-
+            
             DispatchQueue.main.async {
                 completion(.success(response))
             }
         }
     }
+
 }

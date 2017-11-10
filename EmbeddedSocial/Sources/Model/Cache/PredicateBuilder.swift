@@ -43,6 +43,8 @@ protocol OutgoingCommandsPredicateBuilder {
     func createDeleteCommentCommands() -> NSPredicate
     
     func allNotificationCommands() -> NSPredicate
+    
+    func updateRelatedHandleCommands() -> NSPredicate
 }
 
 protocol TopicsFeedProcessorPredicateBuilder {
@@ -131,6 +133,10 @@ struct PredicateBuilder: CachePredicateBuilder {
 }
 
 extension PredicateBuilder: OutgoingCommandsPredicateBuilder {
+    
+    func updateRelatedHandleCommands() -> NSPredicate {
+        return NSPredicate(format: "typeid = %@", UpdateRelatedHandleCommand.typeIdentifier)
+    }
     
     func allImageCommands() -> NSPredicate {
         let typeIDs = ImageCommand.allImageCommandTypes.map { $0.typeIdentifier }

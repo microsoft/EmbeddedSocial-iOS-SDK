@@ -20,7 +20,7 @@ class SearchPeopleInteractorTests: XCTestCase {
     }
     
     func testThatItMakesBackgroundListHeaderViewOfCorrectClass() {
-        XCTAssertTrue(sut.makeBackgroundListHeaderView() is GroupHeaderTableCell)
+        XCTAssertTrue(sut.makeBackgroundListHeaderView() is UITableViewHeaderFooterView)
     }
     
     func testThatItRunsSearchQueryAndReloadsUsersList() {

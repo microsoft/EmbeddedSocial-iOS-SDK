@@ -20,6 +20,7 @@ class OutgoingCommandOperationsBuilderTests: XCTestCase {
         XCTAssertTrue(makeOperation(UnblockCommand(user: user)) is UnblockUserOperation)
         XCTAssertTrue(makeOperation(CancelPendingCommand(user: user)) is CancelPendingUserOperation)
         XCTAssertTrue(makeOperation(AcceptPendingCommand(user: user)) is AcceptPendingUserOperation)
+        XCTAssertTrue(makeOperation(ReportUserCommand(user: user, reason: ._none)) is ReportUserOperation)
 
         // topic commands
         let topic = Post.mock(seed: 1)
@@ -30,7 +31,8 @@ class OutgoingCommandOperationsBuilderTests: XCTestCase {
         XCTAssertTrue(makeOperation(CreateTopicCommand(topic: topic)) is CreateTopicOperation)
         XCTAssertTrue(makeOperation(RemoveTopicCommand(topic: topic)) is RemoveTopicOperation)
         XCTAssertTrue(makeOperation(UpdateTopicCommand(topic: topic)) is UpdateTopicOperation)
-        
+        XCTAssertTrue(makeOperation(ReportTopicCommand(topic: topic, reason: ._none)) is ReportTopicOperation)
+
         // reply commands
         let reply = Reply(replyHandle: UUID().uuidString)
         XCTAssertTrue(makeOperation(LikeReplyCommand(reply: reply)) is LikeReplyOperation)
@@ -56,5 +58,8 @@ class OutgoingCommandOperationsBuilderTests: XCTestCase {
         
         // notification commands
         XCTAssertTrue(makeOperation(UpdateNotificationsStatusCommand(handle: "")) is UpdateNotificationsStatusOperation)
+        
+        // update related handle command
+        XCTAssertTrue(makeOperation(UpdateRelatedHandleCommand(oldHandle: "", newHandle: "")) is UpdateRelatedHandleOperation)
     }
 }
