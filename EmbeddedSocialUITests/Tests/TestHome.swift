@@ -18,6 +18,8 @@ class BaseTestHome: BaseFeedTest {
         
         feedName = "topics"
         serviceName = "topics"
+        
+        APIConfig.wrongFeedFetching = true
     }
     
     override func tearDown() {
@@ -26,6 +28,7 @@ class BaseTestHome: BaseFeedTest {
         APIConfig.numberedTopicTeasers = false
         APIConfig.showTopicImages = false
         APIConfig.showUserImages = false
+        APIConfig.wrongFeedFetching = false
     }
     
     override func openScreen() {}
@@ -84,6 +87,10 @@ class BaseTestHome: BaseFeedTest {
     
     func checkIsUnpinned(_ post: PostItem, at index: UInt) {
         XCTAssert(!post.pinButton.isSelected, "Post is marked as pinned")
+    }
+    
+    func testIsFullPageLoaded() {
+        XCTAssertEqual(feed.getItemsCount(), UInt(pageSize))
     }
     
     func testPaging() {
@@ -208,6 +215,18 @@ class TestOnlineHome: BaseTestHome, OnlineTest {
     override func checkIsDisliked(_ post: PostItem, at index: UInt) {
         XCTAssertNotNil(APIState.getLatestRequest().contains("topics" + String(index) + "/likes/me"))
         super.checkIsDisliked(post, at: index)
+    }
+    
+    override func testIsFullPageLoaded() {
+//        APIConfig.wrongFeedFetching = true
+        
+        openScreen()
+        sleep(2)
+        
+//        super.testIsFullPageLoaded()
+        
+        let response = APIState.getLatestResponse(forService: serviceName)
+        print("Cursor: \(Int(response?["cursor"] as! String))")
     }
     
     override func testPinPostButton() {
