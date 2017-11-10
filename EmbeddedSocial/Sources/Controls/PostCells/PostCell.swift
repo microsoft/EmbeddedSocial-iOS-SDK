@@ -28,7 +28,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var postCreation: UILabel!
     @IBOutlet weak var postImage: UIImageView!
-    @IBOutlet weak var postTitle: UILabel!
+    @IBOutlet weak var postTitle: FeedTextLabel!
     @IBOutlet weak var postText: FeedTextLabel!
     
     @IBOutlet weak var appName: UILabel!
@@ -162,7 +162,9 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         userPhoto.setPhotoWithCaching(downloadableUserImage, placeholder: userImagePlaceholder)
         
         userName.text = data.userName
-        postTitle.text = data.title
+
+        configTitleLabel()
+        postTitle.setFeedText(data.title, shouldTrim: false)
         postText.setFeedText(data.text, shouldTrim: data.isTrimmed)
         postText.eventHandler = self
         postCreation.text = data.timeCreated
@@ -174,6 +176,16 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         pinButton.isSelected = data.isPinned
         commentButton.isEnabled = !usedInThirdPartModule
    
+    }
+    
+    private func configTitleLabel() {
+        postTitle.textAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)]
+        postTitle.tagAttributes = [
+            NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14),
+            NSForegroundColorAttributeName: Palette.green,
+            NSUnderlineStyleAttributeName: NSUnderlineStyle.styleNone.rawValue
+        ]
+        postTitle.eventHandler = self
     }
     
     static func sizingCell() -> PostCell {
