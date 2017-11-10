@@ -271,11 +271,9 @@ extension PostDetailPresenter: FeedModuleOutput {
 extension PostDetailPresenter: PostMenuModuleOutput {
     
     func postMenuProcessDidStart() {
-        //        view.setRefreshingWithBlocking(state: true)
     }
     
     func postMenuProcessDidFinish() {
-        //        view.setRefreshingWithBlocking(state: false)
     }
     
     func didBlock(user: User) {
@@ -314,8 +312,6 @@ extension PostDetailPresenter: PostMenuModuleOutput {
     
     func didRequestFail(error: Error) {
         Logger.log("Reloading feed", error, event: .error)
-        //        view.showError(error: error)
-        //        fetchAllItems()
     }
     
 }
