@@ -28,6 +28,19 @@ class ReplyCommand: OutgoingCommand {
         
     }
     
+    func apply(to feed: inout RepliesFetchResult) {
+        var replies = feed.replies
+        
+        for (index, var reply) in replies.enumerated() {
+            if reply.replyHandle == self.reply.replyHandle {
+                apply(to: &reply)
+                replies[index] = reply
+            }
+        }
+        
+        feed.replies = replies
+    }
+    
     override func encodeToJSON() -> Any {
         return [
             "reply": reply.encodeToJSON(),
@@ -63,5 +76,9 @@ class ReplyCommand: OutgoingCommand {
             UnlikeReplyCommand.self,
             ReportReplyCommand.self
         ]
+    }
+    
+    var isActionCommand: Bool {
+        return ReplyCommand.replyActionCommandTypes.contains(where: { $0 == type(of: self) })
     }
 }

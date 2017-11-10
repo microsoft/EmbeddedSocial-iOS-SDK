@@ -16,47 +16,52 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
     func operation(for command: OutgoingCommand) -> OutgoingCommandOperation? {
         // user commands
         if let command = command as? FollowCommand {
-            return FollowUserOperation(command: command, socialService: SocialService())
+            return FollowUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? UnfollowCommand {
-            return UnfollowUserOperation(command: command, socialService: SocialService())
+            let sc = SocialService(executorProvider: NonCachingRequestExecutorProvider.self)
+            return UnfollowUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? BlockCommand {
-            return BlockUserOperation(command: command, socialService: SocialService())
+            let sc = SocialService(executorProvider: NonCachingRequestExecutorProvider.self)
+            return BlockUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? UnblockCommand {
-            return UnblockUserOperation(command: command, socialService: SocialService())
+            let sc = SocialService(executorProvider: NonCachingRequestExecutorProvider.self)
+            return UnblockUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? CancelPendingCommand {
-            return CancelPendingUserOperation(command: command, socialService: SocialService())
+            let sc = SocialService(executorProvider: NonCachingRequestExecutorProvider.self)
+            return CancelPendingUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? AcceptPendingCommand {
-            return AcceptPendingUserOperation(command: command, socialService: SocialService())
+            let sc = SocialService(executorProvider: NonCachingRequestExecutorProvider.self)
+            return AcceptPendingUserOperation(command: command, socialService: makeSocialService())
         } else if let command = command as? ReportUserCommand {
             return ReportUserOperation(command: command, service: ReportingService())
         }
         
         // topic commands
         else if let command = command as? LikeTopicCommand {
-            return LikeTopicOperation(command: command, likesService: LikesService())
+            return LikeTopicOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? UnlikeTopicCommand {
-            return UnlikeTopicOperation(command: command, likesService: LikesService())
+            return UnlikeTopicOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? PinTopicCommand {
-            return PinTopicOperation(command: command, likesService: LikesService())
+            return PinTopicOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? UnpinTopicCommand {
-            return UnpinTopicOperation(command: command, likesService: LikesService())
+            return UnpinTopicOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? CreateTopicCommand {
-            return CreateTopicOperation(command: command, topicsService: TopicService(imagesService: ImagesService()))
+            return CreateTopicOperation(command: command, topicsService: TopicService(imagesService: NonCachingImagesService()))
         } else if let command = command as? RemoveTopicCommand {
             return RemoveTopicOperation(command: command,
-                                        topicsService: TopicService(imagesService: ImagesService()),
+                                        topicsService: TopicService(imagesService: NonCachingImagesService()),
                                         cleanupStrategy: CacheCleanupStrategyImpl(cache: SocialPlus.shared.cache))
         } else if let command = command as? UpdateTopicCommand {
-            return UpdateTopicOperation(command: command, topicsService: TopicService(imagesService: ImagesService()))
+            return UpdateTopicOperation(command: command, topicsService: TopicService(imagesService: NonCachingImagesService()))
         } else if let command = command as? ReportTopicCommand {
             return ReportTopicOperation(command: command, service: ReportingService())
         }
         
         // reply commands
         else if let command = command as? LikeReplyCommand {
-            return LikeReplyOperation(command: command, likesService: LikesService())
+            return LikeReplyOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? UnlikeReplyCommand {
-            return UnlikeReplyOperation(command: command, likesService: LikesService())
+            return UnlikeReplyOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? CreateReplyCommand {
             return CreateReplyOperation(command: command, repliesService: RepliesService())
         } else if let command = command as? RemoveReplyCommand {
@@ -69,14 +74,15 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         
         // comment commands
         else if let command = command as? LikeCommentCommand {
-            return LikeCommentOperation(command: command, likesService: LikesService())
+            return LikeCommentOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? UnlikeCommentCommand {
-            return UnlikeCommentOperation(command: command, likesService: LikesService())
+            return UnlikeCommentOperation(command: command, likesService: makeLikesService())
         } else if let command = command as? CreateCommentCommand {
-            return CreateCommentOperation(command: command, commentsService: CommentsService(imagesService: ImagesService()))
+            let cs = NonCachingCommentsService(imagesService: NonCachingImagesService())
+            return CreateCommentOperation(command: command, commentsService: cs)
         } else if let command = command as? RemoveCommentCommand {
             return RemoveCommentOperation(command: command,
-                                          commentService: CommentsService(imagesService: ImagesService()),
+                                          commentService: NonCachingCommentsService(imagesService: NonCachingImagesService()),
                                           cleanupStrategy: CacheCleanupStrategyImpl(cache: SocialPlus.shared.cache))
         } else if let command = command as? ReportCommentCommand {
             return ReportCommentOperation(command: command, reportService: ReportingService())
@@ -84,11 +90,11 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         
         // image commands
         else if let command = command as? CreateTopicImageCommand {
-            return CreateTopicImageOperation(command: command, imagesService: ImagesService())
+            return CreateTopicImageOperation(command: command, imagesService: NonCachingImagesService())
         } else if let command = command as? CreateCommentImageCommand {
-            return CreateCommentImageOperation(command: command, imagesService: ImagesService())
+            return CreateCommentImageOperation(command: command, imagesService: NonCachingImagesService())
         } else if let command = command as? UpdateUserImageCommand {
-            return UpdateUserImageOperation(command: command, imagesService: ImagesService())
+            return UpdateUserImageOperation(command: command, imagesService: NonCachingImagesService())
         }
         
         // notification commands
@@ -102,6 +108,14 @@ struct OutgoingCommandOperationsBuilder: OutgoingCommandOperationsBuilderType {
         }
         
         return nil
+    }
+    
+    private func makeLikesService() -> LikesServiceProtocol {
+        return LikesService()
+    }
+    
+    private func makeSocialService() -> SocialServiceType {
+        return SocialService()
     }
     
     func fetchCommandsOperation(cache: CacheType, predicate: NSPredicate) -> FetchOutgoingCommandsOperation {

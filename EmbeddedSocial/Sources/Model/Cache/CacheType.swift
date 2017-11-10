@@ -49,4 +49,9 @@ extension CacheType {
         
         return false
     }
+    
+    func isCached(_ command: OutgoingCommand) -> Bool {
+        let p = PredicateBuilder().predicate(for: command)
+        return firstIncoming(ofType: OutgoingCommand.self, predicate: p, sortDescriptors: nil) != nil
+    }
 }

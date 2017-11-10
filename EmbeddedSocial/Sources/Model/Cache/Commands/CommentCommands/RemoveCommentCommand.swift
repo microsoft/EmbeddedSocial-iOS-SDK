@@ -18,4 +18,12 @@ final class RemoveCommentCommand: CommentCommand {
     override func getRelatedHandle() -> String? {
         return comment.topicHandle
     }
+    
+    override func apply(to feed: inout CommentFetchResult) {
+        var comments = feed.comments
+        if let index = comments.index(where: { $0.commentHandle == self.comment.commentHandle }) {
+            comments.remove(at: index)
+        }
+        feed.comments = comments
+    }
 }

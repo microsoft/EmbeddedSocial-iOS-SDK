@@ -94,7 +94,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
         }
     }
     
-    func didFail(error: CommentsServiceError) {
+    func didFail(error: Error) {
         loadMoreCellViewModel.cellHeight = 0.1
         loadMoreCellViewModel.stopLoading()
         view.updateLoadingCell()
