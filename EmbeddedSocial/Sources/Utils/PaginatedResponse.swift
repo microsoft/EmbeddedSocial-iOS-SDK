@@ -38,7 +38,7 @@ extension PaginatedResponse where Item == User {
     }
     
     init(response: FeedResponseUserProfileView?, isFromCache: Bool) {
-        items = response?.data?.map { User(profileView: $0) } ?? []
+        items = response?.data?.flatMap { User(profileView: $0) } ?? []
         cursor = response?.cursor
         self.isFromCache = isFromCache
     }
