@@ -20,7 +20,7 @@ class CreateCommentCommandTests: XCTestCase {
         comment.topicHandle = post1.topicHandle
         let command = CreateCommentCommand(comment: comment)
         
-        var feed = FeedFetchResult(posts: [post1], error: nil, cursor: nil)
+        var feed = FeedFetchResult(query: nil, posts: [post1], error: nil, cursor: nil)
         command.apply(to: &feed)
         
         XCTAssertEqual(feed.posts[0].totalComments, 1)
@@ -32,7 +32,7 @@ class CreateCommentCommandTests: XCTestCase {
         comment.topicHandle = ""
         let command = CreateCommentCommand(comment: comment)
         
-        var feed = FeedFetchResult(posts: [post1], error: nil, cursor: nil)
+        var feed = FeedFetchResult(query: nil, posts: [post1], error: nil, cursor: nil)
         command.apply(to: &feed)
         
         XCTAssertEqual(feed.posts[0].totalComments, 0)
@@ -44,7 +44,7 @@ class CreateCommentCommandTests: XCTestCase {
         comment.topicHandle = post.topicHandle
         let command = CreateCommentCommand(comment: comment)
         
-        var feed = FeedFetchResult(posts: [Post.mock(seed: 2), post, Post.mock(seed: 3)], error: nil, cursor: nil)
+        var feed = FeedFetchResult(query: nil, posts: [Post.mock(seed: 2), post, Post.mock(seed: 3)], error: nil, cursor: nil)
         command.apply(to: &feed)
         
         XCTAssertEqual(feed.posts[0].totalComments, 0)

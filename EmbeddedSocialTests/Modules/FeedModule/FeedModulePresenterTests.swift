@@ -73,11 +73,12 @@ class FeedModulePresenter_Tests: XCTestCase {
         post.createdTime = creationDate
         
         let posts = [post]
-        let request = sut.makeFetchRequest(feedType: .home)
-        let feedResponse = Feed(fetchID: request.uid,
-                        feedType: .home,
-                        items: posts,
-                        cursor: nil)
+        let request = sut.makeFetchRequest(limit: 10, feedType: .home)
+        let feedResponse = Feed(query: nil,
+                                fetchID: request.uid,
+                                feedType: .home,
+                                items: posts,
+                                cursor: nil)
         
         sut.currentItems = feedResponse.items
         let path = IndexPath(row: 0, section: 0)
@@ -211,9 +212,10 @@ class FeedModulePresenter_Tests: XCTestCase {
         let fetchRequestID = uniqueString()
         
         // register fetch request
-        _ = sut.makeFetchRequest(requestID: fetchRequestID, feedType: .home)
+        _ = sut.makeFetchRequest(requestID: fetchRequestID, limit: 10, feedType: .home)
         
-        let feedResponse = Feed(fetchID: fetchRequestID,
+        let feedResponse = Feed(query: nil,
+                                fetchID: fetchRequestID,
                                 feedType: .home,
                                 items: [post],
                                 cursor: "cursor")
@@ -285,9 +287,10 @@ class FeedModulePresenter_Tests: XCTestCase {
         let fetchRequestID = uniqueString()
         
         // register fetch request
-        _ = sut.makeFetchRequest(requestID: fetchRequestID, feedType: .home)
+        _ = sut.makeFetchRequest(requestID: fetchRequestID, limit: 10, feedType: .home)
         
-        let feedResponse = Feed(fetchID: fetchRequestID,
+        let feedResponse = Feed(query: nil,
+            fetchID: fetchRequestID,
                         feedType: .home,
                         items: [post],
                         cursor: "cursor")
