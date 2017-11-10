@@ -120,10 +120,6 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         contentView.addSubview(container)
         postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
         
-        container.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
         postImage.clipsToBounds = true
         postImage.contentMode = .scaleAspectFill
     }
@@ -225,8 +221,6 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
             postText.attributedText,
             withConstraints: bounds,
             limitedToNumberOfLines: UInt(maxLines)).height
-        
-        let size = CGSize(width: width, height: .greatestFiniteMagnitude)
 
         let result = [staticElementsHeight, dynamicHeight, imageHeight, staticConstraintsHeight].reduce(0.0, +)
         
