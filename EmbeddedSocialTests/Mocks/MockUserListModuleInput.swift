@@ -48,4 +48,11 @@ class MockUserListModuleInput: UserListModuleInput {
         removeUserReceivedUser = user
     }
     
+    //MARK: - clearList
+    
+    var clearListCalled = false
+    
+    func clearList() {
+        clearListCalled = true
+    }
 }

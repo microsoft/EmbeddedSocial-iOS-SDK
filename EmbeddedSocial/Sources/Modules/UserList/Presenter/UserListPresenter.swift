@@ -146,6 +146,11 @@ extension UserListPresenter: UserListModuleInput {
     func removeUser(_ user: User) {
         view.removeUser(user)
     }
+    
+    func clearList() {
+        interactor.clearList()
+        view.setUsers([])
+    }
 }
 
 extension UserListPresenter: UserProfileModuleOutput {

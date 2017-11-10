@@ -17,4 +17,6 @@ protocol UserListModuleInput: class {
     func removeUser(_ user: User)
     
     var isListEmpty: Bool { get }
+    
+    func clearList()
 }

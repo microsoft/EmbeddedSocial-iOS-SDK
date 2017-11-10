@@ -48,6 +48,7 @@ extension SearchPeoplePresenter: SearchResultsUpdating {
     }
     
     @objc private func runSearchQuery(for searchBar: UISearchBar) {
+        usersListModule.clearList()
         interactor.runSearchQuery(for: searchBar, usersListModule: usersListModule)
         view.setIsEmpty(false)
     }

@@ -195,5 +195,6 @@ extension SearchPeoplePresenterTests {
         }
         XCTAssertEqual(interactorSearchBar, searchBar)
         XCTAssertTrue(interactorUsersListModule === sut.usersListModule)
+        XCTAssertTrue(usersListModule.clearListCalled)
     }
 }
