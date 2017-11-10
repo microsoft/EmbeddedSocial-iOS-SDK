@@ -12,6 +12,8 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     var cache: ImageCache = ImageCacheAdapter.shared
     
     @IBOutlet weak var postImageHeight: NSLayoutConstraint!
+    @IBOutlet weak var postTextContainerPaddingLeft: NSLayoutConstraint!
+    @IBOutlet weak var postTextContainerPaddingRight: NSLayoutConstraint!
     @IBOutlet var staticHeigthElements: [UIView]!
     @IBOutlet var staticConstaints: [NSLayoutConstraint]!
     
@@ -38,6 +40,10 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     var usedInThirdPartModule = false
 
     func getImageHeight(containerHeight: CGFloat?) -> CGFloat {
+        
+        guard imageIsAvailable else {
+            return 0
+        }
         
         guard let height = containerHeight else {
             return Constants.FeedModule.Collection.imageHeight
@@ -114,6 +120,10 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         contentView.addSubview(container)
         postImageHeight.constant = Constants.FeedModule.Collection.imageHeight
         
+        container.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
         postImage.clipsToBounds = true
         postImage.contentMode = .scaleAspectFill
     }
@@ -151,10 +161,6 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         let shouldUseShortStrings = collectionView == nil ? false : (UIScreen.main.bounds.width <= 340)
         
         postImageHeight.constant = getImageHeight(containerHeight: containerHeight)
-        
-        if !imageIsAvailable {
-            postImageHeight.constant = 0
-        }
         
         postImage.isHidden = (postImageHeight.constant == 0)
         
@@ -207,10 +213,11 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
             return result + constraint.constant
         }
         
-        let imageHeight = imageIsAvailable ? getImageHeight(containerHeight: containerHeight) : 0
+        let imageHeight = getImageHeight(containerHeight: containerHeight)
         
-        // dynamic part of calculation:
-        let bounds = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
+        // calculate text width:
+        let padding = postTextContainerPaddingLeft.constant + postTextContainerPaddingRight.constant
+        let bounds = CGSize(width: width - padding, height: CGFloat.greatestFiniteMagnitude)
         
         let maxLines = isTrimmed ? Constants.FeedModule.Collection.Cell.trimmedMaxLines : Constants.FeedModule.Collection.Cell.maxLines
     
@@ -219,6 +226,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
             withConstraints: bounds,
             limitedToNumberOfLines: UInt(maxLines)).height
         
+        let size = CGSize(width: width, height: .greatestFiniteMagnitude)
 
         let result = [staticElementsHeight, dynamicHeight, imageHeight, staticConstraintsHeight].reduce(0.0, +)
         
