@@ -96,7 +96,7 @@ class TransitionAction: Action {
     override func execute() {
         
         switch activityItem {
-        case let .myActivity(activity), let .othersActivity(activity):
+        case let .myActivity(activity):
             
             // according to API server may return activity with no handle
             guard let handle = activity.activityHandle else {
@@ -106,7 +106,7 @@ class TransitionAction: Action {
             presenter?.interactor.sendActivityStateAsRead(with: handle)
             presenter?.router.open(with: activityItem)
         default:
-            fatalError()
+            Logger.log()
         }
     }
 }
