@@ -54,6 +54,7 @@ class ImagesService: BaseService, ImagesServiceType {
     func cacheCommandAndComplete(_ command: ImageCommand, completion: @escaping (Result<String>) -> Void) {
         cache.cacheOutgoing(command)
         imageCache.store(photo: command.photo)
+        completion(.success(command.photo.uid))
     }
     
     private func onImageDataUploaded(command: ImageCommand, result: Result<String>, completion: @escaping (Result<String>) -> Void) {
