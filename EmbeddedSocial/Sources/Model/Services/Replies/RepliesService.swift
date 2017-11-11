@@ -65,15 +65,15 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                           response: FeedResponseReplyView?,
                           error: ErrorResponse?) -> RepliesFetchResult {
         
-        let typeID = "fetch_replies-\(commentHandle)"
-
-        if cursor == nil {
-            cache.deleteIncoming(with: PredicateBuilder().predicate(typeID: typeID))
-        }
-        
         var feed = RepliesFetchResult()
         
         if let response = response, let data = response.data {
+            let typeID = "fetch_replies-\(commentHandle)"
+            
+            if cursor == nil {
+                cache.deleteIncoming(with: PredicateBuilder().predicate(typeID: typeID))
+            }
+            
             response.handle = url
             cache.cacheIncoming(response, for: typeID)
             feed.replies = data.map(Reply.init)
