@@ -129,15 +129,15 @@ class CommentsService: BaseService, CommentServiceProtocol {
                            response: FeedResponseCommentView?,
                            error: ErrorResponse?) -> CommentFetchResult {
         
-        let typeID = "fetch_commens-\(topicHandle)"
-        
-        if cursor == nil {
-            cache.deleteIncoming(with: predicateBuilder.predicate(typeID: typeID))
-        }
-        
         var feed = CommentFetchResult()
         
         if let response = response, let data = response.data {
+            let typeID = "fetch_commens-\(topicHandle)"
+
+            if cursor == nil {
+                cache.deleteIncoming(with: predicateBuilder.predicate(typeID: typeID))
+            }
+            
             response.handle = url
             cache.cacheIncoming(response, for: typeID)
             feed.comments = data.map(Comment.init)
