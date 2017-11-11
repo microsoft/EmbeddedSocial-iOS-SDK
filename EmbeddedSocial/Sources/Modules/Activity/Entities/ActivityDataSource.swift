@@ -135,6 +135,7 @@ class DataSource<T>: DataSourceProtocol {
         case let .success(list):
 
             let items = list.items.map { self.convert($0) }
+            print("received items \(items.count), limit\(limit) cursor \(list.cursor)")
             process(newItems: items, pageIdx: page)
             
             // recursive re-refetch if server returns empty pages with cursor
@@ -143,7 +144,11 @@ class DataSource<T>: DataSourceProtocol {
                 fetch(limit: missingItems, cursor: nextCursor, completion: { [weak self] (result) in
                     self?.resultHandler(limit: missingItems, result: result, page: page)
                 })
+            } else {
+                print("done with result \(list) ofr limit : \(limit)")
             }
+            
+            
         }
     }
     

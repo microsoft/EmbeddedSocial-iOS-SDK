@@ -186,7 +186,7 @@ extension ActivityViewController: UITableViewDelegate, UITableViewDataSource {
         let section = indexPath.section
         
         if index == output.numberOfItems(in: section) - 1 {
-            output.loadMore(section: section)
+//            output.loadMore(section: section)
         }
         
         return cell
