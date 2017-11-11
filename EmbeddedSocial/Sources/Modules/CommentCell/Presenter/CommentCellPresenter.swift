@@ -31,9 +31,11 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
     var comment: Comment!
     
     private let actionStrategy: AuthorizedActionStrategy
+    private let userHolder: UserHolder
     
-    init(actionStrategy: AuthorizedActionStrategy) {
+    init(actionStrategy: AuthorizedActionStrategy, userHolder: UserHolder = SocialPlus.shared) {
         self.actionStrategy = actionStrategy
+        self.userHolder = userHolder
     }
     
     // MARK: CommentCellViewOutput
@@ -71,7 +73,11 @@ class CommentCellPresenter: CommentCellModuleInput, CommentCellViewOutput, Comme
             return
         }
         
-        router?.openUser(userHandle: handle)
+        if userHolder.me?.uid == handle {
+            router?.openMyProfile()
+        } else {
+            router?.openUser(userHandle: handle)
+        }
     }
     
     func likesPressed() {

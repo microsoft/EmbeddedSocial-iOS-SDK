@@ -7,6 +7,9 @@ import Foundation
 @testable import EmbeddedSocial
 
 class MockCommentCellRouter: CommentCellRouterInput {
+    func openMyProfile() {
+        
+    }
     
     var openImageCount = 0
     func openImage(imageUrl: String) {

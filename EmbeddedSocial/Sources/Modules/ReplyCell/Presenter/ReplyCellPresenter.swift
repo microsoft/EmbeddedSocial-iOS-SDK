@@ -24,9 +24,11 @@ class ReplyCellPresenter: ReplyCellModuleInput, ReplyCellViewOutput, ReplyCellIn
     var reply: Reply!
     
     private let actionStrategy: AuthorizedActionStrategy
+    private let userHolder: UserHolder
     
-    init(actionStrategy: AuthorizedActionStrategy) {
+    init(actionStrategy: AuthorizedActionStrategy, userHolder: UserHolder = SocialPlus.shared) {
         self.actionStrategy = actionStrategy
+        self.userHolder = userHolder
     }
 
     func viewIsReady() {
@@ -63,7 +65,11 @@ class ReplyCellPresenter: ReplyCellModuleInput, ReplyCellViewOutput, ReplyCellIn
             return
         }
         
-        router?.openUser(userHandle: handle)
+        if userHolder.me?.uid == handle {
+            router?.openMyProfile()
+        } else {
+            router?.openUser(userHandle: handle)
+        }
     }
     
     func likesPressed() {

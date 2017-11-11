@@ -10,6 +10,7 @@ protocol ReplyCellRouterInput {
     func openLikes(replyHandle: String)
     func openMyReplyOptions(reply: Reply)
     func openOtherReplyOptions(reply: Reply)
+    func openMyProfile()
 }
 
 class ReplyCellRouter: ReplyCellRouterInput {
@@ -19,6 +20,12 @@ class ReplyCellRouter: ReplyCellRouterInput {
     weak var moduleInput: ReplyCellPresenter!
     
     private var postMenuViewController: UIViewController?
+    
+    private let myProfileOpener: MyProfileOpener
+    
+    init(myProfileOpener: MyProfileOpener = SocialPlus.shared.coordinator) {
+        self.myProfileOpener = myProfileOpener
+    }
     
     func openUser(userHandle: String) {
         let configurator = UserProfileConfigurator()
@@ -53,5 +60,9 @@ class ReplyCellRouter: ReplyCellRouterInput {
             postMenuViewController!.modalPresentationStyle = .overCurrentContext
             parent.present(postMenuViewController!, animated: false, completion: nil)
         }
+    }
+    
+    func openMyProfile() {
+        myProfileOpener.openMyProfile()
     }
 }
