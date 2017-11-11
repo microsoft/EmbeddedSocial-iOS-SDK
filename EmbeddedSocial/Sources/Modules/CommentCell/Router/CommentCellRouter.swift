@@ -14,6 +14,12 @@ class CommentCellRouter: CommentCellRouterInput {
     // Keeping ref to menu
     private var postMenuViewController: UIViewController?
     
+    private let myProfileOpener: MyProfileOpener
+    
+    init(myProfileOpener: MyProfileOpener = SocialPlus.shared.coordinator) {
+        self.myProfileOpener = myProfileOpener
+    }
+    
     func openReplies(scrollType: RepliesScrollType, commentModulePresenter: CommentCellModuleProtocol) {
         let configurator = CommentRepliesModuleConfigurator()
         
@@ -27,15 +33,18 @@ class CommentCellRouter: CommentCellRouterInput {
     func openUser(userHandle: String) {
         let configurator = UserProfileConfigurator()
         configurator.configure(userID: userHandle, navigationController: navigationController)
-        
         navigationController?.pushViewController(configurator.viewController, animated: true)
+    }
+    
+    func openMyProfile() {
+        myProfileOpener.openMyProfile()
     }
     
     func openImage(imageUrl: String) {
         let browser = SKPhotoBrowser(photos: [SKPhoto.photoWithImageURL(imageUrl)])
         browser.initializePageIndex(0)
         
-        navigationController?.present(browser, animated: true, completion: {})
+        navigationController?.present(browser, animated: true)
     }
     
     func openLikes(commentHandle: String) {

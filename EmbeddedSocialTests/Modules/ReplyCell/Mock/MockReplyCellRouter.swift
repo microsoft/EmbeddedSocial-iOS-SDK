@@ -7,6 +7,10 @@
 
 class MockReplyCellRouter: ReplyCellRouterInput {
     
+    func openMyProfile() {
+        
+    }
+    
     var openUserCount = 0
     func openUser(userHandle: String) {
         openUserCount += 1
