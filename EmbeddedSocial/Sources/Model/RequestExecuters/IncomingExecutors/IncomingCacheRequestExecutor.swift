@@ -22,14 +22,6 @@ IncomingCacheRequestExecutor<ResponseType, ResultType> where ResponseType: Cache
             let response = result?.body
             response?.setHandle(builder.URLString)
             
-            // Fix for server bug, clean cursor if there is zero data
-            
-            if let feedResult = response as? FeedResponseTopicView {
-                if feedResult.data?.count == 0 {
-                    feedResult.cursor = nil
-                }
-            }
-            
             if let response = response {
                 self?.cache?.cacheIncoming(response)
             }

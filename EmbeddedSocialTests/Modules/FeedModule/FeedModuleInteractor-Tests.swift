@@ -117,7 +117,7 @@ class FeedModuleInteractor_Tests: XCTestCase {
         let cursor = uniqueString()
         let request = FeedFetchRequest(uid: UUID().uuidString, cursor: cursor, limit: nil, feedType: .home)
         let post = Post.mock()
-        service.fetchHomeQueryCompletion = FeedFetchResult(posts: [post], error: nil, cursor: cursor)
+        service.fetchHomeQueryCompletion = FeedFetchResult(query: nil, posts: [post], error: nil, cursor: cursor)
 
         // when
         sut.fetchPosts(request: request)
@@ -134,7 +134,7 @@ class FeedModuleInteractor_Tests: XCTestCase {
         let cursor = uniqueString()
         let request = FeedFetchRequest(uid: UUID().uuidString, cursor: cursor, limit: nil, feedType: .recent)
         let post = Post.mock(seed: 0)
-        service.fetchRecentQueryCompletion = FeedFetchResult(posts: [post], error: nil, cursor: cursor)
+        service.fetchRecentQueryCompletion = FeedFetchResult(query: nil, posts: [post], error: nil, cursor: cursor)
         
         // when
         sut.fetchPosts(request: request)
@@ -205,7 +205,7 @@ class FeedModuleInteractor_Tests: XCTestCase {
         let feed = FeedType.single(post: handle)
         let request = FeedFetchRequest(uid: UUID().uuidString, cursor: nil, limit: nil, feedType: feed)
         let post = Post.mock(seed: 1)
-        let response = FeedFetchResult(posts: [post], error: nil, cursor: nil)
+        let response = FeedFetchResult(query: nil, posts: [post], error: nil, cursor: nil)
         service.fetchPostPostCompletion = response
 
         // when

@@ -200,14 +200,14 @@ class TopicService: BaseService, PostServiceProtocol {
         let builder = PinsAPI.myPinsGetPinsWithRequestBuilder(authorization: authorization,
                                                               cursor: query.cursor,
                                                               limit: query.limit)
-        execute(builder: builder, Executor: topicsFeedExecutor, completion: completion)
+        execute(query: query, builder: builder, Executor: topicsFeedExecutor, completion: completion)
     }
     
     func fetchHome(query: FeedQuery, completion: @escaping FetchResultHandler) {
         let builder = SocialAPI.myFollowingGetTopicsWithRequestBuilder(authorization: authorization,
                                                                        cursor: query.cursor,
                                                                        limit: query.limit)
-        execute(builder: builder, Executor: topicsFeedExecutor, completion: completion)
+        execute(query: query, builder: builder, Executor: topicsFeedExecutor, completion: completion)
     }
     
     func fetchPopular(query: PopularFeedQuery, completion: @escaping FetchResultHandler) {
@@ -216,7 +216,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                          cursor: query.cursorInt(),
                                                                          limit: query.limit)
         
-        execute(builder: builder, Executor: topicsFeedExecutor, completion: completion)
+        execute(query: query, builder: builder, Executor: topicsFeedExecutor, completion: completion)
     }
     
     func fetchRecent(query: FeedQuery, completion: @escaping FetchResultHandler) {
@@ -224,7 +224,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                   cursor: query.cursor,
                                                                   limit: query.limit)
         
-        execute(builder: builder, Executor: myRecentTopicsFeedExecutor, completion: completion)
+        execute(query: query, builder: builder, Executor: myRecentTopicsFeedExecutor, completion: completion)
     }
     
     func fetchUserRecent(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
@@ -233,7 +233,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                      cursor: query.cursor,
                                                                      limit: query.limit)
         
-        execute(builder: builder, Executor: topicsFeedExecutor, completion: completion)
+        execute(query: query, builder: builder, Executor: topicsFeedExecutor, completion: completion)
     }
     
     func fetchUserPopular(query: UserFeedQuery, completion: @escaping FetchResultHandler) {
@@ -242,7 +242,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                             cursor: query.cursorInt(),
                                                                             limit: query.limit)
         
-        execute(builder: builder, Executor: topicsFeedExecutor, completion: completion)
+        execute(query: query, builder: builder, Executor: topicsFeedExecutor, completion: completion)
     }
     
     func fetchPost(post: PostHandle, completion: @escaping FetchResultHandler) {
@@ -269,7 +269,7 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                    cursor: query.cursor,
                                                                    limit: query.limit)
         
-        execute(builder: builder, Executor: myRecentTopicsFeedExecutor, completion: completion)
+        execute(query: query, builder: builder, Executor: myRecentTopicsFeedExecutor, completion: completion)
     }
     
     func fetchMyPopular(query: FeedQuery, completion: @escaping FetchResultHandler) {
@@ -277,15 +277,17 @@ class TopicService: BaseService, PostServiceProtocol {
                                                                           cursor: query.cursorInt(),
                                                                           limit: query.limit)
         
-        execute(builder: builder, Executor: topicsFeedExecutor, completion: completion)
+        execute(query: query, builder: builder, Executor: topicsFeedExecutor, completion: completion)
     }
     
-    private func execute(builder: RequestBuilder<FeedResponseTopicView>,
+    private func execute(query: FeedQueryType,
+                         builder: RequestBuilder<FeedResponseTopicView>,
                          Executor: TopicsFeedRequestExecutor,
                          completion: @escaping FetchResultHandler) {
         
         Executor.execute(with: builder) { result in
             var feed = result.value ?? FeedFetchResult()
+            feed.query = query
             feed.error = result.error
             completion(feed)
         }

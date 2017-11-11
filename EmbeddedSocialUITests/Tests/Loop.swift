@@ -11,8 +11,9 @@ import XCTest
 //
 //    func testAPIMock() {
 ////        APIConfig.wrongResponses = true
-////        APIConfig.wrongFeedFetching = true
+//        APIConfig.wrongFeedFetching = true
 //        while true {}
 //    }
 //
 //}
+

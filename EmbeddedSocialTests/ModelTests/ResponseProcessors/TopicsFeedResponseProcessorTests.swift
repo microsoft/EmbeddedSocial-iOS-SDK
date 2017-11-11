@@ -105,7 +105,7 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
         
         let notAffectedTopics = [Post.mock(seed: 4), Post.mock(seed: 5)]
         
-        let feed = FeedFetchResult(posts: affectedTopics + notAffectedTopics, error: nil, cursor: nil)
+        let feed = FeedFetchResult(query: nil, posts: affectedTopics + notAffectedTopics, error: nil, cursor: nil)
         
         // when
         let processedFeed = sut.apply(commands: commands, to: feed)
@@ -140,7 +140,7 @@ class TopicsFeedResponseProcessorTests: XCTestCase {
         let createdTopic = Post.mock(seed: 0)
         let commands = [CreateTopicCommand(topic: createdTopic)]
         let topics = [Post.mock(seed: 0), Post.mock(seed: 0)]
-        let feed = FeedFetchResult(posts: topics, error: nil, cursor: nil)
+        let feed = FeedFetchResult(query: nil, posts: topics, error: nil, cursor: nil)
         
         // when
         let processedFeed = sut.apply(commands: commands, to: feed)
