@@ -13,12 +13,16 @@ typealias ActivityItemListResult = Result<PaginatedResponse<ActivityView>>
 typealias UserRequestListResult = Result<PaginatedResponse<User>>
 
 protocol ActivityInteractorInput: class {
+    func loadSpecificMyActivities(cursor: String, limit: Int, completion: @escaping (ActivityItemListResult) -> Void)
     func loadMyActivities(completion: ((ActivityItemListResult) -> Void)?)
     func loadNextPageMyActivities(completion: ((ActivityItemListResult) -> Void)?)
     
+    func loadSpecificOthersActivities(cursor: String, limit: Int, completion: @escaping  (ActivityItemListResult) -> Void)
     func loadOthersActivities(completion: ((ActivityItemListResult) -> Void)?)
     func loadNextPageOthersActivities(completion: ((ActivityItemListResult) -> Void)?)
     
+    
+    func loadSpecificPendingRequestItems(cursor: String, limit: Int, completion: @escaping (UserRequestListResult) -> Void)
     func loadPendingRequestItems(completion: ((UserRequestListResult) -> Void)?)
     func loadNextPagePendigRequestItems(completion: ((UserRequestListResult) -> Void)?)
     
@@ -65,6 +69,10 @@ class ActivityInteractor {
 
 extension ActivityInteractor: ActivityInteractorInput {
     
+    func loadSpecificMyActivities(cursor: String, limit: Int, completion: @escaping (ActivityItemListResult) -> Void) {
+        service.loadMyActivities(cursor: cursor, limit: limit, completion: completion)
+    }
+    
     func acceptPendingRequest(user: User, completion: @escaping (Result<Void>) -> Void) {
         service.acceptPending(user: user, completion: completion)
     }
@@ -83,6 +91,10 @@ extension ActivityInteractor: ActivityInteractorInput {
         }
     }
     
+    func loadSpecificMyActivities(cursor: String, limit: Int32, completion: @escaping (ActivityItemListResult) -> Void) {
+        service.loadMyActivities(cursor: cursor, limit: Int(limit), completion: completion)
+    }
+    
     func loadNextPageMyActivities(completion: ((ActivityItemListResult) -> Void)?) {
         guard let cursor = myActivitiesList.cursor  else {
             return
@@ -95,6 +107,9 @@ extension ActivityInteractor: ActivityInteractorInput {
     }
     
     // MARK: Pending requests
+    func loadSpecificPendingRequestItems(cursor: String, limit: Int, completion: @escaping (UserRequestListResult) -> Void) {
+        service.loadPendingsRequests(cursor: cursor, limit: limit, completion: completion)
+    }
     
     func loadPendingRequestItems(completion: ((UserRequestListResult) -> Void)?) {
         pendingRequestsList = PendingRequestsList()
@@ -115,6 +130,9 @@ extension ActivityInteractor: ActivityInteractorInput {
     }
     
     // MARK: Other Activity
+    func loadSpecificOthersActivities(cursor: String, limit: Int, completion: @escaping  (ActivityItemListResult) -> Void) {
+        service.loadOthersActivities(cursor: cursor, limit: limit, completion: completion)
+    }
     
     func loadOthersActivities(completion: ((ActivityItemListResult) -> Void)?) {
         othersActivitiesList = ActivitiesList()
