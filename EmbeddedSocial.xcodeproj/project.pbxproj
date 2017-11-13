@@ -6849,7 +6849,7 @@
 				TargetAttributes = {
 					886B39C41F138F5D00BF1A8E = {
 						CreatedOnToolsVersion = 8.3.3;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					8EF0E5911F1FA5CC00E88ED6 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -6858,7 +6858,7 @@
 					};
 					9CD805281F0D012F00B9B0AC = {
 						CreatedOnToolsVersion = 9.0;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9CD805311F0D012F00B9B0AC = {
 						CreatedOnToolsVersion = 9.0;
@@ -8263,7 +8263,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -8287,7 +8287,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -8456,7 +8456,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -8502,7 +8502,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9KBH5RKYEW;
 				DYLIB_COMPATIBILITY_VERSION = 1;
