@@ -320,7 +320,7 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
             return
         }
         
-        fetchRequestsInProgress = Set()
+//        fetchRequestsInProgress = Set()
         fetchItems(with: cursor, limit: limit)
     }
     
