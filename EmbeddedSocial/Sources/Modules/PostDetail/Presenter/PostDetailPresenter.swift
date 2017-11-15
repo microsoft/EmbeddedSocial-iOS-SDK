@@ -105,7 +105,6 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     func commentDidPost(comment: Comment) {
         comments.append(comment)
         view.postCommentSuccess()
-        feedModuleInput?.refreshData()
     }
     
     func commentPostFailed(error: Error) {
@@ -233,6 +232,8 @@ extension PostDetailPresenter: Subscriber {
         let commentToUpdate = comments[idx]
         commentToUpdate.commentHandle = newHandle
         comments[idx] = commentToUpdate
+        
+        feedModuleInput?.refreshData()
     }
 }
 
