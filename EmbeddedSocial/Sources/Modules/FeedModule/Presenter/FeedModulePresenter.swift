@@ -547,6 +547,10 @@ class FeedModulePresenter: FeedModuleInput, FeedModuleViewOutput, FeedModuleInte
         }
     }
     
+    func didUpdateFeed() {
+        moduleOutput?.didUpdateFeed()
+    }
+    
     func didFetch(feed: Feed) {
         processFetchResult(feed: feed, isMore: false)
     }
