@@ -402,6 +402,7 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
             
         }) { (completed) in
             self.didFinishCollectionViewAnimation()
+            self.output.didUpdateFeed()
         }
     }
     

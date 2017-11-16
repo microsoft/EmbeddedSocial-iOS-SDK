@@ -248,6 +248,10 @@ extension PostDetailPresenter: FeedModuleOutput {
     }
     
     func didFinishRefreshingData(_ error: Error?) {
+        print("didFinishRefreshingData in PostDetailPresenter")
+    }
+    
+    func didUpdateFeed() {
         view.refreshPostCell()
         feedModuleInput?.lockScrolling()
     }
