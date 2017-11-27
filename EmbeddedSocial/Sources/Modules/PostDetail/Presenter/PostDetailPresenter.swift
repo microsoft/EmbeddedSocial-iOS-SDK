@@ -249,6 +249,10 @@ extension PostDetailPresenter: FeedModuleOutput {
     
     func didFinishRefreshingData(_ error: Error?) {
         print("didFinishRefreshingData in PostDetailPresenter")
+        if let _ = error {
+            view.refreshPostCell()
+            return
+        }
     }
     
     func didUpdateFeed() {
