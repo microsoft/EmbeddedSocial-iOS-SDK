@@ -1,10 +1,9 @@
-# Microsoft Research Embedded Social Software Development Kit
+# Microsoft Embedded Social
 
 ## iOS SDK
 
-EmbeddesSocial is an SDK that works with the Microsoft Embedded Social service to provide social networking functionality inside your iOS application.
+This is an SDK that works with the Microsoft Embedded Social service to provide social networking functionality inside your iOS application.
 
-- [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
 	- [Cocoa Pods](#cocoapods)
@@ -15,11 +14,6 @@ EmbeddesSocial is an SDK that works with the Microsoft Embedded Social service t
 		- [Menu Handler](#menu-handler)
 - [Example](#example)
 - [License](#license)
-
-## Features
-
-- [x] Feature 1
-- [x] Feature 2
 
 ## Requirements
 
