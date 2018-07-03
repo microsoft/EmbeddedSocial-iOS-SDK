@@ -1,0 +1,24 @@
+{
+    "commentHandle": "commentHandle",
+    "topicHandle": "topicHandle",
+    "createdTime": "2017-07-25T16:23:11.6456988Z",
+    "lastUpdatedTime": "2017-07-25T16:23:11.6456988Z",
+    "user": {
+        "userHandle": "JohnDoe",
+        "firstName": "John",
+        "lastName": "Doe",
+        "photoHandle": null,
+        "photoUrl": null,
+        "visibility": "Public",
+        "followerStatus": "None"
+    },
+    "text": "Comment text",
+    "blobType": "Unknown",
+    "blobHandle": null,
+    "blobUrl": null,
+    "language": null,
+    "totalLikes": 0,
+    "totalReplies": 0,
+    "liked": false,
+    "contentStatus": "Active"
+}
