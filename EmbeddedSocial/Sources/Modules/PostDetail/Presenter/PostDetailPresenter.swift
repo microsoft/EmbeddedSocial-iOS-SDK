@@ -45,8 +45,7 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     
     func didFetch(comments: [Comment], cursor: String?) {
         self.cursor = cursor
-        self.comments = comments
-        self.comments.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
+        self.comments = comments.sorted(by: { $0.createdTime! < $1.createdTime! })
         stopLoading()
         view.reloadTable(scrollType: scrollType)
     }
@@ -54,11 +53,11 @@ class PostDetailPresenter: PostDetailViewOutput, PostDetailInteractorOutput, Pos
     func didFetchMore(comments: [Comment], cursor: String?) {
         dataIsFetching = false
         appendWithReplacing(original: &self.comments, appending: comments)
-        self.comments.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
+        self.comments.sort(by: { $0.createdTime! < $1.createdTime! })
         self.cursor = cursor
         stopLoading()
         if cursor != nil && shouldFetchRestOfComments == true {
-            self.fetchMore()
+            fetchMore()
         } else if shouldFetchRestOfComments == true {
             view.reloadTable(scrollType: .bottom)
             shouldFetchRestOfComments = false

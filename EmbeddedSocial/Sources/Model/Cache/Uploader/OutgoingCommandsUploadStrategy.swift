@@ -10,7 +10,7 @@ protocol OutgoingCommandsUploadStrategyDelegate: class {
 }
 
 protocol OutgoingCommandsUploadStrategyType {
-    weak var delegate: OutgoingCommandsUploadStrategyDelegate? { get set }
+    var delegate: OutgoingCommandsUploadStrategyDelegate? { get set }
     
     func restartSubmission()
     func cancelSubmission()
@@ -80,7 +80,7 @@ final class OutgoingCommandsUploadStrategy: OutgoingCommandsUploadStrategyType {
     }
     
     private func makeActionOperations(from commands: [OutgoingCommand]) -> [Operation] {
-        let operations = commands.flatMap { [weak self] command -> Operation? in
+        let operations = commands.compactMap { [weak self] command -> Operation? in
             let op = self?.operationsBuilder.operation(for: command)
             op?.completionBlock = {
                 guard op?.isCancelled != true else {

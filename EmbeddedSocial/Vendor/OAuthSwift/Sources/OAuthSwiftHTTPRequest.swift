@@ -38,7 +38,7 @@ open class OAuthSwiftHTTPRequest: NSObject, OAuthSwiftRequestHandle {
 
     fileprivate var cancelRequested = false
 
-    open static var executionContext: (@escaping () -> Void) -> Void = { block in
+    public static var executionContext: (@escaping () -> Void) -> Void = { block in
         return DispatchQueue.main.async(execute: block)
     }
 
@@ -107,7 +107,7 @@ open class OAuthSwiftHTTPRequest: NSObject, OAuthSwiftRequestHandle {
                 guard let response = resp as? HTTPURLResponse, let responseData = data else {
                     let badRequestCode = 400
                     let localizedDescription = OAuthSwiftHTTPRequest.descriptionForHTTPStatus(badRequestCode, responseString: "")
-                    var userInfo: [AnyHashable : Any] = [
+                    var userInfo: [String : Any] = [
                         NSLocalizedDescriptionKey: localizedDescription
                     ]
                     if let response = resp { // there is only no data
@@ -141,7 +141,7 @@ open class OAuthSwiftHTTPRequest: NSObject, OAuthSwiftRequestHandle {
                         localizedDescription = OAuthSwiftHTTPRequest.descriptionForHTTPStatus(response.statusCode, responseString: String(data: responseData, encoding: OAuthSwiftDataEncoding)!)
                     }
 
-                    var userInfo: [AnyHashable : Any] = [
+                    var userInfo: [String : Any] = [
                         NSLocalizedDescriptionKey: localizedDescription,
                         "Response-Headers": response.allHeaderFields,
                         OAuthSwiftError.ResponseKey: response,
@@ -236,7 +236,7 @@ open class OAuthSwiftHTTPRequest: NSObject, OAuthSwiftRequestHandle {
         let finalParameters: OAuthSwift.Parameters
         switch paramsLocation {
         case .authorizationHeader:
-            finalParameters = parameters.filter { key, _ in !key.hasPrefix("oauth_") }
+            finalParameters = parameters.filter(predicate: { (key, _) in !key.hasPrefix("oauth_") })
         case .requestURIQuery:
             finalParameters = parameters
         }

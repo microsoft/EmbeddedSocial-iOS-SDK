@@ -39,9 +39,9 @@ struct EmbeddedEditProfileCellsBuilder {
                                       bottom: bioVerticalOffset,
                                       right: Constants.EditProfile.contentPadding)
         
-        let placeholderAttrs: [String: Any] = [
-            NSForegroundColorAttributeName: palette.textPlaceholder,
-            NSFontAttributeName: AppFonts.regular
+        let placeholderAttrs: [NSAttributedString.Key: Any] = [
+            .foregroundColor: palette.textPlaceholder,
+            .font: AppFonts.regular
         ]
         
         let firstNameStyle = TextFieldCell.Style(

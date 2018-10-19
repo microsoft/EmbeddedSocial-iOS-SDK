@@ -164,7 +164,7 @@ class TopicService: BaseService, PostServiceProtocol {
         changesPublisher.notify(TopicUpdateHint(oldHandle: oldHandle, newHandle: newHandle))
     }
     
-    func update(topic: Post, request: PutTopicRequest, success: @escaping () -> (), failure: @escaping Failure) {
+    func update(topic: Post, request: PutTopicRequest, success: @escaping () -> Void, failure: @escaping Failure) {
         var updatedTopic = topic
         updatedTopic.title = request.title
         updatedTopic.text = request.text
@@ -174,7 +174,7 @@ class TopicService: BaseService, PostServiceProtocol {
     
     private func execute(command: UpdateTopicCommand,
                          request: PutTopicRequest,
-                         success: @escaping () -> (),
+                         success: @escaping () -> Void,
                          failure: @escaping Failure) {
 
         TopicsAPI.topicsPutTopic(
@@ -312,7 +312,7 @@ class TopicService: BaseService, PostServiceProtocol {
             } else if error == nil {
                 let p = self.predicateBuilder.predicate(for: command)
                 self.cache.deleteOutgoing(with: p)
-                completion(.success())
+                completion(.success)
             }
         }
     }

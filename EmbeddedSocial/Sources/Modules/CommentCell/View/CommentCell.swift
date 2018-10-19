@@ -93,7 +93,7 @@ class CommentCell: UICollectionViewCell, CommentCellViewInput {
     }
 
     func cellSize() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.size.width, height: self.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)
+        return CGSize(width: UIScreen.main.bounds.size.width, height: systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height)
     }
     
 

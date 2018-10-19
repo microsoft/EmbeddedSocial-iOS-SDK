@@ -56,8 +56,8 @@ private func sourceAndAnnotation(from options: [AnyHashable: Any]) -> (String?, 
     var annotation: Any?
     
     if #available(iOS 9.0, *) {
-        source = options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String
-        annotation = options[UIApplicationOpenURLOptionsKey.annotation]
+        source = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
+        annotation = options[UIApplication.OpenURLOptionsKey.annotation]
     } else {
         source = options["UIApplicationOpenURLOptionsSourceApplicationKey"] as? String
         annotation = options["UIApplicationOpenURLOptionsAnnotationKey"]

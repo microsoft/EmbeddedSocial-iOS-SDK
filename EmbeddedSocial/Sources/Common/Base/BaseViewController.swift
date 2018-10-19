@@ -23,8 +23,8 @@ class BaseViewController: UIViewController {
         super.viewWillDisappear(animated)
         view.endEditing(true)
         SocialPlus.shared.networkTracker.removeListener(self)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -47,17 +47,17 @@ class BaseViewController: UIViewController {
     // MARK: - Private
     func configNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)),
-                                               name: .UIKeyboardWillShow, object: nil)
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)),
-                                               name: .UIKeyboardWillHide, object: nil)
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
 }
 
 // MARK: keyboard notifications
 extension BaseViewController {
-    func keyboardWillShow(notification: Notification) {
-        guard let value = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+    @objc func keyboardWillShow(notification: Notification) {
+        guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
             return
         }
         
@@ -70,7 +70,7 @@ extension BaseViewController {
         }
     }
     
-    func keyboardWillHide(notification: Notification) {
+    @objc func keyboardWillHide(notification: Notification) {
         bottomConstraint?.constant = CGFloat(0)
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.view.layoutIfNeeded()

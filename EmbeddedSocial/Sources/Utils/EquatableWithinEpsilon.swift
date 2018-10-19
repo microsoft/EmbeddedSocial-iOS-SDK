@@ -22,7 +22,7 @@ extension CGFloat: EquatableWithinEpsilon {
 }
 
 func equalWithinEpsilon<T: EquatableWithinEpsilon>(_ lhs: T, _ rhs: T, epsilon: T.Stride) -> Bool {
-    return abs(lhs - rhs) <= epsilon
+    return abs(lhs.distance(to: rhs)) <= epsilon
 }
 
 infix operator ==~ : ComparisonPrecedence

@@ -21,21 +21,21 @@ class FeedTextLabel: CopyableLabel, TTTAttributedLabelDelegate, FeedTextLabelPro
     
     weak var eventHandler: FeedTextLabelHandler?
     
-    var textAttributes: [String: Any] = [
-        NSFontAttributeName: UIFont.systemFont(ofSize: 12)
+    var textAttributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont.systemFont(ofSize: 12)
     ]
     
-    var tagAttributes: [AnyHashable: Any] = [
-        NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12),
-        NSForegroundColorAttributeName: Palette.green,
-        NSUnderlineStyleAttributeName: NSUnderlineStyle.styleNone.rawValue
+    var tagAttributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont.boldSystemFont(ofSize: 12),
+        .foregroundColor: Palette.green,
+        .underlineStyle: []
     ]
     
-    var showMoreAttributes: [String: Any] = [
-        NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12),
-        NSForegroundColorAttributeName: Palette.defaultTint,
-        NSUnderlineStyleAttributeName: NSUnderlineStyle.styleNone.rawValue,
-        NSLinkAttributeName: URL(string: "__showmore__")!
+    var showMoreAttributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont.boldSystemFont(ofSize: 12),
+        .foregroundColor: Palette.defaultTint,
+        .underlineStyle: [],
+        .link: URL(string: "__showmore__")!
     ]
     
     var shouldTrim = false
@@ -60,22 +60,24 @@ class FeedTextLabel: CopyableLabel, TTTAttributedLabelDelegate, FeedTextLabelPro
         
         cachedText = text
         
-        numberOfLines = self.shouldTrim ? trimmedMaxLines : defaultMaxLines
+        numberOfLines = shouldTrim ? trimmedMaxLines : defaultMaxLines
         
         let attributedString = NSMutableAttributedString(string: text)
-        
-        attributedString.addAttributes(textAttributes, range: NSMakeRange(0, text.characters.count))
+
+        let range = NSRange(location: 0, length: attributedString.length)
+        attributedString.addAttributes(textAttributes, range: range)
         
         let tags = processTags(cachedText)
         applyTags(tags, with: attributedString)
         
-        self.setupShowMore()
+        setupShowMore()
     }
     
     private func processTags(_ text: String) -> [NSTextCheckingResult] {
+        let range = NSRange(text.startIndex..., in: text)
         let results = FeedTextLabel.regex.matches(in: text,
                                                   options: [],
-                                                  range: NSMakeRange(0, text.characters.count))
+                                                  range: range)
         return results
     }
     
@@ -142,6 +144,6 @@ extension FeedTextLabel: Themeable {
             return
         }
         
-        tagAttributes[NSForegroundColorAttributeName] = palette.accent
+        tagAttributes[.foregroundColor] = palette.accent
     }
 }

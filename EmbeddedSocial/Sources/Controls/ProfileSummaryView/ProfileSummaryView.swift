@@ -120,8 +120,8 @@ class ProfileSummaryView: UIView {
         let boldFont = AppFonts.bold.small
         let textColor = theme?.palette.accent ?? Palette.green
         
-        let numberAttrs: [String: Any] = [NSFontAttributeName: boldFont, NSForegroundColorAttributeName: textColor]
-        let stringAttrs: [String: Any] = [NSFontAttributeName: font, NSForegroundColorAttributeName: textColor]
+        let numberAttrs: [NSAttributedString.Key: Any] = [.font: boldFont, .foregroundColor: textColor]
+        let stringAttrs: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: textColor]
         
         let str = NSMutableAttributedString(string: "\(number)", attributes: numberAttrs)
         str.append(NSAttributedString(string: " \(inputString)", attributes: stringAttrs))

@@ -19,7 +19,7 @@ class ActivityBaseCell: UITableViewCell {
     var onAction: ActivityCellBlock?
     var indexPath: ((UITableViewCell) -> IndexPath?)!
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
     }
@@ -119,7 +119,7 @@ class FollowRequestCell: ActivityBaseCell {
     
     lazy var acceptButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(ActivityBaseCell.Style.Images.accept, for: UIControlState.normal)
+        button.setImage(ActivityBaseCell.Style.Images.accept, for: .normal)
         button.addTarget(self, action: #selector(onAccept), for: .touchUpInside)
         button.accessibilityIdentifier = "Accept"
         return button
@@ -127,7 +127,7 @@ class FollowRequestCell: ActivityBaseCell {
     
     lazy var rejectButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(Style.Images.reject, for: UIControlState.normal)
+        button.setImage(Style.Images.reject, for: .normal)
         button.addTarget(self, action: #selector(onReject), for: .touchUpInside)
         button.accessibilityIdentifier = "Reject"
         return button
@@ -241,17 +241,17 @@ extension ActivityBaseCell {
             
             struct Attributes {
                 
-                static var time: [String: Any] {
+                static var time: [NSAttributedString.Key: Any] {
                     return [
-                        NSFontAttributeName: ActivityBaseCell.Style.Fonts.bold,
-                        NSForegroundColorAttributeName: AppConfiguration.shared.theme.palette.textSecondary
+                        .font: ActivityBaseCell.Style.Fonts.bold,
+                        .foregroundColor: AppConfiguration.shared.theme.palette.textSecondary
                     ]
                 }
                 
-                static var normal: [String: Any] {
+                static var normal: [NSAttributedString.Key: Any] {
                     return [
-                        NSFontAttributeName: ActivityBaseCell.Style.Fonts.bold,
-                        NSForegroundColorAttributeName: AppConfiguration.shared.theme.palette.textPrimary
+                        .font: ActivityBaseCell.Style.Fonts.bold,
+                        .foregroundColor: AppConfiguration.shared.theme.palette.textPrimary
                     ]
                 }
             }

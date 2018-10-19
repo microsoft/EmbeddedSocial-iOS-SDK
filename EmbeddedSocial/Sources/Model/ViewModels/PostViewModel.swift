@@ -57,7 +57,7 @@ struct PostViewModel {
         let limit = 5000
         if let postText = post.text {
             if postText.count > limit {
-            text = String(postText.characters.prefix(limit))
+            text = String(postText.prefix(limit))
             } else {
                 text = postText
             }

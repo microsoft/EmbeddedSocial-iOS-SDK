@@ -19,7 +19,7 @@ This is an SDK that works with the Microsoft Embedded Social service to provide 
 
 - iOS 9.0+
 - Xcode 8.3+
-- Swift 3.2
+- Swift 4.2
 
 ## Installation
 
@@ -41,14 +41,6 @@ target '<Your Target Name>' do
 
   pod 'EmbeddedSocial', :git => 'https://github.com/Microsoft/EmbeddedSocial-iOS-SDK.git', :branch => 'develop', :submodules => true
   
-end
-
-post_install do |installer|
-    installer.pods_project.targets.each do |target|
-    	target.build_configurations.each do |config|
-        	config.build_settings['SWIFT_VERSION'] = ‘3.2’
-        end
-    end
 end
 ```
 
@@ -145,7 +137,7 @@ For SDK initialization:
 
 ```swift
 func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.OpenURLOptionsKey: Any]?) -> Bool {
              
     let args = LaunchArguments(app: application,
                                window: window!,
@@ -161,7 +153,7 @@ func application(_ application: UIApplication,
 For URL shemes handling:
 
 ```swift
-func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
+func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
     return SocialPlus.shared.application(app, open: url, options: options)
 }
 ```

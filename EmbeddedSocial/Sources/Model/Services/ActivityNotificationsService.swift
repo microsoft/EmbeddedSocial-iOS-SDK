@@ -26,7 +26,7 @@ class ActivityNotificationsService: BaseService, ActivityNotificationsServicePro
         
         builder.execute { [weak self] (response, error) in
             
-            guard let strongSelf = self else {
+            guard self != nil else {
                 return
             }
             

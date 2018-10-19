@@ -106,7 +106,7 @@ class TransitionAction: Action {
             presenter?.interactor.sendActivityStateAsRead(with: handle)
             presenter?.router.open(with: activityItem)
             
-        case let .othersActivity(activity):
+        case .othersActivity:
 
             presenter?.router.open(with: activityItem)
             

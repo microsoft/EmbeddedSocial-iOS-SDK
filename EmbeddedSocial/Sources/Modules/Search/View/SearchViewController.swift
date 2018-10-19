@@ -86,7 +86,7 @@ class SearchViewController: BaseViewController {
         backgroundView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        searchResultsContainer.sendSubview(toBack: backgroundView)
+        searchResultsContainer.sendSubviewToBack(backgroundView)
     }
     
     fileprivate func hideTab(_ tab: SearchTabInfo) {

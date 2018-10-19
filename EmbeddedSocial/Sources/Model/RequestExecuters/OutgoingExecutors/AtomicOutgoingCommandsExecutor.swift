@@ -21,7 +21,7 @@ class AtomicOutgoingCommandsExecutorImpl: OutgoingCacheRequestExecutor<Object, V
     
     func cacheAndComplete(command: OutgoingCommand, completion: @escaping (Result<Void>) -> Void) {
         cacheCommand(command)
-        completion(.success())
+        completion(.success)
     }
     
     private func cacheCommand(_ command: OutgoingCommand) {

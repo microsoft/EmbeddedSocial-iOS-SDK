@@ -42,7 +42,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
             #selector(CommentRepliesViewController.handleRefresh(_:)),
-                                 for: UIControlEvents.valueChanged)
+                                 for: .valueChanged)
         return refreshControl
     }()
 
@@ -95,7 +95,7 @@ class CommentRepliesViewController: BaseViewController, CommentRepliesViewInput 
     }
     
     // MARK: Internal
-    func handleRefresh(_ refreshControl: UIRefreshControl) {
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         output.refresh()
     }
 

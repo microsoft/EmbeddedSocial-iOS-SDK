@@ -199,7 +199,7 @@ class UserService: BaseService, UserServiceType {
     private func processResult(_ data: Object?, _ error: ErrorResponse?, _ completion: @escaping (Result<Void>) -> Void) {
         DispatchQueue.main.async {
             if error == nil {
-                completion(.success())
+                completion(.success)
             } else {
                 self.errorHandler.handle(error: error, completion: completion)
             }

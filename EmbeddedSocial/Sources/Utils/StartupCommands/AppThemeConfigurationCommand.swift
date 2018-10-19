@@ -19,6 +19,6 @@ struct AppThemeConfigurationCommand: Command {
         }
         UINavigationBar.appearance().barTintColor = palette.navigationBarBackground
         UINavigationBar.appearance().tintColor = palette.navigationBarTint
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: palette.navigationBarTitle]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: palette.navigationBarTitle]
     }
 }

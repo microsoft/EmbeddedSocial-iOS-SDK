@@ -90,7 +90,7 @@ extension UserProfileViewController: UserProfileViewInput {
     func setFeedViewController(_ feedViewController: UIViewController) {
         addChildController(feedViewController, containerView: view)
         feedView = feedViewController.view
-        view.bringSubview(toFront: stickyFilterView)
+        view.bringSubviewToFront(stickyFilterView)
     }
     
     func setupHeaderView(_ reusableView: UICollectionReusableView) {

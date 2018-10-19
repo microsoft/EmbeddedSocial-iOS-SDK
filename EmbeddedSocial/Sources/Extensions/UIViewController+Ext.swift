@@ -9,15 +9,15 @@ import SnapKit
 extension UIViewController {
     
     func removeChildController(_ controller: UIViewController) {
-        controller.willMove(toParentViewController: nil)
+        controller.willMove(toParent: nil)
         controller.view.removeFromSuperview()
-        controller.removeFromParentViewController()
+        controller.removeFromParent()
     }
     
     func addChildController(_ controller: UIViewController, containerView: UIView, pinToEdges: Bool = true) {
-        controller.willMove(toParentViewController: nil)
+        controller.willMove(toParent: nil)
 
-        addChildViewController(controller)
+        addChild(controller)
         
         containerView.addSubview(controller.view)
         
@@ -27,13 +27,13 @@ extension UIViewController {
             }
         }
         
-        controller.didMove(toParentViewController: self)
+        controller.didMove(toParent: self)
     }
     
     func addChildController(_ controller: UIViewController) {
-        controller.willMove(toParentViewController: nil)
-        addChildViewController(controller)
+        controller.willMove(toParent: nil)
+        addChild(controller)
         view.addSubview(controller.view)
-        controller.didMove(toParentViewController: self)
+        controller.didMove(toParent: self)
     }
 }

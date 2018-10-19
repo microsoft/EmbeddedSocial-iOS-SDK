@@ -28,7 +28,7 @@ extension String {
 
 		var string = self
 		if hasPrefix(elementSeparator) {
-			string = String(characters.dropFirst(1))
+			string = String(dropFirst(1))
 		}
 
         var parameters = [String: String]()
@@ -64,19 +64,15 @@ extension String {
     }
 
     var droppedLast: String {
-       return self.substring(to: self.index(before: self.endIndex))
-    }
-
-    mutating func dropLast() {
-        self.remove(at: self.index(before: self.endIndex))
+        return "\([..<index(before: endIndex)])"
     }
 
     func substring(to offset: String.IndexDistance) -> String {
-        return self.substring(to: self.index(self.startIndex, offsetBy: offset))
+        return "\([..<index(startIndex, offsetBy: offset)])"
     }
 
     func substring(from offset: String.IndexDistance) -> String {
-        return self.substring(from: self.index(self.startIndex, offsetBy: offset))
+        return "\([index(startIndex, offsetBy: offset)...])"
     }
 
 }

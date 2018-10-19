@@ -28,8 +28,8 @@ struct BlockedUsersConfigurator {
         let api = BlockedUsersAPI(socialService: SocialService())
         
         let noDataText = NSAttributedString(string: L10n.BlockedUsers.noDataText,
-                                            attributes: [NSFontAttributeName: AppFonts.medium,
-                                                         NSForegroundColorAttributeName: AppConfiguration.shared.theme.palette.textPrimary])
+                                            attributes: [.font: AppFonts.medium,
+                                                         .foregroundColor: AppConfiguration.shared.theme.palette.textPrimary])
         
         let settings = UserListConfigurator.Settings(api: api,
                                                      navigationController: navigationController,

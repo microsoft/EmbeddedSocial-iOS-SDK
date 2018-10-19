@@ -12,7 +12,7 @@ extension UISegmentedControl: Themeable {
             return
         }
         tintColor = palette.accent
-        setTitleTextAttributes([NSForegroundColorAttributeName: palette.controlHighlightedTitle], for: .selected)
-        setTitleTextAttributes([NSForegroundColorAttributeName: palette.accent], for: .normal)
+        setTitleTextAttributes([.foregroundColor: palette.controlHighlightedTitle], for: .selected)
+        setTitleTextAttributes([.foregroundColor: palette.accent], for: .normal)
     }
 }

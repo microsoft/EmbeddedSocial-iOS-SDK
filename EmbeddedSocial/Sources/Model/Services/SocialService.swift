@@ -162,7 +162,7 @@ class SocialService: BaseService, SocialServiceType {
                                                     if let error = errorResponse {
                                                         self.errorHandler.handle(error: error, completion: completion)
                                                     } else {
-                                                        completion(.success())
+                                                        completion(.success)
                                                     }
         }
     }

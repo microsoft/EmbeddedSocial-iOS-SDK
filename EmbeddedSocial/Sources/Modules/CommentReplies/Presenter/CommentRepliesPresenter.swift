@@ -154,8 +154,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     
     func fetched(replies: [Reply], cursor: String?) {
         self.cursor = cursor
-        self.replies = replies
-        self.replies.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
+        self.replies = replies.sorted(by: { $0.createdTime! < $1.createdTime! })
         stopLoading()
         view?.reloadTable(scrollType: scrollType)
     }
@@ -163,7 +162,7 @@ class CommentRepliesPresenter: CommentRepliesModuleInput, CommentRepliesViewOutp
     func fetchedMore(replies: [Reply], cursor: String?) {
         self.cursor = cursor
         appendWithReplacing(original: &self.replies, appending: replies)
-        self.replies.sort(by: { $0.0.createdTime! < $0.1.createdTime! })
+        self.replies.sort(by: { $0.createdTime! < $1.createdTime! })
         stopLoading()
         if cursor != nil && shouldFetchRestOfReplies == true {
             self.fetchMore()

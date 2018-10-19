@@ -20,8 +20,8 @@ struct FollowRequestsConfigurator {
         let interactor = FollowRequestsInteractor(listProcessor: listProcessor, socialService: SocialService())
         
         let noDataText = NSAttributedString(string: L10n.FollowRequests.noDataText,
-                                            attributes: [NSFontAttributeName: AppFonts.medium,
-                                                         NSForegroundColorAttributeName: Palette.darkGrey])
+                                            attributes: [.font: AppFonts.medium,
+                                                         .foregroundColor: Palette.darkGrey])
         
         let presenter = FollowRequestsPresenter(noDataText: noDataText)
         presenter.router = FollowRequestsRouter(navigationController: navigationController)

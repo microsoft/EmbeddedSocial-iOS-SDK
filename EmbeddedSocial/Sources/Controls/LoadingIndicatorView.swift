@@ -77,7 +77,7 @@ extension LoadingIndicatorView {
     func apply(style: Style) {
         errorLabel.font = style.font
         errorLabel.textColor = style.textColor
-        spinner.activityIndicatorViewStyle = style.spinnerStyle
+        spinner.style = style.spinnerStyle
         spinner.color = style.spinnerColor
         backgroundColor = style.backgroundColor
     }
@@ -87,7 +87,7 @@ extension LoadingIndicatorView {
         let font: UIFont
         let textColor: UIColor
         let spinnerColor: UIColor
-        let spinnerStyle: UIActivityIndicatorViewStyle
+        let spinnerStyle: UIActivityIndicatorView.Style
         
         static let standard = Style(backgroundColor: .clear,
                                     font: AppFonts.medium,

@@ -11,7 +11,7 @@ final class UploadPhotoCell: UITableViewCell {
     fileprivate let photoImageView = UIImageView()
     fileprivate let uploadLabel = UILabel()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         setup()
     }

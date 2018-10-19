@@ -47,7 +47,7 @@ import SafariServices
 
         public typealias UITransion = (_ controller: SFSafariViewController, _ handler: SafariURLHandler) -> Void
 
-        open let oauthSwift: OAuthSwift
+        public let oauthSwift: OAuthSwift
         open var present: UITransion
         open var dismiss: UITransion
         // retains observers

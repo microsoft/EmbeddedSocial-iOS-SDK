@@ -67,10 +67,11 @@ extension TextViewCell: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard let limit = limit else {
+        guard let limit = limit, let range = Range(range, in: textView.text) else {
             return true
         }
-        return textView.text.characters.count + (text.characters.count - range.length) <= limit
+        let toReplaceCount = textView.text[range].count
+        return textView.text.count + (text.count - toReplaceCount) <= limit
     }
 }
 

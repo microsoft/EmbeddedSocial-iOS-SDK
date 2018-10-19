@@ -98,7 +98,7 @@ final class TwitterWebBasedAPI: AuthAPI {
             return OAuthSwiftOpenURLExternally.sharedInstance
         case .embedded:
             if internalWebViewController.parent == nil {
-                sourceViewController?.addChildViewController(internalWebViewController)
+                sourceViewController?.addChild(internalWebViewController)
             }
             return internalWebViewController
         case .safari:

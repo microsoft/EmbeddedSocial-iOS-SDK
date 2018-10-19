@@ -52,7 +52,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
             #selector(PostDetailViewController.handleRefresh(_:)),
-                                 for: UIControlEvents.valueChanged)
+                                 for: .valueChanged)
         return refreshControl
     }()
     
@@ -131,7 +131,7 @@ class PostDetailViewController: BaseViewController, PostDetailViewInput {
         view.layoutIfNeeded()
     }
     
-    func handleRefresh(_ refreshControl: UIRefreshControl) {
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         output.refresh()
     }
     
@@ -383,7 +383,7 @@ extension PostDetailViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: screenWidth, height: output.loadCellModel().cellHeight)
         case CommentsSections.comments.rawValue:
             prototypeCommentCell?.configure(comment: output.comment(at: indexPath.row))
-            return CGSize(width: screenWidth, height: (prototypeCommentCell?.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)!)
+            return CGSize(width: screenWidth, height: (prototypeCommentCell?.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height)!)
         default:
             return CGSize(width: 0, height: 0)
         }
@@ -425,7 +425,7 @@ extension PostDetailViewController: Themeable {
         view.backgroundColor = palette.contentBackground
         collectionView.backgroundColor = palette.contentBackground
         
-        let attrs: [String : Any] = [NSForegroundColorAttributeName: palette.textPlaceholder, NSFontAttributeName: AppFonts.medium]
+        let attrs: [NSAttributedString.Key : Any] = [.foregroundColor: palette.textPlaceholder, .font: AppFonts.medium]
         commentTextView.textColor = palette.textPrimary
         commentTextView.attributedPlaceholder = NSAttributedString(string: L10n.PostDetails.commentPlaceholder, attributes: attrs)
         commentTextView.font = AppFonts.medium
