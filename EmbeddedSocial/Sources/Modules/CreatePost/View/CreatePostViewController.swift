@@ -129,11 +129,10 @@ class CreatePostViewController: BaseViewController, CreatePostViewInput {
         
         present(actionSheet, animated: true, completion: nil)
     }
-    
-    
+
     override func keyboardWillShow(notification: Notification) {
         super.keyboardWillShow(notification: notification)
-        let kbSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as! CGRect).size
+        let kbSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as! CGRect).size
         var aRect = self.view.frame;
         aRect.size.height -= kbSize.height;
         if (aRect.contains(postBodyTextView.frame.origin) ) {
@@ -154,7 +153,7 @@ extension CreatePostViewController: ImagePickerDelegate {
 
     func selected(photo: Photo) {
         mediaButton.setTitle(nil, for: .normal)
-        mediaButtonHeightConstraint.priority = 250
+        mediaButtonHeightConstraint.priority = UILayoutPriority(rawValue: 250)
         self.photo = photo
         let image = photo.image
         let size = CGSize(width: UIScreen.main.bounds.width, height: (image?.size.height)!)
@@ -195,7 +194,7 @@ extension CreatePostViewController: Themeable {
         bodySeparatorView.backgroundColor = palette.separator
         titleSeparatorView.backgroundColor = palette.separator
 
-        let attrs: [String: Any] = [NSFontAttributeName: AppFonts.medium, NSForegroundColorAttributeName: palette.textPlaceholder]
+        let attrs: [NSAttributedString.Key: Any] = [.font: AppFonts.medium, .foregroundColor: palette.textPlaceholder]
         titleTextField.attributedPlaceholder = NSAttributedString(string: L10n.CreatePost.titlePlaceholder, attributes: attrs)
         postBodyTextView.attributedPlaceholder = NSAttributedString(string: L10n.CreatePost.bodyPlaceholder, attributes: attrs)
         

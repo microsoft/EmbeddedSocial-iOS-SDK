@@ -107,7 +107,7 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
     @IBOutlet weak var collectionView: UICollectionView!
     
     lazy var bottomRefreshControl: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let activity = UIActivityIndicatorView(style: .gray)
         activity.hidesWhenStopped = true
         
         return activity
@@ -162,7 +162,7 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
         self.collectionView.register(PostCell.nib, forCellWithReuseIdentifier: PostCell.reuseID)
         self.collectionView.register(PostCellCompact.nib, forCellWithReuseIdentifier: PostCellCompact.reuseID)
         self.collectionView.delegate = self
-        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerReuseID)
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerReuseID)
         
         // Subviews
         collectionView.addSubview(noContentLabel)
@@ -407,16 +407,16 @@ class FeedModuleViewController: BaseViewController, FeedModuleViewInput {
     }
     
     func registerHeader<T: UICollectionReusableView>(withType type: T.Type, configurator: @escaping (T) -> Void) {
-        collectionView.register(type,
-                                forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
+        collectionView?.register(type,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: type.reuseID)
         headerReuseID = type.reuseID
     }
     
     deinit {
         Logger.log()
-        self.collectionView?.delegate = nil
-        self.collectionView?.dataSource = nil
+        collectionView?.delegate = nil
+        collectionView?.dataSource = nil
     }
 }
 
@@ -468,7 +468,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
   
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        if kind == UICollectionElementKindSectionFooter {
+        if kind == UICollectionView.elementKindSectionFooter {
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                        withReuseIdentifier: footerReuseID,
                                                                        for: indexPath)
@@ -479,7 +479,7 @@ extension FeedModuleViewController: UICollectionViewDelegate, UICollectionViewDa
             })
             
             return view
-        } else if kind == UICollectionElementKindSectionHeader {
+        } else if kind == UICollectionView.elementKindSectionHeader {
             
             guard let headerReuseID = headerReuseID else {
                 fatalError("Header wasn't registered")

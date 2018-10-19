@@ -35,8 +35,8 @@ struct LikesListConfigurator {
                                     output: UserListModuleOutput?) -> UserListModuleInput {
 
         let noDataText = NSAttributedString(string: noDataText,
-                                            attributes: [NSFontAttributeName: AppFonts.medium,
-                                                         NSForegroundColorAttributeName: AppConfiguration.shared.theme.palette.textPrimary])
+                                            attributes: [.font: AppFonts.medium,
+                                                         .foregroundColor: AppConfiguration.shared.theme.palette.textPrimary])
         
         let settings = UserListConfigurator.Settings(api: api,
                                                      navigationController: navigationController,

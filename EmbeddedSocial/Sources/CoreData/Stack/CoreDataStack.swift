@@ -148,7 +148,7 @@ final class CoreDataStack {
             }
             do {
                 try context.save()
-                completion?(.success())
+                completion?(.success)
             } catch {
                 completion?(.failure(error as NSError))
             }

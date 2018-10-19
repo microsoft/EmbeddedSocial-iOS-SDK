@@ -224,7 +224,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
         let isCached = cache.isCached(command)
         
         if !isCached {
-            completion(.success())
+            completion(.success)
         }
         
         let hasDeletedInverseCommand = cache.deleteInverseCommand(for: command)
@@ -245,7 +245,7 @@ class CommentsService: BaseService, CommentServiceProtocol {
                     if !isCached {
                         self.onCommentDeleted(command: command)
                     } else {
-                        completion(.success())
+                        completion(.success)
                     }
                 }
         }

@@ -24,7 +24,7 @@ extension Dictionary {
         return joinedDictionary
     }
 
-    func filter(_ predicate: (_ key: Key, _ value: Value) -> Bool) -> Dictionary {
+    func filter(predicate: (_ key: Key, _ value: Value) -> Bool) -> Dictionary {
         var filteredDictionary = Dictionary()
 
         for (key, value) in self {

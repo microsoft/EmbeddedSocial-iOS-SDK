@@ -229,7 +229,7 @@ extension FeedFetchResult {
         if let items = response?.data {
             
             // ignore error on corrupted data
-            posts = items.map(Post.init).flatMap{ $0 }
+            posts = items.map(Post.init).compactMap { $0 }
         }
         
         error = nil

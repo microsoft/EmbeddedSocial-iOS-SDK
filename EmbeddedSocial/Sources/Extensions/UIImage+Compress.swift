@@ -8,6 +8,6 @@ import UIKit
 extension UIImage {
     
     func compressed() -> Data? {
-        return UIImageJPEGRepresentation(self, Constants.imageCompressionQuality)
+        return jpegData(compressionQuality: Constants.imageCompressionQuality)
     }
 }

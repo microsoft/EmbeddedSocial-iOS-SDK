@@ -21,7 +21,7 @@ struct CreateAccountValidator: Validator {
                 return false
         }
         
-        if let bio = value.bio, bio.characters.count > maxBioLength {
+        if let bio = value.bio, bio.count > maxBioLength {
             return false
         }
         

@@ -55,10 +55,6 @@ class BaseActivityTextRender {
             return renderFollowAccepted(item: item)
         case .followRequest:
             return renderFollowRequest(item: item)
-            
-        default:
-            Logger.log(activityType, "Not supported")
-            return nil
         }
     }
     

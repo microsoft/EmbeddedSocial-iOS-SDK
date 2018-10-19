@@ -173,7 +173,7 @@ class PostServiceMock: PostServiceProtocol {
     }
     
     var updateTopicCount = 0
-    func update(topic: Post, request: PutTopicRequest, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+    func update(topic: Post, request: PutTopicRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         updateTopicCount += 1
         success()
     }

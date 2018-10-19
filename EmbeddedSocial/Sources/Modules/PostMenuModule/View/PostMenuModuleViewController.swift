@@ -57,7 +57,7 @@ class PostMenuModuleViewController: BaseViewController, PostMenuModuleViewInput 
     }
     
     // MARK: Private
-    private func makeAction(title: String, style: UIAlertActionStyle = .default, action: (() -> ())?) -> UIAlertAction {
+    private func makeAction(title: String, style: UIAlertAction.Style = .default, action: (() -> Void)?) -> UIAlertAction {
         
         let alertAction = UIAlertAction(title: title, style: style) { [weak self] (alertAction) in
             

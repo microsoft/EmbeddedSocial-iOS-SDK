@@ -61,7 +61,7 @@ class ImagePicker: NSObject {
         options.sourceViewController.present(actionSheet, animated: true, completion: nil)
     }
     
-    private func showImagePicker(sourceType: UIImagePickerControllerSourceType) {
+    private func showImagePicker(sourceType: UIImagePickerController.SourceType) {
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
         presentingView?.present(imagePicker, animated: true, completion: nil)
@@ -87,9 +87,9 @@ extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDe
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         presentingView?.dismiss(animated: true, completion: nil)
     }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
             let photo = Photo(image: image)
             imageWasSelected = true
             delegate?.selected(photo: photo)

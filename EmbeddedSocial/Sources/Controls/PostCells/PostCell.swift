@@ -183,11 +183,11 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     }
     
     private func configTitleLabel() {
-        postTitle.textAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)]
+        postTitle.textAttributes = [.font: UIFont.boldSystemFont(ofSize: 14)]
         postTitle.tagAttributes = [
-            NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14),
-            NSForegroundColorAttributeName: Palette.green,
-            NSUnderlineStyleAttributeName: NSUnderlineStyle.styleNone.rawValue
+            .font: UIFont.boldSystemFont(ofSize: 14),
+            .foregroundColor: Palette.green,
+            .underlineStyle: []
         ]
         postTitle.eventHandler = self
     }

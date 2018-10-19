@@ -52,7 +52,7 @@ class SessionService: BaseService, SessionServiceType {
     func deleteCurrentSession(completion: @escaping (Result<Void>) -> Void) {
         SessionsAPI.sessionsDeleteSession(authorization: authorization) { response, error in
             if error == nil {
-                completion(.success())
+                completion(.success)
             } else {
                 self.errorHandler.handle(error: error, completion: completion)
             }

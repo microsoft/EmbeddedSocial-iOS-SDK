@@ -13,7 +13,7 @@ class MyBlockedUsersResponseProcessor: UsersListResponseProcessor {
         }
         
         var usersList = usersList
-        usersList.items += uniqueBlockCommands.flatMap { $0.user }
+        usersList.items += uniqueBlockCommands.compactMap { $0.user }
         return usersList
     }
 }

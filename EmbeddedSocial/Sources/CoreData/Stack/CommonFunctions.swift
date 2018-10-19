@@ -13,7 +13,7 @@ func saveContext(_ context: NSManagedObjectContext, wait: Bool = true, completio
         }
         do {
             try context.save()
-            completion?(.success())
+            completion?(.success)
         } catch {
             completion?(.failure(error))
         }

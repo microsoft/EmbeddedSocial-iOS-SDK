@@ -35,7 +35,7 @@ class PostDetailRouter: PostDetailRouterInput {
         let configurator = PostMenuModuleConfigurator()
         
         configurator.configure(menuType: type,
-                               moduleOutput: moduleInput as! PostMenuModuleOutput,
+                               moduleOutput: moduleInput!,
                                navigationController: navigationController)
         postMenuViewController = configurator.viewController
         

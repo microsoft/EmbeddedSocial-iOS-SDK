@@ -32,11 +32,11 @@ class CopyableLabel: TTTAttributedLabel {
     }
     
     override func copy(_ sender: Any?) {
-        UIPasteboard.general.string = text
+        UIPasteboard.general.string = text as? String
         UIMenuController.shared.setMenuVisible(false, animated: true)
     }
     
-    func showMenu(sender: Any?) {
+    @objc func showMenu(sender: Any?) {
         becomeFirstResponder()
         let menu = UIMenuController.shared
         if !menu.isMenuVisible {

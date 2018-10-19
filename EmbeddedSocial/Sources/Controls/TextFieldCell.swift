@@ -24,7 +24,7 @@ class TextFieldCell: UITableViewCell {
     
     fileprivate var onTextChanged: Style.TextChangeHandler?
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
     }
@@ -72,7 +72,7 @@ class TextFieldCell: UITableViewCell {
         }
     }
     
-    func textFieldDidChange(textField: UITextField) {
+    @objc func textFieldDidChange(textField: UITextField) {
         onTextChanged?(textField.text)
     }
 }
@@ -100,7 +100,7 @@ extension TextFieldCell {
         let icon: UIImage? /// adjust edgeInsets to make sure text field doesn't overlap image
         let isSecureTextEntry: Bool
         let edgeInsets: UIEdgeInsets
-        let clearButtonMode: UITextFieldViewMode
+        let clearButtonMode: UITextField.ViewMode
         let contentBackgroundColor: UIColor
         
         init(text: String?,
@@ -109,7 +109,7 @@ extension TextFieldCell {
              font: UIFont = .systemFont(ofSize: UIFont.systemFontSize),
              edgeInsets: UIEdgeInsets = .zero,
              isSecureTextEntry: Bool = false,
-             clearButtonMode: UITextFieldViewMode = .whileEditing,
+             clearButtonMode: UITextField.ViewMode = .whileEditing,
              contentBackgroundColor: UIColor = .clear,
              icon: UIImage? = nil,
              onTextChanged: TextChangeHandler? = nil) {

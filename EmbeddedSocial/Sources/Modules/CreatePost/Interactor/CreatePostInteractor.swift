@@ -46,7 +46,7 @@ class CreatePostInteractor: CreatePostInteractorInput {
         request.title = title
         request.text = body
         
-        topicService?.update(topic: topic, request: request, success: { (object) in
+        topicService?.update(topic: topic, request: request, success: {
             self.output.postUpdated()
         }, failure: { (error) in
             self.output.postUpdateFailed(error: error)

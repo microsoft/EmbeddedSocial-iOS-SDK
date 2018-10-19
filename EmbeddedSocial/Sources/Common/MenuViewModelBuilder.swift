@@ -12,7 +12,7 @@ class MenuViewModelBuilder {
     func buildActionListForMyComment(comment: Comment, delegate: PostMenuModuleInput?) -> [ActionViewModel] {
         var removeitem = ActionViewModel()
         removeitem.title = L10n.PostMenu.removeComment
-        removeitem.action = { _ in
+        removeitem.action = {
             delegate?.didTapRemove(comment: comment)
         }
         
@@ -25,7 +25,7 @@ class MenuViewModelBuilder {
         
         var reportItem = ActionViewModel()
         reportItem.title = L10n.PostMenu.reportComment
-        reportItem.action = { _ in
+        reportItem.action = {
             delegate?.didTapReport(comment: comment)
         }
         
@@ -37,7 +37,7 @@ class MenuViewModelBuilder {
     func buildActionListForMyReply(reply: Reply, delegate: PostMenuModuleInput?) -> [ActionViewModel] {
         var removeitem = ActionViewModel()
         removeitem.title = L10n.PostMenu.removeReply
-        removeitem.action = { _ in
+        removeitem.action = {
             delegate?.didTapRemove(reply: reply)
         }
         
@@ -50,7 +50,7 @@ class MenuViewModelBuilder {
         
         var reportItem = ActionViewModel()
         reportItem.title = L10n.PostMenu.reportReply
-        reportItem.action = { _ in
+        reportItem.action = {
             delegate?.didTapReport(reply: reply)
         }
         
@@ -69,7 +69,7 @@ class MenuViewModelBuilder {
         let shouldUnblock = reply.userStatus == .blocked
         
         item.title = shouldUnblock ? L10n.PostMenu.unblock : L10n.PostMenu.block
-        item.action = { _ in
+        item.action = {
             if shouldUnblock {
                 delegate?.didTapUnblock(user: User(uid: userHandle))
             } else {
@@ -86,7 +86,7 @@ class MenuViewModelBuilder {
         let shouldFollow = (reply.userStatus == .accepted) ? false : true
         
         item.title = shouldFollow ? L10n.PostMenu.follow : L10n.PostMenu.unfollow
-        item.action = { _ in
+        item.action = {
             guard let user = reply.user else { return }
 
             if shouldFollow {
@@ -103,7 +103,7 @@ class MenuViewModelBuilder {
         let shouldUnblock = comment.userStatus == .blocked
         
         item.title = shouldUnblock ? L10n.PostMenu.unblock : L10n.PostMenu.block
-        item.action = { _ in
+        item.action = {
             guard let user = comment.user else { return }
 
             if shouldUnblock {
@@ -122,7 +122,7 @@ class MenuViewModelBuilder {
         let shouldFollow = (comment.userStatus == .accepted) ? false : true
         
         item.title = shouldFollow ? L10n.PostMenu.follow : L10n.PostMenu.unfollow
-        item.action = { _ in
+        item.action = {
             guard let user = comment.user else { return }
             
             if shouldFollow {

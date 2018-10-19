@@ -11,7 +11,7 @@ class ActivityFeedProcessor: ResponseProcessor<FeedResponseActivityView, Paginat
                           isFromCache: Bool,
                           completion: @escaping (Result<PaginatedResponse<ActivityView> >) -> Void) {
         
-        var result: PaginatedResponse<ActivityView> = PaginatedResponse(items: response?.data ?? [],
+        let result: PaginatedResponse<ActivityView> = PaginatedResponse(items: response?.data ?? [],
                                                                         cursor: response?.cursor,
                                                                         isFromCache: isFromCache)
         

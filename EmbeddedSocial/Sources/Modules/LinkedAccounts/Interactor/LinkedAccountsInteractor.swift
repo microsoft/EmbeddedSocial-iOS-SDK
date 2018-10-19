@@ -21,7 +21,7 @@ final class LinkedAccountsInteractor: LinkedAccountsInteractorInput {
     
     func getLinkedAccounts(completion: @escaping (Result<[LinkedAccountView]>) -> Void) {
         usersService.getLinkedAccounts { [weak self] result in
-            let providers = result.value?.flatMap { $0.identityProvider?.authProvider } ?? []
+            let providers = result.value?.compactMap { $0.identityProvider?.authProvider } ?? []
             self?.linkedProviders = Set(providers)
             completion(result)
         }

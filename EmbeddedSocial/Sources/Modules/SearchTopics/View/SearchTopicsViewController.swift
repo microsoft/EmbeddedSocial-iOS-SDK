@@ -32,7 +32,7 @@ extension SearchTopicsViewController: SearchTopicsViewInput {
             make.edges.equalToSuperview()
         }
         feedView = feedViewController.view
-        view.bringSubview(toFront: noContentLabel)
+        view.bringSubviewToFront(noContentLabel)
     }
     
     func setIsEmpty(_ isEmpty: Bool) {

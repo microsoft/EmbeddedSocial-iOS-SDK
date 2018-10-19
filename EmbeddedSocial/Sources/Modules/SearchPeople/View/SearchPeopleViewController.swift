@@ -29,7 +29,7 @@ extension SearchPeopleViewController: SearchPeopleViewInput {
         listView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        view.bringSubview(toFront: noContentLabel)
+        view.bringSubviewToFront(noContentLabel)
     }
     
     func setIsEmpty(_ isEmpty: Bool) {

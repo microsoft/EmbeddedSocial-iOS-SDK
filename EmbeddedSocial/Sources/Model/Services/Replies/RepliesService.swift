@@ -201,7 +201,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
         let isCached = cache.isCached(command)
         
         if !isCached {
-            completion(.success())
+            completion(.success)
         }
         
         let hasDeletedInverseCommand = cache.deleteInverseCommand(for: command)
@@ -222,7 +222,7 @@ class RepliesService: BaseService, RepliesServiceProtcol {
                     if !isCached {
                         self.onReplyDeleted(command: command)
                     } else {
-                        completion(.success())
+                        completion(.success)
                     }
                 }
         }

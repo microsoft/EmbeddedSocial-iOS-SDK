@@ -146,7 +146,7 @@ class ImagesService: BaseService, ImagesServiceType {
         
         UsersAPI.usersPutUserPhoto(request: request, authorization: authorization) { response, error in
             if error == nil {
-                completion(.success())
+                completion(.success)
             } else {
                 self.errorHandler.handle(error: error, completion: completion)
             }
