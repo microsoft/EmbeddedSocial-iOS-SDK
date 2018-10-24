@@ -76,13 +76,13 @@ Insert the following lines in your `Info.plist` file in your project:
 </array>
 ```
 
-For Sign In functionality works, you should register your Application Bundle Identifier in:
-- [Microsoft Developer Console](https://msdn.microsoft.com/en-us/library/hh826541.aspx)
+For Sign In functionality to work, you should register your Application Bundle Identifier in:
+- [Microsoft Developer Console](https://developer.microsoft.com/)
 - [Google Developer Console](https://console.cloud.google.com/)
 - [Facebook Developer Console](https://developers.facebook.com)
 - [Twitter Developer Console](https://developer.twitter.com/en/docs/basics/authentication/guides/access-tokens) 
 
-After your Application registered, you will receive API keys. You should insert following lines in your `Info.plist` file:
+Once your Application is registered, you will receive your API keys. After that, you can insert the following lines in your `Info.plist` file, replacing the placeholders with the API keys:
 
 ```
 <key>CFBundleURLTypes</key>
@@ -158,7 +158,7 @@ func application(_ application: UIApplication,
 }
 ```
 
-For URL shemes handling:
+For URL schemes handling:
 
 ```swift
 func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
@@ -185,7 +185,7 @@ func application(_ application: UIApplication, didReceiveRemoteNotification data
 
 #### Menu Types
 
-You can implement on of three menu types provided by `SideMenuType`:
+You can implement one of three menu types provided by `SideMenuType`:
 
 ```swift
 public enum SideMenuType {
@@ -218,7 +218,7 @@ public protocol SideMenuItemsProvider: class {
 
 ## Example
 
-If you will have problems with SDK implementation, please, follow the [Example Application](https://github.com/Microsoft/EmbeddedSocial-iOS-SDK/tree/develop/EmbeddedSocial-Example).
+If you have problems with SDK implementation, please, follow the [Example Application](https://github.com/Microsoft/EmbeddedSocial-iOS-SDK/tree/develop/EmbeddedSocial-Example).
 
 ## License
 
