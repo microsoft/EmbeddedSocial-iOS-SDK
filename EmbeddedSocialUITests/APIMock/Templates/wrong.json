@@ -1,0 +1,19 @@
+{
+    "responses": [
+    {},
+    {
+                  "userHandle": 1412,
+                  "first!Name": "John",
+                  "lastName": "Doe"
+    },
+    {
+                  "wrong json format": {}
+    },
+    {
+                  "object": {
+                      "intField": 12312,
+                      "stringField": "qwerty"
+                  }
+    }
+    ]
+}

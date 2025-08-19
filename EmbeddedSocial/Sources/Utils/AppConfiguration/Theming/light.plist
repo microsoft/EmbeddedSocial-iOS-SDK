@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>contentBackground</key>
+	<string>#ffffff</string>
+	<key>controlUnhighlighted</key>
+	<string>#b0b0b0</string>
+	<key>controlHighlightedTitle</key>
+	<string>#ffffff</string>
+	<key>navigationBarBackground</key>
+	<string>#f7f7f7</string>
+	<key>navigationBarTint</key>
+	<string>#007aff</string>
+	<key>navigationBarTitle</key>
+	<string>#000000</string>
+	<key>textPrimary</key>
+	<string>#322e2f</string>
+	<key>textSecondary</key>
+	<string>#b0b0b0</string>
+	<key>separator</key>
+	<string>#eeeeee</string>
+	<key>textPlaceholder</key>
+	<string>#c7c7cd</string>
+	<key>loadingIndicator</key>
+	<string>#b0b0b0</string>
+	<key>topicBackground</key>
+	<string>#ffffff</string>
+	<key>topicsFeedBackground</key>
+	<string>#eeeeee</string>
+	<key>tableGroupHeaderBackground</key>
+	<string>#eeeeee</string>
+	<key>topicSecondaryText</key>
+	<string>#999999</string>
+</dict>
+</plist>

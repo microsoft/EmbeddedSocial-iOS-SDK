@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="PostCellCompact" customModule="EmbeddedSocial" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U1G-Rt-sJh">
+                    <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                    <accessibility key="accessibilityConfiguration" identifier="Image" label="Image">
+                        <bool key="isElement" value="YES"/>
+                    </accessibility>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="U1G-Rt-sJh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="LNx-ay-ygj"/>
+                <constraint firstAttribute="trailing" secondItem="U1G-Rt-sJh" secondAttribute="trailing" id="MIP-cI-tdA"/>
+                <constraint firstItem="U1G-Rt-sJh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ODm-od-y73"/>
+                <constraint firstAttribute="bottom" secondItem="U1G-Rt-sJh" secondAttribute="bottom" id="j4g-g8-S3Q"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="postImage" destination="U1G-Rt-sJh" id="cFX-3t-Ref"/>
+            </connections>
+            <point key="canvasLocation" x="-53" y="-123"/>
+        </view>
+    </objects>
+</document>

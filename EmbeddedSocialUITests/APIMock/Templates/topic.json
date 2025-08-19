@@ -1,0 +1,38 @@
+{
+    "topicHandle": "topicHandle",
+    "createdTime": "2017-07-25T16:23:11.6456988Z",
+    "lastUpdatedTime": "2017-07-25T16:23:11.6456988Z",
+    "publisherType": "User",
+    "user": {
+        "userHandle": "",
+        "firstName": "John",
+        "lastName": "Doe",
+        "photoHandle": null,
+        "photoUrl": null,
+        "visibility": "Public",
+        "followerStatus": "None"
+    },
+    "title": "topic",
+    "text": "topic text",
+    "blobType": "Unknown",
+    "blobHandle": null,
+    "blobUrl": null,
+    "categories": null,
+    "language": null,
+    "group": null,
+    "deepLink": null,
+    "friendlyName": null,
+    "totalLikes": 0,
+    "totalComments": 0,
+    "liked": false,
+    "pinned": false,
+    "contentStatus": "Active",
+    "app": {
+        "name": "iOS SDK Dev",
+        "iconHandle": null,
+        "iconUrl": null,
+        "platformType": "IOS",
+        "deepLink": null,
+        "storeLink": null
+    }
+}
